@@ -7,10 +7,26 @@ export type WindowScrollerChildProps = {
 };
 
 export type WindowScrollerProps = {
+    /**
+     * Function responsible for rendering children.
+     * This function should implement the following signature:
+     * ({ height, isScrolling, scrollTop }) => PropTypes.element
+     */
     children?: (props: WindowScrollerChildProps) => React.ReactNode;
+    /** Callback to be invoked on-resize: ({ height }) */
     onResize?: (prams: { height: number }) => void;
+    /** Callback to be invoked on-scroll: ({ scrollTop }) */
     onScroll?: (params: { scrollTop: number }) => void;
+    /** Element to attach scroll event listeners. Defaults to window. */
     scrollElement?: HTMLElement;
+    /**
+     * PLEASE NOTE
+     * The [key: string]: any; line is here on purpose
+     * This is due to the need of force re-render of PureComponent
+     * Check the following link if you want to know more
+     * https://github.com/bvaughn/react-virtualized#pass-thru-props
+     */
+    [key: string]: any;
 }
 export type WindowScrollerState = {
     height: number,
@@ -20,20 +36,9 @@ export type WindowScrollerState = {
 
 export class WindowScroller extends PureComponent<WindowScrollerProps, WindowScrollerState> {
     static propTypes: {
-        /**
-         * Function responsible for rendering children.
-         * This function should implement the following signature:
-         * ({ height, isScrolling, scrollTop }) => PropTypes.element
-         */
         children: Validator<(props: WindowScrollerChildProps) => React.ReactNode>,
-
-        /** Callback to be invoked on-resize: ({ height }) */
         onResize: Validator<(params: { height: number }) => void>,
-
-        /** Callback to be invoked on-scroll: ({ scrollTop }) */
         onScroll: Validator<(params: { scrollTop: number }) => void>,
-
-        /** Element to attach scroll event listeners. Defaults to window. */
         scrollElement: HTMLElement
     };
 

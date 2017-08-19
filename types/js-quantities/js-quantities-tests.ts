@@ -161,7 +161,7 @@ qty.format(); // same units, current default formatter => '1.12 m'
 
 Qty('37 tempC').to('tempF'); // => 98.6 tempF
 
-const scalar: number = 42;
+const scalar = 42;
 
 Qty('100 tempC').add('10 degC');  // 110 tempC
 Qty('100 tempC').sub('10 degC');  // 90 tempC

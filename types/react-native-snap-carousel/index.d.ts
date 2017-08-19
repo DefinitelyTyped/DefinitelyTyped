@@ -1,12 +1,16 @@
-// Type definitions for react-native-snap-carousel 2.1
+// Type definitions for react-native-snap-carousel 2.4
 // Project: https://github.com/archriss/react-native-snap-carousel
 // Definitions by: jnbt <https://github.com/jnbt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import * as React from 'react';
 import {
     Animated,
+    LayoutChangeEvent,
+    NativeSyntheticEvent,
+    NativeScrollEvent,
+    StyleProp,
     ScrollViewProperties,
     ScrollViewStyle,
     ViewStyle
@@ -17,12 +21,24 @@ export interface CarouselProps extends React.Props<ScrollViewProperties> {
 
     /**
      * Width in pixels of your slides, must be the same for all of them
+     * Note: Required with horizontal carousel
      */
-    itemWidth: number;
+    itemWidth?: number;
+    /**
+     * Height in pixels of carousel's items, must be the same for all of them
+     * Note: Required with vertical carousel
+     */
+    itemHeight?: number;
     /**
      * Width in pixels of your slider
+     * Note: Required with horizontal carousel
      */
-    sliderWidth: number;
+    sliderWidth?: number;
+    /**
+     * Height in pixels of the carousel itself
+     * Note: Required with vertical carousel
+     */
+    sliderHeight?: number;
 
     // Behavior
 
@@ -45,17 +61,30 @@ export interface CarouselProps extends React.Props<ScrollViewProperties> {
      */
     firstItem?: number;
     /**
+     * When momentum is disabled, this prop defines the timeframe during which multiple
+     * callback calls should be "grouped" into a single one. This debounce also helps
+     * smoothing the snap effect by providing a bit of inertia when touch is released..
+     * Note that this will delay callback's execution.
+     */
+    scrollEndDragDebounceValue?: number;
+    /**
      * Whether to implement a shouldComponentUpdate strategy to minimize updates
      */
     shouldOptimizeUpdates?: boolean;
     /**
-     * Snapping on android is kinda choppy, especially when swiping quickly so you can disable it
+     * Snapping on android is kinda choppy, especially when swiping quickly so you
+     * can disable it.
+     * Warning: this prop can't be changed dynamically.
      */
     snapOnAndroid?: boolean;
     /**
      * Delta x when swiping to trigger the snap
      */
     swipeThreshold?: number;
+    /*
+     * Layout slides vertically instead of horizontally
+     */
+    vertical?: boolean;
 
     // Autoplay
 
@@ -83,13 +112,18 @@ export interface CarouselProps extends React.Props<ScrollViewProperties> {
      */
     animationOptions?: Animated.DecayAnimationConfig | Animated.TimingAnimationConfig | Animated.SpringAnimationConfig;
     /**
+     * Override container's inner padding (needed for slides's centering).
+     * Warning: be aware that overriding the default value can mess with carousel's behavior.
+     */
+    carouselHorizontalPadding?: number;
+    /**
      * Optional styles for Scrollview's global wrapper
      */
-    containerCustomStyle?: ScrollViewStyle;
+    containerCustomStyle?: StyleProp<ScrollViewStyle>;
     /**
      * Optional styles for Scrollview's items container
      */
-    contentContainerCustomStyle?: ScrollViewStyle;
+    contentContainerCustomStyle?: StyleProp<ScrollViewStyle>;
     /**
      * Value of the opacity effect applied to inactive slides
      */
@@ -101,9 +135,26 @@ export interface CarouselProps extends React.Props<ScrollViewProperties> {
     /**
      * Optional style for each item's container (the one whose scale and opacity are animated)
      */
-    slideStyle?: ViewStyle;
+    slideStyle?: StyleProp<ViewStyle>;
 
     // Callbacks
+    /**
+     * Exposed View callback; invoked on mount and layout changes
+     */
+    onLayout?(event: LayoutChangeEvent): void;
+
+    /**
+     * Exposed ScrollView callback; fired while scrolling
+     */
+    onScroll?(event: NativeSyntheticEvent<NativeScrollEvent>): void;
+
+    /**
+     * @deprecated: use onScroll instead
+     * Callback fired while scrolling; direct equivalent of ScrollView's onScroll
+     * Since onScroll is overriden by plugin's implementation, you should use prop onScrollViewScroll
+     * if you need a callback while scrolling.
+     */
+    onScrollViewScroll?(event: NativeSyntheticEvent<NativeScrollEvent>): void;
 
     /**
      * Callback fired when navigating to an item
@@ -113,13 +164,47 @@ export interface CarouselProps extends React.Props<ScrollViewProperties> {
 
 export interface CarouselStatic extends React.ComponentClass<CarouselProps> {
     currentIndex: number;
+    currentScrollPosition: number;
     startAutoplay(instantly?: boolean): void;
     stopAutoplay(): void;
-    snapToItem(index: number, animated?: boolean): void;
+    snapToItem(index: number, animated?: boolean, fireCallback?: boolean, initial?: boolean): void;
     snapToNext(animated?: boolean): void;
     snapToPrev(animated?: boolean): void;
 }
 
 export type CarouselProperties = ScrollViewProperties & CarouselProps & React.Props<CarouselStatic>;
 
-export default class Carousel extends React.Component<CarouselProperties, {}> { }
+export interface PaginationProps {
+    /**
+     * Number of dots to display
+     */
+    dotsLength: number;
+    /**
+     * Currently focused dot
+     */
+    activeDotIndex: number;
+    /**
+     * Style for dots' container that will be merged with the default one
+     */
+    containerStyle?: StyleProp<ViewStyle>;
+    /**
+     * Dots' style that will be merged with the default one
+     */
+    dotStyle?: StyleProp<ViewStyle>;
+    /**
+     * Value of the opacity effect applied to inactive dots
+     */
+    inactiveDotOpacity?: number;
+    /**
+     * Value of the 'scale' transform applied to inactive dots
+     */
+    inactiveDotScale?: number;
+}
+
+export type PaginationStatic = React.ComponentClass<PaginationProps>;
+
+export type PaginationProperties = PaginationProps & React.Props<PaginationStatic>;
+
+export class Pagination extends React.Component<PaginationProperties> { }
+
+export default class Carousel extends React.Component<CarouselProperties> { }

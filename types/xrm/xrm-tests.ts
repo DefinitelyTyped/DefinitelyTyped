@@ -36,7 +36,7 @@ grids.forEach((gridControl: Xrm.Page.GridControl) => {
 
 /// Demonstrate generic overload vs typecast
 
-const lookupAttribute = <Xrm.Page.LookupControl> Xrm.Page.getControl("customerid");
+const lookupAttribute = Xrm.Page.getControl("customerid");
 const lookupAttribute2 = Xrm.Page.getControl<Xrm.Page.LookupControl>("customerid");
 
 /// Demonstrate ES6 String literal syntax
@@ -143,7 +143,7 @@ const resultSet: Xrm.Page.AutoCompleteResultSet = {
             // accounts in CRM.
             window.open("http://www.microsoft.com/en-us/dynamics/crm-customer-center/create-or-edit-an-account.aspx");
         }
-    } as Xrm.Page.AutoCompleteCommand
+    }
 };
 resultSet.results.push({
     id: 0,

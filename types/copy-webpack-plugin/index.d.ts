@@ -1,6 +1,6 @@
 // Type definitions for copy-webpack-plugin v4.0.0
 // Project: https://github.com/kevlened/copy-webpack-plugin
-// Definitions by: flying-sheep <http://github.com/flying-sheep>
+// Definitions by: flying-sheep <https://github.com/flying-sheep>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { Plugin } from 'webpack'

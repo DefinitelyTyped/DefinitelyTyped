@@ -2,6 +2,7 @@
 // Project: https://github.com/angular-ui/bootstrap
 // Definitions by: Brian Surowiec <https://github.com/xt0rted>, Ryan Southgate <https://github.com/ry8806>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="angular" />
 
@@ -311,7 +312,7 @@ declare module 'angular' {
             openClass?: string;
         }
 
-        interface IModalProvider {
+        interface IModalProvider extends angular.IServiceProvider {
             /**
              * Default options all modals will use.
              */
@@ -875,7 +876,7 @@ declare module 'angular' {
             useContentExp?: boolean;
         }
 
-        interface ITooltipProvider {
+        interface ITooltipProvider extends angular.IServiceProvider {
             /**
              * Provide a set of defaults for certain tooltip and popover attributes.
              */

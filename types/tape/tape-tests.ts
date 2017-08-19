@@ -16,6 +16,7 @@ tape(name, (test: tape.Test) => {
 
 tape.skip(name, cb);
 tape.only(name, cb);
+tape.onFinish(() => {});
 
 
 var sopts: tape.StreamOptions;

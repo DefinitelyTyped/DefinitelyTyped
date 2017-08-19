@@ -108,7 +108,8 @@ declare module "seneca" {
             },
             // zig module settings for seneca.start() chaining.
             zig?: any;
-            log?: {
+            log?: LogSpec | {
+                level?: LogLevel;
                 short?: boolean;
             };
             errhandler?: GlobalErrorHandler;
@@ -118,6 +119,21 @@ declare module "seneca" {
             //role?: string;
             //cmd?: string;
         }
+
+        type LogSpec =
+            'quiet' |    // { level: 'none' }
+            'silent' |   // { level: 'none' }
+            'any' |      // { level: 'debug+' }
+            'all' |      // { level: 'debug+' }
+            'print' |    // { level: 'debug+' }
+            'standard' | // { level: 'info+' }
+            'test'       // { level: 'warn+' }
+
+        type LogLevel =
+            'none' |
+            'debug+' |
+            'info+' |
+            'warn+'        
 
         interface Optioner {
         set: (input: string | Options) => Options;

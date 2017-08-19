@@ -438,7 +438,7 @@ interface ChocolateChipStatic {
   /**
    * Serialize
    */
-   serialize(form: HTMLFormElement | ChocolateChipElementArray): string;
+  serialize(form: HTMLFormElement | ChocolateChipElementArray): string;
 
   /**
    * Grabs values from a form and converts them into a JSON object.
@@ -862,7 +862,7 @@ interface ChocolateChipElementArray extends Array<HTMLElement> {
    * @param property The property to remove.
    * @return HTMLElement[]
    */
-   removeProp(property: string): ChocolateChipElementArray;
+  removeProp(property: string): ChocolateChipElementArray;
 
   /**
    * Adds the specified class(es) to each of the set of matched elements.

@@ -103,6 +103,14 @@ declare class SignaturePad {
     *   Returns signature image as data URL
     */
     toDataURL(): string;
+    /**
+    *   Unbinds all event handlers
+    */
+    off(): void;
+    /**
+    *   Rebinds all event handlers
+    */
+    on(): void;
 
     _strokeBegin(event: Event): void;
     _strokeUpdate(event: Event): void;

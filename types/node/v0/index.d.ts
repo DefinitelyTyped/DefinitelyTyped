@@ -9,6 +9,24 @@
 *                                               *
 ************************************************/
 
+interface Console {
+    Console: {
+        prototype: Console,
+        new(stdout: NodeJS.WritableStream, stderr?: NodeJS.WritableStream): Console;
+    };
+    assert(value: any, message?: string, ...optionalParams: any[]): void;
+    dir(obj: any, options?: NodeJS.InspectOptions): void;
+    error(message?: any, ...optionalParams: any[]): void;
+    info(message?: any, ...optionalParams: any[]): void;
+    log(message?: any, ...optionalParams: any[]): void;
+    time(label: string): void;
+    timeEnd(label: string): void;
+    trace(message?: any, ...optionalParams: any[]): void;
+    warn(message?: any, ...optionalParams: any[]): void;
+}
+
+declare var console: Console;
+
 interface Error {
     stack?: string;
 }
@@ -159,6 +177,13 @@ declare var Buffer: {
 *                                               *
 ************************************************/
 declare namespace NodeJS {
+    export interface InspectOptions {
+        showHidden?: boolean;
+        depth?: number | null;
+        colors?: boolean;
+        customInspect?: boolean;
+    }
+
     export interface ErrnoException extends Error {
         errno?: number;
         code?: string;
@@ -639,20 +664,20 @@ declare module "zlib" {
     export function createInflateRaw(options?: ZlibOptions): InflateRaw;
     export function createUnzip(options?: ZlibOptions): Unzip;
 
-    export function deflate(buf: Buffer, callback: (error: Error, result: any) =>void ): void;
-    export function deflateSync(buf: Buffer, options?: ZlibOptions): any;
-    export function deflateRaw(buf: Buffer, callback: (error: Error, result: any) =>void ): void;
-    export function deflateRawSync(buf: Buffer, options?: ZlibOptions): any;
-    export function gzip(buf: Buffer, callback: (error: Error, result: any) =>void ): void;
-    export function gzipSync(buf: Buffer, options?: ZlibOptions): any;
-    export function gunzip(buf: Buffer, callback: (error: Error, result: any) =>void ): void;
-    export function gunzipSync(buf: Buffer, options?: ZlibOptions): any;
-    export function inflate(buf: Buffer, callback: (error: Error, result: any) =>void ): void;
-    export function inflateSync(buf: Buffer, options?: ZlibOptions): any;
-    export function inflateRaw(buf: Buffer, callback: (error: Error, result: any) =>void ): void;
-    export function inflateRawSync(buf: Buffer, options?: ZlibOptions): any;
-    export function unzip(buf: Buffer, callback: (error: Error, result: any) =>void ): void;
-    export function unzipSync(buf: Buffer, options?: ZlibOptions): any;
+    export function deflate(buf: Buffer | string, callback: (error: Error, result: Buffer) => void): void;
+    export function deflateSync(buf: Buffer | string, options?: ZlibOptions): Buffer;
+    export function deflateRaw(buf: Buffer | string, callback: (error: Error, result: Buffer) => void): void;
+    export function deflateRawSync(buf: Buffer | string, options?: ZlibOptions): Buffer;
+    export function gzip(buf: Buffer | string, callback: (error: Error, result: Buffer) => void): void;
+    export function gzipSync(buf: Buffer | string, options?: ZlibOptions): Buffer;
+    export function gunzip(buf: Buffer | string, callback: (error: Error, result: Buffer) => void): void;
+    export function gunzipSync(buf: Buffer | string, options?: ZlibOptions): Buffer;
+    export function inflate(buf: Buffer | string, callback: (error: Error, result: Buffer) => void): void;
+    export function inflateSync(buf: Buffer | string, options?: ZlibOptions): Buffer;
+    export function inflateRaw(buf: Buffer | string, callback: (error: Error, result: Buffer) => void): void;
+    export function inflateRawSync(buf: Buffer | string, options?: ZlibOptions): Buffer;
+    export function unzip(buf: Buffer | string, callback: (error: Error, result: Buffer) => void): void;
+    export function unzipSync(buf: Buffer | string, options?: ZlibOptions): Buffer;
 
     // Constants
     export var Z_NO_FLUSH: number;
@@ -785,7 +810,7 @@ declare module "repl" {
         ignoreUndefined?: boolean;
         writer?: Function;
     }
-    export function start(options: ReplOptions): events.EventEmitter;
+    export function start(options?: string | ReplOptions): events.EventEmitter;
 }
 
 declare module "readline" {
@@ -1002,7 +1027,7 @@ declare module "net" {
     }
 
     export var Socket: {
-        new (options?: { fd?: string; type?: string; allowHalfOpen?: boolean; }): Socket;
+        new (options?: { fd?: number; allowHalfOpen?: boolean; readable?: boolean; writable?: boolean; }): Socket;
     };
 
     export interface Server extends events.EventEmitter {
@@ -1791,20 +1816,14 @@ declare module "stream" {
 }
 
 declare module "util" {
-    export interface InspectOptions {
-        showHidden?: boolean;
-        depth?: number;
-        colors?: boolean;
-        customInspect?: boolean;
-    }
-
+    export interface InspectOptions extends NodeJS.InspectOptions {}
     export function format(format: any, ...param: any[]): string;
     export function debug(string: string): void;
     export function error(...param: any[]): void;
     export function puts(...param: any[]): void;
     export function print(...param: any[]): void;
     export function log(string: string): void;
-    export function inspect(object: any, showHidden?: boolean, depth?: number, color?: boolean): string;
+    export function inspect(object: any, showHidden?: boolean, depth?: number | null, color?: boolean): string;
     export function inspect(object: any, options: InspectOptions): string;
     export function isArray(object: any): boolean;
     export function isRegExp(object: any): boolean;

@@ -1,7 +1,8 @@
-// Type definitions for parse v1.9.2
+// Type definitions for parse 1.9
 // Project: https://parse.com/
 // Definitions by: Ullisen Media Group <http://ullisenmedia.com>, David Poetzsch-Heffter <https://github.com/dpoetzsch>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="node" />
 /// <reference types="jquery" />
@@ -267,22 +268,22 @@ declare namespace Parse {
      * A class that is used to access all of the children of a many-to-many relationship.
      * Each instance of Parse.Relation is associated with a particular parent object and key.
      */
-    class Relation extends BaseObject {
+    class Relation<S extends Object = Object, T extends Object = Object> extends BaseObject {
 
-        parent: Object;
+        parent: S;
         key: string;
         targetClassName: string;
 
-        constructor(parent?: Object, key?: string);
+        constructor(parent?: S, key?: string);
 
         //Adds a Parse.Object or an array of Parse.Objects to the relation.
-        add(object: Object): void;
+        add(object: T): void;
 
         // Returns a Parse.Query that is limited to objects in this relation.
-        query(): Query;
+        query(): Query<T>;
 
         // Removes a Parse.Object or an array of Parse.Objects from this relation.
-        remove(object: Object): void;
+        remove(object: T): void;
     }
 
     /**
@@ -326,12 +327,14 @@ declare namespace Parse {
         constructor(attributes?: string[], options?: any);
 
         static extend(className: string, protoProps?: any, classProps?: any): any;
+        static fromJSON(json: any, override: boolean): any;
+
         static fetchAll<T extends Object>(list: T[], options: SuccessFailureOptions): Promise<T[]>;
         static fetchAllIfNeeded<T extends Object>(list: T[], options: SuccessFailureOptions): Promise<T[]>;
         static destroyAll<T>(list: T[], options?: Object.DestroyAllOptions): Promise<T[]>;
         static saveAll<T extends Object>(list: T[], options?: Object.SaveAllOptions): Promise<T[]>;
-
         static registerSubclass<T extends Object>(className: string, clazz: new (options?: any) => T): void;
+        static createWithoutData<T extends Object>(id: string): T;
 
         initialize(): void;
         add(attr: string, item: any): this;
@@ -341,7 +344,7 @@ declare namespace Parse {
         clear(options: any): any;
         clone(): this;
         destroy(options?: Object.DestroyOptions): Promise<this>;
-        dirty(attr: String): boolean;
+        dirty(attr?: string): boolean;
         dirtyKeys(): string[];
         escape(attr: string): string;
         existed(): boolean;
@@ -355,7 +358,7 @@ declare namespace Parse {
         op(attr: string): any;
         previous(attr: string): any;
         previousAttributes(): any;
-        relation(attr: string): Relation;
+        relation(attr: string): Relation<this, Object>;
         remove(attr: string, item: any): any;
         save(attrs?: { [key: string]: any } | null, options?: Object.SaveOptions): Promise<this>;
         save(key: string, value: any, options?: Object.SaveOptions): Promise<this>;
@@ -429,7 +432,7 @@ declare namespace Parse {
 
         model: Object;
         models: Object[];
-        query: Query;
+        query: Query<Object>;
         comparator: (object: Object) => any;
 
         constructor(models?: Object[], options?: Collection.Options);
@@ -454,7 +457,7 @@ declare namespace Parse {
     namespace Collection {
         interface Options {
             model?: Object;
-            query?: Query;
+            query?: Query<Object>;
             comparator?: string;
         }
 
@@ -571,59 +574,59 @@ declare namespace Parse {
      *   }
      * });</pre></p>
      */
-    class Query extends BaseObject {
+    class Query<T extends Object = Object> extends BaseObject {
 
         objectClass: any;
         className: string;
 
         constructor(objectClass: string);
-        constructor(objectClass: new(...args: any[]) => Object);
+        constructor(objectClass: new(...args: any[]) => T);
 
-        static or<U extends Object>(...var_args: Query[]): Query;
+        static or<U extends Object>(...var_args: Query<U>[]): Query<U>;
 
-        addAscending(key: string): Query;
-        addAscending(key: string[]): Query;
-        addDescending(key: string): Query;
-        addDescending(key: string[]): Query;
-        ascending(key: string): Query;
-        ascending(key: string[]): Query;
+        addAscending(key: string): Query<T>;
+        addAscending(key: string[]): Query<T>;
+        addDescending(key: string): Query<T>;
+        addDescending(key: string[]): Query<T>;
+        ascending(key: string): Query<T>;
+        ascending(key: string[]): Query<T>;
         collection(items?: Object[], options?: Collection.Options): Collection<Object>;
-        containedIn(key: string, values: any[]): Query;
-        contains(key: string, substring: string): Query;
-        containsAll(key: string, values: any[]): Query;
+        containedIn(key: string, values: any[]): Query<T>;
+        contains(key: string, substring: string): Query<T>;
+        containsAll(key: string, values: any[]): Query<T>;
         count(options?: Query.CountOptions): Promise<number>;
-        descending(key: string): Query;
-        descending(key: string[]): Query;
-        doesNotExist(key: string): Query;
-        doesNotMatchKeyInQuery<U extends Object>(key: string, queryKey: string, query: Query): Query;
-        doesNotMatchQuery<U extends Object>(key: string, query: Query): Query;
+        descending(key: string): Query<T>;
+        descending(key: string[]): Query<T>;
+        doesNotExist(key: string): Query<T>;
+        doesNotMatchKeyInQuery<U extends Object>(key: string, queryKey: string, query: Query<U>): Query<T>;
+        doesNotMatchQuery<U extends Object>(key: string, query: Query<U>): Query<T>;
         each(callback: Function, options?: Query.EachOptions): Promise<void>;
-        endsWith(key: string, suffix: string): Query;
-        equalTo(key: string, value: any): Query;
-        exists(key: string): Query;
-        find(options?: Query.FindOptions): Promise<Object[]>;
-        first(options?: Query.FirstOptions): Promise<Object | undefined>;
-        get(objectId: string, options?: Query.GetOptions): Promise<Object>;
-        greaterThan(key: string, value: any): Query;
-        greaterThanOrEqualTo(key: string, value: any): Query;
-        include(key: string): Query;
-        include(keys: string[]): Query;
-        lessThan(key: string, value: any): Query;
-        lessThanOrEqualTo(key: string, value: any): Query;
-        limit(n: number): Query;
-        matches(key: string, regex: RegExp, modifiers: any): Query;
-        matchesKeyInQuery<U extends Object>(key: string, queryKey: string, query: Query): Query;
-        matchesQuery<U extends Object>(key: string, query: Query): Query;
-        near(key: string, point: GeoPoint): Query;
-        notContainedIn(key: string, values: any[]): Query;
-        notEqualTo(key: string, value: any): Query;
-        select(...keys: string[]): Query;
-        skip(n: number): Query;
-        startsWith(key: string, prefix: string): Query;
-        withinGeoBox(key: string, southwest: GeoPoint, northeast: GeoPoint): Query;
-        withinKilometers(key: string, point: GeoPoint, maxDistance: number): Query;
-        withinMiles(key: string, point: GeoPoint, maxDistance: number): Query;
-        withinRadians(key: string, point: GeoPoint, maxDistance: number): Query;
+        endsWith(key: string, suffix: string): Query<T>;
+        equalTo(key: string, value: any): Query<T>;
+        exists(key: string): Query<T>;
+        find(options?: Query.FindOptions): Promise<T[]>;
+        first(options?: Query.FirstOptions): Promise<T | undefined>;
+        get(objectId: string, options?: Query.GetOptions): Promise<T>;
+        greaterThan(key: string, value: any): Query<T>;
+        greaterThanOrEqualTo(key: string, value: any): Query<T>;
+        include(key: string): Query<T>;
+        include(keys: string[]): Query<T>;
+        lessThan(key: string, value: any): Query<T>;
+        lessThanOrEqualTo(key: string, value: any): Query<T>;
+        limit(n: number): Query<T>;
+        matches(key: string, regex: RegExp, modifiers: any): Query<T>;
+        matchesKeyInQuery<U extends Object>(key: string, queryKey: string, query: Query<U>): Query<T>;
+        matchesQuery<U extends Object>(key: string, query: Query<U>): Query<T>;
+        near(key: string, point: GeoPoint): Query<T>;
+        notContainedIn(key: string, values: any[]): Query<T>;
+        notEqualTo(key: string, value: any): Query<T>;
+        select(...keys: string[]): Query<T>;
+        skip(n: number): Query<T>;
+        startsWith(key: string, prefix: string): Query<T>;
+        withinGeoBox(key: string, southwest: GeoPoint, northeast: GeoPoint): Query<T>;
+        withinKilometers(key: string, point: GeoPoint, maxDistance: number): Query<T>;
+        withinMiles(key: string, point: GeoPoint, maxDistance: number): Query<T>;
+        withinRadians(key: string, point: GeoPoint, maxDistance: number): Query<T>;
     }
 
     namespace Query {
@@ -651,8 +654,8 @@ declare namespace Parse {
 
         constructor(name: string, acl: ACL);
 
-        getRoles(): Relation;
-        getUsers(): Relation;
+        getRoles(): Relation<Role, Role>;
+        getUsers(): Relation<Role, User>;
         getName(): string;
         setName(name: string, options?: SuccessFailureOptions): any;
     }
@@ -874,15 +877,18 @@ declare namespace Parse {
             value?: string;
         }
 
-        interface SaveRequest extends FunctionRequest {
+        interface TriggerRequest {
+            installationId?: String;
+            master?: boolean;
+            user?: User;
             object: Object;
         }
 
-        interface AfterSaveRequest extends SaveRequest {}
-        interface AfterDeleteRequest extends FunctionRequest {}
-        interface BeforeDeleteRequest extends FunctionRequest {}
+        interface AfterSaveRequest extends TriggerRequest {}
+        interface AfterDeleteRequest extends TriggerRequest {}
+        interface BeforeDeleteRequest extends TriggerRequest {}
         interface BeforeDeleteResponse extends FunctionResponse {}
-        interface BeforeSaveRequest extends SaveRequest {}
+        interface BeforeSaveRequest extends TriggerRequest {}
         interface BeforeSaveResponse extends FunctionResponse {
             success: () => void;
         }
@@ -1068,7 +1074,7 @@ declare namespace Parse {
             push_time?: Date;
             expiration_time?: Date;
             expiration_interval?: number;
-            where?: Query;
+            where?: Query<Installation>;
             data?: any;
             alert?: string;
             badge?: string;

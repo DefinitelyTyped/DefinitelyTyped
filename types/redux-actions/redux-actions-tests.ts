@@ -110,16 +110,19 @@ const typedActionHandlerWithReduceMap = ReduxActions.handleAction<TypedState, Ty
 
 typedState = typedActionHandlerWithReduceMap({ value: 0 }, typedIncrementByActionWithMeta(10));
 
-const act = ReduxActions.createAction<string>('ACTION1');
-act('hello').payload === 'hello';
+const act0 = ReduxActions.createAction('ACTION0');
+act0().payload === null;
+
+const act1 = ReduxActions.createAction<string>('ACTION1');
+act1('hello').payload === 'hello';
 
 const act2 = ReduxActions.createAction('ACTION2', (s: {load: boolean}) => s);
-act2({load: true}).payload.load === true;
+act2({load: true}).payload.load; // $ExpectType boolean
 
 const act3 = ReduxActions.createAction('ACTION3', (s: string) => ({s}));
 act3('hello').payload.s === 'hello';
 
-ReduxActions.handleAction<{ hello: string }, string>(act, (state, action) => {
+ReduxActions.handleAction<{ hello: string }, string>(act1, (state, action) => {
     return { hello: action.payload };
 }, {hello: 'greetings'});
 
@@ -131,7 +134,11 @@ ReduxActions.handleAction(act3, (state, action) => {
     return { hello: action.payload.s };
 }, {hello: 'greetings'});
 
-ReduxActions.handleAction(ReduxActions.combineActions(act, act3, act2), (state, action) => {}, 0);
+ReduxActions.handleAction(ReduxActions.combineActions(act1, act3, act2), (state, action) => {}, 0);
+
+ReduxActions.handleActions({
+    [ReduxActions.combineActions(act1, act3, act2)](state, action) {}
+}, 0);
 
 /* can't do this until it lands in 2.2, HKTs
 ReduxActions.handleAction(act, (state, action) => {

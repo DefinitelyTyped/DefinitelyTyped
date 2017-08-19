@@ -1,5 +1,5 @@
 import * as m from 'mithril';
-import {Component, FactoryComponent, Vnode} from 'mithril';
+import { Component, FactoryComponent, Vnode } from 'mithril';
 
 ///////////////////////////////////////////////////////////
 // 0.
@@ -166,7 +166,7 @@ interface Attrs {
 }
 
 export default (): Component<Attrs, {}> => {
-	let count = 0;
+	const count = 0;
 	return {
 		view({attrs}) {
 			return m('span', `name: ${attrs.name}, count: ${count}`);

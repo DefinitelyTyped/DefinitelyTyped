@@ -33,7 +33,7 @@ function test_app() {
 
     var app = $.sammy(function () {
 
-        var current_user = false;
+        var current_user: any = false;
         function checkLoggedIn(callback) {
             var _this: Sammy.EventContext;
             if (!current_user) {

@@ -1,4 +1,4 @@
-import * as ReactInputMask from 'react-input-mask';
+import ReactInputMask from 'react-input-mask';
 import * as React from 'react';
 
 <div>

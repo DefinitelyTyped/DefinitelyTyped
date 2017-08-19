@@ -1,6 +1,6 @@
-// Type definitions for request
+// Type definitions for request 2.0
 // Project: https://github.com/request/request
-// Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>, bonnici <https://github.com/bonnici>, Bart van der Schoor <https://github.com/Bartvds>, Joe Skeen <http://github.com/joeskeen>, Christopher Currens <https://github.com/ccurrens>
+// Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>, bonnici <https://github.com/bonnici>, Bart van der Schoor <https://github.com/Bartvds>, Joe Skeen <https://github.com/joeskeen>, Christopher Currens <https://github.com/ccurrens>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/d.ts
@@ -50,7 +50,7 @@ declare namespace request {
         del(uri: string, options?: TOptions, callback?: RequestCallback): TRequest;
         del(uri: string, callback?: RequestCallback): TRequest;
         del(options: TUriUrlOptions & TOptions, callback?: RequestCallback): TRequest;
-            
+
         delete(uri: string, options?: TOptions, callback?: RequestCallback): TRequest;
         delete(uri: string, callback?: RequestCallback): TRequest;
         delete(options: TUriUrlOptions & TOptions, callback?: RequestCallback): TRequest;
@@ -68,13 +68,42 @@ declare namespace request {
         TUriUrlOptions> extends RequestAPI<TRequest, TOptions, TUriUrlOptions> {
 
         defaults(options: TOptions): DefaultUriUrlRequestApi<TRequest, TOptions, OptionalUriUrl>;
-        (): TRequest;
-        get(): TRequest;
-        post(): TRequest;
-        put(): TRequest;
-        head(): TRequest;
-        patch(): TRequest;
-        del(): TRequest;
+        (callback?: RequestCallback): TRequest;
+
+        get(uri: string, options?: TOptions, callback?: RequestCallback): TRequest;
+        get(uri: string, callback?: RequestCallback): TRequest;
+        get(options: TUriUrlOptions & TOptions, callback?: RequestCallback): TRequest;
+        get(callback?: RequestCallback): TRequest;
+
+        post(uri: string, options?: TOptions, callback?: RequestCallback): TRequest;
+        post(uri: string, callback?: RequestCallback): TRequest;
+        post(options: TUriUrlOptions & TOptions, callback?: RequestCallback): TRequest;
+        post(callback?: RequestCallback): TRequest;
+
+        put(uri: string, options?: TOptions, callback?: RequestCallback): TRequest;
+        put(uri: string, callback?: RequestCallback): TRequest;
+        put(options: TUriUrlOptions & TOptions, callback?: RequestCallback): TRequest;
+        put(callback?: RequestCallback): TRequest;
+
+        head(uri: string, options?: TOptions, callback?: RequestCallback): TRequest;
+        head(uri: string, callback?: RequestCallback): TRequest;
+        head(options: TUriUrlOptions & TOptions, callback?: RequestCallback): TRequest;
+        head(callback?: RequestCallback): TRequest;
+
+        patch(uri: string, options?: TOptions, callback?: RequestCallback): TRequest;
+        patch(uri: string, callback?: RequestCallback): TRequest;
+        patch(options: TUriUrlOptions & TOptions, callback?: RequestCallback): TRequest;
+        patch(callback?: RequestCallback): TRequest;
+
+        del(uri: string, options?: TOptions, callback?: RequestCallback): TRequest;
+        del(uri: string, callback?: RequestCallback): TRequest;
+        del(options: TUriUrlOptions & TOptions, callback?: RequestCallback): TRequest;
+        del(callback?: RequestCallback): TRequest;
+
+        delete(uri: string, options?: TOptions, callback?: RequestCallback): TRequest;
+        delete(uri: string, callback?: RequestCallback): TRequest;
+        delete(options: TUriUrlOptions & TOptions, callback?: RequestCallback): TRequest;
+        delete(callback?: RequestCallback): TRequest;
     }
 
     interface CoreOptions {
@@ -105,15 +134,21 @@ declare namespace request {
         body?: any;
         followRedirect?: boolean | ((response: http.IncomingMessage) => boolean);
         followAllRedirects?: boolean;
+        followOriginalHttpMethod?: boolean;
         maxRedirects?: number;
+        removeRefererHeader?: boolean;
         encoding?: string | null;
         pool?: any;
         timeout?: number;
+        localAddress?: string;
         proxy?: any;
         strictSSL?: boolean;
+        rejectUnauthorized?: boolean;
+        time?: boolean;
         gzip?: boolean;
         preambleCRLF?: boolean;
         postambleCRLF?: boolean;
+        withCredentials?: boolean;
         key?: Buffer;
         cert?: Buffer;
         passphrase?: string;
@@ -130,10 +165,7 @@ declare namespace request {
     }
     export type RequiredUriUrl = UriOptions | UrlOptions;
 
-    interface OptionalUriUrl {
-        uri?: string;
-        url?: string;
-    }
+    export type OptionalUriUrl = RequiredUriUrl | {};
 
     export type OptionsWithUri = UriOptions & CoreOptions;
     export type OptionsWithUrl = UrlOptions & CoreOptions;
@@ -146,6 +178,22 @@ declare namespace request {
 	export interface RequestResponse extends http.IncomingMessage {
 		request: Options;
 		body: any;
+		timingStart?: number;
+		timings?: {
+			socket: number;
+			lookup: number;
+			connect: number;
+			response: number;
+			end: number;
+		};
+		timingPhases?: {
+			wait: number;
+			dns: number;
+			tcp: number;
+			firstByte: number;
+			download: number;
+			total: number;
+		};
 	}
 
     export interface HttpArchiveRequest {
@@ -237,6 +285,7 @@ declare namespace request {
         consumer_secret?: string;
         token?: string;
         token_secret?: string;
+        transport_method?: 'body' | 'header' | 'query';
         verifier?: string;
     }
 

@@ -124,7 +124,7 @@ function test_HandsontableInit() {
     // Hooks
     afterAutofillApplyValues: () => {return; },
     afterCellMetaReset: () => {return; },
-    afterChange: () => {return; },
+    afterChange: (changes) => {return; },
     afterChangesObserved: () => {return; },
     afterColumnMove: () => {return; },
     afterColumnResize: () => {return; },
@@ -147,6 +147,7 @@ function test_HandsontableInit() {
     afterInit: () => {return; },
     afterLoadData: () => {return; },
     afterMomentumScroll: () => {return; },
+    afterOnCellCornerDblClick: () => {return; },
     afterOnCellCornerMouseDown: () => {return; },
     afterOnCellMouseDown: () => {return; },
     afterOnCellMouseOver: () => {return; },
@@ -278,6 +279,7 @@ function test_HandsontableMethods() {
   hot.setCellMeta(123, 123, 'foo', 'foo');
   hot.setCellMetaObject(123, 123, {});
   hot.setDataAtCell(123, 123, 'foo', 'foo');
+  hot.setDataAtCell([[123, 123, 'foo'], [123, 123, 'foo']]);
   hot.setDataAtRowProp(123, 'foo', 'foo', 'foo');
   hot.spliceCol(123, 123, 123, 'foo');
   hot.spliceRow(123, 123, 123, 'foo');
@@ -292,6 +294,32 @@ function test_HandsontableMethods() {
   Handsontable.renderers.NumericRenderer(hot, new HTMLTableDataCellElement(), 0, 0, "prop", 1.235, {});
   Handsontable.renderers.TextRenderer(hot, new HTMLTableDataCellElement(), 0, 0, "prop", 1.235, {});
   Handsontable.Dom.addEvent(new HTMLElement(), "eventName", () => { return; });
+  Handsontable.Dom.empty(new HTMLElement());
+
+  let bucket: {};
+  let registeredHooks: string[];
+  let hasHook: boolean;
+  let isRegistered: boolean;
+  bucket = Handsontable.hooks.add('beforeInit', () => { return; });
+  bucket = Handsontable.hooks.add('beforeInit', () => { return; }, hot);
+  Handsontable.hooks.createEmptyBucket();
+  Handsontable.hooks.deregister('myHook');
+  Handsontable.hooks.destroy();
+  Handsontable.hooks.destroy(hot);
+  bucket = Handsontable.hooks.getBucket();
+  bucket = Handsontable.hooks.getBucket(hot);
+  registeredHooks = Handsontable.hooks.getRegistered();
+  hasHook = Handsontable.hooks.has("myHook");
+  hasHook = Handsontable.hooks.has("myHook", hot);
+  isRegistered = Handsontable.hooks.isRegistered("myHook");
+  Handsontable.hooks.once('beforeInit', () => { return; });
+  Handsontable.hooks.once('beforeInit', [() => { return; }, () => { return; }]);
+  Handsontable.hooks.once('beforeInit', () => { return; }, hot);
+  Handsontable.hooks.register('myHook');
+  Handsontable.hooks.remove('beforeInit', () => { return; });
+  Handsontable.hooks.remove('beforeInit', () => { return; }, hot);
+  Handsontable.hooks.run(hot, 'beforeInit');
+  Handsontable.hooks.run(hot, 'beforeInit', 'param1', 'param2', 'param3', 'param4', 'param5', 'param6');
 }
 
 class MyCustomHotPlugin extends Handsontable.plugins.BasePlugin {

@@ -119,7 +119,7 @@ interface ExtendedTestStore extends AltJS.AltStore<AltTestState> {
     split():Array<string>;
 }
 
-var testStore = <ExtendedTestStore>alt.createStore<AltTestState>(TestStore);
+var testStore = <ExtendedTestStore>alt.createStore<AltTestState>(new TestStore());
 
 function testCallback(state:AltTestState) {
     console.log(state);

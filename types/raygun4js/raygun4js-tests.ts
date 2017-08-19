@@ -79,3 +79,9 @@ client.endSession();
 client.trackEvent('pageView', {
     path: '/url'
 });
+
+client.disableAutoBreadcrumbs();
+
+client.enableAutoBreadcrumbs();
+
+client.recordBreadcrumb("Breadcrumb Message", { custom: "data" });

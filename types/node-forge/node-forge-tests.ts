@@ -5,8 +5,9 @@ let privateKeyPem = forge.pki.privateKeyToPem(keypair.privateKey);
 let publicKeyPem = forge.pki.publicKeyToPem(keypair.publicKey);
 let key = forge.pki.decryptRsaPrivateKey(privateKeyPem);
 let x: string = forge.ssh.privateKeyToOpenSSH(key);
-let pemKey: forge.pki.PEM;
+let pemKey: forge.pki.PEM = publicKeyPem;
 let publicKeyRsa = forge.pki.publicKeyFromPem(pemKey);
+let privateKeyRsa = forge.pki.privateKeyFromPem(privateKeyPem);
 
 {
     let subjectPublicKeyInfo = forge.asn1.create(forge.asn1.Class.UNIVERSAL, forge.asn1.Type.SEQUENCE, true, [
@@ -67,7 +68,7 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
 {
     let src: string;
     let encode: Uint8Array;
-    let decode : string;
+    let decode: string;
 
     src = 'Test';
     encode = forge.util.text.utf8.encode(src);
@@ -77,4 +78,21 @@ if (forge.util.fillString('1', 5) !== '11111') throw Error('forge.util.fillStrin
     encode = forge.util.text.utf16.encode(src);
     decode = forge.util.text.utf16.decode(encode);
     if (src !== decode) throw Error('forge.util.text.utf8.encode / decode fail');
+}
+
+{
+    let md: forge.md.MessageDigest;
+    let hex: string;
+
+    md = forge.md.sha256.create();
+    md = md.update('Test');
+    hex = md.digest().toHex();
+
+    if (hex.length !== 64) throw Error('forge.md.MessageDigest.update / digest fail');
+
+    md = forge.md.sha1.create();
+    md = md.update('Test');
+    hex = md.digest().toHex();
+
+    if (hex.length !== 40) throw Error('forge.md.MessageDigest.update / digest fail');
 }

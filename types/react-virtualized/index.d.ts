@@ -1,8 +1,10 @@
-// Type definitions for react-virtualized 9.5
+// Type definitions for react-virtualized 9.7
 // Project: https://github.com/bvaughn/react-virtualized
 // Definitions by: Kalle Ott <https://github.com/kaoDev>
+//                 John Gunther <https://github.com/guntherjh>
+//                 Konstantin Nesterov <https://github.com/wasd171>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 export {
     ArrowKeyStepper,
@@ -37,6 +39,8 @@ export {
     SizedColumnProps
 } from './dist/es/ColumnSizer'
 export {
+    accessibilityOverscanIndicesGetter,
+    defaultOverscanIndicesGetter,
     defaultCellRangeRenderer,
     Grid,
     CellSizeAndPositionManager,

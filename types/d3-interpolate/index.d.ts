@@ -1,15 +1,15 @@
-// Type definitions for D3JS d3-interpolate module v1.1.1
+// Type definitions for D3JS d3-interpolate module 1.1
 // Project: https://github.com/d3/d3-interpolate/
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { ColorCommonInstance } from 'd3-color';
+// Last module patch version validated against: 1.1.1
 
+import { ColorCommonInstance } from 'd3-color';
 
 // --------------------------------------------------------------------------
 // Shared Type Definitions and Interfaces
 // --------------------------------------------------------------------------
-
 
 export interface ZoomInterpolator extends Function {
     (t: number): ZoomView;
@@ -42,11 +42,10 @@ export function interpolate(a: number | { valueOf(): number }, b: number): ((t: 
 export function interpolate(a: any, b: ColorCommonInstance): ((t: number) => string);
 export function interpolate(a: Date, b: Date): ((t: number) => Date);
 export function interpolate(a: string | { toString(): string }, b: string): ((t: number) => string);
-export function interpolate<U extends Array<any>>(a: Array<any>, b: U): ((t: number) => U);
+export function interpolate<U extends any[]>(a: any[], b: U): ((t: number) => U);
 export function interpolate(a: number | { valueOf(): number }, b: { valueOf(): number }): ((t: number) => number);
-export function interpolate<U extends Object>(a: any, b: U): ((t: number) => U);
+export function interpolate<U extends any>(a: any, b: U): ((t: number) => U); // TODO: extends 'any' should become 'object' with TS 2.2+ definitions
 export function interpolate(a: any, b: { [key: string]: any }): ((t: number) => { [key: string]: any });
-
 
 export function interpolateNumber(a: number | { valueOf(): number }, b: number | { valueOf(): number }): ((t: number) => number);
 
@@ -56,12 +55,10 @@ export function interpolateString(a: string | { toString(): string }, b: string 
 
 export function interpolateDate(a: Date, b: Date): ((t: number) => Date);
 
-export function interpolateArray<A extends Array<any>>(a: Array<any>, b: A): ((t: number) => A);
+export function interpolateArray<A extends any[]>(a: any[], b: A): ((t: number) => A);
 
-export function interpolateObject<U extends Object>(a: any, b: U): ((t: number) => U);
+export function interpolateObject<U extends any>(a: any, b: U): ((t: number) => U);  // TODO: extends 'any' should become 'object' with TS 2.2+ definitions
 export function interpolateObject(a: { [key: string]: any }, b: { [key: string]: any }): ((t: number) => { [key: string]: any });
-
-
 
 export function interpolateTransformCss(a: string, b: string): ((t: number) => string);
 export function interpolateTransformSvg(a: string, b: string): ((t: number) => string);
@@ -71,12 +68,11 @@ export function interpolateTransformSvg(a: string, b: string): ((t: number) => s
  */
 export function interpolateZoom(a: ZoomView, b: ZoomView): ZoomInterpolator;
 
-
-export function quantize<T>(interpolator: ((t: number) => T), n: number): Array<T>;
+export function quantize<T>(interpolator: ((t: number) => T), n: number): T[];
 
 // Color interpolation related
 
-export var interpolateRgb: ColorGammaInterpolationFactory;
+export const interpolateRgb: ColorGammaInterpolationFactory;
 
 export function interpolateRgbBasis(colors: Array<string | ColorCommonInstance>): ((t: number) => string);
 export function interpolateRgbBasisClosed(colors: Array<string | ColorCommonInstance>): ((t: number) => string);
@@ -86,10 +82,10 @@ export function interpolateHslLong(a: string | ColorCommonInstance, b: string | 
 export function interpolateLab(a: string | ColorCommonInstance, b: string | ColorCommonInstance): ((t: number) => string);
 export function interpolateHcl(a: string | ColorCommonInstance, b: string | ColorCommonInstance): ((t: number) => string);
 export function interpolateHclLong(a: string | ColorCommonInstance, b: string | ColorCommonInstance): ((t: number) => string);
-export var interpolateCubehelix: ColorGammaInterpolationFactory;
-export var interpolateCubehelixLong: ColorGammaInterpolationFactory;
+export const interpolateCubehelix: ColorGammaInterpolationFactory;
+export const interpolateCubehelixLong: ColorGammaInterpolationFactory;
 
 // Spline related
 
-export function interpolateBasis(splineNodes: Array<number>): ((t: number) => number);
-export function interpolateBasisClosed(splineNodes: Array<number>): ((t: number) => number);
+export function interpolateBasis(splineNodes: number[]): ((t: number) => number);
+export function interpolateBasisClosed(splineNodes: number[]): ((t: number) => number);

@@ -1,4 +1,4 @@
-import levelup = require("levelup");
+import * as levelup from "levelup";
 
 interface BufferEncoding {
     encode(val: any): Buffer;
@@ -82,7 +82,3 @@ db.createReadStream()
     .on('end', function () {
       console.log('Stream closed')
     })
-
-import leveldown = require('leveldown');
-leveldown.destroy('mypath', ()=>{});
-leveldown.repair('mypath', ()=>{});

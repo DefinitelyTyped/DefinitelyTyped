@@ -2,7 +2,7 @@
 // Project: https://github.com/souhe/reactScrollbar
 // Definitions by: Stephen Jelfs <https://github.com/stephenjelfs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 /// <reference types="react" />
 
@@ -27,7 +27,7 @@ declare module "react-scrollbar" {
       swapWheelAxes?: boolean
   }
 
-  class ScrollArea extends React.Component<ScrollAreaProps, {}> {}
+  class ScrollArea extends React.Component<ScrollAreaProps> {}
 
   export = ScrollArea;
 }

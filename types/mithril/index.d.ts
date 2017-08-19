@@ -44,6 +44,8 @@ declare namespace Mithril {
 		onbeforeupdate?(this: State, vnode: Vnode<Attrs, State>, old: VnodeDOM<Attrs, State>): boolean | void;
 		/** The onremove hook is called before a DOM element is removed from the document. */
 		onupdate?(this: State, vnode: VnodeDOM<Attrs, State>): any;
+		/** WORKAROUND: TypeScript 2.4 does not allow extending an interface with all-optional properties. */
+		[_: number]: any;
 	}
 
 	interface Hyperscript {
@@ -52,20 +54,20 @@ declare namespace Mithril {
 		/** Creates a virtual element (Vnode). */
 		(selector: string, attributes: Attributes, ...children: Children[]): Vnode<any, any>;
 		/** Creates a virtual element (Vnode). */
-		<Attrs, State>(component: ComponentTypes<Attrs, State>, attributes: Attrs & Lifecycle<Attrs, State> & { key?: string | number }, ...args: Children[]): Vnode<Attrs, State>;
-		/** Creates a virtual element (Vnode). */
 		<Attrs, State>(component: ComponentTypes<Attrs, State>, ...args: Children[]): Vnode<Attrs, State>;
+		/** Creates a virtual element (Vnode). */
+		<Attrs, State>(component: ComponentTypes<Attrs, State>, attributes: Attrs & Lifecycle<Attrs, State> & { key?: string | number }, ...args: Children[]): Vnode<Attrs, State>;
 		/** Creates a fragment virtual element (Vnode). */
 		fragment(attrs: Lifecycle<any, any> & { [key: string]: any }, children: ChildArrayOrPrimitive): Vnode<any, any>;
 		/** Turns an HTML string into a virtual element (Vnode). Do not use trust on unsanitized user input. */
 		trust(html: string): Vnode<any, any>;
 	}
 
-	interface RouteResolver<State, Params> {
+	interface RouteResolver<Attrs, State> {
 		/** The onmatch hook is called when the router needs to find a component to render. */
-		render?(this: State, vnode: Vnode<State, Params>): Children;
+		onmatch?(this: this, args: Attrs, requestedPath: string): Component<any, any> | Promise<any> | void;
 		/** The render method is called on every redraw for a matching route. */
-		onmatch?(args: Params, requestedPath: string): Component<any, any> | Promise<any> | void;
+		render?(this: this, vnode: Vnode<Attrs, State>): Children;
 	}
 
 	/** This represents a key-value mapping linking routes to components. */
@@ -114,7 +116,7 @@ declare namespace Mithril {
 		/** Whether to send cookies to 3rd party domains. */
 		withCredentials?: boolean;
 		/** Exposes the underlying XMLHttpRequest object for low-level configuration. */
-		config?(xhr: XMLHttpRequest): any;
+		config?(xhr: XMLHttpRequest): XMLHttpRequest | void;
 		/** Headers to append to the request before sending it. */
 		headers?: { [key: string]: string };
 		/** A constructor to be applied to each object in the response. */
@@ -173,7 +175,7 @@ declare namespace Mithril {
 	/** Virtual DOM nodes, or vnodes, are Javascript objects that represent an element (or parts of the DOM). */
 	interface Vnode<Attrs, State extends Lifecycle<Attrs, State>> {
 		/** The nodeName of a DOM element. It may also be the string [ if a vnode is a fragment, # if it's a text vnode, or < if it's a trusted HTML vnode. Additionally, it may be a component. */
-		tag: string | Component<Attrs, State>;
+		tag: string | ComponentTypes<Attrs, State>;
 		/** A hashmap of DOM attributes, events, properties and lifecycle methods. */
 		attrs: Attrs;
 		/** An object that is persisted between redraws. In component vnodes, state is a shallow clone of the component object. */
@@ -232,7 +234,7 @@ declare namespace Mithril {
 		/** The onremove hook is called before a DOM element is removed from the document. */
 		onupdate?(vnode: VnodeDOM<A, this>): any;
 		/** Creates a view out of virtual elements. */
-		view(vnode: CVnode<A>): Children | null | void;
+		view(vnode: Vnode<A, this>): Children | null | void;
 	}
 
 	/**

@@ -5,9 +5,9 @@ const app = new Hapi.Server();
 
 module.exports = app; // for testing
 
-const config = {
+const config: SwaggerHapi.Config = {
   appRoot: __dirname // required config
-} as SwaggerHapi.Config;
+};
 
 SwaggerHapi.create(config, (err, swaggerHapi) => {
   if (err) { throw err; }
@@ -29,21 +29,21 @@ SwaggerHapi.create(config, (err, swaggerHapi) => {
 });
 
 const swaggerSecurityHandlerCb = (err: Error) => {
-    // do nothing
+  // do nothing
 };
 
 const configComplex: SwaggerHapi.Config = {
-    appRoot: __dirname,
-    configDir: "some/directory",
-    controllersDirs: ["some/directory"],
-    fittingsDirs: ["some/directory"],
-    mockMode: true,
-    swaggerControllerPipe: 'swagger_controllers',
-    swaggerSecurityHandlers: {
-        // did not manage to research the typings of first 3 arguments
-        someHandlerName: ({}, {}, {}, swaggerSecurityHandlerCb) => {
-            // do nothing
-        }
-    },
-    validateResponse: true
+  appRoot: __dirname,
+  configDir: "some/directory",
+  controllersDirs: ["some/directory"],
+  fittingsDirs: ["some/directory"],
+  mockMode: true,
+  swaggerControllerPipe: 'swagger_controllers',
+  swaggerSecurityHandlers: {
+    // did not manage to research the typings of first 3 arguments
+    someHandlerName: ({ }, { }, { }, swaggerSecurityHandlerCb) => {
+      // do nothing
+    }
+  },
+  validateResponse: true
 };

@@ -1,4 +1,4 @@
-# DefinitelyTyped [![Build Status](https://travis-ci.org/DefinitelyTyped/DefinitelyTyped.png?branch=master)](https://travis-ci.org/DefinitelyTyped/DefinitelyTyped)
+# DefinitelyTyped [![Build Status](https://travis-ci.org/DefinitelyTyped/DefinitelyTyped.svg?branch=master)](https://travis-ci.org/DefinitelyTyped/DefinitelyTyped)
 
 [![Join the chat at https://gitter.im/borisyankov/DefinitelyTyped](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/borisyankov/DefinitelyTyped?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
@@ -89,7 +89,14 @@ First, [fork](https://guides.github.com/activities/forking/) this repository, in
 * Make changes. Remember to edit tests.
 * You may also want to add yourself to "Definitions by" section of the package header.
   - Do this by adding your name to the end of the line, as in `// Definitions by: Alice <https://github.com/alice>, Bob <https://github.com/bob>`.
-* `npm install -g typescript@2.0` and run `tsc`.
+  - Or if there are more people, it can be multiline
+  ```typescript
+  // Definitions by: Alice <https://github.com/alice>
+  //                 Bob <https://github.com/bob>
+  //                 Steve <https://github.com/steve>
+  //                 John <https://github.com/john>
+  ```
+* If there is a `tslint.json`, run `npm run lint package-name`. Otherwise, run `tsc` in the package directory.
 
 When you make a PR to edit an existing package, `dt-bot` should @-mention previous authors.
 If it doesn't, you can do so yourself in the comment associated with the PR.
@@ -126,6 +133,7 @@ For a good example package, see [base64-js](https://github.com/DefinitelyTyped/D
 
 * First, follow advice from the [handbook](http://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html).
 * Formatting: Either use all tabs, or always use 4 spaces.
+* `function sum(nums: number[]): number`: Use `ReadonlyArray` if a function does not write to its parameters.
 * `interface Foo { new(): Foo; }`:
     This defines a type of objects that are new-able. You probably want `declare class Foo { constructor(); }`.
 * `const Class: { new(): IClass; }`:
@@ -169,6 +177,18 @@ If a `tslint.json` turns rules off, this is because that hasn't been fixed yet. 
 ```
 
 (To indicate that a lint rule truly does not apply, use `// tslint:disable rule-name` or better, `//tslint:disable-next-line rule-name`.)
+
+To assert that an expression is of a given type, use `$ExpectType`. To assert that an expression causes a compile error, use `$ExpectError`.
+
+```js
+// $ExpectType void
+f(1);
+
+// $ExpectError
+f("one");
+```
+
+For more details, see [dtslint](https://github.com/Microsoft/dtslint#write-tests) readme.
 
 Test by running `npm run lint package-name` where `package-name` is the name of your package.
 This script uses [dtslint](https://github.com/Microsoft/dtslint).

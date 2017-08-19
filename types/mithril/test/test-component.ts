@@ -1,5 +1,6 @@
 import * as m from 'mithril';
-import {Component, Comp} from 'mithril';
+
+import { Comp, Component } from 'mithril';
 
 ///////////////////////////////////////////////////////////
 // 0.
@@ -44,6 +45,32 @@ const comp2: Component<Comp2Attrs, {}> = {
 		return [m('h2', title), m('p', description)];
 	}
 };
+
+// Correct use
+m(comp2, {title: '', description: ''});
+
+// Correct use with lifecycle method
+m(comp2, {title: '', description: '', oncreate: (v) => v.attrs.title + '\n' + v.attrs.description});
+
+// Properties missing
+// $ExpectError
+m(comp2, {});
+
+// Property 'description' is missing in type '{ title: string; }'.
+// $ExpectError
+m(comp2, {title: ''});
+
+// Property 'title' is missing in type '{ description: string; }'.
+// $ExpectError
+m(comp2, {description: ''});
+
+// Type 'boolean' is not assignable to type 'string'.
+// $ExpectError
+m(comp2, {title: '', description: true});
+
+// Object literal may only specify known properties, and 'foo' does not exist in type 'Comp2Attrs & Lifecycle<Comp2Attrs, {}> & { key?: string | number | undefined; }'.
+// $ExpectError
+m(comp2, {title: '', description: '', foo: ''});
 
 ///////////////////////////////////////////////////////////
 // 3.

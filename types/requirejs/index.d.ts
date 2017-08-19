@@ -81,17 +81,23 @@ interface RequireShim {
 
 interface RequireConfig {
 
-	// The root path to use for all module lookups.
+	/**
+	* The root path to use for all module lookups.
+	*/
 	baseUrl?: string;
 
-	// Path mappings for module names not found directly under
-	// baseUrl.
+	/**
+	* Path mappings for module names not found directly under
+	* baseUrl.
+	*/
 	paths?: { [key: string]: any; };
 
 
-	// Dictionary of Shim's.
-	// does not cover case of key->string[]
-	shim?: { [key: string]: RequireShim; };
+	/**
+	* Dictionary of Shim's.
+	* Can be of type RequireShim or string[] of dependencies
+	*/
+	shim?: { [key: string]: RequireShim | string[]; };
 
 	/**
 	* For the given module prefix, instead of loading the

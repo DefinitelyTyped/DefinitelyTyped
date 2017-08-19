@@ -1,5 +1,5 @@
 import * as autobahn from "autobahn";
-import {IWampEvent} from "rx.wamp";
+import { IWampEvent } from "rx.wamp";
 
 function nodeJS(session: autobahn.Session) {
     var sessionObservable =
@@ -8,7 +8,7 @@ function nodeJS(session: autobahn.Session) {
 }
 
 function connection() {
-    var connectionSubscription = Rx.Observable.fromConnection("ws://localhost:9000")
+    var connectionSubscription = Rx.Observable.fromConnection({ url: "ws://localhost:9000" })
         .subscribe(session => console.log("A new session was created"));
 
     //Close our current connection and don't retry
@@ -32,11 +32,11 @@ function subscribe_to_topics(session: autobahn.Session, options: autobahn.ISubsc
 }
 
 function new_in_version3(onResult: Rx.Observer<autobahn.ISubscription>) {
-    Rx.Observable.subscribeAsObservable(Rx.Observable.fromConnection("ws://myconnectionurl:9090"), "wamp.my.foo", onResult);
+    Rx.Observable.subscribeAsObservable(Rx.Observable.fromConnection({ url: "ws://myconnectionurl:9090" }), "wamp.my.foo", undefined, onResult);
 }
 
 function new_in_version5(fooObserver: Rx.Observer<IWampEvent>) {
-    var connection = Rx.Observable.fromConnection("ws://myconnectionurl:9090");
+    var connection = Rx.Observable.fromConnection({ url: "ws://myconnectionurl:9090" });
 
     //You can subscribe to as many items as you want
     var subscriber =

@@ -1,4 +1,4 @@
-import {jui} from 'jui-core';
+import { jui } from 'jui-core';
 import {
     UIAccordion, UIAutoComplete, UIColorPicker, UICombo, UIDatePicker, UIDropdown, UIModal, UINotify,
     UIPaging, UIProgress, UIProperty, UISelect

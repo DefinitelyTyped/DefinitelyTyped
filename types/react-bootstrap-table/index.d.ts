@@ -2,7 +2,7 @@
 // Project: https://github.com/AllenFang/react-bootstrap-table
 // Definitions by: Frank Laub <https://github.com/flaub>, Aleksander Lode <https://github.com/alelode>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 /// <reference types="react" />
 /// <reference types="node" />
@@ -157,7 +157,7 @@ export interface SelectRow {
 	Give an array data to perform which rows you want to be selected when table loading.
 	The content of array should be the rowkey which you want to be selected.
 	*/
-    selected?: string[];
+    selected?: string[] | number[];
 	/**
 	if true, the radio/checkbox column will be hide.
 	You can enable this attribute if you enable clickToSelect and you don't want to show the selection column.
@@ -304,11 +304,11 @@ export interface Options {
 	/**
 	To define the pagination bar length, default is 5.
 	*/
+    paginationSize?: number;
 	/**
 	To define where to start counting the pages.
 	*/
-	pageStartIndex?: string;
-    paginationSize?: number;
+    pageStartIndex?: number;
 	/**
 	Assign a callback function which will be called after page changed.
 	This function taking two argument: page and sizePerPage.
@@ -462,9 +462,9 @@ export interface TableHeaderColumnProps extends Props<TableHeaderColumn> {
 	Set align in column, value is left, center, right, start and end.
 	*/
     dataAlign?: DataAlignType;
-	
+
 	/**
-	 * Alignment of text in the column header.  
+	 * Alignment of text in the column header.
 	 */
 	headerAlign?: DataAlignType;
 	/**
@@ -486,7 +486,7 @@ export interface TableHeaderColumnProps extends Props<TableHeaderColumn> {
     	    getElement(REQUIRED): Accept a callback function and take two arguments: onUpdate and props.
     	    customEditorParameters: Another extra data for custom cell edit component.
 	 */
-    customEditor?: {getElement: (onUpdate: any, props: any) => ReactElement<any>, customEditorParameters?: Object} ;	
+    customEditor?: {getElement: (onUpdate: any, props: any) => ReactElement<any>, customEditorParameters?: Object} ;
 	/**
 	To customize the column. This callback function should return a String or a React Component.
 	In addition, this function taking two argument: cell and row.
@@ -557,27 +557,27 @@ export interface TableHeaderColumnProps extends Props<TableHeaderColumn> {
     onSort?: Function;
 
 	/**
-	 * Header for column in generated CSV file 
+	 * Header for column in generated CSV file
 	 */
 	csvHeader?: string;
     csvFormat?: Function;
     columnTitle?: boolean;
     sort?: SortOrder;
     formatExtraData?: any;
-	
+
 	/**
-	 * Row in the header on which this header column present. 
+	 * Row in the header on which this header column present.
 	 */
 	row?: number;
 
 	/**
-	 * Indicates how many rows this column takes. 
+	 * Indicates how many rows this column takes.
 	 * Default: 1
 	 */
 	rowSpan?: number;
 
 	/**
-	 * Indicates how many columns this column takes. 
+	 * Indicates how many columns this column takes.
 	 * Default: 1
 	 */
 	colSpan?: number;

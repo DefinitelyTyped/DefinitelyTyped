@@ -2,10 +2,9 @@
 // Project: https://github.com/formidablelabs/radium
 // Definitions by: Alex Gorbatchev <https://github.com/alexgorbatchev/>, Philipp Holzer <https://github.com/nupplaphil/>, Alexey Svetliakov <https://github.com/asvetliakov/>, Mikael Hermansson <https://github.com/mihe/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
-import React = require('react');
-import ReactComponent = React.Component;
+import * as React from 'react';
 
 export = Radium;
 
@@ -37,18 +36,19 @@ declare namespace Radium {
     /**
      * <Style />
      */
-    export class Style extends React.Component<StyleProps, any> {
+    export class Style extends React.Component<StyleProps> {
     }
 
     /**
      * StyleRoot component properties
      */
     export interface StyleRootProps extends React.HTMLProps<StyleRoot> {
+         radiumConfig?: RadiumConfig
     }
     /**
      * <StyleRoot />
      */
-    export class StyleRoot extends React.Component<StyleRootProps, any> {
+    export class StyleRoot extends React.Component<StyleRootProps> {
     }
 
     /**

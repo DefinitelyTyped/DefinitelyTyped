@@ -2,6 +2,7 @@
 // Project: https://github.com/sciactive/pnotify
 // Definitions by: David Sichau <https://github.com/DavidSichau>, Robin Maenhaut <https://github.com/FUNExtreme>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="jquery"/>
 
@@ -133,6 +134,10 @@ interface PNotifyOptions {
      * Whether to escape the content of the text. (Not allow HTML.)
      */
     text_escape?: boolean;
+    /**
+    * Support for PNotifyconfirm options
+    */
+    confirm?: PNotifyconfirm
     /**
      * What styling classes to use. (Can be either "brighttheme", "jqueryui", "bootstrap2", "bootstrap3", "fontawesome" or a custom style object)
      */

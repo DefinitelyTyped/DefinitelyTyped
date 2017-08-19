@@ -51,6 +51,7 @@ client.deleteArchive('ARCHIVE_ID', (err: Error) => {
 const listArchivesOptions: OpenTok.ListArchivesOptions = {
   count: 10,
   offset: 5,
+  sessionId: '9_JY17LWC6LeKsGQ2-DXQlBac32PLwRSI7TV0FKOIDEX0PsmejJOGhrRtAW3PWABpEW3C-cp',
 }
 
 client.listArchives(listArchivesOptions, (err: Error, archives: OpenTok.Archive[], totalCount: number) => {

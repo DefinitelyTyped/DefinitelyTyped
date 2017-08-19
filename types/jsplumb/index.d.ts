@@ -2,6 +2,7 @@
 // Project: http://jsplumb.org
 // Definitions by: Steve Shearn <https://github.com/shearnie/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="jquery"/>
 

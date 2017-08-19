@@ -6,7 +6,9 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
+        "alwaysStrict": true,
+        "strict": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -17,6 +19,10 @@
     },
     "files": [
         "index.d.ts",
+        "v1.d.ts",
+        "v4.d.ts",
+        "v5.d.ts",
+        "interfaces.d.ts",
         "uuid-tests.ts"
     ]
 }

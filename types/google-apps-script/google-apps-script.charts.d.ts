@@ -1,11 +1,11 @@
-// Type definitions for Google Apps Script 2015-11-12
+// Type definitions for Google Apps Script 2017-05-12
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-
-
+/// <reference path="google-apps-script.types.d.ts" />
+/// <reference path="google-apps-script.base.d.ts" />
+/// <reference path="google-apps-script.ui.d.ts" />
 
 declare namespace GoogleAppsScript {
   export module Charts {
@@ -232,7 +232,7 @@ declare namespace GoogleAppsScript {
     /**
      * Chart types supported by the Charts service.
      */
-    export enum ChartType { AREA, BAR, COLUMN, LINE, PIE, SCATTER, TABLE }
+    export enum ChartType { AREA, BAR, COLUMN, COMBO, HISTOGRAM, LINE, PIE, SCATTER, TABLE }
 
     /**
      * Entry point for creating Charts in scripts.
@@ -265,14 +265,14 @@ declare namespace GoogleAppsScript {
      *      }
      */
     export interface Charts {
-      ChartType: ChartType
-      ColumnType: ColumnType
-      CurveStyle: CurveStyle
-      MatchType: MatchType
-      Orientation: Orientation
-      PickerValuesLayout: PickerValuesLayout
-      PointStyle: PointStyle
-      Position: Position
+      ChartType: typeof ChartType;
+      ColumnType: typeof ColumnType;
+      CurveStyle: typeof CurveStyle;
+      MatchType: typeof MatchType;
+      Orientation: typeof Orientation;
+      PickerValuesLayout: typeof PickerValuesLayout;
+      PointStyle: typeof PointStyle;
+      Position: typeof Position;
       newAreaChart(): AreaChartBuilder;
       newBarChart(): BarChartBuilder;
       newCategoryFilter(): CategoryFilterBuilder;
@@ -446,10 +446,10 @@ declare namespace GoogleAppsScript {
      *      }
      */
     export interface DashboardPanel {
-      add(widget: UI.Widget): DashboardPanel;
       getId(): string;
       getType(): string;
       setId(id: string): DashboardPanel;
+      add(widget: UI.Widget): DashboardPanel;
     }
 
     /**
