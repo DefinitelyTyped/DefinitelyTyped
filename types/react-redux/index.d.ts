@@ -148,12 +148,8 @@ interface MapDispatchToPropsFunction<TDispatchProps, TOwnProps> {
     (dispatch: Dispatch<any>, ownProps: TOwnProps): TDispatchProps;
 }
 
-interface MapDispatchToPropsObject {
-    [name: string]: ActionCreator<any>;
-}
-
 type MapDispatchToProps<TDispatchProps, TOwnProps> =
-    MapDispatchToPropsFunction<TDispatchProps, TOwnProps> | MapDispatchToPropsObject;
+    MapDispatchToPropsFunction<TDispatchProps, TOwnProps> | TDispatchProps;
 
 interface MapDispatchToPropsFactory<TDispatchProps, TOwnProps> {
     (dispatch: Dispatch<any>, ownProps: TOwnProps): MapDispatchToProps<TDispatchProps, TOwnProps>;
@@ -180,13 +176,13 @@ interface Options<TStateProps = {}, TOwnProps = {}, TMergedProps = {}> extends C
      * @default strictEqual
      */
     areStatesEqual?: (nextState: any, prevState: any) => boolean;
-    
+
     /**
      * When pure, compares incoming props to its previous value.
      * @default shallowEqual
      */
     areOwnPropsEqual?: (nextOwnProps: TOwnProps, prevOwnProps: TOwnProps) => boolean;
-    
+
     /**
      * When pure, compares the result of mapStateToProps to its previous value.
      * @default shallowEqual
