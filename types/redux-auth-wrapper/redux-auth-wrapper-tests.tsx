@@ -13,9 +13,9 @@ import {
 
 import {
     connectedRouterRedirect,
-    connectedReduxRedirect,
-    locationHelperBuilder
+    connectedReduxRedirect
 } from "redux-auth-wrapper/history4/redirect";
+import locationHelperBuilder from "redux-auth-wrapper/history4/locationHelper";
 
 import { authWrapper } from "redux-auth-wrapper/authWrapper";
 import { connectedAuthWrapper } from "redux-auth-wrapper/connectedAuthWrapper";
