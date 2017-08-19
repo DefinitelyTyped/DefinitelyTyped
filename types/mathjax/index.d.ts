@@ -4,20 +4,15 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // These are slightly preliminary and can use some more strong typing here and there. Please feel free to improve.
-declare var MathJax: MathJax;
-
-interface MathJax {
-    Hub?: MathJax.Hub;
-    Ajax?: MathJax.Ajax;
-    Message?: MathJax.Message;
-    HTML?: MathJax.HTML;
-    Callback?: MathJax.Callback;
-    Localization?: MathJax.Localization;
-    InputJax?: MathJax.InputJax;
-    OutputJax?: MathJax.OutputJax;
-}
-
 declare namespace MathJax {
+    export const Hub: Hub;
+    export const Ajax: Ajax;
+    export const Message: Message;
+    export const HTML: HTML;
+    export const Callback: Callback;
+    export const Localization: Localization;
+    export const InputJax: InputJax;
+    export const OutputJax: OutputJax;
 
     export interface Callback {
         (fn: Function): CallbackObject;
