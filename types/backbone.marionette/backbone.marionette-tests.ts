@@ -292,6 +292,14 @@ function RegionTests() {
 
 }
 
+function ViewTests() {
+    const v = new MyView(new MyModel());
+    const isDestroyed: boolean = v.isDestroyed();
+    const isRendered: boolean = v.isRendered();
+    const isAttached: boolean = v.isAttached();
+    const vv: Marionette.View<Backbone.Model> = v.delegateEntityEvents();
+}
+
 function CollectionViewTests() {
     var cv = new MyCollectionView();
     cv.collection.add(new MyModel());

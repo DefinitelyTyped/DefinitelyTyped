@@ -29,13 +29,14 @@ function validate(decoded: User, request: Hapi.Request, callback: hapiAuthJwt2.V
 }
 
 server.register(hapiAuthJwt2, err => {
-  server.auth.strategy('jwt', 'jwt', <hapiAuthJwt2.Options> {
+  const options: hapiAuthJwt2.Options = {
     key: 'NeverShareYourSecret',
     validateFunc: validate,
     verifyOptions: {
       algorithms: ['HS256']
     }
-  });
+  };
+  server.auth.strategy('jwt', 'jwt', options);
 });
 
 server.start();

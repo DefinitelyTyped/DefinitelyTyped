@@ -1,8 +1,8 @@
 // Type definitions for react-data-grid 2.0
 // Project: https://github.com/adazzle/react-data-grid.git
-// Definitions by: Simon Gellis <https://github.com/SupernaviX>, Kieran Peat <https://github.com/KieranPeat>
+// Definitions by: Simon Gellis <https://github.com/SupernaviX>, Kieran Peat <https://github.com/KieranPeat>, Martin Novak <https://github.com/martinnov92/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 /// <reference types="react" />
 
@@ -425,7 +425,7 @@ declare namespace AdazzleReactDataGrid {
      * Excel-like grid component built with React, with editors, keyboard navigation, copy & paste, and the like
      * http://adazzle.github.io/react-data-grid/
      */
-    export class ReactDataGrid extends React.Component<GridProps, {}> { }
+    export class ReactDataGrid extends React.Component<GridProps> { }
     export namespace ReactDataGrid {
         // Useful types
         export import Column = AdazzleReactDataGrid.Column;
@@ -443,34 +443,43 @@ declare namespace AdazzleReactDataGrid {
         /**
          * A react component that renders a row of the grid
          */
-        export class Row extends React.Component<any, any> { }
+        export class Row extends React.Component<any> { }
         /**
          * A react coponent that renders a cell of the grid
          */
-        export class Cell extends React.Component<any, any> { }
+        export class Cell extends React.Component<any> { }
     }
 }
 
 declare namespace AdazzleReactDataGridPlugins {
     // TODO: refine types for these addons
     export namespace Editors {
-        export class AutoComplete extends React.Component<any, {}> { }
-        export class DropDownEditor extends React.Component<any, {}> { }
-        export class SimpleTextEditor extends React.Component<any, {}> { }
-        export class CheckboxEditor extends React.Component<any, {}> { }
+        export class AutoComplete extends React.Component<any> { }
+        export class DropDownEditor extends React.Component<any> { }
+        export class SimpleTextEditor extends React.Component<any> { }
+        export class CheckboxEditor extends React.Component<any> { }
     }
     export namespace Formatters {
-        export class ImageFormatter extends React.Component<any, {}> { }
-        export class DropDownFormatter extends React.Component<any, {}> { }
+        export class ImageFormatter extends React.Component<any> { }
+        export class DropDownFormatter extends React.Component<any> { }
     }
-    export class Toolbar extends React.Component<any, any> {}
+    export class Toolbar extends React.Component<any> {}
+    export namespace DraggableHeader {
+        export class DraggableContainer extends React.Component<any>{ }
+    }
+    export namespace Data {
+        export const Selectors: {
+            getRows: (state: object) => object[];
+            getSelectedRowsByKey: (state: object) => object[];
+        }
+    }
     // TODO: re-export the react-contextmenu typings once those exist
     // https://github.com/vkbansal/react-contextmenu/issues/10
     export namespace Menu {
-        export class ContextMenu extends React.Component<any, {}> { }
-        export class MenuHeader extends React.Component<any, {}> { }
-        export class MenuItem extends React.Component<any, {}> { }
-        export class SubMenu extends React.Component<any, {}> { }
+        export class ContextMenu extends React.Component<any> { }
+        export class MenuHeader extends React.Component<any> { }
+        export class MenuItem extends React.Component<any> { }
+        export class SubMenu extends React.Component<any> { }
         export const monitor: {
             getItem(): any
             getPosition(): any
@@ -497,13 +506,17 @@ declare module "react-data-grid-addons" {
     import Formatters = Plugins.Formatters;
     import Toolbar = Plugins.Toolbar;
     import Menu = Plugins.Menu;
+    import Data = Plugins.Data;
+    import DraggableHeader = Plugins.DraggableHeader;
 
     // ES6 named exports
     export {
         Editors,
         Formatters,
         Toolbar,
-        Menu
+        Menu,
+        Data,
+        DraggableHeader
     }
 
     // attach to window
@@ -513,7 +526,9 @@ declare module "react-data-grid-addons" {
                 Editors: typeof Editors
                 Formatters: typeof Formatters
                 Toolbar: typeof Toolbar
-                Menu: typeof Menu
+                Menu: typeof Menu,
+                Data: typeof Data,
+                DraggableHeader: typeof DraggableHeader
             }
         }
     }

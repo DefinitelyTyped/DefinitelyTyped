@@ -1,8 +1,8 @@
-// Type definitions for Mongoose 4.7.0
+// Type definitions for Mongoose 4.7.1
 // Project: http://mongoosejs.com/
-// Definitions by: simonxca <https://github.com/simonxca/>, horiuchi <https://github.com/horiuchi/>, sindrenm <https://github.com/sindrenm>
+// Definitions by: simonxca <https://github.com/simonxca/>, horiuchi <https://github.com/horiuchi/>, sindrenm <https://github.com/sindrenm>, lukasz-zak <https://github.com/lukasz-zak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 /// <reference types="mongodb" />
 /// <reference types="node" />
@@ -388,6 +388,9 @@ declare module "mongoose" {
 
     /** sets the underlying driver's promise library (see http://mongodb.github.io/node-mongodb-native/2.1/api/MongoClient.html) */
     promiseLibrary?: any;
+
+    /** See http://mongoosejs.com/docs/connections.html#use-mongo-client **/
+    useMongoClient?: boolean;
   }
 
   interface ConnectionOptions extends
@@ -693,9 +696,11 @@ declare module "mongoose" {
     /** defaults to true */
     bufferCommands?: boolean;
     /** defaults to false */
-    capped?: boolean;
+    capped?: boolean | number | { size?: number; max?: number; autoIndexId?: boolean; };
     /** no default */
     collection?: string;
+    /** defaults to "__t" */
+    discriminatorKey?: string;
     /** defaults to false. */
     emitIndexErrors?: boolean;
     /** defaults to true */
@@ -912,7 +917,8 @@ declare module "mongoose" {
    * section document.js
    * http://mongoosejs.com/docs/api.html#document-js
    */
-  class MongooseDocument implements MongooseDocumentOptionals {
+  interface MongooseDocument extends MongooseDocumentOptionals { }
+  class MongooseDocument {
     /** Checks if a path is set to its default. */
     $isDefault(path?: string): boolean;
 
@@ -1065,7 +1071,7 @@ declare module "mongoose" {
      * @param pathsToValidate only validate the given paths
      * @returns MongooseError if there are errors during validation, or undefined if there is no error.
      */
-    validateSync(pathsToValidate: string | string[]): Error;
+    validateSync(pathsToValidate?: string | string[]): Error;
 
     /** Hash containing current validation errors. */
     errors: Object;
@@ -1415,6 +1421,9 @@ declare module "mongoose" {
     circle(area: Object): this;
     circle(path: string, area: Object): this;
 
+    /** Adds a collation to this op (MongoDB 3.4 and up) */
+    collation(value: CollationOptions): this;
+
     /** Specifies the comment option. Cannot be used with distinct() */
     comment(val: string): this;
 
@@ -1470,33 +1479,33 @@ declare module "mongoose" {
      * @param criteria mongodb selector
      * @param projection optional fields to return
      */
-    findOne(callback?: (err: any, res: DocType) => void): DocumentQuery<DocType, DocType>;
+    findOne(callback?: (err: any, res: DocType | null) => void): DocumentQuery<DocType | null, DocType>;
     findOne(criteria: Object,
-      callback?: (err: any, res: DocType) => void): DocumentQuery<DocType, DocType>;
+      callback?: (err: any, res: DocType | null) => void): DocumentQuery<DocType | null, DocType>;
 
     /**
      * Issues a mongodb findAndModify remove command.
      * Finds a matching document, removes it, passing the found document (if any) to the
      * callback. Executes immediately if callback is passed.
      */
-    findOneAndRemove(callback?: (error: any, doc: DocType, result: any) => void): DocumentQuery<DocType, DocType>;
+    findOneAndRemove(callback?: (error: any, doc: DocType | null, result: any) => void): DocumentQuery<DocType | null, DocType>;
     findOneAndRemove(conditions: Object,
-      callback?: (error: any, doc: DocType, result: any) => void): DocumentQuery<DocType, DocType>;
+      callback?: (error: any, doc: DocType | null, result: any) => void): DocumentQuery<DocType | null, DocType>;
     findOneAndRemove(conditions: Object, options: QueryFindOneAndRemoveOptions,
-      callback?: (error: any, doc: DocType, result: any) => void): DocumentQuery<DocType, DocType>;
+      callback?: (error: any, doc: DocType | null, result: any) => void): DocumentQuery<DocType | null, DocType>;
 
     /**
      * Issues a mongodb findAndModify update command.
      * Finds a matching document, updates it according to the update arg, passing any options, and returns
      * the found document (if any) to the callback. The query executes immediately if callback is passed.
      */
-    findOneAndUpdate(callback?: (err: any, doc: DocType) => void): DocumentQuery<DocType, DocType>;
+    findOneAndUpdate(callback?: (err: any, doc: DocType | null) => void): DocumentQuery<DocType | null, DocType>;
     findOneAndUpdate(update: Object,
-      callback?: (err: any, doc: DocType) => void): DocumentQuery<DocType, DocType>;
+      callback?: (err: any, doc: DocType | null, res: any) => void): DocumentQuery<DocType | null, DocType>;
     findOneAndUpdate(query: Object | Query<any>, update: Object,
-      callback?: (err: any, doc: DocType) => void): DocumentQuery<DocType, DocType>;
+      callback?: (err: any, doc: DocType | null, res: any) => void): DocumentQuery<DocType | null, DocType>;
     findOneAndUpdate(query: Object | Query<any>, update: Object, options: QueryFindOneAndUpdateOptions,
-      callback?: (err: any, doc: DocType) => void): DocumentQuery<DocType, DocType>;
+      callback?: (err: any, doc: DocType | null, res: any) => void): DocumentQuery<DocType | null, DocType>;
 
     /**
      * Specifies a $geometry condition. geometry() must come after either intersects() or within().
@@ -1815,6 +1824,17 @@ declare module "mongoose" {
     context?: string;
   }
 
+  interface CollationOptions {
+    locale?: string;
+    caseLevel?: boolean;
+    caseFirst?: string;
+    strength?: number;
+    numericOrdering?: boolean;
+    alternate?: string;
+    maxVariable?: string;
+    backwards?: boolean;
+  }
+
   namespace Schema {
     namespace Types {
       /*
@@ -2087,6 +2107,9 @@ declare module "mongoose" {
      */
     append(...ops: Object[]): this;
 
+    /** Adds a collation. */
+    collation(options: CollationOptions): this;
+
     /**
      * Sets the cursor option option for the aggregation query (ignored for < 2.6.0).
      * Note the different syntax below: .exec() returns a cursor object, and no callback
@@ -2314,11 +2337,11 @@ declare module "mongoose" {
      * @param projection optional fields to return
      */
     findById(id: Object | string | number,
-      callback?: (err: any, res: T) => void): DocumentQuery<T, T>;
+      callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T>;
     findById(id: Object | string | number, projection: Object,
-      callback?: (err: any, res: T) => void): DocumentQuery<T, T>;
+      callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T>;
     findById(id: Object | string | number, projection: Object, options: Object,
-      callback?: (err: any, res: T) => void): DocumentQuery<T, T>;
+      callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T>;
 
     model(name: string): Model<T>;
 
@@ -2375,9 +2398,9 @@ declare module "mongoose" {
      */
     find(callback?: (err: any, res: T[]) => void): DocumentQuery<T[], T>;
     find(conditions: Object, callback?: (err: any, res: T[]) => void): DocumentQuery<T[], T>;
-    find(conditions: Object, projection: Object,
+    find(conditions: Object, projection?: Object | null,
       callback?: (err: any, res: T[]) => void): DocumentQuery<T[], T>;
-    find(conditions: Object, projection: Object, options: Object,
+    find(conditions: Object, projection?: Object | null, options?: Object | null,
       callback?: (err: any, res: T[]) => void): DocumentQuery<T[], T>;
 
 
@@ -2389,27 +2412,27 @@ declare module "mongoose" {
      * Executes immediately if callback is passed, else a Query object is returned.
      * @param id value of _id to query by
      */
-    findByIdAndRemove(): DocumentQuery<T, T>;
+    findByIdAndRemove(): DocumentQuery<T | null, T>;
     findByIdAndRemove(id: Object | number | string,
-      callback?: (err: any, res: T) => void): DocumentQuery<T, T>;
+      callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T>;
     findByIdAndRemove(id: Object | number | string, options: {
       /** if multiple docs are found by the conditions, sets the sort order to choose which doc to update */
       sort?: Object;
       /** sets the document fields to return */
       select?: Object;
-    }, callback?: (err: any, res: T) => void): DocumentQuery<T, T>;
+    }, callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T>;
 
     /**
      * Issues a mongodb findAndModify update command by a document's _id field. findByIdAndUpdate(id, ...)
      * is equivalent to findOneAndUpdate({ _id: id }, ...).
      * @param id value of _id to query by
      */
-    findByIdAndUpdate(): DocumentQuery<T, T>;
+    findByIdAndUpdate(): DocumentQuery<T | null, T>;
     findByIdAndUpdate(id: Object | number | string, update: Object,
-      callback?: (err: any, res: T) => void): DocumentQuery<T, T>;
+      callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T>;
     findByIdAndUpdate(id: Object | number | string, update: Object,
       options: ModelFindByIdAndUpdateOptions,
-      callback?: (err: any, res: T) => void): DocumentQuery<T, T>;
+      callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T>;
 
     /**
      * Finds one document.
@@ -2417,20 +2440,20 @@ declare module "mongoose" {
      * @param projection optional fields to return
      */
     findOne(conditions?: Object,
-      callback?: (err: any, res: T) => void): DocumentQuery<T, T>;
+      callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T>;
     findOne(conditions: Object, projection: Object,
-      callback?: (err: any, res: T) => void): DocumentQuery<T, T>;
+      callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T>;
     findOne(conditions: Object, projection: Object, options: Object,
-      callback?: (err: any, res: T) => void): DocumentQuery<T, T>;
+      callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T>;
 
     /**
      * Issue a mongodb findAndModify remove command.
      * Finds a matching document, removes it, passing the found document (if any) to the callback.
      * Executes immediately if callback is passed else a Query object is returned.
      */
-    findOneAndRemove(): DocumentQuery<T, T>;
+    findOneAndRemove(): DocumentQuery<T | null, T>;
     findOneAndRemove(conditions: Object,
-      callback?: (err: any, res: T) => void): DocumentQuery<T, T>;
+      callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T>;
     findOneAndRemove(conditions: Object, options: {
       /**
        * if multiple docs are found by the conditions, sets the sort order to choose
@@ -2441,7 +2464,7 @@ declare module "mongoose" {
       maxTimeMS?: number;
       /** sets the document fields to return */
       select?: Object;
-    }, callback?: (err: any, res: T) => void): DocumentQuery<T, T>;
+    }, callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T>;
 
     /**
      * Issues a mongodb findAndModify update command.
@@ -2449,12 +2472,12 @@ declare module "mongoose" {
      * and returns the found document (if any) to the callback. The query executes immediately
      * if callback is passed else a Query object is returned.
      */
-    findOneAndUpdate(): DocumentQuery<T, T>;
+    findOneAndUpdate(): DocumentQuery<T | null, T>;
     findOneAndUpdate(conditions: Object, update: Object,
-      callback?: (err: any, res: T) => void): DocumentQuery<T, T>;
+      callback?: (err: any, doc: T | null, res: any) => void): DocumentQuery<T | null, T>;
     findOneAndUpdate(conditions: Object, update: Object,
       options: ModelFindOneAndUpdateOptions,
-      callback?: (err: any, res: T) => void): DocumentQuery<T, T>;
+      callback?: (err: any, doc: T | null, res: any) => void): DocumentQuery<T | null, T>;
 
     /**
      * geoNear support for Mongoose

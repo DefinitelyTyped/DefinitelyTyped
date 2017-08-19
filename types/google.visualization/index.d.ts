@@ -1,6 +1,6 @@
 // Type definitions for Google Visualisation Apis
 // Project: https://developers.google.com/chart/
-// Definitions by: Dan Ludwig <https://github.com/danludwig>, Gregory Moore <https://github.com/gmoore-sjcorg>, Dan Manastireanu <https://github.com/danmana>, Michael Cheng <https://github.com/mlcheng>
+// Definitions by: Dan Ludwig <https://github.com/danludwig>, Gregory Moore <https://github.com/gmoore-sjcorg>, Dan Manastireanu <https://github.com/danmana>, Michael Cheng <https://github.com/mlcheng>, Ivan Bisultanov <https://github.com/IvanBisultanov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace google {
@@ -412,6 +412,8 @@ declare namespace google {
         export interface ChartArea {
             top?: any;
             left?: any;
+            right?: any;
+            bottom?: any;
             width?: any;
             height?: any;
         }
@@ -536,8 +538,7 @@ declare namespace google {
 
         // https://google-developers.appspot.com/chart/interactive/docs/gallery/scatterchart
         export class ScatterChart extends CoreChartBase {
-            draw(data: DataTable, options?: ScatterChartOptions): void;
-            draw(data: DataView, options?: ScatterChartOptions): void;
+            draw(data: DataTable | DataView, options?: ScatterChartOptions): void;
         }
 
         export interface ScatterChartOptions {
@@ -558,7 +559,7 @@ declare namespace google {
             forceIFrame?: boolean;
             hAxis?: ChartAxis;
             height?: number;
-            legend?: ChartLegend;
+            legend?: ChartLegend | "none";
             lineWidth?: number;
             pointSize?: number;
             selectionMode?: string;
@@ -1083,8 +1084,7 @@ declare namespace google {
 
         // https://google-developers.appspot.com/chart/interactive/docs/gallery/candlestickchart
         export class CandlestickChart extends CoreChartBase {
-            draw(data: DataTable, options: CandlestickChartOptions): void;
-            draw(data: DataView, options: CandlestickChartOptions): void;
+            draw(data: DataTable | DataView, options: CandlestickChartOptions): void;
         }
 
         // https://google-developers.appspot.com/chart/interactive/docs/gallery/candlestickchart#Configuration_Options
@@ -1103,7 +1103,7 @@ declare namespace google {
             fontName?: string;
             hAxis?: ChartAxis;
             height?: number;
-            legend?: ChartLegend;
+            legend?: ChartLegend | "none";
             orientation?: string;
             reverseCategories?: boolean;
             selectionMode?: string // single / multiple

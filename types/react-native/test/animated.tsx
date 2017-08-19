@@ -13,7 +13,7 @@ function TestAnimatedAPI() {
   v1.setValue(0.1);
 
   v1.addListener(e => {
-    let n: number = e.value;
+    const n: number = e.value;
   });
 
   const v200 = v1.interpolate({
@@ -59,6 +59,7 @@ function TestAnimatedAPI() {
   });
 
   Animated.add(v1, v2);
+  Animated.divide(v1, v2);
   Animated.multiply(v1, v2);
   Animated.modulo(v1, 2);
 

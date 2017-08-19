@@ -32,7 +32,7 @@ asyncblock((flow) => {
     //Wait for a large number of tasks
     for(var i = 0; i < 100; i++){
         //Add each task in parallel with i as the key
-        fs.readFile(paths[i], 'utf8', flow.add(i));                                    
+        fs.readFile(paths[i], 'utf8', flow.add(i));
     }
 
     //Wait for all the tasks to finish. Results is an object of the form {key1: value1, key2: value2, ...}
@@ -76,7 +76,7 @@ asyncblock.nostack((flow) => {
     fs.readFile('path2', 'utf8', flow.add('second'));
 
     //Wait until done reading the first and second files, then write them to another file
-    fs.writeFile('path3', flow.wait<string>('first') + flow.wait<string>('second'), flow.add()); 
+    fs.writeFile('path3', flow.wait<string>('first') + flow.wait<string>('second'), flow.add());
     flow.wait(); //Wait on all outstanding tasks
 
     fs.readFile('path3', 'utf8', flow.add('data'));

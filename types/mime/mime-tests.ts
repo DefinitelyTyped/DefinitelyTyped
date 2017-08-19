@@ -1,10 +1,10 @@
-
 import * as mime from "mime";
 
-var str: string;
-var obj: Object;
+let str: string;
+const obj: {} = {};
+const fallback = '';
 
-str = mime.lookup(str);
+str = mime.lookup(str, fallback);
 str = mime.extension(str);
 mime.load(str);
 mime.define(obj);

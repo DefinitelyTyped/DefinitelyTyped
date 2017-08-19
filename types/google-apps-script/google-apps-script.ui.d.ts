@@ -1,9 +1,9 @@
-// Type definitions for Google Apps Script 2015-11-12
+// Type definitions for Google Apps Script 2017-05-12
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
+/// <reference path="google-apps-script.types.d.ts" />
 
 declare namespace GoogleAppsScript {
   export module UI {
@@ -3263,13 +3263,13 @@ declare namespace GoogleAppsScript {
      *
      *      deprecated on December 11, 2014. To create user interfaces, use the
      *      HTML service instead.
-     * Create user interfaces for use inside Google Apps or as standalone services.
+     * Create user interfaces for use inside G Suite or as standalone services.
      */
     export interface UiApp {
-      DateTimeFormat: DateTimeFormat
-      FileType: FileType
-      HorizontalAlignment: HorizontalAlignment
-      VerticalAlignment: VerticalAlignment
+      DateTimeFormat: typeof DateTimeFormat;
+      FileType: typeof FileType;
+      HorizontalAlignment: typeof HorizontalAlignment;
+      VerticalAlignment: typeof VerticalAlignment;
       createApplication(): UiInstance;
       getActiveApplication(): UiInstance;
       getUserAgent(): string;

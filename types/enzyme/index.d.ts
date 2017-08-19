@@ -1,16 +1,17 @@
-// Type definitions for Enzyme 2.7
+// Type definitions for Enzyme 2.8
 // Project: https://github.com/airbnb/enzyme
 // Definitions by: Marian Palkus <https://github.com/MarianPalkus>
 //                 Cap3 <http://www.cap3.de>
 //                 Ivo Stratev <https://github.com/NoHomey>
-//                 Tom Crockett <https://github.com/pelotom>
 //                 jwbay <https://github.com/jwbay>
 //                 huhuanming <https://github.com/huhuanming>
+//                 MartynasZilinskas <https://github.com/MartynasZilinskas>
+//                 Torgeir Hovden <https://github.com/thovden>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 /// <reference types="cheerio" />
-import { ReactElement, Component, HTMLAttributes as ReactHTMLAttributes, SVGAttributes as ReactSVGAttributes } from "react";
+import { ReactElement, Component, AllHTMLAttributes as ReactHTMLAttributes, SVGAttributes as ReactSVGAttributes } from "react";
 
 export type HTMLAttributes = ReactHTMLAttributes<{}> & ReactSVGAttributes<{}>;
 
@@ -22,7 +23,7 @@ export class ElementClass extends Component<any, any> {
  * all specified in the implementation. TS chooses the EnzymePropSelector overload and loses the generics
  */
 export interface ComponentClass<Props> {
-    new(props?: Props, context?: any): Component<Props, any>;
+    new (props?: Props, context?: any): Component<Props, any>;
 }
 
 export type StatelessComponent<Props> = (props: Props, context?: any) => JSX.Element;
@@ -42,7 +43,9 @@ export interface EnzymePropSelector {
 }
 export type EnzymeSelector = string | StatelessComponent<any> | ComponentClass<any> | EnzymePropSelector;
 
-export interface CommonWrapper<P, S> {
+export type Intercepter<T> = (intercepter: T) => void;
+
+export interface CommonWrapper<P = {}, S = {}> {
     /**
      * Returns a new wrapper with only the nodes of the current wrapper that, when passed into the provided predicate function, return true.
      * @param predicate
@@ -97,6 +100,7 @@ export interface CommonWrapper<P, S> {
 
     /**
      * Returns whether or not the current node is empty.
+     * @deprecated Use .exists() instead.
      */
     isEmpty(): boolean;
 
@@ -135,6 +139,21 @@ export interface CommonWrapper<P, S> {
     get(index: number): ReactElement<any>;
 
     /**
+     * Returns the wrapper's underlying node.
+     */
+    getNode(): ReactElement<any>;
+
+    /**
+     * Returns the wrapper's underlying nodes.
+     */
+    getNodes(): Array<ReactElement<any>>;
+
+    /**
+     * Returns the outer most DOMComponent of the current wrapper.
+     */
+    getDOMNode(): Element;
+
+    /**
      * Returns a wrapper around the node at a given index of the current wrapper.
      * @param index
      */
@@ -149,6 +168,16 @@ export interface CommonWrapper<P, S> {
      * Reduce the set of matched nodes to the last in the set.
      */
     last(): this;
+
+    /**
+     * Returns a new wrapper with a subset of the nodes of the original wrapper, according to the rules of `Array#slice`.
+     */
+    slice(begin?: number, end?: number): this;
+
+    /**
+     * Taps into the wrapper method chain. Helpful for debugging.
+     */
+    tap(intercepter: Intercepter<this>): this;
 
     /**
      * Returns the state hash for the root node of the wrapper. Optionally pass in a prop name and it will return just that value.
@@ -218,7 +247,6 @@ export interface CommonWrapper<P, S> {
      *
      * NOTE: can only be called on a wrapper instance that is also the root instance.
      * @param props
-     * @param [callback]
      */
     setProps<K extends keyof P>(props: Pick<P, K>): this;
 
@@ -335,14 +363,18 @@ export interface CommonWrapper<P, S> {
      *
      * Note: can only be called on a wrapper of a single node.
      */
-    type(): string | ComponentClass<P> | StatelessComponent<P> ;
+    type(): string | ComponentClass<P> | StatelessComponent<P>;
 
     length: number;
 }
 
-export interface ShallowWrapper<P, S> extends CommonWrapper<P, S> {
+export class ShallowWrapper {
+    constructor(nodes: JSX.Element[] | JSX.Element, root?: ShallowWrapper, options?: ShallowRendererProps);
+}
+
+export interface ShallowWrapper<P = {}, S = {}> extends CommonWrapper<P, S> {
     shallow(options?: ShallowRendererProps): ShallowWrapper<P, S>;
-    unmount(): ShallowWrapper<any, any>;
+    unmount(): this;
 
     /**
      * Find every node in the render tree that matches the provided selector.
@@ -358,8 +390,7 @@ export interface ShallowWrapper<P, S> extends CommonWrapper<P, S> {
      * @param selector The selector to match.
      */
     filter<P2>(component: ComponentClass<P2> | StatelessComponent<P2>): this;
-    filter(props: Partial<P>): this;
-    filter(selector: string): this;
+    filter(selector: Partial<P> | string): this;
 
     /**
      * Finds every node in the render tree that returns true for the provided predicate function.
@@ -421,9 +452,13 @@ export interface ShallowWrapper<P, S> extends CommonWrapper<P, S> {
     parent(): ShallowWrapper<any, any>;
 }
 
-export interface ReactWrapper<P, S> extends CommonWrapper<P, S> {
-    unmount(): ReactWrapper<any, any>;
-    mount(): ReactWrapper<any, any>;
+export class ReactWrapper {
+    constructor(nodes: JSX.Element | JSX.Element[], root?: ReactWrapper, options?: MountRendererProps);
+}
+
+export interface ReactWrapper<P = {}, S = {}> extends CommonWrapper<P, S> {
+    unmount(): this;
+    mount(): this;
 
     /**
      * Returns a wrapper of the node that matches the provided reference name.
@@ -465,8 +500,7 @@ export interface ReactWrapper<P, S> extends CommonWrapper<P, S> {
      * @param selector The selector to match.
      */
     filter<P2>(component: ComponentClass<P2> | StatelessComponent<P2>): this;
-    filter(props: Partial<P>): this;
-    filter(selector: string): this;
+    filter(props: Partial<P> | string): this;
 
     /**
      * Returns a new wrapper with all of the children of the node(s) in the current wrapper. Optionally, a selector
@@ -513,6 +547,20 @@ export interface ReactWrapper<P, S> extends CommonWrapper<P, S> {
      * Returns a wrapper with the direct parent of the node in the current wrapper.
      */
     parent(): ReactWrapper<any, any>;
+
+    /**
+     * A method that sets the props of the root component, and re-renders. Useful for when you are wanting to test
+     * how the component behaves over time with changing props. Calling this, for instance, will call the
+     * componentWillReceiveProps lifecycle method.
+     *
+     * Similar to setState, this method accepts a props object and will merge it in with the already existing props.
+     * Returns itself.
+     *
+     * NOTE: can only be called on a wrapper instance that is also the root instance.
+     * @param props
+     * @param [callback]
+     */
+    setProps<K extends keyof P>(props: Pick<P, K>, callback?: () => void): this;
 }
 
 export interface ShallowRendererProps {

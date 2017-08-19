@@ -1,8 +1,11 @@
 // Type definitions for React (react-dom) 15.5
 // Project: http://facebook.github.io/react/
-// Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>, Microsoft <https://microsoft.com>, MartynasZilinskas <https://github.com/MartynasZilinskas>
+// Definitions by: Asana <https://asana.com>
+//                 AssureSign <http://www.assuresign.com>
+//                 Microsoft <https://microsoft.com>
+//                 MartynasZilinskas <https://github.com/MartynasZilinskas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 export as namespace ReactDOM;
 
@@ -36,7 +39,7 @@ export function render<P>(
     callback?: (component?: Component<P, ComponentState> | Element) => any
 ): Component<P, ComponentState> | Element | void;
 export function render<P>(
-    parentComponent: Component<any, any>,
+    parentComponent: Component<any>,
     element: SFCElement<P>,
     container: Element,
     callback?: () => any
@@ -51,17 +54,17 @@ export function unstable_batchedUpdates<A>(callback: (a: A) => any, a: A): void;
 export function unstable_batchedUpdates(callback: () => any): void;
 
 export function unstable_renderSubtreeIntoContainer<P extends DOMAttributes<T>, T extends Element>(
-    parentComponent: Component<any, any>,
+    parentComponent: Component<any>,
     element: DOMElement<P, T>,
     container: Element,
     callback?: (element: T) => any): T;
 export function unstable_renderSubtreeIntoContainer<P, T extends Component<P, ComponentState>>(
-    parentComponent: Component<any, any>,
+    parentComponent: Component<any>,
     element: CElement<P, T>,
     container: Element,
     callback?: (component: T) => any): T;
 export function unstable_renderSubtreeIntoContainer<P>(
-    parentComponent: Component<any, any>,
+    parentComponent: Component<any>,
     element: ReactElement<P>,
     container: Element,
     callback?: (component?: Component<P, ComponentState> | Element) => any): Component<P, ComponentState> | Element | void;

@@ -1,8 +1,8 @@
 // Test adapted from the ReactDnD chess game tutorial:
 // http://gaearon.github.io/react-dnd/docs-tutorial.html
 
-import React = require("react");
-import ReactDnd = require("react-dnd");
+import * as React from "react";
+import * as ReactDnd from "react-dnd";
 
 var r = React.DOM;
 
@@ -87,7 +87,7 @@ namespace Knight {
         };
     }
 
-    export class Knight extends React.Component<KnightP, {}> {
+    export class Knight extends React.Component<KnightP> {
         static defaultProps: KnightP;
 
         static create = React.createFactory(Knight);
@@ -123,7 +123,7 @@ namespace Square {
         black: boolean;
     }
 
-    export class Square extends React.Component<SquareP, {}> {
+    export class Square extends React.Component<SquareP> {
         render() {
             var fill = this.props.black ? 'black' : 'white';
             return r.div({
@@ -162,7 +162,7 @@ namespace BoardSquare {
         };
     }
 
-    export class BoardSquare extends React.Component<BoardSquareP, {}> {
+    export class BoardSquare extends React.Component<BoardSquareP> {
         static defaultProps: BoardSquareP;
 
         private _renderOverlay = (color: string) => {
@@ -225,7 +225,7 @@ namespace CustomDragLayer {
         };
     }
 
-    export class CustomDragLayer extends React.Component<CustomDragLayerP, {}> {
+    export class CustomDragLayer extends React.Component<CustomDragLayerP> {
         render() {
             return r.div(null, this.props.isDragging ? this.props.item : null);
         }
@@ -244,7 +244,7 @@ namespace Board {
         knightPosition: number[];
     }
 
-    export class Board extends React.Component<BoardP, {}> {
+    export class Board extends React.Component<BoardP> {
         private _renderPiece = (x: number, y: number) => {
             var knightX = this.props.knightPosition[0];
             var knightY = this.props.knightPosition[1];

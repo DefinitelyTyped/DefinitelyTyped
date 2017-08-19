@@ -5,4 +5,4 @@ export interface HueProps extends CustomPickerProps<Hue> {
     direction?: "horizontal" | "vertical";
 }
 
-export default class Hue extends Component<HueProps, any> {}
+export default class Hue extends Component<HueProps> {}

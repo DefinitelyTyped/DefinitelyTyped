@@ -80,7 +80,7 @@ function bookmarksExample() {
                             'Add': function () {
                                 chrome.bookmarks.create({
                                     parentId: bookmarkNode.id,
-                                    title: $('#title').val(), url: $('#url').val()
+                                    title: $('#title').val() as string, url: $('#url').val() as string
                                 });
                                 $('#bookmarks').empty();
                                 $(this).dialog('destroy');
@@ -100,9 +100,9 @@ function bookmarksExample() {
                         show: 'slide', buttons: {
                             'Save': function () {
                                 chrome.bookmarks.update(String(bookmarkNode.id), {
-                                    title: edit.val()
+                                    title: edit.val() as string
                                 });
-                                anchor.text(edit.val());
+                                anchor.text(edit.val() as string);
                                 options.show();
                                 $(this).dialog('destroy');
                             },

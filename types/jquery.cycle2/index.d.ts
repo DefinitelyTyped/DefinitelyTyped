@@ -3,6 +3,7 @@
 //          https://github.com/malsup/cycle2
 // Definitions by: Donny Nadolny <https://github.com/dnadolny/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 
 /// <reference types="jquery"/>

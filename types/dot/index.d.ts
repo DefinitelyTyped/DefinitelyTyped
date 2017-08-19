@@ -8,8 +8,8 @@ export as namespace doT;
 /** Version number */
 export const version: string;
 
-/** Default template settings */
-export const templateSettings: TemplateSettings;
+/** Template settings */
+export let templateSettings: TemplateSettings;
 
 export type RenderFunction = (...args: any[]) => string;
 

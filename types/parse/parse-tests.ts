@@ -37,7 +37,9 @@ function test_object() {
 
     var game = new Game();
 
-    game.fetch((g: Game) => {});
+    game.fetch({
+        success(g: Game) {}
+    });
 
 // Create a new instance of that class.
     var gameScore = new GameScore();
@@ -56,6 +58,8 @@ function test_object() {
     gameScore.addUnique("skills", "kungfu");
 
     game.set("gameScore", gameScore);
+
+    var gameCopy = Game.fromJSON(JSON.parse(JSON.stringify(game)), true);
 }
 
 function test_query() {
@@ -127,6 +131,14 @@ class TestCollection extends Parse.Collection<Object> {
     }
 }
 
+function return_a_generic_query(): Parse.Query<Game> {
+    return new Parse.Query(Game);
+}
+
+function return_a_query(): Parse.Query {
+    return new Parse.Query(Game);
+}
+
 function test_collections() {
 
     var collection = new TestCollection();
@@ -190,7 +202,7 @@ function test_file() {
         // The file either could n ot be read, or could not be saved to Parse.
     });
 
-    Parse.Cloud.httpRequest({ url: file.url() }).then((response: Parse.Promise<Parse.Cloud.HttpResponse>) => {
+    Parse.Cloud.httpRequest({ url: file.url() }).then((response: Parse.Cloud.HttpResponse) => {
         // result
     });
 

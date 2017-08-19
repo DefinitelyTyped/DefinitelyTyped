@@ -213,6 +213,14 @@ knex('users')
   .join(knex('contacts').select('user_id', 'phone').as('contacts'), 'users.id', 'contacts.user_id')
   .select('users.id', 'contacts.phone');
 
+knex('users')
+  .join(knex('contacts').select('user_id', 'phone').as('contacts'), { 'users.id': 'contacts.user_id' })
+  .select('users.id', 'contacts.phone');
+
+knex.select('*').from('users').join(knex('accounts').select('id', 'owner_id').as('accounts'), function() {
+  this.on('accounts.id', '=', 'users.account_id').orOn('accounts.owner_id', '=', 'users.id')
+});
+
 knex.select('*').from('users').join('accounts', function() {
   this.on('accounts.id', '=', 'users.account_id').orOn('accounts.owner_id', '=', 'users.id')
 });
@@ -299,6 +307,7 @@ knex('books')
   .insert([{title: 'Great Gatsby'}, {title: 'Fahrenheit 451'}]);
 
 knex.batchInsert('books', [{title:'Great Gatsby'}, {title: 'Fahrenheit 451'}], 200);
+knex.queryBuilder().table('books');
 
 knex('books').where('published_date', '<', 2000).update({status: 'archived'});
 knex('books').where('published_date', '<', 2000).update({status: 'archived'}, 'id');
@@ -314,6 +323,29 @@ knex('accounts').where('activated', false).del(['id', 'title']);
 knex('accounts').where('activated', false).delete();
 knex('accounts').where('activated', false).delete('id');
 knex('accounts').where('activated', false).delete(['id', 'title']);
+
+knex.with('old_books', function(qb) {
+  qb.select('*').from('books').where('published_date', '<', 1970);
+}).select('*').from('old_books');
+
+knex.with('new_books', knex.raw('select * from books where published_date >= 2016'))
+  .select('*').from('new_books');
+
+knex.with('new_books', 'select * from books where published_date >= :year', { year: 2016 })
+  .select('*').from('new_books');
+
+knex.with('new_books', 'select * from books where published_date >= ?', [2016])
+  .select('*').from('new_books');
+
+knex.withRaw('recent_books', 'select * from books where published_date >= :year', { year: 2013 })
+  .select('*').from('recent_books');
+
+knex.withRaw('recent_books', knex.raw('select * from books where published_date >= ?', [2013]))
+  .select('*').from('recent_books');
+
+knex.withWrapped("antique_books", function (qb) {
+  qb.select('*').from('books').where('published_date', '<', 1899);
+}).select('*').from('antique_books');
 
 var someExternalMethod: Function;
 
@@ -378,6 +410,18 @@ knex.table('users').first('id', 'name').then(function(row) {
   console.log(row);
 });
 
+knex.table('users').first(knex.raw('round(sum(products)) as p')).then(function(row) {
+  console.log(row);
+});
+
+knex.table('users').select('*').clearSelect().select('id').then(function(rows) {
+  console.log(rows);
+});
+
+knex('accounts').where('userid', '=', 1).clearWhere().select().then(function (rows) {
+  console.log(rows);
+});
+
 // Using trx as a query builder:
 knex.transaction(function(trx) {
 
@@ -411,7 +455,19 @@ knex.transaction(function(trx) {
 // Using trx as a transaction object:
 knex.transaction(function(trx) {
 
-  trx.raw('')
+  trx.raw('');
+
+  trx.on('query-error', function(error: Error) {
+    console.error(error);
+  });
+
+  trx.savepoint(function(nestedTrx) {
+    nestedTrx.rollback(new Error('something went terribly wrong'));
+  });
+
+  trx.transaction(function(nestedTrx) {
+    nestedTrx.commit();
+  });
 
   var info: any;
   var books: any[] = [

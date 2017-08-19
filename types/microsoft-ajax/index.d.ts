@@ -1406,6 +1406,31 @@ declare namespace Sys {
         */
         static nullWebRequest: string;
 
+        /**
+         * @return "'{0}' is not an event."
+         */
+        static undefinedEvent: string;
+
+        /**
+         * @return "Handler must be a function."
+         */
+        static eventHandlerNotFunction: string;
+
+        /**
+         * @return "'{0}' is not a property or an existing field."
+         */
+        static propertyUndefined: string;
+
+        /**
+         * @return "'{0}' is not an Array property."
+         */
+        static propertyNotAnArray: string;
+
+        /**
+         * @return "'{0}' is not a writable property."
+         */
+        static propertyNotWritable: string;
+
         //#endregion
     }
 

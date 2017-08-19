@@ -87,7 +87,7 @@ export interface PolynomialEasingFactory {
      *
      * @param e Exponent for polynomial easing.
      */
-     exponent(e: number): PolynomialEasingFactory;
+    exponent(e: number): PolynomialEasingFactory;
 }
 
 /**
@@ -240,7 +240,7 @@ export interface BackEasingFactory {
      *
      * @param s Overshoot parameter
      */
-     overshoot(s: number): BackEasingFactory;
+    overshoot(s: number): BackEasingFactory;
 }
 
 /**
@@ -282,14 +282,14 @@ export interface ElasticEasingFactory {
      *
      * @param a Amplitude for elastic easing.
      */
-     amplitude(a: number): ElasticEasingFactory;
-     /**
-      * Returns a new elastic easing with the specified amplitude a.
-      * Defaults to 0.3,if not specified.
-      *
-      * @param p Period for elastic easing.
-      */
-     period(p: number): ElasticEasingFactory;
+    amplitude(a: number): ElasticEasingFactory;
+    /**
+     * Returns a new elastic easing with the specified amplitude a.
+     * Defaults to 0.3,if not specified.
+     *
+     * @param p Period for elastic easing.
+     */
+    period(p: number): ElasticEasingFactory;
 }
 
 /**

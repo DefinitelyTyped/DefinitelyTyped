@@ -1,4 +1,5 @@
 import * as fetchMock from "fetch-mock";
+import { MockResponse } from "fetch-mock";
 
 fetchMock.mock("http://test.com", 200);
 fetchMock.mock(/test\.com/, 200);
@@ -60,3 +61,11 @@ fetchMock
 fetchMock
   .mock("http://test.com", 200)
   .spy();
+
+const myMatcher: fetchMock.MockMatcherFunction = (
+  url: string,
+  opts: fetchMock.MockRequest
+) => true;
+
+fetchMock.flush().then(resolved => resolved.forEach(console.log));
+fetchMock.flush().catch(r => r);

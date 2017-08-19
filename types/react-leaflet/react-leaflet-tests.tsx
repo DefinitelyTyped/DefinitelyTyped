@@ -249,7 +249,7 @@ export class DraggableExample extends Component<undefined, DraggableExampleState
         const {
             lat,
             lng,
-        } = (this.refs.marker as Marker<MarkerProps, Leaflet.Marker>).leafletElement.getLatLng();
+        } = (this.refs.marker as Marker).leafletElement.getLatLng();
         this.setState({
             marker: { lat, lng },
         });
@@ -298,7 +298,7 @@ export class EventsExample extends Component<undefined, EventsExampleState> {
     };
 
     handleClick = () => {
-        (this.refs.map as Map<MapProps, Leaflet.Map>).leafletElement.locate();
+        (this.refs.map as Map).leafletElement.locate();
     }
 
     handleLocationFound = (e: Leaflet.LocationEvent) => {
@@ -681,18 +681,18 @@ const ZoomControlExample = () => (
 );
 
 // MapControl https://github.com/PaulLeCam/react-leaflet/issues/130
-class CenterControl extends MapControl<MapControlProps, Leaflet.Control> {  // note we're extending MapControl from react-leaflet, not Component from react
+class CenterControl extends MapControl {  // note we're extending MapControl from react-leaflet, not Component from react
     componentWillMount() {
         const centerControl = new L.Control({ position: 'bottomright' });  // see http://leafletjs.com/reference.html#control-positions for other positions
         const jsx = (
             // PUT YOUR JSX FOR THE COMPONENT HERE:
-            <div {...this.props}>
+            <div>
                 {/* add your JSX */}
             </div>
         );
 
         centerControl.onAdd = (map) => {
-            let div = L.DomUtil.create('div', '');
+            const div = L.DomUtil.create('div', '');
             ReactDOM.render(jsx, div);
             return div;
         };
@@ -709,17 +709,17 @@ const CenterControlExample = () => (
     </Map>
 );
 
-class LegendControl extends MapControl<MapControlProps & { className?: string }, Leaflet.Control> {
+class LegendControl extends MapControl<MapControlProps & { className?: string }> {
     componentWillMount() {
         const legend = new L.Control({ position: 'bottomright' });
         const jsx = (
-            <div {...this.props}>
+            <div>
                 {this.props.children}
             </div>
         );
 
         legend.onAdd = (map) => {
-            let div = L.DomUtil.create('div', '');
+            const div = L.DomUtil.create('div', '');
             ReactDOM.render(jsx, div);
             return div;
         };

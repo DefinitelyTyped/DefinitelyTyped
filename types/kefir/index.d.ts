@@ -68,14 +68,15 @@ export interface Stream<T, S> extends Observable<T, S> {
     delay(wait: number): Stream<T, S>;
     throttle(wait: number, options?: { leading?: boolean, trailing?: boolean }): Stream<T, S>;
     debounce(wait: number, options?: { immediate: boolean }): Stream<T, S>;
-    valuesToErrors<U>(handler?: (value: T) => { convert: boolean, error: U }): Stream<void, S | U>;
-    errorsToValues<U>(handler?: (error: S) => { convert: boolean, value: U }): Stream<T | U, void>;
+    valuesToErrors(): Stream<never, S | T>;
+    valuesToErrors<U>(handler: (value: T) => { convert: boolean, error: U }): Stream<never, S | U>;
+    errorsToValues<U>(handler?: (error: S) => { convert: boolean, value: U }): Stream<T | U, never>;
     mapErrors<U>(fn: (error: S) => U): Stream<T, U>;
     filterErrors(predicate?: (error: S) => boolean): Stream<T, S>;
     endOnError(): Stream<T, S>;
     takeErrors(n: number): Stream<T, S>;
-    ignoreValues(): Stream<void, S>;
-    ignoreErrors(): Stream<T, void>;
+    ignoreValues(): Stream<never, S>;
+    ignoreErrors(): Stream<T, never>;
     ignoreEnd(): Stream<T, S>;
     beforeEnd<U>(fn: () => U): Stream<T | U, S>;
     slidingWindow(max: number, mix?: number): Stream<T[], S>;
@@ -124,14 +125,14 @@ export interface Property<T, S> extends Observable<T, S> {
     delay(wait: number): Property<T, S>;
     throttle(wait: number, options?: { leading?: boolean, trailing?: boolean }): Property<T, S>;
     debounce(wait: number, options?: { immediate: boolean }): Property<T, S>;
-    valuesToErrors<U>(handler?: (value: T) => { convert: boolean, error: U }): Property<void, S | U>;
-    errorsToValues<U>(handler?: (error: S) => { convert: boolean, value: U }): Property<T | U, void>;
+    valuesToErrors<U>(handler?: (value: T) => { convert: boolean, error: U }): Property<never, S | U>;
+    errorsToValues<U>(handler?: (error: S) => { convert: boolean, value: U }): Property<T | U, never>;
     mapErrors<U>(fn: (error: S) => U): Property<T, U>;
     filterErrors(predicate?: (error: S) => boolean): Property<T, S>;
     endOnError(): Property<T, S>;
     takeErrors(n: number): Stream<T, S>;
-    ignoreValues(): Property<void, S>;
-    ignoreErrors(): Property<T, void>;
+    ignoreValues(): Property<never, S>;
+    ignoreErrors(): Property<T, never>;
     ignoreEnd(): Property<T, S>;
     beforeEnd<U>(fn: () => U): Property<T | U, S>;
     slidingWindow(max: number, mix?: number): Property<T[], S>;
@@ -181,21 +182,21 @@ export interface Emitter<T, S> {
 }
 
 // Create a stream
-export declare function never(): Stream<void, void>;
-export declare function later<T>(wait: number, value: T): Stream<T, void>;
-export declare function interval<T>(interval: number, value: T): Stream<T, void>;
-export declare function sequentially<T>(interval: number, values: T[]): Stream<T, void>;
-export declare function fromPoll<T>(interval: number, fn: () => T): Stream<T, void>;
+export declare function never(): Stream<never, never>;
+export declare function later<T>(wait: number, value: T): Stream<T, never>;
+export declare function interval<T>(interval: number, value: T): Stream<T, never>;
+export declare function sequentially<T>(interval: number, values: T[]): Stream<T, never>;
+export declare function fromPoll<T>(interval: number, fn: () => T): Stream<T, never>;
 export declare function withInterval<T, S>(interval: number, handler: (emitter: Emitter<T, S>) => void): Stream<T, S>;
-export declare function fromCallback<T>(fn: (callback: (value: T) => void) => void): Stream<T, void>;
+export declare function fromCallback<T>(fn: (callback: (value: T) => void) => void): Stream<T, never>;
 export declare function fromNodeCallback<T, S>(fn: (callback: (error: S, result: T) => void) => void): Stream<T, S>;
 export declare function fromEvents<T, S>(target: EventTarget | NodeJS.EventEmitter | { on: Function, off: Function }, eventName: string, transform?: (value: T) => S): Stream<T, S>;
 export declare function stream<T, S>(subscribe: (emitter: Emitter<T, S>) => Function | void): Stream<T, S>;
 export declare function fromESObservable<T, S>(observable: any): Stream<T, S>
 
 // Create a property
-export declare function constant<T>(value: T): Property<T, void>;
-export declare function constantError<T>(error: T): Property<void, T>;
+export declare function constant<T>(value: T): Property<T, never>;
+export declare function constantError<T>(error: T): Property<never, T>;
 export declare function fromPromise<T, S>(promise: any): Property<T, S>;
 
 // Combine observables

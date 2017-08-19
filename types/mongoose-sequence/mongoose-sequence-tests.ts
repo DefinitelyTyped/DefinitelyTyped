@@ -21,7 +21,7 @@ const UserSchema: SequenceSchema = new Schema({
     country: String,
     city: String,
     inhabitant_number: Number
-});
+}) as SequenceSchema;
 
 let seqOpts: SequenceOptions = { id: 'inhabitant_seq', inc_field: 'inhabitant_number', reference_fields: ['country', 'city'] };
 UserSchema.plugin(mongooseSequence, seqOpts);

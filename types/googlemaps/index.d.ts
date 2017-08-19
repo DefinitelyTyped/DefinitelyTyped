@@ -1,6 +1,6 @@
 // Type definitions for Google Maps JavaScript API 3.26
 // Project: https://developers.google.com/maps/
-// Definitions by: Folia A/S <http://www.folia.dk>, Chris Wrench <https://github.com/cgwrench>, Kiarash Ghiaseddin <https://github.com/Silver-Connection/DefinitelyTyped>,  Grant Hutchins <https://github.com/nertzy>, Denis Atyasov <https://github.com/xaolas>, Michael McMullin <https://github.com/mrmcnerd>
+// Definitions by: Folia A/S <http://www.folia.dk>, Chris Wrench <https://github.com/cgwrench>, Kiarash Ghiaseddin <https://github.com/Silver-Connection/DefinitelyTyped>,  Grant Hutchins <https://github.com/nertzy>, Denis Atyasov <https://github.com/xaolas>, Michael McMullin <https://github.com/mrmcnerd>, Martin Costello <https://github.com/martincostello>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*
@@ -32,7 +32,7 @@ declare namespace google.maps {
     export class Map extends MVCObject {
         constructor(mapDiv: Element|null, opts?: MapOptions);
         fitBounds(bounds: LatLngBounds|LatLngBoundsLiteral): void;
-        getBounds(): LatLngBounds;
+        getBounds(): LatLngBounds|null|undefined;
         getCenter(): LatLng;
         getDiv(): Element;
         getHeading(): number;
@@ -51,10 +51,10 @@ declare namespace google.maps {
         setStreetView(panorama: StreetViewPanorama): void;
         setTilt(tilt: number): void;
         setZoom(zoom: number): void;
-        controls: MVCArray[]; //Array<MVCArray<Node>>
+        controls: MVCArray<Node>[];
         data: Data;
         mapTypes: MapTypeRegistry;
-        overlayMapTypes: MVCArray; // MVCArray<MapType>
+        overlayMapTypes: MVCArray<MapType>;
     }
 
     export interface MapOptions {
@@ -95,6 +95,10 @@ declare namespace google.maps {
         fullscreenControl?: boolean;
         /** The display options for the Fullscreen control. */
         fullscreenControlOptions?: FullscreenControlOptions;
+        /**
+         * This setting controls how gestures on the map are handled.
+         */
+        gestureHandling?: GestureHandlingOptions;
         /**
          * The heading for aerial imagery in degrees measured clockwise from cardinal
          * direction North. Headings are snapped to the nearest available angle for
@@ -250,6 +254,12 @@ declare namespace google.maps {
         opened?: boolean;
     }
 
+    export type GestureHandlingOptions =
+        "cooperative" |
+        "greedy" |
+        "none" |
+        "auto";
+
     /** Options for the rendering of the pan control. */
     export interface PanControlOptions {
         /**
@@ -351,6 +361,8 @@ declare namespace google.maps {
         TOP_RIGHT
     }
 
+    type DrawingMode = 'Point' | 'LineString' | 'Polygon';
+
     /***** Data *****/
     export class Data extends MVCObject {
         constructor(options?: Data.DataOptions);
@@ -359,8 +371,8 @@ declare namespace google.maps {
         contains(feature: Data.Feature): boolean;
         forEach(callback: (feature: Data.Feature) => void): void;
         getControlPosition(): ControlPosition;
-        getControls(): string[];
-        getDrawingMode(): string;
+        getControls(): DrawingMode[];
+        getDrawingMode(): DrawingMode | null;
         getFeatureById(id: number|string): Data.Feature;
         getMap(): Map;
         getStyle(): Data.StylingFunction|Data.StyleOptions;
@@ -369,8 +381,8 @@ declare namespace google.maps {
         remove(feature: Data.Feature): void;
         revertStyle(feature?: Data.Feature): void;
         setControlPosition(controlPosition: ControlPosition): void;
-        setControls(controls: string[]): void;
-        setDrawingMode(drawingMode: string): void;
+        setControls(controls: DrawingMode[] | null): void;
+        setDrawingMode(drawingMode: DrawingMode | null): void;
         setMap(map: Map | null): void;
         setStyle(style: Data.StylingFunction|Data.StyleOptions): void;
         toGeoJson(callback: (feature: Object) => void): void;
@@ -429,6 +441,7 @@ declare namespace google.maps {
 
         export class Geometry {
             getType(): string;
+            forEachLatLng(callback: (latLng: LatLng) => void): void;
         }
 
         export class Point extends Data.Geometry {
@@ -831,13 +844,13 @@ declare namespace google.maps {
         getDraggable(): boolean;
         getEditable(): boolean;
         getMap(): Map;
-        getPath(): MVCArray; // MVCArray<LatLng>
+        getPath(): MVCArray<LatLng>;
         getVisible(): boolean;
         setDraggable(draggable: boolean): void;
         setEditable(editable: boolean): void;
         setMap(map: Map | null): void;
         setOptions(options: PolylineOptions): void;
-        setPath(path: MVCArray|LatLng[]|LatLngLiteral[]): void; // MVCArray<LatLng>|Array<LatLng|LatLngLiteral>
+        setPath(path: MVCArray<LatLng>|LatLng[]|LatLngLiteral[]): void;
         setVisible(visible: boolean): void;
     }
 
@@ -871,7 +884,7 @@ declare namespace google.maps {
          * Note that if you pass a simple array, it will be converted to an MVCArray Inserting or removing LatLngs
          * in the MVCArray will automatically update the polyline on the map.
          */
-        path?: MVCArray|LatLng[]|LatLngLiteral[]; // MVCArray<LatLng>|Array<LatLng|LatLngLiteral>
+        path?: MVCArray<LatLng>|LatLng[]|LatLngLiteral[];
         /** The stroke color. All CSS3 colors are supported except for extended named colors. */
         strokeColor?: string;
         /** The stroke opacity between 0.0 and 1.0. */
@@ -896,20 +909,17 @@ declare namespace google.maps {
         getDraggable(): boolean;
         getEditable(): boolean;
         getMap(): Map;
-        getPath(): MVCArray; // MVCArray<LatLng>
-        getPaths(): MVCArray; // MVCArray<MVCArray<LatLng>>
+        /** Retrieves the first path. */
+        getPath(): MVCArray<LatLng>;
+        /** Retrieves the paths for this polygon. */
+        getPaths(): MVCArray<MVCArray<LatLng>>;
         getVisible(): boolean;
         setDraggable(draggable: boolean): void;
         setEditable(editable: boolean): void;
         setMap(map: Map | null): void;
         setOptions(options: PolygonOptions): void;
-        setPath(path: MVCArray|LatLng[]|LatLngLiteral[]): void;
-        setPaths(paths: MVCArray): void;
-        setPaths(paths: MVCArray[]): void;
-        setPaths(path: LatLng[]): void;
-        setPaths(path: LatLng[][]): void;
-        setPaths(path: LatLngLiteral[]): void;
-        setPaths(path: LatLngLiteral[][]): void;
+        setPath(path: MVCArray<LatLng>|LatLng[]|LatLngLiteral[]): void;
+        setPaths(paths: MVCArray<MVCArray<LatLng>> | MVCArray<LatLng> | LatLng[][] | LatLngLiteral[][] | LatLng[] | LatLngLiteral[]): void;
         setVisible(visible: boolean): void;
     }
 
@@ -950,7 +960,7 @@ declare namespace google.maps {
          * converted into MVCArrays. Inserting or removing LatLngs from the MVCArray
          * will automatically update the polygon on the map.
          */
-        paths?: any[]; // MVCArray<MVCArray<LatLng>>|MVCArray<LatLng>|Array<Array<LatLng|LatLngLiteral>>|Array<LatLng|LatLngLiteral>
+        paths?: MVCArray<MVCArray<LatLng>> | MVCArray<LatLng> | LatLng[][] | LatLngLiteral[][] | LatLng[] | LatLngLiteral[];
         /**
          * The stroke color.
          * All CSS3 colors are supported except for extended named colors.
@@ -1051,7 +1061,7 @@ declare namespace google.maps {
         clickable?: boolean;
         /** If set to true, the user can drag this circle over the map. Defaults to false. */
         draggable?: boolean;
-        /** 
+        /**
          * If set to true, the user can edit this circle by dragging the control points shown at the center and around
          * the circumference of the circle. Defaults to false.
          */
@@ -1156,7 +1166,7 @@ declare namespace google.maps {
 
     export interface GeocoderComponentRestrictions {
         administrativeArea?: string;
-        country?: string;
+        country?: string | string[];
         locality?: string;
         postalCode?: string;
         route?: string;
@@ -1248,7 +1258,7 @@ declare namespace google.maps {
          * Location of destination. This can be specified as either a string to be geocoded, or a LatLng,
          * or a Place. Required.
          */
-        destination?: string|LatLng|Place;
+        destination?: string|LatLng|LatLngLiteral|Place;
         /** Deprecated. Use drivingOptions field instead */
         durationInTraffic?: boolean;
         /**
@@ -1266,7 +1276,7 @@ declare namespace google.maps {
          * Location of origin. This can be specified as either a string to be geocoded, or a LatLng, or a Place.
          * Required.
          */
-        origin?: string|LatLng|Place;
+        origin?: string|LatLng|LatLngLiteral|Place;
         /** Whether or not route alternatives should be provided. Optional. */
         provideRouteAlternatives?: boolean;
         /** Region code used as a bias for geocoding requests. Optional. */
@@ -1307,8 +1317,8 @@ declare namespace google.maps {
     export interface TransitOptions {
         arrivalTime?: Date;
         departureTime?: Date;
-        modes: TransitMode[];
-        routingPreference: TransitRoutePreference;
+        modes?: TransitMode[];
+        routingPreference?: TransitRoutePreference;
     }
 
     export enum TransitMode {
@@ -1329,7 +1339,7 @@ declare namespace google.maps {
 
     export interface DrivingOptions {
         departureTime: Date;
-        trafficModel: TrafficModel
+        trafficModel?: TrafficModel
     }
 
     export enum TrafficModel
@@ -1368,7 +1378,17 @@ declare namespace google.maps {
     }
 
     export interface DirectionsResult {
+        geocoded_waypoints: DirectionsGeocodedWaypoint[];
         routes: DirectionsRoute[];
+    }
+
+    /**
+     * A single geocoded waypoint.
+     */
+    export interface DirectionsGeocodedWaypoint {
+        partial_match: boolean;
+        place_id: string;
+        types: string[];
     }
 
     /**
@@ -1702,64 +1722,51 @@ declare namespace google.maps {
         stylers?: MapTypeStyler[];
     }
 
-    export interface MapTypeStyleFeatureType {
-        administrative?: {
-            country?: string;
-            land_parcel?: string;
-            locality?: string;
-            neighborhood?: string;
-            province?: string;
-        };
-        all?: string;
-        landscape?: {
-            man_made?: string;
-            natural?: {
-              landcover?: string;
-              terrain?: string;
-            };
-        };
-        poi?: {
-            attraction?: string;
-            business?: string;
-            government?: string;
-            medical?: string;
-            park?: string;
-            place_of_worship?: string;
-            school?: string;
-            sports_complex?: string;
-        };
-        road?: {
-            arterial?: string;
-            highway?: {
-                controlled_access?: string;
-            };
-            local?: string;
-        };
-        transit?: {
-            line?: string;
-            station?: {
-                airport?: string;
-                bus?: string;
-                rail?: string;
-            };
-        };
-        water?: string;
-    }
+    export type MapTypeStyleFeatureType =
+      'all' |
+      'administrative' |
+      'administrative.country' |
+      'administrative.land_parcel' |
+      'administrative.locality' |
+      'administrative.neighborhood' |
+      'administrative.province' |
+      'landscape' |
+      'landscape.man_made' |
+      'landscape.natural' |
+      'landscape.natural.landcover' |
+      'landscape.natural.terrain' |
+      'poi' |
+      'poi.attraction' |
+      'poi.business' |
+      'poi.government' |
+      'poi.medical' |
+      'poi.park' |
+      'poi.place_of_worship' |
+      'poi.school' |
+      'poi.sports_complex' |
+      'road' |
+      'road.arterial' |
+      'road.highway' |
+      'road.highway.controlled_access' |
+      'road.local' |
+      'transit' |
+      'transit.line' |
+      'transit.station' |
+      'transit.station.airport' |
+      'transit.station.bus' |
+      'transit.station.rail' |
+      'water';
 
-    export interface MapTypeStyleElementType {
-        all?: string;
-        geometry?: {
-            fill?: string;
-            stroke?: string;
-        };
-        labels?: {
-            icon?: string;
-            text?: {
-                fill?: string;
-                stroke?: string;
-            }
-        };
-    }
+    export type MapTypeStyleElementType =
+      'all' |
+      'geometry' |
+      'geometry.fill' |
+      'geometry.stroke' |
+      'labels' |
+      'labels.icon' |
+      'labels.text' |
+      'labels.text.fill' |
+      'labels.text.stroke';
 
     export interface MapTypeStyler {
         color?: string;
@@ -1930,7 +1937,7 @@ declare namespace google.maps {
     /***** Street View *****/
     export class StreetViewPanorama {
         constructor(container: Element, opts?: StreetViewPanoramaOptions);
-        controls: MVCArray[]; // Array<MVCArray<Node>>
+        controls: MVCArray<Node>[];
         getLinks(): StreetViewLink[];
         getLocation():  StreetViewLocation;
         getMotionTracking(): boolean;
@@ -2115,7 +2122,7 @@ declare namespace google.maps {
     }
 
     /**
-     * This object is returned from various mouse events on the map and overlays, 
+     * This object is returned from various mouse events on the map and overlays,
      * and contains all the fields shown below.
      */
     export interface MouseEvent {
@@ -2216,7 +2223,7 @@ declare namespace google.maps {
         /** Converts to string. */
         toString(): string;
         /**
-         * Returns a string of the form "lat_lo,lng_lo,lat_hi,lng_hi" for this bounds, where "lo" corresponds to the 
+         * Returns a string of the form "lat_lo,lng_lo,lat_hi,lng_hi" for this bounds, where "lo" corresponds to the
          * southwest corner of the bounding box, while "hi" corresponds to the northeast corner of that box.
          */
         toUrlValue(precision?: number): string;
@@ -2282,25 +2289,43 @@ declare namespace google.maps {
         unbindAll(): void;
     }
 
-    export class MVCArray extends MVCObject {
-        constructor(array?: any[]);
+    /** This class extends MVCObject. */
+    export class MVCArray<T> extends MVCObject {
+        /** A mutable MVC Array. */
+        constructor(array?: T[]);
+        /** Removes all elements from the array. */
         clear(): void;
-        forEach(callback: (elem: any, i: number) => void): void;
-        getArray(): any[];
-        getAt(i: number): any;
+        /**
+         * Iterate over each element, calling the provided callback.
+         * The callback is called for each element like: callback(element, index).
+         */
+        forEach(callback: (elem: T, i: number) => void): void;
+        /**
+         * Returns a reference to the underlying Array.
+         * Warning: if the Array is mutated, no events will be fired by this object.
+         */
+        getArray(): T[];
+        /** Returns the element at the specified index. */
+        getAt(i: number): T;
+        /** Returns the number of elements in this array. */
         getLength(): number;
-        insertAt(i: number, elem: any): void;
-        pop(): any;
-        push(elem: any): number;
-        removeAt(i: number): any;
-        setAt(i: number, elem: any): void;
+        /** Inserts an element at the specified index. */
+        insertAt(i: number, elem: T): void;
+        /** Removes the last element of the array and returns that element. */
+        pop(): T;
+        /** Adds one element to the end of the array and returns the new length of the array. */
+        push(elem: T): number;
+        /** Removes an element from the specified index. */
+        removeAt(i: number): T;
+        /** Sets an element at the specified index. */
+        setAt(i: number, elem: T): void;
     }
 
     /***** Geometry Library *****/
     export module geometry {
         export class encoding {
             static decodePath(encodedPath: string): LatLng[];
-            static encodePath(path: any[]): string; // LatLng[]|MVCArray<LatLng>
+            static encodePath(path: LatLng[] | MVCArray<LatLng>): string;
         }
 
         /**
@@ -2314,7 +2339,7 @@ declare namespace google.maps {
              * The radius defaults to the Earth's radius in meters,
              * in which case the area is in square meters.
              */
-            static computeArea(path: any[], radius?: number): number; // LatLng[]|MVCArray<LatLng>
+            static computeArea(path: LatLng[] | MVCArray<LatLng>, radius?: number): number;
             /**
              * Returns the distance, in meters, between two LatLngs.
              * You can optionally specify a custom radius.
@@ -2329,7 +2354,7 @@ declare namespace google.maps {
             /**
              * Returns the length of the given path.
              */
-            static computeLength(path: any[], radius?: number): number; // LatLng[]|MVCArray<LatLng>
+            static computeLength(path: LatLng[] | MVCArray<LatLng>, radius?: number): number;
             /**
              * Returns the LatLng resulting from moving a distance from an origin in the
              * specified heading (expressed in degrees clockwise from north).
@@ -2347,7 +2372,7 @@ declare namespace google.maps {
              * The radius defaults to the Earth's radius in meters, in which case the area is in
              * square meters.
              */
-            static computeSignedArea(loop: any[], radius?: number): number; // LatLng[]|MVCArray<LatLng>
+            static computeSignedArea(loop: LatLng[] | MVCArray<LatLng>, radius?: number): number;
             /**
              * Returns the LatLng which lies the given fraction of the way between the origin
              * LatLng and the destination LatLng.
@@ -2439,6 +2464,7 @@ declare namespace google.maps {
             placeIdOnly?: boolean;
             strictBounds?: boolean;
             types?: string[];
+            type?: string;
         }
 
         export interface AutocompletePrediction {
@@ -2492,7 +2518,7 @@ declare namespace google.maps {
         }
 
         export interface ComponentRestrictions {
-            country: string;
+            country: string|string[];
         }
 
         export interface PlaceAspectRating {
@@ -2682,7 +2708,7 @@ declare namespace google.maps {
              * and the map property of a new polygon is always set to the DrawingManager's map.
              */
             polygonOptions?: PolygonOptions;
-            /** 
+            /**
              * Options to apply to any new polylines created with this DrawingManager. The path property is ignored,
              * and the map property of a new polyline is always set to the DrawingManager's map.
              */
@@ -2713,7 +2739,7 @@ declare namespace google.maps {
          */
         export enum OverlayType {
             /**
-             * Specifies that the DrawingManager creates circles, and that the overlay given in the overlaycomplete 
+             * Specifies that the DrawingManager creates circles, and that the overlay given in the overlaycomplete
              * event is a circle.
              */
             CIRCLE,
@@ -2793,11 +2819,9 @@ declare namespace google.maps {
 
         export class HeatmapLayer extends MVCObject {
             constructor(opts?: HeatmapLayerOptions);
-            getData(): MVCArray;
+            getData<T extends LatLng | WeightedLocation>(): MVCArray<T>;
             getMap(): Map;
-            setData(data: MVCArray): void;
-            setData(data: LatLng[]): void;
-            setData(data: WeightedLocation[]): void;
+            setData(data: MVCArray<LatLng|WeightedLocation> | LatLng[] | WeightedLocation[]): void;
             setMap(map: Map | null): void;
         }
 

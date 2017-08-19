@@ -5689,7 +5689,7 @@ declare module _ {
         * Wrapped type `object`.
         * @see _.pairs
         **/
-        pairs(): _Chain<T>;
+        pairs(): _Chain<T[]>;
 
         /**
         * Wrapped type `object`.

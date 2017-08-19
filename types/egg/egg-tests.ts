@@ -9,10 +9,10 @@ class FooController extends Controller {
 
 // add user controller and service
 declare module 'egg' {
-  interface Controllers {
+  interface IController { // tslint:disable-line
     foo: FooController;
   }
-  interface Services {
+  interface IService { // tslint:disable-line
     foo: FooService;
   }
 }

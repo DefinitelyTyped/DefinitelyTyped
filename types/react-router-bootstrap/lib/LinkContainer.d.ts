@@ -1,7 +1,7 @@
 import { ComponentClass } from "react";
-import { LinkProps } from "react-router-dom";
+import { NavLinkProps } from "react-router-dom";
 
-type LinkContainer = ComponentClass<LinkProps>;
+type LinkContainer = ComponentClass<NavLinkProps>;
 declare const LinkContainer: LinkContainer;
 
 export default LinkContainer;

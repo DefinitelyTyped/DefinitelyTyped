@@ -17,6 +17,12 @@ declare namespace csvtojson {
      * Converter options
      */
     interface ConverterOptions {
+       /**
+        * Whether to construct final json object in memory which will be populated in "end_parsed"
+        * event. Set to false if deal with huge csv data. default: true.
+        */
+        constructResult?: boolean;
+
         /**
          * Delimiter used for seperating columns. Use "auto" if delimiter is unknown in advance,
          * in this case, delimiter will be auto-detected (by best attempt). Use an array to give

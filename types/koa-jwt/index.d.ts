@@ -1,4 +1,4 @@
-// Type definitions for koa-jwt 2.1
+// Type definitions for koa-jwt 3.2
 // Project: https://github.com/koajs/jwt
 // Definitions by: Bruno Krebs <https://github.com/brunokrebs/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -11,9 +11,9 @@ declare function jwt(options: jwt.Options): jwt.Middleware;
 
 declare namespace jwt {
     interface Options {
-        secret: string | Buffer;
+        secret: string | Buffer | SecretProvider;
         key?: string;
-        getToken?(opts: jwt.Options): string;
+        getToken?(opts: Options): string;
         passthrough?: boolean;
         cookie?: string;
         debug?: boolean;
@@ -28,6 +28,14 @@ declare namespace jwt {
     }
 
     type Middleware = Koa.Middleware & {
-        unless(options?: jwt.UnlessOptions): any;
+        unless(options?: UnlessOptions): any;
     };
+
+    type SecretProvider = (header: TokenHeader) => Promise<string>;
+
+    interface TokenHeader {
+      alg: string;
+      kid: string;
+      typ: string;
+    }
 }

@@ -2,12 +2,12 @@
 // Project: https://github.com/sanniassin/react-input-mask
 // Definitions by: Alexandre Paré <https://github.com/apare>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import * as React from "react";
 
 declare namespace reactInputMask {
-    interface ReactInputMaskProps extends React.HTMLAttributes<HTMLInputElement> {
+    interface ReactInputMaskProps extends React.InputHTMLAttributes<HTMLInputElement> {
         /**
          * Mask string. Format characters are:
          * * `9`: `0-9`
@@ -37,8 +37,8 @@ declare namespace reactInputMask {
          */
         alwaysShowMask?: boolean;
     }
-    class ReactInputMask extends React.Component<ReactInputMaskProps, {}> {
+    class ReactInputMask extends React.Component<ReactInputMaskProps> {
     }
 }
 declare var ReactInputMask: typeof reactInputMask.ReactInputMask;
-export = ReactInputMask;
+export default ReactInputMask;

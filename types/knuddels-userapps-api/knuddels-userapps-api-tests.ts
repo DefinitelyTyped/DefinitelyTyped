@@ -1,6 +1,6 @@
 class Server implements App {
 	private usersPlaying: { [nick: string]: number } = {};
-	private isShuttingDown: boolean = false;
+	private isShuttingDown = false;
 
 	private htmlFile: HTMLFile = new HTMLFile('start.html');
 	private appContent: AppContent = AppContent.overlayContent(this.htmlFile, 243, 266);

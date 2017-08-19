@@ -3,7 +3,7 @@
 // Definitions by: Костя Третяк <https://github.com/KostyaTretyak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import {RequestHandler, Server, Request, Response, Route} from 'restify';
+import { RequestHandler, Server, Request, Response, Route } from 'restify';
 import Logger = require('bunyan');
 
 // *************** This module includes the follow pre plugins, which are intended to be used prior to the routing of a request:
@@ -79,17 +79,10 @@ export interface AuditLoggerOptions {
   body?: boolean;
 }
 
-export interface AuditLoggerReturns {
-  req: Request;
-  res: Response;
-  route: Route;
-  err: Error;
-}
-
 /**
  * An audit logger for recording all handled requests
  */
-export function auditLogger(options: AuditLoggerOptions): AuditLoggerReturns;
+export function auditLogger(options: AuditLoggerOptions): (...args: any[]) => void;
 
 /**
  * Authorization header
@@ -395,13 +388,6 @@ export interface MetricsCallbackOptions {
   connectionState: TMetricsCallback;
 }
 
-export interface MetricsReturns {
-  req: Request;
-  res: Response;
-  route: Route;
-  err: Error;
-}
-
 /**
  * Listens to the server's after event and emits information about that request (5.x compatible only).
  *
@@ -412,7 +398,7 @@ export interface MetricsReturns {
  * }));
  * ```
  */
-export function metrics(opts: {server: Server}, callback: (options: MetricsCallback) => any ): MetricsReturns;
+export function metrics(opts: {server: Server}, callback: (options: MetricsCallback) => any ): (...args: any[]) => void;
 
 /**
  * Parse the client's request for an OAUTH2 access tokensTable
