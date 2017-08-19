@@ -271,6 +271,12 @@
             "asOfVersion": "1.1.2"
         },
         {
+            "libraryName": "jpush-react-native",
+            "typingsPackageName": "jpush-react-native",
+            "sourceRepoURL": "https://github.com/jpush/jpush-react-native",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "jquery.ajaxfile",
             "typingsPackageName": "jquery.ajaxfile",
             "sourceRepoURL": "https://github.com/fpellet/jquery.ajaxFile",
