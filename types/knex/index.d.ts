@@ -488,6 +488,7 @@ declare namespace Knex {
             MySqlConnectionConfig | MsSqlConnectionConfig | Sqlite3ConnectionConfig | SocketConnectionConfig;
         pool?: PoolConfig;
         migrations?: MigratorConfig;
+        seeds?: SeedsConfig;
         acquireConnectionTimeout?: number;
         useNullAsDefault?: boolean;
         searchPath?: string;
@@ -618,6 +619,10 @@ declare namespace Knex {
         extension?: string;
         tableName?: string;
         disableTransactions?: boolean;
+    }
+
+    interface SeedsConfig {
+        directory?: string;
     }
 
     interface Migrator {
