@@ -1,8 +1,0 @@
-{ 
-    "extends": "../tslint.json",
-    "rules": {
-        "interface-name": [ false ],
-        "no-internal-module": false,
-        "no-single-declare-module": false
-    }
-}
