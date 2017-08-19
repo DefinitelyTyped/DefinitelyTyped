@@ -1,6 +1,6 @@
-// Type definitions for parse 2.2.20
+// Type definitions for parse 2.2
 // Project: https://parse.com/
-// Definitions by:  Ullisen Media Group <http://ullisenmedia.com>,
+// Definitions by:  Ullisen Media Group <http://ullisenmedia.com>
 //                  David Poetzsch-Heffter <https://github.com/dpoetzsch>
 //                  Cedric Kemp <https://github.com/jaeggerr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
