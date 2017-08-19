@@ -4,27 +4,27 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // These are slightly preliminary and can use some more strong typing here and there. Please feel free to improve.
-declare var MathJax: jax.IMathJax;
+declare var MathJax: MathJax;
 
-declare namespace jax {
+interface MathJax {
+    Hub?: MathJax.Hub;
+    Ajax?: MathJax.Ajax;
+    Message?: MathJax.Message;
+    HTML?: MathJax.HTML;
+    Callback?: MathJax.Callback;
+    Localization?: MathJax.Localization;
+    InputJax?: MathJax.InputJax;
+    OutputJax?: MathJax.OutputJax;
+}
 
-    export interface IMathJax {
-        Hub?: IMathJaxHub;
-        Ajax?: IAjax;
-        Message?: IMessage;
-        HTML?: IHTML;
-        Callback?: ICallback;
-        Localization?: ILocalization;
-        InputJax?: IInputJax;
-        OutputJax?: IOutputJax;
-    }
+declare namespace MathJax {
 
-    export interface ICallback {
-        (fn: Function): ICallbackObject;
-        (fns: Function[]): ICallbackObject;
-        (objs: any[]): ICallbackObject;
-        (obj: any): ICallbackObject;
-        (code: string): ICallbackObject;
+    export interface Callback {
+        (fn: Function): CallbackObject;
+        (fns: Function[]): CallbackObject;
+        (objs: any[]): CallbackObject;
+        (obj: any): CallbackObject;
+        (code: string): CallbackObject;
         /*Waits for the specified time (given in milliseconds) and then performs the callback. It returns the Callback
         * object (or a blank one if none was supplied). The returned callback structure has a timeout property set to
         * the result of the setTimeout() call that was used to perform the wait so that you can cancel the wait, if
@@ -33,36 +33,36 @@ declare namespace jax {
         * Since MathJax.Callback.Delay() returns a callback structure, it can be used in a callback queue to insert a
         * delay between queued commands.
         */
-        Delay(time: number, callback: any): ICallbackObject;
+        Delay(time: number, callback: any): CallbackObject;
         /*Creates a MathJax.CallBack.Queue object and pushes the given callbacks into the queue. See Using Queues for
         * more details about MathJax queues.
         */
-        Queue(...args: any[]): IQueue;
+        Queue(...args: any[]): Queue;
         /*Looks for a named signal, creates it if it doesn’t already exist, and returns the signal object. See Using
         * Signals for more details.
         */
-        Signal(name: string): ISignal;
+        Signal(name: string): Signal;
         /*Calls each callback in the hooks array (or the single hook if it is not an array), passing it the arguments
         * stored in the data array. If reset is true, then the callback’s reset() method will be called before each hook
         * is executed. If any of the hooks returns a Callback object, then it collects those callbacks and returns a new
         * callback that will execute when all the ones returned by the hooks have been completed. Otherwise,
         * MathJax.Callback.ExecuteHooks() returns null.
         */
-        ExecuteHooks(hooks: any[], data: any[], reset: boolean): ICallbackObject;
+        ExecuteHooks(hooks: any[], data: any[], reset: boolean): CallbackObject;
         /*Creates a prioritized list of hooks that are called in order based on their priority (low priority numbers are
         * handled first). This is meant to replace MathJax.Callback.ExecuteHooks() and is used internally for signal
         * callbacks, pre- and post-filters, and other lists of callbacks.
         */
-        Hooks(reset: boolean): IHooks;
+        Hooks(reset: boolean): Hooks;
     }
 
-    export interface IHooks {
-        Add(hook: any, priority: number): ICallbackObject;
-        Remove(hook: ICallbackObject): void;
-        Execute(): ICallbackObject;
+    export interface Hooks {
+        Add(hook: any, priority: number): CallbackObject;
+        Remove(hook: CallbackObject): void;
+        Execute(): CallbackObject;
     }
 
-    export interface IQueue {
+    export interface Queue {
         /*This is non-zero when the queue is waiting for a command to complete, i.e. a command being processed returns a
         * Callback object, indicating that the queue should wait for that action to complete before processing
         * additional commands.
@@ -78,7 +78,7 @@ declare namespace jax {
         * to be executed, but a wait for that callback is queued. The Push() method returns the last callback that was
         * added to the queue (so that it can be used for further synchronization, say as an entry in some other queue).
         */
-        Push(specs: any[]): ICallbackObject;
+        Push(specs: any[]): CallbackObject;
         /*Process the commands in the queue, provided the queue is not waiting for another command to complete. This
         * method is used internally; you should not need to call it yourself.
         */
@@ -106,7 +106,7 @@ declare namespace jax {
         call(): void;
     }
 
-    export interface ISignal {
+    export interface Signal {
         /*The name of the signal. Each signal is named so that various components can access it. The first one to
         * request a particular signal causes it to be created, and other requests for the signal return references
         * to the same object.
@@ -120,7 +120,7 @@ declare namespace jax {
         /*Array of callbacks to the listeners who have expressed interest in hearing about posts to this signal.
         * When a post occurs, the listeners are called, each in turn, passing them the message that was posted.
         */
-        listeners: ICallbackObject[];
+        listeners: CallbackObject[];
         /*Posts a message to all the listeners for the signal. The listener callbacks are called in turn (with the
         * message as an argument), and if any return a Callback object, the posting will be suspended until the callback
         * is executed. In this way, the Post() call can operate asynchronously, and so the callback parameter is used to
@@ -135,8 +135,8 @@ declare namespace jax {
         *
         * Returns the callback object (or a blank callback object if none was provided).
         */
-        Post(message: string): ICallbackObject;
-        Post(message: string, callback: ICallbackObject): ICallbackObject;
+        Post(message: string): CallbackObject;
+        Post(message: string, callback: CallbackObject): CallbackObject;
         /*This causes the history of past messages to be cleared so new listeners will not receive them. Note that since
         * the signal may be operating asynchronously, the Clear() may be queued for later. In this way, the Post() and
         * Clear() operations will be performed in the proper order even when they are delayed. The callback is called
@@ -144,8 +144,8 @@ declare namespace jax {
         *
         * Returns the callback (or a blank callback if none is provided).
         */
-        Clear(): ICallbackObject;
-        Clear(callback: ICallbackObject): ICallbackObject;
+        Clear(): CallbackObject;
+        Clear(callback: CallbackObject): CallbackObject;
         /*This method registers a new listener on the signal. It creates a Callback object from the callback
         * specification, attaches it to the signal, and returns that Callback object. When new messages are posted to
         * the signal, it runs the callback, passing it the message that was posted. If the callback itself returns a
@@ -155,13 +155,13 @@ declare namespace jax {
         * If ignorePast is false or not present, then before Interest() returns, the callback will be called with all
         * the past messages that have been sent to the signal.
         */
-        Interest(callback: ICallbackObject): ICallbackObject;
-        Interest(callback: ICallbackObject, ignorePast: boolean): ICallbackObject;
+        Interest(callback: CallbackObject): CallbackObject;
+        Interest(callback: CallbackObject, ignorePast: boolean): CallbackObject;
         /*This removes a listener from the signal so that no new messages will be sent to it. The callback should be the
         * one returned by the original Interest() call that attached the listener to the signal in the first place.
         * Once removed, the listener will no longer receive messages from the signal.
         */
-        NoInterest(callback: ICallbackObject): void;
+        NoInterest(callback: CallbackObject): void;
         /*This creates a callback that is called whenever the signal posts the given message. This is a little easier
         * than having to write a function that must check the message each time it is called. Although the message here
         * is a string, if a message posted to the signal is an array, then only the first element of that array is used
@@ -170,12 +170,12 @@ declare namespace jax {
         *
         * Returns the Callback object that was produced.
         */
-        MessageHook(message: string, callback: ICallbackObject): ICallbackObject;
+        MessageHook(message: string, callback: CallbackObject): CallbackObject;
         /*Used internally to call the listeners when a particular message is posted to the signal.*/
         ExecuteHook(message: string): void;
     }
 
-    export interface ICallbackObject {
+    export interface CallbackObject {
         /*The function to be called when the callback is executed.*/
         hook: number;
         /*An array containing the arguments to pass to the callback function when it is executed.*/
@@ -193,11 +193,11 @@ declare namespace jax {
         reset(): void;
     }
 
-    export interface IMathJaxHub {
+    export interface Hub {
         /*This holds the configuration parameters for MathJax. Set these values using MathJax.Hub.Config() described
         * below. The options and their default values are given in the Core Options reference page.
         */
-        config?: IMathJaxConfig;
+        config?: Config;
         /*The minimum time (in milliseconds) between updates of the “Processing Math” message. After this amount of time
         * has passed, and after the next equation has finished being processed, MathJax will stop processing momentarily
         * so that the update message can be displayed, and so that the browser can handle user interaction.
@@ -208,14 +208,14 @@ declare namespace jax {
         */
         processUpdateDelay?: number;
         /*The hub processing signal (tied to the MathJax.Hub.Register.MessageHook() method).*/
-        signal?: ISignal;
+        signal?: Signal;
         /*MathJax’s main processing queue. Use MathJax.Hub.Queue() to push callbacks onto this queue.*/
         queue?: any;
         /*The name of the browser as determined by MathJax. It will be one of Firefox, Safari, Chrome, Opera, MSIE,
         * Konqueror, or unkown. This is actually an object with additional properties and methods concerning the
         * browser
         */
-        Browser?: IBrowserInfo;
+        Browser?: BrowserInfo;
         /*An object storing the MIME types associated with the various registered input jax (these are the types of the
         * <script> tags that store the math to be processed by each input jax).
         */
@@ -224,9 +224,9 @@ declare namespace jax {
         * jax.
         */
         outputJax?: any;
-        Register?: IRegister;
+        Register?: Register;
         /*Sets the configuration options (stored in MathJax.Hub.config) to the values stored in the options object.*/
-        Config(config: IMathJaxConfig): void;
+        Config(config: Config): void;
         /*When delayStartupUntil is specified in the configuration file or in the script that loads MathJax.js,
         * MathJax’s startup sequence is delayed until this routine is called.
         */
@@ -318,7 +318,7 @@ declare namespace jax {
         formatError(script: any, error: any): void;
     }
 
-    export interface IRegister {
+    export interface Register {
         /*Used by preprocessors to register themselves with MathJax so that they will be called during the
         * MathJax.Hub.PreProcess() action.
         */
@@ -340,7 +340,7 @@ declare namespace jax {
         LoadHook(file: string, callBack: Function): void;
     }
 
-    export interface IBrowserInfo {
+    export interface BrowserInfo {
         /*The browser version number, e.g., "4.0"*/
         version: string;
 
@@ -380,10 +380,10 @@ declare namespace jax {
         Select(choices: any): void;
     }
 
-    export interface IAjax {
+    export interface Ajax {
         /*Number of milliseconds to wait for a file to load before it is considered to have failed to load.*/
         timeout?: number;
-        STATUS: ISTATUS;
+        STATUS: STATUS;
         /*An object containing the names of the files that have been loaded (or requested) so far.
         * MathJax.Ajax.loaded["file"] will be non-null when the file has been loaded, with the value being the
         * MathJax.Ajax.STATUS value of the load attempt.
@@ -446,14 +446,14 @@ declare namespace jax {
         fileURL(file: string): string;
     }
 
-    export interface ISTATUS {
+    export interface STATUS {
         /*The value used to indicate that a file load has occurred successfully.*/
         OK: string;
         /*The value used to indicate that a file load has caused an error or a timeout to occur.*/
         ERROR: string;
     }
 
-    export interface IMessage {
+    export interface Message {
         /*This sets the message being displayed to the given message string. If n is not null, it represents a message
         * id number and the text is set for that message id, otherwise a new id number is created for this message. If
         * delay is provided, it is the time (in milliseconds) to display the message before it is cleared. If delay is
@@ -483,8 +483,8 @@ declare namespace jax {
         Log(): string;
     }
 
-    export interface IHTML {
-        Cookie?: ICookie;
+    export interface HTML {
+        Cookie?: Cookie;
         /*Creates a DOM element of the given type. If attributes is non-null, it is an object that contains key:value
         * pairs of attributes to set for the newly created element. If contents is non-null, it is an HTML snippet that
         * describes the contents to create for the element.
@@ -506,7 +506,7 @@ declare namespace jax {
         getScript(script: string): string;
     }
 
-    export interface ICookie {
+    export interface Cookie {
         prefix?: string;
         expires?: number;
         /*Creates a MathJax cookie using the MathJax.HTML.Cookie.prefix and the name as the cookie name, and the
@@ -520,7 +520,7 @@ declare namespace jax {
         Get(name: string, obj: any): any;
     }
 
-    export interface IMenuSettings {
+    export interface MenuSettings {
         /*This indicates when typeset mathematics should be zoomed. It can be set to "None", "Hover", "Click", or
         * "Double-Click" to set the zoom trigger.
         */
@@ -555,7 +555,7 @@ declare namespace jax {
         mpMouse?: boolean;
     }
 
-    export interface IErrorSettings {
+    export interface ErrorSettings {
         /*This is an HTML snippet that will be inserted at the location of the mathematics for any formula that causes
         * MathJax to produce an internal error (i.e., an error in the MathJax code itself). See the description of HTML
         * snippets for details on how to represent HTML code in this way.
@@ -567,25 +567,25 @@ declare namespace jax {
         style?: any;
     }
 
-    export interface IMathJaxConfig {
-        MathZoom?: IMathZoom;
-        MathMenu?: IMathMenu;
-        MathEvents?: IMathEvents;
-        FontWarnings?: IFontWarnings;
-        Safe?: ISafe;
-        MatchWebFonts?: IMatchWebFonts;
-        SVG?: ISVGOutputProcessor;
-        MMLorHTML?: IMMLorHTMLConfiguration;
-        NativeMML?: INativeMMLOutputProcessor;
-        "HTML-CSS"?: IHTMLCSSOutputProcessor;
-        CommonHTML?: ICommonHTMLOutputProcessor;
-        AsciiMath?: IAsciiMathInputProcessor;
-        MathML?: IMathMLInputProcessor;
-        TeX?: ITeXInputProcessor;
-        jsMath2jax?: IJSMath2jaxPreprocessor;
-        asciimath2jax?: IAsciimath2jaxPreprocessor;
-        mml2jax?: IMML2jaxPreprocessor;
-        tex2jax?: ITEX2jaxPreprocessor;
+    export interface Config {
+        MathZoom?: MathZoom;
+        MathMenu?: MathMenu;
+        MathEvents?: MathEvents;
+        FontWarnings?: FontWarnings;
+        Safe?: Safe;
+        MatchWebFonts?: MatchWebFonts;
+        SVG?: SVGOutputProcessor;
+        MMLorHTML?: MMLorHTMLConfiguration;
+        NativeMML?: NativeMMLOutputProcessor;
+        "HTML-CSS"?: HTMLCSSOutputProcessor;
+        CommonHTML?: CommonHTMLOutputProcessor;
+        AsciiMath?: AsciiMathInputProcessor;
+        MathML?: MathMLInputProcessor;
+        TeX?: TeXInputProcessor;
+        jsMath2jax?: JSMath2jaxPreprocessor;
+        asciimath2jax?: Asciimath2jaxPreprocessor;
+        mml2jax?: MML2jaxPreprocessor;
+        tex2jax?: TEX2jaxPreprocessor;
         /*A list of input and output jax to initialize at startup. Their main code is loaded only when
          * they are actually used, so it is not inefficient to include jax that may not actually be used on the page.
          * These are found in the MathJax/jax directory.
@@ -710,15 +710,15 @@ declare namespace jax {
          * There are also settings for format, renderer, font, mpContext, and mpMouse, but these are maintained by
          * MathJax and should not be set by the page author.
          */
-        menuSettings?: IMenuSettings;
+        menuSettings?: MenuSettings;
         /*This block contains settings that control how MathJax responds to unexpected errors while processing
          * mathematical equations. Rather than simply crash, MathJax can report an error and go on.
          */
-        errorSettings?: IErrorSettings;
+        errorSettings?: ErrorSettings;
         "v1.0-compatible"?: boolean;
     }
 
-    export interface IMathZoom {
+    export interface MathZoom {
         /*This is a list of CSS declarations for styling the zoomed mathematics. See the definitions in
         * extensions/MathZoom.js for details of what are defined by default. See CSS Style Objects for details on how
         * to specify CSS style in a JavaScript object.
@@ -726,7 +726,7 @@ declare namespace jax {
         styles: any;
     }
 
-    export interface IMathMenu {
+    export interface MathMenu {
         /*This is the hover delay for the display (in milliseconds) for submenus in the contextual menu: when the mouse
         * is over a submenu label for this long, the menu will appear. (The submenu also will appear if you click on its
         * label.)
@@ -785,7 +785,7 @@ declare namespace jax {
         styles?: any;
     }
 
-    export interface IMathEvents {
+    export interface MathEvents {
         /*This value is the time (in milliseconds) that a user must hold the mouse still over a math element before it
         * is considered to be hovering over the math.
         */
@@ -797,7 +797,7 @@ declare namespace jax {
         styles?: any;
     }
 
-    export interface IFontWarnings {
+    export interface FontWarnings {
         /*This sets the CSS styles to be used for the font warning message window. See the extensions/FontWarnings.js
         * file for details of what are set by default. See the CSS style objects for details about how to specify CSS
         * styles via javascript objects.
@@ -811,14 +811,14 @@ declare namespace jax {
         * below in the HTML block, and are referenced using ["name"] within the snippet, where name is the name of one
         * of the snippets defined in the HTML configuration block
         */
-        Message?: IHTMLMessages;
+        Message?: HTMLMessages;
         /*This object defines HTML snippets that are common to more than one message in the Message section above. They
         * can be included in other HTML snippets by by using ["name"] in an HTML snippet, where name refers to the name
         * of the snippet in the HTML block.
         * You can add your own pre-defined HTML snippets to this object, or override the ones that are there with your
         * own text.
         */
-        HTML?: IHTMLSnippets;
+        HTML?: HTMLSnippets;
         /*This is the amount of time to show the FontWarning message, in milliseconds. The default is 12 seconds.
         * Setting this value to zero means that the message will not fade out (the user must close it manually).
         */
@@ -831,7 +831,7 @@ declare namespace jax {
         fadeoutTime?: number;
     }
 
-    export interface IHTMLMessages {
+    export interface HTMLMessages {
         /*The message used for when MathJax uses web-based fonts (rather than local fonts installed on the user’s
         * system).
         */
@@ -846,7 +846,7 @@ declare namespace jax {
         noFonts?: any[];
     }
 
-    export interface IHTMLSnippets {
+    export interface HTMLSnippets {
         /*The HTML for the close box in the FontWarning message.*/
         closeBox?: string;
         /*The HTML for a paragraph suggesting an upgrade to a more modern browser that supports web fonts.*/
@@ -863,13 +863,13 @@ declare namespace jax {
         TeXfonts?: string;
     }
 
-    export interface ISafe {
+    export interface Safe {
         /*This block contains the flags that control what the Safe extension will allow, and what it will block. The
         * flags can be set to "all", "none", or "safe". When set to "all", no filtering is done for these values (this
         * gives MathJax’s default behavior). When set to "none", these values are always filtered out. When set to
         * "safe", then only some values are allowed.
         */
-        allow?: ISafeAllow;
+        allow?: SafeAllow;
         /*This is the minimum font size (in em’s) that the TeX input jax will allow when fontsize is set to "safe" above.
         * The default is the size of \scriptsize. Values less than this are set to this value.
         */
@@ -883,23 +883,23 @@ declare namespace jax {
         * Note that if a protocol doesn’t appear in the list, it is assumed to be false, so technically, javascript need
         * not have been listed, but it is given to make it explicit that it should not be allowed.
         */
-        safeProtocols?: ISafeProtocols;
+        safeProtocols?: SafeProtocols;
         /*This is an object that lists the style properties that can be used in MathML style attributes and the \style
         * and \bbox macros when styles is set to "safe" in the allowed property above.
         * Any style property that doesn’t appear on this list is not allowed to be entered and will be removed (silently)
         * from the style definition.
         */
-        safeStyles?: ISafeStyles;
+        safeStyles?: SafeStyles;
         /*This is an object that lists the TeX extensions that can be loaded via the \require{} macro when require is
         * set to "safe" in the allowed property above.
         * These configuration options give you a lot of control over what actions MathJax is allowed to take. It is also
         * possible override the individual filtering functions in order to customize the filtering even further, should
         * that be needed. See the code for the details of the function names and their definitions.
         */
-        safeRequire?: ISafeRequire;
+        safeRequire?: SafeRequire;
     }
 
-    export interface ISafeAllow {
+    export interface SafeAllow {
         /*When set to "safe" only URL’s with protocols that are listed in the safeProtocols property (see below) are
         * allowed as targets of href attributes or the \href macro. By default, these are http://, https://, and
         * file:// URL’s.
@@ -932,14 +932,14 @@ declare namespace jax {
         fontsize?: string;
     }
 
-    export interface ISafeProtocols {
+    export interface SafeProtocols {
         http?: boolean;
         https?: boolean;
         file?: boolean;
         javascript?: boolean;
     }
 
-    export interface ISafeStyles {
+    export interface SafeStyles {
         color?: boolean;
         backgroundColor?: boolean;
         border?: boolean;
@@ -955,7 +955,7 @@ declare namespace jax {
         outline?: boolean;
     }
 
-    export interface ISafeRequire {
+    export interface SafeRequire {
         action?: boolean;
         amscd?: boolean;
         amsmath?: boolean;
@@ -979,16 +979,16 @@ declare namespace jax {
         verb?: boolean;
     }
 
-    export interface IMatchWebFonts {
+    export interface MatchWebFonts {
         /*This block controls whether to apply font size matching for each output mode.*/
-        matchFor?: IMatchFor;
+        matchFor?: MatchFor;
         /*Initial delay before the first check for web fonts (in milliseconds).*/
         fontCheckDelay?: number;
         /*How long to keep looking for fonts (in milliseconds).*/
         fontCheckTimeout?: number;
     }
 
-    export interface IMatchFor {
+    export interface MatchFor {
         /*Whether to match the font size for the HTML-CSS output.*/
         "HTML-CSS"?: boolean;
         /*Whether to match the font size for the NativeMML output.*/
@@ -997,7 +997,7 @@ declare namespace jax {
         SVG?: boolean;
     }
 
-    export interface ISVGOutputProcessor {
+    export interface SVGOutputProcessor {
         /*The scaling factor (as a percentage) of math with respect to the surrounding text. The SVG output processor
         * tries to match the ex-size of the mathematics with that of the text where it is placed, but you may want to
         * adjust the results using this scaling factor. The user can also adjust this value using the contextual menu
@@ -1055,7 +1055,7 @@ declare namespace jax {
         * with earlier versions of MathJax, only explicit line breaks are performed by default, so you must enable line
         * breaks if you want automatic ones.
         */
-        linebreaks?: ILineBreaks;
+        linebreaks?: LineBreaks;
         /*This is a list of CSS declarations for styling the SVG output. See the definitions in jax/output/SVG/config.js
          * for some examples of what are defined by default. See CSS Style Objects for details on how to specify CSS
          * style in a JavaScript object.
@@ -1065,10 +1065,10 @@ declare namespace jax {
         * #MathJax_Tooltip style setting in jax/output/SVG/config.js, which can be overridden using the styles option
         * above.)
         */
-        tooltip?: IToolTip;
+        tooltip?: ToolTip;
     }
 
-    export interface ILineBreaks {
+    export interface LineBreaks {
         /*This controls the automatic breaking of expressions: when false, only linebreak="newline" is processed; when
         * true, line breaks are inserted automatically in long expressions.
         */
@@ -1082,7 +1082,7 @@ declare namespace jax {
         width?: string;
     }
 
-    export interface IToolTip {
+    export interface ToolTip {
         /*The delay (in milliseconds) before the tooltip is posted after the mouse is moved over the maction element.*/
         delayPost: number;
         /*The delay (in milliseconds) before the tooltop is cleared after the mouse moves out of the maction element.*/
@@ -1093,7 +1093,7 @@ declare namespace jax {
         offsetY: number;
     }
 
-    export interface IMMLorHTMLConfiguration {
+    export interface MMLorHTMLConfiguration {
         /*This lets you set the preferred renderer on a browser-by-browser basis. You set the browser to either "MML" or
          * "HTML" depending on whether you want to use the NativeMML or HTML-CSS output processor. Note that although
          * Opera and Safari do process some MathML natively, their support is not sufficient to handle the more
@@ -1104,10 +1104,10 @@ declare namespace jax {
          * Note that users can still use the MathJax contextual menu to select a different renderer after the default
          * one has been chosen by MMLorHTML.js.
          */
-        prefer?: IBrowserPreference;
+        prefer?: BrowserPreference;
     }
 
-    export interface IBrowserPreference {
+    export interface BrowserPreference {
         MSIE?: string;
         Firefox?: string;
         Safari?: string;
@@ -1116,7 +1116,7 @@ declare namespace jax {
         other?: string;
     }
 
-    export interface INativeMMLOutputProcessor {
+    export interface NativeMMLOutputProcessor {
         /*The scaling factor (as a percentage) of math with respect to the surrounding text. The NativeMML output
         * processor tries to match the ex-size of the mathematics with that of the text where it is placed, but you may
         * want to adjust the results using this scaling factor. The user can also adjust this value using the contextual
@@ -1138,7 +1138,7 @@ declare namespace jax {
         styles?: any;
     }
 
-    export interface IHTMLCSSOutputProcessor {
+    export interface HTMLCSSOutputProcessor {
         /*The scaling factor (as a percentage) of math with respect to the surrounding text. The HTML-CSS output
         * processor tries to match the ex-size of the mathematics with that of the text where it is placed, but you may
         * want to adjust the results using this scaling factor. The user can also adjust this value using the contextual
@@ -1212,7 +1212,7 @@ declare namespace jax {
          * with earlier versions of MathJax, only explicit line breaks are performed by default, so you must enable line
          * breaks if you want automatic ones.
          */
-        linebreaks?: ILineBreaks;
+        linebreaks?: LineBreaks;
         /*This is a list of CSS declarations for styling the SVG output. See the definitions in jax/output/SVG/config.js
          * for some examples of what are defined by default. See CSS Style Objects for details on how to specify CSS
          * style in a JavaScript object.
@@ -1226,10 +1226,10 @@ declare namespace jax {
          * #MathJax_Tooltip style setting in jax/output/SVG/config.js, which can be overridden using the styles option
          * above.)
          */
-        tooltip?: IToolTip;
+        tooltip?: ToolTip;
     }
 
-    export interface ICommonHTMLOutputProcessor {
+    export interface CommonHTMLOutputProcessor {
         /*The scaling factor (as a percentage) of math with respect to the surrounding text. The CommonHTML output
          * processor tries to match the ex-size of the mathematics with that of the text where it is placed, but you may
          * want to adjust the results using this scaling factor. The user can also adjust this value using the contextual
@@ -1249,10 +1249,10 @@ declare namespace jax {
          * compatible with earlier versions of MathJax, only explicit line breaks are performed by default, so you must
          * enable line breaks if you want automatic ones.
          */
-        linebreaks?: ILineBreaks;
+        linebreaks?: LineBreaks;
     }
 
-    export interface IAsciiMathInputProcessor {
+    export interface AsciiMathInputProcessor {
         /*Determines whether operators like summation symbols will have their limits above and below the operators
         * (true) or to their right (false). The former is how they would appear in displayed equations that appear on
         * their own lines, while the latter is better suited to in-line equations so that they don’t interfere with the
@@ -1265,12 +1265,12 @@ declare namespace jax {
         decimal?: string;
     }
 
-    export interface IMathMLInputProcessor {
+    export interface MathMLInputProcessor {
         /*Specifies whether to use TeX spacing or MathML spacing when the HTML-CSS output jax is used.*/
         useMathMLspacing?: boolean;
     }
 
-    export interface ITeXInputProcessor {
+    export interface TeXInputProcessor {
         /*This specifies the side on which \tag{} macros will place the tags. Set it to "left" to place the tags on the
         * left-hand side.
         */
@@ -1283,7 +1283,7 @@ declare namespace jax {
         */
         MultLineWidth?: string;
         /*This object controls the automatic equation numbering and the equation referencing.*/
-        equationNumbers?: IEquationNumbers;
+        equationNumbers?: EquationNumbers;
         /*This lists macros to define before the TeX input processor begins. These are name:value pairs where the name
         * gives the name of the TeX macro to be defined, and value gives the replacement text for the macro. The value
         * can be an array of the form [value,n], where value is the replacement text and n is the number of parameters
@@ -1309,7 +1309,7 @@ declare namespace jax {
         extensions?: string[];
     }
 
-    export interface IEquationNumbers {
+    export interface EquationNumbers {
         /*This controls whether equations are numbered and how. By default it is set to "none" to be compatible with
         * earlier versions of MathJax where auto-numbering was not performed (so pages will not change their
         * appearance). You can change this to "AMS" for equations numbered as the AMSmath package would do, or "all" to
@@ -1335,7 +1335,7 @@ declare namespace jax {
         useLabelIds?: boolean;
     }
 
-    export interface IJSMath2jaxPreprocessor {
+    export interface JSMath2jaxPreprocessor {
         /*This controls whether jsMath2jax inserts MathJax_Preview spans to make a preview available, and what preview
         * to use, when it locates in-line or display mathematics in the page. The default is "TeX", which means use the
         * TeX code as the preview (which will be visible until it is processed by MathJax). Set to "none" to prevent
@@ -1345,7 +1345,7 @@ declare namespace jax {
         preview: any;
     }
 
-    export interface IAsciimath2jaxPreprocessor {
+    export interface Asciimath2jaxPreprocessor {
         /*Array of pairs of strings that are to be used as math delimiters. The first in each pair is the initial
         * delimiter and the second is the terminal delimiter. You can have as many pairs as you want. For example,
         *
@@ -1398,7 +1398,7 @@ declare namespace jax {
         processClass?: string;
     }
 
-    export interface IMML2jaxPreprocessor {
+    export interface MML2jaxPreprocessor {
         /*This controls whether mml2jax inserts MathJax_Preview spans to make a preview available, and what preview to
         * use, when it locates mathematics on the page. Possible values are: "mathml", "alttext", , "altimg", "none",
         * or an HTML snippet.
@@ -1418,7 +1418,7 @@ declare namespace jax {
         preview?: any;
     }
 
-    export interface ITEX2jaxPreprocessor {
+    export interface TEX2jaxPreprocessor {
         /*Array of pairs of strings that are to be used as in-line math delimiters. The first in each pair is the
         * initial delimiter and the second is the terminal delimiter. You can have as many pairs as you want. For
         * example,
@@ -1497,7 +1497,7 @@ declare namespace jax {
         processClass?: string;
     }
 
-    export interface ILocalization {
+    export interface Localization {
         /*The currently selected locale, e.g., "fr". This is set by the setLocale() method, and should not be modified
         * by hand.
         */
@@ -1548,8 +1548,8 @@ declare namespace jax {
         * synchronize actions that require localization with the loading of the needed data so that you are sure that
         * the needed translations are available. See the section on synchonization above for details.
         */
-        loadDomain(domain: string): ICallbackObject;
-        loadDomain(domain: string, callback: ICallbackObject): ICallbackObject;
+        loadDomain(domain: string): CallbackObject;
+        loadDomain(domain: string, callback: CallbackObject): CallbackObject;
         /*This method runs the function fn with error trapping and if an asynchronous file load is performed (for loading
         * localizaton data), reruns the function again after the file loads. This lets you synchronize actions that
         * require localization with the loading of the needed data (see the section on synchronization above for
@@ -1560,7 +1560,7 @@ declare namespace jax {
         Try(spec: any): void;
     }
 
-    export interface IInputJax {
+    export interface InputJax {
         /*The name of the jax.*/
         id: string;
         /*The version number of the jax.*/
@@ -1590,7 +1590,7 @@ declare namespace jax {
         * The translation process should include the creation of an Element Jax that stores the data needed for this
         * element.
         */
-        Translate(script: any, state: any): IElementJax;
+        Translate(script: any, state: any): ElementJax;
         /*This registers the MIME-type associated with this input jax so that MathJax knows to call this input jax when
         * it sees a <script> of that type. An input jax can register more than one type, but it will be responsible for
         * distinguishing elements of the various types from one another.
@@ -1602,7 +1602,7 @@ declare namespace jax {
         needsUpdate(element: any): boolean;
     }
 
-    export interface IOutputJax {
+    export interface OutputJax {
         /*The name of the jax.*/
         id: string;
         /*The version number of the jax.*/
@@ -1643,7 +1643,7 @@ declare namespace jax {
         * maintain information about its processing state, but see preTranslate() above for naming conventions for
         * properties that are added.
         */
-        Translate(script: any, state: any): IElementJax;
+        Translate(script: any, state: any): ElementJax;
         /*This routines is called by MathJax.Hub when the translation of math elements is complete, and can be used by
         * the output processor to finalize any actions that it needs to complete. (For example, making the mathematics
         * visible, or forcing a reflow of the page.)
@@ -1667,12 +1667,12 @@ declare namespace jax {
         * part of its output, and the MathEvents code uses this routine to map back to the jax associated with that
         * output.
         */
-        getJaxFromMath(math: any): IElementJax;
-        Zoom(jax: any, span: any, math: any, Mw: number, Mh: number): IZoomStruct;
+        getJaxFromMath(math: any): ElementJax;
+        Zoom(jax: any, span: any, math: any, Mw: number, Mh: number): ZoomStruct;
     }
 
 
-    export interface IZoomStruct {
+    export interface ZoomStruct {
         /*The vertical offset from the top of the span to the baseline of the mathematics*/
         Y: number;
         /*The width of the original mathematics element*/
@@ -1685,7 +1685,7 @@ declare namespace jax {
         zH: number;
     }
 
-    export interface IElementJax {
+    export interface ElementJax {
         /*The name of the jax.*/
         id: string;
         /*The version number of the jax.*/
@@ -1711,17 +1711,17 @@ declare namespace jax {
         /*Sets the input text for this element to the given text and reprocesses the mathematics. (I.e., updates the
         * equation to the new one given by text). When the processing is complete, the callback, if any, is called.
         */
-        Text(text: string): ICallbackObject;
-        Text(text: string, callback: any): ICallbackObject;
+        Text(text: string): CallbackObject;
+        Text(text: string, callback: any): CallbackObject;
         /*Removes the output and produces it again (for example, if CSS has changed that would alter the spacing of the
         * mathematics). Note that the internal representation isn’t regenerated; only the output is. The callback, if
         * any, is called when the process completes.
         */
-        Rerender(callback: any): ICallbackObject;
+        Rerender(callback: any): CallbackObject;
         /*Removes the output and then retranslates the input into the internal form and reredners the output again. The
         * callback, if any, is called when the process completes.
         */
-        Reprocess(callback: any): ICallbackObject;
+        Reprocess(callback: any): CallbackObject;
         /*Removes the output for this element from the web page (but does not remove the original <script>). The
         * <script> will be considered unprocessed, and the next call to MathJax.hub.Typeset() will re-display it.
         */
