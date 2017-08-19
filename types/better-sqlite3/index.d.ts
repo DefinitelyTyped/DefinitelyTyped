@@ -9,7 +9,7 @@ import * as Integer from 'integer';
 
 interface RunResult {
 	changes: number;
-	lastInsertRowID: number;
+	lastInsertROWID: Integer.IntLike;
 }
 
 declare class Statement {
@@ -48,6 +48,7 @@ interface RegistrationOptions {
 	name?: string;
 	varargs?: boolean;
 	deterministic?: boolean;
+	safeIntegers?: boolean;
 }
 
 interface Database {
