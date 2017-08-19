@@ -183,7 +183,7 @@ cell = cells[0];
 
 site = cell.site;
 
-numArray = cell.halfEdges;
+numArray = cell.halfedges;
 
 // VoronoiSite interface ===============================================
 
