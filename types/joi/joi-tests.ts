@@ -919,6 +919,7 @@ const Joi3 = Joi.extend({
         asd: 'must be exactly asd(f)',
     },
     pre(value, state, options) {
+        return value;
     },
     describe(description) {
         return description;
