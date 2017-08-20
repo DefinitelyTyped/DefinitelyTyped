@@ -903,6 +903,11 @@ export interface Err extends JoiObject {
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
 /**
+ * Current version of the joi package.
+ */
+export const version: string;
+
+/**
  * Generates a schema object that matches any data type.
  */
 export function any(): AnySchema;
