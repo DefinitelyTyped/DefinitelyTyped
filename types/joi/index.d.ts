@@ -50,7 +50,7 @@ export interface ValidationOptions {
     /**
      * sets the default presence requirements. Supported modes: 'optional', 'required', and 'forbidden'. Defaults to 'optional'.
      */
-    presence?: string;
+    presence?: 'optional' | 'required' | 'forbidden';
     /**
      * provides an external data set to be used in references
      */
@@ -372,6 +372,7 @@ export interface Description {
     meta?: any;
     example?: any;
     unit?: string;
+    options?: ValidationOptions;
     [key: string]: any;
 }
 export interface Context {
