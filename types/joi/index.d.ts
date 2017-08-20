@@ -934,8 +934,8 @@ export function string(): StringSchema;
  * Generates a type that will match one of the provided alternative schemas
  */
 export function alternatives(): AlternativesSchema;
-export function alternatives(types: Schema[]): AlternativesSchema;
-export function alternatives(type1: Schema, type2: Schema, ...types: Schema[]): AlternativesSchema;
+export function alternatives(types: SchemaLike[]): AlternativesSchema;
+export function alternatives(...types: SchemaLike[]): AlternativesSchema;
 
 /**
  * Generates a placeholder schema for a schema that you would provide with the fn.
