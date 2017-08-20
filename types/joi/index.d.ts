@@ -171,7 +171,7 @@ export interface ValidationResult<T> {
     value: T;
 }
 
-export type SchemaLike = string | number | boolean | null | Schema | SchemaMap;
+export type SchemaLike = string | number | boolean | object | null | Schema | SchemaMap;
 
 export interface SchemaMap {
     [key: string]: SchemaLike | SchemaLike[];
@@ -873,49 +873,49 @@ export interface Err {
 /**
  * Generates a schema object that matches any data type.
  */
-export declare function any(): Schema;
+export function any(): Schema;
 
 /**
  * Generates a schema object that matches an array data type.
  */
-export declare function array(): ArraySchema;
+export function array(): ArraySchema;
 
 /**
  * Generates a schema object that matches a boolean data type (as well as the strings 'true', 'false', 'yes', and 'no'). Can also be called via bool().
  */
-export declare function bool(): BooleanSchema;
+export function bool(): BooleanSchema;
 
-export declare function boolean(): BooleanSchema;
+export function boolean(): BooleanSchema;
 
 /**
  * Generates a schema object that matches a Buffer data type (as well as the strings which will be converted to Buffers).
  */
-export declare function binary(): BinarySchema;
+export function binary(): BinarySchema;
 
 /**
  * Generates a schema object that matches a date type (as well as a JavaScript date string or number of milliseconds).
  */
-export declare function date(): DateSchema;
+export function date(): DateSchema;
 
 /**
  * Generates a schema object that matches a function type.
  */
-export declare function func(): FunctionSchema;
+export function func(): FunctionSchema;
 
 /**
  * Generates a schema object that matches a number data type (as well as strings that can be converted to numbers).
  */
-export declare function number(): NumberSchema;
+export function number(): NumberSchema;
 
 /**
  * Generates a schema object that matches an object data type (as well as JSON strings that parsed into objects).
  */
-export declare function object(schema?: SchemaLike): ObjectSchema;
+export function object(schema?: SchemaLike): ObjectSchema;
 
 /**
  * Generates a schema object that matches a string data type. Note that empty strings are not allowed by default and must be enabled with allow('').
  */
-export declare function string(): StringSchema;
+export function string(): StringSchema;
 
 /**
  * Generates a type that will match one of the provided alternative schemas
@@ -929,7 +929,7 @@ export function alternatives(type1: Schema, type2: Schema, ...types: Schema[]): 
  * Supports the same methods of the any() type.
  * This is mostly useful for recursive schemas
  */
-export declare function lazy(cb: () => Schema): Schema;
+export function lazy(cb: () => Schema): Schema;
 
 /**
  * Validates a value using the given schema and options.
@@ -987,118 +987,3 @@ export function reach(schema: Schema, path: string): Schema;
  * Creates a new Joi instance customized with the extension(s) you provide included.
  */
 export function extend(extention: Extension): any;
-
-/**
- * Whitelists a value
- */
-export function allow(value: any, ...values: any[]): Schema;
-export function allow(values: any[]): Schema;
-
-/**
- * Adds the provided values into the allowed whitelist and marks them as the only valid values allowed.
- */
-export function valid(value: any, ...values: any[]): Schema;
-export function valid(values: any[]): Schema;
-export function only(value: any, ...values : any[]): Schema;
-export function only(values: any[]): Schema;
-export function equal(value: any, ...values : any[]): Schema;
-export function equal(values: any[]): Schema;
-
-/**
- * Blacklists a value
- */
-export function invalid(value: any, ...values: any[]): Schema;
-export function invalid(values: any[]): Schema;
-export function disallow(value: any, ...values : any[]): Schema;
-export function disallow(values: any[]): Schema;
-export function not(value: any, ...values : any[]): Schema;
-export function not(values: any[]): Schema;
-
-/**
- * Marks a key as required which will not allow undefined as value. All keys are optional by default.
- */
-export function required(): Schema;
-
-/**
- * Marks a key as optional which will allow undefined as values. Used to annotate the schema for readability as all keys are optional by default.
- */
-export function optional(): Schema;
-
-/**
- * Marks a key as forbidden which will not allow any value except undefined. Used to explicitly forbid keys.
- */
-export function forbidden(): Schema;
-
-/**
- * Marks a key to be removed from a resulting object or array after validation. Used to sanitize output.
- */
-export function strip(): Schema;
-
-/**
- * Annotates the key
- */
-export function description(desc: string): Schema;
-
-/**
- * Annotates the key
- */
-export function notes(notes: string): Schema;
-export function notes(notes: string[]): Schema;
-
-/**
- * Annotates the key
- */
-export function tags(notes: string): Schema;
-export function tags(notes: string[]): Schema;
-
-/**
- * Attaches metadata to the key.
- */
-export function meta(meta: Object): Schema;
-
-/**
- * Annotates the key with an example value, must be valid.
- */
-export function example(value: any): Schema;
-
-/**
- * Annotates the key with an unit name.
- */
-export function unit(name: string): Schema;
-
-/**
- * Overrides the global validate() options for the current key and any sub-key.
- */
-export function options(options: ValidationOptions): Schema;
-
-/**
- * Sets the options.convert options to false which prevent type casting for the current key and any child keys.
- */
-export function strict(isStrict?: boolean): Schema;
-
-/**
- * Returns a new type that is the result of adding the rules of one type to another.
- */
-export function concat<T>(schema: T): T;
-
-/**
- * Converts the type into an alternatives type where the conditions are merged into the type definition where:
- */
-export function when(ref: string, options: WhenOptions): AlternativesSchema;
-export function when(ref: Reference, options: WhenOptions): AlternativesSchema;
-
-/**
- * Overrides the key name in error messages.
- */
-export function label(name: string): Schema;
-
-/**
- * Outputs the original untouched value instead of the casted value.
- */
-export function raw(isRaw?: boolean): Schema;
-
-/**
- * Considers anything that matches the schema to be empty (undefined).
- * @param schema - any object or joi schema to match. An undefined schema unsets that rule.
- */
-export function empty(schema?: any) : Schema;
