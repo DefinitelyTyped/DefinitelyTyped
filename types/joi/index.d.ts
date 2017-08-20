@@ -6,7 +6,7 @@
 
 // TODO express type of Schema in a type-parameter (.default, .valid, .example etc)
 
-export type Types = 'any' | 'alternatives' | 'array' | 'string' | 'number' | 'object' | 'boolean' | 'binary' | 'date' | 'function' | 'lazy';
+export type Types = 'any' | 'alternatives' | 'array' | 'boolean' | 'binary' | 'date' | 'function' | 'lazy' | 'number' | 'object' | 'string';
 
 export type LanguageOptions = string | false | null | {
     [key: string]: LanguageOptions;
@@ -185,11 +185,8 @@ export type Schema = AnySchema
     | NumberSchema
     | ObjectSchema
     | StringSchema
+    | LazySchema
     | Reference;
-
-export interface Reference extends AnySchema {
-
-}
 
 export interface AnySchema {
     /**
@@ -203,27 +200,27 @@ export interface AnySchema {
     /**
      * Whitelists a value
      */
-    allow(value: any, ...values: any[]): this;
+    allow(...values: any[]): this;
     allow(values: any[]): this;
 
     /**
      * Adds the provided values into the allowed whitelist and marks them as the only valid values allowed.
      */
-    valid(value: any, ...values: any[]): this;
+    valid(...values: any[]): this;
     valid(values: any[]): this;
-    only(value: any, ...values: any[]): this;
+    only(...values: any[]): this;
     only(values: any[]): this;
-    equal(value: any, ...values: any[]): this;
+    equal(...values: any[]): this;
     equal(values: any[]): this;
 
     /**
      * Blacklists a value
      */
-    invalid(value: any, ...values: any[]): this;
+    invalid(...values: any[]): this;
     invalid(values: any[]): this;
-    disallow(value: any, ...values: any[]): this;
+    disallow(...values: any[]): this;
     disallow(values: any[]): this;
-    not(value: any, ...values: any[]): this;
+    not(...values: any[]): this;
     not(values: any[]): this;
 
     /**
@@ -402,7 +399,7 @@ export interface BooleanSchema extends AnySchema {
      * see boolean.insensitive() to change this behavior.
      * @param values - strings, numbers or arrays of them
      */
-    truthy(...values: Array<string | number | string[] | number[]>): BooleanSchema;
+    truthy(...values: Array<string | number | string[] | number[]>): this;
 
     /**
      * Allows for additional values to be considered valid booleans by converting them to false during validation.
@@ -410,14 +407,14 @@ export interface BooleanSchema extends AnySchema {
      * see boolean.insensitive() to change this behavior.
      * @param values - strings, numbers or arrays of them
      */
-    falsy(...values: Array<string | number | string[] | number[]>): BooleanSchema;
+    falsy(...values: Array<string | number | string[] | number[]>): this;
 
     /**
      * Allows the values provided to truthy and falsy as well as the "true" and "false" default conversion
      * (when not in strict() mode) to be matched in a case insensitive manner.
      * @param enabled
      */
-    insensitive(enabled: boolean): BooleanSchema;
+    insensitive(enabled?: boolean): this;
 }
 
 export interface NumberSchema extends AnySchema {
@@ -425,166 +422,166 @@ export interface NumberSchema extends AnySchema {
      * Specifies the minimum value.
      * It can also be a reference to another field.
      */
-    min(limit: number): NumberSchema;
-    min(limit: Reference): NumberSchema;
+    min(limit: number): this;
+    min(limit: Reference): this;
 
     /**
      * Specifies the maximum value.
      * It can also be a reference to another field.
      */
-    max(limit: number): NumberSchema;
-    max(limit: Reference): NumberSchema;
+    max(limit: number): this;
+    max(limit: Reference): this;
 
     /**
      * Specifies that the value must be greater than limit.
      * It can also be a reference to another field.
      */
-    greater(limit: number): NumberSchema;
-    greater(limit: Reference): NumberSchema;
+    greater(limit: number): this;
+    greater(limit: Reference): this;
 
     /**
      * Specifies that the value must be less than limit.
      * It can also be a reference to another field.
      */
-    less(limit: number): NumberSchema;
-    less(limit: Reference): NumberSchema;
+    less(limit: number): this;
+    less(limit: Reference): this;
 
     /**
      * Requires the number to be an integer (no floating point).
      */
-    integer(): NumberSchema;
+    integer(): this;
 
     /**
      * Specifies the maximum number of decimal places where:
      *  limit - the maximum number of decimal places allowed.
      */
-    precision(limit: number): NumberSchema;
+    precision(limit: number): this;
 
     /**
      * Specifies that the value must be a multiple of base.
      */
-    multiple(base: number): NumberSchema;
+    multiple(base: number): this;
 
     /**
      * Requires the number to be positive.
      */
-    positive(): NumberSchema;
+    positive(): this;
 
     /**
      * Requires the number to be negative.
      */
-    negative(): NumberSchema;
+    negative(): this;
 }
 
 export interface StringSchema extends AnySchema {
     /**
      * Allows the value to match any whitelist of blacklist item in a case insensitive comparison.
      */
-    insensitive(): StringSchema;
+    insensitive(): this;
 
     /**
      * Specifies the minimum number string characters.
      * @param limit - the minimum number of string characters required. It can also be a reference to another field.
      * @param encoding - if specified, the string length is calculated in bytes using the provided encoding.
      */
-    min(limit: number, encoding?: string): StringSchema;
-    min(limit: Reference, encoding?: string): StringSchema;
+    min(limit: number, encoding?: string): this;
+    min(limit: Reference, encoding?: string): this;
 
     /**
      * Specifies the maximum number of string characters.
      * @param limit - the maximum number of string characters allowed. It can also be a reference to another field.
      * @param encoding - if specified, the string length is calculated in bytes using the provided encoding.
      */
-    max(limit: number, encoding?: string): StringSchema;
-    max(limit: Reference, encoding?: string): StringSchema;
+    max(limit: number, encoding?: string): this;
+    max(limit: Reference, encoding?: string): this;
 
     /**
      * Requires the number to be a credit card number (Using Lunh Algorithm).
      */
-    creditCard(): StringSchema;
+    creditCard(): this;
 
     /**
      * Specifies the exact string length required
      * @param limit - the required string length. It can also be a reference to another field.
      * @param encoding - if specified, the string length is calculated in bytes using the provided encoding.
      */
-    length(limit: number, encoding?: string): StringSchema;
-    length(limit: Reference, encoding?: string): StringSchema;
+    length(limit: number, encoding?: string): this;
+    length(limit: Reference, encoding?: string): this;
 
     /**
      * Defines a regular expression rule.
      * @param pattern - a regular expression object the string value must match against.
      * @param name - optional name for patterns (useful with multiple patterns). Defaults to 'required'.
      */
-    regex(pattern: RegExp, name?: string): StringSchema;
+    regex(pattern: RegExp, name?: string): this;
 
     /**
      * Replace characters matching the given pattern with the specified replacement string where:
      * @param pattern - a regular expression object to match against, or a string of which all occurrences will be replaced.
      * @param replacement - the string that will replace the pattern.
      */
-    replace(pattern: RegExp, replacement: string): StringSchema;
-    replace(pattern: string, replacement: string): StringSchema;
+    replace(pattern: RegExp, replacement: string): this;
+    replace(pattern: string, replacement: string): this;
 
     /**
      * Requires the string value to only contain a-z, A-Z, and 0-9.
      */
-    alphanum(): StringSchema;
+    alphanum(): this;
 
     /**
      * Requires the string value to only contain a-z, A-Z, 0-9, and underscore _.
      */
-    token(): StringSchema;
+    token(): this;
 
     /**
      * Requires the string value to be a valid email address.
      */
-    email(options?: EmailOptions): StringSchema;
+    email(options?: EmailOptions): this;
 
     /**
      * Requires the string value to be a valid ip address.
      */
-    ip(options?: IpOptions): StringSchema;
+    ip(options?: IpOptions): this;
 
     /**
      * Requires the string value to be a valid RFC 3986 URI.
      */
-    uri(options?: UriOptions): StringSchema;
+    uri(options?: UriOptions): this;
 
     /**
      * Requires the string value to be a valid GUID.
      */
-    guid(options?: GuidOptions): StringSchema;
+    guid(options?: GuidOptions): this;
 
     /**
      * Requires the string value to be a valid hexadecimal string.
      */
-    hex(): StringSchema;
+    hex(): this;
 
     /**
      * Requires the string value to be a valid hostname as per RFC1123.
      */
-    hostname(): StringSchema;
+    hostname(): this;
 
     /**
      * Requires the string value to be in valid ISO 8601 date format.
      */
-    isoDate(): StringSchema;
+    isoDate(): this;
 
     /**
      * Requires the string value to be all lowercase. If the validation convert option is on (enabled by default), the string will be forced to lowercase.
      */
-    lowercase(): StringSchema;
+    lowercase(): this;
 
     /**
      * Requires the string value to be all uppercase. If the validation convert option is on (enabled by default), the string will be forced to uppercase.
      */
-    uppercase(): StringSchema;
+    uppercase(): this;
 
     /**
      * Requires the string value to contain no whitespace before or after. If the validation convert option is on (enabled by default), the string will be trimmed.
      */
-    trim(): StringSchema;
+    trim(): this;
 }
 
 export interface ArraySchema extends AnySchema {
@@ -592,13 +589,13 @@ export interface ArraySchema extends AnySchema {
      * Allow this array to be sparse.
      * enabled can be used with a falsy value to go back to the default behavior.
      */
-    sparse(enabled?: any): ArraySchema;
+    sparse(enabled?: any): this;
 
     /**
      * Allow single values to be checked against rules as if it were provided as an array.
      * enabled can be used with a falsy value to go back to the default behavior.
      */
-    single(enabled?: any): ArraySchema;
+    single(enabled?: any): this;
 
     /**
      * List the types allowed for the array values.
@@ -611,122 +608,122 @@ export interface ArraySchema extends AnySchema {
      *
      * @param type - a joi schema object to validate each array item against.
      */
-    items(...types: SchemaLike[]): ArraySchema;
-    items(types: SchemaLike[]): ArraySchema;
+    items(...types: SchemaLike[]): this;
+    items(types: SchemaLike[]): this;
 
     /**
      * Lists the types in sequence order for the array values where:
      * @param type - a joi schema object to validate against each array item in sequence order. type can be an array of values, or multiple values can be passed as individual arguments.
      * If a given type is .required() then there must be a matching item with the same index position in the array. Errors will contain the number of items that didn't match. Any unmatched item having a label will be mentioned explicitly.
      */
-    ordered(...types: SchemaLike[]): ArraySchema;
-    ordered(types: SchemaLike[]): ArraySchema;
+    ordered(...types: SchemaLike[]): this;
+    ordered(types: SchemaLike[]): this;
 
     /**
      * Specifies the minimum number of items in the array.
      */
-    min(limit: number): ArraySchema;
+    min(limit: number): this;
 
     /**
      * Specifies the maximum number of items in the array.
      */
-    max(limit: number): ArraySchema;
+    max(limit: number): this;
 
     /**
      * Specifies the exact number of items in the array.
      */
-    length(limit: number): ArraySchema;
+    length(limit: number): this;
 
     /**
      * Requires the array values to be unique.
      * Be aware that a deep equality is performed on elements of the array having a type of object,
      * a performance penalty is to be expected for this kind of operation.
      */
-    unique(comparator?: (a: any, b: any) => boolean): ArraySchema;
-    unique(comparator?: string): ArraySchema;
+    unique(comparator?: string): this;
+    unique<T = any>(comparator?: (a: T, b: T) => boolean): this;
 }
 
 export interface ObjectSchema extends AnySchema {
     /**
      * Sets the allowed object keys.
      */
-    keys(schema?: SchemaMap): ObjectSchema;
+    keys(schema?: SchemaMap): this;
 
     /**
      * Specifies the minimum number of keys in the object.
      */
-    min(limit: number): ObjectSchema;
+    min(limit: number): this;
 
     /**
      * Specifies the maximum number of keys in the object.
      */
-    max(limit: number): ObjectSchema;
+    max(limit: number): this;
 
     /**
      * Specifies the exact number of keys in the object.
      */
-    length(limit: number): ObjectSchema;
+    length(limit: number): this;
 
     /**
      * Specify validation rules for unknown keys matching a pattern.
      */
-    pattern(regex: RegExp, schema: SchemaLike): ObjectSchema;
+    pattern(regex: RegExp, schema: SchemaLike): this;
 
     /**
      * Defines an all-or-nothing relationship between keys where if one of the peers is present, all of them are required as well.
      * @param peers - the key names of which if one present, all are required. peers can be a single string value,
      * an array of string values, or each peer provided as an argument.
      */
-    and(peer1: string, ...peers: string[]): ObjectSchema;
-    and(peers: string[]): ObjectSchema;
+    and(...peers: string[]): this;
+    and(peers: string[]): this;
 
     /**
      * Defines a relationship between keys where not all peers can be present at the same time.
      * @param peers - the key names of which if one present, the others may not all be present.
      * peers can be a single string value, an array of string values, or each peer provided as an argument.
      */
-    nand(peer1: string, ...peers: string[]): ObjectSchema;
-    nand(peers: string[]): ObjectSchema;
+    nand(...peers: string[]): this;
+    nand(peers: string[]): this;
 
     /**
      * Defines a relationship between keys where one of the peers is required (and more than one is allowed).
      */
-    or(peer1: string, ...peers: string[]): ObjectSchema;
-    or(peers: string[]): ObjectSchema;
+    or(...peers: string[]): this;
+    or(peers: string[]): this;
 
     /**
      * Defines an exclusive relationship between a set of keys. one of them is required but not at the same time where:
      */
-    xor(peer1: string, ...peers: string[]): ObjectSchema;
-    xor(peers: string[]): ObjectSchema;
+    xor(...peers: string[]): this;
+    xor(peers: string[]): this;
 
     /**
      * Requires the presence of other keys whenever the specified key is present.
      */
-    with(key: string, peers: string): ObjectSchema;
-    with(key: string, peers: string[]): ObjectSchema;
+    with(key: string, peers: string): this;
+    with(key: string, peers: string[]): this;
 
     /**
      * Forbids the presence of other keys whenever the specified is present.
      */
-    without(key: string, peers: string): ObjectSchema;
-    without(key: string, peers: string[]): ObjectSchema;
+    without(key: string, peers: string): this;
+    without(key: string, peers: string[]): this;
 
     /**
      * Renames a key to another name (deletes the renamed key).
      */
-    rename(from: string, to: string, options?: RenameOptions): ObjectSchema;
+    rename(from: string, to: string, options?: RenameOptions): this;
 
     /**
      * Verifies an assertion where.
      */
-    assert(ref: string, schema: SchemaLike, message?: string): ObjectSchema;
-    assert(ref: Reference, schema: SchemaLike, message?: string): ObjectSchema;
+    assert(ref: string, schema: SchemaLike, message?: string): this;
+    assert(ref: Reference, schema: SchemaLike, message?: string): this;
 
     /**
      * Overrides the handling of unknown keys for the scope of the current object only (does not apply to children).
      */
-    unknown(allow?: boolean): ObjectSchema;
+    unknown(allow?: boolean): this;
 
     /**
      * Requires the object to be an instance of a given constructor.
@@ -734,7 +731,7 @@ export interface ObjectSchema extends AnySchema {
      * @param constructor - the constructor function that the object must be an instance of.
      * @param name - an alternate name to use in validation errors. This is useful when the constructor function does not have a name.
      */
-    type(constructor: Function, name?: string): ObjectSchema;
+    type(constructor: Function, name?: string): this;
 
     /**
      * Sets the specified children to required.
@@ -746,9 +743,8 @@ export interface ObjectSchema extends AnySchema {
      *
      * Note that in this example '' means the current object, a is not required but b is, as well as c and d.
      */
-    requiredKeys(children: string): ObjectSchema;
-    requiredKeys(children: string[]): ObjectSchema;
-    requiredKeys(child: string, ...children: string[]): ObjectSchema;
+    requiredKeys(children: string[]): this;
+    requiredKeys(...children: string[]): this;
 
     /**
      * Sets the specified children to optional.
@@ -757,31 +753,30 @@ export interface ObjectSchema extends AnySchema {
      *
      * The behavior is exactly the same as requiredKeys.
      */
-    optionalKeys(children: string): ObjectSchema;
-    optionalKeys(children: string[]): ObjectSchema;
-    optionalKeys(child: string, ...children: string[]): ObjectSchema;
+    optionalKeys(children: string[]): this;
+    optionalKeys(...children: string[]): this;
 }
 
 export interface BinarySchema extends AnySchema {
     /**
      * Sets the string encoding format if a string input is converted to a buffer.
      */
-    encoding(encoding: string): BinarySchema;
+    encoding(encoding: string): this;
 
     /**
      * Specifies the minimum length of the buffer.
      */
-    min(limit: number): BinarySchema;
+    min(limit: number): this;
 
     /**
      * Specifies the maximum length of the buffer.
      */
-    max(limit: number): BinarySchema;
+    max(limit: number): this;
 
     /**
      * Specifies the exact length of the buffer:
      */
-    length(limit: number): BinarySchema;
+    length(limit: number): this;
 }
 
 export interface DateSchema extends AnySchema {
@@ -792,10 +787,10 @@ export interface DateSchema extends AnySchema {
      * allowing to explicitly ensure a date is either in the past or in the future.
      * It can also be a reference to another field.
      */
-    min(date: Date): DateSchema;
-    min(date: number): DateSchema;
-    min(date: string): DateSchema;
-    min(date: Reference): DateSchema;
+    min(date: Date): this;
+    min(date: number): this;
+    min(date: string): this;
+    min(date: Reference): this;
 
     /**
      * Specifies the latest date allowed.
@@ -803,29 +798,28 @@ export interface DateSchema extends AnySchema {
      * allowing to explicitly ensure a date is either in the past or in the future.
      * It can also be a reference to another field.
      */
-    max(date: Date): DateSchema;
-    max(date: number): DateSchema;
-    max(date: string): DateSchema;
-    max(date: Reference): DateSchema;
+    max(date: Date): this;
+    max(date: number): this;
+    max(date: string): this;
+    max(date: Reference): this;
 
     /**
      * Specifies the allowed date format:
      * @param format - string or array of strings that follow the moment.js format.
      */
-    format(format: string): DateSchema;
-    format(format: string[]): DateSchema;
+    format(format: string): this;
+    format(format: string[]): this;
 
     /**
      * Requires the string value to be in valid ISO 8601 date format.
      */
-    iso(): DateSchema;
-
+    iso(): this;
 
     /**
      * Requires the value to be a timestamp interval from Unix Time.
      * @param type - the type of timestamp (allowed values are unix or javascript [default])
      */
-    timestamp(type?: 'javascript' | 'unix'): DateSchema;
+    timestamp(type?: 'javascript' | 'unix'): this;
 }
 
 export interface FunctionSchema extends AnySchema {
@@ -834,49 +828,55 @@ export interface FunctionSchema extends AnySchema {
      * Specifies the arity of the function where:
      * @param n - the arity expected.
      */
-    arity(n: number): FunctionSchema;
-
-
-    /**
-     * Specifies the minimal arity of the function where:
-     * @param n - the minimal arity expected.
-     */
-    minArity(n: number): FunctionSchema;
-
+    arity(n: number): this;
 
     /**
      * Specifies the minimal arity of the function where:
      * @param n - the minimal arity expected.
      */
-    maxArity(n: number): FunctionSchema;
+    minArity(n: number): this;
+
+    /**
+     * Specifies the minimal arity of the function where:
+     * @param n - the minimal arity expected.
+     */
+    maxArity(n: number): this;
 
     /**
      * Requires the function to be a Joi reference.
      */
-    ref(): FunctionSchema;
+    ref(): this;
 }
 
 export interface AlternativesSchema extends AnySchema {
-    try(schemas: SchemaLike[]): AlternativesSchema;
-    try(...types: SchemaLike[]): AlternativesSchema;
-    when(ref: string, options: WhenOptions): AlternativesSchema;
-    when(ref: Reference, options: WhenOptions): AlternativesSchema;
+    try(types: SchemaLike[]): this;
+    try(...types: SchemaLike[]): this;
+    when(ref: string, options: WhenOptions): this;
+    when(ref: Reference, options: WhenOptions): this;
+}
+
+export interface LazySchema extends AnySchema {
+
+}
+
+export interface Reference extends AnySchema {
+
 }
 
 export interface Rules<P extends object = any> {
     name: string;
-    params?: {[key in keyof P]: SchemaLike };
-    setup?: (this: Schema, params: P) => Schema | void;
-    validate?: <R = any>(this: Schema, params: P, value: any, state: State, options: ValidationOptions) => Err | R;
+    params?: { [key in keyof P]: SchemaLike; };
+    setup?(this: Schema, params: P): Schema | void;
+    validate?<R = any>(this: Schema, params: P, value: any, state: State, options: ValidationOptions): Err | R;
     description?: string | ((params: P) => string);
 }
 
 export interface Extension {
     name: string;
     base?: Schema;
-    pre?: <R = any>(this: Schema, value: any, state: State, options: ValidationOptions) => Err | R;
     language?: LanguageOptions;
-    describe?: (this: Schema, description: Description) => Description;
+    pre?<R = any>(this: Schema, value: any, state: State, options: ValidationOptions): Err | R;
+    describe?(this: Schema, description: Description): Description;
     rules?: Rules[];
 }
 
@@ -889,7 +889,7 @@ export interface Err {
 /**
  * Generates a schema object that matches any data type.
  */
-export function any(): Schema;
+export function any(): AnySchema;
 
 /**
  * Generates a schema object that matches an array data type.
@@ -945,7 +945,7 @@ export function alternatives(...types: SchemaLike[]): AlternativesSchema;
  * Supports the same methods of the any() type.
  * This is mostly useful for recursive schemas
  */
-export function lazy(cb: () => Schema): Schema;
+export function lazy(cb: () => Schema): LazySchema;
 
 /**
  * Validates a value using the given schema and options.
@@ -960,6 +960,7 @@ export function validate<T, R>(value: T, schema: SchemaLike, options: Validation
  * Converts literal schema definition to joi schema object (or returns the same back if already a joi schema object).
  */
 export function compile(schema: SchemaLike): Schema;
+export function compile<T extends Schema>(schema: SchemaLike): T;
 
 /**
  * Validates a value against a schema and throws if validation fails.
@@ -970,7 +971,6 @@ export function compile(schema: SchemaLike): Schema;
  */
 export function assert(value: any, schema: SchemaLike, message?: string | Error): void;
 
-
 /**
  * Validates a value against a schema, returns valid object, and throws if validation fails where:
  *
@@ -980,25 +980,21 @@ export function assert(value: any, schema: SchemaLike, message?: string | Error)
  */
 export function attempt<T>(value: T, schema: SchemaLike, message?: string | Error): T;
 
-
 /**
  * Generates a reference to the value of the named key.
  */
 export function ref(key: string, options?: ReferenceOptions): Reference;
 
-
 /**
  * Checks whether or not the provided argument is a reference. It's especially useful if you want to post-process error messages.
  */
-export function isRef(ref: any): boolean;
-
+export function isRef(ref: any): ref is Reference;
 
 /**
  * Get a sub-schema of an existing schema based on a path. Path separator is a dot (.).
  */
 export function reach(schema: ObjectSchema, path: string): Schema;
 export function reach<T extends Schema>(schema: ObjectSchema, path: string): T;
-
 
 /**
  * Creates a new Joi instance customized with the extension(s) you provide included.
