@@ -1,6 +1,6 @@
 // Type definitions for Knockout v3.4.0
 // Project: http://knockoutjs.com
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Igor Oleinikov <https://github.com/Igorbek/>, Clément Bourgeois <https://github.com/moonpyk/>, Matt Brooks <https://github.com/EnableSoftware>
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Igor Oleinikov <https://github.com/Igorbek/>, Clément Bourgeois <https://github.com/moonpyk/>, Matt Brooks <https://github.com/EnableSoftware>, Benjamin Eckardt <https://github.com/BenjaminEckardt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
@@ -567,7 +567,7 @@ interface KnockoutStatic {
 
         readValue(element: HTMLElement): any;
 
-        writeValue(element: HTMLElement, value: any): void;
+        writeValue(element: HTMLElement, value: any, allowUnset?: boolean): void;
     };
 
     components: KnockoutComponents;
@@ -587,7 +587,7 @@ interface KnockoutStatic {
     /////////////////////////////////
 
     tasks: KnockoutTasks;
-    
+
     /////////////////////////////////
     // utils.js
     /////////////////////////////////

@@ -84,6 +84,10 @@ declare namespace Bookshelf {
 		values(): any[];
 	}
 
+	interface ModelSubclass {
+		new(): Model<any>;
+	}
+
 	class Model<T extends Model<any>> extends ModelBase<T> {
 		static collection<T extends Model<any>>(models?: T[], options?: CollectionOptions<T>): Collection<T>;
 		static count(column?: string, options?: SyncOptions): BlueBird<number>;
@@ -106,8 +110,8 @@ declare namespace Bookshelf {
 		load(relations: string | string[], options?: LoadOptions): BlueBird<T>;
 		morphMany<R extends Model<any>>(target: { new (...args: any[]): R }, name?: string, columnNames?: string[], morphValue?: string): Collection<R>;
 		morphOne<R extends Model<any>>(target: { new (...args: any[]): R }, name?: string, columnNames?: string[], morphValue?: string): R;
-		morphTo(name: string, columnNames?: string[], ...target: typeof Model[]): T;
-		morphTo(name: string, ...target: typeof Model[]): T;
+		morphTo(name: string, columnNames?: string[], ...target: ModelSubclass[]): T;
+		morphTo(name: string, ...target: ModelSubclass[]): T;
 		orderBy(column: string, order?: SortOrder): T;
 
 		// Declaration order matters otherwise TypeScript gets confused between query() and query(...query: string[])
@@ -120,7 +124,7 @@ declare namespace Bookshelf {
 		resetQuery(): T;
 		save(key?: string, val?: any, options?: SaveOptions): BlueBird<T>;
 		save(attrs?: { [key: string]: any }, options?: SaveOptions): BlueBird<T>;
-		through<R extends Model<any>>(interim: typeof Model, throughForeignKey?: string, otherKey?: string): R;
+		through<R extends Model<any>>(interim: ModelSubclass, throughForeignKey?: string, otherKey?: string): R;
 		where(properties: { [key: string]: any }): T;
 		where(key: string, operatorOrValue: string | number | boolean, valueIfOperator?: string | number | boolean): T;
 
@@ -255,7 +259,7 @@ declare namespace Bookshelf {
 		query(query: { [key: string]: any }): Collection<T>;
 
 		resetQuery(): Collection<T>;
-		through<R extends Model<any>>(interim: typeof Model, throughForeignKey?: string, otherKey?: string): Collection<R>;
+		through<R extends Model<any>>(interim: ModelSubclass, throughForeignKey?: string, otherKey?: string): Collection<R>;
 		updatePivot(attributes: any, options?: PivotOptions): BlueBird<number>;
 		withPivot(columns: string[]): Collection<T>;
 
