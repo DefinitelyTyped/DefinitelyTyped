@@ -341,21 +341,19 @@ export interface AnySchema<T extends AnySchema<Schema>> {
     /**
      * Creates a joi error object.
      * Used in conjunction with custom rules.
-     * @param ruleName - the rule name to create the error for.
-     * @param context - must contain `v` eg. the value that was validated, all other properties
-     *  are available in the `language` templates.
-     * @param state - should the context passed into the `validate` function in a
-     *  custom rule
-     * @param options - should the context passed into the `validate` function in a
-     *  custom rule
+     * @param type - the type of rule to create the error for.
+     * @param context - provide properties that will be available in the `language` templates.
+     * @param state - should the context passed into the `validate` function in a custom rule
+     * @param options - should the context passed into the `validate` function in a custom rule
      */
-    createError(ruleName: string, context: {
-        v: any;
-        [key: string]: any;
-    }, state: State, options: ValidationOptions): Err;
+    createError(type: string, context: { [key: string]: any; }, state: State, options: ValidationOptions): Err;
 }
 
 export interface State {
+    key?: string;
+    path?: string;
+    parent?: any;
+    reference?: any;
 }
 
 export interface BooleanSchema extends AnySchema<BooleanSchema> {
@@ -829,11 +827,7 @@ export interface AlternativesSchema extends AnySchema<FunctionSchema> {
 
 export interface Terms {
     value: any;
-    state: {
-        key: string,
-        path: string,
-        parent: any
-    };
+    state: State;
     options: ValidationOptions;
 }
 
