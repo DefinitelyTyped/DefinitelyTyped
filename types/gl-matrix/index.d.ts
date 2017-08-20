@@ -1,35 +1,35 @@
 // Type definitions for gl-matrix 2.3.2
 // Project: https://github.com/toji/gl-matrix
 // Definitions by: Mattijs Kneppers <https://github.com/mattijskneppers>, based on definitions by Tat <https://github.com/tatchx>
-// Definitions by: Nikolay Babanov <https://github.com/nbabanov>
+//                 Nikolay Babanov <https://github.com/nbabanov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'gl-matrix' {
     // Global Utilities
     export class glMatrix {
         // Configuration constants
-        static EPSILON: number;
-        static ARRAY_TYPE: any;
-        static RANDOM(): number;
-        static ENABLE_SIMD: boolean;
+        public static EPSILON: number;
+        public static ARRAY_TYPE: any;
+        public static RANDOM(): number;
+        public static ENABLE_SIMD: boolean;
 
         // Compatibility detection
-        static SIMD_AVAILABLE: boolean;
-        static USE_SIMD: boolean;
+        public static SIMD_AVAILABLE: boolean;
+        public static USE_SIMD: boolean;
 
         /**
          * Sets the type of array used when creating new vectors and matrices
          *
          * @param {any} type - Array type, such as Float32Array or Array
          */
-        static setMatrixArrayType(type: any): void;
+        public static setMatrixArrayType(type: any): void;
 
         /**
          * Convert Degree To Radian
          *
          * @param {number} a - Angle in Degrees
          */
-        static toRadian(a: number): number;
+        public static toRadian(a: number): number;
 
         /**
          * Tests whether or not the arguments have approximately the same value, within an absolute
@@ -40,7 +40,7 @@ declare module 'gl-matrix' {
          * @param {number} b - The second number to test.
          * @returns {boolean} True if the numbers are approximately equal, false otherwise.
          */
-        static equals(a: number, b: number): boolean;
+        public static equals(a: number, b: number): boolean;
     }
 
     // vec2
