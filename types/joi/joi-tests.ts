@@ -53,10 +53,25 @@ validOpts = { stripUnknown: bool };
 validOpts = { stripUnknown: { arrays: bool } };
 validOpts = { stripUnknown: { objects: bool } };
 validOpts = { stripUnknown: { arrays: bool, objects: bool } };
-validOpts = { language: bool };
 validOpts = { presence: str };
 validOpts = { context: obj };
 validOpts = { noDefaults: bool };
+validOpts = {
+    language: {
+        root: str,
+        key: str,
+        messages: { wrapArrays: bool },
+        string: { base: str },
+        number: { base: str },
+        object: {
+            base: false,
+            children: { childRule: str }
+        },
+        customType: {
+            customRule: str
+        }
+    }
+};
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 

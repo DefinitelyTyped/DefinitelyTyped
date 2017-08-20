@@ -6,6 +6,19 @@
 
 // TODO express type of Schema in a type-parameter (.default, .valid, .example etc)
 
+export type Types = 'any' | 'alternatives' | 'array' | 'string' | 'number' | 'object' | 'boolean' | 'binary' | 'date' | 'function' | 'lazy';
+
+export type LanguageRuleOptions = string | false | {
+    [key: string]: LanguageRuleOptions;
+};
+
+export type LanguageOptions = {
+    root?: string;
+    key?: string;
+    messages?: { wrapArrays?: boolean; };
+} & Partial<Record<Types, LanguageRuleOptions>> & {
+    [key: string]: LanguageRuleOptions;
+};
 
 export interface ValidationOptions {
     /**
@@ -35,7 +48,7 @@ export interface ValidationOptions {
     /**
      * overrides individual error messages. Defaults to no override ({}).
      */
-    language?: Object;
+    language?: LanguageOptions;
     /**
      * sets the default presence requirements. Supported modes: 'optional', 'required', and 'forbidden'. Defaults to 'optional'.
      */
@@ -844,9 +857,7 @@ export interface Extension {
     name: string;
     base?: Schema;
     pre?: (this: AnySchema<AnySchema<Schema>>, params: { [key: string]: any }, value: any, state: State, options: ValidationOptions) => Err | void;
-    language?: {
-        [key: string]: string;
-    },
+    language?: LanguageRuleOptions;
     describe?: (this: AnySchema<AnySchema<Schema>>, description: any) => any;
     rules?: Rules[];
 }
