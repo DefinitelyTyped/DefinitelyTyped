@@ -1,6 +1,6 @@
 // Type definitions for chai 4.0.0
 // Project: http://chaijs.com/
-// Definitions by: Jed Mao <https://github.com/jedmao/>,
+// Definitions by: Jed Mao <https://github.com/jedmao>,
 //                 Bart van der Schoor <https://github.com/Bartvds>,
 //                 Andrew Brown <https://github.com/AGBrown>,
 //                 Olivier Chevet <https://github.com/olivr70>,

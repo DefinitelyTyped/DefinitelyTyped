@@ -50,7 +50,7 @@ class LambdaClassTest {
     @Post()
     path2(@PathParam('path2') path: string, @PathParam('my') here: string) {
         this.callback(null, {
-            body: JSON.stringify('path: ' + path + ', my:' + here + ', query: ' + this.queryParams.var + "\n")
+            body: JSON.stringify(`path: ${path}, my:${here}, query: ${this.queryParams.var}\n`)
         });
     }
 

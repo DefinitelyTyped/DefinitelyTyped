@@ -5,7 +5,10 @@ import * as util from 'util';
 const app = express();
 
 app.use((req, res, next) => {
-    if (!req) return next(create('Please login to view this page.', 401));
+    if (!req) {
+        next(create('Please login to view this page.', 401));
+        return;
+    }
     next();
 });
 

@@ -2,6 +2,7 @@
     "extends": "dtslint/dt.json",
     "rules": {
         // TODOs
+        "dt-header": false,
         "jsdoc-format": false,
         "max-line-length": false,
         "no-duplicate-imports": false,
@@ -10,6 +11,7 @@
         "no-mergeable-namespace": false,
         "no-unnecessary-qualifier": false,
         "no-unnecessary-type-assertion": false,
+        "prefer-template": false,
         "use-default-type-parameter": false
     }
 }

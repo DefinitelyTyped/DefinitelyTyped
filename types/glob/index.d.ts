@@ -1,7 +1,7 @@
 // Type definitions for Glob 5.0.10
 // Project: https://github.com/isaacs/node-glob
-// Definitions by: vvakame <https://github.com/vvakame/>
-//                 voy <https://github.com/voy/>
+// Definitions by: vvakame <https://github.com/vvakame>
+//                 voy <https://github.com/voy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />

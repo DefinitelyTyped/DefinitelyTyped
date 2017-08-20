@@ -607,7 +607,7 @@ let customTransformProto: CustomTranformProto;
 
 customTransformProto = {
     point(x, y) {
-        return this.stream.point(x + this.a, -y);
+        this.stream.point(x + this.a, -y);
     },
     a: 10
 };

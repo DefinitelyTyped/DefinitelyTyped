@@ -165,13 +165,19 @@ i18next.init({
     defaultNS: 'file1',
     debug: true
 }, (err: any, t: i18next.TranslationFunction) => {
-    if (err) return console.log('something went wrong loading', err);
+    if (err) {
+        console.log('something went wrong loading', err);
+        return;
+    }
     t('key'); // -> same as i18next.t
 });
 
 // with only callback
 i18next.init((err: any, t: i18next.TranslationFunction) => {
-    if (err) return console.log('something went wrong loading', err);
+    if (err) {
+        console.log('something went wrong loading', err);
+        return;
+    }
     t('key'); // -> same as i18next.t
 });
 
@@ -187,7 +193,10 @@ const anotherNamespace = i18next.getFixedT(null, 'anotherNamespace');
 const x: string = anotherNamespace('anotherNamespaceKey'); // no need to prefix ns i18n.t('anotherNamespace:anotherNamespaceKey');
 
 i18next.changeLanguage('en', (err: any, t: i18next.TranslationFunction) => {
-    if (err) return console.log('something went wrong loading', err);
+    if (err) {
+        console.log('something went wrong loading', err);
+        return;
+    }
     t('key'); // -> same as i18next.t
 });
 
@@ -225,7 +234,10 @@ const newInstance = i18next.createInstance({
     defaultNS: 'file1',
     debug: true
 }, (err: any, t: i18next.TranslationFunction) => {
-    if (err) return console.log('something went wrong loading', err);
+    if (err) {
+        console.log('something went wrong loading', err);
+        return;
+    }
     t('key'); // -> same as i18next.t
 });
 
@@ -236,7 +248,10 @@ newInstance.init({
     defaultNS: 'file1',
     debug: true
 }, (err: any, t: i18next.TranslationFunction) => {
-    if (err) return console.log('something went wrong loading', err);
+    if (err) {
+        console.log('something went wrong loading', err);
+        return;
+    }
     t('key'); // -> same as i18next.t
 });
 
@@ -246,7 +261,10 @@ const newInstance2 = i18next.cloneInstance({
     defaultNS: 'file1',
     debug: true
 }, (err: any, t: i18next.TranslationFunction) => {
-    if (err) return console.log('something went wrong loading', err);
+    if (err) {
+        console.log('something went wrong loading', err);
+        return;
+    }
     t('key'); // -> same as i18next.t
 });
 
@@ -258,7 +276,10 @@ newInstance.init({
     defaultNS: 'file1',
     debug: true
 }, (err: any, t: i18next.TranslationFunction) => {
-    if (err) return console.log('something went wrong loading', err);
+    if (err) {
+        console.log('something went wrong loading', err);
+        return;
+    }
     t('key'); // -> same as i18next.t
 });
 

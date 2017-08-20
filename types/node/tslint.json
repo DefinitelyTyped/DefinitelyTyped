@@ -3,6 +3,7 @@
   "rules": {
     // All are TODOs
     "ban-types": false,
+    "dt-header": false,
     "max-line-length": false,
     "no-duplicate-imports": false,
     "no-duplicate-variable": false,

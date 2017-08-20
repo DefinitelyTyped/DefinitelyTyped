@@ -11,6 +11,7 @@
         "jsdoc-format": false,
         "no-misused-new": false,
         "no-consecutive-blank-lines": false,
+        "no-duplicate-imports": false,
         "no-empty-interface": false,
         "no-padding": false,
         "no-var": false,
@@ -18,6 +19,8 @@
         "prefer-declare-function": false,
         "prefer-method-signature": false,
         "semicolon": false,
-        "strict-export-declare-modifiers": false
+        "space-within-parens": false,
+        "strict-export-declare-modifiers": false,
+        "use-default-type-parameter": false
     }
 }

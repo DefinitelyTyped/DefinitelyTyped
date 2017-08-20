@@ -1,6 +1,6 @@
 import MiniPass = require('minipass');
 
-let encoding: string | null = null;
+const encoding: string | null = null;
 
 new MiniPass();
 new MiniPass({objectMode: true});

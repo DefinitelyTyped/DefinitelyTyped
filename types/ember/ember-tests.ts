@@ -15,7 +15,7 @@ App.president = Ember.Object.create({
     firstName: 'Barack',
     lastName: 'Obama',
     fullName: Ember.computed(function() {
-        return this.get('firstName') + ' ' + this.get('lastName');
+        return `${this.get('firstName')} ${this.get('lastName')}`;
     }),
 });
 App.president.get('fullName');
