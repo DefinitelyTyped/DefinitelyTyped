@@ -111,7 +111,7 @@ export interface IpOptions {
 export type GuidVersions = 'uuidv1' | 'uuidv2' | 'uuidv3' | 'uuidv4' | 'uuidv5'
 
 export interface GuidOptions {
-    version: GuidVersions[] | GuidVersions
+    version: GuidVersions[] | GuidVersions;
 }
 
 export interface UriOptions {
@@ -122,19 +122,19 @@ export interface UriOptions {
     scheme?: string | RegExp | Array<string | RegExp>;
 }
 
-export interface WhenOptions<T> {
+export interface WhenOptions {
     /**
      * the required condition joi type.
      */
-    is: T;
+    is: SchemaLike;
     /**
      * the alternative schema type if the condition is true. Required if otherwise is missing.
      */
-    then?: Schema;
+    then?: SchemaLike;
     /**
      * the alternative schema type if the condition is false. Required if then is missing
      */
-    otherwise?: Schema;
+    otherwise?: SchemaLike;
 }
 
 export interface ReferenceOptions {
@@ -171,8 +171,10 @@ export interface ValidationResult<T> {
     value: T;
 }
 
+export type SchemaLike = string | number | boolean | null | Schema | SchemaMap;
+
 export interface SchemaMap {
-    [key: string]: string | number | boolean | object | null | Schema | SchemaMap | (Schema | SchemaMap)[];
+    [key: string]: SchemaLike | SchemaLike[];
 }
 
 export interface Schema extends AnySchema<Schema> {
@@ -309,8 +311,8 @@ export interface AnySchema<T extends AnySchema<Schema>> {
     /**
      * Converts the type into an alternatives type where the conditions are merged into the type definition where:
      */
-    when<U>(ref: string, options: WhenOptions<U>): AlternativesSchema;
-    when<U>(ref: Reference, options: WhenOptions<U>): AlternativesSchema;
+    when(ref: string, options: WhenOptions): AlternativesSchema;
+    when(ref: Reference, options: WhenOptions): AlternativesSchema;
 
     /**
      * Overrides the key name in error messages.
@@ -326,7 +328,7 @@ export interface AnySchema<T extends AnySchema<Schema>> {
      * Considers anything that matches the schema to be empty (undefined).
      * @param schema - any object or joi schema to match. An undefined schema unsets that rule.
      */
-    empty(schema?: any): T;
+    empty(schema?: SchemaLike): T;
 
     /**
      * Overrides the default joi error with a custom error if the rule fails where:
@@ -587,16 +589,16 @@ export interface ArraySchema extends AnySchema<ArraySchema> {
      *
      * @param type - a joi schema object to validate each array item against.
      */
-    items(...types: (Schema | SchemaMap)[]): ArraySchema;
-    items(types: (Schema | SchemaMap)[]): ArraySchema;
+    items(...types: SchemaLike[]): ArraySchema;
+    items(types: SchemaLike[]): ArraySchema;
 
     /**
      * Lists the types in sequence order for the array values where:
      * @param type - a joi schema object to validate against each array item in sequence order. type can be an array of values, or multiple values can be passed as individual arguments.
      * If a given type is .required() then there must be a matching item with the same index position in the array. Errors will contain the number of items that didn't match. Any unmatched item having a label will be mentioned explicitly.
      */
-    ordered(...types: (Schema | SchemaMap)[]): ArraySchema;
-    ordered(types: (Schema | SchemaMap)[]): ArraySchema;
+    ordered(...types: SchemaLike[]): ArraySchema;
+    ordered(types: SchemaLike[]): ArraySchema;
 
     /**
      * Specifies the minimum number of items in the array.
@@ -646,7 +648,7 @@ export interface ObjectSchema extends AnySchema<ObjectSchema> {
     /**
      * Specify validation rules for unknown keys matching a pattern.
      */
-    pattern(regex: RegExp, schema: Schema): ObjectSchema;
+    pattern(regex: RegExp, schema: SchemaLike): ObjectSchema;
 
     /**
      * Defines an all-or-nothing relationship between keys where if one of the peers is present, all of them are required as well.
@@ -696,8 +698,8 @@ export interface ObjectSchema extends AnySchema<ObjectSchema> {
     /**
      * Verifies an assertion where.
      */
-    assert(ref: string, schema: Schema, message?: string): ObjectSchema;
-    assert(ref: Reference, schema: Schema, message?: string): ObjectSchema;
+    assert(ref: string, schema: SchemaLike, message?: string): ObjectSchema;
+    assert(ref: Reference, schema: SchemaLike, message?: string): ObjectSchema;
 
     /**
      * Overrides the handling of unknown keys for the scope of the current object only (does not apply to children).
@@ -833,10 +835,10 @@ export interface FunctionSchema extends AnySchema<FunctionSchema> {
 }
 
 export interface AlternativesSchema extends AnySchema<FunctionSchema> {
-    try(schemas: Schema[]): AlternativesSchema;
-    try(type1: Schema, type2: Schema, ...types: Schema[]): AlternativesSchema;
-    when<T>(ref: string, options: WhenOptions<T>): AlternativesSchema;
-    when<T>(ref: Reference, options: WhenOptions<T>): AlternativesSchema;
+    try(schemas: SchemaLike[]): AlternativesSchema;
+    try(...types: SchemaLike[]): AlternativesSchema;
+    when(ref: string, options: WhenOptions): AlternativesSchema;
+    when(ref: Reference, options: WhenOptions): AlternativesSchema;
 }
 
 export interface Terms {
@@ -847,7 +849,7 @@ export interface Terms {
 
 export interface Rules {
     name: string;
-    params?: ObjectSchema | { [key: string]: Schema };
+    params?: SchemaMap;
     setup?: (this: AnySchema<AnySchema<Schema>>, description: { [key: string]: any }) => AnySchema<AnySchema<Schema>> | void;
     validate?: (this: AnySchema<AnySchema<Schema>>, params: { [key: string]: any }, value: any, state: State, options: ValidationOptions) => Err | undefined;
     description?: string | Function;
@@ -908,7 +910,7 @@ export declare function number(): NumberSchema;
 /**
  * Generates a schema object that matches an object data type (as well as JSON strings that parsed into objects).
  */
-export declare function object(schema?: SchemaMap): ObjectSchema;
+export declare function object(schema?: SchemaLike): ObjectSchema;
 
 /**
  * Generates a schema object that matches a string data type. Note that empty strings are not allowed by default and must be enabled with allow('').
@@ -932,22 +934,16 @@ export declare function lazy(cb: () => Schema): Schema;
 /**
  * Validates a value using the given schema and options.
  */
-export function validate<T>(value: T): ValidationResult<T>;
-export function validate<T, R>(value: T, callback: (err: ValidationError, value: T) => R): R;
+export function validate<T>(value: T, schema: SchemaLike): ValidationResult<T>;
+export function validate<T, R>(value: T, schema: SchemaLike, callback: (err: ValidationError, value: T) => R): R;
 
-export function validate<T>(value: T, schema: Schema): ValidationResult<T>;
-export function validate<T>(value: T, schema: Object): ValidationResult<T>;
-export function validate<T, R>(value: T, schema: Schema, callback: (err: ValidationError, value: T) => R): R;
-export function validate<T, R>(value: T, schema: Object, callback: (err: ValidationError, value: T) => R): R;
+export function validate<T>(value: T, schema: SchemaLike, options: ValidationOptions): ValidationResult<T>;
+export function validate<T, R>(value: T, schema: SchemaLike, options: ValidationOptions, callback: (err: ValidationError, value: T) => R): R;
 
-export function validate<T>(value: T, schema: Schema, options: ValidationOptions): ValidationResult<T>;
-export function validate<T>(value: T, schema: Object, options: ValidationOptions): ValidationResult<T>;
-export function validate<T, R>(value: T, schema: Schema, options: ValidationOptions, callback: (err: ValidationError, value: T) => R): R;
-export function validate<T, R>(value: T, schema: Object, options: ValidationOptions, callback: (err: ValidationError, value: T) => R): R;
 /**
  * Converts literal schema definition to joi schema object (or returns the same back if already a joi schema object).
  */
-export function compile(schema: Object): Schema;
+export function compile(schema: SchemaLike): Schema;
 
 /**
  * Validates a value against a schema and throws if validation fails.
@@ -956,7 +952,7 @@ export function compile(schema: Object): Schema;
  * @param schema - the schema object.
  * @param message - optional message string prefix added in front of the error message. may also be an Error object.
  */
-export function assert(value: any, schema: Schema, message?: string | Error): void;
+export function assert(value: any, schema: SchemaLike, message?: string | Error): void;
 
 
 /**
@@ -966,7 +962,7 @@ export function assert(value: any, schema: Schema, message?: string | Error): vo
  * @param schema - the schema object.
  * @param message - optional message string prefix added in front of the error message. may also be an Error object.
  */
-export function attempt<T>(value: T, schema: Schema, message?: string | Error): T;
+export function attempt<T>(value: T, schema: SchemaLike, message?: string | Error): T;
 
 
 /**
@@ -1088,8 +1084,8 @@ export function concat<T>(schema: T): T;
 /**
  * Converts the type into an alternatives type where the conditions are merged into the type definition where:
  */
-export function when<U>(ref: string, options: WhenOptions<U>): AlternativesSchema;
-export function when<U>(ref: Reference, options: WhenOptions<U>): AlternativesSchema;
+export function when(ref: string, options: WhenOptions): AlternativesSchema;
+export function when(ref: Reference, options: WhenOptions): AlternativesSchema;
 
 /**
  * Overrides the key name in error messages.
