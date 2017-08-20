@@ -917,7 +917,7 @@ export function number(): NumberSchema;
 /**
  * Generates a schema object that matches an object data type (as well as JSON strings that parsed into objects).
  */
-export function object(schema?: SchemaLike): ObjectSchema;
+export function object(schema?: SchemaMap): ObjectSchema;
 
 /**
  * Generates a schema object that matches a string data type. Note that empty strings are not allowed by default and must be enabled with allow('').

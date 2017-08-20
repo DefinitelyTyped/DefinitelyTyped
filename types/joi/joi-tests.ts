@@ -25,6 +25,7 @@ var funcArr: Function[] = [];
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
 var schema: Joi.Schema = null;
+var schemaLike: Joi.SchemaLike = null;
 
 var anySchema: Joi.AnySchema<Joi.Schema> = null;
 var numSchema: Joi.NumberSchema = null;
@@ -117,6 +118,7 @@ var whenOpts: Joi.WhenOptions = null;
 whenOpts = { is: x };
 whenOpts = { is: schema, then: schema };
 whenOpts = { is: schema, otherwise: schema };
+whenOpts = { is: schemaLike, then: schemaLike, otherwise: schemaLike };
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
@@ -195,7 +197,8 @@ schemaMap = {
         { b1: strSchema },
         { b2: anySchema }
     ],
-    c: arrSchema
+    c: arrSchema,
+    d: schemaLike
 };
 schemaMap = {
     a: 1,
@@ -283,9 +286,9 @@ arrSchema = arrSchema.sparse(bool);
 arrSchema = arrSchema.single();
 arrSchema = arrSchema.single(bool);
 arrSchema = arrSchema.ordered(anySchema);
-arrSchema = arrSchema.ordered(anySchema, numSchema, strSchema, arrSchema, boolSchema, binSchema, dateSchema, funcSchema, objSchema);
+arrSchema = arrSchema.ordered(anySchema, numSchema, strSchema, arrSchema, boolSchema, binSchema, dateSchema, funcSchema, objSchema, schemaLike);
 arrSchema = arrSchema.ordered(schemaMap);
-arrSchema = arrSchema.ordered([schemaMap, schemaMap]);
+arrSchema = arrSchema.ordered([schemaMap, schemaMap, schemaLike]);
 arrSchema = arrSchema.min(num);
 arrSchema = arrSchema.max(num);
 arrSchema = arrSchema.length(num);
@@ -295,11 +298,11 @@ arrSchema = arrSchema.unique('customer.id');
 
 
 arrSchema = arrSchema.items(numSchema);
-arrSchema = arrSchema.items(numSchema, strSchema);
-arrSchema = arrSchema.items([numSchema, strSchema]);
+arrSchema = arrSchema.items(numSchema, strSchema, schemaLike);
+arrSchema = arrSchema.items([numSchema, strSchema, schemaLike]);
 arrSchema = arrSchema.items(schemaMap);
-arrSchema = arrSchema.items(schemaMap, schemaMap);
-arrSchema = arrSchema.items([schemaMap, schemaMap]);
+arrSchema = arrSchema.items(schemaMap, schemaMap, schemaLike);
+arrSchema = arrSchema.items([schemaMap, schemaMap, schemaLike]);
 
 // - - - - - - - -
 
@@ -636,6 +639,7 @@ objSchema = objSchema.max(num);
 objSchema = objSchema.length(num);
 
 objSchema = objSchema.pattern(exp, schema);
+objSchema = objSchema.pattern(exp, schemaLike);
 
 objSchema = objSchema.and(str);
 objSchema = objSchema.and(str, str);
@@ -899,10 +903,12 @@ schema = Joi.compile(schemaMap);
 Joi.assert(obj, schema);
 Joi.assert(obj, schema, str);
 Joi.assert(obj, schema, err);
+Joi.assert(obj, schemaLike);
 
 Joi.attempt(obj, schema);
 Joi.attempt(obj, schema, str);
 Joi.attempt(obj, schema, err);
+Joi.attempt(obj, schemaLike);
 
 ref = Joi.ref(str, refOpts);
 ref = Joi.ref(str);
@@ -946,4 +952,3 @@ const Joi3 = Joi.extend({
         },
     ],
 });
-
