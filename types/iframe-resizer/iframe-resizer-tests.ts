@@ -1,9 +1,9 @@
 import { IFrameComponent, IFrameOptions, iframeResizer } from "iframe-resizer";
 
 function testOne(): void {
-  let iframe: HTMLIFrameElement = document.createElement('iframe');
-  let options: IFrameOptions = {log: true};
-  let components: IFrameComponent[] = iframeResizer(options, iframe);
+  const iframe: HTMLIFrameElement = document.createElement('iframe');
+  const options: IFrameOptions = {log: true};
+  const components: IFrameComponent[] = iframeResizer(options, iframe);
   if (components) {
     components.forEach(component => console.log(component.iFrameResizer));
   } else {
@@ -12,8 +12,8 @@ function testOne(): void {
 }
 
 function testTwo(): void {
-  let iframe: HTMLIFrameElement = document.createElement('iframe');
-  let components: IFrameComponent[] = iframeResizer({
+  const iframe: HTMLIFrameElement = document.createElement('iframe');
+  const components: IFrameComponent[] = iframeResizer({
     initCallback: () => {
       console.log('Init');
     },

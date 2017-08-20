@@ -13,6 +13,7 @@ export interface SwaggerRouterOptionsControllers {
 
 export interface SwaggerRouterOptions {
     controllers?: SwaggerRouterOptionsControllers | string | string[];
+    ignoreMissingHandlers?: boolean;
     useStubs?: boolean;
 }
 

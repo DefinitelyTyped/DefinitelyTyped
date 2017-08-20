@@ -1,6 +1,7 @@
 // Type definitions for react-router-redux 5.0
 // Project: https://github.com/ReactTraining/react-router/tree/master/packages/react-router-redux
 // Definitions by: Huy Nguyen <https://github.com/huy-nguyen>
+//                 Shoya Tanaka <https://github.com/8398a7>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -23,9 +24,9 @@ export interface ConnectedRouterProps<State> {
     store?: Store<State>;
     history?: History;
 }
-export class ConnectedRouter<State> extends React.Component<ConnectedRouterProps<State>> {}
+export class ConnectedRouter<State> extends React.Component<ConnectedRouterProps<State>, {}> {}
 
-export const LOCATION_CHANGE: string;
+export const LOCATION_CHANGE = '@@router/LOCATION_CHANGE';
 
 export interface RouterState {
     location: Location | null;
@@ -33,7 +34,7 @@ export interface RouterState {
 
 export const routerReducer: Reducer<RouterState>;
 
-export const CALL_HISTORY_METHOD: string;
+export const CALL_HISTORY_METHOD = '@@router/CALL_HISTORY_METHOD';
 
 export function push(location: LocationDescriptor, state?: LocationState): RouterAction;
 export function replace(location: LocationDescriptor, state?: LocationState): RouterAction;

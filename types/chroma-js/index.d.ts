@@ -7,7 +7,7 @@
 /**
  * Chroma.js is a tiny library for all kinds of color conversions and color scales.
  */
-declare namespace Chroma {
+declare namespace chroma {
     interface ColorSpaces {
         rgb: [number, number, number];
         rgba: [number, number, number, number];
@@ -353,7 +353,7 @@ declare namespace Chroma {
     }
 }
 
-declare var chroma: Chroma.ChromaStatic;
+declare var chroma: chroma.ChromaStatic;
 
 export = chroma;
 export as namespace chroma;

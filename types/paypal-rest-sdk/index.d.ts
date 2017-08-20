@@ -20,7 +20,7 @@ export interface PayPalError {
     readonly debug_id: string;
 }
 
-export type CallbackFunction<T> = ( err: SDKError, response: T) => any;
+export type CallbackFunction<T> = (err: SDKError, response: T) => any;
 
 export interface SDKError {
     httpStatusCode: number;

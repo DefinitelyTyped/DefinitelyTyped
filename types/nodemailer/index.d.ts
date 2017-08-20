@@ -64,9 +64,13 @@ export declare function createTransport(options?: directTransport.DirectOptions,
  */
 export declare function createTransport(options?: smtpTransport.SmtpOptions, defaults?: Object): Transporter;
 /**
+ * Create an SMTP transporter using a connection url
+ */
+export declare function createTransport(connectionUrl: string, defaults?: Object): Transporter;
+/**
  * Create an AWS SES transporter
  */
-export declare function createTransport(options?: sesTransport.SesOptions, defaults?: Object): Transporter
+export declare function createTransport(options?: sesTransport.SesOptions, defaults?: Object): Transporter;
 /**
  * Create a transporter from a given implementation
  */

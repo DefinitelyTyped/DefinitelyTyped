@@ -1,7 +1,7 @@
 // Type definitions for Highcharts 5.0.10
 // Project: http://www.highcharts.com/
-// Definitions by: Damiano Gambarotto <http://github.com/damianog>
-//                 Dan Lewi Harkestad <http://github.com/baltie>
+// Definitions by: Damiano Gambarotto <https://github.com/damianog>
+//                 Dan Lewi Harkestad <https://github.com/baltie>
 //                 Albert Ozimek <https://github.com/AlbertOzimek>
 //                 Juliën Hanssens <https://github.com/hanssens>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -1455,6 +1455,11 @@ declare namespace Highcharts {
          * @since 3.0.8
          */
         drillup?(event: Event): void;
+        /**
+         * Fires after drilling up from all drilldown series.
+         * @since 4.2.4
+         */
+        drillupall?(event: Event): void;
         /**
          * Fires when the chart is finished loading. One parameter, event, is passed to the function. This contains common
          * event information based on jQuery or MooTools depending on which library is used as the base for Highcharts.

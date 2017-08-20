@@ -318,3 +318,28 @@ new Nightmare()
   .use(testTitle('test term'))
   .run(done);
 
+new Nightmare({show: true});
+
+new Nightmare()
+  .goto('http://google.com', { bogus: 'foo' })
+  .evaluate(() => document.body.textContent)
+  .end()
+  .then(body => console.log(body));
+
+new Nightmare()
+  .header('bogus', 'foo')
+  .goto('http://google.com')
+  .mouseup('body')
+  .mousedown('body')
+  .mouseover('body')
+  .insert('input[name=q]', 'nightmare.js')
+  .click('input[type=submit]');
+
+new Nightmare()
+  .goto('https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox')
+  .check('#book')
+  .uncheck('#book');
+
+new Nightmare()
+  .goto('https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select')
+  .select('select[name=select]', 'value3');

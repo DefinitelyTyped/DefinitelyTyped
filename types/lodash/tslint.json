@@ -1,6 +1,7 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
+        // All are TODOs
         "adjacent-overload-signatures": false,
         "align": false,
         "array-type": false,
@@ -14,6 +15,8 @@
         "max-line-length": false,
         "no-empty-interface": false,
         "no-namespace": false,
+        "no-mergeable-namespace": false,
+        "no-unnecessary-type-assertion": false,
         "no-trailing-whitespace": false,
         "object-literal-key-quotes": false,
         "one-line": false,

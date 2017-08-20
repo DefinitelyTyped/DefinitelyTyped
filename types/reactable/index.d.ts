@@ -2,6 +2,7 @@
 // Project: https://github.com/glittershark/reactable
 // Definitions by: Christoph Spielmann <https://github.com/spielc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import * as React from 'react';
 
@@ -41,20 +42,20 @@ export interface TdProperties {
     data?: any;
 }
 
-export class Table<T> extends React.Component<TableComponentProperties<T>, {}> {
+export class Table<T> extends React.Component<TableComponentProperties<T>> {
 }
 
-export class Thead extends React.Component<{}, {}> {
+export class Thead extends React.Component {
 }
 
-export class Th extends React.Component<ThProperties, {}> {
+export class Th extends React.Component<ThProperties> {
 }
 
-export class Tr<T> extends React.Component<TrProperties<T>, {}> {
+export class Tr<T> extends React.Component<TrProperties<T>> {
 }
 
-export class Td extends React.Component<TdProperties, {}> {
+export class Td extends React.Component<TdProperties> {
 }
 
-export class Tfoot extends React.Component<{}, {}> {
+export class Tfoot extends React.Component {
 }

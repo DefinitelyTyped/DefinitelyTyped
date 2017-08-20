@@ -1339,6 +1339,18 @@ declare namespace Chai {
         notFrozen<T>(object: T, message?: string): void;
 
         /**
+         * Asserts that the target does not contain any values. For arrays and
+         * strings, it checks the length property. For Map and Set instances, it
+         * checks the size property. For non-function objects, it gets the count
+         * of own enumerable string keys.
+         *
+         * @type T   Type of object
+         * @param object   Actual value.
+         * @param message   Message to display on error.
+         */
+        isEmpty<T>(object: T, message?: string): void;
+
+        /**
          * Asserts that the target contains values. For arrays and strings, it checks
          * the length property. For Map and Set instances, it checks the size property.
          * For non-function objects, it gets the count of own enumerable string keys.

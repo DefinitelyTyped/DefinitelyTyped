@@ -7,6 +7,7 @@
 /// <reference types="node"/>
 
 import child = require("child_process");
+import glob = require("glob");
 
 /**
  * Changes to directory dir for the duration of the script
@@ -524,10 +525,6 @@ export function touch(options: touchOptionsArray, files: string[]): void;
 
 // Configuration
 
-export interface GlobOptions {
-    [key: string]: any;
-}
-
 export interface ShellConfig {
     /**
      * Suppresses all command output if true, except for echo() calls. Default is false.
@@ -549,9 +546,9 @@ export interface ShellConfig {
 
     /**
      * Passed to glob.sync() instead of the default options ({}).
-     * @type {Object}
+     * @type {glob.IOptions}
      */
-    globOptions: GlobOptions;
+    globOptions: glob.IOptions;
 
     /**
      * Absolute path of the Node binary. Default is null (inferred).

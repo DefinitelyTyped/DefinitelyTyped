@@ -33,12 +33,13 @@ export class Strategy implements passport.Strategy {
 export interface SamlConfig {
     // Core
     callbackUrl?: string;
-    path: string;
+    path?: string;
     protocol?: string;
     host?: string;
     entryPoint: string;
     issuer: string;
     privateCert?: string;
+    cert?: {};
     decryptionPvk?: string;
     signatureAlgorithm?: 'sha1' | 'sha256' | 'sha512';
 

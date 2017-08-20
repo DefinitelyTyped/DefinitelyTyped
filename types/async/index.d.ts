@@ -28,7 +28,7 @@ interface AsyncQueue<T> {
     idle(): boolean;
     concurrency: number;
     push<E>(task: T, callback?: ErrorCallback<E>): void;
-    push<E>(task: T, callback?: AsyncResultCallback<T, E>): void;
+    push<R,E>(task: T, callback?: AsyncResultCallback<R, E>): void;
     push<E>(task: T[], callback?: ErrorCallback<E>): void;
     unshift<E>(task: T, callback?: ErrorCallback<E>): void;
     unshift<E>(task: T[], callback?: ErrorCallback<E>): void;
@@ -53,8 +53,8 @@ interface AsyncPriorityQueue<T> {
     concurrency: number;
     started: boolean;
     paused: boolean;
-    push<E>(task: T, priority: number, callback?: AsyncResultArrayCallback<T, E>): void;
-    push<E>(task: T[], priority: number, callback?: AsyncResultArrayCallback<T, E>): void;
+    push<R,E>(task: T, priority: number, callback?: AsyncResultArrayCallback<R, E>): void;
+    push<R,E>(task: T[], priority: number, callback?: AsyncResultArrayCallback<R, E>): void;
     saturated: () => any;
     empty: () => any;
     drain: () => any;
