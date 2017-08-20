@@ -8,15 +8,15 @@
 
 export type Types = 'any' | 'alternatives' | 'array' | 'string' | 'number' | 'object' | 'boolean' | 'binary' | 'date' | 'function' | 'lazy';
 
-export type LanguageRuleOptions = string | false | {
-    [key: string]: LanguageRuleOptions;
+export type LanguageOptions = string | false | {
+    [key: string]: LanguageOptions;
 };
 
-export type LanguageOptions = {
+export type LanguageRootOptions = {
     root?: string;
     key?: string;
     messages?: { wrapArrays?: boolean; };
-} & Partial<Record<Types, LanguageRuleOptions>> & { [key: string]: LanguageRuleOptions;};
+} & Partial<Record<Types, LanguageOptions>> & { [key: string]: LanguageOptions;};
 
 export interface ValidationOptions {
     /**
@@ -46,7 +46,7 @@ export interface ValidationOptions {
     /**
      * overrides individual error messages. Defaults to no override ({}).
      */
-    language?: LanguageOptions;
+    language?: LanguageRootOptions;
     /**
      * sets the default presence requirements. Supported modes: 'optional', 'required', and 'forbidden'. Defaults to 'optional'.
      */
@@ -867,7 +867,7 @@ export interface Extension {
     name: string;
     base?: Schema;
     pre?: <R = any>(this: Schema, value: any, state: State, options: ValidationOptions) => Err | R;
-    language?: LanguageRuleOptions;
+    language?: LanguageOptions;
     describe?: (this: Schema, description: Description) => Description;
     rules?: Rules[];
 }
