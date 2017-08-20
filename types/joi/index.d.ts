@@ -16,9 +16,7 @@ export type LanguageOptions = {
     root?: string;
     key?: string;
     messages?: { wrapArrays?: boolean; };
-} & Partial<Record<Types, LanguageRuleOptions>> & {
-    [key: string]: LanguageRuleOptions;
-};
+} & Partial<Record<Types, LanguageRuleOptions>> & { [key: string]: LanguageRuleOptions;};
 
 export interface ValidationOptions {
     /**
@@ -359,8 +357,23 @@ export interface AnySchema<T extends AnySchema<Schema>> {
      * @param options - should the context passed into the `validate` function in a custom rule
      */
     createError(type: string, context: Context, state: State, options: ValidationOptions): Err;
+
+    /**
+     * Returns a plain object representing the schema's rules and properties
+     */
+    describe(): Description;
 }
 
+export interface Description {
+    type?: Types | string;
+    flags?: object;
+    notes?: string[];
+    tags?: string[];
+    meta?: any;
+    example?: any;
+    unit?: string;
+    [key: string]: any;
+}
 export interface Context {
     [key: string]: any;
 }
@@ -380,7 +393,7 @@ export interface BooleanSchema extends AnySchema<BooleanSchema> {
      * see boolean.insensitive() to change this behavior.
      * @param values - strings, numbers or arrays of them
      */
-    truthy(... values: Array<string | number | string[] | number[]>): BooleanSchema;
+    truthy(...values: Array<string | number | string[] | number[]>): BooleanSchema;
 
     /**
      * Allows for additional values to be considered valid booleans by converting them to false during validation.
@@ -388,7 +401,7 @@ export interface BooleanSchema extends AnySchema<BooleanSchema> {
      * see boolean.insensitive() to change this behavior.
      * @param values - strings, numbers or arrays of them
      */
-    falsy(... values: Array<string | number | string[] | number[]>): BooleanSchema;
+    falsy(...values: Array<string | number | string[] | number[]>): BooleanSchema;
 
     /**
      * Allows the values provided to truthy and falsy as well as the "true" and "false" default conversion
@@ -860,7 +873,7 @@ export interface Extension {
     base?: Schema;
     pre?: (this: AnySchema<AnySchema<Schema>>, params: { [key: string]: any }, value: any, state: State, options: ValidationOptions) => Err | void;
     language?: LanguageRuleOptions;
-    describe?: (this: AnySchema<AnySchema<Schema>>, description: any) => any;
+    describe?: (this: AnySchema<AnySchema<Schema>>, description: Description) => Description;
     rules?: Rules[];
 }
 
@@ -987,3 +1000,8 @@ export function reach(schema: Schema, path: string): Schema;
  * Creates a new Joi instance customized with the extension(s) you provide included.
  */
 export function extend(extention: Extension): any;
+
+/**
+ * Returns a plain object representing the schema's rules and properties
+ */
+export function describe(schema: Schema): Description;
