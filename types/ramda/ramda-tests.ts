@@ -268,7 +268,7 @@ R.times(i, 5);
     double(2); // => 4
 
     function greet(salutation: string, title: string, firstName: string, lastName: string) {
-        return salutation + ", " + title + " " + firstName + " " + lastName + "!";
+        return `${salutation}, ${title} ${firstName} ${lastName}!`;
     }
 
     const sayHello     = R.partial(greet, "Hello");
@@ -983,7 +983,7 @@ type Pair = KeyValuePair<string, number>;
     const fn        = R.cond([
         [R.equals(0), R.always("water freezes at 0°C")],
         [R.equals(100), R.always("water boils at 100°C")],
-        [R.T, (temp: number) => "nothing special happens at " + temp + "°C"]
+        [R.T, (temp: number) => `nothing special happens at ${temp}°C`]
     ]);
     const a: string = fn(0); // => 'water freezes at 0°C'
     const b: string = fn(50); // => 'nothing special happens at 50°C'
@@ -1059,7 +1059,7 @@ type Pair = KeyValuePair<string, number>;
         }
 
         toStringn() {
-            return "new Point(" + this.x + ", " + this.y + ")";
+            return `new Point(${this.x}, ${this.y})`;
         }
     }
     R.toString(new Point(1, 2)); // => 'new Point(1, 2)'
@@ -1088,9 +1088,9 @@ type Pair = KeyValuePair<string, number>;
 };
 
 () => {
-    let of = Array.of;
-    let fn = (x: number) => Array.of(x + 1);
-    let list = [1, 2, 3];
+    const of = Array.of;
+    const fn = (x: number) => Array.of(x + 1);
+    const list = [1, 2, 3];
     R.traverse(of, fn, list);
     R.traverse(of, fn)(list);
     R.traverse(of)(fn, list);
@@ -1613,7 +1613,7 @@ class Rectangle {
 
 () => {
     const mapIndexed = R.addIndex(R.map);
-    mapIndexed((val: string, idx: number) => idx + "-" + val)(["f", "o", "o", "b", "a", "r"]);
+    mapIndexed((val: string, idx: number) => `${idx}-${val}`)(["f", "o", "o", "b", "a", "r"]);
     // => ['0-f', '1-o', '2-o', '3-b', '4-a', '5-r']
     mapIndexed((rectangle: Rectangle, idx: number): number => rectangle.area() * idx, [new Rectangle(1, 2), new Rectangle(4, 7)]);
     // => [2, 56]
@@ -1621,7 +1621,7 @@ class Rectangle {
 
 () => {
     const reduceIndexed = R.addIndex(R.reduce);
-    reduceIndexed((acc: string, val: string, idx: number) => acc + "," + idx + "-" + val, "", ["f", "o", "o", "b", "a", "r"]);
+    reduceIndexed((acc: string, val: string, idx: number) => `${acc},${idx}-${val}`, "", ["f", "o", "o", "b", "a", "r"]);
     // => ['0-f,1-o,2-o,3-b,4-a,5-r']
 };
 

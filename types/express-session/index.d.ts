@@ -1,6 +1,6 @@
 // Type definitions for express-session 1.15
 // Project: https://www.npmjs.org/package/express-session
-// Definitions by: Hiroki Horiuchi <https://github.com/horiuchi/>
+// Definitions by: Hiroki Horiuchi <https://github.com/horiuchi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Definitions by: Jacob Bogers <https://github.com/jacobbogers
 
@@ -18,7 +18,7 @@ declare global {
 
     interface SessionData {
       [key: string]: any;
-      cookie: Express.SessionCookieData;
+      cookie: SessionCookieData;
     }
 
     interface SessionCookieData {

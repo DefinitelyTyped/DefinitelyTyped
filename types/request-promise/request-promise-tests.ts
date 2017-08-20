@@ -179,7 +179,8 @@ const data = {
 };
 request.post({ url: 'http://service.com/upload', formData: data }, (err, httpResponse, body) => {
   if (err) {
-    return console.error('upload failed:', err);
+    console.error('upload failed:', err);
+    return;
   }
   console.log('Upload successful!  Server responded with:', body);
 });
@@ -208,7 +209,8 @@ request({
   },
   (error, response, body) => {
     if (error) {
-      return console.error('upload failed:', error);
+      console.error('upload failed:', error);
+      return;
     }
     console.log('Upload successful!  Server responded with:', body);
   });
@@ -228,7 +230,8 @@ request({
   },
   (error, response, body) => {
     if (error) {
-      return console.error('upload failed:', error);
+      console.error('upload failed:', error);
+      return;
     }
     console.log('Upload successful!  Server responded with:', body);
   });
@@ -253,7 +256,7 @@ request.get('http://some.server.com/', {
 
 const username = 'username';
 const password = 'password';
-let url = 'http://' + username + ':' + password + '@some.server.com';
+let url = `http://${username}:${password}@some.server.com`;
 
 request({ url }, (error, response, body) => {
    // Do more stuff with 'body' here
@@ -291,8 +294,7 @@ request.post({ url, oauth }, (e, r, body) => {
 
   // step 2
   const req_data = qs.parse(body);
-  const uri = 'https://api.twitter.com/oauth/authenticate'
-    + '?' + qs.stringify({oauth_token: req_data.oauth_token});
+  const uri = `https://api.twitter.com/oauth/authenticate?${qs.stringify({oauth_token: req_data.oauth_token})}`;
   // redirect the user to the authorize uri
 
   // step 3
@@ -471,7 +473,7 @@ request(
     // unmodified http.IncomingMessage object
     response.on('data', (data: any[]) => {
       // compressed data as it is received
-      console.log('received ' + data.length + ' bytes of compressed data');
+      console.log(`received ${data.length} bytes of compressed data`);
     });
   });
 
