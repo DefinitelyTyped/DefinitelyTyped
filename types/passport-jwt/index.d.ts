@@ -45,4 +45,5 @@ export declare namespace ExtractJwt {
     export function fromAuthHeaderWithScheme(auth_scheme: string): JwtFromRequestFunction;
     export function fromAuthHeader(): JwtFromRequestFunction;
     export function fromExtractors(extractors: JwtFromRequestFunction[]): JwtFromRequestFunction;
+    export function fromAuthHeaderAsBearerToken(): JwtFromRequestFunction;
 }
