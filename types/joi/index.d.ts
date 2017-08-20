@@ -43,7 +43,7 @@ export interface ValidationOptions {
     /**
      * provides an external data set to be used in references
      */
-    context?: Object;
+    context?: Context;
     /**
      * when true, do not apply default values. Defaults to false.
      */
@@ -146,10 +146,7 @@ export interface ValidationErrorItem {
     type: string;
     path: string;
     options?: ValidationOptions;
-    context?: {
-        [key: string]: any;
-        value?: any;
-    };
+    context?: Context;
 }
 
 export interface ValidationErrorFunction {
@@ -346,7 +343,11 @@ export interface AnySchema<T extends AnySchema<Schema>> {
      * @param state - should the context passed into the `validate` function in a custom rule
      * @param options - should the context passed into the `validate` function in a custom rule
      */
-    createError(type: string, context: { [key: string]: any; }, state: State, options: ValidationOptions): Err;
+    createError(type: string, context: Context, state: State, options: ValidationOptions): Err;
+}
+
+export interface Context {
+    [key: string]: any;
 }
 
 export interface State {
