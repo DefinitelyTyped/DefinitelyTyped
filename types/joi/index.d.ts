@@ -227,6 +227,7 @@ export interface AnySchema {
      * Marks a key as required which will not allow undefined as value. All keys are optional by default.
      */
     required(): this;
+    exist(): this;
 
     /**
      * Marks a key as optional which will allow undefined as values. Used to annotate the schema for readability as all keys are optional by default.
@@ -371,11 +372,15 @@ export interface AnySchema {
 
 export interface Description {
     type?: Types | string;
+    label?: string;
+    description?: string;
     flags?: object;
     notes?: string[];
     tags?: string[];
-    meta?: any;
-    example?: any;
+    meta?: any[];
+    example?: any[];
+    valids?: any[];
+    invalids?: any[];
     unit?: string;
     options?: ValidationOptions;
     [key: string]: any;
@@ -865,7 +870,7 @@ export interface Reference extends AnySchema {
 
 export interface Rules<P extends object = any> {
     name: string;
-    params?: { [key in keyof P]: SchemaLike; };
+    params?: ObjectSchema | { [key in keyof P]: SchemaLike; };
     setup?(this: Schema, params: P): Schema | void;
     validate?<R = any>(this: Schema, params: P, value: any, state: State, options: ValidationOptions): Err | R;
     description?: string | ((params: P) => string);
@@ -875,6 +880,7 @@ export interface Extension {
     name: string;
     base?: Schema;
     language?: LanguageOptions;
+    coerce?<R = any>(this: Schema, value: any, state: State, options: ValidationOptions): Err | R;
     pre?<R = any>(this: Schema, value: any, state: State, options: ValidationOptions): Err | R;
     describe?(this: Schema, description: Description): Description;
     rules?: Rules[];
