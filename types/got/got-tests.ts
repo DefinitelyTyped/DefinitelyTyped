@@ -63,6 +63,7 @@ let req: http.ClientRequest;
 let res: http.IncomingMessage | undefined;
 let opts: got.GotOptions<string | null>;
 let err: got.GotError;
+let href: string | undefined;
 
 const stream = got.stream('todomvc.com');
 stream.addListener('request', (r) => req = r);
@@ -70,6 +71,7 @@ stream.addListener('response', (r) => res = r);
 stream.addListener('redirect', (r, o) => {
     res = r;
     opts = o;
+    href = o.href;
 });
 stream.addListener('error', (e, b, r) => {
     err = e;
@@ -81,6 +83,7 @@ stream.on('response', (r) => res = r);
 stream.on('redirect', (r, o) => {
     res = r;
     opts = o;
+    href = o.href;
 });
 stream.on('error', (e, b, r) => {
     err = e;
@@ -92,6 +95,7 @@ stream.once('response', (r) => res = r);
 stream.once('redirect', (r, o) => {
     res = r;
     opts = o;
+    href = o.href;
 });
 stream.once('error', (e, b, r) => {
     err = e;
@@ -103,6 +107,7 @@ stream.prependListener('response', (r) => res = r);
 stream.prependListener('redirect', (r, o) => {
     res = r;
     opts = o;
+    href = o.href;
 });
 stream.prependListener('error', (e, b, r) => {
     err = e;
@@ -114,6 +119,7 @@ stream.prependOnceListener('response', (r) => res = r);
 stream.prependOnceListener('redirect', (r, o) => {
     res = r;
     opts = o;
+    href = o.href;
 });
 stream.prependOnceListener('error', (e, b, r) => {
     err = e;
@@ -125,6 +131,7 @@ stream.removeListener('response', (r) => res = r);
 stream.removeListener('redirect', (r, o) => {
     res = r;
     opts = o;
+    href = o.href;
 });
 stream.removeListener('error', (e, b, r) => {
     err = e;
