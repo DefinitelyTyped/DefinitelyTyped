@@ -921,6 +921,7 @@ const Joi3 = Joi.extend({
     pre(value, state, options) {
     },
     describe(description) {
+        return description;
     },
     rules: [
         {
