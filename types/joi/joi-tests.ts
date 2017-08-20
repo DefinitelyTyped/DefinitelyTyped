@@ -40,6 +40,7 @@ var altSchema: Joi.AlternativesSchema = null;
 var schemaArr: Joi.Schema[] = [];
 
 var ref: Joi.Reference = null;
+var description: Joi.Description = null;
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
@@ -908,6 +909,9 @@ ref = Joi.ref(str);
 
 Joi.isRef(ref);
 
+description = Joi.describe(schema);
+description = schema.describe();
+
 schema = Joi.reach(schema, '');
 
 const Joi2 = Joi.extend({ name: '', base: schema });
@@ -942,3 +946,4 @@ const Joi3 = Joi.extend({
         },
     ],
 });
+
