@@ -181,6 +181,17 @@ schemaMap = {
     ],
     c: arrSchema
 };
+schemaMap = {
+    a: 1,
+    b: {
+        b1: '1',
+        b2: 2
+    },
+    c: [
+        { c1: true },
+        { c2: null }
+    ]
+}
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
@@ -892,9 +903,9 @@ const Joi3 = Joi.extend({
     language: {
         asd: 'must be exactly asd(f)',
     },
-    pre (value, state, options) {
+    pre(value, state, options) {
     },
-    describe (description) {
+    describe(description) {
     },
     rules: [
         {
@@ -902,10 +913,10 @@ const Joi3 = Joi.extend({
             params: {
                 allowF: Joi.boolean().default(false),
             },
-            setup (params) {
+            setup(params) {
                 const fIsAllowed = params.allowF;
             },
-            validate (params, value, state, options) {
+            validate(params, value, state, options) {
                 if (value === 'asd' || params.allowF && value === 'asdf') {
                     return value;
                 }
