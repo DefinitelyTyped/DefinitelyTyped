@@ -31,7 +31,7 @@ export interface ValidationOptions {
      *      - arrays - set to true to remove unknown items from arrays.
      *      - objects - set to true to remove unknown keys from objects
      */
-    stripUnknown?: boolean | {arrays: boolean} | {objects: boolean} | {arrays: boolean; objects: boolean};
+    stripUnknown?: boolean | { arrays?: boolean; objects?: boolean };
     /**
      * overrides individual error messages. Defaults to no override ({}).
      */
