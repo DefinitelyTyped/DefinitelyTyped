@@ -854,26 +854,20 @@ export interface AlternativesSchema extends AnySchema<FunctionSchema> {
     when(ref: Reference, options: WhenOptions): AlternativesSchema;
 }
 
-export interface Terms {
-    value: any;
-    state: State;
-    options: ValidationOptions;
-}
-
-export interface Rules {
+export interface Rules<P extends object = any> {
     name: string;
-    params?: SchemaMap;
-    setup?: (this: AnySchema<AnySchema<Schema>>, description: { [key: string]: any }) => AnySchema<AnySchema<Schema>> | void;
-    validate?: (this: AnySchema<AnySchema<Schema>>, params: { [key: string]: any }, value: any, state: State, options: ValidationOptions) => Err | undefined;
-    description?: string | Function;
+    params?: { [key in keyof P]: SchemaLike };
+    setup?: (this: Schema, params: P) => Schema | void;
+    validate?: <R = any>(this: Schema, params: P, value: any, state: State, options: ValidationOptions) => Err | R;
+    description?: string | ((params: P) => string);
 }
 
 export interface Extension {
     name: string;
     base?: Schema;
-    pre?: (this: AnySchema<AnySchema<Schema>>, params: { [key: string]: any }, value: any, state: State, options: ValidationOptions) => Err | void;
+    pre?: <R = any>(this: Schema, value: any, state: State, options: ValidationOptions) => Err | R;
     language?: LanguageRuleOptions;
-    describe?: (this: AnySchema<AnySchema<Schema>>, description: Description) => Description;
+    describe?: (this: Schema, description: Description) => Description;
     rules?: Rules[];
 }
 
