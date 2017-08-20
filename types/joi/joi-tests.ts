@@ -27,7 +27,7 @@ var funcArr: Function[] = [];
 var schema: Joi.Schema = null;
 var schemaLike: Joi.SchemaLike = null;
 
-var anySchema: Joi.AnySchema<Joi.Schema> = null;
+var anySchema: Joi.AnySchema = null;
 var numSchema: Joi.NumberSchema = null;
 var strSchema: Joi.StringSchema = null;
 var arrSchema: Joi.ArraySchema = null;
@@ -918,7 +918,7 @@ Joi.isRef(ref);
 description = Joi.describe(schema);
 description = schema.describe();
 
-schema = Joi.reach(schema, '');
+schema = Joi.reach(objSchema, '');
 
 const Joi2 = Joi.extend({ name: '', base: schema });
 

@@ -8,7 +8,7 @@
 
 export type Types = 'any' | 'alternatives' | 'array' | 'string' | 'number' | 'object' | 'boolean' | 'binary' | 'date' | 'function' | 'lazy';
 
-export type LanguageOptions = string | false | {
+export type LanguageOptions = string | false | null | {
     [key: string]: LanguageOptions;
 };
 
@@ -16,7 +16,7 @@ export type LanguageRootOptions = {
     root?: string;
     key?: string;
     messages?: { wrapArrays?: boolean; };
-} & Partial<Record<Types, LanguageOptions>> & { [key: string]: LanguageOptions;};
+} & Partial<Record<Types, LanguageOptions>> & { [key: string]: LanguageOptions; };
 
 export interface ValidationOptions {
     /**
@@ -175,15 +175,23 @@ export interface SchemaMap {
     [key: string]: SchemaLike | SchemaLike[];
 }
 
-export interface Schema extends AnySchema<Schema> {
+export type Schema = AnySchema
+    | ArraySchema
+    | AlternativesSchema
+    | BinarySchema
+    | BooleanSchema
+    | DateSchema
+    | FunctionSchema
+    | NumberSchema
+    | ObjectSchema
+    | StringSchema
+    | Reference;
+
+export interface Reference extends AnySchema {
 
 }
 
-export interface Reference extends Schema {
-
-}
-
-export interface AnySchema<T extends AnySchema<Schema>> {
+export interface AnySchema {
     /**
      * Validates a value using the schema and options.
      */
@@ -195,90 +203,90 @@ export interface AnySchema<T extends AnySchema<Schema>> {
     /**
      * Whitelists a value
      */
-    allow(value: any, ...values: any[]): T;
-    allow(values: any[]): T;
+    allow(value: any, ...values: any[]): this;
+    allow(values: any[]): this;
 
     /**
      * Adds the provided values into the allowed whitelist and marks them as the only valid values allowed.
      */
-    valid(value: any, ...values: any[]): T;
-    valid(values: any[]): T;
-    only(value: any, ...values: any[]): T;
-    only(values: any[]): T;
-    equal(value: any, ...values: any[]): T;
-    equal(values: any[]): T;
+    valid(value: any, ...values: any[]): this;
+    valid(values: any[]): this;
+    only(value: any, ...values: any[]): this;
+    only(values: any[]): this;
+    equal(value: any, ...values: any[]): this;
+    equal(values: any[]): this;
 
     /**
      * Blacklists a value
      */
-    invalid(value: any, ...values: any[]): T;
-    invalid(values: any[]): T;
-    disallow(value: any, ...values: any[]): T;
-    disallow(values: any[]): T;
-    not(value: any, ...values: any[]): T;
-    not(values: any[]): T;
+    invalid(value: any, ...values: any[]): this;
+    invalid(values: any[]): this;
+    disallow(value: any, ...values: any[]): this;
+    disallow(values: any[]): this;
+    not(value: any, ...values: any[]): this;
+    not(values: any[]): this;
 
     /**
      * Marks a key as required which will not allow undefined as value. All keys are optional by default.
      */
-    required(): T;
+    required(): this;
 
     /**
      * Marks a key as optional which will allow undefined as values. Used to annotate the schema for readability as all keys are optional by default.
      */
-    optional(): T;
+    optional(): this;
 
     /**
      * Marks a key as forbidden which will not allow any value except undefined. Used to explicitly forbid keys.
      */
-    forbidden(): T;
+    forbidden(): this;
 
     /**
      * Marks a key to be removed from a resulting object or array after validation. Used to sanitize output.
      */
-    strip(): T;
+    strip(): this;
 
     /**
      * Annotates the key
      */
-    description(desc: string): T;
+    description(desc: string): this;
 
     /**
      * Annotates the key
      */
-    notes(notes: string): T;
-    notes(notes: string[]): T;
+    notes(notes: string): this;
+    notes(notes: string[]): this;
 
     /**
      * Annotates the key
      */
-    tags(notes: string): T;
-    tags(notes: string[]): T;
+    tags(notes: string): this;
+    tags(notes: string[]): this;
 
     /**
      * Attaches metadata to the key.
      */
-    meta(meta: Object): T;
+    meta(meta: Object): this;
 
     /**
      * Annotates the key with an example value, must be valid.
      */
-    example(value: any): T;
+    example(value: any): this;
 
     /**
      * Annotates the key with an unit name.
      */
-    unit(name: string): T;
+    unit(name: string): this;
 
     /**
      * Overrides the global validate() options for the current key and any sub-key.
      */
-    options(options: ValidationOptions): T;
+    options(options: ValidationOptions): this;
 
     /**
      * Sets the options.convert options to false which prevent type casting for the current key and any child keys.
      */
-    strict(isStrict?: boolean): T;
+    strict(isStrict?: boolean): this;
 
     /**
      * Sets a default value if the original value is undefined.
@@ -298,13 +306,13 @@ export interface AnySchema<T extends AnySchema<Schema>> {
      * Additionally, when specifying a method you must either have a description property on your method or the
      *  second parameter is required.
      */
-    default(value: any, description?: string): T;
-    default(): T;
+    default(value: any, description?: string): this;
+    default(): this;
 
     /**
      * Returns a new type that is the result of adding the rules of one type to another.
      */
-    concat(schema: T): T;
+    concat(schema: this): this;
 
     /**
      * Converts the type into an alternatives type where the conditions are merged into the type definition where:
@@ -315,18 +323,18 @@ export interface AnySchema<T extends AnySchema<Schema>> {
     /**
      * Overrides the key name in error messages.
      */
-    label(name: string): T;
+    label(name: string): this;
 
     /**
      * Outputs the original untouched value instead of the casted value.
      */
-    raw(isRaw?: boolean): T;
+    raw(isRaw?: boolean): this;
 
     /**
      * Considers anything that matches the schema to be empty (undefined).
      * @param schema - any object or joi schema to match. An undefined schema unsets that rule.
      */
-    empty(schema?: SchemaLike): T;
+    empty(schema?: SchemaLike): this;
 
     /**
      * Overrides the default joi error with a custom error if the rule fails where:
@@ -346,7 +354,7 @@ export interface AnySchema<T extends AnySchema<Schema>> {
      * override, that error will be returned and the override will be ignored (unless the `abortEarly`
      * option has been set to `false`).
      */
-    error?(err: Error | ValidationErrorFunction): T;
+    error?(err: Error | ValidationErrorFunction): this;
 
     /**
      * Creates a joi error object.
@@ -386,7 +394,7 @@ export interface State {
     reference?: any;
 }
 
-export interface BooleanSchema extends AnySchema<BooleanSchema> {
+export interface BooleanSchema extends AnySchema {
 
     /**
      * Allows for additional values to be considered valid booleans by converting them to true during validation.
@@ -412,7 +420,7 @@ export interface BooleanSchema extends AnySchema<BooleanSchema> {
     insensitive(enabled: boolean): BooleanSchema;
 }
 
-export interface NumberSchema extends AnySchema<NumberSchema> {
+export interface NumberSchema extends AnySchema {
     /**
      * Specifies the minimum value.
      * It can also be a reference to another field.
@@ -468,7 +476,7 @@ export interface NumberSchema extends AnySchema<NumberSchema> {
     negative(): NumberSchema;
 }
 
-export interface StringSchema extends AnySchema<StringSchema> {
+export interface StringSchema extends AnySchema {
     /**
      * Allows the value to match any whitelist of blacklist item in a case insensitive comparison.
      */
@@ -579,7 +587,7 @@ export interface StringSchema extends AnySchema<StringSchema> {
     trim(): StringSchema;
 }
 
-export interface ArraySchema extends AnySchema<ArraySchema> {
+export interface ArraySchema extends AnySchema {
     /**
      * Allow this array to be sparse.
      * enabled can be used with a falsy value to go back to the default behavior.
@@ -638,7 +646,7 @@ export interface ArraySchema extends AnySchema<ArraySchema> {
     unique(comparator?: string): ArraySchema;
 }
 
-export interface ObjectSchema extends AnySchema<ObjectSchema> {
+export interface ObjectSchema extends AnySchema {
     /**
      * Sets the allowed object keys.
      */
@@ -754,7 +762,7 @@ export interface ObjectSchema extends AnySchema<ObjectSchema> {
     optionalKeys(child: string, ...children: string[]): ObjectSchema;
 }
 
-export interface BinarySchema extends AnySchema<BinarySchema> {
+export interface BinarySchema extends AnySchema {
     /**
      * Sets the string encoding format if a string input is converted to a buffer.
      */
@@ -776,7 +784,7 @@ export interface BinarySchema extends AnySchema<BinarySchema> {
     length(limit: number): BinarySchema;
 }
 
-export interface DateSchema extends AnySchema<DateSchema> {
+export interface DateSchema extends AnySchema {
 
     /**
      * Specifies the oldest date allowed.
@@ -820,7 +828,7 @@ export interface DateSchema extends AnySchema<DateSchema> {
     timestamp(type?: 'javascript' | 'unix'): DateSchema;
 }
 
-export interface FunctionSchema extends AnySchema<FunctionSchema> {
+export interface FunctionSchema extends AnySchema {
 
     /**
      * Specifies the arity of the function where:
@@ -848,7 +856,7 @@ export interface FunctionSchema extends AnySchema<FunctionSchema> {
     ref(): FunctionSchema;
 }
 
-export interface AlternativesSchema extends AnySchema<FunctionSchema> {
+export interface AlternativesSchema extends AnySchema {
     try(schemas: SchemaLike[]): AlternativesSchema;
     try(...types: SchemaLike[]): AlternativesSchema;
     when(ref: string, options: WhenOptions): AlternativesSchema;
@@ -857,7 +865,7 @@ export interface AlternativesSchema extends AnySchema<FunctionSchema> {
 
 export interface Rules<P extends object = any> {
     name: string;
-    params?: { [key in keyof P]: SchemaLike };
+    params?: {[key in keyof P]: SchemaLike };
     setup?: (this: Schema, params: P) => Schema | void;
     validate?: <R = any>(this: Schema, params: P, value: any, state: State, options: ValidationOptions) => Err | R;
     description?: string | ((params: P) => string);
@@ -988,7 +996,8 @@ export function isRef(ref: any): boolean;
 /**
  * Get a sub-schema of an existing schema based on a path. Path separator is a dot (.).
  */
-export function reach(schema: Schema, path: string): Schema;
+export function reach(schema: ObjectSchema, path: string): Schema;
+export function reach<T extends Schema>(schema: ObjectSchema, path: string): T;
 
 
 /**
