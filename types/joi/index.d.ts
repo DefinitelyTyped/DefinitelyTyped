@@ -145,8 +145,11 @@ export interface IPOptions {
     cidr?: string
 }
 
-export interface ValidationError extends Error {
+export interface JoiObject {
     isJoi: boolean;
+}
+
+export interface ValidationError extends Error, JoiObject {
     details: ValidationErrorItem[];
     annotate(): string;
     _object: any;
@@ -185,10 +188,10 @@ export type Schema = AnySchema
     | NumberSchema
     | ObjectSchema
     | StringSchema
-    | LazySchema
-    | Reference;
+    | LazySchema;
 
-export interface AnySchema {
+export interface AnySchema extends JoiObject {
+
     /**
      * Validates a value using the schema and options.
      */
@@ -355,16 +358,6 @@ export interface AnySchema {
     error?(err: Error | ValidationErrorFunction): this;
 
     /**
-     * Creates a joi error object.
-     * Used in conjunction with custom rules.
-     * @param type - the type of rule to create the error for.
-     * @param context - provide properties that will be available in the `language` templates.
-     * @param state - should the context passed into the `validate` function in a custom rule
-     * @param options - should the context passed into the `validate` function in a custom rule
-     */
-    createError(type: string, context: Context, state: State, options: ValidationOptions): Err;
-
-    /**
      * Returns a plain object representing the schema's rules and properties
      */
     describe(): Description;
@@ -385,6 +378,7 @@ export interface Description {
     options?: ValidationOptions;
     [key: string]: any;
 }
+
 export interface Context {
     [key: string]: any;
 }
@@ -864,15 +858,31 @@ export interface LazySchema extends AnySchema {
 
 }
 
-export interface Reference extends AnySchema {
+export interface Reference extends JoiObject {
+    (value: any, validationOptions: ValidationOptions): any;
+    isContext: boolean;
+    key: string;
+    path: string;
+    toString(): string;
+}
 
+export type ExtensionBoundSchema = Schema & {
+    /**
+     * Creates a joi error object.
+     * Used in conjunction with custom rules.
+     * @param type - the type of rule to create the error for.
+     * @param context - provide properties that will be available in the `language` templates.
+     * @param state - should the context passed into the `validate` function in a custom rule
+     * @param options - should the context passed into the `validate` function in a custom rule
+     */
+    createError(type: string, context: Context, state: State, options: ValidationOptions): Err;
 }
 
 export interface Rules<P extends object = any> {
     name: string;
     params?: ObjectSchema | { [key in keyof P]: SchemaLike; };
-    setup?(this: Schema, params: P): Schema | void;
-    validate?<R = any>(this: Schema, params: P, value: any, state: State, options: ValidationOptions): Err | R;
+    setup?(this: ExtensionBoundSchema, params: P): Schema | void;
+    validate?<R = any>(this: ExtensionBoundSchema, params: P, value: any, state: State, options: ValidationOptions): Err | R;
     description?: string | ((params: P) => string);
 }
 
@@ -880,13 +890,13 @@ export interface Extension {
     name: string;
     base?: Schema;
     language?: LanguageOptions;
-    coerce?<R = any>(this: Schema, value: any, state: State, options: ValidationOptions): Err | R;
-    pre?<R = any>(this: Schema, value: any, state: State, options: ValidationOptions): Err | R;
+    coerce?<R = any>(this: ExtensionBoundSchema, value: any, state: State, options: ValidationOptions): Err | R;
+    pre?<R = any>(this: ExtensionBoundSchema, value: any, state: State, options: ValidationOptions): Err | R;
     describe?(this: Schema, description: Description): Description;
     rules?: Rules[];
 }
 
-export interface Err {
+export interface Err extends JoiObject {
     toString(): string;
 }
 

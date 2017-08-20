@@ -164,8 +164,6 @@ schema = dateSchema;
 schema = funcSchema;
 schema = objSchema;
 
-schema = ref;
-
 anySchema = anySchema;
 anySchema = numSchema;
 anySchema = strSchema;
