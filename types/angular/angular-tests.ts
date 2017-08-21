@@ -620,7 +620,7 @@ function test_angular_forEach() {
     const log: string[] = [];
     angular.forEach(values, (value, key, obj) => {
         obj[key] = value;
-        this.push(key + ': ' + value);
+        this.push(`${key}: ${value}`);
     }, log);
     // expect(log).toEqual(['name: misko', 'gender: male']);
 }
