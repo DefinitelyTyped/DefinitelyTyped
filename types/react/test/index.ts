@@ -221,7 +221,7 @@ const clonedDOMElement: React.DOMElement<React.HTMLAttributes<HTMLDivElement>, H
         className: "clonedDOMElement"
     });
 // Clone ReactHTMLElement
-const clonedHtmlElement: React.ReactHTMLElement<HTMLDivElement> =
+const clonedHtmlElement: React.ReactHTMLElement<HTMLInputElement> =
     React.cloneElement(htmlElement, {
         className: "clonedHTMLElement"
     });
