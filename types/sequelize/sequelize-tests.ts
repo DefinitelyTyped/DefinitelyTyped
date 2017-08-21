@@ -1091,6 +1091,7 @@ queryInterface.createTable( 'table', { name : { type : Sequelize.STRING } }, { s
 queryInterface.addIndex( { schema : 'a', tableName : 'c' }, ['d', 'e'], { logging : function() {} }, 'schema_table' );
 queryInterface.showIndex( { schema : 'schema', tableName : 'table' }, { logging : function() {} } );
 queryInterface.addIndex( 'Group', ['from'] );
+queryInterface.addIndex( 'Group', ['from'], { indexName: 'group_from' } );
 queryInterface.describeTable( '_Users', { logging : function() {} } );
 queryInterface.createTable( 's', { table_id : { type : Sequelize.INTEGER, primaryKey : true, autoIncrement : true } } );
 /* NOTE https://github.com/DefinitelyTyped/DefinitelyTyped/pull/5590
