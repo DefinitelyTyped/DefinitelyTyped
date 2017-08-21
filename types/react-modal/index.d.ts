@@ -38,36 +38,51 @@ declare namespace ReactModal {
     interface Props {
         /* Boolean describing if the modal should be shown or not. Defaults to false. */
         isOpen: boolean;
+
         /* Object indicating styles to be used for the modal, divided into overlay and content styles. */
         style?: Styles;
-        /* Set this to properly hide your application from assistive screenreaders and other assistive technologies while the modal is open. */
-        appElement?: HTMLElement | {};
-        /* Function that will be run after the modal has opened. */
-        onAfterOpen?(): void;
-        /* Function that will be run when the modal is requested to be closed, prior to actually closing. */
-        onRequestClose?(event: (MouseEvent | KeyboardEvent)): void;
-        /* Number indicating the milliseconds to wait before closing the modal. Defaults to zero (no timeout). */
-        closeTimeoutMS?: number;
-        /* Boolean indicating if the appElement should be hidden. Defaults to true. */
-        ariaHideApp?: boolean;
-        /* Boolean indicating if the overlay should close the modal. Defaults to true. */
-        shouldCloseOnOverlayClick?: boolean;
+
         /* String className to be applied to the portal. Defaults to "ReactModalPortal". */
         portalClassName?: string;
-        /* String or object className to be applied to the overlay. */
-        overlayClassName?: string | Classes;
-        /* String or object className to be applied to the modal content. */
-        className?: string | Classes;
-        /* String indicating how the content container should be announced to screenreaders. */
-        contentLabel?: string;
-        /* String indicating the role of the modal, allowing the 'dialog' role to be applied if desired. */
-        role?: string;
-        /* Function that will be called to get the parent element that the modal will be attached to. */
-        parentSelector?(): HTMLElement;
+
         /* String className to be applied to the document.body. */
         bodyOpenClassName?: string;
+
+        /* String or object className to be applied to the modal content. */
+        className?: string | Classes;
+
+        /* String or object className to be applied to the overlay. */
+        overlayClassName?: string | Classes;
+
+        /* Set this to properly hide your application from assistive screenreaders and other assistive technologies while the modal is open. */
+        appElement?: HTMLElement | {};
+
+        /* Function that will be run after the modal has opened. */
+        onAfterOpen?(): void;
+
+        /* Function that will be run when the modal is requested to be closed, prior to actually closing. */
+        onRequestClose?(event: (MouseEvent | KeyboardEvent)): void;
+
+        /* Number indicating the milliseconds to wait before closing the modal. Defaults to zero (no timeout). */
+        closeTimeoutMS?: number;
+
+        /* Boolean indicating if the appElement should be hidden. Defaults to true. */
+        ariaHideApp?: boolean;
+
+        /* Boolean indicating if the overlay should close the modal. Defaults to true. */
+        shouldCloseOnOverlayClick?: boolean;
+
+        /* Function that will be called to get the parent element that the modal will be attached to. */
+        parentSelector?(): HTMLElement;
+
         /* Additional aria attributes. */
         aria?: Aria;
+
+        /* String indicating the role of the modal, allowing the 'dialog' role to be applied if desired. */
+        role?: string;
+
+        /* String indicating how the content container should be announced to screenreaders. */
+        contentLabel: string;
     }
 }
 

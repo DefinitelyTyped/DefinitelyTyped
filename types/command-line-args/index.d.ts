@@ -1,6 +1,6 @@
 // Type definitions for command-line-args 4.0.6
 // Project: https://github.com/75lb/command-line-args
-// Definitions by: CzBuCHi <https://github.com/CzBuCHi/>
+// Definitions by: CzBuCHi <https://github.com/CzBuCHi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**

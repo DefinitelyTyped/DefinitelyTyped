@@ -1,6 +1,6 @@
 // Type definitions for markdown-it
 // Project: https://github.com/markdown-it/markdown-it
-// Definitions by: York Yao <https://github.com/plantain-00/>, Robert Coie <https://github.com/rapropos/>
+// Definitions by: York Yao <https://github.com/plantain-00/>, Robert Coie <https://github.com/rapropos>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface MarkdownItStatic {

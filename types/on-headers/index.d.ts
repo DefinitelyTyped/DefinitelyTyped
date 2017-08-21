@@ -1,6 +1,6 @@
 // Type definitions for serve-favicon 2.1.6
 // Project: https://github.com/jshttp/on-headers
-// Definitions by: John Jeffery <https://github.com/jjeffery/>
+// Definitions by: John Jeffery <https://github.com/jjeffery>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />

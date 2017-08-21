@@ -1,11 +1,17 @@
 // Type definitions for semver 5.3
 // Project: https://github.com/npm/node-semver
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
+//                 Lucian Buzzo <https://github.com/LucianBuzzo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/semver
 
 export const SEMVER_SPEC_VERSION: "2.0.0";
 
 export type ReleaseType = "major" | "premajor" | "minor" | "preminor" | "patch" | "prepatch" | "prerelease";
+
+/**
+ * Return the parsed version as a SemVer object, or null if it's not valid.
+ */
+export function parse(version: string, loose?: boolean): SemVer | null;
 
 /**
  * Return the parsed version, or null if it's not valid.

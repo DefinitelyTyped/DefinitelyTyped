@@ -412,7 +412,7 @@ phonon.options({
 phonon.navigator().on({ page: 'home' }, activity => {
     activity.onReady(() => {
         // input where user typed words to query
-        const input = document.querySelector( '#searchJS' );
+        const input = document.querySelector('#searchJS');
         let list = '';
         // external autocomplete
         const req = phonon.ajax({

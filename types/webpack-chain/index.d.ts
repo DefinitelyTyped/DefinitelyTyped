@@ -1,6 +1,6 @@
 // Type definitions for webpack-chain 3.0
 // Project: https://github.com/mozilla-neutrino/webpack-chain
-// Definitions by: Eirikur Nilsson <https://github.com/eirikurn>
+// Definitions by: Eirikur Nilsson <https://github.com/eirikurn>, Paul Sachs <https://github.com/psachs21>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as webpack from 'webpack';
@@ -83,7 +83,7 @@ declare namespace Config {
 	class Module extends ChainedMap<Config> {
 		rules: TypedChainedMap<this, Rule>;
 		rule(name: string): Rule;
-		noParse: TypedChainedSet<this, RegExp>;
+		noParse(noParse: RegExp | RegExp[] | ((contentPath: string) => boolean)): this;
 	}
 
 	class Output extends ChainedMap<Config> {

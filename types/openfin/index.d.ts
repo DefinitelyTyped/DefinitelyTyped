@@ -1,6 +1,6 @@
 // Type definitions for OpenFin API 17.0
 // Project: https://openfin.co/
-// Definitions by: Chris Barker <https://github.com/chrisbarker/>
+// Definitions by: Chris Barker <https://github.com/chrisbarker>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // based on v6.49.17.14
