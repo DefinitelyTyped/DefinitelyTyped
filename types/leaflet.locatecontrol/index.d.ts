@@ -9,7 +9,7 @@ declare namespace L {
     namespace Control {
         interface LocateOptions {
             position?: string;
-            layer?: L.Layer;
+            layer?: Layer;
             setView?: boolean | string;
             flyTo?: boolean;
             keepCurrentZoomLevel?: boolean;
@@ -19,10 +19,10 @@ declare namespace L {
             drawCircle?: boolean;
             drawMarker?: boolean;
             markerClass?: any;
-            circleStyle?: L.PathOptions;
-            markerStyle?: L.PathOptions;
-            followCircleStyle?: L.PathOptions;
-            followMarkerStyle?: L.PathOptions;
+            circleStyle?: PathOptions;
+            markerStyle?: PathOptions;
+            followCircleStyle?: PathOptions;
+            followMarkerStyle?: PathOptions;
             icon?: string;
             iconLoading?: string;
             iconElementTag?: string;

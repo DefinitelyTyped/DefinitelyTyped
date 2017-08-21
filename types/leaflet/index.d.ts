@@ -1039,7 +1039,7 @@ declare namespace L {
         }
 
         class Layers extends Control {
-            constructor(baseLayers?: LayersObject, overlays?: LayersObject, options?: Control.LayersOptions);
+            constructor(baseLayers?: LayersObject, overlays?: LayersObject, options?: LayersOptions);
             addBaseLayer(layer: Layer, name: string): this;
             addOverlay(layer: Layer, name: string): this;
             removeLayer(layer: Layer): this;
@@ -1056,7 +1056,7 @@ declare namespace L {
         }
 
         class Scale extends Control {
-            constructor(options?: Control.ScaleOptions);
+            constructor(options?: ScaleOptions);
             options: ScaleOptions;
         }
     }

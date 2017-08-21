@@ -1,6 +1,6 @@
 // Type definitions for diff 3.2
 // Project: https://github.com/kpdecker/jsdiff
-// Definitions by: vvakame <https://github.com/vvakame/>
+// Definitions by: vvakame <https://github.com/vvakame>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 

@@ -1561,6 +1561,7 @@ export interface ViewStyle extends FlexStyle, TransformsStyle {
     borderTopLeftRadius?: number;
     borderTopRightRadius?: number;
     borderTopWidth?: number;
+    display?: "none" | "flex";
     opacity?: number;
     overflow?: "visible" | "hidden"
     shadowColor?: string;

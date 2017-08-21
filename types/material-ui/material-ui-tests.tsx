@@ -1,5 +1,8 @@
 import * as React from 'react';
-import { Component, PropTypes } from 'react';
+import {
+  Component, ComponentClass, CSSProperties, PropTypes,
+  StatelessComponent, ReactElement, ReactInstance, ValidationMap
+} from 'react';
 import * as ReactDOM from 'react-dom';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import { muiThemeable } from 'material-ui/styles/muiThemeable';
@@ -2068,7 +2071,7 @@ function handleTouchTap() {
   alert('onTouchTap triggered on the title component');
 }
 
-const styles: { [key: string]: React.CSSProperties } = {
+const styles: { [key: string]: CSSProperties } = {
   title: {
     cursor: 'pointer',
   },
@@ -2266,9 +2269,9 @@ const lightBaseTheme = {
 
 const lightMuiTheme = getMuiTheme(lightBaseTheme);
 
-class DeepDownTheTree extends React.Component<{} & {muiTheme: MuiTheme}> {
-  static propTypes: React.ValidationMap<any> = {
-    muiTheme: React.PropTypes.object.isRequired,
+class DeepDownTheTree extends Component<{} & {muiTheme: MuiTheme}> {
+  static propTypes: ValidationMap<any> = {
+    muiTheme: PropTypes.object.isRequired,
   };
 
   render() {
@@ -2284,7 +2287,7 @@ interface Props {
   label: string;
   muiTheme?: MuiTheme;
 }
-const MuiThemeableFunction = muiThemeable()<React.StatelessComponent<Props>, Props>(props => {
+const MuiThemeableFunction = muiThemeable()<StatelessComponent<Props>, Props>(props => {
   return (
       <span style={{color: props.muiTheme.palette.textColor}}>
         Applied the Theme to functional component: {props.label}.
@@ -2293,7 +2296,7 @@ const MuiThemeableFunction = muiThemeable()<React.StatelessComponent<Props>, Pro
 });
 
 @muiThemeable()
-class MuiThemeableClass extends React.Component<{label: string} & {muiTheme?: MuiTheme}> {
+class MuiThemeableClass extends Component<{label: string} & {muiTheme?: MuiTheme}> {
   render() {
     return (
       <span style={{color: this.props.muiTheme.palette.textColor}}>
@@ -2367,7 +2370,7 @@ const AppBarExampleIconMenu = () => (
 );
 
 // "http://www.material-ui.com/#/components/auto-complete"
-export class AutoCompleteExampleSimple extends React.Component<{}, {dataSource: string[]}> {
+export class AutoCompleteExampleSimple extends Component<{}, {dataSource: string[]}> {
   constructor(props) {
     super(props);
 
@@ -2954,7 +2957,7 @@ const CardExampleWithoutAvatar = () => (
   </Card>
 );
 
-class CardExampleControlled extends React.Component<{}, {expanded: boolean}> {
+class CardExampleControlled extends Component<{}, {expanded: boolean}> {
   constructor(props) {
     super(props);
     this.state = {
@@ -3029,7 +3032,7 @@ const ChipExampleSimple = () => (
   </div>
 );
 
-class ChipExampleComplex extends React.Component {
+class ChipExampleComplex extends Component {
   handleRequestDelete = () => {
     alert('You clicked the delete button.');
   }
@@ -3075,7 +3078,7 @@ interface DatePickerExampleToggleState {
   disableYearSelection?: boolean;
 }
 
-class DatePickerExampleToggle extends React.Component<{}, DatePickerExampleToggleState> {
+class DatePickerExampleToggle extends Component<{}, DatePickerExampleToggleState> {
   constructor(props) {
     super(props);
 
@@ -3157,7 +3160,7 @@ class DatePickerExampleToggle extends React.Component<{}, DatePickerExampleToggl
   }
 }
 
-class DatePickerExampleControlled extends React.Component<{}, {controlledDate?: Date}> {
+class DatePickerExampleControlled extends Component<{}, {controlledDate?: Date}> {
   constructor(props) {
     super(props);
 
@@ -3223,7 +3226,7 @@ const DatePickerExampleInternational = () => (
 );
 
 // "http://material-ui.com/#/components/dialog"
-class DialogExampleSimple extends React.Component<{}, {open?: boolean}> {
+class DialogExampleSimple extends Component<{}, {open?: boolean}> {
   state = {
     open: false,
   };
@@ -3268,7 +3271,7 @@ class DialogExampleSimple extends React.Component<{}, {open?: boolean}> {
   }
 }
 
-class DialogExampleModal extends React.Component<{}, {open?: boolean}> {
+class DialogExampleModal extends Component<{}, {open?: boolean}> {
   state = {
     open: false,
   };
@@ -3312,7 +3315,7 @@ class DialogExampleModal extends React.Component<{}, {open?: boolean}> {
   }
 }
 
-class DialogExampleCustomWidth extends React.Component<{}, {open?: boolean}> {
+class DialogExampleCustomWidth extends Component<{}, {open?: boolean}> {
   state = {
     open: false,
   };
@@ -3356,7 +3359,7 @@ class DialogExampleCustomWidth extends React.Component<{}, {open?: boolean}> {
   }
 }
 
-class DialogExampleDialogDatePicker extends React.Component<{}, {open?: boolean}> {
+class DialogExampleDialogDatePicker extends Component<{}, {open?: boolean}> {
   state = {
     open: false,
   };
@@ -3397,7 +3400,7 @@ class DialogExampleDialogDatePicker extends React.Component<{}, {open?: boolean}
   }
 }
 
-class DialogExampleScrollable extends React.Component<{}, {open?: boolean}> {
+class DialogExampleScrollable extends Component<{}, {open?: boolean}> {
   state = {
     open: false,
   };
@@ -3457,7 +3460,7 @@ class DialogExampleScrollable extends React.Component<{}, {open?: boolean}> {
   }
 }
 
-class DialogExampleAlert extends React.Component<{}, {open?: boolean}> {
+class DialogExampleAlert extends Component<{}, {open?: boolean}> {
   state = {
     open: false,
   };
@@ -3538,7 +3541,7 @@ const DividerExampleMenu = () => (
 );
 
 // "http://www.material-ui.com/#/components/drawer"
-class DrawerSimpleExample extends React.Component<{}, {open?: boolean}> {
+class DrawerSimpleExample extends Component<{}, {open?: boolean}> {
   constructor(props) {
     super(props);
     this.state = {open: false};
@@ -3562,7 +3565,7 @@ class DrawerSimpleExample extends React.Component<{}, {open?: boolean}> {
   }
 }
 
-class DrawerUndockedExample extends React.Component<{}, {open?: boolean}> {
+class DrawerUndockedExample extends Component<{}, {open?: boolean}> {
   constructor(props) {
     super(props);
     this.state = {open: false};
@@ -3593,7 +3596,7 @@ class DrawerUndockedExample extends React.Component<{}, {open?: boolean}> {
   }
 }
 
-class DrawerOpenRightExample extends React.Component<{}, {open?: boolean}> {
+class DrawerOpenRightExample extends Component<{}, {open?: boolean}> {
   constructor(props) {
     super(props);
     this.state = {open: false};
@@ -4210,7 +4213,7 @@ const ListExampleMessages = () => (
   </div>
 );
 
-function wrapState(ComposedComponent: React.ComponentClass<__MaterialUI.List.SelectableProps>) {
+function wrapState(ComposedComponent: ComponentClass<__MaterialUI.List.SelectableProps>) {
   return class SelectableList extends Component<{defaultValue: number}, {selectedIndex: number}> {
     static propTypes = {
       children: PropTypes.node.isRequired,
@@ -4242,7 +4245,7 @@ function wrapState(ComposedComponent: React.ComponentClass<__MaterialUI.List.Sel
   };
 }
 
-let SelectableList = wrapState(makeSelectable(List));
+const SelectableList = wrapState(makeSelectable(List));
 
 const ListExampleSelectable = () => (
   <Paper>
@@ -4490,7 +4493,7 @@ interface IconMenuExampleControlledState {
   openMenu?: boolean;
 }
 
-class IconMenuExampleControlled extends React.Component<{}, IconMenuExampleControlledState> {
+class IconMenuExampleControlled extends Component<{}, IconMenuExampleControlledState> {
   constructor(props) {
     super(props);
 
@@ -4666,7 +4669,7 @@ const IconMenuExampleNested = () => (
 );
 
 // "http://www.material-ui.com/#/components/dropdown-menu"
-class DropDownMenuSimpleExample extends React.Component<{}, {value?: number}> {
+class DropDownMenuSimpleExample extends Component<{}, {value?: number}> {
   constructor(props) {
     super(props);
     this.state = {value: 1};
@@ -4703,7 +4706,7 @@ class DropDownMenuSimpleExample extends React.Component<{}, {value?: number}> {
   }
 }
 
-class DropDownMenuOpenImmediateExample extends React.Component<{}, {value?: number}> {
+class DropDownMenuOpenImmediateExample extends Component<{}, {value?: number}> {
   constructor(props) {
     super(props);
     this.state = {value: 2};
@@ -4740,7 +4743,7 @@ for (let i = 0; i < 100; i++) {
     items.push(<MenuItem value={i} key={i} primaryText={`Item ${i}`}/>);
 }
 
-class DropDownMenuLongMenuExample extends React.Component<{}, {value?: number}> {
+class DropDownMenuLongMenuExample extends Component<{}, {value?: number}> {
   constructor(props) {
     super(props);
     this.state = {value: 10};
@@ -4757,7 +4760,7 @@ class DropDownMenuLongMenuExample extends React.Component<{}, {value?: number}> 
   }
 }
 
-class DropDownMenuLabeledExample extends React.Component<{}, {value?: number}> {
+class DropDownMenuLabeledExample extends Component<{}, {value?: number}> {
   constructor(props) {
     super(props);
     this.state = {value: 2};
@@ -4809,7 +4812,7 @@ const PaperExampleCircle = () => (
 );
 
 // "http://www.material-ui.com/#/components/popover"
-class PopoverExampleSimple extends React.Component<{}, {open?: boolean, anchorEl?: React.ReactInstance}> {
+class PopoverExampleSimple extends Component<{}, {open?: boolean, anchorEl?: ReactInstance}> {
   constructor(props) {
     super(props);
 
@@ -4860,7 +4863,7 @@ class PopoverExampleSimple extends React.Component<{}, {open?: boolean, anchorEl
   }
 }
 
-class PopoverExampleAnimation extends React.Component<{}, {open?: boolean, anchorEl?: React.ReactInstance}> {
+class PopoverExampleAnimation extends Component<{}, {open?: boolean, anchorEl?: ReactInstance}> {
   constructor(props) {
     super(props);
 
@@ -4915,10 +4918,10 @@ interface PopoverExampleConfigurableState {
   open?: boolean;
   anchorOrigin?: __MaterialUI.propTypes.origin;
   targetOrigin?: __MaterialUI.propTypes.origin;
-  anchorEl?: React.ReactInstance;
+  anchorEl?: ReactInstance;
 }
 
-class PopoverExampleConfigurable extends React.Component<{}, PopoverExampleConfigurableState> {
+class PopoverExampleConfigurable extends Component<{}, PopoverExampleConfigurableState> {
   constructor(props) {
     super(props);
 
@@ -5077,7 +5080,7 @@ const CircularProgressExampleSimple = () => (
   </div>
 );
 
-class CircularProgressExampleDeterminate extends React.Component<{}, {completed?: number}> {
+class CircularProgressExampleDeterminate extends Component<{}, {completed?: number}> {
   private timer: number;
 
   constructor(props) {
@@ -5122,7 +5125,7 @@ const LinearProgressExampleSimple = () => (
     <LinearProgress mode="indeterminate"/>
 );
 
-class LinearProgressExampleDeterminate extends React.Component<{}, {completed?: number}> {
+class LinearProgressExampleDeterminate extends Component<{}, {completed?: number}> {
   private timer: number;
 
   constructor(props) {
@@ -5219,7 +5222,7 @@ const RefreshIndicatorExampleLoading = () => (
 );
 
 // "http://www.material-ui.com/#/components/select-field"
-class SelectFieldExampleSimple extends React.Component<{}, {value?: number}> {
+class SelectFieldExampleSimple extends Component<{}, {value?: number}> {
   constructor(props) {
     super(props);
     this.state = {value: 1};
@@ -5271,7 +5274,7 @@ class SelectFieldExampleSimple extends React.Component<{}, {value?: number}> {
   }
 }
 
-class SelectFieldLongMenuExample extends React.Component<{}, {value?: number}> {
+class SelectFieldLongMenuExample extends Component<{}, {value?: number}> {
   constructor(props) {
     super(props);
     this.state = {value: 10};
@@ -5288,7 +5291,7 @@ class SelectFieldLongMenuExample extends React.Component<{}, {value?: number}> {
   }
 }
 
-class SelectFieldExampleCustomLabel extends React.Component<{}, {value?: number}> {
+class SelectFieldExampleCustomLabel extends Component<{}, {value?: number}> {
   constructor(props) {
     super(props);
     this.state = {value: 1};
@@ -5316,7 +5319,7 @@ const itemsPeriod = [
     <MenuItem key={5} value={5} primaryText="Weekly"/>,
 ];
 
-export default class SelectFieldExampleFloatingLabel extends React.Component<{}, {value?: number}> {
+export default class SelectFieldExampleFloatingLabel extends Component<{}, {value?: number}> {
   constructor(props) {
     super(props);
     this.state = {value: null};
@@ -5349,7 +5352,7 @@ export default class SelectFieldExampleFloatingLabel extends React.Component<{},
   }
 }
 
-class SelectFieldExampleError extends React.Component<{}, {value?: number}> {
+class SelectFieldExampleError extends Component<{}, {value?: number}> {
   constructor(props) {
     super(props);
     this.state = {value: null};
@@ -5398,7 +5401,7 @@ const names = [
   'Kelly Snyder',
 ];
 
-class SelectFieldExampleMultiSelect extends React.Component<{}, {values?: string[]}> {
+class SelectFieldExampleMultiSelect extends Component<{}, {values?: string[]}> {
   constructor(props) {
     super(props);
     this.state = {values: []};
@@ -5446,7 +5449,7 @@ const persons = [
   {value: 9, name: 'Kelly Snyder'},
 ];
 
-class SelectFieldExampleSelectionRenderer extends React.Component<{}, {values?: string[]}> {
+class SelectFieldExampleSelectionRenderer extends Component<{}, {values?: string[]}> {
   constructor(props) {
     super(props);
     this.state = {values: []};
@@ -5513,7 +5516,7 @@ const SliderExampleStep = () => (
     <Slider step={0.10} value={.5}/>
 );
 
-class SliderExampleControlled extends React.Component<{}, {firstSlider?: number, secondSlider?: number}> {
+class SliderExampleControlled extends Component<{}, {firstSlider?: number, secondSlider?: number}> {
   state = {
     firstSlider: 0.5,
     secondSlider: 50,
@@ -5675,7 +5678,7 @@ const ToggleExampleSimple = () => (
 );
 
 // "http://material-ui.com/#/components/snackbar"
-class SnackbarExampleSimple extends React.Component<{}, {open?: boolean}> {
+class SnackbarExampleSimple extends Component<{}, {open?: boolean}> {
   constructor(props) {
     super(props);
     this.state = {
@@ -5714,7 +5717,7 @@ class SnackbarExampleSimple extends React.Component<{}, {open?: boolean}> {
   }
 }
 
-class SnackbarExampleAction extends React.Component<{}, {open?: boolean, autoHideDuration?: number, message?: string}> {
+class SnackbarExampleAction extends Component<{}, {open?: boolean, autoHideDuration?: number, message?: string}> {
   constructor(props) {
     super(props);
     this.state = {
@@ -5776,7 +5779,7 @@ class SnackbarExampleAction extends React.Component<{}, {open?: boolean, autoHid
   }
 }
 
-class SnackbarExampleTwice extends React.Component<{}, {open?: boolean, message?: string}> {
+class SnackbarExampleTwice extends Component<{}, {open?: boolean, message?: string}> {
   private timer: number;
 
   constructor(props) {
@@ -5830,7 +5833,7 @@ class SnackbarExampleTwice extends React.Component<{}, {open?: boolean, message?
 }
 
 // "http://www.material-ui.com/#/components/stepper"
-class HorizontalLinearStepper extends React.Component<{}, {stepIndex?: number, finished?: boolean}> {
+class HorizontalLinearStepper extends Component<{}, {stepIndex?: number, finished?: boolean}> {
   state = {
     finished: false,
     stepIndex: 0,
@@ -5918,7 +5921,7 @@ class HorizontalLinearStepper extends React.Component<{}, {stepIndex?: number, f
   }
 }
 
-class VerticalLinearStepper extends React.Component<{}, {stepIndex?: number, finished?: boolean}> {
+class VerticalLinearStepper extends Component<{}, {stepIndex?: number, finished?: boolean}> {
   state = {
     finished: false,
     stepIndex: 0,
@@ -6020,7 +6023,7 @@ class VerticalLinearStepper extends React.Component<{}, {stepIndex?: number, fin
   }
 }
 
-class HorizontalNonLinearStepper extends React.Component<{}, {stepIndex?: number}> {
+class HorizontalNonLinearStepper extends Component<{}, {stepIndex?: number}> {
   state = {
     stepIndex: 0,
   };
@@ -6097,7 +6100,7 @@ class HorizontalNonLinearStepper extends React.Component<{}, {stepIndex?: number
   }
 }
 
-class VerticalNonLinear extends React.Component<{}, {stepIndex?: number}> {
+class VerticalNonLinear extends Component<{}, {stepIndex?: number}> {
   state = {
     stepIndex: 0,
   };
@@ -6210,7 +6213,7 @@ const getStyles = () => {
   };
 };
 
-class GranularControlStepper extends React.Component<{}, {stepIndex?: number, visited?: number[]}> {
+class GranularControlStepper extends Component<{}, {stepIndex?: number, visited?: number[]}> {
   state = {
     stepIndex: null,
     visited: [],
@@ -6312,7 +6315,7 @@ class GranularControlStepper extends React.Component<{}, {stepIndex?: number, vi
   }
 }
 
-class CustomIcon extends React.Component<{}, {stepIndex?: number}> {
+class CustomIcon extends Component<{}, {stepIndex?: number}> {
   state = {
     stepIndex: 0,
   };
@@ -6456,7 +6459,7 @@ interface TableExampleComplexState {
   height?: string;
 }
 
-class TableExampleComplex extends React.Component<{}, TableExampleComplexState> {
+class TableExampleComplex extends Component<{}, TableExampleComplexState> {
   constructor(props) {
     super(props);
 
@@ -6651,7 +6654,7 @@ const TabsExampleSimple = () => (
   </Tabs>
 );
 
-class TabsExampleControlled extends React.Component<{}, {value?: string}> {
+class TabsExampleControlled extends Component<{}, {value?: string}> {
   constructor(props) {
     super(props);
     this.state = {
@@ -6856,7 +6859,7 @@ const TextFieldExampleDisabled = () => (
   </div>
 );
 
-class TextFieldExampleControlled extends React.Component<{}, {value?: string}> {
+class TextFieldExampleControlled extends Component<{}, {value?: string}> {
   constructor(props) {
     super(props);
 
@@ -6902,7 +6905,7 @@ const TimePickerExampleSimple = () => (
   </div>
 );
 
-class TimePickerExampleComplex extends React.Component<{}, {value24?: Date, value12?: Date}> {
+class TimePickerExampleComplex extends Component<{}, {value24?: Date, value12?: Date}> {
   constructor(props) {
     super(props);
     this.state = {value24: null, value12: null};
@@ -6947,7 +6950,7 @@ const TimePickerInternational = () => (
 );
 
 // "http://www.material-ui.com/#/components/toolbar"
-class ToolbarExamplesSimple extends React.Component<{}, {value?: number}> {
+class ToolbarExamplesSimple extends Component<{}, {value?: number}> {
   constructor(props) {
     super(props);
     this.state = {
@@ -6994,7 +6997,7 @@ class ToolbarExamplesSimple extends React.Component<{}, {value?: number}> {
 
 const componentWithWidth = withWidth()(ToolbarExamplesSimple);
 
-class BottomNavigationExample extends React.Component<{}, {
+class BottomNavigationExample extends Component<{}, {
   index?: number
 }> {
   constructor() {
@@ -7011,7 +7014,7 @@ class BottomNavigationExample extends React.Component<{}, {
   }
 }
 
-class MaterialUiTests extends React.Component<{}, {}> {
+class MaterialUiTests extends Component {
     render() {
     return (
       <MuiThemeProvider muiTheme={getMuiTheme()}>

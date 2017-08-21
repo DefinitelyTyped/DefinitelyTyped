@@ -6,6 +6,7 @@
         "jsdoc-format": false,
         "no-misused-new": false,
         // not sure what this means
-        "no-single-declare-module": false
+        "no-single-declare-module": false,
+        "no-unnecessary-qualifier": false
     }
 }

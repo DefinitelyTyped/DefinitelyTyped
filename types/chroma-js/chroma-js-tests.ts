@@ -182,3 +182,8 @@ function test_scale() {
     chroma.scale('RdYlBu');
     chroma.scale('RdYlBu').padding(0.15);
 }
+
+function test_types() {
+    const color: chroma.Color = chroma('orange');
+    const scale: chroma.Scale = chroma.scale('RdYlBu');
+}
