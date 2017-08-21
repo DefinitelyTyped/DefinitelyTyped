@@ -1,6 +1,6 @@
 // Type definitions for koa-json v2.x
 // Project: https://github.com/koajs/json
-// Definitions by: Alex Friedman <https://github.com/brooklyndev/>
+// Definitions by: Alex Friedman <https://github.com/brooklyndev>
 // Definitions: https://github.com/brooklyndev/DefinitelyTyped
 
 /* =================== USAGE ===================

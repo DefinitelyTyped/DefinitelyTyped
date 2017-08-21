@@ -82,7 +82,7 @@ tracker.trackMultiProductsPurchaseEvent([{
 }, 'Ecommerce', 'Purchase');
 
 // Usage of custom dimensions
-let tracker2 = new GoogleAnalyticsTracker('GA_UA-2', { test: 1, OtherCustomDimension: 2});
+const tracker2 = new GoogleAnalyticsTracker('GA_UA-2', { test: 1, OtherCustomDimension: 2});
 
 tracker2.trackScreenViewWithCustomDimensionValues('Home', { test: 'Beta' });
 
@@ -107,9 +107,7 @@ GoogleTagManager.pushDataLayerEvent<string>({
         event: 'event',
         payload: 'payload',
     }).then((success: boolean) => {
-        success ?
-            console.log('Successfully got pushed the DataLayerEvent') :
-            console.log('Failed to push the DataLayerEvent');
+        console.log(success ? 'Successfully got pushed the DataLayerEvent' : 'Failed to push the DataLayerEvent');
     });
 
 // Google Analytic Settings

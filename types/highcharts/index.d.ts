@@ -6556,7 +6556,7 @@ declare namespace Highcharts {
          * @param {def} A serialized form of an SVG definition, including children.
          * @since 5.0.0
          */
-        definition(def: object): Highcharts.ElementObject;
+        definition(def: object): ElementObject;
         /**
          * Add an SVG/VML group.
          * @param [string] name The name of the group. This will be used in the class name, which will be 'highcharts-'+ name.

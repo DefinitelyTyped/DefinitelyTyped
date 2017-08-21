@@ -1,6 +1,6 @@
 // Type definitions for chokidar 1.7.0
 // Project: https://github.com/paulmillr/chokidar
-// Definitions by: Stefan Steinhart <https://github.com/reppners/>, Felix Becker <https://github.com/felixfbecker/>
+// Definitions by: Stefan Steinhart <https://github.com/reppners>, Felix Becker <https://github.com/felixfbecker>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />

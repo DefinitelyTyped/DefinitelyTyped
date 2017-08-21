@@ -55,7 +55,7 @@ describe('React dom test utils', () => {
             React.createElement('input', { type: 'text' }),
             element
         ) as Element;
-        const node = ReactDOM.findDOMNode(dom) as HTMLInputElement;
+        const node = ReactDOM.findDOMNode(dom);
 
         node.value = 'giraffe';
         ReactTestUtils.Simulate.change(node);

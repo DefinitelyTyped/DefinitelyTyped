@@ -2,8 +2,8 @@
 // Project: https://github.com/nnnick/Chart.js
 // Definitions by: Alberto Nuti <https://github.com/anuti>
 //                 Fabien Lavocat <https://github.com/FabienLavocat>
-//                 KentarouTakeda <https://github.com/KentarouTakeda/>
-//                 Larry Bahr <https://github.com/larrybahr/>
+//                 KentarouTakeda <https://github.com/KentarouTakeda>
+//                 Larry Bahr <https://github.com/larrybahr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
