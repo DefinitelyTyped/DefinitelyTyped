@@ -1222,7 +1222,7 @@ declare namespace Marionette {
         /**
          * Define options to pass to the childView constructor.
          */
-        childViewOptions: (() => ViewOptions<TModel>) | ViewOptions<TModel>;
+        childViewOptions: ((model: TModel, index: number) => ViewOptions<TModel>) | ViewOptions<TModel>;
 
         /**
          * Prevent some of the underlying collection's models from being
@@ -1245,12 +1245,12 @@ declare namespace Marionette {
         /**
          * Specify a view to use if the collection has no children.
          */
-        emptyView: (() => typeof Backbone.View) | typeof Backbone.View;
+        emptyView: (() => { new(...args: any[]): Backbone.View<TModel> }) | { new(...args: any[]): Backbone.View<TModel> };
 
         /**
          * Define options to pass to the emptyView constructor.
          */
-        emptyViewOptions: (() => ViewOptions<TModel>) | ViewOptions<TModel>;
+        emptyViewOptions: ((model: TModel, index: number) => ViewOptions<TModel>) | ViewOptions<TModel>;
 
         /**
          * Method used to determine when emptyView is rendered.
