@@ -595,7 +595,7 @@ function TestWebDriver() {
     // call
     stringPromise = driver.call<string>(() => 'value');
     stringPromise = driver.call<string>(() => stringPromise);
-    stringPromise = driver.call<string>(() => { let d: any = this; return 'value'; }, driver);
+    stringPromise = driver.call<string>(() => 'value', driver);
     stringPromise = driver.call<string>((a: number) => 'value', driver, 1);
 
     voidPromise = driver.close();
@@ -943,6 +943,7 @@ function TestPromiseClass() {
 
     promise = promise.then<string>();
     promise = promise.then((a: string) => 'cde');
+    // tslint:disable-next-line void-return (need `--strictNullChecks` to change `void` to `undefined`)
     const promiseOrVoid: webdriver.promise.Promise<string | void> = promise.then((a: string) => 'cde', (e: any) => {});
     const promiseOrNumber: webdriver.promise.Promise<string | number> = promise.then((a: string) => 'cde', (e: any) => 123);
 }
@@ -954,6 +955,7 @@ function TestThenableClass() {
     });
 
     thenable = thenable.then((a: string) => 'cde');
+    // tslint:disable-next-line void-return (need `--strictNullChecks` to change `void` to `undefined`)
     const thenableOrVoid: webdriver.promise.Promise<string | void> = thenable.then((a: string) => 'cde', (e: any) => {});
     const thenableOrNumber: webdriver.promise.Promise<string | number> = thenable.then((a: string) => 'cde', (e: any) => 123);
 }
