@@ -1,6 +1,6 @@
 // Type definitions for socket.io-redis 1.0.0
 // Project: https://github.com/socketio/socket.io-redis
-// Definitions by: Philipp Holzer <https://github.com/nupplaphil/>
+// Definitions by: Philipp Holzer <https://github.com/nupplaphil>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 

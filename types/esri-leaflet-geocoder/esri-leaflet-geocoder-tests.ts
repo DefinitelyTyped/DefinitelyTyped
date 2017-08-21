@@ -21,7 +21,7 @@ const gisDay = L.esri.Geocoding.featureLayerProvider({
     searchFields: ['Name', 'Organization'], // Search these fields for text matches
     label: 'GIS Day Events', // Group suggestions under this header
     formatSuggestion(feature) {
-        return feature.properties.Name + ' - ' + feature.properties.Organization; // format suggestions like this.
+        return `${feature.properties.Name} - ${feature.properties.Organization}`; // format suggestions like this.
     }
 });
 
