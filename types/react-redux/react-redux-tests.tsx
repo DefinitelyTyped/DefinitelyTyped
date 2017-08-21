@@ -63,8 +63,8 @@ connect<ICounterStateProps, ICounterDispatchProps, {}>(
 )(Counter);
 // with higher order functions using parameters
 connect<ICounterStateProps, ICounterDispatchProps, {}>(
-    (initialState: CounterState, ownProps: {}) => mapStateToProps,
-    (dispatch: Dispatch<CounterState>, ownProps: {}) => mapDispatchToProps
+    (initialState: CounterState, ownProps) => mapStateToProps,
+    (dispatch: Dispatch<CounterState>, ownProps) => mapDispatchToProps
 )(Counter);
 // only first argument
 connect<ICounterStateProps, {}, {}>(
@@ -294,12 +294,14 @@ class NonComponent {}
 //connect()(NonComponent);
 
 // stateless functions
-interface HelloMessageProps { name: string; }
-function HelloMessage(props: HelloMessageProps) {
+interface HelloMessageProps {
+    dispatch: Dispatch<any>
+    name: string;
+ }
+const HelloMessage: React.StatelessComponent<HelloMessageProps> = (props) => {
     return <div>Hello {props.name}</div>;
 }
 let ConnectedHelloMessage = connect()(HelloMessage);
-ReactDOM.render(<HelloMessage name="Sebastian" />, document.getElementById('content'));
 ReactDOM.render(<ConnectedHelloMessage name="Sebastian" />, document.getElementById('content'));
 
 // stateless functions that uses mapStateToProps and mapDispatchToProps
@@ -493,4 +495,57 @@ namespace Issue15463 {
     })(SpinnerClass);
 
     <Spinner />
+}
+
+namespace RemoveInjectedAndPassOnRest {
+    interface TProps {
+        showGlobalSpinner: boolean;
+        foo: string;
+    }
+    class SpinnerClass extends React.Component<TProps & DispatchProp<any>, {}> {
+        render() {
+            return (<div />);
+        }
+    }
+
+    export const Spinner = connect((state: any) => {
+        return { showGlobalSpinner: true };
+    })(SpinnerClass);
+
+    <Spinner foo='bar' />
+}
+
+namespace TestControlledComponentWithoutDispatchProp {
+
+    interface MyState {
+        count: number;
+    }
+
+    interface MyProps {
+        label: string;
+        // `dispatch` is optional, but setting it to anything
+        // other than Dispatch<T> will cause an error
+        //
+        // dispatch: Dispatch<any>; // OK
+        // dispatch: number; // ERROR
+    }
+
+    function mapStateToProps(state: MyState) {
+        return {
+            label: `The count is ${state.count}`,
+        }
+    }
+
+    class MyComponent extends React.Component<MyProps> {
+        render() {
+            return <span>{this.props.label}</span>;
+        }
+    }
+
+    const MyFuncComponent = (props: MyProps) => (
+        <span>{props.label}</span>
+    );
+
+    const MyControlledComponent = connect(mapStateToProps)(MyComponent);
+    const MyControlledFuncComponent = connect(mapStateToProps)(MyFuncComponent);
 }

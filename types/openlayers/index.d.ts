@@ -3970,7 +3970,7 @@ declare module ol {
              * @template T,S
              * @api
              */
-            forEachSegment<T, S>(callback: (() => T), opt_this?: S): (T | boolean);
+            forEachSegment<T, S>(callback: ((this: S, start: ol.Coordinate, end: ol.Coordinate) => T), opt_this?: S): (T | boolean);
 
             /**
              * Returns the coordinate at `m` using linear interpolation, or `null` if no

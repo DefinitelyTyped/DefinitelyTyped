@@ -577,7 +577,13 @@ namespace util_tests {
           showProxy: true,
           maxArrayLength: null,
           breakLength: Infinity
-        })
+        });
+        // util.deprecate
+        const foo = () => {};
+        // $ExpectType () => void
+        util.deprecate(foo, 'foo() is deprecated, use bar() instead');
+        // $ExpectType <T extends Function>(fn: T, message: string) => T
+        util.deprecate(util.deprecate, 'deprecate() is deprecated, use bar() instead');
     }
 }
 
@@ -1015,7 +1021,7 @@ namespace http_tests {
     }
 
     {
-        var request = http.request('http://0.0.0.0');
+        var request = http.request({ path: 'http://0.0.0.0' });
         request.once('error', function() { });
         request.setNoDelay(true);
         request.abort();
@@ -2504,3 +2510,19 @@ client.connect(8888, 'localhost');
 client.listbreakpoints((err, body, packet) => {
 
 });
+
+////////////////////////////////////////////////////
+/// zlib tests : http://nodejs.org/api/zlib.html ///
+////////////////////////////////////////////////////
+
+namespace zlib_tests {
+    {
+        const gzipped = zlib.gzipSync('test');
+        const unzipped = zlib.gunzipSync(gzipped.toString());
+    }
+
+    {
+        const deflate = zlib.deflateSync('test');
+        const inflate = zlib.inflateSync(deflate.toString());
+    }
+}

@@ -1,14 +1,11 @@
-import { expect } from 'chai';
-import { assert } from 'chai';
-
-import chai = require('chai');
+import { assert, expect, use, should } from 'chai';
 import ChaiArrays = require('chai-arrays');
 
-chai.use(ChaiArrays);
-chai.should();
+use(ChaiArrays);
+should();
 
 const arr: any[] = [1, 2, 3];
-const str: string = 'abcdef';
+const str = 'abcdef';
 
 const otherArr: number[] = [1, 2, 3];
 const anotherArr: number[] = [2, 4];

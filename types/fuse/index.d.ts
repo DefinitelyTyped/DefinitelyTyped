@@ -1,6 +1,6 @@
 // Type definitions for Fuse.js 2.5.0
 // Project: https://github.com/krisk/Fuse
-// Definitions by: Greg Smith <https://github.com/smrq/>
+// Definitions by: Greg Smith <https://github.com/smrq>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare class Fuse<T> {

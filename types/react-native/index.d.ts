@@ -1561,6 +1561,7 @@ export interface ViewStyle extends FlexStyle, TransformsStyle {
     borderTopLeftRadius?: number;
     borderTopRightRadius?: number;
     borderTopWidth?: number;
+    display?: "none" | "flex";
     opacity?: number;
     overflow?: "visible" | "hidden"
     shadowColor?: string;
@@ -3430,6 +3431,23 @@ export interface ImageStatic extends NativeMethodsMixin, React.ComponentClass<Im
     queryCache?(urls: string[]): Promise<Map<string, 'memory' | 'disk'>>
 }
 
+export interface ImageBackgroundProperties extends ImageProperties {
+    style?: StyleProp<ViewStyle>
+    imageStyle?: StyleProp<ImageStyle>
+}
+
+export interface ImageBackgroundStatic extends NativeMethodsMixin, React.ComponentClass<ImageBackgroundProperties> {
+    resizeMode: ImageResizeMode
+    getSize(
+      uri: string,
+      success: (width: number, height: number) => void,
+      failure: (error: any) => void
+    ): any
+    prefetch(url: string): any
+    abortPrefetch?(requestId: number): void
+    queryCache?(urls: string[]): Promise<Map<string, 'memory' | 'disk'>>
+}
+
 export interface ViewToken {
     item: any;
     key: string;
@@ -3486,12 +3504,12 @@ interface ListRenderItemInfo<ItemT> {
 
 type ListRenderItem<ItemT> = (info: ListRenderItemInfo<ItemT>) => React.ReactElement<any> | null
 
-export interface FlatListProperties<ItemT> extends ScrollViewProperties {
+export interface FlatListProperties<ItemT> extends VirtualizedListProperties<ItemT> {
 
     /**
      * Rendered in between each item, but not at the top or bottom
      */
-    ItemSeparatorComponent?: React.ComponentClass<any> | null
+    ItemSeparatorComponent?: React.ComponentType<any> | null
 
     /**
      * Rendered when the list is empty.
@@ -3525,7 +3543,7 @@ export interface FlatListProperties<ItemT> extends ScrollViewProperties {
      * For simplicity, data is just a plain array. If you want to use something else,
      * like an immutable list, use the underlying VirtualizedList directly.
      */
-    data: ItemT[] | null;
+    data: ReadonlyArray<ItemT> | null;
 
     /**
      * A marker property for telling the list to re-render (since it implements PureComponent).
@@ -3796,6 +3814,163 @@ export interface SectionListProperties<ItemT> extends ScrollViewProperties {
 
 export interface SectionListStatic<SectionT> extends React.ComponentClass<SectionListProperties<SectionT>> {
 
+}
+
+/**
+ * @see https://facebook.github.io/react-native/docs/virtualizedlist.html#props
+ */
+export interface VirtualizedListProperties<ItemT> extends ScrollViewProperties {
+
+    /**
+     * Rendered when the list is empty. Can be a React Component Class, a render function, or
+     * a rendered element.
+     */
+    ListEmptyComponent?: React.ComponentClass<any> | React.ReactElement<any> | (() => React.ReactElement<any>) | null
+
+    /**
+     * Rendered at the bottom of all the items. Can be a React Component Class, a render function, or
+     * a rendered element.
+     */
+    ListFooterComponent?: React.ComponentClass<any> | React.ReactElement<any> | (() => React.ReactElement<any>) | null
+
+    /**
+     * Rendered at the top of all the items. Can be a React Component Class, a render function, or
+     * a rendered element.
+     */
+    ListHeaderComponent?: React.ComponentClass<any> | React.ReactElement<any> | (() => React.ReactElement<any>) | null
+
+    /**
+     * The default accessor functions assume this is an Array<{key: string}> but you can override
+     * getItem, getItemCount, and keyExtractor to handle any type of index-based data.
+     */
+    data?: any
+
+    /**
+     * `debug` will turn on extra logging and visual overlays to aid with debugging both usage and
+     * implementation, but with a significant perf hit.
+     */
+    debug?: boolean
+
+    /**
+     * DEPRECATED: Virtualization provides significant performance and memory optimizations, but fully
+     * unmounts react instances that are outside of the render window. You should only need to disable
+     * this for debugging purposes.
+     */
+    disableVirtualization?: boolean
+
+    /**
+     * A marker property for telling the list to re-render (since it implements `PureComponent`). If
+     * any of your `renderItem`, Header, Footer, etc. functions depend on anything outside of the
+     * `data` prop, stick it here and treat it immutably.
+     */
+    extraData?: any
+
+    /**
+     * A generic accessor for extracting an item from any sort of data blob.
+     */
+    getItem?: (data: any, index: number) => ItemT
+
+    /**
+     * Determines how many items are in the data blob.
+     */
+    getItemCount?: (data: any) => number
+
+    getItemLayout?: (data: any, index: number) => {
+        length: number,
+        offset: number,
+        index: number
+    }
+
+    horizontal?: boolean
+
+    /**
+     * How many items to render in the initial batch. This should be enough to fill the screen but not
+     * much more. Note these items will never be unmounted as part of the windowed rendering in order
+     * to improve perceived performance of scroll-to-top actions.
+     */
+    initialNumToRender?: number
+
+    /**
+     * Instead of starting at the top with the first item, start at `initialScrollIndex`. This
+     * disables the "scroll to top" optimization that keeps the first `initialNumToRender` items
+     * always rendered and immediately renders the items starting at this initial index. Requires
+     * `getItemLayout` to be implemented.
+     */
+    initialScrollIndex?: number
+
+    /**
+     * Reverses the direction of scroll. Uses scale transforms of -1.
+     */
+    inverted?: boolean
+
+    keyExtractor?: (item: ItemT, index: number) => string
+
+    /**
+     * The maximum number of items to render in each incremental render batch. The more rendered at
+     * once, the better the fill rate, but responsiveness my suffer because rendering content may
+     * interfere with responding to button taps or other interactions.
+     */
+    maxToRenderPerBatch?: number
+
+    onEndReached?: ((info: {distanceFromEnd: number}) => void) | null
+
+    onEndReachedThreshold?: number | null
+
+    onLayout?: () => void
+
+    /**
+     * If provided, a standard RefreshControl will be added for "Pull to Refresh" functionality. Make
+     * sure to also set the `refreshing` prop correctly.
+     */
+    onRefresh?: (() => void) | null
+
+    /**
+     * Called when the viewability of rows changes, as defined by the
+     * `viewabilityConfig` prop.
+     */
+    onViewableItemsChanged?: ((info: {viewableItems: Array<ViewToken>, changed: Array<ViewToken>}) => void) | null
+
+    /**
+     * Set this when offset is needed for the loading indicator to show correctly.
+     * @platform android
+     */
+    progressViewOffset?: number
+
+    /**
+     * Set this true while waiting for new data from a refresh.
+     */
+    refreshing?: boolean | null
+
+    /**
+     * Note: may have bugs (missing content) in some circumstances - use at your own risk.
+     *
+     * This may improve scroll performance for large lists.
+     */
+    removeClippedSubviews?: boolean
+
+    renderItem: ListRenderItem<ItemT>
+
+    /**
+     * Render a custom scroll component, e.g. with a differently styled `RefreshControl`.
+     */
+    renderScrollComponent?: (props: ScrollViewProperties) => React.ReactElement<ScrollViewProperties>
+
+    /**
+     * Amount of time between low-pri item render batches, e.g. for rendering items quite a ways off
+     * screen. Similar fill rate/responsiveness tradeoff as `maxToRenderPerBatch`.
+     */
+    updateCellsBatchingPeriod?: number
+
+    viewabilityConfig?: ViewabilityConfig
+
+    /**
+     * Determines the maximum number of items rendered outside of the visible area, in units of
+     * visible lengths. So if your list fills the screen, then `windowSize={21}` (the default) will
+     * render the visible screen area plus up to 10 screens above and 10 below the viewport. Reducing
+     * this number will reduce memory consumption and may improve performance, but will increase the
+     * chance that fast scrolling may reveal momentary blank areas of unrendered content.
+     */
+    windowSize?: number
 }
 
 /**
@@ -5488,7 +5663,23 @@ export interface Dimensions {
      * This should only be called from native code by sending the didUpdateDimensions event.
      * @param {object} dims Simple string-keyed object of dimensions to set
      */
-    set( dims: {[key: string]: any} ): void
+    set( dims: {[key: string]: any} ): void;
+
+    /**
+     * Add an event listener for dimension changes
+     *
+     * @param {string} type the type of event to listen to
+     * @param {function} handler the event handler
+     */
+    addEventListener(type: "change", handler: () => void): void;
+
+    /**
+     * Remove an event listener
+     *
+     * @param {string} type the type of event
+     * @param {function} handler the event handler
+     */
+    removeEventListener(type: "change", handler: () => void): void;
 }
 
 export type SimpleTask = {
@@ -6381,7 +6572,7 @@ export interface ShareStatic {
      * - `dialogTitle`
      *
      */
-    share(content: ShareContent, options: ShareOptions): Promise<Object>
+    share(content: ShareContent, options?: ShareOptions): Promise<Object>
     sharedAction: string
     dismissedAction: string
 }
@@ -8678,8 +8869,8 @@ export type DrawerLayoutAndroid = DrawerLayoutAndroidStatic
 export var Image: ImageStatic
 export type Image = ImageStatic
 
-export var ImageBackground: ImageStatic
-export type ImageBackground = ImageStatic
+export var ImageBackground: ImageBackgroundStatic
+export type ImageBackground = ImageBackgroundStatic
 
 export var ImagePickerIOS: ImagePickerIOSStatic
 export type ImagePickerIOS = ImagePickerIOSStatic
@@ -8927,6 +9118,12 @@ export var NativeEventEmitter: NativeEventEmitter
  * adding all event listeners directly to RCTNativeAppEventEmitter.
  */
 export var NativeAppEventEmitter: RCTNativeAppEventEmitter
+
+/**
+ * Empty interface which can be augmented by other type definitions for the NativeModules var below.
+ */
+interface NativeModulesStatic {}
+
 /**
  * Native Modules written in ObjectiveC/Swift/Java exposed via the RCTBridge
  * Define lazy getters for each module. These will return the module if already loaded, or load it if not.
@@ -8934,7 +9131,7 @@ export var NativeAppEventEmitter: RCTNativeAppEventEmitter
  * Use:
  * <code>const MyModule = NativeModules.ModuleName</code>
  */
-export var NativeModules: any
+export var NativeModules: NativeModulesStatic
 export var Platform: PlatformStatic
 export var PixelRatio: PixelRatioStatic
 

@@ -1,7 +1,7 @@
 // Type definitions for Angular JS 1.6
 // Project: http://angularjs.org
-// Definitions by: Diego Vilar <http://github.com/diegovilar>
-//                 Georgii Dolzhykov <http://github.com/thorn0>
+// Definitions by: Diego Vilar <https://github.com/diegovilar>
+//                 Georgii Dolzhykov <https://github.com/thorn0>
 //                 Caleb St-Denis <https://github.com/calebstdenis>
 //                 Leonard Thieu <https://github.com/leonard-thieu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -974,7 +974,7 @@ declare namespace angular {
     // DocumentService
     // see http://docs.angularjs.org/api/ng.$document
     ///////////////////////////////////////////////////////////////////////////
-    interface IDocumentService extends JQuery {
+    interface IDocumentService extends JQLite {
         // Must return intersection type for index signature compatibility with JQuery
         [index: number]: HTMLElement & Document;
     }
@@ -991,7 +991,7 @@ declare namespace angular {
     // RootElementService
     // see http://docs.angularjs.org/api/ng.$rootElement
     ///////////////////////////////////////////////////////////////////////////
-    interface IRootElementService extends JQuery {}
+    interface IRootElementService extends JQLite {}
 
     interface IQResolveReject<T> {
         (): void;
@@ -1302,12 +1302,12 @@ declare namespace angular {
 
     interface ICloneAttachFunction {
         // Let's hint but not force cloneAttachFn's signature
-        (clonedElement?: JQuery, scope?: IScope): any;
+        (clonedElement?: JQLite, scope?: IScope): any;
     }
 
     // This corresponds to the "publicLinkFn" returned by $compile.
     interface ITemplateLinkingFunction {
-        (scope: IScope, cloneAttachFn?: ICloneAttachFunction, options?: ITemplateLinkingFunctionOptions): JQuery;
+        (scope: IScope, cloneAttachFn?: ICloneAttachFunction, options?: ITemplateLinkingFunctionOptions): JQLite;
     }
 
     interface ITemplateLinkingFunctionOptions {
@@ -1325,9 +1325,9 @@ declare namespace angular {
      */
     interface ITranscludeFunction {
         // If the scope is provided, then the cloneAttachFn must be as well.
-        (scope: IScope, cloneAttachFn: ICloneAttachFunction, futureParentElement?: JQuery, slotName?: string): JQuery;
+        (scope: IScope, cloneAttachFn: ICloneAttachFunction, futureParentElement?: JQuery, slotName?: string): JQLite;
         // If one argument is provided, then it's assumed to be the cloneAttachFn.
-        (cloneAttachFn?: ICloneAttachFunction, futureParentElement?: JQuery, slotName?: string): JQuery;
+        (cloneAttachFn?: ICloneAttachFunction, futureParentElement?: JQuery, slotName?: string): JQLite;
 
         /**
          * Returns true if the specified slot contains content (i.e. one or more DOM nodes)
@@ -1962,7 +1962,7 @@ declare namespace angular {
     interface IDirectiveLinkFn {
         (
             scope: IScope,
-            instanceElement: JQuery,
+            instanceElement: JQLite,
             instanceAttributes: IAttributes,
             controller?: IController | IController[] | {[key: string]: IController},
             transclude?: ITranscludeFunction
@@ -1976,7 +1976,7 @@ declare namespace angular {
 
     interface IDirectiveCompileFn {
         (
-            templateElement: JQuery,
+            templateElement: JQLite,
             templateAttributes: IAttributes,
             /**
              * @deprecated
@@ -2008,9 +2008,9 @@ declare namespace angular {
         require?: string | string[] | {[controller: string]: string};
         restrict?: string;
         scope?: boolean | {[boundProperty: string]: string};
-        template?: string | ((tElement: JQuery, tAttrs: IAttributes) => string);
+        template?: string | ((tElement: JQLite, tAttrs: IAttributes) => string);
         templateNamespace?: string;
-        templateUrl?: string | ((tElement: JQuery, tAttrs: IAttributes) => string);
+        templateUrl?: string | ((tElement: JQLite, tAttrs: IAttributes) => string);
         terminal?: boolean;
         transclude?: boolean | 'element' | {[slot: string]: string};
     }
@@ -2023,7 +2023,7 @@ declare namespace angular {
      * See: http://docs.angularjs.org/api/angular.element
      */
     interface IAugmentedJQueryStatic extends JQueryStatic {}
-    interface IAugmentedJQuery extends JQuery {}
+    interface IAugmentedJQuery extends JQLite {}
 
     /**
      * Same as IController. Keeping it for compatibility with older versions of these type definitions.

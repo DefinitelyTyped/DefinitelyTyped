@@ -5,9 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { Plugin } from 'prosemirror-state';
-import { EditorState } from 'prosemirror-state';
-import { Transaction } from 'prosemirror-state';
+import { Plugin, EditorState, Transaction } from 'prosemirror-state';
 
 export function closeHistory(tr: Transaction): Transaction;
 export function history<T>(config?: { depth?: number, newGroupDelay: number, preserveItems?: boolean }): Plugin<T>;

@@ -3,7 +3,6 @@ import * as ReactDOM from 'react-dom';
 import * as ReactDOMServer from 'react-dom/server';
 import * as ReactDOMNodeStream from 'react-dom/node-stream';
 import * as ReactTestUtils from 'react-dom/test-utils';
-import * as stream from 'stream';
 
 declare function describe(desc: string, f: () => void): void;
 declare function it(desc: string, f: () => void): void;
@@ -12,18 +11,18 @@ class TestComponent extends React.Component { }
 
 describe('ReactDOM', () => {
     it('render', () => {
-        let rootElement = document.createElement('div');
+        const rootElement = document.createElement('div');
         ReactDOM.render(React.createElement('div'), rootElement);
     });
 
     it('unmounts', () => {
-        let rootElement = document.createElement('div');
+        const rootElement = document.createElement('div');
         ReactDOM.render(React.createElement('div'), rootElement);
         ReactDOM.unmountComponentAtNode(rootElement);
     });
 
     it('find dom node', () => {
-        let rootElement = document.createElement('div');
+        const rootElement = document.createElement('div');
         ReactDOM.render(React.createElement('div'), rootElement);
         ReactDOM.findDOMNode(rootElement);
     });
@@ -41,11 +40,11 @@ describe('ReactDOMServer', () => {
 
 describe('ReactDOMNodeStream', () => {
     it('renderToStream', () => {
-        const content: stream.Readable = ReactDOMNodeStream.renderToStream(React.createElement('div'));
+        const content: any = ReactDOMNodeStream.renderToStream(React.createElement('div'));
     });
 
     it('renderToStaticStream', () => {
-        const content: stream.Readable = ReactDOMNodeStream.renderToStaticStream(React.createElement('div'));
+        const content: any = ReactDOMNodeStream.renderToStaticStream(React.createElement('div'));
     });
 });
 
@@ -56,7 +55,7 @@ describe('React dom test utils', () => {
             React.createElement('input', { type: 'text' }),
             element
         ) as Element;
-        const node = ReactDOM.findDOMNode(dom) as HTMLInputElement;
+        const node = ReactDOM.findDOMNode(dom);
 
         node.value = 'giraffe';
         ReactTestUtils.Simulate.change(node);
@@ -90,13 +89,13 @@ describe('React dom test utils', () => {
 
     it('isCompositeComponent', () => {
         const element = React.createElement(TestComponent);
-        const instance = ReactTestUtils.renderIntoDocument(element) as TestComponent;
+        const instance: TestComponent = ReactTestUtils.renderIntoDocument(element);
         const isCompositeComponent: boolean = ReactTestUtils.isCompositeComponent(instance);
     });
 
     it('isCompositeComponentWithType', () => {
         const element = React.createElement(TestComponent);
-        const instance = ReactTestUtils.renderIntoDocument(element) as TestComponent;
+        const instance: TestComponent = ReactTestUtils.renderIntoDocument(element);
         const isCompositeComponent: boolean = ReactTestUtils.isCompositeComponentWithType(instance, TestComponent);
     });
 
