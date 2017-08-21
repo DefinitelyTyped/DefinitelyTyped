@@ -9,46 +9,13 @@ type AnimeCallbackFunction = (anim : anime.AnimeInstance) => void;
 type AnimeTarget = string | object | HTMLElement | SVGElement | NodeList | null; //Allowing null is necessary because DOM querys may not return anything. 
 
 declare namespace anime {
-	const enum EasingsEnum {
-		Linear = "linear",
-		InQuad = "easeInQuad",
-		InCubic = "easeInCubic",
-		InQuart = "easeInQuart",
-		InQuint = "easeInQuint",
-		InSine = "easeInSine",
-		InExpo = "easeInExpo",
-		InCirc = "easeInCirc",
-		InBack = "easeInBack",
-		InElastic = "easeInElastic",
-		OutQuad = "easeOutQuad",
-		OutCubic = "easeOutCubic",
-		OutQuart = "easeOutQuart",
-		OutQuint = "easeOutQuint",
-		OutSine = "easeOutSine",
-		OutExpo = "easeOutExpo",
-		OutCirc = "easeOutCirc",
-		OutBack = "easeOutBack",
-		OutElastic = "easeOutElastic",
-		InOutQuad = "easeInOutQuad",
-		InOutCubic = "easeInOutCubic",
-		InOutQuart = "easeInOutQuart",
-		InOutQuint = "easeInOutQuint",
-		InOutSine = "easeInOutSine",
-		InOutExpo = "easeInOutExpo",
-		InOutCirc = "easeInOutCirc",
-		InOutBack = "easeInOutBack",
-		InOutElastic = "easeInOutElastic",
-	}
-	const enum DirectionEnum {
-		Reverse = "reverse",
-		Alternate = "alternate",
-		Normal = "normal"
-	}
+	type EasingOptions = "linear" | "easeInQuad" | "easeInCubic" | "easeInQuart" | "easeInQuint" | "easeInSine" | "easeInExpo" | "easeInCirc" | "easeInBack" | "easeInElastic" | "easeOutQuad" | "easeOutCubic" | "easeOutQuart" | "easeOutQuint" | "easeOutSine" | "easeOutExpo" | "easeOutCirc" | "easeOutBack" | "easeOutElastic" | "easeInOutQuad" | "easeInOutCubic" | "easeInOutQuart" | "easeInOutQuint" | "easeInOutSine" | "easeInOutExpo" | "easeInOutCirc" | "easeInOutBack" | "easeInOutElastic";
+	type DirectionOptions = "reverse" | "alternate" | "normal";
 
 	interface AnimeInstanceParams {
 		loop ?: number | boolean;
 		autoplay ?: boolean;
-		direction ?: DirectionEnum | string;
+		direction ?: DirectionOptions | string;
 
 		begin ?: AnimeCallbackFunction;
 		run ?: AnimeCallbackFunction;
@@ -64,7 +31,7 @@ declare namespace anime {
 		elasticity ?: number | FunctionBasedParamter;
 		round ?: number | boolean | FunctionBasedParamter;
 
-		easing ?: EasingsEnum | string | ReadonlyArray<number>;
+		easing ?: EasingOptions | string | ReadonlyArray<number>;
 
 		begin ?: AnimeCallbackFunction;
 		run ?: AnimeCallbackFunction;
