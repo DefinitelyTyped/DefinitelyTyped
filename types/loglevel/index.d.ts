@@ -1,6 +1,6 @@
 // Type definitions for loglevel 1.4.0
 // Project: https://github.com/pimterry/loglevel
-// Definitions by: Stefan Profanter <https://github.com/Pro/>, Florian Wagner <https://github.com/flqw/>, Gabor Szmetanko <https://github.com/szmeti/>
+// Definitions by: Stefan Profanter <https://github.com/Pro>, Florian Wagner <https://github.com/flqw>, Gabor Szmetanko <https://github.com/szmeti>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**

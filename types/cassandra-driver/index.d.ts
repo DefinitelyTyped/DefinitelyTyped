@@ -1,6 +1,6 @@
 // Type definitions for nodejs-driver v0.8.2
 // Project: https://github.com/datastax/nodejs-driver
-// Definitions by: Marc Fisher <http://github.com/Svjard>
+// Definitions by: Marc Fisher <https://github.com/Svjard>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />

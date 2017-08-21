@@ -8,6 +8,7 @@
 //                 Kyle Roach <https://github.com/iRoachie>
 //                 phanalpha <https://github.com/phanalpha>
 //                 charlesfamu <https://github.com/charlesfamu>
+//                 Tim Wang <https://github.com/timwangdev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -44,7 +45,7 @@ export type HeaderProps = NavigationSceneRendererProps & {
   getScreenDetails: (navigationScene: NavigationScene) => NavigationScreenDetails<
     NavigationStackScreenOptions
   >,
-  style: Style,
+  style: ViewStyle,
 };
 
 /**
@@ -147,8 +148,6 @@ export type NavigationScreenOption<T> =
     navigation: NavigationScreenProp<NavigationRoute<any>, NavigationAction>,
     config: T
   ) => T);
-
-export type Style = ViewStyle;
 
 export type NavigationScreenDetails<T> = {
   options: T,
@@ -253,7 +252,7 @@ export interface NavigationUriAction extends NavigationUriActionPayload {
 export interface NavigationStackViewConfig {
   mode?: 'card' | 'modal',
   headerMode?: HeaderMode,
-  cardStyle?: Style,
+  cardStyle?: ViewStyle,
   transitionConfig?: () => TransitionConfig,
   onTransitionStart?: () => void,
   onTransitionEnd?: () => void,
@@ -262,15 +261,15 @@ export interface NavigationStackViewConfig {
 export type NavigationStackScreenOptions = NavigationScreenOptions & {
   header?: (React.ReactElement<any> | ((headerProps: HeaderProps) => React.ReactElement<any>)) | null,
   headerTitle?: string | React.ReactElement<any>,
-  headerTitleStyle?: Style,
+  headerTitleStyle?: TextStyle,
   headerTintColor?: string,
   headerLeft?: React.ReactElement<any>,
   headerBackTitle?: string | null,
   headerTruncatedBackTitle?: string,
-  headerBackTitleStyle?: Style,
+  headerBackTitleStyle?: TextStyle,
   headerPressColorAndroid?: string,
   headerRight?: React.ReactElement<any>,
-  headerStyle?: Style,
+  headerStyle?: ViewStyle,
   gesturesEnabled?: boolean,
 };
 
@@ -469,7 +468,7 @@ export type NavigationSceneRenderer = () => (React.ReactElement<any> | null);
 
 export type NavigationStyleInterpolator = (
   props: NavigationSceneRendererProps
-) => Style;
+) => ViewStyle;
 
 export type LayoutEvent = {
   nativeEvent: {

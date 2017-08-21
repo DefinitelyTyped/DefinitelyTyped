@@ -4,7 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { Component } from 'react';
+import * as React from 'react';
+import Component = React.Component;
 
 export interface Modifiers_string {
     default?: string;
@@ -41,13 +42,13 @@ export class SplitterSide extends Component<{
     mode?: "collapse" | "split"
 }, any> { }
 
-export class SplitterContent extends Component<{}> { }
+export class SplitterContent extends Component { }
 
-export class Splitter extends Component<{}> { }
+export class Splitter extends Component { }
 
 /*** toolbar ***/
 
-export class Toolbar extends Component<{}> {}
+export class Toolbar extends Component {}
 
 export class BottomToolbar extends Component<{
     modifier?: string
@@ -100,7 +101,7 @@ export class BackButton extends Component<{
 }, any> {}
 
 export class Navigator extends Component<{
-    renderPage(): any,
+    renderPage(route: any): JSX.Element,
     initialRouteStack?: string[],
     initialRoute?: any,
     onPrePush?(): void,
@@ -110,10 +111,10 @@ export class Navigator extends Component<{
     animation?: "slide" | "lift" | "fade" | "none" | string,
     animationOptions?: AnimationOptions
 }, any> {
-    resetPage(route: any, options: any): void;
-    resetPageStack(route: any, options: any): void;
-    pushPage(route: any, options: any): void;
-    popPage(route: any, options: any): void;
+    resetPage(route: any, options?: any): void;
+    resetPageStack(route: any, options?: any): void;
+    pushPage(route: any, options?: any): void;
+    popPage(options?: any): void;
 }
 
 /*** Carousel ***/
@@ -180,7 +181,7 @@ export class Modal extends Component<{
 }, any> {}
 
 export class Popover extends Component<{
-    getTarget?(): Component<any> | HTMLElement,
+    getTarget?(): React.ReactInstance,
     onCancel?(): void,
     isOpen?: boolean,
     isCancelable?: boolean,
@@ -234,13 +235,14 @@ export class Button extends Component<{
 export class Input extends Component<{
     modifier?: string,
     disabled?: boolean,
-    onChange?(e: Event): void,
+    onChange?: React.ChangeEvent<any>,
     value?: string,
     checked?: boolean,
     placeholder?: string,
     type?: string,
     inputId?: string,
     float?: boolean,
+    name?: string,
 }, any> {}
 
 export class Range extends Component<{
@@ -261,11 +263,11 @@ export class Switch extends Component<{
  * Tabs
  */
 
-export class Tab extends Component<{}> { }
+export class Tab extends Component { }
 
-export class TabActive extends Component<{}> { }
+export class TabActive extends Component { }
 
-export class TabInactive extends Component<{}> { }
+export class TabInactive extends Component { }
 
 export class Tabbar extends Component<{
     index?: number,
@@ -291,10 +293,10 @@ export class LazyList extends Component<{
 
 export class List extends Component<{
     modifier?: string,
-    dataSource?: string[],
-    renderRow?(): void,
-    renderHeader?(): void,
-    renderFooter?(): void,
+    dataSource?: any[],
+    renderRow?(row: any, index?: number): JSX.Element | undefined,
+    renderFooter?(): JSX.Element | undefined,
+    renderHeader?(): JSX.Element | undefined,
 }, any> {}
 
 export class ListHeader extends Component<{
@@ -306,4 +308,7 @@ export class ListItem extends Component<{
     tappable?: boolean,
     tapBackgroundColor?: string,
     lockOnDrag?: boolean,
+    onClick?: React.MouseEventHandler<any>,
 }, any> {}
+
+export class Card extends Component { }

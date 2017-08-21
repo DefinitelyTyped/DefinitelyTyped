@@ -1,7 +1,7 @@
 // Type definitions for Highcharts 5.0.10
 // Project: http://www.highcharts.com/
-// Definitions by: Damiano Gambarotto <http://github.com/damianog>
-//                 Dan Lewi Harkestad <http://github.com/baltie>
+// Definitions by: Damiano Gambarotto <https://github.com/damianog>
+//                 Dan Lewi Harkestad <https://github.com/baltie>
 //                 Albert Ozimek <https://github.com/AlbertOzimek>
 //                 Juliën Hanssens <https://github.com/hanssens>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -6556,7 +6556,7 @@ declare namespace Highcharts {
          * @param {def} A serialized form of an SVG definition, including children.
          * @since 5.0.0
          */
-        definition(def: object): Highcharts.ElementObject;
+        definition(def: object): ElementObject;
         /**
          * Add an SVG/VML group.
          * @param [string] name The name of the group. This will be used in the class name, which will be 'highcharts-'+ name.

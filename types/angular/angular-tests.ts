@@ -339,12 +339,12 @@ namespace TestQ {
         result = $q.all<{a: number; b: string; }>({a: promiseAny, b: promiseAny});
     }
     {
-        let result = $q.all({ num: $q.when(2), str: $q.when('test') });
+        const result = $q.all({ num: $q.when(2), str: $q.when('test') });
         // TS should infer that num is a number and str is a string
         result.then(r => (r.num * 2) + r.str.indexOf('s'));
     }
     {
-        let result = $q.all({ num: $q.when(2), str: 'test' });
+        const result = $q.all({ num: $q.when(2), str: 'test' });
         // TS should infer that num is a number and str is a string
         result.then(r => (r.num * 2) + r.str.indexOf('s'));
     }
@@ -378,7 +378,7 @@ namespace TestQ {
         let result: angular.IPromise<TResult>;
         result = $q.resolve<TResult>(tResult);
         result = $q.resolve<TResult>(promiseTResult);
-        let result2: angular.IPromise<TResult | TOther> = $q.resolve<TResult | TOther>(Math.random() > 0.5 ? tResult : promiseTOther);
+        const result2: angular.IPromise<TResult | TOther> = $q.resolve<TResult | TOther>(Math.random() > 0.5 ? tResult : promiseTOther);
     }
 
     // $q.when
@@ -388,7 +388,6 @@ namespace TestQ {
     }
     {
         let result: angular.IPromise<TResult>;
-        let other: angular.IPromise<TOther>;
         let resultOther: angular.IPromise<TResult | TOther>;
 
         result = $q.when<TResult>(tResult);
@@ -450,8 +449,8 @@ namespace TestDeferred {
     // deferred.resolve
     {
         let result: void;
-        result = deferred.resolve() as void;
-        result = deferred.resolve(tResult) as void;
+        result = deferred.resolve();
+        result = deferred.resolve(tResult);
     }
 
     // deferred.reject
@@ -488,7 +487,7 @@ namespace TestInjector {
         class Foobar {
             constructor($q) {}
         }
-        let result: Foobar = $injector.instantiate(Foobar);
+        const result: Foobar = $injector.instantiate(Foobar);
     }
 
     // $injector.invoke
@@ -496,14 +495,14 @@ namespace TestInjector {
         function foobar(v: boolean): number {
             return 7;
         }
-        let result = $injector.invoke(foobar);
+        const result = $injector.invoke(foobar);
         if (!(typeof result === 'number')) {
             // This fails to compile if 'result' is not exactly a number.
-            let expectNever: never = result;
+            const expectNever: never = result;
         }
 
-        let anyFunction: Function = foobar;
-        let anyResult: string = $injector.invoke(anyFunction);
+        const anyFunction: Function = foobar;
+        const anyResult: string = $injector.invoke(anyFunction);
     }
 }
 
@@ -1160,11 +1159,7 @@ function NgModelControllerTyping() {
     ngModel.$asyncValidators['uniqueUsername'] = (modelValue, viewValue) => {
         const value = modelValue || viewValue;
         return $http.get('/api/users/' + value).
-            then(function resolved() {
-                return $q.reject('exists');
-            }, function rejected() {
-                return true;
-            });
+            then(() => $q.reject('exists'), () => true);
     };
 }
 

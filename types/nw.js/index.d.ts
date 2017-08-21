@@ -1428,7 +1428,7 @@ declare namespace nw {
         /**
          * Add an entry to the whitelist used for controlling cross-origin access.
          *
-         * @param sourceOrigin {string} The source origin. e.g. http://github.com/
+         * @param sourceOrigin {string} The source origin. e.g. https://github.com/
          * @param destinationProtocol {string} The destination protocol where the sourceOrigin can access to. e.g. app
          * @param destinationHost {string} The destination host where the sourceOrigin can access to. e.g. myapp
          * @param allowDestinationSubdomains {Boolean} If set to true, the sourceOrigin is allowed to access subdomains of
@@ -1441,7 +1441,7 @@ declare namespace nw {
         /**
          * Remove an entry from the whitelist used for controlling cross-origin access.
          *
-         * @param sourceOrigin {string} The source origin. e.g. http://github.com/
+         * @param sourceOrigin {string} The source origin. e.g. https://github.com/
          * @param destinationProtocol {string} The destination protocol where the sourceOrigin can access to. e.g. app
          * @param destinationHost {string} The destination host where the sourceOrigin can access to. e.g. myapp
          * @param allowDestinationSubdomains {Boolean} If set to true, the sourceOrigin is allowed to access subdomains of

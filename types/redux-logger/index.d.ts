@@ -1,6 +1,6 @@
 // Type definitions for redux-logger v3.0.0
 // Project: https://github.com/fcomb/redux-logger
-// Definitions by: Alexander Rusakov <https://github.com/arusakov/>
+// Definitions by: Alexander Rusakov <https://github.com/arusakov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export as namespace ReduxLogger;

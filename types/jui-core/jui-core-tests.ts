@@ -6,8 +6,8 @@ jui.ready(["util.color"], (color: UtilColor) => {
 
 const _: UtilBase = jui.include("util.base");
 
-const str: string = "10";
+const str = "10";
 console.log(_.typeCheck("string", str));
 
-const i: number = 10;
+const i = 10;
 console.log(_.typeCheck("string", i));

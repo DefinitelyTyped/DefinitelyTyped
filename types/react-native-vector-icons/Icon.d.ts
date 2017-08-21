@@ -191,7 +191,7 @@ export class Icon extends React.Component<IconProps, any> {
     size?: number
   ): Promise<ImageSource>;
   static loadFont(
-    file: string
+    file?: string
   ): Promise<void>;
 }
 

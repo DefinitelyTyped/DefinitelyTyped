@@ -6,7 +6,7 @@ pAny([
     got.head('google.com').then(() => 'google'),
     got.head('twitter.com').then(() => 'twitter'),
 ]).then(first => {
-    let str: string = first;
+    const str: string = first;
 });
 
 pAny(new Set([
@@ -18,7 +18,7 @@ pAny(new Set([
         return true;
     }
 }).then(first => {
-    let str: string = first;
+    const str: string = first;
 });
 
 throw new pAny.AggregateError([]);

@@ -1,6 +1,5 @@
 import * as React from "react";
-import Keyboard from "react-virtual-keyboard";
-import { ReactKeyboardOptions } from "react-virtual-keyboard";
+import Keyboard, { ReactKeyboardOptions } from "react-virtual-keyboard";
 
 export interface KbState {
     textarea: string;
