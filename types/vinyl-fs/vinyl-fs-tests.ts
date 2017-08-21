@@ -873,7 +873,7 @@ describe('symlink stream', () => {
    });
 
    ['end', 'finish'].forEach(eventName => {
-      it('should emit ' + eventName + ' event', done => {
+      it(`should emit ${eventName} event`, done => {
          const srcPath = path.join(__dirname, './fixtures/test.coffee');
          const stream = vfs.symlink('./out-fixtures/', { cwd: __dirname });
 
