@@ -10,7 +10,7 @@
 //                 Jordan Quagliatini <https://github.com/1M0reBug>
 //                 Simon Højberg <https://github.com/hojberg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.4
 
 declare let R: R.Static;
 
