@@ -6,14 +6,13 @@ let str: string;
 let diff: semver.ReleaseType;
 let strArr: string[];
 
-let v1: string;
-let v2: string;
-let version: string;
-let versions: string[];
-let loose: boolean;
-let SemVerObject: semver.SemVer;
+declare const v1: string;
+declare const v2: string;
+declare const version: string;
+declare const versions: string[];
+declare const loose: boolean;
 
-SemVerObject = semver.parse(str);
+const SemVerObject: semver.SemVer = semver.parse(str);
 
 str = semver.valid(str);
 str = semver.clean(str);

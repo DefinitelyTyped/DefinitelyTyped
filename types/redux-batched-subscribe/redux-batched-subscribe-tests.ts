@@ -8,7 +8,7 @@ interface State {
 const rootReducer: Reducer<State> = () => ({});
 
 const asyncNotify: BatchFunction = (() => {
-    let notifying: boolean = false;
+    let notifying = false;
 
     return (notify: NotifyFunction) => {
         if (notifying) {

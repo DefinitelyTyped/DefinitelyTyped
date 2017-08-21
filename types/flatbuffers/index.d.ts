@@ -572,7 +572,7 @@ declare global {
        * @param {number} offset
        * @returns {flatbuffers.Table}
        */
-      __union<T extends flatbuffers.Table>(t: T, offset: number): T;
+      __union<T extends Table>(t: T, offset: number): T;
 
       /**
        * Create a JavaScript string from UTF-8 data stored inside the FlatBuffer.

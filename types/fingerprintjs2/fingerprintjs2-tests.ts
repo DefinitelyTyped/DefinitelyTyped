@@ -3,7 +3,7 @@ function defaultCallback(result: string, components: [{ key: string, value: stri
 }
 
 function test_default_settings() {
-    const fingerprint = new Fingerprint2().get( defaultCallback);
+    const fingerprint = new Fingerprint2().get(defaultCallback);
 }
 
 function test_get_exclude_swfContainerId() {

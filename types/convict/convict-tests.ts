@@ -100,7 +100,7 @@ const conf = convict({
 
 const env = conf.get('env');
 const dbip = conf.get('db.ip');
-conf.loadFile('./config/' + env + '.json');
+conf.loadFile(`./config/${env}.json`);
 conf.loadFile(['./configs/always.json', './configs/sometimes.json']);
 
 // perform validation
@@ -113,7 +113,7 @@ conf.validate({ allowed: 'warn' });
 
 conf
   .loadFile(['./configs/always.json', './configs/sometimes.json'])
-  .loadFile('./config/' + env + '.json')
+  .loadFile(`./config/${env}.json`)
   .load({ jsonKey: 'jsonValue' })
   .set('key', 'value')
   .validate({ allowed: 'warn' })

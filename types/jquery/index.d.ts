@@ -1,7 +1,7 @@
 // Type definitions for jquery 3.2
 // Project: https://jquery.com
 // Definitions by: Leonard Thieu <https://github.com/leonard-thieu>
-//                 Boris Yankov <https://github.com/borisyankov/>
+//                 Boris Yankov <https://github.com/borisyankov>
 //                 Christian Hoffmeister <https://github.com/choffmeister>
 //                 Steve Fenton <https://github.com/Steve-Fenton>
 //                 Diullei Gomes <https://github.com/Diullei>
@@ -18,7 +18,7 @@
 //                 Benjamin Jackman <https://github.com/benjaminjackman>
 //                 Poul Sorensen <https://github.com/s093294>
 //                 Josh Strobl <https://github.com/JoshStrobl>
-//                 John Reilly <https://github.com/johnnyreilly/>
+//                 John Reilly <https://github.com/johnnyreilly>
 //                 Dick van den Brink <https://github.com/DickvdBrink>
 //                 Thomas Schulz <https://github.com/King2500>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
