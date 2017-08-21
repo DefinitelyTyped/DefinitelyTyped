@@ -143,7 +143,7 @@ const configurableRoundingFormatter = (maxDecimals: number) => {
     const pow = Math.pow(10, maxDecimals);
     const rounded = Math.round(scalar * pow) / pow;
 
-    return rounded + ' ' + units;
+    return `${rounded} ${units}`;
   };
 };
 
@@ -1225,7 +1225,7 @@ describe("js-quantities", () => {
           const pow = Math.pow(10, maxDecimals);
           const rounded = Math.round(scalar * pow) / pow;
 
-          return rounded + " " + units;
+          return `${rounded} ${units}`;
         };
       };
 
