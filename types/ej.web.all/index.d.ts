@@ -7731,7 +7731,7 @@ declare namespace ej {
              */
             enableRTL?: boolean;
 
-            /** The CSS class name to display the favicon in the dialog header. In order to display favicon, you need to setÂ showHeaderÂ as true since the favicon will be displayed in the dialog
+            /** The CSS class name to display the favicon in the dialog header. In order to display favicon, you need to set "showHeader" as true since the favicon will be displayed in the dialog
              * header.
              */
             faviconCSS?: string;
