@@ -14,9 +14,7 @@ let obj5 = new ActiveXObject('ADODB.Stream');
 let pathToExcelFile = 'C:\\path\\to\\excel\\file.xlsx';
 let conn = new ActiveXObject('ADODB.Connection');
 conn.Provider = 'Microsoft.ACE.OLEDB.12.0';
-conn.ConnectionString =
-    'Data Source="' + pathToExcelFile + '";' +
-    'Extended Properties="Excel 12.0;HDR=Yes"';
+conn.ConnectionString = `Data Source="${pathToExcelFile}";Extended Properties="Excel 12.0;HDR=Yes"`;
 conn.Open();
 
 // create a Command to access the data

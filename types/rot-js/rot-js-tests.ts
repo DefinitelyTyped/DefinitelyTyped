@@ -63,7 +63,7 @@ class Item {
 
     a() {
         const first = self.name.charAt(0);
-        return (first.match(/[aeiouy]/i) ? "an" : "a") + " " + this.name;
+        return `${first.match(/[aeiouy]/i) ? "an" : "a"} ${this.name}`;
     }
 
     the() {
@@ -465,7 +465,7 @@ cellular.create(display.DEBUG);
 display = new ROT.Display({ width: w, height: h, fontSize: 4 });
 SHOW(display.getContainer());
 cellular.connect(display.DEBUG, 0, (from, to) => {
-    SHOW("Connection was made " + from + " to " + to);
+    SHOW(`Connection was made ${from} to ${to}`);
 });
 
 // Map creation / Dungeon
@@ -531,13 +531,13 @@ SHOW(display.getContainer());
 /* create a map */
 let data_uniform: any = {};
 new ROT.Map.Uniform().create((x: number, y: number, type: number) => {
-    data_uniform[x + "," + y] = type;
+    data_uniform[`${x},${y}`] = type;
     display.DEBUG(x, y, type);
 });
 
 /* input callback */
 let lightPasses = (x: number, y: number) => {
-    const key = x + "," + y;
+    const key = `${x},${y}`;
     if (key in data_uniform) { return (data_uniform[key] === 0); }
     return false;
 };
@@ -547,7 +547,7 @@ let fov = new ROT.FOV.PreciseShadowcasting(lightPasses);
 /* output callback */
 fov.compute(50, 22, 10, (x, y, r, visibility) => {
     const ch = (r ? "" : "@");
-    const color = (data_uniform[x + "," + y] ? "#aa0" : "#660");
+    const color = (data_uniform[`${x},${y}`] ? "#aa0" : "#660");
     display.draw(x, y, ch, "#fff", color);
 });
 
@@ -563,13 +563,13 @@ SHOW(display.getContainer());
 /* create a map */
 data_uniform = {};
 new ROT.Map.Uniform().create((x: number, y: number, type: number) => {
-    data_uniform[x + "," + y] = type;
+    data_uniform[`${x},${y}`] = type;
     display.DEBUG(x, y, type);
 });
 
 /* input callback */
 lightPasses = (x: number, y: number) => {
-    const key = x + "," + y;
+    const key = `${x},${y}`;
     if (key in data_uniform) { return (data_uniform[key] === 0); }
     return false;
 };
@@ -579,21 +579,21 @@ const fov2 = new ROT.FOV.RecursiveShadowcasting(lightPasses);
 /* output callback for mob with bad vision */
 fov2.compute90(50, 22, 10, DIR_WEST, (x: number, y: number, r: number, visibility: number) => {
     const ch = (r ? "1" : "@");
-    const color = (data_uniform[x + "," + y] ? "#aa0" : "#660");
+    const color = (data_uniform[`${x},${y}`] ? "#aa0" : "#660");
     display.draw(x, y, ch, "#fff", color);
 });
 
 /* output callback for second mob with better vision */
 fov2.compute180(57, 14, 10, DIR_NORTH, (x: number, y: number, r: number, visibility: number) => {
     const ch = (r ? "2" : "@");
-    const color = (data_uniform[x + "," + y] ? "#aa0" : "#660");
+    const color = (data_uniform[`${x},${y}`] ? "#aa0" : "#660");
     display.draw(x, y, ch, "#fff", color);
 });
 
 /* output callback for third mob with supernatural vision */
 fov2.compute(65, 5, 10, (x: number, y: number, r: number, visibility: number) => {
     const ch = (r ? "3" : "@");
-    const color = (data_uniform[x + "," + y] ? "#aa0" : "#660");
+    const color = (data_uniform[`${x},${y}`] ? "#aa0" : "#660");
     display.draw(x, y, ch, "#fff", color);
 });
 
@@ -652,7 +652,7 @@ const lightData: { [key: string]: [number, number, number] } = {};
 /* build a map */
 cellular = new ROT.Map.Cellular().randomize(0.5);
 const createCallback = (x: number, y: number, value: number) => {
-    mapData[x + "," + y] = value;
+    mapData[`${x},${y}`] = value;
 };
 for (let i = 0; i < 4; i++) {
     cellular.create(createCallback);
@@ -660,13 +660,13 @@ for (let i = 0; i < 4; i++) {
 
 /* prepare a FOV algorithm */
 lightPasses = (x: number, y: number) => {
-    return (mapData[x + "," + y] === 1);
+    return (mapData[`${x},${y}`] === 1);
 };
 fov = new ROT.FOV.PreciseShadowcasting(lightPasses, { topology: 4 });
 
 /* prepare a lighting algorithm */
 const reflectivity = (x: number, y: number) => {
-    return (mapData[x + "," + y] === 1 ? 0.3 : 0);
+    return (mapData[`${x},${y}`] === 1 ? 0.3 : 0);
 };
 const lighting = new ROT.Lighting(reflectivity, { range: 12, passes: 2 });
 lighting.setFOV(fov);
@@ -675,7 +675,7 @@ lighting.setLight(20, 20, [240, 60, 60]);
 lighting.setLight(45, 25, [200, 200, 200]);
 
 const lightingCallback = (x: number, y: number, color: [number, number, number]) => {
-    lightData[x + "," + y] = color;
+    lightData[`${x},${y}`] = color;
 };
 lighting.compute(lightingCallback);
 
@@ -711,13 +711,13 @@ SHOW(display.getContainer());
 const uni_data: any = {};
 let uni_map = new ROT.Map.Uniform(w, h);
 uni_map.create((x, y, value) => {
-    uni_data[x + "," + y] = value;
+    uni_data[`${x},${y}`] = value;
     display.DEBUG(x, y, value);
 });
 
 /* input callback informs about map structure */
 let passableCallback = (x: number, y: number) => {
-    return (uni_data[x + "," + y] === 0);
+    return (uni_data[`${x},${y}`] === 0);
 };
 
 /* prepare path to given coords */
@@ -747,13 +747,13 @@ SHOW(display.getContainer());
 /* generate map and store its data */
 uni_map = new ROT.Map.Uniform(w, h);
 uni_map.create((x: number, y: number, value: number) => {
-    uni_data[x + "," + y] = value;
+    uni_data[`${x},${y}`] = value;
     display.DEBUG(x, y, value);
 });
 
 /* input callback informs about map structure */
 passableCallback = (x: number, y: number) => {
-    return (uni_data[x + "," + y] === 0);
+    return (uni_data[`${x},${y}`] === 0);
 };
 
 /* prepare path to given coords */
@@ -786,7 +786,7 @@ for (let j = 0; j < h; j++) {
 
         const r = ~~(val > 0 ? val : 0);
         const g = ~~(val < 0 ? -val : 0);
-        display.draw(i, j, "", "", "rgb(" + r + "," + g + ",0)");
+        display.draw(i, j, "", "", `rgb(${r},${g},0)`);
     }
 }
 // ----
@@ -801,7 +801,7 @@ for (let j = 0; j < h; j++) {
 
         const r = ~~(val > 0 ? val : 0);
         const g = ~~(val < 0 ? -val : 0);
-        display.draw(i, j, "", "", "rgb(" + r + "," + g + ",0)");
+        display.draw(i, j, "", "", `rgb(${r},${g},0)`);
     }
 }
 
@@ -1014,7 +1014,7 @@ SHOW(display.getContainer());
 for (let y = 0; y < 4; y++) {
     for (let x = y % 2; x < 10; x += 2) {
         const bg = ["#333", "#666", "#999", "#ccc", "#fff"].random();
-        display.draw(x, y, x + "," + y, "#000", bg);
+        display.draw(x, y, `${x},${y}`, "#000", bg);
     }
 }
 
@@ -1061,13 +1061,13 @@ cell_map = new ROT.Map.Cellular(w, h, {
 cell_map.randomize(0.48);
 cell_map.create(); /* two iterations */
 cell_map.create((x: number, y: number, value: number) => {
-    cell_data[x + "," + y] = value;
+    cell_data[`${x},${y}`] = value;
     display.DEBUG(x, y, value);
 });
 
 /* input callback informs about map structure */
 passableCallback = (x: number, y: number) => {
-    return (cell_data[x + "," + y] === 0);
+    return (cell_data[`${x},${y}`] === 0);
 };
 
 /* prepare path to given coords */
@@ -1098,13 +1098,13 @@ cell_map = new ROT.Map.Cellular(undefined, undefined, {
 });
 cell_map.randomize(0.4);
 cell_map.create((x: number, y: number, value: number) => {
-    cell_data[x + "," + y] = value;
+    cell_data[`${x},${y}`] = value;
     display.DEBUG(x, y, value);
 });
 
 /* input callback */
 lightPasses = (x: number, y: number) => {
-    const key = x + "," + y;
+    const key = `${x},${y}`;
     if (key in cell_data) { return (cell_data[key] === 0); }
     return false;
 };
@@ -1114,6 +1114,6 @@ fov = new ROT.FOV.PreciseShadowcasting(lightPasses, { topology: 6 });
 /* output callback */
 fov.compute(20, 14, 6, (x, y, r, vis) => {
     const ch = (r ? "" : "@");
-    const color = (cell_data[x + "," + y] ? "#aa0" : "#660");
+    const color = (cell_data[`${x},${y}`] ? "#aa0" : "#660");
     display.draw(x, y, ch, "#fff", color);
 });
