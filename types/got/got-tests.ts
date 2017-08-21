@@ -19,6 +19,7 @@ got('todomvc.com')
 got('todomvc.com').cancel();
 
 got('todomvc.com', {json: true}).then(response => obj = response.body);
+got('todomvc.com', {json: true}).then(response => str = response.body);
 got('todomvc.com', {json: true, body: {}}).then(response => obj = response.body);
 got('todomvc.com', {json: true, body: [{}]}).then(response => obj = response.body);
 got('todomvc.com', {json: true, form: true}).then(response => obj = response.body);

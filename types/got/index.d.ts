@@ -1,6 +1,7 @@
 // Type definitions for got 7.1
 // Project: https://github.com/sindresorhus/got#readme
 // Definitions by: BendingBender <https://github.com/BendingBender>
+//                 Linus Unnebäck <https://github.com/LinusU>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -21,7 +22,7 @@ declare namespace got {
     // tslint:disable unified-signatures
     interface GotFn {
         (url: GotUrl): GotPromise<string>;
-        (url: GotUrl, options: GotJSONOptions): GotPromise<object>;
+        (url: GotUrl, options: GotJSONOptions): GotPromise<any>;
         (url: GotUrl, options: GotFormOptions<string>): GotPromise<string>;
         (url: GotUrl, options: GotFormOptions<null>): GotPromise<Buffer>;
         (url: GotUrl, options: GotBodyOptions<string>): GotPromise<string>;
