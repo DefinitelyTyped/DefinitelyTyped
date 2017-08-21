@@ -8,7 +8,7 @@ import * as Leaflet from "leaflet";
 
 declare global {
   namespace L.Proj {
-    class CRS implements Leaflet.CRS {
+    class CRS implements CRS {
       projection: Projection;
       transformation: Transformation;
       code?: string;

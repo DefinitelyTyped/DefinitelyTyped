@@ -19,6 +19,7 @@ import {
     FileMetadata,
     FilePrivateOptions,
     ReadStreamOptions,
+    ResumableUploadOptions,
     SignedPolicy,
     SignedPolicyOptions,
     SignedUrlConfig,
@@ -248,6 +249,16 @@ export class TestFile {
     }
 
     /**
+     * Create a unique resumable upload session URI. This is the first step when performing a resumable upload.
+     * @method createResumableUpload
+     * @param {ResumableUploadOptions} options
+     * @return {Promise<[string]}
+     */
+    createResumableUpload(options?: ResumableUploadOptions): Promise<[string]> {
+        return this.file.createResumableUpload(options);
+    }
+
+    /**
      * Create a readable stream to read the contents of the remote file.
      * It can be piped to a writable stream or listened to for 'data' events to read a file's contents.
      * @method createReadStream
@@ -396,3 +407,20 @@ export class TestFile {
         return this.file.setMetadata(metadata);
     }
 }
+
+const testStorage = new TestStorage().bucket("examplebucketname");
+
+testStorage.iam.getPolicy();
+
+testStorage.iam.setPolicy({
+        bindings: [
+            {
+                role: "roles/storage.admin",
+                members: ['serviceAccount:myotherproject@appspot.gserviceaccount.com']
+            }
+        ]
+    });
+
+testStorage.iam.testPermissions('storage.buckets.delete');
+
+testStorage.iam.testPermissions(['storage.buckets.delete', 'storage.buckets.get']);

@@ -1,7 +1,7 @@
 // Type definitions for Highland 2.10.5
 // Project: http://highlandjs.org/
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds/>
-//                 Hugo Wood <https://github.com/hgwood/>
+// Definitions by: Bart van der Schoor <https://github.com/Bartvds>
+//                 Hugo Wood <https://github.com/hgwood>
 //                 William Yu <https://github.com/iwllyu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -18,7 +18,7 @@
  * Highland: the high-level streams library
  *
  * Highland may be freely distributed under the Apache 2.0 license.
- * http://github.com/caolan/highland
+ * https://github.com/caolan/highland
  * Copyright (c) Caolan McMahon
  *
  */

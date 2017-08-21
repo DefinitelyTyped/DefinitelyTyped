@@ -1,5 +1,5 @@
 // Type definitions for webpack-dev-middleware 1.9
-// Project: http://github.com/webpack/webpack-dev-middleware
+// Project: https://github.com/webpack/webpack-dev-middleware
 // Definitions by: Benjamin Lim <https://github.com/bumbleblym>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 

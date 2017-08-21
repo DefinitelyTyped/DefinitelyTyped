@@ -589,7 +589,7 @@ export interface UpdateEvent extends JQueryEventObject {
 	viewDate: moment.Moment;
 }
 
-export type EventName = "dp.show" | "dp.hide" | "dp.error";
+export type EventName = "dp.show" | "dp.hide" | "dp.error";
 
 declare global {
 	interface JQuery {

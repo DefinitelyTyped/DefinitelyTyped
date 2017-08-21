@@ -2,7 +2,7 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import FontAwesome = require('react-fontawesome');
 
-class TestComponent extends React.Component {
+class BasicTestComponent extends React.Component {
   render() {
     return (
       <FontAwesome
@@ -10,6 +10,17 @@ class TestComponent extends React.Component {
         name="rocket"
         size="2x"
         spin
+      />
+    );
+  }
+}
+
+class CSSTestComponent extends React.Component {
+  render() {
+    return (
+      <FontAwesome
+        name="rocket"
+        style={{backgroundColor: 'red', color: 'blue'}}
       />
     );
   }

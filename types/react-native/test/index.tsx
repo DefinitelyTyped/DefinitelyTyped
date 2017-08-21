@@ -135,11 +135,11 @@ class Welcome extends React.Component {
 
         const { rootView, customView } = this.refs;
 
-        let nativeComponentHandle = findNodeHandle(rootView);
+        const nativeComponentHandle = findNodeHandle(rootView);
 
-        let customComponentHandle = findNodeHandle(customView);
+        const customComponentHandle = findNodeHandle(customView);
 
-        let fromHandle = findNodeHandle(customComponentHandle);
+        const fromHandle = findNodeHandle(customComponentHandle);
 
     }
 
@@ -208,11 +208,22 @@ InteractionManager.runAfterInteractions(() => {
 }).then(() => 'done')
 
 export class FlatListTest extends React.Component<FlatListProperties<number>, {}> {
+    _renderItem = (rowData: any) => {
+        return (
+            <View>
+                <Text> {rowData.item} </Text>
+            </View>
+        );
+      }
+
+    _renderSeparator= () => <View style={{height: 1, width: '100%', backgroundColor: 'gray'}} />
+
     render() {
         return (
             <FlatList
                 data={[1, 2, 3, 4, 5]}
-                renderItem={(info: { item: number }) => <View><Text>{info.item}</Text></View>}
+                renderItem={this._renderItem}
+                ItemSeparatorComponent={this._renderSeparator}
             />
         );
     }
@@ -220,7 +231,7 @@ export class FlatListTest extends React.Component<FlatListProperties<number>, {}
 
 export class SectionListTest extends React.Component<SectionListProperties<string>, {}> {
     render() {
-        var sections = [{
+        const sections = [{
             title: 'Section 1',
             data: ['A', 'B', 'C', 'D', 'E'],
         }, {

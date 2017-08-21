@@ -2,6 +2,7 @@
 // Project: https://github.com/npm/node-semver
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>
 //                 BendingBender <https://github.com/BendingBender>
+//                 Lucian Buzzo <https://github.com/LucianBuzzo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/semver
 
 export const SEMVER_SPEC_VERSION: "2.0.0";
@@ -9,7 +10,7 @@ export const SEMVER_SPEC_VERSION: "2.0.0";
 export type ReleaseType = "major" | "premajor" | "minor" | "preminor" | "patch" | "prepatch" | "prerelease";
 
 /**
- * Return an instance of SemVer, or null if it's not valid.
+ * Return the parsed version as a SemVer object, or null if it's not valid.
  */
 export function parse(v: string | SemVer, loose?: boolean): SemVer | null;
 /**

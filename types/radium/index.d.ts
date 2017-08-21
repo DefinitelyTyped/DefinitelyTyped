@@ -1,6 +1,6 @@
 // Type definitions for radium 0.18.1
 // Project: https://github.com/formidablelabs/radium
-// Definitions by: Alex Gorbatchev <https://github.com/alexgorbatchev/>, Philipp Holzer <https://github.com/nupplaphil/>, Alexey Svetliakov <https://github.com/asvetliakov/>, Mikael Hermansson <https://github.com/mihe/>
+// Definitions by: Alex Gorbatchev <https://github.com/alexgorbatchev>, Philipp Holzer <https://github.com/nupplaphil>, Alexey Svetliakov <https://github.com/asvetliakov>, Mikael Hermansson <https://github.com/mihe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
