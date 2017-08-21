@@ -223,7 +223,7 @@ export function findRenderedDOMComponentWithTag(
 /**
  * Finds all instances of components with type equal to `componentClass`.
  */
-export function scryRenderedComponentsWithType<T extends Component<{}>, C extends ComponentClass<{}>>(
+export function scryRenderedComponentsWithType<T extends Component, C extends ComponentClass>(
     root: Component<any>,
     type: ClassType<any, T, C>): T[];
 
@@ -232,7 +232,7 @@ export function scryRenderedComponentsWithType<T extends Component<{}>, C extend
  * and returns that one result, or throws exception if there is any other
  * number of matches besides one.
  */
-export function findRenderedComponentWithType<T extends Component<{}>, C extends ComponentClass<{}>>(
+export function findRenderedComponentWithType<T extends Component, C extends ComponentClass>(
     root: Component<any>,
     type: ClassType<any, T, C>): T;
 

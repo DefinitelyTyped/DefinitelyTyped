@@ -31,6 +31,8 @@ declare namespace adal {
         resource?: string;
         extraQueryParameter?: string;
         navigateToLoginRequestUrl?: boolean;
+        logOutUri?: string;
+        isAngular?: boolean;
     }
 
     interface User {

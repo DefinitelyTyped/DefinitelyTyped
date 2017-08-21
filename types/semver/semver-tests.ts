@@ -1,24 +1,18 @@
 import * as semver from "semver";
 
-let obj: {};
 let bool: boolean;
 let num: number;
 let str: string;
 let diff: semver.ReleaseType;
-let x: any = null;
-let arr: any[];
-let exp: RegExp;
 let strArr: string[];
-let numArr: string[];
 
-let v1: string;
-let v2: string;
-let version: string;
-let versions: string[];
-let loose: boolean;
-let SemVerObject: semver.SemVer;
+declare const v1: string;
+declare const v2: string;
+declare const version: string;
+declare const versions: string[];
+declare const loose: boolean;
 
-SemVerObject = semver.parse(str);
+const SemVerObject: semver.SemVer = semver.parse(str);
 
 str = semver.valid(str);
 str = semver.clean(str);
@@ -45,7 +39,7 @@ bool = semver.lt(v1, v2, loose);
 bool = semver.lte(v1, v2, loose);
 bool = semver.eq(v1, v2, loose);
 bool = semver.neq(v1, v2, loose);
-bool = semver.cmp(v1, x, v2, loose);
+bool = semver.cmp(v1, null as any, v2, loose);
 num = semver.compare(v1, v2, loose);
 num = semver.rcompare(v1, v2, loose);
 diff = semver.diff(v1, v2, loose);

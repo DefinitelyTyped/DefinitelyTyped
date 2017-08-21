@@ -16,26 +16,26 @@ declare namespace Storage {
      */
     class Bucket {
         constructor(storage: Storage, name: string);
-        acl: Storage.Acl;
-        combine(sources: string[] | File[], destination: string[] | File[]): Promise<[File, Storage.ApiResponse]>;
-        create(config?: BucketConfig): Promise<[Bucket, Storage.ApiResponse]>;
-        createChannel(id: string, config: ChannelConfig): Promise<[Channel, Storage.ApiResponse]>;
-        delete(): Promise<[Storage.ApiResponse]>;
+        acl: Acl;
+        combine(sources: string[] | File[], destination: string[] | File[]): Promise<[File, ApiResponse]>;
+        create(config?: BucketConfig): Promise<[Bucket, ApiResponse]>;
+        createChannel(id: string, config: ChannelConfig): Promise<[Channel, ApiResponse]>;
+        delete(): Promise<[ApiResponse]>;
         deleteFiles(query?: BucketQuery): Promise<void>;
         exists(): Promise<[boolean]>;
         file(name: string, options?: BucketFileOptions): File;
-        get(options?: BucketGetOptions): Promise<[Bucket, Storage.ApiResponse]>;
+        get(options?: BucketGetOptions): Promise<[Bucket, ApiResponse]>;
         getFiles(query?: BucketQuery): Promise<[File[]]>;
         getFilesStream(query?: BucketQuery): ReadStream;
-        getMetadata(): Promise<[BucketMetadata, Storage.ApiResponse]>;
+        getMetadata(): Promise<[BucketMetadata, ApiResponse]>;
         id: string;
         iam: Iam;
         makePrivate(options?: BucketPrivacyOptions): Promise<[File[]]>;
         makePublic(options?: BucketPrivacyOptions): Promise<[File[]]>;
         metadata: BucketMetadata;
         name: string;
-        setMetadata(metadata?: BucketMetadata): Promise<[Storage.ApiResponse]>;
-        upload(localPath: string, options?: Storage.UploadOptions): Promise<[File]>;
+        setMetadata(metadata?: BucketMetadata): Promise<[ApiResponse]>;
+        upload(localPath: string, options?: UploadOptions): Promise<[File]>;
     }
 
     /**
@@ -350,7 +350,7 @@ declare namespace Storage {
      */
     class Channel {
         constructor(storage: Storage, id: string, resourceId: string);
-        stop(): Promise<[Storage.ApiResponse]>;
+        stop(): Promise<[ApiResponse]>;
     }
 
     /**
