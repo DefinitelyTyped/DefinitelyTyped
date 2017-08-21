@@ -606,6 +606,8 @@ declare namespace React {
             __html: string;
         };
 
+        type?: string;
+
         // Clipboard Events
         onCopy?: ClipboardEventHandler<T>;
         onCopyCapture?: ClipboardEventHandler<T>;
