@@ -5,10 +5,10 @@
 // TypeScript Version: 2.3
 
 import * as React from "react";
-import { ReactSelectProps } from "react-select";
+import { ReactSelectProps, Option } from "react-select";
 import { ListProps } from "react-virtualized";
 
-export interface VirtualizedOptionRenderOptions<T> {
+export interface VirtualizedOptionRenderOptions<T> extends Option<T> {
     focusedOption: T;
     focusedOptionIndex: number;
     focusOption(option: T): void;
