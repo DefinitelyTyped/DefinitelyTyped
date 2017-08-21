@@ -2428,7 +2428,7 @@ module RibbonComponent {
 function colorHandler(args:any) {
     (this._id.indexOf("fillcolor") != -1) ? $("#contenteditor").css('background-color', args.value) : document.execCommand('forecolor', false, args.value);
 }
-function onClick(args) {
+function onClick(args: any) {
     var val, prop = args.text;
     val = (ej.isNullOrUndefined(args.model.text)) ? args.model.activeText : args.model.text;
     if (action1.indexOf(val) != -1)
