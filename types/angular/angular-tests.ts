@@ -84,7 +84,7 @@ angular.module('http-auth-interceptor', [])
 
             return (promise: ng.IHttpPromise<any>) => promise.then(success, error);
         }];
-        $httpProvider.interceptors.push(interceptor);
+        $httpProvider.interceptors.push(interceptor as any); // TODO: fix this test
     }]);
 
 namespace HttpAndRegularPromiseTests {
