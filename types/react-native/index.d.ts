@@ -1561,6 +1561,7 @@ export interface ViewStyle extends FlexStyle, TransformsStyle {
     borderTopLeftRadius?: number;
     borderTopRightRadius?: number;
     borderTopWidth?: number;
+    display?: "none" | "flex";
     opacity?: number;
     overflow?: "visible" | "hidden"
     shadowColor?: string;
@@ -3425,6 +3426,23 @@ export interface ImageProperties extends ImagePropertiesIOS, ImagePropertiesAndr
 export interface ImageStatic extends NativeMethodsMixin, React.ComponentClass<ImageProperties> {
     resizeMode: ImageResizeMode
     getSize(uri: string, success: (width: number, height: number) => void, failure: (error: any) => void): any
+    prefetch(url: string): any
+    abortPrefetch?(requestId: number): void
+    queryCache?(urls: string[]): Promise<Map<string, 'memory' | 'disk'>>
+}
+
+export interface ImageBackgroundProperties extends ImageProperties {
+    style?: StyleProp<ViewStyle>
+    imageStyle?: StyleProp<ImageStyle>
+}
+
+export interface ImageBackgroundStatic extends NativeMethodsMixin, React.ComponentClass<ImageBackgroundProperties> {
+    resizeMode: ImageResizeMode
+    getSize(
+      uri: string,
+      success: (width: number, height: number) => void,
+      failure: (error: any) => void
+    ): any
     prefetch(url: string): any
     abortPrefetch?(requestId: number): void
     queryCache?(urls: string[]): Promise<Map<string, 'memory' | 'disk'>>
@@ -8851,8 +8869,8 @@ export type DrawerLayoutAndroid = DrawerLayoutAndroidStatic
 export var Image: ImageStatic
 export type Image = ImageStatic
 
-export var ImageBackground: ImageStatic
-export type ImageBackground = ImageStatic
+export var ImageBackground: ImageBackgroundStatic
+export type ImageBackground = ImageBackgroundStatic
 
 export var ImagePickerIOS: ImagePickerIOSStatic
 export type ImagePickerIOS = ImagePickerIOSStatic

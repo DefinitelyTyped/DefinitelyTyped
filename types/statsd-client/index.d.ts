@@ -1,6 +1,6 @@
 // Type definitions for statsd-client v0.1.0
 // Project: https://github.com/msiebuhr/node-statsd-client
-// Definitions by: Peter Kooijmans <https://github.com/peterkooijmans/>
+// Definitions by: Peter Kooijmans <https://github.com/peterkooijmans>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 

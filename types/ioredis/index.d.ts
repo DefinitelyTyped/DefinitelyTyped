@@ -1,7 +1,7 @@
 // Type definitions for ioredis
 // Project: https://github.com/luin/ioredis
 // Definitions by: York Yao <https://github.com/plantain-00/>
-//                 Christopher Eck <https://github.com/chrisleck/>
+//                 Christopher Eck <https://github.com/chrisleck>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /* =================== USAGE ===================

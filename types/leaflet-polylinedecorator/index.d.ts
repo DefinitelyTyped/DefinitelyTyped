@@ -37,10 +37,10 @@ declare namespace L {
         }
 
         class Marker {
-            constructor(options?: L.Symbol.MarkerOptions);
+            constructor(options?: MarkerOptions);
         }
 
-        function marker(options?: L.Symbol.MarkerOptions): L.Symbol.Marker;
+        function marker(options?: MarkerOptions): Marker;
     }
 
     interface Pattern {

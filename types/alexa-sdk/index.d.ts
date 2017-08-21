@@ -7,7 +7,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export function handler<T>(event: RequestBody<T>, context: Context, callback?: (err: any, response: any) => void ): AlexaObject<T>;
+export function handler<T>(event: RequestBody<T>, context: Context, callback?: (err: any, response: any) => void): AlexaObject<T>;
 export function CreateStateHandler(state: string, obj: any): any;
 export let StateString: string;
 

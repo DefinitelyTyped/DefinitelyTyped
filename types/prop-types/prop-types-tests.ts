@@ -12,7 +12,7 @@ interface Props {
     element: any;
 }
 
-let propTypes: PropTypes.ValidationMap<Props> = {
+const propTypes: PropTypes.ValidationMap<Props> = {
     any: PropTypes.any.isRequired,
     array: PropTypes.array.isRequired,
     bool: PropTypes.bool.isRequired,
