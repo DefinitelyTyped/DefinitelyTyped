@@ -1,10 +1,11 @@
-// Type definitions for Marionette v3.3.1
+// Type definitions for Marionette 3.3
 // Project: https://github.com/marionettejs/
 // Definitions by: Zeeshan Hamid <https://github.com/zhamid>, Natan Vivo <https://github.com/nvivo>, Sven Tschui <https://github.com/sventschui>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 import * as Backbone from 'backbone';
+import * as JQuery from 'jquery';
 import * as Radio from 'backbone.radio';
 
 export as namespace Marionette;
@@ -21,7 +22,6 @@ interface CommonMixin {
 }
 
 interface RadioMixinOptions {
-
     /**
      * Defines the Radio channel that will be used for the requests and/or
      * events.
@@ -62,7 +62,6 @@ interface DomMixin {
 }
 
 interface ViewMixinOptions {
-
     /**
      * Behavior objects to assign to this View.
      */
@@ -143,7 +142,6 @@ interface RegionsMixin {
 }
 
 declare class Container<TView> {
-
     /**
      * Find a view by it's cid.
      */
@@ -181,7 +179,6 @@ declare class Container<TView> {
 }
 
 declare namespace Marionette {
-
     /**
      * Alias of Backbones extend function.
      */
@@ -272,7 +269,7 @@ declare namespace Marionette {
          * Initialize is called immediately after the Object has been instantiated,
          * and is invoked with the same arguments that the constructor received.
          */
-        initialize?: (options?: ObjectOptions) => void;
+        initialize?(options?: ObjectOptions): void;
 
         [index: string]: any;
     }
@@ -282,7 +279,6 @@ declare namespace Marionette {
      * backbone conventions and utilities like initialize and Backbone.Events.
      */
     class Object extends Backbone.Events implements CommonMixin, RadioMixin {
-
         constructor(options?: ObjectOptions);
 
         /**
@@ -384,7 +380,6 @@ declare namespace Marionette {
      * in your HTML. This will improve the speed of subsequent calls to get a template.
      */
     class TemplateCache implements DomMixin {
-
         /**
          * Returns a new HTML DOM node instance. The resulting node can be
          * passed into the other DOM functions.
@@ -425,7 +420,7 @@ declare namespace Marionette {
          * @param el is a jQuery argument: https://api.jquery.com/jQuery/
          * @param html is a jQuery.html argument: https://api.jquery.com/html/
          */
-        setInnerContent(el: any, html: string | Function): void;
+        setInnerContent(el: any, html: string): void;
 
         /**
          * Detach el from the DOM.
@@ -450,7 +445,10 @@ declare namespace Marionette {
         findEls(selector: any, context: any): void;
 
         /**
-         * To use the TemplateCache, call the get method on TemplateCache directly. Internally, instances of the TemplateCache class will be created and stored but you do not have to manually create these instances yourself. get will return a compiled template function.
+         * To use the TemplateCache, call the get method on TemplateCache
+         * directly. Internally, instances of the TemplateCache class will be
+         * created and stored but you do not have to manually create these
+         * instances yourself. get will return a compiled template function.
          */
         static get(templateId: string, options?: any): any;
 
@@ -526,7 +524,6 @@ declare namespace Marionette {
      * views in the correct place.
      */
     class Region extends Object implements DomMixin {
-
         /**
          * Returns a new HTML DOM node instance. The resulting node can be
          * passed into the other DOM functions.
@@ -567,7 +564,7 @@ declare namespace Marionette {
          * @param el is a jQuery argument: https://api.jquery.com/jQuery/
          * @param html is a jQuery.html argument: https://api.jquery.com/html/
          */
-        setInnerContent(el: any, html: string | Function): void;
+        setInnerContent(el: any, html: string): void;
 
         /**
          * Detach el from the DOM.
@@ -712,7 +709,6 @@ declare namespace Marionette {
     }
 
     interface ViewOptions<TModel extends Backbone.Model> extends Backbone.ViewOptions<TModel>, ViewMixinOptions {
-
         /**
          * The events attribute binds DOM events to actions to perform on the
          * view. It takes DOM event key and a mapping to the handler.
@@ -749,7 +745,6 @@ declare namespace Marionette {
      * easily nest multiple views through the regions attribute.
      */
     class View<TModel extends Backbone.Model> extends Backbone.View<TModel> implements ViewMixin, RegionsMixin {
-
         constructor(options?: ViewOptions<TModel>);
 
         events(): EventsHash;
@@ -794,7 +789,7 @@ declare namespace Marionette {
          * @param el is a jQuery argument: https://api.jquery.com/jQuery/
          * @param html is a jQuery.html argument: https://api.jquery.com/html/
          */
-        setInnerContent(el: any, html: string | Function): void;
+        setInnerContent(el: any, html: string): void;
 
         /**
          * Detach el from the DOM.
@@ -1149,8 +1144,10 @@ declare namespace Marionette {
         ui: any;
     }
 
-    interface CollectionViewOptions<TModel extends Backbone.Model, TCollection extends Backbone.Collection<TModel> = Backbone.Collection<TModel>> extends Backbone.ViewOptions<TModel>, ViewMixinOptions {
-
+    interface CollectionViewOptions<
+        TModel extends Backbone.Model,
+        TCollection extends Backbone.Collection<TModel> = Backbone.Collection<TModel>
+    > extends Backbone.ViewOptions<TModel>, ViewMixinOptions {
         /**
          * Specify a child view to use.
          */
@@ -1171,7 +1168,7 @@ declare namespace Marionette {
          * Prevent some of the underlying collection's models from being
          * rendered as child views.
          */
-        filter?: (child?: TModel, index?: number, collection?: TCollection) => boolean;
+        filter?(child?: TModel, index?: number, collection?: TCollection): boolean;
 
         /**
          * Specify a view to use if the collection has no children.
@@ -1211,7 +1208,6 @@ declare namespace Marionette {
      * initialize.
      */
     class CollectionView<TModel extends Backbone.Model, TView extends View<TModel>, TCollection extends Backbone.Collection<TModel> = Backbone.Collection<TModel>> extends View<TModel> {
-
         constructor(options?: CollectionViewOptions<TModel, TCollection>);
 
         /**
@@ -1457,7 +1453,6 @@ declare namespace Marionette {
      * user loads a specific endpoint directly.
      */
     class AppRouter extends Backbone.Router {
-
         constructor(options?: AppRouterOptions);
 
         /**
@@ -1499,7 +1494,6 @@ declare namespace Marionette {
      *   your app
      */
     class Application extends Object {
-
         constructor(options?: ApplicationOptions);
 
         /**
@@ -1553,7 +1547,6 @@ declare namespace Marionette {
      * allowing you to share common user-facing operations between your views.
      */
     class Behavior extends Object {
-
         constructor(options?: any);
 
         options: any;
