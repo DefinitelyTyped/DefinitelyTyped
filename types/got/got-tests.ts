@@ -18,13 +18,29 @@ got('todomvc.com')
 
 got('todomvc.com').cancel();
 
-got('todomvc.com', {json: true}).then(response => obj = response.body);
-got('todomvc.com', {json: true}).then(response => str = response.body);
-got('todomvc.com', {json: true, body: {}}).then(response => obj = response.body);
-got('todomvc.com', {json: true, body: [{}]}).then(response => obj = response.body);
-got('todomvc.com', {json: true, form: true}).then(response => obj = response.body);
-got('todomvc.com', {json: true, form: true, encoding: null}).then(response => obj = response.body);
-got('todomvc.com', {json: true, form: true, encoding: null, hostname: 'todomvc'}).then(response => obj = response.body);
+got('todomvc.com', {json: true}).then((response) => {
+    response.body; // $ExpectType any
+});
+
+got('todomvc.com', {json: true, body: {}}).then((response) => {
+    response.body; // $ExpectType any
+});
+
+got('todomvc.com', {json: true, body: [{}]}).then((response) => {
+    response.body; // $ExpectType any
+});
+
+got('todomvc.com', {json: true, form: true}).then((response) => {
+    response.body; // $ExpectType any
+});
+
+got('todomvc.com', {json: true, form: true, encoding: null}).then((response) => {
+    response.body; // $ExpectType any
+});
+
+got('todomvc.com', {json: true, form: true, encoding: null, hostname: 'todomvc'}).then((response) => {
+    response.body; // $ExpectType any
+});
 
 got('todomvc.com', {form: true}).then(response => str = response.body);
 got('todomvc.com', {form: true, body: {}}).then(response => str = response.body);
