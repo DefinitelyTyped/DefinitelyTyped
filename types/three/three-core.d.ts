@@ -2483,7 +2483,7 @@ export class Material extends EventDispatcher {
 }
 
 export interface LineBasicMaterialParameters extends MaterialParameters {
-    color?: number|string;
+    color?: number|string|Color;
     linewidth?: number;
     linecap?: string;
     linejoin?: string;
@@ -2501,7 +2501,7 @@ export class LineBasicMaterial extends Material {
 }
 
 export interface LineDashedMaterialParameters extends MaterialParameters {
-    color?: number|string;
+    color?: number|string|Color;
     linewidth?: number;
     scale?: number;
     dashSize?: number;
@@ -2524,7 +2524,7 @@ export class LineDashedMaterial extends Material {
  * parameters is an object with one or more properties defining the material's appearance.
  */
 export interface MeshBasicMaterialParameters extends MaterialParameters {
-    color?: number|string;
+    color?: number|string|Color;
     opacity?: number;
     map?: Texture;
     aoMap?: Texture;
@@ -2583,7 +2583,7 @@ export class MeshDepthMaterial extends Material {
 }
 
 export interface MeshLambertMaterialParameters extends MaterialParameters {
-    color?: number|string;
+    color?: number|string|Color;
     emissive?: number|string;
     emissiveIntensity?: number;
     emissiveMap?: Texture;
@@ -2637,7 +2637,7 @@ export class MeshLambertMaterial extends Material {
 }
 
 export interface MeshStandardMaterialParameters extends MaterialParameters {
-    color?: number|string;
+    color?: number|string|Color;
     roughness?: number;
     metalness?: number;
     map?: Texture;
@@ -2725,7 +2725,7 @@ export class MeshNormalMaterial extends Material {
 
 export interface MeshPhongMaterialParameters extends MaterialParameters {
     /** geometry color in hexadecimal. Default is 0xffffff. */
-    color?: number|string;
+    color?: number|string|Color;
     specular?: number;
     shininess?: number;
     opacity?: number;
@@ -2835,7 +2835,7 @@ export class MultiMaterial extends Material {
 export class MeshFaceMaterial extends MultiMaterial {}
 
 export interface PointsMaterialParameters extends MaterialParameters {
-    color?: number|string;
+    color?: number|string|Color;
     map?: Texture;
     size?: number;
     sizeAttenuation?: boolean;
@@ -2912,7 +2912,7 @@ export class RawShaderMaterial extends ShaderMaterial {
 }
 
 export interface SpriteMaterialParameters extends MaterialParameters {
-    color?: number|string;
+    color?: number|string|Color;
     map?: Texture;
     rotation?: number;
 }
