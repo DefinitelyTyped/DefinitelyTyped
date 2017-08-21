@@ -633,7 +633,7 @@ export interface Formatter {
 
   matchNode(node: html.Node, name: string, vars: {}, similar: boolean): {};
 
-  register(name: {}, format?: {}): void;
+  register(name: {} | string, format?: {} | object[]): void;
 
   remove(name: string, vars?: {}, node?: html.Node): void;
 
