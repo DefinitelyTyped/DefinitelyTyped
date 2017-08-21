@@ -943,18 +943,19 @@ function TestPromiseClass() {
 
     promise = promise.then<string>();
     promise = promise.then((a: string) => 'cde');
-    promise = promise.then((a: string) => 'cde', (e: any) => {});
-    promise = promise.then((a: string) => 'cde', (e: any) => 123);
+    const promiseOrVoid: webdriver.promise.Promise<string | void> = promise.then((a: string) => 'cde', (e: any) => {});
+    const promiseOrNumber: webdriver.promise.Promise<string | number> = promise.then((a: string) => 'cde', (e: any) => 123);
 }
 
 function TestThenableClass() {
+    // TODO: this doesn't test the Thenable class, it uses a Promise!
     let thenable: webdriver.promise.Promise<string> = new webdriver.promise.Promise<string>((resolve, reject) => {
         resolve('a');
     });
 
     thenable = thenable.then((a: string) => 'cde');
-    thenable = thenable.then((a: string) => 'cde', (e: any) => {});
-    thenable = thenable.then((a: string) => 'cde', (e: any) => 123);
+    const thenableOrVoid: webdriver.promise.Promise<string | void> = thenable.then((a: string) => 'cde', (e: any) => {});
+    const thenableOrNumber: webdriver.promise.Promise<string | number> = thenable.then((a: string) => 'cde', (e: any) => 123);
 }
 
 async function TestAsyncAwaitable() {
