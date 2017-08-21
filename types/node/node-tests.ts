@@ -3048,7 +3048,7 @@ namespace http2_tests {
             settings,
             allowHTTP1: true
         };
-        let secureServerOptions: http2.SecureServerOptions = Object.assign(serverOptions);
+        let secureServerOptions: http2.SecureServerOptions = { ...serverOptions };
         secureServerOptions.ca = '';
         let onRequestHandler = (request: http2.Http2ServerRequest, response: http2.Http2ServerResponse) => {
             // Http2ServerRequest
@@ -3146,7 +3146,7 @@ namespace http2_tests {
             selectPadding: (frameLen: number, maxFrameLen: number) => 0,
             settings
         };
-        let secureClientSessionOptions: http2.SecureClientSessionOptions = Object.assign(clientSessionOptions);
+        let secureClientSessionOptions: http2.SecureClientSessionOptions = { ...clientSessionOptions };
         secureClientSessionOptions.ca = '';
         let onConnectHandler = (session: http2.Http2Session, socket: net.Socket) => {};
 
