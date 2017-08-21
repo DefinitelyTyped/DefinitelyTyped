@@ -1916,7 +1916,7 @@ declare namespace R {
          * Note that the order of the output array is not guaranteed across
          * different JS platforms.
          */
-        values<T>(obj: { [index: string]: T } | any): T[];
+        values<T extends object, K extends keyof T>(obj: T): Array<T[K]>;
 
         /**
          * Returns a list of all the properties, including prototype properties, of the supplied
