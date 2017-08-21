@@ -2,6 +2,7 @@
 // Project: http://animejs.com
 // Definitions by: Andrew Babin <https://github.com/A-Babin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 type FunctionBasedParamter = (element : HTMLElement, index : number, length : number) => number;
 type AnimeCallbackFunction = (anim : anime.AnimeInstance) => void;
