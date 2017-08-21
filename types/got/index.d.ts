@@ -1,11 +1,13 @@
 // Type definitions for got 7.1
 // Project: https://github.com/sindresorhus/got#readme
 // Definitions by: BendingBender <https://github.com/BendingBender>
+//                 Linus Unnebäck <https://github.com/LinusU>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
 /// <reference types="node"/>
 
+import { Url } from 'url';
 import * as http from 'http';
 import * as nodeStream from 'stream';
 
@@ -79,32 +81,32 @@ declare namespace got {
     interface GotEmitter {
         addListener(event: 'request', listener: (req: http.ClientRequest) => void): this;
         addListener(event: 'response', listener: (res: http.IncomingMessage) => void): this;
-        addListener(event: 'redirect', listener: (res: http.IncomingMessage, nextOptions: GotOptions<string | null>) => void): this;
+        addListener(event: 'redirect', listener: (res: http.IncomingMessage, nextOptions: GotOptions<string | null> & Url) => void): this;
         addListener(event: 'error', listener: (error: GotError, body?: any, res?: http.IncomingMessage) => void): this;
 
         on(event: 'request', listener: (req: http.ClientRequest) => void): this;
         on(event: 'response', listener: (res: http.IncomingMessage) => void): this;
-        on(event: 'redirect', listener: (res: http.IncomingMessage, nextOptions: GotOptions<string | null>) => void): this;
+        on(event: 'redirect', listener: (res: http.IncomingMessage, nextOptions: GotOptions<string | null> & Url) => void): this;
         on(event: 'error', listener: (error: GotError, body?: any, res?: http.IncomingMessage) => void): this;
 
         once(event: 'request', listener: (req: http.ClientRequest) => void): this;
         once(event: 'response', listener: (res: http.IncomingMessage) => void): this;
-        once(event: 'redirect', listener: (res: http.IncomingMessage, nextOptions: GotOptions<string | null>) => void): this;
+        once(event: 'redirect', listener: (res: http.IncomingMessage, nextOptions: GotOptions<string | null> & Url) => void): this;
         once(event: 'error', listener: (error: GotError, body?: any, res?: http.IncomingMessage) => void): this;
 
         prependListener(event: 'request', listener: (req: http.ClientRequest) => void): this;
         prependListener(event: 'response', listener: (res: http.IncomingMessage) => void): this;
-        prependListener(event: 'redirect', listener: (res: http.IncomingMessage, nextOptions: GotOptions<string | null>) => void): this;
+        prependListener(event: 'redirect', listener: (res: http.IncomingMessage, nextOptions: GotOptions<string | null> & Url) => void): this;
         prependListener(event: 'error', listener: (error: GotError, body?: any, res?: http.IncomingMessage) => void): this;
 
         prependOnceListener(event: 'request', listener: (req: http.ClientRequest) => void): this;
         prependOnceListener(event: 'response', listener: (res: http.IncomingMessage) => void): this;
-        prependOnceListener(event: 'redirect', listener: (res: http.IncomingMessage, nextOptions: GotOptions<string | null>) => void): this;
+        prependOnceListener(event: 'redirect', listener: (res: http.IncomingMessage, nextOptions: GotOptions<string | null> & Url) => void): this;
         prependOnceListener(event: 'error', listener: (error: GotError, body?: any, res?: http.IncomingMessage) => void): this;
 
         removeListener(event: 'request', listener: (req: http.ClientRequest) => void): this;
         removeListener(event: 'response', listener: (res: http.IncomingMessage) => void): this;
-        removeListener(event: 'redirect', listener: (res: http.IncomingMessage, nextOptions: GotOptions<string | null>) => void): this;
+        removeListener(event: 'redirect', listener: (res: http.IncomingMessage, nextOptions: GotOptions<string | null> & Url) => void): this;
         removeListener(event: 'error', listener: (error: GotError, body?: any, res?: http.IncomingMessage) => void): this;
     }
 
