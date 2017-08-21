@@ -186,7 +186,7 @@ declare namespace React {
     // DOM Elements
     function createElement<P extends HTMLAttributes<T>, T extends HTMLElement>(
         type: keyof ReactHTML,
-        props?: ClassAttributes<T> & P,
+        props?: InputHTMLAttributes<T> & ClassAttributes<T> & P,
         ...children: ReactNode[]): DetailedReactHTMLElement<P, T>;
     function createElement<P extends SVGAttributes<T>, T extends SVGElement>(
         type: keyof ReactSVG,
@@ -605,8 +605,6 @@ declare namespace React {
         dangerouslySetInnerHTML?: {
             __html: string;
         };
-
-        type?: string;
 
         // Clipboard Events
         onCopy?: ClipboardEventHandler<T>;
