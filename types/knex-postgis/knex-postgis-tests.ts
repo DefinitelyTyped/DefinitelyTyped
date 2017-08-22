@@ -16,7 +16,7 @@ const point: GeoJSON.Point = {
   }
 };
 
-const wktPoint: string = 'POINT(23.773206 61.506005)';
+const wktPoint = 'POINT(23.773206 61.506005)';
 
 knex('geometries')
   .select(st.area('wkb_geometry').as('area'))
