@@ -1,6 +1,6 @@
 import * as msbuild from "gulp-msbuild";
 
-let stream = msbuild({
+const stream = msbuild({
     stdout: false,
     stderr: true,
     errorOnFail: false,

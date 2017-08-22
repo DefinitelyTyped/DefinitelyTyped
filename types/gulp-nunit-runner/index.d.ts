@@ -6,7 +6,7 @@
 /// <reference types="node" />
 
 declare namespace nunit {
-    type NUnit = (options?: nunit.Options) => NodeJS.ReadWriteStream;
+    type NUnit = (options?: Options) => NodeJS.ReadWriteStream;
 
     interface ConsoleRunnerOptions {
         // [3.x] Name of the test case(s), fixture(s) or namespace(s) to run.

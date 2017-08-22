@@ -7,7 +7,7 @@ let diff = jsdiff.diffChars(one, other);
 diff.forEach(part => {
     const mark = part.added ? '+' :
         part.removed ? '-' : ' ';
-    console.log(mark + " " + part.value);
+    console.log(`${mark} ${part.value}`);
 });
 
 // --------------------------
