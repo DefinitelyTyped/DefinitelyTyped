@@ -1,4 +1,4 @@
-// Type definitions for graphql 0.10
+// Type definitions for graphql 0.11
 // Project: https://www.npmjs.com/package/graphql
 // Definitions by: TonyYang <https://github.com/TonyPythoneer>
 //                 Caleb Meredith <https://github.com/calebmer>
@@ -28,6 +28,7 @@ export {
     execute,
     defaultFieldResolver,
     responsePathAsArray,
+    getDirectiveValues,
     ExecutionResult,
 } from './execution';
 
