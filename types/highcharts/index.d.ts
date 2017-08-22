@@ -6380,11 +6380,11 @@ declare namespace Highcharts {
          * found, the first item is updated. So for example, running chart.update with a series item without an id, will cause
          * the existing chart's first series to be updated.
          * See also the responsive option set. Switching between responsive.rules basically runs chart.update under the hood.
-         * @param {ChartOptions} option A configuration object for the new chart options as defined in the options section of the API.
+         * @param {Options} option A configuration object for the new chart options as defined in the options section of the API.
          * @param [boolean] redraw Whether to redraw the chart. Defaults to true.
          * @since 5.0.0
          */
-        update(options: ChartOptions, redraw?: boolean): void;
+        update(options: Options, redraw?: boolean): void;
         /**
          * This method is deprecated as of 2.0.1. Updating the chart position after a move operation is no longer necessary.
          * @since 1.2.5
