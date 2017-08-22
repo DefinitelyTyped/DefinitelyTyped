@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface DataSourceSettingsPaging {
-
 	/**
 	 * Paging is not enabled by default
 	 *
@@ -58,7 +57,6 @@ interface DataSourceSettingsPaging {
 }
 
 interface DataSourceSettingsFiltering {
-
 	/**
 	 * Filtering type.
 	 *
@@ -129,7 +127,6 @@ interface DataSourceSettingsFiltering {
 }
 
 interface DataSourceSettingsSorting {
-
 	/**
 	 * Sorting direction
 	 *
@@ -224,7 +221,6 @@ interface DataSourceSettingsSorting {
 }
 
 interface DataSourceSettingsGroupby {
-
 	/**
 	 * Default collapse state
 	 *
@@ -278,7 +274,6 @@ interface DataSourceSettingsGroupby {
 }
 
 interface DataSourceSettingsSummaries {
-
 	/**
 	 * Specifies whether summaries will be applied locally or remotely (via a remote request)
 	 *
@@ -325,7 +320,6 @@ interface DataSourceSettingsSummaries {
 }
 
 interface DataSourceSettings {
-
 	/**
 	 * Setting this is only necessary when the data source is set to a table in string format. we need to create an invisible dummy data container in the body and append the table data to it
 	 *
@@ -577,7 +571,7 @@ interface DataSourceSettings {
 }
 
 declare namespace Infragistics {
-export class DataSource {
+class DataSource {
 	constructor(settings: DataSourceSettings);
 
 	/**
@@ -1053,7 +1047,7 @@ DataSource: typeof Infragistics.DataSource;
 }
 
 declare namespace Infragistics {
-export class TypeParser {
+class TypeParser {
 	toStr(obj: Object): void;
 
 	/**
@@ -1071,7 +1065,6 @@ export class TypeParser {
 }
 
 interface DataSchemaSchemaFields {
-
 	/**
 	 * Name of the field
 	 */
@@ -1109,7 +1102,6 @@ interface DataSchemaSchemaFields {
 }
 
 interface DataSchemaSchema {
-
 	/**
 	 * A list of field definitions specifying the schema of the data source. Field objects description: {name, [type], [xpath]}
 	 * returnType="array"
@@ -1133,7 +1125,7 @@ interface DataSchemaSchema {
 }
 
 declare namespace Infragistics {
-export class DataSchema {
+class DataSchema {
 	constructor(schema: DataSchemaSchema);
 
 	/**
@@ -1169,7 +1161,7 @@ DataSchema: typeof Infragistics.DataSchema;
 }
 
 declare namespace Infragistics {
-export class RemoteDataSource {
+class RemoteDataSource {
 	constructor(settings: DataSourceSettings);
 
 	/**
@@ -1647,7 +1639,6 @@ RemoteDataSource: typeof Infragistics.RemoteDataSource;
 }
 
 interface JSONDataSourceSettings {
-
 	/**
 	 * Type of the data source.
 	 */
@@ -1660,7 +1651,7 @@ interface JSONDataSourceSettings {
 }
 
 declare namespace Infragistics {
-export class JSONDataSource {
+class JSONDataSource {
 	constructor(settings: JSONDataSourceSettings);
 
 	/**
@@ -2138,7 +2129,6 @@ JSONDataSource: typeof Infragistics.JSONDataSource;
 }
 
 interface RESTDataSourceSettingsRestSettingsCreate {
-
 	/**
 	 * Specifies a remote URL to which create requests will be sent. This will be used for both batch and non-batch, however if template is also set, this URL will only be used for batch requests.
 	 */
@@ -2161,7 +2151,6 @@ interface RESTDataSourceSettingsRestSettingsCreate {
 }
 
 interface RESTDataSourceSettingsRestSettingsUpdate {
-
 	/**
 	 * Specifies a remote URL to which update requests will be sent. This will be used for both batch and non-batch, however if template is also set, this URL will only be used for batch requests.
 	 */
@@ -2184,7 +2173,6 @@ interface RESTDataSourceSettingsRestSettingsUpdate {
 }
 
 interface RESTDataSourceSettingsRestSettingsRemove {
-
 	/**
 	 * Specifies a remote URL to which remove requests will be sent. This will be used for both batch and non-batch, however if template is also set, this URL will only be used for batch requests.
 	 */
@@ -2207,7 +2195,6 @@ interface RESTDataSourceSettingsRestSettingsRemove {
 }
 
 interface RESTDataSourceSettingsRestSettings {
-
 	/**
 	 * Settings for create requests
 	 */
@@ -2245,7 +2232,6 @@ interface RESTDataSourceSettingsRestSettings {
 }
 
 interface RESTDataSourceSettings {
-
 	/**
 	 * Settings related to REST compliant update routine
 	 */
@@ -2258,7 +2244,7 @@ interface RESTDataSourceSettings {
 }
 
 declare namespace Infragistics {
-export class RESTDataSource {
+class RESTDataSource {
 	constructor(settings: RESTDataSourceSettings);
 
 	/**
@@ -2736,7 +2722,6 @@ RESTDataSource: typeof Infragistics.RESTDataSource;
 }
 
 interface JSONPDataSourceSettings {
-
 	/**
 	 * Override the callback function name in a jsonp request. Sets option jsonp in $.ajax functionbool Setting the jsonp option to false prevents jQuery from adding the "?callback" string to the URL or attempting to use "=?" for transformation
 	 *
@@ -2760,7 +2745,7 @@ interface JSONPDataSourceSettings {
 }
 
 declare namespace Infragistics {
-export class JSONPDataSource {
+class JSONPDataSource {
 	constructor(settings: JSONPDataSourceSettings);
 
 	/**
@@ -3238,7 +3223,7 @@ JSONPDataSource: typeof Infragistics.JSONPDataSource;
 }
 
 declare namespace Infragistics {
-export class XmlDataSource {
+class XmlDataSource {
 	constructor(settings: DataSourceSettings);
 
 	/**
@@ -3716,7 +3701,6 @@ XmlDataSource: typeof Infragistics.XmlDataSource;
 }
 
 interface FunctionDataSourceSettings {
-
 	/**
 	 * Type of the data source.
 	 */
@@ -3729,7 +3713,7 @@ interface FunctionDataSourceSettings {
 }
 
 declare namespace Infragistics {
-export class FunctionDataSource {
+class FunctionDataSource {
 	constructor(settings: FunctionDataSourceSettings);
 
 	/**
@@ -4207,7 +4191,6 @@ FunctionDataSource: typeof Infragistics.FunctionDataSource;
 }
 
 interface HtmlTableDataSourceSettings {
-
 	/**
 	 * Type of the data source.
 	 */
@@ -4220,7 +4203,7 @@ interface HtmlTableDataSourceSettings {
 }
 
 declare namespace Infragistics {
-export class HtmlTableDataSource {
+class HtmlTableDataSource {
 	constructor(settings: HtmlTableDataSourceSettings);
 
 	/**
@@ -4698,7 +4681,7 @@ HtmlTableDataSource: typeof Infragistics.HtmlTableDataSource;
 }
 
 declare namespace Infragistics {
-export class ArrayDataSource {
+class ArrayDataSource {
 	constructor(settings: DataSourceSettings);
 
 	/**
@@ -5176,7 +5159,6 @@ ArrayDataSource: typeof Infragistics.ArrayDataSource;
 }
 
 interface MashupDataSourceMashupSettings {
-
 	/**
 	 * Indicates whether to ignore records that have no corresponding data in all of the provided data sources.
 	 */
@@ -5194,7 +5176,7 @@ interface MashupDataSourceMashupSettings {
 }
 
 declare namespace Infragistics {
-export class MashupDataSource {
+class MashupDataSource {
 	constructor(mashupSettings: MashupDataSourceMashupSettings);
 	constructor(settings: DataSourceSettings);
 
@@ -5656,7 +5638,6 @@ MashupDataSource: typeof Infragistics.MashupDataSource;
 }
 
 interface HierarchicalDataSourceSettingsPaging {
-
 	/**
 	 * Option for HierarchicalDataSourceSettingsPaging
 	 */
@@ -5664,7 +5645,6 @@ interface HierarchicalDataSourceSettingsPaging {
 }
 
 interface HierarchicalDataSourceSettingsSorting {
-
 	/**
 	 * Option for HierarchicalDataSourceSettingsSorting
 	 */
@@ -5672,7 +5652,6 @@ interface HierarchicalDataSourceSettingsSorting {
 }
 
 interface HierarchicalDataSourceSettingsFiltering {
-
 	/**
 	 * Option for HierarchicalDataSourceSettingsFiltering
 	 */
@@ -5680,7 +5659,6 @@ interface HierarchicalDataSourceSettingsFiltering {
 }
 
 interface HierarchicalDataSourceSettingsSchema {
-
 	/**
 	 * Option for HierarchicalDataSourceSettingsSchema
 	 */
@@ -5727,7 +5705,7 @@ interface HierarchicalDataSourceSettings {
 }
 
 declare namespace Infragistics {
-export class HierarchicalDataSource {
+class HierarchicalDataSource {
 	constructor(settings: HierarchicalDataSourceSettings);
 	dataBind(callback: Object, callee: Object): void;
 	root(): void;
@@ -5739,7 +5717,6 @@ HierarchicalDataSource: typeof Infragistics.HierarchicalDataSource;
 }
 
 interface TreeHierarchicalDataSourceSettingsTreeDSFiltering {
-
 	/**
 	 * Specifies from which data bound level to be applied filtering - 0 is the first level
 	 */
@@ -5767,7 +5744,6 @@ interface TreeHierarchicalDataSourceSettingsTreeDSFiltering {
 }
 
 interface TreeHierarchicalDataSourceSettingsTreeDSSorting {
-
 	/**
 	 * Specifies from which data bound level to be applied sorting - 0 is the first level
 	 */
@@ -5785,7 +5761,6 @@ interface TreeHierarchicalDataSourceSettingsTreeDSSorting {
 }
 
 interface TreeHierarchicalDataSourceSettingsTreeDSPaging {
-
 	/**
 	 * Sets gets paging mode.
 	 *
@@ -5812,7 +5787,6 @@ interface TreeHierarchicalDataSourceSettingsTreeDSPaging {
 }
 
 interface TreeHierarchicalDataSourceSettingsTreeDS {
-
 	/**
 	 * Property name of the array of child data in a hierarchical data source.
 	 */
@@ -5915,7 +5889,6 @@ interface TreeHierarchicalDataSourceSettingsTreeDS {
 }
 
 interface TreeHierarchicalDataSourceSettings {
-
 	/**
 	 * Configure tree datasource specific settings
 	 */
@@ -5928,7 +5901,7 @@ interface TreeHierarchicalDataSourceSettings {
 }
 
 declare namespace Infragistics {
-export class TreeHierarchicalDataSource {
+class TreeHierarchicalDataSource {
 	constructor(settings: TreeHierarchicalDataSourceSettings);
 
 	/**
@@ -6570,7 +6543,7 @@ TreeHierarchicalDataSource: typeof Infragistics.TreeHierarchicalDataSource;
 }
 
 declare namespace Infragistics {
-export class DvCommonWidget {
+class DvCommonWidget {
 	option(key: Object, value: Object): void;
 }
 }
@@ -6591,7 +6564,7 @@ interface SimpleTextMarkerTemplateSettings {
 }
 
 declare namespace Infragistics {
-export class SimpleTextMarkerTemplate {
+class SimpleTextMarkerTemplate {
 	constructor(requireThis: boolean);
 	constructor(settings: SimpleTextMarkerTemplateSettings);
 	getText(item: Object, textDelegate: Object): void;
@@ -6604,7 +6577,6 @@ SimpleTextMarkerTemplate: typeof Infragistics.SimpleTextMarkerTemplate;
 }
 
 interface GridExcelExporterCallbacks {
-
 	/**
 	 * Set a callback that is fired after the cell is exported.
 	 * Function takes arguments sender and args.
@@ -6738,7 +6710,6 @@ interface GridExcelExporterCallbacks {
 }
 
 interface GridExcelExporterSettingsGridFeatureOptions {
-
 	/**
 	 * Indicates whether fixed columns will be applied in the exported table. This is set to none by default, but will change to applied if column fixing feature is defined in the igGrid.
 	 *
@@ -6808,7 +6779,6 @@ interface GridExcelExporterSettingsGridFeatureOptions {
 }
 
 interface GridExcelExporterSettings {
-
 	/**
 	 * List of strings containing the keys for the columns that will not be exported.
 	 *
@@ -6875,7 +6845,7 @@ interface GridExcelExporterSettings {
 }
 
 declare namespace Infragistics {
-export class GridExcelExporter {
+class GridExcelExporter {
 	constructor(callbacks: GridExcelExporterCallbacks);
 	constructor(settings: GridExcelExporterSettings);
 
@@ -6894,7 +6864,6 @@ GridExcelExporter: typeof Infragistics.GridExcelExporter;
 }
 
 interface OlapXmlaDataSourceOptionsRequestOptions {
-
 	/**
 	 * The value is applied to XmlHttpRequest.withCredentials if supported by the user agent.
 	 *                 Setting this property to true will allow IE8/IE9 to make authenticated cross-origin requests to tusted domains through XmlHttpRequest instead of XDomainRequest
@@ -6914,7 +6883,6 @@ interface OlapXmlaDataSourceOptionsRequestOptions {
 }
 
 interface OlapXmlaDataSourceOptionsMdxSettings {
-
 	/**
 	 * Optional="true" a value indicating whether a NON EMPTY clause is present on ROWS axis. Default value is true
 	 */
@@ -6952,7 +6920,6 @@ interface OlapXmlaDataSourceOptionsMdxSettings {
 }
 
 interface OlapXmlaDataSourceOptions {
-
 	/**
 	 * Optional="false" The URL of the XMLA server.
 	 */
@@ -7027,7 +6994,7 @@ interface OlapXmlaDataSourceOptions {
 }
 
 declare namespace Infragistics {
-export class OlapXmlaDataSource {
+class OlapXmlaDataSource {
 	constructor(options: OlapXmlaDataSourceOptions);
 
 	/**
@@ -7342,7 +7309,6 @@ OlapXmlaDataSource: typeof Infragistics.OlapXmlaDataSource;
 }
 
 interface OlapFlatDataSourceOptionsMetadataCubeMeasuresDimensionMeasure {
-
 	/**
 	 * Optional="false" A unique name for the measure.
 	 */
@@ -7371,7 +7337,6 @@ interface OlapFlatDataSourceOptionsMetadataCubeMeasuresDimensionMeasure {
 }
 
 interface OlapFlatDataSourceOptionsMetadataCubeMeasuresDimension {
-
 	/**
 	 * A unique name for the measures dimension.
 	 *                             The default value is "Measures". This name is used to create the names of dimensions using the following pattern:
@@ -7397,7 +7362,6 @@ interface OlapFlatDataSourceOptionsMetadataCubeMeasuresDimension {
 }
 
 interface OlapFlatDataSourceOptionsMetadataCubeDimensionHierarchieLevel {
-
 	/**
 	 * Optional="false" A name for the level.
 	 *                                     The unique name of the level is formed using the following pattern:
@@ -7423,7 +7387,6 @@ interface OlapFlatDataSourceOptionsMetadataCubeDimensionHierarchieLevel {
 }
 
 interface OlapFlatDataSourceOptionsMetadataCubeDimensionHierarchie {
-
 	/**
 	 * Optional="false" A name for the hierarchy.
 	 *                                 The unique name of the hierarchy is formed using the following pattern:
@@ -7455,7 +7418,6 @@ interface OlapFlatDataSourceOptionsMetadataCubeDimensionHierarchie {
 }
 
 interface OlapFlatDataSourceOptionsMetadataCubeDimension {
-
 	/**
 	 * Optional="false" A unique name for the dimension.
 	 */
@@ -7478,7 +7440,6 @@ interface OlapFlatDataSourceOptionsMetadataCubeDimension {
 }
 
 interface OlapFlatDataSourceOptionsMetadataCube {
-
 	/**
 	 * Optional="false" A unique name for the cube.
 	 */
@@ -7506,7 +7467,6 @@ interface OlapFlatDataSourceOptionsMetadataCube {
 }
 
 interface OlapFlatDataSourceOptionsMetadata {
-
 	/**
 	 * Optional="false" Metadata used for the creation of the cube.
 	 */
@@ -7519,7 +7479,6 @@ interface OlapFlatDataSourceOptionsMetadata {
 }
 
 interface OlapFlatDataSourceOptions {
-
 	/**
 	 * Optional="true" Specifies any valid data source accepted by $.ig.DataSource, or an instance of an $.ig.DataSource itself.
 	 */
@@ -7577,7 +7536,7 @@ interface OlapFlatDataSourceOptions {
 }
 
 declare namespace Infragistics {
-export class OlapFlatDataSource {
+class OlapFlatDataSource {
 	constructor(options: OlapFlatDataSourceOptions);
 
 	/**
@@ -7856,8 +7815,7 @@ OlapFlatDataSource: typeof Infragistics.OlapFlatDataSource;
 }
 
 declare namespace Infragistics {
-export class OlapMetadataTreeItem {
-
+class OlapMetadataTreeItem {
 	/**
 	 * Returns the OLAP metadata item that this tree item represents which is an object of type $.ig.Cube, $.ig.Dimension, $.ig.Hierarchy, $.ig.Measure, $.ig.Level.
 	 */
@@ -7917,7 +7875,6 @@ export class OlapMetadataTreeItem {
 }
 
 interface OlapResultViewOptions {
-
 	/**
 	 * Optional="false" an object of type $.ig.OlapResult which represents the full cached result.
 	 */
@@ -7945,7 +7902,7 @@ interface OlapResultViewOptions {
 }
 
 declare namespace Infragistics {
-export class OlapResultView {
+class OlapResultView {
 	constructor(options: OlapResultViewOptions);
 
 	/**
@@ -7980,7 +7937,6 @@ OlapResultView: typeof Infragistics.OlapResultView;
 }
 
 interface OlapTableViewOptionsViewSettings {
-
 	/**
 	 * Optional="false" a value indicating whether parent for columns is in front of its children.
 	 *                 If set to true the query set sorts members in a level in their natural order. Their natural order is the default ordering of the members along the hierarchy when no other sort conditions are specified.
@@ -8014,7 +7970,6 @@ interface OlapTableViewOptionsViewSettings {
 }
 
 interface OlapTableViewOptions {
-
 	/**
 	 * Optional="false" an object of type $.ig.OlapResult.
 	 */
@@ -8042,7 +7997,7 @@ interface OlapTableViewOptions {
 }
 
 declare namespace Infragistics {
-export class OlapTableView {
+class OlapTableView {
 	constructor(options: OlapTableViewOptions);
 
 	/**
@@ -8121,8 +8076,7 @@ OlapTableView: typeof Infragistics.OlapTableView;
 }
 
 declare namespace Infragistics {
-export class OlapTableViewHeaderCell {
-
+class OlapTableViewHeaderCell {
 	/**
 	 * Returns the caption for the header cell.
 	 */
@@ -8176,8 +8130,7 @@ export class OlapTableViewHeaderCell {
 }
 
 declare namespace Infragistics {
-export class OlapTableViewResultCell {
-
+class OlapTableViewResultCell {
 	/**
 	 * Returns the value provided by $.ig.Cell object.
 	 */
@@ -8201,8 +8154,7 @@ export class OlapTableViewResultCell {
 }
 
 declare namespace Infragistics {
-export class Catalog {
-
+class Catalog {
 	/**
 	 * Returns the name of the catalog.
 	 *
@@ -8234,8 +8186,7 @@ export class Catalog {
 }
 
 declare namespace Infragistics {
-export class Cube {
-
+class Cube {
 	/**
 	 * Returns the name of the cube.
 	 *
@@ -8292,8 +8243,7 @@ export class Cube {
 }
 
 declare namespace Infragistics {
-export class Dimension {
-
+class Dimension {
 	/**
 	 * Returns the name of the dimension.
 	 *
@@ -8350,8 +8300,7 @@ export class Dimension {
 }
 
 declare namespace Infragistics {
-export class Hierarchy {
-
+class Hierarchy {
 	/**
 	 * Returns the name of the hierarchy.
 	 *
@@ -8428,8 +8377,7 @@ export class Hierarchy {
 }
 
 declare namespace Infragistics {
-export class Measure {
-
+class Measure {
 	/**
 	 * Returns the name of the measure.
 	 *
@@ -8535,8 +8483,7 @@ export class Measure {
 }
 
 declare namespace Infragistics {
-export class Level {
-
+class Level {
 	/**
 	 * Returns the name of the level.
 	 *
@@ -8610,8 +8557,7 @@ export class Level {
 }
 
 declare namespace Infragistics {
-export class MeasureGroup {
-
+class MeasureGroup {
 	/**
 	 * Returns the name of the measure group.
 	 *
@@ -8650,8 +8596,7 @@ export class MeasureGroup {
 }
 
 declare namespace Infragistics {
-export class MeasureList {
-
+class MeasureList {
 	/**
 	 * Returns the caption of the measure list used when displaying the name of the measure list to the user.
 	 *
@@ -8669,8 +8614,7 @@ export class MeasureList {
 }
 
 declare namespace Infragistics {
-export class OlapResult {
-
+class OlapResult {
 	/**
 	 * Returns a value indicating whether the result object contains any data.
 	 *
@@ -8695,7 +8639,6 @@ export class OlapResult {
 }
 
 interface OlapResultAxisOptions {
-
 	/**
 	 * Optional="false" array of $.ig.OlapResultTuple objects which form the axis.
 	 */
@@ -8713,7 +8656,7 @@ interface OlapResultAxisOptions {
 }
 
 declare namespace Infragistics {
-export class OlapResultAxis {
+class OlapResultAxis {
 	constructor(options: OlapResultAxisOptions);
 
 	/**
@@ -8732,7 +8675,6 @@ OlapResultAxis: typeof Infragistics.OlapResultAxis;
 }
 
 interface OlapResultTupleOptions {
-
 	/**
 	 * Optional="false" array of $.ig.OlapResultAxisMember objects which form the tuple object.
 	 */
@@ -8745,7 +8687,7 @@ interface OlapResultTupleOptions {
 }
 
 declare namespace Infragistics {
-export class OlapResultTuple {
+class OlapResultTuple {
 	constructor(options: OlapResultTupleOptions);
 
 	/**
@@ -8759,8 +8701,7 @@ OlapResultTuple: typeof Infragistics.OlapResultTuple;
 }
 
 declare namespace Infragistics {
-export class OlapResultAxisMember {
-
+class OlapResultAxisMember {
 	/**
 	 * Returns the unique name of the axis member.
 	 *
@@ -8834,8 +8775,7 @@ export class OlapResultAxisMember {
 }
 
 declare namespace Infragistics {
-export class OlapResultCell {
-
+class OlapResultCell {
 	/**
 	 * Returns the position of the cell when cells are iterated row by row.
 	 *
@@ -8853,7 +8793,6 @@ export class OlapResultCell {
 }
 
 interface IgTemplatingRegExp {
-
 	/**
 	 * Option for IgTemplatingRegExp
 	 */
@@ -8861,7 +8800,7 @@ interface IgTemplatingRegExp {
 }
 
 declare namespace Infragistics {
-export class igTemplating {
+class igTemplating {
 	constructor(regExp: IgTemplatingRegExp);
 
 	/**
@@ -8891,7 +8830,6 @@ interface ErrorMessageDisplayingEvent {
 }
 
 interface ErrorMessageDisplayingEventUIParam {
-
 	/**
 	 * Used to obtain reference to the barcode widget.
 	 */
@@ -8908,7 +8846,6 @@ interface DataChangedEvent {
 }
 
 interface DataChangedEventUIParam {
-
 	/**
 	 * Used to obtain reference to the barcode widget.
 	 */
@@ -8921,7 +8858,6 @@ interface DataChangedEventUIParam {
 }
 
 interface IgQRCodeBarcode {
-
 	/**
 	 * The width of the barcode. It can be set as a number in pixels, string (px) or percentage (%).
 	 */
@@ -9126,7 +9062,6 @@ interface IgQRCodeBarcode {
 	[optionName: string]: any;
 }
 interface IgQRCodeBarcodeMethods {
-
 	/**
 	 * Returns information about how the barcode is rendered.
 	 */
@@ -9459,7 +9394,6 @@ interface DataBindingEvent {
 }
 
 interface DataBindingEventUIParam {
-
 	/**
 	 * Used to obtain reference to chart widget.
 	 */
@@ -9476,7 +9410,6 @@ interface DataBoundEvent {
 }
 
 interface DataBoundEventUIParam {
-
 	/**
 	 * Used to obtain reference to chart widget.
 	 */
@@ -9498,7 +9431,6 @@ interface UpdateTooltipEvent {
 }
 
 interface UpdateTooltipEventUIParam {
-
 	/**
 	 * Used to obtain reference to chart widget.
 	 */
@@ -9535,7 +9467,6 @@ interface HideTooltipEvent {
 }
 
 interface HideTooltipEventUIParam {
-
 	/**
 	 * Used to obtain reference to chart widget.
 	 */
@@ -9553,7 +9484,6 @@ interface HideTooltipEventUIParam {
 }
 
 interface IgBaseChart {
-
 	/**
 	 * The width of the chart.
 	 */
@@ -9649,7 +9579,6 @@ interface IgBaseChart {
 	[optionName: string]: any;
 }
 interface IgBaseChartMethods {
-
 	/**
 	 * Find index of item within actual data used by chart.
 	 *
@@ -9988,7 +9917,6 @@ interface JQuery {
 	igBaseChart(methodName: string, ...methodParams: any[]): any;
 }
 interface IgBulletGraphRange {
-
 	/**
 	 * Gets or sets the name of the range.
 	 */
@@ -10054,7 +9982,6 @@ interface FormatLabelEvent {
 }
 
 interface FormatLabelEventUIParam {
-
 	/**
 	 * Used to obtain reference to the bullet graph widget.
 	 */
@@ -10086,7 +10013,6 @@ interface AlignLabelEvent {
 }
 
 interface AlignLabelEventUIParam {
-
 	/**
 	 * Used to obtain reference to gauge widget.
 	 */
@@ -10134,7 +10060,6 @@ interface AlignLabelEventUIParam {
 }
 
 interface IgBulletGraph {
-
 	/**
 	 * The width of the gauge. It can be set as a number in pixels, string (px) or percentage (%).
 	 */
@@ -10494,7 +10419,6 @@ interface IgBulletGraph {
 	[optionName: string]: any;
 }
 interface IgBulletGraphMethods {
-
 	/**
 	 * Returns a string containing the names of all the ranges delimited with a \n symbol.
 	 */
@@ -11392,7 +11316,6 @@ interface PropertyChangedEventUIParam {
 }
 
 interface IgCategoryChart {
-
 	/**
 	 * Gets or sets the data value corresponding to the minimum value of the Y-axis.
 	 */
@@ -14231,7 +14154,6 @@ interface JQuery {
 	igCategoryChart(methodName: string, ...methodParams: any[]): any;
 }
 interface IgDataChartCrosshairPoint {
-
 	/**
 	 * The x coordinate.
 	 */
@@ -14249,7 +14171,6 @@ interface IgDataChartCrosshairPoint {
 }
 
 interface IgDataChartLegend {
-
 	/**
 	 * The name of the element to turn into a legend.
 	 */
@@ -14288,7 +14209,6 @@ interface IgDataChartLegend {
 }
 
 interface IgDataChartAxes {
-
 	/**
 	 * Type of the axis.
 	 *
@@ -14691,7 +14611,6 @@ interface IgDataChartAxes {
 }
 
 interface IgDataChartSeriesLegend {
-
 	/**
 	 * The name of the element to turn into a legend.
 	 */
@@ -14730,7 +14649,6 @@ interface IgDataChartSeriesLegend {
 }
 
 interface IgDataChartSeries {
-
 	/**
 	 * Type of the series.
 	 *
@@ -15457,7 +15375,6 @@ interface TooltipShowingEvent {
 }
 
 interface TooltipShowingEventUIParam {
-
 	/**
 	 * Used to get reference to tooltip DOM element.
 	 */
@@ -15494,7 +15411,6 @@ interface TooltipShownEvent {
 }
 
 interface TooltipShownEventUIParam {
-
 	/**
 	 * Used to get reference to tooltip DOM element.
 	 */
@@ -15531,7 +15447,6 @@ interface TooltipHidingEvent {
 }
 
 interface TooltipHidingEventUIParam {
-
 	/**
 	 * Used to get reference to tooltip DOM element.
 	 */
@@ -15568,7 +15483,6 @@ interface TooltipHiddenEvent {
 }
 
 interface TooltipHiddenEventUIParam {
-
 	/**
 	 * Used to get reference to tooltip DOM element.
 	 */
@@ -15612,7 +15526,6 @@ interface SeriesCursorMouseMoveEvent {
 }
 
 interface SeriesCursorMouseMoveEventUIParam {
-
 	/**
 	 * Used to get reference to current series item object.
 	 */
@@ -15654,7 +15567,6 @@ interface SeriesMouseLeftButtonDownEvent {
 }
 
 interface SeriesMouseLeftButtonDownEventUIParam {
-
 	/**
 	 * Used to get reference to current series item object.
 	 */
@@ -15696,7 +15608,6 @@ interface SeriesMouseLeftButtonUpEvent {
 }
 
 interface SeriesMouseLeftButtonUpEventUIParam {
-
 	/**
 	 * Used to get reference to current series item object.
 	 */
@@ -15738,7 +15649,6 @@ interface SeriesMouseMoveEvent {
 }
 
 interface SeriesMouseMoveEventUIParam {
-
 	/**
 	 * Used to get reference to current series item object.
 	 */
@@ -15780,7 +15690,6 @@ interface SeriesMouseEnterEvent {
 }
 
 interface SeriesMouseEnterEventUIParam {
-
 	/**
 	 * Used to get reference to current series item object.
 	 */
@@ -15822,7 +15731,6 @@ interface SeriesMouseLeaveEvent {
 }
 
 interface SeriesMouseLeaveEventUIParam {
-
 	/**
 	 * Used to get reference to current series item object.
 	 */
@@ -15864,7 +15772,6 @@ interface WindowRectChangedEvent {
 }
 
 interface WindowRectChangedEventUIParam {
-
 	/**
 	 * Used to get reference to chart object.
 	 */
@@ -15916,7 +15823,6 @@ interface GridAreaRectChangedEvent {
 }
 
 interface GridAreaRectChangedEventUIParam {
-
 	/**
 	 * Used to get reference to chart object.
 	 */
@@ -15968,7 +15874,6 @@ interface RefreshCompletedEvent {
 }
 
 interface RefreshCompletedEventUIParam {
-
 	/**
 	 * Used to get reference to chart object.
 	 */
@@ -15980,7 +15885,6 @@ interface AxisRangeChangedEvent {
 }
 
 interface AxisRangeChangedEventUIParam {
-
 	/**
 	 * Used to get reference to current chart axis object.
 	 */
@@ -16017,7 +15921,6 @@ interface TypicalBasedOnEvent {
 }
 
 interface TypicalBasedOnEventUIParam {
-
 	/**
 	 * Used to get reference to chart object.
 	 */
@@ -16059,7 +15962,6 @@ interface ProgressiveLoadStatusChangedEvent {
 }
 
 interface ProgressiveLoadStatusChangedEventUIParam {
-
 	/**
 	 * Used to get reference to chart object.
 	 */
@@ -16081,7 +15983,6 @@ interface AssigningCategoryStyleEvent {
 }
 
 interface AssigningCategoryStyleEventUIParam {
-
 	/**
 	 * Used to get reference to chart object.
 	 */
@@ -16150,7 +16051,6 @@ interface AssigningCategoryMarkerStyleEvent {
 }
 
 interface AssigningCategoryMarkerStyleEventUIParam {
-
 	/**
 	 * Used to get reference to chart object.
 	 */
@@ -16215,7 +16115,6 @@ interface AssigningCategoryMarkerStyleEventUIParam {
 }
 
 interface IgDataChart {
-
 	/**
 	 * Gets or sets whether the series viewer can allow the page to pan if a control pan is not possible in the requested direction.
 	 */
@@ -17412,7 +17311,6 @@ interface JQuery {
 }
 
 interface IgPieChartLegend {
-
 	/**
 	 * The name of the element to turn into a legend.
 	 */
@@ -17448,7 +17346,6 @@ interface SliceClickEvent {
 }
 
 interface SliceClickEventUIParam {
-
 	/**
 	 * Used to get reference to chart object.
 	 */
@@ -17465,7 +17362,6 @@ interface LabelClickEvent {
 }
 
 interface LabelClickEventUIParam {
-
 	/**
 	 * Used to get reference to the slice object.
 	 */
@@ -17482,7 +17378,6 @@ interface SelectedItemChangingEvent {
 }
 
 interface SelectedItemChangingEventUIParam {
-
 	/**
 	 * Used to get a reference to the current selected data item.
 	 */
@@ -17504,7 +17399,6 @@ interface SelectedItemChangedEvent {
 }
 
 interface SelectedItemChangedEventUIParam {
-
 	/**
 	 * Used to get a reference to the previous selected data item.
 	 */
@@ -17521,7 +17415,6 @@ interface SelectedItemsChangingEvent {
 }
 
 interface SelectedItemsChangingEventUIParam {
-
 	/**
 	 * Used to get a reference to the current selected data items.
 	 */
@@ -17543,7 +17436,6 @@ interface SelectedItemsChangedEvent {
 }
 
 interface SelectedItemsChangedEventUIParam {
-
 	/**
 	 * Used to get a reference to the previous selected data items.
 	 */
@@ -17556,7 +17448,6 @@ interface SelectedItemsChangedEventUIParam {
 }
 
 interface IgPieChart {
-
 	/**
 	 * The width of the chart. It can be set as a number in pixels, string (px) or percentage (%).
 	 */
@@ -20493,7 +20384,6 @@ interface LegendItemMouseLeftButtonDownEvent {
 }
 
 interface LegendItemMouseLeftButtonDownEventUIParam {
-
 	/**
 	 * Used to get reference to current legend object.
 	 */
@@ -20530,7 +20420,6 @@ interface LegendItemMouseLeftButtonUpEvent {
 }
 
 interface LegendItemMouseLeftButtonUpEventUIParam {
-
 	/**
 	 * Used to get reference to current legend object.
 	 */
@@ -20567,7 +20456,6 @@ interface LegendItemMouseEnterEvent {
 }
 
 interface LegendItemMouseEnterEventUIParam {
-
 	/**
 	 * Used to get reference to current legend object.
 	 */
@@ -20604,7 +20492,6 @@ interface LegendItemMouseLeaveEvent {
 }
 
 interface LegendItemMouseLeaveEventUIParam {
-
 	/**
 	 * Used to get reference to current legend object.
 	 */
@@ -20637,7 +20524,6 @@ interface LegendItemMouseLeaveEventUIParam {
 }
 
 interface IgChartLegend {
-
 	/**
 	 * Type of the legend.
 	 *
@@ -20906,7 +20792,6 @@ interface ColorSelectedEvent {
 }
 
 interface ColorSelectedEventUIParam {
-
 	/**
 	 * Used to get a reference to the color object.
 	 */
@@ -20914,7 +20799,6 @@ interface ColorSelectedEventUIParam {
 }
 
 interface IgColorPicker {
-
 	/**
 	 * Gets/Sets the default colors. Default colors are the ones displayed in the upper table of the color picker.
 	 *             The array should contain arrays that contain the color values for every next row.
@@ -20943,7 +20827,6 @@ interface IgColorPicker {
 	[optionName: string]: any;
 }
 interface IgColorPickerMethods {
-
 	/**
 	 * Gets a reference to the div element of the color table
 	 */
@@ -21051,7 +20934,6 @@ interface ClickEvent {
 }
 
 interface ClickEventUIParam {
-
 	/**
 	 * Used to get a reference the igSplitButton element.
 	 */
@@ -21063,7 +20945,6 @@ interface ExpandedEvent {
 }
 
 interface ExpandedEventUIParam {
-
 	/**
 	 * Used to get a reference the igSplitButton.
 	 */
@@ -21075,7 +20956,6 @@ interface ExpandingEvent {
 }
 
 interface ExpandingEventUIParam {
-
 	/**
 	 * Used to get a reference the igSplitButton.
 	 */
@@ -21087,7 +20967,6 @@ interface CollapsedEvent {
 }
 
 interface CollapsedEventUIParam {
-
 	/**
 	 * Used to get a reference the igSplitButton.
 	 */
@@ -21099,7 +20978,6 @@ interface CollapsingEvent {
 }
 
 interface CollapsingEventUIParam {
-
 	/**
 	 * Used to get a reference the igSplitButton.
 	 */
@@ -21107,7 +20985,6 @@ interface CollapsingEventUIParam {
 }
 
 interface IgColorPickerSplitButton {
-
 	/**
 	 * Button items.
 	 *
@@ -21184,7 +21061,6 @@ interface IgColorPickerSplitButton {
 	[optionName: string]: any;
 }
 interface IgColorPickerSplitButtonMethods {
-
 	/**
 	 * Sets the color of the split button
 	 *
@@ -21405,7 +21281,6 @@ interface JQuery {
 	igColorPickerSplitButton(methodName: string, ...methodParams: any[]): any;
 }
 interface IgComboLoadOnDemandSettings {
-
 	/**
 	 * Gets/Sets option to enable load on demand.
 	 *
@@ -21425,7 +21300,6 @@ interface IgComboLoadOnDemandSettings {
 }
 
 interface IgComboMultiSelection {
-
 	/**
 	 * Set enabled to true to turn multi selection on. Set to true by default when target element for the combo is a select with the multiple attribute set.
 	 *
@@ -21457,7 +21331,6 @@ interface IgComboMultiSelection {
 }
 
 interface IgComboGrouping {
-
 	/**
 	 * Gets/Sets name of column by which the records will be grouped. Setting this option enables the grouping.
 	 *
@@ -21481,7 +21354,6 @@ interface IgComboGrouping {
 }
 
 interface IgComboInitialSelectedItem {
-
 	/**
 	 * Optional="true" Index of item in the list. The index should be greater than -1 and less than the count of the [items](ui.igcombo#methods:items) in the list (rows in dataSource).
 	 *
@@ -21505,7 +21377,6 @@ interface RenderedEvent {
 }
 
 interface RenderedEventUIParam {
-
 	/**
 	 * Used to get a reference to the combo performing rendering.
 	 */
@@ -21522,7 +21393,6 @@ interface FilteringEvent {
 }
 
 interface FilteringEventUIParam {
-
 	/**
 	 * Used to obtain reference to igCombo.
 	 */
@@ -21539,7 +21409,6 @@ interface FilteredEvent {
 }
 
 interface FilteredEventUIParam {
-
 	/**
 	 * Used to obtain reference to igCombo.
 	 */
@@ -21556,7 +21425,6 @@ interface ItemsRenderingEvent {
 }
 
 interface ItemsRenderingEventUIParam {
-
 	/**
 	 * Used to get a reference to the combo performing rendering.
 	 */
@@ -21573,7 +21441,6 @@ interface ItemsRenderedEvent {
 }
 
 interface ItemsRenderedEventUIParam {
-
 	/**
 	 * Used to get a reference to the combo performing rendering.
 	 */
@@ -21590,7 +21457,6 @@ interface DropDownOpeningEvent {
 }
 
 interface DropDownOpeningEventUIParam {
-
 	/**
 	 * Used to obtain reference to igCombo.
 	 */
@@ -21607,7 +21473,6 @@ interface DropDownOpenedEvent {
 }
 
 interface DropDownOpenedEventUIParam {
-
 	/**
 	 * Used to obtain reference to igCombo.
 	 */
@@ -21624,7 +21489,6 @@ interface DropDownClosingEvent {
 }
 
 interface DropDownClosingEventUIParam {
-
 	/**
 	 * Used to obtain reference to igCombo.
 	 */
@@ -21641,7 +21505,6 @@ interface DropDownClosedEvent {
 }
 
 interface DropDownClosedEventUIParam {
-
 	/**
 	 * Used to obtain reference to igCombo.
 	 */
@@ -21658,7 +21521,6 @@ interface SelectionChangingEvent {
 }
 
 interface SelectionChangingEventUIParam {
-
 	/**
 	 * Used to obtain reference to igCombo.
 	 */
@@ -21680,7 +21542,6 @@ interface SelectionChangedEvent {
 }
 
 interface SelectionChangedEventUIParam {
-
 	/**
 	 * Used to obtain reference to igCombo.
 	 */
@@ -21698,7 +21559,6 @@ interface SelectionChangedEventUIParam {
 }
 
 interface IgCombo {
-
 	/**
 	 * Gets/Sets the width of combo. The numeric and string values (valid html units for size) are supported. It includes %, px, em and other units.
 	 *
@@ -22228,7 +22088,6 @@ interface IgCombo {
 	[optionName: string]: any;
 }
 interface IgComboMethods {
-
 	/**
 	 * Performs databinding on the combo box. The [databinding](ui.igcombo#events:dataBinding) and [dataBound](ui.igcombo#events:dataBound) events are always raised.
 	 */
@@ -23674,7 +23533,6 @@ interface StateChangingEvent {
 }
 
 interface StateChangingEventUIParam {
-
 	/**
 	 * Used to obtain a reference to the igDialog.
 	 */
@@ -23706,7 +23564,6 @@ interface StateChangedEvent {
 }
 
 interface StateChangedEventUIParam {
-
 	/**
 	 * Used to obtain a reference to the igDialog.
 	 */
@@ -23738,7 +23595,6 @@ interface AnimationEndedEvent {
 }
 
 interface AnimationEndedEventUIParam {
-
 	/**
 	 * Used to obtain a reference to the igDialog.
 	 */
@@ -23755,7 +23611,6 @@ interface FocusEvent {
 }
 
 interface FocusEventUIParam {
-
 	/**
 	 * Used to obtain a reference to the igDialog.
 	 */
@@ -23767,7 +23622,6 @@ interface BlurEvent {
 }
 
 interface BlurEventUIParam {
-
 	/**
 	 * Used to obtain a reference to the igDialog.
 	 */
@@ -23775,7 +23629,6 @@ interface BlurEventUIParam {
 }
 
 interface IgDialog {
-
 	/**
 	 * Gets the jquery DIV object which is used as the main container for the dialog.
 	 * Notes:
@@ -24126,7 +23979,6 @@ interface IgDialog {
 	[optionName: string]: any;
 }
 interface IgDialogMethods {
-
 	/**
 	 * Destroys the igDialog and moves the target element to its original parent.
 	 */
@@ -25013,7 +24865,6 @@ interface JQuery {
 	igDialog(methodName: string, ...methodParams: any[]): any;
 }
 interface IgDoughnutChartSeries {
-
 	/**
 	 * Gets or sets the current series type.
 	 *
@@ -25179,7 +25030,6 @@ interface HoleDimensionsChangedEventUIParam {
 }
 
 interface IgDoughnutChart {
-
 	/**
 	 * The width of the chart. It can be set as a number in pixels, string (px) or percentage (%).
 	 */
@@ -25368,7 +25218,6 @@ interface IgDoughnutChart {
 	[optionName: string]: any;
 }
 interface IgDoughnutChartMethods {
-
 	/**
 	 * Adds a new series to the doughnut chart.
 	 *
@@ -25967,7 +25816,6 @@ interface RenderingEvent {
 }
 
 interface RenderingEventUIParam {
-
 	/**
 	 * Used to get a reference to the editor performing rendering.
 	 */
@@ -25984,7 +25832,6 @@ interface MousedownEvent {
 }
 
 interface MousedownEventUIParam {
-
 	/**
 	 * Used to obtain reference to igEditor.
 	 */
@@ -26006,7 +25853,6 @@ interface MouseupEvent {
 }
 
 interface MouseupEventUIParam {
-
 	/**
 	 * Used to obtain reference to igEditor.
 	 */
@@ -26028,7 +25874,6 @@ interface MousemoveEvent {
 }
 
 interface MousemoveEventUIParam {
-
 	/**
 	 * Used to obtain reference to igEditor.
 	 */
@@ -26050,7 +25895,6 @@ interface MouseoverEvent {
 }
 
 interface MouseoverEventUIParam {
-
 	/**
 	 * Used to obtain reference to igEditor.
 	 */
@@ -26072,7 +25916,6 @@ interface MouseoutEvent {
 }
 
 interface MouseoutEventUIParam {
-
 	/**
 	 * Used to obtain reference to igEditor.
 	 */
@@ -26094,7 +25937,6 @@ interface KeydownEvent {
 }
 
 interface KeydownEventUIParam {
-
 	/**
 	 * Used to obtain reference to igEditor.
 	 */
@@ -26111,7 +25953,6 @@ interface KeypressEvent {
 }
 
 interface KeypressEventUIParam {
-
 	/**
 	 * Used to obtain reference to igEditor.
 	 */
@@ -26128,7 +25969,6 @@ interface KeyupEvent {
 }
 
 interface KeyupEventUIParam {
-
 	/**
 	 * Used to obtain reference to igEditor.
 	 */
@@ -26145,7 +25985,6 @@ interface ValueChangingEvent {
 }
 
 interface ValueChangingEventUIParam {
-
 	/**
 	 * Used to obtain reference to igEditor.
 	 */
@@ -26172,7 +26011,6 @@ interface ValueChangedEvent {
 }
 
 interface ValueChangedEventUIParam {
-
 	/**
 	 * Used to obtain reference to igEditor.
 	 */
@@ -26195,7 +26033,6 @@ interface ValueChangedEventUIParam {
 }
 
 interface IgBaseEditor {
-
 	/**
 	 * Gets/Sets the width of the control.
 	 *
@@ -26401,7 +26238,6 @@ interface IgBaseEditor {
 	[optionName: string]: any;
 }
 interface IgBaseEditorMethods {
-
 	/**
 	 * Gets/Sets name attribute applied to the editor element.
 	 *
@@ -26471,7 +26307,6 @@ interface DropDownListOpeningEvent {
 }
 
 interface DropDownListOpeningEventUIParam {
-
 	/**
 	 * Used to obtain reference to igEditor.
 	 */
@@ -26493,7 +26328,6 @@ interface DropDownListOpenedEvent {
 }
 
 interface DropDownListOpenedEventUIParam {
-
 	/**
 	 * Used to obtain reference to igEditor.
 	 */
@@ -26515,7 +26349,6 @@ interface DropDownListClosingEvent {
 }
 
 interface DropDownListClosingEventUIParam {
-
 	/**
 	 * Used to obtain reference to igEditor.
 	 */
@@ -26537,7 +26370,6 @@ interface DropDownListClosedEvent {
 }
 
 interface DropDownListClosedEventUIParam {
-
 	/**
 	 * Used to obtain reference to igEditor.
 	 */
@@ -26559,7 +26391,6 @@ interface DropDownItemSelectingEvent {
 }
 
 interface DropDownItemSelectingEventUIParam {
-
 	/**
 	 * Used to obtain reference to igEditor.
 	 */
@@ -26586,7 +26417,6 @@ interface DropDownItemSelectedEvent {
 }
 
 interface DropDownItemSelectedEventUIParam {
-
 	/**
 	 * Used to obtain reference to igEditor.
 	 */
@@ -26613,7 +26443,6 @@ interface TextChangedEvent {
 }
 
 interface TextChangedEventUIParam {
-
 	/**
 	 * Used to obtain reference to igEditor.
 	 */
@@ -26631,7 +26460,6 @@ interface TextChangedEventUIParam {
 }
 
 interface IgTextEditor {
-
 	/**
 	 * Gets visibility of the spin, clear and drop-down button. That option can be set only on initialization. Combinations like 'dropdown,spin' or 'spin,clear' are supported too.Note! This option can not be set runtime.
 	 *
@@ -27092,7 +26920,6 @@ interface IgTextEditor {
 	[optionName: string]: any;
 }
 interface IgTextEditorMethods {
-
 	/**
 	 * Gets the visible text in the editor.
 	 */
@@ -27264,7 +27091,6 @@ interface JQuery {
 }
 
 interface IgNumericEditor {
-
 	/**
 	 * Gets/Sets list of items which are used as a source for the drop-down list.
 	 * Items in the list can be of type number.
@@ -27716,7 +27542,6 @@ interface IgNumericEditor {
 	[optionName: string]: any;
 }
 interface IgNumericEditorMethods {
-
 	/**
 	 * Gets/Sets editor value.
 	 *
@@ -27841,7 +27666,6 @@ interface JQuery {
 }
 
 interface IgCurrencyEditor {
-
 	/**
 	 * Gets/Sets the string, which is used as positive pattern. The "n" flag represents the value of number.
 	 * Note: This option has priority over possible regional settings.
@@ -28241,7 +28065,6 @@ interface IgCurrencyEditor {
 	[optionName: string]: any;
 }
 interface IgCurrencyEditorMethods {
-
 	/**
 	 * Gets/sets a string that is used as the currency symbol shown with the number in the input. The value provided as a param is propagated to the currencySymbol option and thus has the same priority as the option.
 	 *
@@ -28300,7 +28123,6 @@ interface JQuery {
 }
 
 interface IgPercentEditor {
-
 	/**
 	 * Gets/Sets the pattern for positive numeric values, which is used in display (no focus) state.
 	 * If you use the "en-US" culture the default value for "positivePattern" will be "n$" where the "$" flag represents the "numericSymbol" and the "n" flag represents the value of the number.
@@ -28711,7 +28533,6 @@ interface IgPercentEditor {
 	[optionName: string]: any;
 }
 interface IgPercentEditorMethods {
-
 	/**
 	 * Paste text at location of the caret or over the current selection. Best used during editing, as the method will instead set the text as value (modified by the [displayFactor](ui.igpercenteditor#options:displayFactor)) if the editor is not focused.
 	 * 	Note: the method raises the [textChanged](ui.igpercenteditor#events:textChanged) event.
@@ -28778,7 +28599,6 @@ interface JQuery {
 }
 
 interface IgMaskEditor {
-
 	/**
 	 * Gets custom regional settings for editor. If it is string, then $.ig.regional[stringValue] is assumed.
 	 *
@@ -29088,7 +28908,6 @@ interface IgMaskEditor {
 	[optionName: string]: any;
 }
 interface IgMaskEditorMethods {
-
 	/**
 	 * Gets/Sets mask editor value.
 	 *
@@ -29159,7 +28978,6 @@ interface JQuery {
 }
 
 interface IgDateEditor {
-
 	/**
 	 * Gets/Sets the value of the editor. Date object can be set as value. String can be set and the editor will pass it to the Date object constructor and use the corresponding Date object as the value. MVC date format can be used too.
 	 * Note! This option doesn't use the dateInputFormat to extract the date.
@@ -29593,7 +29411,6 @@ interface IgDateEditor {
 	[optionName: string]: any;
 }
 interface IgDateEditorMethods {
-
 	/**
 	 * Gets/Sets editor value.
 	 *
@@ -29663,7 +29480,6 @@ interface ItemSelectedEvent {
 }
 
 interface ItemSelectedEventUIParam {
-
 	/**
 	 * Used to obtain reference to igEditor.
 	 */
@@ -29686,7 +29502,6 @@ interface ItemSelectedEventUIParam {
 }
 
 interface IgDatePicker {
-
 	/**
 	 * Gets/Sets the custom regional settings for the editor. If it is a string, then $.ig.regional[stringValue] is assumed.
 	 *
@@ -30151,7 +29966,6 @@ interface IgDatePicker {
 	[optionName: string]: any;
 }
 interface IgDatePickerMethods {
-
 	/**
 	 * Returns a reference to the jQuery calendar used as a picker selector
 	 */
@@ -30243,7 +30057,6 @@ interface JQuery {
 }
 
 interface IgCheckboxEditor {
-
 	/**
 	 * Gets/Sets whether the checkbox is checked.
 	 *
@@ -30467,7 +30280,6 @@ interface IgCheckboxEditor {
 	[optionName: string]: any;
 }
 interface IgCheckboxEditorMethods {
-
 	/**
 	 * Checks if the value in the editor is valid. Note: This function will not trigger automatic notifications.
 	 */
@@ -37688,7 +37500,6 @@ interface SliceClickedEvent {
 }
 
 interface SliceClickedEventUIParam {
-
 	/**
 	 * Used to obtain reference to igFunnelChart.
 	 */
@@ -37711,7 +37522,6 @@ interface SliceClickedEventUIParam {
 }
 
 interface IgFunnelChart {
-
 	/**
 	 * Gets or sets values for upper and lower bezier points. That option has effect only when useBezierCurve is enabled.
 	 * Value should provide 4 numeric values in range from 0 to 1 separated by space character.
@@ -38010,7 +37820,6 @@ interface IgFunnelChart {
 	[optionName: string]: any;
 }
 interface IgFunnelChartMethods {
-
 	/**
 	 * Gets array of selected slice items.
 	 *
@@ -38841,7 +38650,6 @@ interface RowsRequestedEventUIParam {
 }
 
 interface IgGridAppendRowsOnDemand {
-
 	/**
 	 * Defines local or remote type of appending rows on demand in igGrid
 	 *
@@ -38921,7 +38729,6 @@ interface IgGridAppendRowsOnDemand {
 	[optionName: string]: any;
 }
 interface IgGridAppendRowsOnDemandMethods {
-
 	/**
 	 * Destroys the append rows on demand widget
 	 */
@@ -39112,7 +38919,6 @@ interface CellsMergedEventUIParam {
 }
 
 interface IgGridCellMerging {
-
 	/**
 	 * controls the initial state
 	 *
@@ -39201,7 +39007,6 @@ interface JQuery {
 	igGridCellMerging(methodName: string, ...methodParams: any[]): any;
 }
 interface IgGridColumnFixingColumnSetting {
-
 	/**
 	 * Identifies the grid column by key. Either key or index must be set in every column setting.
 	 *
@@ -39275,7 +39080,6 @@ interface ColumnUnfixingRefusedEventUIParam {
 }
 
 interface IgGridColumnFixing {
-
 	/**
 	 * Specifies the tooltip text on the column fixing header icon when column is not fixed.
 	 *
@@ -39391,7 +39195,6 @@ interface IgGridColumnFixing {
 	[optionName: string]: any;
 }
 interface IgGridColumnFixingMethods {
-
 	/**
 	 * Unfixes a column by specified column identifier - column key or column index.
 	 *
@@ -39756,7 +39559,6 @@ interface JQuery {
 	igGridColumnFixing(methodName: string, ...methodParams: any[]): any;
 }
 interface IgGridColumnMovingColumnSetting {
-
 	/**
 	 * Column key. This is a required property in every column setting if columnIndex is not set.
 	 *
@@ -39894,7 +39696,6 @@ interface MovingDialogDragColumnMovedEventUIParam {
 }
 
 interface IgGridColumnMoving {
-
 	/**
 	 * A list of column settings that specifies moving options on a per column basis.
 	 *
@@ -40161,7 +39962,6 @@ interface IgGridColumnMoving {
 	[optionName: string]: any;
 }
 interface IgGridColumnMovingMethods {
-
 	/**
 	 * Restoring overwritten functions
 	 */
@@ -40785,7 +40585,6 @@ interface JQuery {
 	igGridColumnMoving(methodName: string, ...methodParams: any[]): any;
 }
 interface IgPopoverHeaderTemplate {
-
 	/**
 	 * Controls whether the popover renders a functional close button
 	 */
@@ -41478,7 +41277,6 @@ interface JQuery {
 	igGridFeatureChooser(methodName: string, ...methodParams: any[]): any;
 }
 interface IgGridFilteringColumnSettingDefaultExpressions {
-
 	/**
 	 * Option for IgGridFilteringColumnSettingDefaultExpressions
 	 */
@@ -41486,7 +41284,6 @@ interface IgGridFilteringColumnSettingDefaultExpressions {
 }
 
 interface IgGridFilteringColumnSetting {
-
 	/**
 	 * Identifies the grid column by key. Either key or index must be set in every column setting.
 	 *
@@ -41739,7 +41536,6 @@ interface FilterDialogFilteringEventUIParam {
 }
 
 interface IgGridFiltering {
-
 	/**
 	 * Enables or disables the filtering case sensitivity. Works only for local filtering. If true, it case sensitive filtering is performed. If false, filtering is case insensitive.
 	 *
@@ -42151,7 +41947,6 @@ interface IgGridFiltering {
 	[optionName: string]: any;
 }
 interface IgGridFilteringMethods {
-
 	/**
 	 * Destroys the filtering widget - remove fitler row, unbinds events, returns the grid to its previous state.
 	 */
@@ -43016,7 +42811,6 @@ interface JQuery {
 	igGridFiltering(methodName: string, ...methodParams: any[]): any;
 }
 interface IgGridColumnGroupOptions {
-
 	/**
 	 * Sets whether the group is expanded or collapsed. Applied only if the allowGroupCollapsing is set to true.
 	 *
@@ -43048,7 +42842,6 @@ interface IgGridColumnGroupOptions {
 }
 
 interface IgGridColumn {
-
 	/**
 	 * Header text for the specified column.
 	 *
@@ -43221,7 +43014,6 @@ interface IgGridColumn {
 }
 
 interface IgGridFeature {
-
 	/**
 	 * Name of the feature to be enabled.
 	 */
@@ -43234,7 +43026,6 @@ interface IgGridFeature {
 }
 
 interface IgGridRestSettingsCreate {
-
 	/**
 	 * Specifies a remote URL to which create requests will be sent. This will be used for both batch and non-batch, however if template is also set, this URL will only be used for batch requests.
 	 *
@@ -43260,7 +43051,6 @@ interface IgGridRestSettingsCreate {
 }
 
 interface IgGridRestSettingsUpdate {
-
 	/**
 	 * Specifies a remote URL to which update requests will be sent. This will be used for both batch and non-batch, however if template is also set, this URL will only be used for batch requests.
 	 */
@@ -43283,7 +43073,6 @@ interface IgGridRestSettingsUpdate {
 }
 
 interface IgGridRestSettingsRemove {
-
 	/**
 	 * Specifies a remote URL to which remove requests will be sent. This will be used for both batch and non-batch, however if template is also set, this URL will only be used for batch requests.
 	 */
@@ -43306,7 +43095,6 @@ interface IgGridRestSettingsRemove {
 }
 
 interface IgGridRestSettings {
-
 	/**
 	 * Settings for create requests
 	 *
@@ -43347,7 +43135,6 @@ interface IgGridRestSettings {
 }
 
 interface IgGridScrollSettings {
-
 	/**
 	 * Sets gets current vertical position.
 	 *
@@ -43529,7 +43316,6 @@ interface DestroyedEventUIParam {
 }
 
 interface IgGrid {
-
 	/**
 	 * Defines the grid width in pixels or percents. [Here you can find more info about setting igGrid width](http://www.igniteui.com/help/iggrid-columns-and-layout#width-height).
 	 *
@@ -44000,7 +43786,6 @@ interface IgGrid {
 	[optionName: string]: any;
 }
 interface IgGridMethods {
-
 	/**
 	 * Returns the element holding the data records
 	 */
@@ -45527,7 +45312,6 @@ interface JQuery {
 	igGrid(methodName: string, ...methodParams: any[]): any;
 }
 interface IgGridGroupByGroupedColumn {
-
 	/**
 	 * Key of the column that's grouped
 	 */
@@ -45558,7 +45342,6 @@ interface IgGridGroupByGroupedColumn {
 }
 
 interface IgGridGroupBySummarySettings {
-
 	/**
 	 * Specifies the delimiter for multiple summaries.
 	 *
@@ -45578,7 +45361,6 @@ interface IgGridGroupBySummarySettings {
 }
 
 interface IgGridGroupByColumnSettingsSummaries {
-
 	/**
 	 * the summary function key
 	 *
@@ -45621,7 +45403,6 @@ interface IgGridGroupByColumnSettingsSummaries {
 }
 
 interface IgGridGroupByColumnSettings {
-
 	/**
 	 * Enables/disables grouping a column from the UI. By default all columns can be grouped.
 	 *
@@ -45804,7 +45585,6 @@ interface ModalDialogSortGroupedColumnEventUIParam {
 }
 
 interface IgGridGroupBy {
-
 	/**
 	 * Sets the place in the grid where the GroupBy area will be
 	 *
@@ -46208,7 +45988,6 @@ interface IgGridGroupBy {
 	[optionName: string]: any;
 }
 interface IgGridGroupByMethods {
-
 	/**
 	 * Open groupby modal dialog
 	 */
@@ -47175,7 +46954,6 @@ interface JQuery {
 	igGridGroupBy(methodName: string, ...methodParams: any[]): any;
 }
 interface IgGridHidingColumnSetting {
-
 	/**
 	 * Column key. this is a required property in every column setting if columnIndex is not set.
 	 *
@@ -47319,7 +47097,6 @@ interface ColumnChooserButtonResetClickEventUIParam {
 }
 
 interface IgGridHiding {
-
 	/**
 	 * A list of column settings that specifies hiding options on a per column basis.
 	 *
@@ -47522,7 +47299,6 @@ interface IgGridHiding {
 	[optionName: string]: any;
 }
 interface IgGridHidingMethods {
-
 	/**
 	 * Destroys the hiding widget
 	 */
@@ -48081,7 +47857,6 @@ interface JQuery {
 	igGridHiding(methodName: string, ...methodParams: any[]): any;
 }
 interface IgHierarchicalGridColumnLayout {
-
 	/**
 	 * Specifies the columnLayout key. This is the property that holds the data records for the current column layout.
 	 */
@@ -48104,7 +47879,6 @@ interface IgHierarchicalGridColumnLayout {
 }
 
 interface IgHierarchicalGridColumnGroupOptions {
-
 	/**
 	 * Sets whether the group is expanded or collapsed. Applied only if the allowGroupCollapsing is set to true.
 	 *
@@ -48136,7 +47910,6 @@ interface IgHierarchicalGridColumnGroupOptions {
 }
 
 interface IgHierarchicalGridColumn {
-
 	/**
 	 * Header text for the specified column.
 	 *
@@ -48309,7 +48082,6 @@ interface IgHierarchicalGridColumn {
 }
 
 interface IgHierarchicalGridFeature {
-
 	/**
 	 * Name of the feature to be enabled.
 	 */
@@ -48322,7 +48094,6 @@ interface IgHierarchicalGridFeature {
 }
 
 interface IgHierarchicalGridRestSettingsCreate {
-
 	/**
 	 * Specifies a remote URL to which create requests will be sent. This will be used for both batch and non-batch, however if template is also set, this URL will only be used for batch requests.
 	 *
@@ -48348,7 +48119,6 @@ interface IgHierarchicalGridRestSettingsCreate {
 }
 
 interface IgHierarchicalGridRestSettingsUpdate {
-
 	/**
 	 * Specifies a remote URL to which update requests will be sent. This will be used for both batch and non-batch, however if template is also set, this URL will only be used for batch requests.
 	 */
@@ -48371,7 +48141,6 @@ interface IgHierarchicalGridRestSettingsUpdate {
 }
 
 interface IgHierarchicalGridRestSettingsRemove {
-
 	/**
 	 * Specifies a remote URL to which remove requests will be sent. This will be used for both batch and non-batch, however if template is also set, this URL will only be used for batch requests.
 	 */
@@ -48394,7 +48163,6 @@ interface IgHierarchicalGridRestSettingsRemove {
 }
 
 interface IgHierarchicalGridRestSettings {
-
 	/**
 	 * Settings for create requests
 	 *
@@ -48435,7 +48203,6 @@ interface IgHierarchicalGridRestSettings {
 }
 
 interface IgHierarchicalGridScrollSettings {
-
 	/**
 	 * Sets gets current vertical position.
 	 *
@@ -48554,7 +48321,6 @@ interface ChildGridCreatedEventUIParam {
 }
 
 interface IgHierarchicalGrid {
-
 	/**
 	 * Only the first level will be data-bound initially. Also serves as "render" depth, meaning that depending on this prop, the grid will
 	 *
@@ -49151,7 +48917,6 @@ interface IgHierarchicalGrid {
 	[optionName: string]: any;
 }
 interface IgHierarchicalGridMethods {
-
 	/**
 	 * Data binds the hierarchical grid. No child grids will be created or rendered by default, unless there is initialExpandDepth >= 0 set.
 	 */
@@ -50585,7 +50350,6 @@ interface GroupExpandedEventUIParam {
 }
 
 interface IgGridMultiColumnHeaders {
-
 	/**
 	 * Enables/disables feature inheritance for the child layouts. NOTE: It only applies for igHierarchicalGrid.
 	 */
@@ -50617,7 +50381,6 @@ interface IgGridMultiColumnHeaders {
 	[optionName: string]: any;
 }
 interface IgGridMultiColumnHeadersMethods {
-
 	/**
 	 * Expands a collapsed group. If the group is expanded, the method does nothing.
 	 *             Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
@@ -50750,7 +50513,6 @@ interface PageSizeChangingEvent {
 }
 
 interface PageSizeChangingEventUIParam {
-
 	/**
 	 * Used to get new page size.
 	 */
@@ -50779,7 +50541,6 @@ interface PagerRenderedEventUIParam {
 }
 
 interface IgGridPaging {
-
 	/**
 	 * Number of records loaded and displayed per page.
 	 *
@@ -51038,7 +50799,6 @@ interface IgGridPaging {
 	[optionName: string]: any;
 }
 interface IgGridPagingMethods {
-
 	/**
 	 * Gets/Sets the current page index, delegates data binding and paging to [$.ig.DataSource](ig.datasource).
 	 *
@@ -51643,7 +51403,6 @@ interface JQuery {
 	igGridPaging(methodName: string, ...methodParams: any[]): any;
 }
 interface IgGridResizingColumnSetting {
-
 	/**
 	 * Column key. this is a required property in every column setting if columnIndex is not set.
 	 *
@@ -51702,7 +51461,6 @@ interface ColumnResizedEventUIParam {
 }
 
 interface IgGridResizing {
-
 	/**
 	 * Resize the column to the size of the longest currently visible cell value.
 	 *
@@ -51753,7 +51511,6 @@ interface IgGridResizing {
 	[optionName: string]: any;
 }
 interface IgGridResizingMethods {
-
 	/**
 	 * Destroys the resizing widget
 	 */
@@ -51885,7 +51642,6 @@ interface JQuery {
 	igGridResizing(methodName: string, ...methodParams: any[]): any;
 }
 interface IgGridResponsiveColumnSetting {
-
 	/**
 	 * Column key. This is a required property in every column setting if columnIndex is not set.
 	 *
@@ -51917,7 +51673,6 @@ interface IgGridResponsiveColumnSetting {
 }
 
 interface IgGridResponsiveAllowedColumnWidthPerType {
-
 	/**
 	 * Minimal width in pixels string columns can take before forcing vertical rendering
 	 *
@@ -51990,7 +51745,6 @@ interface ResponsiveModeChangedEventUIParam {
 }
 
 interface IgGridResponsive {
-
 	/**
 	 * A list of column settings that specifies how columns will react based on the environment the grid is run on.
 	 *
@@ -52107,7 +51861,6 @@ interface IgGridResponsive {
 	[optionName: string]: any;
 }
 interface IgGridResponsiveMethods {
-
 	/**
 	 * Destroys the responsive widget.
 	 */
@@ -52135,7 +51888,7 @@ interface ResponsiveModeSettings {
 }
 
 declare namespace Infragistics {
-export class ResponsiveMode {
+class ResponsiveMode {
 	constructor(settings: ResponsiveModeSettings);
 	isActive(): void;
 }
@@ -52155,7 +51908,7 @@ interface InfragisticsModeSettings {
 }
 
 declare namespace Infragistics {
-export class InfragisticsMode {
+class InfragisticsMode {
 	constructor(settings: InfragisticsModeSettings);
 	isActive(): void;
 }
@@ -52175,7 +51928,7 @@ interface BootstrapModeSettings {
 }
 
 declare namespace Infragistics {
-export class BootstrapMode {
+class BootstrapMode {
 	constructor(settings: BootstrapModeSettings);
 	isActive(): void;
 }
@@ -52443,7 +52196,6 @@ interface CheckBoxStateChangedEventUIParam {
 }
 
 interface IgGridRowSelectors {
-
 	/**
 	 * Determines whether the row selectors column should contain row numbering
 	 *
@@ -52804,7 +52556,6 @@ interface ActiveRowChangedEventUIParam {
 }
 
 interface IgGridSelection {
-
 	/**
 	 * Enables / Disables multiple selection of cells and rows - depending on the mode
 	 *
@@ -52919,7 +52670,6 @@ interface IgGridSelection {
 	[optionName: string]: any;
 }
 interface IgGridSelectionMethods {
-
 	/**
 	 * Destroys the selection widget.
 	 */
@@ -53035,7 +52785,6 @@ interface JQuery {
 }
 
 interface SelectionCollectionSettingsSubscribers {
-
 	/**
 	 * Option for SelectionCollectionSettingsSubscribers
 	 */
@@ -53054,7 +52803,7 @@ interface SelectionCollectionSettings {
 }
 
 declare namespace Infragistics {
-export class SelectionCollection {
+class SelectionCollection {
 	constructor(settings: SelectionCollectionSettings);
 	addSubscriber(subscriber: Object, owner: Object): void;
 	removeSubscriber(subscriberId: Object, owner: Object): void;
@@ -53083,7 +52832,7 @@ SelectionCollection: typeof Infragistics.SelectionCollection;
 }
 
 declare namespace Infragistics {
-export class SelectedRowsCollection {
+class SelectedRowsCollection {
 	constructor(settings: SelectionCollectionSettings);
 	isSelected(identifier: Object, forOwner: Object): void;
 	isActive(identifier: Object, forOwner: Object): void;
@@ -53115,7 +52864,7 @@ SelectedRowsCollection: typeof Infragistics.SelectedRowsCollection;
 }
 
 declare namespace Infragistics {
-export class SelectedCellsCollection {
+class SelectedCellsCollection {
 	constructor(settings: SelectionCollectionSettings);
 	isSelected(identifier: Object, forOwner: Object): void;
 	atLeastOneSelected(rowId: Object, forOwner: Object): void;
@@ -53414,7 +53163,6 @@ interface JQuery {
 	igGridSelection(methodName: string, ...methodParams: any[]): any;
 }
 interface IgGridSortingColumnSetting {
-
 	/**
 	 * Identifies the grid column by key. Either key or index must be set in every column setting.
 	 *
@@ -53513,7 +53261,6 @@ interface ModalDialogSortClickEventUIParam {
 }
 
 interface IgGridSorting {
-
 	/**
 	 * Defines local or remote sorting operations.
 	 *
@@ -53798,7 +53545,6 @@ interface IgGridSorting {
 	[optionName: string]: any;
 }
 interface IgGridSortingMethods {
-
 	/**
 	 * Sorts the data in a grid column  and updates the UI.
 	 *
@@ -54480,7 +54226,6 @@ interface JQuery {
 	igGridSorting(methodName: string, ...methodParams: any[]): any;
 }
 interface IgGridSummariesColumnSettingSummaryOperand {
-
 	/**
 	 * Text of the summary method which is shown in summary cell
 	 *
@@ -54535,7 +54280,6 @@ interface IgGridSummariesColumnSettingSummaryOperand {
 }
 
 interface IgGridSummariesColumnSetting {
-
 	/**
 	 * Enables disables summaries for the column
 	 *
@@ -54616,7 +54360,6 @@ interface DropDownCancelClickedEventUIParam {
 }
 
 interface IgGridSummaries {
-
 	/**
 	 * type of summaries calculating.
 	 *
@@ -55383,7 +55126,6 @@ interface JQuery {
 	igGridSummaries(methodName: string, ...methodParams: any[]): any;
 }
 interface IgGridTooltipsColumnSettings {
-
 	/**
 	 * Either key or index must be set in every column setting.
 	 *
@@ -55415,7 +55157,6 @@ interface IgGridTooltipsColumnSettings {
 }
 
 interface IgGridTooltips {
-
 	/**
 	 * determines the tooltip visibility option
 	 *
@@ -55506,7 +55247,6 @@ interface IgGridTooltips {
 	[optionName: string]: any;
 }
 interface IgGridTooltipsMethods {
-
 	/**
 	 * Destroys the tooltip widget.
 	 */
@@ -55707,7 +55447,6 @@ interface JQuery {
 	igGridTooltips(methodName: string, ...methodParams: any[]): any;
 }
 interface IgGridUpdatingColumnSetting {
-
 	/**
 	 * Identifies the grid column by key.
 	 *
@@ -55791,7 +55530,6 @@ interface IgGridUpdatingColumnSetting {
 }
 
 interface IgGridUpdatingRowEditDialogOptions {
-
 	/**
 	 * Specifies the caption of the dialog. If not set, $.ig.GridUpdating.locale.rowEditDialogCaptionLabel is used.
 	 *
@@ -56043,7 +55781,6 @@ interface RowEditDialogContentsRenderedEventUIParam {
 }
 
 interface IgGridUpdating {
-
 	/**
 	 * A list of custom column options that specify editing and validation settings for a specific column.
 	 *
@@ -56307,7 +56044,6 @@ interface IgGridUpdating {
 	[optionName: string]: any;
 }
 interface IgGridUpdatingMethods {
-
 	/**
 	 * Sets a cell value for the specified cell. It also creates a transaction and updates the UI.
 	 * If the specified cell is currently in edit mode, the function will set the desired value in the cell's editor instead.
@@ -57107,7 +56843,6 @@ interface WorkspaceResizedEventUIParam {
 }
 
 interface IgHtmlEditor {
-
 	/**
 	 * Shows/hides the "Formatting" toolbar.
 	 *
@@ -57244,7 +56979,6 @@ interface IgHtmlEditor {
 	[optionName: string]: any;
 }
 interface IgHtmlEditorMethods {
-
 	/**
 	 * Returns the element on which the widget was instantiated
 	 */
@@ -57450,7 +57184,7 @@ interface JQuery {
 }
 
 declare namespace Infragistics {
-export class SelectionWrapper {
+class SelectionWrapper {
 	constructor(NODE: any);
 	getSelectedItem(): void;
 	getSelectionAsText(): void;
@@ -57467,7 +57201,7 @@ SelectionWrapper: typeof Infragistics.SelectionWrapper;
 }
 
 declare namespace Infragistics {
-export class ToolbarHelper {
+class ToolbarHelper {
 	analyse(el: Object): void;
 }
 }
@@ -57801,7 +57535,6 @@ interface JQuery {
 	igHtmlEditor(methodName: string, ...methodParams: any[]): any;
 }
 interface JQuery {
-
 	/**
 	 */
 	igPathFinder(optionLiteral: 'option', optionName: "items"): any;
@@ -58076,7 +57809,6 @@ interface JQuery {
 	igImagePropertiesDialog(methodName: string, ...methodParams: any[]): any;
 }
 interface IgLayoutManagerBorderLayout {
-
 	/**
 	 * Option specifying the width of the left region, either in px or percentages
 	 *
@@ -58120,7 +57852,6 @@ interface IgLayoutManagerBorderLayout {
 }
 
 interface IgLayoutManagerGridLayout {
-
 	/**
 	 * Specifies the duration of the animations in the layout manager"s grid layout
 	 *
@@ -58183,7 +57914,6 @@ interface IgLayoutManagerGridLayout {
 }
 
 interface IgLayoutManagerItem {
-
 	/**
 	 * Column index of the item in the grid
 	 *
@@ -58233,7 +57963,6 @@ interface InternalResizedEvent {
 }
 
 interface InternalResizedEventUIParam {
-
 	/**
 	 * Used to get a reference to the layout manager performing resizing.
 	 */
@@ -58245,7 +57974,6 @@ interface InternalResizingEvent {
 }
 
 interface InternalResizingEventUIParam {
-
 	/**
 	 * Used to get a reference to the layout manager performing resizing.
 	 */
@@ -58257,7 +57985,6 @@ interface ItemRenderedEvent {
 }
 
 interface ItemRenderedEventUIParam {
-
 	/**
 	 * Used to get reference to the igLayoutManager.
 	 */
@@ -58284,7 +58011,6 @@ interface ItemRenderingEvent {
 }
 
 interface ItemRenderingEventUIParam {
-
 	/**
 	 * Used to get reference to the igLayoutManager.
 	 */
@@ -58307,7 +58033,6 @@ interface ItemRenderingEventUIParam {
 }
 
 interface IgLayoutManager {
-
 	/**
 	 * Options specific to a border layout
 	 *
@@ -58413,7 +58138,6 @@ interface IgLayoutManager {
 	[optionName: string]: any;
 }
 interface IgLayoutManagerMethods {
-
 	/**
 	 * Triggers recalculation of the layout dimensions. Layouts may not need to be reflowed manually, if their sizes are in percentages (i.e. they are responsive by default)
 	 * this can be particularly useful with a grid layout, when the container has percentage sizes, but items are calculated in pixels and positioned absolutely in the container.
@@ -58654,7 +58378,6 @@ interface JQuery {
 	igLayoutManager(methodName: string, ...methodParams: any[]): any;
 }
 interface IgLinearGaugeRange {
-
 	/**
 	 * Gets or sets the name of the range.
 	 */
@@ -58716,7 +58439,6 @@ interface IgLinearGaugeRange {
 }
 
 interface IgLinearGauge {
-
 	/**
 	 * The width of the gauge. It can be set as a number in pixels, string (px) or percentage (%).
 	 */
@@ -59098,7 +58820,6 @@ interface IgLinearGauge {
 	[optionName: string]: any;
 }
 interface IgLinearGaugeMethods {
-
 	/**
 	 * Returns a string containing the names of all the ranges delimited with a \n symbol.
 	 */
@@ -60043,7 +59764,6 @@ interface JQuery {
 	igLinearGauge(methodName: string, ...methodParams: any[]): any;
 }
 interface IgMapCrosshairPoint {
-
 	/**
 	 * The x coordinate.
 	 */
@@ -60061,7 +59781,6 @@ interface IgMapCrosshairPoint {
 }
 
 interface IgMapBackgroundContent {
-
 	/**
 	 * Type of the background content for the map.
 	 *
@@ -60106,7 +59825,6 @@ interface IgMapBackgroundContent {
 }
 
 interface IgMapSeries {
-
 	/**
 	 * Type of the series.
 	 *
@@ -60601,7 +60319,6 @@ interface TriangulationStatusChangedEvent {
 }
 
 interface TriangulationStatusChangedEventUIParam {
-
 	/**
 	 * Used to get reference to map object.
 	 */
@@ -60619,7 +60336,6 @@ interface TriangulationStatusChangedEventUIParam {
 }
 
 interface IgMap {
-
 	/**
 	 * The width of the map. It can be set as a number in pixels, string (px) or percentage (%).
 	 */
@@ -61277,7 +60993,6 @@ interface JQuery {
 }
 
 interface ShapeDataSourceSettings {
-
 	/**
 	 * The unique identifier.
 	 */
@@ -61334,7 +61049,7 @@ interface ShapeDataSourceSettings {
 }
 
 declare namespace Infragistics {
-export class ShapeDataSource {
+class ShapeDataSource {
 	constructor(settings: ShapeDataSourceSettings);
 
 	/**
@@ -61358,7 +61073,6 @@ ShapeDataSource: typeof Infragistics.ShapeDataSource;
 }
 
 interface TriangulationDataSourceSettings {
-
 	/**
 	 * The unique identifier.
 	 */
@@ -61391,7 +61105,7 @@ interface TriangulationDataSourceSettings {
 }
 
 declare namespace Infragistics {
-export class TriangulationDataSource {
+class TriangulationDataSource {
 	constructor(settings: TriangulationDataSourceSettings);
 
 	/**
@@ -62402,7 +62116,6 @@ interface IgNotifierMessages {
 }
 
 interface IgNotifierHeaderTemplate {
-
 	/**
 	 * Controls whether the popover renders a functional close button
 	 *
@@ -62422,7 +62135,6 @@ interface IgNotifierHeaderTemplate {
 }
 
 interface IgNotifier {
-
 	/**
 	 * Gets/Sets the current state of the igNotifier messages. State controls what CSS classes are applied to the messages and target and has interactions with other options as well.
 	 *
@@ -62623,7 +62335,6 @@ interface IgNotifier {
 	[optionName: string]: any;
 }
 interface IgNotifierMethods {
-
 	/**
 	 * Triggers a notification with a certain state and optional message. The [notifyLevel](ui.ignotifier#options:notifyLevel) option determines if the notification will be displayed.
 	 *
@@ -63072,7 +62783,6 @@ interface JQuery {
 	igNotifier(methodName: string, ...methodParams: any[]): any;
 }
 interface IgPivotDataSelectorDataSourceOptionsXmlaOptionsRequestOptions {
-
 	/**
 	 * The value is applied to XmlHttpRequest.withCredentials if supported by the user agent.
 	 *                             Setting this property to true will allow IE8/IE9 to make authenticated cross-origin requests to tusted domains through XmlHttpRequest instead of XDomainRequest
@@ -63092,7 +62802,6 @@ interface IgPivotDataSelectorDataSourceOptionsXmlaOptionsRequestOptions {
 }
 
 interface IgPivotDataSelectorDataSourceOptionsXmlaOptionsMdxSettings {
-
 	/**
 	 * Optional="true" a value indicating whether a NON EMPTY clause is present on ROWS axis. Default value is true
 	 */
@@ -63130,7 +62839,6 @@ interface IgPivotDataSelectorDataSourceOptionsXmlaOptionsMdxSettings {
 }
 
 interface IgPivotDataSelectorDataSourceOptionsXmlaOptions {
-
 	/**
 	 * Optional="false" The URL of the XMLA server.
 	 */
@@ -63185,7 +62893,6 @@ interface IgPivotDataSelectorDataSourceOptionsXmlaOptions {
 }
 
 interface IgPivotDataSelectorDataSourceOptionsFlatDataOptionsMetadataCubeMeasuresDimensionMeasure {
-
 	/**
 	 * Optional="false" A unique name for the measure.
 	 */
@@ -63214,7 +62921,6 @@ interface IgPivotDataSelectorDataSourceOptionsFlatDataOptionsMetadataCubeMeasure
 }
 
 interface IgPivotDataSelectorDataSourceOptionsFlatDataOptionsMetadataCubeMeasuresDimension {
-
 	/**
 	 * A unique name for the measures dimension.
 	 *                                     The default value is "Measures". This name is used to create the names of dimensions using the following pattern:
@@ -63240,7 +62946,6 @@ interface IgPivotDataSelectorDataSourceOptionsFlatDataOptionsMetadataCubeMeasure
 }
 
 interface IgPivotDataSelectorDataSourceOptionsFlatDataOptionsMetadataCubeDimensionHierarchieLevel {
-
 	/**
 	 * Optional="false" A name for the level.
 	 *                                             The unique name of the level is formed using the following pattern:
@@ -63266,7 +62971,6 @@ interface IgPivotDataSelectorDataSourceOptionsFlatDataOptionsMetadataCubeDimensi
 }
 
 interface IgPivotDataSelectorDataSourceOptionsFlatDataOptionsMetadataCubeDimensionHierarchie {
-
 	/**
 	 * Optional="false" A name for the hierarchy.
 	 *                                         The unique name of the hierarchy is formed using the following pattern:
@@ -63298,7 +63002,6 @@ interface IgPivotDataSelectorDataSourceOptionsFlatDataOptionsMetadataCubeDimensi
 }
 
 interface IgPivotDataSelectorDataSourceOptionsFlatDataOptionsMetadataCubeDimension {
-
 	/**
 	 * Optional="false" A unique name for the dimension.
 	 */
@@ -63321,7 +63024,6 @@ interface IgPivotDataSelectorDataSourceOptionsFlatDataOptionsMetadataCubeDimensi
 }
 
 interface IgPivotDataSelectorDataSourceOptionsFlatDataOptionsMetadataCube {
-
 	/**
 	 * Optional="false" A unique name for the cube.
 	 */
@@ -63349,7 +63051,6 @@ interface IgPivotDataSelectorDataSourceOptionsFlatDataOptionsMetadataCube {
 }
 
 interface IgPivotDataSelectorDataSourceOptionsFlatDataOptionsMetadata {
-
 	/**
 	 * Optional="false" Metadata used for the creation of the cube.
 	 */
@@ -63362,7 +63063,6 @@ interface IgPivotDataSelectorDataSourceOptionsFlatDataOptionsMetadata {
 }
 
 interface IgPivotDataSelectorDataSourceOptionsFlatDataOptions {
-
 	/**
 	 * Specifies any valid data source accepted by $.ig.DataSource, or an instance of an $.ig.DataSource itself.
 	 */
@@ -63403,7 +63103,6 @@ interface IgPivotDataSelectorDataSourceOptionsFlatDataOptions {
 }
 
 interface IgPivotDataSelectorDataSourceOptions {
-
 	/**
 	 * Settings for creating an instance of $.ig.OlapXmlaDataSource.
 	 */
@@ -63441,7 +63140,6 @@ interface IgPivotDataSelectorDataSourceOptions {
 }
 
 interface IgPivotDataSelectorDragAndDropSettings {
-
 	/**
 	 * Which element the draggable helper should be appended to while dragging.
 	 */
@@ -63469,7 +63167,6 @@ interface DataSelectorRenderedEvent {
 }
 
 interface DataSelectorRenderedEventUIParam {
-
 	/**
 	 * Used to get a reference to the data selector.
 	 */
@@ -63481,7 +63178,6 @@ interface DataSourceInitializedEvent {
 }
 
 interface DataSourceInitializedEventUIParam {
-
 	/**
 	 * Used to get a reference to the data selector.
 	 */
@@ -63508,7 +63204,6 @@ interface DataSourceUpdatedEvent {
 }
 
 interface DataSourceUpdatedEventUIParam {
-
 	/**
 	 * Used to get a reference to the data selector.
 	 */
@@ -63535,7 +63230,6 @@ interface DeferUpdateChangedEvent {
 }
 
 interface DeferUpdateChangedEventUIParam {
-
 	/**
 	 * Used to get a reference to the data selector.
 	 */
@@ -63552,7 +63246,6 @@ interface DragStartEvent {
 }
 
 interface DragStartEventUIParam {
-
 	/**
 	 * Used to get a reference to the data.
 	 */
@@ -63584,7 +63277,6 @@ interface DragEvent {
 }
 
 interface DragEventUIParam {
-
 	/**
 	 * Used to get a reference to the data.
 	 */
@@ -63616,7 +63308,6 @@ interface DragStopEvent {
 }
 
 interface DragStopEventUIParam {
-
 	/**
 	 * Used to get a reference to the helper.
 	 */
@@ -63643,7 +63334,6 @@ interface MetadataDroppingEvent {
 }
 
 interface MetadataDroppingEventUIParam {
-
 	/**
 	 * Used to the drop target.
 	 */
@@ -63685,7 +63375,6 @@ interface MetadataDroppedEvent {
 }
 
 interface MetadataDroppedEventUIParam {
-
 	/**
 	 * Used to the drop target.
 	 */
@@ -63727,7 +63416,6 @@ interface MetadataRemovingEvent {
 }
 
 interface MetadataRemovingEventUIParam {
-
 	/**
 	 * Used to the dragged element.
 	 */
@@ -63744,7 +63432,6 @@ interface MetadataRemovedEvent {
 }
 
 interface MetadataRemovedEventUIParam {
-
 	/**
 	 * Used to get a reference to the data.
 	 */
@@ -63756,7 +63443,6 @@ interface FilterDropDownOpeningEvent {
 }
 
 interface FilterDropDownOpeningEventUIParam {
-
 	/**
 	 * Used to the hierarchy.
 	 */
@@ -63768,7 +63454,6 @@ interface FilterDropDownOpenedEvent {
 }
 
 interface FilterDropDownOpenedEventUIParam {
-
 	/**
 	 * Used to the hierarchy.
 	 */
@@ -63785,7 +63470,6 @@ interface FilterMembersLoadedEvent {
 }
 
 interface FilterMembersLoadedEventUIParam {
-
 	/**
 	 * Used to get the parent node or the igTree instance in the initial load.
 	 */
@@ -63799,7 +63483,6 @@ interface FilterDropDownOkEvent {
 }
 
 interface FilterDropDownOkEventUIParam {
-
 	/**
 	 * Used to the hierarchy.
 	 */
@@ -63817,7 +63500,6 @@ interface FilterDropDownClosingEvent {
 }
 
 interface FilterDropDownClosingEventUIParam {
-
 	/**
 	 * Used to the hierarchy.
 	 */
@@ -63834,7 +63516,6 @@ interface FilterDropDownClosedEvent {
 }
 
 interface FilterDropDownClosedEventUIParam {
-
 	/**
 	 * Used to the hierarchy.
 	 */
@@ -64058,7 +63739,6 @@ interface IgPivotDataSelector {
 	[optionName: string]: any;
 }
 interface IgPivotDataSelectorMethods {
-
 	/**
 	 * Updates the data source.
 	 */
@@ -64556,7 +64236,6 @@ interface JQuery {
 	igPivotDataSelector(methodName: string, ...methodParams: any[]): any;
 }
 interface IgPivotGridDataSourceOptionsXmlaOptionsRequestOptions {
-
 	/**
 	 * The value is applied to XmlHttpRequest.withCredentials if supported by the user agent.
 	 *                         Setting this property to true will allow IE8/IE9 to make authenticated cross-origin requests to tusted domains through XmlHttpRequest instead of XDomainRequest
@@ -64576,7 +64255,6 @@ interface IgPivotGridDataSourceOptionsXmlaOptionsRequestOptions {
 }
 
 interface IgPivotGridDataSourceOptionsXmlaOptionsMdxSettings {
-
 	/**
 	 * Optional="true" a value indicating whether a NON EMPTY clause is present on ROWS axis. Default value is true
 	 */
@@ -64614,7 +64292,6 @@ interface IgPivotGridDataSourceOptionsXmlaOptionsMdxSettings {
 }
 
 interface IgPivotGridDataSourceOptionsXmlaOptions {
-
 	/**
 	 * Optional="false" The URL of the XMLA server.
 	 */
@@ -64669,7 +64346,6 @@ interface IgPivotGridDataSourceOptionsXmlaOptions {
 }
 
 interface IgPivotGridDataSourceOptionsFlatDataOptionsMetadataCubeMeasuresDimensionMeasure {
-
 	/**
 	 * Optional="false" A unique name for the measure.
 	 */
@@ -64698,7 +64374,6 @@ interface IgPivotGridDataSourceOptionsFlatDataOptionsMetadataCubeMeasuresDimensi
 }
 
 interface IgPivotGridDataSourceOptionsFlatDataOptionsMetadataCubeMeasuresDimension {
-
 	/**
 	 * A unique name for the measures dimension.
 	 *                                 The default value is "Measures". This name is used to create the names of dimensions using the following pattern:
@@ -64724,7 +64399,6 @@ interface IgPivotGridDataSourceOptionsFlatDataOptionsMetadataCubeMeasuresDimensi
 }
 
 interface IgPivotGridDataSourceOptionsFlatDataOptionsMetadataCubeDimensionHierarchieLevel {
-
 	/**
 	 * Optional="false" A name for the level.
 	 *                                         The unique name of the level is formed using the following pattern:
@@ -64750,7 +64424,6 @@ interface IgPivotGridDataSourceOptionsFlatDataOptionsMetadataCubeDimensionHierar
 }
 
 interface IgPivotGridDataSourceOptionsFlatDataOptionsMetadataCubeDimensionHierarchie {
-
 	/**
 	 * Optional="false" A name for the hierarchy.
 	 *                                     The unique name of the hierarchy is formed using the following pattern:
@@ -64782,7 +64455,6 @@ interface IgPivotGridDataSourceOptionsFlatDataOptionsMetadataCubeDimensionHierar
 }
 
 interface IgPivotGridDataSourceOptionsFlatDataOptionsMetadataCubeDimension {
-
 	/**
 	 * Optional="false" A unique name for the dimension.
 	 */
@@ -64805,7 +64477,6 @@ interface IgPivotGridDataSourceOptionsFlatDataOptionsMetadataCubeDimension {
 }
 
 interface IgPivotGridDataSourceOptionsFlatDataOptionsMetadataCube {
-
 	/**
 	 * Optional="false" A unique name for the cube.
 	 */
@@ -64833,7 +64504,6 @@ interface IgPivotGridDataSourceOptionsFlatDataOptionsMetadataCube {
 }
 
 interface IgPivotGridDataSourceOptionsFlatDataOptionsMetadata {
-
 	/**
 	 * Optional="false" Metadata used for the creation of the cube.
 	 */
@@ -64846,7 +64516,6 @@ interface IgPivotGridDataSourceOptionsFlatDataOptionsMetadata {
 }
 
 interface IgPivotGridDataSourceOptionsFlatDataOptions {
-
 	/**
 	 * Specifies any valid data source accepted by $.ig.DataSource, or an instance of an $.ig.DataSource itself.
 	 */
@@ -64887,7 +64556,6 @@ interface IgPivotGridDataSourceOptionsFlatDataOptions {
 }
 
 interface IgPivotGridDataSourceOptions {
-
 	/**
 	 * Settings for creating an instance of $.ig.OlapXmlaDataSource.
 	 */
@@ -64925,7 +64593,6 @@ interface IgPivotGridDataSourceOptions {
 }
 
 interface IgPivotGridLevelSortDirection {
-
 	/**
 	 * Specifies the unique name of the level, which will be sorted.
 	 */
@@ -64952,7 +64619,6 @@ interface IgPivotGridLevelSortDirection {
 }
 
 interface IgPivotGridGridOptionsFeatures {
-
 	/**
 	 * Option for IgPivotGridGridOptionsFeatures
 	 */
@@ -64960,7 +64626,6 @@ interface IgPivotGridGridOptionsFeatures {
 }
 
 interface IgPivotGridGridOptions {
-
 	/**
 	 * Default column width that will be set for all columns.
 	 */
@@ -65003,7 +64668,6 @@ interface IgPivotGridGridOptions {
 }
 
 interface IgPivotGridDragAndDropSettings {
-
 	/**
 	 * Which element the draggable helper should be appended to while dragging.
 	 */
@@ -65031,7 +64695,6 @@ interface PivotGridHeadersRenderedEvent {
 }
 
 interface PivotGridHeadersRenderedEventUIParam {
-
 	/**
 	 * Used to get a reference to the pivot grid.
 	 */
@@ -65053,7 +64716,6 @@ interface PivotGridRenderedEvent {
 }
 
 interface PivotGridRenderedEventUIParam {
-
 	/**
 	 * Used to get a reference to the pivot grid.
 	 */
@@ -65070,7 +64732,6 @@ interface TupleMemberExpandingEvent {
 }
 
 interface TupleMemberExpandingEventUIParam {
-
 	/**
 	 * Used to get a reference to the pivot grid.
 	 */
@@ -65102,7 +64763,6 @@ interface TupleMemberExpandedEvent {
 }
 
 interface TupleMemberExpandedEventUIParam {
-
 	/**
 	 * Used to get a reference to the pivot grid.
 	 */
@@ -65134,7 +64794,6 @@ interface TupleMemberCollapsingEvent {
 }
 
 interface TupleMemberCollapsingEventUIParam {
-
 	/**
 	 * Used to get a reference to the pivot grid.
 	 */
@@ -65166,7 +64825,6 @@ interface TupleMemberCollapsedEvent {
 }
 
 interface TupleMemberCollapsedEventUIParam {
-
 	/**
 	 * Used to get a reference to the pivot grid.
 	 */
@@ -65198,7 +64856,6 @@ interface SortingEvent {
 }
 
 interface SortingEventUIParam {
-
 	/**
 	 * Used to get a reference to the pivot grid.
 	 */
@@ -65215,7 +64872,6 @@ interface SortedEvent {
 }
 
 interface SortedEventUIParam {
-
 	/**
 	 * Used to get a reference to the pivot grid.
 	 */
@@ -65237,7 +64893,6 @@ interface HeadersSortingEvent {
 }
 
 interface HeadersSortingEventUIParam {
-
 	/**
 	 * Used to get a reference to the pivot grid.
 	 */
@@ -65254,7 +64909,6 @@ interface HeadersSortedEvent {
 }
 
 interface HeadersSortedEventUIParam {
-
 	/**
 	 * Used to get a reference to the pivot grid.
 	 */
@@ -65692,7 +65346,6 @@ interface IgPivotGrid {
 	[optionName: string]: any;
 }
 interface IgPivotGridMethods {
-
 	/**
 	 * Returns the igGrid instance used to render the OLAP data.
 	 */
@@ -66689,7 +66342,6 @@ interface JQuery {
 	igPivotGrid(methodName: string, ...methodParams: any[]): any;
 }
 interface IgPivotViewDataSourceOptionsXmlaOptionsRequestOptions {
-
 	/**
 	 * The value is applied to XmlHttpRequest.withCredentials if supported by the user agent.
 	 * Setting this property to true will allow IE8/IE9 to make authenticated cross-origin requests to tusted domains through XmlHttpRequest instead of XDomainRequest
@@ -66709,7 +66361,6 @@ interface IgPivotViewDataSourceOptionsXmlaOptionsRequestOptions {
 }
 
 interface IgPivotViewDataSourceOptionsXmlaOptionsMdxSettings {
-
 	/**
 	 * Optional="true" a value indicating whether a NON EMPTY clause is present on ROWS axis. Default value is true
 	 */
@@ -66747,7 +66398,6 @@ interface IgPivotViewDataSourceOptionsXmlaOptionsMdxSettings {
 }
 
 interface IgPivotViewDataSourceOptionsXmlaOptions {
-
 	/**
 	 * Optional="false" The URL of the XMLA server.
 	 */
@@ -66802,7 +66452,6 @@ interface IgPivotViewDataSourceOptionsXmlaOptions {
 }
 
 interface IgPivotViewDataSourceOptionsFlatDataOptionsMetadataCubeMeasuresDimensionMeasure {
-
 	/**
 	 * Optional="false" A unique name for the measure.
 	 */
@@ -66831,7 +66480,6 @@ interface IgPivotViewDataSourceOptionsFlatDataOptionsMetadataCubeMeasuresDimensi
 }
 
 interface IgPivotViewDataSourceOptionsFlatDataOptionsMetadataCubeMeasuresDimension {
-
 	/**
 	 * A unique name for the measures dimension.
 	 * The default value is "Measures". This name is used to create the names of dimensions using the following pattern:
@@ -66857,7 +66505,6 @@ interface IgPivotViewDataSourceOptionsFlatDataOptionsMetadataCubeMeasuresDimensi
 }
 
 interface IgPivotViewDataSourceOptionsFlatDataOptionsMetadataCubeDimensionHierarchieLevel {
-
 	/**
 	 * Optional="false" A name for the level.
 	 * The unique name of the level is formed using the following pattern:
@@ -66883,7 +66530,6 @@ interface IgPivotViewDataSourceOptionsFlatDataOptionsMetadataCubeDimensionHierar
 }
 
 interface IgPivotViewDataSourceOptionsFlatDataOptionsMetadataCubeDimensionHierarchie {
-
 	/**
 	 * Optional="false" A name for the hierarchy.
 	 * The unique name of the hierarchy is formed using the following pattern:
@@ -66915,7 +66561,6 @@ interface IgPivotViewDataSourceOptionsFlatDataOptionsMetadataCubeDimensionHierar
 }
 
 interface IgPivotViewDataSourceOptionsFlatDataOptionsMetadataCubeDimension {
-
 	/**
 	 * Optional="false" A unique name for the dimension.
 	 */
@@ -66938,7 +66583,6 @@ interface IgPivotViewDataSourceOptionsFlatDataOptionsMetadataCubeDimension {
 }
 
 interface IgPivotViewDataSourceOptionsFlatDataOptionsMetadataCube {
-
 	/**
 	 * Optional="false" A unique name for the cube.
 	 */
@@ -66966,7 +66610,6 @@ interface IgPivotViewDataSourceOptionsFlatDataOptionsMetadataCube {
 }
 
 interface IgPivotViewDataSourceOptionsFlatDataOptionsMetadata {
-
 	/**
 	 * Optional="false" Metadata used for the creation of the cube.
 	 */
@@ -66979,7 +66622,6 @@ interface IgPivotViewDataSourceOptionsFlatDataOptionsMetadata {
 }
 
 interface IgPivotViewDataSourceOptionsFlatDataOptions {
-
 	/**
 	 * Specifies any valid data source accepted by $.ig.DataSource, or an instance of an $.ig.DataSource itself.
 	 */
@@ -67020,7 +66662,6 @@ interface IgPivotViewDataSourceOptionsFlatDataOptions {
 }
 
 interface IgPivotViewDataSourceOptions {
-
 	/**
 	 * Settings for creating an instance of $.ig.OlapXmlaDataSource.
 	 */
@@ -67058,7 +66699,6 @@ interface IgPivotViewDataSourceOptions {
 }
 
 interface IgPivotViewPivotGridOptionsLevelSortDirection {
-
 	/**
 	 * Specifies the unique name of the level, which will be sorted.
 	 */
@@ -67077,7 +66717,6 @@ interface IgPivotViewPivotGridOptionsLevelSortDirection {
 }
 
 interface IgPivotViewPivotGridOptionsGridOptionsFeatures {
-
 	/**
 	 * Option for IgPivotViewPivotGridOptionsGridOptionsFeatures
 	 */
@@ -67085,7 +66724,6 @@ interface IgPivotViewPivotGridOptionsGridOptionsFeatures {
 }
 
 interface IgPivotViewPivotGridOptionsGridOptions {
-
 	/**
 	 * Default column width that will be set for all columns.
 	 *
@@ -67132,7 +66770,6 @@ interface IgPivotViewPivotGridOptionsGridOptions {
 }
 
 interface IgPivotViewPivotGridOptionsDragAndDropSettings {
-
 	/**
 	 * Which element the draggable helper should be appended to while dragging.
 	 */
@@ -67156,7 +66793,6 @@ interface IgPivotViewPivotGridOptionsDragAndDropSettings {
 }
 
 interface IgPivotViewPivotGridOptions {
-
 	/**
 	 * A boolean value indicating whether a parent in the columns is in front of its children.
 	 * If set to true, the query set sorts members in a level in their natural order - child members immediately follow their parent members.
@@ -67297,7 +66933,6 @@ interface IgPivotViewPivotGridOptions {
 }
 
 interface IgPivotViewDataSelectorOptionsDragAndDropSettings {
-
 	/**
 	 * Which element the draggable helper should be appended to while dragging.
 	 */
@@ -67321,7 +66956,6 @@ interface IgPivotViewDataSelectorOptionsDragAndDropSettings {
 }
 
 interface IgPivotViewDataSelectorOptions {
-
 	/**
 	 * Settings for the drag and drop functionality of the igPivotDataSelector.
 	 */
@@ -67348,7 +66982,6 @@ interface IgPivotViewDataSelectorOptions {
 }
 
 interface IgPivotViewPivotGridPanel {
-
 	/**
 	 * Determines if the panel containing the igPivotGrid will be resizable.
 	 */
@@ -67381,7 +67014,6 @@ interface IgPivotViewPivotGridPanel {
 }
 
 interface IgPivotViewDataSelectorPanel {
-
 	/**
 	 * Determines the position of the data selector panel inside the igPivotView widget.
 	 */
@@ -67459,7 +67091,6 @@ interface IgPivotView {
 	[optionName: string]: any;
 }
 interface IgPivotViewMethods {
-
 	/**
 	 * Returns the igPivotGrid instance of the pivot view.
 	 */
@@ -67589,7 +67220,6 @@ interface JQuery {
 	igPivotView(methodName: string, ...methodParams: any[]): any;
 }
 interface IgPopover {
-
 	/**
 	 * Controls whether the popover will close on blur or not
 	 */
@@ -67724,7 +67354,6 @@ interface IgPopover {
 	[optionName: string]: any;
 }
 interface IgPopoverMethods {
-
 	/**
 	 * Destroys the popover widget.
 	 */
@@ -68048,7 +67677,6 @@ interface JQuery {
 	igPopover(methodName: string, ...methodParams: any[]): any;
 }
 interface IgRadialGaugeRange {
-
 	/**
 	 * Gets or sets the name of the range.
 	 */
@@ -68111,7 +67739,6 @@ interface IgRadialGaugeRange {
 }
 
 interface IgRadialGauge {
-
 	/**
 	 * The width of the gauge. It can be set as a number in pixels, string (px) or percentage (%).
 	 */
@@ -68546,7 +68173,6 @@ interface IgRadialGauge {
 	[optionName: string]: any;
 }
 interface IgRadialGaugeMethods {
-
 	/**
 	 * Returns a string containing the names of all the ranges delimited with a \n symbol.
 	 */
@@ -69578,7 +69204,6 @@ interface JQuery {
 	igRadialGauge(methodName: string, ...methodParams: any[]): any;
 }
 interface IgRadialMenuItem {
-
 	/**
 	 * Gets or sets a value indicating what type of item is being provided.
 	 *
@@ -69899,7 +69524,6 @@ interface ClosedEvent {
 }
 
 interface ClosedEventUIParam {
-
 	/**
 	 * Used to obtain reference to menu widget.
 	 */
@@ -69911,7 +69535,6 @@ interface OpenedEvent {
 }
 
 interface OpenedEventUIParam {
-
 	/**
 	 * Used to obtain reference to menu widget.
 	 */
@@ -69919,7 +69542,6 @@ interface OpenedEventUIParam {
 }
 
 interface IgRadialMenu {
-
 	/**
 	 * Gets or sets the items in the menu.
 	 */
@@ -70071,7 +69693,6 @@ interface IgRadialMenu {
 	[optionName: string]: any;
 }
 interface IgRadialMenuMethods {
-
 	/**
 	 * Gets or sets the value of a property for the item created with the specified key
 	 *
@@ -70474,7 +70095,6 @@ interface HoverChangeEvent {
 }
 
 interface HoverChangeEventUIParam {
-
 	/**
 	 * Used to get new value.
 	 */
@@ -70491,7 +70111,6 @@ interface ValueChangeEvent {
 }
 
 interface ValueChangeEventUIParam {
-
 	/**
 	 * Used to get new value.
 	 */
@@ -70504,7 +70123,6 @@ interface ValueChangeEventUIParam {
 }
 
 interface IgRating {
-
 	/**
 	 * Gets a vertical or horizontal orientation for the votes.
 	 * Change of that option is not supported after igRating was created.
@@ -70654,7 +70272,6 @@ interface IgRating {
 	[optionName: string]: any;
 }
 interface IgRatingMethods {
-
 	/**
 	 * Gets reference to [igValidator](ui.igvalidator) used by igRating.
 	 *
@@ -71027,7 +70644,6 @@ interface JQuery {
 	igRating(methodName: string, ...methodParams: any[]): any;
 }
 interface IgSchedulerAgendaViewSettings {
-
 	/**
 	 * Gets/Sets the number of days shown in AgendaView mode.
 	 *
@@ -71041,7 +70657,6 @@ interface IgSchedulerAgendaViewSettings {
 }
 
 interface IgSchedulerMonthViewSettings {
-
 	/**
 	 * Gets/Sets the type of content displayed in a MonthView day.
 	 *
@@ -71236,7 +70851,6 @@ interface AppointmentEditedEventUIParam {
 }
 
 interface IgScheduler {
-
 	/**
 	 * Lists of all the views, rendered in the Scheduler.
 	 *
@@ -71396,7 +71010,6 @@ interface IgScheduler {
 	[optionName: string]: any;
 }
 interface IgSchedulerMethods {
-
 	/**
 	 * Gets reference to appointment by id
 	 *
@@ -71857,7 +71470,6 @@ interface ResizingEvent {
 }
 
 interface ResizingEventUIParam {
-
 	/**
 	 * Used to obtain reference to igScroll.
 	 */
@@ -71869,7 +71481,6 @@ interface ResizedEvent {
 }
 
 interface ResizedEventUIParam {
-
 	/**
 	 * Used to obtain reference to igScroll.
 	 */
@@ -71877,7 +71488,6 @@ interface ResizedEventUIParam {
 }
 
 interface IgScroll {
-
 	/**
 	 * Sets or gets if the scrollbars should be always visible (on all environments). Otherwise it will be the default behavior. Note: this option is only for the custom scrollbars set through the scrollbarType option.
 	 *
@@ -72606,7 +72216,6 @@ interface JQuery {
 }
 
 interface IgSliderBookmarks {
-
 	/**
 	 * Get or set the bookmark value. Should be between slider min and max values.
 	 */
@@ -72676,7 +72285,6 @@ interface BookmarkClickEventUIParam {
 }
 
 interface IgSlider {
-
 	/**
 	 * Get or set whether the slide handle will animate when it is moved.
 	 */
@@ -72890,7 +72498,6 @@ interface JQuery {
 }
 
 interface IgResponsiveContainer {
-
 	/**
 	 * The time between two resize checks in milliseconds.
 	 */
@@ -72902,7 +72509,6 @@ interface IgResponsiveContainer {
 	[optionName: string]: any;
 }
 interface IgResponsiveContainerMethods {
-
 	/**
 	 * Destroys the ResponsiveContainer widget
 	 */
@@ -73464,7 +73070,6 @@ interface JQuery {
 	igResponsiveContainer(methodName: string, ...methodParams: any[]): any;
 }
 interface IgSparkline {
-
 	/**
 	 * The width of the sparkline. It can be set as a number in pixels, string (px) or percentage (%).
 	 */
@@ -74680,7 +74285,6 @@ interface JQuery {
 	igSparkline(methodName: string, ...methodParams: any[]): any;
 }
 interface IgSplitButtonItem {
-
 	/**
 	 * Item name
 	 */
@@ -74703,7 +74307,6 @@ interface IgSplitButtonItem {
 }
 
 interface IgSplitButton {
-
 	/**
 	 * Button items.
 	 *
@@ -74768,7 +74371,6 @@ interface IgSplitButton {
 	[optionName: string]: any;
 }
 interface IgSplitButtonMethods {
-
 	/**
 	 * Switch to given igToolbar button.
 	 *
@@ -74953,7 +74555,6 @@ interface JQuery {
 	igSplitButton(methodName: string, ...methodParams: any[]): any;
 }
 interface IgSplitterPanel {
-
 	/**
 	 * Gets the size of the panel
 	 *
@@ -75001,7 +74602,6 @@ interface ResizeStartedEvent {
 }
 
 interface ResizeStartedEventUIParam {
-
 	/**
 	 * Used to get a reference to the splitter instance.
 	 */
@@ -75013,7 +74613,6 @@ interface ResizeEndedEvent {
 }
 
 interface ResizeEndedEventUIParam {
-
 	/**
 	 * Used to get a reference to the splitter instance.
 	 */
@@ -75025,7 +74624,6 @@ interface LayoutRefreshingEvent {
 }
 
 interface LayoutRefreshingEventUIParam {
-
 	/**
 	 * Used to get a reference to the splitter instance.
 	 */
@@ -75037,7 +74635,6 @@ interface LayoutRefreshedEvent {
 }
 
 interface LayoutRefreshedEventUIParam {
-
 	/**
 	 * Used to get a reference to the splitter instance.
 	 */
@@ -75045,7 +74642,6 @@ interface LayoutRefreshedEventUIParam {
 }
 
 interface IgSplitter {
-
 	/**
 	 * Gets/Sets the width of the container.
 	 *
@@ -75156,7 +74752,6 @@ interface IgSplitter {
 	[optionName: string]: any;
 }
 interface IgSplitterMethods {
-
 	/**
 	 * Returns the element that represents this widget.
 	 */
@@ -75487,7 +75082,6 @@ interface WorkbookDirtiedEventUIParam {
 }
 
 interface IgSpreadsheet {
-
 	/**
 	 * The width of the spreadsheet. It can be set as a number in pixels, string (px) or percentage (%).
 	 *
@@ -75698,7 +75292,6 @@ interface IgSpreadsheet {
 	[optionName: string]: any;
 }
 interface IgSpreadsheetMethods {
-
 	/**
 	 * Returns an object that represents the pane with the focus.
 	 */
@@ -76203,7 +75796,6 @@ interface JQuery {
 	igSpreadsheet(methodName: string, ...methodParams: any[]): any;
 }
 interface IgTileManagerSplitterOptionsEvents {
-
 	/**
 	 * Event fired after collapsing is performed. Not cancellable.
 	 *
@@ -76229,7 +75821,6 @@ interface IgTileManagerSplitterOptionsEvents {
 }
 
 interface IgTileManagerSplitterOptions {
-
 	/**
 	 * Gets/Sets whether the splitter should be enabled.
 	 *
@@ -76265,7 +75856,6 @@ interface TileRenderingEvent {
 }
 
 interface TileRenderingEventUIParam {
-
 	/**
 	 * Used to get a reference to the tile manager performing rendering.
 	 */
@@ -76282,7 +75872,6 @@ interface TileRenderedEvent {
 }
 
 interface TileRenderedEventUIParam {
-
 	/**
 	 * Used to get a reference to the tile manager performing rendering.
 	 */
@@ -76299,7 +75888,6 @@ interface TileMaximizingEvent {
 }
 
 interface TileMaximizingEventUIParam {
-
 	/**
 	 * Used to get a reference to the tile manager performing the maximizing the tile belongs to.
 	 */
@@ -76321,7 +75909,6 @@ interface TileMaximizedEvent {
 }
 
 interface TileMaximizedEventUIParam {
-
 	/**
 	 * Used to get a reference to the tile manager the maximized tile belongs to.
 	 */
@@ -76338,7 +75925,6 @@ interface TileMinimizingEvent {
 }
 
 interface TileMinimizingEventUIParam {
-
 	/**
 	 * Used to get a reference to the tile manager performing the minimizing the tile belongs to.
 	 */
@@ -76360,7 +75946,6 @@ interface TileMinimizedEvent {
 }
 
 interface TileMinimizedEventUIParam {
-
 	/**
 	 * Used to get a reference to the tile manager the minimized tile belongs to.
 	 */
@@ -76373,7 +75958,6 @@ interface TileMinimizedEventUIParam {
 }
 
 interface IgTileManager {
-
 	/**
 	 *
 	 *
@@ -76700,7 +76284,6 @@ interface IgTileManager {
 	[optionName: string]: any;
 }
 interface IgTileManagerMethods {
-
 	/**
 	 * Maximizes a given tile.
 	 *
@@ -77439,7 +77022,6 @@ interface WindowResizedEventUIParam {
 }
 
 interface IgToolbar {
-
 	/**
 	 * Set/Get the widget height.
 	 *
@@ -77565,7 +77147,6 @@ interface IgToolbar {
 	[optionName: string]: any;
 }
 interface IgToolbarMethods {
-
 	/**
 	 * Returns the element on which the widget was instantiated
 	 */
@@ -77924,7 +77505,6 @@ interface ActivatingEvent {
 }
 
 interface ActivatingEventUIParam {
-
 	/**
 	 * Used to get reference to this igToolbarButton.
 	 */
@@ -77936,7 +77516,6 @@ interface ActivatedEvent {
 }
 
 interface ActivatedEventUIParam {
-
 	/**
 	 * Used to get reference to this igToolbarButton.
 	 */
@@ -77948,7 +77527,6 @@ interface DeactivatingEvent {
 }
 
 interface DeactivatingEventUIParam {
-
 	/**
 	 * Used to get reference to this igToolbarButton.
 	 */
@@ -77960,7 +77538,6 @@ interface DeactivatedEvent {
 }
 
 interface DeactivatedEventUIParam {
-
 	/**
 	 * Used to get reference to this igToolbarButton.
 	 */
@@ -77968,7 +77545,6 @@ interface DeactivatedEventUIParam {
 }
 
 interface IgToolbarButton {
-
 	/**
 	 * Enable/Disable the "Toggling" of a button.
 	 *
@@ -78015,7 +77591,6 @@ interface IgToolbarButton {
 	[optionName: string]: any;
 }
 interface IgToolbarButtonMethods {
-
 	/**
 	 * Toggle toolbar button
 	 */
@@ -78154,7 +77729,6 @@ interface JQuery {
 	igToolbarButton(methodName: string, ...methodParams: any[]): any;
 }
 interface IgTreeBindingsBindings {
-
 	/**
 	 * Option for IgTreeBindingsBindings
 	 */
@@ -78162,7 +77736,6 @@ interface IgTreeBindingsBindings {
 }
 
 interface IgTreeBindings {
-
 	/**
 	 * Gets the name of the data source property the value of which would be the node text.
 	 *
@@ -78271,7 +77844,6 @@ interface IgTreeBindings {
 }
 
 interface IgTreeDragAndDropSettings {
-
 	/**
 	 * Gets whether the widget will accept drag and drop from other controls.
 	 *
@@ -78511,7 +78083,6 @@ interface NodeDroppedEventUIParam {
 }
 
 interface IgTree {
-
 	/**
 	 * Gets/Sets the width of the control container.
 	 *
@@ -78841,7 +78412,6 @@ interface IgTree {
 	[optionName: string]: any;
 }
 interface IgTreeMethods {
-
 	/**
 	 * Performs databinding on the igTree.
 	 */
@@ -79744,7 +79314,6 @@ interface JQuery {
 	igTree(methodName: string, ...methodParams: any[]): any;
 }
 interface IgTreeGridColumnFixing {
-
 	/**
 	 * Specifies the tooltip text on the column fixing header icon when column is not fixed.
 	 *
@@ -80221,7 +79790,6 @@ interface JQuery {
 	igTreeGridColumnFixing(methodName: string, ...methodParams: any[]): any;
 }
 interface IgTreeGridColumnMoving {
-
 	/**
 	 * A list of column settings that specifies moving options on a per column basis.
 	 *
@@ -81108,7 +80676,6 @@ interface JQuery {
 	igTreeGridColumnMoving(methodName: string, ...methodParams: any[]): any;
 }
 interface IgTreeGridFiltering {
-
 	/**
 	 * The property in the response that will hold the total number of records in the data source
 	 *
@@ -81563,7 +81130,6 @@ interface IgTreeGridFiltering {
 	[optionName: string]: any;
 }
 interface IgTreeGridFilteringMethods {
-
 	/**
 	 * Returns the count of data records that match filtering conditions
 	 */
@@ -82522,7 +82088,6 @@ interface JQuery {
 	igTreeGridFiltering(methodName: string, ...methodParams: any[]): any;
 }
 interface IgTreeGridHiding {
-
 	/**
 	 * A list of column settings that specifies hiding options on a per column basis.
 	 *
@@ -83280,7 +82845,6 @@ interface JQuery {
 	igTreeGridHiding(methodName: string, ...methodParams: any[]): any;
 }
 interface IgTreeGridDataSourceSettings {
-
 	/**
 	 * *** IMPORTANT DEPRECATED *** Use the expandedKey option instead.
 	 * The name of the property that keeps track of the expansion state of a data item. Defaults to __ig_options.expanded.
@@ -83320,7 +82884,6 @@ interface IgTreeGridDataSourceSettings {
 }
 
 interface IgTreeGrid {
-
 	/**
 	 * Specifies the indentation (in pixels or percent) for a tree grid row. Nested indentation is achieved by calculating the level times the indentation value. Ex: '10px' or '5%'. Default is 30.
 	 *
@@ -83895,7 +83458,6 @@ interface IgTreeGrid {
 	[optionName: string]: any;
 }
 interface IgTreeGridMethods {
-
 	/**
 	 * Clears the transaction log (delegates to igDataSource). Note that this does not update the UI. In case the UI must be updated, set the second parameter "updateUI" to true, which will trigger a call to dataBind() to re-render the contents.
 	 *
@@ -85695,7 +85257,6 @@ interface JQuery {
 	igTreeGrid(methodName: string, ...methodParams: any[]): any;
 }
 interface IgTreeGridMultiColumnHeaders {
-
 	/**
 	 * Enables/disables feature inheritance for the child layouts. NOTE: It only applies for igHierarchicalGrid.
 	 */
@@ -85852,7 +85413,6 @@ interface ContextRowRenderedEventUIParam {
 }
 
 interface IgTreeGridPaging {
-
 	/**
 	 * Sets gets paging mode.
 	 *
@@ -86173,7 +85733,6 @@ interface IgTreeGridPaging {
 	[optionName: string]: any;
 }
 interface IgTreeGridPagingMethods {
-
 	/**
 	 * Destroys the igTreeGridPaging feature by removing all elements in the pager area, unbinding events, and resetting data to discard data filtering on paging
 	 */
@@ -86914,7 +86473,6 @@ interface JQuery {
 	igTreeGridPaging(methodName: string, ...methodParams: any[]): any;
 }
 interface IgTreeGridResizing {
-
 	/**
 	 * Resize the column to the size of the longest currently visible cell value.
 	 *
@@ -87093,7 +86651,6 @@ interface JQuery {
 	igTreeGridResizing(methodName: string, ...methodParams: any[]): any;
 }
 interface IgTreeGridRowSelectors {
-
 	/**
 	 * Determines row numbering format.
 	 *
@@ -87506,7 +87063,6 @@ interface JQuery {
 	igTreeGridRowSelectors(methodName: string, ...methodParams: any[]): any;
 }
 interface IgTreeGridSelection {
-
 	/**
 	 * Enables / Disables multiple selection of cells and rows - depending on the mode
 	 *
@@ -88000,7 +87556,6 @@ interface JQuery {
 	igTreeGridSelection(methodName: string, ...methodParams: any[]): any;
 }
 interface IgTreeGridSorting {
-
 	/**
 	 * Specifies from which data bound level to be applied sorting - 0 is the first level
 	 *
@@ -88297,7 +87852,6 @@ interface IgTreeGridSorting {
 	[optionName: string]: any;
 }
 interface IgTreeGridSortingMethods {
-
 	/**
 	 * Returns whether a column with the specified columnKey is sorted(taken from the data source sorting expressions)
 	 *
@@ -89011,7 +88565,6 @@ interface JQuery {
 	igTreeGridSorting(methodName: string, ...methodParams: any[]): any;
 }
 interface IgTreeGridTooltips {
-
 	/**
 	 * determines the tooltip visibility option
 	 *
@@ -89299,7 +88852,6 @@ interface JQuery {
 	igTreeGridTooltips(methodName: string, ...methodParams: any[]): any;
 }
 interface IgTreeGridUpdating {
-
 	/**
 	 * Specifies whether to enable or disable adding children to rows.
 	 *
@@ -89581,7 +89133,6 @@ interface IgTreeGridUpdating {
 	[optionName: string]: any;
 }
 interface IgTreeGridUpdatingMethods {
-
 	/**
 	 * Adds a new child to a specific row. It also creates a transaction and updates the UI.
 	 *
@@ -90394,7 +89945,6 @@ interface JQuery {
 }
 
 interface IgUploadFileExtensionIcons {
-
 	/**
 	 * Array of string for file extensions
 	 */
@@ -90487,7 +90037,6 @@ interface OnFormDataSubmitEventUIParam {
 }
 
 interface IgUpload {
-
 	/**
 	 * Get or set width of the main container of the file upload control. Main container contains all buttons, progressbar, etc.
 	 *
@@ -90785,7 +90334,6 @@ interface IgUpload {
 	[optionName: string]: any;
 }
 interface IgUploadMethods {
-
 	/**
 	 * Return jquery object of fileupload container - html DOM element
 	 */
@@ -91597,7 +91145,6 @@ interface JQuery {
 	igUpload(methodName: string, ...methodParams: any[]): any;
 }
 interface IgValidatorField {
-
 	/**
 	 * Gets the target element (input or control target) to be validated. This field setting is required.
 	 *
@@ -91619,7 +91166,6 @@ interface ValidatingEvent {
 }
 
 interface ValidatingEventUIParam {
-
 	/**
 	 * Used to get reference to the igValidator widget.
 	 */
@@ -91636,7 +91182,6 @@ interface ValidatedEvent {
 }
 
 interface ValidatedEventUIParam {
-
 	/**
 	 * Used to get reference to the igValidator widget.
 	 */
@@ -91663,7 +91208,6 @@ interface SuccessEvent {
 }
 
 interface SuccessEventUIParam {
-
 	/**
 	 * Used to get reference to the igValidator widget.
 	 */
@@ -91690,7 +91234,6 @@ interface ErrorEvent {
 }
 
 interface ErrorEventUIParam {
-
 	/**
 	 * Used to get reference to the igValidator widget.
 	 */
@@ -91717,7 +91260,6 @@ interface ErrorShowingEvent {
 }
 
 interface ErrorShowingEventUIParam {
-
 	/**
 	 * Used to get reference to the igValidator widget.
 	 */
@@ -91739,7 +91281,6 @@ interface ErrorHidingEvent {
 }
 
 interface ErrorHidingEventUIParam {
-
 	/**
 	 * Used to get reference to the igValidator widget.
 	 */
@@ -91761,7 +91302,6 @@ interface ErrorShownEvent {
 }
 
 interface ErrorShownEventUIParam {
-
 	/**
 	 * Used to get reference to the igValidator widget.
 	 */
@@ -91783,7 +91323,6 @@ interface ErrorHiddenEvent {
 }
 
 interface ErrorHiddenEventUIParam {
-
 	/**
 	 * Used to get reference to the igValidator widget.
 	 */
@@ -91805,7 +91344,6 @@ interface SuccessShowingEvent {
 }
 
 interface SuccessShowingEventUIParam {
-
 	/**
 	 * Used to get reference to the igValidator widget.
 	 */
@@ -91827,7 +91365,6 @@ interface SuccessHidingEvent {
 }
 
 interface SuccessHidingEventUIParam {
-
 	/**
 	 * Used to get reference to the igValidator widget.
 	 */
@@ -91849,7 +91386,6 @@ interface SuccessShownEvent {
 }
 
 interface SuccessShownEventUIParam {
-
 	/**
 	 * Used to get reference to the igValidator widget.
 	 */
@@ -91871,7 +91407,6 @@ interface SuccessHiddenEvent {
 }
 
 interface SuccessHiddenEventUIParam {
-
 	/**
 	 * Used to get reference to the igValidator widget.
 	 */
@@ -91893,7 +91428,6 @@ interface FormValidatingEvent {
 }
 
 interface FormValidatingEventUIParam {
-
 	/**
 	 * Used to get reference to the igValidator widget.
 	 */
@@ -91910,7 +91444,6 @@ interface FormValidatedEvent {
 }
 
 interface FormValidatedEventUIParam {
-
 	/**
 	 * Used to get reference to the igValidator widget.
 	 */
@@ -91932,7 +91465,6 @@ interface FormErrorEvent {
 }
 
 interface FormErrorEventUIParam {
-
 	/**
 	 * Used to get reference to the igValidator widget.
 	 */
@@ -91949,7 +91481,6 @@ interface FormSuccessEvent {
 }
 
 interface FormSuccessEventUIParam {
-
 	/**
 	 * Used to get reference to the igValidator widget.
 	 */
@@ -91962,7 +91493,6 @@ interface FormSuccessEventUIParam {
 }
 
 interface IgValidator {
-
 	/**
 	 * Gets/Sets whether validation is triggered when the text in editor changes.
 	 * Note that this is more appropriate for selection controls such as checkbox, combo or rating.
@@ -92325,7 +91855,6 @@ interface IgValidator {
 	[optionName: string]: any;
 }
 interface IgValidatorMethods {
-
 	/**
 	 * Trigger validation and show errors for invalid fields.
 	 *
@@ -92403,7 +91932,7 @@ interface JQuery {
 }
 
 declare namespace Infragistics {
-export class IgValidatorBaseRule {
+class IgValidatorBaseRule {
 	constructor(name: string);
 	constructor(formatItems: any[]);
 
@@ -92443,7 +91972,7 @@ IgValidatorBaseRule: typeof Infragistics.IgValidatorBaseRule;
 }
 
 declare namespace Infragistics {
-export class IgValidatorRequiredRule {
+class IgValidatorRequiredRule {
 	constructor(name: string);
 	constructor(groupTypes: any[]);
 	constructor(groupMessageName: string);
@@ -92471,7 +92000,7 @@ IgValidatorRequiredRule: typeof Infragistics.IgValidatorRequiredRule;
 }
 
 declare namespace Infragistics {
-export class IgValidatorControlRule {
+class IgValidatorControlRule {
 	constructor(name: string);
 	constructor(formatItems: any[]);
 	getMessageType(): void;
@@ -92497,7 +92026,7 @@ IgValidatorControlRule: typeof Infragistics.IgValidatorControlRule;
 }
 
 declare namespace Infragistics {
-export class IgValidatorNumberRule {
+class IgValidatorNumberRule {
 	constructor(name: string);
 	constructor(formatItems: any[]);
 	isValid(options: Object, value: Object): void;
@@ -92530,7 +92059,7 @@ IgValidatorNumberRule: typeof Infragistics.IgValidatorNumberRule;
 }
 
 declare namespace Infragistics {
-export class IgValidatorDateRule {
+class IgValidatorDateRule {
 	constructor(name: string);
 	constructor(formatItems: any[]);
 	isValid(options: Object, value: Object): void;
@@ -92563,7 +92092,7 @@ IgValidatorDateRule: typeof Infragistics.IgValidatorDateRule;
 }
 
 declare namespace Infragistics {
-export class IgValidatorLengthRule {
+class IgValidatorLengthRule {
 	constructor(name: string);
 	constructor(formatItems: any[]);
 	getMessageType(): void;
@@ -92589,7 +92118,7 @@ IgValidatorLengthRule: typeof Infragistics.IgValidatorLengthRule;
 }
 
 declare namespace Infragistics {
-export class IgValidatorValueRule {
+class IgValidatorValueRule {
 	constructor(name: string);
 	constructor(formatItems: any[]);
 	getMessageType(): void;
@@ -92601,7 +92130,7 @@ IgValidatorValueRule: typeof Infragistics.IgValidatorValueRule;
 }
 
 declare namespace Infragistics {
-export class IgValidatorEqualToRule {
+class IgValidatorEqualToRule {
 	constructor(name: string);
 	constructor(formatItems: any[]);
 	isValid(options: Object, value: Object): void;
@@ -92634,7 +92163,7 @@ IgValidatorEqualToRule: typeof Infragistics.IgValidatorEqualToRule;
 }
 
 declare namespace Infragistics {
-export class IgValidatorEmailRule {
+class IgValidatorEmailRule {
 	constructor(name: string);
 	constructor(formatItems: any[]);
 	isValid(options: Object, value: Object): void;
@@ -92667,7 +92196,7 @@ IgValidatorEmailRule: typeof Infragistics.IgValidatorEmailRule;
 }
 
 declare namespace Infragistics {
-export class IgValidatorPatternRule {
+class IgValidatorPatternRule {
 	constructor(name: string);
 	constructor(formatItems: any[]);
 	isValid(options: Object, value: Object): void;
@@ -92700,7 +92229,7 @@ IgValidatorPatternRule: typeof Infragistics.IgValidatorPatternRule;
 }
 
 declare namespace Infragistics {
-export class IgValidatorCustomRule {
+class IgValidatorCustomRule {
 	constructor(name: string);
 	constructor(formatItems: any[]);
 	getMessageType(): void;
@@ -92726,7 +92255,7 @@ IgValidatorCustomRule: typeof Infragistics.IgValidatorCustomRule;
 }
 
 declare namespace Infragistics {
-export class IgValidatorCreditCardRule {
+class IgValidatorCreditCardRule {
 	constructor(name: string);
 	constructor(formatItems: any[]);
 
@@ -93489,7 +93018,6 @@ interface JQuery {
 	igValidator(methodName: string, ...methodParams: any[]): any;
 }
 interface IgVideoPlayerBookmark {
-
 	/**
 	 * Gets/Sets where the bookmark will be positioned. Should be between 0 and movie duration in seconds.
 	 *
@@ -93515,7 +93043,6 @@ interface IgVideoPlayerBookmark {
 }
 
 interface IgVideoPlayerRelatedVideo {
-
 	/**
 	 * Gets/Sets the URL of the related video image.
 	 *
@@ -93565,7 +93092,6 @@ interface IgVideoPlayerRelatedVideo {
 }
 
 interface IgVideoPlayerBanner {
-
 	/**
 	 * Gets/Sets the banner image url.
 	 *
@@ -93645,7 +93171,6 @@ interface IgVideoPlayerBanner {
 }
 
 interface IgVideoPlayerCommercialsLinkedCommercial {
-
 	/**
 	 * Gets/Sets the sources of the linked commercial video.
 	 *
@@ -93677,7 +93202,6 @@ interface IgVideoPlayerCommercialsLinkedCommercial {
 }
 
 interface IgVideoPlayerCommercialsEmbeddedCommercial {
-
 	/**
 	 * Gets/Sets the start second of the embedded commercial.
 	 *
@@ -93709,7 +93233,6 @@ interface IgVideoPlayerCommercialsEmbeddedCommercial {
 }
 
 interface IgVideoPlayerCommercialsAdMessage {
-
 	/**
 	 * Gets/Sets whether to apply an animation effect when showing or hiding the ad message. If set to true, the animation is played for [animationDuration](ui.igvideoplayer#options:commercials.adMessage.animationDuration) in milliseconds.
 	 *
@@ -93741,7 +93264,6 @@ interface IgVideoPlayerCommercialsAdMessage {
 }
 
 interface IgVideoPlayerCommercials {
-
 	/**
 	 * Gets/Sets an array of linked commercial objects. A linked commercial is a separate video file that will be played in the specified position of the original movie clip by [startTime](ui.igvideoplayer#options:commercials.linkedCommercials.startTime). This feature is useful if you have frequently changing outside commercial sources.
 	 *
@@ -93783,7 +93305,6 @@ interface EndedEvent {
 }
 
 interface EndedEventUIParam {
-
 	/**
 	 * Used to get the url of the playing video.
 	 */
@@ -93800,7 +93321,6 @@ interface PlayingEvent {
 }
 
 interface PlayingEventUIParam {
-
 	/**
 	 * Used to get the url of the playing video.
 	 */
@@ -93817,7 +93337,6 @@ interface PausedEvent {
 }
 
 interface PausedEventUIParam {
-
 	/**
 	 * Used to get the url of the playing video.
 	 */
@@ -93834,7 +93353,6 @@ interface BufferingEvent {
 }
 
 interface BufferingEventUIParam {
-
 	/**
 	 * Used to get the url of the playing video.
 	 */
@@ -93851,7 +93369,6 @@ interface ProgressEvent {
 }
 
 interface ProgressEventUIParam {
-
 	/**
 	 * Used to get the url of the playing video.
 	 */
@@ -93873,7 +93390,6 @@ interface WaitingEvent {
 }
 
 interface WaitingEventUIParam {
-
 	/**
 	 * Used to get the url of the playing video.
 	 */
@@ -93895,7 +93411,6 @@ interface EnterFullScreenEvent {
 }
 
 interface EnterFullScreenEventUIParam {
-
 	/**
 	 * Used to get the url of the playing video.
 	 */
@@ -93907,7 +93422,6 @@ interface ExitFullScreenEvent {
 }
 
 interface ExitFullScreenEventUIParam {
-
 	/**
 	 * Used to get the url of the playing video.
 	 */
@@ -93919,7 +93433,6 @@ interface RelatedVideoClickEvent {
 }
 
 interface RelatedVideoClickEventUIParam {
-
 	/**
 	 * Used to get the relatedVideo object from the relatedVideos array.
 	 */
@@ -93936,7 +93449,6 @@ interface BannerVisibleEvent {
 }
 
 interface BannerVisibleEventUIParam {
-
 	/**
 	 * Used to get the banner index in the banners array.
 	 */
@@ -93958,7 +93470,6 @@ interface BannerHiddenEvent {
 }
 
 interface BannerHiddenEventUIParam {
-
 	/**
 	 * Used to get the banner index in the banners array.
 	 */
@@ -93980,7 +93491,6 @@ interface BannerClickEvent {
 }
 
 interface BannerClickEventUIParam {
-
 	/**
 	 * Used to get the banner html element in the DOM.
 	 */
@@ -93988,7 +93498,6 @@ interface BannerClickEventUIParam {
 }
 
 interface IgVideoPlayer {
-
 	/**
 	 * Gets/Sets a list of video sources to choose from. Best coded/format is automatically detected by the control. Supported types are depending on the browser and could be one of the following mov, mp4, webm, ogg.
 	 *
@@ -94254,7 +93763,6 @@ interface IgVideoPlayer {
 	[optionName: string]: any;
 }
 interface IgVideoPlayerMethods {
-
 	/**
 	 * Returns the element on which the widget was instantiated
 	 */
@@ -94987,7 +94495,6 @@ interface JQuery {
 	igVideoPlayer(methodName: string, ...methodParams: any[]): any;
 }
 interface IgZoombarDefaultZoomWindow {
-
 	/**
 	 * The left component of the zoom window in percentages.
 	 *
@@ -95070,7 +94577,6 @@ interface WindowResizingEventUIParam {
 }
 
 interface IgZoombar {
-
 	/**
 	 * Specifies a provider class which interfaces the widget that is being zoomed.
 	 * object Provider class to use. The provider should implement all methods in the $.ig.ZoombarProviderDefault class and is suggested to be extended from it.
@@ -95217,7 +94723,6 @@ interface IgZoombar {
 	[optionName: string]: any;
 }
 interface IgZoombarMethods {
-
 	/**
 	 * Destroys the Zoombar widget
 	 */
@@ -95256,7 +94761,6 @@ interface JQuery {
 }
 
 interface ZoombarProviderDefaultSettings {
-
 	/**
 	 * Contains the target component's instance
 	 */
@@ -95283,7 +94787,7 @@ interface ZoombarProviderDefaultSettings {
 }
 
 declare namespace Infragistics {
-export class ZoombarProviderDefault {
+class ZoombarProviderDefault {
 	constructor(settings: ZoombarProviderDefaultSettings);
 
 	/**
@@ -95359,7 +94863,7 @@ ZoombarProviderDefault: typeof Infragistics.ZoombarProviderDefault;
 }
 
 declare namespace Infragistics {
-export class ZoombarProviderDataChart {
+class ZoombarProviderDataChart {
 	constructor(settings: ZoombarProviderDefaultSettings);
 	clean(): void;
 	getBaseOpts(options: Object): void;
