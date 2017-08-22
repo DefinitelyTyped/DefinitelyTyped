@@ -15,13 +15,12 @@ import {
     Radio, Checkbox, Media, InputGroup
 } from 'react-bootstrap';
 
-
 export class ReactBootstrapTest extends Component {
     callback() {
         alert('Callback: ' + JSON.stringify(arguments));
     }
 
-    public render() {
+    render() {
         let style: CSSProperties = { padding: '50px' };
         let tooltip = (<Tooltip><strong>Holy guacamole!</strong> Check this info.</Tooltip>);
 
@@ -37,6 +36,12 @@ export class ReactBootstrapTest extends Component {
 
         return (
             <div style={style}>
+                { innerGlyphicon }
+                { innerButton }
+                { innerDropdown }
+                { innerRadio }
+                { innerCheckbox }
+
                 <div style={style}>
                     <ButtonToolbar>
                         <Button>Default</Button>
@@ -82,14 +87,12 @@ export class ReactBootstrapTest extends Component {
                     </ButtonToolbar>
                 </div>
 
-
                 <div style={style}>
                     <ButtonToolbar>
                         <Button href='#'>Link</Button>
                         <Button>Button</Button>
                     </ButtonToolbar>
                 </div>
-
 
                 <div style={style}>
                     <ButtonGroup>
@@ -300,15 +303,12 @@ export class ReactBootstrapTest extends Component {
                 <div style={style}>
                   <Accordion>
                     <Panel header='Collapsible Group Item #1' eventKey='1'>
-                      Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
                 farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
                     </Panel>
                     <Panel header='Collapsible Group Item #2' eventKey='2'>
-                      Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
                 farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
                     </Panel>
                     <Panel header='Collapsible Group Item #3' eventKey='3'>
-                      Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
                 farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
                     </Panel>
                   </Accordion>
@@ -316,7 +316,15 @@ export class ReactBootstrapTest extends Component {
 
                 <div style={style}>
                   <div className='static-modal'>
-                    <Modal.Dialog onHide={this.callback} onEnter={this.callback} onEntered={this.callback} onEntering={this.callback} onExit={this.callback} onExited={this.callback} onExiting={this.callback}>
+                    <Modal.Dialog
+                      onHide={this.callback}
+                      onEnter={this.callback}
+                      onEntered={this.callback}
+                      onEntering={this.callback}
+                      onExit={this.callback}
+                      onExited={this.callback}
+                      onExiting={this.callback}
+                    >
                       <Modal.Header>
                         <Modal.Title>Modal title</Modal.Title>
                       </Modal.Header>
@@ -351,15 +359,6 @@ export class ReactBootstrapTest extends Component {
                             <hr />
 
                             <h4>Overflowing text to show scroll behavior</h4>
-                            <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-                            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-                            <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-                            <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-                            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-                            <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-                            <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-                            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-                            <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
                         </Modal.Body>
                         <Modal.Footer>
                             <Button onClick={() => ({})}>Close</Button>
@@ -605,7 +604,7 @@ export class ReactBootstrapTest extends Component {
                      onEntering={() => {}}
                      onExit={() => {}}
                      onExited={() => {}}
-                     onExiting={()=>{}}
+                     onExiting={() => {}}
                      unmountOnExit={true}
                      bsClass="some style" tabClassName="classname"  eventKey={1} title='Tab 1'>Tab 1 content</Tab>
                     <Tab eventKey={2} title='Tab 2'>Tab 2 content</Tab>
@@ -686,7 +685,7 @@ export class ReactBootstrapTest extends Component {
 
                 <div style={style}>
                     <Pagination
-                      buttonComponentClass={( props:any ) =>
+                      buttonComponentClass={( props: any ) =>
                           <SafeAnchor href="/test" disabled role="role"/>
                       }
                       maxButtons={10}/>
@@ -1266,7 +1265,7 @@ export class ReactBootstrapTest extends Component {
                   </Media.Left>
                   <Media.Body>
                     <Media.Heading>Top aligned media</Media.Heading>
-                    <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.</p>
+                    <p>Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.</p>
                     <p>Donec sed odio dui. Nullam quis risus eget urna mollis ornare vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
                   </Media.Body>
                 </Media>
