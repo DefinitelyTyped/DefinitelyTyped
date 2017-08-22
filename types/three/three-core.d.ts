@@ -4983,6 +4983,7 @@ export class WebGLRenderer implements Renderer {
 
     capabilities: WebGLCapabilities;
     properties: WebGLProperties;
+    renderLists: WebGLRenderLists;
     state: WebGLState;
     allocTextureUnit: any;
 
@@ -5106,6 +5107,26 @@ export class WebGLRenderer implements Renderer {
 }
 
 export interface RenderTarget {} // not defined in the code, used in LightShadow and WebGRenderer classes
+
+export class WebGLRenderList
+{
+    opaque: Array<Object3D>;
+    transparent: Array<any>;
+    init(): void;
+    push(object, geometry, material, z, group): void;
+
+    sort(): void;
+}
+
+export class WebGLRenderLists{
+    dispose(): void;
+    /**
+    * 
+    * returns {<String> : <WebGLRenderList>}
+    */
+    get(scene: Scene, camera: Camera): WebGLRenderList;
+}
+
 
 export interface WebGLRenderTargetOptions {
     wrapS?: Wrapping;
