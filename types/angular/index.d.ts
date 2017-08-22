@@ -9,6 +9,9 @@
 
 /// <reference path="jqlite.d.ts" />
 
+// NOTE: @types/angular technically doesn't require TypeScript 2.3, only TypeScript 2.1.
+// It has a TypeScript 2.3 header so that merging tests with @types/jquery v3 will work.
+
 declare var angular: angular.IAngularStatic;
 
 // Support for painless dependency injection
@@ -1520,23 +1523,27 @@ declare namespace angular {
         (data: T, status: number, headers: IHttpHeadersGetter, config: IRequestConfig): void;
     }
 
-    interface IHttpPromiseCallbackArg<T> {
-        data?: T;
-        status?: number;
-        headers?: IHttpHeadersGetter;
-        config?: IRequestConfig;
-        statusText?: string;
+    interface IHttpResponse<T> {
+        data: T;
+        status: number;
+        headers: IHttpHeadersGetter;
+        config: IRequestConfig;
+        statusText: string;
+        /** Added in AngularJS 1.6.6 */
+        xhrStatus: 'complete' | 'error' | 'timeout' | 'abort';
     }
 
-    interface IHttpPromise<T> extends IPromise<IHttpPromiseCallbackArg<T>> {
-    }
+    /** @deprecated The old name of IHttpResponse. Kept for compatibility. */
+    type IHttpPromiseCallbackArg<T> = IHttpResponse<T>;
+
+    type IHttpPromise<T> = IPromise<IHttpResponse<T>>;
 
     // See the jsdoc for transformData() at https://github.com/angular/angular.js/blob/master/src/ng/http.js#L228
     interface IHttpRequestTransformer {
         (data: any, headersGetter: IHttpHeadersGetter): any;
     }
 
-    // The definition of fields are the same as IHttpPromiseCallbackArg
+    // The definition of fields are the same as IHttpResponse
     interface IHttpResponseTransformer {
         (data: any, headersGetter: IHttpHeadersGetter, status: number): any;
     }
@@ -1609,10 +1616,10 @@ declare namespace angular {
     }
 
     interface IHttpInterceptor {
-        request?(config: IRequestConfig): IRequestConfig|IPromise<IRequestConfig>;
-        requestError?(rejection: any): any;
-        response?<T>(response: IHttpPromiseCallbackArg<T>): IPromise<IHttpPromiseCallbackArg<T>>|IHttpPromiseCallbackArg<T>;
-        responseError?(rejection: any): any;
+        request?(config: IRequestConfig): IRequestConfig | IPromise<IRequestConfig>;
+        requestError?(rejection: any): IRequestConfig | IPromise<IRequestConfig>;
+        response?<T>(response: IHttpResponse<T>): IPromise<IHttpResponse<T>> | IHttpResponse<T>;
+        responseError?<T>(rejection: any): IPromise<IHttpResponse<T>> | IHttpResponse<T>;
     }
 
     interface IHttpInterceptorFactory {
