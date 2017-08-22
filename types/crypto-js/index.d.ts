@@ -30,7 +30,7 @@ declare namespace CryptoJS {
 		salt: string;
 		ciphertext: string;
 		key?: string;
-        toString(encoder?: Encoder): string;
+		toString(encoder?: Encoder): string;
 	}
 	export type DecryptedMessage = {
 		toString(encoder?: Encoder): string;
