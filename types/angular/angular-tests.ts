@@ -433,7 +433,7 @@ httpFoo.then((x) => {
     x.toFixed();
 });
 
-httpFoo.then((response: ng.IHttpResponse<any>) => {
+httpFoo.then((response: ng.IHttpResponse) => {
     const h = response.headers('test');
     h.charAt(0);
     const hs = response.headers();
