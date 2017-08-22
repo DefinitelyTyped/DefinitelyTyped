@@ -61,31 +61,38 @@ angular.module('http-auth-interceptor', [])
  * $http interceptor.
  * On 401 response - it stores the request and broadcasts 'event:angular-auth-loginRequired'.
  */
-    .config(['$httpProvider', 'authServiceProvider', ($httpProvider: ng.IHttpProvider, authServiceProvider: any) => {
-        $httpProvider.defaults.headers.common = {Authorization: 'Bearer token'};
-        $httpProvider.defaults.headers.get['Authorization'] = 'Bearer token';
-        $httpProvider.defaults.headers.post['Authorization'] = (config: ng.IRequestConfig) => 'Bearer token';
+    .config([
+        '$httpProvider', 'authServiceProvider',
+        ($httpProvider: ng.IHttpProvider, authServiceProvider: AuthService) => {
+            $httpProvider.defaults.headers.common = { Authorization: 'Bearer token' };
+            $httpProvider.defaults.headers.get.Authorization = 'Bearer token';
+            $httpProvider.defaults.headers.post['Authorization'] = (config: ng.IRequestConfig) =>
+                'Bearer token';
 
-        const interceptor = ['$rootScope', '$q', ($rootScope: ng.IScope, $q: ng.IQService) => {
-            function success(response: ng.IHttpPromiseCallbackArg<any>) {
-                return response;
-            }
-
-            function error(response: ng.IHttpPromiseCallbackArg<any>) {
-                if (response.status === 401) {
-                    const deferred = $q.defer<void>();
-                    authServiceProvider.pushToBuffer(response.config, deferred);
-                    $rootScope.$broadcast('event:auth-loginRequired');
-                    return deferred.promise;
+            const interceptor = [
+                '$rootScope', '$q',
+                ($rootScope: ng.IScope, $q: ng.IQService) => {
+                    return {
+                        request(config: ng.IRequestConfig) {
+                            if (!config.params) config.params = {};
+                            config.params.rnd = Math.random();
+                            return config;
+                        },
+                        responseError(rejection: any) {
+                            if (rejection.status === 401) {
+                                const deferred = $q.defer<ng.IHttpResponse<any>>();
+                                authServiceProvider.pushToBuffer(rejection.config, deferred);
+                                $rootScope.$broadcast('event:auth-loginRequired');
+                                return deferred.promise;
+                            }
+                            return $q.reject(rejection);
+                        }
+                    };
                 }
-                // otherwise
-                return $q.reject(response);
-            }
-
-            return (promise: ng.IHttpPromise<any>) => promise.then(success, error);
-        }];
-        $httpProvider.interceptors.push(interceptor);
-    }]);
+            ];
+            $httpProvider.interceptors.push(interceptor);
+        }
+    ]);
 
 namespace HttpAndRegularPromiseTests {
     interface Person {
@@ -105,7 +112,7 @@ namespace HttpAndRegularPromiseTests {
 
     function someController($scope: SomeControllerScope, $http: ng.IHttpService, $q: ng.IQService) {
         $http.get<ExpectedResponse>('http://somewhere/some/resource')
-            .then((response: ng.IHttpPromiseCallbackArg<ExpectedResponse>) => {
+            .then((response: ng.IHttpResponse<ExpectedResponse>) => {
                 // typing lost, so something like
                 // const i: number = response.data
                 // would type check
@@ -113,7 +120,7 @@ namespace HttpAndRegularPromiseTests {
             });
 
         $http.get<ExpectedResponse>('http://somewhere/some/resource')
-            .then((response: ng.IHttpPromiseCallbackArg<ExpectedResponse>) => {
+            .then((response: ng.IHttpResponse<ExpectedResponse>) => {
                 // typing lost, so something like
                 // const i: number = response.data
                 // would NOT type check
@@ -426,7 +433,7 @@ httpFoo.then((x) => {
     x.toFixed();
 });
 
-httpFoo.then((response: ng.IHttpPromiseCallbackArg<any>) => {
+httpFoo.then((response: ng.IHttpResponse<any>) => {
     const h = response.headers('test');
     h.charAt(0);
     const hs = response.headers();
@@ -565,7 +572,7 @@ namespace TestPromise {
         (reason) => anyOf3(reject, tresult, tresultPromise)
     ));
 
-    assertPromiseType<ng.IHttpPromiseCallbackArg<TResult>>(promise.then((result) => tresultHttpPromise));
+    assertPromiseType<ng.IHttpResponse<TResult>>(promise.then((result) => tresultHttpPromise));
 
     assertPromiseType<TResult | TOther>(promise.then((result) => result, (any) => tother));
     assertPromiseType<TResult | angular.IPromise<TResult> | angular.IPromise<never> | TOther | angular.IPromise<TOther>>(promise.then(
@@ -580,8 +587,8 @@ namespace TestPromise {
     assertPromiseType<TResult | TOther>(promise.then((result) => result, (any) => tother, (any) => any));
     assertPromiseType<TResult | TOther>(promise.then((result) => tresultPromise, (any) => totherPromise));
     assertPromiseType<TResult | TOther>(promise.then((result) => tresultPromise, (any) => totherPromise, (any) => any));
-    assertPromiseType<ng.IHttpPromiseCallbackArg<TResult | TOther>>(promise.then((result) => tresultHttpPromise, (any) => totherHttpPromise));
-    assertPromiseType<ng.IHttpPromiseCallbackArg<TResult | TOther>>(promise.then((result) => tresultHttpPromise, (any) => totherHttpPromise, (any) => any));
+    assertPromiseType<ng.IHttpResponse<TResult | TOther>>(promise.then((result) => tresultHttpPromise, (any) => totherHttpPromise));
+    assertPromiseType<ng.IHttpResponse<TResult | TOther>>(promise.then((result) => tresultHttpPromise, (any) => totherHttpPromise, (any) => any));
 
     assertPromiseType<TOther>(promise.then((result) => tother));
     assertPromiseType<TOther>(promise.then((result) => tother, (any) => any));
@@ -589,9 +596,9 @@ namespace TestPromise {
     assertPromiseType<TOther>(promise.then((result) => totherPromise));
     assertPromiseType<TOther>(promise.then((result) => totherPromise, (any) => any));
     assertPromiseType<TOther>(promise.then((result) => totherPromise, (any) => any, (any) => any));
-    assertPromiseType<ng.IHttpPromiseCallbackArg<TOther>>(promise.then((result) => totherHttpPromise));
-    assertPromiseType<ng.IHttpPromiseCallbackArg<TOther>>(promise.then((result) => totherHttpPromise, (any) => any));
-    assertPromiseType<ng.IHttpPromiseCallbackArg<TOther>>(promise.then((result) => totherHttpPromise, (any) => any, (any) => any));
+    assertPromiseType<ng.IHttpResponse<TOther>>(promise.then((result) => totherHttpPromise));
+    assertPromiseType<ng.IHttpResponse<TOther>>(promise.then((result) => totherHttpPromise, (any) => any));
+    assertPromiseType<ng.IHttpResponse<TOther>>(promise.then((result) => totherHttpPromise, (any) => any, (any) => any));
 
     assertPromiseType<boolean>(promise.then((result) => tresult, (any) => tother).then(ambiguous => isTResult(ambiguous) ? ambiguous.c : ambiguous.f));
 
@@ -602,10 +609,10 @@ namespace TestPromise {
     assertPromiseType<TResult | angular.IPromise<never>>(promise.catch((err) => anyOf2(tresult, reject)));
     assertPromiseType<TResult>(promise.catch((err) => anyOf3(tresult, tresultPromise, reject)));
     assertPromiseType<TResult>(promise.catch((err) => tresultPromise));
-    assertPromiseType<TResult | ng.IHttpPromiseCallbackArg<TResult>>(promise.catch((err) => tresultHttpPromise));
+    assertPromiseType<TResult | ng.IHttpResponse<TResult>>(promise.catch((err) => tresultHttpPromise));
     assertPromiseType<TResult | TOther>(promise.catch((err) => tother));
     assertPromiseType<TResult | TOther>(promise.catch((err) => totherPromise));
-    assertPromiseType<TResult | ng.IHttpPromiseCallbackArg<TOther>>(promise.catch((err) => totherHttpPromise));
+    assertPromiseType<TResult | ng.IHttpResponse<TOther>>(promise.catch((err) => totherHttpPromise));
 
     assertPromiseType<boolean>(promise.catch((err) => tother).then(ambiguous => isTResult(ambiguous) ? ambiguous.c : ambiguous.f));
 
