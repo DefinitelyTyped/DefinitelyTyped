@@ -1,11 +1,11 @@
+/// <reference types="node" />
+
 // Type definitions for Nightmare 1.6.6
 // Project: https://github.com/segmentio/nightmare
 // Definitions by: horiuchi <https://github.com/horiuchi/>
 //                 Sam Yang <https://github.com/samyang-au>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
-
-
 
 declare class Nightmare {
     constructor(options?: Nightmare.IConstructorOptions);
@@ -95,7 +95,9 @@ declare class Nightmare {
     removeListener(event: 'prompt', cb: (msg: string, defaultValue?: string) => void): Nightmare;
     removeListener(event: 'error', cb: (msg: string, trace?: Nightmare.IStackTrace[]) => void): Nightmare;
     removeListener(event: 'timeout', cb: (msg: string) => void): Nightmare;
+    screenshot(done?: (err: any, buffer: Buffer) => void): Nightmare;
     screenshot(path: string, done?: (err: any) => void): Nightmare;
+    screenshot(clip: { x: number, y: number, width: number, height: number }, done?: (err: any, buffer: Buffer) => void): Nightmare;
     screenshot(path: string, clip?: { x: number, y: number, width: number, height: number }, done?: (err: any) => void): Nightmare;
     html(path: string, saveType: string): Nightmare;
     html(path: string, saveType: 'HTMLOnly'): Nightmare;
