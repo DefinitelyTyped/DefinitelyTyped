@@ -1,24 +1,23 @@
 import * as semver from "semver";
 
-let obj: {};
 let bool: boolean;
 let num: number;
-let str: string = '';
+let str = '';
 let strn: string | null = '';
 let diff: semver.ReleaseType | null;
-let op: semver.Operator = '';
-let arr: any[];
-let exp: RegExp;
+const op: semver.Operator = '';
+declare const arr: any[];
+declare const exp: RegExp;
 let strArr: string[] | null;
-let numArr: string[];
+declare const numArr: string[];
 let comparatorResult: -1 | 0 | 1;
 let versionsArr: Array<string | semver.SemVer>;
 
-let v1: string = '';
-let v2: string = '';
-let version: string = '';
-let versions: string[] = [];
-let loose: boolean = true;
+const v1 = '';
+const v2 = '';
+const version = '';
+const versions: string[] = [];
+const loose = true;
 let sem: semver.SemVer | null;
 
 sem = semver.parse(str);

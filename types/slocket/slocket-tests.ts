@@ -21,7 +21,7 @@ slocket('/path/to/filename.lock')
     .catch(er => {
     });
 
-async function fooSingleFile () {
+async function fooSingleFile() {
     const lock = await slocket('foo');
-    lock.release()
+    lock.release();
 }
