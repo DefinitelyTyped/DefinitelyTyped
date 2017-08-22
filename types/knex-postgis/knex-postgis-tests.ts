@@ -1,9 +1,9 @@
 import * as GeoJSON from 'geojson';
 import * as Knex from 'knex';
-import * as KnexPostgis from 'knex-postgis';
+import * as KPG from 'knex-postgis';
 
 const knex: Knex = Knex({ dialect: 'pg' });
-const st: KnexPostgis = KnexPostgis(knex);
+const st: KPG.KnexPostgis = KPG(knex);
 
 const point: GeoJSON.Point = {
   type: 'Point',

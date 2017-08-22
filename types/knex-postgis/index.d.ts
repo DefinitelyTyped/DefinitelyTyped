@@ -10,9 +10,7 @@ import * as Knex from 'knex';
 // Same as in Knex but not exported
 type ColumnName = string | Knex.Raw | Knex.QueryBuilder;
 
-interface KnexPostgis extends KnexPostgis.KnexPostgis {}
-
-declare function KnexPostgis(knex: Knex): KnexPostgis;
+declare function KnexPostgis(knex: Knex): KnexPostgis.KnexPostgis;
 
 declare namespace KnexPostgis {
     interface KnexPostgis {
