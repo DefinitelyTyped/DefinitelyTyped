@@ -4,18 +4,17 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-
 export = JsDiff;
 export as namespace JsDiff;
 
 declare namespace JsDiff {
     interface ICaseOptions {
-        ignoreCase: boolean
+        ignoreCase: boolean;
     }
 
     interface ILinesOptions {
-        ignoreWhitespace?: boolean,
-        newlineIsToken?: boolean
+        ignoreWhitespace?: boolean;
+        newlineIsToken?: boolean;
     }
 
     interface IDiffResult {
