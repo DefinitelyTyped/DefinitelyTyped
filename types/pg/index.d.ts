@@ -67,6 +67,10 @@ export class Pool extends events.EventEmitter {
     // https://github.com/Microsoft/TypeScript/issues/7485
     constructor(config?: PoolConfig);
 
+    readonly totalCount: number;
+    readonly idleCount: number;
+    readonly waitingCount: number;
+
     connect(): Promise<Client>;
     connect(callback: (err: Error, client: Client, done: () => void) => void): void;
 

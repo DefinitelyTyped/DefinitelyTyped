@@ -84,6 +84,7 @@ const pool = new pg.Pool({
   idleTimeoutMillis: 30000,
   connectionTimeoutMillis: 2000,
 });
+console.log(pool.totalCount);
 pool.connect((err, client, done) => {
   if (err) {
     return console.error('error fetching client from pool', err);
