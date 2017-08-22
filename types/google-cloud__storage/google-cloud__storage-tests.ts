@@ -294,7 +294,7 @@ export class TestFile {
      * @param {DownloadOptions} options
      * @return {Promise<[string]>}
      */
-    download(options?: DownloadOptions): Promise<[string]> {
+    download(options?: DownloadOptions): Promise<[Buffer]> {
         return this.file.download(options);
     }
 
