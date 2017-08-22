@@ -622,3 +622,22 @@ function test_OrgChart() {
     var collapsed = chart.getCollapsedNodes();
 
 }
+
+function test_addListeners() {
+    var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Fruit');
+        data.addColumn('number', 'Calories');
+        data.addRows([
+            ['Apple', 95],
+            ['Banana', 105],
+            ['Kiwi', 42]
+        ]);
+    var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+    google.visualization.events.addOneTimeListener(chart, 'ready', () => {
+        console.log('Fruit chart ready');
+    });
+    google.visualization.events.addListener(chart, 'error', (err: any) => {
+        console.log('Fruit chart ' + err.id + ' error: ' + err.message);
+    });
+    chart.draw(data, {});
+}
