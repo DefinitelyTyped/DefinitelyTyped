@@ -17,6 +17,6 @@
     },
     "files": [
         "index.d.ts",
-        "koa-morgan-tests.ts"
+        "knex-postgis.tests.ts"
     ]
 }
