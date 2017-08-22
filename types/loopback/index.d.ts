@@ -1,8 +1,9 @@
-// Type definitions for Loopback 3.1
+// Type definitions for Loopback 3.2
 // Project: https://github.com/strongloop/loopback
 // Definitions by: Andres D Jimenez <https://github.com/kattsushi>
+//                 Tim Schumacher <https://github.com/enko>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 /************************************************
 *                                               *
@@ -146,7 +147,7 @@ declare namespace l {
              * ``
              *  @returns {Array} Array of model classes
              */
-            models(): any[];
+            models(): Array<typeof Model>;
 
             /**
              * Get all remote objects.
@@ -1020,24 +1021,24 @@ declare namespace l {
              * @param {any} options An optional options object to pass to underlying data-access calls.
              * @param  {() => void} callback Callback function
              */
-            static bulkUpdate(updates: any[], options: any, callback: () => void): void;
+            static bulkUpdate(updates: any[], options: any, callback?: () => void): Promise<void> | void;
 
             /**
              * Get the changes to a model since the specified checkpoint. Provide a filter object
              * to reduce the number of results returned.
              * @param  {number} since Return only changes since this checkpoint.
              * @param  {any}   filter   Include only changes that match this filter, the same as for [#persistedmodel-find](find()).
-             * @callback {() => void} callback Callback function called with `(err, changes)` arguments.  Required.
+             * @callback {() => void} callback Callback function called with `(err, changes)` arguments.
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {Array} changes An Array of [Change](#change) objects
              */
-            static changes(since: number, filter: any, callback: (err: Error, changes: any[]) => void): void;
+            static changes(since: number, filter: any, callback?: (err: Error, changes: any[]) => void): Promise<any[]> | void;
 
             /**
              * Create a checkpoint
              * @param  {() => void} callback
              */
-            static checkpoint(callback: () => void): void;
+            static checkpoint(callback?: () => void): Promise<void> | void;
 
             /**
              * Return the number of records that match the optional "where" filter.
@@ -1051,7 +1052,7 @@ declare namespace l {
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {number} count number of instances updated
              */
-            static count(where?: any, callback?: (err: Error, count: number) => void): void;
+            static count(where?: any, callback?: (err: Error, count: number) => void): Promise<number> | void;
 
             /**
              * Create new instance of Model, and save to database
@@ -1060,14 +1061,14 @@ declare namespace l {
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {any} models Model instances or null
              */
-            static create(data?: any|any[], callback?: (err: Error, models: any) => void): void;
+            static create<T = any>(data?: any|any[], callback?: (err: Error, models: T|T[]) => void): Promise<T|T[]> | void;
 
             /**
              * Create a change stream. See here for more info http://loopback.io/doc/en/lb2/Realtime-server-sent-events.html
              * @param {any} options Only changes to models matching this where filter will be included in the ChangeStream.
              * @param {() => void} callback
              */
-            static createChangeStream(options: {where: any}, callback: (err: Error, changes: any) => void): void;
+            static createChangeStream(options: {where: any}, callback?: (err: Error, changes: any) => void): Promise<any> | void;
 
             /**
              * Create an update list (for `Model.bulkUpdate()`) from a delta list
@@ -1075,7 +1076,7 @@ declare namespace l {
              * @param  {Array}    deltas
              * @param  {() => void} callback
              */
-            static createUpdates(deltas: any[], callback: () => void): void;
+            static createUpdates(deltas: any[], callback?: () => void): Promise<void> | void;
 
             /**
              * Get the current checkpoint ID
@@ -1083,7 +1084,7 @@ declare namespace l {
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {number} currentCheckpointId Current checkpoint ID
              */
-            static currentCheckpoint(callback: (err: Error, currentCheckpointId: number) => void): void;
+            static currentCheckpoint(callback?: (err: Error, currentCheckpointId: number) => void): Promise<number> | void;
 
             /**
              * Destroy all model instances that match the optional `where` specification
@@ -1099,7 +1100,7 @@ declare namespace l {
              * @param {any} info Additional information about the command outcome.
              * @param {number} info.count number of instances (rows, documents) destroyed
              */
-            static destroyAll(where?: any, callback?: (err: Error, info: any, infoCount: number) => void): void;
+            static destroyAll(where?: any, callback?: (err: Error, info: any, infoCount: number) => void): Promise<{ info: any, infoCount: number}> | void;
 
             /**
              * Destroy model instance with the specified ID.
@@ -1107,7 +1108,7 @@ declare namespace l {
              * @callback {() => void} callback Callback function called with `(err)` arguments.  Required.
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object)
              */
-            static destroyById(id: any, callback: (err: Error) => void): void;
+            static destroyById(id: any, callback?: (err: Error) => void): Promise<void> | void;
 
             /**
              * Get a set of deltas and conflicts since the given checkpoint
@@ -1118,7 +1119,7 @@ declare namespace l {
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {any} result any with `deltas` and `conflicts` properties; see [Change.diff()](#change-diff) for details
              */
-            static diff(since: number, remoteChanges: any[], callback: (err: Error, result: any) => void): void;
+            static diff(since: number, remoteChanges: any[], callback?: (err: Error, result: any) => void): Promise<any> | void;
 
             /**
              * Enable the tracking of changes made to the model. Usually for replication.
@@ -1132,7 +1133,7 @@ declare namespace l {
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {boolean} exists True if the instance with the specified ID exists; false otherwise
              */
-            static exists(id: any, callback: (err: Error, exists: boolean) => void): void;
+            static exists(id: any, callback?: (err: Error, exists: boolean) => void): Promise<boolean> | void;
 
             /**
              * Find all model instances that match `filter` specification.
@@ -1158,9 +1159,9 @@ declare namespace l {
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {Array} models Model instances matching the filter, or null if none found
              */
-            static find(
+            static find<T = any>(
                   filter?: {fields?: string|any|any[]; include?: string|any|any[]; limit?: number; order?: string; skip?: number; where?: any; },
-                  callback?: (err: Error, models: any[]) => void): void;
+                  callback?: (err: Error, models: any[]) => void): Promise<T[]> | void;
 
             /**
              * Find object by ID with an optional filter for include/fields
@@ -1174,7 +1175,7 @@ declare namespace l {
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {any} instance Model instance matching the specified ID or null if no instance matches
              */
-            static findById(id: any, filter?: {fields?: string|any|any[]; include?: string|any|any[]; }, callback?: (err: Error, instance: any) => void): void;
+            static findById<T = any>(id: any, filter?: {fields?: string|any|any[]; include?: string|any|any[]; }, callback?: (err: Error, instance: T) => void): Promise<T> | void;
 
             /**
              * Find one model instance that matches `filter` specification.
@@ -1199,7 +1200,15 @@ declare namespace l {
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {Array} model First model instance that matches the filter or null if none found
              */
-            static findOne(filter?: {fields?: string|any|any[]; include?: string|any|any[]; order?: string; skip?: number; where?: any; }, callback?: (err: Error, model: any) => void): void;
+            static findOne<T = any>(
+                  filter?: {
+                        fields?: string|any|any[];
+                        include?: string|any|any[];
+                        order?: string;
+                        skip?: number;
+                        where?: any;
+                  },
+                  callback?: (err: Error, instance: T) => void): Promise<T> | void;
 
             /**
              * Finds one record matching the optional filter object. If not found, creates
@@ -1231,7 +1240,7 @@ declare namespace l {
              * @param {any} instance Model instance matching the `where` filter, if found.
              * @param {boolean} created True if the instance matching the `where` filter was created
              */
-            static findOrCreate(
+            static findOrCreate<T = any>(
                   data: any,
                   filter?: {
                         fields?: string | any | any[];
@@ -1241,7 +1250,7 @@ declare namespace l {
                         skip?: number;
                         where?: any;
                   },
-                  callback?: (err: Error, instance: any, created: boolean) => void): void;
+                  callback?: (err: Error, instance: any, created: boolean) => void): Promise<{instance: T, created: boolean}> | void;
 
             /**
              * Get the `Change` model.
@@ -1261,7 +1270,7 @@ declare namespace l {
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {string} sourceId Source identifier for the model or dataSource
              */
-            static getSourceId(callback: (err: Error, sourceId: string) => void): void;
+            static getSourceId(callback?: (err: Error, sourceId: string) => void): Promise<string> | void;
 
             /**
              * Handle a change error. Override this method in a subclassing model to customize
@@ -1276,7 +1285,7 @@ declare namespace l {
              * @callback {() => void} callback
              * @param {Error} er
              */
-            static rectifyChange(id: any, callback: (err: Error) => void): void;
+            static rectifyChange(id: any, callback?: (err: Error) => void): Promise<void> | void;
 
             /**
              * Replace attributes for a model instance whose id is the first input
@@ -1290,7 +1299,7 @@ declare namespace l {
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {any} instance Replaced instance
              */
-            static replaceById(id: any, data: any, options?: {validate: boolean; }, callback?: (err: Error, instance: any) => void): void;
+            static replaceById<T = any>(id: any, data: any, options?: {validate: boolean; }, callback?: (err: Error, instance: T) => void): Promise<T> | void;
 
             /**
              * Replace or insert a model instance; replace existing record if one is found,
@@ -1303,7 +1312,7 @@ declare namespace l {
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {any} model Replaced model instance.
              */
-            static replaceOrCreate(data: any, options?: {validate: boolean; }, callback?: (err: Error, model: any) => void): void;
+            static replaceOrCreate<T = any>(data: any, options?: {validate: boolean; }, callback?: (err: Error, instance: T) => void): Promise<T> | void;
 
             /**
              * Replicate changes since the given checkpoint to the given target model
@@ -1317,7 +1326,13 @@ declare namespace l {
              * @param {any] checkpoints The new checkpoints to use as the "since"
              * argument for the next replication
              */
-            static replicate(since?: number, targetModel?: Model, options?: any, optionsFilter?: any, callback?: (err: Error, conflicts: Conflict[], param: any) => void): void;
+            static replicate(
+                  since?: number,
+                  targetModel?: Model,
+                  options?: any,
+                  optionsFilter?: any,
+                  callback?: (err: Error, conflicts: Conflict[], param: any) => void
+            ): Promise<{conflicts: Conflict[], params: any}> | void;
 
             /**
              * Update multiple instances that match the where clause.
@@ -1344,7 +1359,7 @@ declare namespace l {
              * @param {number} info.count number of instances (rows, documents) updated.
              *
              */
-            static updateAll(where?: any, data?: any, callback?: (err: Error, info: any, infoCount: number) => void): void;
+            static updateAll(where?: any, data?: any, callback?: (err: Error, info: any, infoCount: number) => void): Promise<number> | void;
 
             /**
              * Update or insert a model instance
@@ -1353,7 +1368,7 @@ declare namespace l {
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {any} model Updated model instance
              */
-            static upsert(data: any, callback: (err: Error, model: any) => void): void;
+            static upsert<T = any>(data: any, callback?: (err: Error, instance: T) => void): Promise<T> | void;
 
             /**
              * Update or insert a model instance based on the search criteria.
@@ -1371,14 +1386,14 @@ declare namespace l {
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {any} model Updated model instance
              */
-            static upsertWithWhere(data: any, callback: (err: Error, model: any) => void): void;
+            static upsertWithWhere<T = any>(data: any, callback?: (err: Error, instance: T) => void): Promise<T> | void;
 
             /**
              * Deletes the model from persistence.
              * Triggers `destroy` hook (async) before and after destroying object.
              * @param {() => void} callback Callback function
              */
-            destroy(callback: () => void): void;
+            destroy(callback?: () => void): Promise<void>  | void;
 
             /**
              * Get the `id` value for the `PersistedModel`
@@ -1404,7 +1419,7 @@ declare namespace l {
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {any} instance Model instance
              */
-            reload(callback: (err: Error, instance: any) => void): void;
+            reload<T = any>(callback: (err: Error, instance: T) => void): Promise<T> | void;
 
             /**
              * Replace attributes for a model instance and persist it into the datasource.
@@ -1416,7 +1431,7 @@ declare namespace l {
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {any} instance Replaced instance
              */
-            replaceAttributes(data: any, options?: {validate: boolean}, callback?: (err: Error, instance: any) => void): void;
+            replaceAttributes<T = any>(data: any, options?: {validate: boolean}, callback?: (err: Error, instance: T) => void): Promise<T> | void;
 
             /**
              * Save model instance. If the instance doesn't have an ID, then calls [create](#persistedmodelcreatedata-cb) instead.
@@ -1429,7 +1444,7 @@ declare namespace l {
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {any} instance Model instance saved or created
              */
-            save(options?: {validate: boolean; throws: boolean}, callback?: (err: Error, instance: any) => void): void;
+            save<T = any>(options?: {validate: boolean; throws: boolean}, callback?: (err: Error, instance: T) => void): Promise<T> | void;
 
             /**
              * Set the correct `id` property for the `PersistedModel`. Uses the `setId` method if the model is attached to
@@ -1448,7 +1463,7 @@ declare namespace l {
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {any} instance Updated instance
              */
-            updateAttribute(name: string, value: any, callback: (err: Error, instance: any) => void): void;
+            updateAttribute<T = any>(name: string, value: any, callback?: (err: Error, instance: T) => void): Promise<T> | void;
 
             /**
              * Update set of attributes.  Performs validation before updating
@@ -1458,7 +1473,7 @@ declare namespace l {
              * @param {Error} err Error object; see [Error object](docs.strongloop.com/display/LB/Error+object).
              * @param {any} instance Updated instance
              */
-            updateAttributes(data: any, callback: (err: Error, instance: any) => void): void;
+            updateAttributes<T = any>(data: any, callback?: (err: Error, instance: T) => void): Promise<T> | void;
 
             // **NOTE** Deprecate for v3.x
             // /**
@@ -2642,7 +2657,7 @@ declare namespace l {
              * @callback {() => void} callback
              * @param {Error} er
              */
-            static confirm(userId: any, token: string, redirect: string, callback: (err: Error) => void): void;
+            static confirm(userId: any, token: string, redirect: string, callback?: (err: Error) => void): Promise<void> | void;
 
             /**
              * A default verification token generator which accepts the user the token is
@@ -2653,7 +2668,7 @@ declare namespace l {
              * @param {any} user The User this token is being generated for.
              * @param {() => void} cb The generator must pass back the new token with this function cal
              */
-            static generateVerificationToken(user: any, cb: () => void): void;
+            static generateVerificationToken(user: any, callback?: () => void): Promise<void> | void;
 
             /**
              * Login a user by with the given `credentials`
@@ -2671,7 +2686,7 @@ declare namespace l {
              * @param {Error} err Error object
              * @param {AccessToken} token Access token if login is successfu
              */
-            static login(credentials: any, include?: string[]|string, callback?: (err: Error, token: AccessToken) => void): void;
+            static login(credentials: any, include?: string[]|string, callback?: (err: Error, token: AccessToken) => void): Promise<AccessToken> | void;
 
             /**
              * Logout a user with the given accessToken id
@@ -2686,7 +2701,7 @@ declare namespace l {
              * @callback {() => void} callback
              * @param {Error} er
              */
-            static logout(accessTokenID: string, callback: (err: Error) => void): void;
+            static logout(accessTokenID: string, callback?: (err: Error) => void): Promise<void> | void;
 
             /**
              * Normalize the credentials
@@ -2705,7 +2720,7 @@ declare namespace l {
              * @callback {() => void} callback
              * @param {Error} er
              */
-            static resetPassword(options: {}, callback: (err: Error) => void): void;
+            static resetPassword(options: {}, callback?: (err: Error) => void): Promise<void> | void;
 
             /**
              * Create access token for the logged in user. This method can be overridden to
@@ -2716,7 +2731,7 @@ declare namespace l {
              * @param {string|Error} err The error string or object
              * @param {AccessToken} token The generated access token object
              */
-            createAccessToken(ttl: number, options?: any, cb?: (err: string|Error, token: AccessToken) => void): void;
+            createAccessToken(ttl: number, options?: any, callback?: (err: string|Error, token: AccessToken) => void): Promise<AccessToken> | void;
 
             /**
              * Compare the given `password` with the users hashed password
@@ -2725,7 +2740,7 @@ declare namespace l {
              * @param {Error} err Error object
              * @param {boolean} isMatch Returns true if the given `password` matches recor
              */
-            hasPassword(password: string, callback: (err: Error, isMatch: boolean) => void): void;
+            hasPassword(password: string, callback?: (err: Error, isMatch: boolean) => void): Promise<boolean> | void;
 
             /**
              * Verify a user's identity by sending them a confirmation email
