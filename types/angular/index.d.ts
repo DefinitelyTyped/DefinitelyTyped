@@ -9,6 +9,9 @@
 
 /// <reference path="jqlite.d.ts" />
 
+// NOTE: @types/angular technically doesn't require TypeScript 2.3, only TypeScript 2.1.
+// It has a TypeScript 2.3 header so that merging tests with @types/jquery v3 will work.
+
 declare var angular: angular.IAngularStatic;
 
 // Support for painless dependency injection
@@ -1520,7 +1523,7 @@ declare namespace angular {
         (data: T, status: number, headers: IHttpHeadersGetter, config: IRequestConfig): void;
     }
 
-    interface IHttpResponse<T = any> {
+    interface IHttpResponse<T> {
         data: T;
         status: number;
         headers: IHttpHeadersGetter;

@@ -44,9 +44,9 @@ class UploadController {
 			}).progress((evt: angular.angularFileUpload.IFileProgressEvent) => {
 				let percent = parseInt((100.0 * evt.loaded / evt.total).toString(), 10);
 				console.log("upload progress: " + percent + "% for " + evt.config.data.media[0]);
-			}).catch((response: ng.IHttpResponse) => {
+			}).catch((response: ng.IHttpResponse<any>) => {
 				console.error(response.data, response.status, response.statusText, response.headers);
-			}).then((response: ng.IHttpResponse) => {
+			}).then((response: ng.IHttpResponse<any>) => {
 				// file is uploaded successfully
 				console.log("Success!", response.data, response.status, response.headers, response.config);
 			});

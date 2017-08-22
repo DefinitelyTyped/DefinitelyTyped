@@ -62,16 +62,16 @@ angular.module('http-auth-interceptor', [])
  * On 401 response - it stores the request and broadcasts 'event:angular-auth-loginRequired'.
  */
     .config([
-        '$httpProvider',
-        ($httpProvider: ng.IHttpProvider) => {
+        '$httpProvider', 'authServiceProvider',
+        ($httpProvider: ng.IHttpProvider, authServiceProvider: AuthService) => {
             $httpProvider.defaults.headers.common = { Authorization: 'Bearer token' };
             $httpProvider.defaults.headers.get.Authorization = 'Bearer token';
             $httpProvider.defaults.headers.post['Authorization'] = (config: ng.IRequestConfig) =>
                 'Bearer token';
 
             const interceptor = [
-                '$rootScope', '$q', 'authService',
-                ($rootScope: ng.IScope, $q: ng.IQService, authService: any) => {
+                '$rootScope', '$q',
+                ($rootScope: ng.IScope, $q: ng.IQService) => {
                     return {
                         request(config: ng.IRequestConfig) {
                             if (!config.params) config.params = {};
@@ -80,8 +80,8 @@ angular.module('http-auth-interceptor', [])
                         },
                         responseError(rejection: any) {
                             if (rejection.status === 401) {
-                                const deferred = $q.defer<ng.IHttpResponse>();
-                                authService.pushToBuffer(rejection.config, deferred);
+                                const deferred = $q.defer<ng.IHttpResponse<any>>();
+                                authServiceProvider.pushToBuffer(rejection.config, deferred);
                                 $rootScope.$broadcast('event:auth-loginRequired');
                                 return deferred.promise;
                             }
@@ -433,7 +433,7 @@ httpFoo.then((x) => {
     x.toFixed();
 });
 
-httpFoo.then((response: ng.IHttpResponse) => {
+httpFoo.then((response: ng.IHttpResponse<any>) => {
     const h = response.headers('test');
     h.charAt(0);
     const hs = response.headers();
