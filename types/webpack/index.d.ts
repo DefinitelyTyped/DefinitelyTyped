@@ -919,7 +919,7 @@ declare namespace webpack {
     }
 
     class WatchIgnorePlugin extends Plugin {
-        constructor(paths: (string | RegExp)[]);
+        constructor(paths: Array<string | RegExp>);
     }
 
     namespace optimize {
