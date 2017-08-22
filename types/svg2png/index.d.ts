@@ -13,6 +13,8 @@ interface opts {
 }
 
 declare function svg2png(sourceBuffer: Buffer, opts?: opts): Promise<Buffer>;
-export function sync(sourceBuffer: Buffer, opts?: opts): Buffer;
 
-export default svg2png;
+declare namespace svg2png {
+  function sync(sourceBuffer: Buffer, opts?: opts): Buffer;  
+}
+export = svg2png;
