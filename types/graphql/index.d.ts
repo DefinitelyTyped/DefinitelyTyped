@@ -6,6 +6,7 @@
 //                 Firede <https://github.com/firede>
 //                 Kepennar <https://github.com/kepennar>
 //                 Mikhail Novikov <https://github.com/freiksenet>
+//                 Ivan Goncharov <https://github.com/IvanGoncharov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -34,7 +35,37 @@ export {
 export {
     validate,
     ValidationContext,
+
+    // All validation rules in the GraphQL Specification.
     specifiedRules,
+
+    // Individual validation rules.
+    ArgumentsOfCorrectTypeRule,
+    DefaultValuesOfCorrectTypeRule,
+    FieldsOnCorrectTypeRule,
+    FragmentsOnCompositeTypesRule,
+    KnownArgumentNamesRule,
+    KnownDirectivesRule,
+    KnownFragmentNamesRule,
+    KnownTypeNamesRule,
+    LoneAnonymousOperationRule,
+    NoFragmentCyclesRule,
+    NoUndefinedVariablesRule,
+    NoUnusedFragmentsRule,
+    NoUnusedVariablesRule,
+    OverlappingFieldsCanBeMergedRule,
+    PossibleFragmentSpreadsRule,
+    ProvidedNonNullArgumentsRule,
+    ScalarLeafsRule,
+    SingleFieldSubscriptionsRule,
+    UniqueArgumentNamesRule,
+    UniqueDirectivesPerLocationRule,
+    UniqueFragmentNamesRule,
+    UniqueInputFieldNamesRule,
+    UniqueOperationNamesRule,
+    UniqueVariableNamesRule,
+    VariablesAreInputTypesRule,
+    VariablesInAllowedPositionRule,
 } from './validation';
 
 // Create and format GraphQL errors.
