@@ -6,7 +6,6 @@ import * as http from 'http';
 
 let str: string;
 let buf: Buffer;
-let obj: object;
 
 got('todomvc.com')
     .then(response => {

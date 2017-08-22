@@ -1,6 +1,6 @@
 import * as nunit from "gulp-nunit-runner";
 
-let stream = nunit({
+const stream = nunit({
     executable: 'c:/Program Files/NUnit/bin',
     platform: 'anycpu',
     teamcity: true,

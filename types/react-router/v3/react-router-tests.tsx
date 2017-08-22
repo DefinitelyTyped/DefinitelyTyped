@@ -34,7 +34,7 @@ interface CustomHistory {
 type CombinedHistory = History & CustomHistory;
 
 function createCustomHistory(history: History): CombinedHistory {
-	return Object.assign(history, { test() { } });
+	return Object.assign(history, { test() { } }); // tslint:disable-line prefer-object-spread
 }
 const customHistory = createCustomHistory(browserHistory);
 
