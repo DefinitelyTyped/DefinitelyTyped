@@ -23,7 +23,7 @@ declare namespace got {
     // tslint:disable unified-signatures
     interface GotFn {
         (url: GotUrl): GotPromise<string>;
-        (url: GotUrl, options: GotJSONOptions): GotPromise<object>;
+        (url: GotUrl, options: GotJSONOptions): GotPromise<any>;
         (url: GotUrl, options: GotFormOptions<string>): GotPromise<string>;
         (url: GotUrl, options: GotFormOptions<null>): GotPromise<Buffer>;
         (url: GotUrl, options: GotBodyOptions<string>): GotPromise<string>;
