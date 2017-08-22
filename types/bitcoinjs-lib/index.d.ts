@@ -356,7 +356,7 @@ export namespace address {
 
     function toBase58Check(hash: Buffer, version: number): string;
 
-    function toOutputScript(address: string, network?: Network): string;
+    function toOutputScript(address: string, network?: Network): Buffer;
 }
 
 export namespace bufferutils {
