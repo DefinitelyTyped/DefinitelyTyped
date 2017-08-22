@@ -1,7 +1,7 @@
 import { Component, ReactElement } from 'react';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { Store, Dispatch, bindActionCreators } from 'redux';
+import { Store, Dispatch, ActionCreator, bindActionCreators } from 'redux';
 import { connect, Provider, DispatchProp, MapStateToProps } from 'react-redux';
 import objectAssign = require('object-assign');
 
@@ -548,4 +548,24 @@ namespace TestControlledComponentWithoutDispatchProp {
 
     const MyControlledComponent = connect(mapStateToProps)(MyComponent);
     const MyControlledFuncComponent = connect(mapStateToProps)(MyFuncComponent);
+}
+
+namespace TestDispatchToPropsAsObject {
+    const onClick: ActionCreator<{}> = null;
+    const mapStateToProps = (state: any) => {
+        return {
+            title: state.app.title as string,
+        };
+    };
+    const dispatchToProps = {
+        onClick,
+    };
+
+    type Props = { title: string; } & typeof dispatchToProps;
+    const HeaderComponent: React.StatelessComponent<Props> = (props) => {
+        return <h1>{props.title}</h1>;
+    }
+
+    const Header = connect(mapStateToProps, dispatchToProps)(HeaderComponent);
+    <Header />
 }

@@ -30,7 +30,7 @@ declare namespace Q {
 
 		resolve(value?: IWhenable<T>): void;
 
-		reject(reason: any): void;
+		reject(reason?: any): void;
 
 		notify(value: any): void;
 
@@ -145,7 +145,7 @@ declare namespace Q {
 		/**
 		 * A sugar method, equivalent to promise.then(function () { throw reason; }).
 		 */
-		thenReject(reason: any): Promise<T>;
+		thenReject(reason?: any): Promise<T>;
 
 		/**
 		 * Attaches a handler that will observe the value of the promise when it becomes fulfilled, returning a promise for that same value, perhaps deferred but not replaced by the promise returned
@@ -324,7 +324,7 @@ declare namespace Q {
 	 */
 	export function reject<T>(reason?: any): Promise<T>;
 
-	export function Promise<T>(resolver: (resolve: (val?: IWhenable<T>) => void, reject: (reason: any) => void, notify: (progress: any) => void) => void): Promise<T>;
+	export function Promise<T>(resolver: (resolve: (val?: IWhenable<T>) => void, reject: (reason?: any) => void, notify: (progress: any) => void) => void): Promise<T>;
 
 	/**
 	 * Creates a new version of func that accepts any combination of promise and non-promise values, converting them to their fulfillment values before calling the original func. The returned version

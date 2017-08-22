@@ -1,7 +1,7 @@
 import * as Database from 'better-sqlite3';
 
-let integer = Database.Integer(1);
-let err = new Database.SqliteError('ok', 'ok');
+const integer = Database.Integer(1);
+const err = new Database.SqliteError('ok', 'ok');
 
 let db = Database('.');
 db = new Database('.', {memory: true});
@@ -15,7 +15,7 @@ db.register({name: 'noop', deterministic: true, varargs: true}, () => {});
 db.defaultSafeIntegers();
 db.defaultSafeIntegers(true);
 
-let stmt = db.prepare('SELECT * FROM test WHERE name == ?;');
+const stmt = db.prepare('SELECT * FROM test WHERE name == ?;');
 stmt.get(['name']);
 stmt.all({name: 'name'});
 stmt.each('name', (row: {name: string}) => {});
@@ -26,7 +26,7 @@ stmt.bind('name');
 stmt.safeIntegers();
 stmt.safeIntegers(true);
 
-let trans = db.transaction(['INSERT INTO test(name) VALUES(?);']);
+const trans = db.transaction(['INSERT INTO test(name) VALUES(?);']);
 trans.run('name');
 trans.bind('name');
 trans.run();

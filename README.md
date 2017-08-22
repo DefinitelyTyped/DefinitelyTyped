@@ -277,6 +277,17 @@ Also, `/// <reference types=".." />` will not work with path mapping, so depende
 
 Types for a scoped package `@foo/bar` should go in `types/foo__bar`. Note the double underscore.
 
+When `dts-gen` is used to scaffold a scoped package, the `paths` property has to be manually adapted in the generated
+`tsconfig.json` to correctly reference the scoped package:
+
+```json
+{
+    "paths":{
+      "@foo/bar": ["foo__bar"]
+    }
+}
+``` 
+
 
 #### The file history in GitHub looks incomplete.
 

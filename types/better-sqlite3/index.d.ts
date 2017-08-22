@@ -1,6 +1,6 @@
 // Type definitions for better-sqlite3 3.1
 // Project: http://github.com/JoshuaWise/better-sqlite3
-// Definitions by: Ben Davies <https://github.com/Morfent/>
+// Definitions by: Ben Davies <https://github.com/Morfent>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -9,7 +9,7 @@ import * as Integer from 'integer';
 
 interface RunResult {
 	changes: number;
-	lastInsertRowID: number;
+	lastInsertROWID: Integer.IntLike;
 }
 
 declare class Statement {
@@ -48,6 +48,7 @@ interface RegistrationOptions {
 	name?: string;
 	varargs?: boolean;
 	deterministic?: boolean;
+	safeIntegers?: boolean;
 }
 
 interface Database {
