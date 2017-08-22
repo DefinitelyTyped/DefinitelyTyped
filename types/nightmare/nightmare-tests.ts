@@ -1,5 +1,7 @@
 
 /// <reference types="jquery" />
+/// <reference types="node" />
+
 
 import Nightmare = require("nightmare");
 
