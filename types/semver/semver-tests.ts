@@ -1,32 +1,40 @@
 import * as semver from "semver";
 
+let obj: {};
 let bool: boolean;
 let num: number;
-let str: string;
-let diff: semver.ReleaseType;
-let strArr: string[];
+let str: string = '';
+let strn: string | null = '';
+let diff: semver.ReleaseType | null;
+let op: semver.Operator = '';
+let arr: any[];
+let exp: RegExp;
+let strArr: string[] | null;
+let numArr: string[];
+let comparatorResult: -1 | 0 | 1;
+let versionsArr: Array<string | semver.SemVer>;
 
-declare const v1: string;
-declare const v2: string;
-declare const version: string;
-declare const versions: string[];
-declare const loose: boolean;
+let v1: string = '';
+let v2: string = '';
+let version: string = '';
+let versions: string[] = [];
+let loose: boolean = true;
+let sem: semver.SemVer | null;
 
-const SemVerObject: semver.SemVer = semver.parse(str);
+sem = semver.parse(str);
+strn = semver.valid(str);
+strn = semver.clean(str);
 
-str = semver.valid(str);
-str = semver.clean(str);
-
-str = semver.valid(str, loose);
-str = semver.clean(str, loose);
-str = semver.inc(str, "major", loose);
-str = semver.inc(str, "premajor", loose);
-str = semver.inc(str, "minor", loose);
-str = semver.inc(str, "preminor", loose);
-str = semver.inc(str, "patch", loose);
-str = semver.inc(str, "prepatch", loose);
-str = semver.inc(str, "prerelease", loose);
-str = semver.inc(str, "prerelease", loose, "alpha");
+strn = semver.valid(str, loose);
+strn = semver.clean(str, loose);
+strn = semver.inc(str, "major", loose);
+strn = semver.inc(str, "premajor", loose);
+strn = semver.inc(str, "minor", loose);
+strn = semver.inc(str, "preminor", loose);
+strn = semver.inc(str, "patch", loose);
+strn = semver.inc(str, "prepatch", loose);
+strn = semver.inc(str, "prerelease", loose);
+strn = semver.inc(str, "prerelease", loose, "alpha");
 num = semver.major(str, loose);
 num = semver.minor(str, loose);
 num = semver.patch(str, loose);
@@ -39,9 +47,13 @@ bool = semver.lt(v1, v2, loose);
 bool = semver.lte(v1, v2, loose);
 bool = semver.eq(v1, v2, loose);
 bool = semver.neq(v1, v2, loose);
-bool = semver.cmp(v1, null as any, v2, loose);
-num = semver.compare(v1, v2, loose);
-num = semver.rcompare(v1, v2, loose);
+bool = semver.cmp(v1, op, v2, loose);
+comparatorResult = semver.compare(v1, v2, loose);
+comparatorResult = semver.rcompare(v1, v2, loose);
+comparatorResult = semver.compareIdentifiers(str, str);
+comparatorResult = semver.rcompareIdentifiers(str, str);
+versionsArr = semver.sort(['', new semver.SemVer('')]);
+versionsArr = semver.rsort(['', new semver.SemVer('')]);
 diff = semver.diff(v1, v2, loose);
 
 // Ranges
@@ -51,7 +63,8 @@ str = semver.maxSatisfying(versions, str, loose);
 str = semver.minSatisfying(versions, str, loose);
 bool = semver.gtr(version, str, loose);
 bool = semver.ltr(version, str, loose);
-bool = semver.outside(version, str, str, loose);
+bool = semver.outside(version, str, '<', loose);
+bool = semver.intersects(str, str, loose);
 
 let ver = new semver.SemVer(str, bool);
 str = ver.raw;
@@ -67,9 +80,9 @@ str = ver.version;
 strArr = ver.build;
 strArr = ver.prerelease;
 
-num = ver.compare(ver);
-num = ver.compareMain(ver);
-num = ver.comparePre(ver);
+comparatorResult = ver.compare(ver);
+comparatorResult = ver.compareMain(ver);
+comparatorResult = ver.comparePre(ver);
 ver = ver.inc("major");
 ver = ver.inc("premajor");
 ver = ver.inc("minor");
@@ -87,6 +100,8 @@ str = comp.operator;
 bool = comp.value;
 comp.parse(str);
 bool = comp.test(ver);
+bool = comp.intersects(new semver.Comparator(str));
+bool = comp.intersects(new semver.Comparator(str), bool);
 
 const range = new semver.Range(str, bool);
 str = range.raw;
@@ -94,8 +109,9 @@ bool = range.loose;
 str = range.format();
 str = range.inspect();
 str = range.toString();
-
 bool = range.test(ver);
+bool = range.intersects(new semver.Range(''));
+bool = range.intersects(new semver.Range(''), bool);
 
 let sets: semver.Comparator[][];
 sets = range.set;
