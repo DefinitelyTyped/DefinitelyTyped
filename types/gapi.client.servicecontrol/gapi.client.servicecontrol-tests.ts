@@ -60,7 +60,7 @@ gapi.load('client', () => {
         // 60 seconds. In case of server errors, the client can rely on the cached
         // results for longer time.
         // 
-        // NOTE: the `CheckRequest` has the size limit of 64KB.
+        // NOTE: the CheckRequest has the size limit of 64KB.
         // 
         // This method requires the `servicemanagement.services.check` permission
         // on the specified service. For more information, see
@@ -101,7 +101,7 @@ gapi.load('client', () => {
         // the aggregation time window to avoid data loss risk more than 0.01%
         // for business and compliance reasons.
         // 
-        // NOTE: the `ReportRequest` has the size limit of 1MB.
+        // NOTE: the ReportRequest has the size limit of 1MB.
         // 
         // This method requires the `servicemanagement.services.report` permission
         // on the specified service. For more information, see
