@@ -12,6 +12,9 @@
             "../"
         ],
         "types": [],
+        "paths": {
+            "@xmpp/jid": ["xmpp__jid"]
+        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
