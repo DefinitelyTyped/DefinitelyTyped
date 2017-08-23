@@ -18,5 +18,13 @@ declare class Component {
   once(eventName: string, handlerToAttach: (event: { [key: string]: any }) => any): Component;
   options: { [key: string]: any };
 }
-
-declare module "@egjs/component";
+declare namespace Component {
+  function trigger(eventName: string, customEvent?: { [key: string]: any }): boolean;
+  function hasOn(eventName: string): boolean;
+  function on(eventName: string, handlerToAttach: (event: { [key: string]: any }) => any): Component;
+  function on(events: { [key: string]: (event: { [key: string]: any }) => any }): Component;
+  function off(eventName?: string, handlerToAttach?: (event: { [key: string]: any }) => any): Component;
+  function once(events: { [key: string]: (event: { [key: string]: any }) => any }): Component;
+  function once(eventName: string, handlerToAttach: (event: { [key: string]: any }) => any): Component;
+  let options: { [key: string]: any };
+}
