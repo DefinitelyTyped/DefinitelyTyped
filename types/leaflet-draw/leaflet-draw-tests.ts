@@ -104,7 +104,7 @@ function testExampleControlOptions() {
             circle: false, // Turns off this drawing tool
             rectangle: {
                 shapeOptions: {
-                    clickable: false
+                    color: "red"
                 }
             },
             marker: {
