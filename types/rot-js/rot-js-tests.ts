@@ -50,7 +50,7 @@ SHOW(
 );
 // ----
 
-let myObj = {
+const myObj = {
     foo() { return "bar"; }
 };
 String.format.map['f'] = "foo";
@@ -62,8 +62,8 @@ class Item {
     constructor(private name: string) { }
 
     a() {
-        let first = self.name.charAt(0);
-        return (first.match(/[aeiouy]/i) ? "an" : "a") + " " + this.name;
+        const first = self.name.charAt(0);
+        return `${first.match(/[aeiouy]/i) ? "an" : "a"} ${this.name}`;
     }
 
     the() {
@@ -74,8 +74,8 @@ class Item {
 String.format.map['a'] = "a";
 String.format.map['the'] = "the";
 
-let apple = new Item("apple");
-let banana = new Item("banana");
+const apple = new Item("apple");
+const banana = new Item("banana");
 let template = "You eat %a. %The was delicious.";
 
 SHOW(template.format(apple, apple));
@@ -91,7 +91,7 @@ class Animal {
 
 String.format.map['adjective'] = "adjective";
 
-let cat = new Animal("cat");
+const cat = new Animal("cat");
 template = "You see a %{adjective,black}.";
 
 SHOW(template.format(cat));
@@ -107,19 +107,19 @@ SHOW(
 );
 // ----
 
-let canvas = document.createElement("canvas");
+const canvas = document.createElement("canvas");
 canvas.width = 500;
 canvas.height = 200;
 SHOW(canvas);
 
-let ctx = canvas.getContext("2d");
+const ctx = canvas.getContext("2d");
 ctx!.fillStyle = "#fff";
 ctx!.fillRect(0, 0, canvas.width, canvas.height);
 ctx!.fillStyle = "#f00";
 
-let data = new Array<any>();
+const data = new Array<any>();
 for (let i = 0; i < 40000; i++) {       /* generate histogram */
-    let num = Math.round(ROT.RNG.getNormal(250, 100));
+    const num = Math.round(ROT.RNG.getNormal(250, 100));
     data[num] = (data[num] || 0) + 1;
 }
 
@@ -128,14 +128,14 @@ for (let i = 0; i < data.length; i++) { /* plot histogram */
 }
 
 // RNG / Working with RNG state
-let state = ROT.RNG.getState();
+const state = ROT.RNG.getState();
 SHOW(ROT.RNG.getUniform());
 
 ROT.RNG.setState(state);
 SHOW(ROT.RNG.getUniform());
 // ----
 
-let seed = ROT.RNG.getSeed();
+const seed = ROT.RNG.getSeed();
 
 ROT.RNG.setSeed(12345);
 SHOW(
@@ -151,7 +151,7 @@ SHOW(
 
 // RNG / Cloning a RNG
 
-let clone = ROT.RNG.clone();
+const clone = ROT.RNG.clone();
 
 SHOW(ROT.RNG.getUniform());
 SHOW(clone.getUniform());
@@ -161,7 +161,7 @@ SHOW(ROT.RNG.getUniform());
 SHOW(clone.getUniform());
 
 // RNG / Picking a weighted value
-let monsters = {
+const monsters = {
     orc: 3,
     ogre: 1,
     rat: 5
@@ -206,10 +206,10 @@ display.drawText(5, 2, "Hello world");
 display.drawText(20, 5, "This line of text is very long.", 16);
 
 /* lines are broken at word boundaries; lines are trimmed */
-let words = ["lorem", "ipsum", "dolor", "sit", "amet"];
-let long: string[] = [];
+const words = ["lorem", "ipsum", "dolor", "sit", "amet"];
+const long: string[] = [];
 for (let i = 0; i < 30; i++) { long.push(words.random()); }
-let longer = long.join(" ");
+const longer = long.join(" ");
 
 display.drawText(1, 10, longer, 38);
 
@@ -326,13 +326,13 @@ tileSet.onload = () => {
 
 // Map creation
 let map = new ROT.Map.Arena(3, 3);
-let userCallback = (x: number, y: number, value: number) => {
+const userCallback = (x: number, y: number, value: number) => {
     SHOW("Value %s generated at [%s,%s]".format(value, x, y));
 };
 map.create(userCallback);
 map = new ROT.Map.Arena(10, 5);
 
-let display1 = new ROT.Display({ width: 10, height: 5, fontSize: 18 });
+const display1 = new ROT.Display({ width: 10, height: 5, fontSize: 18 });
 SHOW(display1.getContainer());
 
 map.create((x, y, wall) => {
@@ -340,12 +340,12 @@ map.create((x, y, wall) => {
 });
 
 /* debugging with small font */
-let display2 = new ROT.Display({ width: 10, height: 5, fontSize: 8 });
+const display2 = new ROT.Display({ width: 10, height: 5, fontSize: 8 });
 SHOW(display2.getContainer());
 map.create(display2.DEBUG);
 
 // Map creation / Maze / DividedMaze
-let dm = new ROT.Map.DividedMaze(w, h);
+const dm = new ROT.Map.DividedMaze(w, h);
 
 for (let i = 0; i < 4; i++) {
     display = new ROT.Display({ width: w, height: h, fontSize: 6 });
@@ -360,13 +360,13 @@ for (let i = 0; i < 4; i++) {
     display = new ROT.Display({ width: w, height: h, fontSize: 6 });
     SHOW(display.getContainer());
 
-    let maze = new ROT.Map.IceyMaze(w, h, 4 * i);
+    const maze = new ROT.Map.IceyMaze(w, h, 4 * i);
     maze.create(display.DEBUG);
 }
 
 // Map creation / Maze / Eller's Perfect Maze
 
-let em = new ROT.Map.EllerMaze(w, h);
+const em = new ROT.Map.EllerMaze(w, h);
 
 for (let i = 0; i < 4; i++) {
     display = new ROT.Display({ width: w, height: h, fontSize: 6 });
@@ -465,7 +465,7 @@ cellular.create(display.DEBUG);
 display = new ROT.Display({ width: w, height: h, fontSize: 4 });
 SHOW(display.getContainer());
 cellular.connect(display.DEBUG, 0, (from, to) => {
-    SHOW("Connection was made " + from + " to " + to);
+    SHOW(`Connection was made ${from} to ${to}`);
 });
 
 // Map creation / Dungeon
@@ -476,13 +476,13 @@ display = new ROT.Display({ fontSize: 8 });
 SHOW(display.getContainer());
 dungeon.create(display.DEBUG);
 
-let drawDoor = (x: number, y: number) => {
+const drawDoor = (x: number, y: number) => {
     display.draw(x, y, "", "", "red");
 };
 
-let rooms = dungeon.getRooms();
+const rooms = dungeon.getRooms();
 for (let i = 0; i < rooms.length; i++) {
-    let room = rooms[i];
+    const room = rooms[i];
     SHOW("Room #%s: [%s, %s] => [%s, %s]".format(
         (i + 1),
         room.getLeft(), room.getTop(),
@@ -503,7 +503,7 @@ for (let i = 0; i < 4; i++) {
 
 // Map creation / Dungeon / Uniform
 
-let uniform = new ROT.Map.Uniform(w, h);
+const uniform = new ROT.Map.Uniform(w, h);
 
 for (let i = 0; i < 4; i++) {
     display = new ROT.Display({ width: w, height: h, fontSize: 6 });
@@ -513,7 +513,7 @@ for (let i = 0; i < 4; i++) {
 
 // Map creation / Dungeon / Rogue
 
-let rogue = new ROT.Map.Rogue(w, h);
+const rogue = new ROT.Map.Rogue(w, h);
 display = new ROT.Display({ width: w, height: h, fontSize: 6 });
 SHOW(display.getContainer());
 rogue.create(display.DEBUG);
@@ -531,13 +531,13 @@ SHOW(display.getContainer());
 /* create a map */
 let data_uniform: any = {};
 new ROT.Map.Uniform().create((x: number, y: number, type: number) => {
-    data_uniform[x + "," + y] = type;
+    data_uniform[`${x},${y}`] = type;
     display.DEBUG(x, y, type);
 });
 
 /* input callback */
 let lightPasses = (x: number, y: number) => {
-    let key = x + "," + y;
+    const key = `${x},${y}`;
     if (key in data_uniform) { return (data_uniform[key] === 0); }
     return false;
 };
@@ -546,8 +546,8 @@ let fov = new ROT.FOV.PreciseShadowcasting(lightPasses);
 
 /* output callback */
 fov.compute(50, 22, 10, (x, y, r, visibility) => {
-    let ch = (r ? "" : "@");
-    let color = (data_uniform[x + "," + y] ? "#aa0" : "#660");
+    const ch = (r ? "" : "@");
+    const color = (data_uniform[`${x},${y}`] ? "#aa0" : "#660");
     display.draw(x, y, ch, "#fff", color);
 });
 
@@ -563,37 +563,37 @@ SHOW(display.getContainer());
 /* create a map */
 data_uniform = {};
 new ROT.Map.Uniform().create((x: number, y: number, type: number) => {
-    data_uniform[x + "," + y] = type;
+    data_uniform[`${x},${y}`] = type;
     display.DEBUG(x, y, type);
 });
 
 /* input callback */
 lightPasses = (x: number, y: number) => {
-    let key = x + "," + y;
+    const key = `${x},${y}`;
     if (key in data_uniform) { return (data_uniform[key] === 0); }
     return false;
 };
 
-let fov2 = new ROT.FOV.RecursiveShadowcasting(lightPasses);
+const fov2 = new ROT.FOV.RecursiveShadowcasting(lightPasses);
 
 /* output callback for mob with bad vision */
 fov2.compute90(50, 22, 10, DIR_WEST, (x: number, y: number, r: number, visibility: number) => {
-    let ch = (r ? "1" : "@");
-    let color = (data_uniform[x + "," + y] ? "#aa0" : "#660");
+    const ch = (r ? "1" : "@");
+    const color = (data_uniform[`${x},${y}`] ? "#aa0" : "#660");
     display.draw(x, y, ch, "#fff", color);
 });
 
 /* output callback for second mob with better vision */
 fov2.compute180(57, 14, 10, DIR_NORTH, (x: number, y: number, r: number, visibility: number) => {
-    let ch = (r ? "2" : "@");
-    let color = (data_uniform[x + "," + y] ? "#aa0" : "#660");
+    const ch = (r ? "2" : "@");
+    const color = (data_uniform[`${x},${y}`] ? "#aa0" : "#660");
     display.draw(x, y, ch, "#fff", color);
 });
 
 /* output callback for third mob with supernatural vision */
 fov2.compute(65, 5, 10, (x: number, y: number, r: number, visibility: number) => {
-    let ch = (r ? "3" : "@");
-    let color = (data_uniform[x + "," + y] ? "#aa0" : "#660");
+    const ch = (r ? "3" : "@");
+    const color = (data_uniform[`${x},${y}`] ? "#aa0" : "#660");
     display.draw(x, y, ch, "#fff", color);
 });
 
@@ -618,11 +618,11 @@ SHOW(
 );
 
 // Color / Adding and mixing colors
-SHOW( /* addition = lightening */
+SHOW(/* addition = lightening */
     ROT.Color.add([10, 128, 230], [200, 10, 15], [30, 30, 100]),
     ROT.Color.add_([10, 128, 230], [200, 10, 15])
 );
-SHOW( /* multiplication = darkening */
+SHOW(/* multiplication = darkening */
     ROT.Color.multiply([10, 128, 230], [200, 10, 15]),
     ROT.Color.multiply_([10, 128, 230], [200, 10, 15])
 );
@@ -646,13 +646,13 @@ SHOW(
 // Color / Lighting
 ROT.RNG.setSeed(12345);
 
-let mapData: any = {};
-let lightData: { [key: string]: [number, number, number] } = {};
+const mapData: any = {};
+const lightData: { [key: string]: [number, number, number] } = {};
 
 /* build a map */
 cellular = new ROT.Map.Cellular().randomize(0.5);
-let createCallback = (x: number, y: number, value: number) => {
-    mapData[x + "," + y] = value;
+const createCallback = (x: number, y: number, value: number) => {
+    mapData[`${x},${y}`] = value;
 };
 for (let i = 0; i < 4; i++) {
     cellular.create(createCallback);
@@ -660,22 +660,22 @@ for (let i = 0; i < 4; i++) {
 
 /* prepare a FOV algorithm */
 lightPasses = (x: number, y: number) => {
-    return (mapData[x + "," + y] === 1);
+    return (mapData[`${x},${y}`] === 1);
 };
 fov = new ROT.FOV.PreciseShadowcasting(lightPasses, { topology: 4 });
 
 /* prepare a lighting algorithm */
-let reflectivity = (x: number, y: number) => {
-    return (mapData[x + "," + y] === 1 ? 0.3 : 0);
+const reflectivity = (x: number, y: number) => {
+    return (mapData[`${x},${y}`] === 1 ? 0.3 : 0);
 };
-let lighting = new ROT.Lighting(reflectivity, { range: 12, passes: 2 });
+const lighting = new ROT.Lighting(reflectivity, { range: 12, passes: 2 });
 lighting.setFOV(fov);
 lighting.setLight(12, 12, [240, 240, 30]);
 lighting.setLight(20, 20, [240, 60, 60]);
 lighting.setLight(45, 25, [200, 200, 200]);
 
-let lightingCallback = (x: number, y: number, color: [number, number, number]) => {
-    lightData[x + "," + y] = color;
+const lightingCallback = (x: number, y: number, color: [number, number, number]) => {
+    lightData[`${x},${y}`] = color;
 };
 lighting.compute(lightingCallback);
 
@@ -684,20 +684,20 @@ display = new ROT.Display({ fontSize: 8 });
 SHOW(display.getContainer());
 
 /* all cells are lit by ambient light; some are also lit by light sources */
-let ambientLight: ROT.ColorArray = [100, 100, 100];
-for (let id in mapData) {
-    let parts = id.split(",");
-    let x = parseInt(parts[0], 10);
-    let y = parseInt(parts[1], 10);
+const ambientLight: ROT.ColorArray = [100, 100, 100];
+for (const id in mapData) {
+    const parts = id.split(",");
+    const x = parseInt(parts[0], 10);
+    const y = parseInt(parts[1], 10);
 
-    let baseColor: ROT.ColorArray = (mapData[id] ? [100, 100, 100] : [50, 50, 50]);
+    const baseColor: ROT.ColorArray = (mapData[id] ? [100, 100, 100] : [50, 50, 50]);
     let light = ambientLight;
 
     if (id in lightData) { /* add light from our computation */
         light = ROT.Color.add(light, lightData[id]);
     }
 
-    let finalColor = ROT.Color.multiply(baseColor, light);
+    const finalColor = ROT.Color.multiply(baseColor, light);
     display.draw(x, y, "@", "white", ROT.Color.toRGB(finalColor));
 }
 
@@ -708,16 +708,16 @@ display = new ROT.Display({ width: w, height: h, fontSize: 6 });
 SHOW(display.getContainer());
 
 /* generate map and store its data */
-let uni_data: any = {};
+const uni_data: any = {};
 let uni_map = new ROT.Map.Uniform(w, h);
 uni_map.create((x, y, value) => {
-    uni_data[x + "," + y] = value;
+    uni_data[`${x},${y}`] = value;
     display.DEBUG(x, y, value);
 });
 
 /* input callback informs about map structure */
 let passableCallback = (x: number, y: number) => {
-    return (uni_data[x + "," + y] === 0);
+    return (uni_data[`${x},${y}`] === 0);
 };
 
 /* prepare path to given coords */
@@ -747,17 +747,17 @@ SHOW(display.getContainer());
 /* generate map and store its data */
 uni_map = new ROT.Map.Uniform(w, h);
 uni_map.create((x: number, y: number, value: number) => {
-    uni_data[x + "," + y] = value;
+    uni_data[`${x},${y}`] = value;
     display.DEBUG(x, y, value);
 });
 
 /* input callback informs about map structure */
 passableCallback = (x: number, y: number) => {
-    return (uni_data[x + "," + y] === 0);
+    return (uni_data[`${x},${y}`] === 0);
 };
 
 /* prepare path to given coords */
-let astar = new ROT.Path.AStar(98, 38, passableCallback);
+const astar = new ROT.Path.AStar(98, 38, passableCallback);
 
 /* compute from given coords #1 */
 astar.compute(8, 45, (x: number, y: number) => {
@@ -782,11 +782,11 @@ SHOW(display.getContainer());
 
 for (let j = 0; j < h; j++) {
     for (let i = 0; i < w; i++) {
-        let val = noise.get(i / 20, j / 20) * 255;
+        const val = noise.get(i / 20, j / 20) * 255;
 
-        let r = ~~(val > 0 ? val : 0);
-        let g = ~~(val < 0 ? -val : 0);
-        display.draw(i, j, "", "", "rgb(" + r + "," + g + ",0)");
+        const r = ~~(val > 0 ? val : 0);
+        const g = ~~(val < 0 ? -val : 0);
+        display.draw(i, j, "", "", `rgb(${r},${g},0)`);
     }
 }
 // ----
@@ -797,17 +797,17 @@ SHOW(display.getContainer());
 
 for (let j = 0; j < h; j++) {
     for (let i = j % 2; i < w; i += 2) {
-        let val = noise.get(i / 60, j / 60) * 255;
+        const val = noise.get(i / 60, j / 60) * 255;
 
-        let r = ~~(val > 0 ? val : 0);
-        let g = ~~(val < 0 ? -val : 0);
-        display.draw(i, j, "", "", "rgb(" + r + "," + g + ",0)");
+        const r = ~~(val > 0 ? val : 0);
+        const g = ~~(val < 0 ? -val : 0);
+        display.draw(i, j, "", "", `rgb(${r},${g},0)`);
     }
 }
 
 // Timing & scheduling / event queue
 
-let queue = new ROT.EventQueue();
+const queue = new ROT.EventQueue();
 
 queue.add("event 1", 100); /* queued after 100 time units */
 queue.add("event 2", 10);  /* queued after 10 time units */
@@ -832,7 +832,7 @@ for (let i = 0; i < 4; i++) {
 /* simulate several turns */
 let turns: any = [];
 for (let i = 0; i < 20; i++) {
-    let current = scheduler.next();
+    const current = scheduler.next();
     turns.push(current);
 }
 
@@ -851,7 +851,7 @@ class Actor {
 
 /* generate some actors */
 for (let i = 0; i < 4; i++) {
-    let actor = new Actor(ROT.RNG.getPercentage(), i + 1);
+    const actor = new Actor(ROT.RNG.getPercentage(), i + 1);
     scheduler.add(actor, true);
     SHOW("Object #%s has speed %s.".format(actor.number, actor.speed));
 }
@@ -859,7 +859,7 @@ for (let i = 0; i < 4; i++) {
 /* simulate several turns */
 turns = [];
 for (let i = 0; i < 40; i++) {
-    let current = scheduler.next();
+    const current = scheduler.next();
     turns.push(current.number);
 }
 
@@ -868,7 +868,7 @@ SHOW(turns.join(" ") + " ...");
 
 // Timing & scheduling / Action-duration scheduler
 
-let act_scheduler = new ROT.Scheduler.Action();
+const act_scheduler = new ROT.Scheduler.Action();
 
 /* generate some actors */
 for (let i = 0; i < 4; i++) {
@@ -878,12 +878,12 @@ for (let i = 0; i < 4; i++) {
 /* simulate several turns */
 template = "Actor %s performing action for %s time units (current time: %s)";
 for (let i = 0; i < 20; i++) {
-    let current = act_scheduler.next();
+    const current = act_scheduler.next();
 
-    let actionDuration = Math.ceil(ROT.RNG.getUniform() * 20);
+    const actionDuration = Math.ceil(ROT.RNG.getUniform() * 20);
     act_scheduler.setDuration(actionDuration);
 
-    let padded = actionDuration.toString().lpad("0");
+    const padded = actionDuration.toString().lpad("0");
     SHOW(template.format(current, padded, act_scheduler.getTime()));
 }
 
@@ -907,7 +907,7 @@ class Actor1 {
 }
 
 /* sample actor: pauses the execution when dead */
-let actor1 = new Actor1(3);
+const actor1 = new Actor1(3);
 scheduler.add(actor1, true);
 
 class Actor2 {
@@ -916,8 +916,8 @@ class Actor2 {
     }
 }
 
-let unlock = () => {               /* called asynchronously */
-    let actor2 = new Actor2();
+const unlock = () => {               /* called asynchronously */
+    const actor2 = new Actor2();
 
     output = [];
     scheduler.add(actor2, false);       /* add second (non-repeating) actor */
@@ -940,7 +940,7 @@ class Actor3 {
 
     act() {
         let done: any = null;
-        let promise = {
+        const promise = {
             then(cb: any) { done = cb; }
         };
 
@@ -956,7 +956,7 @@ class Actor3 {
         return promise;
     }
 }
-let actor3 = new Actor3(3);
+const actor3 = new Actor3(3);
 
 scheduler.add(actor3, true);
 
@@ -964,18 +964,18 @@ engine.start();
 
 // String generator
 
-let sg = new ROT.StringGenerator();
+const sg = new ROT.StringGenerator();
 
-let req = new XMLHttpRequest();
+const req = new XMLHttpRequest();
 req.open("get", "java.txt", true);
 req.send();
 
 req.onreadystatechange = () => {
     if (req.readyState !== 4) { return; }
 
-    let lines = req.responseText.split("\n");
+    const lines = req.responseText.split("\n");
     while (lines.length) {
-        let line = lines.pop()!.trim();
+        const line = lines.pop()!.trim();
         if (!line) { continue; }
         sg.observe(line);
     }
@@ -999,7 +999,7 @@ SHOW(display.getContainer());
 
 for (let y = 0; y < 5; y++) {
     for (let x = y % 2; x < 8; x += 2) {
-        let bg = ["#333", "#666", "#999", "#ccc", "#fff"].random();
+        const bg = ["#333", "#666", "#999", "#ccc", "#fff"].random();
         display.draw(x, y, "•", "#000", bg);
     }
 }
@@ -1013,8 +1013,8 @@ SHOW(display.getContainer());
 
 for (let y = 0; y < 4; y++) {
     for (let x = y % 2; x < 10; x += 2) {
-        let bg = ["#333", "#666", "#999", "#ccc", "#fff"].random();
-        display.draw(x, y, x + "," + y, "#000", bg);
+        const bg = ["#333", "#666", "#999", "#ccc", "#fff"].random();
+        display.draw(x, y, `${x},${y}`, "#000", bg);
     }
 }
 
@@ -1033,9 +1033,9 @@ let cell_map = new ROT.Map.Cellular(w, h, {
 /* initialize with irregularly random values */
 for (let i = 0; i < w; i++) {
     for (let j = 0; j < h; j++) {
-        let dx = i / w - 0.5;
-        let dy = j / h - 0.5;
-        let dist = Math.pow(dx * dx + dy * dy, 0.3);
+        const dx = i / w - 0.5;
+        const dy = j / h - 0.5;
+        const dist = Math.pow(dx * dx + dy * dy, 0.3);
         if (ROT.RNG.getUniform() < dist) { cell_map.set(i, j, 1); }
     }
 }
@@ -1061,13 +1061,13 @@ cell_map = new ROT.Map.Cellular(w, h, {
 cell_map.randomize(0.48);
 cell_map.create(); /* two iterations */
 cell_map.create((x: number, y: number, value: number) => {
-    cell_data[x + "," + y] = value;
+    cell_data[`${x},${y}`] = value;
     display.DEBUG(x, y, value);
 });
 
 /* input callback informs about map structure */
 passableCallback = (x: number, y: number) => {
-    return (cell_data[x + "," + y] === 0);
+    return (cell_data[`${x},${y}`] === 0);
 };
 
 /* prepare path to given coords */
@@ -1098,13 +1098,13 @@ cell_map = new ROT.Map.Cellular(undefined, undefined, {
 });
 cell_map.randomize(0.4);
 cell_map.create((x: number, y: number, value: number) => {
-    cell_data[x + "," + y] = value;
+    cell_data[`${x},${y}`] = value;
     display.DEBUG(x, y, value);
 });
 
 /* input callback */
 lightPasses = (x: number, y: number) => {
-    let key = x + "," + y;
+    const key = `${x},${y}`;
     if (key in cell_data) { return (cell_data[key] === 0); }
     return false;
 };
@@ -1113,7 +1113,7 @@ fov = new ROT.FOV.PreciseShadowcasting(lightPasses, { topology: 6 });
 
 /* output callback */
 fov.compute(20, 14, 6, (x, y, r, vis) => {
-    let ch = (r ? "" : "@");
-    let color = (cell_data[x + "," + y] ? "#aa0" : "#660");
+    const ch = (r ? "" : "@");
+    const color = (cell_data[`${x},${y}`] ? "#aa0" : "#660");
     display.draw(x, y, ch, "#fff", color);
 });

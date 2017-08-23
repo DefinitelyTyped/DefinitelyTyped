@@ -538,8 +538,7 @@ declare namespace google {
 
         // https://google-developers.appspot.com/chart/interactive/docs/gallery/scatterchart
         export class ScatterChart extends CoreChartBase {
-            draw(data: DataTable, options?: ScatterChartOptions): void;
-            draw(data: DataView, options?: ScatterChartOptions): void;
+            draw(data: DataTable | DataView, options?: ScatterChartOptions): void;
         }
 
         export interface ScatterChartOptions {
@@ -560,7 +559,7 @@ declare namespace google {
             forceIFrame?: boolean;
             hAxis?: ChartAxis;
             height?: number;
-            legend?: ChartLegend;
+            legend?: ChartLegend | "none";
             lineWidth?: number;
             pointSize?: number;
             selectionMode?: string;
@@ -1085,8 +1084,7 @@ declare namespace google {
 
         // https://google-developers.appspot.com/chart/interactive/docs/gallery/candlestickchart
         export class CandlestickChart extends CoreChartBase {
-            draw(data: DataTable, options: CandlestickChartOptions): void;
-            draw(data: DataView, options: CandlestickChartOptions): void;
+            draw(data: DataTable | DataView, options: CandlestickChartOptions): void;
         }
 
         // https://google-developers.appspot.com/chart/interactive/docs/gallery/candlestickchart#Configuration_Options
@@ -1105,7 +1103,7 @@ declare namespace google {
             fontName?: string;
             hAxis?: ChartAxis;
             height?: number;
-            legend?: ChartLegend;
+            legend?: ChartLegend | "none";
             orientation?: string;
             reverseCategories?: boolean;
             selectionMode?: string // single / multiple
@@ -1180,6 +1178,8 @@ declare namespace google {
         namespace events {
             function addListener(visualization: any, eventName: string, callback: Function): any;
             function addListener(visualization: any, eventName: string, callback: (...args: any[]) => void): any;
+            function addOneTimeListener(visualization: any, eventName: string, callback: Function): any;
+            function addOneTimeListener(visualization: any, eventName: string, callback: (...args: any[]) => void): any;
             function removeListener(listener: any): void;
             function removeAllListeners(visualization: any): void;
             function trigger(visualization: any, eventName: string, args?: any): void;

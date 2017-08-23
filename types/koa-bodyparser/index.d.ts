@@ -1,6 +1,6 @@
 // Type definitions for koa-bodyparser v3.x
 // Project: https://github.com/koajs/bodyparser
-// Definitions by: Jerry Chin <https://github.com/hellopao/>
+// Definitions by: Jerry Chin <https://github.com/hellopao>
 // Definitions: https://github.com/hellopao/DefinitelyTyped
 
 /* =================== USAGE ===================
