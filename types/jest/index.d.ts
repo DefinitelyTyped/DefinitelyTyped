@@ -475,7 +475,7 @@ declare namespace jest {
     }
 
     interface Mock<T> extends Function, MockInstance<T> {
-        new(...args: any[]): T;
+        new (...args: any[]): T;
         (...args: any[]): any;
     }
 
