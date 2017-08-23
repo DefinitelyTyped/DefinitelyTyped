@@ -539,6 +539,36 @@ describe('Mocks', () => {
         const anotherIns: jest.Mocked<TestApi> = new anotherMock() as any;
         anotherIns.testMethod.mockImplementation(() => 1);
     });
+
+    it('jest.fn() accepts constructor arguments', () => {
+        interface TestLog {
+            log(...msg: any[]): void;
+        }
+
+        class LogMock extends jest.fn<TestLog>((verbose?: boolean) => {
+            const mockLog = () => {
+                if (verbose) {
+                    return jest.fn((...args) => {
+                        const subj = args.shift() || "";
+                        console.log(subj, ...args);
+                    });
+                }
+                return jest.fn();
+            };
+
+            return {
+                log: mockLog()
+            };
+        }) {
+        }
+
+        const nonVerboseLog = new LogMock();
+        nonVerboseLog.log("this is completely catched by jest");
+        expect(nonVerboseLog.log).toBeCalledWith("this is completely catched by jest");
+        const verboseLog = new LogMock(true);
+        verboseLog.log("this should also be printed to the console");
+        expect(verboseLog.log).toBeCalledWith("this should also be printed to the console");
+    });
 });
 
 // https://facebook.github.io/jest/docs/en/expect.html#resolves
