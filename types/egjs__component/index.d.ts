@@ -2,7 +2,7 @@
 // Project: https://github.com/naver/egjs-component
 // Definitions by: Naver <https://github.com/naver>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.2
 
 export as namespace eg;
 
