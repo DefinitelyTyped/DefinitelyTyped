@@ -33,6 +33,9 @@ Don't forget to authenticate your client before sending any request to resources
 // declare client_id registered in Google Developers Console
 var client_id = '',
     scope = [     
+        // View and write monitoring data for all of your Google and third-party Cloud and API projects
+        'https://www.googleapis.com/auth/monitoring',
+    
         // Publish metric data to your Google Cloud projects
         'https://www.googleapis.com/auth/monitoring.write',
     
@@ -41,9 +44,6 @@ var client_id = '',
     
         // View and manage your data across Google Cloud Platform services
         'https://www.googleapis.com/auth/cloud-platform',
-    
-        // View and write monitoring data for all of your Google and third-party Cloud and API projects
-        'https://www.googleapis.com/auth/monitoring',
     ],
     immediate = true;
 // ...

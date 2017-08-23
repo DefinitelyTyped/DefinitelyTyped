@@ -33,11 +33,11 @@ Don't forget to authenticate your client before sending any request to resources
 // declare client_id registered in Google Developers Console
 var client_id = '',
     scope = [     
-        // View your Google Analytics data
-        'https://www.googleapis.com/auth/analytics.readonly',
-    
         // View and manage your Google Analytics data
         'https://www.googleapis.com/auth/analytics',
+    
+        // View your Google Analytics data
+        'https://www.googleapis.com/auth/analytics.readonly',
     ],
     immediate = true;
 // ...

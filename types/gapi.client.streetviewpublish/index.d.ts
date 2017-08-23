@@ -16,122 +16,11 @@ declare namespace gapi.client {
     function load(name: "streetviewpublish", version: "v1"): PromiseLike<void>;    
     function load(name: "streetviewpublish", version: "v1", callback: () => any): void;    
     
-    const photos: streetviewpublish.PhotosResource; 
-    
     const photo: streetviewpublish.PhotoResource; 
     
+    const photos: streetviewpublish.PhotosResource; 
+    
     namespace streetviewpublish {
-        
-        interface PhotoId {
-            /** Required. A base64 encoded identifier. */
-            id?: string;
-        }
-        
-        interface Pose {
-            /** Level (the floor in a building) used to configure vertical navigation. */
-            level?: Level;
-            /** Compass heading, measured at the center of the photo in degrees clockwise */
-            /** from North. Value must be >=0 and <360. */
-            /** NaN indicates an unmeasured quantity. */
-            heading?: number;
-            /** Altitude of the pose in meters above ground level (as defined by WGS84). */
-            /** NaN indicates an unmeasured quantity. */
-            altitude?: number;
-            /** Pitch, measured at the center of the photo in degrees. Value must be >=-90 */
-            /** and <= 90. A value of -90 means looking directly down, and a value of 90 */
-            /** means looking directly up. */
-            /** NaN indicates an unmeasured quantity. */
-            pitch?: number;
-            /** Latitude and longitude pair of the pose, as explained here: */
-            /** https://cloud.google.com/datastore/docs/reference/rest/Shared.Types/LatLng */
-            /** When creating a Photo, if the */
-            /** latitude and longitude pair are not provided here, the geolocation from the */
-            /** exif header will be used. If the latitude and longitude pair is not */
-            /** provided and cannot be found in the exif header, the create photo process */
-            /** will fail. */
-            latLngPair?: LatLng;
-            /** Roll, measured in degrees. Value must be >= 0 and <360. A value of 0 */
-            /** means level with the horizon. */
-            /** NaN indicates an unmeasured quantity. */
-            roll?: number;
-        }
-        
-        interface BatchUpdatePhotosRequest {
-            /** Required. List of */
-            /** UpdatePhotoRequests. */
-            updatePhotoRequests?: UpdatePhotoRequest[];
-        }
-        
-        interface ListPhotosResponse {
-            /** List of photos. The maximum number of items returned is based on the */
-            /** pageSize field */
-            /** in the request. */
-            photos?: Photo[];
-            /** Token to retrieve the next page of results, or empty if there are no more */
-            /** results in the list. */
-            nextPageToken?: string;
-        }
-        
-        interface Photo {
-            /** Connections to other photos. A connection represents the link from this */
-            /** photo to another photo. */
-            connections?: Connection[];
-            /** Places where this photo belongs. */
-            places?: Place[];
-            /** Pose of the photo. */
-            pose?: Pose;
-            /** Required when updating photo. Output only when creating photo. */
-            /** Identifier for the photo, which is unique among all photos in */
-            /** Google. */
-            photoId?: PhotoId;
-            /** Required when creating photo. Input only. The resource URL where the photo */
-            /** bytes are uploaded to. */
-            uploadReference?: UploadRef;
-            /** Output only. The share link for the photo. */
-            shareLink?: string;
-            /** Output only. The thumbnail URL for showing a preview of the given photo. */
-            thumbnailUrl?: string;
-            /** Absolute time when the photo was captured. */
-            /** When the photo has no exif timestamp, this is used to set a timestamp in */
-            /** the photo metadata. */
-            captureTime?: string;
-            /** Output only. View count of the photo. */
-            viewCount?: string;
-            /** Output only. The download URL for the photo bytes. This field is set only */
-            /** when */
-            /** GetPhotoRequest.view */
-            /** is set to */
-            /** PhotoView.INCLUDE_DOWNLOAD_URL. */
-            downloadUrl?: string;
-        }
-        
-        interface PhotoResponse {
-            /** The status for the operation to get or update a single photo in the batch */
-            /** request. */
-            status?: Status;
-            /** The Photo resource, if the request */
-            /** was successful. */
-            photo?: Photo;
-        }
-        
-        interface Connection {
-            /** Required. The destination of the connection from the containing photo to */
-            /** another photo. */
-            target?: PhotoId;
-        }
-        
-        interface BatchUpdatePhotosResponse {
-            /** List of results for each individual */
-            /** Photo updated, in the same order as */
-            /** the request. */
-            results?: PhotoResponse[];
-        }
-        
-        interface BatchDeletePhotosResponse {
-            /** The status for the operation to delete a single */
-            /** Photo in the batch request. */
-            status?: Status[];
-        }
         
         interface Status {
             /** A developer-facing error message, which should be in English. Any */
@@ -145,6 +34,12 @@ declare namespace gapi.client {
             code?: number;
         }
         
+        interface BatchDeletePhotosResponse {
+            /** The status for the operation to delete a single */
+            /** Photo in the batch request. */
+            status?: Status[];
+        }
+        
         interface Level {
             /** Floor number, used for ordering. 0 indicates the ground level, 1 indicates */
             /** the first level above ground level, -1 indicates the first level under */
@@ -156,12 +51,11 @@ declare namespace gapi.client {
             name?: string;
         }
         
-        interface BatchGetPhotosResponse {
-            /** List of results for each individual */
-            /** Photo requested, in the same order as */
-            /** the requests in */
-            /** BatchGetPhotos. */
-            results?: PhotoResponse[];
+        interface UploadRef {
+            /** Required. An upload reference should be unique for each user. It follows */
+            /** the form: */
+            /** "https://streetviewpublish.googleapis.com/media/user/{account_id}/photo/{upload_reference}" */
+            uploadUrl?: string;
         }
         
         interface Place {
@@ -170,11 +64,12 @@ declare namespace gapi.client {
             placeId?: string;
         }
         
-        interface UploadRef {
-            /** Required. An upload reference should be unique for each user. It follows */
-            /** the form: */
-            /** "https://streetviewpublish.googleapis.com/media/user/{account_id}/photo/{upload_reference}" */
-            uploadUrl?: string;
+        interface BatchGetPhotosResponse {
+            /** List of results for each individual */
+            /** Photo requested, in the same order as */
+            /** the requests in */
+            /** BatchGetPhotos. */
+            results?: PhotoResponse[];
         }
         
         interface BatchDeletePhotosRequest {
@@ -192,15 +87,6 @@ declare namespace gapi.client {
         }
         
         interface UpdatePhotoRequest {
-            /** Required. Photo object containing the */
-            /** new metadata. Only the fields specified in */
-            /** updateMask */
-            /** field are used. If `updateMask` is not present, the update applies to all */
-            /** fields. <aside class="note"><b>Note:</b> To update */
-            /** Pose.altitude, */
-            /** Pose.latLngPair has to be */
-            /** filled as well. Otherwise, the request will fail. */
-            photo?: Photo;
             /** Mask that identifies fields on the photo metadata to update. */
             /** If not present, the old Photo metadata will be entirely replaced with the */
             /** new Photo metadata in this request. The update fails if invalid fields are */
@@ -227,201 +113,161 @@ declare namespace gapi.client {
             /** google.streetview.publish.v1.UpdatePhotoRequest.photo.connections is */
             /** empty, all connections will be removed.</aside> */
             updateMask?: string;
+            /** Required. Photo object containing the */
+            /** new metadata. Only the fields specified in */
+            /** updateMask */
+            /** field are used. If `updateMask` is not present, the update applies to all */
+            /** fields. <aside class="note"><b>Note:</b> To update */
+            /** Pose.altitude, */
+            /** Pose.latLngPair has to be */
+            /** filled as well. Otherwise, the request will fail. */
+            photo?: Photo;
         }
         
-        interface PhotosResource {
-            /** Lists all the Photos that belong to the user. */
-            list(request: {            
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** The */
-                /** nextPageToken */
-                /** value returned from a previous */
-                /** ListPhotos */
-                /** request, if any. */
-                pageToken?: string;
-                /** The maximum number of photos to return. */
-                /** `pageSize` must be non-negative. If `pageSize` is zero or is not provided, */
-                /** the default page size of 100 will be used. */
-                /** The number of photos returned in the response may be less than `pageSize` */
-                /** if the number of photos that belong to the user is less than `pageSize`. */
-                pageSize?: number;
-                /** Specifies if a download URL for the photos bytes should be returned in the */
-                /** Photos response. */
-                view?: string;
-                /** The filter expression. For example: `placeId=ChIJj61dQgK6j4AR4GeTYWZsKWw`. */
-                filter?: string;
-            }): Request<ListPhotosResponse>;            
-            
-            /** Deletes a list of Photos and their metadata. */
-            /**  */
-            /** Note that if */
-            /** BatchDeletePhotos */
-            /** fails, either critical fields are missing or there was an authentication */
-            /** error. Even if */
-            /** BatchDeletePhotos */
-            /** succeeds, there may have been failures for single photos in the batch. */
-            /** These failures will be specified in each */
-            /** PhotoResponse.status */
-            /** in */
-            /** BatchDeletePhotosResponse.results. */
-            /** See */
-            /** DeletePhoto */
-            /** for specific failures that can occur per photo. */
-            batchDelete(request: {            
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-            }): Request<BatchDeletePhotosResponse>;            
-            
-            /** Updates the metadata of Photos, such */
-            /** as pose, place association, connections, etc. Changing the pixels of photos */
-            /** is not supported. */
-            /**  */
-            /** Note that if */
-            /** BatchUpdatePhotos */
-            /** fails, either critical fields are missing or there was an authentication */
-            /** error. Even if */
-            /** BatchUpdatePhotos */
-            /** succeeds, there may have been failures for single photos in the batch. */
-            /** These failures will be specified in each */
-            /** PhotoResponse.status */
-            /** in */
-            /** BatchUpdatePhotosResponse.results. */
-            /** See */
-            /** UpdatePhoto */
-            /** for specific failures that can occur per photo. */
-            batchUpdate(request: {            
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-            }): Request<BatchUpdatePhotosResponse>;            
-            
-            /** Gets the metadata of the specified */
-            /** Photo batch. */
-            /**  */
-            /** Note that if */
-            /** BatchGetPhotos */
-            /** fails, either critical fields are missing or there was an authentication */
-            /** error. Even if */
-            /** BatchGetPhotos */
-            /** succeeds, there may have been failures for single photos in the batch. */
-            /** These failures will be specified in each */
-            /** PhotoResponse.status */
-            /** in */
-            /** BatchGetPhotosResponse.results. */
-            /** See */
-            /** GetPhoto */
-            /** for specific failures that can occur per photo. */
-            batchGet(request: {            
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Specifies if a download URL for the photo bytes should be returned in the */
-                /** Photo response. */
-                view?: string;
-                /** Required. IDs of the Photos. For HTTP */
-                /** GET requests, the URL query parameter should be */
-                /** `photoIds=<id1>&photoIds=<id2>&...`. */
-                photoIds?: string;
-            }): Request<BatchGetPhotosResponse>;            
-            
+        interface Pose {
+            /** Compass heading, measured at the center of the photo in degrees clockwise */
+            /** from North. Value must be >=0 and <360. */
+            /** NaN indicates an unmeasured quantity. */
+            heading?: number;
+            /** Altitude of the pose in meters above ground level (as defined by WGS84). */
+            /** NaN indicates an unmeasured quantity. */
+            altitude?: number;
+            /** Pitch, measured at the center of the photo in degrees. Value must be >=-90 */
+            /** and <= 90. A value of -90 means looking directly down, and a value of 90 */
+            /** means looking directly up. */
+            /** NaN indicates an unmeasured quantity. */
+            pitch?: number;
+            /** Latitude and longitude pair of the pose, as explained here: */
+            /** https://cloud.google.com/datastore/docs/reference/rest/Shared.Types/LatLng */
+            /** When creating a Photo, if the */
+            /** latitude and longitude pair are not provided here, the geolocation from the */
+            /** exif header will be used. If the latitude and longitude pair is not */
+            /** provided and cannot be found in the exif header, the create photo process */
+            /** will fail. */
+            latLngPair?: LatLng;
+            /** Roll, measured in degrees. Value must be >= 0 and <360. A value of 0 */
+            /** means level with the horizon. */
+            /** NaN indicates an unmeasured quantity. */
+            roll?: number;
+            /** Level (the floor in a building) used to configure vertical navigation. */
+            level?: Level;
+        }
+        
+        interface PhotoId {
+            /** Required. A base64 encoded identifier. */
+            id?: string;
+        }
+        
+        interface BatchUpdatePhotosRequest {
+            /** Required. List of */
+            /** UpdatePhotoRequests. */
+            updatePhotoRequests?: UpdatePhotoRequest[];
+        }
+        
+        interface ListPhotosResponse {
+            /** Token to retrieve the next page of results, or empty if there are no more */
+            /** results in the list. */
+            nextPageToken?: string;
+            /** List of photos. The maximum number of items returned is based on the */
+            /** pageSize field */
+            /** in the request. */
+            photos?: Photo[];
+        }
+        
+        interface Photo {
+            /** Output only. The share link for the photo. */
+            shareLink?: string;
+            /** Absolute time when the photo was captured. */
+            /** When the photo has no exif timestamp, this is used to set a timestamp in */
+            /** the photo metadata. */
+            captureTime?: string;
+            /** Output only. The thumbnail URL for showing a preview of the given photo. */
+            thumbnailUrl?: string;
+            /** Output only. View count of the photo. */
+            viewCount?: string;
+            /** Output only. The download URL for the photo bytes. This field is set only */
+            /** when */
+            /** GetPhotoRequest.view */
+            /** is set to */
+            /** PhotoView.INCLUDE_DOWNLOAD_URL. */
+            downloadUrl?: string;
+            /** Places where this photo belongs. */
+            places?: Place[];
+            /** Connections to other photos. A connection represents the link from this */
+            /** photo to another photo. */
+            connections?: Connection[];
+            /** Pose of the photo. */
+            pose?: Pose;
+            /** Required when creating photo. Input only. The resource URL where the photo */
+            /** bytes are uploaded to. */
+            uploadReference?: UploadRef;
+            /** Required when updating photo. Output only when creating photo. */
+            /** Identifier for the photo, which is unique among all photos in */
+            /** Google. */
+            photoId?: PhotoId;
+        }
+        
+        interface PhotoResponse {
+            /** The status for the operation to get or update a single photo in the batch */
+            /** request. */
+            status?: Status;
+            /** The Photo resource, if the request */
+            /** was successful. */
+            photo?: Photo;
+        }
+        
+        interface Connection {
+            /** Required. The destination of the connection from the containing photo to */
+            /** another photo. */
+            target?: PhotoId;
+        }
+        
+        interface BatchUpdatePhotosResponse {
+            /** List of results for each individual */
+            /** Photo updated, in the same order as */
+            /** the request. */
+            results?: PhotoResponse[];
         }
         
         interface PhotoResource {
+            /** Deletes a Photo and its metadata. */
+            /**  */
+            /** This method returns the following error codes: */
+            /**  */
+            /** &#42; google.rpc.Code.PERMISSION_DENIED if the requesting user did not */
+            /** create the requested photo. */
+            /** &#42; google.rpc.Code.NOT_FOUND if the photo ID does not exist. */
+            delete(request: {            
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Required. ID of the Photo. */
+                photoId: string;
+            }): Request<{}>;            
+            
             /** Gets the metadata of the specified */
             /** Photo. */
             /**  */
@@ -432,10 +278,6 @@ declare namespace gapi.client {
             /** &#42; google.rpc.Code.NOT_FOUND if the requested */
             /** Photo does not exist. */
             get(request: {            
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** OAuth bearer token. */
@@ -444,20 +286,24 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
                 /** JSONP */
                 callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth access token. */
                 access_token?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
                 /** Specifies if a download URL for the photo bytes should be returned in the */
                 /** Photo response. */
                 view?: string;
@@ -476,10 +322,6 @@ declare namespace gapi.client {
             /** &#42; google.rpc.Code.INVALID_ARGUMENT if the request is malformed. */
             /** &#42; google.rpc.Code.NOT_FOUND if the requested photo does not exist. */
             update(request: {            
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** OAuth bearer token. */
@@ -488,20 +330,24 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
                 /** JSONP */
                 callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth access token. */
                 access_token?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
                 /** Required. A base64 encoded identifier. */
                 id: string;
                 /** Mask that identifies fields on the photo metadata to update. */
@@ -545,10 +391,6 @@ declare namespace gapi.client {
             /** &#42; google.rpc.Code.RESOURCE_EXHAUSTED if the account has reached the */
             /** storage limit. */
             create(request: {            
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** OAuth bearer token. */
@@ -557,20 +399,24 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
                 /** JSONP */
                 callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth access token. */
                 access_token?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
             }): Request<Photo>;            
             
             /** Creates an upload session to start uploading photo bytes. The upload URL of */
@@ -593,10 +439,6 @@ declare namespace gapi.client {
             /** CreatePhoto */
             /** to create the Photo object entry. */
             startUpload(request: {            
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** OAuth bearer token. */
@@ -605,34 +447,45 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
                 /** JSONP */
                 callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth access token. */
                 access_token?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
             }): Request<UploadRef>;            
             
-            /** Deletes a Photo and its metadata. */
+        }
+        
+        interface PhotosResource {
+            /** Deletes a list of Photos and their metadata. */
             /**  */
-            /** This method returns the following error codes: */
-            /**  */
-            /** &#42; google.rpc.Code.PERMISSION_DENIED if the requesting user did not */
-            /** create the requested photo. */
-            /** &#42; google.rpc.Code.NOT_FOUND if the photo ID does not exist. */
-            delete(request: {            
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
+            /** Note that if */
+            /** BatchDeletePhotos */
+            /** fails, either critical fields are missing or there was an authentication */
+            /** error. Even if */
+            /** BatchDeletePhotos */
+            /** succeeds, there may have been failures for single photos in the batch. */
+            /** These failures will be specified in each */
+            /** PhotoResponse.status */
+            /** in */
+            /** BatchDeletePhotosResponse.results. */
+            /** See */
+            /** DeletePhoto */
+            /** for specific failures that can occur per photo. */
+            batchDelete(request: {            
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** OAuth bearer token. */
@@ -641,23 +494,170 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
                 /** JSONP */
                 callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** Required. ID of the Photo. */
-                photoId: string;
-            }): Request<{}>;            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+            }): Request<BatchDeletePhotosResponse>;            
+            
+            /** Updates the metadata of Photos, such */
+            /** as pose, place association, connections, etc. Changing the pixels of photos */
+            /** is not supported. */
+            /**  */
+            /** Note that if */
+            /** BatchUpdatePhotos */
+            /** fails, either critical fields are missing or there was an authentication */
+            /** error. Even if */
+            /** BatchUpdatePhotos */
+            /** succeeds, there may have been failures for single photos in the batch. */
+            /** These failures will be specified in each */
+            /** PhotoResponse.status */
+            /** in */
+            /** BatchUpdatePhotosResponse.results. */
+            /** See */
+            /** UpdatePhoto */
+            /** for specific failures that can occur per photo. */
+            batchUpdate(request: {            
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+            }): Request<BatchUpdatePhotosResponse>;            
+            
+            /** Gets the metadata of the specified */
+            /** Photo batch. */
+            /**  */
+            /** Note that if */
+            /** BatchGetPhotos */
+            /** fails, either critical fields are missing or there was an authentication */
+            /** error. Even if */
+            /** BatchGetPhotos */
+            /** succeeds, there may have been failures for single photos in the batch. */
+            /** These failures will be specified in each */
+            /** PhotoResponse.status */
+            /** in */
+            /** BatchGetPhotosResponse.results. */
+            /** See */
+            /** GetPhoto */
+            /** for specific failures that can occur per photo. */
+            batchGet(request: {            
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Specifies if a download URL for the photo bytes should be returned in the */
+                /** Photo response. */
+                view?: string;
+                /** Required. IDs of the Photos. For HTTP */
+                /** GET requests, the URL query parameter should be */
+                /** `photoIds=<id1>&photoIds=<id2>&...`. */
+                photoIds?: string;
+            }): Request<BatchGetPhotosResponse>;            
+            
+            /** Lists all the Photos that belong to the user. */
+            list(request: {            
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** The */
+                /** nextPageToken */
+                /** value returned from a previous */
+                /** ListPhotos */
+                /** request, if any. */
+                pageToken?: string;
+                /** The maximum number of photos to return. */
+                /** `pageSize` must be non-negative. If `pageSize` is zero or is not provided, */
+                /** the default page size of 100 will be used. */
+                /** The number of photos returned in the response may be less than `pageSize` */
+                /** if the number of photos that belong to the user is less than `pageSize`. */
+                pageSize?: number;
+                /** Specifies if a download URL for the photos bytes should be returned in the */
+                /** Photos response. */
+                view?: string;
+                /** The filter expression. For example: `placeId=ChIJj61dQgK6j4AR4GeTYWZsKWw`. */
+                filter?: string;
+            }): Request<ListPhotosResponse>;            
             
         }
     }

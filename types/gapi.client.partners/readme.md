@@ -34,20 +34,9 @@ After that you can use Google Partners API resources:
 ```typescript 
     
 /* 
-Lists advertiser leads for a user's associated company.
-Should only be called within the context of an authorized logged in user.  
-*/
-await gapi.client.leads.list({  }); 
-    
-/* 
 Lists the Offers available for the current user  
 */
 await gapi.client.offers.list({  }); 
-    
-/* 
-Lists states for current user.  
-*/
-await gapi.client.userStates.list({  }); 
     
 /* 
 Lists analytics data for a user's associated company.
@@ -56,10 +45,9 @@ Should only be called within the context of an authorized logged in user.
 await gapi.client.analytics.list({  }); 
     
 /* 
-Gets Partners Status of the logged in user's agency.
-Should only be called if the logged in user is the admin of the agency.  
+Lists states for current user.  
 */
-await gapi.client.v2.getPartnersstatus({  }); 
+await gapi.client.userStates.list({  }); 
     
 /* 
 Updates the specified lead.  
@@ -71,6 +59,12 @@ Update company.
 Should only be called within the context of an authorized logged in user.  
 */
 await gapi.client.v2.updateCompanies({  }); 
+    
+/* 
+Gets Partners Status of the logged in user's agency.
+Should only be called if the logged in user is the admin of the agency.  
+*/
+await gapi.client.v2.getPartnersstatus({  }); 
     
 /* 
 Lists companies.  
@@ -118,5 +112,11 @@ await gapi.client.clientMessages.log({  });
 /* 
 Gets an Exam Token for a Partner's user to take an exam in the Exams System  
 */
-await gapi.client.exams.getToken({ examType: "examType",  });
+await gapi.client.exams.getToken({ examType: "examType",  }); 
+    
+/* 
+Lists advertiser leads for a user's associated company.
+Should only be called within the context of an authorized logged in user.  
+*/
+await gapi.client.leads.list({  });
 ```

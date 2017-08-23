@@ -24,36 +24,148 @@ declare namespace gapi.client {
     
     namespace storagetransfer {
         
+        interface ErrorLogEntry {
+            /** A list of messages that carry the error details. */
+            errorDetails?: string[];
+            /** A URL that refers to the target (a data source, a data sink, */
+            /** or an object) with which the error is associated. */
+            /** Required. */
+            url?: string;
+        }
+        
+        interface TransferJob {
+            /** A description provided by the user for the job. Its max length is 1024 */
+            /** bytes when Unicode-encoded. */
+            description?: string;
+            /** Transfer specification. */
+            /** Required. */
+            transferSpec?: TransferSpec;
+            /** This field cannot be changed by user requests. */
+            creationTime?: string;
+            /** Status of the job. This value MUST be specified for */
+            /** `CreateTransferJobRequests`. */
+            /**  */
+            /** NOTE: The effect of the new job status takes place during a subsequent job */
+            /** run. For example, if you change the job status from `ENABLED` to */
+            /** `DISABLED`, and an operation spawned by the transfer is running, the status */
+            /** change would not affect the current operation. */
+            status?: string;
+            /** Schedule specification. */
+            /** Required. */
+            schedule?: Schedule;
+            /** A globally unique name assigned by Storage Transfer Service when the */
+            /** job is created. This field should be left empty in requests to create a new */
+            /** transfer job; otherwise, the requests result in an `INVALID_ARGUMENT` */
+            /** error. */
+            name?: string;
+            /** This field cannot be changed by user requests. */
+            deletionTime?: string;
+            /** The ID of the Google Cloud Platform Console project that owns the job. */
+            /** Required. */
+            projectId?: string;
+            /** This field cannot be changed by user requests. */
+            lastModificationTime?: string;
+        }
+        
+        interface Schedule {
+            /** The first day the recurring transfer is scheduled to run. If */
+            /** `scheduleStartDate` is in the past, the transfer will run for the first */
+            /** time on the following day. */
+            /** Required. */
+            scheduleStartDate?: Date;
+            /** The last day the recurring transfer will be run. If `scheduleEndDate` */
+            /** is the same as `scheduleStartDate`, the transfer will be executed only */
+            /** once. */
+            scheduleEndDate?: Date;
+            /** The time in UTC at which the transfer will be scheduled to start in a day. */
+            /** Transfers may start later than this time. If not specified, recurring and */
+            /** one-time transfers that are scheduled to run today will run immediately; */
+            /** recurring transfers that are scheduled to run on a future date will start */
+            /** at approximately midnight UTC on that date. Note that when configuring a */
+            /** transfer with the Cloud Platform Console, the transfer's start time in a */
+            /** day is specified in your local timezone. */
+            startTimeOfDay?: TimeOfDay;
+        }
+        
+        interface Date {
+            /** Day of month. Must be from 1 to 31 and valid for the year and month, or 0 */
+            /** if specifying a year/month where the day is not significant. */
+            day?: number;
+            /** Year of date. Must be from 1 to 9999, or 0 if specifying a date without */
+            /** a year. */
+            year?: number;
+            /** Month of year. Must be from 1 to 12. */
+            month?: number;
+        }
+        
+        interface TransferOperation {
+            /** The ID of the Google Cloud Platform Console project that owns the operation. */
+            /** Required. */
+            projectId?: string;
+            /** End time of this transfer execution. */
+            endTime?: string;
+            /** Start time of this transfer execution. */
+            startTime?: string;
+            /** The name of the transfer job that triggers this transfer operation. */
+            transferJobName?: string;
+            /** Transfer specification. */
+            /** Required. */
+            transferSpec?: TransferSpec;
+            /** Information about the progress of the transfer operation. */
+            counters?: TransferCounters;
+            /** Status of the transfer operation. */
+            status?: string;
+            /** Summarizes errors encountered with sample error log entries. */
+            errorBreakdowns?: ErrorSummary[];
+            /** A globally unique ID assigned by the system. */
+            name?: string;
+        }
+        
+        interface AwsS3Data {
+            /** AWS access key used to sign the API requests to the AWS S3 bucket. */
+            /** Permissions on the bucket must be granted to the access ID of the */
+            /** AWS access key. */
+            /** Required. */
+            awsAccessKey?: AwsAccessKey;
+            /** S3 Bucket name (see */
+            /** [Creating a bucket](http://docs.aws.amazon.com/AmazonS3/latest/dev/create-bucket-get-location-example.html)). */
+            /** Required. */
+            bucketName?: string;
+        }
+        
+        interface AwsAccessKey {
+            /** AWS access key ID. */
+            /** Required. */
+            accessKeyId?: string;
+            /** AWS secret access key. This field is not returned in RPC responses. */
+            /** Required. */
+            secretAccessKey?: string;
+        }
+        
         interface TransferCounters {
-            /** Bytes that are deleted from the data sink. */
-            bytesDeletedFromSink?: string;
-            /** Bytes that failed to be deleted from the data sink. */
-            bytesFailedToDeleteFromSink?: string;
-            /** Bytes in the data source that failed during the transfer. */
-            bytesFromSourceFailed?: string;
-            /** Objects in the data source that failed during the transfer. */
-            objectsFromSourceFailed?: string;
             /** Objects that are copied to the data sink. */
             objectsCopiedToSink?: string;
+            /** Objects in the data source that failed during the transfer. */
+            objectsFromSourceFailed?: string;
             /** Bytes found only in the data sink that are scheduled to be deleted. */
             bytesFoundOnlyFromSink?: string;
             /** Objects that are deleted from the data source. */
             objectsDeletedFromSource?: string;
             /** Bytes that are copied to the data sink. */
             bytesCopiedToSink?: string;
+            /** Objects in the data source that are not transferred because they already */
+            /** exist in the data sink. */
+            objectsFromSourceSkippedBySync?: string;
             /** Bytes found in the data source that are scheduled to be transferred, */
             /** which will be copied, excluded based on conditions, or skipped due to */
             /** failures. */
             bytesFoundFromSource?: string;
-            /** Objects in the data source that are not transferred because they already */
-            /** exist in the data sink. */
-            objectsFromSourceSkippedBySync?: string;
+            /** Bytes that are deleted from the data source. */
+            bytesDeletedFromSource?: string;
             /** Objects found in the data source that are scheduled to be transferred, */
             /** which will be copied, excluded based on conditions, or skipped due to */
             /** failures. */
             objectsFoundFromSource?: string;
-            /** Bytes that are deleted from the data source. */
-            bytesDeletedFromSource?: string;
             /** Objects that failed to be deleted from the data sink. */
             objectsFailedToDeleteFromSink?: string;
             /** Objects that are deleted from the data sink. */
@@ -63,16 +175,22 @@ declare namespace gapi.client {
             /** Bytes in the data source that are not transferred because they already */
             /** exist in the data sink. */
             bytesFromSourceSkippedBySync?: string;
+            /** Bytes that are deleted from the data sink. */
+            bytesDeletedFromSink?: string;
+            /** Bytes that failed to be deleted from the data sink. */
+            bytesFailedToDeleteFromSink?: string;
+            /** Bytes in the data source that failed during the transfer. */
+            bytesFromSourceFailed?: string;
         }
         
         interface ErrorSummary {
-            /** Required. */
-            errorCode?: string;
             /** Count of this type of error. */
             /** Required. */
             errorCount?: string;
             /** Error samples. */
             errorLogEntries?: ErrorLogEntry[];
+            /** Required. */
+            errorCode?: string;
         }
         
         interface HttpData {
@@ -98,6 +216,12 @@ declare namespace gapi.client {
         }
         
         interface UpdateTransferJobRequest {
+            /** The job to update. `transferJob` is expected to specify only three fields: */
+            /** `description`, `transferSpec`, and `status`.  An UpdateTransferJobRequest */
+            /** that specifies other fields will be rejected with an error */
+            /** `INVALID_ARGUMENT`. */
+            /** Required. */
+            transferJob?: TransferJob;
             /** The ID of the Google Cloud Platform Console project that owns the job. */
             /** Required. */
             projectId?: string;
@@ -108,12 +232,6 @@ declare namespace gapi.client {
             /** incomplete specification which misses any required fields will be rejected */
             /** with the error `INVALID_ARGUMENT`. */
             updateTransferJobFieldMask?: string;
-            /** The job to update. `transferJob` is expected to specify only three fields: */
-            /** `description`, `transferSpec`, and `status`.  An UpdateTransferJobRequest */
-            /** that specifies other fields will be rejected with an error */
-            /** `INVALID_ARGUMENT`. */
-            /** Required. */
-            transferJob?: TransferJob;
         }
         
         interface ObjectConditions {
@@ -170,12 +288,6 @@ declare namespace gapi.client {
         }
         
         interface Operation {
-            /** The server-assigned name, which is only unique within the same service that originally returns it. If you use the default HTTP mapping, the `name` should have the format of `transferOperations/some/unique/name`. */
-            name?: string;
-            /** The error result of the operation in case of failure or cancellation. */
-            error?: Status;
-            /** Represents the transfer operation object. */
-            metadata?: Record<string, any>;            
             /** If the value is `false`, it means the operation is still in progress. */
             /** If true, the operation is completed, and either `error` or `response` is */
             /** available. */
@@ -189,19 +301,25 @@ declare namespace gapi.client {
             /** is `TakeSnapshot()`, the inferred response type is */
             /** `TakeSnapshotResponse`. */
             response?: Record<string, any>;            
+            /** The server-assigned name, which is only unique within the same service that originally returns it. If you use the default HTTP mapping, the `name` should have the format of `transferOperations/some/unique/name`. */
+            name?: string;
+            /** The error result of the operation in case of failure or cancellation. */
+            error?: Status;
+            /** Represents the transfer operation object. */
+            metadata?: Record<string, any>;            
         }
         
         interface TransferOptions {
+            /** Whether objects that exist only in the sink should be deleted.  Note that */
+            /** this option and `deleteObjectsFromSourceAfterTransfer` are mutually */
+            /** exclusive. */
+            deleteObjectsUniqueInSink?: boolean;
             /** Whether overwriting objects that already exist in the sink is allowed. */
             overwriteObjectsAlreadyExistingInSink?: boolean;
             /** Whether objects should be deleted from the source after they are */
             /** transferred to the sink.  Note that this option and */
             /** `deleteObjectsUniqueInSink` are mutually exclusive. */
             deleteObjectsFromSourceAfterTransfer?: boolean;
-            /** Whether objects that exist only in the sink should be deleted.  Note that */
-            /** this option and `deleteObjectsFromSourceAfterTransfer` are mutually */
-            /** exclusive. */
-            deleteObjectsUniqueInSink?: boolean;
         }
         
         interface TransferSpec {
@@ -224,22 +342,22 @@ declare namespace gapi.client {
         }
         
         interface Status {
+            /** A developer-facing error message, which should be in English. Any */
+            /** user-facing error message should be localized and sent in the */
+            /** google.rpc.Status.details field, or localized by the client. */
+            message?: string;
             /** A list of messages that carry the error details.  There is a common set of */
             /** message types for APIs to use. */
             details?: Array<Record<string, any>>;            
             /** The status code, which should be an enum value of google.rpc.Code. */
             code?: number;
-            /** A developer-facing error message, which should be in English. Any */
-            /** user-facing error message should be localized and sent in the */
-            /** google.rpc.Status.details field, or localized by the client. */
-            message?: string;
         }
         
         interface ListOperationsResponse {
-            /** A list of operations that matches the specified filter in the request. */
-            operations?: Operation[];
             /** The standard List next-page token. */
             nextPageToken?: string;
+            /** A list of operations that matches the specified filter in the request. */
+            operations?: Operation[];
         }
         
         interface GoogleServiceAccount {
@@ -248,6 +366,8 @@ declare namespace gapi.client {
         }
         
         interface TimeOfDay {
+            /** Minutes of hour of day. Must be from 0 to 59. */
+            minutes?: number;
             /** Hours of day in 24 hour format. Should be from 0 to 23. An API may choose */
             /** to allow the value "24:00:00" for scenarios like business closing time. */
             hours?: number;
@@ -256,126 +376,6 @@ declare namespace gapi.client {
             /** Seconds of minutes of the time. Must normally be from 0 to 59. An API may */
             /** allow the value 60 if it allows leap-seconds. */
             seconds?: number;
-            /** Minutes of hour of day. Must be from 0 to 59. */
-            minutes?: number;
-        }
-        
-        interface ErrorLogEntry {
-            /** A list of messages that carry the error details. */
-            errorDetails?: string[];
-            /** A URL that refers to the target (a data source, a data sink, */
-            /** or an object) with which the error is associated. */
-            /** Required. */
-            url?: string;
-        }
-        
-        interface TransferJob {
-            /** A description provided by the user for the job. Its max length is 1024 */
-            /** bytes when Unicode-encoded. */
-            description?: string;
-            /** This field cannot be changed by user requests. */
-            creationTime?: string;
-            /** Transfer specification. */
-            /** Required. */
-            transferSpec?: TransferSpec;
-            /** Status of the job. This value MUST be specified for */
-            /** `CreateTransferJobRequests`. */
-            /**  */
-            /** NOTE: The effect of the new job status takes place during a subsequent job */
-            /** run. For example, if you change the job status from `ENABLED` to */
-            /** `DISABLED`, and an operation spawned by the transfer is running, the status */
-            /** change would not affect the current operation. */
-            status?: string;
-            /** Schedule specification. */
-            /** Required. */
-            schedule?: Schedule;
-            /** This field cannot be changed by user requests. */
-            deletionTime?: string;
-            /** A globally unique name assigned by Storage Transfer Service when the */
-            /** job is created. This field should be left empty in requests to create a new */
-            /** transfer job; otherwise, the requests result in an `INVALID_ARGUMENT` */
-            /** error. */
-            name?: string;
-            /** The ID of the Google Cloud Platform Console project that owns the job. */
-            /** Required. */
-            projectId?: string;
-            /** This field cannot be changed by user requests. */
-            lastModificationTime?: string;
-        }
-        
-        interface Schedule {
-            /** The last day the recurring transfer will be run. If `scheduleEndDate` */
-            /** is the same as `scheduleStartDate`, the transfer will be executed only */
-            /** once. */
-            scheduleEndDate?: Date;
-            /** The time in UTC at which the transfer will be scheduled to start in a day. */
-            /** Transfers may start later than this time. If not specified, recurring and */
-            /** one-time transfers that are scheduled to run today will run immediately; */
-            /** recurring transfers that are scheduled to run on a future date will start */
-            /** at approximately midnight UTC on that date. Note that when configuring a */
-            /** transfer with the Cloud Platform Console, the transfer's start time in a */
-            /** day is specified in your local timezone. */
-            startTimeOfDay?: TimeOfDay;
-            /** The first day the recurring transfer is scheduled to run. If */
-            /** `scheduleStartDate` is in the past, the transfer will run for the first */
-            /** time on the following day. */
-            /** Required. */
-            scheduleStartDate?: Date;
-        }
-        
-        interface Date {
-            /** Month of year. Must be from 1 to 12. */
-            month?: number;
-            /** Day of month. Must be from 1 to 31 and valid for the year and month, or 0 */
-            /** if specifying a year/month where the day is not significant. */
-            day?: number;
-            /** Year of date. Must be from 1 to 9999, or 0 if specifying a date without */
-            /** a year. */
-            year?: number;
-        }
-        
-        interface TransferOperation {
-            /** The ID of the Google Cloud Platform Console project that owns the operation. */
-            /** Required. */
-            projectId?: string;
-            /** End time of this transfer execution. */
-            endTime?: string;
-            /** Start time of this transfer execution. */
-            startTime?: string;
-            /** The name of the transfer job that triggers this transfer operation. */
-            transferJobName?: string;
-            /** Transfer specification. */
-            /** Required. */
-            transferSpec?: TransferSpec;
-            /** Status of the transfer operation. */
-            status?: string;
-            /** Information about the progress of the transfer operation. */
-            counters?: TransferCounters;
-            /** Summarizes errors encountered with sample error log entries. */
-            errorBreakdowns?: ErrorSummary[];
-            /** A globally unique ID assigned by the system. */
-            name?: string;
-        }
-        
-        interface AwsS3Data {
-            /** S3 Bucket name (see */
-            /** [Creating a bucket](http://docs.aws.amazon.com/AmazonS3/latest/dev/create-bucket-get-location-example.html)). */
-            /** Required. */
-            bucketName?: string;
-            /** AWS access key used to sign the API requests to the AWS S3 bucket. */
-            /** Permissions on the bucket must be granted to the access ID of the */
-            /** AWS access key. */
-            /** Required. */
-            awsAccessKey?: AwsAccessKey;
-        }
-        
-        interface AwsAccessKey {
-            /** AWS access key ID. */
-            /** Required. */
-            accessKeyId?: string;
-            /** AWS secret access key. This field is not returned in RPC responses. */
-            /** Required. */
-            secretAccessKey?: string;
         }
         
         interface GoogleServiceAccountsResource {
@@ -396,24 +396,24 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** JSONP */
-                callback?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
                 /** OAuth access token. */
                 access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** The ID of the Google Cloud Platform Console project that the Google service */
                 /** account is associated with. */
                 /** Required. */
@@ -423,6 +423,39 @@ declare namespace gapi.client {
         }
         
         interface TransferOperationsResource {
+            /** Pauses a transfer operation. */
+            pause(request: {            
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** The name of the transfer operation. */
+                /** Required. */
+                name: string;
+            }): Request<{}>;            
+            
             /** This method is not supported and the server returns `UNIMPLEMENTED`. */
             delete(request: {            
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
@@ -433,24 +466,24 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** JSONP */
-                callback?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
                 /** OAuth access token. */
                 access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** The name of the operation resource to be deleted. */
                 name: string;
             }): Request<{}>;            
@@ -474,24 +507,24 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** JSONP */
-                callback?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
                 /** OAuth access token. */
                 access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** A list of query parameters specified as JSON text in the form of {\"project_id\" : \"my_project_id\", \"job_names\" : [\"jobid1\", \"jobid2\",...], \"operation_names\" : [\"opid1\", \"opid2\",...], \"transfer_statuses\":[\"status1\", \"status2\",...]}. Since `job_names`, `operation_names`, and `transfer_statuses` support multiple values, they must be specified with array notation. `job_names`, `operation_names`, and `transfer_statuses` are optional. */
                 filter?: string;
                 /** The list page token. */
@@ -512,24 +545,24 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** JSONP */
-                callback?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
                 /** OAuth access token. */
                 access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** The name of the transfer operation. */
                 /** Required. */
                 name: string;
@@ -545,24 +578,24 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** JSONP */
-                callback?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
                 /** OAuth access token. */
                 access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** The name of the operation resource to be cancelled. */
                 name: string;
             }): Request<{}>;            
@@ -579,60 +612,27 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** JSONP */
-                callback?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
                 /** OAuth access token. */
                 access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** The name of the operation resource. */
                 name: string;
             }): Request<Operation>;            
-            
-            /** Pauses a transfer operation. */
-            pause(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** The name of the transfer operation. */
-                /** Required. */
-                name: string;
-            }): Request<{}>;            
             
         }
         
@@ -647,24 +647,26 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** JSONP */
-                callback?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
                 /** OAuth access token. */
                 access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** The list page token. */
+                pageToken?: string;
                 /** The list page size. The max allowed value is 256. */
                 pageSize?: number;
                 /** A list of query parameters specified as JSON text in the form of */
@@ -676,8 +678,6 @@ declare namespace gapi.client {
                 /** and `job_statuses` are optional.  The valid values for `job_statuses` are */
                 /** case-insensitive: `ENABLED`, `DISABLED`, and `DELETED`. */
                 filter?: string;
-                /** The list page token. */
-                pageToken?: string;
             }): Request<ListTransferJobsResponse>;            
             
             /** Gets a transfer job. */
@@ -690,24 +690,24 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** JSONP */
-                callback?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
                 /** OAuth access token. */
                 access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** The ID of the Google Cloud Platform Console project that owns the job. */
                 /** Required. */
                 projectId?: string;
@@ -728,24 +728,24 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** JSONP */
-                callback?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
                 /** OAuth access token. */
                 access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** The name of job to update. */
                 /** Required. */
                 jobName: string;
@@ -761,24 +761,24 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** JSONP */
-                callback?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
                 /** OAuth access token. */
                 access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
             }): Request<TransferJob>;            
             
         }

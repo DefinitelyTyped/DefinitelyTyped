@@ -20,562 +20,6 @@ declare namespace gapi.client {
     
     namespace slides {
         
-        interface UpdateImagePropertiesRequest {
-            /** The object ID of the image the updates are applied to. */
-            objectId?: string;
-            /** The fields that should be updated. */
-            /**  */
-            /** At least one field must be specified. The root `imageProperties` is */
-            /** implied and should not be specified. A single `"&#42;"` can be used as */
-            /** short-hand for listing every field. */
-            /**  */
-            /** For example to update the image outline color, set `fields` to */
-            /** `"outline.outlineFill.solidFill.color"`. */
-            /**  */
-            /** To reset a property to its default value, include its field name in the */
-            /** field mask but leave the field itself unset. */
-            fields?: string;
-            /** The image properties to update. */
-            imageProperties?: ImageProperties;
-        }
-        
-        interface ParagraphStyle {
-            /** The amount of extra space above the paragraph. If unset, the value is */
-            /** inherited from the parent. */
-            spaceBelow?: Dimension;
-            /** The text direction of this paragraph. If unset, the value defaults to */
-            /** LEFT_TO_RIGHT since */
-            /** text direction is not inherited. */
-            direction?: string;
-            /** The spacing mode for the paragraph. */
-            spacingMode?: string;
-            /** The amount indentation for the paragraph on the side that corresponds to */
-            /** the end of the text, based on the current text direction. If unset, the */
-            /** value is inherited from the parent. */
-            indentEnd?: Dimension;
-            /** The amount indentation for the paragraph on the side that corresponds to */
-            /** the start of the text, based on the current text direction. If unset, the */
-            /** value is inherited from the parent. */
-            indentStart?: Dimension;
-            /** The amount of extra space above the paragraph. If unset, the value is */
-            /** inherited from the parent. */
-            spaceAbove?: Dimension;
-            /** The amount of indentation for the start of the first line of the paragraph. */
-            /** If unset, the value is inherited from the parent. */
-            indentFirstLine?: Dimension;
-            /** The amount of space between lines, as a percentage of normal, where normal */
-            /** is represented as 100.0. If unset, the value is inherited from the parent. */
-            lineSpacing?: number;
-            /** The text alignment for this paragraph. */
-            alignment?: string;
-        }
-        
-        interface ReplaceAllShapesWithSheetsChartResponse {
-            /** The number of shapes replaced with charts. */
-            occurrencesChanged?: number;
-        }
-        
-        interface TableCellProperties {
-            /** The background fill of the table cell. The default fill matches the fill */
-            /** for newly created table cells in the Slides editor. */
-            tableCellBackgroundFill?: TableCellBackgroundFill;
-        }
-        
-        interface Outline {
-            /** The fill of the outline. */
-            outlineFill?: OutlineFill;
-            /** The thickness of the outline. */
-            weight?: Dimension;
-            /** The dash style of the outline. */
-            dashStyle?: string;
-            /** The outline property state. */
-            /**  */
-            /** Updating the the outline on a page element will implicitly update this */
-            /** field to`RENDERED`, unless another value is specified in the same request. */
-            /** To have no outline on a page element, set this field to `NOT_RENDERED`. In */
-            /** this case, any other outline fields set in the same request will be */
-            /** ignored. */
-            propertyState?: string;
-        }
-        
-        interface RefreshSheetsChartRequest {
-            /** The object ID of the chart to refresh. */
-            objectId?: string;
-        }
-        
-        interface TableColumnProperties {
-            /** Width of a column. */
-            columnWidth?: Dimension;
-        }
-        
-        interface ShapeProperties {
-            /** The outline of the shape. If unset, the outline is inherited from a */
-            /** parent placeholder if it exists. If the shape has no parent, then the */
-            /** default outline depends on the shape type, matching the defaults for */
-            /** new shapes created in the Slides editor. */
-            outline?: Outline;
-            /** The shadow properties of the shape. If unset, the shadow is inherited from */
-            /** a parent placeholder if it exists. If the shape has no parent, then the */
-            /** default shadow matches the defaults for new shapes created in the Slides */
-            /** editor. This property is read-only. */
-            shadow?: Shadow;
-            /** The background fill of the shape. If unset, the background fill is */
-            /** inherited from a parent placeholder if it exists. If the shape has no */
-            /** parent, then the default background fill depends on the shape type, */
-            /** matching the defaults for new shapes created in the Slides editor. */
-            shapeBackgroundFill?: ShapeBackgroundFill;
-            /** The hyperlink destination of the shape. If unset, there is no link. Links */
-            /** are not inherited from parent placeholders. */
-            link?: Link;
-        }
-        
-        interface NotesProperties {
-            /** The object ID of the shape on this notes page that contains the speaker */
-            /** notes for the corresponding slide. */
-            /** The actual shape may not always exist on the notes page. Inserting text */
-            /** using this object ID will automatically create the shape. In this case, the */
-            /** actual shape may have different object ID. The `GetPresentation` or */
-            /** `GetPage` action will always return the latest object ID. */
-            speakerNotesObjectId?: string;
-        }
-        
-        interface TableRow {
-            /** Properties and contents of each cell. */
-            /**  */
-            /** Cells that span multiple columns are represented only once with a */
-            /** column_span greater */
-            /** than 1. As a result, the length of this collection does not always match */
-            /** the number of columns of the entire table. */
-            tableCells?: TableCell[];
-            /** Height of a row. */
-            rowHeight?: Dimension;
-        }
-        
-        interface UpdateTableCellPropertiesRequest {
-            /** The fields that should be updated. */
-            /**  */
-            /** At least one field must be specified. The root `tableCellProperties` is */
-            /** implied and should not be specified. A single `"&#42;"` can be used as */
-            /** short-hand for listing every field. */
-            /**  */
-            /** For example to update the table cell background solid fill color, set */
-            /** `fields` to `"tableCellBackgroundFill.solidFill.color"`. */
-            /**  */
-            /** To reset a property to its default value, include its field name in the */
-            /** field mask but leave the field itself unset. */
-            fields?: string;
-            /** The table range representing the subset of the table to which the updates */
-            /** are applied. If a table range is not specified, the updates will apply to */
-            /** the entire table. */
-            tableRange?: TableRange;
-            /** The object ID of the table. */
-            objectId?: string;
-            /** The table cell properties to update. */
-            tableCellProperties?: TableCellProperties;
-        }
-        
-        interface CreateSlideRequest {
-            /** Layout reference of the slide to be inserted, based on the &#42;current */
-            /** master&#42;, which is one of the following: */
-            /**  */
-            /** - The master of the previous slide index. */
-            /** - The master of the first slide, if the insertion_index is zero. */
-            /** - The first master in the presentation, if there are no slides. */
-            /**  */
-            /** If the LayoutReference is not found in the current master, a 400 bad */
-            /** request error is returned. */
-            /**  */
-            /** If you don't specify a layout reference, then the new slide will use the */
-            /** predefined layout `BLANK`. */
-            slideLayoutReference?: LayoutReference;
-            /** A user-supplied object ID. */
-            /**  */
-            /** If you specify an ID, it must be unique among all pages and page elements */
-            /** in the presentation. The ID must start with an alphanumeric character or an */
-            /** underscore (matches regex `[a-zA-Z0-9_]`); remaining characters */
-            /** may include those as well as a hyphen or colon (matches regex */
-            /** `[a-zA-Z0-9_-:]`). */
-            /** The length of the ID must not be less than 5 or greater than 50. */
-            /**  */
-            /** If you don't specify an ID, a unique one is generated. */
-            objectId?: string;
-            /** The optional zero-based index indicating where to insert the slides. */
-            /**  */
-            /** If you don't specify an index, the new slide is created at the end. */
-            insertionIndex?: number;
-            /** An optional list of object ID mappings from the placeholder(s) on the layout to the placeholder(s) */
-            /** that will be created on the new slide from that specified layout. Can only */
-            /** be used when `slide_layout_reference` is specified. */
-            placeholderIdMappings?: LayoutPlaceholderIdMapping[];
-        }
-        
-        interface BatchUpdatePresentationRequest {
-            /** A list of updates to apply to the presentation. */
-            requests?: Request[];
-            /** Provides control over how write requests are executed. */
-            writeControl?: WriteControl;
-        }
-        
-        interface TextContent {
-            /** The text contents broken down into its component parts, including styling */
-            /** information. This property is read-only. */
-            textElements?: TextElement[];
-            /** The bulleted lists contained in this text, keyed by list ID. */
-            lists?: Record<string, List>;            
-        }
-        
-        interface CreateSheetsChartResponse {
-            /** The object ID of the created chart. */
-            objectId?: string;
-        }
-        
-        interface WriteControl {
-            /** The revision ID of the presentation required for the write request. If */
-            /** specified and the `required_revision_id` doesn't exactly match the */
-            /** presentation's current `revision_id`, the request will not be processed and */
-            /** will return a 400 bad request error. */
-            requiredRevisionId?: string;
-        }
-        
-        interface DeleteParagraphBulletsRequest {
-            /** The range of text to delete bullets from, based on TextElement indexes. */
-            textRange?: Range;
-            /** The object ID of the shape or table containing the text to delete bullets */
-            /** from. */
-            objectId?: string;
-            /** The optional table cell location if the text to be modified is in a table */
-            /** cell. If present, the object_id must refer to a table. */
-            cellLocation?: TableCellLocation;
-        }
-        
-        interface ParagraphMarker {
-            /** The paragraph's style */
-            style?: ParagraphStyle;
-            /** The bullet for this paragraph. If not present, the paragraph does not */
-            /** belong to a list. */
-            bullet?: Bullet;
-        }
-        
-        interface Thumbnail {
-            /** The positive height in pixels of the thumbnail image. */
-            height?: number;
-            /** The content URL of the thumbnail image. */
-            /**  */
-            /** The URL to the image has a default lifetime of 30 minutes. */
-            /** This URL is tagged with the account of the requester. Anyone with the URL */
-            /** effectively accesses the image as the original requester. Access to the */
-            /** image may be lost if the presentation's sharing settings change. */
-            /** The mime type of the thumbnail image is the same as specified in the */
-            /** `GetPageThumbnailRequest`. */
-            contentUrl?: string;
-            /** The positive width in pixels of the thumbnail image. */
-            width?: number;
-        }
-        
-        interface InsertTableColumnsRequest {
-            /** Whether to insert new columns to the right of the reference cell location. */
-            /**  */
-            /** - `True`: insert to the right. */
-            /** - `False`: insert to the left. */
-            insertRight?: boolean;
-            /** The table to insert columns into. */
-            tableObjectId?: string;
-            /** The number of columns to be inserted. Maximum 20 per request. */
-            number?: number;
-            /** The reference table cell location from which columns will be inserted. */
-            /**  */
-            /** A new column will be inserted to the left (or right) of the column where */
-            /** the reference cell is. If the reference cell is a merged cell, a new */
-            /** column will be inserted to the left (or right) of the merged cell. */
-            cellLocation?: TableCellLocation;
-        }
-        
-        interface LayoutPlaceholderIdMapping {
-            /** A user-supplied object ID for the placeholder identified above that to be */
-            /** created onto a slide. */
-            /**  */
-            /** If you specify an ID, it must be unique among all pages and page elements */
-            /** in the presentation. The ID must start with an alphanumeric character or an */
-            /** underscore (matches regex `[a-zA-Z0-9_]`); remaining characters */
-            /** may include those as well as a hyphen or colon (matches regex */
-            /** `[a-zA-Z0-9_-:]`). */
-            /** The length of the ID must not be less than 5 or greater than 50. */
-            /**  */
-            /** If you don't specify an ID, a unique one is generated. */
-            objectId?: string;
-            /** The placeholder on a layout that will be applied to a slide. Only type and index are needed. For example, a */
-            /** predefined `TITLE_AND_BODY` layout may usually have a TITLE placeholder */
-            /** with index 0 and a BODY placeholder with index 0. */
-            layoutPlaceholder?: Placeholder;
-            /** The object ID of the placeholder on a layout that will be applied */
-            /** to a slide. */
-            layoutPlaceholderObjectId?: string;
-        }
-        
-        interface UpdateShapePropertiesRequest {
-            /** The object ID of the shape the updates are applied to. */
-            objectId?: string;
-            /** The shape properties to update. */
-            shapeProperties?: ShapeProperties;
-            /** The fields that should be updated. */
-            /**  */
-            /** At least one field must be specified. The root `shapeProperties` is */
-            /** implied and should not be specified. A single `"&#42;"` can be used as */
-            /** short-hand for listing every field. */
-            /**  */
-            /** For example to update the shape background solid fill color, set `fields` */
-            /** to `"shapeBackgroundFill.solidFill.color"`. */
-            /**  */
-            /** To reset a property to its default value, include its field name in the */
-            /** field mask but leave the field itself unset. */
-            fields?: string;
-        }
-        
-        interface WordArt {
-            /** The text rendered as word art. */
-            renderedText?: string;
-        }
-        
-        interface Recolor {
-            /** The recolor effect is represented by a gradient, which is a list of color */
-            /** stops. */
-            /**  */
-            /** The colors in the gradient will replace the corresponding colors at */
-            /** the same position in the color palette and apply to the image. This */
-            /** property is read-only. */
-            recolorStops?: ColorStop[];
-            /** The name of the recolor effect. */
-            /**  */
-            /** The name is determined from the `recolor_stops` by matching the gradient */
-            /** against the colors in the page's current color scheme. This property is */
-            /** read-only. */
-            name?: string;
-        }
-        
-        interface Link {
-            /** If set, indicates this is a link to the specific page in this */
-            /** presentation with this ID. A page with this ID may not exist. */
-            pageObjectId?: string;
-            /** If set, indicates this is a link to the slide at this zero-based index */
-            /** in the presentation. There may not be a slide at this index. */
-            slideIndex?: number;
-            /** If set, indicates this is a link to a slide in this presentation, */
-            /** addressed by its position. */
-            relativeLink?: string;
-            /** If set, indicates this is a link to the external web page at this URL. */
-            url?: string;
-        }
-        
-        interface CreateShapeResponse {
-            /** The object ID of the created shape. */
-            objectId?: string;
-        }
-        
-        interface RgbColor {
-            /** The blue component of the color, from 0.0 to 1.0. */
-            blue?: number;
-            /** The green component of the color, from 0.0 to 1.0. */
-            green?: number;
-            /** The red component of the color, from 0.0 to 1.0. */
-            red?: number;
-        }
-        
-        interface CreateLineRequest {
-            /** A user-supplied object ID. */
-            /**  */
-            /** If you specify an ID, it must be unique among all pages and page elements */
-            /** in the presentation. The ID must start with an alphanumeric character or an */
-            /** underscore (matches regex `[a-zA-Z0-9_]`); remaining characters */
-            /** may include those as well as a hyphen or colon (matches regex */
-            /** `[a-zA-Z0-9_-:]`). */
-            /** The length of the ID must not be less than 5 or greater than 50. */
-            /**  */
-            /** If you don't specify an ID, a unique one is generated. */
-            objectId?: string;
-            /** The element properties for the line. */
-            elementProperties?: PageElementProperties;
-            /** The category of line to be created. */
-            lineCategory?: string;
-        }
-        
-        interface CreateSlideResponse {
-            /** The object ID of the created slide. */
-            objectId?: string;
-        }
-        
-        interface CreateShapeRequest {
-            /** The shape type. */
-            shapeType?: string;
-            /** A user-supplied object ID. */
-            /**  */
-            /** If you specify an ID, it must be unique among all pages and page elements */
-            /** in the presentation. The ID must start with an alphanumeric character or an */
-            /** underscore (matches regex `[a-zA-Z0-9_]`); remaining characters */
-            /** may include those as well as a hyphen or colon (matches regex */
-            /** `[a-zA-Z0-9_-:]`). */
-            /** The length of the ID must not be less than 5 or greater than 50. */
-            /** If empty, a unique identifier will be generated. */
-            objectId?: string;
-            /** The element properties for the shape. */
-            elementProperties?: PageElementProperties;
-        }
-        
-        interface Video {
-            /** The video source. */
-            source?: string;
-            /** The video source's unique identifier for this video. */
-            id?: string;
-            /** An URL to a video. The URL is valid as long as the source video */
-            /** exists and sharing settings do not change. */
-            url?: string;
-            /** The properties of the video. */
-            videoProperties?: VideoProperties;
-        }
-        
-        interface PageProperties {
-            /** The color scheme of the page. If unset, the color scheme is inherited from */
-            /** a parent page. If the page has no parent, the color scheme uses a default */
-            /** Slides color scheme. This field is read-only. */
-            colorScheme?: ColorScheme;
-            /** The background fill of the page. If unset, the background fill is inherited */
-            /** from a parent page if it exists. If the page has no parent, then the */
-            /** background fill defaults to the corresponding fill in the Slides editor. */
-            pageBackgroundFill?: PageBackgroundFill;
-        }
-        
-        interface TableCell {
-            /** The text content of the cell. */
-            text?: TextContent;
-            /** The properties of the table cell. */
-            tableCellProperties?: TableCellProperties;
-            /** Row span of the cell. */
-            rowSpan?: number;
-            /** The location of the cell within the table. */
-            location?: TableCellLocation;
-            /** Column span of the cell. */
-            columnSpan?: number;
-        }
-        
-        interface NestingLevel {
-            /** The style of a bullet at this level of nesting. */
-            bulletStyle?: TextStyle;
-        }
-        
-        interface UpdateLinePropertiesRequest {
-            /** The line properties to update. */
-            lineProperties?: LineProperties;
-            /** The fields that should be updated. */
-            /**  */
-            /** At least one field must be specified. The root `lineProperties` is */
-            /** implied and should not be specified. A single `"&#42;"` can be used as */
-            /** short-hand for listing every field. */
-            /**  */
-            /** For example to update the line solid fill color, set `fields` to */
-            /** `"lineFill.solidFill.color"`. */
-            /**  */
-            /** To reset a property to its default value, include its field name in the */
-            /** field mask but leave the field itself unset. */
-            fields?: string;
-            /** The object ID of the line the update is applied to. */
-            objectId?: string;
-        }
-        
-        interface TableCellBackgroundFill {
-            /** The background fill property state. */
-            /**  */
-            /** Updating the the fill on a table cell will implicitly update this field */
-            /** to `RENDERED`, unless another value is specified in the same request. To */
-            /** have no fill on a table cell, set this field to `NOT_RENDERED`. In this */
-            /** case, any other fill fields set in the same request will be ignored. */
-            propertyState?: string;
-            /** Solid color fill. */
-            solidFill?: SolidFill;
-        }
-        
-        interface UpdateSlidesPositionRequest {
-            /** The IDs of the slides in the presentation that should be moved. */
-            /** The slides in this list must be in existing presentation order, without */
-            /** duplicates. */
-            slideObjectIds?: string[];
-            /** The index where the slides should be inserted, based on the slide */
-            /** arrangement before the move takes place. Must be between zero and the */
-            /** number of slides in the presentation, inclusive. */
-            insertionIndex?: number;
-        }
-        
-        interface UpdatePagePropertiesRequest {
-            /** The fields that should be updated. */
-            /**  */
-            /** At least one field must be specified. The root `pageProperties` is */
-            /** implied and should not be specified. A single `"&#42;"` can be used as */
-            /** short-hand for listing every field. */
-            /**  */
-            /** For example to update the page background solid fill color, set `fields` */
-            /** to `"pageBackgroundFill.solidFill.color"`. */
-            /**  */
-            /** To reset a property to its default value, include its field name in the */
-            /** field mask but leave the field itself unset. */
-            fields?: string;
-            /** The page properties to update. */
-            pageProperties?: PageProperties;
-            /** The object ID of the page the update is applied to. */
-            objectId?: string;
-        }
-        
-        interface Group {
-            /** The collection of elements in the group. The minimum size of a group is 2. */
-            children?: PageElement[];
-        }
-        
-        interface Placeholder {
-            /** The object ID of this shape's parent placeholder. */
-            /** If unset, the parent placeholder shape does not exist, so the shape does */
-            /** not inherit properties from any other shape. */
-            parentObjectId?: string;
-            /** The index of the placeholder. If the same placeholder types are present in */
-            /** the same page, they would have different index values. */
-            index?: number;
-            /** The type of the placeholder. */
-            type?: string;
-        }
-        
-        interface DuplicateObjectRequest {
-            /** The ID of the object to duplicate. */
-            objectId?: string;
-            /** The object being duplicated may contain other objects, for example when */
-            /** duplicating a slide or a group page element. This map defines how the IDs */
-            /** of duplicated objects are generated: the keys are the IDs of the original */
-            /** objects and its values are the IDs that will be assigned to the */
-            /** corresponding duplicate object. The ID of the source object's duplicate */
-            /** may be specified in this map as well, using the same value of the */
-            /** `object_id` field as a key and the newly desired ID as the value. */
-            /**  */
-            /** All keys must correspond to existing IDs in the presentation. All values */
-            /** must be unique in the presentation and must start with an alphanumeric */
-            /** character or an underscore (matches regex `[a-zA-Z0-9_]`); remaining */
-            /** characters may include those as well as a hyphen or colon (matches regex */
-            /** `[a-zA-Z0-9_-:]`). The length of the new ID must not be less than 5 or */
-            /** greater than 50. */
-            /**  */
-            /** If any IDs of source objects are omitted from the map, a new random ID will */
-            /** be assigned. If the map is empty or unset, all duplicate objects will */
-            /** receive a new random ID. */
-            objectIds?: Record<string, string>;            
-        }
-        
-        interface ReplaceAllTextRequest {
-            /** Finds text in a shape matching this substring. */
-            containsText?: SubstringMatchCriteria;
-            /** If non-empty, limits the matches to page elements only on the given pages. */
-            /**  */
-            /** Returns a 400 bad request error if given the page object ID of a */
-            /** notes master, */
-            /** or if a page with that object ID doesn't exist in the presentation. */
-            pageObjectIds?: string[];
-            /** The text that will replace the matched text. */
-            replaceText?: string;
-        }
-        
         interface Page {
             /** Master specific properties. Only set if page_type = MASTER. */
             masterProperties?: MasterProperties;
@@ -611,8 +55,6 @@ declare namespace gapi.client {
         }
         
         interface ShapeBackgroundFill {
-            /** Solid color fill. */
-            solidFill?: SolidFill;
             /** The background fill property state. */
             /**  */
             /** Updating the the fill on a shape will implicitly update this field to */
@@ -620,13 +62,11 @@ declare namespace gapi.client {
             /** have no fill on a shape, set this field to `NOT_RENDERED`. In this case, */
             /** any other fill fields set in the same request will be ignored. */
             propertyState?: string;
+            /** Solid color fill. */
+            solidFill?: SolidFill;
         }
         
         interface CropProperties {
-            /** The offset specifies the right edge of the crop rectangle that is located */
-            /** to the left of the original bounding rectangle right edge, relative to the */
-            /** object's original width. */
-            rightOffset?: number;
             /** The offset specifies the bottom edge of the crop rectangle that is located */
             /** above the original bounding rectangle bottom edge, relative to the object's */
             /** original height. */
@@ -642,6 +82,10 @@ declare namespace gapi.client {
             /** the right of the original bounding rectangle left edge, relative to the */
             /** object's original width. */
             leftOffset?: number;
+            /** The offset specifies the right edge of the crop rectangle that is located */
+            /** to the left of the original bounding rectangle right edge, relative to the */
+            /** object's original width. */
+            rightOffset?: number;
         }
         
         interface ReplaceAllShapesWithSheetsChartRequest {
@@ -664,17 +108,6 @@ declare namespace gapi.client {
             containsText?: SubstringMatchCriteria;
         }
         
-        interface ColorStop {
-            /** The color of the gradient stop. */
-            color?: OpaqueColor;
-            /** The relative position of the color stop in the gradient band measured */
-            /** in percentage. The value should be in the interval [0.0, 1.0]. */
-            position?: number;
-            /** The alpha value of this color in the gradient band. Defaults to 1.0, */
-            /** fully opaque. */
-            alpha?: number;
-        }
-        
         interface Range {
             /** The type of range. */
             type?: string;
@@ -686,7 +119,25 @@ declare namespace gapi.client {
             startIndex?: number;
         }
         
+        interface ColorStop {
+            /** The color of the gradient stop. */
+            color?: OpaqueColor;
+            /** The relative position of the color stop in the gradient band measured */
+            /** in percentage. The value should be in the interval [0.0, 1.0]. */
+            position?: number;
+            /** The alpha value of this color in the gradient band. Defaults to 1.0, */
+            /** fully opaque. */
+            alpha?: number;
+        }
+        
         interface CreateVideoRequest {
+            /** The element properties for the video. */
+            elementProperties?: PageElementProperties;
+            /** The video source's unique identifier for this video. */
+            /**  */
+            /** e.g. For YouTube video https://www.youtube.com/watch?v=7U3axjORYZ0, */
+            /** the ID is 7U3axjORYZ0. */
+            id?: string;
             /** The video source. */
             source?: string;
             /** A user-supplied object ID. */
@@ -700,13 +151,6 @@ declare namespace gapi.client {
             /**  */
             /** If you don't specify an ID, a unique one is generated. */
             objectId?: string;
-            /** The element properties for the video. */
-            elementProperties?: PageElementProperties;
-            /** The video source's unique identifier for this video. */
-            /**  */
-            /** e.g. For YouTube video https://www.youtube.com/watch?v=7U3axjORYZ0, */
-            /** the ID is 7U3axjORYZ0. */
-            id?: string;
         }
         
         interface DuplicateObjectResponse {
@@ -737,6 +181,15 @@ declare namespace gapi.client {
         }
         
         interface Shadow {
+            /** The alignment point of the shadow, that sets the origin for translate, */
+            /** scale and skew of the shadow. */
+            alignment?: string;
+            /** The alpha of the shadow's color, from 0.0 to 1.0. */
+            alpha?: number;
+            /** The shadow color value. */
+            color?: OpaqueColor;
+            /** Whether the shadow should rotate with the shape. */
+            rotateWithShape?: boolean;
             /** The shadow property state. */
             /**  */
             /** Updating the the shadow on a page element will implicitly update this field */
@@ -752,15 +205,6 @@ declare namespace gapi.client {
             /** Transform that encodes the translate, scale, and skew of the shadow, */
             /** relative to the alignment position. */
             transform?: AffineTransform;
-            /** The alignment point of the shadow, that sets the origin for translate, */
-            /** scale and skew of the shadow. */
-            alignment?: string;
-            /** The alpha of the shadow's color, from 0.0 to 1.0. */
-            alpha?: number;
-            /** The shadow color value. */
-            color?: OpaqueColor;
-            /** Whether the shadow should rotate with the shape. */
-            rotateWithShape?: boolean;
         }
         
         interface DeleteTableRowRequest {
@@ -775,24 +219,19 @@ declare namespace gapi.client {
         }
         
         interface Bullet {
+            /** The nesting level of this paragraph in the list. */
+            nestingLevel?: number;
             /** The paragraph specific text style applied to this bullet. */
             bulletStyle?: TextStyle;
             /** The ID of the list this paragraph belongs to. */
             listId?: string;
             /** The rendered bullet glyph for this paragraph. */
             glyph?: string;
-            /** The nesting level of this paragraph in the list. */
-            nestingLevel?: number;
         }
         
         interface OutlineFill {
             /** Solid color fill. */
             solidFill?: SolidFill;
-        }
-        
-        interface CreateLineResponse {
-            /** The object ID of the created line. */
-            objectId?: string;
         }
         
         interface TableCellLocation {
@@ -802,16 +241,17 @@ declare namespace gapi.client {
             rowIndex?: number;
         }
         
+        interface CreateLineResponse {
+            /** The object ID of the created line. */
+            objectId?: string;
+        }
+        
         interface ReplaceAllTextResponse {
             /** The number of occurrences changed by replacing all text. */
             occurrencesChanged?: number;
         }
         
         interface UpdateParagraphStyleRequest {
-            /** The range of text containing the paragraph(s) to style. */
-            textRange?: Range;
-            /** The object ID of the shape or table with the text to be styled. */
-            objectId?: string;
             /** The paragraph's style. */
             style?: ParagraphStyle;
             /** The location of the cell in the table containing the paragraph(s) to */
@@ -830,6 +270,10 @@ declare namespace gapi.client {
             /** To reset a property to its default value, include its field name in the */
             /** field mask but leave the field itself unset. */
             fields?: string;
+            /** The range of text containing the paragraph(s) to style. */
+            textRange?: Range;
+            /** The object ID of the shape or table with the text to be styled. */
+            objectId?: string;
         }
         
         interface ColorScheme {
@@ -854,16 +298,22 @@ declare namespace gapi.client {
         }
         
         interface Image {
+            /** The properties of the image. */
+            imageProperties?: ImageProperties;
             /** An URL to an image with a default lifetime of 30 minutes. */
             /** This URL is tagged with the account of the requester. Anyone with the URL */
             /** effectively accesses the image as the original requester. Access to the */
             /** image may be lost if the presentation's sharing settings change. */
             contentUrl?: string;
-            /** The properties of the image. */
-            imageProperties?: ImageProperties;
         }
         
         interface AffineTransform {
+            /** The X coordinate shearing element. */
+            shearX?: number;
+            /** The Y coordinate scaling element. */
+            scaleY?: number;
+            /** The Y coordinate translation element. */
+            translateY?: number;
             /** The X coordinate translation element. */
             translateX?: number;
             /** The Y coordinate shearing element. */
@@ -872,12 +322,6 @@ declare namespace gapi.client {
             unit?: string;
             /** The X coordinate scaling element. */
             scaleX?: number;
-            /** The X coordinate shearing element. */
-            shearX?: number;
-            /** The Y coordinate scaling element. */
-            scaleY?: number;
-            /** The Y coordinate translation element. */
-            translateY?: number;
         }
         
         interface InsertTextRequest {
@@ -913,12 +357,12 @@ declare namespace gapi.client {
         }
         
         interface AutoText {
+            /** The styling applied to this auto text. */
+            style?: TextStyle;
             /** The rendered content of this auto text, if available. */
             content?: string;
             /** The type of this auto text. */
             type?: string;
-            /** The styling applied to this auto text. */
-            style?: TextStyle;
         }
         
         interface CreateVideoResponse {
@@ -926,16 +370,10 @@ declare namespace gapi.client {
             objectId?: string;
         }
         
-        interface UpdatePageElementTransformRequest {
-            /** The input transform matrix used to update the page element. */
-            transform?: AffineTransform;
-            /** The object ID of the page element to update. */
-            objectId?: string;
-            /** The apply mode of the transform update. */
-            applyMode?: string;
-        }
-        
         interface DeleteTextRequest {
+            /** The optional table cell location if the text is to be deleted from a table */
+            /** cell. If present, the object_id must refer to a table. */
+            cellLocation?: TableCellLocation;
             /** The range of text to delete, based on TextElement indexes. */
             /**  */
             /** There is always an implicit newline character at the end of a shape's or */
@@ -953,9 +391,15 @@ declare namespace gapi.client {
             textRange?: Range;
             /** The object ID of the shape or table from which the text will be deleted. */
             objectId?: string;
-            /** The optional table cell location if the text is to be deleted from a table */
-            /** cell. If present, the object_id must refer to a table. */
-            cellLocation?: TableCellLocation;
+        }
+        
+        interface UpdatePageElementTransformRequest {
+            /** The input transform matrix used to update the page element. */
+            transform?: AffineTransform;
+            /** The object ID of the page element to update. */
+            objectId?: string;
+            /** The apply mode of the transform update. */
+            applyMode?: string;
         }
         
         interface DeleteObjectRequest {
@@ -969,14 +413,14 @@ declare namespace gapi.client {
             objectId?: string;
         }
         
+        interface Dimension {
+            /** The magnitude. */
+            magnitude?: number;
+            /** The units for magnitude. */
+            unit?: string;
+        }
+        
         interface TextElement {
-            /** A TextElement representing a run of text where all of the characters */
-            /** in the run have the same TextStyle. */
-            /**  */
-            /** The `start_index` and `end_index` of TextRuns will always be fully */
-            /** contained in the index range of a single `paragraph_marker` TextElement. */
-            /** In other words, a TextRun will never span multiple paragraphs. */
-            textRun?: TextRun;
             /** A TextElement representing a spot in the text that is dynamically */
             /** replaced with content that can change over time. */
             autoText?: AutoText;
@@ -993,13 +437,13 @@ declare namespace gapi.client {
             endIndex?: number;
             /** The zero-based start index of this text element, in Unicode code units. */
             startIndex?: number;
-        }
-        
-        interface Dimension {
-            /** The magnitude. */
-            magnitude?: number;
-            /** The units for magnitude. */
-            unit?: string;
+            /** A TextElement representing a run of text where all of the characters */
+            /** in the run have the same TextStyle. */
+            /**  */
+            /** The `start_index` and `end_index` of TextRuns will always be fully */
+            /** contained in the index range of a single `paragraph_marker` TextElement. */
+            /** In other words, a TextRun will never span multiple paragraphs. */
+            textRun?: TextRun;
         }
         
         interface LineFill {
@@ -1014,13 +458,6 @@ declare namespace gapi.client {
         }
         
         interface InsertTableRowsRequest {
-            /** The table to insert rows into. */
-            tableObjectId?: string;
-            /** Whether to insert new rows below the reference cell location. */
-            /**  */
-            /** - `True`: insert below the cell. */
-            /** - `False`: insert above the cell. */
-            insertBelow?: boolean;
             /** The number of rows to be inserted. Maximum 20 per request. */
             number?: number;
             /** The reference table cell location from which rows will be inserted. */
@@ -1029,18 +466,29 @@ declare namespace gapi.client {
             /** cell is. If the reference cell is a merged cell, a new row will be */
             /** inserted above (or below) the merged cell. */
             cellLocation?: TableCellLocation;
+            /** The table to insert rows into. */
+            tableObjectId?: string;
+            /** Whether to insert new rows below the reference cell location. */
+            /**  */
+            /** - `True`: insert below the cell. */
+            /** - `False`: insert above the cell. */
+            insertBelow?: boolean;
         }
         
         interface LayoutProperties {
-            /** The object ID of the master that this layout is based on. */
-            masterObjectId?: string;
             /** The name of the layout. */
             name?: string;
             /** The human-readable name of the layout. */
             displayName?: string;
+            /** The object ID of the master that this layout is based on. */
+            masterObjectId?: string;
         }
         
         interface LineProperties {
+            /** The style of the arrow at the end of the line. */
+            endArrow?: string;
+            /** The style of the arrow at the beginning of the line. */
+            startArrow?: string;
             /** The thickness of the line. */
             weight?: Dimension;
             /** The fill of the line. The default line fill matches the defaults for new */
@@ -1050,13 +498,24 @@ declare namespace gapi.client {
             link?: Link;
             /** The dash style of the line. */
             dashStyle?: string;
-            /** The style of the arrow at the end of the line. */
-            endArrow?: string;
-            /** The style of the arrow at the beginning of the line. */
-            startArrow?: string;
         }
         
         interface Presentation {
+            /** The slide masters in the presentation. A slide master contains all common */
+            /** page elements and the common properties for a set of layouts. They serve */
+            /** three purposes: */
+            /**  */
+            /** - Placeholder shapes on a master contain the default text styles and shape */
+            /**   properties of all placeholder shapes on pages that use that master. */
+            /** - The master page properties define the common page properties inherited by */
+            /**   its layouts. */
+            /** - Any other shapes on the master slide will appear on all slides using that */
+            /**   master, regardless of their layout. */
+            masters?: Page[];
+            /** The locale of the presentation, as an IETF BCP 47 language tag. */
+            locale?: string;
+            /** The size of pages in the presentation. */
+            pageSize?: Size;
             /** The ID of the presentation. */
             presentationId?: string;
             /** The slides in the presentation. */
@@ -1093,21 +552,6 @@ declare namespace gapi.client {
             /** how content is arranged and styled on the slides that inherit from that */
             /** layout. */
             layouts?: Page[];
-            /** The locale of the presentation, as an IETF BCP 47 language tag. */
-            locale?: string;
-            /** The slide masters in the presentation. A slide master contains all common */
-            /** page elements and the common properties for a set of layouts. They serve */
-            /** three purposes: */
-            /**  */
-            /** - Placeholder shapes on a master contain the default text styles and shape */
-            /**   properties of all placeholder shapes on pages that use that master. */
-            /** - The master page properties define the common page properties inherited by */
-            /**   its layouts. */
-            /** - Any other shapes on the master slide will appear on all slides using that */
-            /**   master, regardless of their layout. */
-            masters?: Page[];
-            /** The size of pages in the presentation. */
-            pageSize?: Size;
         }
         
         interface OpaqueColor {
@@ -1130,11 +574,11 @@ declare namespace gapi.client {
             /** The shadow of the image. If not set, the image has no shadow. This property */
             /** is read-only. */
             shadow?: Shadow;
-            /** The hyperlink destination of the image. If unset, there is no link. */
-            link?: Link;
             /** The contrast effect of the image. The value should be in the interval */
             /** [-1.0, 1.0], where 0 means no effect. This property is read-only. */
             contrast?: number;
+            /** The hyperlink destination of the image. If unset, there is no link. */
+            link?: Link;
             /** The crop properties of the image. If not set, the image is not cropped. */
             /** This property is read-only. */
             cropProperties?: CropProperties;
@@ -1156,11 +600,11 @@ declare namespace gapi.client {
         }
         
         interface BatchUpdatePresentationResponse {
+            /** The presentation the updates were applied to. */
+            presentationId?: string;
             /** The reply of the updates.  This maps 1:1 with the updates, although */
             /** replies to some requests may be empty. */
             replies?: Response[];
-            /** The presentation the updates were applied to. */
-            presentationId?: string;
         }
         
         interface CreateSheetsChartRequest {
@@ -1210,6 +654,11 @@ declare namespace gapi.client {
             layoutObjectId?: string;
         }
         
+        interface MasterProperties {
+            /** The human-readable name of the master. */
+            displayName?: string;
+        }
+        
         interface Response {
             /** The result of duplicating an object. */
             duplicateObject?: DuplicateObjectResponse;
@@ -1237,25 +686,6 @@ declare namespace gapi.client {
             createSlide?: CreateSlideResponse;
         }
         
-        interface MasterProperties {
-            /** The human-readable name of the master. */
-            displayName?: string;
-        }
-        
-        interface TextRun {
-            /** The text of this run. */
-            content?: string;
-            /** The styling applied to this run. */
-            style?: TextStyle;
-        }
-        
-        interface LayoutReference {
-            /** Predefined layout. */
-            predefinedLayout?: string;
-            /** Layout ID: the object ID of one of the layouts in the presentation. */
-            layoutId?: string;
-        }
-        
         interface SubstringMatchCriteria {
             /** The text to search for in the shape or table. */
             text?: string;
@@ -1266,6 +696,20 @@ declare namespace gapi.client {
             matchCase?: boolean;
         }
         
+        interface LayoutReference {
+            /** Predefined layout. */
+            predefinedLayout?: string;
+            /** Layout ID: the object ID of one of the layouts in the presentation. */
+            layoutId?: string;
+        }
+        
+        interface TextRun {
+            /** The styling applied to this run. */
+            style?: TextStyle;
+            /** The text of this run. */
+            content?: string;
+        }
+        
         interface TableRange {
             /** The row span of the table range. */
             rowSpan?: number;
@@ -1273,11 +717,6 @@ declare namespace gapi.client {
             location?: TableCellLocation;
             /** The column span of the table range. */
             columnSpan?: number;
-        }
-        
-        interface CreateTableResponse {
-            /** The object ID of the created table. */
-            objectId?: string;
         }
         
         interface CreateTableRequest {
@@ -1306,9 +745,12 @@ declare namespace gapi.client {
             elementProperties?: PageElementProperties;
         }
         
+        interface CreateTableResponse {
+            /** The object ID of the created table. */
+            objectId?: string;
+        }
+        
         interface Table {
-            /** Number of columns in the table. */
-            columns?: number;
             /** Properties and contents of each row. */
             /**  */
             /** Cells that span multiple rows are contained in only one of these rows and */
@@ -1319,9 +761,13 @@ declare namespace gapi.client {
             rows?: number;
             /** Properties of each column. */
             tableColumns?: TableColumnProperties[];
+            /** Number of columns in the table. */
+            columns?: number;
         }
         
         interface PageBackgroundFill {
+            /** Solid color fill. */
+            solidFill?: SolidFill;
             /** The background fill property state. */
             /**  */
             /** Updating the the fill on a page will implicitly update this field to */
@@ -1331,16 +777,9 @@ declare namespace gapi.client {
             propertyState?: string;
             /** Stretched picture fill. */
             stretchedPictureFill?: StretchedPictureFill;
-            /** Solid color fill. */
-            solidFill?: SolidFill;
         }
         
         interface SheetsChart {
-            /** The URL of an image of the embedded chart, with a default lifetime of 30 */
-            /** minutes. This URL is tagged with the account of the requester. Anyone with */
-            /** the URL effectively accesses the image as the original requester. Access to */
-            /** the image may be lost if the presentation's sharing settings change. */
-            contentUrl?: string;
             /** The ID of the Google Sheets spreadsheet that contains the source chart. */
             spreadsheetId?: string;
             /** The ID of the specific chart in the Google Sheets spreadsheet that is */
@@ -1348,11 +787,14 @@ declare namespace gapi.client {
             chartId?: number;
             /** The properties of the Sheets chart. */
             sheetsChartProperties?: SheetsChartProperties;
+            /** The URL of an image of the embedded chart, with a default lifetime of 30 */
+            /** minutes. This URL is tagged with the account of the requester. Anyone with */
+            /** the URL effectively accesses the image as the original requester. Access to */
+            /** the image may be lost if the presentation's sharing settings change. */
+            contentUrl?: string;
         }
         
         interface SolidFill {
-            /** The color value of the solid fill. */
-            color?: OpaqueColor;
             /** The fraction of this `color` that should be applied to the pixel. */
             /** That is, the final pixel color is defined by the equation: */
             /**  */
@@ -1361,6 +803,8 @@ declare namespace gapi.client {
             /** This means that a value of 1.0 corresponds to a solid color, whereas */
             /** a value of 0.0 corresponds to a completely transparent color. */
             alpha?: number;
+            /** The color value of the solid fill. */
+            color?: OpaqueColor;
         }
         
         interface ThemeColorPair {
@@ -1421,19 +865,6 @@ declare namespace gapi.client {
         }
         
         interface UpdateTextStyleRequest {
-            /** The style(s) to set on the text. */
-            /**  */
-            /** If the value for a particular style matches that of the parent, that style */
-            /** will be set to inherit. */
-            /**  */
-            /** Certain text style changes may cause other changes meant to mirror the */
-            /** behavior of the Slides editor. See the documentation of */
-            /** TextStyle for more information. */
-            style?: TextStyle;
-            /** The location of the cell in the table containing the text to style. If */
-            /** `object_id` refers to a table, `cell_location` must have a value. */
-            /** Otherwise, it must not. */
-            cellLocation?: TableCellLocation;
             /** The fields that should be updated. */
             /**  */
             /** At least one field must be specified. The root `style` is implied and */
@@ -1454,6 +885,19 @@ declare namespace gapi.client {
             textRange?: Range;
             /** The object ID of the shape or table with the text to be styled. */
             objectId?: string;
+            /** The style(s) to set on the text. */
+            /**  */
+            /** If the value for a particular style matches that of the parent, that style */
+            /** will be set to inherit. */
+            /**  */
+            /** Certain text style changes may cause other changes meant to mirror the */
+            /** behavior of the Slides editor. See the documentation of */
+            /** TextStyle for more information. */
+            style?: TextStyle;
+            /** The location of the cell in the table containing the text to style. If */
+            /** `object_id` refers to a table, `cell_location` must have a value. */
+            /** Otherwise, it must not. */
+            cellLocation?: TableCellLocation;
         }
         
         interface List {
@@ -1485,12 +929,12 @@ declare namespace gapi.client {
         interface PageElement {
             /** The size of the page element. */
             size?: Size;
-            /** The title of the page element. Combined with description to display alt */
-            /** text. */
-            title?: string;
             /** A linked chart embedded from Google Sheets. Unlinked charts are */
             /** represented as images. */
             sheetsChart?: SheetsChart;
+            /** The title of the page element. Combined with description to display alt */
+            /** text. */
+            title?: string;
             /** A video page element. */
             video?: Video;
             /** A word art page element. */
@@ -1517,13 +961,6 @@ declare namespace gapi.client {
         }
         
         interface CreateImageRequest {
-            /** The image URL. */
-            /**  */
-            /** The image is fetched once at insertion time and a copy is stored for */
-            /** display inside the presentation. Images must be less than 50MB in size, */
-            /** cannot exceed 25 megapixels, and must be in either in PNG, JPEG, or GIF */
-            /** format. */
-            url?: string;
             /** A user-supplied object ID. */
             /**  */
             /** If you specify an ID, it must be unique among all pages and page elements */
@@ -1542,6 +979,13 @@ declare namespace gapi.client {
             /** to maintain aspect ratio. The provided transform is applied after this */
             /** operation. */
             elementProperties?: PageElementProperties;
+            /** The image URL. */
+            /**  */
+            /** The image is fetched once at insertion time and a copy is stored for */
+            /** display inside the presentation. Images must be less than 50MB in size, */
+            /** cannot exceed 25 megapixels, and must be in either in PNG, JPEG, or GIF */
+            /** format. */
+            url?: string;
         }
         
         interface CreateParagraphBulletsRequest {
@@ -1557,42 +1001,7 @@ declare namespace gapi.client {
             cellLocation?: TableCellLocation;
         }
         
-        interface Size {
-            /** The height of the object. */
-            height?: Dimension;
-            /** The width of the object. */
-            width?: Dimension;
-        }
-        
         interface TextStyle {
-            /** Whether or not the text is in small capital letters. */
-            smallCaps?: boolean;
-            /** The background color of the text. If set, the color is either opaque or */
-            /** transparent, depending on if the `opaque_color` field in it is set. */
-            backgroundColor?: OptionalColor;
-            /** Whether or not the text is underlined. */
-            underline?: boolean;
-            /** The hyperlink destination of the text. If unset, there is no link. Links */
-            /** are not inherited from parent text. */
-            /**  */
-            /** Changing the link in an update request causes some other changes to the */
-            /** text style of the range: */
-            /**  */
-            /** &#42; When setting a link, the text foreground color will be set to */
-            /**   ThemeColorType.HYPERLINK and the text will */
-            /**   be underlined. If these fields are modified in the same */
-            /**   request, those values will be used instead of the link defaults. */
-            /** &#42; Setting a link on a text range that overlaps with an existing link will */
-            /**   also update the existing link to point to the new URL. */
-            /** &#42; Links are not settable on newline characters. As a result, setting a link */
-            /**   on a text range that crosses a paragraph boundary, such as `"ABC\n123"`, */
-            /**   will separate the newline character(s) into their own text runs. The */
-            /**   link will be applied separately to the runs before and after the newline. */
-            /** &#42; Removing a link will update the text style of the range to match the */
-            /**   style of the preceding text (or the default text styles if the preceding */
-            /**   text is another link) unless different styles are being set in the same */
-            /**   request. */
-            link?: Link;
             /** The color of the text itself. If set, the color is either opaque or */
             /** transparent, depending on if the `opaque_color` field in it is set. */
             foregroundColor?: OptionalColor;
@@ -1651,9 +1060,46 @@ declare namespace gapi.client {
             /** must also be set with a non-empty value. Otherwise, a 400 bad request error */
             /** is returned. */
             weightedFontFamily?: WeightedFontFamily;
+            /** Whether or not the text is in small capital letters. */
+            smallCaps?: boolean;
+            /** The background color of the text. If set, the color is either opaque or */
+            /** transparent, depending on if the `opaque_color` field in it is set. */
+            backgroundColor?: OptionalColor;
+            /** Whether or not the text is underlined. */
+            underline?: boolean;
+            /** The hyperlink destination of the text. If unset, there is no link. Links */
+            /** are not inherited from parent text. */
+            /**  */
+            /** Changing the link in an update request causes some other changes to the */
+            /** text style of the range: */
+            /**  */
+            /** &#42; When setting a link, the text foreground color will be set to */
+            /**   ThemeColorType.HYPERLINK and the text will */
+            /**   be underlined. If these fields are modified in the same */
+            /**   request, those values will be used instead of the link defaults. */
+            /** &#42; Setting a link on a text range that overlaps with an existing link will */
+            /**   also update the existing link to point to the new URL. */
+            /** &#42; Links are not settable on newline characters. As a result, setting a link */
+            /**   on a text range that crosses a paragraph boundary, such as `"ABC\n123"`, */
+            /**   will separate the newline character(s) into their own text runs. The */
+            /**   link will be applied separately to the runs before and after the newline. */
+            /** &#42; Removing a link will update the text style of the range to match the */
+            /**   style of the preceding text (or the default text styles if the preceding */
+            /**   text is another link) unless different styles are being set in the same */
+            /**   request. */
+            link?: Link;
+        }
+        
+        interface Size {
+            /** The height of the object. */
+            height?: Dimension;
+            /** The width of the object. */
+            width?: Dimension;
         }
         
         interface UpdateVideoPropertiesRequest {
+            /** The video properties to update. */
+            videoProperties?: VideoProperties;
             /** The fields that should be updated. */
             /**  */
             /** At least one field must be specified. The root `videoProperties` is */
@@ -1668,37 +1114,9 @@ declare namespace gapi.client {
             fields?: string;
             /** The object ID of the video the updates are applied to. */
             objectId?: string;
-            /** The video properties to update. */
-            videoProperties?: VideoProperties;
         }
         
         interface Request {
-            /** Deletes a column from a table. */
-            deleteTableColumn?: DeleteTableColumnRequest;
-            /** Duplicates a slide or page element. */
-            duplicateObject?: DuplicateObjectRequest;
-            /** Updates the properties of a Video. */
-            updateVideoProperties?: UpdateVideoPropertiesRequest;
-            /** Creates a line. */
-            createLine?: CreateLineRequest;
-            /** Creates an image. */
-            createImage?: CreateImageRequest;
-            /** Creates bullets for paragraphs. */
-            createParagraphBullets?: CreateParagraphBulletsRequest;
-            /** Creates a video. */
-            createVideo?: CreateVideoRequest;
-            /** Creates an embedded Google Sheets chart. */
-            createSheetsChart?: CreateSheetsChartRequest;
-            /** Replaces all shapes matching some criteria with a Google Sheets chart. */
-            replaceAllShapesWithSheetsChart?: ReplaceAllShapesWithSheetsChartRequest;
-            /** Updates the transform of a page element. */
-            updatePageElementTransform?: UpdatePageElementTransformRequest;
-            /** Updates the styling of text within a Shape or Table. */
-            updateTextStyle?: UpdateTextStyleRequest;
-            /** Replaces all shapes matching some criteria with an image. */
-            replaceAllShapesWithImage?: ReplaceAllShapesWithImageRequest;
-            /** Replaces all instances of specified text. */
-            replaceAllText?: ReplaceAllTextRequest;
             /** Updates the properties of an Image. */
             updateImageProperties?: UpdateImagePropertiesRequest;
             /** Inserts rows into a table. */
@@ -1719,38 +1137,626 @@ declare namespace gapi.client {
             deleteText?: DeleteTextRequest;
             /** Updates the properties of a Page. */
             updatePageProperties?: UpdatePagePropertiesRequest;
-            /** Deletes bullets from paragraphs. */
-            deleteParagraphBullets?: DeleteParagraphBulletsRequest;
             /** Creates a new shape. */
             createShape?: CreateShapeRequest;
+            /** Deletes bullets from paragraphs. */
+            deleteParagraphBullets?: DeleteParagraphBulletsRequest;
             /** Inserts columns into a table. */
             insertTableColumns?: InsertTableColumnsRequest;
             /** Refreshes a Google Sheets chart. */
             refreshSheetsChart?: RefreshSheetsChartRequest;
-            /** Updates the properties of a TableCell. */
-            updateTableCellProperties?: UpdateTableCellPropertiesRequest;
             /** Creates a new table. */
             createTable?: CreateTableRequest;
+            /** Updates the properties of a TableCell. */
+            updateTableCellProperties?: UpdateTableCellPropertiesRequest;
             /** Deletes a page or page element from the presentation. */
             deleteObject?: DeleteObjectRequest;
             /** Updates the styling of paragraphs within a Shape or Table. */
             updateParagraphStyle?: UpdateParagraphStyleRequest;
+            /** Duplicates a slide or page element. */
+            duplicateObject?: DuplicateObjectRequest;
+            /** Deletes a column from a table. */
+            deleteTableColumn?: DeleteTableColumnRequest;
+            /** Creates a line. */
+            createLine?: CreateLineRequest;
+            /** Updates the properties of a Video. */
+            updateVideoProperties?: UpdateVideoPropertiesRequest;
+            /** Creates an image. */
+            createImage?: CreateImageRequest;
+            /** Creates bullets for paragraphs. */
+            createParagraphBullets?: CreateParagraphBulletsRequest;
+            /** Creates a video. */
+            createVideo?: CreateVideoRequest;
+            /** Creates an embedded Google Sheets chart. */
+            createSheetsChart?: CreateSheetsChartRequest;
+            /** Replaces all shapes matching some criteria with a Google Sheets chart. */
+            replaceAllShapesWithSheetsChart?: ReplaceAllShapesWithSheetsChartRequest;
+            /** Updates the transform of a page element. */
+            updatePageElementTransform?: UpdatePageElementTransformRequest;
+            /** Updates the styling of text within a Shape or Table. */
+            updateTextStyle?: UpdateTextStyleRequest;
+            /** Replaces all shapes matching some criteria with an image. */
+            replaceAllShapesWithImage?: ReplaceAllShapesWithImageRequest;
+            /** Replaces all instances of specified text. */
+            replaceAllText?: ReplaceAllTextRequest;
+        }
+        
+        interface UpdateImagePropertiesRequest {
+            /** The fields that should be updated. */
+            /**  */
+            /** At least one field must be specified. The root `imageProperties` is */
+            /** implied and should not be specified. A single `"&#42;"` can be used as */
+            /** short-hand for listing every field. */
+            /**  */
+            /** For example to update the image outline color, set `fields` to */
+            /** `"outline.outlineFill.solidFill.color"`. */
+            /**  */
+            /** To reset a property to its default value, include its field name in the */
+            /** field mask but leave the field itself unset. */
+            fields?: string;
+            /** The image properties to update. */
+            imageProperties?: ImageProperties;
+            /** The object ID of the image the updates are applied to. */
+            objectId?: string;
+        }
+        
+        interface ParagraphStyle {
+            /** The amount of extra space above the paragraph. If unset, the value is */
+            /** inherited from the parent. */
+            spaceBelow?: Dimension;
+            /** The text direction of this paragraph. If unset, the value defaults to */
+            /** LEFT_TO_RIGHT since */
+            /** text direction is not inherited. */
+            direction?: string;
+            /** The amount indentation for the paragraph on the side that corresponds to */
+            /** the end of the text, based on the current text direction. If unset, the */
+            /** value is inherited from the parent. */
+            indentEnd?: Dimension;
+            /** The spacing mode for the paragraph. */
+            spacingMode?: string;
+            /** The amount indentation for the paragraph on the side that corresponds to */
+            /** the start of the text, based on the current text direction. If unset, the */
+            /** value is inherited from the parent. */
+            indentStart?: Dimension;
+            /** The amount of extra space above the paragraph. If unset, the value is */
+            /** inherited from the parent. */
+            spaceAbove?: Dimension;
+            /** The text alignment for this paragraph. */
+            alignment?: string;
+            /** The amount of space between lines, as a percentage of normal, where normal */
+            /** is represented as 100.0. If unset, the value is inherited from the parent. */
+            lineSpacing?: number;
+            /** The amount of indentation for the start of the first line of the paragraph. */
+            /** If unset, the value is inherited from the parent. */
+            indentFirstLine?: Dimension;
+        }
+        
+        interface ReplaceAllShapesWithSheetsChartResponse {
+            /** The number of shapes replaced with charts. */
+            occurrencesChanged?: number;
+        }
+        
+        interface TableCellProperties {
+            /** The background fill of the table cell. The default fill matches the fill */
+            /** for newly created table cells in the Slides editor. */
+            tableCellBackgroundFill?: TableCellBackgroundFill;
+        }
+        
+        interface RefreshSheetsChartRequest {
+            /** The object ID of the chart to refresh. */
+            objectId?: string;
+        }
+        
+        interface Outline {
+            /** The thickness of the outline. */
+            weight?: Dimension;
+            /** The dash style of the outline. */
+            dashStyle?: string;
+            /** The outline property state. */
+            /**  */
+            /** Updating the the outline on a page element will implicitly update this */
+            /** field to`RENDERED`, unless another value is specified in the same request. */
+            /** To have no outline on a page element, set this field to `NOT_RENDERED`. In */
+            /** this case, any other outline fields set in the same request will be */
+            /** ignored. */
+            propertyState?: string;
+            /** The fill of the outline. */
+            outlineFill?: OutlineFill;
+        }
+        
+        interface NotesProperties {
+            /** The object ID of the shape on this notes page that contains the speaker */
+            /** notes for the corresponding slide. */
+            /** The actual shape may not always exist on the notes page. Inserting text */
+            /** using this object ID will automatically create the shape. In this case, the */
+            /** actual shape may have different object ID. The `GetPresentation` or */
+            /** `GetPage` action will always return the latest object ID. */
+            speakerNotesObjectId?: string;
+        }
+        
+        interface ShapeProperties {
+            /** The outline of the shape. If unset, the outline is inherited from a */
+            /** parent placeholder if it exists. If the shape has no parent, then the */
+            /** default outline depends on the shape type, matching the defaults for */
+            /** new shapes created in the Slides editor. */
+            outline?: Outline;
+            /** The shadow properties of the shape. If unset, the shadow is inherited from */
+            /** a parent placeholder if it exists. If the shape has no parent, then the */
+            /** default shadow matches the defaults for new shapes created in the Slides */
+            /** editor. This property is read-only. */
+            shadow?: Shadow;
+            /** The background fill of the shape. If unset, the background fill is */
+            /** inherited from a parent placeholder if it exists. If the shape has no */
+            /** parent, then the default background fill depends on the shape type, */
+            /** matching the defaults for new shapes created in the Slides editor. */
+            shapeBackgroundFill?: ShapeBackgroundFill;
+            /** The hyperlink destination of the shape. If unset, there is no link. Links */
+            /** are not inherited from parent placeholders. */
+            link?: Link;
+        }
+        
+        interface TableColumnProperties {
+            /** Width of a column. */
+            columnWidth?: Dimension;
+        }
+        
+        interface TableRow {
+            /** Properties and contents of each cell. */
+            /**  */
+            /** Cells that span multiple columns are represented only once with a */
+            /** column_span greater */
+            /** than 1. As a result, the length of this collection does not always match */
+            /** the number of columns of the entire table. */
+            tableCells?: TableCell[];
+            /** Height of a row. */
+            rowHeight?: Dimension;
+        }
+        
+        interface UpdateTableCellPropertiesRequest {
+            /** The table cell properties to update. */
+            tableCellProperties?: TableCellProperties;
+            /** The fields that should be updated. */
+            /**  */
+            /** At least one field must be specified. The root `tableCellProperties` is */
+            /** implied and should not be specified. A single `"&#42;"` can be used as */
+            /** short-hand for listing every field. */
+            /**  */
+            /** For example to update the table cell background solid fill color, set */
+            /** `fields` to `"tableCellBackgroundFill.solidFill.color"`. */
+            /**  */
+            /** To reset a property to its default value, include its field name in the */
+            /** field mask but leave the field itself unset. */
+            fields?: string;
+            /** The table range representing the subset of the table to which the updates */
+            /** are applied. If a table range is not specified, the updates will apply to */
+            /** the entire table. */
+            tableRange?: TableRange;
+            /** The object ID of the table. */
+            objectId?: string;
+        }
+        
+        interface CreateSlideRequest {
+            /** The optional zero-based index indicating where to insert the slides. */
+            /**  */
+            /** If you don't specify an index, the new slide is created at the end. */
+            insertionIndex?: number;
+            /** An optional list of object ID mappings from the placeholder(s) on the layout to the placeholder(s) */
+            /** that will be created on the new slide from that specified layout. Can only */
+            /** be used when `slide_layout_reference` is specified. */
+            placeholderIdMappings?: LayoutPlaceholderIdMapping[];
+            /** Layout reference of the slide to be inserted, based on the &#42;current */
+            /** master&#42;, which is one of the following: */
+            /**  */
+            /** - The master of the previous slide index. */
+            /** - The master of the first slide, if the insertion_index is zero. */
+            /** - The first master in the presentation, if there are no slides. */
+            /**  */
+            /** If the LayoutReference is not found in the current master, a 400 bad */
+            /** request error is returned. */
+            /**  */
+            /** If you don't specify a layout reference, then the new slide will use the */
+            /** predefined layout `BLANK`. */
+            slideLayoutReference?: LayoutReference;
+            /** A user-supplied object ID. */
+            /**  */
+            /** If you specify an ID, it must be unique among all pages and page elements */
+            /** in the presentation. The ID must start with an alphanumeric character or an */
+            /** underscore (matches regex `[a-zA-Z0-9_]`); remaining characters */
+            /** may include those as well as a hyphen or colon (matches regex */
+            /** `[a-zA-Z0-9_-:]`). */
+            /** The length of the ID must not be less than 5 or greater than 50. */
+            /**  */
+            /** If you don't specify an ID, a unique one is generated. */
+            objectId?: string;
+        }
+        
+        interface BatchUpdatePresentationRequest {
+            /** A list of updates to apply to the presentation. */
+            requests?: Request[];
+            /** Provides control over how write requests are executed. */
+            writeControl?: WriteControl;
+        }
+        
+        interface TextContent {
+            /** The text contents broken down into its component parts, including styling */
+            /** information. This property is read-only. */
+            textElements?: TextElement[];
+            /** The bulleted lists contained in this text, keyed by list ID. */
+            lists?: Record<string, List>;            
+        }
+        
+        interface CreateSheetsChartResponse {
+            /** The object ID of the created chart. */
+            objectId?: string;
+        }
+        
+        interface WriteControl {
+            /** The revision ID of the presentation required for the write request. If */
+            /** specified and the `required_revision_id` doesn't exactly match the */
+            /** presentation's current `revision_id`, the request will not be processed and */
+            /** will return a 400 bad request error. */
+            requiredRevisionId?: string;
+        }
+        
+        interface DeleteParagraphBulletsRequest {
+            /** The optional table cell location if the text to be modified is in a table */
+            /** cell. If present, the object_id must refer to a table. */
+            cellLocation?: TableCellLocation;
+            /** The range of text to delete bullets from, based on TextElement indexes. */
+            textRange?: Range;
+            /** The object ID of the shape or table containing the text to delete bullets */
+            /** from. */
+            objectId?: string;
+        }
+        
+        interface ParagraphMarker {
+            /** The paragraph's style */
+            style?: ParagraphStyle;
+            /** The bullet for this paragraph. If not present, the paragraph does not */
+            /** belong to a list. */
+            bullet?: Bullet;
+        }
+        
+        interface Thumbnail {
+            /** The positive width in pixels of the thumbnail image. */
+            width?: number;
+            /** The positive height in pixels of the thumbnail image. */
+            height?: number;
+            /** The content URL of the thumbnail image. */
+            /**  */
+            /** The URL to the image has a default lifetime of 30 minutes. */
+            /** This URL is tagged with the account of the requester. Anyone with the URL */
+            /** effectively accesses the image as the original requester. Access to the */
+            /** image may be lost if the presentation's sharing settings change. */
+            /** The mime type of the thumbnail image is the same as specified in the */
+            /** `GetPageThumbnailRequest`. */
+            contentUrl?: string;
+        }
+        
+        interface InsertTableColumnsRequest {
+            /** The number of columns to be inserted. Maximum 20 per request. */
+            number?: number;
+            /** The reference table cell location from which columns will be inserted. */
+            /**  */
+            /** A new column will be inserted to the left (or right) of the column where */
+            /** the reference cell is. If the reference cell is a merged cell, a new */
+            /** column will be inserted to the left (or right) of the merged cell. */
+            cellLocation?: TableCellLocation;
+            /** Whether to insert new columns to the right of the reference cell location. */
+            /**  */
+            /** - `True`: insert to the right. */
+            /** - `False`: insert to the left. */
+            insertRight?: boolean;
+            /** The table to insert columns into. */
+            tableObjectId?: string;
+        }
+        
+        interface LayoutPlaceholderIdMapping {
+            /** The placeholder on a layout that will be applied to a slide. Only type and index are needed. For example, a */
+            /** predefined `TITLE_AND_BODY` layout may usually have a TITLE placeholder */
+            /** with index 0 and a BODY placeholder with index 0. */
+            layoutPlaceholder?: Placeholder;
+            /** The object ID of the placeholder on a layout that will be applied */
+            /** to a slide. */
+            layoutPlaceholderObjectId?: string;
+            /** A user-supplied object ID for the placeholder identified above that to be */
+            /** created onto a slide. */
+            /**  */
+            /** If you specify an ID, it must be unique among all pages and page elements */
+            /** in the presentation. The ID must start with an alphanumeric character or an */
+            /** underscore (matches regex `[a-zA-Z0-9_]`); remaining characters */
+            /** may include those as well as a hyphen or colon (matches regex */
+            /** `[a-zA-Z0-9_-:]`). */
+            /** The length of the ID must not be less than 5 or greater than 50. */
+            /**  */
+            /** If you don't specify an ID, a unique one is generated. */
+            objectId?: string;
+        }
+        
+        interface UpdateShapePropertiesRequest {
+            /** The fields that should be updated. */
+            /**  */
+            /** At least one field must be specified. The root `shapeProperties` is */
+            /** implied and should not be specified. A single `"&#42;"` can be used as */
+            /** short-hand for listing every field. */
+            /**  */
+            /** For example to update the shape background solid fill color, set `fields` */
+            /** to `"shapeBackgroundFill.solidFill.color"`. */
+            /**  */
+            /** To reset a property to its default value, include its field name in the */
+            /** field mask but leave the field itself unset. */
+            fields?: string;
+            /** The object ID of the shape the updates are applied to. */
+            objectId?: string;
+            /** The shape properties to update. */
+            shapeProperties?: ShapeProperties;
+        }
+        
+        interface WordArt {
+            /** The text rendered as word art. */
+            renderedText?: string;
+        }
+        
+        interface Recolor {
+            /** The recolor effect is represented by a gradient, which is a list of color */
+            /** stops. */
+            /**  */
+            /** The colors in the gradient will replace the corresponding colors at */
+            /** the same position in the color palette and apply to the image. This */
+            /** property is read-only. */
+            recolorStops?: ColorStop[];
+            /** The name of the recolor effect. */
+            /**  */
+            /** The name is determined from the `recolor_stops` by matching the gradient */
+            /** against the colors in the page's current color scheme. This property is */
+            /** read-only. */
+            name?: string;
+        }
+        
+        interface Link {
+            /** If set, indicates this is a link to the specific page in this */
+            /** presentation with this ID. A page with this ID may not exist. */
+            pageObjectId?: string;
+            /** If set, indicates this is a link to the slide at this zero-based index */
+            /** in the presentation. There may not be a slide at this index. */
+            slideIndex?: number;
+            /** If set, indicates this is a link to a slide in this presentation, */
+            /** addressed by its position. */
+            relativeLink?: string;
+            /** If set, indicates this is a link to the external web page at this URL. */
+            url?: string;
+        }
+        
+        interface RgbColor {
+            /** The red component of the color, from 0.0 to 1.0. */
+            red?: number;
+            /** The blue component of the color, from 0.0 to 1.0. */
+            blue?: number;
+            /** The green component of the color, from 0.0 to 1.0. */
+            green?: number;
+        }
+        
+        interface CreateShapeResponse {
+            /** The object ID of the created shape. */
+            objectId?: string;
+        }
+        
+        interface CreateLineRequest {
+            /** The element properties for the line. */
+            elementProperties?: PageElementProperties;
+            /** The category of line to be created. */
+            lineCategory?: string;
+            /** A user-supplied object ID. */
+            /**  */
+            /** If you specify an ID, it must be unique among all pages and page elements */
+            /** in the presentation. The ID must start with an alphanumeric character or an */
+            /** underscore (matches regex `[a-zA-Z0-9_]`); remaining characters */
+            /** may include those as well as a hyphen or colon (matches regex */
+            /** `[a-zA-Z0-9_-:]`). */
+            /** The length of the ID must not be less than 5 or greater than 50. */
+            /**  */
+            /** If you don't specify an ID, a unique one is generated. */
+            objectId?: string;
+        }
+        
+        interface CreateSlideResponse {
+            /** The object ID of the created slide. */
+            objectId?: string;
+        }
+        
+        interface CreateShapeRequest {
+            /** The shape type. */
+            shapeType?: string;
+            /** A user-supplied object ID. */
+            /**  */
+            /** If you specify an ID, it must be unique among all pages and page elements */
+            /** in the presentation. The ID must start with an alphanumeric character or an */
+            /** underscore (matches regex `[a-zA-Z0-9_]`); remaining characters */
+            /** may include those as well as a hyphen or colon (matches regex */
+            /** `[a-zA-Z0-9_-:]`). */
+            /** The length of the ID must not be less than 5 or greater than 50. */
+            /** If empty, a unique identifier will be generated. */
+            objectId?: string;
+            /** The element properties for the shape. */
+            elementProperties?: PageElementProperties;
+        }
+        
+        interface Video {
+            /** The video source. */
+            source?: string;
+            /** The video source's unique identifier for this video. */
+            id?: string;
+            /** An URL to a video. The URL is valid as long as the source video */
+            /** exists and sharing settings do not change. */
+            url?: string;
+            /** The properties of the video. */
+            videoProperties?: VideoProperties;
+        }
+        
+        interface PageProperties {
+            /** The color scheme of the page. If unset, the color scheme is inherited from */
+            /** a parent page. If the page has no parent, the color scheme uses a default */
+            /** Slides color scheme. This field is read-only. */
+            colorScheme?: ColorScheme;
+            /** The background fill of the page. If unset, the background fill is inherited */
+            /** from a parent page if it exists. If the page has no parent, then the */
+            /** background fill defaults to the corresponding fill in the Slides editor. */
+            pageBackgroundFill?: PageBackgroundFill;
+        }
+        
+        interface NestingLevel {
+            /** The style of a bullet at this level of nesting. */
+            bulletStyle?: TextStyle;
+        }
+        
+        interface TableCell {
+            /** The properties of the table cell. */
+            tableCellProperties?: TableCellProperties;
+            /** Row span of the cell. */
+            rowSpan?: number;
+            /** The location of the cell within the table. */
+            location?: TableCellLocation;
+            /** Column span of the cell. */
+            columnSpan?: number;
+            /** The text content of the cell. */
+            text?: TextContent;
+        }
+        
+        interface UpdateLinePropertiesRequest {
+            /** The fields that should be updated. */
+            /**  */
+            /** At least one field must be specified. The root `lineProperties` is */
+            /** implied and should not be specified. A single `"&#42;"` can be used as */
+            /** short-hand for listing every field. */
+            /**  */
+            /** For example to update the line solid fill color, set `fields` to */
+            /** `"lineFill.solidFill.color"`. */
+            /**  */
+            /** To reset a property to its default value, include its field name in the */
+            /** field mask but leave the field itself unset. */
+            fields?: string;
+            /** The object ID of the line the update is applied to. */
+            objectId?: string;
+            /** The line properties to update. */
+            lineProperties?: LineProperties;
+        }
+        
+        interface UpdateSlidesPositionRequest {
+            /** The IDs of the slides in the presentation that should be moved. */
+            /** The slides in this list must be in existing presentation order, without */
+            /** duplicates. */
+            slideObjectIds?: string[];
+            /** The index where the slides should be inserted, based on the slide */
+            /** arrangement before the move takes place. Must be between zero and the */
+            /** number of slides in the presentation, inclusive. */
+            insertionIndex?: number;
+        }
+        
+        interface TableCellBackgroundFill {
+            /** Solid color fill. */
+            solidFill?: SolidFill;
+            /** The background fill property state. */
+            /**  */
+            /** Updating the the fill on a table cell will implicitly update this field */
+            /** to `RENDERED`, unless another value is specified in the same request. To */
+            /** have no fill on a table cell, set this field to `NOT_RENDERED`. In this */
+            /** case, any other fill fields set in the same request will be ignored. */
+            propertyState?: string;
+        }
+        
+        interface UpdatePagePropertiesRequest {
+            /** The fields that should be updated. */
+            /**  */
+            /** At least one field must be specified. The root `pageProperties` is */
+            /** implied and should not be specified. A single `"&#42;"` can be used as */
+            /** short-hand for listing every field. */
+            /**  */
+            /** For example to update the page background solid fill color, set `fields` */
+            /** to `"pageBackgroundFill.solidFill.color"`. */
+            /**  */
+            /** To reset a property to its default value, include its field name in the */
+            /** field mask but leave the field itself unset. */
+            fields?: string;
+            /** The page properties to update. */
+            pageProperties?: PageProperties;
+            /** The object ID of the page the update is applied to. */
+            objectId?: string;
+        }
+        
+        interface Group {
+            /** The collection of elements in the group. The minimum size of a group is 2. */
+            children?: PageElement[];
+        }
+        
+        interface Placeholder {
+            /** The object ID of this shape's parent placeholder. */
+            /** If unset, the parent placeholder shape does not exist, so the shape does */
+            /** not inherit properties from any other shape. */
+            parentObjectId?: string;
+            /** The index of the placeholder. If the same placeholder types are present in */
+            /** the same page, they would have different index values. */
+            index?: number;
+            /** The type of the placeholder. */
+            type?: string;
+        }
+        
+        interface DuplicateObjectRequest {
+            /** The object being duplicated may contain other objects, for example when */
+            /** duplicating a slide or a group page element. This map defines how the IDs */
+            /** of duplicated objects are generated: the keys are the IDs of the original */
+            /** objects and its values are the IDs that will be assigned to the */
+            /** corresponding duplicate object. The ID of the source object's duplicate */
+            /** may be specified in this map as well, using the same value of the */
+            /** `object_id` field as a key and the newly desired ID as the value. */
+            /**  */
+            /** All keys must correspond to existing IDs in the presentation. All values */
+            /** must be unique in the presentation and must start with an alphanumeric */
+            /** character or an underscore (matches regex `[a-zA-Z0-9_]`); remaining */
+            /** characters may include those as well as a hyphen or colon (matches regex */
+            /** `[a-zA-Z0-9_-:]`). The length of the new ID must not be less than 5 or */
+            /** greater than 50. */
+            /**  */
+            /** If any IDs of source objects are omitted from the map, a new random ID will */
+            /** be assigned. If the map is empty or unset, all duplicate objects will */
+            /** receive a new random ID. */
+            objectIds?: Record<string, string>;            
+            /** The ID of the object to duplicate. */
+            objectId?: string;
+        }
+        
+        interface ReplaceAllTextRequest {
+            /** Finds text in a shape matching this substring. */
+            containsText?: SubstringMatchCriteria;
+            /** If non-empty, limits the matches to page elements only on the given pages. */
+            /**  */
+            /** Returns a 400 bad request error if given the page object ID of a */
+            /** notes master, */
+            /** or if a page with that object ID doesn't exist in the presentation. */
+            pageObjectIds?: string[];
+            /** The text that will replace the matched text. */
+            replaceText?: string;
         }
         
         interface PagesResource {
             /** Generates a thumbnail of the latest version of the specified page in the */
             /** presentation and returns a URL to the thumbnail image. */
             getThumbnail(request: {            
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** JSONP */
-                callback?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -1761,12 +1767,8 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
+                /** The ID of the presentation to retrieve. */
+                presentationId: string;
                 /** The object ID of the page whose thumbnail to retrieve. */
                 pageObjectId: string;
                 /** The optional thumbnail image size. */
@@ -1778,22 +1780,26 @@ declare namespace gapi.client {
                 /**  */
                 /** If you don't specify the mime type, the default mime type will be PNG. */
                 "thumbnailProperties.mimeType"?: string;
-                /** The ID of the presentation to retrieve. */
-                presentationId: string;
             }): Request<Thumbnail>;            
             
             /** Gets the latest version of the specified page in the presentation. */
             get(request: {            
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** JSONP */
-                callback?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -1804,12 +1810,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
                 /** The object ID of the page to retrieve. */
                 pageObjectId: string;
                 /** The ID of the presentation to retrieve. */
@@ -1819,38 +1819,6 @@ declare namespace gapi.client {
         }
         
         interface PresentationsResource {
-            /** Gets the latest version of the specified presentation. */
-            get(request: {            
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** The ID of the presentation to retrieve. */
-                presentationId: string;
-            }): Request<Presentation>;            
-            
             /** Applies one or more updates to the presentation. */
             /**  */
             /** Each request is validated before */
@@ -1873,16 +1841,22 @@ declare namespace gapi.client {
             /** the updates in your request are guaranteed to be applied together */
             /** atomically. */
             batchUpdate(request: {            
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** JSONP */
-                callback?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -1893,12 +1867,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
                 /** The presentation to apply the updates to. */
                 presentationId: string;
             }): Request<BatchUpdatePresentationResponse>;            
@@ -1907,16 +1875,22 @@ declare namespace gapi.client {
             /** fields in the request are ignored. */
             /** Returns the created presentation. */
             create(request: {            
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** JSONP */
-                callback?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -1927,12 +1901,38 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
+            }): Request<Presentation>;            
+            
+            /** Gets the latest version of the specified presentation. */
+            get(request: {            
                 /** OAuth bearer token. */
                 bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** The ID of the presentation to retrieve. */
+                presentationId: string;
             }): Request<Presentation>;            
             
             pages: PagesResource;

@@ -24,7 +24,147 @@ declare namespace gapi.client {
     
     namespace dlp {
         
+        interface GooglePrivacyDlpV2beta1ContentItem {
+            /** Structured content for inspection. */
+            table?: GooglePrivacyDlpV2beta1Table;
+            /** Content data to inspect or redact. */
+            data?: string;
+            /** Type of the content, as defined in Content-Type HTTP header. */
+            /** Supported types are: all "text" types, octet streams, PNG images, */
+            /** JPEG images. */
+            type?: string;
+            /** String data to inspect or redact. */
+            value?: string;
+        }
+        
+        interface GooglePrivacyDlpV2beta1OperationConfig {
+            /** Max number of findings per file, Datastore entity or database row. */
+            maxItemFindings?: string;
+        }
+        
+        interface GooglePrivacyDlpV2beta1BigQueryOptions {
+            /** Complete BigQuery table reference. */
+            tableReference?: GooglePrivacyDlpV2beta1BigQueryTable;
+            /** References to fields uniquely identifying rows within the table. */
+            /** Nested fields in the format, like `person.birthdate.year`, are allowed. */
+            identifyingFields?: GooglePrivacyDlpV2beta1FieldId[];
+        }
+        
+        interface GooglePrivacyDlpV2beta1ReplaceConfig {
+            /** Type of information to replace. Only one ReplaceConfig per info_type */
+            /** should be provided. If ReplaceConfig does not have an info_type, the DLP */
+            /** API matches it against all info_types that are found but not specified in */
+            /** another ReplaceConfig. */
+            infoType?: GooglePrivacyDlpV2beta1InfoType;
+            /** Content replacing sensitive information of given type. Max 256 chars. */
+            replaceWith?: string;
+        }
+        
+        interface GooglePrivacyDlpV2beta1Color {
+            /** The amount of red in the color as a value in the interval [0, 1]. */
+            red?: number;
+            /** The amount of blue in the color as a value in the interval [0, 1]. */
+            blue?: number;
+            /** The amount of green in the color as a value in the interval [0, 1]. */
+            green?: number;
+        }
+        
+        interface GooglePrivacyDlpV2beta1Table {
+            /**  */
+            headers?: GooglePrivacyDlpV2beta1FieldId[];
+            /**  */
+            rows?: GooglePrivacyDlpV2beta1Row[];
+        }
+        
+        interface GooglePrivacyDlpV2beta1InfoTypeLimit {
+            /** Type of information the findings limit applies to. Only one limit per */
+            /** info_type should be provided. If InfoTypeLimit does not have an */
+            /** info_type, the DLP API applies the limit against all info_types that are */
+            /** found but not specified in another InfoTypeLimit. */
+            infoType?: GooglePrivacyDlpV2beta1InfoType;
+            /** Max findings limit for the given info type. */
+            maxFindings?: number;
+        }
+        
+        interface GooglePrivacyDlpV2beta1Value {
+            /**  */
+            timeValue?: GoogleTypeTimeOfDay;
+            /**  */
+            integerValue?: string;
+            /**  */
+            stringValue?: string;
+            /**  */
+            dateValue?: GoogleTypeDate;
+            /**  */
+            timestampValue?: string;
+            /**  */
+            booleanValue?: boolean;
+            /**  */
+            floatValue?: number;
+        }
+        
+        interface GooglePrivacyDlpV2beta1ListInfoTypesResponse {
+            /** Set of sensitive info types belonging to a category. */
+            infoTypes?: GooglePrivacyDlpV2beta1InfoTypeDescription[];
+        }
+        
+        interface GooglePrivacyDlpV2beta1CloudStorageKey {
+            /** Path to the file. */
+            filePath?: string;
+            /** Byte offset of the referenced data in the file. */
+            startOffset?: string;
+        }
+        
+        interface GooglePrivacyDlpV2beta1PartitionId {
+            /** If not empty, the ID of the namespace to which the entities belong. */
+            namespaceId?: string;
+            /** The ID of the project to which the entities belong. */
+            projectId?: string;
+        }
+        
+        interface GooglePrivacyDlpV2beta1InspectContentResponse {
+            /** Each content_item from the request has a result in this list, in the */
+            /** same order as the request. */
+            results?: GooglePrivacyDlpV2beta1InspectResult[];
+        }
+        
+        interface GooglePrivacyDlpV2beta1RedactContentRequest {
+            /** The list of items to inspect. Up to 100 are allowed per request. */
+            items?: GooglePrivacyDlpV2beta1ContentItem[];
+            /** The strings to replace findings text findings with. Must specify at least */
+            /** one of these or one ImageRedactionConfig if redacting images. */
+            replaceConfigs?: GooglePrivacyDlpV2beta1ReplaceConfig[];
+            /** The configuration for specifying what content to redact from images. */
+            imageRedactionConfigs?: GooglePrivacyDlpV2beta1ImageRedactionConfig[];
+            /** Configuration for the inspector. */
+            inspectConfig?: GooglePrivacyDlpV2beta1InspectConfig;
+        }
+        
+        interface GooglePrivacyDlpV2beta1FieldId {
+            /** Name describing the field. */
+            columnName?: string;
+        }
+        
+        interface GooglePrivacyDlpV2beta1DatastoreOptions {
+            /** A partition ID identifies a grouping of entities. The grouping is always */
+            /** by project and namespace, however the namespace ID may be empty. */
+            partitionId?: GooglePrivacyDlpV2beta1PartitionId;
+            /** Properties to scan. If none are specified, all properties will be scanned */
+            /** by default. */
+            projection?: GooglePrivacyDlpV2beta1Projection[];
+            /** The kind to process. */
+            kind?: GooglePrivacyDlpV2beta1KindExpression;
+        }
+        
         interface GooglePrivacyDlpV2beta1InspectConfig {
+            /** When true, excludes type information of the findings. */
+            excludeTypes?: boolean;
+            /** Only returns findings equal or above this threshold. */
+            minLikelihood?: string;
+            /** Limits the number of findings per content item or long running operation. */
+            maxFindings?: number;
+            /** Configuration of findings limit given for specified info types. */
+            infoTypeLimits?: GooglePrivacyDlpV2beta1InfoTypeLimit[];
             /** Restricts what info_types to look for. The values must correspond to */
             /** InfoType values returned by ListInfoTypes or found in documentation. */
             /** Empty info_types runs all enabled detectors. */
@@ -32,14 +172,6 @@ declare namespace gapi.client {
             /** When true, a contextual quote from the data that triggered a finding is */
             /** included in the response; see Finding.quote. */
             includeQuote?: boolean;
-            /** When true, excludes type information of the findings. */
-            excludeTypes?: boolean;
-            /** Only returns findings equal or above this threshold. */
-            minLikelihood?: string;
-            /** Configuration of findings limit given for specified info types. */
-            infoTypeLimits?: GooglePrivacyDlpV2beta1InfoTypeLimit[];
-            /** Limits the number of findings per content item or long running operation. */
-            maxFindings?: number;
         }
         
         interface GooglePrivacyDlpV2beta1Projection {
@@ -48,6 +180,8 @@ declare namespace gapi.client {
         }
         
         interface GooglePrivacyDlpV2beta1CreateInspectOperationRequest {
+            /** Additional configuration settings for long running operations. */
+            operationConfig?: GooglePrivacyDlpV2beta1OperationConfig;
             /** Configuration for the inspector. */
             inspectConfig?: GooglePrivacyDlpV2beta1InspectConfig;
             /** Specification of the data set to process. */
@@ -69,11 +203,13 @@ declare namespace gapi.client {
             /** <p>For BigQuery the next columns are: <li>row_number <li>project_id */
             /** <li>dataset_id <li>table_id */
             outputConfig?: GooglePrivacyDlpV2beta1OutputStorageConfig;
-            /** Additional configuration settings for long running operations. */
-            operationConfig?: GooglePrivacyDlpV2beta1OperationConfig;
         }
         
         interface GooglePrivacyDlpV2beta1Key {
+            /** Entities are partitioned into subsets, currently identified by a project */
+            /** ID and namespace ID. */
+            /** Queries are scoped to a single partition. */
+            partitionId?: GooglePrivacyDlpV2beta1PartitionId;
             /** The entity path. */
             /** An entity path consists of one or more elements composed of a kind and a */
             /** string or numerical identifier, which identify entities. The first */
@@ -84,10 +220,6 @@ declare namespace gapi.client {
             /**  */
             /** A path can never be empty, and a path can have at most 100 elements. */
             path?: GooglePrivacyDlpV2beta1PathElement[];
-            /** Entities are partitioned into subsets, currently identified by a project */
-            /** ID and namespace ID. */
-            /** Queries are scoped to a single partition. */
-            partitionId?: GooglePrivacyDlpV2beta1PartitionId;
         }
         
         interface GooglePrivacyDlpV2beta1InspectContentRequest {
@@ -100,19 +232,14 @@ declare namespace gapi.client {
         }
         
         interface GoogleTypeDate {
-            /** Month of year. Must be from 1 to 12. */
-            month?: number;
             /** Day of month. Must be from 1 to 31 and valid for the year and month, or 0 */
             /** if specifying a year/month where the day is not significant. */
             day?: number;
             /** Year of date. Must be from 1 to 9999, or 0 if specifying a date without */
             /** a year. */
             year?: number;
-        }
-        
-        interface GooglePrivacyDlpV2beta1RedactContentResponse {
-            /** The redacted content. */
-            items?: GooglePrivacyDlpV2beta1ContentItem[];
+            /** Month of year. Must be from 1 to 12. */
+            month?: number;
         }
         
         interface GooglePrivacyDlpV2beta1InfoTypeStatistics {
@@ -123,17 +250,22 @@ declare namespace gapi.client {
         }
         
         interface GooglePrivacyDlpV2beta1ImageRedactionConfig {
+            /** Only one per info_type should be provided per request. If not */
+            /** specified, and redact_all_text is false, the DLP API will redact all */
+            /** text that it matches against all info_types that are found, but not */
+            /** specified in another ImageRedactionConfig. */
+            infoType?: GooglePrivacyDlpV2beta1InfoType;
             /** The color to use when redacting content from an image. If not specified, */
             /** the default is black. */
             redactionColor?: GooglePrivacyDlpV2beta1Color;
             /** If true, all text found in the image, regardless whether it matches an */
             /** info_type, is redacted. */
             redactAllText?: boolean;
-            /** Only one per info_type should be provided per request. If not */
-            /** specified, and redact_all_text is false, the DLP API will redact all */
-            /** text that it matches against all info_types that are found, but not */
-            /** specified in another ImageRedactionConfig. */
-            infoType?: GooglePrivacyDlpV2beta1InfoType;
+        }
+        
+        interface GooglePrivacyDlpV2beta1RedactContentResponse {
+            /** The redacted content. */
+            items?: GooglePrivacyDlpV2beta1ContentItem[];
         }
         
         interface GooglePrivacyDlpV2beta1PropertyReference {
@@ -143,6 +275,8 @@ declare namespace gapi.client {
         }
         
         interface GooglePrivacyDlpV2beta1Location {
+            /** Key of the finding. */
+            recordKey?: GooglePrivacyDlpV2beta1RecordKey;
             /** Location within a `ContentItem.Table`. */
             tableLocation?: GooglePrivacyDlpV2beta1TableLocation;
             /** Character offsets within a content item, included when content type */
@@ -154,17 +288,15 @@ declare namespace gapi.client {
             imageBoxes?: GooglePrivacyDlpV2beta1ImageLocation[];
             /** Zero-based byte offsets within a content item. */
             byteRange?: GooglePrivacyDlpV2beta1Range;
-            /** Key of the finding. */
-            recordKey?: GooglePrivacyDlpV2beta1RecordKey;
         }
         
         interface GooglePrivacyDlpV2beta1InfoTypeDescription {
+            /** List of categories this info type belongs to. */
+            categories?: GooglePrivacyDlpV2beta1CategoryDescription[];
             /** Internal name of the info type. */
             name?: string;
             /** Human readable form of the info type name. */
             displayName?: string;
-            /** List of categories this info type belongs to. */
-            categories?: GooglePrivacyDlpV2beta1CategoryDescription[];
         }
         
         interface GooglePrivacyDlpV2beta1OutputStorageConfig {
@@ -175,18 +307,22 @@ declare namespace gapi.client {
         }
         
         interface GoogleRpcStatus {
-            /** A developer-facing error message, which should be in English. Any */
-            /** user-facing error message should be localized and sent in the */
-            /** google.rpc.Status.details field, or localized by the client. */
-            message?: string;
             /** A list of messages that carry the error details.  There is a common set of */
             /** message types for APIs to use. */
             details?: Array<Record<string, any>>;            
             /** The status code, which should be an enum value of google.rpc.Code. */
             code?: number;
+            /** A developer-facing error message, which should be in English. Any */
+            /** user-facing error message should be localized and sent in the */
+            /** google.rpc.Status.details field, or localized by the client. */
+            message?: string;
         }
         
         interface GoogleLongrunningOperation {
+            /** The error result of the operation in case of failure or cancellation. */
+            error?: GoogleRpcStatus;
+            /** This field will contain an InspectOperationMetadata object. This will always be returned with the Operation. */
+            metadata?: Record<string, any>;            
             /** If the value is `false`, it means the operation is still in progress. */
             /** If true, the operation is completed, and either `error` or `response` is */
             /** available. */
@@ -195,17 +331,13 @@ declare namespace gapi.client {
             response?: Record<string, any>;            
             /** The server-assigned name, The `name` should have the format of `inspect/operations/<identifier>`. */
             name?: string;
-            /** The error result of the operation in case of failure or cancellation. */
-            error?: GoogleRpcStatus;
-            /** This field will contain an InspectOperationMetadata object. This will always be returned with the Operation. */
-            metadata?: Record<string, any>;            
         }
         
         interface GooglePrivacyDlpV2beta1InspectOperationMetadata {
-            /** The storage config used to create the Operation. */
-            requestStorageConfig?: GooglePrivacyDlpV2beta1StorageConfig;
             /** Total size in bytes that were processed. */
             processedBytes?: string;
+            /** The storage config used to create the Operation. */
+            requestStorageConfig?: GooglePrivacyDlpV2beta1StorageConfig;
             /**  */
             infoTypeStats?: GooglePrivacyDlpV2beta1InfoTypeStatistics[];
             /** Estimate of the number of bytes to process. */
@@ -241,20 +373,20 @@ declare namespace gapi.client {
         }
         
         interface GooglePrivacyDlpV2beta1CategoryDescription {
-            /** Human readable form of the category name. */
-            displayName?: string;
             /** Internal name of the category. */
             name?: string;
+            /** Human readable form of the category name. */
+            displayName?: string;
         }
         
         interface GooglePrivacyDlpV2beta1BigQueryTable {
-            /** Dataset ID of the table. */
-            datasetId?: string;
             /** Name of the table. */
             tableId?: string;
             /** The Google Cloud Platform project ID of the project containing the table. */
             /** If omitted, project ID is inferred from the API call. */
             projectId?: string;
+            /** Dataset ID of the table. */
+            datasetId?: string;
         }
         
         interface GooglePrivacyDlpV2beta1ListRootCategoriesResponse {
@@ -299,11 +431,11 @@ declare namespace gapi.client {
         }
         
         interface GooglePrivacyDlpV2beta1ListInspectFindingsResponse {
-            /** The results. */
-            result?: GooglePrivacyDlpV2beta1InspectResult;
             /** If not empty, indicates that there may be more results that match the */
             /** request; this value should be passed in a new `ListInspectFindingsRequest`. */
             nextPageToken?: string;
+            /** The results. */
+            result?: GooglePrivacyDlpV2beta1InspectResult;
         }
         
         interface GooglePrivacyDlpV2beta1TableLocation {
@@ -323,9 +455,9 @@ declare namespace gapi.client {
         
         interface GooglePrivacyDlpV2beta1RecordKey {
             /**  */
-            cloudStorageKey?: GooglePrivacyDlpV2beta1CloudStorageKey;
-            /**  */
             datastoreKey?: GooglePrivacyDlpV2beta1DatastoreKey;
+            /**  */
+            cloudStorageKey?: GooglePrivacyDlpV2beta1CloudStorageKey;
         }
         
         interface GooglePrivacyDlpV2beta1CloudStoragePath {
@@ -341,15 +473,13 @@ declare namespace gapi.client {
         }
         
         interface GooglePrivacyDlpV2beta1Range {
-            /** Index of the last character of the range (exclusive). */
-            end?: string;
             /** Index of the first character of the range (inclusive). */
             start?: string;
+            /** Index of the last character of the range (exclusive). */
+            end?: string;
         }
         
         interface GoogleTypeTimeOfDay {
-            /** Minutes of hour of day. Must be from 0 to 59. */
-            minutes?: number;
             /** Hours of day in 24 hour format. Should be from 0 to 23. An API may choose */
             /** to allow the value "24:00:00" for scenarios like business closing time. */
             hours?: number;
@@ -358,6 +488,8 @@ declare namespace gapi.client {
             /** Seconds of minutes of the time. Must normally be from 0 to 59. An API may */
             /** allow the value 60 if it allows leap-seconds. */
             seconds?: number;
+            /** Minutes of hour of day. Must be from 0 to 59. */
+            minutes?: number;
         }
         
         interface GooglePrivacyDlpV2beta1InspectResult {
@@ -392,337 +524,43 @@ declare namespace gapi.client {
             bigQueryOptions?: GooglePrivacyDlpV2beta1BigQueryOptions;
         }
         
-        interface GooglePrivacyDlpV2beta1ContentItem {
-            /** Content data to inspect or redact. */
-            data?: string;
-            /** Type of the content, as defined in Content-Type HTTP header. */
-            /** Supported types are: all "text" types, octet streams, PNG images, */
-            /** JPEG images. */
-            type?: string;
-            /** String data to inspect or redact. */
-            value?: string;
-            /** Structured content for inspection. */
-            table?: GooglePrivacyDlpV2beta1Table;
-        }
-        
-        interface GooglePrivacyDlpV2beta1OperationConfig {
-            /** Max number of findings per file, Datastore entity or database row. */
-            maxItemFindings?: string;
-        }
-        
-        interface GooglePrivacyDlpV2beta1BigQueryOptions {
-            /** References to fields uniquely identifying rows within the table. */
-            /** Nested fields in the format, like `person.birthdate.year`, are allowed. */
-            identifyingFields?: GooglePrivacyDlpV2beta1FieldId[];
-            /** Complete BigQuery table reference. */
-            tableReference?: GooglePrivacyDlpV2beta1BigQueryTable;
-        }
-        
-        interface GooglePrivacyDlpV2beta1ReplaceConfig {
-            /** Content replacing sensitive information of given type. Max 256 chars. */
-            replaceWith?: string;
-            /** Type of information to replace. Only one ReplaceConfig per info_type */
-            /** should be provided. If ReplaceConfig does not have an info_type, the DLP */
-            /** API matches it against all info_types that are found but not specified in */
-            /** another ReplaceConfig. */
-            infoType?: GooglePrivacyDlpV2beta1InfoType;
-        }
-        
-        interface GooglePrivacyDlpV2beta1Color {
-            /** The amount of blue in the color as a value in the interval [0, 1]. */
-            blue?: number;
-            /** The amount of green in the color as a value in the interval [0, 1]. */
-            green?: number;
-            /** The amount of red in the color as a value in the interval [0, 1]. */
-            red?: number;
-        }
-        
-        interface GooglePrivacyDlpV2beta1Table {
-            /**  */
-            headers?: GooglePrivacyDlpV2beta1FieldId[];
-            /**  */
-            rows?: GooglePrivacyDlpV2beta1Row[];
-        }
-        
-        interface GooglePrivacyDlpV2beta1InfoTypeLimit {
-            /** Type of information the findings limit applies to. Only one limit per */
-            /** info_type should be provided. If InfoTypeLimit does not have an */
-            /** info_type, the DLP API applies the limit against all info_types that are */
-            /** found but not specified in another InfoTypeLimit. */
-            infoType?: GooglePrivacyDlpV2beta1InfoType;
-            /** Max findings limit for the given info type. */
-            maxFindings?: number;
-        }
-        
-        interface GooglePrivacyDlpV2beta1ListInfoTypesResponse {
-            /** Set of sensitive info types belonging to a category. */
-            infoTypes?: GooglePrivacyDlpV2beta1InfoTypeDescription[];
-        }
-        
-        interface GooglePrivacyDlpV2beta1Value {
-            /**  */
-            dateValue?: GoogleTypeDate;
-            /**  */
-            timestampValue?: string;
-            /**  */
-            booleanValue?: boolean;
-            /**  */
-            floatValue?: number;
-            /**  */
-            integerValue?: string;
-            /**  */
-            timeValue?: GoogleTypeTimeOfDay;
-            /**  */
-            stringValue?: string;
-        }
-        
-        interface GooglePrivacyDlpV2beta1CloudStorageKey {
-            /** Path to the file. */
-            filePath?: string;
-            /** Byte offset of the referenced data in the file. */
-            startOffset?: string;
-        }
-        
-        interface GooglePrivacyDlpV2beta1PartitionId {
-            /** If not empty, the ID of the namespace to which the entities belong. */
-            namespaceId?: string;
-            /** The ID of the project to which the entities belong. */
-            projectId?: string;
-        }
-        
-        interface GooglePrivacyDlpV2beta1InspectContentResponse {
-            /** Each content_item from the request has a result in this list, in the */
-            /** same order as the request. */
-            results?: GooglePrivacyDlpV2beta1InspectResult[];
-        }
-        
-        interface GooglePrivacyDlpV2beta1RedactContentRequest {
-            /** Configuration for the inspector. */
-            inspectConfig?: GooglePrivacyDlpV2beta1InspectConfig;
-            /** The list of items to inspect. Up to 100 are allowed per request. */
-            items?: GooglePrivacyDlpV2beta1ContentItem[];
-            /** The strings to replace findings text findings with. Must specify at least */
-            /** one of these or one ImageRedactionConfig if redacting images. */
-            replaceConfigs?: GooglePrivacyDlpV2beta1ReplaceConfig[];
-            /** The configuration for specifying what content to redact from images. */
-            imageRedactionConfigs?: GooglePrivacyDlpV2beta1ImageRedactionConfig[];
-        }
-        
-        interface GooglePrivacyDlpV2beta1FieldId {
-            /** Name describing the field. */
-            columnName?: string;
-        }
-        
-        interface GooglePrivacyDlpV2beta1DatastoreOptions {
-            /** A partition ID identifies a grouping of entities. The grouping is always */
-            /** by project and namespace, however the namespace ID may be empty. */
-            partitionId?: GooglePrivacyDlpV2beta1PartitionId;
-            /** Properties to scan. If none are specified, all properties will be scanned */
-            /** by default. */
-            projection?: GooglePrivacyDlpV2beta1Projection[];
-            /** The kind to process. */
-            kind?: GooglePrivacyDlpV2beta1KindExpression;
-        }
-        
-        interface OperationsResource {
-            /** This method is not supported and the server returns `UNIMPLEMENTED`. */
-            delete(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** The name of the operation resource to be deleted. */
-                name: string;
-            }): Request<{}>;            
-            
-            /** Gets the latest state of a long-running operation.  Clients can use this */
-            /** method to poll the operation result at intervals as recommended by the API */
-            /** service. */
-            get(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** The name of the operation resource. */
-                name: string;
-            }): Request<GoogleLongrunningOperation>;            
-            
-            /** Fetch the list of long running operations. */
-            list(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** This parameter supports filtering by done, ie done=true or done=false. */
-                filter?: string;
-                /** The standard list page token. */
-                pageToken?: string;
-                /** The name of the operation's parent resource. */
-                name: string;
-                /** The list page size. The max allowed value is 256 and default is 100. */
-                pageSize?: number;
-            }): Request<GoogleLongrunningListOperationsResponse>;            
-            
-            /** Schedules a job scanning content in a Google Cloud Platform data */
-            /** repository. */
-            create(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-            }): Request<GoogleLongrunningOperation>;            
-            
-            /** Cancels an operation. Use the get method to check whether the cancellation succeeded or whether the operation completed despite cancellation. */
-            cancel(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** The name of the operation resource to be cancelled. */
-                name: string;
-            }): Request<{}>;            
-            
-        }
-        
         interface FindingsResource {
             /** Returns list of results for given inspect operation result set id. */
             list(request: {            
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
                 /** JSONP */
                 callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
                 /** OAuth access token. */
                 access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
+                /** Restricts findings to items that match. Supports info_type and likelihood. */
+                /** <p>Examples:<br/> */
+                /** <li>info_type=EMAIL_ADDRESS */
+                /** <li>info_type=PHONE_NUMBER,EMAIL_ADDRESS */
+                /** <li>likelihood=VERY_LIKELY */
+                /** <li>likelihood=VERY_LIKELY,LIKELY */
+                /** <li>info_type=EMAIL_ADDRESS,likelihood=VERY_LIKELY,LIKELY */
+                filter?: string;
                 /** The value returned by the last `ListInspectFindingsResponse`; indicates */
                 /** that this is a continuation of a prior `ListInspectFindings` call, and that */
                 /** the system should return the next page of data. */
@@ -734,14 +572,6 @@ declare namespace gapi.client {
                 /** Maximum number of results to return. */
                 /** If 0, the implementation selects a reasonable value. */
                 pageSize?: number;
-                /** Restricts findings to items that match. Supports info_type and likelihood. */
-                /** <p>Examples:<br/> */
-                /** <li>info_type=EMAIL_ADDRESS */
-                /** <li>info_type=PHONE_NUMBER,EMAIL_ADDRESS */
-                /** <li>likelihood=VERY_LIKELY */
-                /** <li>likelihood=VERY_LIKELY,LIKELY */
-                /** <li>info_type=EMAIL_ADDRESS,likelihood=VERY_LIKELY,LIKELY */
-                filter?: string;
             }): Request<GooglePrivacyDlpV2beta1ListInspectFindingsResponse>;            
             
         }
@@ -750,40 +580,210 @@ declare namespace gapi.client {
             findings: FindingsResource;
         }
         
+        interface OperationsResource {
+            /** Cancels an operation. Use the get method to check whether the cancellation succeeded or whether the operation completed despite cancellation. */
+            cancel(request: {            
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** The name of the operation resource to be cancelled. */
+                name: string;
+            }): Request<{}>;            
+            
+            /** This method is not supported and the server returns `UNIMPLEMENTED`. */
+            delete(request: {            
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** The name of the operation resource to be deleted. */
+                name: string;
+            }): Request<{}>;            
+            
+            /** Gets the latest state of a long-running operation.  Clients can use this */
+            /** method to poll the operation result at intervals as recommended by the API */
+            /** service. */
+            get(request: {            
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** The name of the operation resource. */
+                name: string;
+            }): Request<GoogleLongrunningOperation>;            
+            
+            /** Fetch the list of long running operations. */
+            list(request: {            
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** The list page size. The max allowed value is 256 and default is 100. */
+                pageSize?: number;
+                /** This parameter supports filtering by done, ie done=true or done=false. */
+                filter?: string;
+                /** The standard list page token. */
+                pageToken?: string;
+                /** The name of the operation's parent resource. */
+                name: string;
+            }): Request<GoogleLongrunningListOperationsResponse>;            
+            
+            /** Schedules a job scanning content in a Google Cloud Platform data */
+            /** repository. */
+            create(request: {            
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+            }): Request<GoogleLongrunningOperation>;            
+            
+        }
+        
         interface InspectResource {
-            operations: OperationsResource;
             results: ResultsResource;
+            operations: OperationsResource;
         }
         
         interface InfoTypesResource {
             /** Returns sensitive information types for given category. */
             list(request: {            
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
                 /** JSONP */
                 callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
                 /** OAuth access token. */
                 access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** Category name as returned by ListRootCategories. */
                 category: string;
                 /** Optional BCP-47 language code for localized info type friendly */
@@ -797,32 +797,32 @@ declare namespace gapi.client {
         interface RootCategoriesResource {
             /** Returns the list of root categories of sensitive information. */
             list(request: {            
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
                 /** JSONP */
                 callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
                 /** OAuth access token. */
                 access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** Optional language code for localized friendly category names. */
                 /** If omitted or if localized strings are not available, */
                 /** en-US strings will be returned. */
@@ -836,63 +836,63 @@ declare namespace gapi.client {
             /** Finds potentially sensitive info in a list of strings. */
             /** This method has limits on input size, processing time, and output size. */
             inspect(request: {            
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
                 /** JSONP */
                 callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
                 /** OAuth access token. */
                 access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
             }): Request<GooglePrivacyDlpV2beta1InspectContentResponse>;            
             
             /** Redacts potentially sensitive info from a list of strings. */
             /** This method has limits on input size, processing time, and output size. */
             redact(request: {            
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
                 /** JSONP */
                 callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
                 /** OAuth access token. */
                 access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
             }): Request<GooglePrivacyDlpV2beta1RedactContentResponse>;            
             
         }

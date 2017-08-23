@@ -26,48 +26,154 @@ declare namespace gapi.client {
     
     namespace iam {
         
-        interface QueryGrantableRolesRequest {
-            /** Required. The full resource name to query from the list of grantable roles. */
-            /**  */
-            /** The name follows the Google Cloud Platform resource format. */
-            /** For example, a Cloud Platform project with id `my-project` will be named */
-            /** `//cloudresourcemanager.googleapis.com/projects/my-project`. */
-            fullResourceName?: string;
-            /** Optional pagination token returned in an earlier */
-            /** QueryGrantableRolesResponse. */
-            pageToken?: string;
-            /** Optional limit on the number of roles to include in the response. */
-            pageSize?: number;
-            /**  */
-            view?: string;
+        interface CreateServiceAccountKeyRequest {
+            /** Which type of key and algorithm to use for the key. */
+            /** The default is currently a 2K RSA key.  However this may change in the */
+            /** future. */
+            keyAlgorithm?: string;
+            /** The output format of the private key. `GOOGLE_CREDENTIALS_FILE` is the */
+            /** default output format. */
+            privateKeyType?: string;
         }
         
-        interface ServiceAccount {
-            /** @OutputOnly. The OAuth2 client id for the service account. */
-            /** This is used in conjunction with the OAuth2 clientconfig API to make */
-            /** three legged OAuth2 (3LO) flows to access the data of Google users. */
-            oauth2ClientId?: string;
-            /** @OutputOnly The unique and stable id of the service account. */
-            uniqueId?: string;
-            /** Optional. A user-specified description of the service account.  Must be */
-            /** fewer than 100 UTF-8 bytes. */
-            displayName?: string;
+        interface SignJwtResponse {
+            /** The signed JWT. */
+            signedJwt?: string;
+            /** The id of the key used to sign the JWT. */
+            keyId?: string;
+        }
+        
+        interface TestIamPermissionsRequest {
+            /** The set of permissions to check for the `resource`. Permissions with */
+            /** wildcards (such as '&#42;' or 'storage.&#42;') are not allowed. For more */
+            /** information see */
+            /** [IAM Overview](https://cloud.google.com/iam/docs/overview#permissions). */
+            permissions?: string[];
+        }
+        
+        interface Policy {
+            /** Associates a list of `members` to a `role`. */
+            /** `bindings` with no members will result in an error. */
+            bindings?: Binding[];
+            /** `etag` is used for optimistic concurrency control as a way to help */
+            /** prevent simultaneous updates of a policy from overwriting each other. */
+            /** It is strongly suggested that systems make use of the `etag` in the */
+            /** read-modify-write cycle to perform policy updates in order to avoid race */
+            /** conditions: An `etag` is returned in the response to `getIamPolicy`, and */
+            /** systems are expected to put that etag in the request to `setIamPolicy` to */
+            /** ensure that their change will be applied to the same version of the policy. */
+            /**  */
+            /** If no `etag` is provided in the call to `setIamPolicy`, then the existing */
+            /** policy is overwritten blindly. */
+            etag?: string;
+            /** Version of the `Policy`. The default version is 0. */
+            version?: number;
+        }
+        
+        interface ListRolesResponse {
+            /** To retrieve the next page of results, set */
+            /** `ListRolesRequest.page_token` to this value. */
+            nextPageToken?: string;
+            /** The Roles defined on this resource. */
+            roles?: Role[];
+        }
+        
+        interface AuditData {
+            /** Policy delta between the original policy and the newly set policy. */
+            policyDelta?: PolicyDelta;
+        }
+        
+        interface BindingDelta {
+            /** The condition that is associated with this binding. */
+            /** This field is GOOGLE_INTERNAL. */
+            /** This field is not logged in IAM side because it's only for audit logging. */
+            /** Optional */
+            condition?: Expr;
+            /** A single identity requesting access for a Cloud Platform resource. */
+            /** Follows the same format of Binding.members. */
+            /** Required */
+            member?: string;
+            /** Role that is assigned to `members`. */
+            /** For example, `roles/viewer`, `roles/editor`, or `roles/owner`. */
+            /** Required */
+            role?: string;
+            /** The action that was performed on a Binding. */
+            /** Required */
+            action?: string;
+        }
+        
+        interface UndeleteRoleRequest {
             /** Used to perform a consistent read-modify-write. */
             etag?: string;
-            /** The resource name of the service account in the following format: */
-            /** `projects/{PROJECT_ID}/serviceAccounts/{SERVICE_ACCOUNT_EMAIL}`. */
+        }
+        
+        interface CreateServiceAccountRequest {
+            /** The ServiceAccount resource to create. */
+            /** Currently, only the following values are user assignable: */
+            /** `display_name` . */
+            serviceAccount?: ServiceAccount;
+            /** Required. The account id that is used to generate the service account */
+            /** email address and a stable unique id. It is unique within a project, */
+            /** must be 6-30 characters long, and match the regular expression */
+            /** `[a-z]([-a-z0-9]&#42;[a-z0-9])` to comply with RFC1035. */
+            accountId?: string;
+        }
+        
+        interface Role {
+            /** Optional.  A human-readable description for the role. */
+            description?: string;
+            /** Used to perform a consistent read-modify-write. */
+            etag?: string;
+            /** The current launch stage of the role. */
+            stage?: string;
+            /** The name of the role. */
             /**  */
-            /** Requests using `-` as a wildcard for the project will infer the project */
-            /** from the `account` and the `account` value can be the `email` address or */
-            /** the `unique_id` of the service account. */
+            /** When Role is used in CreateRole, the role name must not be set. */
             /**  */
-            /** In responses the resource name will always be in the format */
-            /** `projects/{PROJECT_ID}/serviceAccounts/{SERVICE_ACCOUNT_EMAIL}`. */
+            /** When Role is used in output and other input such as UpdateRole, the role */
+            /** name is the complete path, e.g., roles/logging.viewer for curated roles */
+            /** and organizations/{ORGANIZATION_ID}/roles/logging.viewer for custom roles. */
             name?: string;
-            /** @OutputOnly The email address of the service account. */
-            email?: string;
-            /** @OutputOnly The id of the project that owns the service account. */
-            projectId?: string;
+            /** The current deleted state of the role. This field is read only. */
+            /** It will be ignored in calls to CreateRole and UpdateRole. */
+            deleted?: boolean;
+            /** Optional.  A human-readable title for the role.  Typically this */
+            /** is limited to 100 UTF-8 bytes. */
+            title?: string;
+            /** The names of the permissions this role grants when bound in an IAM policy. */
+            includedPermissions?: string[];
+        }
+        
+        interface Binding {
+            /** Specifies the identities requesting access for a Cloud Platform resource. */
+            /** `members` can have the following values: */
+            /**  */
+            /** &#42; `allUsers`: A special identifier that represents anyone who is */
+            /**    on the internet; with or without a Google account. */
+            /**  */
+            /** &#42; `allAuthenticatedUsers`: A special identifier that represents anyone */
+            /**    who is authenticated with a Google account or a service account. */
+            /**  */
+            /** &#42; `user:{emailid}`: An email address that represents a specific Google */
+            /**    account. For example, `alice@gmail.com` or `joe@example.com`. */
+            /**  */
+            /**  */
+            /** &#42; `serviceAccount:{emailid}`: An email address that represents a service */
+            /**    account. For example, `my-other-app@appspot.gserviceaccount.com`. */
+            /**  */
+            /** &#42; `group:{emailid}`: An email address that represents a Google group. */
+            /**    For example, `admins@example.com`. */
+            /**  */
+            /**  */
+            /** &#42; `domain:{domain}`: A Google Apps domain name that represents all the */
+            /**    users of that domain. For example, `google.com` or `example.com`. */
+            /**  */
+            /**  */
+            members?: string[];
+            /** Role that is assigned to `members`. */
+            /** For example, `roles/viewer`, `roles/editor`, or `roles/owner`. */
+            /** Required */
+            role?: string;
         }
         
         interface Expr {
@@ -89,11 +195,66 @@ declare namespace gapi.client {
             title?: string;
         }
         
+        interface ServiceAccount {
+            /** Optional. A user-specified description of the service account.  Must be */
+            /** fewer than 100 UTF-8 bytes. */
+            displayName?: string;
+            /** Used to perform a consistent read-modify-write. */
+            etag?: string;
+            /** @OutputOnly The email address of the service account. */
+            email?: string;
+            /** The resource name of the service account in the following format: */
+            /** `projects/{PROJECT_ID}/serviceAccounts/{SERVICE_ACCOUNT_EMAIL}`. */
+            /**  */
+            /** Requests using `-` as a wildcard for the project will infer the project */
+            /** from the `account` and the `account` value can be the `email` address or */
+            /** the `unique_id` of the service account. */
+            /**  */
+            /** In responses the resource name will always be in the format */
+            /** `projects/{PROJECT_ID}/serviceAccounts/{SERVICE_ACCOUNT_EMAIL}`. */
+            name?: string;
+            /** @OutputOnly The id of the project that owns the service account. */
+            projectId?: string;
+            /** @OutputOnly The unique and stable id of the service account. */
+            uniqueId?: string;
+            /** @OutputOnly. The OAuth2 client id for the service account. */
+            /** This is used in conjunction with the OAuth2 clientconfig API to make */
+            /** three legged OAuth2 (3LO) flows to access the data of Google users. */
+            oauth2ClientId?: string;
+        }
+        
+        interface QueryGrantableRolesRequest {
+            /** Optional limit on the number of roles to include in the response. */
+            pageSize?: number;
+            /**  */
+            view?: string;
+            /** Required. The full resource name to query from the list of grantable roles. */
+            /**  */
+            /** The name follows the Google Cloud Platform resource format. */
+            /** For example, a Cloud Platform project with id `my-project` will be named */
+            /** `//cloudresourcemanager.googleapis.com/projects/my-project`. */
+            fullResourceName?: string;
+            /** Optional pagination token returned in an earlier */
+            /** QueryGrantableRolesResponse. */
+            pageToken?: string;
+        }
+        
         interface CreateRoleRequest {
             /** The role id to use for this role. */
             roleId?: string;
             /** The Role resource to create. */
             role?: Role;
+        }
+        
+        interface ListServiceAccountKeysResponse {
+            /** The public keys for the service account. */
+            keys?: ServiceAccountKey[];
+        }
+        
+        interface TestIamPermissionsResponse {
+            /** A subset of `TestPermissionsRequest.permissions` that the caller is */
+            /** allowed. */
+            permissions?: string[];
         }
         
         interface QueryTestablePermissionsRequest {
@@ -111,17 +272,6 @@ declare namespace gapi.client {
             pageSize?: number;
         }
         
-        interface TestIamPermissionsResponse {
-            /** A subset of `TestPermissionsRequest.permissions` that the caller is */
-            /** allowed. */
-            permissions?: string[];
-        }
-        
-        interface ListServiceAccountKeysResponse {
-            /** The public keys for the service account. */
-            keys?: ServiceAccountKey[];
-        }
-        
         interface ServiceAccountKey {
             /** The resource name of the service account key in the following format */
             /** `projects/{PROJECT_ID}/serviceAccounts/{SERVICE_ACCOUNT_EMAIL}/keys/{key}`. */
@@ -130,8 +280,6 @@ declare namespace gapi.client {
             validBeforeTime?: string;
             /** Specifies the algorithm (and possibly key size) for the key. */
             keyAlgorithm?: string;
-            /** The key can be used after this timestamp. */
-            validAfterTime?: string;
             /** The output format for the private key. */
             /** Only provided in `CreateServiceAccountKey` responses, not */
             /** in `GetServiceAccountKey` or `ListServiceAccountKey` responses. */
@@ -139,6 +287,8 @@ declare namespace gapi.client {
             /** Google never exposes system-managed private keys, and never retains */
             /** user-managed private keys. */
             privateKeyType?: string;
+            /** The key can be used after this timestamp. */
+            validAfterTime?: string;
             /** The private key data. Only provided in `CreateServiceAccountKey` */
             /** responses. Make sure to keep the private key data secure because it */
             /** allows for the assertion of the service account identity. */
@@ -159,6 +309,8 @@ declare namespace gapi.client {
         }
         
         interface Permission {
+            /** The current launch stage of the permission. */
+            stage?: string;
             /** The name of this Permission. */
             name?: string;
             /** This permission can ONLY be used in predefined roles. */
@@ -169,8 +321,6 @@ declare namespace gapi.client {
             description?: string;
             /** The current custom role support level. */
             customRolesSupportLevel?: string;
-            /** The current launch stage of the permission. */
-            stage?: string;
         }
         
         interface SignJwtRequest {
@@ -221,263 +371,7 @@ declare namespace gapi.client {
             permissions?: Permission[];
         }
         
-        interface CreateServiceAccountKeyRequest {
-            /** Which type of key and algorithm to use for the key. */
-            /** The default is currently a 2K RSA key.  However this may change in the */
-            /** future. */
-            keyAlgorithm?: string;
-            /** The output format of the private key. `GOOGLE_CREDENTIALS_FILE` is the */
-            /** default output format. */
-            privateKeyType?: string;
-        }
-        
-        interface TestIamPermissionsRequest {
-            /** The set of permissions to check for the `resource`. Permissions with */
-            /** wildcards (such as '&#42;' or 'storage.&#42;') are not allowed. For more */
-            /** information see */
-            /** [IAM Overview](https://cloud.google.com/iam/docs/overview#permissions). */
-            permissions?: string[];
-        }
-        
-        interface SignJwtResponse {
-            /** The signed JWT. */
-            signedJwt?: string;
-            /** The id of the key used to sign the JWT. */
-            keyId?: string;
-        }
-        
-        interface Policy {
-            /** `etag` is used for optimistic concurrency control as a way to help */
-            /** prevent simultaneous updates of a policy from overwriting each other. */
-            /** It is strongly suggested that systems make use of the `etag` in the */
-            /** read-modify-write cycle to perform policy updates in order to avoid race */
-            /** conditions: An `etag` is returned in the response to `getIamPolicy`, and */
-            /** systems are expected to put that etag in the request to `setIamPolicy` to */
-            /** ensure that their change will be applied to the same version of the policy. */
-            /**  */
-            /** If no `etag` is provided in the call to `setIamPolicy`, then the existing */
-            /** policy is overwritten blindly. */
-            etag?: string;
-            /** Version of the `Policy`. The default version is 0. */
-            version?: number;
-            /** Associates a list of `members` to a `role`. */
-            /** `bindings` with no members will result in an error. */
-            bindings?: Binding[];
-        }
-        
-        interface ListRolesResponse {
-            /** To retrieve the next page of results, set */
-            /** `ListRolesRequest.page_token` to this value. */
-            nextPageToken?: string;
-            /** The Roles defined on this resource. */
-            roles?: Role[];
-        }
-        
-        interface AuditData {
-            /** Policy delta between the original policy and the newly set policy. */
-            policyDelta?: PolicyDelta;
-        }
-        
-        interface BindingDelta {
-            /** The action that was performed on a Binding. */
-            /** Required */
-            action?: string;
-            /** The condition that is associated with this binding. */
-            /** This field is GOOGLE_INTERNAL. */
-            /** This field is not logged in IAM side because it's only for audit logging. */
-            /** Optional */
-            condition?: Expr;
-            /** A single identity requesting access for a Cloud Platform resource. */
-            /** Follows the same format of Binding.members. */
-            /** Required */
-            member?: string;
-            /** Role that is assigned to `members`. */
-            /** For example, `roles/viewer`, `roles/editor`, or `roles/owner`. */
-            /** Required */
-            role?: string;
-        }
-        
-        interface UndeleteRoleRequest {
-            /** Used to perform a consistent read-modify-write. */
-            etag?: string;
-        }
-        
-        interface CreateServiceAccountRequest {
-            /** Required. The account id that is used to generate the service account */
-            /** email address and a stable unique id. It is unique within a project, */
-            /** must be 6-30 characters long, and match the regular expression */
-            /** `[a-z]([-a-z0-9]&#42;[a-z0-9])` to comply with RFC1035. */
-            accountId?: string;
-            /** The ServiceAccount resource to create. */
-            /** Currently, only the following values are user assignable: */
-            /** `display_name` . */
-            serviceAccount?: ServiceAccount;
-        }
-        
-        interface Role {
-            /** The current launch stage of the role. */
-            stage?: string;
-            /** The name of the role. */
-            /**  */
-            /** When Role is used in CreateRole, the role name must not be set. */
-            /**  */
-            /** When Role is used in output and other input such as UpdateRole, the role */
-            /** name is the complete path, e.g., roles/logging.viewer for curated roles */
-            /** and organizations/{ORGANIZATION_ID}/roles/logging.viewer for custom roles. */
-            name?: string;
-            /** The current deleted state of the role. This field is read only. */
-            /** It will be ignored in calls to CreateRole and UpdateRole. */
-            deleted?: boolean;
-            /** Optional.  A human-readable title for the role.  Typically this */
-            /** is limited to 100 UTF-8 bytes. */
-            title?: string;
-            /** The names of the permissions this role grants when bound in an IAM policy. */
-            includedPermissions?: string[];
-            /** Optional.  A human-readable description for the role. */
-            description?: string;
-            /** Used to perform a consistent read-modify-write. */
-            etag?: string;
-        }
-        
-        interface Binding {
-            /** Specifies the identities requesting access for a Cloud Platform resource. */
-            /** `members` can have the following values: */
-            /**  */
-            /** &#42; `allUsers`: A special identifier that represents anyone who is */
-            /**    on the internet; with or without a Google account. */
-            /**  */
-            /** &#42; `allAuthenticatedUsers`: A special identifier that represents anyone */
-            /**    who is authenticated with a Google account or a service account. */
-            /**  */
-            /** &#42; `user:{emailid}`: An email address that represents a specific Google */
-            /**    account. For example, `alice@gmail.com` or `joe@example.com`. */
-            /**  */
-            /**  */
-            /** &#42; `serviceAccount:{emailid}`: An email address that represents a service */
-            /**    account. For example, `my-other-app@appspot.gserviceaccount.com`. */
-            /**  */
-            /** &#42; `group:{emailid}`: An email address that represents a Google group. */
-            /**    For example, `admins@example.com`. */
-            /**  */
-            /**  */
-            /** &#42; `domain:{domain}`: A Google Apps domain name that represents all the */
-            /**    users of that domain. For example, `google.com` or `example.com`. */
-            /**  */
-            /**  */
-            members?: string[];
-            /** Role that is assigned to `members`. */
-            /** For example, `roles/viewer`, `roles/editor`, or `roles/owner`. */
-            /** Required */
-            role?: string;
-        }
-        
         interface RolesResource {
-            /** Updates a Role definition. */
-            patch(request: {            
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** The resource name of the role in one of the following formats: */
-                /** `roles/{ROLE_NAME}` */
-                /** `organizations/{ORGANIZATION_ID}/roles/{ROLE_NAME}` */
-                /** `projects/{PROJECT_ID}/roles/{ROLE_NAME}` */
-                name: string;
-                /** A mask describing which fields in the Role have changed. */
-                updateMask?: string;
-            }): Request<Role>;            
-            
-            /** Undelete a Role, bringing it back in its previous state. */
-            undelete(request: {            
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** The resource name of the role in one of the following formats: */
-                /** `organizations/{ORGANIZATION_ID}/roles/{ROLE_NAME}` */
-                /** `projects/{PROJECT_ID}/roles/{ROLE_NAME}` */
-                name: string;
-            }): Request<Role>;            
-            
-            /** Gets a Role definition. */
-            get(request: {            
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** The resource name of the role in one of the following formats: */
-                /** `roles/{ROLE_NAME}` */
-                /** `organizations/{ORGANIZATION_ID}/roles/{ROLE_NAME}` */
-                /** `projects/{PROJECT_ID}/roles/{ROLE_NAME}` */
-                name: string;
-            }): Request<Role>;            
-            
             /** Soft deletes a role. The role is suspended and cannot be used to create new */
             /** IAM Policy Bindings. */
             /** The Role will not be included in `ListRoles()` unless `show_deleted` is set */
@@ -486,14 +380,24 @@ declare namespace gapi.client {
             /** within 7 days. After 7 days the Role is deleted and all Bindings associated */
             /** with the role are removed. */
             delete(request: {            
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -502,34 +406,34 @@ declare namespace gapi.client {
                 fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
+                /** Used to perform a consistent read-modify-write. */
+                etag?: string;
                 /** The resource name of the role in one of the following formats: */
                 /** `organizations/{ORGANIZATION_ID}/roles/{ROLE_NAME}` */
                 /** `projects/{PROJECT_ID}/roles/{ROLE_NAME}` */
                 name: string;
-                /** Used to perform a consistent read-modify-write. */
-                etag?: string;
             }): Request<Role>;            
             
             /** Lists the Roles defined on a resource. */
             list(request: {            
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -538,16 +442,8 @@ declare namespace gapi.client {
                 fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
+                /** Optional limit on the number of roles to include in the response. */
+                pageSize?: number;
                 /** Optional view for the returned Role objects. */
                 view?: string;
                 /** The resource name of the parent resource in one of the following formats: */
@@ -559,20 +455,28 @@ declare namespace gapi.client {
                 showDeleted?: boolean;
                 /** Optional pagination token returned in an earlier ListRolesResponse. */
                 pageToken?: string;
-                /** Optional limit on the number of roles to include in the response. */
-                pageSize?: number;
             }): Request<ListRolesResponse>;            
             
             /** Creates a new Role. */
             create(request: {            
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -581,36 +485,32 @@ declare namespace gapi.client {
                 fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
                 /** The resource name of the parent resource in one of the following formats: */
                 /** `organizations/{ORGANIZATION_ID}` */
                 /** `projects/{PROJECT_ID}` */
                 parent: string;
             }): Request<Role>;            
             
-        }
-        
-        interface KeysResource {
-            /** Gets the ServiceAccountKey */
-            /** by key id. */
-            get(request: {            
+            /** Undelete a Role, bringing it back in its previous state. */
+            undelete(request: {            
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -619,16 +519,152 @@ declare namespace gapi.client {
                 fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
+                /** The resource name of the role in one of the following formats: */
+                /** `organizations/{ORGANIZATION_ID}/roles/{ROLE_NAME}` */
+                /** `projects/{PROJECT_ID}/roles/{ROLE_NAME}` */
+                name: string;
+            }): Request<Role>;            
+            
+            /** Gets a Role definition. */
+            get(request: {            
                 /** JSONP */
                 callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth access token. */
                 access_token?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** The resource name of the role in one of the following formats: */
+                /** `roles/{ROLE_NAME}` */
+                /** `organizations/{ORGANIZATION_ID}/roles/{ROLE_NAME}` */
+                /** `projects/{PROJECT_ID}/roles/{ROLE_NAME}` */
+                name: string;
+            }): Request<Role>;            
+            
+            /** Updates a Role definition. */
+            patch(request: {            
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** A mask describing which fields in the Role have changed. */
+                updateMask?: string;
+                /** The resource name of the role in one of the following formats: */
+                /** `roles/{ROLE_NAME}` */
+                /** `organizations/{ORGANIZATION_ID}/roles/{ROLE_NAME}` */
+                /** `projects/{PROJECT_ID}/roles/{ROLE_NAME}` */
+                name: string;
+            }): Request<Role>;            
+            
+        }
+        
+        interface KeysResource {
+            /** Deletes a ServiceAccountKey. */
+            delete(request: {            
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** The resource name of the service account key in the following format: */
+                /** `projects/{PROJECT_ID}/serviceAccounts/{SERVICE_ACCOUNT_EMAIL}/keys/{key}`. */
+                /** Using `-` as a wildcard for the project will infer the project from */
+                /** the account. The `account` value can be the `email` address or the */
+                /** `unique_id` of the service account. */
+                name: string;
+            }): Request<{}>;            
+            
+            /** Gets the ServiceAccountKey */
+            /** by key id. */
+            get(request: {            
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** The output format of the public key requested. */
                 /** X509_PEM is the default output format. */
                 publicKeyType?: string;
@@ -643,14 +679,24 @@ declare namespace gapi.client {
             
             /** Lists ServiceAccountKeys. */
             list(request: {            
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -659,20 +705,6 @@ declare namespace gapi.client {
                 fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Filters the types of keys the user wants to include in the list */
-                /** response. Duplicate key types are not allowed. If no key type */
-                /** is provided, all keys are returned. */
-                keyTypes?: string;
                 /** The resource name of the service account in the following format: */
                 /** `projects/{PROJECT_ID}/serviceAccounts/{SERVICE_ACCOUNT_EMAIL}`. */
                 /**  */
@@ -680,19 +712,33 @@ declare namespace gapi.client {
                 /** the account. The `account` value can be the `email` address or the */
                 /** `unique_id` of the service account. */
                 name: string;
+                /** Filters the types of keys the user wants to include in the list */
+                /** response. Duplicate key types are not allowed. If no key type */
+                /** is provided, all keys are returned. */
+                keyTypes?: string;
             }): Request<ListServiceAccountKeysResponse>;            
             
             /** Creates a ServiceAccountKey */
             /** and returns it. */
             create(request: {            
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -701,16 +747,6 @@ declare namespace gapi.client {
                 fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
                 /** The resource name of the service account in the following format: */
                 /** `projects/{PROJECT_ID}/serviceAccounts/{SERVICE_ACCOUNT_EMAIL}`. */
                 /** Using `-` as a wildcard for the project will infer the project from */
@@ -719,205 +755,29 @@ declare namespace gapi.client {
                 name: string;
             }): Request<ServiceAccountKey>;            
             
-            /** Deletes a ServiceAccountKey. */
-            delete(request: {            
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** The resource name of the service account key in the following format: */
-                /** `projects/{PROJECT_ID}/serviceAccounts/{SERVICE_ACCOUNT_EMAIL}/keys/{key}`. */
-                /** Using `-` as a wildcard for the project will infer the project from */
-                /** the account. The `account` value can be the `email` address or the */
-                /** `unique_id` of the service account. */
-                name: string;
-            }): Request<{}>;            
-            
         }
         
         interface ServiceAccountsResource {
-            /** Gets a ServiceAccount. */
-            get(request: {            
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** The resource name of the service account in the following format: */
-                /** `projects/{PROJECT_ID}/serviceAccounts/{SERVICE_ACCOUNT_EMAIL}`. */
-                /** Using `-` as a wildcard for the project will infer the project from */
-                /** the account. The `account` value can be the `email` address or the */
-                /** `unique_id` of the service account. */
-                name: string;
-            }): Request<ServiceAccount>;            
-            
-            /** Updates a ServiceAccount. */
-            /**  */
-            /** Currently, only the following fields are updatable: */
-            /** `display_name` . */
-            /** The `etag` is mandatory. */
-            update(request: {            
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** The resource name of the service account in the following format: */
-                /** `projects/{PROJECT_ID}/serviceAccounts/{SERVICE_ACCOUNT_EMAIL}`. */
-                /**  */
-                /** Requests using `-` as a wildcard for the project will infer the project */
-                /** from the `account` and the `account` value can be the `email` address or */
-                /** the `unique_id` of the service account. */
-                /**  */
-                /** In responses the resource name will always be in the format */
-                /** `projects/{PROJECT_ID}/serviceAccounts/{SERVICE_ACCOUNT_EMAIL}`. */
-                name: string;
-            }): Request<ServiceAccount>;            
-            
-            /** Tests the specified permissions against the IAM access control policy */
-            /** for a ServiceAccount. */
-            testIamPermissions(request: {            
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** REQUIRED: The resource for which the policy detail is being requested. */
-                /** See the operation documentation for the appropriate value for this field. */
-                resource: string;
-            }): Request<TestIamPermissionsResponse>;            
-            
-            /** Deletes a ServiceAccount. */
-            delete(request: {            
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** The resource name of the service account in the following format: */
-                /** `projects/{PROJECT_ID}/serviceAccounts/{SERVICE_ACCOUNT_EMAIL}`. */
-                /** Using `-` as a wildcard for the project will infer the project from */
-                /** the account. The `account` value can be the `email` address or the */
-                /** `unique_id` of the service account. */
-                name: string;
-            }): Request<{}>;            
-            
             /** Lists ServiceAccounts for a project. */
             list(request: {            
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -926,16 +786,6 @@ declare namespace gapi.client {
                 fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
                 /** Optional limit on the number of service accounts to include in the */
                 /** response. Further accounts can subsequently be obtained by including the */
                 /** ListServiceAccountsResponse.next_page_token */
@@ -951,14 +801,24 @@ declare namespace gapi.client {
             
             /** Signs a blob using a service account's system-managed private key. */
             signBlob(request: {            
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -967,16 +827,6 @@ declare namespace gapi.client {
                 fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
                 /** The resource name of the service account in the following format: */
                 /** `projects/{PROJECT_ID}/serviceAccounts/{SERVICE_ACCOUNT_EMAIL}`. */
                 /** Using `-` as a wildcard for the project will infer the project from */
@@ -985,51 +835,27 @@ declare namespace gapi.client {
                 name: string;
             }): Request<SignBlobResponse>;            
             
-            /** Creates a ServiceAccount */
-            /** and returns it. */
-            create(request: {            
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Required. The resource name of the project associated with the service */
-                /** accounts, such as `projects/my-project-123`. */
-                name: string;
-            }): Request<ServiceAccount>;            
-            
             /** Sets the IAM access control policy for a */
             /** ServiceAccount. */
             setIamPolicy(request: {            
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -1038,16 +864,6 @@ declare namespace gapi.client {
                 fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
                 /** REQUIRED: The resource for which the policy is being specified. */
                 /** See the operation documentation for the appropriate value for this field. */
                 resource: string;
@@ -1059,14 +875,24 @@ declare namespace gapi.client {
             /** an expiry time of one hour by default. If you request an expiry time of */
             /** more than one hour, the request will fail. */
             signJwt(request: {            
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -1075,16 +901,6 @@ declare namespace gapi.client {
                 fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
                 /** The resource name of the service account in the following format: */
                 /** `projects/{PROJECT_ID}/serviceAccounts/{SERVICE_ACCOUNT_EMAIL}`. */
                 /** Using `-` as a wildcard for the project will infer the project from */
@@ -1093,17 +909,27 @@ declare namespace gapi.client {
                 name: string;
             }): Request<SignJwtResponse>;            
             
-            /** Returns the IAM access control policy for a */
-            /** ServiceAccount. */
-            getIamPolicy(request: {            
+            /** Creates a ServiceAccount */
+            /** and returns it. */
+            create(request: {            
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -1112,20 +938,194 @@ declare namespace gapi.client {
                 fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
+                /** Required. The resource name of the project associated with the service */
+                /** accounts, such as `projects/my-project-123`. */
+                name: string;
+            }): Request<ServiceAccount>;            
+            
+            /** Returns the IAM access control policy for a */
+            /** ServiceAccount. */
+            getIamPolicy(request: {            
                 /** JSONP */
                 callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth access token. */
                 access_token?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** REQUIRED: The resource for which the policy is being requested. */
                 /** See the operation documentation for the appropriate value for this field. */
                 resource: string;
             }): Request<Policy>;            
+            
+            /** Gets a ServiceAccount. */
+            get(request: {            
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** The resource name of the service account in the following format: */
+                /** `projects/{PROJECT_ID}/serviceAccounts/{SERVICE_ACCOUNT_EMAIL}`. */
+                /** Using `-` as a wildcard for the project will infer the project from */
+                /** the account. The `account` value can be the `email` address or the */
+                /** `unique_id` of the service account. */
+                name: string;
+            }): Request<ServiceAccount>;            
+            
+            /** Updates a ServiceAccount. */
+            /**  */
+            /** Currently, only the following fields are updatable: */
+            /** `display_name` . */
+            /** The `etag` is mandatory. */
+            update(request: {            
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** The resource name of the service account in the following format: */
+                /** `projects/{PROJECT_ID}/serviceAccounts/{SERVICE_ACCOUNT_EMAIL}`. */
+                /**  */
+                /** Requests using `-` as a wildcard for the project will infer the project */
+                /** from the `account` and the `account` value can be the `email` address or */
+                /** the `unique_id` of the service account. */
+                /**  */
+                /** In responses the resource name will always be in the format */
+                /** `projects/{PROJECT_ID}/serviceAccounts/{SERVICE_ACCOUNT_EMAIL}`. */
+                name: string;
+            }): Request<ServiceAccount>;            
+            
+            /** Tests the specified permissions against the IAM access control policy */
+            /** for a ServiceAccount. */
+            testIamPermissions(request: {            
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** REQUIRED: The resource for which the policy detail is being requested. */
+                /** See the operation documentation for the appropriate value for this field. */
+                resource: string;
+            }): Request<TestIamPermissionsResponse>;            
+            
+            /** Deletes a ServiceAccount. */
+            delete(request: {            
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** The resource name of the service account in the following format: */
+                /** `projects/{PROJECT_ID}/serviceAccounts/{SERVICE_ACCOUNT_EMAIL}`. */
+                /** Using `-` as a wildcard for the project will infer the project from */
+                /** the account. The `account` value can be the `email` address or the */
+                /** `unique_id` of the service account. */
+                name: string;
+            }): Request<{}>;            
             
             keys: KeysResource;
         }
@@ -1139,14 +1139,24 @@ declare namespace gapi.client {
             /** Lists the permissions testable on a resource. */
             /** A permission is testable if it can be tested for an identity on a resource. */
             queryTestablePermissions(request: {            
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -1155,16 +1165,6 @@ declare namespace gapi.client {
                 fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
             }): Request<QueryTestablePermissionsResponse>;            
             
         }
@@ -1174,14 +1174,24 @@ declare namespace gapi.client {
             /** A role is grantable if it can be used as the role in a binding for a policy */
             /** for that resource. */
             queryGrantableRoles(request: {            
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -1190,28 +1200,28 @@ declare namespace gapi.client {
                 fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
             }): Request<QueryGrantableRolesResponse>;            
             
             /** Gets a Role definition. */
             get(request: {            
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -1220,16 +1230,6 @@ declare namespace gapi.client {
                 fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
                 /** The resource name of the role in one of the following formats: */
                 /** `roles/{ROLE_NAME}` */
                 /** `organizations/{ORGANIZATION_ID}/roles/{ROLE_NAME}` */
@@ -1239,14 +1239,24 @@ declare namespace gapi.client {
             
             /** Lists the Roles defined on a resource. */
             list(request: {            
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -1255,21 +1265,6 @@ declare namespace gapi.client {
                 fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** The resource name of the parent resource in one of the following formats: */
-                /** `` (empty string) -- this refers to curated roles. */
-                /** `organizations/{ORGANIZATION_ID}` */
-                /** `projects/{PROJECT_ID}` */
-                parent?: string;
                 /** Include Roles that have been deleted. */
                 showDeleted?: boolean;
                 /** Optional pagination token returned in an earlier ListRolesResponse. */
@@ -1278,6 +1273,11 @@ declare namespace gapi.client {
                 pageSize?: number;
                 /** Optional view for the returned Role objects. */
                 view?: string;
+                /** The resource name of the parent resource in one of the following formats: */
+                /** `` (empty string) -- this refers to curated roles. */
+                /** `organizations/{ORGANIZATION_ID}` */
+                /** `projects/{PROJECT_ID}` */
+                parent?: string;
             }): Request<ListRolesResponse>;            
             
         }
@@ -1291,14 +1291,24 @@ declare namespace gapi.client {
             /** within 7 days. After 7 days the Role is deleted and all Bindings associated */
             /** with the role are removed. */
             delete(request: {            
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -1307,34 +1317,34 @@ declare namespace gapi.client {
                 fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
+                /** Used to perform a consistent read-modify-write. */
+                etag?: string;
                 /** The resource name of the role in one of the following formats: */
                 /** `organizations/{ORGANIZATION_ID}/roles/{ROLE_NAME}` */
                 /** `projects/{PROJECT_ID}/roles/{ROLE_NAME}` */
                 name: string;
-                /** Used to perform a consistent read-modify-write. */
-                etag?: string;
             }): Request<Role>;            
             
             /** Lists the Roles defined on a resource. */
             list(request: {            
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -1343,18 +1353,6 @@ declare namespace gapi.client {
                 fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Optional pagination token returned in an earlier ListRolesResponse. */
-                pageToken?: string;
                 /** Optional limit on the number of roles to include in the response. */
                 pageSize?: number;
                 /** Optional view for the returned Role objects. */
@@ -1366,18 +1364,30 @@ declare namespace gapi.client {
                 parent: string;
                 /** Include Roles that have been deleted. */
                 showDeleted?: boolean;
+                /** Optional pagination token returned in an earlier ListRolesResponse. */
+                pageToken?: string;
             }): Request<ListRolesResponse>;            
             
             /** Creates a new Role. */
             create(request: {            
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -1386,69 +1396,32 @@ declare namespace gapi.client {
                 fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
                 /** The resource name of the parent resource in one of the following formats: */
                 /** `organizations/{ORGANIZATION_ID}` */
                 /** `projects/{PROJECT_ID}` */
                 parent: string;
             }): Request<Role>;            
             
-            /** Updates a Role definition. */
-            patch(request: {            
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** A mask describing which fields in the Role have changed. */
-                updateMask?: string;
-                /** The resource name of the role in one of the following formats: */
-                /** `roles/{ROLE_NAME}` */
-                /** `organizations/{ORGANIZATION_ID}/roles/{ROLE_NAME}` */
-                /** `projects/{PROJECT_ID}/roles/{ROLE_NAME}` */
-                name: string;
-            }): Request<Role>;            
-            
             /** Undelete a Role, bringing it back in its previous state. */
             undelete(request: {            
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -1457,16 +1430,6 @@ declare namespace gapi.client {
                 fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
                 /** The resource name of the role in one of the following formats: */
                 /** `organizations/{ORGANIZATION_ID}/roles/{ROLE_NAME}` */
                 /** `projects/{PROJECT_ID}/roles/{ROLE_NAME}` */
@@ -1475,14 +1438,24 @@ declare namespace gapi.client {
             
             /** Gets a Role definition. */
             get(request: {            
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -1491,16 +1464,43 @@ declare namespace gapi.client {
                 fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
+                /** The resource name of the role in one of the following formats: */
+                /** `roles/{ROLE_NAME}` */
+                /** `organizations/{ORGANIZATION_ID}/roles/{ROLE_NAME}` */
+                /** `projects/{PROJECT_ID}/roles/{ROLE_NAME}` */
+                name: string;
+            }): Request<Role>;            
+            
+            /** Updates a Role definition. */
+            patch(request: {            
                 /** JSONP */
                 callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth access token. */
                 access_token?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** A mask describing which fields in the Role have changed. */
+                updateMask?: string;
                 /** The resource name of the role in one of the following formats: */
                 /** `roles/{ROLE_NAME}` */
                 /** `organizations/{ORGANIZATION_ID}/roles/{ROLE_NAME}` */

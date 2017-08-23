@@ -62,31 +62,6 @@ After that you can use Google Service Management API resources:
 ```typescript 
     
 /* 
-Gets a service configuration (version) for a managed service.  
-*/
-await gapi.client.services.getConfig({ serviceName: "serviceName",  }); 
-    
-/* 
-Deletes a managed service. This method will change the service to the
-`Soft-Delete` state for 30 days. Within this period, service producers may
-call UndeleteService to restore the service.
-After 30 days, the service will be permanently deleted.
-
-Operation<response: google.protobuf.Empty>  
-*/
-await gapi.client.services.delete({ serviceName: "serviceName",  }); 
-    
-/* 
-Enables a service for a project, so it can be used
-for the project. See
-[Cloud Auth Guide](https://cloud.google.com/docs/authentication) for
-more information.
-
-Operation<response: EnableServiceResponse>  
-*/
-await gapi.client.services.enable({ serviceName: "serviceName",  }); 
-    
-/* 
 Sets the access control policy on the specified resource. Replaces any
 existing policy.  
 */
@@ -170,6 +145,31 @@ UIs and command-line tools, not for authorization checking. This operation
 may "fail open" without warning.  
 */
 await gapi.client.services.testIamPermissions({ resource: "resource",  }); 
+    
+/* 
+Gets a service configuration (version) for a managed service.  
+*/
+await gapi.client.services.getConfig({ serviceName: "serviceName",  }); 
+    
+/* 
+Deletes a managed service. This method will change the service to the
+`Soft-Delete` state for 30 days. Within this period, service producers may
+call UndeleteService to restore the service.
+After 30 days, the service will be permanently deleted.
+
+Operation<response: google.protobuf.Empty>  
+*/
+await gapi.client.services.delete({ serviceName: "serviceName",  }); 
+    
+/* 
+Enables a service for a project, so it can be used
+for the project. See
+[Cloud Auth Guide](https://cloud.google.com/docs/authentication) for
+more information.
+
+Operation<response: EnableServiceResponse>  
+*/
+await gapi.client.services.enable({ serviceName: "serviceName",  }); 
     
 /* 
 Gets the latest state of a long-running operation.  Clients can use this

@@ -3,6 +3,7 @@
   "rules": {
     "no-trailing-whitespace": [ false ],
     "no-padding": [ false ],
-    "max-line-length": []
+    "max-line-length": [],
+    "await-promise": [false]
   }
 }

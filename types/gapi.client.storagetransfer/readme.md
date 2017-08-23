@@ -65,6 +65,11 @@ only be used by Storage Transfer Service.
 await gapi.client.googleServiceAccounts.get({ projectId: "projectId",  }); 
     
 /* 
+Pauses a transfer operation.  
+*/
+await gapi.client.transferOperations.pause({ name: "name",  }); 
+    
+/* 
 This method is not supported and the server returns `UNIMPLEMENTED`.  
 */
 await gapi.client.transferOperations.delete({ name: "name",  }); 
@@ -99,11 +104,6 @@ method to poll the operation result at intervals as recommended by the API
 service.  
 */
 await gapi.client.transferOperations.get({ name: "name",  }); 
-    
-/* 
-Pauses a transfer operation.  
-*/
-await gapi.client.transferOperations.pause({ name: "name",  }); 
     
 /* 
 Lists transfer jobs.  

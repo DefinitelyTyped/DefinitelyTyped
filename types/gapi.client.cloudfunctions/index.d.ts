@@ -22,6 +22,21 @@ declare namespace gapi.client {
     
     namespace cloudfunctions {
         
+        interface Location {
+            /** Cross-service attributes for the location. For example */
+            /**  */
+            /**     {"cloud.googleapis.com/region": "us-east1"} */
+            labels?: Record<string, string>;            
+            /** Resource name for the location, which may vary between implementations. */
+            /** For example: `"projects/example-project/locations/us-east1"` */
+            name?: string;
+            /** The canonical id for this location. For example: `"us-east1"`. */
+            locationId?: string;
+            /** Service-specific metadata. For example the available capacity at the given */
+            /** location. */
+            metadata?: Record<string, any>;            
+        }
+        
         interface ListOperationsResponse {
             /** The standard List next-page token. */
             nextPageToken?: string;
@@ -30,10 +45,6 @@ declare namespace gapi.client {
         }
         
         interface Operation {
-            /** If the value is `false`, it means the operation is still in progress. */
-            /** If true, the operation is completed, and either `error` or `response` is */
-            /** available. */
-            done?: boolean;
             /** The normal response of the operation in case of success.  If the original */
             /** method returns no data on success, such as `Delete`, the response is */
             /** `google.protobuf.Empty`.  If the original method is standard */
@@ -54,6 +65,10 @@ declare namespace gapi.client {
             /** Some services might not provide such metadata.  Any method that returns a */
             /** long-running operation should document the metadata type, if any. */
             metadata?: Record<string, any>;            
+            /** If the value is `false`, it means the operation is still in progress. */
+            /** If true, the operation is completed, and either `error` or `response` is */
+            /** available. */
+            done?: boolean;
         }
         
         interface OperationMetadataV1Beta2 {
@@ -67,15 +82,15 @@ declare namespace gapi.client {
         }
         
         interface Status {
-            /** A list of messages that carry the error details.  There is a common set of */
-            /** message types for APIs to use. */
-            details?: Array<Record<string, any>>;            
             /** The status code, which should be an enum value of google.rpc.Code. */
             code?: number;
             /** A developer-facing error message, which should be in English. Any */
             /** user-facing error message should be localized and sent in the */
             /** google.rpc.Status.details field, or localized by the client. */
             message?: string;
+            /** A list of messages that carry the error details.  There is a common set of */
+            /** message types for APIs to use. */
+            details?: Array<Record<string, any>>;            
         }
         
         interface ListLocationsResponse {
@@ -85,26 +100,23 @@ declare namespace gapi.client {
             nextPageToken?: string;
         }
         
-        interface Location {
-            /** Resource name for the location, which may vary between implementations. */
-            /** For example: `"projects/example-project/locations/us-east1"` */
-            name?: string;
-            /** The canonical id for this location. For example: `"us-east1"`. */
-            locationId?: string;
-            /** Service-specific metadata. For example the available capacity at the given */
-            /** location. */
-            metadata?: Record<string, any>;            
-            /** Cross-service attributes for the location. For example */
-            /**  */
-            /**     {"cloud.googleapis.com/region": "us-east1"} */
-            labels?: Record<string, string>;            
-        }
-        
         interface OperationsResource {
             /** Gets the latest state of a long-running operation.  Clients can use this */
             /** method to poll the operation result at intervals as recommended by the API */
             /** service. */
             get(request: {            
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
+                /** Data format for response. */
+                alt?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -113,24 +125,12 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
                 /** The name of the operation resource. */
                 name: string;
             }): Request<Operation>;            
@@ -146,6 +146,18 @@ declare namespace gapi.client {
             /** collection id, however overriding users must ensure the name binding */
             /** is the parent resource, without the operations collection id. */
             list(request: {            
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
+                /** Data format for response. */
+                alt?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -154,24 +166,12 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
                 /** The standard list page token. */
                 pageToken?: string;
                 /** The name of the operation's parent resource. */
@@ -187,6 +187,18 @@ declare namespace gapi.client {
         interface LocationsResource {
             /** Lists information about the supported locations for this service. */
             list(request: {            
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
+                /** Data format for response. */
+                alt?: string;
                 /** OAuth access token. */
                 access_token?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -195,24 +207,12 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
                 /** The standard list page token. */
                 pageToken?: string;
                 /** The resource that owns the locations collection, if applicable. */

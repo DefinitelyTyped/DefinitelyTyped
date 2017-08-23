@@ -34,11 +34,11 @@ Don't forget to authenticate your client before sending any request to resources
 // declare client_id registered in Google Developers Console
 var client_id = '',
     scope = [     
-        // View and manage your Google Cloud Datastore data
-        'https://www.googleapis.com/auth/datastore',
-    
         // View and manage your data across Google Cloud Platform services
         'https://www.googleapis.com/auth/cloud-platform',
+    
+        // View and manage your Google Cloud Datastore data
+        'https://www.googleapis.com/auth/datastore',
     ],
     immediate = true;
 // ...
@@ -55,17 +55,6 @@ gapi.auth.authorize({ client_id: client_id, scope: scope, immediate: immediate }
 After that you can use Google Cloud Datastore API resources:
 
 ```typescript 
-    
-/* 
-Begins a new transaction.  
-*/
-await gapi.client.projects.beginTransaction({ projectId: "projectId",  }); 
-    
-/* 
-Commits a transaction, optionally creating, deleting or modifying some
-entities.  
-*/
-await gapi.client.projects.commit({ projectId: "projectId",  }); 
     
 /* 
 Queries for entities.  
@@ -86,5 +75,16 @@ await gapi.client.projects.lookup({ projectId: "projectId",  });
 Allocates IDs for the given keys, which is useful for referencing an entity
 before it is inserted.  
 */
-await gapi.client.projects.allocateIds({ projectId: "projectId",  });
+await gapi.client.projects.allocateIds({ projectId: "projectId",  }); 
+    
+/* 
+Begins a new transaction.  
+*/
+await gapi.client.projects.beginTransaction({ projectId: "projectId",  }); 
+    
+/* 
+Commits a transaction, optionally creating, deleting or modifying some
+entities.  
+*/
+await gapi.client.projects.commit({ projectId: "projectId",  });
 ```

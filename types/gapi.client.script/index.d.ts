@@ -20,7 +20,27 @@ declare namespace gapi.client {
     
     namespace script {
         
+        interface Status {
+            /** A developer-facing error message, which is in English. Any user-facing error message is localized and sent in the [`google.rpc.Status.details`](google.rpc.Status.details) field, or localized by the client. */
+            message?: string;
+            /** An array that contains a single `ExecutionError` object that provides information about the nature of the error. */
+            details?: Array<Record<string, any>>;            
+            /** The status code. For this API, this value will always be 3, corresponding to an <code>INVALID_ARGUMENT</code> error. */
+            code?: number;
+        }
+        
         interface ExecutionRequest {
+            /** For Android add-ons only. An ID that represents the user's current session */
+            /** in the Android app for Google Docs or Sheets, included as extra data in the */
+            /** [`Intent`](https://developer.android.com/guide/components/intents-filters.html) */
+            /** that launches the add-on. When an Android add-on is run with a session */
+            /** state, it gains the privileges of a */
+            /** [bound](https://developers.google.com/apps-script/guides/bound) script &mdash; */
+            /** that is, it can access information like the user's current cursor position */
+            /** (in Docs) or selected cell (in Sheets). To retrieve the state, call */
+            /** `Intent.getStringExtra("com.google.android.apps.docs.addons.SessionState")`. */
+            /** Optional. */
+            sessionState?: string;
             /** If `true` and the user is an owner of the script, the script runs at the */
             /** most recently saved version rather than the version deployed for use with */
             /** the Execution API. Optional; default is `false`. */
@@ -34,17 +54,6 @@ declare namespace gapi.client {
             /** `Document` or a `Calendar`); they can only be primitive types such as */
             /** `string`, `number`, `array`, `object`, or `boolean`. Optional. */
             parameters?: any[];
-            /** For Android add-ons only. An ID that represents the user's current session */
-            /** in the Android app for Google Docs or Sheets, included as extra data in the */
-            /** [`Intent`](https://developer.android.com/guide/components/intents-filters.html) */
-            /** that launches the add-on. When an Android add-on is run with a session */
-            /** state, it gains the privileges of a */
-            /** [bound](https://developers.google.com/apps-script/guides/bound) script &mdash; */
-            /** that is, it can access information like the user's current cursor position */
-            /** (in Docs) or selected cell (in Sheets). To retrieve the state, call */
-            /** `Intent.getStringExtra("com.google.android.apps.docs.addons.SessionState")`. */
-            /** Optional. */
-            sessionState?: string;
         }
         
         interface ExecutionResponse {
@@ -70,10 +79,10 @@ declare namespace gapi.client {
         }
         
         interface ScriptStackTraceElement {
-            /** The line number where the script failed. */
-            lineNumber?: number;
             /** The name of the function that failed. */
             function?: string;
+            /** The line number where the script failed. */
+            lineNumber?: number;
         }
         
         interface ExecutionError {
@@ -88,15 +97,6 @@ declare namespace gapi.client {
             errorMessage?: string;
         }
         
-        interface Status {
-            /** The status code. For this API, this value will always be 3, corresponding to an <code>INVALID_ARGUMENT</code> error. */
-            code?: number;
-            /** A developer-facing error message, which is in English. Any user-facing error message is localized and sent in the [`google.rpc.Status.details`](google.rpc.Status.details) field, or localized by the client. */
-            message?: string;
-            /** An array that contains a single `ExecutionError` object that provides information about the nature of the error. */
-            details?: Array<Record<string, any>>;            
-        }
-        
         interface ScriptsResource {
             /** Runs a function in an Apps Script project. The project must be deployed */
             /** for use with the Apps Script Execution API. */
@@ -108,6 +108,12 @@ declare namespace gapi.client {
             /** authentication token, open the project in the script editor, then select */
             /** &#42;&#42;File > Project properties&#42;&#42; and click the &#42;&#42;Scopes&#42;&#42; tab. */
             run(request: {            
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
@@ -128,12 +134,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
                 /** The script ID of the script to be executed. To find the script ID, open */
                 /** the project in the script editor and select &#42;&#42;File > Project properties&#42;&#42;. */
                 scriptId: string;

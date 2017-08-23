@@ -14,14 +14,14 @@ gapi.load('client', () => {
         // declare client_id registered in Google Developers Console
         const client_id = '<<PUT YOUR CLIENT ID HERE>>';
         const scope = [     
-                // View and manage the contents of your Spanner databases
-                'https://www.googleapis.com/auth/spanner.data',
-            
                 // Administer your Spanner databases
                 'https://www.googleapis.com/auth/spanner.admin',
             
                 // View and manage your data across Google Cloud Platform services
                 'https://www.googleapis.com/auth/cloud-platform',
+            
+                // View and manage the contents of your Spanner databases
+                'https://www.googleapis.com/auth/spanner.data',
             ];
         const immediate = true;
 

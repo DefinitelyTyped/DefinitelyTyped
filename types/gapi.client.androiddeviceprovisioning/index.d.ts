@@ -16,36 +16,21 @@ declare namespace gapi.client {
     function load(name: "androiddeviceprovisioning", version: "v1"): PromiseLike<void>;    
     function load(name: "androiddeviceprovisioning", version: "v1", callback: () => any): void;    
     
-    const partners: androiddeviceprovisioning.PartnersResource; 
-    
     const operations: androiddeviceprovisioning.OperationsResource; 
+    
+    const partners: androiddeviceprovisioning.PartnersResource; 
     
     namespace androiddeviceprovisioning {
         
-        interface DevicesLongRunningOperationResponse {
-            /** Number of succeesfully processed ones. */
-            successCount?: number;
-            /** processing status for each device. */
-            /** One PerDeviceStatus per device. The order is the same as in your requests. */
-            perDeviceStatus?: OperationPerDevice[];
-        }
-        
-        interface DeviceClaim {
-            /** owner id */
-            ownerCompanyId?: string;
-            /** section type. */
-            sectionType?: string;
-        }
-        
         interface PerDeviceStatusInBatch {
+            /** Process result. */
+            status?: string;
             /** Error identifier. */
             errorIdentifier?: string;
             /** Error message */
             errorMessage?: string;
             /** device id of the device if process succeeds. */
             deviceId?: string;
-            /** Process result. */
-            status?: string;
         }
         
         interface ClaimDevicesRequest {
@@ -54,21 +39,17 @@ declare namespace gapi.client {
         }
         
         interface FindDevicesByOwnerRequest {
-            /** The number of devices to show in the result. */
-            limit?: string;
             /** The section type. */
             sectionType?: string;
             /** Page token */
             pageToken?: string;
             /** List of customer ids to search for. */
             customerId?: string[];
+            /** The number of devices to show in the result. */
+            limit?: string;
         }
         
         interface Operation {
-            /** If the value is `false`, it means the operation is still in progress. */
-            /** If true, the operation is completed, and either `error` or `response` is */
-            /** available. */
-            done?: boolean;
             /** This field will contain a `DevicesLongRunningOperationResponse` object if the operation is created by `claimAsync`, `unclaimAsync`, or `updateMetadataAsync`. */
             response?: Record<string, any>;            
             /** The server-assigned name, which is only unique within the same service that */
@@ -79,9 +60,15 @@ declare namespace gapi.client {
             error?: Status;
             /** This field will contain a `DevicesLongRunningOperationMetadata` object if the operation is created by `claimAsync`, `unclaimAsync`, or `updateMetadataAsync`. */
             metadata?: Record<string, any>;            
+            /** If the value is `false`, it means the operation is still in progress. */
+            /** If true, the operation is completed, and either `error` or `response` is */
+            /** available. */
+            done?: boolean;
         }
         
         interface DeviceIdentifier {
+            /** Serial number (optional) */
+            serialNumber?: string;
             /** IMEI */
             imei?: string;
             /** Manufacturer name to match `android.os.Build.MANUFACTURER` (required). */
@@ -90,13 +77,23 @@ declare namespace gapi.client {
             manufacturer?: string;
             /** MEID */
             meid?: string;
-            /** Serial number (optional) */
-            serialNumber?: string;
         }
         
         interface UnclaimDevicesRequest {
             /** list of unclaims. */
             unclaims?: PartnerUnclaim[];
+        }
+        
+        interface Status {
+            /** A developer-facing error message, which should be in English. Any */
+            /** user-facing error message should be localized and sent in the */
+            /** google.rpc.Status.details field, or localized by the client. */
+            message?: string;
+            /** A list of messages that carry the error details.  There is a common set of */
+            /** message types for APIs to use. */
+            details?: Array<Record<string, any>>;            
+            /** The status code, which should be an enum value of google.rpc.Code. */
+            code?: number;
         }
         
         interface FindDevicesByDeviceIdentifierRequest {
@@ -108,27 +105,15 @@ declare namespace gapi.client {
             pageToken?: string;
         }
         
-        interface Status {
-            /** A list of messages that carry the error details.  There is a common set of */
-            /** message types for APIs to use. */
-            details?: Array<Record<string, any>>;            
-            /** The status code, which should be an enum value of google.rpc.Code. */
-            code?: number;
-            /** A developer-facing error message, which should be in English. Any */
-            /** user-facing error message should be localized and sent in the */
-            /** google.rpc.Status.details field, or localized by the client. */
-            message?: string;
-        }
-        
         interface OperationPerDevice {
-            /** Request to claim a device. */
-            claim?: PartnerClaim;
             /** Request to set metadata for a device. */
             updateMetadata?: UpdateMetadataArguments;
             /** Processing result for every device. */
             result?: PerDeviceStatusInBatch;
             /** Request to unclaim a device. */
             unclaim?: PartnerUnclaim;
+            /** Request to claim a device. */
+            claim?: PartnerClaim;
         }
         
         interface FindDevicesByOwnerResponse {
@@ -139,21 +124,21 @@ declare namespace gapi.client {
         }
         
         interface DevicesLongRunningOperationMetadata {
-            /** The overall processing status. */
-            processingStatus?: string;
             /** Processing progress from 0 to 100. */
             progress?: number;
             /** Number of devices parsed in your requests. */
             devicesCount?: number;
+            /** The overall processing status. */
+            processingStatus?: string;
         }
         
         interface ClaimDeviceRequest {
+            /** The device identifier of the device to claim. */
+            deviceIdentifier?: DeviceIdentifier;
             /** Section to claim */
             sectionType?: string;
             /** The customer to claim for. */
             customerId?: string;
-            /** The device identifier of the device to claim. */
-            deviceIdentifier?: DeviceIdentifier;
         }
         
         interface UpdateDeviceMetadataInBatchRequest {
@@ -170,26 +155,20 @@ declare namespace gapi.client {
             deviceId?: string;
         }
         
-        interface ClaimDeviceResponse {
-            /** the resource name of the device in */
-            /** 'partners/[PARTNER_ID]/devices/[DEVICE_ID]'. */
-            deviceName?: string;
-            /** the device id of the claimed device. */
-            deviceId?: string;
-        }
-        
         interface ListCustomersResponse {
             /** List of customers related to this partner. */
             customers?: Company[];
         }
         
+        interface ClaimDeviceResponse {
+            /** the device id of the claimed device. */
+            deviceId?: string;
+            /** the resource name of the device in */
+            /** 'partners/[PARTNER_ID]/devices/[DEVICE_ID]'. */
+            deviceName?: string;
+        }
+        
         interface Device {
-            /** Device identifier */
-            deviceIdentifier?: DeviceIdentifier;
-            /** Device metadata */
-            deviceMetadata?: DeviceMetadata;
-            /** Resource name in 'partners/[PARTNER_ID]/devices/[DEVICE_ID]'. */
-            name?: string;
             /** Device id */
             deviceId?: string;
             /** The resource name of the configuration. */
@@ -197,6 +176,12 @@ declare namespace gapi.client {
             configuration?: string;
             /** claims */
             claims?: DeviceClaim[];
+            /** Device identifier */
+            deviceIdentifier?: DeviceIdentifier;
+            /** Device metadata */
+            deviceMetadata?: DeviceMetadata;
+            /** Resource name in 'partners/[PARTNER_ID]/devices/[DEVICE_ID]'. */
+            name?: string;
         }
         
         interface Company {
@@ -222,12 +207,12 @@ declare namespace gapi.client {
         }
         
         interface PartnerUnclaim {
-            /** device id of the device. */
-            deviceId?: string;
             /** device identifier of the device. */
             deviceIdentifier?: DeviceIdentifier;
             /** section type to unclaim. */
             sectionType?: string;
+            /** device id of the device. */
+            deviceId?: string;
         }
         
         interface FindDevicesByDeviceIdentifierResponse {
@@ -262,7 +247,155 @@ declare namespace gapi.client {
             entries?: Record<string, string>;            
         }
         
+        interface DeviceClaim {
+            /** owner id */
+            ownerCompanyId?: string;
+            /** section type. */
+            sectionType?: string;
+        }
+        
+        interface DevicesLongRunningOperationResponse {
+            /** processing status for each device. */
+            /** One PerDeviceStatus per device. The order is the same as in your requests. */
+            perDeviceStatus?: OperationPerDevice[];
+            /** Number of succeesfully processed ones. */
+            successCount?: number;
+        }
+        
+        interface OperationsResource {
+            /** Gets the latest state of a long-running operation.  Clients can use this */
+            /** method to poll the operation result at intervals as recommended by the API */
+            /** service. */
+            get(request: {            
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** The name of the operation resource. */
+                name: string;
+            }): Request<Operation>;            
+            
+        }
+        
         interface DevicesResource {
+            /** Unclaim the device identified by device_id or identifier. */
+            unclaim(request: {            
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Id of the partner. */
+                partnerId: string;
+            }): Request<{}>;            
+            
+            /** Find devices by ownership. */
+            findByOwner(request: {            
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** id of the partner. */
+                partnerId: string;
+            }): Request<FindDevicesByOwnerResponse>;            
+            
+            /** Claim the device identified by device identifier. */
+            claim(request: {            
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Id of the partner. */
+                partnerId: string;
+            }): Request<ClaimDeviceResponse>;            
+            
             /** Claim devices asynchronously */
             claimAsync(request: {            
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
@@ -457,102 +590,6 @@ declare namespace gapi.client {
                 name: string;
             }): Request<Device>;            
             
-            /** Unclaim the device identified by device_id or identifier. */
-            unclaim(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Id of the partner. */
-                partnerId: string;
-            }): Request<{}>;            
-            
-            /** Find devices by ownership. */
-            findByOwner(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** id of the partner. */
-                partnerId: string;
-            }): Request<FindDevicesByOwnerResponse>;            
-            
-            /** Claim the device identified by device identifier. */
-            claim(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Id of the partner. */
-                partnerId: string;
-            }): Request<ClaimDeviceResponse>;            
-            
         }
         
         interface CustomersResource {
@@ -593,43 +630,6 @@ declare namespace gapi.client {
         interface PartnersResource {
             devices: DevicesResource;
             customers: CustomersResource;
-        }
-        
-        interface OperationsResource {
-            /** Gets the latest state of a long-running operation.  Clients can use this */
-            /** method to poll the operation result at intervals as recommended by the API */
-            /** service. */
-            get(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** The name of the operation resource. */
-                name: string;
-            }): Request<Operation>;            
-            
         }
     }
 }

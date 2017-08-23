@@ -20,6 +20,292 @@ declare namespace gapi.client {
     
     namespace spanner {
         
+        interface UpdateInstanceRequest {
+            /** Required. A mask specifying which fields in [][google.spanner.admin.instance.v1.UpdateInstanceRequest.instance] should be updated. */
+            /** The field mask must always be specified; this prevents any future fields in */
+            /** [][google.spanner.admin.instance.v1.Instance] from being erased accidentally by clients that do not know */
+            /** about them. */
+            fieldMask?: string;
+            /** Required. The instance to update, which must always include the instance */
+            /** name.  Otherwise, only fields mentioned in [][google.spanner.admin.instance.v1.UpdateInstanceRequest.field_mask] need be included. */
+            instance?: Instance;
+        }
+        
+        interface TransactionOptions {
+            /** Transaction will not write. */
+            /**  */
+            /** Authorization to begin a read-only transaction requires */
+            /** `spanner.databases.beginReadOnlyTransaction` permission */
+            /** on the `session` resource. */
+            readOnly?: ReadOnly;
+            /** Transaction may write. */
+            /**  */
+            /** Authorization to begin a read-write transaction requires */
+            /** `spanner.databases.beginOrRollbackReadWriteTransaction` permission */
+            /** on the `session` resource. */
+            readWrite?: any;
+        }
+        
+        interface CreateDatabaseRequest {
+            /** An optional list of DDL statements to run inside the newly created */
+            /** database. Statements can create tables, indexes, etc. These */
+            /** statements execute atomically with the creation of the database: */
+            /** if there is an error in any statement, the database is not created. */
+            extraStatements?: string[];
+            /** Required. A `CREATE DATABASE` statement, which specifies the ID of the */
+            /** new database.  The database ID must conform to the regular expression */
+            /** `a-z&#42;[a-z0-9]` and be between 2 and 30 characters in length. */
+            /** If the database ID is a reserved word or if it contains a hyphen, the */
+            /** database ID must be enclosed in backticks (`` ` ``). */
+            createStatement?: string;
+        }
+        
+        interface CreateInstanceRequest {
+            /** Required. The instance to create.  The name may be omitted, but if */
+            /** specified must be `<parent>/instances/<instance_id>`. */
+            instance?: Instance;
+            /** Required. The ID of the instance to create.  Valid identifiers are of the */
+            /** form `a-z&#42;[a-z0-9]` and must be between 6 and 30 characters in */
+            /** length. */
+            instanceId?: string;
+        }
+        
+        interface Condition {
+            /** The objects of the condition. This is mutually exclusive with 'value'. */
+            values?: string[];
+            /** Trusted attributes supplied by the IAM system. */
+            iam?: string;
+            /** An operator to apply the subject with. */
+            op?: string;
+            /** Trusted attributes discharged by the service. */
+            svc?: string;
+            /** DEPRECATED. Use 'values' instead. */
+            value?: string;
+            /** Trusted attributes supplied by any service that owns resources and uses */
+            /** the IAM system for access control. */
+            sys?: string;
+        }
+        
+        interface AuditLogConfig {
+            /** Specifies the identities that do not cause logging for this type of */
+            /** permission. */
+            /** Follows the same format of Binding.members. */
+            exemptedMembers?: string[];
+            /** The log type that this config enables. */
+            logType?: string;
+        }
+        
+        interface ReadOnly {
+            /** Executes all reads at a timestamp >= `min_read_timestamp`. */
+            /**  */
+            /** This is useful for requesting fresher data than some previous */
+            /** read, or data that is fresh enough to observe the effects of some */
+            /** previously committed transaction whose timestamp is known. */
+            /**  */
+            /** Note that this option can only be used in single-use transactions. */
+            minReadTimestamp?: string;
+            /** Read data at a timestamp >= `NOW - max_staleness` */
+            /** seconds. Guarantees that all writes that have committed more */
+            /** than the specified number of seconds ago are visible. Because */
+            /** Cloud Spanner chooses the exact timestamp, this mode works even if */
+            /** the client's local clock is substantially skewed from Cloud Spanner */
+            /** commit timestamps. */
+            /**  */
+            /** Useful for reading the freshest data available at a nearby */
+            /** replica, while bounding the possible staleness if the local */
+            /** replica has fallen behind. */
+            /**  */
+            /** Note that this option can only be used in single-use */
+            /** transactions. */
+            maxStaleness?: string;
+            /** Executes all reads at the given timestamp. Unlike other modes, */
+            /** reads at a specific timestamp are repeatable; the same read at */
+            /** the same timestamp always returns the same data. If the */
+            /** timestamp is in the future, the read will block until the */
+            /** specified timestamp, modulo the read's deadline. */
+            /**  */
+            /** Useful for large scale consistent reads such as mapreduces, or */
+            /** for coordinating many reads against a consistent snapshot of the */
+            /** data. */
+            readTimestamp?: string;
+            /** If true, the Cloud Spanner-selected read timestamp is included in */
+            /** the Transaction message that describes the transaction. */
+            returnReadTimestamp?: boolean;
+            /** Executes all reads at a timestamp that is `exact_staleness` */
+            /** old. The timestamp is chosen soon after the read is started. */
+            /**  */
+            /** Guarantees that all writes that have committed more than the */
+            /** specified number of seconds ago are visible. Because Cloud Spanner */
+            /** chooses the exact timestamp, this mode works even if the client's */
+            /** local clock is substantially skewed from Cloud Spanner commit */
+            /** timestamps. */
+            /**  */
+            /** Useful for reading at nearby replicas without the distributed */
+            /** timestamp negotiation overhead of `max_staleness`. */
+            exactStaleness?: string;
+            /** Read at a timestamp where all previously committed transactions */
+            /** are visible. */
+            strong?: boolean;
+        }
+        
+        interface ExecuteSqlRequest {
+            /** The transaction to use. If none is provided, the default is a */
+            /** temporary read-only transaction with strong concurrency. */
+            transaction?: TransactionSelector;
+            /** If this request is resuming a previously interrupted SQL query */
+            /** execution, `resume_token` should be copied from the last */
+            /** PartialResultSet yielded before the interruption. Doing this */
+            /** enables the new SQL query execution to resume where the last one left */
+            /** off. The rest of the request parameters must exactly match the */
+            /** request that yielded this token. */
+            resumeToken?: string;
+            /** It is not always possible for Cloud Spanner to infer the right SQL type */
+            /** from a JSON value.  For example, values of type `BYTES` and values */
+            /** of type `STRING` both appear in params as JSON strings. */
+            /**  */
+            /** In these cases, `param_types` can be used to specify the exact */
+            /** SQL type for some or all of the SQL query parameters. See the */
+            /** definition of Type for more information */
+            /** about SQL types. */
+            paramTypes?: Record<string, Type>;            
+            /** Required. The SQL query string. */
+            sql?: string;
+            /** The SQL query string can contain parameter placeholders. A parameter */
+            /** placeholder consists of `'@'` followed by the parameter */
+            /** name. Parameter names consist of any combination of letters, */
+            /** numbers, and underscores. */
+            /**  */
+            /** Parameters can appear anywhere that a literal value is expected.  The same */
+            /** parameter name can be used more than once, for example: */
+            /**   `"WHERE id > @msg_id AND id < @msg_id + 100"` */
+            /**  */
+            /** It is an error to execute an SQL query with unbound parameters. */
+            /**  */
+            /** Parameter values are specified using `params`, which is a JSON */
+            /** object whose keys are parameter names, and whose values are the */
+            /** corresponding parameter values. */
+            params?: Record<string, any>;            
+            /** Used to control the amount of debugging information returned in */
+            /** ResultSetStats. */
+            queryMode?: string;
+        }
+        
+        interface Policy {
+            /** `etag` is used for optimistic concurrency control as a way to help */
+            /** prevent simultaneous updates of a policy from overwriting each other. */
+            /** It is strongly suggested that systems make use of the `etag` in the */
+            /** read-modify-write cycle to perform policy updates in order to avoid race */
+            /** conditions: An `etag` is returned in the response to `getIamPolicy`, and */
+            /** systems are expected to put that etag in the request to `setIamPolicy` to */
+            /** ensure that their change will be applied to the same version of the policy. */
+            /**  */
+            /** If no `etag` is provided in the call to `setIamPolicy`, then the existing */
+            /** policy is overwritten blindly. */
+            etag?: string;
+            /**  */
+            iamOwned?: boolean;
+            /** If more than one rule is specified, the rules are applied in the following */
+            /** manner: */
+            /** - All matching LOG rules are always applied. */
+            /** - If any DENY/DENY_WITH_LOG rule matches, permission is denied. */
+            /**   Logging will be applied if one or more matching rule requires logging. */
+            /** - Otherwise, if any ALLOW/ALLOW_WITH_LOG rule matches, permission is */
+            /**   granted. */
+            /**   Logging will be applied if one or more matching rule requires logging. */
+            /** - Otherwise, if no rule applies, permission is denied. */
+            rules?: Rule[];
+            /** Version of the `Policy`. The default version is 0. */
+            version?: number;
+            /** Specifies cloud audit logging configuration for this policy. */
+            auditConfigs?: AuditConfig[];
+            /** Associates a list of `members` to a `role`. */
+            /** `bindings` with no members will result in an error. */
+            bindings?: Binding[];
+        }
+        
+        interface ReadRequest {
+            /** The transaction to use. If none is provided, the default is a */
+            /** temporary read-only transaction with strong concurrency. */
+            transaction?: TransactionSelector;
+            /** If this request is resuming a previously interrupted read, */
+            /** `resume_token` should be copied from the last */
+            /** PartialResultSet yielded before the interruption. Doing this */
+            /** enables the new read to resume where the last read left off. The */
+            /** rest of the request parameters must exactly match the request */
+            /** that yielded this token. */
+            resumeToken?: string;
+            /** Required. The name of the table in the database to be read. */
+            table?: string;
+            /** If greater than zero, only the first `limit` rows are yielded. If `limit` */
+            /** is zero, the default is no limit. */
+            limit?: string;
+            /** If non-empty, the name of an index on table. This index is */
+            /** used instead of the table primary key when interpreting key_set */
+            /** and sorting result rows. See key_set for further information. */
+            index?: string;
+            /** Required. `key_set` identifies the rows to be yielded. `key_set` names the */
+            /** primary keys of the rows in table to be yielded, unless index */
+            /** is present. If index is present, then key_set instead names */
+            /** index keys in index. */
+            /**  */
+            /** Rows are yielded in table primary key order (if index is empty) */
+            /** or index key order (if index is non-empty). */
+            /**  */
+            /** It is not an error for the `key_set` to name rows that do not */
+            /** exist in the database. Read yields nothing for nonexistent rows. */
+            keySet?: KeySet;
+            /** The columns of table to be returned for each row matching */
+            /** this request. */
+            columns?: string[];
+        }
+        
+        interface Write {
+            /** The values to be written. `values` can contain more than one */
+            /** list of values. If it does, then multiple rows are written, one */
+            /** for each entry in `values`. Each list in `values` must have */
+            /** exactly as many entries as there are entries in columns */
+            /** above. Sending multiple lists is equivalent to sending multiple */
+            /** `Mutation`s, each containing one `values` entry and repeating */
+            /** table and columns. Individual values in each list are */
+            /** encoded as described here. */
+            values?: any[][];
+            /** The names of the columns in table to be written. */
+            /**  */
+            /** The list of columns must contain enough columns to allow */
+            /** Cloud Spanner to derive values for all primary key columns in the */
+            /** row(s) to be modified. */
+            columns?: string[];
+            /** Required. The table whose rows will be written. */
+            table?: string;
+        }
+        
+        interface Operation {
+            /** If the value is `false`, it means the operation is still in progress. */
+            /** If true, the operation is completed, and either `error` or `response` is */
+            /** available. */
+            done?: boolean;
+            /** The normal response of the operation in case of success.  If the original */
+            /** method returns no data on success, such as `Delete`, the response is */
+            /** `google.protobuf.Empty`.  If the original method is standard */
+            /** `Get`/`Create`/`Update`, the response should be the resource.  For other */
+            /** methods, the response should have the type `XxxResponse`, where `Xxx` */
+            /** is the original method name.  For example, if the original method name */
+            /** is `TakeSnapshot()`, the inferred response type is */
+            /** `TakeSnapshotResponse`. */
+            response?: Record<string, any>;            
+            /** The server-assigned name, which is only unique within the same service that */
+            /** originally returns it. If you use the default HTTP mapping, the */
+            /** `name` should have the format of `operations/some/unique/name`. */
+            name?: string;
+            /** The error result of the operation in case of failure or cancellation. */
+            error?: Status;
+            /** Service-specific metadata associated with the operation.  It typically */
+            /** contains progress information and common metadata such as create time. */
+            /** Some services might not provide such metadata.  Any method that returns a */
+            /** long-running operation should document the metadata type, if any. */
+            metadata?: Record<string, any>;            
+        }
+        
         interface Status {
             /** A developer-facing error message, which should be in English. Any */
             /** user-facing error message should be localized and sent in the */
@@ -33,8 +319,6 @@ declare namespace gapi.client {
         }
         
         interface ResultSet {
-            /** Metadata about the result set, such as row type information. */
-            metadata?: ResultSetMetadata;
             /** Query plan and execution statistics for the query that produced this */
             /** result set. These can be requested by setting */
             /** ExecuteSqlRequest.query_mode. */
@@ -46,6 +330,8 @@ declare namespace gapi.client {
             /** encoded based on type as described */
             /** here. */
             rows?: any[][];
+            /** Metadata about the result set, such as row type information. */
+            metadata?: ResultSetMetadata;
         }
         
         interface UpdateDatabaseDdlRequest {
@@ -74,6 +360,12 @@ declare namespace gapi.client {
         }
         
         interface Binding {
+            /** The condition that is associated with this binding. */
+            /** NOTE: an unsatisfied condition will not allow user access via current */
+            /** binding. Different bindings, including their conditions, are examined */
+            /** independently. */
+            /** This field is GOOGLE_INTERNAL. */
+            condition?: Expr;
             /** Specifies the identities requesting access for a Cloud Platform resource. */
             /** `members` can have the following values: */
             /**  */
@@ -103,15 +395,15 @@ declare namespace gapi.client {
             /** For example, `roles/viewer`, `roles/editor`, or `roles/owner`. */
             /** Required */
             role?: string;
-            /** The condition that is associated with this binding. */
-            /** NOTE: an unsatisfied condition will not allow user access via current */
-            /** binding. Different bindings, including their conditions, are examined */
-            /** independently. */
-            /** This field is GOOGLE_INTERNAL. */
-            condition?: Expr;
         }
         
         interface PartialResultSet {
+            /** Streaming calls might be interrupted for a variety of reasons, such */
+            /** as TCP connection loss. If this occurs, the stream of results can */
+            /** be resumed by re-sending the original request and including */
+            /** `resume_token`. Note that executing any other transaction in the */
+            /** same session invalidates the token. */
+            resumeToken?: string;
             /** Query plan and execution statistics for the query that produced this */
             /** streaming result set. These can be requested by setting */
             /** ExecuteSqlRequest.query_mode and are sent */
@@ -198,12 +490,6 @@ declare namespace gapi.client {
             /** Metadata about the result set, such as row type information. */
             /** Only present in the first response. */
             metadata?: ResultSetMetadata;
-            /** Streaming calls might be interrupted for a variety of reasons, such */
-            /** as TCP connection loss. If this occurs, the stream of results can */
-            /** be resumed by re-sending the original request and including */
-            /** `resume_token`. Note that executing any other transaction in the */
-            /** same session invalidates the token. */
-            resumeToken?: string;
         }
         
         interface ListOperationsResponse {
@@ -271,6 +557,9 @@ declare namespace gapi.client {
         }
         
         interface Mutation {
+            /** Delete rows from a table. Succeeds whether or not the named */
+            /** rows were present. */
+            delete?: Delete;
             /** Like insert, except that if the row already exists, then */
             /** its column values are overwritten with the ones provided. Any */
             /** column values not explicitly written are preserved. */
@@ -286,9 +575,6 @@ declare namespace gapi.client {
             /** instead. Unlike insert_or_update, this means any values not */
             /** explicitly written become `NULL`. */
             replace?: Write;
-            /** Delete rows from a table. Succeeds whether or not the named */
-            /** rows were present. */
-            delete?: Delete;
         }
         
         interface GetDatabaseDdlResponse {
@@ -308,7 +594,46 @@ declare namespace gapi.client {
             name?: string;
         }
         
+        interface ListDatabasesResponse {
+            /** `next_page_token` can be sent in a subsequent */
+            /** ListDatabases call to fetch more */
+            /** of the matching databases. */
+            nextPageToken?: string;
+            /** Databases that matched the request. */
+            databases?: Database[];
+        }
+        
+        interface SetIamPolicyRequest {
+            /** OPTIONAL: A FieldMask specifying which fields of the policy to modify. Only */
+            /** the fields in the mask will be modified. If no mask is provided, the */
+            /** following default mask is used: */
+            /** paths: "bindings, etag" */
+            /** This field is only used by Cloud IAM. */
+            updateMask?: string;
+            /** REQUIRED: The complete policy to be applied to the `resource`. The size of */
+            /** the policy is limited to a few 10s of KB. An empty policy is a */
+            /** valid policy but certain Cloud Platform services (such as Projects) */
+            /** might reject them. */
+            policy?: Policy;
+        }
+        
         interface Instance {
+            /** Required. The name of the instance's configuration. Values are of the form */
+            /** `projects/<project>/instanceConfigs/<configuration>`. See */
+            /** also InstanceConfig and */
+            /** ListInstanceConfigs. */
+            config?: string;
+            /** Output only. The current instance state. For */
+            /** CreateInstance, the state must be */
+            /** either omitted or set to `CREATING`. For */
+            /** UpdateInstance, the state must be */
+            /** either omitted or set to `READY`. */
+            state?: string;
+            /** Required. A unique identifier for the instance, which cannot be changed */
+            /** after the instance is created. Values are of the form */
+            /** `projects/<project>/instances/a-z&#42;[a-z0-9]`. The final */
+            /** segment of the name must be between 6 and 30 characters in length. */
+            name?: string;
             /** Required. The descriptive name for this instance as it appears in UIs. */
             /** Must be unique per project and between 4 and 30 characters in length. */
             displayName?: string;
@@ -351,45 +676,6 @@ declare namespace gapi.client {
             /** as the string:  name + "_" + value  would prove problematic if we were to */
             /** allow "_" in a future release. */
             labels?: Record<string, string>;            
-            /** Required. The name of the instance's configuration. Values are of the form */
-            /** `projects/<project>/instanceConfigs/<configuration>`. See */
-            /** also InstanceConfig and */
-            /** ListInstanceConfigs. */
-            config?: string;
-            /** Output only. The current instance state. For */
-            /** CreateInstance, the state must be */
-            /** either omitted or set to `CREATING`. For */
-            /** UpdateInstance, the state must be */
-            /** either omitted or set to `READY`. */
-            state?: string;
-            /** Required. A unique identifier for the instance, which cannot be changed */
-            /** after the instance is created. Values are of the form */
-            /** `projects/<project>/instances/a-z&#42;[a-z0-9]`. The final */
-            /** segment of the name must be between 6 and 30 characters in length. */
-            name?: string;
-        }
-        
-        interface SetIamPolicyRequest {
-            /** OPTIONAL: A FieldMask specifying which fields of the policy to modify. Only */
-            /** the fields in the mask will be modified. If no mask is provided, the */
-            /** following default mask is used: */
-            /** paths: "bindings, etag" */
-            /** This field is only used by Cloud IAM. */
-            updateMask?: string;
-            /** REQUIRED: The complete policy to be applied to the `resource`. The size of */
-            /** the policy is limited to a few 10s of KB. An empty policy is a */
-            /** valid policy but certain Cloud Platform services (such as Projects) */
-            /** might reject them. */
-            policy?: Policy;
-        }
-        
-        interface ListDatabasesResponse {
-            /** `next_page_token` can be sent in a subsequent */
-            /** ListDatabases call to fetch more */
-            /** of the matching databases. */
-            nextPageToken?: string;
-            /** Databases that matched the request. */
-            databases?: Database[];
         }
         
         interface RollbackRequest {
@@ -432,6 +718,13 @@ declare namespace gapi.client {
             metric?: string;
         }
         
+        interface QueryPlan {
+            /** The nodes in the query plan. Plan nodes are returned in pre-order starting */
+            /** with the plan root. Each PlanNode's `id` corresponds to its index in */
+            /** `plan_nodes`. */
+            planNodes?: PlanNode[];
+        }
+        
         interface StructType {
             /** The list of fields that make up this struct. Order is */
             /** significant, because values of this struct type are represented as */
@@ -440,13 +733,6 @@ declare namespace gapi.client {
             /** matches the order of columns in a read request, or the order of */
             /** fields in the `SELECT` clause of a query. */
             fields?: Field[];
-        }
-        
-        interface QueryPlan {
-            /** The nodes in the query plan. Plan nodes are returned in pre-order starting */
-            /** with the plan root. Each PlanNode's `id` corresponds to its index in */
-            /** `plan_nodes`. */
-            planNodes?: PlanNode[];
         }
         
         interface Field {
@@ -494,14 +780,14 @@ declare namespace gapi.client {
         }
         
         interface Type {
-            /** Required. The TypeCode for this type. */
-            code?: string;
             /** If code == STRUCT, then `struct_type` */
             /** provides type information for the struct's fields. */
             structType?: StructType;
             /** If code == ARRAY, then `array_element_type` */
             /** is the type of the array elements. */
             arrayElementType?: Type;
+            /** Required. The TypeCode for this type. */
+            code?: string;
         }
         
         interface PlanNode {
@@ -535,21 +821,6 @@ declare namespace gapi.client {
             childLinks?: ChildLink[];
         }
         
-        interface CreateInstanceMetadata {
-            /** The time at which this operation failed or was completed successfully. */
-            endTime?: string;
-            /** The time at which this operation was cancelled. If set, this operation is */
-            /** in the process of undoing itself (which is guaranteed to succeed) and */
-            /** cannot be cancelled again. */
-            cancelTime?: string;
-            /** The time at which the */
-            /** CreateInstance request was */
-            /** received. */
-            startTime?: string;
-            /** The instance being created. */
-            instance?: Instance;
-        }
-        
         interface AuditConfig {
             /** Specifies a service that will be enabled for audit logging. */
             /** For example, `storage.googleapis.com`, `cloudsql.googleapis.com`. */
@@ -562,12 +833,22 @@ declare namespace gapi.client {
             exemptedMembers?: string[];
         }
         
+        interface CreateInstanceMetadata {
+            /** The time at which the */
+            /** CreateInstance request was */
+            /** received. */
+            startTime?: string;
+            /** The instance being created. */
+            instance?: Instance;
+            /** The time at which this operation failed or was completed successfully. */
+            endTime?: string;
+            /** The time at which this operation was cancelled. If set, this operation is */
+            /** in the process of undoing itself (which is guaranteed to succeed) and */
+            /** cannot be cancelled again. */
+            cancelTime?: string;
+        }
+        
         interface ChildLink {
-            /** The type of the link. For example, in Hash Joins this could be used to */
-            /** distinguish between the build child and the probe child, or in the case */
-            /** of the child being an output variable, to represent the tag associated */
-            /** with the output variable. */
-            type?: string;
             /** Only present if the child node is SCALAR and corresponds */
             /** to an output variable of the parent node. The field carries the name of */
             /** the output variable. */
@@ -579,6 +860,11 @@ declare namespace gapi.client {
             variable?: string;
             /** The node to which the link points. */
             childIndex?: number;
+            /** The type of the link. For example, in Hash Joins this could be used to */
+            /** distinguish between the build child and the probe child, or in the case */
+            /** of the child being an output variable, to represent the tag associated */
+            /** with the output variable. */
+            type?: string;
         }
         
         interface CloudAuditOptions {
@@ -608,10 +894,10 @@ declare namespace gapi.client {
         }
         
         interface Delete {
-            /** Required. The primary keys of the rows within table to delete. */
-            keySet?: KeySet;
             /** Required. The table whose rows will be deleted. */
             table?: string;
+            /** Required. The primary keys of the rows within table to delete. */
+            keySet?: KeySet;
         }
         
         interface ListInstanceConfigsResponse {
@@ -683,12 +969,12 @@ declare namespace gapi.client {
         }
         
         interface LogConfig {
-            /** Data access options. */
-            dataAccess?: any;
             /** Cloud audit options. */
             cloudAudit?: CloudAuditOptions;
             /** Counter options. */
             counter?: CounterOptions;
+            /** Data access options. */
+            dataAccess?: any;
         }
         
         interface Session {
@@ -706,6 +992,9 @@ declare namespace gapi.client {
         }
         
         interface KeyRange {
+            /** If the end is closed, then the range includes all rows whose */
+            /** first `len(end_closed)` key columns exactly match `end_closed`. */
+            endClosed?: any[];
             /** If the start is open, then the range excludes rows whose first */
             /** `len(start_open)` key columns exactly match `start_open`. */
             startOpen?: any[];
@@ -715,9 +1004,6 @@ declare namespace gapi.client {
             /** If the end is open, then the range excludes rows whose first */
             /** `len(end_open)` key columns exactly match `end_open`. */
             endOpen?: any[];
-            /** If the end is closed, then the range includes all rows whose */
-            /** first `len(end_closed)` key columns exactly match `end_closed`. */
-            endClosed?: any[];
         }
         
         interface ShortRepresentation {
@@ -740,305 +1026,21 @@ declare namespace gapi.client {
             displayName?: string;
         }
         
-        interface UpdateInstanceRequest {
-            /** Required. A mask specifying which fields in [][google.spanner.admin.instance.v1.UpdateInstanceRequest.instance] should be updated. */
-            /** The field mask must always be specified; this prevents any future fields in */
-            /** [][google.spanner.admin.instance.v1.Instance] from being erased accidentally by clients that do not know */
-            /** about them. */
-            fieldMask?: string;
-            /** Required. The instance to update, which must always include the instance */
-            /** name.  Otherwise, only fields mentioned in [][google.spanner.admin.instance.v1.UpdateInstanceRequest.field_mask] need be included. */
-            instance?: Instance;
-        }
-        
-        interface TransactionOptions {
-            /** Transaction will not write. */
-            /**  */
-            /** Authorization to begin a read-only transaction requires */
-            /** `spanner.databases.beginReadOnlyTransaction` permission */
-            /** on the `session` resource. */
-            readOnly?: ReadOnly;
-            /** Transaction may write. */
-            /**  */
-            /** Authorization to begin a read-write transaction requires */
-            /** `spanner.databases.beginOrRollbackReadWriteTransaction` permission */
-            /** on the `session` resource. */
-            readWrite?: any;
-        }
-        
-        interface CreateDatabaseRequest {
-            /** An optional list of DDL statements to run inside the newly created */
-            /** database. Statements can create tables, indexes, etc. These */
-            /** statements execute atomically with the creation of the database: */
-            /** if there is an error in any statement, the database is not created. */
-            extraStatements?: string[];
-            /** Required. A `CREATE DATABASE` statement, which specifies the ID of the */
-            /** new database.  The database ID must conform to the regular expression */
-            /** `a-z&#42;[a-z0-9]` and be between 2 and 30 characters in length. */
-            /** If the database ID is a reserved word or if it contains a hyphen, the */
-            /** database ID must be enclosed in backticks (`` ` ``). */
-            createStatement?: string;
-        }
-        
-        interface CreateInstanceRequest {
-            /** Required. The ID of the instance to create.  Valid identifiers are of the */
-            /** form `a-z&#42;[a-z0-9]` and must be between 6 and 30 characters in */
-            /** length. */
-            instanceId?: string;
-            /** Required. The instance to create.  The name may be omitted, but if */
-            /** specified must be `<parent>/instances/<instance_id>`. */
-            instance?: Instance;
-        }
-        
-        interface Condition {
-            /** Trusted attributes supplied by the IAM system. */
-            iam?: string;
-            /** The objects of the condition. This is mutually exclusive with 'value'. */
-            values?: string[];
-            /** An operator to apply the subject with. */
-            op?: string;
-            /** Trusted attributes discharged by the service. */
-            svc?: string;
-            /** Trusted attributes supplied by any service that owns resources and uses */
-            /** the IAM system for access control. */
-            sys?: string;
-            /** DEPRECATED. Use 'values' instead. */
-            value?: string;
-        }
-        
-        interface AuditLogConfig {
-            /** Specifies the identities that do not cause logging for this type of */
-            /** permission. */
-            /** Follows the same format of Binding.members. */
-            exemptedMembers?: string[];
-            /** The log type that this config enables. */
-            logType?: string;
-        }
-        
-        interface ReadOnly {
-            /** Executes all reads at a timestamp >= `min_read_timestamp`. */
-            /**  */
-            /** This is useful for requesting fresher data than some previous */
-            /** read, or data that is fresh enough to observe the effects of some */
-            /** previously committed transaction whose timestamp is known. */
-            /**  */
-            /** Note that this option can only be used in single-use transactions. */
-            minReadTimestamp?: string;
-            /** Read data at a timestamp >= `NOW - max_staleness` */
-            /** seconds. Guarantees that all writes that have committed more */
-            /** than the specified number of seconds ago are visible. Because */
-            /** Cloud Spanner chooses the exact timestamp, this mode works even if */
-            /** the client's local clock is substantially skewed from Cloud Spanner */
-            /** commit timestamps. */
-            /**  */
-            /** Useful for reading the freshest data available at a nearby */
-            /** replica, while bounding the possible staleness if the local */
-            /** replica has fallen behind. */
-            /**  */
-            /** Note that this option can only be used in single-use */
-            /** transactions. */
-            maxStaleness?: string;
-            /** Executes all reads at the given timestamp. Unlike other modes, */
-            /** reads at a specific timestamp are repeatable; the same read at */
-            /** the same timestamp always returns the same data. If the */
-            /** timestamp is in the future, the read will block until the */
-            /** specified timestamp, modulo the read's deadline. */
-            /**  */
-            /** Useful for large scale consistent reads such as mapreduces, or */
-            /** for coordinating many reads against a consistent snapshot of the */
-            /** data. */
-            readTimestamp?: string;
-            /** If true, the Cloud Spanner-selected read timestamp is included in */
-            /** the Transaction message that describes the transaction. */
-            returnReadTimestamp?: boolean;
-            /** Executes all reads at a timestamp that is `exact_staleness` */
-            /** old. The timestamp is chosen soon after the read is started. */
-            /**  */
-            /** Guarantees that all writes that have committed more than the */
-            /** specified number of seconds ago are visible. Because Cloud Spanner */
-            /** chooses the exact timestamp, this mode works even if the client's */
-            /** local clock is substantially skewed from Cloud Spanner commit */
-            /** timestamps. */
-            /**  */
-            /** Useful for reading at nearby replicas without the distributed */
-            /** timestamp negotiation overhead of `max_staleness`. */
-            exactStaleness?: string;
-            /** Read at a timestamp where all previously committed transactions */
-            /** are visible. */
-            strong?: boolean;
-        }
-        
-        interface ExecuteSqlRequest {
-            /** Used to control the amount of debugging information returned in */
-            /** ResultSetStats. */
-            queryMode?: string;
-            /** The transaction to use. If none is provided, the default is a */
-            /** temporary read-only transaction with strong concurrency. */
-            transaction?: TransactionSelector;
-            /** If this request is resuming a previously interrupted SQL query */
-            /** execution, `resume_token` should be copied from the last */
-            /** PartialResultSet yielded before the interruption. Doing this */
-            /** enables the new SQL query execution to resume where the last one left */
-            /** off. The rest of the request parameters must exactly match the */
-            /** request that yielded this token. */
-            resumeToken?: string;
-            /** It is not always possible for Cloud Spanner to infer the right SQL type */
-            /** from a JSON value.  For example, values of type `BYTES` and values */
-            /** of type `STRING` both appear in params as JSON strings. */
-            /**  */
-            /** In these cases, `param_types` can be used to specify the exact */
-            /** SQL type for some or all of the SQL query parameters. See the */
-            /** definition of Type for more information */
-            /** about SQL types. */
-            paramTypes?: Record<string, Type>;            
-            /** Required. The SQL query string. */
-            sql?: string;
-            /** The SQL query string can contain parameter placeholders. A parameter */
-            /** placeholder consists of `'@'` followed by the parameter */
-            /** name. Parameter names consist of any combination of letters, */
-            /** numbers, and underscores. */
-            /**  */
-            /** Parameters can appear anywhere that a literal value is expected.  The same */
-            /** parameter name can be used more than once, for example: */
-            /**   `"WHERE id > @msg_id AND id < @msg_id + 100"` */
-            /**  */
-            /** It is an error to execute an SQL query with unbound parameters. */
-            /**  */
-            /** Parameter values are specified using `params`, which is a JSON */
-            /** object whose keys are parameter names, and whose values are the */
-            /** corresponding parameter values. */
-            params?: Record<string, any>;            
-        }
-        
-        interface Policy {
-            /** Specifies cloud audit logging configuration for this policy. */
-            auditConfigs?: AuditConfig[];
-            /** Associates a list of `members` to a `role`. */
-            /** `bindings` with no members will result in an error. */
-            bindings?: Binding[];
-            /** `etag` is used for optimistic concurrency control as a way to help */
-            /** prevent simultaneous updates of a policy from overwriting each other. */
-            /** It is strongly suggested that systems make use of the `etag` in the */
-            /** read-modify-write cycle to perform policy updates in order to avoid race */
-            /** conditions: An `etag` is returned in the response to `getIamPolicy`, and */
-            /** systems are expected to put that etag in the request to `setIamPolicy` to */
-            /** ensure that their change will be applied to the same version of the policy. */
-            /**  */
-            /** If no `etag` is provided in the call to `setIamPolicy`, then the existing */
-            /** policy is overwritten blindly. */
-            etag?: string;
-            /**  */
-            iamOwned?: boolean;
-            /** If more than one rule is specified, the rules are applied in the following */
-            /** manner: */
-            /** - All matching LOG rules are always applied. */
-            /** - If any DENY/DENY_WITH_LOG rule matches, permission is denied. */
-            /**   Logging will be applied if one or more matching rule requires logging. */
-            /** - Otherwise, if any ALLOW/ALLOW_WITH_LOG rule matches, permission is */
-            /**   granted. */
-            /**   Logging will be applied if one or more matching rule requires logging. */
-            /** - Otherwise, if no rule applies, permission is denied. */
-            rules?: Rule[];
-            /** Version of the `Policy`. The default version is 0. */
-            version?: number;
-        }
-        
-        interface ReadRequest {
-            /** The columns of table to be returned for each row matching */
-            /** this request. */
-            columns?: string[];
-            /** The transaction to use. If none is provided, the default is a */
-            /** temporary read-only transaction with strong concurrency. */
-            transaction?: TransactionSelector;
-            /** If this request is resuming a previously interrupted read, */
-            /** `resume_token` should be copied from the last */
-            /** PartialResultSet yielded before the interruption. Doing this */
-            /** enables the new read to resume where the last read left off. The */
-            /** rest of the request parameters must exactly match the request */
-            /** that yielded this token. */
-            resumeToken?: string;
-            /** Required. The name of the table in the database to be read. */
-            table?: string;
-            /** If greater than zero, only the first `limit` rows are yielded. If `limit` */
-            /** is zero, the default is no limit. */
-            limit?: string;
-            /** If non-empty, the name of an index on table. This index is */
-            /** used instead of the table primary key when interpreting key_set */
-            /** and sorting result rows. See key_set for further information. */
-            index?: string;
-            /** Required. `key_set` identifies the rows to be yielded. `key_set` names the */
-            /** primary keys of the rows in table to be yielded, unless index */
-            /** is present. If index is present, then key_set instead names */
-            /** index keys in index. */
-            /**  */
-            /** Rows are yielded in table primary key order (if index is empty) */
-            /** or index key order (if index is non-empty). */
-            /**  */
-            /** It is not an error for the `key_set` to name rows that do not */
-            /** exist in the database. Read yields nothing for nonexistent rows. */
-            keySet?: KeySet;
-        }
-        
-        interface Write {
-            /** The values to be written. `values` can contain more than one */
-            /** list of values. If it does, then multiple rows are written, one */
-            /** for each entry in `values`. Each list in `values` must have */
-            /** exactly as many entries as there are entries in columns */
-            /** above. Sending multiple lists is equivalent to sending multiple */
-            /** `Mutation`s, each containing one `values` entry and repeating */
-            /** table and columns. Individual values in each list are */
-            /** encoded as described here. */
-            values?: any[][];
-            /** The names of the columns in table to be written. */
-            /**  */
-            /** The list of columns must contain enough columns to allow */
-            /** Cloud Spanner to derive values for all primary key columns in the */
-            /** row(s) to be modified. */
-            columns?: string[];
-            /** Required. The table whose rows will be written. */
-            table?: string;
-        }
-        
-        interface Operation {
-            /** If the value is `false`, it means the operation is still in progress. */
-            /** If true, the operation is completed, and either `error` or `response` is */
-            /** available. */
-            done?: boolean;
-            /** The normal response of the operation in case of success.  If the original */
-            /** method returns no data on success, such as `Delete`, the response is */
-            /** `google.protobuf.Empty`.  If the original method is standard */
-            /** `Get`/`Create`/`Update`, the response should be the resource.  For other */
-            /** methods, the response should have the type `XxxResponse`, where `Xxx` */
-            /** is the original method name.  For example, if the original method name */
-            /** is `TakeSnapshot()`, the inferred response type is */
-            /** `TakeSnapshotResponse`. */
-            response?: Record<string, any>;            
-            /** The server-assigned name, which is only unique within the same service that */
-            /** originally returns it. If you use the default HTTP mapping, the */
-            /** `name` should have the format of `operations/some/unique/name`. */
-            name?: string;
-            /** The error result of the operation in case of failure or cancellation. */
-            error?: Status;
-            /** Service-specific metadata associated with the operation.  It typically */
-            /** contains progress information and common metadata such as create time. */
-            /** Some services might not provide such metadata.  Any method that returns a */
-            /** long-running operation should document the metadata type, if any. */
-            metadata?: Record<string, any>;            
-        }
-        
         interface InstanceConfigsResource {
             /** Gets information about a particular instance configuration. */
             get(request: {            
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** JSONP */
-                callback?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -1049,12 +1051,10 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Required. The name of the requested instance configuration. Values are of */
                 /** the form `projects/<project>/instanceConfigs/<config>`. */
                 name: string;
@@ -1062,16 +1062,18 @@ declare namespace gapi.client {
             
             /** Lists the supported instance configurations for a given project. */
             list(request: {            
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** JSONP */
-                callback?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -1082,12 +1084,14 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Required. The name of the project for which a list of supported instance */
+                /** configurations is requested. Values are of the form */
+                /** `projects/<project>`. */
+                parent: string;
                 /** If non-empty, `page_token` should contain a */
                 /** next_page_token */
                 /** from a previous ListInstanceConfigsResponse. */
@@ -1095,10 +1099,6 @@ declare namespace gapi.client {
                 /** Number of instance configurations to be returned in the response. If 0 or */
                 /** less, defaults to the server's maximum allowed page size. */
                 pageSize?: number;
-                /** Required. The name of the project for which a list of supported instance */
-                /** configurations is requested. Values are of the form */
-                /** `projects/<project>`. */
-                parent: string;
             }): Request<ListInstanceConfigsResponse>;            
             
         }
@@ -1118,16 +1118,18 @@ declare namespace gapi.client {
             /** Larger result sets can be yielded in streaming fashion by calling */
             /** StreamingRead instead. */
             read(request: {            
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** JSONP */
-                callback?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -1138,12 +1140,10 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Required. The session in which the read should be performed. */
                 session: string;
             }): Request<ResultSet>;            
@@ -1152,16 +1152,18 @@ declare namespace gapi.client {
             /** This is mainly useful for determining whether a session is still */
             /** alive. */
             get(request: {            
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** JSONP */
-                callback?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -1172,15 +1174,116 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Required. The name of the session to retrieve. */
                 name: string;
             }): Request<Session>;            
+            
+            /** Like ExecuteSql, except returns the result */
+            /** set as a stream. Unlike ExecuteSql, there */
+            /** is no limit on the size of the returned result set. However, no */
+            /** individual row in the result set can exceed 100 MiB, and no */
+            /** column value can exceed 10 MiB. */
+            executeStreamingSql(request: {            
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Required. The session in which the SQL query should be performed. */
+                session: string;
+            }): Request<PartialResultSet>;            
+            
+            /** Ends a session, releasing server resources associated with it. */
+            delete(request: {            
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Required. The name of the session to delete. */
+                name: string;
+            }): Request<{}>;            
+            
+            /** Begins a new transaction. This step can often be skipped: */
+            /** Read, ExecuteSql and */
+            /** Commit can begin a new transaction as a */
+            /** side-effect. */
+            beginTransaction(request: {            
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Required. The session in which the transaction runs. */
+                session: string;
+            }): Request<Transaction>;            
             
             /** Commits a transaction. The request includes the mutations to be */
             /** applied to rows in the database. */
@@ -1191,16 +1294,18 @@ declare namespace gapi.client {
             /** reasons. If `Commit` returns `ABORTED`, the caller should re-attempt */
             /** the transaction from the beginning, re-using the same session. */
             commit(request: {            
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** JSONP */
-                callback?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -1211,118 +1316,13 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Required. The session in which the transaction to be committed is running. */
                 session: string;
             }): Request<CommitResponse>;            
-            
-            /** Begins a new transaction. This step can often be skipped: */
-            /** Read, ExecuteSql and */
-            /** Commit can begin a new transaction as a */
-            /** side-effect. */
-            beginTransaction(request: {            
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Required. The session in which the transaction runs. */
-                session: string;
-            }): Request<Transaction>;            
-            
-            /** Ends a session, releasing server resources associated with it. */
-            delete(request: {            
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Required. The name of the session to delete. */
-                name: string;
-            }): Request<{}>;            
-            
-            /** Like ExecuteSql, except returns the result */
-            /** set as a stream. Unlike ExecuteSql, there */
-            /** is no limit on the size of the returned result set. However, no */
-            /** individual row in the result set can exceed 100 MiB, and no */
-            /** column value can exceed 10 MiB. */
-            executeStreamingSql(request: {            
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Required. The session in which the SQL query should be performed. */
-                session: string;
-            }): Request<PartialResultSet>;            
             
             /** Executes an SQL query, returning all rows in a single reply. This */
             /** method cannot be used to return a result set larger than 10 MiB; */
@@ -1336,16 +1336,18 @@ declare namespace gapi.client {
             /** Larger result sets can be fetched in streaming fashion by calling */
             /** ExecuteStreamingSql instead. */
             executeSql(request: {            
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** JSONP */
-                callback?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -1356,15 +1358,49 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Required. The session in which the SQL query should be performed. */
                 session: string;
             }): Request<ResultSet>;            
+            
+            /** Like Read, except returns the result set as a */
+            /** stream. Unlike Read, there is no limit on the */
+            /** size of the returned result set. However, no individual row in */
+            /** the result set can exceed 100 MiB, and no column value can exceed */
+            /** 10 MiB. */
+            streamingRead(request: {            
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Required. The session in which the read should be performed. */
+                session: string;
+            }): Request<PartialResultSet>;            
             
             /** Rolls back a transaction, releasing any locks it holds. It is a good */
             /** idea to call this for any transaction that includes one or more */
@@ -1375,16 +1411,18 @@ declare namespace gapi.client {
             /** transaction was already aborted, or the transaction is not */
             /** found. `Rollback` never returns `ABORTED`. */
             rollback(request: {            
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** JSONP */
-                callback?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -1395,51 +1433,13 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Required. The session in which the transaction to roll back is running. */
                 session: string;
             }): Request<{}>;            
-            
-            /** Like Read, except returns the result set as a */
-            /** stream. Unlike Read, there is no limit on the */
-            /** size of the returned result set. However, no individual row in */
-            /** the result set can exceed 100 MiB, and no column value can exceed */
-            /** 10 MiB. */
-            streamingRead(request: {            
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Required. The session in which the read should be performed. */
-                session: string;
-            }): Request<PartialResultSet>;            
             
             /** Creates a new session. A session can be used to perform */
             /** transactions that read and/or modify data in a Cloud Spanner database. */
@@ -1461,16 +1461,18 @@ declare namespace gapi.client {
             /** Idle sessions can be kept alive by sending a trivial SQL query */
             /** periodically, e.g., `"SELECT 1"`. */
             create(request: {            
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** JSONP */
-                callback?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -1481,12 +1483,10 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Required. The database in which the new session is created. */
                 database: string;
             }): Request<Session>;            
@@ -1505,16 +1505,18 @@ declare namespace gapi.client {
             /** an Operation.error value with a google.rpc.Status.code of 1, */
             /** corresponding to `Code.CANCELLED`. */
             cancel(request: {            
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** JSONP */
-                callback?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -1525,12 +1527,10 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** The name of the operation resource to be cancelled. */
                 name: string;
             }): Request<{}>;            
@@ -1540,16 +1540,18 @@ declare namespace gapi.client {
             /** operation. If the server doesn't support this method, it returns */
             /** `google.rpc.Code.UNIMPLEMENTED`. */
             delete(request: {            
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** JSONP */
-                callback?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -1560,12 +1562,10 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** The name of the operation resource to be deleted. */
                 name: string;
             }): Request<{}>;            
@@ -1574,16 +1574,18 @@ declare namespace gapi.client {
             /** method to poll the operation result at intervals as recommended by the API */
             /** service. */
             get(request: {            
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** JSONP */
-                callback?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -1594,12 +1596,10 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** The name of the operation resource. */
                 name: string;
             }): Request<Operation>;            
@@ -1615,16 +1615,18 @@ declare namespace gapi.client {
             /** collection id, however overriding users must ensure the name binding */
             /** is the parent resource, without the operations collection id. */
             list(request: {            
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** JSONP */
-                callback?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -1635,12 +1637,10 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** The standard list filter. */
                 filter?: string;
                 /** The standard list page token. */
@@ -1654,18 +1654,24 @@ declare namespace gapi.client {
         }
         
         interface DatabasesResource {
-            /** Lists Cloud Spanner databases. */
-            list(request: {            
+            /** Sets the access control policy on a database resource. Replaces any */
+            /** existing policy. */
+            /**  */
+            /** Authorization requires `spanner.databases.setIamPolicy` permission on */
+            /** resource. */
+            setIamPolicy(request: {            
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** JSONP */
-                callback?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -1676,23 +1682,13 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** If non-empty, `page_token` should contain a */
-                /** next_page_token from a */
-                /** previous ListDatabasesResponse. */
-                pageToken?: string;
-                /** Number of databases to be returned in the response. If 0 or less, */
-                /** defaults to the server's maximum allowed page size. */
-                pageSize?: number;
-                /** Required. The instance whose databases should be listed. */
-                /** Values are of the form `projects/<project>/instances/<instance>`. */
-                parent: string;
-            }): Request<ListDatabasesResponse>;            
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** REQUIRED: The Cloud Spanner resource for which the policy is being set. The format is `projects/<project ID>/instances/<instance ID>` for instance resources and `projects/<project ID>/instances/<instance ID>/databases/<database ID>` for databases resources. */
+                resource: string;
+            }): Request<Policy>;            
             
             /** Creates a new Cloud Spanner database and starts to prepare it for serving. */
             /** The returned long-running operation will */
@@ -1703,16 +1699,18 @@ declare namespace gapi.client {
             /** response field type is */
             /** Database, if successful. */
             create(request: {            
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** JSONP */
-                callback?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -1723,52 +1721,14 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Required. The name of the instance that will serve the new database. */
                 /** Values are of the form `projects/<project>/instances/<instance>`. */
                 parent: string;
             }): Request<Operation>;            
-            
-            /** Sets the access control policy on a database resource. Replaces any */
-            /** existing policy. */
-            /**  */
-            /** Authorization requires `spanner.databases.setIamPolicy` permission on */
-            /** resource. */
-            setIamPolicy(request: {            
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** REQUIRED: The Cloud Spanner resource for which the policy is being set. The format is `projects/<project ID>/instances/<instance ID>` for instance resources and `projects/<project ID>/instances/<instance ID>/databases/<database ID>` for databases resources. */
-                resource: string;
-            }): Request<Policy>;            
             
             /** Gets the access control policy for a database resource. Returns an empty */
             /** policy if a database exists but does not have a policy set. */
@@ -1776,16 +1736,18 @@ declare namespace gapi.client {
             /** Authorization requires `spanner.databases.getIamPolicy` permission on */
             /** resource. */
             getIamPolicy(request: {            
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** JSONP */
-                callback?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -1796,28 +1758,28 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** REQUIRED: The Cloud Spanner resource for which the policy is being retrieved. The format is `projects/<project ID>/instances/<instance ID>` for instance resources and `projects/<project ID>/instances/<instance ID>/databases/<database ID>` for database resources. */
                 resource: string;
             }): Request<Policy>;            
             
             /** Gets the state of a Cloud Spanner database. */
             get(request: {            
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** JSONP */
-                callback?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -1828,12 +1790,10 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Required. The name of the requested database. Values are of the form */
                 /** `projects/<project>/instances/<instance>/databases/<database>`. */
                 name: string;
@@ -1841,16 +1801,18 @@ declare namespace gapi.client {
             
             /** Drops (aka deletes) a Cloud Spanner database. */
             dropDatabase(request: {            
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** JSONP */
-                callback?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -1861,12 +1823,10 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Required. The database to be dropped. */
                 database: string;
             }): Request<{}>;            
@@ -1879,16 +1839,18 @@ declare namespace gapi.client {
             /** metadata field type is */
             /** UpdateDatabaseDdlMetadata.  The operation has no response. */
             updateDdl(request: {            
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** JSONP */
-                callback?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -1899,12 +1861,10 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Required. The database to update. */
                 database: string;
             }): Request<Operation>;            
@@ -1916,16 +1876,18 @@ declare namespace gapi.client {
             /** the containing Cloud Spanner instance. Otherwise returns an empty set of */
             /** permissions. */
             testIamPermissions(request: {            
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** JSONP */
-                callback?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -1936,12 +1898,10 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** REQUIRED: The Cloud Spanner resource for which permissions are being tested. The format is `projects/<project ID>/instances/<instance ID>` for instance resources and `projects/<project ID>/instances/<instance ID>/databases/<database ID>` for database resources. */
                 resource: string;
             }): Request<TestIamPermissionsResponse>;            
@@ -1950,16 +1910,18 @@ declare namespace gapi.client {
             /** DDL statements. This method does not show pending schema updates, those may */
             /** be queried using the Operations API. */
             getDdl(request: {            
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** JSONP */
-                callback?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -1970,35 +1932,82 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Required. The database whose schema we wish to get. */
                 database: string;
             }): Request<GetDatabaseDdlResponse>;            
+            
+            /** Lists Cloud Spanner databases. */
+            list(request: {            
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** If non-empty, `page_token` should contain a */
+                /** next_page_token from a */
+                /** previous ListDatabasesResponse. */
+                pageToken?: string;
+                /** Number of databases to be returned in the response. If 0 or less, */
+                /** defaults to the server's maximum allowed page size. */
+                pageSize?: number;
+                /** Required. The instance whose databases should be listed. */
+                /** Values are of the form `projects/<project>/instances/<instance>`. */
+                parent: string;
+            }): Request<ListDatabasesResponse>;            
             
             sessions: SessionsResource;
             operations: OperationsResource;
         }
         
         interface OperationsResource {
-            /** Gets the latest state of a long-running operation.  Clients can use this */
-            /** method to poll the operation result at intervals as recommended by the API */
-            /** service. */
-            get(request: {            
+            /** Starts asynchronous cancellation on a long-running operation.  The server */
+            /** makes a best effort to cancel the operation, but success is not */
+            /** guaranteed.  If the server doesn't support this method, it returns */
+            /** `google.rpc.Code.UNIMPLEMENTED`.  Clients can use */
+            /** Operations.GetOperation or */
+            /** other methods to check whether the cancellation succeeded or whether the */
+            /** operation completed despite cancellation. On successful cancellation, */
+            /** the operation is not deleted; instead, it becomes an operation with */
+            /** an Operation.error value with a google.rpc.Status.code of 1, */
+            /** corresponding to `Code.CANCELLED`. */
+            cancel(request: {            
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** JSONP */
-                callback?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -2009,12 +2018,79 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** The name of the operation resource to be cancelled. */
+                name: string;
+            }): Request<{}>;            
+            
+            /** Deletes a long-running operation. This method indicates that the client is */
+            /** no longer interested in the operation result. It does not cancel the */
+            /** operation. If the server doesn't support this method, it returns */
+            /** `google.rpc.Code.UNIMPLEMENTED`. */
+            delete(request: {            
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** The name of the operation resource to be deleted. */
+                name: string;
+            }): Request<{}>;            
+            
+            /** Gets the latest state of a long-running operation.  Clients can use this */
+            /** method to poll the operation result at intervals as recommended by the API */
+            /** service. */
+            get(request: {            
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** The name of the operation resource. */
                 name: string;
             }): Request<Operation>;            
@@ -2030,16 +2106,18 @@ declare namespace gapi.client {
             /** collection id, however overriding users must ensure the name binding */
             /** is the parent resource, without the operations collection id. */
             list(request: {            
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** JSONP */
-                callback?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -2050,113 +2128,70 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** The standard list filter. */
+                filter?: string;
                 /** The standard list page token. */
                 pageToken?: string;
                 /** The name of the operation's parent resource. */
                 name: string;
                 /** The standard list page size. */
                 pageSize?: number;
-                /** The standard list filter. */
-                filter?: string;
             }): Request<ListOperationsResponse>;            
-            
-            /** Starts asynchronous cancellation on a long-running operation.  The server */
-            /** makes a best effort to cancel the operation, but success is not */
-            /** guaranteed.  If the server doesn't support this method, it returns */
-            /** `google.rpc.Code.UNIMPLEMENTED`.  Clients can use */
-            /** Operations.GetOperation or */
-            /** other methods to check whether the cancellation succeeded or whether the */
-            /** operation completed despite cancellation. On successful cancellation, */
-            /** the operation is not deleted; instead, it becomes an operation with */
-            /** an Operation.error value with a google.rpc.Status.code of 1, */
-            /** corresponding to `Code.CANCELLED`. */
-            cancel(request: {            
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** The name of the operation resource to be cancelled. */
-                name: string;
-            }): Request<{}>;            
-            
-            /** Deletes a long-running operation. This method indicates that the client is */
-            /** no longer interested in the operation result. It does not cancel the */
-            /** operation. If the server doesn't support this method, it returns */
-            /** `google.rpc.Code.UNIMPLEMENTED`. */
-            delete(request: {            
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** The name of the operation resource to be deleted. */
-                name: string;
-            }): Request<{}>;            
             
         }
         
         interface InstancesResource {
-            /** Gets information about a particular instance. */
-            get(request: {            
+            /** Creates an instance and begins preparing it to begin serving. The */
+            /** returned long-running operation */
+            /** can be used to track the progress of preparing the new */
+            /** instance. The instance name is assigned by the caller. If the */
+            /** named instance already exists, `CreateInstance` returns */
+            /** `ALREADY_EXISTS`. */
+            /**  */
+            /** Immediately upon completion of this request: */
+            /**  */
+            /**   &#42; The instance is readable via the API, with all requested attributes */
+            /**     but no allocated resources. Its state is `CREATING`. */
+            /**  */
+            /** Until completion of the returned operation: */
+            /**  */
+            /**   &#42; Cancelling the operation renders the instance immediately unreadable */
+            /**     via the API. */
+            /**   &#42; The instance can be deleted. */
+            /**   &#42; All other attempts to modify the instance are rejected. */
+            /**  */
+            /** Upon completion of the returned operation: */
+            /**  */
+            /**   &#42; Billing for all successfully-allocated resources begins (some types */
+            /**     may have lower than the requested levels). */
+            /**   &#42; Databases can be created in the instance. */
+            /**   &#42; The instance's allocated resource levels are readable via the API. */
+            /**   &#42; The instance's state becomes `READY`. */
+            /**  */
+            /** The returned long-running operation will */
+            /** have a name of the format `<instance_name>/operations/<operation_id>` and */
+            /** can be used to track creation of the instance.  The */
+            /** metadata field type is */
+            /** CreateInstanceMetadata. */
+            /** The response field type is */
+            /** Instance, if successful. */
+            create(request: {            
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** JSONP */
-                callback?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -2167,16 +2202,86 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Required. The name of the project in which to create the instance. Values */
+                /** are of the form `projects/<project>`. */
+                parent: string;
+            }): Request<Operation>;            
+            
+            /** Sets the access control policy on an instance resource. Replaces any */
+            /** existing policy. */
+            /**  */
+            /** Authorization requires `spanner.instances.setIamPolicy` on */
+            /** resource. */
+            setIamPolicy(request: {            
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-                /** Required. The name of the requested instance. Values are of the form */
-                /** `projects/<project>/instances/<instance>`. */
-                name: string;
-            }): Request<Instance>;            
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** REQUIRED: The Cloud Spanner resource for which the policy is being set. The format is `projects/<project ID>/instances/<instance ID>` for instance resources and `projects/<project ID>/instances/<instance ID>/databases/<database ID>` for databases resources. */
+                resource: string;
+            }): Request<Policy>;            
+            
+            /** Gets the access control policy for an instance resource. Returns an empty */
+            /** policy if an instance exists but does not have a policy set. */
+            /**  */
+            /** Authorization requires `spanner.instances.getIamPolicy` on */
+            /** resource. */
+            getIamPolicy(request: {            
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** REQUIRED: The Cloud Spanner resource for which the policy is being retrieved. The format is `projects/<project ID>/instances/<instance ID>` for instance resources and `projects/<project ID>/instances/<instance ID>/databases/<database ID>` for database resources. */
+                resource: string;
+            }): Request<Policy>;            
             
             /** Updates an instance, and begins allocating or releasing resources */
             /** as requested. The returned long-running */
@@ -2219,16 +2324,18 @@ declare namespace gapi.client {
             /** Authorization requires `spanner.instances.update` permission on */
             /** resource name. */
             patch(request: {            
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** JSONP */
-                callback?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -2239,18 +2346,49 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Required. A unique identifier for the instance, which cannot be changed */
                 /** after the instance is created. Values are of the form */
                 /** `projects/<project>/instances/a-z&#42;[a-z0-9]`. The final */
                 /** segment of the name must be between 6 and 30 characters in length. */
                 name: string;
             }): Request<Operation>;            
+            
+            /** Gets information about a particular instance. */
+            get(request: {            
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Required. The name of the requested instance. Values are of the form */
+                /** `projects/<project>/instances/<instance>`. */
+                name: string;
+            }): Request<Instance>;            
             
             /** Returns permissions that the caller has on the specified instance resource. */
             /**  */
@@ -2259,16 +2397,18 @@ declare namespace gapi.client {
             /** permission on the containing Google Cloud Project. Otherwise returns an */
             /** empty set of permissions. */
             testIamPermissions(request: {            
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** JSONP */
-                callback?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -2279,12 +2419,10 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** REQUIRED: The Cloud Spanner resource for which permissions are being tested. The format is `projects/<project ID>/instances/<instance ID>` for instance resources and `projects/<project ID>/instances/<instance ID>/databases/<database ID>` for database resources. */
                 resource: string;
             }): Request<TestIamPermissionsResponse>;            
@@ -2301,16 +2439,18 @@ declare namespace gapi.client {
             /**     irrevocably disappear from the API. All data in the databases */
             /**     is permanently deleted. */
             delete(request: {            
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** JSONP */
-                callback?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -2321,12 +2461,10 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Required. The name of the instance to be deleted. Values are of the form */
                 /** `projects/<project>/instances/<instance>` */
                 name: string;
@@ -2334,16 +2472,18 @@ declare namespace gapi.client {
             
             /** Lists all instances in the given project. */
             list(request: {            
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** JSONP */
-                callback?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -2354,12 +2494,17 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** If non-empty, `page_token` should contain a */
+                /** next_page_token from a */
+                /** previous ListInstancesResponse. */
+                pageToken?: string;
+                /** Number of instances to be returned in the response. If 0 or less, defaults */
+                /** to the server's maximum allowed page size. */
+                pageSize?: number;
                 /** Required. The name of the project for which a list of instances is */
                 /** requested. Values are of the form `projects/<project>`. */
                 parent: string;
@@ -2383,152 +2528,7 @@ declare namespace gapi.client {
                 /**                                  it has the label "env" with its value */
                 /**                                  containing "dev". */
                 filter?: string;
-                /** If non-empty, `page_token` should contain a */
-                /** next_page_token from a */
-                /** previous ListInstancesResponse. */
-                pageToken?: string;
-                /** Number of instances to be returned in the response. If 0 or less, defaults */
-                /** to the server's maximum allowed page size. */
-                pageSize?: number;
             }): Request<ListInstancesResponse>;            
-            
-            /** Creates an instance and begins preparing it to begin serving. The */
-            /** returned long-running operation */
-            /** can be used to track the progress of preparing the new */
-            /** instance. The instance name is assigned by the caller. If the */
-            /** named instance already exists, `CreateInstance` returns */
-            /** `ALREADY_EXISTS`. */
-            /**  */
-            /** Immediately upon completion of this request: */
-            /**  */
-            /**   &#42; The instance is readable via the API, with all requested attributes */
-            /**     but no allocated resources. Its state is `CREATING`. */
-            /**  */
-            /** Until completion of the returned operation: */
-            /**  */
-            /**   &#42; Cancelling the operation renders the instance immediately unreadable */
-            /**     via the API. */
-            /**   &#42; The instance can be deleted. */
-            /**   &#42; All other attempts to modify the instance are rejected. */
-            /**  */
-            /** Upon completion of the returned operation: */
-            /**  */
-            /**   &#42; Billing for all successfully-allocated resources begins (some types */
-            /**     may have lower than the requested levels). */
-            /**   &#42; Databases can be created in the instance. */
-            /**   &#42; The instance's allocated resource levels are readable via the API. */
-            /**   &#42; The instance's state becomes `READY`. */
-            /**  */
-            /** The returned long-running operation will */
-            /** have a name of the format `<instance_name>/operations/<operation_id>` and */
-            /** can be used to track creation of the instance.  The */
-            /** metadata field type is */
-            /** CreateInstanceMetadata. */
-            /** The response field type is */
-            /** Instance, if successful. */
-            create(request: {            
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Required. The name of the project in which to create the instance. Values */
-                /** are of the form `projects/<project>`. */
-                parent: string;
-            }): Request<Operation>;            
-            
-            /** Sets the access control policy on an instance resource. Replaces any */
-            /** existing policy. */
-            /**  */
-            /** Authorization requires `spanner.instances.setIamPolicy` on */
-            /** resource. */
-            setIamPolicy(request: {            
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** REQUIRED: The Cloud Spanner resource for which the policy is being set. The format is `projects/<project ID>/instances/<instance ID>` for instance resources and `projects/<project ID>/instances/<instance ID>/databases/<database ID>` for databases resources. */
-                resource: string;
-            }): Request<Policy>;            
-            
-            /** Gets the access control policy for an instance resource. Returns an empty */
-            /** policy if an instance exists but does not have a policy set. */
-            /**  */
-            /** Authorization requires `spanner.instances.getIamPolicy` on */
-            /** resource. */
-            getIamPolicy(request: {            
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** REQUIRED: The Cloud Spanner resource for which the policy is being retrieved. The format is `projects/<project ID>/instances/<instance ID>` for instance resources and `projects/<project ID>/instances/<instance ID>/databases/<database ID>` for database resources. */
-                resource: string;
-            }): Request<Policy>;            
             
             databases: DatabasesResource;
             operations: OperationsResource;

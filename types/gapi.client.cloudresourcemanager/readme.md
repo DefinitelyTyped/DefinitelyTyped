@@ -56,47 +56,6 @@ After that you can use Google Cloud Resource Manager API resources:
 ```typescript 
     
 /* 
-Updates the specified `Policy` on the resource. Creates a new `Policy` for
-that `Constraint` on the resource if one does not exist.
-
-Not supplying an `etag` on the request `Policy` results in an unconditional
-write of the `Policy`.  
-*/
-await gapi.client.folders.setOrgPolicy({ resource: "resource",  }); 
-    
-/* 
-Lists `Constraints` that could be applied on the specified resource.  
-*/
-await gapi.client.folders.listAvailableOrgPolicyConstraints({ resource: "resource",  }); 
-    
-/* 
-Lists all the `Policies` set for a particular resource.  
-*/
-await gapi.client.folders.listOrgPolicies({ resource: "resource",  }); 
-    
-/* 
-Gets a `Policy` on a resource.
-
-If no `Policy` is set on the resource, a `Policy` is returned with default
-values including `POLICY_TYPE_NOT_SET` for the `policy_type oneof`. The
-`etag` value can be used with `SetOrgPolicy()` to create or update a
-`Policy` during read-modify-write.  
-*/
-await gapi.client.folders.getOrgPolicy({ resource: "resource",  }); 
-    
-/* 
-Gets the effective `Policy` on a resource. This is the result of merging
-`Policies` in the resource hierarchy. The returned `Policy` will not have
-an `etag`set because it is a computed `Policy` across multiple resources.  
-*/
-await gapi.client.folders.getEffectiveOrgPolicy({ resource: "resource",  }); 
-    
-/* 
-Clears a `Policy` from a resource.  
-*/
-await gapi.client.folders.clearOrgPolicy({ resource: "resource",  }); 
-    
-/* 
 Lists Projects that are visible to the user and satisfy the
 specified filter. This method returns Projects in an unspecified order.
 New Projects do not necessarily appear at the end of the list.  
@@ -286,14 +245,14 @@ The caller must have modify permissions for this Project.
 await gapi.client.projects.update({ projectId: "projectId",  }); 
     
 /* 
-Lists `Constraints` that could be applied on the specified resource.  
-*/
-await gapi.client.organizations.listAvailableOrgPolicyConstraints({ resource: "resource",  }); 
-    
-/* 
 Lists all the `Policies` set for a particular resource.  
 */
 await gapi.client.organizations.listOrgPolicies({ resource: "resource",  }); 
+    
+/* 
+Lists `Constraints` that could be applied on the specified resource.  
+*/
+await gapi.client.organizations.listAvailableOrgPolicyConstraints({ resource: "resource",  }); 
     
 /* 
 Gets the access control policy for an Organization resource. May be empty
@@ -405,5 +364,46 @@ For example, applying to `projects/1234` requires permission
 
 NOTE: Some resources may limit the number of Liens which may be applied.  
 */
-await gapi.client.liens.create({  });
+await gapi.client.liens.create({  }); 
+    
+/* 
+Clears a `Policy` from a resource.  
+*/
+await gapi.client.folders.clearOrgPolicy({ resource: "resource",  }); 
+    
+/* 
+Updates the specified `Policy` on the resource. Creates a new `Policy` for
+that `Constraint` on the resource if one does not exist.
+
+Not supplying an `etag` on the request `Policy` results in an unconditional
+write of the `Policy`.  
+*/
+await gapi.client.folders.setOrgPolicy({ resource: "resource",  }); 
+    
+/* 
+Lists `Constraints` that could be applied on the specified resource.  
+*/
+await gapi.client.folders.listAvailableOrgPolicyConstraints({ resource: "resource",  }); 
+    
+/* 
+Lists all the `Policies` set for a particular resource.  
+*/
+await gapi.client.folders.listOrgPolicies({ resource: "resource",  }); 
+    
+/* 
+Gets a `Policy` on a resource.
+
+If no `Policy` is set on the resource, a `Policy` is returned with default
+values including `POLICY_TYPE_NOT_SET` for the `policy_type oneof`. The
+`etag` value can be used with `SetOrgPolicy()` to create or update a
+`Policy` during read-modify-write.  
+*/
+await gapi.client.folders.getOrgPolicy({ resource: "resource",  }); 
+    
+/* 
+Gets the effective `Policy` on a resource. This is the result of merging
+`Policies` in the resource hierarchy. The returned `Policy` will not have
+an `etag`set because it is a computed `Policy` across multiple resources.  
+*/
+await gapi.client.folders.getEffectiveOrgPolicy({ resource: "resource",  });
 ```

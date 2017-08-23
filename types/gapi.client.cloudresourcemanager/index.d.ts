@@ -16,8 +16,6 @@ declare namespace gapi.client {
     function load(name: "cloudresourcemanager", version: "v1"): PromiseLike<void>;    
     function load(name: "cloudresourcemanager", version: "v1", callback: () => any): void;    
     
-    const folders: cloudresourcemanager.FoldersResource; 
-    
     const projects: cloudresourcemanager.ProjectsResource; 
     
     const organizations: cloudresourcemanager.OrganizationsResource; 
@@ -26,269 +24,72 @@ declare namespace gapi.client {
     
     const liens: cloudresourcemanager.LiensResource; 
     
+    const folders: cloudresourcemanager.FoldersResource; 
+    
     namespace cloudresourcemanager {
         
-        interface GetEffectiveOrgPolicyRequest {
-            /** The name of the `Constraint` to compute the effective `Policy`. */
-            constraint?: string;
-        }
-        
-        interface ListOrgPoliciesRequest {
-            /** Page token used to retrieve the next page. This is currently unsupported */
-            /** and will be ignored. The server may at any point start using this field. */
-            pageToken?: string;
-            /** Size of the pages to be returned. This is currently unsupported and will */
-            /** be ignored. The server may at any point start using this field to limit */
-            /** page size. */
-            pageSize?: number;
-        }
-        
-        interface AuditConfig {
-            /** Specifies a service that will be enabled for audit logging. */
-            /** For example, `storage.googleapis.com`, `cloudsql.googleapis.com`. */
-            /** `allServices` is a special value that covers all services. */
-            service?: string;
-            /** The configuration for logging of each type of permission. */
-            /** Next ID: 4 */
-            auditLogConfigs?: AuditLogConfig[];
-        }
-        
-        interface Operation {
-            /** The normal response of the operation in case of success.  If the original */
-            /** method returns no data on success, such as `Delete`, the response is */
-            /** `google.protobuf.Empty`.  If the original method is standard */
-            /** `Get`/`Create`/`Update`, the response should be the resource.  For other */
-            /** methods, the response should have the type `XxxResponse`, where `Xxx` */
-            /** is the original method name.  For example, if the original method name */
-            /** is `TakeSnapshot()`, the inferred response type is */
-            /** `TakeSnapshotResponse`. */
-            response?: Record<string, any>;            
-            /** The server-assigned name, which is only unique within the same service that */
-            /** originally returns it. If you use the default HTTP mapping, the */
-            /** `name` should have the format of `operations/some/unique/name`. */
-            name?: string;
-            /** The error result of the operation in case of failure or cancellation. */
-            error?: Status;
-            /** Service-specific metadata associated with the operation.  It typically */
-            /** contains progress information and common metadata such as create time. */
-            /** Some services might not provide such metadata.  Any method that returns a */
-            /** long-running operation should document the metadata type, if any. */
-            metadata?: Record<string, any>;            
-            /** If the value is `false`, it means the operation is still in progress. */
-            /** If true, the operation is completed, and either `error` or `response` is */
-            /** available. */
-            done?: boolean;
-        }
-        
-        interface Status {
-            /** A list of messages that carry the error details.  There is a common set of */
-            /** message types for APIs to use. */
-            details?: Array<Record<string, any>>;            
-            /** The status code, which should be an enum value of google.rpc.Code. */
-            code?: number;
-            /** A developer-facing error message, which should be in English. Any */
-            /** user-facing error message should be localized and sent in the */
-            /** google.rpc.Status.details field, or localized by the client. */
-            message?: string;
-        }
-        
-        interface ListLiensResponse {
-            /** Token to retrieve the next page of results, or empty if there are no more */
-            /** results in the list. */
-            nextPageToken?: string;
-            /** A list of Liens. */
-            liens?: Lien[];
-        }
-        
-        interface Constraint {
-            /** Version of the `Constraint`. Default version is 0; */
-            version?: number;
-            /** Defines this constraint as being a ListConstraint. */
-            listConstraint?: ListConstraint;
-            /** Detailed description of what this `Constraint` controls as well as how and */
-            /** where it is enforced. */
-            /**  */
-            /** Mutable. */
-            description?: string;
-            /** The human readable name. */
-            /**  */
-            /** Mutable. */
-            displayName?: string;
-            /** Defines this constraint as being a BooleanConstraint. */
-            booleanConstraint?: any;
-            /** The evaluation behavior of this constraint in the absense of 'Policy'. */
-            constraintDefault?: string;
-            /** Immutable value, required to globally be unique. For example, */
-            /** `constraints/serviceuser.services` */
-            name?: string;
-        }
-        
-        interface Binding {
-            /** Specifies the identities requesting access for a Cloud Platform resource. */
-            /** `members` can have the following values: */
-            /**  */
-            /** &#42; `allUsers`: A special identifier that represents anyone who is */
-            /**    on the internet; with or without a Google account. */
-            /**  */
-            /** &#42; `allAuthenticatedUsers`: A special identifier that represents anyone */
-            /**    who is authenticated with a Google account or a service account. */
-            /**  */
-            /** &#42; `user:{emailid}`: An email address that represents a specific Google */
-            /**    account. For example, `alice@gmail.com` or `joe@example.com`. */
-            /**  */
-            /**  */
-            /** &#42; `serviceAccount:{emailid}`: An email address that represents a service */
-            /**    account. For example, `my-other-app@appspot.gserviceaccount.com`. */
-            /**  */
-            /** &#42; `group:{emailid}`: An email address that represents a Google group. */
-            /**    For example, `admins@example.com`. */
-            /**  */
-            /**  */
-            /** &#42; `domain:{domain}`: A Google Apps domain name that represents all the */
-            /**    users of that domain. For example, `google.com` or `example.com`. */
-            /**  */
-            /**  */
-            members?: string[];
-            /** Role that is assigned to `members`. */
-            /** For example, `roles/viewer`, `roles/editor`, or `roles/owner`. */
-            /** Required */
-            role?: string;
-        }
-        
-        interface GetOrgPolicyRequest {
-            /** Name of the `Constraint` to get the `Policy`. */
-            constraint?: string;
-        }
-        
-        interface ClearOrgPolicyRequest {
-            /** The current version, for concurrency control. Not sending an `etag` */
-            /** will cause the `Policy` to be cleared blindly. */
-            etag?: string;
-            /** Name of the `Constraint` of the `Policy` to clear. */
-            constraint?: string;
-        }
-        
-        interface ProjectCreationStatus {
-            /** True if the project creation process is complete. */
-            ready?: boolean;
-            /** True if the project can be retrieved using GetProject. No other operations */
-            /** on the project are guaranteed to work until the project creation is */
-            /** complete. */
-            gettable?: boolean;
-            /** Creation time of the project creation workflow. */
-            createTime?: string;
-        }
-        
-        interface TestIamPermissionsResponse {
-            /** A subset of `TestPermissionsRequest.permissions` that the caller is */
-            /** allowed. */
-            permissions?: string[];
-        }
-        
-        interface OrganizationOwner {
-            /** The Google for Work customer id used in the Directory API. */
-            directoryCustomerId?: string;
-        }
-        
-        interface ListProjectsResponse {
-            /** Pagination token. */
-            /**  */
-            /** If the result set is too large to fit in a single response, this token */
-            /** is returned. It encodes the position of the current result cursor. */
-            /** Feeding this value into a new list request with the `page_token` parameter */
-            /** gives the next page of the results. */
-            /**  */
-            /** When `next_page_token` is not filled in, there is no next page and */
-            /** the list returned is the last page in the result set. */
-            /**  */
-            /** Pagination tokens have a limited lifetime. */
-            nextPageToken?: string;
-            /** The list of Projects that matched the list filter. This list can */
-            /** be paginated. */
-            projects?: Project[];
-        }
-        
-        interface Project {
-            /** The number uniquely identifying the project. */
-            /**  */
-            /** Example: <code>415104041262</code> */
-            /** Read-only. */
-            projectNumber?: string;
-            /** An optional reference to a parent Resource. */
-            /**  */
-            /** The only supported parent type is "organization". Once set, the parent */
-            /** cannot be modified. The `parent` can be set on creation or using the */
-            /** `UpdateProject` method; the end user must have the */
-            /** `resourcemanager.projects.create` permission on the parent. */
-            /**  */
-            /** Read-write. */
-            parent?: ResourceId;
-            /** The labels associated with this Project. */
-            /**  */
-            /** Label keys must be between 1 and 63 characters long and must conform */
-            /** to the following regular expression: \[a-z\](\[-a-z0-9\]&#42;\[a-z0-9\])?. */
-            /**  */
-            /** Label values must be between 0 and 63 characters long and must conform */
-            /** to the regular expression (\[a-z\](\[-a-z0-9\]&#42;\[a-z0-9\])?)?. */
-            /**  */
-            /** No more than 256 labels can be associated with a given resource. */
-            /**  */
-            /** Clients should store labels in a representation such as JSON that does not */
-            /** depend on specific characters being disallowed. */
-            /**  */
-            /** Example: <code>"environment" : "dev"</code> */
-            /** Read-write. */
-            labels?: Record<string, string>;            
-            /** Creation time. */
-            /**  */
-            /** Read-only. */
-            createTime?: string;
-            /** The user-assigned display name of the Project. */
-            /** It must be 4 to 30 characters. */
-            /** Allowed characters are: lowercase and uppercase letters, numbers, */
-            /** hyphen, single-quote, double-quote, space, and exclamation point. */
-            /**  */
-            /** Example: <code>My Project</code> */
-            /** Read-write. */
-            name?: string;
-            /** The unique, user-assigned ID of the Project. */
-            /** It must be 6 to 30 lowercase letters, digits, or hyphens. */
-            /** It must start with a letter. */
-            /** Trailing hyphens are prohibited. */
-            /**  */
-            /** Example: <code>tokyo-rain-123</code> */
-            /** Read-only after creation. */
-            projectId?: string;
-            /** The Project lifecycle state. */
-            /**  */
-            /** Read-only. */
-            lifecycleState?: string;
-        }
-        
         interface ListOrgPoliciesResponse {
-            /** Page token used to retrieve the next page. This is currently not used, but */
-            /** the server may at any point start supplying a valid token. */
-            nextPageToken?: string;
             /** The `Policies` that are set on the resource. It will be empty if no */
             /** `Policies` are set. */
             policies?: OrgPolicy[];
+            /** Page token used to retrieve the next page. This is currently not used, but */
+            /** the server may at any point start supplying a valid token. */
+            nextPageToken?: string;
         }
         
         interface SearchOrganizationsResponse {
+            /** The list of Organizations that matched the search query, possibly */
+            /** paginated. */
+            organizations?: Organization[];
             /** A pagination token to be used to retrieve the next page of results. If the */
             /** result is too large to fit within the page size specified in the request, */
             /** this field will be set with a token that can be used to fetch the next page */
             /** of results. If this field is empty, it indicates that this response */
             /** contains the last page of results. */
             nextPageToken?: string;
-            /** The list of Organizations that matched the search query, possibly */
-            /** paginated. */
-            organizations?: Organization[];
         }
         
         interface FolderOperationError {
             /** The type of operation error experienced. */
             errorMessageId?: string;
+        }
+        
+        interface OrgPolicy {
+            /** Version of the `Policy`. Default version is 0; */
+            version?: number;
+            /** Restores the default behavior of the constraint; independent of */
+            /** `Constraint` type. */
+            restoreDefault?: any;
+            /** List of values either allowed or disallowed. */
+            listPolicy?: ListPolicy;
+            /** An opaque tag indicating the current version of the `Policy`, used for */
+            /** concurrency control. */
+            /**  */
+            /** When the `Policy` is returned from either a `GetPolicy` or a */
+            /** `ListOrgPolicy` request, this `etag` indicates the version of the current */
+            /** `Policy` to use when executing a read-modify-write loop. */
+            /**  */
+            /** When the `Policy` is returned from a `GetEffectivePolicy` request, the */
+            /** `etag` will be unset. */
+            /**  */
+            /** When the `Policy` is used in a `SetOrgPolicy` method, use the `etag` value */
+            /** that was returned from a `GetOrgPolicy` request as part of a */
+            /** read-modify-write loop for concurrency control. Not setting the `etag`in a */
+            /** `SetOrgPolicy` request will result in an unconditional write of the */
+            /** `Policy`. */
+            etag?: string;
+            /** For boolean `Constraints`, whether to enforce the `Constraint` or not. */
+            booleanPolicy?: BooleanPolicy;
+            /** The name of the `Constraint` the `Policy` is configuring, for example, */
+            /** `constraints/serviceuser.services`. */
+            /**  */
+            /** Immutable after creation. */
+            constraint?: string;
+            /** The time stamp the `Policy` was previously updated. This is set by the */
+            /** server, not specified by the caller, and represents the last time a call to */
+            /** `SetOrgPolicy` was made for that `Policy`. Any value set by the client will */
+            /** be ignored. */
+            updateTime?: string;
         }
         
         interface BooleanPolicy {
@@ -338,45 +139,15 @@ declare namespace gapi.client {
             enforced?: boolean;
         }
         
-        interface OrgPolicy {
-            /** List of values either allowed or disallowed. */
-            listPolicy?: ListPolicy;
-            /** An opaque tag indicating the current version of the `Policy`, used for */
-            /** concurrency control. */
-            /**  */
-            /** When the `Policy` is returned from either a `GetPolicy` or a */
-            /** `ListOrgPolicy` request, this `etag` indicates the version of the current */
-            /** `Policy` to use when executing a read-modify-write loop. */
-            /**  */
-            /** When the `Policy` is returned from a `GetEffectivePolicy` request, the */
-            /** `etag` will be unset. */
-            /**  */
-            /** When the `Policy` is used in a `SetOrgPolicy` method, use the `etag` value */
-            /** that was returned from a `GetOrgPolicy` request as part of a */
-            /** read-modify-write loop for concurrency control. Not setting the `etag`in a */
-            /** `SetOrgPolicy` request will result in an unconditional write of the */
-            /** `Policy`. */
-            etag?: string;
-            /** The name of the `Constraint` the `Policy` is configuring, for example, */
-            /** `constraints/serviceuser.services`. */
-            /**  */
-            /** Immutable after creation. */
-            constraint?: string;
-            /** For boolean `Constraints`, whether to enforce the `Constraint` or not. */
-            booleanPolicy?: BooleanPolicy;
-            /** The time stamp the `Policy` was previously updated. This is set by the */
-            /** server, not specified by the caller, and represents the last time a call to */
-            /** `SetOrgPolicy` was made for that `Policy`. Any value set by the client will */
-            /** be ignored. */
-            updateTime?: string;
-            /** Version of the `Policy`. Default version is 0; */
-            version?: number;
-            /** Restores the default behavior of the constraint; independent of */
-            /** `Constraint` type. */
-            restoreDefault?: any;
-        }
-        
         interface Lien {
+            /** The types of operations which should be blocked as a result of this Lien. */
+            /** Each value should correspond to an IAM permission. The server will */
+            /** validate the permissions against those for which Liens are supported. */
+            /**  */
+            /** An empty list is meaningless and will be rejected. */
+            /**  */
+            /** Example: ['resourcemanager.projects.delete'] */
+            restrictions?: string[];
             /** A reference to the resource this Lien is attached to. The server will */
             /** validate the parent against those for which Liens are supported. */
             /**  */
@@ -399,14 +170,6 @@ declare namespace gapi.client {
             /**  */
             /** Example: 'compute.googleapis.com' */
             origin?: string;
-            /** The types of operations which should be blocked as a result of this Lien. */
-            /** Each value should correspond to an IAM permission. The server will */
-            /** validate the permissions against those for which Liens are supported. */
-            /**  */
-            /** An empty list is meaningless and will be rejected. */
-            /**  */
-            /** Example: ['resourcemanager.projects.delete'] */
-            restrictions?: string[];
         }
         
         interface Ancestor {
@@ -462,10 +225,10 @@ declare namespace gapi.client {
         }
         
         interface ListAvailableOrgPolicyConstraintsResponse {
-            /** Page token used to retrieve the next page. This is currently not used. */
-            nextPageToken?: string;
             /** The collection of constraints that are settable on the request resource. */
             constraints?: Constraint[];
+            /** Page token used to retrieve the next page. This is currently not used. */
+            nextPageToken?: string;
         }
         
         interface ListPolicy {
@@ -586,13 +349,6 @@ declare namespace gapi.client {
         }
         
         interface SearchOrganizationsRequest {
-            /** A pagination token returned from a previous call to `SearchOrganizations` */
-            /** that indicates from where listing should continue. */
-            /** This field is optional. */
-            pageToken?: string;
-            /** The maximum number of Organizations to return in the response. */
-            /** This field is optional. */
-            pageSize?: number;
             /** An optional query string used to filter the Organizations to return in */
             /** the response. Filter rules are case-insensitive. */
             /**  */
@@ -608,6 +364,13 @@ declare namespace gapi.client {
             /**  */
             /** This field is optional. */
             filter?: string;
+            /** A pagination token returned from a previous call to `SearchOrganizations` */
+            /** that indicates from where listing should continue. */
+            /** This field is optional. */
+            pageToken?: string;
+            /** The maximum number of Organizations to return in the response. */
+            /** This field is optional. */
+            pageSize?: number;
         }
         
         interface TestIamPermissionsRequest {
@@ -626,19 +389,6 @@ declare namespace gapi.client {
             /** be ignored. The server may at any point start using this field to limit */
             /** page size. */
             pageSize?: number;
-        }
-        
-        interface FolderOperation {
-            /** The type of this operation. */
-            operationType?: string;
-            /** The resource name of the folder's parent. */
-            /** Only applicable when the operation_type is MOVE. */
-            sourceParent?: string;
-            /** The display name of the folder. */
-            displayName?: string;
-            /** The resource name of the folder or organization we are either creating */
-            /** the folder under or moving the folder to. */
-            destinationParent?: string;
         }
         
         interface Policy {
@@ -662,6 +412,19 @@ declare namespace gapi.client {
             bindings?: Binding[];
         }
         
+        interface FolderOperation {
+            /** The resource name of the folder's parent. */
+            /** Only applicable when the operation_type is MOVE. */
+            sourceParent?: string;
+            /** The display name of the folder. */
+            displayName?: string;
+            /** The resource name of the folder or organization we are either creating */
+            /** the folder under or moving the folder to. */
+            destinationParent?: string;
+            /** The type of this operation. */
+            operationType?: string;
+        }
+        
         interface ResourceId {
             /** Required field representing the resource type this id is for. */
             /** At present, the valid types are: "organization" */
@@ -671,210 +434,241 @@ declare namespace gapi.client {
             id?: string;
         }
         
-        interface FoldersResource {
-            /** Updates the specified `Policy` on the resource. Creates a new `Policy` for */
-            /** that `Constraint` on the resource if one does not exist. */
+        interface GetEffectiveOrgPolicyRequest {
+            /** The name of the `Constraint` to compute the effective `Policy`. */
+            constraint?: string;
+        }
+        
+        interface ListOrgPoliciesRequest {
+            /** Page token used to retrieve the next page. This is currently unsupported */
+            /** and will be ignored. The server may at any point start using this field. */
+            pageToken?: string;
+            /** Size of the pages to be returned. This is currently unsupported and will */
+            /** be ignored. The server may at any point start using this field to limit */
+            /** page size. */
+            pageSize?: number;
+        }
+        
+        interface Operation {
+            /** The normal response of the operation in case of success.  If the original */
+            /** method returns no data on success, such as `Delete`, the response is */
+            /** `google.protobuf.Empty`.  If the original method is standard */
+            /** `Get`/`Create`/`Update`, the response should be the resource.  For other */
+            /** methods, the response should have the type `XxxResponse`, where `Xxx` */
+            /** is the original method name.  For example, if the original method name */
+            /** is `TakeSnapshot()`, the inferred response type is */
+            /** `TakeSnapshotResponse`. */
+            response?: Record<string, any>;            
+            /** The server-assigned name, which is only unique within the same service that */
+            /** originally returns it. If you use the default HTTP mapping, the */
+            /** `name` should have the format of `operations/some/unique/name`. */
+            name?: string;
+            /** The error result of the operation in case of failure or cancellation. */
+            error?: Status;
+            /** Service-specific metadata associated with the operation.  It typically */
+            /** contains progress information and common metadata such as create time. */
+            /** Some services might not provide such metadata.  Any method that returns a */
+            /** long-running operation should document the metadata type, if any. */
+            metadata?: Record<string, any>;            
+            /** If the value is `false`, it means the operation is still in progress. */
+            /** If true, the operation is completed, and either `error` or `response` is */
+            /** available. */
+            done?: boolean;
+        }
+        
+        interface AuditConfig {
+            /** The configuration for logging of each type of permission. */
+            /** Next ID: 4 */
+            auditLogConfigs?: AuditLogConfig[];
+            /** Specifies a service that will be enabled for audit logging. */
+            /** For example, `storage.googleapis.com`, `cloudsql.googleapis.com`. */
+            /** `allServices` is a special value that covers all services. */
+            service?: string;
+        }
+        
+        interface Constraint {
+            /** Defines this constraint as being a BooleanConstraint. */
+            booleanConstraint?: any;
+            /** The evaluation behavior of this constraint in the absense of 'Policy'. */
+            constraintDefault?: string;
+            /** Immutable value, required to globally be unique. For example, */
+            /** `constraints/serviceuser.services` */
+            name?: string;
+            /** Version of the `Constraint`. Default version is 0; */
+            version?: number;
+            /** Defines this constraint as being a ListConstraint. */
+            listConstraint?: ListConstraint;
+            /** Detailed description of what this `Constraint` controls as well as how and */
+            /** where it is enforced. */
             /**  */
-            /** Not supplying an `etag` on the request `Policy` results in an unconditional */
-            /** write of the `Policy`. */
-            setOrgPolicy(request: {            
-                /** Data format for response. */
-                alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Resource name of the resource to attach the `Policy`. */
-                resource: string;
-            }): Request<OrgPolicy>;            
-            
-            /** Lists `Constraints` that could be applied on the specified resource. */
-            listAvailableOrgPolicyConstraints(request: {            
-                /** Data format for response. */
-                alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Name of the resource to list `Constraints` for. */
-                resource: string;
-            }): Request<ListAvailableOrgPolicyConstraintsResponse>;            
-            
-            /** Lists all the `Policies` set for a particular resource. */
-            listOrgPolicies(request: {            
-                /** Data format for response. */
-                alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Name of the resource to list Policies for. */
-                resource: string;
-            }): Request<ListOrgPoliciesResponse>;            
-            
-            /** Gets a `Policy` on a resource. */
+            /** Mutable. */
+            description?: string;
+            /** The human readable name. */
             /**  */
-            /** If no `Policy` is set on the resource, a `Policy` is returned with default */
-            /** values including `POLICY_TYPE_NOT_SET` for the `policy_type oneof`. The */
-            /** `etag` value can be used with `SetOrgPolicy()` to create or update a */
-            /** `Policy` during read-modify-write. */
-            getOrgPolicy(request: {            
-                /** Data format for response. */
-                alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Name of the resource the `Policy` is set on. */
-                resource: string;
-            }): Request<OrgPolicy>;            
-            
-            /** Gets the effective `Policy` on a resource. This is the result of merging */
-            /** `Policies` in the resource hierarchy. The returned `Policy` will not have */
-            /** an `etag`set because it is a computed `Policy` across multiple resources. */
-            getEffectiveOrgPolicy(request: {            
-                /** Data format for response. */
-                alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** The name of the resource to start computing the effective `Policy`. */
-                resource: string;
-            }): Request<OrgPolicy>;            
-            
-            /** Clears a `Policy` from a resource. */
-            clearOrgPolicy(request: {            
-                /** Data format for response. */
-                alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Name of the resource for the `Policy` to clear. */
-                resource: string;
-            }): Request<{}>;            
-            
+            /** Mutable. */
+            displayName?: string;
+        }
+        
+        interface Status {
+            /** The status code, which should be an enum value of google.rpc.Code. */
+            code?: number;
+            /** A developer-facing error message, which should be in English. Any */
+            /** user-facing error message should be localized and sent in the */
+            /** google.rpc.Status.details field, or localized by the client. */
+            message?: string;
+            /** A list of messages that carry the error details.  There is a common set of */
+            /** message types for APIs to use. */
+            details?: Array<Record<string, any>>;            
+        }
+        
+        interface ListLiensResponse {
+            /** Token to retrieve the next page of results, or empty if there are no more */
+            /** results in the list. */
+            nextPageToken?: string;
+            /** A list of Liens. */
+            liens?: Lien[];
+        }
+        
+        interface Binding {
+            /** Specifies the identities requesting access for a Cloud Platform resource. */
+            /** `members` can have the following values: */
+            /**  */
+            /** &#42; `allUsers`: A special identifier that represents anyone who is */
+            /**    on the internet; with or without a Google account. */
+            /**  */
+            /** &#42; `allAuthenticatedUsers`: A special identifier that represents anyone */
+            /**    who is authenticated with a Google account or a service account. */
+            /**  */
+            /** &#42; `user:{emailid}`: An email address that represents a specific Google */
+            /**    account. For example, `alice@gmail.com` or `joe@example.com`. */
+            /**  */
+            /**  */
+            /** &#42; `serviceAccount:{emailid}`: An email address that represents a service */
+            /**    account. For example, `my-other-app@appspot.gserviceaccount.com`. */
+            /**  */
+            /** &#42; `group:{emailid}`: An email address that represents a Google group. */
+            /**    For example, `admins@example.com`. */
+            /**  */
+            /**  */
+            /** &#42; `domain:{domain}`: A Google Apps domain name that represents all the */
+            /**    users of that domain. For example, `google.com` or `example.com`. */
+            /**  */
+            /**  */
+            members?: string[];
+            /** Role that is assigned to `members`. */
+            /** For example, `roles/viewer`, `roles/editor`, or `roles/owner`. */
+            /** Required */
+            role?: string;
+        }
+        
+        interface GetOrgPolicyRequest {
+            /** Name of the `Constraint` to get the `Policy`. */
+            constraint?: string;
+        }
+        
+        interface ClearOrgPolicyRequest {
+            /** The current version, for concurrency control. Not sending an `etag` */
+            /** will cause the `Policy` to be cleared blindly. */
+            etag?: string;
+            /** Name of the `Constraint` of the `Policy` to clear. */
+            constraint?: string;
+        }
+        
+        interface ProjectCreationStatus {
+            /** True if the project creation process is complete. */
+            ready?: boolean;
+            /** True if the project can be retrieved using GetProject. No other operations */
+            /** on the project are guaranteed to work until the project creation is */
+            /** complete. */
+            gettable?: boolean;
+            /** Creation time of the project creation workflow. */
+            createTime?: string;
+        }
+        
+        interface TestIamPermissionsResponse {
+            /** A subset of `TestPermissionsRequest.permissions` that the caller is */
+            /** allowed. */
+            permissions?: string[];
+        }
+        
+        interface OrganizationOwner {
+            /** The Google for Work customer id used in the Directory API. */
+            directoryCustomerId?: string;
+        }
+        
+        interface ListProjectsResponse {
+            /** Pagination token. */
+            /**  */
+            /** If the result set is too large to fit in a single response, this token */
+            /** is returned. It encodes the position of the current result cursor. */
+            /** Feeding this value into a new list request with the `page_token` parameter */
+            /** gives the next page of the results. */
+            /**  */
+            /** When `next_page_token` is not filled in, there is no next page and */
+            /** the list returned is the last page in the result set. */
+            /**  */
+            /** Pagination tokens have a limited lifetime. */
+            nextPageToken?: string;
+            /** The list of Projects that matched the list filter. This list can */
+            /** be paginated. */
+            projects?: Project[];
+        }
+        
+        interface Project {
+            /** The number uniquely identifying the project. */
+            /**  */
+            /** Example: <code>415104041262</code> */
+            /** Read-only. */
+            projectNumber?: string;
+            /** An optional reference to a parent Resource. */
+            /**  */
+            /** The only supported parent type is "organization". Once set, the parent */
+            /** cannot be modified. The `parent` can be set on creation or using the */
+            /** `UpdateProject` method; the end user must have the */
+            /** `resourcemanager.projects.create` permission on the parent. */
+            /**  */
+            /** Read-write. */
+            parent?: ResourceId;
+            /** Creation time. */
+            /**  */
+            /** Read-only. */
+            createTime?: string;
+            /** The labels associated with this Project. */
+            /**  */
+            /** Label keys must be between 1 and 63 characters long and must conform */
+            /** to the following regular expression: \[a-z\](\[-a-z0-9\]&#42;\[a-z0-9\])?. */
+            /**  */
+            /** Label values must be between 0 and 63 characters long and must conform */
+            /** to the regular expression (\[a-z\](\[-a-z0-9\]&#42;\[a-z0-9\])?)?. */
+            /**  */
+            /** No more than 256 labels can be associated with a given resource. */
+            /**  */
+            /** Clients should store labels in a representation such as JSON that does not */
+            /** depend on specific characters being disallowed. */
+            /**  */
+            /** Example: <code>"environment" : "dev"</code> */
+            /** Read-write. */
+            labels?: Record<string, string>;            
+            /** The user-assigned display name of the Project. */
+            /** It must be 4 to 30 characters. */
+            /** Allowed characters are: lowercase and uppercase letters, numbers, */
+            /** hyphen, single-quote, double-quote, space, and exclamation point. */
+            /**  */
+            /** Example: <code>My Project</code> */
+            /** Read-write. */
+            name?: string;
+            /** The unique, user-assigned ID of the Project. */
+            /** It must be 6 to 30 lowercase letters, digits, or hyphens. */
+            /** It must start with a letter. */
+            /** Trailing hyphens are prohibited. */
+            /**  */
+            /** Example: <code>tokyo-rain-123</code> */
+            /** Read-only after creation. */
+            projectId?: string;
+            /** The Project lifecycle state. */
+            /**  */
+            /** Read-only. */
+            lifecycleState?: string;
         }
         
         interface ProjectsResource {
@@ -882,6 +676,14 @@ declare namespace gapi.client {
             /** specified filter. This method returns Projects in an unspecified order. */
             /** New Projects do not necessarily appear at the end of the list. */
             list(request: {            
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -900,14 +702,6 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
                 /** An expression for filtering the results of the request.  Filter rules are */
                 /** case insensitive. The fields eligible for filtering are: */
                 /**  */
@@ -957,6 +751,14 @@ declare namespace gapi.client {
             /** Not supplying an `etag` on the request `Policy` results in an unconditional */
             /** write of the `Policy`. */
             setOrgPolicy(request: {            
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -975,14 +777,6 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
                 /** Resource name of the resource to attach the `Policy`. */
                 resource: string;
             }): Request<OrgPolicy>;            
@@ -1000,6 +794,14 @@ declare namespace gapi.client {
             /** `resourcemanager.projects.create` on the specified parent for the new */
             /** project. */
             create(request: {            
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -1018,18 +820,18 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
             }): Request<Operation>;            
             
             /** Lists all the `Policies` set for a particular resource. */
             listOrgPolicies(request: {            
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -1048,14 +850,6 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
                 /** Name of the resource to list Policies for. */
                 resource: string;
             }): Request<ListOrgPoliciesResponse>;            
@@ -1065,6 +859,14 @@ declare namespace gapi.client {
             /**  */
             /** The caller must have read permissions for this Project. */
             get(request: {            
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -1083,14 +885,6 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
                 /** The Project ID (for example, `my-project-123`). */
                 /**  */
                 /** Required. */
@@ -1102,6 +896,14 @@ declare namespace gapi.client {
             /**  */
             /** The caller must have read permissions for this Project. */
             getAncestry(request: {            
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -1120,14 +922,6 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
                 /** The Project ID (for example, `my-project-123`). */
                 /**  */
                 /** Required. */
@@ -1138,6 +932,14 @@ declare namespace gapi.client {
             /**  */
             /** There are no permissions required for making this API call. */
             testIamPermissions(request: {            
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -1156,14 +958,6 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
                 /** REQUIRED: The resource for which the policy detail is being requested. */
                 /** See the operation documentation for the appropriate value for this field. */
                 resource: string;
@@ -1194,6 +988,14 @@ declare namespace gapi.client {
             /**  */
             /** The caller must have modify permissions for this Project. */
             delete(request: {            
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -1212,14 +1014,6 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
                 /** The Project ID (for example, `foo-bar-123`). */
                 /**  */
                 /** Required. */
@@ -1228,6 +1022,14 @@ declare namespace gapi.client {
             
             /** Clears a `Policy` from a resource. */
             clearOrgPolicy(request: {            
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -1246,14 +1048,6 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
                 /** Name of the resource for the `Policy` to clear. */
                 resource: string;
             }): Request<{}>;            
@@ -1301,6 +1095,14 @@ declare namespace gapi.client {
             /** Authorization requires the Google IAM permission */
             /** `resourcemanager.projects.setIamPolicy` on the project */
             setIamPolicy(request: {            
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -1319,14 +1121,6 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
                 /** REQUIRED: The resource for which the policy is being specified. */
                 /** See the operation documentation for the appropriate value for this field. */
                 resource: string;
@@ -1334,6 +1128,14 @@ declare namespace gapi.client {
             
             /** Lists `Constraints` that could be applied on the specified resource. */
             listAvailableOrgPolicyConstraints(request: {            
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -1352,14 +1154,6 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
                 /** Name of the resource to list `Constraints` for. */
                 resource: string;
             }): Request<ListAvailableOrgPolicyConstraintsResponse>;            
@@ -1370,6 +1164,14 @@ declare namespace gapi.client {
             /** Authorization requires the Google IAM permission */
             /** `resourcemanager.projects.getIamPolicy` on the project */
             getIamPolicy(request: {            
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -1388,14 +1190,6 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
                 /** REQUIRED: The resource for which the policy is being requested. */
                 /** See the operation documentation for the appropriate value for this field. */
                 resource: string;
@@ -1408,6 +1202,14 @@ declare namespace gapi.client {
             /** `etag` value can be used with `SetOrgPolicy()` to create or update a */
             /** `Policy` during read-modify-write. */
             getOrgPolicy(request: {            
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -1426,14 +1228,6 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
                 /** Name of the resource the `Policy` is set on. */
                 resource: string;
             }): Request<OrgPolicy>;            
@@ -1446,6 +1240,14 @@ declare namespace gapi.client {
             /**  */
             /** The caller must have modify permissions for this Project. */
             undelete(request: {            
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -1464,14 +1266,6 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
                 /** The project ID (for example, `foo-bar-123`). */
                 /**  */
                 /** Required. */
@@ -1482,6 +1276,14 @@ declare namespace gapi.client {
             /** `Policies` in the resource hierarchy. The returned `Policy` will not have */
             /** an `etag`set because it is a computed `Policy` across multiple resources. */
             getEffectiveOrgPolicy(request: {            
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -1500,14 +1302,6 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
                 /** The name of the resource to start computing the effective `Policy`. */
                 resource: string;
             }): Request<OrgPolicy>;            
@@ -1517,6 +1311,14 @@ declare namespace gapi.client {
             /**  */
             /** The caller must have modify permissions for this Project. */
             update(request: {            
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -1535,14 +1337,6 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
                 /** The project ID (for example, `my-project-123`). */
                 /**  */
                 /** Required. */
@@ -1552,40 +1346,16 @@ declare namespace gapi.client {
         }
         
         interface OrganizationsResource {
-            /** Lists `Constraints` that could be applied on the specified resource. */
-            listAvailableOrgPolicyConstraints(request: {            
-                /** Data format for response. */
-                alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Name of the resource to list `Constraints` for. */
-                resource: string;
-            }): Request<ListAvailableOrgPolicyConstraintsResponse>;            
-            
             /** Lists all the `Policies` set for a particular resource. */
             listOrgPolicies(request: {            
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -1604,17 +1374,41 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
                 /** Name of the resource to list Policies for. */
                 resource: string;
             }): Request<ListOrgPoliciesResponse>;            
+            
+            /** Lists `Constraints` that could be applied on the specified resource. */
+            listAvailableOrgPolicyConstraints(request: {            
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Name of the resource to list `Constraints` for. */
+                resource: string;
+            }): Request<ListAvailableOrgPolicyConstraintsResponse>;            
             
             /** Gets the access control policy for an Organization resource. May be empty */
             /** if no such policy or resource exists. The `resource` field should be the */
@@ -1623,6 +1417,14 @@ declare namespace gapi.client {
             /** Authorization requires the Google IAM permission */
             /** `resourcemanager.organizations.getIamPolicy` on the specified organization */
             getIamPolicy(request: {            
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -1641,14 +1443,6 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
                 /** REQUIRED: The resource for which the policy is being requested. */
                 /** See the operation documentation for the appropriate value for this field. */
                 resource: string;
@@ -1662,6 +1456,14 @@ declare namespace gapi.client {
             /** Search will only return organizations on which the user has the permission */
             /** `resourcemanager.organizations.get` */
             search(request: {            
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -1680,14 +1482,6 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
             }): Request<SearchOrganizationsResponse>;            
             
             /** Gets a `Policy` on a resource. */
@@ -1697,6 +1491,14 @@ declare namespace gapi.client {
             /** `etag` value can be used with `SetOrgPolicy()` to create or update a */
             /** `Policy` during read-modify-write. */
             getOrgPolicy(request: {            
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -1715,20 +1517,20 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
                 /** Name of the resource the `Policy` is set on. */
                 resource: string;
             }): Request<OrgPolicy>;            
             
             /** Fetches an Organization resource identified by the specified resource name. */
             get(request: {            
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -1747,14 +1549,6 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
                 /** The resource name of the Organization to fetch, e.g. "organizations/1234". */
                 name: string;
             }): Request<Organization>;            
@@ -1763,6 +1557,14 @@ declare namespace gapi.client {
             /** `Policies` in the resource hierarchy. The returned `Policy` will not have */
             /** an `etag`set because it is a computed `Policy` across multiple resources. */
             getEffectiveOrgPolicy(request: {            
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -1781,14 +1583,6 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
                 /** The name of the resource to start computing the effective `Policy`. */
                 resource: string;
             }): Request<OrgPolicy>;            
@@ -1799,6 +1593,14 @@ declare namespace gapi.client {
             /**  */
             /** There are no permissions required for making this API call. */
             testIamPermissions(request: {            
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -1817,14 +1619,6 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
                 /** REQUIRED: The resource for which the policy detail is being requested. */
                 /** See the operation documentation for the appropriate value for this field. */
                 resource: string;
@@ -1832,6 +1626,14 @@ declare namespace gapi.client {
             
             /** Clears a `Policy` from a resource. */
             clearOrgPolicy(request: {            
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -1850,14 +1652,6 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
                 /** Name of the resource for the `Policy` to clear. */
                 resource: string;
             }): Request<{}>;            
@@ -1868,6 +1662,14 @@ declare namespace gapi.client {
             /** Not supplying an `etag` on the request `Policy` results in an unconditional */
             /** write of the `Policy`. */
             setOrgPolicy(request: {            
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -1886,14 +1688,6 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
                 /** Resource name of the resource to attach the `Policy`. */
                 resource: string;
             }): Request<OrgPolicy>;            
@@ -1905,6 +1699,14 @@ declare namespace gapi.client {
             /** Authorization requires the Google IAM permission */
             /** `resourcemanager.organizations.setIamPolicy` on the specified organization */
             setIamPolicy(request: {            
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -1923,14 +1725,6 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
                 /** REQUIRED: The resource for which the policy is being specified. */
                 /** See the operation documentation for the appropriate value for this field. */
                 resource: string;
@@ -1943,6 +1737,14 @@ declare namespace gapi.client {
             /** method to poll the operation result at intervals as recommended by the API */
             /** service. */
             get(request: {            
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -1961,14 +1763,6 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
                 /** The name of the operation resource. */
                 name: string;
             }): Request<Operation>;            
@@ -1982,6 +1776,14 @@ declare namespace gapi.client {
             /** For example, a Lien with a `parent` of `projects/1234` requires permission */
             /** `resourcemanager.projects.updateLiens`. */
             delete(request: {            
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -2000,14 +1802,6 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
                 /** The name/identifier of the Lien to delete. */
                 name: string;
             }): Request<{}>;            
@@ -2018,6 +1812,14 @@ declare namespace gapi.client {
             /** For example, a Lien with a `parent` of `projects/1234` requires permission */
             /** `resourcemanager.projects.get`. */
             list(request: {            
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -2036,21 +1838,13 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** The name of the resource to list all attached Liens. */
-                /** For example, `projects/1234`. */
-                parent?: string;
                 /** The `next_page_token` value returned from a previous List request, if any. */
                 pageToken?: string;
                 /** The maximum number of items to return. This is a suggestion for the server. */
                 pageSize?: number;
+                /** The name of the resource to list all attached Liens. */
+                /** For example, `projects/1234`. */
+                parent?: string;
             }): Request<ListLiensResponse>;            
             
             /** Create a Lien which applies to the resource denoted by the `parent` field. */
@@ -2061,6 +1855,14 @@ declare namespace gapi.client {
             /**  */
             /** NOTE: Some resources may limit the number of Liens which may be applied. */
             create(request: {            
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -2079,15 +1881,213 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
+            }): Request<Lien>;            
+            
+        }
+        
+        interface FoldersResource {
+            /** Clears a `Policy` from a resource. */
+            clearOrgPolicy(request: {            
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** JSONP */
                 callback?: string;
-            }): Request<Lien>;            
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Name of the resource for the `Policy` to clear. */
+                resource: string;
+            }): Request<{}>;            
+            
+            /** Updates the specified `Policy` on the resource. Creates a new `Policy` for */
+            /** that `Constraint` on the resource if one does not exist. */
+            /**  */
+            /** Not supplying an `etag` on the request `Policy` results in an unconditional */
+            /** write of the `Policy`. */
+            setOrgPolicy(request: {            
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Resource name of the resource to attach the `Policy`. */
+                resource: string;
+            }): Request<OrgPolicy>;            
+            
+            /** Lists `Constraints` that could be applied on the specified resource. */
+            listAvailableOrgPolicyConstraints(request: {            
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Name of the resource to list `Constraints` for. */
+                resource: string;
+            }): Request<ListAvailableOrgPolicyConstraintsResponse>;            
+            
+            /** Lists all the `Policies` set for a particular resource. */
+            listOrgPolicies(request: {            
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Name of the resource to list Policies for. */
+                resource: string;
+            }): Request<ListOrgPoliciesResponse>;            
+            
+            /** Gets a `Policy` on a resource. */
+            /**  */
+            /** If no `Policy` is set on the resource, a `Policy` is returned with default */
+            /** values including `POLICY_TYPE_NOT_SET` for the `policy_type oneof`. The */
+            /** `etag` value can be used with `SetOrgPolicy()` to create or update a */
+            /** `Policy` during read-modify-write. */
+            getOrgPolicy(request: {            
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Name of the resource the `Policy` is set on. */
+                resource: string;
+            }): Request<OrgPolicy>;            
+            
+            /** Gets the effective `Policy` on a resource. This is the result of merging */
+            /** `Policies` in the resource hierarchy. The returned `Policy` will not have */
+            /** an `etag`set because it is a computed `Policy` across multiple resources. */
+            getEffectiveOrgPolicy(request: {            
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** The name of the resource to start computing the effective `Policy`. */
+                resource: string;
+            }): Request<OrgPolicy>;            
             
         }
     }

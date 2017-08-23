@@ -14,18 +14,6 @@ gapi.load('client', () => {
         // declare client_id registered in Google Developers Console
         const client_id = '<<PUT YOUR CLIENT ID HERE>>';
         const scope = [     
-                // View your phone numbers
-                'https://www.googleapis.com/auth/user.phonenumbers.read',
-            
-                // View your email address
-                'https://www.googleapis.com/auth/userinfo.email',
-            
-                // View your contacts
-                'https://www.googleapis.com/auth/contacts.readonly',
-            
-                // View your complete date of birth
-                'https://www.googleapis.com/auth/user.birthday.read',
-            
                 // Know the list of people in your circles, your age range, and language
                 'https://www.googleapis.com/auth/plus.login',
             
@@ -40,6 +28,18 @@ gapi.load('client', () => {
             
                 // View your street addresses
                 'https://www.googleapis.com/auth/user.addresses.read',
+            
+                // View your email address
+                'https://www.googleapis.com/auth/userinfo.email',
+            
+                // View your phone numbers
+                'https://www.googleapis.com/auth/user.phonenumbers.read',
+            
+                // View your contacts
+                'https://www.googleapis.com/auth/contacts.readonly',
+            
+                // View your complete date of birth
+                'https://www.googleapis.com/auth/user.birthday.read',
             ];
         const immediate = true;
 
@@ -55,14 +55,6 @@ gapi.load('client', () => {
 
     async function run() {  
         
-        // Get a specific contact group owned by the authenticated user by specifying
-        // a contact group resource name.
-        await gapi.client.contactGroups.get({ resourceName: "resourceName",  }); 
-        
-        // Update the name of an existing contact group owned by the authenticated
-        // user.
-        await gapi.client.contactGroups.update({ resourceName: "resourceName",  }); 
-        
         // Get a list of contact groups owned by the authenticated user by specifying
         // a list of contact group resource names.
         await gapi.client.contactGroups.batchGet({  }); 
@@ -77,6 +69,17 @@ gapi.load('client', () => {
         
         // Create a new contact group owned by the authenticated user.
         await gapi.client.contactGroups.create({  }); 
+        
+        // Get a specific contact group owned by the authenticated user by specifying
+        // a contact group resource name.
+        await gapi.client.contactGroups.get({ resourceName: "resourceName",  }); 
+        
+        // Update the name of an existing contact group owned by the authenticated
+        // user.
+        await gapi.client.contactGroups.update({ resourceName: "resourceName",  }); 
+        
+        // Delete a contact person. Any non-contact data will not be deleted.
+        await gapi.client.people.deleteContact({ resourceName: "resourceName",  }); 
         
         // Provides information about a list of specific people by specifying a list
         // of requested resource names. Use `people/me` to indicate the authenticated
@@ -106,9 +109,6 @@ gapi.load('client', () => {
         await gapi.client.people.updateContact({ resourceName: "resourceName",  }); 
         
         // Create a new contact and return the person resource for that contact.
-        await gapi.client.people.createContact({  }); 
-        
-        // Delete a contact person. Any non-contact data will not be deleted.
-        await gapi.client.people.deleteContact({ resourceName: "resourceName",  });
+        await gapi.client.people.createContact({  });
     }
 });

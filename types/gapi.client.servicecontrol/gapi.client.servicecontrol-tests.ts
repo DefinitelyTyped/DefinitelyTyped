@@ -34,6 +34,21 @@ gapi.load('client', () => {
 
     async function run() {  
         
+        // Checks an operation with Google Service Control to decide whether
+        // the given operation should proceed. It should be called before the
+        // operation is executed.
+        // 
+        // If feasible, the client should cache the check results and reuse them for
+        // 60 seconds. In case of server errors, the client can rely on the cached
+        // results for longer time.
+        // 
+        // NOTE: the `CheckRequest` has the size limit of 64KB.
+        // 
+        // This method requires the `servicemanagement.services.check` permission
+        // on the specified service. For more information, see
+        // [Google Cloud IAM](https://cloud.google.com/iam).
+        await gapi.client.services.check({ serviceName: "serviceName",  }); 
+        
         // Releases previously allocated quota done through AllocateQuota method.
         // 
         // This method requires the `servicemanagement.services.quota`
@@ -118,21 +133,6 @@ gapi.load('client', () => {
         // This method requires the `servicemanagement.services.quota`
         // permission on the specified service. For more information, see
         // [Google Cloud IAM](https://cloud.google.com/iam).
-        await gapi.client.services.startReconciliation({ serviceName: "serviceName",  }); 
-        
-        // Checks an operation with Google Service Control to decide whether
-        // the given operation should proceed. It should be called before the
-        // operation is executed.
-        // 
-        // If feasible, the client should cache the check results and reuse them for
-        // 60 seconds. In case of server errors, the client can rely on the cached
-        // results for longer time.
-        // 
-        // NOTE: the `CheckRequest` has the size limit of 64KB.
-        // 
-        // This method requires the `servicemanagement.services.check` permission
-        // on the specified service. For more information, see
-        // [Google Cloud IAM](https://cloud.google.com/iam).
-        await gapi.client.services.check({ serviceName: "serviceName",  });
+        await gapi.client.services.startReconciliation({ serviceName: "serviceName",  });
     }
 });

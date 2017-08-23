@@ -68,11 +68,6 @@ After that you can use Google Slides API resources:
 ```typescript 
     
 /* 
-Gets the latest version of the specified presentation.  
-*/
-await gapi.client.presentations.get({ presentationId: "presentationId",  }); 
-    
-/* 
 Applies one or more updates to the presentation.
 
 Each request is validated before
@@ -102,5 +97,10 @@ Creates a new presentation using the title given in the request. Other
 fields in the request are ignored.
 Returns the created presentation.  
 */
-await gapi.client.presentations.create({  });
+await gapi.client.presentations.create({  }); 
+    
+/* 
+Gets the latest version of the specified presentation.  
+*/
+await gapi.client.presentations.get({ presentationId: "presentationId",  });
 ```

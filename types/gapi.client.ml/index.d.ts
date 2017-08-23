@@ -20,16 +20,109 @@ declare namespace gapi.client {
     
     namespace ml {
         
+        interface GoogleCloudMlV1__ListJobsResponse {
+            /** The list of jobs. */
+            jobs?: GoogleCloudMlV1__Job[];
+            /** Optional. Pass this token as the `page_token` field of the request for a */
+            /** subsequent call. */
+            nextPageToken?: string;
+        }
+        
+        interface GoogleLongrunning__Operation {
+            /** The normal response of the operation in case of success.  If the original */
+            /** method returns no data on success, such as `Delete`, the response is */
+            /** `google.protobuf.Empty`.  If the original method is standard */
+            /** `Get`/`Create`/`Update`, the response should be the resource.  For other */
+            /** methods, the response should have the type `XxxResponse`, where `Xxx` */
+            /** is the original method name.  For example, if the original method name */
+            /** is `TakeSnapshot()`, the inferred response type is */
+            /** `TakeSnapshotResponse`. */
+            response?: Record<string, any>;            
+            /** The server-assigned name, which is only unique within the same service that */
+            /** originally returns it. If you use the default HTTP mapping, the */
+            /** `name` should have the format of `operations/some/unique/name`. */
+            name?: string;
+            /** The error result of the operation in case of failure or cancellation. */
+            error?: GoogleRpc__Status;
+            /** Service-specific metadata associated with the operation.  It typically */
+            /** contains progress information and common metadata such as create time. */
+            /** Some services might not provide such metadata.  Any method that returns a */
+            /** long-running operation should document the metadata type, if any. */
+            metadata?: Record<string, any>;            
+            /** If the value is `false`, it means the operation is still in progress. */
+            /** If true, the operation is completed, and either `error` or `response` is */
+            /** available. */
+            done?: boolean;
+        }
+        
+        interface GoogleIamV1__AuditConfig {
+            /**  */
+            exemptedMembers?: string[];
+            /** Specifies a service that will be enabled for audit logging. */
+            /** For example, `storage.googleapis.com`, `cloudsql.googleapis.com`. */
+            /** `allServices` is a special value that covers all services. */
+            service?: string;
+            /** The configuration for logging of each type of permission. */
+            /** Next ID: 4 */
+            auditLogConfigs?: GoogleIamV1__AuditLogConfig[];
+        }
+        
+        interface GoogleCloudMlV1__Model {
+            /** Output only. The default version of the model. This version will be used to */
+            /** handle prediction requests that do not specify a version. */
+            /**  */
+            /** You can change the default version by calling */
+            /** [projects.methods.versions.setDefault](/ml-engine/reference/rest/v1/projects.models.versions/setDefault). */
+            defaultVersion?: GoogleCloudMlV1__Version;
+            /** Optional. The list of regions where the model is going to be deployed. */
+            /** Currently only one region per model is supported. */
+            /** Defaults to 'us-central1' if nothing is set. */
+            /** Note: */
+            /** &#42;   No matter where a model is deployed, it can always be accessed by */
+            /**     users from anywhere, both for online and batch prediction. */
+            /** &#42;   The region for a batch prediction job is set by the region field when */
+            /**     submitting the batch prediction job and does not take its value from */
+            /**     this field. */
+            regions?: string[];
+            /** Required. The name specified for the model when it was created. */
+            /**  */
+            /** The model name must be unique within the project it is created in. */
+            name?: string;
+            /** Optional. The description specified for the model when it was created. */
+            description?: string;
+            /** Optional. If true, enables StackDriver Logging for online prediction. */
+            /** Default is false. */
+            onlinePredictionLogging?: boolean;
+        }
+        
+        interface GoogleIamV1__TestIamPermissionsRequest {
+            /** The set of permissions to check for the `resource`. Permissions with */
+            /** wildcards (such as '&#42;' or 'storage.&#42;') are not allowed. For more */
+            /** information see */
+            /** [IAM Overview](https://cloud.google.com/iam/docs/overview#permissions). */
+            permissions?: string[];
+        }
+        
+        interface GoogleCloudMlV1__ListVersionsResponse {
+            /** The list of versions. */
+            versions?: GoogleCloudMlV1__Version[];
+            /** Optional. Pass this token as the `page_token` field of the request for a */
+            /** subsequent call. */
+            nextPageToken?: string;
+        }
+        
         interface GoogleIamV1__LogConfig {
+            /** Counter options. */
+            counter?: GoogleIamV1_LogConfig_CounterOptions;
             /** Data access options. */
             dataAccess?: GoogleIamV1_LogConfig_DataAccessOptions;
             /** Cloud audit options. */
             cloudAudit?: GoogleIamV1_LogConfig_CloudAuditOptions;
-            /** Counter options. */
-            counter?: GoogleIamV1_LogConfig_CounterOptions;
         }
         
         interface GoogleRpc__Status {
+            /** The status code, which should be an enum value of google.rpc.Code. */
+            code?: number;
             /** A developer-facing error message, which should be in English. Any */
             /** user-facing error message should be localized and sent in the */
             /** google.rpc.Status.details field, or localized by the client. */
@@ -37,8 +130,6 @@ declare namespace gapi.client {
             /** A list of messages that carry the error details.  There is a common set of */
             /** message types for APIs to use. */
             details?: Array<Record<string, any>>;            
-            /** The status code, which should be an enum value of google.rpc.Code. */
-            code?: number;
         }
         
         interface GoogleCloudMlV1__AutoScaling {
@@ -179,10 +270,18 @@ declare namespace gapi.client {
         }
         
         interface GoogleCloudMlV1__Job {
-            /** Output only. The details of a failure or a cancellation. */
-            errorMessage?: string;
+            /** Output only. When the job was created. */
+            createTime?: string;
+            /** Input parameters to create a training job. */
+            trainingInput?: GoogleCloudMlV1__TrainingInput;
+            /** Input parameters to create a prediction job. */
+            predictionInput?: GoogleCloudMlV1__PredictionInput;
+            /** Output only. The detailed state of a job. */
+            state?: string;
             /** Required. The user-specified id of the job. */
             jobId?: string;
+            /** Output only. The details of a failure or a cancellation. */
+            errorMessage?: string;
             /** Output only. When the job processing was completed. */
             endTime?: string;
             /** Output only. When the job processing was started. */
@@ -191,24 +290,16 @@ declare namespace gapi.client {
             predictionOutput?: GoogleCloudMlV1__PredictionOutput;
             /** The current training job result. */
             trainingOutput?: GoogleCloudMlV1__TrainingOutput;
-            /** Input parameters to create a training job. */
-            trainingInput?: GoogleCloudMlV1__TrainingInput;
-            /** Output only. When the job was created. */
-            createTime?: string;
-            /** Input parameters to create a prediction job. */
-            predictionInput?: GoogleCloudMlV1__PredictionInput;
-            /** Output only. The detailed state of a job. */
-            state?: string;
         }
         
         interface GoogleApi__HttpBody {
-            /** The HTTP Content-Type string representing the content type of the body. */
-            contentType?: string;
             /** Application specific response metadata. Must be set in the first response */
             /** for streaming APIs. */
             extensions?: Array<Record<string, any>>;            
             /** HTTP body binary data. */
             data?: string;
+            /** The HTTP Content-Type string representing the content type of the body. */
+            contentType?: string;
         }
         
         interface GoogleCloudMlV1__GetConfigResponse {
@@ -250,14 +341,14 @@ declare namespace gapi.client {
         }
         
         interface GoogleCloudMlV1__PredictionOutput {
-            /** The number of data instances which resulted in errors. */
-            errorCount?: string;
             /** Node hours used by the batch prediction job. */
             nodeHours?: number;
             /** The output Google Cloud Storage location provided at the job creation time. */
             outputPath?: string;
             /** The number of generated predictions. */
             predictionCount?: string;
+            /** The number of data instances which resulted in errors. */
+            errorCount?: string;
         }
         
         interface GoogleIamV1__Policy {
@@ -294,26 +385,26 @@ declare namespace gapi.client {
         }
         
         interface GoogleLongrunning__ListOperationsResponse {
-            /** The standard List next-page token. */
-            nextPageToken?: string;
             /** A list of operations that matches the specified filter in the request. */
             operations?: GoogleLongrunning__Operation[];
+            /** The standard List next-page token. */
+            nextPageToken?: string;
         }
         
         interface GoogleIamV1__Condition {
+            /** The objects of the condition. This is mutually exclusive with 'value'. */
+            values?: string[];
+            /** Trusted attributes supplied by the IAM system. */
+            iam?: string;
+            /** An operator to apply the subject with. */
+            op?: string;
+            /** Trusted attributes discharged by the service. */
+            svc?: string;
             /** DEPRECATED. Use 'values' instead. */
             value?: string;
             /** Trusted attributes supplied by any service that owns resources and uses */
             /** the IAM system for access control. */
             sys?: string;
-            /** Trusted attributes supplied by the IAM system. */
-            iam?: string;
-            /** The objects of the condition. This is mutually exclusive with 'value'. */
-            values?: string[];
-            /** An operator to apply the subject with. */
-            op?: string;
-            /** Trusted attributes discharged by the service. */
-            svc?: string;
         }
         
         interface GoogleCloudMlV1__ManualScaling {
@@ -322,19 +413,6 @@ declare namespace gapi.client {
             /** this model will be proportional to `nodes` &#42; number of hours since */
             /** last billing cycle plus the cost for each prediction performed. */
             nodes?: number;
-        }
-        
-        interface GoogleCloudMlV1__TrainingOutput {
-            /** Results for individual Hyperparameter trials. */
-            /** Only set for hyperparameter tuning jobs. */
-            trials?: GoogleCloudMlV1__HyperparameterOutput[];
-            /** The number of hyperparameter tuning trials that completed successfully. */
-            /** Only set for hyperparameter tuning jobs. */
-            completedTrialCount?: string;
-            /** Whether this job is a hyperparameter tuning job. */
-            isHyperparameterTuningJob?: boolean;
-            /** The amount of ML units consumed by the job. */
-            consumedMLUnits?: number;
         }
         
         interface GoogleIamV1__Binding {
@@ -375,7 +453,24 @@ declare namespace gapi.client {
             role?: string;
         }
         
+        interface GoogleCloudMlV1__TrainingOutput {
+            /** Results for individual Hyperparameter trials. */
+            /** Only set for hyperparameter tuning jobs. */
+            trials?: GoogleCloudMlV1__HyperparameterOutput[];
+            /** The number of hyperparameter tuning trials that completed successfully. */
+            /** Only set for hyperparameter tuning jobs. */
+            completedTrialCount?: string;
+            /** Whether this job is a hyperparameter tuning job. */
+            isHyperparameterTuningJob?: boolean;
+            /** The amount of ML units consumed by the job. */
+            consumedMLUnits?: number;
+        }
+        
         interface GoogleIamV1__Rule {
+            /** Human-readable description of the rule. */
+            description?: string;
+            /** Additional restrictions that must be met */
+            conditions?: GoogleIamV1__Condition[];
             /** The config returned to callers of tech.iam.IAM.CheckPolicy for any entries */
             /** that match the LOG action. */
             logConfig?: GoogleIamV1__LogConfig[];
@@ -393,10 +488,6 @@ declare namespace gapi.client {
             /** The format for in and not_in entries is the same as for members in a */
             /** Binding (see google/iam/v1/policy.proto). */
             notIn?: string[];
-            /** Human-readable description of the rule. */
-            description?: string;
-            /** Additional restrictions that must be met */
-            conditions?: GoogleIamV1__Condition[];
         }
         
         interface GoogleIamV1_LogConfig_CounterOptions {
@@ -413,10 +504,10 @@ declare namespace gapi.client {
         }
         
         interface GoogleCloudMlV1_HyperparameterOutput_HyperparameterMetric {
-            /** The global training step for this metric. */
-            trainingStep?: string;
             /** The objective value at this training step. */
             objectiveValue?: number;
+            /** The global training step for this metric. */
+            trainingStep?: string;
         }
         
         interface GoogleIamV1_LogConfig_CloudAuditOptions {
@@ -425,11 +516,13 @@ declare namespace gapi.client {
         }
         
         interface GoogleCloudMlV1__Version {
-            /** Output only. The time the version was last used for prediction. */
-            lastUseTime?: string;
+            /** Output only. The details of a failure or a cancellation. */
+            errorMessage?: string;
             /** Optional. The Google Cloud ML runtime version to use for this deployment. */
             /** If not set, Google Cloud ML will choose a version. */
             runtimeVersion?: string;
+            /** Output only. The time the version was last used for prediction. */
+            lastUseTime?: string;
             /** Optional. The description specified for the version when it was created. */
             description?: string;
             /** Required. The Google Cloud Storage location of the trained model used to */
@@ -471,8 +564,6 @@ declare namespace gapi.client {
             /**  */
             /** The version name must be unique within the model it is created in. */
             name?: string;
-            /** Output only. The details of a failure or a cancellation. */
-            errorMessage?: string;
         }
         
         interface GoogleCloudMlV1__ParameterSpec {
@@ -511,6 +602,19 @@ declare namespace gapi.client {
         }
         
         interface GoogleCloudMlV1__PredictionInput {
+            /** Required. The format of the input data files. */
+            dataFormat?: string;
+            /** Optional. Number of records per batch, defaults to 64. */
+            /** The service will buffer batch_size number of records in memory before */
+            /** invoking one Tensorflow prediction call internally. So take the record */
+            /** size and memory available into consideration when setting this parameter. */
+            batchSize?: string;
+            /** Optional. The Google Cloud ML runtime version to use for this batch */
+            /** prediction. If not set, Google Cloud ML will pick the runtime version used */
+            /** during the CreateVersion request for this model version, or choose the */
+            /** latest stable version when model version information is not available */
+            /** such as when the model is specified by uri. */
+            runtimeVersion?: string;
             /** Required. The Google Cloud Storage location of the input data files. */
             /** May contain wildcards. */
             inputPaths?: string[];
@@ -535,19 +639,32 @@ declare namespace gapi.client {
             /** Optional. The maximum number of workers to be used for parallel processing. */
             /** Defaults to 10 if not specified. */
             maxWorkerCount?: string;
-            /** Required. The format of the input data files. */
-            dataFormat?: string;
-            /** Optional. The Google Cloud ML runtime version to use for this batch */
-            /** prediction. If not set, Google Cloud ML will pick the runtime version used */
-            /** during the CreateVersion request for this model version, or choose the */
-            /** latest stable version when model version information is not available */
-            /** such as when the model is specified by uri. */
-            runtimeVersion?: string;
-            /** Optional. Number of records per batch, defaults to 64. */
-            /** The service will buffer batch_size number of records in memory before */
-            /** invoking one Tensorflow prediction call internally. So take the record */
-            /** size and memory available into consideration when setting this parameter. */
-            batchSize?: string;
+        }
+        
+        interface GoogleCloudMlV1__OperationMetadata {
+            /** Contains the name of the model associated with the operation. */
+            modelName?: string;
+            /** Contains the version associated with the operation. */
+            version?: GoogleCloudMlV1__Version;
+            /** The time operation processing completed. */
+            endTime?: string;
+            /** The operation type. */
+            operationType?: string;
+            /** The time operation processing started. */
+            startTime?: string;
+            /** Indicates whether a request to cancel this operation has been made. */
+            isCancellationRequested?: boolean;
+            /** The time the operation was submitted. */
+            createTime?: string;
+        }
+        
+        interface GoogleIamV1__AuditLogConfig {
+            /** Specifies the identities that do not cause logging for this type of */
+            /** permission. */
+            /** Follows the same format of Binding.members. */
+            exemptedMembers?: string[];
+            /** The log type that this config enables. */
+            logType?: string;
         }
         
         interface GoogleType__Expr {
@@ -567,32 +684,6 @@ declare namespace gapi.client {
             /** its purpose. This can be used e.g. in UIs which allow to enter the */
             /** expression. */
             title?: string;
-        }
-        
-        interface GoogleIamV1__AuditLogConfig {
-            /** Specifies the identities that do not cause logging for this type of */
-            /** permission. */
-            /** Follows the same format of Binding.members. */
-            exemptedMembers?: string[];
-            /** The log type that this config enables. */
-            logType?: string;
-        }
-        
-        interface GoogleCloudMlV1__OperationMetadata {
-            /** Contains the version associated with the operation. */
-            version?: GoogleCloudMlV1__Version;
-            /** The time operation processing completed. */
-            endTime?: string;
-            /** The operation type. */
-            operationType?: string;
-            /** The time operation processing started. */
-            startTime?: string;
-            /** Indicates whether a request to cancel this operation has been made. */
-            isCancellationRequested?: boolean;
-            /** The time the operation was submitted. */
-            createTime?: string;
-            /** Contains the name of the model associated with the operation. */
-            modelName?: string;
         }
         
         interface GoogleCloudMlV1__HyperparameterSpec {
@@ -627,138 +718,259 @@ declare namespace gapi.client {
             goal?: string;
         }
         
-        interface GoogleCloudMlV1__ListJobsResponse {
-            /** The list of jobs. */
-            jobs?: GoogleCloudMlV1__Job[];
-            /** Optional. Pass this token as the `page_token` field of the request for a */
-            /** subsequent call. */
-            nextPageToken?: string;
-        }
-        
-        interface GoogleLongrunning__Operation {
-            /** If the value is `false`, it means the operation is still in progress. */
-            /** If true, the operation is completed, and either `error` or `response` is */
-            /** available. */
-            done?: boolean;
-            /** The normal response of the operation in case of success.  If the original */
-            /** method returns no data on success, such as `Delete`, the response is */
-            /** `google.protobuf.Empty`.  If the original method is standard */
-            /** `Get`/`Create`/`Update`, the response should be the resource.  For other */
-            /** methods, the response should have the type `XxxResponse`, where `Xxx` */
-            /** is the original method name.  For example, if the original method name */
-            /** is `TakeSnapshot()`, the inferred response type is */
-            /** `TakeSnapshotResponse`. */
-            response?: Record<string, any>;            
-            /** The server-assigned name, which is only unique within the same service that */
-            /** originally returns it. If you use the default HTTP mapping, the */
-            /** `name` should have the format of `operations/some/unique/name`. */
-            name?: string;
-            /** The error result of the operation in case of failure or cancellation. */
-            error?: GoogleRpc__Status;
-            /** Service-specific metadata associated with the operation.  It typically */
-            /** contains progress information and common metadata such as create time. */
-            /** Some services might not provide such metadata.  Any method that returns a */
-            /** long-running operation should document the metadata type, if any. */
-            metadata?: Record<string, any>;            
-        }
-        
-        interface GoogleIamV1__AuditConfig {
-            /** Specifies a service that will be enabled for audit logging. */
-            /** For example, `storage.googleapis.com`, `cloudsql.googleapis.com`. */
-            /** `allServices` is a special value that covers all services. */
-            service?: string;
-            /** The configuration for logging of each type of permission. */
-            /** Next ID: 4 */
-            auditLogConfigs?: GoogleIamV1__AuditLogConfig[];
-            /**  */
-            exemptedMembers?: string[];
-        }
-        
-        interface GoogleCloudMlV1__Model {
-            /** Optional. The list of regions where the model is going to be deployed. */
-            /** Currently only one region per model is supported. */
-            /** Defaults to 'us-central1' if nothing is set. */
-            /** Note: */
-            /** &#42;   No matter where a model is deployed, it can always be accessed by */
-            /**     users from anywhere, both for online and batch prediction. */
-            /** &#42;   The region for a batch prediction job is set by the region field when */
-            /**     submitting the batch prediction job and does not take its value from */
-            /**     this field. */
-            regions?: string[];
-            /** Required. The name specified for the model when it was created. */
-            /**  */
-            /** The model name must be unique within the project it is created in. */
-            name?: string;
-            /** Optional. The description specified for the model when it was created. */
-            description?: string;
-            /** Optional. If true, enables StackDriver Logging for online prediction. */
-            /** Default is false. */
-            onlinePredictionLogging?: boolean;
-            /** Output only. The default version of the model. This version will be used to */
-            /** handle prediction requests that do not specify a version. */
-            /**  */
-            /** You can change the default version by calling */
-            /** [projects.methods.versions.setDefault](/ml-engine/reference/rest/v1/projects.models.versions/setDefault). */
-            defaultVersion?: GoogleCloudMlV1__Version;
-        }
-        
-        interface GoogleCloudMlV1__ListVersionsResponse {
-            /** Optional. Pass this token as the `page_token` field of the request for a */
-            /** subsequent call. */
-            nextPageToken?: string;
-            /** The list of versions. */
-            versions?: GoogleCloudMlV1__Version[];
-        }
-        
-        interface GoogleIamV1__TestIamPermissionsRequest {
-            /** The set of permissions to check for the `resource`. Permissions with */
-            /** wildcards (such as '&#42;' or 'storage.&#42;') are not allowed. For more */
-            /** information see */
-            /** [IAM Overview](https://cloud.google.com/iam/docs/overview#permissions). */
-            permissions?: string[];
-        }
-        
-        interface VersionsResource {
-            /** Deletes a model version. */
-            /**  */
-            /** Each model can have multiple versions deployed and in use at any given */
-            /** time. Use this method to remove a single version. */
-            /**  */
-            /** Note: You cannot delete the version that is set as the default version */
-            /** of the model unless it is the only remaining version. */
-            delete(request: {            
+        interface JobsResource {
+            /** Lists the jobs in the project. */
+            list(request: {            
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
+                /** Optional. A page token to request the next page of results. */
+                /**  */
+                /** You get the token from the `next_page_token` field of the response from */
+                /** the previous call. */
+                pageToken?: string;
+                /** Optional. The number of jobs to retrieve per "page" of results. If there */
+                /** are more remaining results than this number, the response message will */
+                /** contain a valid value in the `next_page_token` field. */
+                /**  */
+                /** The default value is 20, and the maximum page size is 100. */
+                pageSize?: number;
+                /** Required. The name of the project for which to list jobs. */
+                parent: string;
+                /** Optional. Specifies the subset of jobs to retrieve. */
+                filter?: string;
+            }): Request<GoogleCloudMlV1__ListJobsResponse>;            
+            
+            /** Creates a training or a batch prediction job. */
+            create(request: {            
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
                 /** JSONP */
                 callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** Required. The name of the version. You can get the names of all the */
-                /** versions of a model by calling */
-                /** [projects.models.versions.list](/ml-engine/reference/rest/v1/projects.models.versions/list). */
-                name: string;
-            }): Request<GoogleLongrunning__Operation>;            
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Required. The project name. */
+                parent: string;
+            }): Request<GoogleCloudMlV1__Job>;            
             
+            /** Sets the access control policy on the specified resource. Replaces any */
+            /** existing policy. */
+            setIamPolicy(request: {            
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** REQUIRED: The resource for which the policy is being specified. */
+                /** See the operation documentation for the appropriate value for this field. */
+                resource: string;
+            }): Request<GoogleIamV1__Policy>;            
+            
+            /** Cancels a running job. */
+            cancel(request: {            
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Required. The name of the job to cancel. */
+                name: string;
+            }): Request<{}>;            
+            
+            /** Gets the access control policy for a resource. */
+            /** Returns an empty policy if the resource exists and does not have a policy */
+            /** set. */
+            getIamPolicy(request: {            
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** REQUIRED: The resource for which the policy is being requested. */
+                /** See the operation documentation for the appropriate value for this field. */
+                resource: string;
+            }): Request<GoogleIamV1__Policy>;            
+            
+            /** Describes a job. */
+            get(request: {            
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Required. The name of the job to get the description of. */
+                name: string;
+            }): Request<GoogleCloudMlV1__Job>;            
+            
+            /** Returns permissions that a caller has on the specified resource. */
+            /** If the resource does not exist, this will return an empty set of */
+            /** permissions, not a NOT_FOUND error. */
+            /**  */
+            /** Note: This operation is designed to be used for building permission-aware */
+            /** UIs and command-line tools, not for authorization checking. This operation */
+            /** may "fail open" without warning. */
+            testIamPermissions(request: {            
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** REQUIRED: The resource for which the policy detail is being requested. */
+                /** See the operation documentation for the appropriate value for this field. */
+                resource: string;
+            }): Request<GoogleIamV1__TestIamPermissionsResponse>;            
+            
+        }
+        
+        interface VersionsResource {
             /** Gets information about a model version. */
             /**  */
             /** Models can have multiple versions. You can call */
@@ -766,32 +978,32 @@ declare namespace gapi.client {
             /** to get the same information that this method returns for all of the */
             /** versions of a model. */
             get(request: {            
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
                 /** Required. The name of the version. */
                 name: string;
             }): Request<GoogleCloudMlV1__Version>;            
@@ -802,32 +1014,38 @@ declare namespace gapi.client {
             /** only a limited number of results at a time, you can request that the list */
             /** be retrieved in batches (called pages): */
             list(request: {            
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
+                /** Optional. The number of versions to retrieve per "page" of results. If */
+                /** there are more remaining results than this number, the response message */
+                /** will contain a valid value in the `next_page_token` field. */
+                /**  */
+                /** The default value is 20, and the maximum page size is 100. */
+                pageSize?: number;
                 /** Required. The name of the model for which to list the version. */
                 parent: string;
                 /** Optional. A page token to request the next page of results. */
@@ -835,12 +1053,6 @@ declare namespace gapi.client {
                 /** You get the token from the `next_page_token` field of the response from */
                 /** the previous call. */
                 pageToken?: string;
-                /** Optional. The number of versions to retrieve per "page" of results. If */
-                /** there are more remaining results than this number, the response message */
-                /** will contain a valid value in the `next_page_token` field. */
-                /**  */
-                /** The default value is 20, and the maximum page size is 100. */
-                pageSize?: number;
             }): Request<GoogleCloudMlV1__ListVersionsResponse>;            
             
             /** Creates a new version of a model from a trained TensorFlow model. */
@@ -852,32 +1064,32 @@ declare namespace gapi.client {
             /** new version to be the default, you must call */
             /** [projects.models.versions.setDefault](/ml-engine/reference/rest/v1/projects.models.versions/setDefault). */
             create(request: {            
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
                 /** Required. The name of the model. */
                 parent: string;
             }): Request<GoogleLongrunning__Operation>;            
@@ -891,72 +1103,148 @@ declare namespace gapi.client {
             /** default. You must make any subsequent changes to the default version */
             /** setting manually using this method. */
             setDefault(request: {            
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
                 /** Required. The name of the version to make the default for the model. You */
                 /** can get the names of all the versions of a model by calling */
                 /** [projects.models.versions.list](/ml-engine/reference/rest/v1/projects.models.versions/list). */
                 name: string;
             }): Request<GoogleCloudMlV1__Version>;            
             
+            /** Deletes a model version. */
+            /**  */
+            /** Each model can have multiple versions deployed and in use at any given */
+            /** time. Use this method to remove a single version. */
+            /**  */
+            /** Note: You cannot delete the version that is set as the default version */
+            /** of the model unless it is the only remaining version. */
+            delete(request: {            
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Required. The name of the version. You can get the names of all the */
+                /** versions of a model by calling */
+                /** [projects.models.versions.list](/ml-engine/reference/rest/v1/projects.models.versions/list). */
+                name: string;
+            }): Request<GoogleLongrunning__Operation>;            
+            
         }
         
         interface ModelsResource {
+            /** Deletes a model. */
+            /**  */
+            /** You can only delete a model if there are no versions in it. You can delete */
+            /** versions by calling */
+            /** [projects.models.versions.delete](/ml-engine/reference/rest/v1/projects.models.versions/delete). */
+            delete(request: {            
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Required. The name of the model. */
+                name: string;
+            }): Request<GoogleLongrunning__Operation>;            
+            
             /** Lists the models in a project. */
             /**  */
             /** Each project can contain multiple models, and each model can have multiple */
             /** versions. */
             list(request: {            
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
                 /** Optional. The number of models to retrieve per "page" of results. If there */
                 /** are more remaining results than this number, the response message will */
                 /** contain a valid value in the `next_page_token` field. */
@@ -972,106 +1260,106 @@ declare namespace gapi.client {
                 pageToken?: string;
             }): Request<GoogleCloudMlV1__ListModelsResponse>;            
             
-            /** Sets the access control policy on the specified resource. Replaces any */
-            /** existing policy. */
-            setIamPolicy(request: {            
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** REQUIRED: The resource for which the policy is being specified. */
-                /** See the operation documentation for the appropriate value for this field. */
-                resource: string;
-            }): Request<GoogleIamV1__Policy>;            
-            
             /** Creates a model which will later contain one or more versions. */
             /**  */
             /** You must add at least one version before you can request predictions from */
             /** the model. Add versions by calling */
             /** [projects.models.versions.create](/ml-engine/reference/rest/v1/projects.models.versions/create). */
             create(request: {            
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
                 /** Required. The project name. */
                 parent: string;
             }): Request<GoogleCloudMlV1__Model>;            
+            
+            /** Sets the access control policy on the specified resource. Replaces any */
+            /** existing policy. */
+            setIamPolicy(request: {            
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** REQUIRED: The resource for which the policy is being specified. */
+                /** See the operation documentation for the appropriate value for this field. */
+                resource: string;
+            }): Request<GoogleIamV1__Policy>;            
             
             /** Gets the access control policy for a resource. */
             /** Returns an empty policy if the resource exists and does not have a policy */
             /** set. */
             getIamPolicy(request: {            
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
                 /** REQUIRED: The resource for which the policy is being requested. */
                 /** See the operation documentation for the appropriate value for this field. */
                 resource: string;
@@ -1081,32 +1369,32 @@ declare namespace gapi.client {
             /** set), and the default version (if at least one version of the model has */
             /** been deployed). */
             get(request: {            
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
                 /** Required. The name of the model. */
                 name: string;
             }): Request<GoogleCloudMlV1__Model>;            
@@ -1119,108 +1407,113 @@ declare namespace gapi.client {
             /** UIs and command-line tools, not for authorization checking. This operation */
             /** may "fail open" without warning. */
             testIamPermissions(request: {            
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
                 /** REQUIRED: The resource for which the policy detail is being requested. */
                 /** See the operation documentation for the appropriate value for this field. */
                 resource: string;
             }): Request<GoogleIamV1__TestIamPermissionsResponse>;            
             
-            /** Deletes a model. */
-            /**  */
-            /** You can only delete a model if there are no versions in it. You can delete */
-            /** versions by calling */
-            /** [projects.models.versions.delete](/ml-engine/reference/rest/v1/projects.models.versions/delete). */
-            delete(request: {            
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Required. The name of the model. */
-                name: string;
-            }): Request<GoogleLongrunning__Operation>;            
-            
             versions: VersionsResource;
         }
         
         interface OperationsResource {
+            /** Starts asynchronous cancellation on a long-running operation.  The server */
+            /** makes a best effort to cancel the operation, but success is not */
+            /** guaranteed.  If the server doesn't support this method, it returns */
+            /** `google.rpc.Code.UNIMPLEMENTED`.  Clients can use */
+            /** Operations.GetOperation or */
+            /** other methods to check whether the cancellation succeeded or whether the */
+            /** operation completed despite cancellation. On successful cancellation, */
+            /** the operation is not deleted; instead, it becomes an operation with */
+            /** an Operation.error value with a google.rpc.Status.code of 1, */
+            /** corresponding to `Code.CANCELLED`. */
+            cancel(request: {            
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** The name of the operation resource to be cancelled. */
+                name: string;
+            }): Request<{}>;            
+            
             /** Deletes a long-running operation. This method indicates that the client is */
             /** no longer interested in the operation result. It does not cancel the */
             /** operation. If the server doesn't support this method, it returns */
             /** `google.rpc.Code.UNIMPLEMENTED`. */
             delete(request: {            
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
                 /** The name of the operation resource to be deleted. */
                 name: string;
             }): Request<{}>;            
@@ -1229,32 +1522,32 @@ declare namespace gapi.client {
             /** method to poll the operation result at intervals as recommended by the API */
             /** service. */
             get(request: {            
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
                 /** The name of the operation resource. */
                 name: string;
             }): Request<GoogleLongrunning__Operation>;            
@@ -1270,32 +1563,32 @@ declare namespace gapi.client {
             /** collection id, however overriding users must ensure the name binding */
             /** is the parent resource, without the operations collection id. */
             list(request: {            
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
                 /** The standard list page token. */
                 pageToken?: string;
                 /** The name of the operation's parent resource. */
@@ -1306,376 +1599,83 @@ declare namespace gapi.client {
                 filter?: string;
             }): Request<GoogleLongrunning__ListOperationsResponse>;            
             
-            /** Starts asynchronous cancellation on a long-running operation.  The server */
-            /** makes a best effort to cancel the operation, but success is not */
-            /** guaranteed.  If the server doesn't support this method, it returns */
-            /** `google.rpc.Code.UNIMPLEMENTED`.  Clients can use */
-            /** Operations.GetOperation or */
-            /** other methods to check whether the cancellation succeeded or whether the */
-            /** operation completed despite cancellation. On successful cancellation, */
-            /** the operation is not deleted; instead, it becomes an operation with */
-            /** an Operation.error value with a google.rpc.Status.code of 1, */
-            /** corresponding to `Code.CANCELLED`. */
-            cancel(request: {            
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** The name of the operation resource to be cancelled. */
-                name: string;
-            }): Request<{}>;            
-            
-        }
-        
-        interface JobsResource {
-            /** Returns permissions that a caller has on the specified resource. */
-            /** If the resource does not exist, this will return an empty set of */
-            /** permissions, not a NOT_FOUND error. */
-            /**  */
-            /** Note: This operation is designed to be used for building permission-aware */
-            /** UIs and command-line tools, not for authorization checking. This operation */
-            /** may "fail open" without warning. */
-            testIamPermissions(request: {            
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** REQUIRED: The resource for which the policy detail is being requested. */
-                /** See the operation documentation for the appropriate value for this field. */
-                resource: string;
-            }): Request<GoogleIamV1__TestIamPermissionsResponse>;            
-            
-            /** Lists the jobs in the project. */
-            list(request: {            
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Required. The name of the project for which to list jobs. */
-                parent: string;
-                /** Optional. Specifies the subset of jobs to retrieve. */
-                filter?: string;
-                /** Optional. A page token to request the next page of results. */
-                /**  */
-                /** You get the token from the `next_page_token` field of the response from */
-                /** the previous call. */
-                pageToken?: string;
-                /** Optional. The number of jobs to retrieve per "page" of results. If there */
-                /** are more remaining results than this number, the response message will */
-                /** contain a valid value in the `next_page_token` field. */
-                /**  */
-                /** The default value is 20, and the maximum page size is 100. */
-                pageSize?: number;
-            }): Request<GoogleCloudMlV1__ListJobsResponse>;            
-            
-            /** Creates a training or a batch prediction job. */
-            create(request: {            
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Required. The project name. */
-                parent: string;
-            }): Request<GoogleCloudMlV1__Job>;            
-            
-            /** Sets the access control policy on the specified resource. Replaces any */
-            /** existing policy. */
-            setIamPolicy(request: {            
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** REQUIRED: The resource for which the policy is being specified. */
-                /** See the operation documentation for the appropriate value for this field. */
-                resource: string;
-            }): Request<GoogleIamV1__Policy>;            
-            
-            /** Cancels a running job. */
-            cancel(request: {            
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Required. The name of the job to cancel. */
-                name: string;
-            }): Request<{}>;            
-            
-            /** Gets the access control policy for a resource. */
-            /** Returns an empty policy if the resource exists and does not have a policy */
-            /** set. */
-            getIamPolicy(request: {            
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** REQUIRED: The resource for which the policy is being requested. */
-                /** See the operation documentation for the appropriate value for this field. */
-                resource: string;
-            }): Request<GoogleIamV1__Policy>;            
-            
-            /** Describes a job. */
-            get(request: {            
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Required. The name of the job to get the description of. */
-                name: string;
-            }): Request<GoogleCloudMlV1__Job>;            
-            
         }
         
         interface ProjectsResource {
-            /** Get the service account information associated with your project. You need */
-            /** this information in order to grant the service account persmissions for */
-            /** the Google Cloud Storage location where you put your model training code */
-            /** for training the model with Google Cloud Machine Learning. */
-            getConfig(request: {            
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Required. The project name. */
-                name: string;
-            }): Request<GoogleCloudMlV1__GetConfigResponse>;            
-            
             /** Performs prediction on the data in the request. */
             /**  */
             /** &#42;&#42;&#42;&#42; REMOVE FROM GENERATED DOCUMENTATION */
             predict(request: {            
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
                 /** Required. The resource name of a model or a version. */
                 /**  */
                 /** Authorization: requires the `predict` permission on the specified resource. */
                 name: string;
             }): Request<GoogleApi__HttpBody>;            
             
+            /** Get the service account information associated with your project. You need */
+            /** this information in order to grant the service account persmissions for */
+            /** the Google Cloud Storage location where you put your model training code */
+            /** for training the model with Google Cloud Machine Learning. */
+            getConfig(request: {            
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Required. The project name. */
+                name: string;
+            }): Request<GoogleCloudMlV1__GetConfigResponse>;            
+            
+            jobs: JobsResource;
             models: ModelsResource;
             operations: OperationsResource;
-            jobs: JobsResource;
         }
     }
 }

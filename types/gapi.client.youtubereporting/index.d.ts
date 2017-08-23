@@ -25,21 +25,21 @@ declare namespace gapi.client {
     namespace youtubereporting {
         
         interface Job {
-            /** The creation date/time of the job. */
-            createTime?: string;
-            /** The type of reports this job creates. Corresponds to the ID of a */
-            /** ReportType. */
-            reportTypeId?: string;
-            /** The date/time when this job will expire/expired. After a job expired, no */
-            /** new reports are generated. */
-            expireTime?: string;
-            /** The name of the job (max. 100 characters). */
-            name?: string;
             /** True if this a system-managed job that cannot be modified by the user; */
             /** otherwise false. */
             systemManaged?: boolean;
             /** The server-generated ID of the job (max. 40 characters). */
             id?: string;
+            /** The creation date/time of the job. */
+            createTime?: string;
+            /** The date/time when this job will expire/expired. After a job expired, no */
+            /** new reports are generated. */
+            expireTime?: string;
+            /** The type of reports this job creates. Corresponds to the ID of a */
+            /** ReportType. */
+            reportTypeId?: string;
+            /** The name of the job (max. 100 characters). */
+            name?: string;
         }
         
         interface ListReportsResponse {
@@ -59,8 +59,6 @@ declare namespace gapi.client {
         }
         
         interface Report {
-            /** The date/time when this report was created. */
-            createTime?: string;
             /** The ID of the job that created this report. */
             jobId?: string;
             /** The server-generated ID of the report. */
@@ -75,6 +73,8 @@ declare namespace gapi.client {
             /** The start of the time period that the report instance covers. The value is */
             /** inclusive. */
             startTime?: string;
+            /** The date/time when this report was created. */
+            createTime?: string;
         }
         
         interface ListReportTypesResponse {
@@ -102,19 +102,23 @@ declare namespace gapi.client {
         }
         
         interface ListJobsResponse {
+            /** The list of jobs. */
+            jobs?: Job[];
             /** A token to retrieve next page of results. */
             /** Pass this value in the */
             /** ListJobsRequest.page_token */
             /** field in the subsequent call to `ListJobs` method to retrieve the next */
             /** page of results. */
             nextPageToken?: string;
-            /** The list of jobs. */
-            jobs?: Job[];
         }
         
         interface ReportTypesResource {
             /** Lists report types. */
             list(request: {            
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -129,24 +133,14 @@ declare namespace gapi.client {
                 "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** OAuth access token. */
+                access_token?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Requested page size. Server may return fewer report types than requested. */
-                /** If unspecified, server will pick an appropriate default. */
-                pageSize?: number;
-                /** The content owner's external ID on which behalf the user is acting on. If */
-                /** not set, the user is acting for himself (his own channel). */
-                onBehalfOfContentOwner?: string;
                 /** If set to true, also system-managed report types will be returned; */
                 /** otherwise only the report types that can be used to create new reporting */
                 /** jobs will be returned. */
@@ -156,6 +150,12 @@ declare namespace gapi.client {
                 /** ListReportTypesResponse.next_page_token */
                 /** returned in response to the previous call to the `ListReportTypes` method. */
                 pageToken?: string;
+                /** Requested page size. Server may return fewer report types than requested. */
+                /** If unspecified, server will pick an appropriate default. */
+                pageSize?: number;
+                /** The content owner's external ID on which behalf the user is acting on. If */
+                /** not set, the user is acting for himself (his own channel). */
+                onBehalfOfContentOwner?: string;
             }): Request<ListReportTypesResponse>;            
             
         }
@@ -164,6 +164,10 @@ declare namespace gapi.client {
             /** Method for media download. Download is supported */
             /** on the URI `/v1/media/{+name}?alt=media`. */
             download(request: {            
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -178,18 +182,14 @@ declare namespace gapi.client {
                 "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** OAuth access token. */
+                access_token?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** Name of the media that is being downloaded.  See */
                 /** ReadRequest.resource_name. */
                 resourceName: string;
@@ -200,6 +200,10 @@ declare namespace gapi.client {
         interface ReportsResource {
             /** Gets the metadata of a specific report. */
             get(request: {            
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -214,18 +218,14 @@ declare namespace gapi.client {
                 "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** OAuth access token. */
+                access_token?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** The ID of the job. */
                 jobId: string;
                 /** The content owner's external ID on which behalf the user is acting on. If */
@@ -238,6 +238,10 @@ declare namespace gapi.client {
             /** Lists reports created by a specific job. */
             /** Returns NOT_FOUND if the job does not exist. */
             list(request: {            
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -252,23 +256,14 @@ declare namespace gapi.client {
                 "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** OAuth access token. */
+                access_token?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** If set, only reports whose start time is smaller than the specified */
-                /** date/time are returned. */
-                startTimeBefore?: string;
-                /** The ID of the job. */
-                jobId: string;
                 /** If set, only reports created after the specified date/time are returned. */
                 createdAfter?: string;
                 /** If set, only reports whose start time is greater than or equal the */
@@ -285,6 +280,11 @@ declare namespace gapi.client {
                 /** The content owner's external ID on which behalf the user is acting on. If */
                 /** not set, the user is acting for himself (his own channel). */
                 onBehalfOfContentOwner?: string;
+                /** If set, only reports whose start time is smaller than the specified */
+                /** date/time are returned. */
+                startTimeBefore?: string;
+                /** The ID of the job. */
+                jobId: string;
             }): Request<ListReportsResponse>;            
             
         }
@@ -292,6 +292,10 @@ declare namespace gapi.client {
         interface JobsResource {
             /** Deletes a job. */
             delete(request: {            
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -306,18 +310,14 @@ declare namespace gapi.client {
                 "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** OAuth access token. */
+                access_token?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** The ID of the job to delete. */
                 jobId: string;
                 /** The content owner's external ID on which behalf the user is acting on. If */
@@ -327,6 +327,10 @@ declare namespace gapi.client {
             
             /** Gets a job. */
             get(request: {            
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -341,18 +345,14 @@ declare namespace gapi.client {
                 "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** OAuth access token. */
+                access_token?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** The ID of the job to retrieve. */
                 jobId: string;
                 /** The content owner's external ID on which behalf the user is acting on. If */
@@ -362,6 +362,10 @@ declare namespace gapi.client {
             
             /** Lists jobs. */
             list(request: {            
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -376,18 +380,17 @@ declare namespace gapi.client {
                 "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** OAuth access token. */
+                access_token?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
+                /** The content owner's external ID on which behalf the user is acting on. If */
+                /** not set, the user is acting for himself (his own channel). */
+                onBehalfOfContentOwner?: string;
                 /** If set to true, also system-managed jobs will be returned; otherwise only */
                 /** user-created jobs will be returned. System-managed jobs can neither be */
                 /** modified nor deleted. */
@@ -400,13 +403,14 @@ declare namespace gapi.client {
                 /** Requested page size. Server may return fewer jobs than requested. */
                 /** If unspecified, server will pick an appropriate default. */
                 pageSize?: number;
-                /** The content owner's external ID on which behalf the user is acting on. If */
-                /** not set, the user is acting for himself (his own channel). */
-                onBehalfOfContentOwner?: string;
             }): Request<ListJobsResponse>;            
             
             /** Creates a job and returns it. */
             create(request: {            
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -421,18 +425,14 @@ declare namespace gapi.client {
                 "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** OAuth access token. */
+                access_token?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** The content owner's external ID on which behalf the user is acting on. If */
                 /** not set, the user is acting for himself (his own channel). */
                 onBehalfOfContentOwner?: string;

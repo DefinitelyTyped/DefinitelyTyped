@@ -31,15 +31,15 @@ gapi.load('client', () => {
 
     async function run() {  
         
+        // Performs prediction on the data in the request.
+        // 
+        // **** REMOVE FROM GENERATED DOCUMENTATION
+        await gapi.client.projects.predict({ name: "name",  }); 
+        
         // Get the service account information associated with your project. You need
         // this information in order to grant the service account persmissions for
         // the Google Cloud Storage location where you put your model training code
         // for training the model with Google Cloud Machine Learning.
-        await gapi.client.projects.getConfig({ name: "name",  }); 
-        
-        // Performs prediction on the data in the request.
-        // 
-        // **** REMOVE FROM GENERATED DOCUMENTATION
-        await gapi.client.projects.predict({ name: "name",  });
+        await gapi.client.projects.getConfig({ name: "name",  });
     }
 });

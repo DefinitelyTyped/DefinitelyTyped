@@ -33,14 +33,14 @@ Don't forget to authenticate your client before sending any request to resources
 // declare client_id registered in Google Developers Console
 var client_id = '',
     scope = [     
-        // View and manage the contents of your Spanner databases
-        'https://www.googleapis.com/auth/spanner.data',
-    
         // Administer your Spanner databases
         'https://www.googleapis.com/auth/spanner.admin',
     
         // View and manage your data across Google Cloud Platform services
         'https://www.googleapis.com/auth/cloud-platform',
+    
+        // View and manage the contents of your Spanner databases
+        'https://www.googleapis.com/auth/spanner.data',
     ],
     immediate = true;
 // ...
