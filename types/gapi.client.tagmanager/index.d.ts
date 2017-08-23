@@ -697,14 +697,14 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** GTM Container's API relative path. Example: accounts/{account_id}/containers/{container_id} */
+                parent: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** GTM Container's API relative path. Example: accounts/{account_id}/containers/{container_id} */
-                parent: string;
             }): Request<Environment>;            
             
             /** Deletes a GTM Environment. */
@@ -717,14 +717,14 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** GTM Environment's API relative path. Example: accounts/{account_id}/containers/{container_id}/environments/{environment_id} */
+                path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** GTM Environment's API relative path. Example: accounts/{account_id}/containers/{container_id}/environments/{environment_id} */
-                path: string;
             }): Request<void>;            
             
             /** Gets a GTM Environment. */
@@ -737,14 +737,14 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** GTM Environment's API relative path. Example: accounts/{account_id}/containers/{container_id}/environments/{environment_id} */
+                path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** GTM Environment's API relative path. Example: accounts/{account_id}/containers/{container_id}/environments/{environment_id} */
-                path: string;
             }): Request<Environment>;            
             
             /** Lists all GTM Environments of a GTM Container. */
@@ -757,16 +757,16 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Continuation token for fetching the next page of results. */
+                pageToken?: string;
+                /** GTM Container's API relative path. Example: accounts/{account_id}/containers/{container_id} */
+                parent: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Continuation token for fetching the next page of results. */
-                pageToken?: string;
-                /** GTM Container's API relative path. Example: accounts/{account_id}/containers/{container_id} */
-                parent: string;
             }): Request<ListEnvironmentsResponse>;            
             
             /** Updates a GTM Environment. This method supports patch semantics. */
@@ -775,20 +775,20 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** When provided, this fingerprint must match the fingerprint of the environment in storage. */
+                fingerprint?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** GTM Environment's API relative path. Example: accounts/{account_id}/containers/{container_id}/environments/{environment_id} */
+                path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** When provided, this fingerprint must match the fingerprint of the environment in storage. */
-                fingerprint?: string;
-                /** GTM Environment's API relative path. Example: accounts/{account_id}/containers/{container_id}/environments/{environment_id} */
-                path: string;
             }): Request<Environment>;            
             
             /** Re-generates the authorization code for a GTM Environment. */
@@ -801,14 +801,14 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** GTM Environment's API relative path. Example: accounts/{account_id}/containers/{container_id}/environments/{environment_id} */
+                path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** GTM Environment's API relative path. Example: accounts/{account_id}/containers/{container_id}/environments/{environment_id} */
-                path: string;
             }): Request<Environment>;            
             
             /** Updates a GTM Environment. */
@@ -817,20 +817,20 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** When provided, this fingerprint must match the fingerprint of the environment in storage. */
+                fingerprint?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** GTM Environment's API relative path. Example: accounts/{account_id}/containers/{container_id}/environments/{environment_id} */
+                path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** When provided, this fingerprint must match the fingerprint of the environment in storage. */
-                fingerprint?: string;
-                /** GTM Environment's API relative path. Example: accounts/{account_id}/containers/{container_id}/environments/{environment_id} */
-                path: string;
             }): Request<Environment>;            
             
         }
@@ -846,14 +846,14 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** GTM Container's API relative path. Example: accounts/{account_id}/containers/{container_id} */
+                parent: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** GTM Container's API relative path. Example: accounts/{account_id}/containers/{container_id} */
-                parent: string;
             }): Request<ContainerVersionHeader>;            
             
             /** Lists all Container Versions of a GTM Container. */
@@ -862,22 +862,22 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Also retrieve deleted (archived) versions when true. */
+                includeDeleted?: boolean;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Continuation token for fetching the next page of results. */
+                pageToken?: string;
+                /** GTM Container's API relative path. Example: accounts/{account_id}/containers/{container_id} */
+                parent: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Also retrieve deleted (archived) versions when true. */
-                includeDeleted?: boolean;
-                /** Continuation token for fetching the next page of results. */
-                pageToken?: string;
-                /** GTM Container's API relative path. Example: accounts/{account_id}/containers/{container_id} */
-                parent: string;
             }): Request<ListContainerVersionsResponse>;            
             
         }
@@ -893,36 +893,36 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** GTM ContainerVersion's API relative path. Example: accounts/{account_id}/containers/{container_id}/versions/{version_id} */
+                path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** GTM ContainerVersion's API relative path. Example: accounts/{account_id}/containers/{container_id}/versions/{version_id} */
-                path: string;
             }): Request<void>;            
             
             /** Gets a Container Version. */
             get(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The GTM ContainerVersion ID. Specify published to retrieve the currently published version. */
+                containerVersionId?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** GTM ContainerVersion's API relative path. Example: accounts/{account_id}/containers/{container_id}/versions/{version_id} */
+                path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The GTM ContainerVersion ID. Specify published to retrieve the currently published version. */
-                containerVersionId?: string;
-                /** GTM ContainerVersion's API relative path. Example: accounts/{account_id}/containers/{container_id}/versions/{version_id} */
-                path: string;
             }): Request<ContainerVersion>;            
             
             /** Gets the live (i.e. published) container version */
@@ -935,14 +935,14 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** GTM Container's API relative path. Example: accounts/{account_id}/containers/{container_id} */
+                parent: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** GTM Container's API relative path. Example: accounts/{account_id}/containers/{container_id} */
-                parent: string;
             }): Request<ContainerVersion>;            
             
             /** Publishes a Container Version. */
@@ -951,20 +951,20 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** When provided, this fingerprint must match the fingerprint of the container version in storage. */
+                fingerprint?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** GTM ContainerVersion's API relative path. Example: accounts/{account_id}/containers/{container_id}/versions/{version_id} */
+                path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** When provided, this fingerprint must match the fingerprint of the container version in storage. */
-                fingerprint?: string;
-                /** GTM ContainerVersion's API relative path. Example: accounts/{account_id}/containers/{container_id}/versions/{version_id} */
-                path: string;
             }): Request<PublishContainerVersionResponse>;            
             
             /** Sets the latest version used for synchronization of workspaces when detecting conflicts and errors. */
@@ -977,14 +977,14 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** GTM ContainerVersion's API relative path. Example: accounts/{account_id}/containers/{container_id}/versions/{version_id} */
+                path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** GTM ContainerVersion's API relative path. Example: accounts/{account_id}/containers/{container_id}/versions/{version_id} */
-                path: string;
             }): Request<ContainerVersion>;            
             
             /** Undeletes a Container Version. */
@@ -997,14 +997,14 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** GTM ContainerVersion's API relative path. Example: accounts/{account_id}/containers/{container_id}/versions/{version_id} */
+                path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** GTM ContainerVersion's API relative path. Example: accounts/{account_id}/containers/{container_id}/versions/{version_id} */
-                path: string;
             }): Request<ContainerVersion>;            
             
             /** Updates a Container Version. */
@@ -1013,20 +1013,20 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** When provided, this fingerprint must match the fingerprint of the container version in storage. */
+                fingerprint?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** GTM ContainerVersion's API relative path. Example: accounts/{account_id}/containers/{container_id}/versions/{version_id} */
+                path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** When provided, this fingerprint must match the fingerprint of the container version in storage. */
-                fingerprint?: string;
-                /** GTM ContainerVersion's API relative path. Example: accounts/{account_id}/containers/{container_id}/versions/{version_id} */
-                path: string;
             }): Request<ContainerVersion>;            
             
         }
@@ -1042,16 +1042,16 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** GTM Workspace's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id} */
+                parent: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** GTM Workspace's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id} */
-                parent: string;
                 /** The types of built-in variables to enable. */
                 type?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<CreateBuiltInVariableResponse>;            
             
             /** Deletes one or more GTM Built-In Variables. */
@@ -1064,16 +1064,16 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** GTM BuiltInVariable's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id}/built_in_variables */
+                path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** GTM BuiltInVariable's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id}/built_in_variables */
-                path: string;
                 /** The types of built-in variables to delete. */
                 type?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<void>;            
             
             /** Lists all the enabled Built-In Variables of a GTM Container. */
@@ -1086,16 +1086,16 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Continuation token for fetching the next page of results. */
+                pageToken?: string;
+                /** GTM Workspace's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id} */
+                parent: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Continuation token for fetching the next page of results. */
-                pageToken?: string;
-                /** GTM Workspace's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id} */
-                parent: string;
             }): Request<ListEnabledBuiltInVariablesResponse>;            
             
             /** Reverts changes to a GTM Built-In Variables in a GTM Workspace. */
@@ -1108,16 +1108,16 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** GTM BuiltInVariable's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id}/built_in_variables */
+                path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** GTM BuiltInVariable's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id}/built_in_variables */
-                path: string;
                 /** The type of built-in variable to revert. */
                 type?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<RevertBuiltInVariableResponse>;            
             
         }
@@ -1133,14 +1133,14 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** GTM Workspace's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id} */
+                parent: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** GTM Workspace's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id} */
-                parent: string;
             }): Request<Folder>;            
             
             /** Deletes a GTM Folder. */
@@ -1153,14 +1153,14 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** GTM Folder's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id}/folders/{folder_id} */
+                path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** GTM Folder's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id}/folders/{folder_id} */
-                path: string;
             }): Request<void>;            
             
             /** List all entities in a GTM Folder. */
@@ -1173,16 +1173,16 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Continuation token for fetching the next page of results. */
+                pageToken?: string;
+                /** GTM Folder's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id}/folders/{folder_id} */
+                path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Continuation token for fetching the next page of results. */
-                pageToken?: string;
-                /** GTM Folder's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id}/folders/{folder_id} */
-                path: string;
             }): Request<FolderEntities>;            
             
             /** Gets a GTM Folder. */
@@ -1195,14 +1195,14 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** GTM Folder's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id}/folders/{folder_id} */
+                path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** GTM Folder's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id}/folders/{folder_id} */
-                path: string;
             }): Request<Folder>;            
             
             /** Lists all GTM Folders of a Container. */
@@ -1215,16 +1215,16 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Continuation token for fetching the next page of results. */
+                pageToken?: string;
+                /** GTM Workspace's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id} */
+                parent: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Continuation token for fetching the next page of results. */
-                pageToken?: string;
-                /** GTM Workspace's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id} */
-                parent: string;
             }): Request<ListFoldersResponse>;            
             
             /** Moves entities to a GTM Folder. */
@@ -1237,18 +1237,18 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** GTM Folder's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id}/folders/{folder_id} */
+                path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** GTM Folder's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id}/folders/{folder_id} */
-                path: string;
                 /** The tags to be moved to the folder. */
                 tagId?: string;
                 /** The triggers to be moved to the folder. */
                 triggerId?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
                 /** The variables to be moved to the folder. */
                 variableId?: string;
             }): Request<void>;            
@@ -1259,20 +1259,20 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** When provided, this fingerprint must match the fingerprint of the tag in storage. */
+                fingerprint?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** GTM Folder's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id}/folders/{folder_id} */
+                path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** When provided, this fingerprint must match the fingerprint of the tag in storage. */
-                fingerprint?: string;
-                /** GTM Folder's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id}/folders/{folder_id} */
-                path: string;
             }): Request<RevertFolderResponse>;            
             
             /** Updates a GTM Folder. */
@@ -1281,20 +1281,20 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** When provided, this fingerprint must match the fingerprint of the folder in storage. */
+                fingerprint?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** GTM Folder's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id}/folders/{folder_id} */
+                path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** When provided, this fingerprint must match the fingerprint of the folder in storage. */
-                fingerprint?: string;
-                /** GTM Folder's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id}/folders/{folder_id} */
-                path: string;
             }): Request<Folder>;            
             
         }
@@ -1310,14 +1310,14 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** GTM Workspace's API relative path. Example: accounts/{aid}/containers/{cid}/workspace/{wid} */
+                parent: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** GTM Workspace's API relative path. Example: accounts/{aid}/containers/{cid}/workspace/{wid} */
-                parent: string;
             }): Request<WorkspaceProposal>;            
             
             /** Deletes a GTM Workspace Proposal. */
@@ -1330,14 +1330,14 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** GTM workspace proposal's relative path: Example: accounts/{aid}/containers/{cid}/workspace/{wid}/workspace_proposal */
+                path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** GTM workspace proposal's relative path: Example: accounts/{aid}/containers/{cid}/workspace/{wid}/workspace_proposal */
-                path: string;
             }): Request<void>;            
             
         }
@@ -1353,14 +1353,14 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** GTM Workspace's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id} */
+                parent: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** GTM Workspace's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id} */
-                parent: string;
             }): Request<Tag>;            
             
             /** Deletes a GTM Tag. */
@@ -1373,14 +1373,14 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** GTM Tag's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id}/tags/{tag_id} */
+                path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** GTM Tag's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id}/tags/{tag_id} */
-                path: string;
             }): Request<void>;            
             
             /** Gets a GTM Tag. */
@@ -1393,14 +1393,14 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** GTM Tag's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id}/tags/{tag_id} */
+                path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** GTM Tag's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id}/tags/{tag_id} */
-                path: string;
             }): Request<Tag>;            
             
             /** Lists all GTM Tags of a Container. */
@@ -1413,16 +1413,16 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Continuation token for fetching the next page of results. */
+                pageToken?: string;
+                /** GTM Workspace's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id} */
+                parent: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Continuation token for fetching the next page of results. */
-                pageToken?: string;
-                /** GTM Workspace's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id} */
-                parent: string;
             }): Request<ListTagsResponse>;            
             
             /** Reverts changes to a GTM Tag in a GTM Workspace. */
@@ -1431,20 +1431,20 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** When provided, this fingerprint must match the fingerprint of thetag in storage. */
+                fingerprint?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** GTM Tag's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id}/tags/{tag_id} */
+                path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** When provided, this fingerprint must match the fingerprint of thetag in storage. */
-                fingerprint?: string;
-                /** GTM Tag's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id}/tags/{tag_id} */
-                path: string;
             }): Request<RevertTagResponse>;            
             
             /** Updates a GTM Tag. */
@@ -1453,20 +1453,20 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** When provided, this fingerprint must match the fingerprint of the tag in storage. */
+                fingerprint?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** GTM Tag's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id}/tags/{tag_id} */
+                path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** When provided, this fingerprint must match the fingerprint of the tag in storage. */
-                fingerprint?: string;
-                /** GTM Tag's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id}/tags/{tag_id} */
-                path: string;
             }): Request<Tag>;            
             
         }
@@ -1482,14 +1482,14 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** GTM Workspaces's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id} */
+                parent: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** GTM Workspaces's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id} */
-                parent: string;
             }): Request<Trigger>;            
             
             /** Deletes a GTM Trigger. */
@@ -1502,14 +1502,14 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** GTM Trigger's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id}/triggers/{trigger_id} */
+                path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** GTM Trigger's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id}/triggers/{trigger_id} */
-                path: string;
             }): Request<void>;            
             
             /** Gets a GTM Trigger. */
@@ -1522,14 +1522,14 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** GTM Trigger's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id}/triggers/{trigger_id} */
+                path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** GTM Trigger's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id}/triggers/{trigger_id} */
-                path: string;
             }): Request<Trigger>;            
             
             /** Lists all GTM Triggers of a Container. */
@@ -1542,16 +1542,16 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Continuation token for fetching the next page of results. */
+                pageToken?: string;
+                /** GTM Workspaces's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id} */
+                parent: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Continuation token for fetching the next page of results. */
-                pageToken?: string;
-                /** GTM Workspaces's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id} */
-                parent: string;
             }): Request<ListTriggersResponse>;            
             
             /** Reverts changes to a GTM Trigger in a GTM Workspace. */
@@ -1560,20 +1560,20 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** When provided, this fingerprint must match the fingerprint of the trigger in storage. */
+                fingerprint?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** GTM Trigger's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id}/triggers/{trigger_id} */
+                path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** When provided, this fingerprint must match the fingerprint of the trigger in storage. */
-                fingerprint?: string;
-                /** GTM Trigger's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id}/triggers/{trigger_id} */
-                path: string;
             }): Request<RevertTriggerResponse>;            
             
             /** Updates a GTM Trigger. */
@@ -1582,20 +1582,20 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** When provided, this fingerprint must match the fingerprint of the trigger in storage. */
+                fingerprint?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** GTM Trigger's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id}/triggers/{trigger_id} */
+                path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** When provided, this fingerprint must match the fingerprint of the trigger in storage. */
-                fingerprint?: string;
-                /** GTM Trigger's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id}/triggers/{trigger_id} */
-                path: string;
             }): Request<Trigger>;            
             
         }
@@ -1611,14 +1611,14 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** GTM Workspace's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id} */
+                parent: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** GTM Workspace's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id} */
-                parent: string;
             }): Request<Variable>;            
             
             /** Deletes a GTM Variable. */
@@ -1631,14 +1631,14 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** GTM Variable's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id}/variables/{variable_id} */
+                path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** GTM Variable's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id}/variables/{variable_id} */
-                path: string;
             }): Request<void>;            
             
             /** Gets a GTM Variable. */
@@ -1651,14 +1651,14 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** GTM Variable's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id}/variables/{variable_id} */
+                path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** GTM Variable's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id}/variables/{variable_id} */
-                path: string;
             }): Request<Variable>;            
             
             /** Lists all GTM Variables of a Container. */
@@ -1671,16 +1671,16 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Continuation token for fetching the next page of results. */
+                pageToken?: string;
+                /** GTM Workspace's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id} */
+                parent: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Continuation token for fetching the next page of results. */
-                pageToken?: string;
-                /** GTM Workspace's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id} */
-                parent: string;
             }): Request<ListVariablesResponse>;            
             
             /** Reverts changes to a GTM Variable in a GTM Workspace. */
@@ -1689,20 +1689,20 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** When provided, this fingerprint must match the fingerprint of the variable in storage. */
+                fingerprint?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** GTM Variable's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id}/variables/{variable_id} */
+                path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** When provided, this fingerprint must match the fingerprint of the variable in storage. */
-                fingerprint?: string;
-                /** GTM Variable's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id}/variables/{variable_id} */
-                path: string;
             }): Request<RevertVariableResponse>;            
             
             /** Updates a GTM Variable. */
@@ -1711,20 +1711,20 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** When provided, this fingerprint must match the fingerprint of the variable in storage. */
+                fingerprint?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** GTM Variable's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id}/variables/{variable_id} */
+                path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** When provided, this fingerprint must match the fingerprint of the variable in storage. */
-                fingerprint?: string;
-                /** GTM Variable's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id}/variables/{variable_id} */
-                path: string;
             }): Request<Variable>;            
             
         }
@@ -1740,14 +1740,14 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** GTM parent Container's API relative path. Example: accounts/{account_id}/containers/{container_id} */
+                parent: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** GTM parent Container's API relative path. Example: accounts/{account_id}/containers/{container_id} */
-                parent: string;
             }): Request<Workspace>;            
             
             /** Creates a Container Version from the entities present in the workspace, deletes the workspace, and sets the base container version to the newly created version. */
@@ -1760,14 +1760,14 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** GTM Workspace's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id} */
+                path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** GTM Workspace's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id} */
-                path: string;
             }): Request<CreateContainerVersionResponse>;            
             
             /** Deletes a Workspace. */
@@ -1780,14 +1780,14 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** GTM Workspace's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id} */
+                path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** GTM Workspace's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id} */
-                path: string;
             }): Request<void>;            
             
             /** Gets a Workspace. */
@@ -1800,14 +1800,14 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** GTM Workspace's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id} */
+                path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** GTM Workspace's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id} */
-                path: string;
             }): Request<Workspace>;            
             
             /** Gets a GTM Workspace Proposal. */
@@ -1820,14 +1820,14 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** GTM workspace proposal's relative path: Example: accounts/{aid}/containers/{cid}/workspace/{wid}/workspace_proposal */
+                path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** GTM workspace proposal's relative path: Example: accounts/{aid}/containers/{cid}/workspace/{wid}/workspace_proposal */
-                path: string;
             }): Request<WorkspaceProposal>;            
             
             /** Finds conflicting and modified entities in the workspace. */
@@ -1840,14 +1840,14 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** GTM Workspace's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id} */
+                path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** GTM Workspace's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id} */
-                path: string;
             }): Request<GetWorkspaceStatusResponse>;            
             
             /** Lists all Workspaces that belong to a GTM Container. */
@@ -1860,16 +1860,16 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Continuation token for fetching the next page of results. */
+                pageToken?: string;
+                /** GTM parent Container's API relative path. Example: accounts/{account_id}/containers/{container_id} */
+                parent: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Continuation token for fetching the next page of results. */
-                pageToken?: string;
-                /** GTM parent Container's API relative path. Example: accounts/{account_id}/containers/{container_id} */
-                parent: string;
             }): Request<ListWorkspacesResponse>;            
             
             /** Quick previews a workspace by creating a fake container version from all entities in the provided workspace. */
@@ -1882,14 +1882,14 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** GTM Workspace's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id} */
+                path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** GTM Workspace's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id} */
-                path: string;
             }): Request<QuickPreviewResponse>;            
             
             /** Resolves a merge conflict for a workspace entity by updating it to the resolved entity passed in the request. */
@@ -1898,20 +1898,20 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** When provided, this fingerprint must match the fingerprint of the entity_in_workspace in the merge conflict. */
+                fingerprint?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** GTM Workspace's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id} */
+                path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** When provided, this fingerprint must match the fingerprint of the entity_in_workspace in the merge conflict. */
-                fingerprint?: string;
-                /** GTM Workspace's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id} */
-                path: string;
             }): Request<void>;            
             
             /** Syncs a workspace to the latest container version by updating all unmodified workspace entities and displaying conflicts for modified entities. */
@@ -1924,14 +1924,14 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** GTM Workspace's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id} */
+                path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** GTM Workspace's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id} */
-                path: string;
             }): Request<SyncWorkspaceResponse>;            
             
             /** Updates a Workspace. */
@@ -1940,20 +1940,20 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** When provided, this fingerprint must match the fingerprint of the workspace in storage. */
+                fingerprint?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** GTM Workspace's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id} */
+                path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** When provided, this fingerprint must match the fingerprint of the workspace in storage. */
-                fingerprint?: string;
-                /** GTM Workspace's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id} */
-                path: string;
             }): Request<Workspace>;            
             
             /** Updates a GTM Workspace Proposal. */
@@ -1966,14 +1966,14 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** GTM workspace proposal's relative path: Example: accounts/{aid}/containers/{cid}/workspace/{wid}/workspace_proposal */
+                path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** GTM workspace proposal's relative path: Example: accounts/{aid}/containers/{cid}/workspace/{wid}/workspace_proposal */
-                path: string;
             }): Request<WorkspaceProposal>;            
             
             built_in_variables: Built_in_variablesResource;
@@ -1995,14 +1995,14 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** GTM Account's API relative path. Example: accounts/{account_id}. */
+                parent: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** GTM Account's API relative path. Example: accounts/{account_id}. */
-                parent: string;
             }): Request<Container>;            
             
             /** Deletes a Container. */
@@ -2015,14 +2015,14 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** GTM Container's API relative path. Example: accounts/{account_id}/containers/{container_id} */
+                path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** GTM Container's API relative path. Example: accounts/{account_id}/containers/{container_id} */
-                path: string;
             }): Request<void>;            
             
             /** Gets a Container. */
@@ -2035,14 +2035,14 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** GTM Container's API relative path. Example: accounts/{account_id}/containers/{container_id} */
+                path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** GTM Container's API relative path. Example: accounts/{account_id}/containers/{container_id} */
-                path: string;
             }): Request<Container>;            
             
             /** Lists all Containers that belongs to a GTM Account. */
@@ -2055,16 +2055,16 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Continuation token for fetching the next page of results. */
+                pageToken?: string;
+                /** GTM Accounts's API relative path. Example: accounts/{account_id}. */
+                parent: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Continuation token for fetching the next page of results. */
-                pageToken?: string;
-                /** GTM Accounts's API relative path. Example: accounts/{account_id}. */
-                parent: string;
             }): Request<ListContainersResponse>;            
             
             /** Updates a Container. */
@@ -2073,20 +2073,20 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** When provided, this fingerprint must match the fingerprint of the container in storage. */
+                fingerprint?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** GTM Container's API relative path. Example: accounts/{account_id}/containers/{container_id} */
+                path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** When provided, this fingerprint must match the fingerprint of the container in storage. */
-                fingerprint?: string;
-                /** GTM Container's API relative path. Example: accounts/{account_id}/containers/{container_id} */
-                path: string;
             }): Request<Container>;            
             
             environments: EnvironmentsResource;
@@ -2106,14 +2106,14 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** GTM Account's API relative path. Example: accounts/{account_id} */
+                parent: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** GTM Account's API relative path. Example: accounts/{account_id} */
-                parent: string;
             }): Request<UserPermission>;            
             
             /** Removes a user from the account, revoking access to it and all of its containers. */
@@ -2126,14 +2126,14 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** GTM UserPermission's API relative path. Example: accounts/{account_id}/user_permissions/{user_permission_id} */
+                path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** GTM UserPermission's API relative path. Example: accounts/{account_id}/user_permissions/{user_permission_id} */
-                path: string;
             }): Request<void>;            
             
             /** Gets a user's Account & Container access. */
@@ -2146,14 +2146,14 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** GTM UserPermission's API relative path. Example: accounts/{account_id}/user_permissions/{user_permission_id} */
+                path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** GTM UserPermission's API relative path. Example: accounts/{account_id}/user_permissions/{user_permission_id} */
-                path: string;
             }): Request<UserPermission>;            
             
             /** List all users that have access to the account along with Account and Container user access granted to each of them. */
@@ -2166,16 +2166,16 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Continuation token for fetching the next page of results. */
+                pageToken?: string;
+                /** GTM Accounts's API relative path. Example: accounts/{account_id} */
+                parent: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Continuation token for fetching the next page of results. */
-                pageToken?: string;
-                /** GTM Accounts's API relative path. Example: accounts/{account_id} */
-                parent: string;
             }): Request<ListUserPermissionsResponse>;            
             
             /** Updates a user's Account & Container access. */
@@ -2188,14 +2188,14 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** GTM UserPermission's API relative path. Example: accounts/{account_id}/user_permissions/{user_permission_id} */
+                path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** GTM UserPermission's API relative path. Example: accounts/{account_id}/user_permissions/{user_permission_id} */
-                path: string;
             }): Request<UserPermission>;            
             
         }
@@ -2211,14 +2211,14 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** GTM Accounts's API relative path. Example: accounts/{account_id} */
+                path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** GTM Accounts's API relative path. Example: accounts/{account_id} */
-                path: string;
             }): Request<Account>;            
             
             /** Lists all GTM Accounts that a user has access to. */
@@ -2231,14 +2231,14 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Continuation token for fetching the next page of results. */
+                pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Continuation token for fetching the next page of results. */
-                pageToken?: string;
             }): Request<ListAccountsResponse>;            
             
             /** Updates a GTM Account. */
@@ -2247,20 +2247,20 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** When provided, this fingerprint must match the fingerprint of the account in storage. */
+                fingerprint?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** GTM Accounts's API relative path. Example: accounts/{account_id} */
+                path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** When provided, this fingerprint must match the fingerprint of the account in storage. */
-                fingerprint?: string;
-                /** GTM Accounts's API relative path. Example: accounts/{account_id} */
-                path: string;
             }): Request<Account>;            
             
             containers: ContainersResource;

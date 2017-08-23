@@ -315,12 +315,12 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** Query ID to delete. */
+                queryId: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Query ID to delete. */
-                queryId: string;
             }): Request<void>;            
             
             /** Retrieves a stored query. */
@@ -335,12 +335,12 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** Query ID to retrieve. */
+                queryId: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Query ID to retrieve. */
-                queryId: string;
             }): Request<Query>;            
             
             /** Retrieves stored queries. */
@@ -373,12 +373,12 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** Query ID to run. */
+                queryId: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Query ID to run. */
-                queryId: string;
             }): Request<void>;            
             
         }
@@ -396,12 +396,12 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** Query ID with which the reports are associated. */
+                queryId: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Query ID with which the reports are associated. */
-                queryId: string;
             }): Request<ListReportsResponse>;            
             
         }

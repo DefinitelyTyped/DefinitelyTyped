@@ -1896,32 +1896,34 @@ declare namespace gapi.client {
             
             /** Claims the website of a Merchant Center sub-account. This method can only be called for accounts to which the managing account has access: either the managing account itself for any Merchant Center account, or any sub-account when the managing account is a multi-client account. */
             claimwebsite(request: {            
+                /** The ID of the account whose website is claimed. */
+                accountId: string;
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The ID of the managing account. */
+                merchantId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Flag to remove any existing claim on the requested website by another account and replace it with a claim from this account. */
+                overwrite?: boolean;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the account whose website is claimed. */
-                accountId: string;
-                /** The ID of the managing account. */
-                merchantId: string;
-                /** Flag to remove any existing claim on the requested website by another account and replace it with a claim from this account. */
-                overwrite?: boolean;
             }): Request<AccountsClaimWebsiteResponse>;            
             
             /** Retrieves, inserts, updates, and deletes multiple Merchant Center (sub-)accounts in a single request. */
             custombatch(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Flag to run the request in dry-run mode. */
+                dryRun?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -1934,18 +1936,22 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Flag to run the request in dry-run mode. */
-                dryRun?: boolean;
             }): Request<AccountsCustomBatchResponse>;            
             
             /** Deletes a Merchant Center sub-account. This method can only be called for multi-client accounts. */
             delete(request: {            
+                /** The ID of the account. */
+                accountId: string;
                 /** Data format for the response. */
                 alt?: string;
+                /** Flag to run the request in dry-run mode. */
+                dryRun?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The ID of the managing account. */
+                merchantId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
@@ -1954,22 +1960,20 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the account. */
-                accountId: string;
-                /** Flag to run the request in dry-run mode. */
-                dryRun?: boolean;
-                /** The ID of the managing account. */
-                merchantId: string;
             }): Request<void>;            
             
             /** Retrieves a Merchant Center account. This method can only be called for accounts to which the managing account has access: either the managing account itself for any Merchant Center account, or any sub-account when the managing account is a multi-client account. */
             get(request: {            
+                /** The ID of the account. */
+                accountId: string;
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The ID of the managing account. */
+                merchantId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
@@ -1978,20 +1982,20 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the account. */
-                accountId: string;
-                /** The ID of the managing account. */
-                merchantId: string;
             }): Request<Account>;            
             
             /** Creates a Merchant Center sub-account. This method can only be called for multi-client accounts. */
             insert(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Flag to run the request in dry-run mode. */
+                dryRun?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The ID of the managing account. */
+                merchantId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
@@ -2000,10 +2004,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Flag to run the request in dry-run mode. */
-                dryRun?: boolean;
-                /** The ID of the managing account. */
-                merchantId: string;
             }): Request<Account>;            
             
             /** Lists the sub-accounts in your Merchant Center account. This method can only be called for multi-client accounts. */
@@ -2014,30 +2014,36 @@ declare namespace gapi.client {
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** The maximum number of accounts to return in the response, used for paging. */
                 maxResults?: number;
                 /** The ID of the managing account. */
                 merchantId: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** The token returned by the previous request. */
                 pageToken?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<AccountsListResponse>;            
             
             /** Updates a Merchant Center account. This method can only be called for accounts to which the managing account has access: either the managing account itself for any Merchant Center account, or any sub-account when the managing account is a multi-client account. This method supports patch semantics. */
             patch(request: {            
+                /** The ID of the account. */
+                accountId: string;
                 /** Data format for the response. */
                 alt?: string;
+                /** Flag to run the request in dry-run mode. */
+                dryRun?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The ID of the managing account. */
+                merchantId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
@@ -2046,22 +2052,22 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the account. */
-                accountId: string;
-                /** Flag to run the request in dry-run mode. */
-                dryRun?: boolean;
-                /** The ID of the managing account. */
-                merchantId: string;
             }): Request<Account>;            
             
             /** Updates a Merchant Center account. This method can only be called for accounts to which the managing account has access: either the managing account itself for any Merchant Center account, or any sub-account when the managing account is a multi-client account. */
             update(request: {            
+                /** The ID of the account. */
+                accountId: string;
                 /** Data format for the response. */
                 alt?: string;
+                /** Flag to run the request in dry-run mode. */
+                dryRun?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The ID of the managing account. */
+                merchantId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
@@ -2070,12 +2076,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the account. */
-                accountId: string;
-                /** Flag to run the request in dry-run mode. */
-                dryRun?: boolean;
-                /** The ID of the managing account. */
-                merchantId: string;
             }): Request<Account>;            
             
         }
@@ -2101,12 +2101,16 @@ declare namespace gapi.client {
             
             /** Retrieves the status of a Merchant Center account. This method can only be called for accounts to which the managing account has access: either the managing account itself for any Merchant Center account, or any sub-account when the managing account is a multi-client account. */
             get(request: {            
+                /** The ID of the account. */
+                accountId: string;
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The ID of the managing account. */
+                merchantId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
@@ -2115,10 +2119,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the account. */
-                accountId: string;
-                /** The ID of the managing account. */
-                merchantId: string;
             }): Request<AccountStatus>;            
             
             /** Lists the statuses of the sub-accounts in your Merchant Center account. This method can only be called for multi-client accounts. */
@@ -2129,20 +2129,20 @@ declare namespace gapi.client {
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The maximum number of account statuses to return in the response, used for paging. */
+                maxResults?: number;
+                /** The ID of the managing account. */
+                merchantId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** The token returned by the previous request. */
+                pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The maximum number of account statuses to return in the response, used for paging. */
-                maxResults?: number;
-                /** The ID of the managing account. */
-                merchantId: string;
-                /** The token returned by the previous request. */
-                pageToken?: string;
             }): Request<AccountstatusesListResponse>;            
             
         }
@@ -2152,6 +2152,8 @@ declare namespace gapi.client {
             custombatch(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Flag to run the request in dry-run mode. */
+                dryRun?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -2164,18 +2166,20 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Flag to run the request in dry-run mode. */
-                dryRun?: boolean;
             }): Request<AccounttaxCustomBatchResponse>;            
             
             /** Retrieves the tax settings of the account. This method can only be called for accounts to which the managing account has access: either the managing account itself for any Merchant Center account, or any sub-account when the managing account is a multi-client account. */
             get(request: {            
+                /** The ID of the account for which to get/update account tax settings. */
+                accountId: string;
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The ID of the managing account. */
+                merchantId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
@@ -2184,10 +2188,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the account for which to get/update account tax settings. */
-                accountId: string;
-                /** The ID of the managing account. */
-                merchantId: string;
             }): Request<AccountTax>;            
             
             /** Lists the tax settings of the sub-accounts in your Merchant Center account. This method can only be called for multi-client accounts. */
@@ -2198,30 +2198,36 @@ declare namespace gapi.client {
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** The maximum number of tax settings to return in the response, used for paging. */
                 maxResults?: number;
                 /** The ID of the managing account. */
                 merchantId: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** The token returned by the previous request. */
                 pageToken?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<AccounttaxListResponse>;            
             
             /** Updates the tax settings of the account. This method can only be called for accounts to which the managing account has access: either the managing account itself for any Merchant Center account, or any sub-account when the managing account is a multi-client account. This method supports patch semantics. */
             patch(request: {            
+                /** The ID of the account for which to get/update account tax settings. */
+                accountId: string;
                 /** Data format for the response. */
                 alt?: string;
+                /** Flag to run the request in dry-run mode. */
+                dryRun?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The ID of the managing account. */
+                merchantId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
@@ -2230,22 +2236,22 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the account for which to get/update account tax settings. */
-                accountId: string;
-                /** Flag to run the request in dry-run mode. */
-                dryRun?: boolean;
-                /** The ID of the managing account. */
-                merchantId: string;
             }): Request<AccountTax>;            
             
             /** Updates the tax settings of the account. This method can only be called for accounts to which the managing account has access: either the managing account itself for any Merchant Center account, or any sub-account when the managing account is a multi-client account. */
             update(request: {            
+                /** The ID of the account for which to get/update account tax settings. */
+                accountId: string;
                 /** Data format for the response. */
                 alt?: string;
+                /** Flag to run the request in dry-run mode. */
+                dryRun?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The ID of the managing account. */
+                merchantId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
@@ -2254,12 +2260,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the account for which to get/update account tax settings. */
-                accountId: string;
-                /** Flag to run the request in dry-run mode. */
-                dryRun?: boolean;
-                /** The ID of the managing account. */
-                merchantId: string;
             }): Request<AccountTax>;            
             
         }
@@ -2269,6 +2269,8 @@ declare namespace gapi.client {
             custombatch(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Flag to run the request in dry-run mode. */
+                dryRun?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -2281,18 +2283,22 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Flag to run the request in dry-run mode. */
-                dryRun?: boolean;
             }): Request<DatafeedsCustomBatchResponse>;            
             
             /** Deletes a datafeed configuration from your Merchant Center account. This method can only be called for non-multi-client accounts. */
             delete(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /**  */
+                datafeedId: string;
+                /** Flag to run the request in dry-run mode. */
+                dryRun?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /**  */
+                merchantId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
@@ -2301,22 +2307,20 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /**  */
-                datafeedId: string;
-                /** Flag to run the request in dry-run mode. */
-                dryRun?: boolean;
-                /**  */
-                merchantId: string;
             }): Request<void>;            
             
             /** Retrieves a datafeed configuration from your Merchant Center account. This method can only be called for non-multi-client accounts. */
             get(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /**  */
+                datafeedId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /**  */
+                merchantId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
@@ -2325,20 +2329,20 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /**  */
-                datafeedId: string;
-                /**  */
-                merchantId: string;
             }): Request<Datafeed>;            
             
             /** Registers a datafeed configuration with your Merchant Center account. This method can only be called for non-multi-client accounts. */
             insert(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Flag to run the request in dry-run mode. */
+                dryRun?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /**  */
+                merchantId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
@@ -2347,10 +2351,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Flag to run the request in dry-run mode. */
-                dryRun?: boolean;
-                /**  */
-                merchantId: string;
             }): Request<Datafeed>;            
             
             /** Lists the datafeeds in your Merchant Center account. This method can only be called for non-multi-client accounts. */
@@ -2361,30 +2361,36 @@ declare namespace gapi.client {
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The maximum number of products to return in the response, used for paging. */
+                maxResults?: number;
+                /** The ID of the managing account. */
+                merchantId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** The token returned by the previous request. */
+                pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The maximum number of products to return in the response, used for paging. */
-                maxResults?: number;
-                /** The ID of the managing account. */
-                merchantId: string;
-                /** The token returned by the previous request. */
-                pageToken?: string;
             }): Request<DatafeedsListResponse>;            
             
             /** Updates a datafeed configuration of your Merchant Center account. This method can only be called for non-multi-client accounts. This method supports patch semantics. */
             patch(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /**  */
+                datafeedId: string;
+                /** Flag to run the request in dry-run mode. */
+                dryRun?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /**  */
+                merchantId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
@@ -2393,22 +2399,22 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /**  */
-                datafeedId: string;
-                /** Flag to run the request in dry-run mode. */
-                dryRun?: boolean;
-                /**  */
-                merchantId: string;
             }): Request<Datafeed>;            
             
             /** Updates a datafeed configuration of your Merchant Center account. This method can only be called for non-multi-client accounts. */
             update(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /**  */
+                datafeedId: string;
+                /** Flag to run the request in dry-run mode. */
+                dryRun?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /**  */
+                merchantId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
@@ -2417,12 +2423,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /**  */
-                datafeedId: string;
-                /** Flag to run the request in dry-run mode. */
-                dryRun?: boolean;
-                /**  */
-                merchantId: string;
             }): Request<Datafeed>;            
             
         }
@@ -2450,10 +2450,14 @@ declare namespace gapi.client {
             get(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /**  */
+                datafeedId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /**  */
+                merchantId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
@@ -2462,10 +2466,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /**  */
-                datafeedId: string;
-                /**  */
-                merchantId: string;
             }): Request<DatafeedStatus>;            
             
             /** Lists the statuses of the datafeeds in your Merchant Center account. This method can only be called for non-multi-client accounts. */
@@ -2476,20 +2476,20 @@ declare namespace gapi.client {
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The maximum number of products to return in the response, used for paging. */
+                maxResults?: number;
+                /** The ID of the managing account. */
+                merchantId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** The token returned by the previous request. */
+                pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The maximum number of products to return in the response, used for paging. */
-                maxResults?: number;
-                /** The ID of the managing account. */
-                merchantId: string;
-                /** The token returned by the previous request. */
-                pageToken?: string;
             }): Request<DatafeedstatusesListResponse>;            
             
         }
@@ -2499,6 +2499,8 @@ declare namespace gapi.client {
             custombatch(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Flag to run the request in dry-run mode. */
+                dryRun?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -2511,34 +2513,32 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Flag to run the request in dry-run mode. */
-                dryRun?: boolean;
             }): Request<InventoryCustomBatchResponse>;            
             
             /** Updates price and availability of a product in your Merchant Center account. This operation does not update the expiration date of the product. This method can only be called for non-multi-client accounts. */
             set(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Flag to run the request in dry-run mode. */
+                dryRun?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The ID of the managing account. */
+                merchantId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** Flag to run the request in dry-run mode. */
-                dryRun?: boolean;
-                /** The ID of the managing account. */
-                merchantId: string;
                 /** The ID of the product for which to update price and availability. */
                 productId: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /** The code of the store for which to update price and availability. Use online to update price and availability of an online product. */
                 storeCode: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<InventorySetResponse>;            
             
         }
@@ -2552,18 +2552,18 @@ declare namespace gapi.client {
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The ID of the managing account. */
+                merchantId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** The ID of the order. */
+                orderId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the managing account. */
-                merchantId: string;
-                /** The ID of the order. */
-                orderId: string;
             }): Request<OrdersAcknowledgeResponse>;            
             
             /** Sandbox only. Moves a test order from state "inProgress" to state "pendingShipment". This method can only be called for non-multi-client accounts. */
@@ -2574,18 +2574,18 @@ declare namespace gapi.client {
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The ID of the managing account. */
+                merchantId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** The ID of the test order to modify. */
+                orderId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the managing account. */
-                merchantId: string;
-                /** The ID of the test order to modify. */
-                orderId: string;
             }): Request<OrdersAdvanceTestOrderResponse>;            
             
             /** Cancels all line items in an order, making a full refund. This method can only be called for non-multi-client accounts. */
@@ -2596,18 +2596,18 @@ declare namespace gapi.client {
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The ID of the managing account. */
+                merchantId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** The ID of the order to cancel. */
+                orderId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the managing account. */
-                merchantId: string;
-                /** The ID of the order to cancel. */
-                orderId: string;
             }): Request<OrdersCancelResponse>;            
             
             /** Cancels a line item, making a full refund. This method can only be called for non-multi-client accounts. */
@@ -2618,18 +2618,18 @@ declare namespace gapi.client {
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The ID of the managing account. */
+                merchantId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** The ID of the order. */
+                orderId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the managing account. */
-                merchantId: string;
-                /** The ID of the order. */
-                orderId: string;
             }): Request<OrdersCancelLineItemResponse>;            
             
             /** Sandbox only. Creates a test order. This method can only be called for non-multi-client accounts. */
@@ -2640,6 +2640,8 @@ declare namespace gapi.client {
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The ID of the managing account. */
+                merchantId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
@@ -2648,8 +2650,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the managing account. */
-                merchantId: string;
             }): Request<OrdersCreateTestOrderResponse>;            
             
             /** Retrieves or modifies multiple orders in a single request. This method can only be called for non-multi-client accounts. */
@@ -2678,18 +2678,18 @@ declare namespace gapi.client {
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The ID of the managing account. */
+                merchantId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** The ID of the order. */
+                orderId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the managing account. */
-                merchantId: string;
-                /** The ID of the order. */
-                orderId: string;
             }): Request<Order>;            
             
             /** Retrieves an order using merchant order id. This method can only be called for non-multi-client accounts. */
@@ -2700,6 +2700,10 @@ declare namespace gapi.client {
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The ID of the managing account. */
+                merchantId: string;
+                /** The merchant order id to be looked for. */
+                merchantOrderId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
@@ -2708,10 +2712,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the managing account. */
-                merchantId: string;
-                /** The merchant order id to be looked for. */
-                merchantOrderId: string;
             }): Request<OrdersGetByMerchantOrderIdResponse>;            
             
             /** Sandbox only. Retrieves an order template that can be used to quickly create a new order in sandbox. This method can only be called for non-multi-client accounts. */
@@ -2722,44 +2722,38 @@ declare namespace gapi.client {
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The ID of the managing account. */
+                merchantId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** The ID of the managing account. */
-                merchantId: string;
                 /** The name of the template to retrieve. */
                 templateName: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<OrdersGetTestOrderTemplateResponse>;            
             
             /** Lists the orders in your Merchant Center account. This method can only be called for non-multi-client accounts. */
             list(request: {            
+                /** Obtains orders that match the acknowledgement status. When set to true, obtains orders that have been acknowledged. When false, obtains orders that have not been acknowledged. */
+                /** We recommend using this filter set to false, in conjunction with the acknowledge call, such that only un-acknowledged orders are returned. */
+                acknowledged?: boolean;
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** Obtains orders that match the acknowledgement status. When set to true, obtains orders that have been acknowledged. When false, obtains orders that have not been acknowledged. */
-                /** We recommend using this filter set to false, in conjunction with the acknowledge call, such that only un-acknowledged orders are returned. */
-                acknowledged?: boolean;
                 /** The maximum number of orders to return in the response, used for paging. The default value is 25 orders per page, and the maximum allowed value is 250 orders per page. */
                 /** Known issue: All List calls will return all Orders without limit regardless of the value of this field. */
                 maxResults?: number;
                 /** The ID of the managing account. */
                 merchantId: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** The ordering of the returned list. The only supported value are placedDate desc and placedDate asc for now, which returns orders sorted by placement date. "placedDate desc" stands for listing orders by placement date, from oldest to most recent. "placedDate asc" stands for listing orders by placement date, from most recent to oldest. In future releases we'll support other sorting criteria. */
                 orderBy?: string;
                 /** The token returned by the previous request. */
@@ -2768,8 +2762,14 @@ declare namespace gapi.client {
                 placedDateEnd?: string;
                 /** Obtains orders placed after this date (inclusively), in ISO 8601 format. */
                 placedDateStart?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /** Obtains orders that match any of the specified statuses. Multiple values can be specified with comma separation. Additionally, please note that active is a shortcut for pendingShipment and partiallyShipped, and completed is a shortcut for shipped , partiallyDelivered, delivered, partiallyReturned, returned, and canceled. */
                 statuses?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<OrdersListResponse>;            
             
             /** Refund a portion of the order, up to the full amount paid. This method can only be called for non-multi-client accounts. */
@@ -2780,18 +2780,18 @@ declare namespace gapi.client {
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The ID of the managing account. */
+                merchantId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** The ID of the order to refund. */
+                orderId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the managing account. */
-                merchantId: string;
-                /** The ID of the order to refund. */
-                orderId: string;
             }): Request<OrdersRefundResponse>;            
             
             /** Returns a line item. This method can only be called for non-multi-client accounts. */
@@ -2802,18 +2802,18 @@ declare namespace gapi.client {
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The ID of the managing account. */
+                merchantId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** The ID of the order. */
+                orderId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the managing account. */
-                merchantId: string;
-                /** The ID of the order. */
-                orderId: string;
             }): Request<OrdersReturnLineItemResponse>;            
             
             /** Marks line item(s) as shipped. This method can only be called for non-multi-client accounts. */
@@ -2824,18 +2824,18 @@ declare namespace gapi.client {
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The ID of the managing account. */
+                merchantId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** The ID of the order. */
+                orderId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the managing account. */
-                merchantId: string;
-                /** The ID of the order. */
-                orderId: string;
             }): Request<OrdersShipLineItemsResponse>;            
             
             /** Updates the merchant order ID for a given order. This method can only be called for non-multi-client accounts. */
@@ -2846,18 +2846,18 @@ declare namespace gapi.client {
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The ID of the managing account. */
+                merchantId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** The ID of the order. */
+                orderId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the managing account. */
-                merchantId: string;
-                /** The ID of the order. */
-                orderId: string;
             }): Request<OrdersUpdateMerchantOrderIdResponse>;            
             
             /** Updates a shipment's status, carrier, and/or tracking ID. This method can only be called for non-multi-client accounts. */
@@ -2868,18 +2868,18 @@ declare namespace gapi.client {
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The ID of the managing account. */
+                merchantId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** The ID of the order. */
+                orderId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the managing account. */
-                merchantId: string;
-                /** The ID of the order. */
-                orderId: string;
             }): Request<OrdersUpdateShipmentResponse>;            
             
         }
@@ -2889,6 +2889,8 @@ declare namespace gapi.client {
             custombatch(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Flag to run the request in dry-run mode. */
+                dryRun?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -2901,32 +2903,30 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Flag to run the request in dry-run mode. */
-                dryRun?: boolean;
             }): Request<ProductsCustomBatchResponse>;            
             
             /** Deletes a product from your Merchant Center account. This method can only be called for non-multi-client accounts. */
             delete(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Flag to run the request in dry-run mode. */
+                dryRun?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The ID of the managing account. */
+                merchantId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** The ID of the product. */
+                productId: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Flag to run the request in dry-run mode. */
-                dryRun?: boolean;
-                /** The ID of the managing account. */
-                merchantId: string;
-                /** The ID of the product. */
-                productId: string;
             }): Request<void>;            
             
             /** Retrieves a product from your Merchant Center account. This method can only be called for non-multi-client accounts. */
@@ -2937,28 +2937,32 @@ declare namespace gapi.client {
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The ID of the managing account. */
+                merchantId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** The ID of the product. */
+                productId: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the managing account. */
-                merchantId: string;
-                /** The ID of the product. */
-                productId: string;
             }): Request<Product>;            
             
             /** Uploads a product to your Merchant Center account. If an item with the same channel, contentLanguage, offerId, and targetCountry already exists, this method updates that entry. This method can only be called for non-multi-client accounts. */
             insert(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Flag to run the request in dry-run mode. */
+                dryRun?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The ID of the managing account. */
+                merchantId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
@@ -2967,10 +2971,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Flag to run the request in dry-run mode. */
-                dryRun?: boolean;
-                /** The ID of the managing account. */
-                merchantId: string;
             }): Request<Product>;            
             
             /** Lists the products in your Merchant Center account. This method can only be called for non-multi-client accounts. */
@@ -2979,24 +2979,24 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Flag to include the invalid inserted items in the result of the list request. By default the invalid items are not shown (the default value is false). */
+                includeInvalidInsertedItems?: boolean;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The maximum number of products to return in the response, used for paging. */
+                maxResults?: number;
+                /** The ID of the managing account. */
+                merchantId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** The token returned by the previous request. */
+                pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Flag to include the invalid inserted items in the result of the list request. By default the invalid items are not shown (the default value is false). */
-                includeInvalidInsertedItems?: boolean;
-                /** The maximum number of products to return in the response, used for paging. */
-                maxResults?: number;
-                /** The ID of the managing account. */
-                merchantId: string;
-                /** The token returned by the previous request. */
-                pageToken?: string;
             }): Request<ProductsListResponse>;            
             
         }
@@ -3008,6 +3008,8 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Flag to include full product data in the results of this request. The default value is false. */
+                includeAttributes?: boolean;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
@@ -3018,8 +3020,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Flag to include full product data in the results of this request. The default value is false. */
-                includeAttributes?: boolean;
             }): Request<ProductstatusesCustomBatchResponse>;            
             
             /** Gets the status of a product from your Merchant Center account. This method can only be called for non-multi-client accounts. */
@@ -3028,22 +3028,22 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Flag to include full product data in the result of this get request. The default value is false. */
+                includeAttributes?: boolean;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The ID of the managing account. */
+                merchantId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** The ID of the product. */
+                productId: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Flag to include full product data in the result of this get request. The default value is false. */
-                includeAttributes?: boolean;
-                /** The ID of the managing account. */
-                merchantId: string;
-                /** The ID of the product. */
-                productId: string;
             }): Request<ProductStatus>;            
             
             /** Lists the statuses of the products in your Merchant Center account. This method can only be called for non-multi-client accounts. */
@@ -3052,26 +3052,26 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Flag to include full product data in the results of the list request. The default value is false. */
+                includeAttributes?: boolean;
+                /** Flag to include the invalid inserted items in the result of the list request. By default the invalid items are not shown (the default value is false). */
+                includeInvalidInsertedItems?: boolean;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The maximum number of product statuses to return in the response, used for paging. */
+                maxResults?: number;
+                /** The ID of the managing account. */
+                merchantId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** The token returned by the previous request. */
+                pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Flag to include full product data in the results of the list request. The default value is false. */
-                includeAttributes?: boolean;
-                /** Flag to include the invalid inserted items in the result of the list request. By default the invalid items are not shown (the default value is false). */
-                includeInvalidInsertedItems?: boolean;
-                /** The maximum number of product statuses to return in the response, used for paging. */
-                maxResults?: number;
-                /** The ID of the managing account. */
-                merchantId: string;
-                /** The token returned by the previous request. */
-                pageToken?: string;
             }): Request<ProductstatusesListResponse>;            
             
         }
@@ -3081,6 +3081,8 @@ declare namespace gapi.client {
             custombatch(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Flag to run the request in dry-run mode. */
+                dryRun?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -3093,18 +3095,20 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Flag to run the request in dry-run mode. */
-                dryRun?: boolean;
             }): Request<ShippingsettingsCustomBatchResponse>;            
             
             /** Retrieves the shipping settings of the account. This method can only be called for accounts to which the managing account has access: either the managing account itself for any Merchant Center account, or any sub-account when the managing account is a multi-client account. */
             get(request: {            
+                /** The ID of the account for which to get/update shipping settings. */
+                accountId: string;
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The ID of the managing account. */
+                merchantId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
@@ -3113,10 +3117,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the account for which to get/update shipping settings. */
-                accountId: string;
-                /** The ID of the managing account. */
-                merchantId: string;
             }): Request<ShippingSettings>;            
             
             /** Retrieves supported carriers and carrier services for an account. */
@@ -3127,6 +3127,8 @@ declare namespace gapi.client {
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The ID of the account for which to retrieve the supported carriers. */
+                merchantId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
@@ -3135,8 +3137,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the account for which to retrieve the supported carriers. */
-                merchantId: string;
             }): Request<ShippingsettingsGetSupportedCarriersResponse>;            
             
             /** Lists the shipping settings of the sub-accounts in your Merchant Center account. This method can only be called for multi-client accounts. */
@@ -3147,30 +3147,36 @@ declare namespace gapi.client {
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** The maximum number of shipping settings to return in the response, used for paging. */
                 maxResults?: number;
                 /** The ID of the managing account. */
                 merchantId: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** The token returned by the previous request. */
                 pageToken?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<ShippingsettingsListResponse>;            
             
             /** Updates the shipping settings of the account. This method can only be called for accounts to which the managing account has access: either the managing account itself for any Merchant Center account, or any sub-account when the managing account is a multi-client account. This method supports patch semantics. */
             patch(request: {            
+                /** The ID of the account for which to get/update shipping settings. */
+                accountId: string;
                 /** Data format for the response. */
                 alt?: string;
+                /** Flag to run the request in dry-run mode. */
+                dryRun?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The ID of the managing account. */
+                merchantId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
@@ -3179,22 +3185,22 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the account for which to get/update shipping settings. */
-                accountId: string;
-                /** Flag to run the request in dry-run mode. */
-                dryRun?: boolean;
-                /** The ID of the managing account. */
-                merchantId: string;
             }): Request<ShippingSettings>;            
             
             /** Updates the shipping settings of the account. This method can only be called for accounts to which the managing account has access: either the managing account itself for any Merchant Center account, or any sub-account when the managing account is a multi-client account. */
             update(request: {            
+                /** The ID of the account for which to get/update shipping settings. */
+                accountId: string;
                 /** Data format for the response. */
                 alt?: string;
+                /** Flag to run the request in dry-run mode. */
+                dryRun?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The ID of the managing account. */
+                merchantId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
@@ -3203,12 +3209,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the account for which to get/update shipping settings. */
-                accountId: string;
-                /** Flag to run the request in dry-run mode. */
-                dryRun?: boolean;
-                /** The ID of the managing account. */
-                merchantId: string;
             }): Request<ShippingSettings>;            
             
         }

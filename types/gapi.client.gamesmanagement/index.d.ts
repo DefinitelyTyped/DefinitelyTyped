@@ -191,6 +191,8 @@ declare namespace gapi.client {
         interface AchievementsResource {
             /** Resets the achievement with the given ID for the currently authenticated player. This method is only accessible to whitelisted tester accounts for your application. */
             reset(request: {            
+                /** The ID of the achievement used by this method. */
+                achievementId: string;
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -205,8 +207,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the achievement used by this method. */
-                achievementId: string;
             }): Request<AchievementResetResponse>;            
             
             /** Resets all achievements for the currently authenticated player for your application. This method is only accessible to whitelisted tester accounts for your application. */
@@ -247,6 +247,8 @@ declare namespace gapi.client {
             
             /** Resets the achievement with the given ID for all players. This method is only available to user accounts for your developer console. Only draft achievements can be reset. */
             resetForAllPlayers(request: {            
+                /** The ID of the achievement used by this method. */
+                achievementId: string;
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -261,8 +263,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the achievement used by this method. */
-                achievementId: string;
             }): Request<void>;            
             
             /** Resets achievements with the given IDs for all players. This method is only available to user accounts for your developer console. Only draft achievements may be reset. */
@@ -290,24 +290,24 @@ declare namespace gapi.client {
             listHidden(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The application ID from the Google Play developer console. */
+                applicationId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The maximum number of player resources to return in the response, used for paging. For any response, the actual number of player resources returned may be less than the specified maxResults. */
+                maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** The token returned by the previous request. */
+                pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The application ID from the Google Play developer console. */
-                applicationId: string;
-                /** The maximum number of player resources to return in the response, used for paging. For any response, the actual number of player resources returned may be less than the specified maxResults. */
-                maxResults?: number;
-                /** The token returned by the previous request. */
-                pageToken?: string;
             }): Request<HiddenPlayerList>;            
             
         }
@@ -317,6 +317,8 @@ declare namespace gapi.client {
             reset(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The ID of the event. */
+                eventId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -329,8 +331,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the event. */
-                eventId: string;
             }): Request<void>;            
             
             /** Resets all player progress on all events for the currently authenticated player. This method is only accessible to whitelisted tester accounts for your application. All quests for this player will also be reset. */
@@ -373,6 +373,8 @@ declare namespace gapi.client {
             resetForAllPlayers(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The ID of the event. */
+                eventId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -385,8 +387,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the event. */
-                eventId: string;
             }): Request<void>;            
             
             /** Resets events with the given IDs for all players. This method is only available to user accounts for your developer console. Only draft events may be reset. All quests that use any of the events will also be reset. */
@@ -414,44 +414,44 @@ declare namespace gapi.client {
             hide(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The application ID from the Google Play developer console. */
+                applicationId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** A player ID. A value of me may be used in place of the authenticated player's ID. */
+                playerId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The application ID from the Google Play developer console. */
-                applicationId: string;
-                /** A player ID. A value of me may be used in place of the authenticated player's ID. */
-                playerId: string;
             }): Request<void>;            
             
             /** Unhide the given player's leaderboard scores from the given application. This method is only available to user accounts for your developer console. */
             unhide(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The application ID from the Google Play developer console. */
+                applicationId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** A player ID. A value of me may be used in place of the authenticated player's ID. */
+                playerId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The application ID from the Google Play developer console. */
-                applicationId: string;
-                /** A player ID. A value of me may be used in place of the authenticated player's ID. */
-                playerId: string;
             }): Request<void>;            
             
         }
@@ -469,12 +469,12 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** The ID of the quest. */
+                questId: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the quest. */
-                questId: string;
             }): Request<void>;            
             
             /** Resets all player progress on all quests for the currently authenticated player. This method is only accessible to whitelisted tester accounts for your application. */
@@ -525,12 +525,12 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** The ID of the quest. */
+                questId: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the quest. */
-                questId: string;
             }): Request<void>;            
             
             /** Resets quests with the given IDs for all players. This method is only available to user accounts for your developer console. Only draft quests may be reset. */
@@ -601,6 +601,8 @@ declare namespace gapi.client {
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The ID of the leaderboard. */
+                leaderboardId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
@@ -609,8 +611,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the leaderboard. */
-                leaderboardId: string;
             }): Request<PlayerScoreResetResponse>;            
             
             /** Resets all scores for all leaderboards for the currently authenticated players. This method is only accessible to whitelisted tester accounts for your application. */
@@ -657,6 +657,8 @@ declare namespace gapi.client {
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The ID of the leaderboard. */
+                leaderboardId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
@@ -665,8 +667,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the leaderboard. */
-                leaderboardId: string;
             }): Request<void>;            
             
             /** Resets scores for the leaderboards with the given IDs for all players. This method is only available to user accounts for your developer console. Only draft leaderboards may be reset. */

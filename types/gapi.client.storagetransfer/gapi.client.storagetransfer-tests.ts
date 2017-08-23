@@ -31,6 +31,22 @@ gapi.load('client', () => {
 
     async function run() {  
         
+        // Returns the Google service account that is used by Storage Transfer
+        // Service to access buckets in the project where transfers
+        // run or in other projects. Each Google service account is associated
+        // with one Google Cloud Platform Console project. Users
+        // should add this service account to the Google Cloud Storage bucket
+        // ACLs to grant access to Storage Transfer Service. This service
+        // account is created and owned by Storage Transfer Service and can
+        // only be used by Storage Transfer Service.
+        await gapi.client.googleServiceAccounts.get({ projectId: "projectId",  }); 
+        
+        // Resumes a transfer operation that is paused.
+        await gapi.client.transferOperations.resume({ name: "name",  }); 
+        
+        // Cancels a transfer. Use the get method to check whether the cancellation succeeded or whether the operation completed despite cancellation.
+        await gapi.client.transferOperations.cancel({ name: "name",  }); 
+        
         // Gets the latest state of a long-running operation.  Clients can use this
         // method to poll the operation result at intervals as recommended by the API
         // service.
@@ -54,12 +70,6 @@ gapi.load('client', () => {
         // is the parent resource, without the operations collection id.
         await gapi.client.transferOperations.list({ name: "name",  }); 
         
-        // Resumes a transfer operation that is paused.
-        await gapi.client.transferOperations.resume({ name: "name",  }); 
-        
-        // Cancels a transfer. Use the get method to check whether the cancellation succeeded or whether the operation completed despite cancellation.
-        await gapi.client.transferOperations.cancel({ name: "name",  }); 
-        
         // Lists transfer jobs.
         await gapi.client.transferJobs.list({  }); 
         
@@ -72,16 +82,6 @@ gapi.load('client', () => {
         await gapi.client.transferJobs.patch({ jobName: "jobName",  }); 
         
         // Creates a transfer job that runs periodically.
-        await gapi.client.transferJobs.create({  }); 
-        
-        // Returns the Google service account that is used by Storage Transfer
-        // Service to access buckets in the project where transfers
-        // run or in other projects. Each Google service account is associated
-        // with one Google Cloud Platform Console project. Users
-        // should add this service account to the Google Cloud Storage bucket
-        // ACLs to grant access to Storage Transfer Service. This service
-        // account is created and owned by Storage Transfer Service and can
-        // only be used by Storage Transfer Service.
-        await gapi.client.googleServiceAccounts.get({ projectId: "projectId",  });
+        await gapi.client.transferJobs.create({  });
     }
 });

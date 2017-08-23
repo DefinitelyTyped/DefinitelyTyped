@@ -320,6 +320,8 @@ declare namespace gapi.client {
             delete(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Name or identifier for the column being deleted. */
+                columnId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -330,18 +332,18 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** Name or identifier for the column being deleted. */
-                columnId: string;
                 /** Table from which the column is being deleted. */
                 tableId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<void>;            
             
             /** Retrieves a specific column by its ID. */
             get(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Name or identifier for the column that is being requested. */
+                columnId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -352,12 +354,10 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** Name or identifier for the column that is being requested. */
-                columnId: string;
                 /** Table to which the column belongs. */
                 tableId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Column>;            
             
             /** Adds a new column to the table. */
@@ -374,10 +374,10 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** Table for which a new column is being added. */
                 tableId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Column>;            
             
             /** Retrieves a list of columns. */
@@ -388,26 +388,28 @@ declare namespace gapi.client {
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** Maximum number of columns to return. Default is 5. */
+                maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Continuation token specifying which result page to return. */
+                pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** Maximum number of columns to return. Default is 5. */
-                maxResults?: number;
-                /** Continuation token specifying which result page to return. */
-                pageToken?: string;
                 /** Table whose columns are being listed. */
                 tableId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<ColumnList>;            
             
             /** Updates the name or type of an existing column. This method supports patch semantics. */
             patch(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Name or identifier for the column that is being updated. */
+                columnId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -418,18 +420,18 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** Name or identifier for the column that is being updated. */
-                columnId: string;
                 /** Table for which the column is being updated. */
                 tableId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Column>;            
             
             /** Updates the name or type of an existing column. */
             update(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Name or identifier for the column that is being updated. */
+                columnId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -440,12 +442,10 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** Name or identifier for the column that is being updated. */
-                columnId: string;
                 /** Table for which the column is being updated. */
                 tableId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Column>;            
             
         }
@@ -464,6 +464,8 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Whether column names are included in the first row. Default is true. */
+                hdrs?: boolean;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
@@ -472,10 +474,6 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** Whether column names are included in the first row. Default is true. */
-                hdrs?: boolean;
                 /** A Fusion Tables SQL statement, which can be any of  */
                 /** - SELECT */
                 /** - INSERT */
@@ -487,6 +485,8 @@ declare namespace gapi.client {
                 sql: string;
                 /** Whether typed values are returned in the (JSON) response: numbers for numeric values and parsed geometries for KML values. Default is true. */
                 typed?: boolean;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Sqlresponse>;            
             
             /** Executes a SQL statement which can be any of  */
@@ -498,6 +498,8 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Whether column names are included (in the first row). Default is true. */
+                hdrs?: boolean;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
@@ -506,10 +508,6 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** Whether column names are included (in the first row). Default is true. */
-                hdrs?: boolean;
                 /** A SQL statement which can be any of  */
                 /** - SELECT */
                 /** - SHOW */
@@ -517,6 +515,8 @@ declare namespace gapi.client {
                 sql: string;
                 /** Whether typed values are returned in the (JSON) response: numbers for numeric values and parsed geometries for KML values. Default is true. */
                 typed?: boolean;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Sqlresponse>;            
             
         }
@@ -536,12 +536,12 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** Identifier (within a table) for the style being deleted */
                 styleId: number;
                 /** Table from which the style is being deleted */
                 tableId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<void>;            
             
             /** Gets a specific style. */
@@ -558,12 +558,12 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** Identifier (integer) for a specific style in a table */
                 styleId: number;
                 /** Table to which the requested style belongs */
                 tableId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<StyleSetting>;            
             
             /** Adds a new style for the table. */
@@ -580,10 +580,10 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** Table for which a new style is being added */
                 tableId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<StyleSetting>;            
             
             /** Retrieves a list of styles. */
@@ -594,20 +594,20 @@ declare namespace gapi.client {
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** Maximum number of styles to return. Optional. Default is 5. */
+                maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Continuation token specifying which result page to return. Optional. */
+                pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** Maximum number of styles to return. Optional. Default is 5. */
-                maxResults?: number;
-                /** Continuation token specifying which result page to return. Optional. */
-                pageToken?: string;
                 /** Table whose styles are being listed */
                 tableId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<StyleSettingList>;            
             
             /** Updates an existing style. This method supports patch semantics. */
@@ -624,12 +624,12 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** Identifier (within a table) for the style being updated. */
                 styleId: number;
                 /** Table whose style is being updated. */
                 tableId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<StyleSetting>;            
             
             /** Updates an existing style. */
@@ -646,12 +646,12 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** Identifier (within a table) for the style being updated. */
                 styleId: number;
                 /** Table whose style is being updated. */
                 tableId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<StyleSetting>;            
             
         }
@@ -661,6 +661,8 @@ declare namespace gapi.client {
             copy(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Whether to also copy tabs, styles, and templates. Default is false. */
+                copyPresentation?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -671,12 +673,10 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** Whether to also copy tabs, styles, and templates. Default is false. */
-                copyPresentation?: boolean;
                 /** ID of the table that is being copied. */
                 tableId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Table>;            
             
             /** Deletes a table. */
@@ -693,10 +693,10 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** ID of the table to be deleted. */
                 tableId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<void>;            
             
             /** Retrieves a specific table by its ID. */
@@ -713,48 +713,26 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** Identifier for the table being requested. */
                 tableId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Table>;            
             
             /** Imports more rows into a table. */
             importRows(request: {            
                 /** Data format for the response. */
                 alt?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** The delimiter used to separate cell values. This can only consist of a single character. Default is ,. */
                 delimiter?: string;
                 /** The encoding of the content. Default is UTF-8. Use auto-detect if you are unsure of the encoding. */
                 encoding?: string;
                 /** The index of the line up to which data will be imported. Default is to import the entire file. If endLine is negative, it is an offset from the end of the file; the imported content will exclude the last endLine lines. */
                 endLine?: number;
-                /** Whether the imported CSV must have the same number of values for each row. If false, rows with fewer values will be padded with empty values. Default is true. */
-                isStrict?: boolean;
-                /** The index of the first line from which to start importing, inclusive. Default is 0. */
-                startLine?: number;
-                /** The table into which new rows are being imported. */
-                tableId: string;
-            }): Request<Import>;            
-            
-            /** Imports a new table. */
-            importTable(request: {            
-                /** Data format for the response. */
-                alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Whether the imported CSV must have the same number of values for each row. If false, rows with fewer values will be padded with empty values. Default is true. */
+                isStrict?: boolean;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
@@ -763,14 +741,36 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
+                /** The index of the first line from which to start importing, inclusive. Default is 0. */
+                startLine?: number;
+                /** The table into which new rows are being imported. */
+                tableId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
+            }): Request<Import>;            
+            
+            /** Imports a new table. */
+            importTable(request: {            
+                /** Data format for the response. */
+                alt?: string;
                 /** The delimiter used to separate cell values. This can only consist of a single character. Default is ,. */
                 delimiter?: string;
                 /** The encoding of the content. Default is UTF-8. Use auto-detect if you are unsure of the encoding. */
                 encoding?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** The name to be assigned to the new table. */
                 name: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Table>;            
             
             /** Creates a new table. */
@@ -799,18 +799,18 @@ declare namespace gapi.client {
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** Maximum number of tables to return. Default is 5. */
+                maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Continuation token specifying which result page to return. */
+                pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Maximum number of tables to return. Default is 5. */
-                maxResults?: number;
-                /** Continuation token specifying which result page to return. */
-                pageToken?: string;
             }): Request<TableList>;            
             
             /** Updates an existing table. Unless explicitly requested, only the name, description, and attribution will be updated. This method supports patch semantics. */
@@ -827,20 +827,28 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** Whether the view definition is also updated. The specified view definition replaces the existing one. Only a view can be updated with a new definition. */
                 replaceViewDefinition?: boolean;
                 /** ID of the table that is being updated. */
                 tableId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Table>;            
             
             /** Replaces rows of an existing table. Current rows remain visible until all replacement rows are ready. */
             replaceRows(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The delimiter used to separate cell values. This can only consist of a single character. Default is ,. */
+                delimiter?: string;
+                /** The encoding of the content. Default is UTF-8. Use 'auto-detect' if you are unsure of the encoding. */
+                encoding?: string;
+                /** The index of the line up to which data will be imported. Default is to import the entire file. If endLine is negative, it is an offset from the end of the file; the imported content will exclude the last endLine lines. */
+                endLine?: number;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Whether the imported CSV must have the same number of column values for each row. If true, throws an exception if the CSV does not have the same number of columns. If false, rows with fewer column values will be padded with empty values. Default is true. */
+                isStrict?: boolean;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
@@ -849,20 +857,12 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** The delimiter used to separate cell values. This can only consist of a single character. Default is ,. */
-                delimiter?: string;
-                /** The encoding of the content. Default is UTF-8. Use 'auto-detect' if you are unsure of the encoding. */
-                encoding?: string;
-                /** The index of the line up to which data will be imported. Default is to import the entire file. If endLine is negative, it is an offset from the end of the file; the imported content will exclude the last endLine lines. */
-                endLine?: number;
-                /** Whether the imported CSV must have the same number of column values for each row. If true, throws an exception if the CSV does not have the same number of columns. If false, rows with fewer column values will be padded with empty values. Default is true. */
-                isStrict?: boolean;
                 /** The index of the first line from which to start importing, inclusive. Default is 0. */
                 startLine?: number;
                 /** Table whose rows will be replaced. */
                 tableId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Task>;            
             
             /** Updates an existing table. Unless explicitly requested, only the name, description, and attribution will be updated. */
@@ -879,12 +879,12 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** Whether the view definition is also updated. The specified view definition replaces the existing one. Only a view can be updated with a new definition. */
                 replaceViewDefinition?: boolean;
                 /** ID of the table that is being updated. */
                 tableId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Table>;            
             
         }
@@ -904,12 +904,12 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** Table from which the task is being deleted. */
                 tableId: string;
                 /** The identifier of the task to delete. */
                 taskId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<void>;            
             
             /** Retrieves a specific task by its ID. */
@@ -926,12 +926,12 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** Table to which the task belongs. */
                 tableId: string;
                 /** The identifier of the task to get. */
                 taskId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Task>;            
             
             /** Retrieves a list of tasks. */
@@ -942,22 +942,22 @@ declare namespace gapi.client {
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** Maximum number of tasks to return. Default is 5. */
+                maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Continuation token specifying which result page to return. */
+                pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** Maximum number of tasks to return. Default is 5. */
-                maxResults?: number;
-                /** Continuation token specifying which result page to return. */
-                pageToken?: string;
                 /** Index of the first result returned in the current page. */
                 startIndex?: number;
                 /** Table whose tasks are being listed. */
                 tableId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<TaskList>;            
             
         }
@@ -977,12 +977,12 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** Table from which the template is being deleted */
                 tableId: string;
                 /** Identifier for the template which is being deleted */
                 templateId: number;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<void>;            
             
             /** Retrieves a specific template by its id */
@@ -999,12 +999,12 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** Table to which the template belongs */
                 tableId: string;
                 /** Identifier for the template that is being requested */
                 templateId: number;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Template>;            
             
             /** Creates a new template for the table. */
@@ -1021,10 +1021,10 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** Table for which a new template is being created */
                 tableId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Template>;            
             
             /** Retrieves a list of templates. */
@@ -1035,20 +1035,20 @@ declare namespace gapi.client {
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** Maximum number of templates to return. Optional. Default is 5. */
+                maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Continuation token specifying which results page to return. Optional. */
+                pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** Maximum number of templates to return. Optional. Default is 5. */
-                maxResults?: number;
-                /** Continuation token specifying which results page to return. Optional. */
-                pageToken?: string;
                 /** Identifier for the table whose templates are being requested */
                 tableId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<TemplateList>;            
             
             /** Updates an existing template. This method supports patch semantics. */
@@ -1065,12 +1065,12 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** Table to which the updated template belongs */
                 tableId: string;
                 /** Identifier for the template that is being updated */
                 templateId: number;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Template>;            
             
             /** Updates an existing template */
@@ -1087,12 +1087,12 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** Table to which the updated template belongs */
                 tableId: string;
                 /** Identifier for the template that is being updated */
                 templateId: number;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Template>;            
             
         }

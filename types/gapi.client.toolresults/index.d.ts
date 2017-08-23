@@ -744,30 +744,30 @@ declare namespace gapi.client {
             list(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** An Execution id. */
+                /**  */
+                /** Required. */
+                executionId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** A History id. */
+                /**  */
+                /** Required. */
+                historyId: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** An Execution id. */
-                /**  */
-                /** Required. */
-                executionId: string;
-                /** A History id. */
-                /**  */
-                /** Required. */
-                historyId: string;
                 /** A Project id. */
                 /**  */
                 /** Required. */
                 projectId: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<ListScreenshotClustersResponse>;            
             
         }
@@ -779,26 +779,26 @@ declare namespace gapi.client {
             create(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** A tool results execution ID. */
+                executionId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** A tool results history ID. */
+                historyId: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** A tool results execution ID. */
-                executionId: string;
-                /** A tool results history ID. */
-                historyId: string;
                 /** The cloud project */
                 projectId: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /** A tool results step ID. */
                 stepId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<PerfMetricsSummary>;            
             
         }
@@ -810,28 +810,28 @@ declare namespace gapi.client {
             batchCreate(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** A tool results execution ID. */
+                executionId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** A tool results history ID. */
+                historyId: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** A tool results execution ID. */
-                executionId: string;
-                /** A tool results history ID. */
-                historyId: string;
                 /** The cloud project */
                 projectId: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /** A sample series id */
                 sampleSeriesId: string;
                 /** A tool results step ID. */
                 stepId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<BatchCreatePerfSamplesResponse>;            
             
             /** Lists the Performance Samples of a given Sample Series - The list results are sorted by timestamps ascending - The default page size is 500 samples; and maximum size allowed 5000 - The response token indicates the last returned PerfSample timestamp - When the results size exceeds the page size, submit a subsequent request including the page token to return the rest of the samples up to the page limit */
@@ -840,32 +840,32 @@ declare namespace gapi.client {
             list(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** A tool results execution ID. */
+                executionId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** A tool results history ID. */
+                historyId: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** A tool results execution ID. */
-                executionId: string;
-                /** A tool results history ID. */
-                historyId: string;
                 /** The default page size is 500 samples, and the maximum size is 5000. If the page_size is greater than 5000, the effective page size will be 5000 */
                 pageSize?: number;
                 /** Optional, the next_page_token returned in the previous response */
                 pageToken?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** The cloud project */
                 projectId: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /** A sample series id */
                 sampleSeriesId: string;
                 /** A tool results step ID. */
                 stepId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<ListPerfSamplesResponse>;            
             
         }
@@ -877,26 +877,26 @@ declare namespace gapi.client {
             create(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** A tool results execution ID. */
+                executionId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** A tool results history ID. */
+                historyId: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** A tool results execution ID. */
-                executionId: string;
-                /** A tool results history ID. */
-                historyId: string;
                 /** The cloud project */
                 projectId: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /** A tool results step ID. */
                 stepId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<PerfSampleSeries>;            
             
             /** Gets a PerfSampleSeries. */
@@ -905,28 +905,28 @@ declare namespace gapi.client {
             get(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** A tool results execution ID. */
+                executionId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** A tool results history ID. */
+                historyId: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** A tool results execution ID. */
-                executionId: string;
-                /** A tool results history ID. */
-                historyId: string;
                 /** The cloud project */
                 projectId: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /** A sample series id */
                 sampleSeriesId: string;
                 /** A tool results step ID. */
                 stepId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<PerfSampleSeries>;            
             
             /** Lists PerfSampleSeries for a given Step. */
@@ -937,28 +937,28 @@ declare namespace gapi.client {
             list(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** A tool results execution ID. */
+                executionId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Specify one or more PerfMetricType values such as CPU to filter the result */
+                filter?: string;
+                /** A tool results history ID. */
+                historyId: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** A tool results execution ID. */
-                executionId: string;
-                /** Specify one or more PerfMetricType values such as CPU to filter the result */
-                filter?: string;
-                /** A tool results history ID. */
-                historyId: string;
                 /** The cloud project */
                 projectId: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /** A tool results step ID. */
                 stepId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<ListPerfSampleSeriesResponse>;            
             
             samples: SamplesResource;
@@ -971,26 +971,20 @@ declare namespace gapi.client {
             list(request: {            
                 /** Data format for the response. */
                 alt?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** An Execution id. */
                 /**  */
                 /** Required. */
                 executionId: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
                 /** A History id. */
                 /**  */
                 /** Required. */
                 historyId: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** The maximum number of thumbnails to fetch. */
                 /**  */
                 /** Default value: 50. The server will use this default if the field is not set or has a value of 0. */
@@ -1001,14 +995,20 @@ declare namespace gapi.client {
                 /**  */
                 /** Optional. */
                 pageToken?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** A Project id. */
                 /**  */
                 /** Required. */
                 projectId: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /** A Step id. */
                 /**  */
                 /** Required. */
                 stepId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<ListStepThumbnailsResponse>;            
             
         }
@@ -1024,34 +1024,34 @@ declare namespace gapi.client {
             create(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** A Execution id. */
+                /**  */
+                /** Required. */
+                executionId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** A History id. */
+                /**  */
+                /** Required. */
+                historyId: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** A Execution id. */
-                /**  */
-                /** Required. */
-                executionId: string;
-                /** A History id. */
-                /**  */
-                /** Required. */
-                historyId: string;
                 /** A Project id. */
                 /**  */
                 /** Required. */
                 projectId: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /** A unique request ID for server to detect duplicated requests. For example, a UUID. */
                 /**  */
                 /** Optional, but strongly recommended. */
                 requestId?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Step>;            
             
             /** Gets a Step. */
@@ -1062,34 +1062,34 @@ declare namespace gapi.client {
             get(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** A Execution id. */
+                /**  */
+                /** Required. */
+                executionId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** A History id. */
+                /**  */
+                /** Required. */
+                historyId: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** A Execution id. */
-                /**  */
-                /** Required. */
-                executionId: string;
-                /** A History id. */
-                /**  */
-                /** Required. */
-                historyId: string;
                 /** A Project id. */
                 /**  */
                 /** Required. */
                 projectId: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /** A Step id. */
                 /**  */
                 /** Required. */
                 stepId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Step>;            
             
             /** Retrieves a PerfMetricsSummary. */
@@ -1098,26 +1098,26 @@ declare namespace gapi.client {
             getPerfMetricsSummary(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** A tool results execution ID. */
+                executionId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** A tool results history ID. */
+                historyId: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** A tool results execution ID. */
-                executionId: string;
-                /** A tool results history ID. */
-                historyId: string;
                 /** The cloud project */
                 projectId: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /** A tool results step ID. */
                 stepId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<PerfMetricsSummary>;            
             
             /** Lists Steps for a given Execution. */
@@ -1130,26 +1130,20 @@ declare namespace gapi.client {
             list(request: {            
                 /** Data format for the response. */
                 alt?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** A Execution id. */
                 /**  */
                 /** Required. */
                 executionId: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
                 /** A History id. */
                 /**  */
                 /** Required. */
                 historyId: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** The maximum number of Steps to fetch. */
                 /**  */
                 /** Default value: 25. The server will use this default if the field is not set or has a value of 0. */
@@ -1160,10 +1154,16 @@ declare namespace gapi.client {
                 /**  */
                 /** Optional. */
                 pageToken?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** A Project id. */
                 /**  */
                 /** Required. */
                 projectId: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<ListStepsResponse>;            
             
             /** Updates an existing Step with the supplied partial entity. */
@@ -1174,30 +1174,28 @@ declare namespace gapi.client {
             patch(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** A Execution id. */
+                /**  */
+                /** Required. */
+                executionId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** A History id. */
+                /**  */
+                /** Required. */
+                historyId: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** A Execution id. */
-                /**  */
-                /** Required. */
-                executionId: string;
-                /** A History id. */
-                /**  */
-                /** Required. */
-                historyId: string;
                 /** A Project id. */
                 /**  */
                 /** Required. */
                 projectId: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /** A unique request ID for server to detect duplicated requests. For example, a UUID. */
                 /**  */
                 /** Optional, but strongly recommended. */
@@ -1206,6 +1204,8 @@ declare namespace gapi.client {
                 /**  */
                 /** Required. */
                 stepId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Step>;            
             
             /** Publish xml files to an existing Step. */
@@ -1216,34 +1216,34 @@ declare namespace gapi.client {
             publishXunitXmlFiles(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** A Execution id. */
+                /**  */
+                /** Required. */
+                executionId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** A History id. */
+                /**  */
+                /** Required. */
+                historyId: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** A Execution id. */
-                /**  */
-                /** Required. */
-                executionId: string;
-                /** A History id. */
-                /**  */
-                /** Required. */
-                historyId: string;
                 /** A Project id. */
                 /**  */
                 /** Required. */
                 projectId: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /** A Step id. Note: This step must include a TestExecutionStep. */
                 /**  */
                 /** Required. */
                 stepId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Step>;            
             
             perfMetricsSummary: PerfMetricsSummaryResource;
@@ -1264,28 +1264,28 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** A History id. */
+                /**  */
+                /** Required. */
+                historyId: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** A History id. */
-                /**  */
-                /** Required. */
-                historyId: string;
                 /** A Project id. */
                 /**  */
                 /** Required. */
                 projectId: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /** A unique request ID for server to detect duplicated requests. For example, a UUID. */
                 /**  */
                 /** Optional, but strongly recommended. */
                 requestId?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Execution>;            
             
             /** Gets an Execution. */
@@ -1296,30 +1296,30 @@ declare namespace gapi.client {
             get(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** An Execution id. */
+                /**  */
+                /** Required. */
+                executionId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** A History id. */
+                /**  */
+                /** Required. */
+                historyId: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** An Execution id. */
-                /**  */
-                /** Required. */
-                executionId: string;
-                /** A History id. */
-                /**  */
-                /** Required. */
-                historyId: string;
                 /** A Project id. */
                 /**  */
                 /** Required. */
                 projectId: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Execution>;            
             
             /** Lists Histories for a given Project. */
@@ -1334,20 +1334,14 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** A History id. */
                 /**  */
                 /** Required. */
                 historyId: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** The maximum number of Executions to fetch. */
                 /**  */
                 /** Default value: 25. The server will use this default if the field is not set or has a value of 0. */
@@ -1358,10 +1352,16 @@ declare namespace gapi.client {
                 /**  */
                 /** Optional. */
                 pageToken?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** A Project id. */
                 /**  */
                 /** Required. */
                 projectId: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<ListExecutionsResponse>;            
             
             /** Updates an existing Execution with the supplied partial entity. */
@@ -1372,28 +1372,28 @@ declare namespace gapi.client {
             patch(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Required. */
+                executionId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Required. */
+                historyId: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** Required. */
-                executionId: string;
-                /** Required. */
-                historyId: string;
                 /** A Project id. Required. */
                 projectId: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /** A unique request ID for server to detect duplicated requests. For example, a UUID. */
                 /**  */
                 /** Optional, but strongly recommended. */
                 requestId?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Execution>;            
             
             clusters: ClustersResource;
@@ -1419,18 +1419,18 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** A Project id. */
                 /**  */
                 /** Required. */
                 projectId: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /** A unique request ID for server to detect duplicated requests. For example, a UUID. */
                 /**  */
                 /** Optional, but strongly recommended. */
                 requestId?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<History>;            
             
             /** Gets a History. */
@@ -1443,24 +1443,24 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** A History id. */
+                /**  */
+                /** Required. */
+                historyId: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** A History id. */
-                /**  */
-                /** Required. */
-                historyId: string;
                 /** A Project id. */
                 /**  */
                 /** Required. */
                 projectId: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<History>;            
             
             /** Lists Histories for a given Project. */
@@ -1475,20 +1475,14 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** If set, only return histories with the given name. */
                 /**  */
                 /** Optional. */
                 filterByName?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** The maximum number of Histories to fetch. */
                 /**  */
                 /** Default value: 20. The server will use this default if the field is not set or has a value of 0. Any value greater than 100 will be treated as 100. */
@@ -1499,10 +1493,16 @@ declare namespace gapi.client {
                 /**  */
                 /** Optional. */
                 pageToken?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** A Project id. */
                 /**  */
                 /** Required. */
                 projectId: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<ListHistoriesResponse>;            
             
             executions: ExecutionsResource;
@@ -1525,14 +1525,14 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** A Project id. */
                 /**  */
                 /** Required. */
                 projectId: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<ProjectSettings>;            
             
             /** Creates resources for settings which have not yet been set. */
@@ -1557,14 +1557,14 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** A Project id. */
                 /**  */
                 /** Required. */
                 projectId: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<ProjectSettings>;            
             
             histories: HistoriesResource;

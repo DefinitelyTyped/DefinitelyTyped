@@ -210,20 +210,20 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** The name of a hosted model. */
+                hostedModelName: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** The project associated with the model. */
+                project: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The name of a hosted model. */
-                hostedModelName: string;
-                /** The project associated with the model. */
-                project: string;
             }): Request<Output>;            
             
         }
@@ -235,20 +235,20 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** The unique name for the predictive model. */
+                id: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** The project associated with the model. */
+                project: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The unique name for the predictive model. */
-                id: string;
-                /** The project associated with the model. */
-                project: string;
             }): Request<Analyze>;            
             
             /** Delete a trained model. */
@@ -257,20 +257,20 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** The unique name for the predictive model. */
+                id: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** The project associated with the model. */
+                project: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The unique name for the predictive model. */
-                id: string;
-                /** The project associated with the model. */
-                project: string;
             }): Request<void>;            
             
             /** Check training status of your model. */
@@ -279,20 +279,20 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** The unique name for the predictive model. */
+                id: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** The project associated with the model. */
+                project: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The unique name for the predictive model. */
-                id: string;
-                /** The project associated with the model. */
-                project: string;
             }): Request<Insert2>;            
             
             /** Train a Prediction API model. */
@@ -307,12 +307,12 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** The project associated with the model. */
+                project: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The project associated with the model. */
-                project: string;
             }): Request<Insert2>;            
             
             /** List available models. */
@@ -323,20 +323,20 @@ declare namespace gapi.client {
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** Maximum number of results to return. */
+                maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Pagination token. */
+                pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** The project associated with the model. */
+                project: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Maximum number of results to return. */
-                maxResults?: number;
-                /** Pagination token. */
-                pageToken?: string;
-                /** The project associated with the model. */
-                project: string;
             }): Request<List>;            
             
             /** Submit model id and request a prediction. */
@@ -345,20 +345,20 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** The unique name for the predictive model. */
+                id: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** The project associated with the model. */
+                project: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The unique name for the predictive model. */
-                id: string;
-                /** The project associated with the model. */
-                project: string;
             }): Request<Output>;            
             
             /** Add new data to a trained model. */
@@ -367,20 +367,20 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** The unique name for the predictive model. */
+                id: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** The project associated with the model. */
+                project: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The unique name for the predictive model. */
-                id: string;
-                /** The project associated with the model. */
-                project: string;
             }): Request<Insert2>;            
             
         }

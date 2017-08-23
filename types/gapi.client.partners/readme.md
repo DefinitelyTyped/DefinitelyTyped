@@ -34,6 +34,18 @@ After that you can use Google Partners API resources:
 ```typescript 
     
 /* 
+Logs a user event.  
+*/
+await gapi.client.userEvents.log({  }); 
+    
+/* 
+Logs a generic message from the client, such as
+`Failed to render component`, `Profile page is running slow`,
+`More than 500 users have accessed this result.`, etc.  
+*/
+await gapi.client.clientMessages.log({  }); 
+    
+/* 
 Gets an Exam Token for a Partner's user to take an exam in the Exams System  
 */
 await gapi.client.exams.getToken({ examType: "examType",  }); 
@@ -61,12 +73,6 @@ Lists states for current user.
 await gapi.client.userStates.list({  }); 
     
 /* 
-Update company.
-Should only be called within the context of an authorized logged in user.  
-*/
-await gapi.client.v2.updateCompanies({  }); 
-    
-/* 
 Gets Partners Status of the logged in user's agency.
 Should only be called if the logged in user is the admin of the agency.  
 */
@@ -76,6 +82,22 @@ await gapi.client.v2.getPartnersstatus({  });
 Updates the specified lead.  
 */
 await gapi.client.v2.updateLeads({  }); 
+    
+/* 
+Update company.
+Should only be called within the context of an authorized logged in user.  
+*/
+await gapi.client.v2.updateCompanies({  }); 
+    
+/* 
+Deletes a user's company relation. Unaffiliaites the user from a company.  
+*/
+await gapi.client.users.deleteCompanyRelation({ userId: "userId",  }); 
+    
+/* 
+Creates a user's company relation. Affiliates the user to a company.  
+*/
+await gapi.client.users.createCompanyRelation({ userId: "userId",  }); 
     
 /* 
 Gets a user.  
@@ -89,16 +111,6 @@ should only be called within the context of a logged in user.
 await gapi.client.users.updateProfile({  }); 
     
 /* 
-Deletes a user's company relation. Unaffiliaites the user from a company.  
-*/
-await gapi.client.users.deleteCompanyRelation({ userId: "userId",  }); 
-    
-/* 
-Creates a user's company relation. Affiliates the user to a company.  
-*/
-await gapi.client.users.createCompanyRelation({ userId: "userId",  }); 
-    
-/* 
 Lists companies.  
 */
 await gapi.client.companies.list({  }); 
@@ -106,17 +118,5 @@ await gapi.client.companies.list({  });
 /* 
 Gets a company.  
 */
-await gapi.client.companies.get({ companyId: "companyId",  }); 
-    
-/* 
-Logs a user event.  
-*/
-await gapi.client.userEvents.log({  }); 
-    
-/* 
-Logs a generic message from the client, such as
-`Failed to render component`, `Profile page is running slow`,
-`More than 500 users have accessed this result.`, etc.  
-*/
-await gapi.client.clientMessages.log({  });
+await gapi.client.companies.get({ companyId: "companyId",  });
 ```

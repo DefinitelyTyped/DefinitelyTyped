@@ -62,38 +62,6 @@ After that you can use Google Service Management API resources:
 ```typescript 
     
 /* 
-Sets the access control policy on the specified resource. Replaces any
-existing policy.  
-*/
-await gapi.client.services.setIamPolicy({ resource: "resource",  }); 
-    
-/* 
-Disables a service for a project, so it can no longer be
-be used for the project. It prevents accidental usage that may cause
-unexpected billing charges or security leaks.
-
-Operation<response: DisableServiceResponse>  
-*/
-await gapi.client.services.disable({ serviceName: "serviceName",  }); 
-    
-/* 
-Gets the access control policy for a resource.
-Returns an empty policy if the resource exists and does not have a policy
-set.  
-*/
-await gapi.client.services.getIamPolicy({ resource: "resource",  }); 
-    
-/* 
-Revives a previously deleted managed service. The method restores the
-service using the configuration at the time the service was deleted.
-The target service must exist and must have been deleted within the
-last 30 days.
-
-Operation<response: UndeleteServiceResponse>  
-*/
-await gapi.client.services.undelete({ serviceName: "serviceName",  }); 
-    
-/* 
 Lists managed services.
 
 Returns all public services. For authenticated users, also returns all
@@ -170,6 +138,38 @@ more information.
 Operation<response: EnableServiceResponse>  
 */
 await gapi.client.services.enable({ serviceName: "serviceName",  }); 
+    
+/* 
+Sets the access control policy on the specified resource. Replaces any
+existing policy.  
+*/
+await gapi.client.services.setIamPolicy({ resource: "resource",  }); 
+    
+/* 
+Disables a service for a project, so it can no longer be
+be used for the project. It prevents accidental usage that may cause
+unexpected billing charges or security leaks.
+
+Operation<response: DisableServiceResponse>  
+*/
+await gapi.client.services.disable({ serviceName: "serviceName",  }); 
+    
+/* 
+Gets the access control policy for a resource.
+Returns an empty policy if the resource exists and does not have a policy
+set.  
+*/
+await gapi.client.services.getIamPolicy({ resource: "resource",  }); 
+    
+/* 
+Revives a previously deleted managed service. The method restores the
+service using the configuration at the time the service was deleted.
+The target service must exist and must have been deleted within the
+last 30 days.
+
+Operation<response: UndeleteServiceResponse>  
+*/
+await gapi.client.services.undelete({ serviceName: "serviceName",  }); 
     
 /* 
 Gets the latest state of a long-running operation.  Clients can use this

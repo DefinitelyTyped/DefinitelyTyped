@@ -20,32 +20,16 @@ declare namespace gapi.client {
     
     namespace script {
         
-        interface ScriptStackTraceElement {
-            /** The name of the function that failed. */
-            function?: string;
-            /** The line number where the script failed. */
-            lineNumber?: number;
-        }
-        
         interface ExecutionError {
-            /** An array of objects that provide a stack trace through the script to show */
-            /** where the execution failed, with the deepest call first. */
-            scriptStackTraceElements?: ScriptStackTraceElement[];
-            /** The error type, for example `TypeError` or `ReferenceError`. If the error */
-            /** type is unavailable, this field is not included. */
-            errorType?: string;
             /** The error message thrown by Apps Script, usually localized into the user's */
             /** language. */
             errorMessage?: string;
-        }
-        
-        interface Status {
-            /** An array that contains a single `ExecutionError` object that provides information about the nature of the error. */
-            details?: Array<Record<string, any>>;            
-            /** The status code. For this API, this value will always be 3, corresponding to an <code>INVALID_ARGUMENT</code> error. */
-            code?: number;
-            /** A developer-facing error message, which is in English. Any user-facing error message is localized and sent in the [`google.rpc.Status.details`](google.rpc.Status.details) field, or localized by the client. */
-            message?: string;
+            /** The error type, for example `TypeError` or `ReferenceError`. If the error */
+            /** type is unavailable, this field is not included. */
+            errorType?: string;
+            /** An array of objects that provide a stack trace through the script to show */
+            /** where the execution failed, with the deepest call first. */
+            scriptStackTraceElements?: ScriptStackTraceElement[];
         }
         
         interface ExecutionRequest {
@@ -87,14 +71,30 @@ declare namespace gapi.client {
         interface Operation {
             /** This field is only used with asynchronous executions and indicates whether or not the script execution has completed. A completed execution has a populated response field containing the `ExecutionResponse` from function that was executed. */
             done?: boolean;
-            /** If the script function returns successfully, this field will contain an `ExecutionResponse` object with the function's return value as the object's `result` field. */
-            response?: Record<string, any>;            
-            /** This field is only used with asynchronous executions and contains a unique identifier that can be used to subsequently invoke a `get` `cancel` or `join` on the asynchronous script execution identified by this name. */
-            name?: string;
             /** If a `run` call succeeds but the script function (or Apps Script itself) throws an exception, this field will contain a `Status` object. The `Status` object's `details` field will contain an array with a single `ExecutionError` object that provides information about the nature of the error. */
             error?: Status;
             /** This field is not used. */
             metadata?: Record<string, any>;            
+            /** This field is only used with asynchronous executions and contains a unique identifier that can be used to subsequently invoke a `get` `cancel` or `join` on the asynchronous script execution identified by this name. */
+            name?: string;
+            /** If the script function returns successfully, this field will contain an `ExecutionResponse` object with the function's return value as the object's `result` field. */
+            response?: Record<string, any>;            
+        }
+        
+        interface ScriptStackTraceElement {
+            /** The name of the function that failed. */
+            function?: string;
+            /** The line number where the script failed. */
+            lineNumber?: number;
+        }
+        
+        interface Status {
+            /** The status code. For this API, this value will always be 3, corresponding to an <code>INVALID_ARGUMENT</code> error. */
+            code?: number;
+            /** An array that contains a single `ExecutionError` object that provides information about the nature of the error. */
+            details?: Array<Record<string, any>>;            
+            /** A developer-facing error message, which is in English. Any user-facing error message is localized and sent in the [`google.rpc.Status.details`](google.rpc.Status.details) field, or localized by the client. */
+            message?: string;
         }
         
         interface ScriptsResource {
@@ -108,35 +108,35 @@ declare namespace gapi.client {
             /** authentication token, open the project in the script editor, then select */
             /** &#42;&#42;File > Project properties&#42;&#42; and click the &#42;&#42;Scopes&#42;&#42; tab. */
             run(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** JSONP */
-                callback?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
+                /** Data format for response. */
+                alt?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
                 /** The script ID of the script to be executed. To find the script ID, open */
                 /** the project in the script editor and select &#42;&#42;File > Project properties&#42;&#42;. */
                 scriptId: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
             }): Request<Operation>;            
             
         }

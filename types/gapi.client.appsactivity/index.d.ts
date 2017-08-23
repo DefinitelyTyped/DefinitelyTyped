@@ -132,33 +132,33 @@ declare namespace gapi.client {
             list(request: {            
                 /** Data format for the response. */
                 alt?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** Identifies the Drive folder containing the items for which to return activities. */
                 "drive.ancestorId"?: string;
                 /** Identifies the Drive item to return activities for. */
                 "drive.fileId"?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
                 /** Indicates the strategy to use when grouping singleEvents items in the associated combinedEvent object. */
                 groupingStrategy?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** The maximum number of events to return on a page. The response includes a continuation token if there are more events. */
                 pageSize?: number;
                 /** A token to retrieve a specific page of results. */
                 pageToken?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /** The Google service from which to return activities. Possible values of source are:  */
                 /** - drive.google.com */
                 source?: string;
                 /** Indicates the user to return activity for. Use the special value me to indicate the currently authenticated user. */
                 userId?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<ListActivitiesResponse>;            
             
         }

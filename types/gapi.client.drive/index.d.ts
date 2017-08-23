@@ -660,12 +660,12 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** Whether the requesting application supports Team Drives. */
                 supportsTeamDrives?: boolean;
                 /** The ID of the Team Drive for which the starting pageToken for listing future changes from that Team Drive will be returned. */
                 teamDriveId?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<StartPageToken>;            
             
             /** Lists the changes for a user or Team Drive. */
@@ -674,26 +674,24 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** Whether changes should include the file resource if the file is still accessible by the user at the time of the request, even when a file was removed from the list of changes and there will be no further change entries for this file. */
                 includeCorpusRemovals?: boolean;
                 /** Whether to include changes indicating that items have been removed from the list of changes, for example by deletion or loss of access. */
                 includeRemoved?: boolean;
                 /** Whether Team Drive files or changes should be included in results. */
                 includeTeamDriveItems?: boolean;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** The maximum number of changes to return per page. */
                 pageSize?: number;
                 /** The token for continuing a previous list request on the next page. This should be set to the value of 'nextPageToken' from the previous response or to the response from the getStartPageToken method. */
                 pageToken: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /** Whether to restrict the results to changes inside the My Drive hierarchy. This omits changes to files such as those in the Application Data folder or shared files which have not been added to My Drive. */
                 restrictToMyDrive?: boolean;
                 /** A comma-separated list of spaces to query within the user corpus. Supported values are 'drive', 'appDataFolder' and 'photos'. */
@@ -702,6 +700,8 @@ declare namespace gapi.client {
                 supportsTeamDrives?: boolean;
                 /** The Team Drive from which changes will be returned. If specified the change IDs will be reflective of the Team Drive; use the combined Team Drive ID and change ID as an identifier. */
                 teamDriveId?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<ChangeList>;            
             
             /** Subscribes to changes for a user. */
@@ -710,26 +710,24 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** Whether changes should include the file resource if the file is still accessible by the user at the time of the request, even when a file was removed from the list of changes and there will be no further change entries for this file. */
                 includeCorpusRemovals?: boolean;
                 /** Whether to include changes indicating that items have been removed from the list of changes, for example by deletion or loss of access. */
                 includeRemoved?: boolean;
                 /** Whether Team Drive files or changes should be included in results. */
                 includeTeamDriveItems?: boolean;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** The maximum number of changes to return per page. */
                 pageSize?: number;
                 /** The token for continuing a previous list request on the next page. This should be set to the value of 'nextPageToken' from the previous response or to the response from the getStartPageToken method. */
                 pageToken: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /** Whether to restrict the results to changes inside the My Drive hierarchy. This omits changes to files such as those in the Application Data folder or shared files which have not been added to My Drive. */
                 restrictToMyDrive?: boolean;
                 /** A comma-separated list of spaces to query within the user corpus. Supported values are 'drive', 'appDataFolder' and 'photos'. */
@@ -738,6 +736,8 @@ declare namespace gapi.client {
                 supportsTeamDrives?: boolean;
                 /** The Team Drive from which changes will be returned. If specified the change IDs will be reflective of the Team Drive; use the combined Team Drive ID and change ID as an identifier. */
                 teamDriveId?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Channel>;            
             
         }
@@ -770,6 +770,8 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** The ID of the file. */
+                fileId: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
@@ -780,16 +782,18 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the file. */
-                fileId: string;
             }): Request<Comment>;            
             
             /** Deletes a comment. */
             delete(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The ID of the comment. */
+                commentId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** The ID of the file. */
+                fileId: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
@@ -800,18 +804,20 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the comment. */
-                commentId: string;
-                /** The ID of the file. */
-                fileId: string;
             }): Request<void>;            
             
             /** Gets a comment by ID. */
             get(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The ID of the comment. */
+                commentId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** The ID of the file. */
+                fileId: string;
+                /** Whether to return deleted comments. Deleted comments will not include their original content. */
+                includeDeleted?: boolean;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
@@ -822,12 +828,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the comment. */
-                commentId: string;
-                /** The ID of the file. */
-                fileId: string;
-                /** Whether to return deleted comments. Deleted comments will not include their original content. */
-                includeDeleted?: boolean;
             }): Request<Comment>;            
             
             /** Lists a file's comments. */
@@ -836,34 +836,38 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** The ID of the file. */
                 fileId: string;
                 /** Whether to include deleted comments. Deleted comments will not include their original content. */
                 includeDeleted?: boolean;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** The maximum number of comments to return per page. */
                 pageSize?: number;
                 /** The token for continuing a previous list request on the next page. This should be set to the value of 'nextPageToken' from the previous response. */
                 pageToken?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /** The minimum value of 'modifiedTime' for the result comments (RFC 3339 date-time). */
                 startModifiedTime?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<CommentList>;            
             
             /** Updates a comment with patch semantics. */
             update(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The ID of the comment. */
+                commentId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** The ID of the file. */
+                fileId: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
@@ -874,10 +878,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the comment. */
-                commentId: string;
-                /** The ID of the file. */
-                fileId: string;
             }): Request<Comment>;            
             
         }
@@ -889,26 +889,26 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** The ID of the file. */
                 fileId: string;
                 /** Whether to ignore the domain's default visibility settings for the created file. Domain administrators can choose to make all uploaded files visible to the domain by default; this parameter bypasses that behavior for the request. Permissions are still inherited from parent folders. */
                 ignoreDefaultVisibility?: boolean;
                 /** Whether to set the 'keepForever' field in the new head revision. This is only applicable to files with binary content in Drive. */
                 keepRevisionForever?: boolean;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** A language hint for OCR processing during image import (ISO 639-1 code). */
                 ocrLanguage?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /** Whether the requesting application supports Team Drives. */
                 supportsTeamDrives?: boolean;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<File>;            
             
             /** Creates a new file. */
@@ -917,26 +917,26 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** Whether to ignore the domain's default visibility settings for the created file. Domain administrators can choose to make all uploaded files visible to the domain by default; this parameter bypasses that behavior for the request. Permissions are still inherited from parent folders. */
                 ignoreDefaultVisibility?: boolean;
                 /** Whether to set the 'keepForever' field in the new head revision. This is only applicable to files with binary content in Drive. */
                 keepRevisionForever?: boolean;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** A language hint for OCR processing during image import (ISO 639-1 code). */
                 ocrLanguage?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /** Whether the requesting application supports Team Drives. */
                 supportsTeamDrives?: boolean;
                 /** Whether to use the uploaded content as indexable text. */
                 useContentAsIndexableText?: boolean;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<File>;            
             
             /** Permanently deletes a file owned by the user without moving it to the trash. If the file belongs to a Team Drive the user must be an organizer on the parent. If the target is a folder, all descendants owned by the user are also deleted. */
@@ -945,6 +945,8 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** The ID of the file. */
+                fileId: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
@@ -953,12 +955,10 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** The ID of the file. */
-                fileId: string;
                 /** Whether the requesting application supports Team Drives. */
                 supportsTeamDrives?: boolean;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<void>;            
             
             /** Permanently deletes all of the user's trashed files. */
@@ -985,8 +985,12 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** The ID of the file. */
+                fileId: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The MIME type of the format requested for this export. */
+                mimeType: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
@@ -995,16 +999,14 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the file. */
-                fileId: string;
-                /** The MIME type of the format requested for this export. */
-                mimeType: string;
             }): Request<void>;            
             
             /** Generates a set of file IDs which can be provided in create requests. */
             generateIds(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The number of IDs to return. */
+                count?: number;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -1015,20 +1017,22 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** The number of IDs to return. */
-                count?: number;
                 /** The space in which the IDs can be used to create new files. Supported values are 'drive' and 'appDataFolder'. */
                 space?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<GeneratedIds>;            
             
             /** Gets a file's metadata or content by ID. */
             get(request: {            
+                /** Whether the user is acknowledging the risk of downloading known malware or other abusive files. This is only applicable when alt=media. */
+                acknowledgeAbuse?: boolean;
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** The ID of the file. */
+                fileId: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
@@ -1037,92 +1041,92 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** Whether the user is acknowledging the risk of downloading known malware or other abusive files. This is only applicable when alt=media. */
-                acknowledgeAbuse?: boolean;
-                /** The ID of the file. */
-                fileId: string;
                 /** Whether the requesting application supports Team Drives. */
                 supportsTeamDrives?: boolean;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<File>;            
             
             /** Lists or searches files. */
             list(request: {            
                 /** Data format for the response. */
                 alt?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** Comma-separated list of bodies of items (files/documents) to which the query applies. Supported bodies are 'user', 'domain', 'teamDrive' and 'allTeamDrives'. 'allTeamDrives' must be combined with 'user'; all other values must be used in isolation. Prefer 'user' or 'teamDrive' to 'allTeamDrives' for efficiency. */
                 corpora?: string;
                 /** The source of files to list. Deprecated: use 'corpora' instead. */
                 corpus?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
                 /** Whether Team Drive items should be included in results. */
                 includeTeamDriveItems?: boolean;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** A comma-separated list of sort keys. Valid keys are 'createdTime', 'folder', 'modifiedByMeTime', 'modifiedTime', 'name', 'quotaBytesUsed', 'recency', 'sharedWithMeTime', 'starred', and 'viewedByMeTime'. Each key sorts ascending by default, but may be reversed with the 'desc' modifier. Example usage: ?orderBy=folder,modifiedTime desc,name. Please note that there is a current limitation for users with approximately one million files in which the requested sort order is ignored. */
                 orderBy?: string;
                 /** The maximum number of files to return per page. Partial or empty result pages are possible even before the end of the files list has been reached. */
                 pageSize?: number;
                 /** The token for continuing a previous list request on the next page. This should be set to the value of 'nextPageToken' from the previous response. */
                 pageToken?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** A query for filtering the file results. See the "Search for Files" guide for supported syntax. */
                 q?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /** A comma-separated list of spaces to query within the corpus. Supported values are 'drive', 'appDataFolder' and 'photos'. */
                 spaces?: string;
                 /** Whether the requesting application supports Team Drives. */
                 supportsTeamDrives?: boolean;
                 /** ID of Team Drive to search. */
                 teamDriveId?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<FileList>;            
             
             /** Updates a file's metadata and/or content with patch semantics. */
             update(request: {            
+                /** A comma-separated list of parent IDs to add. */
+                addParents?: string;
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** A comma-separated list of parent IDs to add. */
-                addParents?: string;
                 /** The ID of the file. */
                 fileId: string;
                 /** Whether to set the 'keepForever' field in the new head revision. This is only applicable to files with binary content in Drive. */
                 keepRevisionForever?: boolean;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** A language hint for OCR processing during image import (ISO 639-1 code). */
                 ocrLanguage?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /** A comma-separated list of parent IDs to remove. */
                 removeParents?: string;
                 /** Whether the requesting application supports Team Drives. */
                 supportsTeamDrives?: boolean;
                 /** Whether to use the uploaded content as indexable text. */
                 useContentAsIndexableText?: boolean;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<File>;            
             
             /** Subscribes to changes to a file */
             watch(request: {            
+                /** Whether the user is acknowledging the risk of downloading known malware or other abusive files. This is only applicable when alt=media. */
+                acknowledgeAbuse?: boolean;
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** The ID of the file. */
+                fileId: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
@@ -1131,14 +1135,10 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** Whether the user is acknowledging the risk of downloading known malware or other abusive files. This is only applicable when alt=media. */
-                acknowledgeAbuse?: boolean;
-                /** The ID of the file. */
-                fileId: string;
                 /** Whether the requesting application supports Team Drives. */
                 supportsTeamDrives?: boolean;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Channel>;            
             
         }
@@ -1148,8 +1148,12 @@ declare namespace gapi.client {
             create(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** A custom message to include in the notification email. */
+                emailMessage?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** The ID of the file or Team Drive. */
+                fileId: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
@@ -1158,18 +1162,14 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** A custom message to include in the notification email. */
-                emailMessage?: string;
-                /** The ID of the file or Team Drive. */
-                fileId: string;
                 /** Whether to send a notification email when sharing to users or groups. This defaults to true for users and groups, and is not allowed for other requests. It must not be disabled for ownership transfers. */
                 sendNotificationEmail?: boolean;
                 /** Whether the requesting application supports Team Drives. */
                 supportsTeamDrives?: boolean;
                 /** Whether to transfer ownership to the specified user and downgrade the current owner to a writer. This parameter is required as an acknowledgement of the side effect. */
                 transferOwnership?: boolean;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Permission>;            
             
             /** Deletes a permission. */
@@ -1178,22 +1178,22 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** The ID of the file or Team Drive. */
+                fileId: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** The ID of the permission. */
+                permissionId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** The ID of the file or Team Drive. */
-                fileId: string;
-                /** The ID of the permission. */
-                permissionId: string;
                 /** Whether the requesting application supports Team Drives. */
                 supportsTeamDrives?: boolean;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<void>;            
             
             /** Gets a permission by ID. */
@@ -1202,22 +1202,22 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** The ID of the file. */
+                fileId: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** The ID of the permission. */
+                permissionId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** The ID of the file. */
-                fileId: string;
-                /** The ID of the permission. */
-                permissionId: string;
                 /** Whether the requesting application supports Team Drives. */
                 supportsTeamDrives?: boolean;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Permission>;            
             
             /** Lists a file's or Team Drive's permissions. */
@@ -1226,24 +1226,24 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** The ID of the file or Team Drive. */
+                fileId: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** The ID of the file or Team Drive. */
-                fileId: string;
                 /** The maximum number of permissions to return per page. When not set for files in a Team Drive, at most 100 results will be returned. When not set for files that are not in a Team Drive, the entire list will be returned. */
                 pageSize?: number;
                 /** The token for continuing a previous list request on the next page. This should be set to the value of 'nextPageToken' from the previous response. */
                 pageToken?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /** Whether the requesting application supports Team Drives. */
                 supportsTeamDrives?: boolean;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<PermissionList>;            
             
             /** Updates a permission with patch semantics. */
@@ -1252,26 +1252,26 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** The ID of the file or Team Drive. */
+                fileId: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** The ID of the permission. */
+                permissionId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** The ID of the file or Team Drive. */
-                fileId: string;
-                /** The ID of the permission. */
-                permissionId: string;
                 /** Whether to remove the expiration date. */
                 removeExpiration?: boolean;
                 /** Whether the requesting application supports Team Drives. */
                 supportsTeamDrives?: boolean;
                 /** Whether to transfer ownership to the specified user and downgrade the current owner to a writer. This parameter is required as an acknowledgement of the side effect. */
                 transferOwnership?: boolean;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Permission>;            
             
         }
@@ -1281,8 +1281,12 @@ declare namespace gapi.client {
             create(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The ID of the comment. */
+                commentId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** The ID of the file. */
+                fileId: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
@@ -1293,18 +1297,18 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the comment. */
-                commentId: string;
-                /** The ID of the file. */
-                fileId: string;
             }): Request<Reply>;            
             
             /** Deletes a reply. */
             delete(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The ID of the comment. */
+                commentId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** The ID of the file. */
+                fileId: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
@@ -1313,22 +1317,24 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** The ID of the comment. */
-                commentId: string;
-                /** The ID of the file. */
-                fileId: string;
                 /** The ID of the reply. */
                 replyId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<void>;            
             
             /** Gets a reply by ID. */
             get(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The ID of the comment. */
+                commentId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** The ID of the file. */
+                fileId: string;
+                /** Whether to return deleted replies. Deleted replies will not include their original content. */
+                includeDeleted?: boolean;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
@@ -1337,52 +1343,50 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** The ID of the comment. */
-                commentId: string;
-                /** The ID of the file. */
-                fileId: string;
-                /** Whether to return deleted replies. Deleted replies will not include their original content. */
-                includeDeleted?: boolean;
                 /** The ID of the reply. */
                 replyId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Reply>;            
             
             /** Lists a comment's replies. */
             list(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The ID of the comment. */
+                commentId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** The ID of the file. */
+                fileId: string;
+                /** Whether to include deleted replies. Deleted replies will not include their original content. */
+                includeDeleted?: boolean;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** The maximum number of replies to return per page. */
+                pageSize?: number;
+                /** The token for continuing a previous list request on the next page. This should be set to the value of 'nextPageToken' from the previous response. */
+                pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the comment. */
-                commentId: string;
-                /** The ID of the file. */
-                fileId: string;
-                /** Whether to include deleted replies. Deleted replies will not include their original content. */
-                includeDeleted?: boolean;
-                /** The maximum number of replies to return per page. */
-                pageSize?: number;
-                /** The token for continuing a previous list request on the next page. This should be set to the value of 'nextPageToken' from the previous response. */
-                pageToken?: string;
             }): Request<ReplyList>;            
             
             /** Updates a reply with patch semantics. */
             update(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The ID of the comment. */
+                commentId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** The ID of the file. */
+                fileId: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
@@ -1391,14 +1395,10 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** The ID of the comment. */
-                commentId: string;
-                /** The ID of the file. */
-                fileId: string;
                 /** The ID of the reply. */
                 replyId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Reply>;            
             
         }
@@ -1410,6 +1410,8 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** The ID of the file. */
+                fileId: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
@@ -1418,20 +1420,22 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** The ID of the file. */
-                fileId: string;
                 /** The ID of the revision. */
                 revisionId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<void>;            
             
             /** Gets a revision's metadata or content by ID. */
             get(request: {            
+                /** Whether the user is acknowledging the risk of downloading known malware or other abusive files. This is only applicable when alt=media. */
+                acknowledgeAbuse?: boolean;
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** The ID of the file. */
+                fileId: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
@@ -1440,14 +1444,10 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** Whether the user is acknowledging the risk of downloading known malware or other abusive files. This is only applicable when alt=media. */
-                acknowledgeAbuse?: boolean;
-                /** The ID of the file. */
-                fileId: string;
                 /** The ID of the revision. */
                 revisionId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Revision>;            
             
             /** Lists a file's revisions. */
@@ -1456,22 +1456,22 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** The ID of the file. */
+                fileId: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** The maximum number of revisions to return per page. */
+                pageSize?: number;
+                /** The token for continuing a previous list request on the next page. This should be set to the value of 'nextPageToken' from the previous response. */
+                pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the file. */
-                fileId: string;
-                /** The maximum number of revisions to return per page. */
-                pageSize?: number;
-                /** The token for continuing a previous list request on the next page. This should be set to the value of 'nextPageToken' from the previous response. */
-                pageToken?: string;
             }): Request<RevisionList>;            
             
             /** Updates a revision with patch semantics. */
@@ -1480,6 +1480,8 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** The ID of the file. */
+                fileId: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
@@ -1488,12 +1490,10 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** The ID of the file. */
-                fileId: string;
                 /** The ID of the revision. */
                 revisionId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Revision>;            
             
         }
@@ -1513,10 +1513,10 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** An ID, such as a random UUID, which uniquely identifies this user's request for idempotent creation of a Team Drive. A repeated request by the same user and with the same request ID will avoid creating duplicates by attempting to create the same Team Drive. If the Team Drive already exists a 409 error will be returned. */
                 requestId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<TeamDrive>;            
             
             /** Permanently deletes a Team Drive for which the user is an organizer. The Team Drive cannot contain any untrashed items. */
@@ -1533,10 +1533,10 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** The ID of the Team Drive */
                 teamDriveId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<void>;            
             
             /** Gets a Team Drive's metadata by ID. */
@@ -1553,10 +1553,10 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** The ID of the Team Drive */
                 teamDriveId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<TeamDrive>;            
             
             /** Lists the user's Team Drives. */
@@ -1569,16 +1569,16 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Maximum number of Team Drives to return. */
+                pageSize?: number;
+                /** Page token for Team Drives. */
+                pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Maximum number of Team Drives to return. */
-                pageSize?: number;
-                /** Page token for Team Drives. */
-                pageToken?: string;
             }): Request<TeamDriveList>;            
             
             /** Updates a Team Drive's metadata */
@@ -1595,10 +1595,10 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** The ID of the Team Drive */
                 teamDriveId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<TeamDrive>;            
             
         }

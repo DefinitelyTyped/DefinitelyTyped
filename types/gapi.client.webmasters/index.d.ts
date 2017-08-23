@@ -197,10 +197,10 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** The site's URL, including protocol. For example: http://www.example.com/ */
                 siteUrl: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<SearchAnalyticsQueryResponse>;            
             
         }
@@ -210,6 +210,8 @@ declare namespace gapi.client {
             delete(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The URL of the actual sitemap. For example: http://www.example.com/sitemap.xml */
+                feedpath: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -220,18 +222,18 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** The URL of the actual sitemap. For example: http://www.example.com/sitemap.xml */
-                feedpath: string;
                 /** The site's URL, including protocol. For example: http://www.example.com/ */
                 siteUrl: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<void>;            
             
             /** Retrieves information about a specific sitemap. */
             get(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The URL of the actual sitemap. For example: http://www.example.com/sitemap.xml */
+                feedpath: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -242,12 +244,10 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** The URL of the actual sitemap. For example: http://www.example.com/sitemap.xml */
-                feedpath: string;
                 /** The site's URL, including protocol. For example: http://www.example.com/ */
                 siteUrl: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<WmxSitemap>;            
             
             /** Lists the sitemaps-entries submitted for this site, or included in the sitemap index file (if sitemapIndex is specified in the request). */
@@ -264,18 +264,20 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** The site's URL, including protocol. For example: http://www.example.com/ */
                 siteUrl: string;
                 /** A URL of a site's sitemap index. For example: http://www.example.com/sitemapindex.xml */
                 sitemapIndex?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<SitemapsListResponse>;            
             
             /** Submits a sitemap for a site. */
             submit(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The URL of the sitemap to add. For example: http://www.example.com/sitemap.xml */
+                feedpath: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -286,12 +288,10 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** The URL of the sitemap to add. For example: http://www.example.com/sitemap.xml */
-                feedpath: string;
                 /** The site's URL, including protocol. For example: http://www.example.com/ */
                 siteUrl: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<void>;            
             
         }
@@ -311,10 +311,10 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** The URL of the site to add. */
                 siteUrl: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<void>;            
             
             /** Removes a site from the set of the user's Search Console sites. */
@@ -331,10 +331,10 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** The URI of the property as defined in Search Console. Examples: http://www.example.com/ or android-app://com.example/ */
                 siteUrl: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<void>;            
             
             /** Retrieves information about specific site. */
@@ -351,10 +351,10 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** The URI of the property as defined in Search Console. Examples: http://www.example.com/ or android-app://com.example/ */
                 siteUrl: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<WmxSite>;            
             
             /** Lists the user's Search Console sites. */
@@ -382,26 +382,26 @@ declare namespace gapi.client {
             query(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The crawl error category. For example: serverError. If not specified, returns results for all categories. */
+                category?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** If true, returns only the latest crawl error counts. */
+                latestCountsOnly?: boolean;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** The user agent type (platform) that made the request. For example: web. If not specified, returns results for all platforms. */
+                platform?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** The crawl error category. For example: serverError. If not specified, returns results for all categories. */
-                category?: string;
-                /** If true, returns only the latest crawl error counts. */
-                latestCountsOnly?: boolean;
-                /** The user agent type (platform) that made the request. For example: web. If not specified, returns results for all platforms. */
-                platform?: string;
                 /** The site's URL, including protocol. For example: http://www.example.com/ */
                 siteUrl: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<UrlCrawlErrorsCountsQueryResponse>;            
             
         }
@@ -411,76 +411,76 @@ declare namespace gapi.client {
             get(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The crawl error category. For example: authPermissions */
+                category: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** The user agent type (platform) that made the request. For example: web */
+                platform: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** The crawl error category. For example: authPermissions */
-                category: string;
-                /** The user agent type (platform) that made the request. For example: web */
-                platform: string;
                 /** The site's URL, including protocol. For example: http://www.example.com/ */
                 siteUrl: string;
                 /** The relative path (without the site) of the sample URL. It must be one of the URLs returned by list(). For example, for the URL https://www.example.com/pagename on the site https://www.example.com/, the url value is pagename */
                 url: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<UrlCrawlErrorsSample>;            
             
             /** Lists a site's sample URLs for the specified crawl error category and platform. */
             list(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The crawl error category. For example: authPermissions */
+                category: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** The user agent type (platform) that made the request. For example: web */
+                platform: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** The crawl error category. For example: authPermissions */
-                category: string;
-                /** The user agent type (platform) that made the request. For example: web */
-                platform: string;
                 /** The site's URL, including protocol. For example: http://www.example.com/ */
                 siteUrl: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<UrlCrawlErrorsSamplesListResponse>;            
             
             /** Marks the provided site's sample URL as fixed, and removes it from the samples list. */
             markAsFixed(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The crawl error category. For example: authPermissions */
+                category: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** The user agent type (platform) that made the request. For example: web */
+                platform: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** The crawl error category. For example: authPermissions */
-                category: string;
-                /** The user agent type (platform) that made the request. For example: web */
-                platform: string;
                 /** The site's URL, including protocol. For example: http://www.example.com/ */
                 siteUrl: string;
                 /** The relative path (without the site) of the sample URL. It must be one of the URLs returned by list(). For example, for the URL https://www.example.com/pagename on the site https://www.example.com/, the url value is pagename */
                 url: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<void>;            
             
         }

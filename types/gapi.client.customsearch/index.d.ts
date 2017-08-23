@@ -238,18 +238,6 @@ declare namespace gapi.client {
             list(request: {            
                 /** Data format for the response. */
                 alt?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** Turns off the translation between zh-CN and zh-TW. */
                 c2coff?: string;
                 /** Country restrict(s). */
@@ -262,6 +250,8 @@ declare namespace gapi.client {
                 exactTerms?: string;
                 /** Identifies a word or phrase that should not appear in any documents in the search results */
                 excludeTerms?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
                 /** Returns images of a specified type. Some of the allowed values are: bmp, gif, png, jpg, svg, pdf, ... */
                 fileType?: string;
                 /** Controls turning on or off the duplicate content filter. */
@@ -284,6 +274,8 @@ declare namespace gapi.client {
                 imgSize?: string;
                 /** Returns images of a type, which can be one of: clipart, face, lineart, news, and photo. */
                 imgType?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** Specifies that all search results should contain a link to a particular URL */
                 linkSite?: string;
                 /** Creates a range in form as_nlo value..as_nhi value and attempts to append it to query */
@@ -292,10 +284,16 @@ declare namespace gapi.client {
                 lr?: string;
                 /** Number of search results to return */
                 num?: number;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Provides additional search terms to check for in a document, where each document in the search results must contain at least one of the additional search terms */
                 orTerms?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** Query */
                 q: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /** Specifies that all search results should be pages that are related to the specified URL */
                 relatedSite?: string;
                 /** Filters based on licensing. Supported values include: cc_publicdomain, cc_attribute, cc_sharealike, cc_noncommercial, cc_nonderived and combinations of these. */
@@ -312,6 +310,8 @@ declare namespace gapi.client {
                 sort?: string;
                 /** The index of the first result to return */
                 start?: number;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Search>;            
             
         }

@@ -20,26 +20,153 @@ declare namespace gapi.client {
     
     namespace clouderrorreporting {
         
+        interface ErrorContext {
+            /** The HTTP request which was processed when the error was */
+            /** triggered. */
+            httpRequest?: HttpRequestContext;
+            /** The location in the source code where the decision was made to */
+            /** report the error, usually the place where it was logged. */
+            /** For a logged exception this would be the source line where the */
+            /** exception is logged, usually close to the place where it was */
+            /** caught. */
+            reportLocation?: SourceLocation;
+            /** Source code that was used to build the executable which has */
+            /** caused the given error message. */
+            sourceReferences?: SourceReference[];
+            /** The user who caused or was affected by the crash. */
+            /** This can be a user ID, an email address, or an arbitrary token that */
+            /** uniquely identifies the user. */
+            /** When sending an error report, leave this field empty if the user was not */
+            /** logged in. In this case the */
+            /** Error Reporting system will use other data, such as remote IP address, to */
+            /** distinguish affected users. See `affected_users_count` in */
+            /** `ErrorGroupStats`. */
+            user?: string;
+        }
+        
         interface ErrorEvent {
-            /** The `ServiceContext` for which this error was reported. */
-            serviceContext?: ServiceContext;
+            /** Data about the context in which the error occurred. */
+            context?: ErrorContext;
             /** Time when the event occurred as provided in the error report. */
             /** If the report did not contain a timestamp, the time the error was received */
             /** by the Error Reporting system is used. */
             eventTime?: string;
-            /** Data about the context in which the error occurred. */
-            context?: ErrorContext;
             /** The stack trace that was reported or logged by the service. */
             message?: string;
+            /** The `ServiceContext` for which this error was reported. */
+            serviceContext?: ServiceContext;
+        }
+        
+        interface ErrorGroup {
+            /** Group IDs are unique for a given project. If the same kind of error */
+            /** occurs in different service contexts, it will receive the same group ID. */
+            groupId?: string;
+            /** The group resource name. */
+            /** Example: <code>projects/my-project-123/groups/my-groupid</code> */
+            name?: string;
+            /** Associated tracking issues. */
+            trackingIssues?: TrackingIssue[];
+        }
+        
+        interface ErrorGroupStats {
+            /** Service contexts with a non-zero error count for the given filter */
+            /** criteria. This list can be truncated if multiple services are affected. */
+            /** Refer to `num_affected_services` for the total count. */
+            affectedServices?: ServiceContext[];
+            /** Approximate number of affected users in the given group that */
+            /** match the filter criteria. */
+            /** Users are distinguished by data in the `ErrorContext` of the */
+            /** individual error events, such as their login name or their remote */
+            /** IP address in case of HTTP requests. */
+            /** The number of affected users can be zero even if the number of */
+            /** errors is non-zero if no data was provided from which the */
+            /** affected user could be deduced. */
+            /** Users are counted based on data in the request */
+            /** context that was provided in the error report. If more users are */
+            /** implicitly affected, such as due to a crash of the whole service, */
+            /** this is not reflected here. */
+            affectedUsersCount?: string;
+            /** Approximate total number of events in the given group that match */
+            /** the filter criteria. */
+            count?: string;
+            /** Approximate first occurrence that was ever seen for this group */
+            /** and which matches the given filter criteria, ignoring the */
+            /** time_range that was specified in the request. */
+            firstSeenTime?: string;
+            /** Group data that is independent of the filter criteria. */
+            group?: ErrorGroup;
+            /** Approximate last occurrence that was ever seen for this group and */
+            /** which matches the given filter criteria, ignoring the time_range */
+            /** that was specified in the request. */
+            lastSeenTime?: string;
+            /** The total number of services with a non-zero error count for the given */
+            /** filter criteria. */
+            numAffectedServices?: number;
+            /** An arbitrary event that is chosen as representative for the whole group. */
+            /** The representative event is intended to be used as a quick preview for */
+            /** the whole group. Events in the group are usually sufficiently similar */
+            /** to each other such that showing an arbitrary representative provides */
+            /** insight into the characteristics of the group as a whole. */
+            representative?: ErrorEvent;
+            /** Approximate number of occurrences over time. */
+            /** Timed counts returned by ListGroups are guaranteed to be: */
+            /**  */
+            /** - Inside the requested time interval */
+            /** - Non-overlapping, and */
+            /** - Ordered by ascending time. */
+            timedCounts?: TimedCount[];
+        }
+        
+        interface HttpRequestContext {
+            /** The type of HTTP request, such as `GET`, `POST`, etc. */
+            method?: string;
+            /** The referrer information that is provided with the request. */
+            referrer?: string;
+            /** The IP address from which the request originated. */
+            /** This can be IPv4, IPv6, or a token which is derived from the */
+            /** IP address, depending on the data that has been provided */
+            /** in the error report. */
+            remoteIp?: string;
+            /** The HTTP response status code for the request. */
+            responseStatusCode?: number;
+            /** The URL of the request. */
+            url?: string;
+            /** The user agent information that is provided with the request. */
+            userAgent?: string;
+        }
+        
+        interface ListEventsResponse {
+            /** The error events which match the given request. */
+            errorEvents?: ErrorEvent[];
+            /** If non-empty, more results are available. */
+            /** Pass this token, along with the same query parameters as the first */
+            /** request, to view the next page of results. */
+            nextPageToken?: string;
+            /** The timestamp specifies the start time to which the request was restricted. */
+            timeRangeBegin?: string;
+        }
+        
+        interface ListGroupStatsResponse {
+            /** The error group stats which match the given request. */
+            errorGroupStats?: ErrorGroupStats[];
+            /** If non-empty, more results are available. */
+            /** Pass this token, along with the same query parameters as the first */
+            /** request, to view the next page of results. */
+            nextPageToken?: string;
+            /** The timestamp specifies the start time to which the request was restricted. */
+            /** The start time is set based on the requested time range. It may be adjusted */
+            /** to a later time if a project has exceeded the storage quota and older data */
+            /** has been deleted. */
+            timeRangeBegin?: string;
         }
         
         interface ReportedErrorEvent {
+            /** [Optional] A description of the context in which the error occurred. */
+            context?: ErrorContext;
             /** [Optional] Time when the event occurred. */
             /** If not provided, the time when the event was received by the */
             /** Error Reporting system will be used. */
             eventTime?: string;
-            /** [Optional] A description of the context in which the error occurred. */
-            context?: ErrorContext;
             /** [Required] The error message. */
             /** If no `context.reportLocation` is provided, the message must contain a */
             /** header (typically consisting of the exception type name and an error */
@@ -62,117 +189,13 @@ declare namespace gapi.client {
             serviceContext?: ServiceContext;
         }
         
-        interface ErrorContext {
-            /** The HTTP request which was processed when the error was */
-            /** triggered. */
-            httpRequest?: HttpRequestContext;
-            /** The user who caused or was affected by the crash. */
-            /** This can be a user ID, an email address, or an arbitrary token that */
-            /** uniquely identifies the user. */
-            /** When sending an error report, leave this field empty if the user was not */
-            /** logged in. In this case the */
-            /** Error Reporting system will use other data, such as remote IP address, to */
-            /** distinguish affected users. See `affected_users_count` in */
-            /** `ErrorGroupStats`. */
-            user?: string;
-            /** Source code that was used to build the executable which has */
-            /** caused the given error message. */
-            sourceReferences?: SourceReference[];
-            /** The location in the source code where the decision was made to */
-            /** report the error, usually the place where it was logged. */
-            /** For a logged exception this would be the source line where the */
-            /** exception is logged, usually close to the place where it was */
-            /** caught. */
-            reportLocation?: SourceLocation;
-        }
-        
-        interface TrackingIssue {
-            /** A URL pointing to a related entry in an issue tracking system. */
-            /** Example: https://github.com/user/project/issues/4 */
-            url?: string;
-        }
-        
-        interface ErrorGroupStats {
-            /** Approximate number of affected users in the given group that */
-            /** match the filter criteria. */
-            /** Users are distinguished by data in the `ErrorContext` of the */
-            /** individual error events, such as their login name or their remote */
-            /** IP address in case of HTTP requests. */
-            /** The number of affected users can be zero even if the number of */
-            /** errors is non-zero if no data was provided from which the */
-            /** affected user could be deduced. */
-            /** Users are counted based on data in the request */
-            /** context that was provided in the error report. If more users are */
-            /** implicitly affected, such as due to a crash of the whole service, */
-            /** this is not reflected here. */
-            affectedUsersCount?: string;
-            /** Approximate last occurrence that was ever seen for this group and */
-            /** which matches the given filter criteria, ignoring the time_range */
-            /** that was specified in the request. */
-            lastSeenTime?: string;
-            /** Service contexts with a non-zero error count for the given filter */
-            /** criteria. This list can be truncated if multiple services are affected. */
-            /** Refer to `num_affected_services` for the total count. */
-            affectedServices?: ServiceContext[];
-            /** The total number of services with a non-zero error count for the given */
-            /** filter criteria. */
-            numAffectedServices?: number;
-            /** An arbitrary event that is chosen as representative for the whole group. */
-            /** The representative event is intended to be used as a quick preview for */
-            /** the whole group. Events in the group are usually sufficiently similar */
-            /** to each other such that showing an arbitrary representative provides */
-            /** insight into the characteristics of the group as a whole. */
-            representative?: ErrorEvent;
-            /** Approximate number of occurrences over time. */
-            /** Timed counts returned by ListGroups are guaranteed to be: */
-            /**  */
-            /** - Inside the requested time interval */
-            /** - Non-overlapping, and */
-            /** - Ordered by ascending time. */
-            timedCounts?: TimedCount[];
-            /** Group data that is independent of the filter criteria. */
-            group?: ErrorGroup;
-            /** Approximate first occurrence that was ever seen for this group */
-            /** and which matches the given filter criteria, ignoring the */
-            /** time_range that was specified in the request. */
-            firstSeenTime?: string;
-            /** Approximate total number of events in the given group that match */
-            /** the filter criteria. */
-            count?: string;
-        }
-        
-        interface ListEventsResponse {
-            /** The timestamp specifies the start time to which the request was restricted. */
-            timeRangeBegin?: string;
-            /** The error events which match the given request. */
-            errorEvents?: ErrorEvent[];
-            /** If non-empty, more results are available. */
-            /** Pass this token, along with the same query parameters as the first */
-            /** request, to view the next page of results. */
-            nextPageToken?: string;
-        }
-        
-        interface TimedCount {
-            /** End of the time period to which `count` refers (excluded). */
-            endTime?: string;
-            /** Start of the time period to which `count` refers (included). */
-            startTime?: string;
-            /** Approximate number of occurrences in the given time period. */
-            count?: string;
-        }
-        
-        interface ErrorGroup {
-            /** Associated tracking issues. */
-            trackingIssues?: TrackingIssue[];
-            /** Group IDs are unique for a given project. If the same kind of error */
-            /** occurs in different service contexts, it will receive the same group ID. */
-            groupId?: string;
-            /** The group resource name. */
-            /** Example: <code>projects/my-project-123/groups/my-groupid</code> */
-            name?: string;
-        }
-        
         interface ServiceContext {
+            /** Type of the MonitoredResource. List of possible values: */
+            /** https://cloud.google.com/monitoring/api/resources */
+            /**  */
+            /** Value is set automatically for incoming errors and must not be set when */
+            /** reporting errors. */
+            resourceType?: string;
             /** An identifier of the service, such as the name of the */
             /** executable, job, or Google App Engine service name. This field is expected */
             /** to have a low number of values that are relatively stable over time, as */
@@ -181,12 +204,6 @@ declare namespace gapi.client {
             /** Contains the service name for error reports extracted from Google */
             /** App Engine logs or `default` if the App Engine default service is used. */
             service?: string;
-            /** Type of the MonitoredResource. List of possible values: */
-            /** https://cloud.google.com/monitoring/api/resources */
-            /**  */
-            /** Value is set automatically for incoming errors and must not be set when */
-            /** reporting errors. */
-            resourceType?: string;
             /** Represents the source code version that the developer provided, */
             /** which could represent a version label or a Git SHA-1 hash, for example. */
             /** For App Engine standard environment, the version is set to the version of */
@@ -195,59 +212,95 @@ declare namespace gapi.client {
         }
         
         interface SourceLocation {
-            /** 1-based. 0 indicates that the line number is unknown. */
-            lineNumber?: number;
+            /** The source code filename, which can include a truncated relative */
+            /** path, or a full path from a production machine. */
+            filePath?: string;
             /** Human-readable name of a function or method. */
             /** The value can include optional context like the class or package name. */
             /** For example, `my.package.MyClass.method` in case of Java. */
             functionName?: string;
-            /** The source code filename, which can include a truncated relative */
-            /** path, or a full path from a production machine. */
-            filePath?: string;
-        }
-        
-        interface HttpRequestContext {
-            /** The IP address from which the request originated. */
-            /** This can be IPv4, IPv6, or a token which is derived from the */
-            /** IP address, depending on the data that has been provided */
-            /** in the error report. */
-            remoteIp?: string;
-            /** The referrer information that is provided with the request. */
-            referrer?: string;
-            /** The user agent information that is provided with the request. */
-            userAgent?: string;
-            /** The URL of the request. */
-            url?: string;
-            /** The HTTP response status code for the request. */
-            responseStatusCode?: number;
-            /** The type of HTTP request, such as `GET`, `POST`, etc. */
-            method?: string;
-        }
-        
-        interface ListGroupStatsResponse {
-            /** The timestamp specifies the start time to which the request was restricted. */
-            /** The start time is set based on the requested time range. It may be adjusted */
-            /** to a later time if a project has exceeded the storage quota and older data */
-            /** has been deleted. */
-            timeRangeBegin?: string;
-            /** The error group stats which match the given request. */
-            errorGroupStats?: ErrorGroupStats[];
-            /** If non-empty, more results are available. */
-            /** Pass this token, along with the same query parameters as the first */
-            /** request, to view the next page of results. */
-            nextPageToken?: string;
+            /** 1-based. 0 indicates that the line number is unknown. */
+            lineNumber?: number;
         }
         
         interface SourceReference {
-            /** The canonical and persistent identifier of the deployed revision. */
-            /** Example (git): "0035781c50ec7aa23385dc841529ce8a4b70db1b" */
-            revisionId?: string;
             /** Optional. A URI string identifying the repository. */
             /** Example: "https://github.com/GoogleCloudPlatform/kubernetes.git" */
             repository?: string;
+            /** The canonical and persistent identifier of the deployed revision. */
+            /** Example (git): "0035781c50ec7aa23385dc841529ce8a4b70db1b" */
+            revisionId?: string;
+        }
+        
+        interface TimedCount {
+            /** Approximate number of occurrences in the given time period. */
+            count?: string;
+            /** End of the time period to which `count` refers (excluded). */
+            endTime?: string;
+            /** Start of the time period to which `count` refers (included). */
+            startTime?: string;
+        }
+        
+        interface TrackingIssue {
+            /** A URL pointing to a related entry in an issue tracking system. */
+            /** Example: https://github.com/user/project/issues/4 */
+            url?: string;
         }
         
         interface EventsResource {
+            /** Lists the specified events. */
+            list(request: {            
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** [Required] The group for which events shall be returned. */
+                groupId?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** [Optional] The maximum number of results to return per response. */
+                pageSize?: number;
+                /** [Optional] A `next_page_token` provided by a previous response. */
+                pageToken?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** [Required] The resource name of the Google Cloud Platform project. Written */
+                /** as `projects/` plus the */
+                /** [Google Cloud Platform project */
+                /** ID](https://support.google.com/cloud/answer/6158840). */
+                /** Example: `projects/my-project-123`. */
+                projectName: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** [Optional] The exact value to match against */
+                /** [`ServiceContext.resource_type`](/error-reporting/reference/rest/v1beta1/ServiceContext#FIELDS.resource_type). */
+                "serviceFilter.resourceType"?: string;
+                /** [Optional] The exact value to match against */
+                /** [`ServiceContext.service`](/error-reporting/reference/rest/v1beta1/ServiceContext#FIELDS.service). */
+                "serviceFilter.service"?: string;
+                /** [Optional] The exact value to match against */
+                /** [`ServiceContext.version`](/error-reporting/reference/rest/v1beta1/ServiceContext#FIELDS.version). */
+                "serviceFilter.version"?: string;
+                /** Restricts the query to the specified time range. */
+                "timeRange.period"?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<ListEventsResponse>;            
+            
             /** Report an individual error event. */
             /**  */
             /** This endpoint accepts <strong>either</strong> an OAuth token, */
@@ -257,148 +310,82 @@ declare namespace gapi.client {
             /** a `key` parameter. For example: */
             /** <pre>POST https://clouderrorreporting.googleapis.com/v1beta1/projects/example-project/events:report?key=123ABC456</pre> */
             report(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
+                /** Data format for response. */
+                alt?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** [Required] The resource name of the Google Cloud Platform project. Written */
                 /** as `projects/` plus the */
                 /** [Google Cloud Platform project ID](https://support.google.com/cloud/answer/6158840). */
                 /** Example: `projects/my-project-123`. */
                 projectName: string;
-            }): Request<{}>;            
-            
-            /** Lists the specified events. */
-            list(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** [Optional] The exact value to match against */
-                /** [`ServiceContext.resource_type`](/error-reporting/reference/rest/v1beta1/ServiceContext#FIELDS.resource_type). */
-                "serviceFilter.resourceType"?: string;
-                /** Restricts the query to the specified time range. */
-                "timeRange.period"?: string;
-                /** [Required] The resource name of the Google Cloud Platform project. Written */
-                /** as `projects/` plus the */
-                /** [Google Cloud Platform project */
-                /** ID](https://support.google.com/cloud/answer/6158840). */
-                /** Example: `projects/my-project-123`. */
-                projectName: string;
-                /** [Required] The group for which events shall be returned. */
-                groupId?: string;
-                /** [Optional] The exact value to match against */
-                /** [`ServiceContext.service`](/error-reporting/reference/rest/v1beta1/ServiceContext#FIELDS.service). */
-                "serviceFilter.service"?: string;
-                /** [Optional] A `next_page_token` provided by a previous response. */
-                pageToken?: string;
-                /** [Optional] The maximum number of results to return per response. */
-                pageSize?: number;
-                /** [Optional] The exact value to match against */
-                /** [`ServiceContext.version`](/error-reporting/reference/rest/v1beta1/ServiceContext#FIELDS.version). */
-                "serviceFilter.version"?: string;
-            }): Request<ListEventsResponse>;            
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<{}>;            
             
         }
         
         interface GroupStatsResource {
             /** Lists the specified groups. */
             list(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Restricts the query to the specified time range. */
-                "timeRange.period"?: string;
                 /** [Optional] The alignment of the timed counts to be returned. */
                 /** Default is `ALIGNMENT_EQUAL_AT_END`. */
                 alignment?: string;
-                /** [Optional] List all <code>ErrorGroupStats</code> with these IDs. */
-                groupId?: string;
-                /** [Optional] The exact value to match against */
-                /** [`ServiceContext.service`](/error-reporting/reference/rest/v1beta1/ServiceContext#FIELDS.service). */
-                "serviceFilter.service"?: string;
-                /** [Optional] The maximum number of results to return per response. */
-                /** Default is 20. */
-                pageSize?: number;
-                /** [Optional] The exact value to match against */
-                /** [`ServiceContext.version`](/error-reporting/reference/rest/v1beta1/ServiceContext#FIELDS.version). */
-                "serviceFilter.version"?: string;
-                /** [Optional] The sort order in which the results are returned. */
-                /** Default is `COUNT_DESC`. */
-                order?: string;
                 /** [Optional] Time where the timed counts shall be aligned if rounded */
                 /** alignment is chosen. Default is 00:00 UTC. */
                 alignmentTime?: string;
-                /** [Optional] The exact value to match against */
-                /** [`ServiceContext.resource_type`](/error-reporting/reference/rest/v1beta1/ServiceContext#FIELDS.resource_type). */
-                "serviceFilter.resourceType"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** [Optional] List all <code>ErrorGroupStats</code> with these IDs. */
+                groupId?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** [Optional] The sort order in which the results are returned. */
+                /** Default is `COUNT_DESC`. */
+                order?: string;
+                /** [Optional] The maximum number of results to return per response. */
+                /** Default is 20. */
+                pageSize?: number;
+                /** [Optional] A `next_page_token` provided by a previous response. To view */
+                /** additional results, pass this token along with the identical query */
+                /** parameters as the first request. */
+                pageToken?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** [Required] The resource name of the Google Cloud Platform project. Written */
                 /** as <code>projects/</code> plus the */
                 /** <a href="https://support.google.com/cloud/answer/6158840">Google Cloud */
@@ -406,13 +393,26 @@ declare namespace gapi.client {
                 /**  */
                 /** Example: <code>projects/my-project-123</code>. */
                 projectName: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** [Optional] The exact value to match against */
+                /** [`ServiceContext.resource_type`](/error-reporting/reference/rest/v1beta1/ServiceContext#FIELDS.resource_type). */
+                "serviceFilter.resourceType"?: string;
+                /** [Optional] The exact value to match against */
+                /** [`ServiceContext.service`](/error-reporting/reference/rest/v1beta1/ServiceContext#FIELDS.service). */
+                "serviceFilter.service"?: string;
+                /** [Optional] The exact value to match against */
+                /** [`ServiceContext.version`](/error-reporting/reference/rest/v1beta1/ServiceContext#FIELDS.version). */
+                "serviceFilter.version"?: string;
+                /** Restricts the query to the specified time range. */
+                "timeRange.period"?: string;
                 /** [Optional] The preferred duration for a single returned `TimedCount`. */
                 /** If not set, no timed counts are returned. */
                 timedCountDuration?: string;
-                /** [Optional] A `next_page_token` provided by a previous response. To view */
-                /** additional results, pass this token along with the identical query */
-                /** parameters as the first request. */
-                pageToken?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
             }): Request<ListGroupStatsResponse>;            
             
         }
@@ -420,32 +420,18 @@ declare namespace gapi.client {
         interface GroupsResource {
             /** Get the specified group. */
             get(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
+                /** Data format for response. */
+                alt?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
                 /** [Required] The group resource name. Written as */
                 /** <code>projects/<var>projectID</var>/groups/<var>group_name</var></code>. */
                 /** Call */
@@ -455,40 +441,54 @@ declare namespace gapi.client {
                 /**  */
                 /** Example: <code>projects/my-project-123/groups/my-group</code> */
                 groupName: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
             }): Request<ErrorGroup>;            
             
             /** Replace the data for the specified group. */
             /** Fails if the group does not exist. */
             update(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
+                /** Data format for response. */
+                alt?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** The group resource name. */
                 /** Example: <code>projects/my-project-123/groups/my-groupid</code> */
                 name: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
             }): Request<ErrorGroup>;            
             
         }
@@ -496,38 +496,38 @@ declare namespace gapi.client {
         interface ProjectsResource {
             /** Deletes all error events of a given project. */
             deleteEvents(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
+                /** Data format for response. */
+                alt?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** [Required] The resource name of the Google Cloud Platform project. Written */
                 /** as `projects/` plus the */
                 /** [Google Cloud Platform project */
                 /** ID](https://support.google.com/cloud/answer/6158840). */
                 /** Example: `projects/my-project-123`. */
                 projectName: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
             }): Request<{}>;            
             
             events: EventsResource;

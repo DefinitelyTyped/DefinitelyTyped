@@ -20,6 +20,107 @@ declare namespace gapi.client {
     
     namespace bigquerydatatransfer {
         
+        interface CheckValidCredsResponse {
+            /** If set to `true`, the credentials exist and are valid. */
+            hasValidCreds?: boolean;
+        }
+        
+        interface DataSource {
+            /** Indicates the type of authorization. */
+            authorizationType?: string;
+            /** Data source client id which should be used to receive refresh token. */
+            /** When not supplied, no offline credentials are populated for data transfer. */
+            clientId?: string;
+            /** Specifies whether the data source supports automatic data refresh for the */
+            /** past few days, and how it's supported. */
+            /** For some data sources, data might not be complete until a few days later, */
+            /** so it's useful to refresh data automatically. */
+            dataRefreshType?: string;
+            /** Data source id. */
+            dataSourceId?: string;
+            /** Default data refresh window on days. */
+            /** Only meaningful when `data_refresh_type` = `SLIDING_WINDOW`. */
+            defaultDataRefreshWindowDays?: number;
+            /** Default data transfer schedule. */
+            /** Examples of valid schedules include: */
+            /** `1st,3rd monday of month 15:30`, */
+            /** `every wed,fri of jan,jun 13:15`, and */
+            /** `first sunday of quarter 00:00`. */
+            defaultSchedule?: string;
+            /** User friendly data source description string. */
+            description?: string;
+            /** User friendly data source name. */
+            displayName?: string;
+            /** Url for the help document for this data source. */
+            helpUrl?: string;
+            /** Disables backfilling and manual run scheduling */
+            /** for the data source. */
+            manualRunsDisabled?: boolean;
+            /** Data source resource name. */
+            name?: string;
+            /** Data source parameters. */
+            parameters?: DataSourceParameter[];
+            /** Api auth scopes for which refresh token needs to be obtained. Only valid */
+            /** when `client_id` is specified. Ignored otherwise. These are scopes needed */
+            /** by a data source to prepare data and ingest them into BigQuery, */
+            /** e.g., https://www.googleapis.com/auth/bigquery */
+            scopes?: string[];
+            /** The number of seconds to wait for a status update from the data source */
+            /** before BigQuery marks the transfer as failed. */
+            statusUpdateDeadlineSeconds?: number;
+            /** Specifies whether the data source supports a user defined schedule, or */
+            /** operates on the default schedule. */
+            /** When set to `true`, user can override default schedule. */
+            supportsCustomSchedule?: boolean;
+            /** Indicates whether the data source supports multiple transfers */
+            /** to different BigQuery targets. */
+            supportsMultipleTransfers?: boolean;
+            /** Transfer type. Currently supports only batch transfers, */
+            /** which are transfers that use the BigQuery batch APIs (load or */
+            /** query) to ingest the data. */
+            transferType?: string;
+        }
+        
+        interface DataSourceParameter {
+            /** All possible values for the parameter. */
+            allowedValues?: string[];
+            /** Parameter description. */
+            description?: string;
+            /** Parameter display name in the user interface. */
+            displayName?: string;
+            /** When parameter is a record, describes child fields. */
+            fields?: DataSourceParameter[];
+            /** Cannot be changed after initial creation. */
+            immutable?: boolean;
+            /** For integer and double values specifies maxminum allowed value. */
+            maxValue?: number;
+            /** For integer and double values specifies minimum allowed value. */
+            minValue?: number;
+            /** Parameter identifier. */
+            paramId?: string;
+            /** If set to true, schema should be taken from the parent with the same */
+            /** parameter_id. Only applicable when parameter type is RECORD. */
+            recurse?: boolean;
+            /** Can parameter have multiple values. */
+            repeated?: boolean;
+            /** Is parameter required. */
+            required?: boolean;
+            /** Parameter type. */
+            type?: string;
+            /** Description of the requirements for this field, in case the user input does */
+            /** not fulfill the regex pattern or min/max values. */
+            validationDescription?: string;
+            /** URL to a help document to further explain the naming requirements. */
+            validationHelpUrl?: string;
+            /** Regular expression which can be used for parameter validation. */
+            validationRegex?: string;
+        }
+        
+        interface IsEnabledResponse {
+            /** Indicates whether the project is enabled. */
+            enabled?: boolean;
+        }
+        
         interface ListDataSourcesResponse {
             /** List of supported data sources and their transfer settings. */
             dataSources?: DataSource[];
@@ -31,41 +132,6 @@ declare namespace gapi.client {
             nextPageToken?: string;
         }
         
-        interface DataSourceParameter {
-            /** Is parameter required. */
-            required?: boolean;
-            /** Can parameter have multiple values. */
-            repeated?: boolean;
-            /** Parameter display name in the user interface. */
-            displayName?: string;
-            /** Description of the requirements for this field, in case the user input does */
-            /** not fulfill the regex pattern or min/max values. */
-            validationDescription?: string;
-            /** Cannot be changed after initial creation. */
-            immutable?: boolean;
-            /** When parameter is a record, describes child fields. */
-            fields?: DataSourceParameter[];
-            /** For integer and double values specifies maxminum allowed value. */
-            maxValue?: number;
-            /** Parameter type. */
-            type?: string;
-            /** If set to true, schema should be taken from the parent with the same */
-            /** parameter_id. Only applicable when parameter type is RECORD. */
-            recurse?: boolean;
-            /** Parameter description. */
-            description?: string;
-            /** All possible values for the parameter. */
-            allowedValues?: string[];
-            /** For integer and double values specifies minimum allowed value. */
-            minValue?: number;
-            /** URL to a help document to further explain the naming requirements. */
-            validationHelpUrl?: string;
-            /** Regular expression which can be used for parameter validation. */
-            validationRegex?: string;
-            /** Parameter identifier. */
-            paramId?: string;
-        }
-        
         interface ListLocationsResponse {
             /** A list of locations that matches the specified filter in the request. */
             locations?: Location[];
@@ -73,94 +139,55 @@ declare namespace gapi.client {
             nextPageToken?: string;
         }
         
-        interface ListTransferRunsResponse {
-            /** The stored pipeline transfer runs. */
-            /** @OutputOnly */
-            transferRuns?: TransferRun[];
-            /** The next-pagination token. For multiple-page list results, */
-            /** this token can be used as the */
-            /** `ListTransferRunsRequest.page_token` */
-            /** to request the next page of list results. */
-            /** @OutputOnly */
-            nextPageToken?: string;
-        }
-        
-        interface SetEnabledRequest {
-            /** Whether data transfer should be enabled or disabled for the project. */
-            enabled?: boolean;
-        }
-        
         interface ListTransferConfigsResponse {
-            /** The stored pipeline transfer configurations. */
-            /** @OutputOnly */
-            transferConfigs?: TransferConfig[];
             /** The next-pagination token. For multiple-page list results, */
             /** this token can be used as the */
             /** `ListTransferConfigsRequest.page_token` */
             /** to request the next page of list results. */
             /** @OutputOnly */
             nextPageToken?: string;
+            /** The stored pipeline transfer configurations. */
+            /** @OutputOnly */
+            transferConfigs?: TransferConfig[];
         }
         
-        interface IsEnabledResponse {
-            /** Indicates whether the project is enabled. */
-            enabled?: boolean;
+        interface ListTransferLogsResponse {
+            /** The next-pagination token. For multiple-page list results, */
+            /** this token can be used as the */
+            /** `GetTransferRunLogRequest.page_token` */
+            /** to request the next page of list results. */
+            /** @OutputOnly */
+            nextPageToken?: string;
+            /** The stored pipeline transfer messages. */
+            /** @OutputOnly */
+            transferMessages?: TransferMessage[];
         }
         
-        interface DataSource {
-            /** Specifies whether the data source supports automatic data refresh for the */
-            /** past few days, and how it's supported. */
-            /** For some data sources, data might not be complete until a few days later, */
-            /** so it's useful to refresh data automatically. */
-            dataRefreshType?: string;
-            /** Data source parameters. */
-            parameters?: DataSourceParameter[];
-            /** Url for the help document for this data source. */
-            helpUrl?: string;
-            /** Default data transfer schedule. */
-            /** Examples of valid schedules include: */
-            /** `1st,3rd monday of month 15:30`, */
-            /** `every wed,fri of jan,jun 13:15`, and */
-            /** `first sunday of quarter 00:00`. */
-            defaultSchedule?: string;
-            /** Indicates whether the data source supports multiple transfers */
-            /** to different BigQuery targets. */
-            supportsMultipleTransfers?: boolean;
-            /** The number of seconds to wait for a status update from the data source */
-            /** before BigQuery marks the transfer as failed. */
-            statusUpdateDeadlineSeconds?: number;
-            /** Disables backfilling and manual run scheduling */
-            /** for the data source. */
-            manualRunsDisabled?: boolean;
-            /** Default data refresh window on days. */
-            /** Only meaningful when `data_refresh_type` = `SLIDING_WINDOW`. */
-            defaultDataRefreshWindowDays?: number;
-            /** Transfer type. Currently supports only batch transfers, */
-            /** which are transfers that use the BigQuery batch APIs (load or */
-            /** query) to ingest the data. */
-            transferType?: string;
-            /** User friendly data source description string. */
-            description?: string;
-            /** Data source id. */
-            dataSourceId?: string;
-            /** Api auth scopes for which refresh token needs to be obtained. Only valid */
-            /** when `client_id` is specified. Ignored otherwise. These are scopes needed */
-            /** by a data source to prepare data and ingest them into BigQuery, */
-            /** e.g., https://www.googleapis.com/auth/bigquery */
-            scopes?: string[];
-            /** Data source resource name. */
+        interface ListTransferRunsResponse {
+            /** The next-pagination token. For multiple-page list results, */
+            /** this token can be used as the */
+            /** `ListTransferRunsRequest.page_token` */
+            /** to request the next page of list results. */
+            /** @OutputOnly */
+            nextPageToken?: string;
+            /** The stored pipeline transfer runs. */
+            /** @OutputOnly */
+            transferRuns?: TransferRun[];
+        }
+        
+        interface Location {
+            /** Cross-service attributes for the location. For example */
+            /**  */
+            /**     {"cloud.googleapis.com/region": "us-east1"} */
+            labels?: Record<string, string>;            
+            /** The canonical id for this location. For example: `"us-east1"`. */
+            locationId?: string;
+            /** Service-specific metadata. For example the available capacity at the given */
+            /** location. */
+            metadata?: Record<string, any>;            
+            /** Resource name for the location, which may vary between implementations. */
+            /** For example: `"projects/example-project/locations/us-east1"` */
             name?: string;
-            /** Data source client id which should be used to receive refresh token. */
-            /** When not supplied, no offline credentials are populated for data transfer. */
-            clientId?: string;
-            /** Indicates the type of authorization. */
-            authorizationType?: string;
-            /** Specifies whether the data source supports a user defined schedule, or */
-            /** operates on the default schedule. */
-            /** When set to `true`, user can override default schedule. */
-            supportsCustomSchedule?: boolean;
-            /** User friendly data source name. */
-            displayName?: string;
         }
         
         interface ScheduleTransferRunsRequest {
@@ -170,19 +197,14 @@ declare namespace gapi.client {
             rangeStartTime?: string;
         }
         
-        interface Location {
-            /** Cross-service attributes for the location. For example */
-            /**  */
-            /**     {"cloud.googleapis.com/region": "us-east1"} */
-            labels?: Record<string, string>;            
-            /** Resource name for the location, which may vary between implementations. */
-            /** For example: `"projects/example-project/locations/us-east1"` */
-            name?: string;
-            /** The canonical id for this location. For example: `"us-east1"`. */
-            locationId?: string;
-            /** Service-specific metadata. For example the available capacity at the given */
-            /** location. */
-            metadata?: Record<string, any>;            
+        interface ScheduleTransferRunsResponse {
+            /** The transfer runs that were created. */
+            createdRuns?: TransferRun[];
+        }
+        
+        interface SetEnabledRequest {
+            /** Whether data transfer should be enabled or disabled for the project. */
+            enabled?: boolean;
         }
         
         interface TransferConfig {
@@ -195,37 +217,29 @@ declare namespace gapi.client {
             dataRefreshWindowDays?: number;
             /** Data source id. Cannot be changed once data transfer is created. */
             dataSourceId?: string;
-            /** Status of the most recently updated transfer run. */
+            /** Region in which BigQuery dataset is located. Currently possible values are: */
+            /** "US" and "EU". */
             /** @OutputOnly */
-            status?: string;
+            datasetRegion?: string;
             /** The BigQuery target dataset id. */
             destinationDatasetId?: string;
-            /** GaiaID of the user on whose behalf transfer is done. Applicable only */
-            /** to data sources that do not support service accounts. When set to 0, */
-            /** the data source service account credentials are used. */
-            /** @OutputOnly */
-            userId?: string;
+            /** Is this config disabled. When set to true, no runs are scheduled */
+            /** for a given transfer. */
+            disabled?: boolean;
+            /** User specified display name for the data transfer. */
+            displayName?: string;
             /** The resource name of the transfer run. */
             /** Transfer run names have the form */
             /** `projects/{project_id}/transferConfigs/{config_id}`. */
             /** Where `config_id` is usually a uuid, even though it is not */
             /** guaranteed or required. The name is ignored when creating a transfer run. */
             name?: string;
-            /** Data transfer specific parameters. */
-            params?: Record<string, any>;            
-            /** Region in which BigQuery dataset is located. Currently possible values are: */
-            /** "US" and "EU". */
-            /** @OutputOnly */
-            datasetRegion?: string;
-            /** User specified display name for the data transfer. */
-            displayName?: string;
             /** Next time when data transfer will run. Output only. Applicable */
             /** only for batch data transfers. */
             /** @OutputOnly */
             nextRunTime?: string;
-            /** Is this config disabled. When set to true, no runs are scheduled */
-            /** for a given transfer. */
-            disabled?: boolean;
+            /** Data transfer specific parameters. */
+            params?: Record<string, any>;            
             /** Data transfer schedule. */
             /** If the data source does not support a custom schedule, this should be */
             /** empty. If it is empty, the default value for the data source will be */
@@ -239,46 +253,42 @@ declare namespace gapi.client {
             /** https://cloud.google.com/appengine/docs/flexible/python/scheduling-jobs-with-cron-yaml#the_schedule_format */
             /** NOTE: the granularity should be at least 8 hours, or less frequent. */
             schedule?: string;
+            /** Status of the most recently updated transfer run. */
+            /** @OutputOnly */
+            status?: string;
             /** Data transfer modification time. Ignored by server on input. */
             /** @OutputOnly */
             updateTime?: string;
+            /** GaiaID of the user on whose behalf transfer is done. Applicable only */
+            /** to data sources that do not support service accounts. When set to 0, */
+            /** the data source service account credentials are used. */
+            /** @OutputOnly */
+            userId?: string;
+        }
+        
+        interface TransferMessage {
+            /** Message text. */
+            messageText?: string;
+            /** Time when message was logged. */
+            messageTime?: string;
+            /** Message severity. */
+            severity?: string;
         }
         
         interface TransferRun {
-            /** Time when transfer run was started. Parameter ignored by server for input */
-            /** requests. */
+            /** Data source id. */
             /** @OutputOnly */
-            startTime?: string;
+            dataSourceId?: string;
             /** Region in which BigQuery dataset is located. Currently possible values are: */
             /** "US" and "EU". */
             /** @OutputOnly */
             datasetRegion?: string;
-            /** Minimum time after which a transfer run can be started. */
-            scheduleTime?: string;
-            /** Last time the data transfer run status was updated. */
-            /** @OutputOnly */
-            updateTime?: string;
-            /** Describes the schedule of this transfer run if it was created as part of */
-            /** a regular schedule. For batch transfer runs that are directly created, */
-            /** this is empty. */
-            /** NOTE: the system might choose to delay the schedule depending on the */
-            /** current load, so `schedule_time` doesn't always matches this. */
-            /** @OutputOnly */
-            schedule?: string;
-            /** For batch transfer runs, specifies the date and time that */
-            /** data should be ingested. */
-            runTime?: string;
-            /** Data source id. */
-            /** @OutputOnly */
-            dataSourceId?: string;
-            /** Data transfer run status. Ignored for input requests. */
-            /** @OutputOnly */
-            status?: string;
             /** The BigQuery target dataset id. */
             destinationDatasetId?: string;
-            /** The user id for this transfer run. */
+            /** Time when transfer run ended. Parameter ignored by server for input */
+            /** requests. */
             /** @OutputOnly */
-            userId?: string;
+            endTime?: string;
             /** The resource name of the transfer run. */
             /** Transfer run names have the form */
             /** `projects/{project_id}/locations/{location}/transferConfigs/{config_id}/runs/{run_id}`. */
@@ -286,86 +296,302 @@ declare namespace gapi.client {
             name?: string;
             /** Data transfer specific parameters. */
             params?: Record<string, any>;            
-            /** Time when transfer run ended. Parameter ignored by server for input */
+            /** For batch transfer runs, specifies the date and time that */
+            /** data should be ingested. */
+            runTime?: string;
+            /** Describes the schedule of this transfer run if it was created as part of */
+            /** a regular schedule. For batch transfer runs that are directly created, */
+            /** this is empty. */
+            /** NOTE: the system might choose to delay the schedule depending on the */
+            /** current load, so `schedule_time` doesn't always matches this. */
+            /** @OutputOnly */
+            schedule?: string;
+            /** Minimum time after which a transfer run can be started. */
+            scheduleTime?: string;
+            /** Time when transfer run was started. Parameter ignored by server for input */
             /** requests. */
             /** @OutputOnly */
-            endTime?: string;
-        }
-        
-        interface CheckValidCredsResponse {
-            /** If set to `true`, the credentials exist and are valid. */
-            hasValidCreds?: boolean;
-        }
-        
-        interface ScheduleTransferRunsResponse {
-            /** The transfer runs that were created. */
-            createdRuns?: TransferRun[];
-        }
-        
-        interface TransferMessage {
-            /** Message text. */
-            messageText?: string;
-            /** Message severity. */
-            severity?: string;
-            /** Time when message was logged. */
-            messageTime?: string;
-        }
-        
-        interface ListTransferLogsResponse {
-            /** The stored pipeline transfer messages. */
+            startTime?: string;
+            /** Data transfer run status. Ignored for input requests. */
             /** @OutputOnly */
-            transferMessages?: TransferMessage[];
-            /** The next-pagination token. For multiple-page list results, */
-            /** this token can be used as the */
-            /** `GetTransferRunLogRequest.page_token` */
-            /** to request the next page of list results. */
+            status?: string;
+            /** Last time the data transfer run status was updated. */
             /** @OutputOnly */
-            nextPageToken?: string;
+            updateTime?: string;
+            /** The user id for this transfer run. */
+            /** @OutputOnly */
+            userId?: string;
+        }
+        
+        interface DataSourcesResource {
+            /** Returns true if valid credentials exist for the given data source and */
+            /** requesting user. */
+            checkValidCreds(request: {            
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** The data source in the form: */
+                /** `projects/{project_id}/dataSources/{data_source_id}` */
+                name: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<CheckValidCredsResponse>;            
+            
+            /** Retrieves a supported data source and returns its settings, */
+            /** which can be used for UI rendering. */
+            get(request: {            
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** The field will contain name of the resource requested, for example: */
+                /** `projects/{project_id}/dataSources/{data_source_id}` */
+                name: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<DataSource>;            
+            
+            /** Lists supported data sources and returns their settings, */
+            /** which can be used for UI rendering. */
+            list(request: {            
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Page size. The default page size is the maximum value of 1000 results. */
+                pageSize?: number;
+                /** Pagination token, which can be used to request a specific page */
+                /** of `ListDataSourcesRequest` list results. For multiple-page */
+                /** results, `ListDataSourcesResponse` outputs */
+                /** a `next_page` token, which can be used as the */
+                /** `page_token` value to request the next page of list results. */
+                pageToken?: string;
+                /** The BigQuery project id for which data sources should be returned. */
+                /** Must be in the form: `projects/{project_id}` */
+                parent: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<ListDataSourcesResponse>;            
+            
+        }
+        
+        interface DataSourcesResource {
+            /** Returns true if valid credentials exist for the given data source and */
+            /** requesting user. */
+            checkValidCreds(request: {            
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** The data source in the form: */
+                /** `projects/{project_id}/dataSources/{data_source_id}` */
+                name: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<CheckValidCredsResponse>;            
+            
+            /** Retrieves a supported data source and returns its settings, */
+            /** which can be used for UI rendering. */
+            get(request: {            
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** The field will contain name of the resource requested, for example: */
+                /** `projects/{project_id}/dataSources/{data_source_id}` */
+                name: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<DataSource>;            
+            
+            /** Lists supported data sources and returns their settings, */
+            /** which can be used for UI rendering. */
+            list(request: {            
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Page size. The default page size is the maximum value of 1000 results. */
+                pageSize?: number;
+                /** Pagination token, which can be used to request a specific page */
+                /** of `ListDataSourcesRequest` list results. For multiple-page */
+                /** results, `ListDataSourcesResponse` outputs */
+                /** a `next_page` token, which can be used as the */
+                /** `page_token` value to request the next page of list results. */
+                pageToken?: string;
+                /** The BigQuery project id for which data sources should be returned. */
+                /** Must be in the form: `projects/{project_id}` */
+                parent: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<ListDataSourcesResponse>;            
+            
         }
         
         interface TransferLogsResource {
             /** Returns user facing log messages for the data transfer run. */
             list(request: {            
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
+                /** OAuth access token. */
+                access_token?: string;
                 /** Data format for response. */
                 alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Message types to return. If not populated - INFO, WARNING and ERROR */
+                /** messages are returned. */
+                messageTypes?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Page size. The default page size is the maximum value of 1000 results. */
+                pageSize?: number;
                 /** Pagination token, which can be used to request a specific page */
                 /** of `ListTransferLogsRequest` list results. For multiple-page */
                 /** results, `ListTransferLogsResponse` outputs */
                 /** a `next_page` token, which can be used as the */
                 /** `page_token` value to request the next page of list results. */
                 pageToken?: string;
-                /** Page size. The default page size is the maximum value of 1000 results. */
-                pageSize?: number;
-                /** Message types to return. If not populated - INFO, WARNING and ERROR */
-                /** messages are returned. */
-                messageTypes?: string;
                 /** Transfer run name in the form: */
                 /** `projects/{project_id}/transferConfigs/{config_Id}/runs/{run_id}`. */
                 parent: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
             }): Request<ListTransferLogsResponse>;            
             
         }
@@ -373,223 +599,126 @@ declare namespace gapi.client {
         interface RunsResource {
             /** Deletes the specified transfer run. */
             delete(request: {            
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
+                /** OAuth access token. */
+                access_token?: string;
                 /** Data format for response. */
                 alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** The field will contain name of the resource requested, for example: */
                 /** `projects/{project_id}/transferConfigs/{config_id}/runs/{run_id}` */
                 name: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
             }): Request<{}>;            
+            
+            /** Returns information about the particular transfer run. */
+            get(request: {            
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** The field will contain name of the resource requested, for example: */
+                /** `projects/{project_id}/transferConfigs/{config_id}/runs/{run_id}` */
+                name: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<TransferRun>;            
             
             /** Returns information about running and completed jobs. */
             list(request: {            
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
+                /** OAuth access token. */
+                access_token?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** Indicates how run attempts are to be pulled. */
-                runAttempt?: string;
-                /** Name of transfer configuration for which transfer runs should be retrieved. */
-                /** Format of transfer configuration resource name is: */
-                /** `projects/{project_id}/transferConfigs/{config_id}`. */
-                parent: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Page size. The default page size is the maximum value of 1000 results. */
+                pageSize?: number;
                 /** Pagination token, which can be used to request a specific page */
                 /** of `ListTransferRunsRequest` list results. For multiple-page */
                 /** results, `ListTransferRunsResponse` outputs */
                 /** a `next_page` token, which can be used as the */
                 /** `page_token` value to request the next page of list results. */
                 pageToken?: string;
-                /** Page size. The default page size is the maximum value of 1000 results. */
-                pageSize?: number;
-                /** When specified, only transfer runs with requested statuses are returned. */
-                statuses?: string;
-            }): Request<ListTransferRunsResponse>;            
-            
-            /** Returns information about the particular transfer run. */
-            get(request: {            
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
+                /** Name of transfer configuration for which transfer runs should be retrieved. */
+                /** Format of transfer configuration resource name is: */
+                /** `projects/{project_id}/transferConfigs/{config_id}`. */
+                parent: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Indicates how run attempts are to be pulled. */
+                runAttempt?: string;
+                /** When specified, only transfer runs with requested statuses are returned. */
+                statuses?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** The field will contain name of the resource requested, for example: */
-                /** `projects/{project_id}/transferConfigs/{config_id}/runs/{run_id}` */
-                name: string;
-            }): Request<TransferRun>;            
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<ListTransferRunsResponse>;            
             
             transferLogs: TransferLogsResource;
         }
         
         interface TransferConfigsResource {
-            /** Deletes a data transfer configuration, */
-            /** including any associated transfer runs and logs. */
-            delete(request: {            
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** The field will contain name of the resource requested, for example: */
-                /** `projects/{project_id}/transferConfigs/{config_id}` */
-                name: string;
-            }): Request<{}>;            
-            
-            /** Returns information about all data transfers in the project. */
-            list(request: {            
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** When specified, only configurations of requested data sources are returned. */
-                dataSourceIds?: string;
-                /** The BigQuery project id for which data sources */
-                /** should be returned: `projects/{project_id}`. */
-                parent: string;
-                /** Pagination token, which can be used to request a specific page */
-                /** of `ListTransfersRequest` list results. For multiple-page */
-                /** results, `ListTransfersResponse` outputs */
-                /** a `next_page` token, which can be used as the */
-                /** `page_token` value to request the next page of list results. */
-                pageToken?: string;
-                /** Page size. The default page size is the maximum value of 1000 results. */
-                pageSize?: number;
-            }): Request<ListTransferConfigsResponse>;            
-            
             /** Creates a new data transfer configuration. */
             create(request: {            
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
+                /** OAuth access token. */
+                access_token?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** Optional OAuth2 authorization code to use with this transfer configuration. */
@@ -609,6 +738,16 @@ declare namespace gapi.client {
                 /**   returned in the title bar of the browser, with the page text prompting */
                 /**   the user to copy the code and paste it in the application. */
                 authorizationCode?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** The BigQuery project id where the transfer configuration should be created. */
                 /** Must be in the format /projects/{project_id}/locations/{location_id} */
                 /** or */
@@ -616,114 +755,137 @@ declare namespace gapi.client {
                 /** In case when '-' is specified as location_id, location is infered from */
                 /** the destination dataset region. */
                 parent: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
             }): Request<TransferConfig>;            
             
-            /** Creates transfer runs for a time range [range_start_time, range_end_time]. */
-            /** For each date - or whatever granularity the data source supports - in the */
-            /** range, one transfer run is created. */
-            /** Note that runs are created per UTC time in the time range. */
-            scheduleRuns(request: {            
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
+            /** Deletes a data transfer configuration, */
+            /** including any associated transfer runs and logs. */
+            delete(request: {            
                 /** V1 error format. */
                 "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** Transfer configuration name in the form: */
-                /** `projects/{project_id}/transferConfigs/{config_id}`. */
-                parent: string;
-            }): Request<ScheduleTransferRunsResponse>;            
-            
-            /** Returns information about a data transfer config. */
-            get(request: {            
                 /** OAuth access token. */
                 access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
                 /** Data format for response. */
                 alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** The field will contain name of the resource requested, for example: */
                 /** `projects/{project_id}/transferConfigs/{config_id}` */
                 name: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<{}>;            
+            
+            /** Returns information about a data transfer config. */
+            get(request: {            
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** The field will contain name of the resource requested, for example: */
+                /** `projects/{project_id}/transferConfigs/{config_id}` */
+                name: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
             }): Request<TransferConfig>;            
+            
+            /** Returns information about all data transfers in the project. */
+            list(request: {            
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** When specified, only configurations of requested data sources are returned. */
+                dataSourceIds?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Page size. The default page size is the maximum value of 1000 results. */
+                pageSize?: number;
+                /** Pagination token, which can be used to request a specific page */
+                /** of `ListTransfersRequest` list results. For multiple-page */
+                /** results, `ListTransfersResponse` outputs */
+                /** a `next_page` token, which can be used as the */
+                /** `page_token` value to request the next page of list results. */
+                pageToken?: string;
+                /** The BigQuery project id for which data sources */
+                /** should be returned: `projects/{project_id}`. */
+                parent: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<ListTransferConfigsResponse>;            
             
             /** Updates a data transfer configuration. */
             /** All fields must be set, even if they are not updated. */
             patch(request: {            
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
+                /** OAuth access token. */
+                access_token?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** Required list of fields to be updated in this request. */
-                updateMask?: string;
-                /** The resource name of the transfer run. */
-                /** Transfer run names have the form */
-                /** `projects/{project_id}/transferConfigs/{config_id}`. */
-                /** Where `config_id` is usually a uuid, even though it is not */
-                /** guaranteed or required. The name is ignored when creating a transfer run. */
-                name: string;
                 /** Optional OAuth2 authorization code to use with this transfer configuration. */
                 /** If it is provided, the transfer configuration will be associated with the */
                 /** gaia id of the authorizing user. */
@@ -741,311 +903,262 @@ declare namespace gapi.client {
                 /**   returned in the title bar of the browser, with the page text prompting */
                 /**   the user to copy the code and paste it in the application. */
                 authorizationCode?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** The resource name of the transfer run. */
+                /** Transfer run names have the form */
+                /** `projects/{project_id}/transferConfigs/{config_id}`. */
+                /** Where `config_id` is usually a uuid, even though it is not */
+                /** guaranteed or required. The name is ignored when creating a transfer run. */
+                name: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Required list of fields to be updated in this request. */
+                updateMask?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
             }): Request<TransferConfig>;            
             
-            runs: RunsResource;
-        }
-        
-        interface DataSourcesResource {
-            /** Lists supported data sources and returns their settings, */
-            /** which can be used for UI rendering. */
-            list(request: {            
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
+            /** Creates transfer runs for a time range [range_start_time, range_end_time]. */
+            /** For each date - or whatever granularity the data source supports - in the */
+            /** range, one transfer run is created. */
+            /** Note that runs are created per UTC time in the time range. */
+            scheduleRuns(request: {            
                 /** V1 error format. */
                 "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
+                /** OAuth access token. */
+                access_token?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** Pagination token, which can be used to request a specific page */
-                /** of `ListDataSourcesRequest` list results. For multiple-page */
-                /** results, `ListDataSourcesResponse` outputs */
-                /** a `next_page` token, which can be used as the */
-                /** `page_token` value to request the next page of list results. */
-                pageToken?: string;
-                /** Page size. The default page size is the maximum value of 1000 results. */
-                pageSize?: number;
-                /** The BigQuery project id for which data sources should be returned. */
-                /** Must be in the form: `projects/{project_id}` */
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Transfer configuration name in the form: */
+                /** `projects/{project_id}/transferConfigs/{config_id}`. */
                 parent: string;
-            }): Request<ListDataSourcesResponse>;            
-            
-            /** Retrieves a supported data source and returns its settings, */
-            /** which can be used for UI rendering. */
-            get(request: {            
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** The field will contain name of the resource requested, for example: */
-                /** `projects/{project_id}/dataSources/{data_source_id}` */
-                name: string;
-            }): Request<DataSource>;            
-            
-            /** Returns true if valid credentials exist for the given data source and */
-            /** requesting user. */
-            checkValidCreds(request: {            
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** The data source in the form: */
-                /** `projects/{project_id}/dataSources/{data_source_id}` */
-                name: string;
-            }): Request<CheckValidCredsResponse>;            
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<ScheduleTransferRunsResponse>;            
             
+            runs: RunsResource;
         }
         
         interface LocationsResource {
-            /** Returns true if data transfer is enabled for a project. */
-            isEnabled(request: {            
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
+            /** Get information about a location. */
+            get(request: {            
                 /** V1 error format. */
                 "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
+                /** OAuth access token. */
+                access_token?: string;
                 /** Data format for response. */
                 alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Resource name for the location. */
+                name: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<Location>;            
+            
+            /** Returns true if data transfer is enabled for a project. */
+            isEnabled(request: {            
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** The name of the project resource in the form: */
                 /** `projects/{project_id}` */
                 name: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
             }): Request<IsEnabledResponse>;            
+            
+            /** Lists information about the supported locations for this service. */
+            list(request: {            
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** The standard list filter. */
+                filter?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** The resource that owns the locations collection, if applicable. */
+                name: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** The standard list page size. */
+                pageSize?: number;
+                /** The standard list page token. */
+                pageToken?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<ListLocationsResponse>;            
             
             /** Enables or disables data transfer for a project. This */
             /** method requires the additional scope of */
             /** 'https://www.googleapis.com/auth/cloudplatformprojects' */
             /** to manage the cloud project permissions. */
             setEnabled(request: {            
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
+                /** OAuth access token. */
+                access_token?: string;
                 /** Data format for response. */
                 alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** The name of the project resource in the form: */
                 /** `projects/{project_id}` */
                 name: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
             }): Request<{}>;            
             
-            /** Get information about a location. */
-            get(request: {            
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** Resource name for the location. */
-                name: string;
-            }): Request<Location>;            
-            
-            /** Lists information about the supported locations for this service. */
-            list(request: {            
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** The standard list filter. */
-                filter?: string;
-                /** The standard list page token. */
-                pageToken?: string;
-                /** The resource that owns the locations collection, if applicable. */
-                name: string;
-                /** The standard list page size. */
-                pageSize?: number;
-            }): Request<ListLocationsResponse>;            
-            
-            transferConfigs: TransferConfigsResource;
             dataSources: DataSourcesResource;
+            transferConfigs: TransferConfigsResource;
         }
         
         interface TransferLogsResource {
             /** Returns user facing log messages for the data transfer run. */
             list(request: {            
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
+                /** OAuth access token. */
+                access_token?: string;
                 /** Data format for response. */
                 alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Message types to return. If not populated - INFO, WARNING and ERROR */
+                /** messages are returned. */
+                messageTypes?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Page size. The default page size is the maximum value of 1000 results. */
+                pageSize?: number;
                 /** Pagination token, which can be used to request a specific page */
                 /** of `ListTransferLogsRequest` list results. For multiple-page */
                 /** results, `ListTransferLogsResponse` outputs */
                 /** a `next_page` token, which can be used as the */
                 /** `page_token` value to request the next page of list results. */
                 pageToken?: string;
-                /** Page size. The default page size is the maximum value of 1000 results. */
-                pageSize?: number;
-                /** Message types to return. If not populated - INFO, WARNING and ERROR */
-                /** messages are returned. */
-                messageTypes?: string;
                 /** Transfer run name in the form: */
                 /** `projects/{project_id}/transferConfigs/{config_Id}/runs/{run_id}`. */
                 parent: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
             }): Request<ListTransferLogsResponse>;            
             
         }
@@ -1053,232 +1166,128 @@ declare namespace gapi.client {
         interface RunsResource {
             /** Deletes the specified transfer run. */
             delete(request: {            
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
+                /** OAuth access token. */
+                access_token?: string;
                 /** Data format for response. */
                 alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** The field will contain name of the resource requested, for example: */
                 /** `projects/{project_id}/transferConfigs/{config_id}/runs/{run_id}` */
                 name: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
             }): Request<{}>;            
+            
+            /** Returns information about the particular transfer run. */
+            get(request: {            
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** The field will contain name of the resource requested, for example: */
+                /** `projects/{project_id}/transferConfigs/{config_id}/runs/{run_id}` */
+                name: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<TransferRun>;            
             
             /** Returns information about running and completed jobs. */
             list(request: {            
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
+                /** OAuth access token. */
+                access_token?: string;
                 /** Data format for response. */
                 alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Page size. The default page size is the maximum value of 1000 results. */
+                pageSize?: number;
                 /** Pagination token, which can be used to request a specific page */
                 /** of `ListTransferRunsRequest` list results. For multiple-page */
                 /** results, `ListTransferRunsResponse` outputs */
                 /** a `next_page` token, which can be used as the */
                 /** `page_token` value to request the next page of list results. */
                 pageToken?: string;
-                /** Page size. The default page size is the maximum value of 1000 results. */
-                pageSize?: number;
-                /** When specified, only transfer runs with requested statuses are returned. */
-                statuses?: string;
-                /** Indicates how run attempts are to be pulled. */
-                runAttempt?: string;
                 /** Name of transfer configuration for which transfer runs should be retrieved. */
                 /** Format of transfer configuration resource name is: */
                 /** `projects/{project_id}/transferConfigs/{config_id}`. */
                 parent: string;
-            }): Request<ListTransferRunsResponse>;            
-            
-            /** Returns information about the particular transfer run. */
-            get(request: {            
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Indicates how run attempts are to be pulled. */
+                runAttempt?: string;
+                /** When specified, only transfer runs with requested statuses are returned. */
+                statuses?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** The field will contain name of the resource requested, for example: */
-                /** `projects/{project_id}/transferConfigs/{config_id}/runs/{run_id}` */
-                name: string;
-            }): Request<TransferRun>;            
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<ListTransferRunsResponse>;            
             
             transferLogs: TransferLogsResource;
         }
         
         interface TransferConfigsResource {
-            /** Deletes a data transfer configuration, */
-            /** including any associated transfer runs and logs. */
-            delete(request: {            
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** The field will contain name of the resource requested, for example: */
-                /** `projects/{project_id}/transferConfigs/{config_id}` */
-                name: string;
-            }): Request<{}>;            
-            
-            /** Returns information about all data transfers in the project. */
-            list(request: {            
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** Pagination token, which can be used to request a specific page */
-                /** of `ListTransfersRequest` list results. For multiple-page */
-                /** results, `ListTransfersResponse` outputs */
-                /** a `next_page` token, which can be used as the */
-                /** `page_token` value to request the next page of list results. */
-                pageToken?: string;
-                /** Page size. The default page size is the maximum value of 1000 results. */
-                pageSize?: number;
-                /** When specified, only configurations of requested data sources are returned. */
-                dataSourceIds?: string;
-                /** The BigQuery project id for which data sources */
-                /** should be returned: `projects/{project_id}`. */
-                parent: string;
-            }): Request<ListTransferConfigsResponse>;            
-            
             /** Creates a new data transfer configuration. */
             create(request: {            
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
+                /** OAuth access token. */
+                access_token?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** The BigQuery project id where the transfer configuration should be created. */
-                /** Must be in the format /projects/{project_id}/locations/{location_id} */
-                /** or */
-                /** /projects/{project_id}/locations/- */
-                /** In case when '-' is specified as location_id, location is infered from */
-                /** the destination dataset region. */
-                parent: string;
                 /** Optional OAuth2 authorization code to use with this transfer configuration. */
                 /** This is required if new credentials are needed, as indicated by */
                 /** `CheckValidCreds`. */
@@ -1296,114 +1305,154 @@ declare namespace gapi.client {
                 /**   returned in the title bar of the browser, with the page text prompting */
                 /**   the user to copy the code and paste it in the application. */
                 authorizationCode?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** The BigQuery project id where the transfer configuration should be created. */
+                /** Must be in the format /projects/{project_id}/locations/{location_id} */
+                /** or */
+                /** /projects/{project_id}/locations/- */
+                /** In case when '-' is specified as location_id, location is infered from */
+                /** the destination dataset region. */
+                parent: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
             }): Request<TransferConfig>;            
             
-            /** Creates transfer runs for a time range [range_start_time, range_end_time]. */
-            /** For each date - or whatever granularity the data source supports - in the */
-            /** range, one transfer run is created. */
-            /** Note that runs are created per UTC time in the time range. */
-            scheduleRuns(request: {            
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
+            /** Deletes a data transfer configuration, */
+            /** including any associated transfer runs and logs. */
+            delete(request: {            
                 /** V1 error format. */
                 "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** Transfer configuration name in the form: */
-                /** `projects/{project_id}/transferConfigs/{config_id}`. */
-                parent: string;
-            }): Request<ScheduleTransferRunsResponse>;            
-            
-            /** Returns information about a data transfer config. */
-            get(request: {            
                 /** OAuth access token. */
                 access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
                 /** Data format for response. */
                 alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** The field will contain name of the resource requested, for example: */
                 /** `projects/{project_id}/transferConfigs/{config_id}` */
                 name: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<{}>;            
+            
+            /** Returns information about a data transfer config. */
+            get(request: {            
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** The field will contain name of the resource requested, for example: */
+                /** `projects/{project_id}/transferConfigs/{config_id}` */
+                name: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
             }): Request<TransferConfig>;            
+            
+            /** Returns information about all data transfers in the project. */
+            list(request: {            
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** When specified, only configurations of requested data sources are returned. */
+                dataSourceIds?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Page size. The default page size is the maximum value of 1000 results. */
+                pageSize?: number;
+                /** Pagination token, which can be used to request a specific page */
+                /** of `ListTransfersRequest` list results. For multiple-page */
+                /** results, `ListTransfersResponse` outputs */
+                /** a `next_page` token, which can be used as the */
+                /** `page_token` value to request the next page of list results. */
+                pageToken?: string;
+                /** The BigQuery project id for which data sources */
+                /** should be returned: `projects/{project_id}`. */
+                parent: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<ListTransferConfigsResponse>;            
             
             /** Updates a data transfer configuration. */
             /** All fields must be set, even if they are not updated. */
             patch(request: {            
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
+                /** OAuth access token. */
+                access_token?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** Required list of fields to be updated in this request. */
-                updateMask?: string;
-                /** The resource name of the transfer run. */
-                /** Transfer run names have the form */
-                /** `projects/{project_id}/transferConfigs/{config_id}`. */
-                /** Where `config_id` is usually a uuid, even though it is not */
-                /** guaranteed or required. The name is ignored when creating a transfer run. */
-                name: string;
                 /** Optional OAuth2 authorization code to use with this transfer configuration. */
                 /** If it is provided, the transfer configuration will be associated with the */
                 /** gaia id of the authorizing user. */
@@ -1421,197 +1470,148 @@ declare namespace gapi.client {
                 /**   returned in the title bar of the browser, with the page text prompting */
                 /**   the user to copy the code and paste it in the application. */
                 authorizationCode?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** The resource name of the transfer run. */
+                /** Transfer run names have the form */
+                /** `projects/{project_id}/transferConfigs/{config_id}`. */
+                /** Where `config_id` is usually a uuid, even though it is not */
+                /** guaranteed or required. The name is ignored when creating a transfer run. */
+                name: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Required list of fields to be updated in this request. */
+                updateMask?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
             }): Request<TransferConfig>;            
+            
+            /** Creates transfer runs for a time range [range_start_time, range_end_time]. */
+            /** For each date - or whatever granularity the data source supports - in the */
+            /** range, one transfer run is created. */
+            /** Note that runs are created per UTC time in the time range. */
+            scheduleRuns(request: {            
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Transfer configuration name in the form: */
+                /** `projects/{project_id}/transferConfigs/{config_id}`. */
+                parent: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<ScheduleTransferRunsResponse>;            
             
             runs: RunsResource;
         }
         
-        interface DataSourcesResource {
-            /** Lists supported data sources and returns their settings, */
-            /** which can be used for UI rendering. */
-            list(request: {            
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** The BigQuery project id for which data sources should be returned. */
-                /** Must be in the form: `projects/{project_id}` */
-                parent: string;
-                /** Pagination token, which can be used to request a specific page */
-                /** of `ListDataSourcesRequest` list results. For multiple-page */
-                /** results, `ListDataSourcesResponse` outputs */
-                /** a `next_page` token, which can be used as the */
-                /** `page_token` value to request the next page of list results. */
-                pageToken?: string;
-                /** Page size. The default page size is the maximum value of 1000 results. */
-                pageSize?: number;
-            }): Request<ListDataSourcesResponse>;            
-            
-            /** Retrieves a supported data source and returns its settings, */
-            /** which can be used for UI rendering. */
-            get(request: {            
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** The field will contain name of the resource requested, for example: */
-                /** `projects/{project_id}/dataSources/{data_source_id}` */
-                name: string;
-            }): Request<DataSource>;            
-            
-            /** Returns true if valid credentials exist for the given data source and */
-            /** requesting user. */
-            checkValidCreds(request: {            
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** The data source in the form: */
-                /** `projects/{project_id}/dataSources/{data_source_id}` */
-                name: string;
-            }): Request<CheckValidCredsResponse>;            
-            
-        }
-        
         interface ProjectsResource {
+            /** Returns true if data transfer is enabled for a project. */
+            isEnabled(request: {            
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** The name of the project resource in the form: */
+                /** `projects/{project_id}` */
+                name: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<IsEnabledResponse>;            
+            
             /** Enables or disables data transfer for a project. This */
             /** method requires the additional scope of */
             /** 'https://www.googleapis.com/auth/cloudplatformprojects' */
             /** to manage the cloud project permissions. */
             setEnabled(request: {            
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
+                /** OAuth access token. */
+                access_token?: string;
                 /** Data format for response. */
                 alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** The name of the project resource in the form: */
                 /** `projects/{project_id}` */
                 name: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
             }): Request<{}>;            
             
-            /** Returns true if data transfer is enabled for a project. */
-            isEnabled(request: {            
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** The name of the project resource in the form: */
-                /** `projects/{project_id}` */
-                name: string;
-            }): Request<IsEnabledResponse>;            
-            
+            dataSources: DataSourcesResource;
             locations: LocationsResource;
             transferConfigs: TransferConfigsResource;
-            dataSources: DataSourcesResource;
         }
     }
 }

@@ -640,22 +640,22 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** The ID of the Backup Run to delete. To find a Backup Run ID, use the list method. */
+                id: string;
+                /** Cloud SQL instance ID. This does not include the project ID. */
+                instance: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** Project ID of the project that contains the instance. */
+                project: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the Backup Run to delete. To find a Backup Run ID, use the list method. */
-                id: string;
-                /** Cloud SQL instance ID. This does not include the project ID. */
-                instance: string;
-                /** Project ID of the project that contains the instance. */
-                project: string;
             }): Request<Operation>;            
             
             /** Retrieves a resource containing information about a backup run. */
@@ -664,22 +664,22 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** The ID of this Backup Run. */
+                id: string;
+                /** Cloud SQL instance ID. This does not include the project ID. */
+                instance: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** Project ID of the project that contains the instance. */
+                project: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of this Backup Run. */
-                id: string;
-                /** Cloud SQL instance ID. This does not include the project ID. */
-                instance: string;
-                /** Project ID of the project that contains the instance. */
-                project: string;
             }): Request<BackupRun>;            
             
             /** Creates a new backup run on demand. This method is applicable only to Second Generation instances. */
@@ -688,20 +688,20 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Cloud SQL instance ID. This does not include the project ID. */
+                instance: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** Project ID of the project that contains the instance. */
+                project: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Cloud SQL instance ID. This does not include the project ID. */
-                instance: string;
-                /** Project ID of the project that contains the instance. */
-                project: string;
             }): Request<Operation>;            
             
             /** Lists all backup runs associated with a given instance and configuration in the reverse chronological order of the enqueued time. */
@@ -710,24 +710,24 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Cloud SQL instance ID. This does not include the project ID. */
+                instance: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** Maximum number of backup runs per response. */
+                maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** A previously-returned page token representing part of the larger set of results to view. */
+                pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** Project ID of the project that contains the instance. */
+                project: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Cloud SQL instance ID. This does not include the project ID. */
-                instance: string;
-                /** Maximum number of backup runs per response. */
-                maxResults?: number;
-                /** A previously-returned page token representing part of the larger set of results to view. */
-                pageToken?: string;
-                /** Project ID of the project that contains the instance. */
-                project: string;
             }): Request<BackupRunsListResponse>;            
             
         }
@@ -737,48 +737,48 @@ declare namespace gapi.client {
             delete(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Name of the database to be deleted in the instance. */
+                database: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Database instance ID. This does not include the project ID. */
+                instance: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** Project ID of the project that contains the instance. */
+                project: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Name of the database to be deleted in the instance. */
-                database: string;
-                /** Database instance ID. This does not include the project ID. */
-                instance: string;
-                /** Project ID of the project that contains the instance. */
-                project: string;
             }): Request<Operation>;            
             
             /** Retrieves a resource containing information about a database inside a Cloud SQL instance. */
             get(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Name of the database in the instance. */
+                database: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Database instance ID. This does not include the project ID. */
+                instance: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** Project ID of the project that contains the instance. */
+                project: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Name of the database in the instance. */
-                database: string;
-                /** Database instance ID. This does not include the project ID. */
-                instance: string;
-                /** Project ID of the project that contains the instance. */
-                project: string;
             }): Request<Database>;            
             
             /** Inserts a resource containing information about a database inside a Cloud SQL instance. */
@@ -787,20 +787,20 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Database instance ID. This does not include the project ID. */
+                instance: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** Project ID of the project that contains the instance. */
+                project: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Database instance ID. This does not include the project ID. */
-                instance: string;
-                /** Project ID of the project that contains the instance. */
-                project: string;
             }): Request<Operation>;            
             
             /** Lists databases in the specified Cloud SQL instance. */
@@ -809,68 +809,68 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Cloud SQL instance ID. This does not include the project ID. */
+                instance: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** Project ID of the project for which to list Cloud SQL instances. */
+                project: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Cloud SQL instance ID. This does not include the project ID. */
-                instance: string;
-                /** Project ID of the project for which to list Cloud SQL instances. */
-                project: string;
             }): Request<DatabasesListResponse>;            
             
             /** Updates a resource containing information about a database inside a Cloud SQL instance. This method supports patch semantics. */
             patch(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Name of the database to be updated in the instance. */
+                database: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Database instance ID. This does not include the project ID. */
+                instance: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** Project ID of the project that contains the instance. */
+                project: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Name of the database to be updated in the instance. */
-                database: string;
-                /** Database instance ID. This does not include the project ID. */
-                instance: string;
-                /** Project ID of the project that contains the instance. */
-                project: string;
             }): Request<Operation>;            
             
             /** Updates a resource containing information about a database inside a Cloud SQL instance. */
             update(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Name of the database to be updated in the instance. */
+                database: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Database instance ID. This does not include the project ID. */
+                instance: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** Project ID of the project that contains the instance. */
+                project: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Name of the database to be updated in the instance. */
-                database: string;
-                /** Database instance ID. This does not include the project ID. */
-                instance: string;
-                /** Project ID of the project that contains the instance. */
-                project: string;
             }): Request<Operation>;            
             
         }
@@ -880,6 +880,8 @@ declare namespace gapi.client {
             list(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Database version for flag retrieval. Flags are specific to the database version. */
+                databaseVersion?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -892,8 +894,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Database version for flag retrieval. Flags are specific to the database version. */
-                databaseVersion?: string;
             }): Request<FlagsListResponse>;            
             
         }
@@ -905,20 +905,20 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** The ID of the Cloud SQL instance to be cloned (source). This does not include the project ID. */
+                instance: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** Project ID of the source as well as the clone Cloud SQL instance. */
+                project: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the Cloud SQL instance to be cloned (source). This does not include the project ID. */
-                instance: string;
-                /** Project ID of the source as well as the clone Cloud SQL instance. */
-                project: string;
             }): Request<Operation>;            
             
             /** Deletes a Cloud SQL instance. */
@@ -927,20 +927,20 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Cloud SQL instance ID. This does not include the project ID. */
+                instance: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** Project ID of the project that contains the instance to be deleted. */
+                project: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Cloud SQL instance ID. This does not include the project ID. */
-                instance: string;
-                /** Project ID of the project that contains the instance to be deleted. */
-                project: string;
             }): Request<Operation>;            
             
             /** Exports data from a Cloud SQL instance to a Google Cloud Storage bucket as a MySQL dump file. */
@@ -949,20 +949,20 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Cloud SQL instance ID. This does not include the project ID. */
+                instance: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** Project ID of the project that contains the instance to be exported. */
+                project: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Cloud SQL instance ID. This does not include the project ID. */
-                instance: string;
-                /** Project ID of the project that contains the instance to be exported. */
-                project: string;
             }): Request<Operation>;            
             
             /** Failover the instance to its failover replica instance. */
@@ -971,20 +971,20 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Cloud SQL instance ID. This does not include the project ID. */
+                instance: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** ID of the project that contains the read replica. */
+                project: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Cloud SQL instance ID. This does not include the project ID. */
-                instance: string;
-                /** ID of the project that contains the read replica. */
-                project: string;
             }): Request<Operation>;            
             
             /** Retrieves a resource containing information about a Cloud SQL instance. */
@@ -993,20 +993,20 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Database instance ID. This does not include the project ID. */
+                instance: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** Project ID of the project that contains the instance. */
+                project: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Database instance ID. This does not include the project ID. */
-                instance: string;
-                /** Project ID of the project that contains the instance. */
-                project: string;
             }): Request<DatabaseInstance>;            
             
             /** Imports data into a Cloud SQL instance from a MySQL dump file in Google Cloud Storage. */
@@ -1015,20 +1015,20 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Cloud SQL instance ID. This does not include the project ID. */
+                instance: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** Project ID of the project that contains the instance. */
+                project: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Cloud SQL instance ID. This does not include the project ID. */
-                instance: string;
-                /** Project ID of the project that contains the instance. */
-                project: string;
             }): Request<Operation>;            
             
             /** Creates a new Cloud SQL instance. */
@@ -1043,12 +1043,12 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** Project ID of the project to which the newly created Cloud SQL instances should belong. */
+                project: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Project ID of the project to which the newly created Cloud SQL instances should belong. */
-                project: string;
             }): Request<Operation>;            
             
             /** Lists instances under a given project in the alphabetical order of the instance name. */
@@ -1057,24 +1057,24 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** An expression for filtering the results of the request, such as by name or label. */
+                filter?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The maximum number of results to return per response. */
+                maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** A previously-returned page token representing part of the larger set of results to view. */
+                pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** Project ID of the project for which to list Cloud SQL instances. */
+                project: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** An expression for filtering the results of the request, such as by name or label. */
-                filter?: string;
-                /** The maximum number of results to return per response. */
-                maxResults?: number;
-                /** A previously-returned page token representing part of the larger set of results to view. */
-                pageToken?: string;
-                /** Project ID of the project for which to list Cloud SQL instances. */
-                project: string;
             }): Request<InstancesListResponse>;            
             
             /** Updates settings of a Cloud SQL instance. Caution: This is not a partial update, so you must include values for all the settings that you want to retain. For partial updates, use patch.. This method supports patch semantics. */
@@ -1083,20 +1083,20 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Cloud SQL instance ID. This does not include the project ID. */
+                instance: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** Project ID of the project that contains the instance. */
+                project: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Cloud SQL instance ID. This does not include the project ID. */
-                instance: string;
-                /** Project ID of the project that contains the instance. */
-                project: string;
             }): Request<Operation>;            
             
             /** Promotes the read replica instance to be a stand-alone Cloud SQL instance. */
@@ -1105,20 +1105,20 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Cloud SQL read replica instance name. */
+                instance: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** ID of the project that contains the read replica. */
+                project: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Cloud SQL read replica instance name. */
-                instance: string;
-                /** ID of the project that contains the read replica. */
-                project: string;
             }): Request<Operation>;            
             
             /** Deletes all client certificates and generates a new server SSL certificate for the instance. The changes will not take effect until the instance is restarted. Existing instances without a server certificate will need to call this once to set a server certificate. */
@@ -1127,20 +1127,20 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Cloud SQL instance ID. This does not include the project ID. */
+                instance: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** Project ID of the project that contains the instance. */
+                project: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Cloud SQL instance ID. This does not include the project ID. */
-                instance: string;
-                /** Project ID of the project that contains the instance. */
-                project: string;
             }): Request<Operation>;            
             
             /** Restarts a Cloud SQL instance. */
@@ -1149,20 +1149,20 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Cloud SQL instance ID. This does not include the project ID. */
+                instance: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** Project ID of the project that contains the instance to be restarted. */
+                project: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Cloud SQL instance ID. This does not include the project ID. */
-                instance: string;
-                /** Project ID of the project that contains the instance to be restarted. */
-                project: string;
             }): Request<Operation>;            
             
             /** Restores a backup of a Cloud SQL instance. */
@@ -1171,20 +1171,20 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Cloud SQL instance ID. This does not include the project ID. */
+                instance: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** Project ID of the project that contains the instance. */
+                project: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Cloud SQL instance ID. This does not include the project ID. */
-                instance: string;
-                /** Project ID of the project that contains the instance. */
-                project: string;
             }): Request<Operation>;            
             
             /** Starts the replication in the read replica instance. */
@@ -1193,20 +1193,20 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Cloud SQL read replica instance name. */
+                instance: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** ID of the project that contains the read replica. */
+                project: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Cloud SQL read replica instance name. */
-                instance: string;
-                /** ID of the project that contains the read replica. */
-                project: string;
             }): Request<Operation>;            
             
             /** Stops the replication in the read replica instance. */
@@ -1215,20 +1215,20 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Cloud SQL read replica instance name. */
+                instance: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** ID of the project that contains the read replica. */
+                project: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Cloud SQL read replica instance name. */
-                instance: string;
-                /** ID of the project that contains the read replica. */
-                project: string;
             }): Request<Operation>;            
             
             /** Truncate MySQL general and slow query log tables */
@@ -1237,20 +1237,20 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Cloud SQL instance ID. This does not include the project ID. */
+                instance: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** Project ID of the Cloud SQL project. */
+                project: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Cloud SQL instance ID. This does not include the project ID. */
-                instance: string;
-                /** Project ID of the Cloud SQL project. */
-                project: string;
             }): Request<Operation>;            
             
             /** Updates settings of a Cloud SQL instance. Caution: This is not a partial update, so you must include values for all the settings that you want to retain. For partial updates, use patch. */
@@ -1259,20 +1259,20 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Cloud SQL instance ID. This does not include the project ID. */
+                instance: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** Project ID of the project that contains the instance. */
+                project: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Cloud SQL instance ID. This does not include the project ID. */
-                instance: string;
-                /** Project ID of the project that contains the instance. */
-                project: string;
             }): Request<Operation>;            
             
         }
@@ -1288,16 +1288,16 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Instance operation ID. */
+                operation: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** Project ID of the project that contains the instance. */
+                project: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Instance operation ID. */
-                operation: string;
-                /** Project ID of the project that contains the instance. */
-                project: string;
             }): Request<Operation>;            
             
             /** Lists all instance operations that have been performed on the given Cloud SQL instance in the reverse chronological order of the start time. */
@@ -1306,24 +1306,24 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Cloud SQL instance ID. This does not include the project ID. */
+                instance: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** Maximum number of operations per response. */
+                maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** A previously-returned page token representing part of the larger set of results to view. */
+                pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** Project ID of the project that contains the instance. */
+                project: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Cloud SQL instance ID. This does not include the project ID. */
-                instance: string;
-                /** Maximum number of operations per response. */
-                maxResults?: number;
-                /** A previously-returned page token representing part of the larger set of results to view. */
-                pageToken?: string;
-                /** Project ID of the project that contains the instance. */
-                project: string;
             }): Request<OperationsListResponse>;            
             
         }
@@ -1335,20 +1335,20 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Cloud SQL instance ID. This does not include the project ID. */
+                instance: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** Project ID of the Cloud SQL project. */
+                project: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Cloud SQL instance ID. This does not include the project ID. */
-                instance: string;
-                /** Project ID of the Cloud SQL project. */
-                project: string;
             }): Request<SslCert>;            
             
             /** Deletes the SSL certificate. The change will not take effect until the instance is restarted. */
@@ -1357,22 +1357,22 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Cloud SQL instance ID. This does not include the project ID. */
+                instance: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** Cloud SQL instance ID. This does not include the project ID. */
-                instance: string;
                 /** Project ID of the project that contains the instance to be deleted. */
                 project: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /** Sha1 FingerPrint. */
                 sha1Fingerprint: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Operation>;            
             
             /** Retrieves a particular SSL certificate. Does not include the private key (required for usage). The private key must be saved from the response to initial creation. */
@@ -1381,22 +1381,22 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Cloud SQL instance ID. This does not include the project ID. */
+                instance: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** Cloud SQL instance ID. This does not include the project ID. */
-                instance: string;
                 /** Project ID of the project that contains the instance. */
                 project: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /** Sha1 FingerPrint. */
                 sha1Fingerprint: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<SslCert>;            
             
             /** Creates an SSL certificate and returns it along with the private key and server certificate authority. The new certificate will not be usable until the instance is restarted. */
@@ -1405,20 +1405,20 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Cloud SQL instance ID. This does not include the project ID. */
+                instance: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** Project ID of the project to which the newly created Cloud SQL instances should belong. */
+                project: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Cloud SQL instance ID. This does not include the project ID. */
-                instance: string;
-                /** Project ID of the project to which the newly created Cloud SQL instances should belong. */
-                project: string;
             }): Request<SslCertsInsertResponse>;            
             
             /** Lists all of the current SSL certificates for the instance. */
@@ -1427,20 +1427,20 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Cloud SQL instance ID. This does not include the project ID. */
+                instance: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** Project ID of the project for which to list Cloud SQL instances. */
+                project: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Cloud SQL instance ID. This does not include the project ID. */
-                instance: string;
-                /** Project ID of the project for which to list Cloud SQL instances. */
-                project: string;
             }): Request<SslCertsListResponse>;            
             
         }
@@ -1458,12 +1458,12 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** Project ID of the project for which to list tiers. */
+                project: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Project ID of the project for which to list tiers. */
-                project: string;
             }): Request<TiersListResponse>;            
             
         }
@@ -1475,24 +1475,24 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** Host of the user in the instance. */
                 host: string;
                 /** Database instance ID. This does not include the project ID. */
                 instance: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** Name of the user in the instance. */
                 name: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** Project ID of the project that contains the instance. */
                 project: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Operation>;            
             
             /** Creates a new user in a Cloud SQL instance. */
@@ -1501,20 +1501,20 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Database instance ID. This does not include the project ID. */
+                instance: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** Project ID of the project that contains the instance. */
+                project: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Database instance ID. This does not include the project ID. */
-                instance: string;
-                /** Project ID of the project that contains the instance. */
-                project: string;
             }): Request<Operation>;            
             
             /** Lists users in the specified Cloud SQL instance. */
@@ -1523,20 +1523,20 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Database instance ID. This does not include the project ID. */
+                instance: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** Project ID of the project that contains the instance. */
+                project: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Database instance ID. This does not include the project ID. */
-                instance: string;
-                /** Project ID of the project that contains the instance. */
-                project: string;
             }): Request<UsersListResponse>;            
             
             /** Updates an existing user in a Cloud SQL instance. */
@@ -1545,24 +1545,24 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** Host of the user in the instance. */
                 host: string;
                 /** Database instance ID. This does not include the project ID. */
                 instance: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** Name of the user in the instance. */
                 name: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** Project ID of the project that contains the instance. */
                 project: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Operation>;            
             
         }

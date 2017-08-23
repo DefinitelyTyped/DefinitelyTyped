@@ -14,6 +14,9 @@ gapi.load('client', () => {
         // declare client_id registered in Google Developers Console
         const client_id = '<<PUT YOUR CLIENT ID HERE>>';
         const scope = [     
+                // Manage your Google Classroom class rosters
+                'https://www.googleapis.com/auth/classroom.rosters',
+            
                 // View course work and grades for students in the Google Classroom classes you teach or administer
                 'https://www.googleapis.com/auth/classroom.student-submissions.students.readonly',
             
@@ -55,9 +58,6 @@ gapi.load('client', () => {
             
                 // Manage your course work and view your grades in Google Classroom
                 'https://www.googleapis.com/auth/classroom.coursework.me',
-            
-                // Manage your Google Classroom class rosters
-                'https://www.googleapis.com/auth/classroom.rosters',
             ];
         const immediate = true;
 
@@ -72,6 +72,26 @@ gapi.load('client', () => {
     });
 
     async function run() {  
+        
+        // Returns a list of invitations that the requesting user is permitted to
+        // view, restricted to those that match the list request.
+        // 
+        // *Note:* At least one of `user_id` or `course_id` must be supplied. Both
+        // fields can be supplied.
+        // 
+        // This method returns the following error codes:
+        // 
+        // * `PERMISSION_DENIED` for access errors.
+        await gapi.client.invitations.list({  }); 
+        
+        // Returns an invitation.
+        // 
+        // This method returns the following error codes:
+        // 
+        // * `PERMISSION_DENIED` if the requesting user is not permitted to view the
+        // requested invitation or for access errors.
+        // * `NOT_FOUND` if no invitation exists with the requested ID.
+        await gapi.client.invitations.get({ id: "id",  }); 
         
         // Creates an invitation. Only one invitation for a user and course may exist
         // at a time. Delete and re-create an invitation to make changes.
@@ -112,26 +132,6 @@ gapi.load('client', () => {
         // * `NOT_FOUND` if no invitation exists with the requested ID.
         await gapi.client.invitations.delete({ id: "id",  }); 
         
-        // Returns a list of invitations that the requesting user is permitted to
-        // view, restricted to those that match the list request.
-        // 
-        // *Note:* At least one of `user_id` or `course_id` must be supplied. Both
-        // fields can be supplied.
-        // 
-        // This method returns the following error codes:
-        // 
-        // * `PERMISSION_DENIED` for access errors.
-        await gapi.client.invitations.list({  }); 
-        
-        // Returns an invitation.
-        // 
-        // This method returns the following error codes:
-        // 
-        // * `PERMISSION_DENIED` if the requesting user is not permitted to view the
-        // requested invitation or for access errors.
-        // * `NOT_FOUND` if no invitation exists with the requested ID.
-        await gapi.client.invitations.get({ id: "id",  }); 
-        
         // Returns a user profile.
         // 
         // This method returns the following error codes:
@@ -140,6 +140,39 @@ gapi.load('client', () => {
         // this user profile, if no profile exists with the requested ID, or for
         // access errors.
         await gapi.client.userProfiles.get({ userId: "userId",  }); 
+        
+        // Returns a course.
+        // 
+        // This method returns the following error codes:
+        // 
+        // * `PERMISSION_DENIED` if the requesting user is not permitted to access the
+        // requested course or for access errors.
+        // * `NOT_FOUND` if no course exists with the requested ID.
+        await gapi.client.courses.get({ id: "id",  }); 
+        
+        // Updates one or more fields in a course.
+        // 
+        // This method returns the following error codes:
+        // 
+        // * `PERMISSION_DENIED` if the requesting user is not permitted to modify the
+        // requested course or for access errors.
+        // * `NOT_FOUND` if no course exists with the requested ID.
+        // * `INVALID_ARGUMENT` if invalid fields are specified in the update mask or
+        // if no update mask is supplied.
+        // * `FAILED_PRECONDITION` for the following request errors:
+        //     * CourseNotModifiable
+        await gapi.client.courses.patch({ id: "id",  }); 
+        
+        // Updates a course.
+        // 
+        // This method returns the following error codes:
+        // 
+        // * `PERMISSION_DENIED` if the requesting user is not permitted to modify the
+        // requested course or for access errors.
+        // * `NOT_FOUND` if no course exists with the requested ID.
+        // * `FAILED_PRECONDITION` for the following request errors:
+        //     * CourseNotModifiable
+        await gapi.client.courses.update({ id: "id",  }); 
         
         // Deletes a course.
         // 
@@ -176,39 +209,6 @@ gapi.load('client', () => {
         //     * UserGroupsMembershipLimitReached
         // * `ALREADY_EXISTS` if an alias was specified in the `id` and
         // already exists.
-        await gapi.client.courses.create({  }); 
-        
-        // Returns a course.
-        // 
-        // This method returns the following error codes:
-        // 
-        // * `PERMISSION_DENIED` if the requesting user is not permitted to access the
-        // requested course or for access errors.
-        // * `NOT_FOUND` if no course exists with the requested ID.
-        await gapi.client.courses.get({ id: "id",  }); 
-        
-        // Updates one or more fields in a course.
-        // 
-        // This method returns the following error codes:
-        // 
-        // * `PERMISSION_DENIED` if the requesting user is not permitted to modify the
-        // requested course or for access errors.
-        // * `NOT_FOUND` if no course exists with the requested ID.
-        // * `INVALID_ARGUMENT` if invalid fields are specified in the update mask or
-        // if no update mask is supplied.
-        // * `FAILED_PRECONDITION` for the following request errors:
-        //     * CourseNotModifiable
-        await gapi.client.courses.patch({ id: "id",  }); 
-        
-        // Updates a course.
-        // 
-        // This method returns the following error codes:
-        // 
-        // * `PERMISSION_DENIED` if the requesting user is not permitted to modify the
-        // requested course or for access errors.
-        // * `NOT_FOUND` if no course exists with the requested ID.
-        // * `FAILED_PRECONDITION` for the following request errors:
-        //     * CourseNotModifiable
-        await gapi.client.courses.update({ id: "id",  });
+        await gapi.client.courses.create({  });
     }
 });

@@ -722,6 +722,8 @@ declare namespace gapi.client {
         interface ActivitiesResource {
             /** Get an activity. */
             get(request: {            
+                /** The ID of the activity to get. */
+                activityId: string;
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -736,8 +738,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the activity to get. */
-                activityId: string;
             }): Request<Activity>;            
             
             /** Create a new activity for the authenticated user. */
@@ -752,40 +752,40 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** If "true", extract the potential media attachments for a URL. The response will include all possible attachments for a URL, including video, photos, and articles based on the content of the page. */
                 preview?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /** The ID of the user to create the activity on behalf of. Its value should be "me", to indicate the authenticated user. */
                 userId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Activity>;            
             
             /** List all of the activities in the specified collection for a particular user. */
             list(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The collection of activities to list. */
+                collection: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The maximum number of activities to include in the response, which is used for paging. For any response, the actual number returned might be less than the specified maxResults. */
+                maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** The continuation token, which is used to page through large result sets. To get the next page of results, set this parameter to the value of "nextPageToken" from the previous response. */
+                pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** The collection of activities to list. */
-                collection: string;
-                /** The maximum number of activities to include in the response, which is used for paging. For any response, the actual number returned might be less than the specified maxResults. */
-                maxResults?: number;
-                /** The continuation token, which is used to page through large result sets. To get the next page of results, set this parameter to the value of "nextPageToken" from the previous response. */
-                pageToken?: string;
                 /** The ID of the user to get activities for. The special value "me" can be used to indicate the authenticated user. */
                 userId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<ActivityFeed>;            
             
         }
@@ -799,20 +799,20 @@ declare namespace gapi.client {
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The maximum number of circles to include in the response, which is used for paging. For any response, the actual number returned might be less than the specified maxResults. */
+                maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** The continuation token, which is used to page through large result sets. To get the next page of results, set this parameter to the value of "nextPageToken" from the previous response. */
+                pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** The maximum number of circles to include in the response, which is used for paging. For any response, the actual number returned might be less than the specified maxResults. */
-                maxResults?: number;
-                /** The continuation token, which is used to page through large result sets. To get the next page of results, set this parameter to the value of "nextPageToken" from the previous response. */
-                pageToken?: string;
                 /** The ID of the user to get audiences for. The special value "me" can be used to indicate the authenticated user. */
                 userId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<AudiencesFeed>;            
             
         }
@@ -822,6 +822,10 @@ declare namespace gapi.client {
             addPeople(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The ID of the circle to add the person to. */
+                circleId: string;
+                /** Email of the people to add to the circle. Optional, can be repeated. */
+                email?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -832,20 +836,18 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** The ID of the circle to add the person to. */
-                circleId: string;
-                /** Email of the people to add to the circle. Optional, can be repeated. */
-                email?: string;
                 /** IDs of the people to add to the circle. Optional, can be repeated. */
                 userId?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Circle>;            
             
             /** Get a circle. */
             get(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The ID of the circle to get. */
+                circleId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -858,8 +860,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the circle to get. */
-                circleId: string;
             }): Request<Circle>;            
             
             /** Create a new circle for the authenticated user. */
@@ -876,10 +876,10 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** The ID of the user to create the circle on behalf of. The value "me" can be used to indicate the authenticated user. */
                 userId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Circle>;            
             
             /** List all of the circles for a user. */
@@ -890,26 +890,28 @@ declare namespace gapi.client {
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The maximum number of circles to include in the response, which is used for paging. For any response, the actual number returned might be less than the specified maxResults. */
+                maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** The continuation token, which is used to page through large result sets. To get the next page of results, set this parameter to the value of "nextPageToken" from the previous response. */
+                pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** The maximum number of circles to include in the response, which is used for paging. For any response, the actual number returned might be less than the specified maxResults. */
-                maxResults?: number;
-                /** The continuation token, which is used to page through large result sets. To get the next page of results, set this parameter to the value of "nextPageToken" from the previous response. */
-                pageToken?: string;
                 /** The ID of the user to get circles for. The special value "me" can be used to indicate the authenticated user. */
                 userId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<CircleFeed>;            
             
             /** Update a circle's description. This method supports patch semantics. */
             patch(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The ID of the circle to update. */
+                circleId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -922,14 +924,14 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the circle to update. */
-                circleId: string;
             }): Request<Circle>;            
             
             /** Delete a circle. */
             remove(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The ID of the circle to delete. */
+                circleId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -942,14 +944,16 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the circle to delete. */
-                circleId: string;
             }): Request<void>;            
             
             /** Remove a person from a circle. */
             removePeople(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The ID of the circle to remove the person from. */
+                circleId: string;
+                /** Email of the people to add to the circle. Optional, can be repeated. */
+                email?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -960,20 +964,18 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** The ID of the circle to remove the person from. */
-                circleId: string;
-                /** Email of the people to add to the circle. Optional, can be repeated. */
-                email?: string;
                 /** IDs of the people to remove from the circle. Optional, can be repeated. */
                 userId?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<void>;            
             
             /** Update a circle's description. */
             update(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The ID of the circle to update. */
+                circleId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -986,8 +988,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the circle to update. */
-                circleId: string;
             }): Request<Circle>;            
             
         }
@@ -997,6 +997,8 @@ declare namespace gapi.client {
             get(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The ID of the comment to get. */
+                commentId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -1009,12 +1011,12 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the comment to get. */
-                commentId: string;
             }): Request<Comment>;            
             
             /** Create a new comment in reply to an activity. */
             insert(request: {            
+                /** The ID of the activity to reply to. */
+                activityId: string;
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1029,34 +1031,32 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the activity to reply to. */
-                activityId: string;
             }): Request<Comment>;            
             
             /** List all of the comments for an activity. */
             list(request: {            
+                /** The ID of the activity to get comments for. */
+                activityId: string;
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The maximum number of comments to include in the response, which is used for paging. For any response, the actual number returned might be less than the specified maxResults. */
+                maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** The continuation token, which is used to page through large result sets. To get the next page of results, set this parameter to the value of "nextPageToken" from the previous response. */
+                pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** The ID of the activity to get comments for. */
-                activityId: string;
-                /** The maximum number of comments to include in the response, which is used for paging. For any response, the actual number returned might be less than the specified maxResults. */
-                maxResults?: number;
-                /** The continuation token, which is used to page through large result sets. To get the next page of results, set this parameter to the value of "nextPageToken" from the previous response. */
-                pageToken?: string;
                 /** The order in which to sort the list of comments. */
                 sortOrder?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<CommentFeed>;            
             
         }
@@ -1066,6 +1066,8 @@ declare namespace gapi.client {
             insert(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /**  */
+                collection: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -1076,12 +1078,10 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /**  */
-                collection: string;
                 /** The ID of the user to create the activity on behalf of. */
                 userId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Media>;            
             
         }
@@ -1101,88 +1101,88 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** The ID of the person to get the profile for. The special value "me" can be used to indicate the authenticated user. */
                 userId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Person>;            
             
             /** List all of the people in the specified collection. */
             list(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The collection of people to list. */
+                collection: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** The collection of people to list. */
-                collection: string;
                 /** The maximum number of people to include in the response, which is used for paging. For any response, the actual number returned might be less than the specified maxResults. */
                 maxResults?: number;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** The order to return people in. */
                 orderBy?: string;
                 /** The continuation token, which is used to page through large result sets. To get the next page of results, set this parameter to the value of "nextPageToken" from the previous response. */
                 pageToken?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /** Get the collection of people for the person identified. Use "me" to indicate the authenticated user. */
                 userId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<PeopleFeed>;            
             
             /** List all of the people in the specified collection for a particular activity. */
             listByActivity(request: {            
+                /** The ID of the activity to get the list of people for. */
+                activityId: string;
                 /** Data format for the response. */
                 alt?: string;
+                /** The collection of people to list. */
+                collection: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The maximum number of people to include in the response, which is used for paging. For any response, the actual number returned might be less than the specified maxResults. */
+                maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** The continuation token, which is used to page through large result sets. To get the next page of results, set this parameter to the value of "nextPageToken" from the previous response. */
+                pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the activity to get the list of people for. */
-                activityId: string;
-                /** The collection of people to list. */
-                collection: string;
-                /** The maximum number of people to include in the response, which is used for paging. For any response, the actual number returned might be less than the specified maxResults. */
-                maxResults?: number;
-                /** The continuation token, which is used to page through large result sets. To get the next page of results, set this parameter to the value of "nextPageToken" from the previous response. */
-                pageToken?: string;
             }): Request<PeopleFeed>;            
             
             /** List all of the people who are members of a circle. */
             listByCircle(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The ID of the circle to get the members of. */
+                circleId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The maximum number of people to include in the response, which is used for paging. For any response, the actual number returned might be less than the specified maxResults. */
+                maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** The continuation token, which is used to page through large result sets. To get the next page of results, set this parameter to the value of "nextPageToken" from the previous response. */
+                pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the circle to get the members of. */
-                circleId: string;
-                /** The maximum number of people to include in the response, which is used for paging. For any response, the actual number returned might be less than the specified maxResults. */
-                maxResults?: number;
-                /** The continuation token, which is used to page through large result sets. To get the next page of results, set this parameter to the value of "nextPageToken" from the previous response. */
-                pageToken?: string;
             }): Request<PeopleFeed>;            
             
         }

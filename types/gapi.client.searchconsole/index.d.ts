@@ -20,21 +20,27 @@ declare namespace gapi.client {
     
     namespace searchconsole {
         
-        interface ResourceIssue {
-            /** Describes a blocked resource issue. */
-            blockedResource?: BlockedResource;
-        }
-        
         interface BlockedResource {
             /** URL of the blocked resource. */
             url?: string;
         }
         
-        interface TestStatus {
-            /** Status of the test. */
-            status?: string;
-            /** Error details if applicable. */
-            details?: string;
+        interface Image {
+            /** Image data in format determined by the mime type. Currently, the format */
+            /** will always be "image/png", but this might change in the future. */
+            data?: string;
+            /** The mime-type of the image data. */
+            mimeType?: string;
+        }
+        
+        interface MobileFriendlyIssue {
+            /** Rule violated. */
+            rule?: string;
+        }
+        
+        interface ResourceIssue {
+            /** Describes a blocked resource issue. */
+            blockedResource?: BlockedResource;
         }
         
         interface RunMobileFriendlyTestRequest {
@@ -44,61 +50,55 @@ declare namespace gapi.client {
             url?: string;
         }
         
-        interface Image {
-            /** The mime-type of the image data. */
-            mimeType?: string;
-            /** Image data in format determined by the mime type. Currently, the format */
-            /** will always be "image/png", but this might change in the future. */
-            data?: string;
-        }
-        
-        interface MobileFriendlyIssue {
-            /** Rule violated. */
-            rule?: string;
-        }
-        
         interface RunMobileFriendlyTestResponse {
-            /** Information about embedded resources issues. */
-            resourceIssues?: ResourceIssue[];
-            /** Final state of the test, can be either complete or an error. */
-            testStatus?: TestStatus;
             /** Test verdict, whether the page is mobile friendly or not. */
             mobileFriendliness?: string;
             /** List of mobile-usability issues. */
             mobileFriendlyIssues?: MobileFriendlyIssue[];
+            /** Information about embedded resources issues. */
+            resourceIssues?: ResourceIssue[];
             /** Screenshot of the requested URL. */
             screenshot?: Image;
+            /** Final state of the test, can be either complete or an error. */
+            testStatus?: TestStatus;
+        }
+        
+        interface TestStatus {
+            /** Error details if applicable. */
+            details?: string;
+            /** Status of the test. */
+            status?: string;
         }
         
         interface MobileFriendlyTestResource {
             /** Runs Mobile-Friendly Test for a given URL. */
             run(request: {            
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
                 /** OAuth access token. */
                 access_token?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
             }): Request<RunMobileFriendlyTestResponse>;            
             
         }

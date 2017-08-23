@@ -373,6 +373,10 @@ declare namespace gapi.client {
         interface AccountsResource {
             /** Inserts a new account for a user */
             insert(request: {            
+                /** The name of the account to be passed to the Android Account Manager. */
+                accountName: string;
+                /** Account type to be passed to Android Account Manager. */
+                accountType: string;
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -387,10 +391,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The name of the account to be passed to the Android Account Manager. */
-                accountName: string;
-                /** Account type to be passed to Android Account Manager. */
-                accountType: string;
                 /** The ID for the user. */
                 userToken: string;
             }): Request<Account>;            
@@ -404,6 +404,8 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** The ID of the contact. */
+                id: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
@@ -414,8 +416,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the contact. */
-                id: string;
             }): Request<void>;            
             
             /** Gets a single contact by ID. */
@@ -424,6 +424,8 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** The ID of the contact. */
+                id: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
@@ -434,8 +436,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the contact. */
-                id: string;
             }): Request<Contact>;            
             
             /** Inserts a new contact. */
@@ -480,6 +480,8 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** The ID of the contact. */
+                id: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
@@ -490,8 +492,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the contact. */
-                id: string;
             }): Request<Contact>;            
             
             /** Updates a contact in place. */
@@ -500,6 +500,8 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** The ID of the contact. */
+                id: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
@@ -510,8 +512,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the contact. */
-                id: string;
             }): Request<Contact>;            
             
         }
@@ -523,6 +523,8 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** The ID of the location or latest for the last known location. */
+                id: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
@@ -533,8 +535,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the location or latest for the last known location. */
-                id: string;
             }): Request<Location>;            
             
             /** Retrieves a list of locations for the user. */
@@ -564,6 +564,10 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** The ID of the setting. The following IDs are valid:  */
+                /** - locale - The key to the user’s language/locale (BCP 47 identifier) that Glassware should use to render localized content.  */
+                /** - timezone - The key to the user’s current time zone region as defined in the tz database. Example: America/Los_Angeles. */
+                id: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
@@ -574,10 +578,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the setting. The following IDs are valid:  */
-                /** - locale - The key to the user’s language/locale (BCP 47 identifier) that Glassware should use to render localized content.  */
-                /** - timezone - The key to the user’s current time zone region as defined in the tz database. Example: America/Los_Angeles. */
-                id: string;
             }): Request<Setting>;            
             
         }
@@ -589,6 +589,8 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** The ID of the subscription. */
+                id: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
@@ -599,8 +601,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the subscription. */
-                id: string;
             }): Request<void>;            
             
             /** Creates a new subscription. */
@@ -645,6 +645,8 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** The ID of the subscription. */
+                id: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
@@ -655,8 +657,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the subscription. */
-                id: string;
             }): Request<Subscription>;            
             
         }
@@ -666,8 +666,12 @@ declare namespace gapi.client {
             delete(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The ID of the attachment. */
+                attachmentId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** The ID of the timeline item the attachment belongs to. */
+                itemId: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
@@ -678,18 +682,18 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the attachment. */
-                attachmentId: string;
-                /** The ID of the timeline item the attachment belongs to. */
-                itemId: string;
             }): Request<void>;            
             
             /** Retrieves an attachment on a timeline item by item ID and attachment ID. */
             get(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The ID of the attachment. */
+                attachmentId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** The ID of the timeline item the attachment belongs to. */
+                itemId: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
@@ -700,10 +704,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the attachment. */
-                attachmentId: string;
-                /** The ID of the timeline item the attachment belongs to. */
-                itemId: string;
             }): Request<Attachment>;            
             
             /** Adds a new attachment to a timeline item. */
@@ -712,6 +712,8 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** The ID of the timeline item the attachment belongs to. */
+                itemId: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
@@ -722,8 +724,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the timeline item the attachment belongs to. */
-                itemId: string;
             }): Request<Attachment>;            
             
             /** Returns a list of attachments for a timeline item. */
@@ -732,6 +732,8 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** The ID of the timeline item whose attachments should be listed. */
+                itemId: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
@@ -742,8 +744,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the timeline item whose attachments should be listed. */
-                itemId: string;
             }): Request<AttachmentsListResponse>;            
             
         }
@@ -755,6 +755,8 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** The ID of the timeline item. */
+                id: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
@@ -765,8 +767,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the timeline item. */
-                id: string;
             }): Request<void>;            
             
             /** Gets a single timeline item by ID. */
@@ -775,6 +775,8 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** The ID of the timeline item. */
+                id: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
@@ -785,8 +787,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the timeline item. */
-                id: string;
             }): Request<TimelineItem>;            
             
             /** Inserts a new item into the timeline. */
@@ -811,32 +811,32 @@ declare namespace gapi.client {
             list(request: {            
                 /** Data format for the response. */
                 alt?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** If provided, only items with the given bundleId will be returned. */
                 bundleId?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
                 /** If true, tombstone records for deleted items will be returned. */
                 includeDeleted?: boolean;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** The maximum number of items to include in the response, used for paging. */
                 maxResults?: number;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Controls the order in which timeline items are returned. */
                 orderBy?: string;
                 /** Token for the page of results to return. */
                 pageToken?: string;
                 /** If true, only pinned items will be returned. */
                 pinnedOnly?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /** If provided, only items with the given sourceItemId will be returned. */
                 sourceItemId?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<TimelineListResponse>;            
             
             /** Updates a timeline item in place. This method supports patch semantics. */
@@ -845,6 +845,8 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** The ID of the timeline item. */
+                id: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
@@ -855,8 +857,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the timeline item. */
-                id: string;
             }): Request<TimelineItem>;            
             
             /** Updates a timeline item in place. */
@@ -865,6 +865,8 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** The ID of the timeline item. */
+                id: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
@@ -875,8 +877,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the timeline item. */
-                id: string;
             }): Request<TimelineItem>;            
             
             attachments: AttachmentsResource;

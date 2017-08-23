@@ -20,22 +20,6 @@ declare namespace gapi.client {
     
     namespace cloudkms {
         
-        interface ListKeyRingsResponse {
-            /** The list of KeyRings. */
-            keyRings?: KeyRing[];
-            /** A token to retrieve next page of results. Pass this value in */
-            /** ListKeyRingsRequest.page_token to retrieve the next page of results. */
-            nextPageToken?: string;
-            /** The total number of KeyRings that matched the query. */
-            totalSize?: number;
-        }
-        
-        interface DataAccessOptions {
-            /** Whether Gin logging should happen in a fail-closed manner at the caller. */
-            /** This is relevant only in the LocalIAM implementation, for now. */
-            logMode?: string;
-        }
-        
         interface AuditConfig {
             /** The configuration for logging of each type of permission. */
             /** Next ID: 4 */
@@ -48,30 +32,22 @@ declare namespace gapi.client {
             service?: string;
         }
         
-        interface CryptoKeyVersion {
-            /** Output only. The time this CryptoKeyVersion's key material was */
-            /** destroyed. Only present if state is */
-            /** DESTROYED. */
-            destroyEventTime?: string;
-            /** Output only. The time this CryptoKeyVersion's key material is scheduled */
-            /** for destruction. Only present if state is */
-            /** DESTROY_SCHEDULED. */
-            destroyTime?: string;
-            /** Output only. The time at which this CryptoKeyVersion was created. */
-            createTime?: string;
-            /** The current state of the CryptoKeyVersion. */
-            state?: string;
-            /** Output only. The resource name for this CryptoKeyVersion in the format */
-            /** `projects/&#42;/locations/&#42;/keyRings/&#42;/cryptoKeys/&#42;/cryptoKeyVersions/&#42;`. */
-            name?: string;
-        }
-        
-        interface CloudAuditOptions {
-            /** The log_name to populate in the Cloud Audit Record. */
-            logName?: string;
+        interface AuditLogConfig {
+            /** Specifies the identities that do not cause logging for this type of */
+            /** permission. */
+            /** Follows the same format of Binding.members. */
+            exemptedMembers?: string[];
+            /** The log type that this config enables. */
+            logType?: string;
         }
         
         interface Binding {
+            /** The condition that is associated with this binding. */
+            /** NOTE: an unsatisfied condition will not allow user access via current */
+            /** binding. Different bindings, including their conditions, are examined */
+            /** independently. */
+            /** This field is GOOGLE_INTERNAL. */
+            condition?: Expr;
             /** Specifies the identities requesting access for a Cloud Platform resource. */
             /** `members` can have the following values: */
             /**  */
@@ -101,12 +77,121 @@ declare namespace gapi.client {
             /** For example, `roles/viewer`, `roles/editor`, or `roles/owner`. */
             /** Required */
             role?: string;
-            /** The condition that is associated with this binding. */
-            /** NOTE: an unsatisfied condition will not allow user access via current */
-            /** binding. Different bindings, including their conditions, are examined */
-            /** independently. */
-            /** This field is GOOGLE_INTERNAL. */
-            condition?: Expr;
+        }
+        
+        interface CloudAuditOptions {
+            /** The log_name to populate in the Cloud Audit Record. */
+            logName?: string;
+        }
+        
+        interface Condition {
+            /** Trusted attributes supplied by the IAM system. */
+            iam?: string;
+            /** An operator to apply the subject with. */
+            op?: string;
+            /** Trusted attributes discharged by the service. */
+            svc?: string;
+            /** Trusted attributes supplied by any service that owns resources and uses */
+            /** the IAM system for access control. */
+            sys?: string;
+            /** DEPRECATED. Use 'values' instead. */
+            value?: string;
+            /** The objects of the condition. This is mutually exclusive with 'value'. */
+            values?: string[];
+        }
+        
+        interface CounterOptions {
+            /** The field value to attribute. */
+            field?: string;
+            /** The metric to update. */
+            metric?: string;
+        }
+        
+        interface CryptoKey {
+            /** Output only. The time at which this CryptoKey was created. */
+            createTime?: string;
+            /** Output only. The resource name for this CryptoKey in the format */
+            /** `projects/&#42;/locations/&#42;/keyRings/&#42;/cryptoKeys/&#42;`. */
+            name?: string;
+            /** At next_rotation_time, the Key Management Service will automatically: */
+            /**  */
+            /** 1. Create a new version of this CryptoKey. */
+            /** 2. Mark the new version as primary. */
+            /**  */
+            /** Key rotations performed manually via */
+            /** CreateCryptoKeyVersion and */
+            /** UpdateCryptoKeyPrimaryVersion */
+            /** do not affect next_rotation_time. */
+            nextRotationTime?: string;
+            /** Output only. A copy of the "primary" CryptoKeyVersion that will be used */
+            /** by Encrypt when this CryptoKey is given */
+            /** in EncryptRequest.name. */
+            /**  */
+            /** The CryptoKey's primary version can be updated via */
+            /** UpdateCryptoKeyPrimaryVersion. */
+            primary?: CryptoKeyVersion;
+            /** The immutable purpose of this CryptoKey. Currently, the only acceptable */
+            /** purpose is ENCRYPT_DECRYPT. */
+            purpose?: string;
+            /** next_rotation_time will be advanced by this period when the service */
+            /** automatically rotates a key. Must be at least one day. */
+            /**  */
+            /** If rotation_period is set, next_rotation_time must also be set. */
+            rotationPeriod?: string;
+        }
+        
+        interface CryptoKeyVersion {
+            /** Output only. The time at which this CryptoKeyVersion was created. */
+            createTime?: string;
+            /** Output only. The time this CryptoKeyVersion's key material was */
+            /** destroyed. Only present if state is */
+            /** DESTROYED. */
+            destroyEventTime?: string;
+            /** Output only. The time this CryptoKeyVersion's key material is scheduled */
+            /** for destruction. Only present if state is */
+            /** DESTROY_SCHEDULED. */
+            destroyTime?: string;
+            /** Output only. The resource name for this CryptoKeyVersion in the format */
+            /** `projects/&#42;/locations/&#42;/keyRings/&#42;/cryptoKeys/&#42;/cryptoKeyVersions/&#42;`. */
+            name?: string;
+            /** The current state of the CryptoKeyVersion. */
+            state?: string;
+        }
+        
+        interface DataAccessOptions {
+            /** Whether Gin logging should happen in a fail-closed manner at the caller. */
+            /** This is relevant only in the LocalIAM implementation, for now. */
+            logMode?: string;
+        }
+        
+        interface DecryptRequest {
+            /** Optional data that must match the data originally supplied in */
+            /** EncryptRequest.additional_authenticated_data. */
+            additionalAuthenticatedData?: string;
+            /** Required. The encrypted data originally returned in */
+            /** EncryptResponse.ciphertext. */
+            ciphertext?: string;
+        }
+        
+        interface DecryptResponse {
+            /** The decrypted data originally supplied in EncryptRequest.plaintext. */
+            plaintext?: string;
+        }
+        
+        interface EncryptRequest {
+            /** Optional data that, if specified, must also be provided during decryption */
+            /** through DecryptRequest.additional_authenticated_data.  Must be no */
+            /** larger than 64KiB. */
+            additionalAuthenticatedData?: string;
+            /** Required. The data to encrypt. Must be no larger than 64KiB. */
+            plaintext?: string;
+        }
+        
+        interface EncryptResponse {
+            /** The encrypted data. */
+            ciphertext?: string;
+            /** The resource name of the CryptoKeyVersion used in encryption. */
+            name?: string;
         }
         
         interface Expr {
@@ -128,13 +213,12 @@ declare namespace gapi.client {
             title?: string;
         }
         
-        interface EncryptRequest {
-            /** Optional data that, if specified, must also be provided during decryption */
-            /** through DecryptRequest.additional_authenticated_data.  Must be no */
-            /** larger than 64KiB. */
-            additionalAuthenticatedData?: string;
-            /** Required. The data to encrypt. Must be no larger than 64KiB. */
-            plaintext?: string;
+        interface KeyRing {
+            /** Output only. The time at which this KeyRing was created. */
+            createTime?: string;
+            /** Output only. The resource name for the KeyRing in the format */
+            /** `projects/&#42;/locations/&#42;/keyRings/&#42;`. */
+            name?: string;
         }
         
         interface ListCryptoKeyVersionsResponse {
@@ -149,99 +233,31 @@ declare namespace gapi.client {
             totalSize?: number;
         }
         
-        interface TestIamPermissionsResponse {
-            /** A subset of `TestPermissionsRequest.permissions` that the caller is */
-            /** allowed. */
-            permissions?: string[];
+        interface ListCryptoKeysResponse {
+            /** The list of CryptoKeys. */
+            cryptoKeys?: CryptoKey[];
+            /** A token to retrieve next page of results. Pass this value in */
+            /** ListCryptoKeysRequest.page_token to retrieve the next page of results. */
+            nextPageToken?: string;
+            /** The total number of CryptoKeys that matched the query. */
+            totalSize?: number;
         }
         
-        interface Rule {
-            /** If one or more 'not_in' clauses are specified, the rule matches */
-            /** if the PRINCIPAL/AUTHORITY_SELECTOR is in none of the entries. */
-            /** The format for in and not_in entries is the same as for members in a */
-            /** Binding (see google/iam/v1/policy.proto). */
-            notIn?: string[];
-            /** Human-readable description of the rule. */
-            description?: string;
-            /** Additional restrictions that must be met */
-            conditions?: Condition[];
-            /** The config returned to callers of tech.iam.IAM.CheckPolicy for any entries */
-            /** that match the LOG action. */
-            logConfig?: LogConfig[];
-            /** If one or more 'in' clauses are specified, the rule matches if */
-            /** the PRINCIPAL/AUTHORITY_SELECTOR is in at least one of these entries. */
-            in?: string[];
-            /** A permission is a string of form '<service>.<resource type>.<verb>' */
-            /** (e.g., 'storage.buckets.list'). A value of '&#42;' matches all permissions, */
-            /** and a verb part of '&#42;' (e.g., 'storage.buckets.&#42;') matches all verbs. */
-            permissions?: string[];
-            /** Required */
-            action?: string;
+        interface ListKeyRingsResponse {
+            /** The list of KeyRings. */
+            keyRings?: KeyRing[];
+            /** A token to retrieve next page of results. Pass this value in */
+            /** ListKeyRingsRequest.page_token to retrieve the next page of results. */
+            nextPageToken?: string;
+            /** The total number of KeyRings that matched the query. */
+            totalSize?: number;
         }
         
-        interface CryptoKey {
-            /** The immutable purpose of this CryptoKey. Currently, the only acceptable */
-            /** purpose is ENCRYPT_DECRYPT. */
-            purpose?: string;
-            /** At next_rotation_time, the Key Management Service will automatically: */
-            /**  */
-            /** 1. Create a new version of this CryptoKey. */
-            /** 2. Mark the new version as primary. */
-            /**  */
-            /** Key rotations performed manually via */
-            /** CreateCryptoKeyVersion and */
-            /** UpdateCryptoKeyPrimaryVersion */
-            /** do not affect next_rotation_time. */
-            nextRotationTime?: string;
-            /** Output only. The time at which this CryptoKey was created. */
-            createTime?: string;
-            /** next_rotation_time will be advanced by this period when the service */
-            /** automatically rotates a key. Must be at least one day. */
-            /**  */
-            /** If rotation_period is set, next_rotation_time must also be set. */
-            rotationPeriod?: string;
-            /** Output only. A copy of the "primary" CryptoKeyVersion that will be used */
-            /** by Encrypt when this CryptoKey is given */
-            /** in EncryptRequest.name. */
-            /**  */
-            /** The CryptoKey's primary version can be updated via */
-            /** UpdateCryptoKeyPrimaryVersion. */
-            primary?: CryptoKeyVersion;
-            /** Output only. The resource name for this CryptoKey in the format */
-            /** `projects/&#42;/locations/&#42;/keyRings/&#42;/cryptoKeys/&#42;`. */
-            name?: string;
-        }
-        
-        interface LogConfig {
-            /** Counter options. */
-            counter?: CounterOptions;
-            /** Data access options. */
-            dataAccess?: DataAccessOptions;
-            /** Cloud audit options. */
-            cloudAudit?: CloudAuditOptions;
-        }
-        
-        interface SetIamPolicyRequest {
-            /** OPTIONAL: A FieldMask specifying which fields of the policy to modify. Only */
-            /** the fields in the mask will be modified. If no mask is provided, the */
-            /** following default mask is used: */
-            /** paths: "bindings, etag" */
-            /** This field is only used by Cloud IAM. */
-            updateMask?: string;
-            /** REQUIRED: The complete policy to be applied to the `resource`. The size of */
-            /** the policy is limited to a few 10s of KB. An empty policy is a */
-            /** valid policy but certain Cloud Platform services (such as Projects) */
-            /** might reject them. */
-            policy?: Policy;
-        }
-        
-        interface DecryptRequest {
-            /** Optional data that must match the data originally supplied in */
-            /** EncryptRequest.additional_authenticated_data. */
-            additionalAuthenticatedData?: string;
-            /** Required. The encrypted data originally returned in */
-            /** EncryptResponse.ciphertext. */
-            ciphertext?: string;
+        interface ListLocationsResponse {
+            /** A list of locations that matches the specified filter in the request. */
+            locations?: Location[];
+            /** The standard List next-page token. */
+            nextPageToken?: string;
         }
         
         interface Location {
@@ -249,86 +265,26 @@ declare namespace gapi.client {
             /**  */
             /**     {"cloud.googleapis.com/region": "us-east1"} */
             labels?: Record<string, string>;            
-            /** Resource name for the location, which may vary between implementations. */
-            /** For example: `"projects/example-project/locations/us-east1"` */
-            name?: string;
             /** The canonical id for this location. For example: `"us-east1"`. */
             locationId?: string;
             /** Service-specific metadata. For example the available capacity at the given */
             /** location. */
             metadata?: Record<string, any>;            
+            /** Resource name for the location, which may vary between implementations. */
+            /** For example: `"projects/example-project/locations/us-east1"` */
+            name?: string;
         }
         
-        interface ListCryptoKeysResponse {
-            /** A token to retrieve next page of results. Pass this value in */
-            /** ListCryptoKeysRequest.page_token to retrieve the next page of results. */
-            nextPageToken?: string;
-            /** The total number of CryptoKeys that matched the query. */
-            totalSize?: number;
-            /** The list of CryptoKeys. */
-            cryptoKeys?: CryptoKey[];
-        }
-        
-        interface Condition {
-            /** An operator to apply the subject with. */
-            op?: string;
-            /** Trusted attributes discharged by the service. */
-            svc?: string;
-            /** DEPRECATED. Use 'values' instead. */
-            value?: string;
-            /** Trusted attributes supplied by any service that owns resources and uses */
-            /** the IAM system for access control. */
-            sys?: string;
-            /** Trusted attributes supplied by the IAM system. */
-            iam?: string;
-            /** The objects of the condition. This is mutually exclusive with 'value'. */
-            values?: string[];
-        }
-        
-        interface CounterOptions {
-            /** The field value to attribute. */
-            field?: string;
-            /** The metric to update. */
-            metric?: string;
-        }
-        
-        interface AuditLogConfig {
-            /** Specifies the identities that do not cause logging for this type of */
-            /** permission. */
-            /** Follows the same format of Binding.members. */
-            exemptedMembers?: string[];
-            /** The log type that this config enables. */
-            logType?: string;
-        }
-        
-        interface DecryptResponse {
-            /** The decrypted data originally supplied in EncryptRequest.plaintext. */
-            plaintext?: string;
-        }
-        
-        interface TestIamPermissionsRequest {
-            /** The set of permissions to check for the `resource`. Permissions with */
-            /** wildcards (such as '&#42;' or 'storage.&#42;') are not allowed. For more */
-            /** information see */
-            /** [IAM Overview](https://cloud.google.com/iam/docs/overview#permissions). */
-            permissions?: string[];
+        interface LogConfig {
+            /** Cloud audit options. */
+            cloudAudit?: CloudAuditOptions;
+            /** Counter options. */
+            counter?: CounterOptions;
+            /** Data access options. */
+            dataAccess?: DataAccessOptions;
         }
         
         interface Policy {
-            /**  */
-            iamOwned?: boolean;
-            /** If more than one rule is specified, the rules are applied in the following */
-            /** manner: */
-            /** - All matching LOG rules are always applied. */
-            /** - If any DENY/DENY_WITH_LOG rule matches, permission is denied. */
-            /**   Logging will be applied if one or more matching rule requires logging. */
-            /** - Otherwise, if any ALLOW/ALLOW_WITH_LOG rule matches, permission is */
-            /**   granted. */
-            /**   Logging will be applied if one or more matching rule requires logging. */
-            /** - Otherwise, if no rule applies, permission is denied. */
-            rules?: Rule[];
-            /** Version of the `Policy`. The default version is 0. */
-            version?: number;
             /** Specifies cloud audit logging configuration for this policy. */
             auditConfigs?: AuditConfig[];
             /** Associates a list of `members` to a `role`. */
@@ -345,28 +301,72 @@ declare namespace gapi.client {
             /** If no `etag` is provided in the call to `setIamPolicy`, then the existing */
             /** policy is overwritten blindly. */
             etag?: string;
+            /**  */
+            iamOwned?: boolean;
+            /** If more than one rule is specified, the rules are applied in the following */
+            /** manner: */
+            /** - All matching LOG rules are always applied. */
+            /** - If any DENY/DENY_WITH_LOG rule matches, permission is denied. */
+            /**   Logging will be applied if one or more matching rule requires logging. */
+            /** - Otherwise, if any ALLOW/ALLOW_WITH_LOG rule matches, permission is */
+            /**   granted. */
+            /**   Logging will be applied if one or more matching rule requires logging. */
+            /** - Otherwise, if no rule applies, permission is denied. */
+            rules?: Rule[];
+            /** Version of the `Policy`. The default version is 0. */
+            version?: number;
         }
         
-        interface EncryptResponse {
-            /** The encrypted data. */
-            ciphertext?: string;
-            /** The resource name of the CryptoKeyVersion used in encryption. */
-            name?: string;
+        interface Rule {
+            /** Required */
+            action?: string;
+            /** Additional restrictions that must be met */
+            conditions?: Condition[];
+            /** Human-readable description of the rule. */
+            description?: string;
+            /** If one or more 'in' clauses are specified, the rule matches if */
+            /** the PRINCIPAL/AUTHORITY_SELECTOR is in at least one of these entries. */
+            in?: string[];
+            /** The config returned to callers of tech.iam.IAM.CheckPolicy for any entries */
+            /** that match the LOG action. */
+            logConfig?: LogConfig[];
+            /** If one or more 'not_in' clauses are specified, the rule matches */
+            /** if the PRINCIPAL/AUTHORITY_SELECTOR is in none of the entries. */
+            /** The format for in and not_in entries is the same as for members in a */
+            /** Binding (see google/iam/v1/policy.proto). */
+            notIn?: string[];
+            /** A permission is a string of form '<service>.<resource type>.<verb>' */
+            /** (e.g., 'storage.buckets.list'). A value of '&#42;' matches all permissions, */
+            /** and a verb part of '&#42;' (e.g., 'storage.buckets.&#42;') matches all verbs. */
+            permissions?: string[];
         }
         
-        interface KeyRing {
-            /** Output only. The time at which this KeyRing was created. */
-            createTime?: string;
-            /** Output only. The resource name for the KeyRing in the format */
-            /** `projects/&#42;/locations/&#42;/keyRings/&#42;`. */
-            name?: string;
+        interface SetIamPolicyRequest {
+            /** REQUIRED: The complete policy to be applied to the `resource`. The size of */
+            /** the policy is limited to a few 10s of KB. An empty policy is a */
+            /** valid policy but certain Cloud Platform services (such as Projects) */
+            /** might reject them. */
+            policy?: Policy;
+            /** OPTIONAL: A FieldMask specifying which fields of the policy to modify. Only */
+            /** the fields in the mask will be modified. If no mask is provided, the */
+            /** following default mask is used: */
+            /** paths: "bindings, etag" */
+            /** This field is only used by Cloud IAM. */
+            updateMask?: string;
         }
         
-        interface ListLocationsResponse {
-            /** The standard List next-page token. */
-            nextPageToken?: string;
-            /** A list of locations that matches the specified filter in the request. */
-            locations?: Location[];
+        interface TestIamPermissionsRequest {
+            /** The set of permissions to check for the `resource`. Permissions with */
+            /** wildcards (such as '&#42;' or 'storage.&#42;') are not allowed. For more */
+            /** information see */
+            /** [IAM Overview](https://cloud.google.com/iam/docs/overview#permissions). */
+            permissions?: string[];
+        }
+        
+        interface TestIamPermissionsResponse {
+            /** A subset of `TestPermissionsRequest.permissions` that the caller is */
+            /** allowed. */
+            permissions?: string[];
         }
         
         interface UpdateCryptoKeyPrimaryVersionRequest {
@@ -375,83 +375,41 @@ declare namespace gapi.client {
         }
         
         interface CryptoKeyVersionsResource {
-            /** Lists CryptoKeyVersions. */
-            list(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Optional limit on the number of CryptoKeyVersions to */
-                /** include in the response. Further CryptoKeyVersions can */
-                /** subsequently be obtained by including the */
-                /** ListCryptoKeyVersionsResponse.next_page_token in a subsequent request. */
-                /** If unspecified, the server will pick an appropriate default. */
-                pageSize?: number;
-                /** Required. The resource name of the CryptoKey to list, in the format */
-                /** `projects/&#42;/locations/&#42;/keyRings/&#42;/cryptoKeys/&#42;`. */
-                parent: string;
-                /** Optional pagination token, returned earlier via */
-                /** ListCryptoKeyVersionsResponse.next_page_token. */
-                pageToken?: string;
-            }): Request<ListCryptoKeyVersionsResponse>;            
-            
             /** Create a new CryptoKeyVersion in a CryptoKey. */
             /**  */
             /** The server will assign the next sequential id. If unset, */
             /** state will be set to */
             /** ENABLED. */
             create(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** JSONP */
-                callback?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
+                /** Data format for response. */
+                alt?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Required. The name of the CryptoKey associated with */
                 /** the CryptoKeyVersions. */
                 parent: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
             }): Request<CryptoKeyVersion>;            
             
             /** Schedule a CryptoKeyVersion for destruction. */
@@ -467,34 +425,149 @@ declare namespace gapi.client {
             /** Before the destroy_time is reached, */
             /** RestoreCryptoKeyVersion may be called to reverse the process. */
             destroy(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** JSONP */
-                callback?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
+                /** Data format for response. */
+                alt?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** The resource name of the CryptoKeyVersion to destroy. */
                 name: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<CryptoKeyVersion>;            
+            
+            /** Returns metadata for a given CryptoKeyVersion. */
+            get(request: {            
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** The name of the CryptoKeyVersion to get. */
+                name: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<CryptoKeyVersion>;            
+            
+            /** Lists CryptoKeyVersions. */
+            list(request: {            
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Optional limit on the number of CryptoKeyVersions to */
+                /** include in the response. Further CryptoKeyVersions can */
+                /** subsequently be obtained by including the */
+                /** ListCryptoKeyVersionsResponse.next_page_token in a subsequent request. */
+                /** If unspecified, the server will pick an appropriate default. */
+                pageSize?: number;
+                /** Optional pagination token, returned earlier via */
+                /** ListCryptoKeyVersionsResponse.next_page_token. */
+                pageToken?: string;
+                /** Required. The resource name of the CryptoKey to list, in the format */
+                /** `projects/&#42;/locations/&#42;/keyRings/&#42;/cryptoKeys/&#42;`. */
+                parent: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<ListCryptoKeyVersionsResponse>;            
+            
+            /** Update a CryptoKeyVersion's metadata. */
+            /**  */
+            /** state may be changed between */
+            /** ENABLED and */
+            /** DISABLED using this */
+            /** method. See DestroyCryptoKeyVersion and RestoreCryptoKeyVersion to */
+            /** move between other states. */
+            patch(request: {            
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Output only. The resource name for this CryptoKeyVersion in the format */
+                /** `projects/&#42;/locations/&#42;/keyRings/&#42;/cryptoKeys/&#42;/cryptoKeyVersions/&#42;`. */
+                name: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Required list of fields to be updated in this request. */
+                updateMask?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
             }): Request<CryptoKeyVersion>;            
             
             /** Restore a CryptoKeyVersion in the */
@@ -505,472 +578,324 @@ declare namespace gapi.client {
             /** will be set to DISABLED, */
             /** and destroy_time will be cleared. */
             restore(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** JSONP */
-                callback?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
+                /** Data format for response. */
+                alt?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** The resource name of the CryptoKeyVersion to restore. */
                 name: string;
-            }): Request<CryptoKeyVersion>;            
-            
-            /** Update a CryptoKeyVersion's metadata. */
-            /**  */
-            /** state may be changed between */
-            /** ENABLED and */
-            /** DISABLED using this */
-            /** method. See DestroyCryptoKeyVersion and RestoreCryptoKeyVersion to */
-            /** move between other states. */
-            patch(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Required list of fields to be updated in this request. */
-                updateMask?: string;
-                /** Output only. The resource name for this CryptoKeyVersion in the format */
-                /** `projects/&#42;/locations/&#42;/keyRings/&#42;/cryptoKeys/&#42;/cryptoKeyVersions/&#42;`. */
-                name: string;
-            }): Request<CryptoKeyVersion>;            
-            
-            /** Returns metadata for a given CryptoKeyVersion. */
-            get(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** The name of the CryptoKeyVersion to get. */
-                name: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
             }): Request<CryptoKeyVersion>;            
             
         }
         
         interface CryptoKeysResource {
-            /** Update the version of a CryptoKey that will be used in Encrypt */
-            updatePrimaryVersion(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** The resource name of the CryptoKey to update. */
-                name: string;
-            }): Request<CryptoKey>;            
-            
-            /** Gets the access control policy for a resource. */
-            /** Returns an empty policy if the resource exists and does not have a policy */
-            /** set. */
-            getIamPolicy(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** REQUIRED: The resource for which the policy is being requested. */
-                /** See the operation documentation for the appropriate value for this field. */
-                resource: string;
-            }): Request<Policy>;            
-            
-            /** Returns metadata for a given CryptoKey, as well as its */
-            /** primary CryptoKeyVersion. */
-            get(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** The name of the CryptoKey to get. */
-                name: string;
-            }): Request<CryptoKey>;            
-            
-            /** Update a CryptoKey. */
-            patch(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Required list of fields to be updated in this request. */
-                updateMask?: string;
-                /** Output only. The resource name for this CryptoKey in the format */
-                /** `projects/&#42;/locations/&#42;/keyRings/&#42;/cryptoKeys/&#42;`. */
-                name: string;
-            }): Request<CryptoKey>;            
-            
-            /** Returns permissions that a caller has on the specified resource. */
-            /** If the resource does not exist, this will return an empty set of */
-            /** permissions, not a NOT_FOUND error. */
+            /** Create a new CryptoKey within a KeyRing. */
             /**  */
-            /** Note: This operation is designed to be used for building permission-aware */
-            /** UIs and command-line tools, not for authorization checking. This operation */
-            /** may "fail open" without warning. */
-            testIamPermissions(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** JSONP */
-                callback?: string;
+            /** CryptoKey.purpose is required. */
+            create(request: {            
                 /** V1 error format. */
                 "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
+                /** Data format for response. */
+                alt?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
-                /** REQUIRED: The resource for which the policy detail is being requested. */
-                /** See the operation documentation for the appropriate value for this field. */
-                resource: string;
-            }): Request<TestIamPermissionsResponse>;            
+                /** JSONP */
+                callback?: string;
+                /** Required. It must be unique within a KeyRing and match the regular */
+                /** expression `[a-zA-Z0-9_-]{1,63}` */
+                cryptoKeyId?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Required. The name of the KeyRing associated with the */
+                /** CryptoKeys. */
+                parent: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<CryptoKey>;            
             
             /** Decrypts data that was protected by Encrypt. */
             decrypt(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** JSONP */
-                callback?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
+                /** Data format for response. */
+                alt?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** Required. The resource name of the CryptoKey to use for decryption. */
                 /** The server will choose the appropriate version. */
                 name: string;
-            }): Request<DecryptResponse>;            
-            
-            /** Lists CryptoKeys. */
-            list(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Optional limit on the number of CryptoKeys to include in the */
-                /** response.  Further CryptoKeys can subsequently be obtained by */
-                /** including the ListCryptoKeysResponse.next_page_token in a subsequent */
-                /** request.  If unspecified, the server will pick an appropriate default. */
-                pageSize?: number;
-                /** Required. The resource name of the KeyRing to list, in the format */
-                /** `projects/&#42;/locations/&#42;/keyRings/&#42;`. */
-                parent: string;
-                /** Optional pagination token, returned earlier via */
-                /** ListCryptoKeysResponse.next_page_token. */
-                pageToken?: string;
-            }): Request<ListCryptoKeysResponse>;            
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<DecryptResponse>;            
             
             /** Encrypts data, so that it can only be recovered by a call to Decrypt. */
             encrypt(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** JSONP */
-                callback?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
+                /** Data format for response. */
+                alt?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** Required. The resource name of the CryptoKey or CryptoKeyVersion */
                 /** to use for encryption. */
                 /**  */
                 /** If a CryptoKey is specified, the server will use its */
                 /** primary version. */
                 name: string;
-            }): Request<EncryptResponse>;            
-            
-            /** Create a new CryptoKey within a KeyRing. */
-            /**  */
-            /** CryptoKey.purpose is required. */
-            create(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<EncryptResponse>;            
+            
+            /** Returns metadata for a given CryptoKey, as well as its */
+            /** primary CryptoKeyVersion. */
+            get(request: {            
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Data format for response. */
+                alt?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
-                /** Required. The name of the KeyRing associated with the */
-                /** CryptoKeys. */
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** The name of the CryptoKey to get. */
+                name: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<CryptoKey>;            
+            
+            /** Gets the access control policy for a resource. */
+            /** Returns an empty policy if the resource exists and does not have a policy */
+            /** set. */
+            getIamPolicy(request: {            
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** REQUIRED: The resource for which the policy is being requested. */
+                /** See the operation documentation for the appropriate value for this field. */
+                resource: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<Policy>;            
+            
+            /** Lists CryptoKeys. */
+            list(request: {            
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Optional limit on the number of CryptoKeys to include in the */
+                /** response.  Further CryptoKeys can subsequently be obtained by */
+                /** including the ListCryptoKeysResponse.next_page_token in a subsequent */
+                /** request.  If unspecified, the server will pick an appropriate default. */
+                pageSize?: number;
+                /** Optional pagination token, returned earlier via */
+                /** ListCryptoKeysResponse.next_page_token. */
+                pageToken?: string;
+                /** Required. The resource name of the KeyRing to list, in the format */
+                /** `projects/&#42;/locations/&#42;/keyRings/&#42;`. */
                 parent: string;
-                /** Required. It must be unique within a KeyRing and match the regular */
-                /** expression `[a-zA-Z0-9_-]{1,63}` */
-                cryptoKeyId?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<ListCryptoKeysResponse>;            
+            
+            /** Update a CryptoKey. */
+            patch(request: {            
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Output only. The resource name for this CryptoKey in the format */
+                /** `projects/&#42;/locations/&#42;/keyRings/&#42;/cryptoKeys/&#42;`. */
+                name: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Required list of fields to be updated in this request. */
+                updateMask?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
             }): Request<CryptoKey>;            
             
             /** Sets the access control policy on the specified resource. Replaces any */
             /** existing policy. */
             setIamPolicy(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** JSONP */
-                callback?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
+                /** Data format for response. */
+                alt?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
                 /** REQUIRED: The resource for which the policy is being specified. */
                 /** See the operation documentation for the appropriate value for this field. */
                 resource: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
             }): Request<Policy>;            
             
-            cryptoKeyVersions: CryptoKeyVersionsResource;
-        }
-        
-        interface KeyRingsResource {
             /** Returns permissions that a caller has on the specified resource. */
             /** If the resource does not exist, this will return an empty set of */
             /** permissions, not a NOT_FOUND error. */
@@ -979,214 +904,289 @@ declare namespace gapi.client {
             /** UIs and command-line tools, not for authorization checking. This operation */
             /** may "fail open" without warning. */
             testIamPermissions(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** JSONP */
-                callback?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
+                /** Data format for response. */
+                alt?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
                 /** REQUIRED: The resource for which the policy detail is being requested. */
                 /** See the operation documentation for the appropriate value for this field. */
                 resource: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
             }): Request<TestIamPermissionsResponse>;            
             
-            /** Lists KeyRings. */
-            list(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** JSONP */
-                callback?: string;
+            /** Update the version of a CryptoKey that will be used in Encrypt */
+            updatePrimaryVersion(request: {            
                 /** V1 error format. */
                 "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
+                /** Data format for response. */
+                alt?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
-                /** Optional pagination token, returned earlier via */
-                /** ListKeyRingsResponse.next_page_token. */
-                pageToken?: string;
-                /** Optional limit on the number of KeyRings to include in the */
-                /** response.  Further KeyRings can subsequently be obtained by */
-                /** including the ListKeyRingsResponse.next_page_token in a subsequent */
-                /** request.  If unspecified, the server will pick an appropriate default. */
-                pageSize?: number;
-                /** Required. The resource name of the location associated with the */
-                /** KeyRings, in the format `projects/&#42;/locations/&#42;`. */
-                parent: string;
-            }): Request<ListKeyRingsResponse>;            
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** The resource name of the CryptoKey to update. */
+                name: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<CryptoKey>;            
             
+            cryptoKeyVersions: CryptoKeyVersionsResource;
+        }
+        
+        interface KeyRingsResource {
             /** Create a new KeyRing in a given Project and Location. */
             create(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** JSONP */
-                callback?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
+                /** Data format for response. */
+                alt?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
-                /** Required. The resource name of the location associated with the */
-                /** KeyRings, in the format `projects/&#42;/locations/&#42;`. */
-                parent: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** Required. It must be unique within a location and match the regular */
                 /** expression `[a-zA-Z0-9_-]{1,63}` */
                 keyRingId?: string;
-            }): Request<KeyRing>;            
-            
-            /** Sets the access control policy on the specified resource. Replaces any */
-            /** existing policy. */
-            setIamPolicy(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Required. The resource name of the location associated with the */
+                /** KeyRings, in the format `projects/&#42;/locations/&#42;`. */
+                parent: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<KeyRing>;            
+            
+            /** Returns metadata for a given KeyRing. */
+            get(request: {            
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Data format for response. */
+                alt?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
-                /** REQUIRED: The resource for which the policy is being specified. */
-                /** See the operation documentation for the appropriate value for this field. */
-                resource: string;
-            }): Request<Policy>;            
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** The name of the KeyRing to get. */
+                name: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<KeyRing>;            
             
             /** Gets the access control policy for a resource. */
             /** Returns an empty policy if the resource exists and does not have a policy */
             /** set. */
             getIamPolicy(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** JSONP */
-                callback?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
+                /** Data format for response. */
+                alt?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
                 /** REQUIRED: The resource for which the policy is being requested. */
                 /** See the operation documentation for the appropriate value for this field. */
                 resource: string;
-            }): Request<Policy>;            
-            
-            /** Returns metadata for a given KeyRing. */
-            get(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** JSONP */
-                callback?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<Policy>;            
+            
+            /** Lists KeyRings. */
+            list(request: {            
                 /** V1 error format. */
                 "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
+                /** Data format for response. */
+                alt?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
-                /** The name of the KeyRing to get. */
-                name: string;
-            }): Request<KeyRing>;            
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Optional limit on the number of KeyRings to include in the */
+                /** response.  Further KeyRings can subsequently be obtained by */
+                /** including the ListKeyRingsResponse.next_page_token in a subsequent */
+                /** request.  If unspecified, the server will pick an appropriate default. */
+                pageSize?: number;
+                /** Optional pagination token, returned earlier via */
+                /** ListKeyRingsResponse.next_page_token. */
+                pageToken?: string;
+                /** Required. The resource name of the location associated with the */
+                /** KeyRings, in the format `projects/&#42;/locations/&#42;`. */
+                parent: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<ListKeyRingsResponse>;            
+            
+            /** Sets the access control policy on the specified resource. Replaces any */
+            /** existing policy. */
+            setIamPolicy(request: {            
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** REQUIRED: The resource for which the policy is being specified. */
+                /** See the operation documentation for the appropriate value for this field. */
+                resource: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<Policy>;            
+            
+            /** Returns permissions that a caller has on the specified resource. */
+            /** If the resource does not exist, this will return an empty set of */
+            /** permissions, not a NOT_FOUND error. */
+            /**  */
+            /** Note: This operation is designed to be used for building permission-aware */
+            /** UIs and command-line tools, not for authorization checking. This operation */
+            /** may "fail open" without warning. */
+            testIamPermissions(request: {            
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** REQUIRED: The resource for which the policy detail is being requested. */
+                /** See the operation documentation for the appropriate value for this field. */
+                resource: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+            }): Request<TestIamPermissionsResponse>;            
             
             cryptoKeys: CryptoKeysResource;
         }
@@ -1194,72 +1194,72 @@ declare namespace gapi.client {
         interface LocationsResource {
             /** Get information about a location. */
             get(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** JSONP */
-                callback?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
+                /** Data format for response. */
+                alt?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** Resource name for the location. */
                 name: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
             }): Request<Location>;            
             
             /** Lists information about the supported locations for this service. */
             list(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** JSONP */
-                callback?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
+                /** Data format for response. */
+                alt?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
-                /** The standard list page size. */
-                pageSize?: number;
+                /** JSONP */
+                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
                 /** The standard list filter. */
                 filter?: string;
-                /** The standard list page token. */
-                pageToken?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** The resource that owns the locations collection, if applicable. */
                 name: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** The standard list page size. */
+                pageSize?: number;
+                /** The standard list page token. */
+                pageToken?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
             }): Request<ListLocationsResponse>;            
             
             keyRings: KeyRingsResource;

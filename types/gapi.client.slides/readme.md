@@ -33,6 +33,12 @@ Don't forget to authenticate your client before sending any request to resources
 // declare client_id registered in Google Developers Console
 var client_id = '',
     scope = [     
+        // View and manage your Google Slides presentations
+        'https://www.googleapis.com/auth/presentations',
+    
+        // View your Google Slides presentations
+        'https://www.googleapis.com/auth/presentations.readonly',
+    
         // View your Google Spreadsheets
         'https://www.googleapis.com/auth/spreadsheets.readonly',
     
@@ -44,12 +50,6 @@ var client_id = '',
     
         // View and manage your spreadsheets in Google Drive
         'https://www.googleapis.com/auth/spreadsheets',
-    
-        // View and manage your Google Slides presentations
-        'https://www.googleapis.com/auth/presentations',
-    
-        // View your Google Slides presentations
-        'https://www.googleapis.com/auth/presentations.readonly',
     ],
     immediate = true;
 // ...
@@ -66,6 +66,11 @@ gapi.auth.authorize({ client_id: client_id, scope: scope, immediate: immediate }
 After that you can use Google Slides API resources:
 
 ```typescript 
+    
+/* 
+Gets the latest version of the specified presentation.  
+*/
+await gapi.client.presentations.get({ presentationId: "presentationId",  }); 
     
 /* 
 Applies one or more updates to the presentation.
@@ -97,10 +102,5 @@ Creates a new presentation using the title given in the request. Other
 fields in the request are ignored.
 Returns the created presentation.  
 */
-await gapi.client.presentations.create({  }); 
-    
-/* 
-Gets the latest version of the specified presentation.  
-*/
-await gapi.client.presentations.get({ presentationId: "presentationId",  });
+await gapi.client.presentations.create({  });
 ```

@@ -33,32 +33,32 @@ Don't forget to authenticate your client before sending any request to resources
 // declare client_id registered in Google Developers Console
 var client_id = '',
     scope = [     
-        // View your street addresses
-        'https://www.googleapis.com/auth/user.addresses.read',
-    
-        // Manage your contacts
-        'https://www.googleapis.com/auth/contacts',
-    
-        // View your email addresses
-        'https://www.googleapis.com/auth/user.emails.read',
-    
-        // View your phone numbers
-        'https://www.googleapis.com/auth/user.phonenumbers.read',
-    
-        // View your email address
-        'https://www.googleapis.com/auth/userinfo.email',
-    
-        // View your complete date of birth
-        'https://www.googleapis.com/auth/user.birthday.read',
-    
-        // View your contacts
-        'https://www.googleapis.com/auth/contacts.readonly',
-    
         // Know the list of people in your circles, your age range, and language
         'https://www.googleapis.com/auth/plus.login',
     
         // View your basic profile info
         'https://www.googleapis.com/auth/userinfo.profile',
+    
+        // View your email addresses
+        'https://www.googleapis.com/auth/user.emails.read',
+    
+        // Manage your contacts
+        'https://www.googleapis.com/auth/contacts',
+    
+        // View your street addresses
+        'https://www.googleapis.com/auth/user.addresses.read',
+    
+        // View your email address
+        'https://www.googleapis.com/auth/userinfo.email',
+    
+        // View your phone numbers
+        'https://www.googleapis.com/auth/user.phonenumbers.read',
+    
+        // View your contacts
+        'https://www.googleapis.com/auth/contacts.readonly',
+    
+        // View your complete date of birth
+        'https://www.googleapis.com/auth/user.birthday.read',
     ],
     immediate = true;
 // ...
@@ -77,6 +77,24 @@ After that you can use Google People API resources:
 ```typescript 
     
 /* 
+Delete an existing contact group owned by the authenticated user by
+specifying a contact group resource name.  
+*/
+await gapi.client.contactGroups.delete({ resourceName: "resourceName",  }); 
+    
+/* 
+Get a list of contact groups owned by the authenticated user by specifying
+a list of contact group resource names.  
+*/
+await gapi.client.contactGroups.batchGet({  }); 
+    
+/* 
+List all contact groups owned by the authenticated user. Members of the
+contact groups are not populated.  
+*/
+await gapi.client.contactGroups.list({  }); 
+    
+/* 
 Create a new contact group owned by the authenticated user.  
 */
 await gapi.client.contactGroups.create({  }); 
@@ -92,24 +110,6 @@ Update the name of an existing contact group owned by the authenticated
 user.  
 */
 await gapi.client.contactGroups.update({ resourceName: "resourceName",  }); 
-    
-/* 
-Get a list of contact groups owned by the authenticated user by specifying
-a list of contact group resource names.  
-*/
-await gapi.client.contactGroups.batchGet({  }); 
-    
-/* 
-Delete an existing contact group owned by the authenticated user by
-specifying a contact group resource name.  
-*/
-await gapi.client.contactGroups.delete({ resourceName: "resourceName",  }); 
-    
-/* 
-List all contact groups owned by the authenticated user. Members of the
-contact groups are not populated.  
-*/
-await gapi.client.contactGroups.list({  }); 
     
 /* 
 Update contact data for an existing contact person. Any non-contact data

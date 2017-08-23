@@ -30,6 +30,8 @@ declare namespace gapi.client {
         interface CustomAppsResource {
             /** Create and publish a new custom app. */
             create(request: {            
+                /** Developer account ID. */
+                account: string;
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -44,8 +46,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Developer account ID. */
-                account: string;
             }): Request<CustomApp>;            
             
         }

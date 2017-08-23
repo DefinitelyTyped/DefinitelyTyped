@@ -14,6 +14,12 @@ gapi.load('client', () => {
         // declare client_id registered in Google Developers Console
         const client_id = '<<PUT YOUR CLIENT ID HERE>>';
         const scope = [     
+                // View and manage your Google Slides presentations
+                'https://www.googleapis.com/auth/presentations',
+            
+                // View your Google Slides presentations
+                'https://www.googleapis.com/auth/presentations.readonly',
+            
                 // View your Google Spreadsheets
                 'https://www.googleapis.com/auth/spreadsheets.readonly',
             
@@ -25,12 +31,6 @@ gapi.load('client', () => {
             
                 // View and manage your spreadsheets in Google Drive
                 'https://www.googleapis.com/auth/spreadsheets',
-            
-                // View and manage your Google Slides presentations
-                'https://www.googleapis.com/auth/presentations',
-            
-                // View your Google Slides presentations
-                'https://www.googleapis.com/auth/presentations.readonly',
             ];
         const immediate = true;
 
@@ -45,6 +45,9 @@ gapi.load('client', () => {
     });
 
     async function run() {  
+        
+        // Gets the latest version of the specified presentation.
+        await gapi.client.presentations.get({ presentationId: "presentationId",  }); 
         
         // Applies one or more updates to the presentation.
         // 
@@ -72,9 +75,6 @@ gapi.load('client', () => {
         // Creates a new presentation using the title given in the request. Other
         // fields in the request are ignored.
         // Returns the created presentation.
-        await gapi.client.presentations.create({  }); 
-        
-        // Gets the latest version of the specified presentation.
-        await gapi.client.presentations.get({ presentationId: "presentationId",  });
+        await gapi.client.presentations.create({  });
     }
 });

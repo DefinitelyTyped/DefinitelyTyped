@@ -584,152 +584,152 @@ declare namespace gapi.client {
             delete(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The APK version code whose APK-specific listings should be read or modified. */
+                apkVersionCode: number;
+                /** Unique identifier for this edit. */
+                editId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The language code (a BCP-47 language tag) of the APK-specific localized listing to read or modify. For example, to select Austrian German, pass "de-AT". */
+                language: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
+                packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The APK version code whose APK-specific listings should be read or modified. */
-                apkVersionCode: number;
-                /** Unique identifier for this edit. */
-                editId: string;
-                /** The language code (a BCP-47 language tag) of the APK-specific localized listing to read or modify. For example, to select Austrian German, pass "de-AT". */
-                language: string;
-                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
-                packageName: string;
             }): Request<void>;            
             
             /** Deletes all the APK-specific localized listings for a specified APK. */
             deleteall(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The APK version code whose APK-specific listings should be read or modified. */
+                apkVersionCode: number;
+                /** Unique identifier for this edit. */
+                editId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
+                packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The APK version code whose APK-specific listings should be read or modified. */
-                apkVersionCode: number;
-                /** Unique identifier for this edit. */
-                editId: string;
-                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
-                packageName: string;
             }): Request<void>;            
             
             /** Fetches the APK-specific localized listing for a specified APK and language code. */
             get(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The APK version code whose APK-specific listings should be read or modified. */
+                apkVersionCode: number;
+                /** Unique identifier for this edit. */
+                editId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The language code (a BCP-47 language tag) of the APK-specific localized listing to read or modify. For example, to select Austrian German, pass "de-AT". */
+                language: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
+                packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The APK version code whose APK-specific listings should be read or modified. */
-                apkVersionCode: number;
-                /** Unique identifier for this edit. */
-                editId: string;
-                /** The language code (a BCP-47 language tag) of the APK-specific localized listing to read or modify. For example, to select Austrian German, pass "de-AT". */
-                language: string;
-                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
-                packageName: string;
             }): Request<ApkListing>;            
             
             /** Lists all the APK-specific localized listings for a specified APK. */
             list(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The APK version code whose APK-specific listings should be read or modified. */
+                apkVersionCode: number;
+                /** Unique identifier for this edit. */
+                editId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
+                packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The APK version code whose APK-specific listings should be read or modified. */
-                apkVersionCode: number;
-                /** Unique identifier for this edit. */
-                editId: string;
-                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
-                packageName: string;
             }): Request<ApkListingsListResponse>;            
             
             /** Updates or creates the APK-specific localized listing for a specified APK and language code. This method supports patch semantics. */
             patch(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The APK version code whose APK-specific listings should be read or modified. */
+                apkVersionCode: number;
+                /** Unique identifier for this edit. */
+                editId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The language code (a BCP-47 language tag) of the APK-specific localized listing to read or modify. For example, to select Austrian German, pass "de-AT". */
+                language: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
+                packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The APK version code whose APK-specific listings should be read or modified. */
-                apkVersionCode: number;
-                /** Unique identifier for this edit. */
-                editId: string;
-                /** The language code (a BCP-47 language tag) of the APK-specific localized listing to read or modify. For example, to select Austrian German, pass "de-AT". */
-                language: string;
-                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
-                packageName: string;
             }): Request<ApkListing>;            
             
             /** Updates or creates the APK-specific localized listing for a specified APK and language code. */
             update(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The APK version code whose APK-specific listings should be read or modified. */
+                apkVersionCode: number;
+                /** Unique identifier for this edit. */
+                editId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The language code (a BCP-47 language tag) of the APK-specific localized listing to read or modify. For example, to select Austrian German, pass "de-AT". */
+                language: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
+                packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The APK version code whose APK-specific listings should be read or modified. */
-                apkVersionCode: number;
-                /** Unique identifier for this edit. */
-                editId: string;
-                /** The language code (a BCP-47 language tag) of the APK-specific localized listing to read or modify. For example, to select Austrian German, pass "de-AT". */
-                language: string;
-                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
-                packageName: string;
             }): Request<ApkListing>;            
             
         }
@@ -739,66 +739,66 @@ declare namespace gapi.client {
             addexternallyhosted(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Unique identifier for this edit. */
+                editId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
+                packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Unique identifier for this edit. */
-                editId: string;
-                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
-                packageName: string;
             }): Request<ApksAddExternallyHostedResponse>;            
             
             /**  */
             list(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Unique identifier for this edit. */
+                editId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
+                packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Unique identifier for this edit. */
-                editId: string;
-                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
-                packageName: string;
             }): Request<ApksListResponse>;            
             
             /**  */
             upload(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Unique identifier for this edit. */
+                editId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
+                packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Unique identifier for this edit. */
-                editId: string;
-                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
-                packageName: string;
             }): Request<Apk>;            
             
         }
@@ -808,26 +808,26 @@ declare namespace gapi.client {
             upload(request: {            
                 /** Data format for the response. */
                 alt?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** The version code of the APK whose deobfuscation file is being uploaded. */
                 apkVersionCode: number;
                 /**  */
                 deobfuscationFileType: string;
                 /** Unique identifier for this edit. */
                 editId: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Unique identifier of the Android app for which the deobfuscatiuon files are being uploaded; for example, "com.spiffygame". */
                 packageName: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<DeobfuscationFilesUploadResponse>;            
             
         }
@@ -837,66 +837,66 @@ declare namespace gapi.client {
             get(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Unique identifier for this edit. */
+                editId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
+                packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Unique identifier for this edit. */
-                editId: string;
-                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
-                packageName: string;
             }): Request<AppDetails>;            
             
             /** Updates app details for this edit. This method supports patch semantics. */
             patch(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Unique identifier for this edit. */
+                editId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
+                packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Unique identifier for this edit. */
-                editId: string;
-                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
-                packageName: string;
             }): Request<AppDetails>;            
             
             /** Updates app details for this edit. */
             update(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Unique identifier for this edit. */
+                editId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
+                packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Unique identifier for this edit. */
-                editId: string;
-                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
-                packageName: string;
             }): Request<AppDetails>;            
             
         }
@@ -906,104 +906,104 @@ declare namespace gapi.client {
             get(request: {            
                 /** Data format for the response. */
                 alt?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** The version code of the APK whose Expansion File configuration is being read or modified. */
                 apkVersionCode: number;
                 /** Unique identifier for this edit. */
                 editId: string;
                 /**  */
                 expansionFileType: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
                 packageName: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<ExpansionFile>;            
             
             /** Updates the APK's Expansion File configuration to reference another APK's Expansion Files. To add a new Expansion File use the Upload method. This method supports patch semantics. */
             patch(request: {            
                 /** Data format for the response. */
                 alt?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** The version code of the APK whose Expansion File configuration is being read or modified. */
                 apkVersionCode: number;
                 /** Unique identifier for this edit. */
                 editId: string;
                 /**  */
                 expansionFileType: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
                 packageName: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<ExpansionFile>;            
             
             /** Updates the APK's Expansion File configuration to reference another APK's Expansion Files. To add a new Expansion File use the Upload method. */
             update(request: {            
                 /** Data format for the response. */
                 alt?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** The version code of the APK whose Expansion File configuration is being read or modified. */
                 apkVersionCode: number;
                 /** Unique identifier for this edit. */
                 editId: string;
                 /**  */
                 expansionFileType: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
                 packageName: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<ExpansionFile>;            
             
             /** Uploads and attaches a new Expansion File to the APK specified. */
             upload(request: {            
                 /** Data format for the response. */
                 alt?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** The version code of the APK whose Expansion File configuration is being read or modified. */
                 apkVersionCode: number;
                 /** Unique identifier for this edit. */
                 editId: string;
                 /**  */
                 expansionFileType: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
                 packageName: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<ExpansionFilesUploadResponse>;            
             
         }
@@ -1013,106 +1013,106 @@ declare namespace gapi.client {
             delete(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Unique identifier for this edit. */
+                editId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Unique identifier an image within the set of images attached to this edit. */
+                imageId: string;
+                /**  */
+                imageType: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The language code (a BCP-47 language tag) of the localized listing whose images are to read or modified. For example, to select Austrian German, pass "de-AT". */
+                language: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
+                packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Unique identifier for this edit. */
-                editId: string;
-                /** Unique identifier an image within the set of images attached to this edit. */
-                imageId: string;
-                /**  */
-                imageType: string;
-                /** The language code (a BCP-47 language tag) of the localized listing whose images are to read or modified. For example, to select Austrian German, pass "de-AT". */
-                language: string;
-                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
-                packageName: string;
             }): Request<void>;            
             
             /** Deletes all images for the specified language and image type. */
             deleteall(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Unique identifier for this edit. */
+                editId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /**  */
+                imageType: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The language code (a BCP-47 language tag) of the localized listing whose images are to read or modified. For example, to select Austrian German, pass "de-AT". */
+                language: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
+                packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Unique identifier for this edit. */
-                editId: string;
-                /**  */
-                imageType: string;
-                /** The language code (a BCP-47 language tag) of the localized listing whose images are to read or modified. For example, to select Austrian German, pass "de-AT". */
-                language: string;
-                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
-                packageName: string;
             }): Request<ImagesDeleteAllResponse>;            
             
             /** Lists all images for the specified language and image type. */
             list(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Unique identifier for this edit. */
+                editId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /**  */
+                imageType: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The language code (a BCP-47 language tag) of the localized listing whose images are to read or modified. For example, to select Austrian German, pass "de-AT". */
+                language: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
+                packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Unique identifier for this edit. */
-                editId: string;
-                /**  */
-                imageType: string;
-                /** The language code (a BCP-47 language tag) of the localized listing whose images are to read or modified. For example, to select Austrian German, pass "de-AT". */
-                language: string;
-                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
-                packageName: string;
             }): Request<ImagesListResponse>;            
             
             /** Uploads a new image and adds it to the list of images for the specified language and image type. */
             upload(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Unique identifier for this edit. */
+                editId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /**  */
+                imageType: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The language code (a BCP-47 language tag) of the localized listing whose images are to read or modified. For example, to select Austrian German, pass "de-AT". */
+                language: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
+                packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Unique identifier for this edit. */
-                editId: string;
-                /**  */
-                imageType: string;
-                /** The language code (a BCP-47 language tag) of the localized listing whose images are to read or modified. For example, to select Austrian German, pass "de-AT". */
-                language: string;
-                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
-                packageName: string;
             }): Request<ImagesUploadResponse>;            
             
         }
@@ -1122,140 +1122,140 @@ declare namespace gapi.client {
             delete(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Unique identifier for this edit. */
+                editId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The language code (a BCP-47 language tag) of the localized listing to read or modify. For example, to select Austrian German, pass "de-AT". */
+                language: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
+                packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Unique identifier for this edit. */
-                editId: string;
-                /** The language code (a BCP-47 language tag) of the localized listing to read or modify. For example, to select Austrian German, pass "de-AT". */
-                language: string;
-                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
-                packageName: string;
             }): Request<void>;            
             
             /** Deletes all localized listings from an edit. */
             deleteall(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Unique identifier for this edit. */
+                editId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
+                packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Unique identifier for this edit. */
-                editId: string;
-                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
-                packageName: string;
             }): Request<void>;            
             
             /** Fetches information about a localized store listing. */
             get(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Unique identifier for this edit. */
+                editId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The language code (a BCP-47 language tag) of the localized listing to read or modify. For example, to select Austrian German, pass "de-AT". */
+                language: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
+                packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Unique identifier for this edit. */
-                editId: string;
-                /** The language code (a BCP-47 language tag) of the localized listing to read or modify. For example, to select Austrian German, pass "de-AT". */
-                language: string;
-                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
-                packageName: string;
             }): Request<Listing>;            
             
             /** Returns all of the localized store listings attached to this edit. */
             list(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Unique identifier for this edit. */
+                editId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
+                packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Unique identifier for this edit. */
-                editId: string;
-                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
-                packageName: string;
             }): Request<ListingsListResponse>;            
             
             /** Creates or updates a localized store listing. This method supports patch semantics. */
             patch(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Unique identifier for this edit. */
+                editId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The language code (a BCP-47 language tag) of the localized listing to read or modify. For example, to select Austrian German, pass "de-AT". */
+                language: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
+                packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Unique identifier for this edit. */
-                editId: string;
-                /** The language code (a BCP-47 language tag) of the localized listing to read or modify. For example, to select Austrian German, pass "de-AT". */
-                language: string;
-                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
-                packageName: string;
             }): Request<Listing>;            
             
             /** Creates or updates a localized store listing. */
             update(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Unique identifier for this edit. */
+                editId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The language code (a BCP-47 language tag) of the localized listing to read or modify. For example, to select Austrian German, pass "de-AT". */
+                language: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
+                packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Unique identifier for this edit. */
-                editId: string;
-                /** The language code (a BCP-47 language tag) of the localized listing to read or modify. For example, to select Austrian German, pass "de-AT". */
-                language: string;
-                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
-                packageName: string;
             }): Request<Listing>;            
             
         }
@@ -1265,72 +1265,72 @@ declare namespace gapi.client {
             get(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Unique identifier for this edit. */
+                editId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
+                packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** Unique identifier for this edit. */
-                editId: string;
-                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
-                packageName: string;
                 /**  */
                 track: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Testers>;            
             
             /**  */
             patch(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Unique identifier for this edit. */
+                editId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
+                packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** Unique identifier for this edit. */
-                editId: string;
-                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
-                packageName: string;
                 /**  */
                 track: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Testers>;            
             
             /**  */
             update(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Unique identifier for this edit. */
+                editId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
+                packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** Unique identifier for this edit. */
-                editId: string;
-                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
-                packageName: string;
                 /**  */
                 track: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Testers>;            
             
         }
@@ -1340,94 +1340,94 @@ declare namespace gapi.client {
             get(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Unique identifier for this edit. */
+                editId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
+                packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** Unique identifier for this edit. */
-                editId: string;
-                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
-                packageName: string;
                 /** The track type to read or modify. */
                 track: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Track>;            
             
             /** Lists all the track configurations for this edit. */
             list(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Unique identifier for this edit. */
+                editId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
+                packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Unique identifier for this edit. */
-                editId: string;
-                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
-                packageName: string;
             }): Request<TracksListResponse>;            
             
             /** Updates the track configuration for the specified track type. When halted, the rollout track cannot be updated without adding new APKs, and adding new APKs will cause it to resume. This method supports patch semantics. */
             patch(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Unique identifier for this edit. */
+                editId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
+                packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** Unique identifier for this edit. */
-                editId: string;
-                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
-                packageName: string;
                 /** The track type to read or modify. */
                 track: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Track>;            
             
             /** Updates the track configuration for the specified track type. When halted, the rollout track cannot be updated without adding new APKs, and adding new APKs will cause it to resume. */
             update(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Unique identifier for this edit. */
+                editId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
+                packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** Unique identifier for this edit. */
-                editId: string;
-                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
-                packageName: string;
                 /** The track type to read or modify. */
                 track: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Track>;            
             
         }
@@ -1437,66 +1437,66 @@ declare namespace gapi.client {
             commit(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Unique identifier for this edit. */
+                editId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
+                packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Unique identifier for this edit. */
-                editId: string;
-                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
-                packageName: string;
             }): Request<AppEdit>;            
             
             /** Deletes an edit for an app. Creating a new edit will automatically delete any of your previous edits so this method need only be called if you want to preemptively abandon an edit. */
             delete(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Unique identifier for this edit. */
+                editId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
+                packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Unique identifier for this edit. */
-                editId: string;
-                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
-                packageName: string;
             }): Request<void>;            
             
             /** Returns information about the edit specified. Calls will fail if the edit is no long active (e.g. has been deleted, superseded or expired). */
             get(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Unique identifier for this edit. */
+                editId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
+                packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Unique identifier for this edit. */
-                editId: string;
-                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
-                packageName: string;
             }): Request<AppEdit>;            
             
             /** Creates a new edit for an app, populated with the app's current state. */
@@ -1509,36 +1509,36 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
+                packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
-                packageName: string;
             }): Request<AppEdit>;            
             
             /** Checks that the edit can be successfully committed. The edit's changes are not applied to the live app. */
             validate(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Unique identifier for this edit. */
+                editId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
+                packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Unique identifier for this edit. */
-                editId: string;
-                /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
-                packageName: string;
             }): Request<AppEdit>;            
             
             apklistings: ApklistingsResource;
@@ -1561,24 +1561,24 @@ declare namespace gapi.client {
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /**  */
                 maxResults?: number;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** The package name of the application the inapp product was sold in (for example, 'com.some.thing'). */
                 packageName: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** The product id of the inapp product (for example, 'sku1'). This can be used to restrict the result set. */
                 productId?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /**  */
                 startIndex?: number;
                 /**  */
                 token?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<EntitlementsListResponse>;            
             
         }
@@ -1612,16 +1612,16 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Unique identifier for the Android app with the in-app product; for example, "com.spiffygame". */
+                packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** Unique identifier for the Android app with the in-app product; for example, "com.spiffygame". */
-                packageName: string;
                 /** Unique identifier for the in-app product. */
                 sku: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<void>;            
             
             /** Returns information about the in-app product specified. */
@@ -1634,38 +1634,38 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /**  */
+                packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /**  */
-                packageName: string;
                 /** Unique identifier for the in-app product. */
                 sku: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<InAppProduct>;            
             
             /** Creates a new in-app product for an app. */
             insert(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** If true the prices for all regions targeted by the parent app that don't have a price specified for this in-app product will be auto converted to the target currency based on the default price. Defaults to false. */
+                autoConvertMissingPrices?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Unique identifier for the Android app; for example, "com.spiffygame". */
+                packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** If true the prices for all regions targeted by the parent app that don't have a price specified for this in-app product will be auto converted to the target currency based on the default price. Defaults to false. */
-                autoConvertMissingPrices?: boolean;
-                /** Unique identifier for the Android app; for example, "com.spiffygame". */
-                packageName: string;
             }): Request<InAppProduct>;            
             
             /** List all the in-app products for an Android app, both subscriptions and managed in-app products.. */
@@ -1676,70 +1676,70 @@ declare namespace gapi.client {
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /**  */
+                maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Unique identifier for the Android app with in-app products; for example, "com.spiffygame". */
+                packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /**  */
-                maxResults?: number;
-                /** Unique identifier for the Android app with in-app products; for example, "com.spiffygame". */
-                packageName: string;
                 /**  */
                 startIndex?: number;
                 /**  */
                 token?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<InappproductsListResponse>;            
             
             /** Updates the details of an in-app product. This method supports patch semantics. */
             patch(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** If true the prices for all regions targeted by the parent app that don't have a price specified for this in-app product will be auto converted to the target currency based on the default price. Defaults to false. */
+                autoConvertMissingPrices?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Unique identifier for the Android app with the in-app product; for example, "com.spiffygame". */
+                packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** If true the prices for all regions targeted by the parent app that don't have a price specified for this in-app product will be auto converted to the target currency based on the default price. Defaults to false. */
-                autoConvertMissingPrices?: boolean;
-                /** Unique identifier for the Android app with the in-app product; for example, "com.spiffygame". */
-                packageName: string;
                 /** Unique identifier for the in-app product. */
                 sku: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<InAppProduct>;            
             
             /** Updates the details of an in-app product. */
             update(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** If true the prices for all regions targeted by the parent app that don't have a price specified for this in-app product will be auto converted to the target currency based on the default price. Defaults to false. */
+                autoConvertMissingPrices?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Unique identifier for the Android app with the in-app product; for example, "com.spiffygame". */
+                packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** If true the prices for all regions targeted by the parent app that don't have a price specified for this in-app product will be auto converted to the target currency based on the default price. Defaults to false. */
-                autoConvertMissingPrices?: boolean;
-                /** Unique identifier for the Android app with the in-app product; for example, "com.spiffygame". */
-                packageName: string;
                 /** Unique identifier for the in-app product. */
                 sku: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<InAppProduct>;            
             
         }
@@ -1755,18 +1755,18 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** The package name of the application the inapp product was sold in (for example, 'com.some.thing'). */
                 packageName: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** The inapp product SKU (for example, 'com.some.thing.inapp1'). */
                 productId: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /** The token provided to the user's device when the inapp product was purchased. */
                 token: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<ProductPurchase>;            
             
         }
@@ -1782,18 +1782,18 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** The package name of the application for which this subscription was purchased (for example, 'com.some.thing'). */
+                packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** The package name of the application for which this subscription was purchased (for example, 'com.some.thing'). */
-                packageName: string;
                 /** The purchased subscription ID (for example, 'monthly001'). */
                 subscriptionId: string;
                 /** The token provided to the user's device when the subscription was purchased. */
                 token: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<void>;            
             
             /** Defers a user's subscription purchase until a specified future expiration time. */
@@ -1806,18 +1806,18 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** The package name of the application for which this subscription was purchased (for example, 'com.some.thing'). */
+                packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** The package name of the application for which this subscription was purchased (for example, 'com.some.thing'). */
-                packageName: string;
                 /** The purchased subscription ID (for example, 'monthly001'). */
                 subscriptionId: string;
                 /** The token provided to the user's device when the subscription was purchased. */
                 token: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<SubscriptionPurchasesDeferResponse>;            
             
             /** Checks whether a user's subscription purchase is valid and returns its expiry time. */
@@ -1830,18 +1830,18 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** The package name of the application for which this subscription was purchased (for example, 'com.some.thing'). */
+                packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** The package name of the application for which this subscription was purchased (for example, 'com.some.thing'). */
-                packageName: string;
                 /** The purchased subscription ID (for example, 'monthly001'). */
                 subscriptionId: string;
                 /** The token provided to the user's device when the subscription was purchased. */
                 token: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<SubscriptionPurchase>;            
             
             /** Refunds a user's subscription purchase, but the subscription remains valid until its expiration time and it will continue to recur. */
@@ -1854,18 +1854,18 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** The package name of the application for which this subscription was purchased (for example, 'com.some.thing'). */
+                packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** The package name of the application for which this subscription was purchased (for example, 'com.some.thing'). */
-                packageName: string;
                 /** The purchased subscription ID (for example, 'monthly001'). */
                 subscriptionId: string;
                 /** The token provided to the user's device when the subscription was purchased. */
                 token: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<void>;            
             
             /** Refunds and immediately revokes a user's subscription purchase. Access to the subscription will be terminated immediately and it will stop recurring. */
@@ -1878,18 +1878,18 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** The package name of the application for which this subscription was purchased (for example, 'com.some.thing'). */
+                packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** The package name of the application for which this subscription was purchased (for example, 'com.some.thing'). */
-                packageName: string;
                 /** The purchased subscription ID (for example, 'monthly001'). */
                 subscriptionId: string;
                 /** The token provided to the user's device when the subscription was purchased. */
                 token: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<void>;            
             
         }
@@ -1899,30 +1899,30 @@ declare namespace gapi.client {
             list(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The time, in milliseconds since the Epoch, of the newest voided in-app product purchase that you want to see in the response. The value of this parameter cannot be greater than the current time and is ignored if a pagination token is set. Default value is current time. Note: This filter is applied on the time at which the record is seen as voided by our systems and not the actual voided time returned in the response. */
+                endTime?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /**  */
+                maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** The package name of the application for which voided purchases need to be returned (for example, 'com.some.thing'). */
+                packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** The time, in milliseconds since the Epoch, of the newest voided in-app product purchase that you want to see in the response. The value of this parameter cannot be greater than the current time and is ignored if a pagination token is set. Default value is current time. Note: This filter is applied on the time at which the record is seen as voided by our systems and not the actual voided time returned in the response. */
-                endTime?: string;
-                /**  */
-                maxResults?: number;
-                /** The package name of the application for which voided purchases need to be returned (for example, 'com.some.thing'). */
-                packageName: string;
                 /**  */
                 startIndex?: number;
                 /** The time, in milliseconds since the Epoch, of the oldest voided in-app product purchase that you want to see in the response. The value of this parameter cannot be older than 30 days and is ignored if a pagination token is set. Default value is current time minus 30 days. Note: This filter is applied on the time at which the record is seen as voided by our systems and not the actual voided time returned in the response. */
                 startTime?: string;
                 /**  */
                 token?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<VoidedPurchasesListResponse>;            
             
         }
@@ -1944,18 +1944,18 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Unique identifier for the Android app for which we want reviews; for example, "com.spiffygame". */
+                packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** Unique identifier for the Android app for which we want reviews; for example, "com.spiffygame". */
-                packageName: string;
                 /**  */
                 reviewId: string;
                 /**  */
                 translationLanguage?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Review>;            
             
             /** Returns a list of reviews. Only reviews from last week will be returned. */
@@ -1966,24 +1966,24 @@ declare namespace gapi.client {
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /**  */
+                maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Unique identifier for the Android app for which we want reviews; for example, "com.spiffygame". */
+                packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /**  */
-                maxResults?: number;
-                /** Unique identifier for the Android app for which we want reviews; for example, "com.spiffygame". */
-                packageName: string;
                 /**  */
                 startIndex?: number;
                 /**  */
                 token?: string;
                 /**  */
                 translationLanguage?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<ReviewsListResponse>;            
             
             /** Reply to a single review, or update an existing reply. */
@@ -1996,16 +1996,16 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Unique identifier for the Android app for which we want reviews; for example, "com.spiffygame". */
+                packageName: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** Unique identifier for the Android app for which we want reviews; for example, "com.spiffygame". */
-                packageName: string;
                 /**  */
                 reviewId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<ReviewsReplyResponse>;            
             
         }

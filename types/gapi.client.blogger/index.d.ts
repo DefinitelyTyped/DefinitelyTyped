@@ -394,24 +394,24 @@ declare namespace gapi.client {
             get(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The ID of the blog to get. */
+                blogId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** Maximum number of posts to pull back with the blog. */
+                maxPosts?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** The ID of the blog to get. */
-                blogId: string;
-                /** Maximum number of posts to pull back with the blog. */
-                maxPosts?: number;
                 /** ID of the user whose blogs are to be fetched. Either the word 'self' (sans quote marks) or the user's profile identifier. */
                 userId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<BlogUserInfo>;            
             
         }
@@ -421,10 +421,14 @@ declare namespace gapi.client {
             get(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The ID of the blog to get. */
+                blogId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** Maximum number of posts to pull back with the blog. */
+                maxPosts?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
@@ -433,10 +437,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the blog to get. */
-                blogId: string;
-                /** Maximum number of posts to pull back with the blog. */
-                maxPosts?: number;
                 /** Access level with which to view the blog. Note that some fields require elevated access. */
                 view?: string;
             }): Request<Blog>;            
@@ -455,10 +455,10 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** The URL of the blog to retrieve. */
                 url: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
                 /** Access level with which to view the blog. Note that some fields require elevated access. */
                 view?: string;
             }): Request<Blog>;            
@@ -467,6 +467,8 @@ declare namespace gapi.client {
             listByUser(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Whether the response is a list of blogs with per-user information instead of just blogs. */
+                fetchUserInfo?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -477,16 +479,14 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** Whether the response is a list of blogs with per-user information instead of just blogs. */
-                fetchUserInfo?: boolean;
                 /** User access types for blogs to include in the results, e.g. AUTHOR will return blogs where the user has author level access. If no roles are specified, defaults to ADMIN and AUTHOR roles. */
                 role?: string;
                 /** Blog statuses to include in the result (default: Live blogs only). Note that ADMIN access is required to view deleted blogs. */
                 status?: string;
                 /** ID of the user whose blogs are to be fetched. Either the word 'self' (sans quote marks) or the user's profile identifier. */
                 userId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
                 /** Access level with which to view the blogs. Note that some fields require elevated access. */
                 view?: string;
             }): Request<BlogList>;            
@@ -498,72 +498,72 @@ declare namespace gapi.client {
             approve(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The ID of the Blog. */
+                blogId: string;
+                /** The ID of the comment to mark as not spam. */
+                commentId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** The ID of the Post. */
+                postId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the Blog. */
-                blogId: string;
-                /** The ID of the comment to mark as not spam. */
-                commentId: string;
-                /** The ID of the Post. */
-                postId: string;
             }): Request<Comment>;            
             
             /** Delete a comment by ID. */
             delete(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The ID of the Blog. */
+                blogId: string;
+                /** The ID of the comment to delete. */
+                commentId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** The ID of the Post. */
+                postId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the Blog. */
-                blogId: string;
-                /** The ID of the comment to delete. */
-                commentId: string;
-                /** The ID of the Post. */
-                postId: string;
             }): Request<void>;            
             
             /** Gets one comment by ID. */
             get(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** ID of the blog to containing the comment. */
+                blogId: string;
+                /** The ID of the comment to get. */
+                commentId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** ID of the post to fetch posts from. */
+                postId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** ID of the blog to containing the comment. */
-                blogId: string;
-                /** The ID of the comment to get. */
-                commentId: string;
-                /** ID of the post to fetch posts from. */
-                postId: string;
                 /** Access level for the requested comment (default: READER). Note that some comments will require elevated permissions, for example comments where the parent posts which is in a draft state, or comments that are pending moderation. */
                 view?: string;
             }): Request<Comment>;            
@@ -572,34 +572,34 @@ declare namespace gapi.client {
             list(request: {            
                 /** Data format for the response. */
                 alt?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** ID of the blog to fetch comments from. */
                 blogId: string;
                 /** Latest date of comment to fetch, a date-time with RFC 3339 formatting. */
                 endDate?: string;
                 /** Whether the body content of the comments is included. */
                 fetchBodies?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** Maximum number of comments to include in the result. */
                 maxResults?: number;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Continuation token if request is paged. */
                 pageToken?: string;
                 /** ID of the post to fetch posts from. */
                 postId: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /** Earliest date of comment to fetch, a date-time with RFC 3339 formatting. */
                 startDate?: string;
                 /**  */
                 status?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
                 /** Access level with which to view the returned result. Note that some fields require elevated access. */
                 view?: string;
             }): Request<CommentList>;            
@@ -608,80 +608,80 @@ declare namespace gapi.client {
             listByBlog(request: {            
                 /** Data format for the response. */
                 alt?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** ID of the blog to fetch comments from. */
                 blogId: string;
                 /** Latest date of comment to fetch, a date-time with RFC 3339 formatting. */
                 endDate?: string;
                 /** Whether the body content of the comments is included. */
                 fetchBodies?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** Maximum number of comments to include in the result. */
                 maxResults?: number;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Continuation token if request is paged. */
                 pageToken?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /** Earliest date of comment to fetch, a date-time with RFC 3339 formatting. */
                 startDate?: string;
                 /**  */
                 status?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<CommentList>;            
             
             /** Marks a comment as spam. */
             markAsSpam(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The ID of the Blog. */
+                blogId: string;
+                /** The ID of the comment to mark as spam. */
+                commentId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** The ID of the Post. */
+                postId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the Blog. */
-                blogId: string;
-                /** The ID of the comment to mark as spam. */
-                commentId: string;
-                /** The ID of the Post. */
-                postId: string;
             }): Request<Comment>;            
             
             /** Removes the content of a comment. */
             removeContent(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The ID of the Blog. */
+                blogId: string;
+                /** The ID of the comment to delete content from. */
+                commentId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** The ID of the Post. */
+                postId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the Blog. */
-                blogId: string;
-                /** The ID of the comment to delete content from. */
-                commentId: string;
-                /** The ID of the Post. */
-                postId: string;
             }): Request<Comment>;            
             
         }
@@ -691,6 +691,8 @@ declare namespace gapi.client {
             get(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The ID of the blog to get. */
+                blogId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -701,12 +703,10 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** The ID of the blog to get. */
-                blogId: string;
                 /**  */
                 range?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Pageviews>;            
             
         }
@@ -716,44 +716,44 @@ declare namespace gapi.client {
             delete(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The ID of the Blog. */
+                blogId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** The ID of the Page. */
+                pageId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the Blog. */
-                blogId: string;
-                /** The ID of the Page. */
-                pageId: string;
             }): Request<void>;            
             
             /** Gets one blog page by ID. */
             get(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** ID of the blog containing the page. */
+                blogId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** The ID of the page to get. */
+                pageId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** ID of the blog containing the page. */
-                blogId: string;
-                /** The ID of the page to get. */
-                pageId: string;
                 /**  */
                 view?: string;
             }): Request<Page>;            
@@ -762,8 +762,12 @@ declare namespace gapi.client {
             insert(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** ID of the blog to add the page to. */
+                blogId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Whether to create the page as a draft (default: false). */
+                isDraft?: boolean;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
@@ -774,38 +778,34 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** ID of the blog to add the page to. */
-                blogId: string;
-                /** Whether to create the page as a draft (default: false). */
-                isDraft?: boolean;
             }): Request<Page>;            
             
             /** Retrieves the pages for a blog, optionally including non-LIVE statuses. */
             list(request: {            
                 /** Data format for the response. */
                 alt?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** ID of the blog to fetch Pages from. */
                 blogId: string;
                 /** Whether to retrieve the Page bodies. */
                 fetchBodies?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** Maximum number of Pages to fetch. */
                 maxResults?: number;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Continuation token if the request is paged. */
                 pageToken?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /**  */
                 status?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
                 /** Access level with which to view the returned result. Note that some fields require elevated access. */
                 view?: string;
             }): Request<PageList>;            
@@ -814,96 +814,96 @@ declare namespace gapi.client {
             patch(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The ID of the Blog. */
+                blogId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** The ID of the Blog. */
-                blogId: string;
                 /** The ID of the Page. */
                 pageId: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** Whether a publish action should be performed when the page is updated (default: false). */
                 publish?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /** Whether a revert action should be performed when the page is updated (default: false). */
                 revert?: boolean;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Page>;            
             
             /** Publishes a draft page. */
             publish(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The ID of the blog. */
+                blogId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** The ID of the page. */
+                pageId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the blog. */
-                blogId: string;
-                /** The ID of the page. */
-                pageId: string;
             }): Request<Page>;            
             
             /** Revert a published or scheduled page to draft state. */
             revert(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The ID of the blog. */
+                blogId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** The ID of the page. */
+                pageId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the blog. */
-                blogId: string;
-                /** The ID of the page. */
-                pageId: string;
             }): Request<Page>;            
             
             /** Update a page. */
             update(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The ID of the Blog. */
+                blogId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** The ID of the Blog. */
-                blogId: string;
                 /** The ID of the Page. */
                 pageId: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** Whether a publish action should be performed when the page is updated (default: false). */
                 publish?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /** Whether a revert action should be performed when the page is updated (default: false). */
                 revert?: boolean;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Page>;            
             
         }
@@ -913,64 +913,64 @@ declare namespace gapi.client {
             get(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The ID of the blog. */
+                blogId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** Maximum number of comments to pull back on a post. */
+                maxComments?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** The ID of the post to get. */
+                postId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** The ID of the blog. */
-                blogId: string;
-                /** Maximum number of comments to pull back on a post. */
-                maxComments?: number;
-                /** The ID of the post to get. */
-                postId: string;
                 /** ID of the user for the per-user information to be fetched. Either the word 'self' (sans quote marks) or the user's profile identifier. */
                 userId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<PostUserInfo>;            
             
             /** Retrieves a list of post and post user info pairs, possibly filtered. The post user info contains per-user information about the post, such as access rights, specific to the user. */
             list(request: {            
                 /** Data format for the response. */
                 alt?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** ID of the blog to fetch posts from. */
                 blogId: string;
                 /** Latest post date to fetch, a date-time with RFC 3339 formatting. */
                 endDate?: string;
                 /** Whether the body content of posts is included. Default is false. */
                 fetchBodies?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** Comma-separated list of labels to search for. */
                 labels?: string;
                 /** Maximum number of posts to fetch. */
                 maxResults?: number;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Sort order applied to search results. Default is published. */
                 orderBy?: string;
                 /** Continuation token if the request is paged. */
                 pageToken?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /** Earliest post date to fetch, a date-time with RFC 3339 formatting. */
                 startDate?: string;
                 /**  */
                 status?: string;
                 /** ID of the user for the per-user information to be fetched. Either the word 'self' (sans quote marks) or the user's profile identifier. */
                 userId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
                 /** Access level with which to view the returned result. Note that some fields require elevated access. */
                 view?: string;
             }): Request<PostUserInfosList>;            
@@ -982,50 +982,50 @@ declare namespace gapi.client {
             delete(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The ID of the Blog. */
+                blogId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** The ID of the Post. */
+                postId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the Blog. */
-                blogId: string;
-                /** The ID of the Post. */
-                postId: string;
             }): Request<void>;            
             
             /** Get a post by ID. */
             get(request: {            
                 /** Data format for the response. */
                 alt?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** ID of the blog to fetch the post from. */
                 blogId: string;
                 /** Whether the body content of the post is included (default: true). This should be set to false when the post bodies are not required, to help minimize traffic. */
                 fetchBody?: boolean;
                 /** Whether image URL metadata for each post is included (default: false). */
                 fetchImages?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** Maximum number of comments to pull back on a post. */
                 maxComments?: number;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** The ID of the post */
                 postId: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
                 /** Access level with which to view the returned result. Note that some fields require elevated access. */
                 view?: string;
             }): Request<Post>;            
@@ -1034,24 +1034,24 @@ declare namespace gapi.client {
             getByPath(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** ID of the blog to fetch the post from. */
+                blogId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** Maximum number of comments to pull back on a post. */
+                maxComments?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Path of the Post to retrieve. */
+                path: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** ID of the blog to fetch the post from. */
-                blogId: string;
-                /** Maximum number of comments to pull back on a post. */
-                maxComments?: number;
-                /** Path of the Post to retrieve. */
-                path: string;
                 /** Access level with which to view the returned result. Note that some fields require elevated access. */
                 view?: string;
             }): Request<Post>;            
@@ -1060,34 +1060,16 @@ declare namespace gapi.client {
             insert(request: {            
                 /** Data format for the response. */
                 alt?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** ID of the blog to add the post to. */
                 blogId: string;
                 /** Whether the body content of the post is included with the result (default: true). */
                 fetchBody?: boolean;
                 /** Whether image URL metadata for each post is included in the returned result (default: false). */
                 fetchImages?: boolean;
-                /** Whether to create the post as a draft (default: false). */
-                isDraft?: boolean;
-            }): Request<Post>;            
-            
-            /** Retrieves a list of posts, possibly filtered. */
-            list(request: {            
-                /** Data format for the response. */
-                alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Whether to create the post as a draft (default: false). */
+                isDraft?: boolean;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
@@ -1098,6 +1080,12 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
+            }): Request<Post>;            
+            
+            /** Retrieves a list of posts, possibly filtered. */
+            list(request: {            
+                /** Data format for the response. */
+                alt?: string;
                 /** ID of the blog to fetch posts from. */
                 blogId: string;
                 /** Latest post date to fetch, a date-time with RFC 3339 formatting. */
@@ -1106,18 +1094,30 @@ declare namespace gapi.client {
                 fetchBodies?: boolean;
                 /** Whether image URL metadata for each post is included. */
                 fetchImages?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** Comma-separated list of labels to search for. */
                 labels?: string;
                 /** Maximum number of posts to fetch. */
                 maxResults?: number;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Sort search results */
                 orderBy?: string;
                 /** Continuation token if the request is paged. */
                 pageToken?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /** Earliest post date to fetch, a date-time with RFC 3339 formatting. */
                 startDate?: string;
                 /** Statuses to include in the results. */
                 status?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
                 /** Access level with which to view the returned result. Note that some fields require escalated access. */
                 view?: string;
             }): Request<PostList>;            
@@ -1126,136 +1126,136 @@ declare namespace gapi.client {
             patch(request: {            
                 /** Data format for the response. */
                 alt?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** The ID of the Blog. */
                 blogId: string;
                 /** Whether the body content of the post is included with the result (default: true). */
                 fetchBody?: boolean;
                 /** Whether image URL metadata for each post is included in the returned result (default: false). */
                 fetchImages?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** Maximum number of comments to retrieve with the returned post. */
                 maxComments?: number;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** The ID of the Post. */
                 postId: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** Whether a publish action should be performed when the post is updated (default: false). */
                 publish?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /** Whether a revert action should be performed when the post is updated (default: false). */
                 revert?: boolean;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Post>;            
             
             /** Publishes a draft post, optionally at the specific time of the given publishDate parameter. */
             publish(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The ID of the Blog. */
+                blogId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** The ID of the Post. */
+                postId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** Optional date and time to schedule the publishing of the Blog. If no publishDate parameter is given, the post is either published at the a previously saved schedule date (if present), or the current time. If a future date is given, the post will be scheduled to be published. */
+                publishDate?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the Blog. */
-                blogId: string;
-                /** The ID of the Post. */
-                postId: string;
-                /** Optional date and time to schedule the publishing of the Blog. If no publishDate parameter is given, the post is either published at the a previously saved schedule date (if present), or the current time. If a future date is given, the post will be scheduled to be published. */
-                publishDate?: string;
             }): Request<Post>;            
             
             /** Revert a published or scheduled post to draft state. */
             revert(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The ID of the Blog. */
+                blogId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** The ID of the Post. */
+                postId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the Blog. */
-                blogId: string;
-                /** The ID of the Post. */
-                postId: string;
             }): Request<Post>;            
             
             /** Search for a post. */
             search(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** ID of the blog to fetch the post from. */
+                blogId: string;
+                /** Whether the body content of posts is included (default: true). This should be set to false when the post bodies are not required, to help minimize traffic. */
+                fetchBodies?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Sort search results */
+                orderBy?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** Query terms to search this blog for matching posts. */
+                q: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** ID of the blog to fetch the post from. */
-                blogId: string;
-                /** Whether the body content of posts is included (default: true). This should be set to false when the post bodies are not required, to help minimize traffic. */
-                fetchBodies?: boolean;
-                /** Sort search results */
-                orderBy?: string;
-                /** Query terms to search this blog for matching posts. */
-                q: string;
             }): Request<PostList>;            
             
             /** Update a post. */
             update(request: {            
                 /** Data format for the response. */
                 alt?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** The ID of the Blog. */
                 blogId: string;
                 /** Whether the body content of the post is included with the result (default: true). */
                 fetchBody?: boolean;
                 /** Whether image URL metadata for each post is included in the returned result (default: false). */
                 fetchImages?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** Maximum number of comments to retrieve with the returned post. */
                 maxComments?: number;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** The ID of the Post. */
                 postId: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** Whether a publish action should be performed when the post is updated (default: false). */
                 publish?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /** Whether a revert action should be performed when the post is updated (default: false). */
                 revert?: boolean;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Post>;            
             
         }
@@ -1275,10 +1275,10 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** The ID of the user to get. */
                 userId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<User>;            
             
         }

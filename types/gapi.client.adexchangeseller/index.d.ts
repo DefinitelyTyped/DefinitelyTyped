@@ -234,26 +234,26 @@ declare namespace gapi.client {
         interface AdclientsResource {
             /** List all ad clients in this Ad Exchange account. */
             list(request: {            
+                /** Account to which the ad client belongs. */
+                accountId: string;
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The maximum number of ad clients to include in the response, used for paging. */
+                maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** A continuation token, used to page through ad clients. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous response. */
+                pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Account to which the ad client belongs. */
-                accountId: string;
-                /** The maximum number of ad clients to include in the response, used for paging. */
-                maxResults?: number;
-                /** A continuation token, used to page through ad clients. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous response. */
-                pageToken?: string;
             }): Request<AdClients>;            
             
         }
@@ -261,12 +261,16 @@ declare namespace gapi.client {
         interface AlertsResource {
             /** List the alerts for this Ad Exchange account. */
             list(request: {            
+                /** Account owning the alerts. */
+                accountId: string;
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The locale to use for translating alert messages. The account locale will be used if this is not supplied. The AdSense default (English) will be used if the supplied locale is invalid or unsupported. */
+                locale?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
@@ -275,10 +279,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Account owning the alerts. */
-                accountId: string;
-                /** The locale to use for translating alert messages. The account locale will be used if this is not supplied. The AdSense default (English) will be used if the supplied locale is invalid or unsupported. */
-                locale?: string;
             }): Request<Alerts>;            
             
         }
@@ -286,32 +286,14 @@ declare namespace gapi.client {
         interface CustomchannelsResource {
             /** Get the specified custom channel from the specified ad client. */
             get(request: {            
-                /** Data format for the response. */
-                alt?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** Account to which the ad client belongs. */
                 accountId: string;
                 /** Ad client which contains the custom channel. */
                 adClientId: string;
-                /** Custom channel to retrieve. */
-                customChannelId: string;
-            }): Request<CustomChannel>;            
-            
-            /** List all custom channels in the specified ad client for this Ad Exchange account. */
-            list(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Custom channel to retrieve. */
+                customChannelId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -324,14 +306,32 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
+            }): Request<CustomChannel>;            
+            
+            /** List all custom channels in the specified ad client for this Ad Exchange account. */
+            list(request: {            
                 /** Account to which the ad client belongs. */
                 accountId: string;
                 /** Ad client for which to list custom channels. */
                 adClientId: string;
+                /** Data format for the response. */
+                alt?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** The maximum number of custom channels to include in the response, used for paging. */
                 maxResults?: number;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** A continuation token, used to page through custom channels. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous response. */
                 pageToken?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<CustomChannels>;            
             
         }
@@ -339,6 +339,8 @@ declare namespace gapi.client {
         interface DimensionsResource {
             /** List the metadata for the dimensions available to this AdExchange account. */
             list(request: {            
+                /** Account with visibility to the dimensions. */
+                accountId: string;
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -353,8 +355,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Account with visibility to the dimensions. */
-                accountId: string;
             }): Request<Metadata>;            
             
         }
@@ -362,6 +362,8 @@ declare namespace gapi.client {
         interface MetricsResource {
             /** List the metadata for the metrics available to this AdExchange account. */
             list(request: {            
+                /** Account with visibility to the metrics. */
+                accountId: string;
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -376,8 +378,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Account with visibility to the metrics. */
-                accountId: string;
             }): Request<Metadata>;            
             
         }
@@ -390,8 +390,12 @@ declare namespace gapi.client {
         interface PreferreddealsResource {
             /** Get information about the selected Ad Exchange Preferred Deal. */
             get(request: {            
+                /** Account owning the deal. */
+                accountId: string;
                 /** Data format for the response. */
                 alt?: string;
+                /** Preferred deal to get information about. */
+                dealId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -404,14 +408,12 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Account owning the deal. */
-                accountId: string;
-                /** Preferred deal to get information about. */
-                dealId: string;
             }): Request<PreferredDeal>;            
             
             /** List the preferred deals for this Ad Exchange account. */
             list(request: {            
+                /** Account owning the deals. */
+                accountId: string;
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -426,8 +428,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Account owning the deals. */
-                accountId: string;
             }): Request<PreferredDeals>;            
             
         }
@@ -435,54 +435,54 @@ declare namespace gapi.client {
         interface SavedResource {
             /** Generate an Ad Exchange report based on the saved report ID sent in the query parameters. */
             generate(request: {            
+                /** Account owning the saved report. */
+                accountId: string;
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** Account owning the saved report. */
-                accountId: string;
                 /** Optional locale to use for translating report output to a local language. Defaults to "en_US" if not specified. */
                 locale?: string;
                 /** The maximum number of rows of report data to return. */
                 maxResults?: number;
-                /** The saved report to retrieve. */
-                savedReportId: string;
-                /** Index of the first row of report data to return. */
-                startIndex?: number;
-            }): Request<Report>;            
-            
-            /** List all saved reports in this Ad Exchange account. */
-            list(request: {            
-                /** Data format for the response. */
-                alt?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
+                /** The saved report to retrieve. */
+                savedReportId: string;
+                /** Index of the first row of report data to return. */
+                startIndex?: number;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
+            }): Request<Report>;            
+            
+            /** List all saved reports in this Ad Exchange account. */
+            list(request: {            
                 /** Account owning the saved reports. */
                 accountId: string;
+                /** Data format for the response. */
+                alt?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** The maximum number of saved reports to include in the response, used for paging. */
                 maxResults?: number;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** A continuation token, used to page through saved reports. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous response. */
                 pageToken?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<SavedReports>;            
             
         }
@@ -490,40 +490,40 @@ declare namespace gapi.client {
         interface ReportsResource {
             /** Generate an Ad Exchange report based on the report request sent in the query parameters. Returns the result as JSON; to retrieve output in CSV format specify "alt=csv" as a query parameter. */
             generate(request: {            
-                /** Data format for the response. */
-                alt?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** Account which owns the generated report. */
                 accountId: string;
+                /** Data format for the response. */
+                alt?: string;
                 /** Dimensions to base the report on. */
                 dimension?: string;
                 /** End of the date range to report on in "YYYY-MM-DD" format, inclusive. */
                 endDate: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
                 /** Filters to be run on the report. */
                 filter?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** Optional locale to use for translating report output to a local language. Defaults to "en_US" if not specified. */
                 locale?: string;
                 /** The maximum number of rows of report data to return. */
                 maxResults?: number;
                 /** Numeric columns to include in the report. */
                 metric?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /** The name of a dimension or metric to sort the resulting report on, optionally prefixed with "+" to sort ascending or "-" to sort descending. If no prefix is specified, the column is sorted ascending. */
                 sort?: string;
                 /** Start of the date range to report on in "YYYY-MM-DD" format, inclusive. */
                 startDate: string;
                 /** Index of the first row of report data to return. */
                 startIndex?: number;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Report>;            
             
             saved: SavedResource;
@@ -532,28 +532,28 @@ declare namespace gapi.client {
         interface UrlchannelsResource {
             /** List all URL channels in the specified ad client for this Ad Exchange account. */
             list(request: {            
+                /** Account to which the ad client belongs. */
+                accountId: string;
+                /** Ad client for which to list URL channels. */
+                adClientId: string;
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The maximum number of URL channels to include in the response, used for paging. */
+                maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** A continuation token, used to page through URL channels. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous response. */
+                pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Account to which the ad client belongs. */
-                accountId: string;
-                /** Ad client for which to list URL channels. */
-                adClientId: string;
-                /** The maximum number of URL channels to include in the response, used for paging. */
-                maxResults?: number;
-                /** A continuation token, used to page through URL channels. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous response. */
-                pageToken?: string;
             }): Request<UrlChannels>;            
             
         }
@@ -561,6 +561,8 @@ declare namespace gapi.client {
         interface AccountsResource {
             /** Get information about the selected Ad Exchange account. */
             get(request: {            
+                /** Account to get information about. Tip: 'myaccount' is a valid ID. */
+                accountId: string;
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -575,8 +577,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Account to get information about. Tip: 'myaccount' is a valid ID. */
-                accountId: string;
             }): Request<Account>;            
             
             /** List all accounts available to this Ad Exchange account. */
@@ -587,18 +587,18 @@ declare namespace gapi.client {
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The maximum number of accounts to include in the response, used for paging. */
+                maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** A continuation token, used to page through accounts. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous response. */
+                pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The maximum number of accounts to include in the response, used for paging. */
-                maxResults?: number;
-                /** A continuation token, used to page through accounts. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous response. */
-                pageToken?: string;
             }): Request<Accounts>;            
             
             adclients: AdclientsResource;

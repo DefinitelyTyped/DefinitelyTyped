@@ -34,6 +34,14 @@ gapi.load('client', () => {
 
     async function run() {  
         
+        // Signals the quota controller that service ends the ongoing usage
+        // reconciliation.
+        // 
+        // This method requires the `servicemanagement.services.quota`
+        // permission on the specified service. For more information, see
+        // [Google Cloud IAM](https://cloud.google.com/iam).
+        await gapi.client.services.endReconciliation({ serviceName: "serviceName",  }); 
+        
         // Reports operation results to Google Service Control, such as logs and
         // metrics. It should be called after an operation is completed.
         // 
@@ -125,14 +133,6 @@ gapi.load('client', () => {
         // 
         // The server may inject above errors to prohibit any hard dependency
         // on the quota system.
-        await gapi.client.services.releaseQuota({ serviceName: "serviceName",  }); 
-        
-        // Signals the quota controller that service ends the ongoing usage
-        // reconciliation.
-        // 
-        // This method requires the `servicemanagement.services.quota`
-        // permission on the specified service. For more information, see
-        // [Google Cloud IAM](https://cloud.google.com/iam).
-        await gapi.client.services.endReconciliation({ serviceName: "serviceName",  });
+        await gapi.client.services.releaseQuota({ serviceName: "serviceName",  });
     }
 });

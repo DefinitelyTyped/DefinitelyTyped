@@ -1036,6 +1036,8 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** The account id */
+                id: number;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
@@ -1046,8 +1048,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The account id */
-                id: number;
             }): Request<Account>;            
             
             /** Retrieves the authenticated user's list of accounts. */
@@ -1072,8 +1072,12 @@ declare namespace gapi.client {
             patch(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Confirmation for erasing bidder and cookie matching urls. */
+                confirmUnsafeAccountChange?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** The account id */
+                id: number;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
@@ -1084,18 +1088,18 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Confirmation for erasing bidder and cookie matching urls. */
-                confirmUnsafeAccountChange?: boolean;
-                /** The account id */
-                id: number;
             }): Request<Account>;            
             
             /** Updates an existing account. */
             update(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Confirmation for erasing bidder and cookie matching urls. */
+                confirmUnsafeAccountChange?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** The account id */
+                id: number;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
@@ -1106,10 +1110,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Confirmation for erasing bidder and cookie matching urls. */
-                confirmUnsafeAccountChange?: boolean;
-                /** The account id */
-                id: number;
             }): Request<Account>;            
             
         }
@@ -1117,6 +1117,8 @@ declare namespace gapi.client {
         interface BillingInfoResource {
             /** Returns the billing information for one account specified by account ID. */
             get(request: {            
+                /** The account id. */
+                accountId: number;
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1131,8 +1133,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The account id. */
-                accountId: number;
             }): Request<BillingInfo>;            
             
             /** Retrieves a list of billing information for all accounts of the authenticated user. */
@@ -1158,8 +1158,12 @@ declare namespace gapi.client {
         interface BudgetResource {
             /** Returns the budget information for the adgroup specified by the accountId and billingId. */
             get(request: {            
+                /** The account id to get the budget information for. */
+                accountId: string;
                 /** Data format for the response. */
                 alt?: string;
+                /** The billing id to get the budget information for. */
+                billingId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -1172,16 +1176,16 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The account id to get the budget information for. */
-                accountId: string;
-                /** The billing id to get the budget information for. */
-                billingId: string;
             }): Request<Budget>;            
             
             /** Updates the budget amount for the budget of the adgroup specified by the accountId and billingId, with the budget amount in the request. This method supports patch semantics. */
             patch(request: {            
+                /** The account id associated with the budget being updated. */
+                accountId: string;
                 /** Data format for the response. */
                 alt?: string;
+                /** The billing id associated with the budget being updated. */
+                billingId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -1194,16 +1198,16 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The account id associated with the budget being updated. */
-                accountId: string;
-                /** The billing id associated with the budget being updated. */
-                billingId: string;
             }): Request<Budget>;            
             
             /** Updates the budget amount for the budget of the adgroup specified by the accountId and billingId, with the budget amount in the request. */
             update(request: {            
+                /** The account id associated with the budget being updated. */
+                accountId: string;
                 /** Data format for the response. */
                 alt?: string;
+                /** The billing id associated with the budget being updated. */
+                billingId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -1216,10 +1220,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The account id associated with the budget being updated. */
-                accountId: string;
-                /** The billing id associated with the budget being updated. */
-                billingId: string;
             }): Request<Budget>;            
             
         }
@@ -1227,32 +1227,14 @@ declare namespace gapi.client {
         interface CreativesResource {
             /** Add a deal id association for the creative. */
             addDeal(request: {            
-                /** Data format for the response. */
-                alt?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** The id for the account that will serve this creative. */
                 accountId: number;
+                /** Data format for the response. */
+                alt?: string;
                 /** The buyer-specific id for this creative. */
                 buyerCreativeId: string;
                 /** The id of the deal id to associate with this creative. */
                 dealId: string;
-            }): Request<void>;            
-            
-            /** Gets the status for a single creative. A creative will be available 30-40 minutes after submission. */
-            get(request: {            
-                /** Data format for the response. */
-                alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -1265,10 +1247,28 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
+            }): Request<void>;            
+            
+            /** Gets the status for a single creative. A creative will be available 30-40 minutes after submission. */
+            get(request: {            
                 /** The id for the account that will serve this creative. */
                 accountId: number;
+                /** Data format for the response. */
+                alt?: string;
                 /** The buyer-specific id for this creative. */
                 buyerCreativeId: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Creative>;            
             
             /** Submit a new creative. */
@@ -1291,38 +1291,42 @@ declare namespace gapi.client {
             
             /** Retrieves a list of the authenticated user's active creatives. A creative will be available 30-40 minutes after submission. */
             list(request: {            
-                /** Data format for the response. */
-                alt?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** When specified, only creatives for the given account ids are returned. */
                 accountId?: number;
+                /** Data format for the response. */
+                alt?: string;
                 /** When specified, only creatives for the given buyer creative ids are returned. */
                 buyerCreativeId?: string;
                 /** When specified, only creatives having the given deals status are returned. */
                 dealsStatusFilter?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** Maximum number of entries returned on one result page. If not set, the default is 100. Optional. */
                 maxResults?: number;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** When specified, only creatives having the given open auction status are returned. */
                 openAuctionStatusFilter?: string;
                 /** A continuation token, used to page through ad clients. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous response. Optional. */
                 pageToken?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<CreativesList>;            
             
             /** Lists the external deal ids associated with the creative. */
             listDeals(request: {            
+                /** The id for the account that will serve this creative. */
+                accountId: number;
                 /** Data format for the response. */
                 alt?: string;
+                /** The buyer-specific id for this creative. */
+                buyerCreativeId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -1335,16 +1339,18 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The id for the account that will serve this creative. */
-                accountId: number;
-                /** The buyer-specific id for this creative. */
-                buyerCreativeId: string;
             }): Request<CreativeDealIds>;            
             
             /** Remove a deal id associated with the creative. */
             removeDeal(request: {            
+                /** The id for the account that will serve this creative. */
+                accountId: number;
                 /** Data format for the response. */
                 alt?: string;
+                /** The buyer-specific id for this creative. */
+                buyerCreativeId: string;
+                /** The id of the deal id to disassociate with this creative. */
+                dealId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -1357,12 +1363,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The id for the account that will serve this creative. */
-                accountId: number;
-                /** The buyer-specific id for this creative. */
-                buyerCreativeId: string;
-                /** The id of the deal id to disassociate with this creative. */
-                dealId: string;
             }): Request<void>;            
             
         }
@@ -1380,12 +1380,12 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** The proposalId to delete deals from. */
+                proposalId: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The proposalId to delete deals from. */
-                proposalId: string;
             }): Request<DeleteOrderDealsResponse>;            
             
             /** Add new deals for the specified proposal */
@@ -1400,12 +1400,12 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** proposalId for which deals need to be added. */
+                proposalId: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** proposalId for which deals need to be added. */
-                proposalId: string;
             }): Request<AddOrderDealsResponse>;            
             
             /** List all the deals for a given proposal */
@@ -1418,16 +1418,16 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Query string to retrieve specific deals. */
+                pqlQuery?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** The proposalId to get deals for. To search across all proposals specify order_id = '-' as part of the URL. */
+                proposalId: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Query string to retrieve specific deals. */
-                pqlQuery?: string;
-                /** The proposalId to get deals for. To search across all proposals specify order_id = '-' as part of the URL. */
-                proposalId: string;
             }): Request<GetOrderDealsResponse>;            
             
             /** Replaces all the deals in the proposal with the passed in deals */
@@ -1442,12 +1442,12 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** The proposalId to edit deals on. */
+                proposalId: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The proposalId to edit deals on. */
-                proposalId: string;
             }): Request<EditAllOrderDealsResponse>;            
             
         }
@@ -1465,12 +1465,12 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** The proposalId to add notes for. */
+                proposalId: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The proposalId to add notes for. */
-                proposalId: string;
             }): Request<AddOrderNotesResponse>;            
             
             /** Get all the notes associated with a proposal */
@@ -1483,16 +1483,16 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Query string to retrieve specific notes. To search the text contents of notes, please use syntax like "WHERE note.note = "foo" or "WHERE note.note LIKE "%bar%" */
+                pqlQuery?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** The proposalId to get notes for. To search across all proposals specify order_id = '-' as part of the URL. */
+                proposalId: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Query string to retrieve specific notes. To search the text contents of notes, please use syntax like "WHERE note.note = "foo" or "WHERE note.note LIKE "%bar%" */
-                pqlQuery?: string;
-                /** The proposalId to get notes for. To search across all proposals specify order_id = '-' as part of the URL. */
-                proposalId: string;
             }): Request<GetOrderNotesResponse>;            
             
         }
@@ -1510,12 +1510,12 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** The private auction id to be updated. */
+                privateAuctionId: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The private auction id to be updated. */
-                privateAuctionId: string;
             }): Request<void>;            
             
         }
@@ -1523,30 +1523,30 @@ declare namespace gapi.client {
         interface PerformanceReportResource {
             /** Retrieves the authenticated user's list of performance metrics. */
             list(request: {            
+                /** The account id to get the reports. */
+                accountId: string;
                 /** Data format for the response. */
                 alt?: string;
+                /** The end time of the report in ISO 8601 timestamp format using UTC. */
+                endDateTime: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** Maximum number of entries returned on one result page. If not set, the default is 100. Optional. */
+                maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** A continuation token, used to page through performance reports. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous response. Optional. */
+                pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** The account id to get the reports. */
-                accountId: string;
-                /** The end time of the report in ISO 8601 timestamp format using UTC. */
-                endDateTime: string;
-                /** Maximum number of entries returned on one result page. If not set, the default is 100. Optional. */
-                maxResults?: number;
-                /** A continuation token, used to page through performance reports. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous response. Optional. */
-                pageToken?: string;
                 /** The start time of the report in ISO 8601 timestamp format using UTC. */
                 startDateTime: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<PerformanceReportList>;            
             
         }
@@ -1554,8 +1554,12 @@ declare namespace gapi.client {
         interface PretargetingConfigResource {
             /** Deletes an existing pretargeting config. */
             delete(request: {            
+                /** The account id to delete the pretargeting config for. */
+                accountId: string;
                 /** Data format for the response. */
                 alt?: string;
+                /** The specific id of the configuration to delete. */
+                configId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -1568,16 +1572,16 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The account id to delete the pretargeting config for. */
-                accountId: string;
-                /** The specific id of the configuration to delete. */
-                configId: string;
             }): Request<void>;            
             
             /** Gets a specific pretargeting configuration */
             get(request: {            
+                /** The account id to get the pretargeting config for. */
+                accountId: string;
                 /** Data format for the response. */
                 alt?: string;
+                /** The specific id of the configuration to retrieve. */
+                configId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -1590,14 +1594,12 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The account id to get the pretargeting config for. */
-                accountId: string;
-                /** The specific id of the configuration to retrieve. */
-                configId: string;
             }): Request<PretargetingConfig>;            
             
             /** Inserts a new pretargeting configuration. */
             insert(request: {            
+                /** The account id to insert the pretargeting config for. */
+                accountId: string;
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1612,12 +1614,12 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The account id to insert the pretargeting config for. */
-                accountId: string;
             }): Request<PretargetingConfig>;            
             
             /** Retrieves a list of the authenticated user's pretargeting configurations. */
             list(request: {            
+                /** The account id to get the pretargeting configs for. */
+                accountId: string;
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1632,14 +1634,16 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The account id to get the pretargeting configs for. */
-                accountId: string;
             }): Request<PretargetingConfigList>;            
             
             /** Updates an existing pretargeting config. This method supports patch semantics. */
             patch(request: {            
+                /** The account id to update the pretargeting config for. */
+                accountId: string;
                 /** Data format for the response. */
                 alt?: string;
+                /** The specific id of the configuration to update. */
+                configId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -1652,16 +1656,16 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The account id to update the pretargeting config for. */
-                accountId: string;
-                /** The specific id of the configuration to update. */
-                configId: string;
             }): Request<PretargetingConfig>;            
             
             /** Updates an existing pretargeting config. */
             update(request: {            
+                /** The account id to update the pretargeting config for. */
+                accountId: string;
                 /** Data format for the response. */
                 alt?: string;
+                /** The specific id of the configuration to update. */
+                configId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -1674,10 +1678,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The account id to update the pretargeting config for. */
-                accountId: string;
-                /** The specific id of the configuration to update. */
-                configId: string;
             }): Request<PretargetingConfig>;            
             
         }
@@ -1695,12 +1695,12 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** The id for the product to get the head revision for. */
+                productId: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The id for the product to get the head revision for. */
-                productId: string;
             }): Request<Product>;            
             
             /** Gets the requested product. */
@@ -1713,14 +1713,14 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** The pql query used to query for products. */
+                pqlQuery?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The pql query used to query for products. */
-                pqlQuery?: string;
             }): Request<GetOffersResponse>;            
             
         }
@@ -1738,12 +1738,12 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** Id of the proposal to retrieve. */
+                proposalId: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Id of the proposal to retrieve. */
-                proposalId: string;
             }): Request<Proposal>;            
             
             /** Create the given list of proposals */
@@ -1776,16 +1776,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** The proposal id to update. */
                 proposalId: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /** The last known revision number to update. If the head revision in the marketplace database has since changed, an error will be thrown. The caller should then fetch the latest proposal at head revision and retry the update at that revision. */
                 revisionNumber: string;
                 /** The proposed action to take on the proposal. This field is required and it must be set when updating a proposal. */
                 updateAction: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Proposal>;            
             
             /** Search for proposals using pql query */
@@ -1798,14 +1798,14 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Query string to retrieve specific proposals. */
+                pqlQuery?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Query string to retrieve specific proposals. */
-                pqlQuery?: string;
             }): Request<GetOrdersResponse>;            
             
             /** Update the given proposal to indicate that setup has been completed. */
@@ -1820,12 +1820,12 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** The proposal id for which the setup is complete */
+                proposalId: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The proposal id for which the setup is complete */
-                proposalId: string;
             }): Request<void>;            
             
             /** Update the given proposal */
@@ -1840,16 +1840,16 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** The proposal id to update. */
                 proposalId: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /** The last known revision number to update. If the head revision in the marketplace database has since changed, an error will be thrown. The caller should then fetch the latest proposal at head revision and retry the update at that revision. */
                 revisionNumber: string;
                 /** The proposed action to take on the proposal. This field is required and it must be set when updating a proposal. */
                 updateAction: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Proposal>;            
             
         }
@@ -1857,6 +1857,8 @@ declare namespace gapi.client {
         interface PubprofilesResource {
             /** Gets the requested publisher profile(s) by publisher accountId. */
             list(request: {            
+                /** The accountId of the publisher to get profiles for. */
+                accountId: number;
                 /** Data format for the response. */
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -1871,8 +1873,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The accountId of the publisher to get profiles for. */
-                accountId: number;
             }): Request<GetPublisherProfilesByAccountIdResponse>;            
             
         }

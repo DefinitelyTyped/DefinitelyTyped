@@ -1465,26 +1465,26 @@ declare namespace gapi.client {
             list(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The last-seen mutation timestamp. */
+                consistencyToken?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The preferred language to use for strings returned by this method. */
+                language?: string;
+                /** The maximum number of achievement resources to return in the response, used for paging. For any response, the actual number of achievement resources returned may be less than the specified maxResults. */
+                maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** The token returned by the previous request. */
+                pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The last-seen mutation timestamp. */
-                consistencyToken?: string;
-                /** The preferred language to use for strings returned by this method. */
-                language?: string;
-                /** The maximum number of achievement resources to return in the response, used for paging. For any response, the actual number of achievement resources returned may be less than the specified maxResults. */
-                maxResults?: number;
-                /** The token returned by the previous request. */
-                pageToken?: string;
             }): Request<AchievementDefinitionsListResponse>;            
             
         }
@@ -1492,8 +1492,12 @@ declare namespace gapi.client {
         interface AchievementsResource {
             /** Increments the steps of the achievement with the given ID for the currently authenticated player. */
             increment(request: {            
+                /** The ID of the achievement used by this method. */
+                achievementId: string;
                 /** Data format for the response. */
                 alt?: string;
+                /** The last-seen mutation timestamp. */
+                consistencyToken?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -1504,52 +1508,52 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** The ID of the achievement used by this method. */
-                achievementId: string;
-                /** The last-seen mutation timestamp. */
-                consistencyToken?: string;
                 /** A randomly generated numeric ID for each request specified by the caller. This number is used at the server to ensure that the request is handled correctly across retries. */
                 requestId?: string;
                 /** The number of steps to increment. */
                 stepsToIncrement: number;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<AchievementIncrementResponse>;            
             
             /** Lists the progress for all your application's achievements for the currently authenticated player. */
             list(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The last-seen mutation timestamp. */
+                consistencyToken?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** The last-seen mutation timestamp. */
-                consistencyToken?: string;
                 /** The preferred language to use for strings returned by this method. */
                 language?: string;
                 /** The maximum number of achievement resources to return in the response, used for paging. For any response, the actual number of achievement resources returned may be less than the specified maxResults. */
                 maxResults?: number;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** The token returned by the previous request. */
                 pageToken?: string;
                 /** A player ID. A value of me may be used in place of the authenticated player's ID. */
                 playerId: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /** Tells the server to return only achievements with the specified state. If this parameter isn't specified, all achievements are returned. */
                 state?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<PlayerAchievementListResponse>;            
             
             /** Sets the state of the achievement with the given ID to REVEALED for the currently authenticated player. */
             reveal(request: {            
+                /** The ID of the achievement used by this method. */
+                achievementId: string;
                 /** Data format for the response. */
                 alt?: string;
+                /** The last-seen mutation timestamp. */
+                consistencyToken?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -1562,16 +1566,16 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the achievement used by this method. */
-                achievementId: string;
-                /** The last-seen mutation timestamp. */
-                consistencyToken?: string;
             }): Request<AchievementRevealResponse>;            
             
             /** Sets the steps for the currently authenticated player towards unlocking an achievement. If the steps parameter is less than the current number of steps that the player already gained for the achievement, the achievement is not modified. */
             setStepsAtLeast(request: {            
+                /** The ID of the achievement used by this method. */
+                achievementId: string;
                 /** Data format for the response. */
                 alt?: string;
+                /** The last-seen mutation timestamp. */
+                consistencyToken?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -1582,20 +1586,20 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** The ID of the achievement used by this method. */
-                achievementId: string;
-                /** The last-seen mutation timestamp. */
-                consistencyToken?: string;
                 /** The minimum value to set the steps to. */
                 steps: number;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<AchievementSetStepsAtLeastResponse>;            
             
             /** Unlocks this achievement for the currently authenticated player. */
             unlock(request: {            
+                /** The ID of the achievement used by this method. */
+                achievementId: string;
                 /** Data format for the response. */
                 alt?: string;
+                /** The last-seen mutation timestamp. */
+                consistencyToken?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -1608,16 +1612,14 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The ID of the achievement used by this method. */
-                achievementId: string;
-                /** The last-seen mutation timestamp. */
-                consistencyToken?: string;
             }): Request<AchievementUnlockResponse>;            
             
             /** Updates multiple achievements for the currently authenticated player. */
             updateMultiple(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The last-seen mutation timestamp. */
+                consistencyToken?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -1630,8 +1632,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The last-seen mutation timestamp. */
-                consistencyToken?: string;
             }): Request<AchievementUpdateMultipleResponse>;            
             
         }
@@ -1641,32 +1641,34 @@ declare namespace gapi.client {
             get(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The application ID from the Google Play developer console. */
+                applicationId: string;
+                /** The last-seen mutation timestamp. */
+                consistencyToken?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The preferred language to use for strings returned by this method. */
+                language?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Restrict application details returned to the specific platform. */
+                platformType?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The application ID from the Google Play developer console. */
-                applicationId: string;
-                /** The last-seen mutation timestamp. */
-                consistencyToken?: string;
-                /** The preferred language to use for strings returned by this method. */
-                language?: string;
-                /** Restrict application details returned to the specific platform. */
-                platformType?: string;
             }): Request<Application>;            
             
             /** Indicate that the the currently authenticated user is playing your application. */
             played(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The last-seen mutation timestamp. */
+                consistencyToken?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -1679,14 +1681,16 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The last-seen mutation timestamp. */
-                consistencyToken?: string;
             }): Request<void>;            
             
             /** Verifies the auth token provided with this request is for the application with the specified ID, and returns the ID of the player it was granted for. */
             verify(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The application ID from the Google Play developer console. */
+                applicationId: string;
+                /** The last-seen mutation timestamp. */
+                consistencyToken?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -1699,10 +1703,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The application ID from the Google Play developer console. */
-                applicationId: string;
-                /** The last-seen mutation timestamp. */
-                consistencyToken?: string;
             }): Request<ApplicationVerifyResponse>;            
             
         }
@@ -1712,62 +1712,66 @@ declare namespace gapi.client {
             listByPlayer(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The last-seen mutation timestamp. */
+                consistencyToken?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The preferred language to use for strings returned by this method. */
+                language?: string;
+                /** The maximum number of events to return in the response, used for paging. For any response, the actual number of events to return may be less than the specified maxResults. */
+                maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** The token returned by the previous request. */
+                pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The last-seen mutation timestamp. */
-                consistencyToken?: string;
-                /** The preferred language to use for strings returned by this method. */
-                language?: string;
-                /** The maximum number of events to return in the response, used for paging. For any response, the actual number of events to return may be less than the specified maxResults. */
-                maxResults?: number;
-                /** The token returned by the previous request. */
-                pageToken?: string;
             }): Request<PlayerEventListResponse>;            
             
             /** Returns a list of the event definitions in this application. */
             listDefinitions(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The last-seen mutation timestamp. */
+                consistencyToken?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The preferred language to use for strings returned by this method. */
+                language?: string;
+                /** The maximum number of event definitions to return in the response, used for paging. For any response, the actual number of event definitions to return may be less than the specified maxResults. */
+                maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** The token returned by the previous request. */
+                pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The last-seen mutation timestamp. */
-                consistencyToken?: string;
-                /** The preferred language to use for strings returned by this method. */
-                language?: string;
-                /** The maximum number of event definitions to return in the response, used for paging. For any response, the actual number of event definitions to return may be less than the specified maxResults. */
-                maxResults?: number;
-                /** The token returned by the previous request. */
-                pageToken?: string;
             }): Request<EventDefinitionListResponse>;            
             
             /** Records a batch of changes to the number of times events have occurred for the currently authenticated user of this application. */
             record(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The last-seen mutation timestamp. */
+                consistencyToken?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The preferred language to use for strings returned by this method. */
+                language?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
@@ -1776,10 +1780,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The last-seen mutation timestamp. */
-                consistencyToken?: string;
-                /** The preferred language to use for strings returned by this method. */
-                language?: string;
             }): Request<EventUpdateResponse>;            
             
         }
@@ -1789,10 +1789,16 @@ declare namespace gapi.client {
             get(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The last-seen mutation timestamp. */
+                consistencyToken?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The preferred language to use for strings returned by this method. */
+                language?: string;
+                /** The ID of the leaderboard. */
+                leaderboardId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
@@ -1801,38 +1807,32 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The last-seen mutation timestamp. */
-                consistencyToken?: string;
-                /** The preferred language to use for strings returned by this method. */
-                language?: string;
-                /** The ID of the leaderboard. */
-                leaderboardId: string;
             }): Request<Leaderboard>;            
             
             /** Lists all the leaderboard metadata for your application. */
             list(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The last-seen mutation timestamp. */
+                consistencyToken?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The preferred language to use for strings returned by this method. */
+                language?: string;
+                /** The maximum number of leaderboards to return in the response. For any response, the actual number of leaderboards returned may be less than the specified maxResults. */
+                maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** The token returned by the previous request. */
+                pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The last-seen mutation timestamp. */
-                consistencyToken?: string;
-                /** The preferred language to use for strings returned by this method. */
-                language?: string;
-                /** The maximum number of leaderboards to return in the response. For any response, the actual number of leaderboards returned may be less than the specified maxResults. */
-                maxResults?: number;
-                /** The token returned by the previous request. */
-                pageToken?: string;
             }): Request<LeaderboardListResponse>;            
             
         }
@@ -1842,6 +1842,8 @@ declare namespace gapi.client {
             getMetagameConfig(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The last-seen mutation timestamp. */
+                consistencyToken?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -1854,38 +1856,36 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The last-seen mutation timestamp. */
-                consistencyToken?: string;
             }): Request<MetagameConfig>;            
             
             /** List play data aggregated per category for the player corresponding to playerId. */
             listCategoriesByPlayer(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The collection of categories for which data will be returned. */
+                collection: string;
+                /** The last-seen mutation timestamp. */
+                consistencyToken?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The preferred language to use for strings returned by this method. */
+                language?: string;
+                /** The maximum number of category resources to return in the response, used for paging. For any response, the actual number of category resources returned may be less than the specified maxResults. */
+                maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** The token returned by the previous request. */
+                pageToken?: string;
+                /** A player ID. A value of me may be used in place of the authenticated player's ID. */
+                playerId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The collection of categories for which data will be returned. */
-                collection: string;
-                /** The last-seen mutation timestamp. */
-                consistencyToken?: string;
-                /** The preferred language to use for strings returned by this method. */
-                language?: string;
-                /** The maximum number of category resources to return in the response, used for paging. For any response, the actual number of category resources returned may be less than the specified maxResults. */
-                maxResults?: number;
-                /** The token returned by the previous request. */
-                pageToken?: string;
-                /** A player ID. A value of me may be used in place of the authenticated player's ID. */
-                playerId: string;
             }): Request<CategoryListResponse>;            
             
         }
@@ -1895,52 +1895,52 @@ declare namespace gapi.client {
             get(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The last-seen mutation timestamp. */
+                consistencyToken?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The preferred language to use for strings returned by this method. */
+                language?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** A player ID. A value of me may be used in place of the authenticated player's ID. */
+                playerId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The last-seen mutation timestamp. */
-                consistencyToken?: string;
-                /** The preferred language to use for strings returned by this method. */
-                language?: string;
-                /** A player ID. A value of me may be used in place of the authenticated player's ID. */
-                playerId: string;
             }): Request<Player>;            
             
             /** Get the collection of players for the currently authenticated user. */
             list(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Collection of players being retrieved */
+                collection: string;
+                /** The last-seen mutation timestamp. */
+                consistencyToken?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The preferred language to use for strings returned by this method. */
+                language?: string;
+                /** The maximum number of player resources to return in the response, used for paging. For any response, the actual number of player resources returned may be less than the specified maxResults. */
+                maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** The token returned by the previous request. */
+                pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Collection of players being retrieved */
-                collection: string;
-                /** The last-seen mutation timestamp. */
-                consistencyToken?: string;
-                /** The preferred language to use for strings returned by this method. */
-                language?: string;
-                /** The maximum number of player resources to return in the response, used for paging. For any response, the actual number of player resources returned may be less than the specified maxResults. */
-                maxResults?: number;
-                /** The token returned by the previous request. */
-                pageToken?: string;
             }): Request<PlayerListResponse>;            
             
         }
@@ -1950,6 +1950,8 @@ declare namespace gapi.client {
             remove(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The last-seen mutation timestamp. */
+                consistencyToken?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -1962,14 +1964,14 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The last-seen mutation timestamp. */
-                consistencyToken?: string;
             }): Request<void>;            
             
             /** Registers a push token for the current user and application. */
             update(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The last-seen mutation timestamp. */
+                consistencyToken?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -1982,8 +1984,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The last-seen mutation timestamp. */
-                consistencyToken?: string;
             }): Request<void>;            
             
         }
@@ -1993,26 +1993,26 @@ declare namespace gapi.client {
             claim(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The last-seen mutation timestamp. */
+                consistencyToken?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The ID of the milestone. */
+                milestoneId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** The last-seen mutation timestamp. */
-                consistencyToken?: string;
-                /** The ID of the milestone. */
-                milestoneId: string;
                 /** The ID of the quest. */
                 questId: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /** A numeric ID to ensure that the request is handled correctly across retries. Your client application must generate this ID randomly. */
                 requestId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<void>;            
             
         }
@@ -2022,52 +2022,52 @@ declare namespace gapi.client {
             accept(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The last-seen mutation timestamp. */
+                consistencyToken?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The preferred language to use for strings returned by this method. */
+                language?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** The ID of the quest. */
+                questId: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The last-seen mutation timestamp. */
-                consistencyToken?: string;
-                /** The preferred language to use for strings returned by this method. */
-                language?: string;
-                /** The ID of the quest. */
-                questId: string;
             }): Request<Quest>;            
             
             /** Get a list of quests for your application and the currently authenticated player. */
             list(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The last-seen mutation timestamp. */
+                consistencyToken?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The preferred language to use for strings returned by this method. */
+                language?: string;
+                /** The maximum number of quest resources to return in the response, used for paging. For any response, the actual number of quest resources returned may be less than the specified maxResults. Acceptable values are 1 to 50, inclusive. (Default: 50). */
+                maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** The token returned by the previous request. */
+                pageToken?: string;
+                /** A player ID. A value of me may be used in place of the authenticated player's ID. */
+                playerId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The last-seen mutation timestamp. */
-                consistencyToken?: string;
-                /** The preferred language to use for strings returned by this method. */
-                language?: string;
-                /** The maximum number of quest resources to return in the response, used for paging. For any response, the actual number of quest resources returned may be less than the specified maxResults. Acceptable values are 1 to 50, inclusive. (Default: 50). */
-                maxResults?: number;
-                /** The token returned by the previous request. */
-                pageToken?: string;
-                /** A player ID. A value of me may be used in place of the authenticated player's ID. */
-                playerId: string;
             }): Request<QuestListResponse>;            
             
         }
@@ -2077,18 +2077,6 @@ declare namespace gapi.client {
             check(request: {            
                 /** Data format for the response. */
                 alt?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** The revision of the client SDK used by your application. Format: */
                 /** [PLATFORM_TYPE]:[VERSION_NUMBER]. Possible values of PLATFORM_TYPE are: */
                 /**   */
@@ -2098,6 +2086,18 @@ declare namespace gapi.client {
                 clientRevision: string;
                 /** The last-seen mutation timestamp. */
                 consistencyToken?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<RevisionCheckResponse>;            
             
         }
@@ -2107,10 +2107,14 @@ declare namespace gapi.client {
             create(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The last-seen mutation timestamp. */
+                consistencyToken?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The preferred language to use for strings returned by this method. */
+                language?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
@@ -2119,40 +2123,38 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The last-seen mutation timestamp. */
-                consistencyToken?: string;
-                /** The preferred language to use for strings returned by this method. */
-                language?: string;
             }): Request<Room>;            
             
             /** Decline an invitation to join a room. For internal use by the Games SDK only. Calling this method directly is unsupported. */
             decline(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The last-seen mutation timestamp. */
+                consistencyToken?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The preferred language to use for strings returned by this method. */
+                language?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** The last-seen mutation timestamp. */
-                consistencyToken?: string;
-                /** The preferred language to use for strings returned by this method. */
-                language?: string;
                 /** The ID of the room. */
                 roomId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Room>;            
             
             /** Dismiss an invitation to join a room. For internal use by the Games SDK only. Calling this method directly is unsupported. */
             dismiss(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The last-seen mutation timestamp. */
+                consistencyToken?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -2163,134 +2165,132 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** The last-seen mutation timestamp. */
-                consistencyToken?: string;
                 /** The ID of the room. */
                 roomId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<void>;            
             
             /** Get the data for a room. */
             get(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The last-seen mutation timestamp. */
+                consistencyToken?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The preferred language to use for strings returned by this method. */
+                language?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** The last-seen mutation timestamp. */
-                consistencyToken?: string;
-                /** The preferred language to use for strings returned by this method. */
-                language?: string;
                 /** The ID of the room. */
                 roomId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Room>;            
             
             /** Join a room. For internal use by the Games SDK only. Calling this method directly is unsupported. */
             join(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The last-seen mutation timestamp. */
+                consistencyToken?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The preferred language to use for strings returned by this method. */
+                language?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** The last-seen mutation timestamp. */
-                consistencyToken?: string;
-                /** The preferred language to use for strings returned by this method. */
-                language?: string;
                 /** The ID of the room. */
                 roomId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Room>;            
             
             /** Leave a room. For internal use by the Games SDK only. Calling this method directly is unsupported. */
             leave(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The last-seen mutation timestamp. */
+                consistencyToken?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The preferred language to use for strings returned by this method. */
+                language?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** The last-seen mutation timestamp. */
-                consistencyToken?: string;
-                /** The preferred language to use for strings returned by this method. */
-                language?: string;
                 /** The ID of the room. */
                 roomId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Room>;            
             
             /** Returns invitations to join rooms. */
             list(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The last-seen mutation timestamp. */
+                consistencyToken?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The preferred language to use for strings returned by this method. */
+                language?: string;
+                /** The maximum number of rooms to return in the response, used for paging. For any response, the actual number of rooms to return may be less than the specified maxResults. */
+                maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** The token returned by the previous request. */
+                pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The last-seen mutation timestamp. */
-                consistencyToken?: string;
-                /** The preferred language to use for strings returned by this method. */
-                language?: string;
-                /** The maximum number of rooms to return in the response, used for paging. For any response, the actual number of rooms to return may be less than the specified maxResults. */
-                maxResults?: number;
-                /** The token returned by the previous request. */
-                pageToken?: string;
             }): Request<RoomList>;            
             
             /** Updates sent by a client reporting the status of peers in a room. For internal use by the Games SDK only. Calling this method directly is unsupported. */
             reportStatus(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The last-seen mutation timestamp. */
+                consistencyToken?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The preferred language to use for strings returned by this method. */
+                language?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** The last-seen mutation timestamp. */
-                consistencyToken?: string;
-                /** The preferred language to use for strings returned by this method. */
-                language?: string;
                 /** The ID of the room. */
                 roomId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<RoomStatus>;            
             
         }
@@ -2301,140 +2301,144 @@ declare namespace gapi.client {
             get(request: {            
                 /** Data format for the response. */
                 alt?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** The last-seen mutation timestamp. */
                 consistencyToken?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
                 /** The types of ranks to return. If the parameter is omitted, no ranks will be returned. */
                 includeRankType?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** The preferred language to use for strings returned by this method. */
                 language?: string;
                 /** The ID of the leaderboard. Can be set to 'ALL' to retrieve data for all leaderboards for this application. */
                 leaderboardId: string;
                 /** The maximum number of leaderboard scores to return in the response. For any response, the actual number of leaderboard scores returned may be less than the specified maxResults. */
                 maxResults?: number;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** The token returned by the previous request. */
                 pageToken?: string;
                 /** A player ID. A value of me may be used in place of the authenticated player's ID. */
                 playerId: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /** The time span for the scores and ranks you're requesting. */
                 timeSpan: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<PlayerLeaderboardScoreListResponse>;            
             
             /** Lists the scores in a leaderboard, starting from the top. */
             list(request: {            
                 /** Data format for the response. */
                 alt?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** The collection of scores you're requesting. */
                 collection: string;
                 /** The last-seen mutation timestamp. */
                 consistencyToken?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** The preferred language to use for strings returned by this method. */
                 language?: string;
                 /** The ID of the leaderboard. */
                 leaderboardId: string;
                 /** The maximum number of leaderboard scores to return in the response. For any response, the actual number of leaderboard scores returned may be less than the specified maxResults. */
                 maxResults?: number;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** The token returned by the previous request. */
                 pageToken?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /** The time span for the scores and ranks you're requesting. */
                 timeSpan: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<LeaderboardScores>;            
             
             /** Lists the scores in a leaderboard around (and including) a player's score. */
             listWindow(request: {            
                 /** Data format for the response. */
                 alt?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** The collection of scores you're requesting. */
                 collection: string;
                 /** The last-seen mutation timestamp. */
                 consistencyToken?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** The preferred language to use for strings returned by this method. */
                 language?: string;
                 /** The ID of the leaderboard. */
                 leaderboardId: string;
                 /** The maximum number of leaderboard scores to return in the response. For any response, the actual number of leaderboard scores returned may be less than the specified maxResults. */
                 maxResults?: number;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** The token returned by the previous request. */
                 pageToken?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /** The preferred number of scores to return above the player's score. More scores may be returned if the player is at the bottom of the leaderboard; fewer may be returned if the player is at the top. Must be less than or equal to maxResults. */
                 resultsAbove?: number;
                 /** True if the top scores should be returned when the player is not in the leaderboard. Defaults to true. */
                 returnTopIfAbsent?: boolean;
                 /** The time span for the scores and ranks you're requesting. */
                 timeSpan: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<LeaderboardScores>;            
             
             /** Submits a score to the specified leaderboard. */
             submit(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The last-seen mutation timestamp. */
+                consistencyToken?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The preferred language to use for strings returned by this method. */
+                language?: string;
+                /** The ID of the leaderboard. */
+                leaderboardId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** The last-seen mutation timestamp. */
-                consistencyToken?: string;
-                /** The preferred language to use for strings returned by this method. */
-                language?: string;
-                /** The ID of the leaderboard. */
-                leaderboardId: string;
                 /** The score you're submitting. The submitted score is ignored if it is worse than a previously submitted score, where worse depends on the leaderboard sort order. The meaning of the score value depends on the leaderboard format type. For fixed-point, the score represents the raw value. For time, the score represents elapsed time in milliseconds. For currency, the score represents a value in micro units. */
                 score: string;
                 /** Additional information about the score you're submitting. Values must contain no more than 64 URI-safe characters as defined by section 2.3 of RFC 3986. */
                 scoreTag?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<PlayerScoreResponse>;            
             
             /** Submits multiple scores to leaderboards. */
             submitMultiple(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The last-seen mutation timestamp. */
+                consistencyToken?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The preferred language to use for strings returned by this method. */
+                language?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
@@ -2443,10 +2447,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The last-seen mutation timestamp. */
-                consistencyToken?: string;
-                /** The preferred language to use for strings returned by this method. */
-                language?: string;
             }): Request<PlayerScoreListResponse>;            
             
         }
@@ -2456,52 +2456,52 @@ declare namespace gapi.client {
             get(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The last-seen mutation timestamp. */
+                consistencyToken?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The preferred language to use for strings returned by this method. */
+                language?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** The last-seen mutation timestamp. */
-                consistencyToken?: string;
-                /** The preferred language to use for strings returned by this method. */
-                language?: string;
                 /** The ID of the snapshot. */
                 snapshotId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Snapshot>;            
             
             /** Retrieves a list of snapshots created by your application for the player corresponding to the player ID. */
             list(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The last-seen mutation timestamp. */
+                consistencyToken?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The preferred language to use for strings returned by this method. */
+                language?: string;
+                /** The maximum number of snapshot resources to return in the response, used for paging. For any response, the actual number of snapshot resources returned may be less than the specified maxResults. */
+                maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** The token returned by the previous request. */
+                pageToken?: string;
+                /** A player ID. A value of me may be used in place of the authenticated player's ID. */
+                playerId: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The last-seen mutation timestamp. */
-                consistencyToken?: string;
-                /** The preferred language to use for strings returned by this method. */
-                language?: string;
-                /** The maximum number of snapshot resources to return in the response, used for paging. For any response, the actual number of snapshot resources returned may be less than the specified maxResults. */
-                maxResults?: number;
-                /** The token returned by the previous request. */
-                pageToken?: string;
-                /** A player ID. A value of me may be used in place of the authenticated player's ID. */
-                playerId: string;
             }): Request<SnapshotListResponse>;            
             
         }
@@ -2511,10 +2511,14 @@ declare namespace gapi.client {
             cancel(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The last-seen mutation timestamp. */
+                consistencyToken?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The ID of the match. */
+                matchId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
@@ -2523,20 +2527,20 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The last-seen mutation timestamp. */
-                consistencyToken?: string;
-                /** The ID of the match. */
-                matchId: string;
             }): Request<void>;            
             
             /** Create a turn-based match. */
             create(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The last-seen mutation timestamp. */
+                consistencyToken?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The preferred language to use for strings returned by this method. */
+                language?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
@@ -2545,20 +2549,22 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The last-seen mutation timestamp. */
-                consistencyToken?: string;
-                /** The preferred language to use for strings returned by this method. */
-                language?: string;
             }): Request<TurnBasedMatch>;            
             
             /** Decline an invitation to play a turn-based match. */
             decline(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The last-seen mutation timestamp. */
+                consistencyToken?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The preferred language to use for strings returned by this method. */
+                language?: string;
+                /** The ID of the match. */
+                matchId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
@@ -2567,22 +2573,20 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The last-seen mutation timestamp. */
-                consistencyToken?: string;
-                /** The preferred language to use for strings returned by this method. */
-                language?: string;
-                /** The ID of the match. */
-                matchId: string;
             }): Request<TurnBasedMatch>;            
             
             /** Dismiss a turn-based match from the match list. The match will no longer show up in the list and will not generate notifications. */
             dismiss(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The last-seen mutation timestamp. */
+                consistencyToken?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The ID of the match. */
+                matchId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
@@ -2591,20 +2595,22 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The last-seen mutation timestamp. */
-                consistencyToken?: string;
-                /** The ID of the match. */
-                matchId: string;
             }): Request<void>;            
             
             /** Finish a turn-based match. Each player should make this call once, after all results are in. Only the player whose turn it is may make the first call to Finish, and can pass in the final match state. */
             finish(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The last-seen mutation timestamp. */
+                consistencyToken?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The preferred language to use for strings returned by this method. */
+                language?: string;
+                /** The ID of the match. */
+                matchId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
@@ -2613,22 +2619,24 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The last-seen mutation timestamp. */
-                consistencyToken?: string;
-                /** The preferred language to use for strings returned by this method. */
-                language?: string;
-                /** The ID of the match. */
-                matchId: string;
             }): Request<TurnBasedMatch>;            
             
             /** Get the data for a turn-based match. */
             get(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The last-seen mutation timestamp. */
+                consistencyToken?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Get match data along with metadata. */
+                includeMatchData?: boolean;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The preferred language to use for strings returned by this method. */
+                language?: string;
+                /** The ID of the match. */
+                matchId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
@@ -2637,24 +2645,22 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The last-seen mutation timestamp. */
-                consistencyToken?: string;
-                /** Get match data along with metadata. */
-                includeMatchData?: boolean;
-                /** The preferred language to use for strings returned by this method. */
-                language?: string;
-                /** The ID of the match. */
-                matchId: string;
             }): Request<TurnBasedMatch>;            
             
             /** Join a turn-based match. */
             join(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The last-seen mutation timestamp. */
+                consistencyToken?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The preferred language to use for strings returned by this method. */
+                language?: string;
+                /** The ID of the match. */
+                matchId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
@@ -2663,22 +2669,22 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The last-seen mutation timestamp. */
-                consistencyToken?: string;
-                /** The preferred language to use for strings returned by this method. */
-                language?: string;
-                /** The ID of the match. */
-                matchId: string;
             }): Request<TurnBasedMatch>;            
             
             /** Leave a turn-based match when it is not the current player's turn, without canceling the match. */
             leave(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The last-seen mutation timestamp. */
+                consistencyToken?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The preferred language to use for strings returned by this method. */
+                language?: string;
+                /** The ID of the match. */
+                matchId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
@@ -2687,136 +2693,136 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The last-seen mutation timestamp. */
-                consistencyToken?: string;
-                /** The preferred language to use for strings returned by this method. */
-                language?: string;
-                /** The ID of the match. */
-                matchId: string;
             }): Request<TurnBasedMatch>;            
             
             /** Leave a turn-based match during the current player's turn, without canceling the match. */
             leaveTurn(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The last-seen mutation timestamp. */
+                consistencyToken?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** The last-seen mutation timestamp. */
-                consistencyToken?: string;
                 /** The preferred language to use for strings returned by this method. */
                 language?: string;
                 /** The ID of the match. */
                 matchId: string;
                 /** The version of the match being updated. */
                 matchVersion: number;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** The ID of another participant who should take their turn next. If not set, the match will wait for other player(s) to join via automatching; this is only valid if automatch criteria is set on the match with remaining slots for automatched players. */
                 pendingParticipantId?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<TurnBasedMatch>;            
             
             /** Returns turn-based matches the player is or was involved in. */
             list(request: {            
                 /** Data format for the response. */
                 alt?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** The last-seen mutation timestamp. */
                 consistencyToken?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
                 /** True if match data should be returned in the response. Note that not all data will necessarily be returned if include_match_data is true; the server may decide to only return data for some of the matches to limit download size for the client. The remainder of the data for these matches will be retrievable on request. */
                 includeMatchData?: boolean;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** The preferred language to use for strings returned by this method. */
                 language?: string;
                 /** The maximum number of completed or canceled matches to return in the response. If not set, all matches returned could be completed or canceled. */
                 maxCompletedMatches?: number;
                 /** The maximum number of matches to return in the response, used for paging. For any response, the actual number of matches to return may be less than the specified maxResults. */
                 maxResults?: number;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** The token returned by the previous request. */
                 pageToken?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<TurnBasedMatchList>;            
             
             /** Create a rematch of a match that was previously completed, with the same participants. This can be called by only one player on a match still in their list; the player must have called Finish first. Returns the newly created match; it will be the caller's turn. */
             rematch(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The last-seen mutation timestamp. */
+                consistencyToken?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The preferred language to use for strings returned by this method. */
+                language?: string;
+                /** The ID of the match. */
+                matchId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** The last-seen mutation timestamp. */
-                consistencyToken?: string;
-                /** The preferred language to use for strings returned by this method. */
-                language?: string;
-                /** The ID of the match. */
-                matchId: string;
                 /** A randomly generated numeric ID for each request specified by the caller. This number is used at the server to ensure that the request is handled correctly across retries. */
                 requestId?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<TurnBasedMatchRematch>;            
             
             /** Returns turn-based matches the player is or was involved in that changed since the last sync call, with the least recent changes coming first. Matches that should be removed from the local cache will have a status of MATCH_DELETED. */
             sync(request: {            
                 /** Data format for the response. */
                 alt?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** The last-seen mutation timestamp. */
                 consistencyToken?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
                 /** True if match data should be returned in the response. Note that not all data will necessarily be returned if include_match_data is true; the server may decide to only return data for some of the matches to limit download size for the client. The remainder of the data for these matches will be retrievable on request. */
                 includeMatchData?: boolean;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** The preferred language to use for strings returned by this method. */
                 language?: string;
                 /** The maximum number of completed or canceled matches to return in the response. If not set, all matches returned could be completed or canceled. */
                 maxCompletedMatches?: number;
                 /** The maximum number of matches to return in the response, used for paging. For any response, the actual number of matches to return may be less than the specified maxResults. */
                 maxResults?: number;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** The token returned by the previous request. */
                 pageToken?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<TurnBasedMatchSync>;            
             
             /** Commit the results of a player turn. */
             takeTurn(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The last-seen mutation timestamp. */
+                consistencyToken?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The preferred language to use for strings returned by this method. */
+                language?: string;
+                /** The ID of the match. */
+                matchId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
@@ -2825,12 +2831,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The last-seen mutation timestamp. */
-                consistencyToken?: string;
-                /** The preferred language to use for strings returned by this method. */
-                language?: string;
-                /** The ID of the match. */
-                matchId: string;
             }): Request<TurnBasedMatch>;            
             
         }

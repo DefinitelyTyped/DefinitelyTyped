@@ -1123,16 +1123,14 @@ declare namespace gapi.client {
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** Maximum number of results to return */
+                maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** Maximum number of results to return */
-                maxResults?: number;
                 /** ID of bookshelf to retrieve volumes. */
                 shelf: string;
                 /** Set to true to show pre-ordered books. Defaults to false. */
@@ -1143,6 +1141,8 @@ declare namespace gapi.client {
                 startIndex?: number;
                 /** ID of user for whom to retrieve bookshelf volumes. */
                 userId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Volumes>;            
             
         }
@@ -1162,14 +1162,14 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** ID of bookshelf to retrieve. */
                 shelf: string;
                 /** String to identify the originator of this request. */
                 source?: string;
                 /** ID of user for whom to retrieve bookshelves. */
                 userId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Bookshelf>;            
             
             /** Retrieves a list of public bookshelves for the specified user. */
@@ -1186,12 +1186,12 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** String to identify the originator of this request. */
                 source?: string;
                 /** ID of user for whom to retrieve bookshelves. */
                 userId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Bookshelves>;            
             
             volumes: VolumesResource;
@@ -1202,26 +1202,26 @@ declare namespace gapi.client {
             addBook(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** A drive document id. The upload_client_token must not be set. */
+                drive_document_id?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The document MIME type. It can be set only if the drive_document_id is set. */
+                mime_type?: string;
+                /** The document name. It can be set only if the drive_document_id is set. */
+                name?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** A drive document id. The upload_client_token must not be set. */
-                drive_document_id?: string;
-                /** The document MIME type. It can be set only if the drive_document_id is set. */
-                mime_type?: string;
-                /** The document name. It can be set only if the drive_document_id is set. */
-                name?: string;
                 /**  */
                 upload_client_token?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<BooksCloudloadingResource>;            
             
             /** Remove the book and its contents */
@@ -1269,6 +1269,8 @@ declare namespace gapi.client {
             listOfflineMetadata(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The device/version ID from which to request the data. */
+                cpksver: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -1281,8 +1283,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The device/version ID from which to request the data. */
-                cpksver: string;
             }): Request<Metadata>;            
             
         }
@@ -1290,36 +1290,36 @@ declare namespace gapi.client {
         interface AnnotationDataResource {
             /** Gets the annotation data. */
             get(request: {            
+                /** For the dictionary layer. Whether or not to allow web definitions. */
+                allowWebDefinitions?: boolean;
                 /** Data format for the response. */
                 alt?: string;
+                /** The ID of the annotation data to retrieve. */
+                annotationDataId: string;
+                /** The content version for the volume you are trying to retrieve. */
+                contentVersion: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** The requested pixel height for any images. If height is provided width must also be provided. */
+                h?: number;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The ID for the layer to get the annotations. */
+                layerId: string;
+                /** The locale information for the data. ISO-639-1 language and ISO-3166-1 country code. Ex: 'en_US'. */
+                locale?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** For the dictionary layer. Whether or not to allow web definitions. */
-                allowWebDefinitions?: boolean;
-                /** The ID of the annotation data to retrieve. */
-                annotationDataId: string;
-                /** The content version for the volume you are trying to retrieve. */
-                contentVersion: string;
-                /** The requested pixel height for any images. If height is provided width must also be provided. */
-                h?: number;
-                /** The ID for the layer to get the annotations. */
-                layerId: string;
-                /** The locale information for the data. ISO-639-1 language and ISO-3166-1 country code. Ex: 'en_US'. */
-                locale?: string;
                 /** The requested scale for the image. */
                 scale?: number;
                 /** String to identify the originator of this request. */
                 source?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
                 /** The volume to retrieve annotations for. */
                 volumeId: string;
                 /** The requested pixel width for any images. If width is provided height must also be provided. */
@@ -1330,32 +1330,30 @@ declare namespace gapi.client {
             list(request: {            
                 /** Data format for the response. */
                 alt?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** The list of Annotation Data Ids to retrieve. Pagination is ignored if this is set. */
                 annotationDataId?: string;
                 /** The content version for the requested volume. */
                 contentVersion: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
                 /** The requested pixel height for any images. If height is provided width must also be provided. */
                 h?: number;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** The ID for the layer to get the annotation data. */
                 layerId: string;
                 /** The locale information for the data. ISO-639-1 language and ISO-3166-1 country code. Ex: 'en_US'. */
                 locale?: string;
                 /** Maximum number of results to return */
                 maxResults?: number;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** The value of the nextToken from the previous page. */
                 pageToken?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /** The requested scale for the image. */
                 scale?: number;
                 /** String to identify the originator of this request. */
@@ -1364,6 +1362,8 @@ declare namespace gapi.client {
                 updatedMax?: string;
                 /** RFC 3339 timestamp to restrict to items updated since this timestamp (inclusive). */
                 updatedMin?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
                 /** The volume to retrieve annotation data for. */
                 volumeId: string;
                 /** The requested pixel width for any images. If width is provided height must also be provided. */
@@ -1377,26 +1377,26 @@ declare namespace gapi.client {
             get(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The ID of the volume annotation to retrieve. */
+                annotationId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The ID for the layer to get the annotations. */
+                layerId: string;
+                /** The locale information for the data. ISO-639-1 language and ISO-3166-1 country code. Ex: 'en_US'. */
+                locale?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** The ID of the volume annotation to retrieve. */
-                annotationId: string;
-                /** The ID for the layer to get the annotations. */
-                layerId: string;
-                /** The locale information for the data. ISO-639-1 language and ISO-3166-1 country code. Ex: 'en_US'. */
-                locale?: string;
                 /** String to identify the originator of this request. */
                 source?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
                 /** The volume to retrieve annotations for. */
                 volumeId: string;
             }): Request<Volumeannotation>;            
@@ -1405,32 +1405,30 @@ declare namespace gapi.client {
             list(request: {            
                 /** Data format for the response. */
                 alt?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** The content version for the requested volume. */
                 contentVersion: string;
                 /** The end offset to end retrieving data from. */
                 endOffset?: string;
                 /** The end position to end retrieving data from. */
                 endPosition?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** The ID for the layer to get the annotations. */
                 layerId: string;
                 /** The locale information for the data. ISO-639-1 language and ISO-3166-1 country code. Ex: 'en_US'. */
                 locale?: string;
                 /** Maximum number of results to return */
                 maxResults?: number;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** The value of the nextToken from the previous page. */
                 pageToken?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /** Set to true to return deleted annotations. updatedMin must be in the request to use this. Defaults to false. */
                 showDeleted?: boolean;
                 /** String to identify the originator of this request. */
@@ -1443,6 +1441,8 @@ declare namespace gapi.client {
                 updatedMax?: string;
                 /** RFC 3339 timestamp to restrict to items updated since this timestamp (inclusive). */
                 updatedMin?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
                 /** The version of the volume annotations that you are requesting. */
                 volumeAnnotationsVersion?: string;
                 /** The volume to retrieve annotations for. */
@@ -1456,6 +1456,8 @@ declare namespace gapi.client {
             get(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The content version for the requested volume. */
+                contentVersion?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -1466,14 +1468,12 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** The content version for the requested volume. */
-                contentVersion?: string;
                 /** String to identify the originator of this request. */
                 source?: string;
                 /** The ID for the layer to get the summary for. */
                 summaryId: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
                 /** The volume to retrieve layers for. */
                 volumeId: string;
             }): Request<Layersummary>;            
@@ -1482,26 +1482,26 @@ declare namespace gapi.client {
             list(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The content version for the requested volume. */
+                contentVersion?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** Maximum number of results to return */
+                maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** The value of the nextToken from the previous page. */
+                pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** The content version for the requested volume. */
-                contentVersion?: string;
-                /** Maximum number of results to return */
-                maxResults?: number;
-                /** The value of the nextToken from the previous page. */
-                pageToken?: string;
                 /** String to identify the originator of this request. */
                 source?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
                 /** The volume to retrieve layers for. */
                 volumeId: string;
             }): Request<Layersummaries>;            
@@ -1533,24 +1533,24 @@ declare namespace gapi.client {
             releaseDownloadAccess(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The device/version ID from which to release the restriction. */
+                cpksver: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** ISO-639-1, ISO-3166-1 codes for message localization, i.e. en_US. */
+                locale?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** The device/version ID from which to release the restriction. */
-                cpksver: string;
-                /** ISO-639-1, ISO-3166-1 codes for message localization, i.e. en_US. */
-                locale?: string;
                 /** String to identify the originator of this request. */
                 source?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
                 /** The volume(s) to release restrictions for. */
                 volumeIds: string;
             }): Request<DownloadAccesses>;            
@@ -1559,28 +1559,28 @@ declare namespace gapi.client {
             requestAccess(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The device/version ID from which to request the restrictions. */
+                cpksver: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** The device/version ID from which to request the restrictions. */
-                cpksver: string;
                 /** The type of access license to request. If not specified, the default is BOTH. */
                 licenseTypes?: string;
                 /** ISO-639-1, ISO-3166-1 codes for message localization, i.e. en_US. */
                 locale?: string;
                 /** The client nonce value. */
                 nonce: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /** String to identify the originator of this request. */
                 source: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
                 /** The volume to request concurrent/download restrictions for. */
                 volumeId: string;
             }): Request<RequestAccess>;            
@@ -1589,32 +1589,32 @@ declare namespace gapi.client {
             syncVolumeLicenses(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The device/version ID from which to release the restriction. */
+                cpksver: string;
+                /** List of features supported by the client, i.e., 'RENTALS' */
+                features?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Set to true to include non-comics series. Defaults to false. */
+                includeNonComicsSeries?: boolean;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** ISO-639-1, ISO-3166-1 codes for message localization, i.e. en_US. */
+                locale?: string;
+                /** The client nonce value. */
+                nonce: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** The device/version ID from which to release the restriction. */
-                cpksver: string;
-                /** List of features supported by the client, i.e., 'RENTALS' */
-                features?: string;
-                /** Set to true to include non-comics series. Defaults to false. */
-                includeNonComicsSeries?: boolean;
-                /** ISO-639-1, ISO-3166-1 codes for message localization, i.e. en_US. */
-                locale?: string;
-                /** The client nonce value. */
-                nonce: string;
                 /** Set to true to show pre-ordered books. Defaults to false. */
                 showPreorders?: boolean;
                 /** String to identify the originator of this request. */
                 source: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
                 /** The volume(s) to request download restrictions for. */
                 volumeIds?: string;
             }): Request<Volumes>;            
@@ -1644,6 +1644,8 @@ declare namespace gapi.client {
             delete(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The ID for the annotation to delete. */
+                annotationId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -1654,18 +1656,20 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** The ID for the annotation to delete. */
-                annotationId: string;
                 /** String to identify the originator of this request. */
                 source?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<void>;            
             
             /** Inserts a new annotation. */
             insert(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The ID for the annotation to insert. */
+                annotationId?: string;
+                /** ISO-3166-1 code to override the IP-based location. */
+                country?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -1676,44 +1680,38 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** The ID for the annotation to insert. */
-                annotationId?: string;
-                /** ISO-3166-1 code to override the IP-based location. */
-                country?: string;
                 /** Requests that only the summary of the specified layer be provided in the response. */
                 showOnlySummaryInResponse?: boolean;
                 /** String to identify the originator of this request. */
                 source?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Annotation>;            
             
             /** Retrieves a list of annotations, possibly filtered. */
             list(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The content version for the requested volume. */
+                contentVersion?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** The content version for the requested volume. */
-                contentVersion?: string;
                 /** The layer ID to limit annotation by. */
                 layerId?: string;
                 /** The layer ID(s) to limit annotation by. */
                 layerIds?: string;
                 /** Maximum number of results to return */
                 maxResults?: number;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** The value of the nextToken from the previous page. */
                 pageToken?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /** Set to true to return deleted annotations. updatedMin must be in the request to use this. Defaults to false. */
                 showDeleted?: boolean;
                 /** String to identify the originator of this request. */
@@ -1722,6 +1720,8 @@ declare namespace gapi.client {
                 updatedMax?: string;
                 /** RFC 3339 timestamp to restrict to items updated since this timestamp (inclusive). */
                 updatedMin?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
                 /** The volume to restrict annotations to. */
                 volumeId?: string;
             }): Request<Annotations>;            
@@ -1734,6 +1734,8 @@ declare namespace gapi.client {
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** Array of layer IDs to get the summary for. */
+                layerIds: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
@@ -1742,8 +1744,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Array of layer IDs to get the summary for. */
-                layerIds: string;
                 /** Volume id to get the summary for. */
                 volumeId: string;
             }): Request<AnnotationsSummary>;            
@@ -1752,6 +1752,8 @@ declare namespace gapi.client {
             update(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The ID for the annotation to update. */
+                annotationId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -1762,12 +1764,10 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** The ID for the annotation to update. */
-                annotationId: string;
                 /** String to identify the originator of this request. */
                 source?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Annotation>;            
             
         }
@@ -1777,26 +1777,24 @@ declare namespace gapi.client {
             list(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** ISO-3166-1 code to override the IP-based location. */
+                country?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** Maximum number of results to return */
+                maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** ISO-3166-1 code to override the IP-based location. */
-                country?: string;
-                /** Maximum number of results to return */
-                maxResults?: number;
                 /** Restrict information returned to a set of selected fields. */
                 projection?: string;
                 /** Full-text search query string in this bookshelf. */
                 q?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /** The bookshelf ID or name retrieve volumes for. */
                 shelf: string;
                 /** Set to true to show pre-ordered books. Defaults to false. */
@@ -1805,6 +1803,8 @@ declare namespace gapi.client {
                 source?: string;
                 /** Index of the first element to return (starts at 0) */
                 startIndex?: number;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Volumes>;            
             
         }
@@ -1824,14 +1824,14 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** The reason for which the book is added to the library. */
                 reason?: string;
                 /** ID of bookshelf to which to add a volume. */
                 shelf: string;
                 /** String to identify the originator of this request. */
                 source?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
                 /** ID of volume to add. */
                 volumeId: string;
             }): Request<void>;            
@@ -1850,12 +1850,12 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** ID of bookshelf from which to remove a volume. */
                 shelf: string;
                 /** String to identify the originator of this request. */
                 source?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<void>;            
             
             /** Retrieves metadata for a specific bookshelf belonging to the authenticated user. */
@@ -1872,12 +1872,12 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** ID of bookshelf to retrieve. */
                 shelf: string;
                 /** String to identify the originator of this request. */
                 source?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Bookshelf>;            
             
             /** Retrieves a list of bookshelves belonging to the authenticated user. */
@@ -1894,10 +1894,10 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** String to identify the originator of this request. */
                 source?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Bookshelves>;            
             
             /** Moves a volume within a bookshelf. */
@@ -1914,12 +1914,12 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** ID of bookshelf with the volume. */
                 shelf: string;
                 /** String to identify the originator of this request. */
                 source?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
                 /** ID of volume to move. */
                 volumeId: string;
                 /** Position on shelf to move the item (0 puts the item before the current first item, 1 puts it between the first and the second and so on.) */
@@ -1940,14 +1940,14 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** The reason for which the book is removed from the library. */
                 reason?: string;
                 /** ID of bookshelf from which to remove a volume. */
                 shelf: string;
                 /** String to identify the originator of this request. */
                 source?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
                 /** ID of volume to remove. */
                 volumeId: string;
             }): Request<void>;            
@@ -1960,6 +1960,8 @@ declare namespace gapi.client {
             get(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Volume content version for which this reading position is requested. */
+                contentVersion?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -1970,44 +1972,42 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** Volume content version for which this reading position is requested. */
-                contentVersion?: string;
                 /** String to identify the originator of this request. */
                 source?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
                 /** ID of volume for which to retrieve a reading position. */
                 volumeId: string;
             }): Request<ReadingPosition>;            
             
             /** Sets my reading position information for a volume. */
             setPosition(request: {            
+                /** Action that caused this reading position to be set. */
+                action?: string;
                 /** Data format for the response. */
                 alt?: string;
+                /** Volume content version for which this reading position applies. */
+                contentVersion?: string;
+                /** Random persistent device cookie optional on set position. */
+                deviceCookie?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Position string for the new volume reading position. */
+                position: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** Action that caused this reading position to be set. */
-                action?: string;
-                /** Volume content version for which this reading position applies. */
-                contentVersion?: string;
-                /** Random persistent device cookie optional on set position. */
-                deviceCookie?: string;
-                /** Position string for the new volume reading position. */
-                position: string;
                 /** String to identify the originator of this request. */
                 source?: string;
                 /** RFC 3339 UTC format timestamp associated with this reading position. */
                 timestamp: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
                 /** ID of volume for which to update the reading position. */
                 volumeId: string;
             }): Request<void>;            
@@ -2029,20 +2029,20 @@ declare namespace gapi.client {
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** ISO-639-1 language and ISO-3166-1 country code. Ex: 'en_US'. Used for generating notification title and body. */
+                locale?: string;
+                /** String to identify the notification. */
+                notification_id: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** ISO-639-1 language and ISO-3166-1 country code. Ex: 'en_US'. Used for generating notification title and body. */
-                locale?: string;
-                /** String to identify the notification. */
-                notification_id: string;
                 /** String to identify the originator of this request. */
                 source?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Notification>;            
             
         }
@@ -2056,6 +2056,8 @@ declare namespace gapi.client {
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** ISO-639-1 language and ISO-3166-1 country code. Default is en-US if unset. */
+                locale?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
@@ -2064,36 +2066,34 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** ISO-639-1 language and ISO-3166-1 country code. Default is en-US if unset. */
-                locale?: string;
             }): Request<Category>;            
             
             /** List available volumes under categories for onboarding experience. */
             listCategoryVolumes(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** List of category ids requested. */
+                categoryId?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** ISO-639-1 language and ISO-3166-1 country code. Default is en-US if unset. */
+                locale?: string;
+                /** The maximum allowed maturity rating of returned volumes. Books with a higher maturity rating are filtered out. */
+                maxAllowedMaturityRating?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Number of maximum results per page to be included in the response. */
+                pageSize?: number;
+                /** The value of the nextToken from the previous page. */
+                pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** List of category ids requested. */
-                categoryId?: string;
-                /** ISO-639-1 language and ISO-3166-1 country code. Default is en-US if unset. */
-                locale?: string;
-                /** The maximum allowed maturity rating of returned volumes. Books with a higher maturity rating are filtered out. */
-                maxAllowedMaturityRating?: string;
-                /** Number of maximum results per page to be included in the response. */
-                pageSize?: number;
-                /** The value of the nextToken from the previous page. */
-                pageToken?: string;
             }): Request<Volume2>;            
             
         }
@@ -2107,20 +2107,20 @@ declare namespace gapi.client {
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** ISO-639-1 language and ISO-3166-1 country code. Ex: 'en_US'. Used for generating recommendations. */
+                locale?: string;
+                /** The maximum allowed maturity rating of returned recommendations. Books with a higher maturity rating are filtered out. */
+                maxAllowedMaturityRating?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** ISO-639-1 language and ISO-3166-1 country code. Ex: 'en_US'. Used for generating recommendations. */
-                locale?: string;
-                /** The maximum allowed maturity rating of returned recommendations. Books with a higher maturity rating are filtered out. */
-                maxAllowedMaturityRating?: string;
                 /** String to identify the originator of this request. */
                 source?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Discoveryclusters>;            
             
         }
@@ -2130,32 +2130,32 @@ declare namespace gapi.client {
             accept(request: {            
                 /** Data format for the response. */
                 alt?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** device android_id */
                 androidId?: string;
                 /** device device */
                 device?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** device manufacturer */
                 manufacturer?: string;
                 /** device model */
                 model?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /**  */
                 offerId?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** device product */
                 product?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /** device serial */
                 serial?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
                 /** Volume id to exercise the offer */
                 volumeId?: string;
             }): Request<void>;            
@@ -2164,62 +2164,62 @@ declare namespace gapi.client {
             dismiss(request: {            
                 /** Data format for the response. */
                 alt?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** device android_id */
                 androidId?: string;
                 /** device device */
                 device?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** device manufacturer */
                 manufacturer?: string;
                 /** device model */
                 model?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Offer to dimiss */
                 offerId?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** device product */
                 product?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /** device serial */
                 serial?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<void>;            
             
             /** Returns a list of promo offers available to the user */
             get(request: {            
                 /** Data format for the response. */
                 alt?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** device android_id */
                 androidId?: string;
                 /** device device */
                 device?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** device manufacturer */
                 manufacturer?: string;
                 /** device model */
                 model?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** device product */
                 product?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /** device serial */
                 serial?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Offers>;            
             
         }
@@ -2235,18 +2235,18 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** Number of maximum results per page to be included in the response. */
                 page_size?: number;
                 /** The value of the nextToken from the previous page. */
                 page_token?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /** String that identifies the series */
                 series_id: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Seriesmembership>;            
             
         }
@@ -2266,10 +2266,10 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** String that identifies the series */
                 series_id: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Series>;            
             
             membership: MembershipResource;
@@ -2280,26 +2280,26 @@ declare namespace gapi.client {
             list(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Association type. */
+                association?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** ISO-639-1 language and ISO-3166-1 country code. Ex: 'en_US'. Used for generating recommendations. */
+                locale?: string;
+                /** The maximum allowed maturity rating of returned recommendations. Books with a higher maturity rating are filtered out. */
+                maxAllowedMaturityRating?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** Association type. */
-                association?: string;
-                /** ISO-639-1 language and ISO-3166-1 country code. Ex: 'en_US'. Used for generating recommendations. */
-                locale?: string;
-                /** The maximum allowed maturity rating of returned recommendations. Books with a higher maturity rating are filtered out. */
-                maxAllowedMaturityRating?: string;
                 /** String to identify the originator of this request. */
                 source?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
                 /** ID of the source volume. */
                 volumeId: string;
             }): Request<Volumes>;            
@@ -2309,34 +2309,34 @@ declare namespace gapi.client {
         interface MybooksResource {
             /** Return a list of books in My Library. */
             list(request: {            
+                /** How the book was acquired */
+                acquireMethod?: string;
                 /** Data format for the response. */
                 alt?: string;
+                /** ISO-3166-1 code to override the IP-based location. */
+                country?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** How the book was acquired */
-                acquireMethod?: string;
-                /** ISO-3166-1 code to override the IP-based location. */
-                country?: string;
                 /** ISO-639-1 language and ISO-3166-1 country code. Ex:'en_US'. Used for generating recommendations. */
                 locale?: string;
                 /** Maximum number of results to return. */
                 maxResults?: number;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** The processing state of the user uploaded volumes to be returned. Applicable only if the UPLOADED is specified in the acquireMethod. */
                 processingState?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /** String to identify the originator of this request. */
                 source?: string;
                 /** Index of the first result to return (starts at 0) */
                 startIndex?: number;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Volumes>;            
             
         }
@@ -2350,20 +2350,20 @@ declare namespace gapi.client {
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** ISO-639-1 language and ISO-3166-1 country code. Ex: 'en_US'. Used for generating recommendations. */
+                locale?: string;
+                /** The maximum allowed maturity rating of returned recommendations. Books with a higher maturity rating are filtered out. */
+                maxAllowedMaturityRating?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** ISO-639-1 language and ISO-3166-1 country code. Ex: 'en_US'. Used for generating recommendations. */
-                locale?: string;
-                /** The maximum allowed maturity rating of returned recommendations. Books with a higher maturity rating are filtered out. */
-                maxAllowedMaturityRating?: string;
                 /** String to identify the originator of this request. */
                 source?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Volumes>;            
             
             /** Rate a recommended book for the current user. */
@@ -2374,20 +2374,20 @@ declare namespace gapi.client {
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** ISO-639-1 language and ISO-3166-1 country code. Ex: 'en_US'. Used for generating recommendations. */
+                locale?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** ISO-639-1 language and ISO-3166-1 country code. Ex: 'en_US'. Used for generating recommendations. */
-                locale?: string;
                 /** Rating to be given to the volume. */
                 rating: string;
                 /** String to identify the originator of this request. */
                 source?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
                 /** ID of the source volume. */
                 volumeId: string;
             }): Request<BooksVolumesRecommendedRateResponse>;            
@@ -2403,24 +2403,24 @@ declare namespace gapi.client {
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** ISO-639-1 language and ISO-3166-1 country code. Ex: 'en_US'. Used for generating recommendations. */
                 locale?: string;
                 /** Maximum number of results to return. */
                 maxResults?: number;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** The processing state of the user uploaded volumes to be returned. */
                 processingState?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /** String to identify the originator of this request. */
                 source?: string;
                 /** Index of the first result to return (starts at 0) */
                 startIndex?: number;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
                 /** The ids of the volumes to be returned. If not specified all that match the processingState are returned. */
                 volumeId?: string;
             }): Request<Volumes>;            
@@ -2432,28 +2432,28 @@ declare namespace gapi.client {
             get(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** ISO-3166-1 code to override the IP-based location. */
+                country?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Set to true to include non-comics series. Defaults to false. */
+                includeNonComicsSeries?: boolean;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** ISO-3166-1 code to override the IP-based location. */
-                country?: string;
-                /** Set to true to include non-comics series. Defaults to false. */
-                includeNonComicsSeries?: boolean;
                 /** Brand results for partner ID. */
                 partner?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** Restrict information returned to a set of selected fields. */
                 projection?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /** String to identify the originator of this request. */
                 source?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
                 /**  */
                 user_library_consistent_read?: boolean;
                 /** ID of volume to retrieve. */
@@ -2464,22 +2464,14 @@ declare namespace gapi.client {
             list(request: {            
                 /** Data format for the response. */
                 alt?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** Restrict to volumes by download availability. */
                 download?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
                 /** Filter search results. */
                 filter?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** Restrict results to books with this language code. */
                 langRestrict?: string;
                 /** Restrict search to this user's library. */
@@ -2488,22 +2480,30 @@ declare namespace gapi.client {
                 maxAllowedMaturityRating?: string;
                 /** Maximum number of results to return. */
                 maxResults?: number;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Sort search results. */
                 orderBy?: string;
                 /** Restrict and brand results for partner ID. */
                 partner?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** Restrict to books or magazines. */
                 printType?: string;
                 /** Restrict information returned to a set of selected fields. */
                 projection?: string;
                 /** Full-text search query string. */
                 q: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /** Set to true to show books available for preorder. Defaults to false. */
                 showPreorders?: boolean;
                 /** String to identify the originator of this request. */
                 source?: string;
                 /** Index of the first result to return (starts at 0) */
                 startIndex?: number;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Volumes>;            
             
             associated: AssociatedResource;

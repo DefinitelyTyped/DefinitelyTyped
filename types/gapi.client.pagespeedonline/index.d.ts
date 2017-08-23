@@ -171,20 +171,18 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Indicates if third party resources should be filtered out before PageSpeed analysis. */
+                filter_third_party_resources?: boolean;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** The locale used to localize formatted results */
+                locale?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
-                /** Indicates if third party resources should be filtered out before PageSpeed analysis. */
-                filter_third_party_resources?: boolean;
-                /** The locale used to localize formatted results */
-                locale?: string;
                 /** A PageSpeed rule to run; if none are given, all rules are run */
                 rule?: string;
                 /** Indicates if binary data containing a screenshot should be included */
@@ -193,6 +191,8 @@ declare namespace gapi.client {
                 strategy?: string;
                 /** The URL to fetch and analyze */
                 url: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Result>;            
             
         }

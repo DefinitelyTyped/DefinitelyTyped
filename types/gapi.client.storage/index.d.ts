@@ -480,6 +480,10 @@ declare namespace gapi.client {
             delete(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Name of a bucket. */
+                bucket: string;
+                /** The entity holding the permission. Can be user-userId, user-emailAddress, group-groupId, group-emailAddress, allUsers, or allAuthenticatedUsers. */
+                entity: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -492,10 +496,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Name of a bucket. */
-                bucket: string;
-                /** The entity holding the permission. Can be user-userId, user-emailAddress, group-groupId, group-emailAddress, allUsers, or allAuthenticatedUsers. */
-                entity: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
             }): Request<void>;            
@@ -504,6 +504,10 @@ declare namespace gapi.client {
             get(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Name of a bucket. */
+                bucket: string;
+                /** The entity holding the permission. Can be user-userId, user-emailAddress, group-groupId, group-emailAddress, allUsers, or allAuthenticatedUsers. */
+                entity: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -516,10 +520,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Name of a bucket. */
-                bucket: string;
-                /** The entity holding the permission. Can be user-userId, user-emailAddress, group-groupId, group-emailAddress, allUsers, or allAuthenticatedUsers. */
-                entity: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
             }): Request<BucketAccessControl>;            
@@ -528,6 +528,8 @@ declare namespace gapi.client {
             insert(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Name of a bucket. */
+                bucket: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -540,8 +542,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Name of a bucket. */
-                bucket: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
             }): Request<BucketAccessControl>;            
@@ -550,6 +550,8 @@ declare namespace gapi.client {
             list(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Name of a bucket. */
+                bucket: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -562,8 +564,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Name of a bucket. */
-                bucket: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
             }): Request<BucketAccessControls>;            
@@ -572,6 +572,10 @@ declare namespace gapi.client {
             patch(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Name of a bucket. */
+                bucket: string;
+                /** The entity holding the permission. Can be user-userId, user-emailAddress, group-groupId, group-emailAddress, allUsers, or allAuthenticatedUsers. */
+                entity: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -584,10 +588,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Name of a bucket. */
-                bucket: string;
-                /** The entity holding the permission. Can be user-userId, user-emailAddress, group-groupId, group-emailAddress, allUsers, or allAuthenticatedUsers. */
-                entity: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
             }): Request<BucketAccessControl>;            
@@ -596,6 +596,10 @@ declare namespace gapi.client {
             update(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Name of a bucket. */
+                bucket: string;
+                /** The entity holding the permission. Can be user-userId, user-emailAddress, group-groupId, group-emailAddress, allUsers, or allAuthenticatedUsers. */
+                entity: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -608,10 +612,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Name of a bucket. */
-                bucket: string;
-                /** The entity holding the permission. Can be user-userId, user-emailAddress, group-groupId, group-emailAddress, allUsers, or allAuthenticatedUsers. */
-                entity: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
             }): Request<BucketAccessControl>;            
@@ -623,8 +623,14 @@ declare namespace gapi.client {
             delete(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Name of a bucket. */
+                bucket: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** If set, only deletes the bucket if its metageneration matches this value. */
+                ifMetagenerationMatch?: string;
+                /** If set, only deletes the bucket if its metageneration does not match this value. */
+                ifMetagenerationNotMatch?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
@@ -635,12 +641,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Name of a bucket. */
-                bucket: string;
-                /** If set, only deletes the bucket if its metageneration matches this value. */
-                ifMetagenerationMatch?: string;
-                /** If set, only deletes the bucket if its metageneration does not match this value. */
-                ifMetagenerationNotMatch?: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
             }): Request<void>;            
@@ -649,26 +649,26 @@ declare namespace gapi.client {
             get(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Name of a bucket. */
+                bucket: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Makes the return of the bucket metadata conditional on whether the bucket's current metageneration matches the given value. */
+                ifMetagenerationMatch?: string;
+                /** Makes the return of the bucket metadata conditional on whether the bucket's current metageneration does not match the given value. */
+                ifMetagenerationNotMatch?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** Set of properties to return. Defaults to noAcl. */
+                projection?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Name of a bucket. */
-                bucket: string;
-                /** Makes the return of the bucket metadata conditional on whether the bucket's current metageneration matches the given value. */
-                ifMetagenerationMatch?: string;
-                /** Makes the return of the bucket metadata conditional on whether the bucket's current metageneration does not match the given value. */
-                ifMetagenerationNotMatch?: string;
-                /** Set of properties to return. Defaults to noAcl. */
-                projection?: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
             }): Request<Bucket>;            
@@ -677,6 +677,8 @@ declare namespace gapi.client {
             getIamPolicy(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Name of a bucket. */
+                bucket: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -689,8 +691,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Name of a bucket. */
-                bucket: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
             }): Request<Policy>;            
@@ -705,20 +705,20 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** Apply a predefined set of access controls to this bucket. */
                 predefinedAcl?: string;
                 /** Apply a predefined set of default object access controls to this bucket. */
                 predefinedDefaultObjectAcl?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** A valid API project identifier. */
                 project: string;
                 /** Set of properties to return. Defaults to noAcl, unless the bucket resource specifies acl or defaultObjectAcl properties, when it defaults to full. */
                 projection?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Bucket>;            
             
             /** Retrieves a list of buckets for a given project. */
@@ -729,54 +729,54 @@ declare namespace gapi.client {
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** Maximum number of buckets to return in a single response. The service will use this parameter or 1,000 items, whichever is smaller. */
                 maxResults?: number;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** A previously-returned page token representing part of the larger set of results to view. */
                 pageToken?: string;
                 /** Filter results to buckets whose names begin with this prefix. */
                 prefix?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** A valid API project identifier. */
                 project: string;
                 /** Set of properties to return. Defaults to noAcl. */
                 projection?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
             }): Request<Buckets>;            
             
             /** Updates a bucket. Changes to the bucket will be readable immediately after writing, but configuration changes may take time to propagate. This method supports patch semantics. */
             patch(request: {            
                 /** Data format for the response. */
                 alt?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** Name of a bucket. */
                 bucket: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
                 /** Makes the return of the bucket metadata conditional on whether the bucket's current metageneration matches the given value. */
                 ifMetagenerationMatch?: string;
                 /** Makes the return of the bucket metadata conditional on whether the bucket's current metageneration does not match the given value. */
                 ifMetagenerationNotMatch?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Apply a predefined set of access controls to this bucket. */
                 predefinedAcl?: string;
                 /** Apply a predefined set of default object access controls to this bucket. */
                 predefinedDefaultObjectAcl?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** Set of properties to return. Defaults to full. */
                 projection?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
             }): Request<Bucket>;            
@@ -785,6 +785,8 @@ declare namespace gapi.client {
             setIamPolicy(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Name of a bucket. */
+                bucket: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -797,8 +799,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Name of a bucket. */
-                bucket: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
             }): Request<Policy>;            
@@ -807,22 +807,22 @@ declare namespace gapi.client {
             testIamPermissions(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Name of a bucket. */
+                bucket: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Permissions to test. */
+                permissions: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Name of a bucket. */
-                bucket: string;
-                /** Permissions to test. */
-                permissions: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
             }): Request<TestIamPermissionsResponse>;            
@@ -831,30 +831,30 @@ declare namespace gapi.client {
             update(request: {            
                 /** Data format for the response. */
                 alt?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** Name of a bucket. */
                 bucket: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
                 /** Makes the return of the bucket metadata conditional on whether the bucket's current metageneration matches the given value. */
                 ifMetagenerationMatch?: string;
                 /** Makes the return of the bucket metadata conditional on whether the bucket's current metageneration does not match the given value. */
                 ifMetagenerationNotMatch?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Apply a predefined set of access controls to this bucket. */
                 predefinedAcl?: string;
                 /** Apply a predefined set of default object access controls to this bucket. */
                 predefinedDefaultObjectAcl?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** Set of properties to return. Defaults to full. */
                 projection?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
             }): Request<Bucket>;            
@@ -887,6 +887,10 @@ declare namespace gapi.client {
             delete(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Name of a bucket. */
+                bucket: string;
+                /** The entity holding the permission. Can be user-userId, user-emailAddress, group-groupId, group-emailAddress, allUsers, or allAuthenticatedUsers. */
+                entity: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -899,10 +903,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Name of a bucket. */
-                bucket: string;
-                /** The entity holding the permission. Can be user-userId, user-emailAddress, group-groupId, group-emailAddress, allUsers, or allAuthenticatedUsers. */
-                entity: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
             }): Request<void>;            
@@ -911,6 +911,10 @@ declare namespace gapi.client {
             get(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Name of a bucket. */
+                bucket: string;
+                /** The entity holding the permission. Can be user-userId, user-emailAddress, group-groupId, group-emailAddress, allUsers, or allAuthenticatedUsers. */
+                entity: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -923,10 +927,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Name of a bucket. */
-                bucket: string;
-                /** The entity holding the permission. Can be user-userId, user-emailAddress, group-groupId, group-emailAddress, allUsers, or allAuthenticatedUsers. */
-                entity: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
             }): Request<ObjectAccessControl>;            
@@ -935,6 +935,8 @@ declare namespace gapi.client {
             insert(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Name of a bucket. */
+                bucket: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -947,8 +949,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Name of a bucket. */
-                bucket: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
             }): Request<ObjectAccessControl>;            
@@ -957,8 +957,14 @@ declare namespace gapi.client {
             list(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Name of a bucket. */
+                bucket: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** If present, only return default ACL listing if the bucket's current metageneration matches this value. */
+                ifMetagenerationMatch?: string;
+                /** If present, only return default ACL listing if the bucket's current metageneration does not match the given value. */
+                ifMetagenerationNotMatch?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
@@ -969,12 +975,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Name of a bucket. */
-                bucket: string;
-                /** If present, only return default ACL listing if the bucket's current metageneration matches this value. */
-                ifMetagenerationMatch?: string;
-                /** If present, only return default ACL listing if the bucket's current metageneration does not match the given value. */
-                ifMetagenerationNotMatch?: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
             }): Request<ObjectAccessControls>;            
@@ -983,6 +983,10 @@ declare namespace gapi.client {
             patch(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Name of a bucket. */
+                bucket: string;
+                /** The entity holding the permission. Can be user-userId, user-emailAddress, group-groupId, group-emailAddress, allUsers, or allAuthenticatedUsers. */
+                entity: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -995,10 +999,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Name of a bucket. */
-                bucket: string;
-                /** The entity holding the permission. Can be user-userId, user-emailAddress, group-groupId, group-emailAddress, allUsers, or allAuthenticatedUsers. */
-                entity: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
             }): Request<ObjectAccessControl>;            
@@ -1007,6 +1007,10 @@ declare namespace gapi.client {
             update(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Name of a bucket. */
+                bucket: string;
+                /** The entity holding the permission. Can be user-userId, user-emailAddress, group-groupId, group-emailAddress, allUsers, or allAuthenticatedUsers. */
+                entity: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -1019,10 +1023,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Name of a bucket. */
-                bucket: string;
-                /** The entity holding the permission. Can be user-userId, user-emailAddress, group-groupId, group-emailAddress, allUsers, or allAuthenticatedUsers. */
-                entity: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
             }): Request<ObjectAccessControl>;            
@@ -1034,10 +1034,14 @@ declare namespace gapi.client {
             delete(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The parent bucket of the notification. */
+                bucket: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** ID of the notification to delete. */
+                notification: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
@@ -1046,10 +1050,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The parent bucket of the notification. */
-                bucket: string;
-                /** ID of the notification to delete. */
-                notification: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
             }): Request<void>;            
@@ -1058,10 +1058,14 @@ declare namespace gapi.client {
             get(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The parent bucket of the notification. */
+                bucket: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** Notification ID */
+                notification: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
@@ -1070,10 +1074,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The parent bucket of the notification. */
-                bucket: string;
-                /** Notification ID */
-                notification: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
             }): Request<Notification>;            
@@ -1082,6 +1082,8 @@ declare namespace gapi.client {
             insert(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** The parent bucket of the notification. */
+                bucket: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -1094,8 +1096,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** The parent bucket of the notification. */
-                bucket: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
             }): Request<Notification>;            
@@ -1104,6 +1104,8 @@ declare namespace gapi.client {
             list(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Name of a Google Cloud Storage bucket. */
+                bucket: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -1116,8 +1118,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Name of a Google Cloud Storage bucket. */
-                bucket: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
             }): Request<Notifications>;            
@@ -1129,26 +1129,26 @@ declare namespace gapi.client {
             delete(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Name of a bucket. */
+                bucket: string;
+                /** The entity holding the permission. Can be user-userId, user-emailAddress, group-groupId, group-emailAddress, allUsers, or allAuthenticatedUsers. */
+                entity: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** If present, selects a specific revision of this object (as opposed to the latest version, the default). */
+                generation?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Name of the object. For information about how to URL encode object names to be path safe, see Encoding URI Path Parts. */
+                object: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Name of a bucket. */
-                bucket: string;
-                /** The entity holding the permission. Can be user-userId, user-emailAddress, group-groupId, group-emailAddress, allUsers, or allAuthenticatedUsers. */
-                entity: string;
-                /** If present, selects a specific revision of this object (as opposed to the latest version, the default). */
-                generation?: string;
-                /** Name of the object. For information about how to URL encode object names to be path safe, see Encoding URI Path Parts. */
-                object: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
             }): Request<void>;            
@@ -1157,26 +1157,26 @@ declare namespace gapi.client {
             get(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Name of a bucket. */
+                bucket: string;
+                /** The entity holding the permission. Can be user-userId, user-emailAddress, group-groupId, group-emailAddress, allUsers, or allAuthenticatedUsers. */
+                entity: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** If present, selects a specific revision of this object (as opposed to the latest version, the default). */
+                generation?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Name of the object. For information about how to URL encode object names to be path safe, see Encoding URI Path Parts. */
+                object: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Name of a bucket. */
-                bucket: string;
-                /** The entity holding the permission. Can be user-userId, user-emailAddress, group-groupId, group-emailAddress, allUsers, or allAuthenticatedUsers. */
-                entity: string;
-                /** If present, selects a specific revision of this object (as opposed to the latest version, the default). */
-                generation?: string;
-                /** Name of the object. For information about how to URL encode object names to be path safe, see Encoding URI Path Parts. */
-                object: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
             }): Request<ObjectAccessControl>;            
@@ -1185,24 +1185,24 @@ declare namespace gapi.client {
             insert(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Name of a bucket. */
+                bucket: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** If present, selects a specific revision of this object (as opposed to the latest version, the default). */
+                generation?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Name of the object. For information about how to URL encode object names to be path safe, see Encoding URI Path Parts. */
+                object: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Name of a bucket. */
-                bucket: string;
-                /** If present, selects a specific revision of this object (as opposed to the latest version, the default). */
-                generation?: string;
-                /** Name of the object. For information about how to URL encode object names to be path safe, see Encoding URI Path Parts. */
-                object: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
             }): Request<ObjectAccessControl>;            
@@ -1211,24 +1211,24 @@ declare namespace gapi.client {
             list(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Name of a bucket. */
+                bucket: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** If present, selects a specific revision of this object (as opposed to the latest version, the default). */
+                generation?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Name of the object. For information about how to URL encode object names to be path safe, see Encoding URI Path Parts. */
+                object: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Name of a bucket. */
-                bucket: string;
-                /** If present, selects a specific revision of this object (as opposed to the latest version, the default). */
-                generation?: string;
-                /** Name of the object. For information about how to URL encode object names to be path safe, see Encoding URI Path Parts. */
-                object: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
             }): Request<ObjectAccessControls>;            
@@ -1237,26 +1237,26 @@ declare namespace gapi.client {
             patch(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Name of a bucket. */
+                bucket: string;
+                /** The entity holding the permission. Can be user-userId, user-emailAddress, group-groupId, group-emailAddress, allUsers, or allAuthenticatedUsers. */
+                entity: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** If present, selects a specific revision of this object (as opposed to the latest version, the default). */
+                generation?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Name of the object. For information about how to URL encode object names to be path safe, see Encoding URI Path Parts. */
+                object: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Name of a bucket. */
-                bucket: string;
-                /** The entity holding the permission. Can be user-userId, user-emailAddress, group-groupId, group-emailAddress, allUsers, or allAuthenticatedUsers. */
-                entity: string;
-                /** If present, selects a specific revision of this object (as opposed to the latest version, the default). */
-                generation?: string;
-                /** Name of the object. For information about how to URL encode object names to be path safe, see Encoding URI Path Parts. */
-                object: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
             }): Request<ObjectAccessControl>;            
@@ -1265,26 +1265,26 @@ declare namespace gapi.client {
             update(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Name of a bucket. */
+                bucket: string;
+                /** The entity holding the permission. Can be user-userId, user-emailAddress, group-groupId, group-emailAddress, allUsers, or allAuthenticatedUsers. */
+                entity: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** If present, selects a specific revision of this object (as opposed to the latest version, the default). */
+                generation?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Name of the object. For information about how to URL encode object names to be path safe, see Encoding URI Path Parts. */
+                object: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Name of a bucket. */
-                bucket: string;
-                /** The entity holding the permission. Can be user-userId, user-emailAddress, group-groupId, group-emailAddress, allUsers, or allAuthenticatedUsers. */
-                entity: string;
-                /** If present, selects a specific revision of this object (as opposed to the latest version, the default). */
-                generation?: string;
-                /** Name of the object. For information about how to URL encode object names to be path safe, see Encoding URI Path Parts. */
-                object: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
             }): Request<ObjectAccessControl>;            
@@ -1296,10 +1296,22 @@ declare namespace gapi.client {
             compose(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Name of the bucket in which to store the new object. */
+                destinationBucket: string;
+                /** Name of the new object. For information about how to URL encode object names to be path safe, see Encoding URI Path Parts. */
+                destinationObject: string;
+                /** Apply a predefined set of access controls to the destination object. */
+                destinationPredefinedAcl?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Makes the operation conditional on whether the object's current generation matches the given value. Setting to 0 makes the operation succeed only if there are no live versions of the object. */
+                ifGenerationMatch?: string;
+                /** Makes the operation conditional on whether the object's current metageneration matches the given value. */
+                ifMetagenerationMatch?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** Resource name of the Cloud KMS key, of the form projects/my-project/locations/global/keyRings/my-kr/cryptoKeys/my-key, that will be used to encrypt the object. Overrides the object metadata's kms_key_name value, if any. */
+                kmsKeyName?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
@@ -1308,18 +1320,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Name of the bucket in which to store the new object. */
-                destinationBucket: string;
-                /** Name of the new object. For information about how to URL encode object names to be path safe, see Encoding URI Path Parts. */
-                destinationObject: string;
-                /** Apply a predefined set of access controls to the destination object. */
-                destinationPredefinedAcl?: string;
-                /** Makes the operation conditional on whether the object's current generation matches the given value. Setting to 0 makes the operation succeed only if there are no live versions of the object. */
-                ifGenerationMatch?: string;
-                /** Makes the operation conditional on whether the object's current metageneration matches the given value. */
-                ifMetagenerationMatch?: string;
-                /** Resource name of the Cloud KMS key, of the form projects/my-project/locations/global/keyRings/my-kr/cryptoKeys/my-key, that will be used to encrypt the object. Overrides the object metadata's kms_key_name value, if any. */
-                kmsKeyName?: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
             }): Request<Object>;            
@@ -1328,24 +1328,14 @@ declare namespace gapi.client {
             copy(request: {            
                 /** Data format for the response. */
                 alt?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** Name of the bucket in which to store the new object. Overrides the provided object metadata's bucket value, if any.For information about how to URL encode object names to be path safe, see Encoding URI Path Parts. */
                 destinationBucket: string;
                 /** Name of the new object. Required when the object metadata is not otherwise provided. Overrides the object metadata's name value, if any. */
                 destinationObject: string;
                 /** Apply a predefined set of access controls to the destination object. */
                 destinationPredefinedAcl?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
                 /** Makes the operation conditional on whether the destination object's current generation matches the given value. Setting to 0 makes the operation succeed only if there are no live versions of the object. */
                 ifGenerationMatch?: string;
                 /** Makes the operation conditional on whether the destination object's current generation does not match the given value. If no live object exists, the precondition fails. Setting to 0 makes the operation succeed only if there is a live version of the object. */
@@ -1362,14 +1352,24 @@ declare namespace gapi.client {
                 ifSourceMetagenerationMatch?: string;
                 /** Makes the operation conditional on whether the source object's current metageneration does not match the given value. */
                 ifSourceMetagenerationNotMatch?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** Set of properties to return. Defaults to noAcl, unless the object resource specifies the acl property, when it defaults to full. */
                 projection?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /** Name of the bucket in which to find the source object. */
                 sourceBucket: string;
                 /** If present, selects a specific revision of the source object (as opposed to the latest version, the default). */
                 sourceGeneration?: string;
                 /** Name of the source object. For information about how to URL encode object names to be path safe, see Encoding URI Path Parts. */
                 sourceObject: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
             }): Request<Object>;            
@@ -1378,20 +1378,10 @@ declare namespace gapi.client {
             delete(request: {            
                 /** Data format for the response. */
                 alt?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** Name of the bucket in which the object resides. */
                 bucket: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
                 /** If present, permanently deletes a specific revision of this object (as opposed to the latest version, the default). */
                 generation?: string;
                 /** Makes the operation conditional on whether the object's current generation matches the given value. Setting to 0 makes the operation succeed only if there are no live versions of the object. */
@@ -1402,8 +1392,18 @@ declare namespace gapi.client {
                 ifMetagenerationMatch?: string;
                 /** Makes the operation conditional on whether the object's current metageneration does not match the given value. */
                 ifMetagenerationNotMatch?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Name of the object. For information about how to URL encode object names to be path safe, see Encoding URI Path Parts. */
                 object: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
             }): Request<void>;            
@@ -1412,20 +1412,10 @@ declare namespace gapi.client {
             get(request: {            
                 /** Data format for the response. */
                 alt?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** Name of the bucket in which the object resides. */
                 bucket: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
                 /** If present, selects a specific revision of this object (as opposed to the latest version, the default). */
                 generation?: string;
                 /** Makes the operation conditional on whether the object's current generation matches the given value. Setting to 0 makes the operation succeed only if there are no live versions of the object. */
@@ -1436,10 +1426,20 @@ declare namespace gapi.client {
                 ifMetagenerationMatch?: string;
                 /** Makes the operation conditional on whether the object's current metageneration does not match the given value. */
                 ifMetagenerationNotMatch?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Name of the object. For information about how to URL encode object names to be path safe, see Encoding URI Path Parts. */
                 object: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** Set of properties to return. Defaults to noAcl. */
                 projection?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
             }): Request<Object>;            
@@ -1448,24 +1448,24 @@ declare namespace gapi.client {
             getIamPolicy(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Name of the bucket in which the object resides. */
+                bucket: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** If present, selects a specific revision of this object (as opposed to the latest version, the default). */
+                generation?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Name of the object. For information about how to URL encode object names to be path safe, see Encoding URI Path Parts. */
+                object: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Name of the bucket in which the object resides. */
-                bucket: string;
-                /** If present, selects a specific revision of this object (as opposed to the latest version, the default). */
-                generation?: string;
-                /** Name of the object. For information about how to URL encode object names to be path safe, see Encoding URI Path Parts. */
-                object: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
             }): Request<Policy>;            
@@ -1474,22 +1474,12 @@ declare namespace gapi.client {
             insert(request: {            
                 /** Data format for the response. */
                 alt?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** Name of the bucket in which to store the new object. Overrides the provided object metadata's bucket value, if any. */
                 bucket: string;
                 /** If set, sets the contentEncoding property of the final object to this value. Setting this parameter is equivalent to setting the contentEncoding metadata property. This can be useful when uploading an object with uploadType=media to indicate the encoding of the content being uploaded. */
                 contentEncoding?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
                 /** Makes the operation conditional on whether the object's current generation matches the given value. Setting to 0 makes the operation succeed only if there are no live versions of the object. */
                 ifGenerationMatch?: string;
                 /** Makes the operation conditional on whether the object's current generation does not match the given value. If no live object exists, the precondition fails. Setting to 0 makes the operation succeed only if there is a live version of the object. */
@@ -1498,14 +1488,24 @@ declare namespace gapi.client {
                 ifMetagenerationMatch?: string;
                 /** Makes the operation conditional on whether the object's current metageneration does not match the given value. */
                 ifMetagenerationNotMatch?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** Resource name of the Cloud KMS key, of the form projects/my-project/locations/global/keyRings/my-kr/cryptoKeys/my-key, that will be used to encrypt the object. Overrides the object metadata's kms_key_name value, if any. */
                 kmsKeyName?: string;
                 /** Name of the object. Required when the object metadata is not otherwise provided. Overrides the object metadata's name value, if any. For information about how to URL encode object names to be path safe, see Encoding URI Path Parts. */
                 name?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Apply a predefined set of access controls to this object. */
                 predefinedAcl?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** Set of properties to return. Defaults to noAcl, unless the object resource specifies the acl property, when it defaults to full. */
                 projection?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
             }): Request<Object>;            
@@ -1514,30 +1514,30 @@ declare namespace gapi.client {
             list(request: {            
                 /** Data format for the response. */
                 alt?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** Name of the bucket in which to look for objects. */
                 bucket: string;
                 /** Returns results in a directory-like mode. items will contain only objects whose names, aside from the prefix, do not contain delimiter. Objects whose names, aside from the prefix, contain delimiter will have their name, truncated after the delimiter, returned in prefixes. Duplicate prefixes are omitted. */
                 delimiter?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** Maximum number of items plus prefixes to return in a single page of responses. As duplicate prefixes are omitted, fewer total results may be returned than requested. The service will use this parameter or 1,000 items, whichever is smaller. */
                 maxResults?: number;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** A previously-returned page token representing part of the larger set of results to view. */
                 pageToken?: string;
                 /** Filter results to objects whose names begin with this prefix. */
                 prefix?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** Set of properties to return. Defaults to noAcl. */
                 projection?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
                 /** If true, lists all versions of an object as distinct results. The default is false. For more information, see Object Versioning. */
@@ -1548,20 +1548,10 @@ declare namespace gapi.client {
             patch(request: {            
                 /** Data format for the response. */
                 alt?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** Name of the bucket in which the object resides. */
                 bucket: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
                 /** If present, selects a specific revision of this object (as opposed to the latest version, the default). */
                 generation?: string;
                 /** Makes the operation conditional on whether the object's current generation matches the given value. Setting to 0 makes the operation succeed only if there are no live versions of the object. */
@@ -1572,12 +1562,22 @@ declare namespace gapi.client {
                 ifMetagenerationMatch?: string;
                 /** Makes the operation conditional on whether the object's current metageneration does not match the given value. */
                 ifMetagenerationNotMatch?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Name of the object. For information about how to URL encode object names to be path safe, see Encoding URI Path Parts. */
                 object: string;
                 /** Apply a predefined set of access controls to this object. */
                 predefinedAcl?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** Set of properties to return. Defaults to full. */
                 projection?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
             }): Request<Object>;            
@@ -1586,18 +1586,6 @@ declare namespace gapi.client {
             rewrite(request: {            
                 /** Data format for the response. */
                 alt?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** Name of the bucket in which to store the new object. Overrides the provided object metadata's bucket value, if any. */
                 destinationBucket: string;
                 /** Resource name of the Cloud KMS key, of the form projects/my-project/locations/global/keyRings/my-kr/cryptoKeys/my-key, that will be used to encrypt the object. Overrides the object metadata's kms_key_name value, if any. */
@@ -1606,6 +1594,8 @@ declare namespace gapi.client {
                 destinationObject: string;
                 /** Apply a predefined set of access controls to the destination object. */
                 destinationPredefinedAcl?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
                 /** Makes the operation conditional on whether the object's current generation matches the given value. Setting to 0 makes the operation succeed only if there are no live versions of the object. */
                 ifGenerationMatch?: string;
                 /** Makes the operation conditional on whether the object's current generation does not match the given value. If no live object exists, the precondition fails. Setting to 0 makes the operation succeed only if there is a live version of the object. */
@@ -1622,10 +1612,18 @@ declare namespace gapi.client {
                 ifSourceMetagenerationMatch?: string;
                 /** Makes the operation conditional on whether the source object's current metageneration does not match the given value. */
                 ifSourceMetagenerationNotMatch?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** The maximum number of bytes that will be rewritten per rewrite request. Most callers shouldn't need to specify this parameter - it is primarily in place to support testing. If specified the value must be an integral multiple of 1 MiB (1048576). Also, this only applies to requests where the source and destination span locations and/or storage classes. Finally, this value must not change across rewrite calls else you'll get an error that the rewriteToken is invalid. */
                 maxBytesRewrittenPerCall?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** Set of properties to return. Defaults to noAcl, unless the object resource specifies the acl property, when it defaults to full. */
                 projection?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
                 /** Include this field (from the previous rewrite response) on each rewrite request after the first one, until the rewrite response 'done' flag is true. Calls that provide a rewriteToken can omit all other request fields, but if included those fields must match the values provided in the first rewrite request. */
                 rewriteToken?: string;
                 /** Name of the bucket in which to find the source object. */
@@ -1634,6 +1632,8 @@ declare namespace gapi.client {
                 sourceGeneration?: string;
                 /** Name of the source object. For information about how to URL encode object names to be path safe, see Encoding URI Path Parts. */
                 sourceObject: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
             }): Request<RewriteResponse>;            
@@ -1642,24 +1642,24 @@ declare namespace gapi.client {
             setIamPolicy(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Name of the bucket in which the object resides. */
+                bucket: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** If present, selects a specific revision of this object (as opposed to the latest version, the default). */
+                generation?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Name of the object. For information about how to URL encode object names to be path safe, see Encoding URI Path Parts. */
+                object: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Name of the bucket in which the object resides. */
-                bucket: string;
-                /** If present, selects a specific revision of this object (as opposed to the latest version, the default). */
-                generation?: string;
-                /** Name of the object. For information about how to URL encode object names to be path safe, see Encoding URI Path Parts. */
-                object: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
             }): Request<Policy>;            
@@ -1668,26 +1668,26 @@ declare namespace gapi.client {
             testIamPermissions(request: {            
                 /** Data format for the response. */
                 alt?: string;
+                /** Name of the bucket in which the object resides. */
+                bucket: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** If present, selects a specific revision of this object (as opposed to the latest version, the default). */
+                generation?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Name of the object. For information about how to URL encode object names to be path safe, see Encoding URI Path Parts. */
+                object: string;
+                /** Permissions to test. */
+                permissions: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Name of the bucket in which the object resides. */
-                bucket: string;
-                /** If present, selects a specific revision of this object (as opposed to the latest version, the default). */
-                generation?: string;
-                /** Name of the object. For information about how to URL encode object names to be path safe, see Encoding URI Path Parts. */
-                object: string;
-                /** Permissions to test. */
-                permissions: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
             }): Request<TestIamPermissionsResponse>;            
@@ -1696,20 +1696,10 @@ declare namespace gapi.client {
             update(request: {            
                 /** Data format for the response. */
                 alt?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** Name of the bucket in which the object resides. */
                 bucket: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
                 /** If present, selects a specific revision of this object (as opposed to the latest version, the default). */
                 generation?: string;
                 /** Makes the operation conditional on whether the object's current generation matches the given value. Setting to 0 makes the operation succeed only if there are no live versions of the object. */
@@ -1720,12 +1710,22 @@ declare namespace gapi.client {
                 ifMetagenerationMatch?: string;
                 /** Makes the operation conditional on whether the object's current metageneration does not match the given value. */
                 ifMetagenerationNotMatch?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Name of the object. For information about how to URL encode object names to be path safe, see Encoding URI Path Parts. */
                 object: string;
                 /** Apply a predefined set of access controls to this object. */
                 predefinedAcl?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** Set of properties to return. Defaults to full. */
                 projection?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
             }): Request<Object>;            
@@ -1734,30 +1734,30 @@ declare namespace gapi.client {
             watchAll(request: {            
                 /** Data format for the response. */
                 alt?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
-                quotaUser?: string;
-                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
-                userIp?: string;
                 /** Name of the bucket in which to look for objects. */
                 bucket: string;
                 /** Returns results in a directory-like mode. items will contain only objects whose names, aside from the prefix, do not contain delimiter. Objects whose names, aside from the prefix, contain delimiter will have their name, truncated after the delimiter, returned in prefixes. Duplicate prefixes are omitted. */
                 delimiter?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** Maximum number of items plus prefixes to return in a single page of responses. As duplicate prefixes are omitted, fewer total results may be returned than requested. The service will use this parameter or 1,000 items, whichever is smaller. */
                 maxResults?: number;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** A previously-returned page token representing part of the larger set of results to view. */
                 pageToken?: string;
                 /** Filter results to objects whose names begin with this prefix. */
                 prefix?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** Set of properties to return. Defaults to noAcl. */
                 projection?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
+                quotaUser?: string;
+                /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
+                userIp?: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
                 /** If true, lists all versions of an object as distinct results. The default is false. For more information, see Object Versioning. */
@@ -1779,12 +1779,12 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** Project ID */
+                projectId: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /** Project ID */
-                projectId: string;
             }): Request<ServiceAccount>;            
             
         }
