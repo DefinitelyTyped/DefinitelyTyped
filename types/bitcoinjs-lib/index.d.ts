@@ -206,6 +206,14 @@ export class Transaction {
 export class TransactionBuilder {
     constructor(network?: Network, maximumFeeRate?: number);
 
+    inputs: Array<{ pubKeys: Buffer[],
+                    signatures: ECSignature[],
+                    prevOutScript: Buffer,
+                    prevOutType: string,
+                    signType: string,
+                    signScript: Buffer,
+                    witness: boolean} >;
+
     addInput(txhash: Buffer | string | Transaction, vout: number, sequence?: number, prevOutScript?: Buffer): number;
 
     addOutput(scriptPubKey: Buffer, value: number): number;
