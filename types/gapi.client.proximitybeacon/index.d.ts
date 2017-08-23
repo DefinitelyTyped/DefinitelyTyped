@@ -57,6 +57,48 @@ declare namespace gapi.client {
         }
         
         interface Beacon {
+            /** Expected location stability. This is set when the beacon is registered or */
+            /** updated, not automatically detected in any way. */
+            /** Optional. */
+            expectedStability?: string;
+            /** The identifier of a beacon as advertised by it. This field must be */
+            /** populated when registering. It may be empty when updating a beacon */
+            /** record because it is ignored in updates. */
+            /**  */
+            /** When registering a beacon that broadcasts Eddystone-EID, this field */
+            /** should contain a "stable" Eddystone-UID that identifies the beacon and */
+            /** links it to its attachments. The stable Eddystone-UID is only used for */
+            /** administering the beacon. */
+            advertisedId?: AdvertisedId;
+            /** Some beacons may require a user to provide an authorization key before */
+            /** changing any of its configuration (e.g. broadcast frames, transmit power). */
+            /** This field provides a place to store and control access to that key. */
+            /** This field is populated in responses to `GET /v1beta1/beacons/3!beaconId` */
+            /** from users with write access to the given beacon. That is to say: If the */
+            /** user is authorized to write the beacon's confidential data in the service, */
+            /** the service considers them authorized to configure the beacon. Note */
+            /** that this key grants nothing on the service, only on the beacon itself. */
+            provisioningKey?: string;
+            /** Write-only registration parameters for beacons using Eddystone-EID */
+            /** (remotely resolved ephemeral ID) format. This information will not be */
+            /** populated in API responses. When submitting this data, the `advertised_id` */
+            /** field must contain an ID of type Eddystone-UID. Any other ID type will */
+            /** result in an error. */
+            ephemeralIdRegistration?: EphemeralIdRegistration;
+            /** The location of the beacon, expressed as a latitude and longitude pair. */
+            /** This location is given when the beacon is registered or updated. It does */
+            /** not necessarily indicate the actual current location of the beacon. */
+            /** Optional. */
+            latLng?: LatLng;
+            /** The [Google Places API](/places/place-id) Place ID of the place where */
+            /** the beacon is deployed. This is given when the beacon is registered or */
+            /** updated, not automatically detected in any way. */
+            /** Optional. */
+            placeId?: string;
+            /** Free text used to identify and describe the beacon. Maximum length 140 */
+            /** characters. */
+            /** Optional. */
+            description?: string;
             /** Properties of the beacon device, for example battery type or firmware */
             /** version. */
             /** Optional. */
@@ -76,48 +118,6 @@ declare namespace gapi.client {
             /** This field must be left empty when registering. After reading a beacon, */
             /** clients can use the name for future operations. */
             beaconName?: string;
-            /** Expected location stability. This is set when the beacon is registered or */
-            /** updated, not automatically detected in any way. */
-            /** Optional. */
-            expectedStability?: string;
-            /** The identifier of a beacon as advertised by it. This field must be */
-            /** populated when registering. It may be empty when updating a beacon */
-            /** record because it is ignored in updates. */
-            /**  */
-            /** When registering a beacon that broadcasts Eddystone-EID, this field */
-            /** should contain a "stable" Eddystone-UID that identifies the beacon and */
-            /** links it to its attachments. The stable Eddystone-UID is only used for */
-            /** administering the beacon. */
-            advertisedId?: AdvertisedId;
-            /** Write-only registration parameters for beacons using Eddystone-EID */
-            /** (remotely resolved ephemeral ID) format. This information will not be */
-            /** populated in API responses. When submitting this data, the `advertised_id` */
-            /** field must contain an ID of type Eddystone-UID. Any other ID type will */
-            /** result in an error. */
-            ephemeralIdRegistration?: EphemeralIdRegistration;
-            /** Some beacons may require a user to provide an authorization key before */
-            /** changing any of its configuration (e.g. broadcast frames, transmit power). */
-            /** This field provides a place to store and control access to that key. */
-            /** This field is populated in responses to `GET /v1beta1/beacons/3!beaconId` */
-            /** from users with write access to the given beacon. That is to say: If the */
-            /** user is authorized to write the beacon's confidential data in the service, */
-            /** the service considers them authorized to configure the beacon. Note */
-            /** that this key grants nothing on the service, only on the beacon itself. */
-            provisioningKey?: string;
-            /** The location of the beacon, expressed as a latitude and longitude pair. */
-            /** This location is given when the beacon is registered or updated. It does */
-            /** not necessarily indicate the actual current location of the beacon. */
-            /** Optional. */
-            latLng?: LatLng;
-            /** The [Google Places API](/places/place-id) Place ID of the place where */
-            /** the beacon is deployed. This is given when the beacon is registered or */
-            /** updated, not automatically detected in any way. */
-            /** Optional. */
-            placeId?: string;
-            /** Free text used to identify and describe the beacon. Maximum length 140 */
-            /** characters. */
-            /** Optional. */
-            description?: string;
         }
         
         interface AdvertisedId {
@@ -134,14 +134,14 @@ declare namespace gapi.client {
         }
         
         interface Date {
-            /** Month of year. Must be from 1 to 12. */
-            month?: number;
             /** Day of month. Must be from 1 to 31 and valid for the year and month, or 0 */
             /** if specifying a year/month where the day is not significant. */
             day?: number;
             /** Year of date. Must be from 1 to 9999, or 0 if specifying a date without */
             /** a year. */
             year?: number;
+            /** Month of year. Must be from 1 to 12. */
+            month?: number;
         }
         
         interface IndoorLevel {
@@ -154,18 +154,6 @@ declare namespace gapi.client {
             namespaces?: Namespace[];
         }
         
-        interface Diagnostics {
-            /** The date when the battery is expected to be low. If the value is missing */
-            /** then there is no estimate for when the battery will be low. */
-            /** This value is only an estimate, not an exact date. */
-            estimatedLowBatteryDate?: Date;
-            /** Resource name of the beacon. For Eddystone-EID beacons, this may */
-            /** be the beacon's current EID, or the beacon's "stable" Eddystone-UID. */
-            beaconName?: string;
-            /** An unordered list of Alerts that the beacon has. */
-            alerts?: string[];
-        }
-        
         interface ListBeaconsResponse {
             /** An opaque pagination token that the client may provide in their next */
             /** request to retrieve the next page of results. */
@@ -175,6 +163,18 @@ declare namespace gapi.client {
             totalCount?: string;
             /** The beacons that matched the search criteria. */
             beacons?: Beacon[];
+        }
+        
+        interface Diagnostics {
+            /** Resource name of the beacon. For Eddystone-EID beacons, this may */
+            /** be the beacon's current EID, or the beacon's "stable" Eddystone-UID. */
+            beaconName?: string;
+            /** An unordered list of Alerts that the beacon has. */
+            alerts?: string[];
+            /** The date when the battery is expected to be low. If the value is missing */
+            /** then there is no estimate for when the battery will be low. */
+            /** This value is only an estimate, not an exact date. */
+            estimatedLowBatteryDate?: Date;
         }
         
         interface GetInfoForObservedBeaconsRequest {
@@ -266,16 +266,6 @@ declare namespace gapi.client {
             servingVisibility?: string;
         }
         
-        interface BeaconInfo {
-            /** The name under which the beacon is registered. */
-            beaconName?: string;
-            /** Attachments matching the type(s) requested. */
-            /** May be empty if no attachment types were requested. */
-            attachments?: AttachmentInfo[];
-            /** The ID advertised by the beacon. */
-            advertisedId?: AdvertisedId;
-        }
-        
         interface AttachmentInfo {
             /** Specifies what kind of attachment this is. Tells a client how to */
             /** interpret the `data` field. Format is <var>namespace/type</var>, for */
@@ -285,16 +275,26 @@ declare namespace gapi.client {
             data?: string;
         }
         
+        interface BeaconInfo {
+            /** Attachments matching the type(s) requested. */
+            /** May be empty if no attachment types were requested. */
+            attachments?: AttachmentInfo[];
+            /** The ID advertised by the beacon. */
+            advertisedId?: AdvertisedId;
+            /** The name under which the beacon is registered. */
+            beaconName?: string;
+        }
+        
         interface EphemeralIdRegistrationParams {
-            /** The beacon service's public key for use by a beacon to derive its */
-            /** Identity Key using Elliptic Curve Diffie-Hellman key exchange. */
-            serviceEcdhPublicKey?: string;
             /** Indicates the maximum rotation period supported by the service. */
             /** See EddystoneEidRegistration.rotation_period_exponent */
             maxRotationPeriodExponent?: number;
             /** Indicates the minimum rotation period supported by the service. */
             /** See EddystoneEidRegistration.rotation_period_exponent */
             minRotationPeriodExponent?: number;
+            /** The beacon service's public key for use by a beacon to derive its */
+            /** Identity Key using Elliptic Curve Diffie-Hellman key exchange. */
+            serviceEcdhPublicKey?: string;
         }
         
         interface DeleteAttachmentsResponse {
@@ -308,32 +308,32 @@ declare namespace gapi.client {
             /** [API key](https://developers.google.com/beacons/proximity/get-started#request_a_browser_api_key) */
             /** for the application. */
             getforobserved(request: {            
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
-                /** JSONP */
-                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
                 /** OAuth access token. */
                 access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
             }): Request<GetInfoForObservedBeaconsResponse>;            
             
         }
@@ -347,32 +347,32 @@ declare namespace gapi.client {
             /** from a signed-in user with &#42;&#42;viewer&#42;&#42;, &#42;&#42;Is owner&#42;&#42; or &#42;&#42;Can edit&#42;&#42; */
             /** permissions in the Google Developers Console project. */
             list(request: {            
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
-                /** JSONP */
-                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
                 /** OAuth access token. */
                 access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
                 /** The project id to list namespaces under. */
                 /** Optional. */
                 projectId?: string;
@@ -381,32 +381,32 @@ declare namespace gapi.client {
             /** Updates the information about the specified namespace. Only the namespace */
             /** visibility can be updated. */
             update(request: {            
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
-                /** JSONP */
-                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
                 /** OAuth access token. */
                 access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
                 /** Resource name of this namespace. Namespaces names have the format: */
                 /** <code>namespaces/<var>namespace</var></code>. */
                 namespaceName: string;
@@ -428,32 +428,32 @@ declare namespace gapi.client {
             /** prepared to refresh this key when they encounter an error registering an */
             /** Eddystone-EID beacon. */
             getEidparams(request: {            
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
-                /** JSONP */
-                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
                 /** OAuth access token. */
                 access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
             }): Request<EphemeralIdRegistrationParams>;            
             
         }
@@ -467,32 +467,32 @@ declare namespace gapi.client {
             /** from a signed-in user with &#42;&#42;viewer&#42;&#42;, &#42;&#42;Is owner&#42;&#42; or &#42;&#42;Can edit&#42;&#42; */
             /** permissions in the Google Developers Console project. */
             list(request: {            
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
-                /** JSONP */
-                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
                 /** OAuth access token. */
                 access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
                 /** Beacon that the diagnostics are for. */
                 beaconName: string;
                 /** Requests results that occur after the `page_token`, obtained from the */
@@ -513,6 +513,124 @@ declare namespace gapi.client {
         }
         
         interface AttachmentsResource {
+            /** Deletes multiple attachments on a given beacon. This operation is */
+            /** permanent and cannot be undone. */
+            /**  */
+            /** You can optionally specify `namespacedType` to choose which attachments */
+            /** should be deleted. If you do not specify `namespacedType`,  all your */
+            /** attachments on the given beacon will be deleted. You also may explicitly */
+            /** specify `&#42;/&#42;` to delete all. */
+            /**  */
+            /** Authenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2) */
+            /** from a signed-in user with &#42;&#42;Is owner&#42;&#42; or &#42;&#42;Can edit&#42;&#42; permissions in the */
+            /** Google Developers Console project. */
+            batchDelete(request: {            
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Specifies the namespace and type of attachments to delete in */
+                /** `namespace/type` format. Accepts `&#42;/&#42;` to specify */
+                /** "all types in all namespaces". */
+                /** Optional. */
+                namespacedType?: string;
+                /** The beacon whose attachments should be deleted. A beacon name has the */
+                /** format "beacons/N!beaconId" where the beaconId is the base16 ID broadcast */
+                /** by the beacon and N is a code for the beacon's type. Possible values are */
+                /** `3` for Eddystone-UID, `4` for Eddystone-EID, `1` for iBeacon, or `5` */
+                /** for AltBeacon. For Eddystone-EID beacons, you may use either the */
+                /** current EID or the beacon's "stable" UID. */
+                /** Required. */
+                beaconName: string;
+                /** The project id to delete beacon attachments under. This field can be */
+                /** used when "&#42;" is specified to mean all attachment namespaces. Projects */
+                /** may have multiple attachments with multiple namespaces. If "&#42;" is */
+                /** specified and the projectId string is empty, then the project */
+                /** making the request is used. */
+                /** Optional. */
+                projectId?: string;
+            }): Request<DeleteAttachmentsResponse>;            
+            
+            /** Associates the given data with the specified beacon. Attachment data must */
+            /** contain two parts: */
+            /** <ul> */
+            /** <li>A namespaced type.</li> */
+            /** <li>The actual attachment data itself.</li> */
+            /** </ul> */
+            /** The namespaced type consists of two parts, the namespace and the type. */
+            /** The namespace must be one of the values returned by the `namespaces` */
+            /** endpoint, while the type can be a string of any characters except for the */
+            /** forward slash (`/`) up to 100 characters in length. */
+            /**  */
+            /** Attachment data can be up to 1024 bytes long. */
+            /**  */
+            /** Authenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2) */
+            /** from a signed-in user with &#42;&#42;Is owner&#42;&#42; or &#42;&#42;Can edit&#42;&#42; permissions in the */
+            /** Google Developers Console project. */
+            create(request: {            
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Beacon on which the attachment should be created. A beacon name has the */
+                /** format "beacons/N!beaconId" where the beaconId is the base16 ID broadcast */
+                /** by the beacon and N is a code for the beacon's type. Possible values are */
+                /** `3` for Eddystone-UID, `4` for Eddystone-EID, `1` for iBeacon, or `5` */
+                /** for AltBeacon. For Eddystone-EID beacons, you may use either the */
+                /** current EID or the beacon's "stable" UID. */
+                /** Required. */
+                beaconName: string;
+                /** The project id of the project the attachment will belong to. If */
+                /** the project id is not specified then the project making the request */
+                /** is used. */
+                /** Optional. */
+                projectId?: string;
+            }): Request<BeaconAttachment>;            
+            
             /** Deletes the specified attachment for the given beacon. Each attachment has */
             /** a unique attachment name (`attachmentName`) which is returned when you */
             /** fetch the attachment data via this API. You specify this with the delete */
@@ -523,32 +641,32 @@ declare namespace gapi.client {
             /** from a signed-in user with &#42;&#42;Is owner&#42;&#42; or &#42;&#42;Can edit&#42;&#42; permissions in the */
             /** Google Developers Console project. */
             delete(request: {            
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
-                /** JSONP */
-                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
                 /** OAuth access token. */
                 access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
                 /** The attachment name (`attachmentName`) of */
                 /** the attachment to remove. For example: */
                 /** `beacons/3!893737abc9/attachments/c5e937-af0-494-959-ec49d12738`. For */
@@ -574,39 +692,32 @@ declare namespace gapi.client {
             /** from a signed-in user with &#42;&#42;viewer&#42;&#42;, &#42;&#42;Is owner&#42;&#42; or &#42;&#42;Can edit&#42;&#42; */
             /** permissions in the Google Developers Console project. */
             list(request: {            
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
-                /** JSONP */
-                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** The project id to list beacon attachments under. This field can be */
-                /** used when "&#42;" is specified to mean all attachment namespaces. Projects */
-                /** may have multiple attachments with multiple namespaces. If "&#42;" is */
-                /** specified and the projectId string is empty, then the project */
-                /** making the request is used. */
-                /** Optional. */
-                projectId?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
                 /** Specifies the namespace and type of attachment to include in response in */
                 /** <var>namespace/type</var> format. Accepts `&#42;/&#42;` to specify */
                 /** "all types in all namespaces". */
@@ -619,129 +730,272 @@ declare namespace gapi.client {
                 /** current EID or the beacon's "stable" UID. */
                 /** Required. */
                 beaconName: string;
-            }): Request<ListBeaconAttachmentsResponse>;            
-            
-            /** Deletes multiple attachments on a given beacon. This operation is */
-            /** permanent and cannot be undone. */
-            /**  */
-            /** You can optionally specify `namespacedType` to choose which attachments */
-            /** should be deleted. If you do not specify `namespacedType`,  all your */
-            /** attachments on the given beacon will be deleted. You also may explicitly */
-            /** specify `&#42;/&#42;` to delete all. */
-            /**  */
-            /** Authenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2) */
-            /** from a signed-in user with &#42;&#42;Is owner&#42;&#42; or &#42;&#42;Can edit&#42;&#42; permissions in the */
-            /** Google Developers Console project. */
-            batchDelete(request: {            
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** The project id to delete beacon attachments under. This field can be */
+                /** The project id to list beacon attachments under. This field can be */
                 /** used when "&#42;" is specified to mean all attachment namespaces. Projects */
                 /** may have multiple attachments with multiple namespaces. If "&#42;" is */
                 /** specified and the projectId string is empty, then the project */
                 /** making the request is used. */
                 /** Optional. */
                 projectId?: string;
-                /** Specifies the namespace and type of attachments to delete in */
-                /** `namespace/type` format. Accepts `&#42;/&#42;` to specify */
-                /** "all types in all namespaces". */
-                /** Optional. */
-                namespacedType?: string;
-                /** The beacon whose attachments should be deleted. A beacon name has the */
-                /** format "beacons/N!beaconId" where the beaconId is the base16 ID broadcast */
-                /** by the beacon and N is a code for the beacon's type. Possible values are */
-                /** `3` for Eddystone-UID, `4` for Eddystone-EID, `1` for iBeacon, or `5` */
-                /** for AltBeacon. For Eddystone-EID beacons, you may use either the */
-                /** current EID or the beacon's "stable" UID. */
-                /** Required. */
-                beaconName: string;
-            }): Request<DeleteAttachmentsResponse>;            
-            
-            /** Associates the given data with the specified beacon. Attachment data must */
-            /** contain two parts: */
-            /** <ul> */
-            /** <li>A namespaced type.</li> */
-            /** <li>The actual attachment data itself.</li> */
-            /** </ul> */
-            /** The namespaced type consists of two parts, the namespace and the type. */
-            /** The namespace must be one of the values returned by the `namespaces` */
-            /** endpoint, while the type can be a string of any characters except for the */
-            /** forward slash (`/`) up to 100 characters in length. */
-            /**  */
-            /** Attachment data can be up to 1024 bytes long. */
-            /**  */
-            /** Authenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2) */
-            /** from a signed-in user with &#42;&#42;Is owner&#42;&#42; or &#42;&#42;Can edit&#42;&#42; permissions in the */
-            /** Google Developers Console project. */
-            create(request: {            
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** The project id of the project the attachment will belong to. If */
-                /** the project id is not specified then the project making the request */
-                /** is used. */
-                /** Optional. */
-                projectId?: string;
-                /** Beacon on which the attachment should be created. A beacon name has the */
-                /** format "beacons/N!beaconId" where the beaconId is the base16 ID broadcast */
-                /** by the beacon and N is a code for the beacon's type. Possible values are */
-                /** `3` for Eddystone-UID, `4` for Eddystone-EID, `1` for iBeacon, or `5` */
-                /** for AltBeacon. For Eddystone-EID beacons, you may use either the */
-                /** current EID or the beacon's "stable" UID. */
-                /** Required. */
-                beaconName: string;
-            }): Request<BeaconAttachment>;            
+            }): Request<ListBeaconAttachmentsResponse>;            
             
         }
         
         interface BeaconsResource {
+            /** Returns detailed information about the specified beacon. */
+            /**  */
+            /** Authenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2) */
+            /** from a signed-in user with &#42;&#42;viewer&#42;&#42;, &#42;&#42;Is owner&#42;&#42; or &#42;&#42;Can edit&#42;&#42; */
+            /** permissions in the Google Developers Console project. */
+            /**  */
+            /** Requests may supply an Eddystone-EID beacon name in the form: */
+            /** `beacons/4!beaconId` where the `beaconId` is the base16 ephemeral ID */
+            /** broadcast by the beacon. The returned `Beacon` object will contain the */
+            /** beacon's stable Eddystone-UID. Clients not authorized to resolve the */
+            /** beacon's ephemeral Eddystone-EID broadcast will receive an error. */
+            get(request: {            
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Resource name of this beacon. A beacon name has the format */
+                /** "beacons/N!beaconId" where the beaconId is the base16 ID broadcast by */
+                /** the beacon and N is a code for the beacon's type. Possible values are */
+                /** `3` for Eddystone-UID, `4` for Eddystone-EID, `1` for iBeacon, or `5` */
+                /** for AltBeacon. For Eddystone-EID beacons, you may use either the */
+                /** current EID or the beacon's "stable" UID. */
+                /** Required. */
+                beaconName: string;
+                /** The project id of the beacon to request. If the project id is not specified */
+                /** then the project making the request is used. The project id must match the */
+                /** project that owns the beacon. */
+                /** Optional. */
+                projectId?: string;
+            }): Request<Beacon>;            
+            
+            /** Updates the information about the specified beacon. &#42;&#42;Any field that you do */
+            /** not populate in the submitted beacon will be permanently erased&#42;&#42;, so you */
+            /** should follow the "read, modify, write" pattern to avoid inadvertently */
+            /** destroying data. */
+            /**  */
+            /** Changes to the beacon status via this method will be  silently ignored. */
+            /** To update beacon status, use the separate methods on this API for */
+            /** activation, deactivation, and decommissioning. */
+            /** Authenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2) */
+            /** from a signed-in user with &#42;&#42;Is owner&#42;&#42; or &#42;&#42;Can edit&#42;&#42; permissions in the */
+            /** Google Developers Console project. */
+            update(request: {            
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** The project id of the beacon to update. If the project id is not */
+                /** specified then the project making the request is used. The project id */
+                /** must match the project that owns the beacon. */
+                /** Optional. */
+                projectId?: string;
+                /** Resource name of this beacon. A beacon name has the format */
+                /** "beacons/N!beaconId" where the beaconId is the base16 ID broadcast by */
+                /** the beacon and N is a code for the beacon's type. Possible values are */
+                /** `3` for Eddystone, `1` for iBeacon, or `5` for AltBeacon. */
+                /**  */
+                /** This field must be left empty when registering. After reading a beacon, */
+                /** clients can use the name for future operations. */
+                beaconName: string;
+            }): Request<Beacon>;            
+            
+            /** Decommissions the specified beacon in the service. This beacon will no */
+            /** longer be returned from `beaconinfo.getforobserved`. This operation is */
+            /** permanent -- you will not be able to re-register a beacon with this ID */
+            /** again. */
+            /**  */
+            /** Authenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2) */
+            /** from a signed-in user with &#42;&#42;Is owner&#42;&#42; or &#42;&#42;Can edit&#42;&#42; permissions in the */
+            /** Google Developers Console project. */
+            decommission(request: {            
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Beacon that should be decommissioned. A beacon name has the format */
+                /** "beacons/N!beaconId" where the beaconId is the base16 ID broadcast by */
+                /** the beacon and N is a code for the beacon's type. Possible values are */
+                /** `3` for Eddystone-UID, `4` for Eddystone-EID, `1` for iBeacon, or `5` */
+                /** for AltBeacon. For Eddystone-EID beacons, you may use either the */
+                /** current EID of the beacon's "stable" UID. */
+                /** Required. */
+                beaconName: string;
+                /** The project id of the beacon to decommission. If the project id is not */
+                /** specified then the project making the request is used. The project id */
+                /** must match the project that owns the beacon. */
+                /** Optional. */
+                projectId?: string;
+            }): Request<{}>;            
+            
+            /** Deactivates a beacon. Once deactivated, the API will not return */
+            /** information nor attachment data for the beacon when queried via */
+            /** `beaconinfo.getforobserved`. Calling this method on an already inactive */
+            /** beacon will do nothing (but will return a successful response code). */
+            /**  */
+            /** Authenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2) */
+            /** from a signed-in user with &#42;&#42;Is owner&#42;&#42; or &#42;&#42;Can edit&#42;&#42; permissions in the */
+            /** Google Developers Console project. */
+            deactivate(request: {            
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Beacon that should be deactivated. A beacon name has the format */
+                /** "beacons/N!beaconId" where the beaconId is the base16 ID broadcast by */
+                /** the beacon and N is a code for the beacon's type. Possible values are */
+                /** `3` for Eddystone-UID, `4` for Eddystone-EID, `1` for iBeacon, or `5` */
+                /** for AltBeacon. For Eddystone-EID beacons, you may use either the */
+                /** current EID or the beacon's "stable" UID. */
+                /** Required. */
+                beaconName: string;
+                /** The project id of the beacon to deactivate. If the project id is not */
+                /** specified then the project making the request is used. The project id must */
+                /** match the project that owns the beacon. */
+                /** Optional. */
+                projectId?: string;
+            }): Request<{}>;            
+            
+            /** Deletes the specified beacon including all diagnostics data for the beacon */
+            /** as well as any attachments on the beacon (including those belonging to */
+            /** other projects). This operation cannot be undone. */
+            /**  */
+            /** Authenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2) */
+            /** from a signed-in user with &#42;&#42;Is owner&#42;&#42; or &#42;&#42;Can edit&#42;&#42; permissions in the */
+            /** Google Developers Console project. */
+            delete(request: {            
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Beacon that should be deleted. A beacon name has the format */
+                /** "beacons/N!beaconId" where the beaconId is the base16 ID broadcast by */
+                /** the beacon and N is a code for the beacon's type. Possible values are */
+                /** `3` for Eddystone-UID, `4` for Eddystone-EID, `1` for iBeacon, or `5` */
+                /** for AltBeacon. For Eddystone-EID beacons, you may use either the */
+                /** current EID or the beacon's "stable" UID. */
+                /** Required. */
+                beaconName: string;
+                /** The project id of the beacon to delete. If not provided, the project */
+                /** that is making the request is used. */
+                /** Optional. */
+                projectId?: string;
+            }): Request<{}>;            
+            
             /** Searches the beacon registry for beacons that match the given search */
             /** criteria. Only those beacons that the client has permission to list */
             /** will be returned. */
@@ -750,32 +1004,36 @@ declare namespace gapi.client {
             /** from a signed-in user with &#42;&#42;viewer&#42;&#42;, &#42;&#42;Is owner&#42;&#42; or &#42;&#42;Can edit&#42;&#42; */
             /** permissions in the Google Developers Console project. */
             list(request: {            
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
-                /** JSONP */
-                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
                 /** OAuth access token. */
                 access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** The project id to list beacons under. If not present then the project */
+                /** credential that made the request is used as the project. */
+                /** Optional. */
+                projectId?: string;
                 /** A pagination token obtained from a previous request to list beacons. */
                 pageToken?: string;
                 /** The maximum number of records to return for this request, up to a */
@@ -849,10 +1107,6 @@ declare namespace gapi.client {
                 /** Example REST request: */
                 /** `GET /v1beta1/beacons?q=status:active%20lat:51.123%20lng:-1.095%20radius:1000` */
                 q?: string;
-                /** The project id to list beacons under. If not present then the project */
-                /** credential that made the request is used as the project. */
-                /** Optional. */
-                projectId?: string;
             }): Request<ListBeaconsResponse>;            
             
             /** Registers a previously unregistered beacon given its `advertisedId`. */
@@ -862,32 +1116,32 @@ declare namespace gapi.client {
             /** from a signed-in user with &#42;&#42;Is owner&#42;&#42; or &#42;&#42;Can edit&#42;&#42; permissions in the */
             /** Google Developers Console project. */
             register(request: {            
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
-                /** JSONP */
-                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
                 /** OAuth access token. */
                 access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
                 /** The project id of the project the beacon will be registered to. If */
                 /** the project id is not specified then the project making the request */
                 /** is used. */
@@ -904,32 +1158,32 @@ declare namespace gapi.client {
             /** from a signed-in user with &#42;&#42;Is owner&#42;&#42; or &#42;&#42;Can edit&#42;&#42; permissions in the */
             /** Google Developers Console project. */
             activate(request: {            
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
-                /** JSONP */
-                callback?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
                 /** OAuth access token. */
                 access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
                 /** The project id of the beacon to activate. If the project id is not */
                 /** specified then the project making the request is used. The project id */
                 /** must match the project that owns the beacon. */
@@ -943,260 +1197,6 @@ declare namespace gapi.client {
                 /** current EID or the beacon's "stable" UID. */
                 /** Required. */
                 beaconName: string;
-            }): Request<{}>;            
-            
-            /** Returns detailed information about the specified beacon. */
-            /**  */
-            /** Authenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2) */
-            /** from a signed-in user with &#42;&#42;viewer&#42;&#42;, &#42;&#42;Is owner&#42;&#42; or &#42;&#42;Can edit&#42;&#42; */
-            /** permissions in the Google Developers Console project. */
-            /**  */
-            /** Requests may supply an Eddystone-EID beacon name in the form: */
-            /** `beacons/4!beaconId` where the `beaconId` is the base16 ephemeral ID */
-            /** broadcast by the beacon. The returned `Beacon` object will contain the */
-            /** beacon's stable Eddystone-UID. Clients not authorized to resolve the */
-            /** beacon's ephemeral Eddystone-EID broadcast will receive an error. */
-            get(request: {            
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Resource name of this beacon. A beacon name has the format */
-                /** "beacons/N!beaconId" where the beaconId is the base16 ID broadcast by */
-                /** the beacon and N is a code for the beacon's type. Possible values are */
-                /** `3` for Eddystone-UID, `4` for Eddystone-EID, `1` for iBeacon, or `5` */
-                /** for AltBeacon. For Eddystone-EID beacons, you may use either the */
-                /** current EID or the beacon's "stable" UID. */
-                /** Required. */
-                beaconName: string;
-                /** The project id of the beacon to request. If the project id is not specified */
-                /** then the project making the request is used. The project id must match the */
-                /** project that owns the beacon. */
-                /** Optional. */
-                projectId?: string;
-            }): Request<Beacon>;            
-            
-            /** Updates the information about the specified beacon. &#42;&#42;Any field that you do */
-            /** not populate in the submitted beacon will be permanently erased&#42;&#42;, so you */
-            /** should follow the "read, modify, write" pattern to avoid inadvertently */
-            /** destroying data. */
-            /**  */
-            /** Changes to the beacon status via this method will be  silently ignored. */
-            /** To update beacon status, use the separate methods on this API for */
-            /** activation, deactivation, and decommissioning. */
-            /** Authenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2) */
-            /** from a signed-in user with &#42;&#42;Is owner&#42;&#42; or &#42;&#42;Can edit&#42;&#42; permissions in the */
-            /** Google Developers Console project. */
-            update(request: {            
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** The project id of the beacon to update. If the project id is not */
-                /** specified then the project making the request is used. The project id */
-                /** must match the project that owns the beacon. */
-                /** Optional. */
-                projectId?: string;
-                /** Resource name of this beacon. A beacon name has the format */
-                /** "beacons/N!beaconId" where the beaconId is the base16 ID broadcast by */
-                /** the beacon and N is a code for the beacon's type. Possible values are */
-                /** `3` for Eddystone, `1` for iBeacon, or `5` for AltBeacon. */
-                /**  */
-                /** This field must be left empty when registering. After reading a beacon, */
-                /** clients can use the name for future operations. */
-                beaconName: string;
-            }): Request<Beacon>;            
-            
-            /** Decommissions the specified beacon in the service. This beacon will no */
-            /** longer be returned from `beaconinfo.getforobserved`. This operation is */
-            /** permanent -- you will not be able to re-register a beacon with this ID */
-            /** again. */
-            /**  */
-            /** Authenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2) */
-            /** from a signed-in user with &#42;&#42;Is owner&#42;&#42; or &#42;&#42;Can edit&#42;&#42; permissions in the */
-            /** Google Developers Console project. */
-            decommission(request: {            
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Beacon that should be decommissioned. A beacon name has the format */
-                /** "beacons/N!beaconId" where the beaconId is the base16 ID broadcast by */
-                /** the beacon and N is a code for the beacon's type. Possible values are */
-                /** `3` for Eddystone-UID, `4` for Eddystone-EID, `1` for iBeacon, or `5` */
-                /** for AltBeacon. For Eddystone-EID beacons, you may use either the */
-                /** current EID of the beacon's "stable" UID. */
-                /** Required. */
-                beaconName: string;
-                /** The project id of the beacon to decommission. If the project id is not */
-                /** specified then the project making the request is used. The project id */
-                /** must match the project that owns the beacon. */
-                /** Optional. */
-                projectId?: string;
-            }): Request<{}>;            
-            
-            /** Deletes the specified beacon including all diagnostics data for the beacon */
-            /** as well as any attachments on the beacon (including those belonging to */
-            /** other projects). This operation cannot be undone. */
-            /**  */
-            /** Authenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2) */
-            /** from a signed-in user with &#42;&#42;Is owner&#42;&#42; or &#42;&#42;Can edit&#42;&#42; permissions in the */
-            /** Google Developers Console project. */
-            delete(request: {            
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Beacon that should be deleted. A beacon name has the format */
-                /** "beacons/N!beaconId" where the beaconId is the base16 ID broadcast by */
-                /** the beacon and N is a code for the beacon's type. Possible values are */
-                /** `3` for Eddystone-UID, `4` for Eddystone-EID, `1` for iBeacon, or `5` */
-                /** for AltBeacon. For Eddystone-EID beacons, you may use either the */
-                /** current EID or the beacon's "stable" UID. */
-                /** Required. */
-                beaconName: string;
-                /** The project id of the beacon to delete. If not provided, the project */
-                /** that is making the request is used. */
-                /** Optional. */
-                projectId?: string;
-            }): Request<{}>;            
-            
-            /** Deactivates a beacon. Once deactivated, the API will not return */
-            /** information nor attachment data for the beacon when queried via */
-            /** `beaconinfo.getforobserved`. Calling this method on an already inactive */
-            /** beacon will do nothing (but will return a successful response code). */
-            /**  */
-            /** Authenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2) */
-            /** from a signed-in user with &#42;&#42;Is owner&#42;&#42; or &#42;&#42;Can edit&#42;&#42; permissions in the */
-            /** Google Developers Console project. */
-            deactivate(request: {            
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Beacon that should be deactivated. A beacon name has the format */
-                /** "beacons/N!beaconId" where the beaconId is the base16 ID broadcast by */
-                /** the beacon and N is a code for the beacon's type. Possible values are */
-                /** `3` for Eddystone-UID, `4` for Eddystone-EID, `1` for iBeacon, or `5` */
-                /** for AltBeacon. For Eddystone-EID beacons, you may use either the */
-                /** current EID or the beacon's "stable" UID. */
-                /** Required. */
-                beaconName: string;
-                /** The project id of the beacon to deactivate. If the project id is not */
-                /** specified then the project making the request is used. The project id must */
-                /** match the project that owns the beacon. */
-                /** Optional. */
-                projectId?: string;
             }): Request<{}>;            
             
             diagnostics: DiagnosticsResource;

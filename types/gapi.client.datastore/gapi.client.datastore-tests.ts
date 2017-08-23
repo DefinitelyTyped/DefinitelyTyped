@@ -34,6 +34,13 @@ gapi.load('client', () => {
 
     async function run() {  
         
+        // Begins a new transaction.
+        await gapi.client.projects.beginTransaction({ projectId: "projectId",  }); 
+        
+        // Commits a transaction, optionally creating, deleting or modifying some
+        // entities.
+        await gapi.client.projects.commit({ projectId: "projectId",  }); 
+        
         // Queries for entities.
         await gapi.client.projects.runQuery({ projectId: "projectId",  }); 
         
@@ -45,13 +52,6 @@ gapi.load('client', () => {
         
         // Allocates IDs for the given keys, which is useful for referencing an entity
         // before it is inserted.
-        await gapi.client.projects.allocateIds({ projectId: "projectId",  }); 
-        
-        // Begins a new transaction.
-        await gapi.client.projects.beginTransaction({ projectId: "projectId",  }); 
-        
-        // Commits a transaction, optionally creating, deleting or modifying some
-        // entities.
-        await gapi.client.projects.commit({ projectId: "projectId",  });
+        await gapi.client.projects.allocateIds({ projectId: "projectId",  });
     }
 });

@@ -22,6 +22,322 @@ declare namespace gapi.client {
     
     namespace serviceuser {
         
+        interface Status {
+            /** A list of messages that carry the error details.  There is a common set of */
+            /** message types for APIs to use. */
+            details?: Array<Record<string, any>>;            
+            /** The status code, which should be an enum value of google.rpc.Code. */
+            code?: number;
+            /** A developer-facing error message, which should be in English. Any */
+            /** user-facing error message should be localized and sent in the */
+            /** google.rpc.Status.details field, or localized by the client. */
+            message?: string;
+        }
+        
+        interface AuthProvider {
+            /** Redirect URL if JWT token is required but no present or is expired. */
+            /** Implement authorizationUrl of securityDefinitions in OpenAPI spec. */
+            authorizationUrl?: string;
+            /** Identifies the principal that issued the JWT. See */
+            /** https://tools.ietf.org/html/draft-ietf-oauth-json-web-token-32#section-4.1.1 */
+            /** Usually a URL or an email address. */
+            /**  */
+            /** Example: https://securetoken.google.com */
+            /** Example: 1234567-compute@developer.gserviceaccount.com */
+            issuer?: string;
+            /** The unique identifier of the auth provider. It will be referred to by */
+            /** `AuthRequirement.provider_id`. */
+            /**  */
+            /** Example: "bookstore_auth". */
+            id?: string;
+            /** URL of the provider's public key set to validate signature of the JWT. See */
+            /** [OpenID Discovery](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata). */
+            /** Optional if the key set document: */
+            /**  - can be retrieved from */
+            /**    [OpenID Discovery](https://openid.net/specs/openid-connect-discovery-1_0.html */
+            /**    of the issuer. */
+            /**  - can be inferred from the email domain of the issuer (e.g. a Google service account). */
+            /**  */
+            /** Example: https://www.googleapis.com/oauth2/v1/certs */
+            jwksUri?: string;
+            /** The list of JWT */
+            /** [audiences](https://tools.ietf.org/html/draft-ietf-oauth-json-web-token-32#section-4.1.3). */
+            /** that are allowed to access. A JWT containing any of these audiences will */
+            /** be accepted. When this setting is absent, only JWTs with audience */
+            /** "https://Service_name/API_name" */
+            /** will be accepted. For example, if no audiences are in the setting, */
+            /** LibraryService API will only accept JWTs with the following audience */
+            /** "https://library-example.googleapis.com/google.example.library.v1.LibraryService". */
+            /**  */
+            /** Example: */
+            /**  */
+            /**     audiences: bookstore_android.apps.googleusercontent.com, */
+            /**                bookstore_web.apps.googleusercontent.com */
+            audiences?: string;
+        }
+        
+        interface Service {
+            /** Configuration controlling usage of this service. */
+            usage?: Usage;
+            /** Defines the metrics used by this service. */
+            metrics?: MetricDescriptor[];
+            /** Auth configuration. */
+            authentication?: Authentication;
+            /** Experimental configuration. */
+            experimental?: Experimental;
+            /** Configuration for the service control plane. */
+            control?: Control;
+            /** The semantic version of the service configuration. The config version */
+            /** affects the interpretation of the service configuration. For example, */
+            /** certain features are enabled by default for certain config versions. */
+            /** The latest config version is `3`. */
+            configVersion?: number;
+            /** Monitoring configuration. */
+            monitoring?: Monitoring;
+            /** The Google project that owns this service. */
+            producerProjectId?: string;
+            /** A list of all proto message types included in this API service. */
+            /** It serves similar purpose as [google.api.Service.types], except that */
+            /** these types are not needed by user-defined APIs. Therefore, they will not */
+            /** show up in the generated discovery doc. This field should only be used */
+            /** to define system APIs in ESF. */
+            systemTypes?: Type[];
+            /** API visibility configuration. */
+            visibility?: Visibility;
+            /** Quota configuration. */
+            quota?: Quota;
+            /** The DNS address at which this service is available, */
+            /** e.g. `calendar.googleapis.com`. */
+            name?: string;
+            /** Custom error configuration. */
+            customError?: CustomError;
+            /** The product title for this service. */
+            title?: string;
+            /** Configuration for network endpoints.  If this is empty, then an endpoint */
+            /** with the same name as the service is automatically generated to service all */
+            /** defined APIs. */
+            endpoints?: Endpoint[];
+            /** Defines the logs used by this service. */
+            logs?: LogDescriptor[];
+            /** A list of API interfaces exported by this service. Only the `name` field */
+            /** of the google.protobuf.Api needs to be provided by the configuration */
+            /** author, as the remaining fields will be derived from the IDL during the */
+            /** normalization process. It is an error to specify an API interface here */
+            /** which cannot be resolved against the associated IDL files. */
+            apis?: Api[];
+            /** A list of all proto message types included in this API service. */
+            /** Types referenced directly or indirectly by the `apis` are */
+            /** automatically included.  Messages which are not referenced but */
+            /** shall be included, such as types used by the `google.protobuf.Any` type, */
+            /** should be listed here by name. Example: */
+            /**  */
+            /**     types: */
+            /**     - name: google.protobuf.Int32 */
+            types?: Type[];
+            /** Output only. The source information for this configuration if available. */
+            sourceInfo?: SourceInfo;
+            /** HTTP configuration. */
+            http?: Http;
+            /** System parameter configuration. */
+            systemParameters?: SystemParameters;
+            /** API backend configuration. */
+            backend?: Backend;
+            /** Additional API documentation. */
+            documentation?: Documentation;
+            /** Logging configuration. */
+            logging?: Logging;
+            /** Defines the monitored resources used by this service. This is required */
+            /** by the Service.monitoring and Service.logging configurations. */
+            monitoredResources?: MonitoredResourceDescriptor[];
+            /** A list of all enum types included in this API service.  Enums */
+            /** referenced directly or indirectly by the `apis` are automatically */
+            /** included.  Enums which are not referenced but shall be included */
+            /** should be listed here by name. Example: */
+            /**  */
+            /**     enums: */
+            /**     - name: google.someapi.v1.SomeEnum */
+            enums?: Enum[];
+            /** Context configuration. */
+            context?: Context;
+            /** A unique ID for a specific instance of this message, typically assigned */
+            /** by the client for tracking purpose. If empty, the server may choose to */
+            /** generate one instead. */
+            id?: string;
+        }
+        
+        interface EnumValue {
+            /** Enum value name. */
+            name?: string;
+            /** Protocol buffer options. */
+            options?: Option[];
+            /** Enum value number. */
+            number?: number;
+        }
+        
+        interface CustomHttpPattern {
+            /** The name of this custom HTTP verb. */
+            kind?: string;
+            /** The path matched by this custom verb. */
+            path?: string;
+        }
+        
+        interface OperationMetadata {
+            /** The start time of the operation. */
+            startTime?: string;
+            /** Detailed status information for each step. The order is undetermined. */
+            steps?: Step[];
+            /** The full name of the resources that this operation is directly */
+            /** associated with. */
+            resourceNames?: string[];
+            /** Percentage of completion of this operation, ranging from 0 to 100. */
+            progressPercentage?: number;
+        }
+        
+        interface PublishedService {
+            /** The service's published configuration. */
+            service?: Service;
+            /** The resource name of the service. */
+            /**  */
+            /** A valid name would be: */
+            /** - services/serviceuser.googleapis.com */
+            name?: string;
+        }
+        
+        interface SystemParameterRule {
+            /** Define parameters. Multiple names may be defined for a parameter. */
+            /** For a given method call, only one of them should be used. If multiple */
+            /** names are used the behavior is implementation-dependent. */
+            /** If none of the specified names are present the behavior is */
+            /** parameter-dependent. */
+            parameters?: SystemParameter[];
+            /** Selects the methods to which this rule applies. Use '&#42;' to indicate all */
+            /** methods in all APIs. */
+            /**  */
+            /** Refer to selector for syntax details. */
+            selector?: string;
+        }
+        
+        interface VisibilityRule {
+            /** A comma-separated list of visibility labels that apply to the `selector`. */
+            /** Any of the listed labels can be used to grant the visibility. */
+            /**  */
+            /** If a rule has multiple labels, removing one of the labels but not all of */
+            /** them can break clients. */
+            /**  */
+            /** Example: */
+            /**  */
+            /**     visibility: */
+            /**       rules: */
+            /**       - selector: google.calendar.Calendar.EnhancedSearch */
+            /**         restriction: GOOGLE_INTERNAL, TRUSTED_TESTER */
+            /**  */
+            /** Removing GOOGLE_INTERNAL from this restriction will break clients that */
+            /** rely on this method and only had access to it through GOOGLE_INTERNAL. */
+            restriction?: string;
+            /** Selects methods, messages, fields, enums, etc. to which this rule applies. */
+            /**  */
+            /** Refer to selector for syntax details. */
+            selector?: string;
+        }
+        
+        interface HttpRule {
+            /** Used for creating a resource. */
+            post?: string;
+            /** Use this only for Scotty Requests. Do not use this for bytestream methods. */
+            /** For media support, add instead [][google.bytestream.RestByteStream] as an */
+            /** API to your configuration. */
+            mediaDownload?: MediaDownload;
+            /** DO NOT USE. This is an experimental field. */
+            /**  */
+            /** Optional. The rest method name is by default derived from the URL */
+            /** pattern. If specified, this field overrides the default method name. */
+            /** Example: */
+            /**  */
+            /**     rpc CreateResource(CreateResourceRequest) */
+            /**         returns (CreateResourceResponse) { */
+            /**       option (google.api.http) = { */
+            /**         post: "/v1/resources", */
+            /**         body: "resource", */
+            /**         rest_method_name: "insert" */
+            /**       }; */
+            /**     } */
+            /**  */
+            /** This method has the automatically derived rest method name */
+            /** "create", but for backwards compatibility with apiary, it is specified as */
+            /** insert. */
+            restMethodName?: string;
+            /** Additional HTTP bindings for the selector. Nested bindings must */
+            /** not contain an `additional_bindings` field themselves (that is, */
+            /** the nesting may only be one level deep). */
+            additionalBindings?: HttpRule[];
+            /** DO NOT USE. This is an experimental field. */
+            /**  */
+            /** Optional. The REST collection name is by default derived from the URL */
+            /** pattern. If specified, this field overrides the default collection name. */
+            /** Example: */
+            /**  */
+            /**     rpc AddressesAggregatedList(AddressesAggregatedListRequest) */
+            /**         returns (AddressesAggregatedListResponse) { */
+            /**       option (google.api.http) = { */
+            /**         get: "/v1/projects/{project_id}/aggregated/addresses" */
+            /**         rest_collection: "projects.addresses" */
+            /**       }; */
+            /**     } */
+            /**  */
+            /** This method has the automatically derived collection name */
+            /** "projects.aggregated". Because, semantically, this rpc is actually an */
+            /** operation on the "projects.addresses" collection, the `rest_collection` */
+            /** field is configured to override the derived collection name. */
+            restCollection?: string;
+            /** The name of the response field whose value is mapped to the HTTP body of */
+            /** response. Other response fields are ignored. This field is optional. When */
+            /** not set, the response message will be used as HTTP body of response. */
+            /** NOTE: the referred field must be not a repeated field and must be present */
+            /** at the top-level of response message type. */
+            responseBody?: string;
+            /** Use this only for Scotty Requests. Do not use this for media support using */
+            /** Bytestream, add instead */
+            /** [][google.bytestream.RestByteStream] as an API to your */
+            /** configuration for Bytestream methods. */
+            mediaUpload?: MediaUpload;
+            /** Selects methods to which this rule applies. */
+            /**  */
+            /** Refer to selector for syntax details. */
+            selector?: string;
+            /** The custom pattern is used for specifying an HTTP method that is not */
+            /** included in the `pattern` field, such as HEAD, or "&#42;" to leave the */
+            /** HTTP method unspecified for this rule. The wild-card rule is useful */
+            /** for services that provide content to Web (HTML) clients. */
+            custom?: CustomHttpPattern;
+            /** Used for listing and getting information about resources. */
+            get?: string;
+            /** Used for updating a resource. */
+            patch?: string;
+            /** Used for updating a resource. */
+            put?: string;
+            /** Specifies the permission(s) required for an API element for the overall */
+            /** API request to succeed. It is typically used to mark request message fields */
+            /** that contain the name of the resource and indicates the permissions that */
+            /** will be checked on that resource. */
+            authorizations?: AuthorizationRule[];
+            /** Used for deleting a resource. */
+            delete?: string;
+            /** The name of the request field whose value is mapped to the HTTP body, or */
+            /** `&#42;` for mapping all fields not captured by the path pattern to the HTTP */
+            /** body. NOTE: the referred field must not be a repeated field and must be */
+            /** present at the top-level of request message type. */
+            body?: string;
+        }
+        
+        interface MonitoringDestination {
+            /** The monitored resource type. The type must be defined in */
+            /** Service.monitored_resources section. */
+            monitoredResource?: string;
+            /** Names of the metrics to report to this monitoring destination. */
+            /** Each name must be defined in Service.metrics section. */
+            metrics?: string[];
+        }
+        
         interface Visibility {
             /** A list of visibility rules that apply to individual API elements. */
             /**  */
@@ -78,27 +394,27 @@ declare namespace gapi.client {
         }
         
         interface LoggingDestination {
-            /** The monitored resource type. The type must be defined in the */
-            /** Service.monitored_resources section. */
-            monitoredResource?: string;
             /** Names of the logs to be sent to this destination. Each name must */
             /** be defined in the Service.logs section. If the log name is */
             /** not a domain scoped name, it will be automatically prefixed with */
             /** the service name followed by "/". */
             logs?: string[];
+            /** The monitored resource type. The type must be defined in the */
+            /** Service.monitored_resources section. */
+            monitoredResource?: string;
         }
         
         interface Option {
-            /** The option's value packed in an Any message. If the value is a primitive, */
-            /** the corresponding wrapper type defined in google/protobuf/wrappers.proto */
-            /** should be used. If the value is an enum, it should be stored as an int32 */
-            /** value using the google.protobuf.Int32Value type. */
-            value?: Record<string, any>;            
             /** The option's name. For protobuf built-in options (options defined in */
             /** descriptor.proto), this is the short name. For example, `"map_entry"`. */
             /** For custom options, it should be the fully-qualified name. For example, */
             /** `"google.api.http"`. */
             name?: string;
+            /** The option's value packed in an Any message. If the value is a primitive, */
+            /** the corresponding wrapper type defined in google/protobuf/wrappers.proto */
+            /** should be used. If the value is an enum, it should be stored as an int32 */
+            /** value using the google.protobuf.Int32Value type. */
+            value?: Record<string, any>;            
         }
         
         interface Logging {
@@ -132,6 +448,34 @@ declare namespace gapi.client {
         }
         
         interface QuotaLimit {
+            /** Default number of tokens that can be consumed during the specified */
+            /** duration. This is the number of tokens assigned when a client */
+            /** application developer activates the service for his/her project. */
+            /**  */
+            /** Specifying a value of 0 will block all requests. This can be used if you */
+            /** are provisioning quota to selected consumers and blocking others. */
+            /** Similarly, a value of -1 will indicate an unlimited quota. No other */
+            /** negative values are allowed. */
+            /**  */
+            /** Used by group-based quotas only. */
+            defaultLimit?: string;
+            /** The name of the metric this quota limit applies to. The quota limits with */
+            /** the same metric will be checked together during runtime. The metric must be */
+            /** defined within the service config. */
+            /**  */
+            /** Used by metric-based quotas only. */
+            metric?: string;
+            /** User-visible display name for this limit. */
+            /** Optional. If not set, the UI will provide a default display name based on */
+            /** the quota configuration. This field can be used to override the default */
+            /** display name generated from the configuration. */
+            displayName?: string;
+            /** Optional. User-visible, extended description for this quota limit. */
+            /** Should be used only when more context is needed to understand this limit */
+            /** than provided by the limit's display name (see: `display_name`). */
+            description?: string;
+            /** Tiered limit values, currently only STANDARD is supported. */
+            values?: Record<string, string>;            
             /** Specify the unit of the quota limit. It uses the same syntax as */
             /** Metric.unit. The supported unit kinds are determined by the quota */
             /** backend system. */
@@ -178,6 +522,13 @@ declare namespace gapi.client {
             /** name for the limit. The display name can be evolved over time without */
             /** affecting the identity of the limit. */
             name?: string;
+            /** Duration of this limit in textual notation. Example: "100s", "24h", "1d". */
+            /** For duration longer than a day, only multiple of days is supported. We */
+            /** support only "100s" and "1d" for now. Additional support will be added in */
+            /** the future. "0" indicates indefinite duration. */
+            /**  */
+            /** Used by group-based quotas only. */
+            duration?: string;
             /** Free tier value displayed in the Developers Console for this limit. */
             /** The free tier is the number of tokens that will be subtracted from the */
             /** billed amount when billing is enabled. */
@@ -187,49 +538,14 @@ declare namespace gapi.client {
             /**  */
             /** Used by group-based quotas only. */
             freeTier?: string;
-            /** Duration of this limit in textual notation. Example: "100s", "24h", "1d". */
-            /** For duration longer than a day, only multiple of days is supported. We */
-            /** support only "100s" and "1d" for now. Additional support will be added in */
-            /** the future. "0" indicates indefinite duration. */
-            /**  */
-            /** Used by group-based quotas only. */
-            duration?: string;
-            /** Default number of tokens that can be consumed during the specified */
-            /** duration. This is the number of tokens assigned when a client */
-            /** application developer activates the service for his/her project. */
-            /**  */
-            /** Specifying a value of 0 will block all requests. This can be used if you */
-            /** are provisioning quota to selected consumers and blocking others. */
-            /** Similarly, a value of -1 will indicate an unlimited quota. No other */
-            /** negative values are allowed. */
-            /**  */
-            /** Used by group-based quotas only. */
-            defaultLimit?: string;
-            /** Optional. User-visible, extended description for this quota limit. */
-            /** Should be used only when more context is needed to understand this limit */
-            /** than provided by the limit's display name (see: `display_name`). */
-            description?: string;
-            /** User-visible display name for this limit. */
-            /** Optional. If not set, the UI will provide a default display name based on */
-            /** the quota configuration. This field can be used to override the default */
-            /** display name generated from the configuration. */
-            displayName?: string;
-            /** The name of the metric this quota limit applies to. The quota limits with */
-            /** the same metric will be checked together during runtime. The metric must be */
-            /** defined within the service config. */
-            /**  */
-            /** Used by metric-based quotas only. */
-            metric?: string;
-            /** Tiered limit values, currently only STANDARD is supported. */
-            values?: Record<string, string>;            
         }
         
         interface Mixin {
-            /** The fully qualified name of the interface which is included. */
-            name?: string;
             /** If non-empty specifies a path under which inherited HTTP paths */
             /** are rooted. */
             root?: string;
+            /** The fully qualified name of the interface which is included. */
+            name?: string;
         }
         
         interface CustomError {
@@ -267,14 +583,14 @@ declare namespace gapi.client {
         }
         
         interface SystemParameter {
+            /** Define the name of the parameter, such as "api_key" . It is case sensitive. */
+            name?: string;
             /** Define the URL query parameter name to use for the parameter. It is case */
             /** sensitive. */
             urlQueryParameter?: string;
             /** Define the HTTP header name to use for the parameter. It is case */
             /** insensitive. */
             httpHeader?: string;
-            /** Define the name of the parameter, such as "api_key" . It is case sensitive. */
-            name?: string;
         }
         
         interface Monitoring {
@@ -316,16 +632,16 @@ declare namespace gapi.client {
         }
         
         interface Enum {
-            /** Enum value definitions. */
-            enumvalue?: EnumValue[];
-            /** Enum type name. */
-            name?: string;
             /** Protocol buffer options. */
             options?: Option[];
             /** The source syntax. */
             syntax?: string;
             /** The source context. */
             sourceContext?: SourceContext;
+            /** Enum value definitions. */
+            enumvalue?: EnumValue[];
+            /** Enum type name. */
+            name?: string;
         }
         
         interface LabelDescriptor {
@@ -364,12 +680,6 @@ declare namespace gapi.client {
             rules?: BackendRule[];
         }
         
-        interface AuthorizationConfig {
-            /** The name of the authorization provider, such as */
-            /** firebaserules.googleapis.com. */
-            provider?: string;
-        }
-        
         interface DocumentationRule {
             /** Description of the selected API(s). */
             description?: string;
@@ -385,21 +695,21 @@ declare namespace gapi.client {
             selector?: string;
         }
         
+        interface AuthorizationConfig {
+            /** The name of the authorization provider, such as */
+            /** firebaserules.googleapis.com. */
+            provider?: string;
+        }
+        
         interface ContextRule {
+            /** A list of full type names of requested contexts. */
+            requested?: string[];
             /** Selects the methods to which this rule applies. */
             /**  */
             /** Refer to selector for syntax details. */
             selector?: string;
             /** A list of full type names of provided contexts. */
             provided?: string[];
-            /** A list of full type names of requested contexts. */
-            requested?: string[];
-        }
-        
-        interface SourceContext {
-            /** The path-qualified name of the .proto file that contained the associated */
-            /** protobuf element.  For example: `"google/protobuf/source_context.proto"`. */
-            fileName?: string;
         }
         
         interface MetricDescriptor {
@@ -505,12 +815,10 @@ declare namespace gapi.client {
             metricKind?: string;
         }
         
-        interface ListEnabledServicesResponse {
-            /** Token that can be passed to `ListEnabledServices` to resume a paginated */
-            /** query. */
-            nextPageToken?: string;
-            /** Services enabled for the specified parent. */
-            services?: PublishedService[];
+        interface SourceContext {
+            /** The path-qualified name of the .proto file that contained the associated */
+            /** protobuf element.  For example: `"google/protobuf/source_context.proto"`. */
+            fileName?: string;
         }
         
         interface Endpoint {
@@ -521,12 +829,6 @@ declare namespace gapi.client {
             /** If no APIs are specified this translates to "all APIs" exported by the */
             /** service, as defined in the top-level service configuration. */
             apis?: string[];
-            /** DEPRECATED: This field is no longer supported. Instead of using aliases, */
-            /** please specify multiple google.api.Endpoint for each of the intented */
-            /** alias. */
-            /**  */
-            /** Additional names that this endpoint will be hosted on. */
-            aliases?: string[];
             /** Allowing */
             /** [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing), aka */
             /** cross-domain traffic, would allow the backends served from this endpoint to */
@@ -534,13 +836,27 @@ declare namespace gapi.client {
             /** the browser to determine whether the subsequent cross-origin request is */
             /** allowed to proceed. */
             allowCors?: boolean;
-            /** The canonical name of this endpoint. */
-            name?: string;
+            /** DEPRECATED: This field is no longer supported. Instead of using aliases, */
+            /** please specify multiple google.api.Endpoint for each of the intented */
+            /** alias. */
+            /**  */
+            /** Additional names that this endpoint will be hosted on. */
+            aliases?: string[];
             /** The specification of an Internet routable address of API frontend that will */
             /** handle requests to this [API Endpoint](https://cloud.google.com/apis/design/glossary). */
             /** It should be either a valid IPv4 address or a fully-qualified domain name. */
             /** For example, "8.8.8.8" or "myservice.appspot.com". */
             target?: string;
+            /** The canonical name of this endpoint. */
+            name?: string;
+        }
+        
+        interface ListEnabledServicesResponse {
+            /** Token that can be passed to `ListEnabledServices` to resume a paginated */
+            /** query. */
+            nextPageToken?: string;
+            /** Services enabled for the specified parent. */
+            services?: PublishedService[];
         }
         
         interface OAuthRequirements {
@@ -555,14 +871,6 @@ declare namespace gapi.client {
         }
         
         interface Usage {
-            /** A list of usage rules that apply to individual API methods. */
-            /**  */
-            /** &#42;&#42;NOTE:&#42;&#42; All service configuration rules follow "last one wins" order. */
-            rules?: UsageRule[];
-            /** Requirements that must be satisfied before a consumer project can use the */
-            /** service. Each requirement is of the form <service.name>/<requirement-id>; */
-            /** for example 'serviceusage.googleapis.com/billing-enabled'. */
-            requirements?: string[];
             /** The full resource name of a channel used for sending notifications to the */
             /** service producer. */
             /**  */
@@ -572,6 +880,14 @@ declare namespace gapi.client {
             /** of a Cloud Pub/Sub topic that uses the Cloud Pub/Sub topic name format */
             /** documented in https://cloud.google.com/pubsub/docs/overview. */
             producerNotificationChannel?: string;
+            /** A list of usage rules that apply to individual API methods. */
+            /**  */
+            /** &#42;&#42;NOTE:&#42;&#42; All service configuration rules follow "last one wins" order. */
+            rules?: UsageRule[];
+            /** Requirements that must be satisfied before a consumer project can use the */
+            /** service. Each requirement is of the form <service.name>/<requirement-id>; */
+            /** for example 'serviceusage.googleapis.com/billing-enabled'. */
+            requirements?: string[];
         }
         
         interface Context {
@@ -582,11 +898,6 @@ declare namespace gapi.client {
         }
         
         interface LogDescriptor {
-            /** The name of the log. It must be less than 512 characters long and can */
-            /** include the following characters: upper- and lower-case alphanumeric */
-            /** characters [A-Za-z0-9], and punctuation characters including */
-            /** slash, underscore, hyphen, period [/_-.]. */
-            name?: string;
             /** The human-readable name for this log. This information appears on */
             /** the user interface and should be concise. */
             displayName?: string;
@@ -597,6 +908,11 @@ declare namespace gapi.client {
             /** Runtime requests that contain labels not specified here are */
             /** considered invalid. */
             labels?: LabelDescriptor[];
+            /** The name of the log. It must be less than 512 characters long and can */
+            /** include the following characters: upper- and lower-case alphanumeric */
+            /** characters [A-Za-z0-9], and punctuation characters including */
+            /** slash, underscore, hyphen, period [/_-.]. */
+            name?: string;
         }
         
         interface CustomErrorRule {
@@ -636,6 +952,9 @@ declare namespace gapi.client {
         }
         
         interface MediaDownload {
+            /** A boolean that determines if direct download from ESF should be used for */
+            /** download of this media. */
+            useDirectDownload?: boolean;
             /** Whether download is enabled. */
             enabled?: boolean;
             /** DO NOT USE FIELDS BELOW THIS LINE UNTIL THIS WARNING IS REMOVED. */
@@ -650,9 +969,6 @@ declare namespace gapi.client {
             maxDirectDownloadSize?: string;
             /** Name of the Scotty dropzone to use for the current API. */
             dropzone?: string;
-            /** A boolean that determines if direct download from ESF should be used for */
-            /** download of this media. */
-            useDirectDownload?: boolean;
         }
         
         interface CustomAuthRequirements {
@@ -663,16 +979,16 @@ declare namespace gapi.client {
         }
         
         interface AuthorizationRule {
+            /** Selects the API elements to which this rule applies. */
+            /**  */
+            /** Refer to selector for syntax details. */
+            selector?: string;
             /** The required permissions. The acceptable values vary depend on the */
             /** authorization system used. For Google APIs, it should be a comma-separated */
             /** Google IAM permission values. When multiple permissions are listed, the */
             /** semantics is not defined by the system. Additional documentation must */
             /** be provided manually. */
             permissions?: string;
-            /** Selects the API elements to which this rule applies. */
-            /**  */
-            /** Refer to selector for syntax details. */
-            selector?: string;
         }
         
         interface SearchServicesResponse {
@@ -684,14 +1000,6 @@ declare namespace gapi.client {
         }
         
         interface MediaUpload {
-            /** Whether upload is enabled. */
-            enabled?: boolean;
-            /** Whether to receive a notification for progress changes of media upload. */
-            progressNotification?: boolean;
-            /** A boolean that determines whether a notification for the completion of an */
-            /** upload should be sent to the backend. These notifications will not be seen */
-            /** by the client and will not consume quota. */
-            completeNotification?: boolean;
             /** Name of the Scotty dropzone to use for the current API. */
             dropzone?: string;
             /** Whether to receive a notification on the start of media upload. */
@@ -706,6 +1014,14 @@ declare namespace gapi.client {
             /** An array of mimetype patterns. Esf will only accept uploads that match one */
             /** of the given patterns. */
             mimeTypes?: string[];
+            /** A boolean that determines whether a notification for the completion of an */
+            /** upload should be sent to the backend. These notifications will not be seen */
+            /** by the client and will not consume quota. */
+            completeNotification?: boolean;
+            /** Whether to receive a notification for progress changes of media upload. */
+            progressNotification?: boolean;
+            /** Whether upload is enabled. */
+            enabled?: boolean;
         }
         
         interface UsageRule {
@@ -722,12 +1038,6 @@ declare namespace gapi.client {
         }
         
         interface AuthRequirement {
-            /** id from authentication provider. */
-            /**  */
-            /** Example: */
-            /**  */
-            /**     provider_id: bookstore_auth */
-            providerId?: string;
             /** NOTE: This will be deprecated soon, once AuthProvider.audiences is */
             /** implemented and accepted in all the runtime components. */
             /**  */
@@ -745,6 +1055,12 @@ declare namespace gapi.client {
             /**     audiences: bookstore_android.apps.googleusercontent.com, */
             /**                bookstore_web.apps.googleusercontent.com */
             audiences?: string;
+            /** id from authentication provider. */
+            /**  */
+            /** Example: */
+            /**  */
+            /**     provider_id: bookstore_auth */
+            providerId?: string;
         }
         
         interface Documentation {
@@ -775,21 +1091,6 @@ declare namespace gapi.client {
             pages?: Page[];
         }
         
-        interface BackendRule {
-            /** The number of seconds to wait for a response from a request.  The */
-            /** default depends on the deployment context. */
-            deadline?: number;
-            /** Minimum deadline in seconds needed for this method. Calls having deadline */
-            /** value lower than this will be rejected. */
-            minDeadline?: number;
-            /** The address of the API backend. */
-            address?: string;
-            /** Selects the methods to which this rule applies. */
-            /**  */
-            /** Refer to selector for syntax details. */
-            selector?: string;
-        }
-        
         interface AuthenticationRule {
             /** Requirements for additional authentication providers. */
             requirements?: AuthRequirement[];
@@ -811,9 +1112,22 @@ declare namespace gapi.client {
             oauth?: OAuthRequirements;
         }
         
+        interface BackendRule {
+            /** Minimum deadline in seconds needed for this method. Calls having deadline */
+            /** value lower than this will be rejected. */
+            minDeadline?: number;
+            /** The address of the API backend. */
+            address?: string;
+            /** Selects the methods to which this rule applies. */
+            /**  */
+            /** Refer to selector for syntax details. */
+            selector?: string;
+            /** The number of seconds to wait for a response from a request.  The */
+            /** default depends on the deployment context. */
+            deadline?: number;
+        }
+        
         interface Api {
-            /** The methods of this interface, in unspecified order. */
-            methods?: Method[];
             /** The fully qualified name of this interface, including package name */
             /** followed by the interface's simple name. */
             name?: string;
@@ -847,6 +1161,8 @@ declare namespace gapi.client {
             mixins?: Mixin[];
             /** Any metadata attached to the interface. */
             options?: Option[];
+            /** The methods of this interface, in unspecified order. */
+            methods?: Method[];
         }
         
         interface MetricRule {
@@ -873,17 +1189,6 @@ declare namespace gapi.client {
         }
         
         interface Operation {
-            /** The error result of the operation in case of failure or cancellation. */
-            error?: Status;
-            /** Service-specific metadata associated with the operation.  It typically */
-            /** contains progress information and common metadata such as create time. */
-            /** Some services might not provide such metadata.  Any method that returns a */
-            /** long-running operation should document the metadata type, if any. */
-            metadata?: Record<string, any>;            
-            /** If the value is `false`, it means the operation is still in progress. */
-            /** If true, the operation is completed, and either `error` or `response` is */
-            /** available. */
-            done?: boolean;
             /** The normal response of the operation in case of success.  If the original */
             /** method returns no data on success, such as `Delete`, the response is */
             /** `google.protobuf.Empty`.  If the original method is standard */
@@ -897,6 +1202,17 @@ declare namespace gapi.client {
             /** originally returns it. If you use the default HTTP mapping, the */
             /** `name` should have the format of `operations/some/unique/name`. */
             name?: string;
+            /** The error result of the operation in case of failure or cancellation. */
+            error?: Status;
+            /** Service-specific metadata associated with the operation.  It typically */
+            /** contains progress information and common metadata such as create time. */
+            /** Some services might not provide such metadata.  Any method that returns a */
+            /** long-running operation should document the metadata type, if any. */
+            metadata?: Record<string, any>;            
+            /** If the value is `false`, it means the operation is still in progress. */
+            /** If true, the operation is completed, and either `error` or `response` is */
+            /** available. */
+            done?: boolean;
         }
         
         interface Page {
@@ -923,381 +1239,13 @@ declare namespace gapi.client {
             content?: string;
         }
         
-        interface Status {
-            /** A list of messages that carry the error details.  There is a common set of */
-            /** message types for APIs to use. */
-            details?: Array<Record<string, any>>;            
-            /** The status code, which should be an enum value of google.rpc.Code. */
-            code?: number;
-            /** A developer-facing error message, which should be in English. Any */
-            /** user-facing error message should be localized and sent in the */
-            /** google.rpc.Status.details field, or localized by the client. */
-            message?: string;
-        }
-        
-        interface AuthProvider {
-            /** URL of the provider's public key set to validate signature of the JWT. See */
-            /** [OpenID Discovery](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata). */
-            /** Optional if the key set document: */
-            /**  - can be retrieved from */
-            /**    [OpenID Discovery](https://openid.net/specs/openid-connect-discovery-1_0.html */
-            /**    of the issuer. */
-            /**  - can be inferred from the email domain of the issuer (e.g. a Google service account). */
-            /**  */
-            /** Example: https://www.googleapis.com/oauth2/v1/certs */
-            jwksUri?: string;
-            /** The list of JWT */
-            /** [audiences](https://tools.ietf.org/html/draft-ietf-oauth-json-web-token-32#section-4.1.3). */
-            /** that are allowed to access. A JWT containing any of these audiences will */
-            /** be accepted. When this setting is absent, only JWTs with audience */
-            /** "https://Service_name/API_name" */
-            /** will be accepted. For example, if no audiences are in the setting, */
-            /** LibraryService API will only accept JWTs with the following audience */
-            /** "https://library-example.googleapis.com/google.example.library.v1.LibraryService". */
-            /**  */
-            /** Example: */
-            /**  */
-            /**     audiences: bookstore_android.apps.googleusercontent.com, */
-            /**                bookstore_web.apps.googleusercontent.com */
-            audiences?: string;
-            /** Redirect URL if JWT token is required but no present or is expired. */
-            /** Implement authorizationUrl of securityDefinitions in OpenAPI spec. */
-            authorizationUrl?: string;
-            /** Identifies the principal that issued the JWT. See */
-            /** https://tools.ietf.org/html/draft-ietf-oauth-json-web-token-32#section-4.1.1 */
-            /** Usually a URL or an email address. */
-            /**  */
-            /** Example: https://securetoken.google.com */
-            /** Example: 1234567-compute@developer.gserviceaccount.com */
-            issuer?: string;
-            /** The unique identifier of the auth provider. It will be referred to by */
-            /** `AuthRequirement.provider_id`. */
-            /**  */
-            /** Example: "bookstore_auth". */
-            id?: string;
-        }
-        
-        interface EnumValue {
-            /** Enum value name. */
-            name?: string;
-            /** Protocol buffer options. */
-            options?: Option[];
-            /** Enum value number. */
-            number?: number;
-        }
-        
-        interface Service {
-            /** Configuration for the service control plane. */
-            control?: Control;
-            /** The semantic version of the service configuration. The config version */
-            /** affects the interpretation of the service configuration. For example, */
-            /** certain features are enabled by default for certain config versions. */
-            /** The latest config version is `3`. */
-            configVersion?: number;
-            /** Monitoring configuration. */
-            monitoring?: Monitoring;
-            /** A list of all proto message types included in this API service. */
-            /** It serves similar purpose as [google.api.Service.types], except that */
-            /** these types are not needed by user-defined APIs. Therefore, they will not */
-            /** show up in the generated discovery doc. This field should only be used */
-            /** to define system APIs in ESF. */
-            systemTypes?: Type[];
-            /** The Google project that owns this service. */
-            producerProjectId?: string;
-            /** API visibility configuration. */
-            visibility?: Visibility;
-            /** Quota configuration. */
-            quota?: Quota;
-            /** The DNS address at which this service is available, */
-            /** e.g. `calendar.googleapis.com`. */
-            name?: string;
-            /** Custom error configuration. */
-            customError?: CustomError;
-            /** The product title for this service. */
-            title?: string;
-            /** Configuration for network endpoints.  If this is empty, then an endpoint */
-            /** with the same name as the service is automatically generated to service all */
-            /** defined APIs. */
-            endpoints?: Endpoint[];
-            /** A list of API interfaces exported by this service. Only the `name` field */
-            /** of the google.protobuf.Api needs to be provided by the configuration */
-            /** author, as the remaining fields will be derived from the IDL during the */
-            /** normalization process. It is an error to specify an API interface here */
-            /** which cannot be resolved against the associated IDL files. */
-            apis?: Api[];
-            /** Defines the logs used by this service. */
-            logs?: LogDescriptor[];
-            /** A list of all proto message types included in this API service. */
-            /** Types referenced directly or indirectly by the `apis` are */
-            /** automatically included.  Messages which are not referenced but */
-            /** shall be included, such as types used by the `google.protobuf.Any` type, */
-            /** should be listed here by name. Example: */
-            /**  */
-            /**     types: */
-            /**     - name: google.protobuf.Int32 */
-            types?: Type[];
-            /** Output only. The source information for this configuration if available. */
-            sourceInfo?: SourceInfo;
-            /** HTTP configuration. */
-            http?: Http;
-            /** System parameter configuration. */
-            systemParameters?: SystemParameters;
-            /** API backend configuration. */
-            backend?: Backend;
-            /** Additional API documentation. */
-            documentation?: Documentation;
-            /** Logging configuration. */
-            logging?: Logging;
-            /** Defines the monitored resources used by this service. This is required */
-            /** by the Service.monitoring and Service.logging configurations. */
-            monitoredResources?: MonitoredResourceDescriptor[];
-            /** A list of all enum types included in this API service.  Enums */
-            /** referenced directly or indirectly by the `apis` are automatically */
-            /** included.  Enums which are not referenced but shall be included */
-            /** should be listed here by name. Example: */
-            /**  */
-            /**     enums: */
-            /**     - name: google.someapi.v1.SomeEnum */
-            enums?: Enum[];
-            /** Context configuration. */
-            context?: Context;
-            /** A unique ID for a specific instance of this message, typically assigned */
-            /** by the client for tracking purpose. If empty, the server may choose to */
-            /** generate one instead. */
-            id?: string;
-            /** Configuration controlling usage of this service. */
-            usage?: Usage;
-            /** Defines the metrics used by this service. */
-            metrics?: MetricDescriptor[];
-            /** Auth configuration. */
-            authentication?: Authentication;
-            /** Experimental configuration. */
-            experimental?: Experimental;
-        }
-        
-        interface OperationMetadata {
-            /** The start time of the operation. */
-            startTime?: string;
-            /** Detailed status information for each step. The order is undetermined. */
-            steps?: Step[];
-            /** The full name of the resources that this operation is directly */
-            /** associated with. */
-            resourceNames?: string[];
-            /** Percentage of completion of this operation, ranging from 0 to 100. */
-            progressPercentage?: number;
-        }
-        
-        interface CustomHttpPattern {
-            /** The name of this custom HTTP verb. */
-            kind?: string;
-            /** The path matched by this custom verb. */
-            path?: string;
-        }
-        
-        interface SystemParameterRule {
-            /** Define parameters. Multiple names may be defined for a parameter. */
-            /** For a given method call, only one of them should be used. If multiple */
-            /** names are used the behavior is implementation-dependent. */
-            /** If none of the specified names are present the behavior is */
-            /** parameter-dependent. */
-            parameters?: SystemParameter[];
-            /** Selects the methods to which this rule applies. Use '&#42;' to indicate all */
-            /** methods in all APIs. */
-            /**  */
-            /** Refer to selector for syntax details. */
-            selector?: string;
-        }
-        
-        interface PublishedService {
-            /** The service's published configuration. */
-            service?: Service;
-            /** The resource name of the service. */
-            /**  */
-            /** A valid name would be: */
-            /** - services/serviceuser.googleapis.com */
-            name?: string;
-        }
-        
-        interface HttpRule {
-            /** Use this only for Scotty Requests. Do not use this for media support using */
-            /** Bytestream, add instead */
-            /** [][google.bytestream.RestByteStream] as an API to your */
-            /** configuration for Bytestream methods. */
-            mediaUpload?: MediaUpload;
-            /** Selects methods to which this rule applies. */
-            /**  */
-            /** Refer to selector for syntax details. */
-            selector?: string;
-            /** The custom pattern is used for specifying an HTTP method that is not */
-            /** included in the `pattern` field, such as HEAD, or "&#42;" to leave the */
-            /** HTTP method unspecified for this rule. The wild-card rule is useful */
-            /** for services that provide content to Web (HTML) clients. */
-            custom?: CustomHttpPattern;
-            /** Used for listing and getting information about resources. */
-            get?: string;
-            /** Used for updating a resource. */
-            patch?: string;
-            /** Specifies the permission(s) required for an API element for the overall */
-            /** API request to succeed. It is typically used to mark request message fields */
-            /** that contain the name of the resource and indicates the permissions that */
-            /** will be checked on that resource. */
-            authorizations?: AuthorizationRule[];
-            /** Used for updating a resource. */
-            put?: string;
-            /** Used for deleting a resource. */
-            delete?: string;
-            /** The name of the request field whose value is mapped to the HTTP body, or */
-            /** `&#42;` for mapping all fields not captured by the path pattern to the HTTP */
-            /** body. NOTE: the referred field must not be a repeated field and must be */
-            /** present at the top-level of request message type. */
-            body?: string;
-            /** Used for creating a resource. */
-            post?: string;
-            /** Use this only for Scotty Requests. Do not use this for bytestream methods. */
-            /** For media support, add instead [][google.bytestream.RestByteStream] as an */
-            /** API to your configuration. */
-            mediaDownload?: MediaDownload;
-            /** DO NOT USE. This is an experimental field. */
-            /**  */
-            /** Optional. The rest method name is by default derived from the URL */
-            /** pattern. If specified, this field overrides the default method name. */
-            /** Example: */
-            /**  */
-            /**     rpc CreateResource(CreateResourceRequest) */
-            /**         returns (CreateResourceResponse) { */
-            /**       option (google.api.http) = { */
-            /**         post: "/v1/resources", */
-            /**         body: "resource", */
-            /**         rest_method_name: "insert" */
-            /**       }; */
-            /**     } */
-            /**  */
-            /** This method has the automatically derived rest method name */
-            /** "create", but for backwards compatibility with apiary, it is specified as */
-            /** insert. */
-            restMethodName?: string;
-            /** Additional HTTP bindings for the selector. Nested bindings must */
-            /** not contain an `additional_bindings` field themselves (that is, */
-            /** the nesting may only be one level deep). */
-            additionalBindings?: HttpRule[];
-            /** DO NOT USE. This is an experimental field. */
-            /**  */
-            /** Optional. The REST collection name is by default derived from the URL */
-            /** pattern. If specified, this field overrides the default collection name. */
-            /** Example: */
-            /**  */
-            /**     rpc AddressesAggregatedList(AddressesAggregatedListRequest) */
-            /**         returns (AddressesAggregatedListResponse) { */
-            /**       option (google.api.http) = { */
-            /**         get: "/v1/projects/{project_id}/aggregated/addresses" */
-            /**         rest_collection: "projects.addresses" */
-            /**       }; */
-            /**     } */
-            /**  */
-            /** This method has the automatically derived collection name */
-            /** "projects.aggregated". Because, semantically, this rpc is actually an */
-            /** operation on the "projects.addresses" collection, the `rest_collection` */
-            /** field is configured to override the derived collection name. */
-            restCollection?: string;
-            /** The name of the response field whose value is mapped to the HTTP body of */
-            /** response. Other response fields are ignored. This field is optional. When */
-            /** not set, the response message will be used as HTTP body of response. */
-            /** NOTE: the referred field must be not a repeated field and must be present */
-            /** at the top-level of response message type. */
-            responseBody?: string;
-        }
-        
-        interface VisibilityRule {
-            /** A comma-separated list of visibility labels that apply to the `selector`. */
-            /** Any of the listed labels can be used to grant the visibility. */
-            /**  */
-            /** If a rule has multiple labels, removing one of the labels but not all of */
-            /** them can break clients. */
-            /**  */
-            /** Example: */
-            /**  */
-            /**     visibility: */
-            /**       rules: */
-            /**       - selector: google.calendar.Calendar.EnhancedSearch */
-            /**         restriction: GOOGLE_INTERNAL, TRUSTED_TESTER */
-            /**  */
-            /** Removing GOOGLE_INTERNAL from this restriction will break clients that */
-            /** rely on this method and only had access to it through GOOGLE_INTERNAL. */
-            restriction?: string;
-            /** Selects methods, messages, fields, enums, etc. to which this rule applies. */
-            /**  */
-            /** Refer to selector for syntax details. */
-            selector?: string;
-        }
-        
-        interface MonitoringDestination {
-            /** Names of the metrics to report to this monitoring destination. */
-            /** Each name must be defined in Service.metrics section. */
-            metrics?: string[];
-            /** The monitored resource type. The type must be defined in */
-            /** Service.monitored_resources section. */
-            monitoredResource?: string;
-        }
-        
         interface ServicesResource {
-            /** List enabled services for the specified consumer. */
-            list(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Token identifying which result to start with; returned by a previous list */
-                /** call. */
-                pageToken?: string;
-                /** Requested size of the next page of data. */
-                pageSize?: number;
-                /** List enabled services for the specified parent. */
-                /**  */
-                /** An example valid parent would be: */
-                /** - projects/my-project */
-                parent: string;
-            }): Request<ListEnabledServicesResponse>;            
-            
             /** Disable a service so it can no longer be used with a */
             /** project. This prevents unintended usage that may cause unexpected billing */
             /** charges or security leaks. */
             /**  */
             /** Operation<response: google.protobuf.Empty> */
             disable(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -1308,10 +1256,22 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Name of the consumer and the service to disable for that consumer. */
                 /**  */
                 /** The Service User implementation accepts the following forms for consumer: */
@@ -1328,18 +1288,6 @@ declare namespace gapi.client {
             /**  */
             /** Operation<response: google.protobuf.Empty> */
             enable(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -1350,16 +1298,68 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Name of the consumer and the service to enable for that consumer. */
                 /**  */
                 /** A valid path would be: */
                 /** - /v1/projects/my-project/services/servicemanagement.googleapis.com:enable */
                 name: string;
             }): Request<Operation>;            
+            
+            /** List enabled services for the specified consumer. */
+            list(request: {            
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
+                /** Token identifying which result to start with; returned by a previous list */
+                /** call. */
+                pageToken?: string;
+                /** Requested size of the next page of data. */
+                pageSize?: number;
+                /** List enabled services for the specified parent. */
+                /**  */
+                /** An example valid parent would be: */
+                /** - projects/my-project */
+                parent: string;
+            }): Request<ListEnabledServicesResponse>;            
             
         }
         
@@ -1374,18 +1374,6 @@ declare namespace gapi.client {
             /** authenticated users, also returns all services the calling user has */
             /** "servicemanagement.services.bind" permission for. */
             search(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -1396,15 +1384,27 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
-                /** Requested size of the next page of data. */
-                pageSize?: number;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Token identifying which result to start with; returned by a previous list */
                 /** call. */
                 pageToken?: string;
+                /** Requested size of the next page of data. */
+                pageSize?: number;
             }): Request<SearchServicesResponse>;            
             
         }

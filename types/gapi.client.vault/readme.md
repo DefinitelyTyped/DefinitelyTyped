@@ -34,6 +34,21 @@ After that you can use Google Vault API resources:
 ```typescript 
     
 /* 
+Creates a new matter. Returns created matter with default view.  
+*/
+await gapi.client.matters.create({  }); 
+    
+/* 
+Removes an account as a matter collaborator.  
+*/
+await gapi.client.matters.removePermissions({ matterId: "matterId",  }); 
+    
+/* 
+Reopens the specified matter. Returns matter with updated state.  
+*/
+await gapi.client.matters.reopen({ matterId: "matterId",  }); 
+    
+/* 
 Gets the specified matter.  
 */
 await gapi.client.matters.get({ matterId: "matterId",  }); 
@@ -69,20 +84,5 @@ await gapi.client.matters.addPermissions({ matterId: "matterId",  });
 /* 
 Lists matters the user has access to.  
 */
-await gapi.client.matters.list({  }); 
-    
-/* 
-Creates a new matter. Returns created matter with default view.  
-*/
-await gapi.client.matters.create({  }); 
-    
-/* 
-Removes an account as a matter collaborator.  
-*/
-await gapi.client.matters.removePermissions({ matterId: "matterId",  }); 
-    
-/* 
-Reopens the specified matter. Returns matter with updated state.  
-*/
-await gapi.client.matters.reopen({ matterId: "matterId",  });
+await gapi.client.matters.list({  });
 ```

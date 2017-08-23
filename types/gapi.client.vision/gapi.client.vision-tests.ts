@@ -14,11 +14,11 @@ gapi.load('client', () => {
         // declare client_id registered in Google Developers Console
         const client_id = '<<PUT YOUR CLIENT ID HERE>>';
         const scope = [     
-                // Apply machine learning models to understand and label images
-                'https://www.googleapis.com/auth/cloud-vision',
-            
                 // View and manage your data across Google Cloud Platform services
                 'https://www.googleapis.com/auth/cloud-platform',
+            
+                // Apply machine learning models to understand and label images
+                'https://www.googleapis.com/auth/cloud-vision',
             ];
         const immediate = true;
 

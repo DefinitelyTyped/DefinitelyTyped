@@ -20,19 +20,36 @@ declare namespace gapi.client {
     
     namespace searchconsole {
         
+        interface ResourceIssue {
+            /** Describes a blocked resource issue. */
+            blockedResource?: BlockedResource;
+        }
+        
+        interface BlockedResource {
+            /** URL of the blocked resource. */
+            url?: string;
+        }
+        
+        interface TestStatus {
+            /** Status of the test. */
+            status?: string;
+            /** Error details if applicable. */
+            details?: string;
+        }
+        
+        interface RunMobileFriendlyTestRequest {
+            /** Whether or not screenshot is requested. Default is false. */
+            requestScreenshot?: boolean;
+            /** URL for inspection. */
+            url?: string;
+        }
+        
         interface Image {
             /** The mime-type of the image data. */
             mimeType?: string;
             /** Image data in format determined by the mime type. Currently, the format */
             /** will always be "image/png", but this might change in the future. */
             data?: string;
-        }
-        
-        interface RunMobileFriendlyTestRequest {
-            /** URL for inspection. */
-            url?: string;
-            /** Whether or not screenshot is requested. Default is false. */
-            requestScreenshot?: boolean;
         }
         
         interface MobileFriendlyIssue {
@@ -53,32 +70,15 @@ declare namespace gapi.client {
             screenshot?: Image;
         }
         
-        interface ResourceIssue {
-            /** Describes a blocked resource issue. */
-            blockedResource?: BlockedResource;
-        }
-        
-        interface BlockedResource {
-            /** URL of the blocked resource. */
-            url?: string;
-        }
-        
-        interface TestStatus {
-            /** Status of the test. */
-            status?: string;
-            /** Error details if applicable. */
-            details?: string;
-        }
-        
         interface MobileFriendlyTestResource {
             /** Runs Mobile-Friendly Test for a given URL. */
             run(request: {            
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -87,16 +87,16 @@ declare namespace gapi.client {
                 fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
-                /** JSONP */
-                callback?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** OAuth access token. */
+                access_token?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
             }): Request<RunMobileFriendlyTestResponse>;            

@@ -14,11 +14,11 @@ gapi.load('client', () => {
         // declare client_id registered in Google Developers Console
         const client_id = '<<PUT YOUR CLIENT ID HERE>>';
         const scope = [     
-                // View and manage your data across Google Cloud Platform services
-                'https://www.googleapis.com/auth/cloud-platform',
-            
                 // Translate text from one language to another using Google Translate
                 'https://www.googleapis.com/auth/cloud-translation',
+            
+                // View and manage your data across Google Cloud Platform services
+                'https://www.googleapis.com/auth/cloud-platform',
             ];
         const immediate = true;
 
@@ -34,9 +34,6 @@ gapi.load('client', () => {
 
     async function run() {  
         
-        // Returns a list of supported languages for translation.
-        await gapi.client.languages.list({  }); 
-        
         // Translates input text, returning translated text.
         await gapi.client.translations.list({ q: "q", target: "target",  }); 
         
@@ -47,6 +44,9 @@ gapi.load('client', () => {
         await gapi.client.detections.detect({  }); 
         
         // Detects the language of text within a request.
-        await gapi.client.detections.list({ q: "q",  });
+        await gapi.client.detections.list({ q: "q",  }); 
+        
+        // Returns a list of supported languages for translation.
+        await gapi.client.languages.list({  });
     }
 });

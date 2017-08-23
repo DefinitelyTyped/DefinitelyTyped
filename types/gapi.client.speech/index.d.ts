@@ -22,128 +22,6 @@ declare namespace gapi.client {
     
     namespace speech {
         
-        interface RecognitionAudio {
-            /** The audio data bytes encoded as specified in */
-            /** `RecognitionConfig`. Note: as with all bytes fields, protobuffers use a */
-            /** pure binary representation, whereas JSON representations use base64. */
-            content?: string;
-            /** URI that points to a file that contains audio data bytes as specified in */
-            /** `RecognitionConfig`. Currently, only Google Cloud Storage URIs are */
-            /** supported, which must be specified in the following format: */
-            /** `gs://bucket_name/object_name` (other URI formats return */
-            /** google.rpc.Code.INVALID_ARGUMENT). For more information, see */
-            /** [Request URIs](https://cloud.google.com/storage/docs/reference-uris). */
-            uri?: string;
-        }
-        
-        interface LongRunningRecognizeRequest {
-            /** &#42;Required&#42; The audio data to be recognized. */
-            audio?: RecognitionAudio;
-            /** &#42;Required&#42; Provides information to the recognizer that specifies how to */
-            /** process the request. */
-            config?: RecognitionConfig;
-        }
-        
-        interface RecognizeResponse {
-            /** &#42;Output-only&#42; Sequential list of transcription results corresponding to */
-            /** sequential portions of audio. */
-            results?: SpeechRecognitionResult[];
-        }
-        
-        interface Operation {
-            /** The error result of the operation in case of failure or cancellation. */
-            error?: Status;
-            /** Service-specific metadata associated with the operation.  It typically */
-            /** contains progress information and common metadata such as create time. */
-            /** Some services might not provide such metadata.  Any method that returns a */
-            /** long-running operation should document the metadata type, if any. */
-            metadata?: Record<string, any>;            
-            /** If the value is `false`, it means the operation is still in progress. */
-            /** If true, the operation is completed, and either `error` or `response` is */
-            /** available. */
-            done?: boolean;
-            /** The normal response of the operation in case of success.  If the original */
-            /** method returns no data on success, such as `Delete`, the response is */
-            /** `google.protobuf.Empty`.  If the original method is standard */
-            /** `Get`/`Create`/`Update`, the response should be the resource.  For other */
-            /** methods, the response should have the type `XxxResponse`, where `Xxx` */
-            /** is the original method name.  For example, if the original method name */
-            /** is `TakeSnapshot()`, the inferred response type is */
-            /** `TakeSnapshotResponse`. */
-            response?: Record<string, any>;            
-            /** The server-assigned name, which is only unique within the same service that */
-            /** originally returns it. If you use the default HTTP mapping, the */
-            /** `name` should have the format of `operations/some/unique/name`. */
-            name?: string;
-        }
-        
-        interface RecognitionConfig {
-            /** &#42;Optional&#42; If `true`, the top result includes a list of words and */
-            /** the start and end time offsets (timestamps) for those words. If */
-            /** `false`, no word-level time offset information is returned. The default is */
-            /** `false`. */
-            enableWordTimeOffsets?: boolean;
-            /** &#42;Optional&#42; Maximum number of recognition hypotheses to be returned. */
-            /** Specifically, the maximum number of `SpeechRecognitionAlternative` messages */
-            /** within each `SpeechRecognitionResult`. */
-            /** The server may return fewer than `max_alternatives`. */
-            /** Valid values are `0`-`30`. A value of `0` or `1` will return a maximum of */
-            /** one. If omitted, will return a maximum of one. */
-            maxAlternatives?: number;
-            /** &#42;Required&#42; The language of the supplied audio as a */
-            /** [BCP-47](https://www.rfc-editor.org/rfc/bcp/bcp47.txt) language tag. */
-            /** Example: "en-US". */
-            /** See [Language Support](https://cloud.google.com/speech/docs/languages) */
-            /** for a list of the currently supported language codes. */
-            languageCode?: string;
-            /** &#42;Required&#42; Encoding of audio data sent in all `RecognitionAudio` messages. */
-            encoding?: string;
-            /** &#42;Optional&#42; A means to provide context to assist the speech recognition. */
-            speechContexts?: SpeechContext[];
-            /** &#42;Optional&#42; If set to `true`, the server will attempt to filter out */
-            /** profanities, replacing all but the initial character in each filtered word */
-            /** with asterisks, e.g. "f&#42;&#42;&#42;". If set to `false` or omitted, profanities */
-            /** won't be filtered out. */
-            profanityFilter?: boolean;
-            /** &#42;Required&#42; Sample rate in Hertz of the audio data sent in all */
-            /** `RecognitionAudio` messages. Valid values are: 8000-48000. */
-            /** 16000 is optimal. For best results, set the sampling rate of the audio */
-            /** source to 16000 Hz. If that's not possible, use the native sample rate of */
-            /** the audio source (instead of re-sampling). */
-            sampleRateHertz?: number;
-        }
-        
-        interface WordInfo {
-            /** &#42;Output-only&#42; Time offset relative to the beginning of the audio, */
-            /** and corresponding to the start of the spoken word. */
-            /** This field is only set if `enable_word_time_offsets=true` and only */
-            /** in the top hypothesis. */
-            /** This is an experimental feature and the accuracy of the time offset can */
-            /** vary. */
-            startTime?: string;
-            /** &#42;Output-only&#42; The word corresponding to this set of information. */
-            word?: string;
-            /** &#42;Output-only&#42; Time offset relative to the beginning of the audio, */
-            /** and corresponding to the end of the spoken word. */
-            /** This field is only set if `enable_word_time_offsets=true` and only */
-            /** in the top hypothesis. */
-            /** This is an experimental feature and the accuracy of the time offset can */
-            /** vary. */
-            endTime?: string;
-        }
-        
-        interface Status {
-            /** A list of messages that carry the error details.  There is a common set of */
-            /** message types for APIs to use. */
-            details?: Array<Record<string, any>>;            
-            /** The status code, which should be an enum value of google.rpc.Code. */
-            code?: number;
-            /** A developer-facing error message, which should be in English. Any */
-            /** user-facing error message should be localized and sent in the */
-            /** google.rpc.Status.details field, or localized by the client. */
-            message?: string;
-        }
-        
         interface RecognizeRequest {
             /** &#42;Required&#42; The audio data to be recognized. */
             audio?: RecognitionAudio;
@@ -191,15 +69,140 @@ declare namespace gapi.client {
             alternatives?: SpeechRecognitionAlternative[];
         }
         
+        interface RecognitionAudio {
+            /** The audio data bytes encoded as specified in */
+            /** `RecognitionConfig`. Note: as with all bytes fields, protobuffers use a */
+            /** pure binary representation, whereas JSON representations use base64. */
+            content?: string;
+            /** URI that points to a file that contains audio data bytes as specified in */
+            /** `RecognitionConfig`. Currently, only Google Cloud Storage URIs are */
+            /** supported, which must be specified in the following format: */
+            /** `gs://bucket_name/object_name` (other URI formats return */
+            /** google.rpc.Code.INVALID_ARGUMENT). For more information, see */
+            /** [Request URIs](https://cloud.google.com/storage/docs/reference-uris). */
+            uri?: string;
+        }
+        
+        interface LongRunningRecognizeRequest {
+            /** &#42;Required&#42; The audio data to be recognized. */
+            audio?: RecognitionAudio;
+            /** &#42;Required&#42; Provides information to the recognizer that specifies how to */
+            /** process the request. */
+            config?: RecognitionConfig;
+        }
+        
+        interface RecognizeResponse {
+            /** &#42;Output-only&#42; Sequential list of transcription results corresponding to */
+            /** sequential portions of audio. */
+            results?: SpeechRecognitionResult[];
+        }
+        
+        interface Operation {
+            /** The server-assigned name, which is only unique within the same service that */
+            /** originally returns it. If you use the default HTTP mapping, the */
+            /** `name` should have the format of `operations/some/unique/name`. */
+            name?: string;
+            /** The error result of the operation in case of failure or cancellation. */
+            error?: Status;
+            /** Service-specific metadata associated with the operation.  It typically */
+            /** contains progress information and common metadata such as create time. */
+            /** Some services might not provide such metadata.  Any method that returns a */
+            /** long-running operation should document the metadata type, if any. */
+            metadata?: Record<string, any>;            
+            /** If the value is `false`, it means the operation is still in progress. */
+            /** If true, the operation is completed, and either `error` or `response` is */
+            /** available. */
+            done?: boolean;
+            /** The normal response of the operation in case of success.  If the original */
+            /** method returns no data on success, such as `Delete`, the response is */
+            /** `google.protobuf.Empty`.  If the original method is standard */
+            /** `Get`/`Create`/`Update`, the response should be the resource.  For other */
+            /** methods, the response should have the type `XxxResponse`, where `Xxx` */
+            /** is the original method name.  For example, if the original method name */
+            /** is `TakeSnapshot()`, the inferred response type is */
+            /** `TakeSnapshotResponse`. */
+            response?: Record<string, any>;            
+        }
+        
+        interface RecognitionConfig {
+            /** &#42;Optional&#42; Maximum number of recognition hypotheses to be returned. */
+            /** Specifically, the maximum number of `SpeechRecognitionAlternative` messages */
+            /** within each `SpeechRecognitionResult`. */
+            /** The server may return fewer than `max_alternatives`. */
+            /** Valid values are `0`-`30`. A value of `0` or `1` will return a maximum of */
+            /** one. If omitted, will return a maximum of one. */
+            maxAlternatives?: number;
+            /** &#42;Required&#42; The language of the supplied audio as a */
+            /** [BCP-47](https://www.rfc-editor.org/rfc/bcp/bcp47.txt) language tag. */
+            /** Example: "en-US". */
+            /** See [Language Support](https://cloud.google.com/speech/docs/languages) */
+            /** for a list of the currently supported language codes. */
+            languageCode?: string;
+            /** &#42;Optional&#42; If set to `true`, the server will attempt to filter out */
+            /** profanities, replacing all but the initial character in each filtered word */
+            /** with asterisks, e.g. "f&#42;&#42;&#42;". If set to `false` or omitted, profanities */
+            /** won't be filtered out. */
+            profanityFilter?: boolean;
+            /** &#42;Required&#42; Encoding of audio data sent in all `RecognitionAudio` messages. */
+            encoding?: string;
+            /** &#42;Optional&#42; A means to provide context to assist the speech recognition. */
+            speechContexts?: SpeechContext[];
+            /** &#42;Required&#42; Sample rate in Hertz of the audio data sent in all */
+            /** `RecognitionAudio` messages. Valid values are: 8000-48000. */
+            /** 16000 is optimal. For best results, set the sampling rate of the audio */
+            /** source to 16000 Hz. If that's not possible, use the native sample rate of */
+            /** the audio source (instead of re-sampling). */
+            sampleRateHertz?: number;
+            /** &#42;Optional&#42; If `true`, the top result includes a list of words and */
+            /** the start and end time offsets (timestamps) for those words. If */
+            /** `false`, no word-level time offset information is returned. The default is */
+            /** `false`. */
+            enableWordTimeOffsets?: boolean;
+        }
+        
+        interface WordInfo {
+            /** &#42;Output-only&#42; The word corresponding to this set of information. */
+            word?: string;
+            /** &#42;Output-only&#42; Time offset relative to the beginning of the audio, */
+            /** and corresponding to the end of the spoken word. */
+            /** This field is only set if `enable_word_time_offsets=true` and only */
+            /** in the top hypothesis. */
+            /** This is an experimental feature and the accuracy of the time offset can */
+            /** vary. */
+            endTime?: string;
+            /** &#42;Output-only&#42; Time offset relative to the beginning of the audio, */
+            /** and corresponding to the start of the spoken word. */
+            /** This field is only set if `enable_word_time_offsets=true` and only */
+            /** in the top hypothesis. */
+            /** This is an experimental feature and the accuracy of the time offset can */
+            /** vary. */
+            startTime?: string;
+        }
+        
+        interface Status {
+            /** A list of messages that carry the error details.  There is a common set of */
+            /** message types for APIs to use. */
+            details?: Array<Record<string, any>>;            
+            /** The status code, which should be an enum value of google.rpc.Code. */
+            code?: number;
+            /** A developer-facing error message, which should be in English. Any */
+            /** user-facing error message should be localized and sent in the */
+            /** google.rpc.Status.details field, or localized by the client. */
+            message?: string;
+        }
+        
         interface OperationsResource {
-            /** Gets the latest state of a long-running operation.  Clients can use this */
-            /** method to poll the operation result at intervals as recommended by the API */
-            /** service. */
-            get(request: {            
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
+            /** Starts asynchronous cancellation on a long-running operation.  The server */
+            /** makes a best effort to cancel the operation, but success is not */
+            /** guaranteed.  If the server doesn't support this method, it returns */
+            /** `google.rpc.Code.UNIMPLEMENTED`.  Clients can use */
+            /** Operations.GetOperation or */
+            /** other methods to check whether the cancellation succeeded or whether the */
+            /** operation completed despite cancellation. On successful cancellation, */
+            /** the operation is not deleted; instead, it becomes an operation with */
+            /** an Operation.error value with a google.rpc.Status.code of 1, */
+            /** corresponding to `Code.CANCELLED`. */
+            cancel(request: {            
                 /** OAuth bearer token. */
                 bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
@@ -218,10 +221,83 @@ declare namespace gapi.client {
                 callback?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
                 /** OAuth access token. */
                 access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** The name of the operation resource to be cancelled. */
+                name: string;
+            }): Request<{}>;            
+            
+            /** Deletes a long-running operation. This method indicates that the client is */
+            /** no longer interested in the operation result. It does not cancel the */
+            /** operation. If the server doesn't support this method, it returns */
+            /** `google.rpc.Code.UNIMPLEMENTED`. */
+            delete(request: {            
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** The name of the operation resource to be deleted. */
+                name: string;
+            }): Request<{}>;            
+            
+            /** Gets the latest state of a long-running operation.  Clients can use this */
+            /** method to poll the operation result at intervals as recommended by the API */
+            /** service. */
+            get(request: {            
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
                 /** The name of the operation resource. */
                 name: string;
             }): Request<Operation>;            
@@ -237,10 +313,6 @@ declare namespace gapi.client {
             /** collection id, however overriding users must ensure the name binding */
             /** is the parent resource, without the operations collection id. */
             list(request: {            
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
                 /** OAuth bearer token. */
                 bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
@@ -259,10 +331,14 @@ declare namespace gapi.client {
                 callback?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
                 /** OAuth access token. */
                 access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
                 /** The standard list page token. */
                 pageToken?: string;
                 /** The name of the operation's parent resource. */
@@ -273,82 +349,6 @@ declare namespace gapi.client {
                 filter?: string;
             }): Request<ListOperationsResponse>;            
             
-            /** Starts asynchronous cancellation on a long-running operation.  The server */
-            /** makes a best effort to cancel the operation, but success is not */
-            /** guaranteed.  If the server doesn't support this method, it returns */
-            /** `google.rpc.Code.UNIMPLEMENTED`.  Clients can use */
-            /** Operations.GetOperation or */
-            /** other methods to check whether the cancellation succeeded or whether the */
-            /** operation completed despite cancellation. On successful cancellation, */
-            /** the operation is not deleted; instead, it becomes an operation with */
-            /** an Operation.error value with a google.rpc.Status.code of 1, */
-            /** corresponding to `Code.CANCELLED`. */
-            cancel(request: {            
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** The name of the operation resource to be cancelled. */
-                name: string;
-            }): Request<{}>;            
-            
-            /** Deletes a long-running operation. This method indicates that the client is */
-            /** no longer interested in the operation result. It does not cancel the */
-            /** operation. If the server doesn't support this method, it returns */
-            /** `google.rpc.Code.UNIMPLEMENTED`. */
-            delete(request: {            
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** The name of the operation resource to be deleted. */
-                name: string;
-            }): Request<{}>;            
-            
         }
         
         interface SpeechResource {
@@ -357,10 +357,6 @@ declare namespace gapi.client {
             /** `Operation.error` or an `Operation.response` which contains */
             /** a `LongRunningRecognizeResponse` message. */
             longrunningrecognize(request: {            
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
                 /** OAuth bearer token. */
                 bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
@@ -379,19 +375,19 @@ declare namespace gapi.client {
                 callback?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
                 /** OAuth access token. */
                 access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
             }): Request<Operation>;            
             
             /** Performs synchronous speech recognition: receive results after all audio */
             /** has been sent and processed. */
             recognize(request: {            
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
                 /** OAuth bearer token. */
                 bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
@@ -410,10 +406,14 @@ declare namespace gapi.client {
                 callback?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
                 /** OAuth access token. */
                 access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
             }): Request<RecognizeResponse>;            
             
         }

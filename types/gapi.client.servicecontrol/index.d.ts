@@ -20,132 +20,7 @@ declare namespace gapi.client {
     
     namespace servicecontrol {
         
-        interface ExplicitBuckets {
-            /** 'bound' is a list of strictly increasing boundaries between */
-            /** buckets. Note that a list of length N-1 defines N buckets because */
-            /** of fenceposting. See comments on `bucket_options` for details. */
-            /**  */
-            /** The i'th finite bucket covers the interval */
-            /**   [bound[i-1], bound[i]) */
-            /** where i ranges from 1 to bound_size() - 1. Note that there are no */
-            /** finite buckets at all if 'bound' only contains a single element; in */
-            /** that special case the single bound defines the boundary between the */
-            /** underflow and overflow buckets. */
-            /**  */
-            /** bucket number                   lower bound    upper bound */
-            /**  i == 0 (underflow)              -inf           bound[i] */
-            /**  0 < i < bound_size()            bound[i-1]     bound[i] */
-            /**  i == bound_size() (overflow)    bound[i-1]     +inf */
-            bounds?: number[];
-        }
-        
-        interface Distribution {
-            /** The number of samples in each histogram bucket. `bucket_counts` are */
-            /** optional. If present, they must sum to the `count` value. */
-            /**  */
-            /** The buckets are defined below in `bucket_option`. There are N buckets. */
-            /** `bucket_counts[0]` is the number of samples in the underflow bucket. */
-            /** `bucket_counts[1]` to `bucket_counts[N-1]` are the numbers of samples */
-            /** in each of the finite buckets. And `bucket_counts[N] is the number */
-            /** of samples in the overflow bucket. See the comments of `bucket_option` */
-            /** below for more details. */
-            /**  */
-            /** Any suffix of trailing zeros may be omitted. */
-            bucketCounts?: string[];
-            /** Buckets with arbitrary user-provided width. */
-            explicitBuckets?: ExplicitBuckets;
-            /** The maximum of the population of values. Ignored if `count` is zero. */
-            maximum?: number;
-            /** The sum of squared deviations from the mean: */
-            /**   Sum[i=1..count]((x_i - mean)^2) */
-            /** where each x_i is a sample values. If `count` is zero then this field */
-            /** must be zero, otherwise validation of the request fails. */
-            sumOfSquaredDeviation?: number;
-            /** Buckets with exponentially growing width. */
-            exponentialBuckets?: ExponentialBuckets;
-            /** Buckets with constant width. */
-            linearBuckets?: LinearBuckets;
-            /** The minimum of the population of values. Ignored if `count` is zero. */
-            minimum?: number;
-            /** The total number of samples in the distribution. Must be >= 0. */
-            count?: string;
-            /** The arithmetic mean of the samples in the distribution. If `count` is */
-            /** zero then this field must be zero. */
-            mean?: number;
-        }
-        
-        interface ExponentialBuckets {
-            /** The i'th exponential bucket covers the interval */
-            /**   [scale &#42; growth_factor^(i-1), scale &#42; growth_factor^i) */
-            /** where i ranges from 1 to num_finite_buckets inclusive. */
-            /** Must be larger than 1.0. */
-            growthFactor?: number;
-            /** The i'th exponential bucket covers the interval */
-            /**   [scale &#42; growth_factor^(i-1), scale &#42; growth_factor^i) */
-            /** where i ranges from 1 to num_finite_buckets inclusive. */
-            /** Must be > 0. */
-            scale?: number;
-            /** The number of finite buckets. With the underflow and overflow buckets, */
-            /** the total number of buckets is `num_finite_buckets` + 2. */
-            /** See comments on `bucket_options` for details. */
-            numFiniteBuckets?: number;
-        }
-        
-        interface AuthorizationInfo {
-            /** The resource being accessed, as a REST-style string. For example: */
-            /**  */
-            /**     bigquery.googleapis.com/projects/PROJECTID/datasets/DATASETID */
-            resource?: string;
-            /** Whether or not authorization for `resource` and `permission` */
-            /** was granted. */
-            granted?: boolean;
-            /** The required IAM permission. */
-            permission?: string;
-        }
-        
-        interface StartReconciliationResponse {
-            /** Indicates the decision of the reconciliation start. */
-            reconciliationErrors?: QuotaError[];
-            /** The same operation_id value used in the StartReconciliationRequest. Used */
-            /** for logging and diagnostics purposes. */
-            operationId?: string;
-            /** ID of the actual config used to process the request. */
-            serviceConfigId?: string;
-            /** Metric values as tracked by One Platform before the start of */
-            /** reconciliation. The following metrics will be included: */
-            /**  */
-            /** 1. Per quota metric total usage will be specified using the following gauge */
-            /** metric: */
-            /**   "serviceruntime.googleapis.com/allocation/consumer/quota_used_count" */
-            /**  */
-            /** 2. Value for each quota limit associated with the metrics will be specified */
-            /** using the following gauge metric: */
-            /**   "serviceruntime.googleapis.com/quota/limit" */
-            quotaMetrics?: MetricValueSet[];
-        }
-        
-        interface QuotaProperties {
-            /** LimitType IDs that should be used for checking quota. Key in this map */
-            /** should be a valid LimitType string, and the value is the ID to be used. For */
-            /** example, an entry <USER, 123> will cause all user quota limits to use 123 */
-            /** as the user ID. See google/api/quota.proto for the definition of LimitType. */
-            /** CLIENT_PROJECT: Not supported. */
-            /** USER: Value of this entry will be used for enforcing user-level quota */
-            /**       limits. If none specified, caller IP passed in the */
-            /**       servicecontrol.googleapis.com/caller_ip label will be used instead. */
-            /**       If the server cannot resolve a value for this LimitType, an error */
-            /**       will be thrown. No validation will be performed on this ID. */
-            /** Deprecated: use servicecontrol.googleapis.com/user label to send user ID. */
-            limitByIds?: Record<string, string>;            
-            /** Quota mode for this operation. */
-            quotaMode?: string;
-        }
-        
         interface LinearBuckets {
-            /** The number of finite buckets. With the underflow and overflow buckets, */
-            /** the total number of buckets is `num_finite_buckets` + 2. */
-            /** See comments on `bucket_options` for details. */
-            numFiniteBuckets?: number;
             /** The i'th linear bucket covers the interval */
             /**   [offset + (i-1) &#42; width, offset + i &#42; width) */
             /** where i ranges from 1 to num_finite_buckets, inclusive. */
@@ -155,6 +30,10 @@ declare namespace gapi.client {
             /**   [offset + (i-1) &#42; width, offset + i &#42; width) */
             /** where i ranges from 1 to num_finite_buckets, inclusive. */
             offset?: number;
+            /** The number of finite buckets. With the underflow and overflow buckets, */
+            /** the total number of buckets is `num_finite_buckets` + 2. */
+            /** See comments on `bucket_options` for details. */
+            numFiniteBuckets?: number;
         }
         
         interface AuthenticationInfo {
@@ -168,6 +47,9 @@ declare namespace gapi.client {
         }
         
         interface AllocateQuotaResponse {
+            /** The same operation_id value used in the AllocateQuotaRequest. Used for */
+            /** logging and diagnostics purposes. */
+            operationId?: string;
             /** ID of the actual config used to process the request. */
             serviceConfigId?: string;
             /** Indicates the decision of the allocate. */
@@ -191,9 +73,6 @@ declare namespace gapi.client {
             /** the metrics will be specified using the following gauge metric: */
             /**   "serviceruntime.googleapis.com/quota/limit" */
             quotaMetrics?: MetricValueSet[];
-            /** The same operation_id value used in the AllocateQuotaRequest. Used for */
-            /** logging and diagnostics purposes. */
-            operationId?: string;
         }
         
         interface ReleaseQuotaRequest {
@@ -203,30 +82,6 @@ declare namespace gapi.client {
             serviceConfigId?: string;
             /** Operation that describes the quota release. */
             releaseOperation?: QuotaOperation;
-        }
-        
-        interface RequestMetadata {
-            /** The IP address of the caller. */
-            /** For caller from internet, this will be public IPv4 or IPv6 address. */
-            /** For caller from GCE VM with external IP address, this will be the VM's */
-            /** external IP address. For caller from GCE VM without external IP address, if */
-            /** the VM is in the same GCP organization (or project) as the accessed */
-            /** resource, `caller_ip` will be the GCE VM's internal IPv4 address, otherwise */
-            /** it will be redacted to "gce-internal-ip". */
-            /** See https://cloud.google.com/compute/docs/vpc/ for more information. */
-            callerIp?: string;
-            /** The user agent of the caller. */
-            /** This information is not authenticated and should be treated accordingly. */
-            /** For example: */
-            /**  */
-            /** +   `google-api-python-client/1.4.0`: */
-            /**     The request was made by the Google API client for Python. */
-            /** +   `Cloud SDK Command Line Tool apitools-client/1.0 gcloud/0.9.62`: */
-            /**     The request was made by the Google Cloud SDK CLI (gcloud). */
-            /** +   `AppEngine-Google; (+http://code.google.com/appengine; appid: s~my-project`: */
-            /**     The request was made from the `my-project` App Engine app. */
-            /** NOLINT */
-            callerSuppliedUserAgent?: string;
         }
         
         interface QuotaError {
@@ -240,6 +95,30 @@ declare namespace gapi.client {
             code?: string;
         }
         
+        interface RequestMetadata {
+            /** The user agent of the caller. */
+            /** This information is not authenticated and should be treated accordingly. */
+            /** For example: */
+            /**  */
+            /** +   `google-api-python-client/1.4.0`: */
+            /**     The request was made by the Google API client for Python. */
+            /** +   `Cloud SDK Command Line Tool apitools-client/1.0 gcloud/0.9.62`: */
+            /**     The request was made by the Google Cloud SDK CLI (gcloud). */
+            /** +   `AppEngine-Google; (+http://code.google.com/appengine; appid: s~my-project`: */
+            /**     The request was made from the `my-project` App Engine app. */
+            /** NOLINT */
+            callerSuppliedUserAgent?: string;
+            /** The IP address of the caller. */
+            /** For caller from internet, this will be public IPv4 or IPv6 address. */
+            /** For caller from GCE VM with external IP address, this will be the VM's */
+            /** external IP address. For caller from GCE VM without external IP address, if */
+            /** the VM is in the same GCP organization (or project) as the accessed */
+            /** resource, `caller_ip` will be the GCE VM's internal IPv4 address, otherwise */
+            /** it will be redacted to "gce-internal-ip". */
+            /** See https://cloud.google.com/compute/docs/vpc/ for more information. */
+            callerIp?: string;
+        }
+        
         interface CheckInfo {
             /** A list of fields and label keys that are ignored by the server. */
             /** The client doesn't need to send them for following requests to improve */
@@ -249,19 +128,12 @@ declare namespace gapi.client {
             consumerInfo?: ConsumerInfo;
         }
         
-        interface AllocateQuotaRequest {
-            /** Specifies which version of service configuration should be used to process */
-            /** the request. If unspecified or no matching version can be found, the latest */
-            /** one will be used. */
-            serviceConfigId?: string;
-            /** Operation that describes the quota allocation. */
-            allocateOperation?: QuotaOperation;
-            /** Allocation mode for this operation. */
-            /** Deprecated: use QuotaMode inside the QuotaOperation. */
-            allocationMode?: string;
-        }
-        
         interface ReleaseQuotaResponse {
+            /** The same operation_id value used in the ReleaseQuotaRequest. Used for */
+            /** logging and diagnostics purposes. */
+            operationId?: string;
+            /** ID of the actual config used to process the request. */
+            serviceConfigId?: string;
             /** Indicates the decision of the release. */
             releaseErrors?: QuotaError[];
             /** Quota metrics to indicate the result of release. Depending on the */
@@ -279,34 +151,41 @@ declare namespace gapi.client {
             /** the metrics will be specified using the following gauge metric: */
             /**   "serviceruntime.googleapis.com/quota/limit" */
             quotaMetrics?: MetricValueSet[];
-            /** The same operation_id value used in the ReleaseQuotaRequest. Used for */
-            /** logging and diagnostics purposes. */
-            operationId?: string;
-            /** ID of the actual config used to process the request. */
-            serviceConfigId?: string;
         }
         
-        interface MetricValueSet {
-            /** The values in this metric. */
-            metricValues?: MetricValue[];
-            /** The metric name defined in the service configuration. */
-            metricName?: string;
-        }
-        
-        interface ReportError {
-            /** Details of the error when processing the `Operation`. */
-            status?: Status;
-            /** The Operation.operation_id value from the request. */
-            operationId?: string;
-        }
-        
-        interface StartReconciliationRequest {
-            /** Operation that describes the quota reconciliation. */
-            reconciliationOperation?: QuotaOperation;
+        interface AllocateQuotaRequest {
             /** Specifies which version of service configuration should be used to process */
             /** the request. If unspecified or no matching version can be found, the latest */
             /** one will be used. */
             serviceConfigId?: string;
+            /** Operation that describes the quota allocation. */
+            allocateOperation?: QuotaOperation;
+            /** Allocation mode for this operation. */
+            /** Deprecated: use QuotaMode inside the QuotaOperation. */
+            allocationMode?: string;
+        }
+        
+        interface MetricValueSet {
+            /** The metric name defined in the service configuration. */
+            metricName?: string;
+            /** The values in this metric. */
+            metricValues?: MetricValue[];
+        }
+        
+        interface ReportError {
+            /** The Operation.operation_id value from the request. */
+            operationId?: string;
+            /** Details of the error when processing the Operation. */
+            status?: Status;
+        }
+        
+        interface StartReconciliationRequest {
+            /** Specifies which version of service configuration should be used to process */
+            /** the request. If unspecified or no matching version can be found, the latest */
+            /** one will be used. */
+            serviceConfigId?: string;
+            /** Operation that describes the quota reconciliation. */
+            reconciliationOperation?: QuotaOperation;
         }
         
         interface CheckError {
@@ -317,6 +196,12 @@ declare namespace gapi.client {
         }
         
         interface QuotaInfo {
+            /** Quota Metrics that have exceeded quota limits. */
+            /** For QuotaGroup-based quota, this is QuotaGroup.name */
+            /** For QuotaLimit-based quota, this is QuotaLimit.name */
+            /** See: google.api.Quota */
+            /** Deprecated: Use quota_metrics to get per quota group limit exceeded status. */
+            limitExceeded?: string[];
             /** Map of quota group name to the actual number of tokens consumed. If the */
             /** quota check was not successful, then this will not be populated due to no */
             /** quota consumption. */
@@ -342,12 +227,6 @@ declare namespace gapi.client {
             /** condition will be specified using the following boolean metric: */
             /**   "serviceruntime.googleapis.com/quota/exceeded" */
             quotaMetrics?: MetricValueSet[];
-            /** Quota Metrics that have exceeded quota limits. */
-            /** For QuotaGroup-based quota, this is QuotaGroup.name */
-            /** For QuotaLimit-based quota, this is QuotaLimit.name */
-            /** See: google.api.Quota */
-            /** Deprecated: Use quota_metrics to get per quota group limit exceeded status. */
-            limitExceeded?: string[];
         }
         
         interface ConsumerInfo {
@@ -415,12 +294,12 @@ declare namespace gapi.client {
         }
         
         interface EndReconciliationRequest {
-            /** Operation that describes the quota reconciliation. */
-            reconciliationOperation?: QuotaOperation;
             /** Specifies which version of service configuration should be used to process */
             /** the request. If unspecified or no matching version can be found, the latest */
             /** one will be used. */
             serviceConfigId?: string;
+            /** Operation that describes the quota reconciliation. */
+            reconciliationOperation?: QuotaOperation;
         }
         
         interface ReportInfo {
@@ -430,64 +309,7 @@ declare namespace gapi.client {
             quotaInfo?: QuotaInfo;
         }
         
-        interface ReportResponse {
-            /** The actual config id used to process the request. */
-            serviceConfigId?: string;
-            /** Partial failures, one for each `Operation` in the request that failed */
-            /** processing. There are three possible combinations of the RPC status: */
-            /**  */
-            /** 1. The combination of a successful RPC status and an empty `report_errors` */
-            /**    list indicates a complete success where all `Operations` in the */
-            /**    request are processed successfully. */
-            /** 2. The combination of a successful RPC status and a non-empty */
-            /**    `report_errors` list indicates a partial success where some */
-            /**    `Operations` in the request succeeded. Each */
-            /**    `Operation` that failed processing has a corresponding item */
-            /**    in this list. */
-            /** 3. A failed RPC status indicates a general non-deterministic failure. */
-            /**    When this happens, it's impossible to know which of the */
-            /**    'Operations' in the request succeeded or failed. */
-            reportErrors?: ReportError[];
-            /** Quota usage for each quota release `Operation` request. */
-            /**  */
-            /** Fully or partially failed quota release request may or may not be present */
-            /** in `report_quota_info`. For example, a failed quota release request will */
-            /** have the current quota usage info when precise quota library returns the */
-            /** info. A deadline exceeded quota request will not have quota usage info. */
-            /**  */
-            /** If there is no quota release request, report_quota_info will be empty. */
-            /**  */
-            reportInfos?: ReportInfo[];
-        }
-        
         interface Operation {
-            /** Required. Start time of the operation. */
-            startTime?: string;
-            /** DO NOT USE. This is an experimental field. */
-            importance?: string;
-            /** The resource name of the parent of a resource in the resource hierarchy. */
-            /**  */
-            /** This can be in one of the following formats: */
-            /**     - “projects/<project-id or project-number>” */
-            /**     - “folders/<folder-id>” */
-            /**     - “organizations/<organization-id>” */
-            resourceContainer?: string;
-            /** Labels describing the operation. Only the following labels are allowed: */
-            /**  */
-            /** - Labels describing monitored resources as defined in */
-            /**   the service configuration. */
-            /** - Default labels of metric values. When specified, labels defined in the */
-            /**   metric value override these default. */
-            /** - The following labels defined by Google Cloud Platform: */
-            /**     - `cloud.googleapis.com/location` describing the location where the */
-            /**        operation happened, */
-            /**     - `servicecontrol.googleapis.com/user_agent` describing the user agent */
-            /**        of the API request, */
-            /**     - `servicecontrol.googleapis.com/service_agent` describing the service */
-            /**        used to handle the API request (e.g. ESP), */
-            /**     - `servicecontrol.googleapis.com/platform` describing the platform */
-            /**        where the API is served (e.g. GAE, GCE, GKE). */
-            labels?: Record<string, string>;            
             /** Represents information to be logged. */
             logEntries?: LogEntry[];
             /** User defined labels for the resource that this operation is associated */
@@ -533,6 +355,66 @@ declare namespace gapi.client {
             endTime?: string;
             /** Fully qualified name of the operation. Reserved for future use. */
             operationName?: string;
+            /** Required. Start time of the operation. */
+            startTime?: string;
+            /** DO NOT USE. This is an experimental field. */
+            importance?: string;
+            /** DO NOT USE. */
+            /** This field is not ready for use yet. */
+            resourceContainers?: string[];
+            /** The resource name of the parent of a resource in the resource hierarchy. */
+            /**  */
+            /** This can be in one of the following formats: */
+            /**     - “projects/<project-id or project-number>” */
+            /**     - “folders/<folder-id>” */
+            /**     - “organizations/<organization-id>” */
+            resourceContainer?: string;
+            /** Labels describing the operation. Only the following labels are allowed: */
+            /**  */
+            /** - Labels describing monitored resources as defined in */
+            /**   the service configuration. */
+            /** - Default labels of metric values. When specified, labels defined in the */
+            /**   metric value override these default. */
+            /** - The following labels defined by Google Cloud Platform: */
+            /**     - `cloud.googleapis.com/location` describing the location where the */
+            /**        operation happened, */
+            /**     - `servicecontrol.googleapis.com/user_agent` describing the user agent */
+            /**        of the API request, */
+            /**     - `servicecontrol.googleapis.com/service_agent` describing the service */
+            /**        used to handle the API request (e.g. ESP), */
+            /**     - `servicecontrol.googleapis.com/platform` describing the platform */
+            /**        where the API is served (e.g. GAE, GCE, GKE). */
+            labels?: Record<string, string>;            
+        }
+        
+        interface ReportResponse {
+            /** Quota usage for each quota release `Operation` request. */
+            /**  */
+            /** Fully or partially failed quota release request may or may not be present */
+            /** in `report_quota_info`. For example, a failed quota release request will */
+            /** have the current quota usage info when precise quota library returns the */
+            /** info. A deadline exceeded quota request will not have quota usage info. */
+            /**  */
+            /** If there is no quota release request, report_quota_info will be empty. */
+            /**  */
+            reportInfos?: ReportInfo[];
+            /** The actual config id used to process the request. */
+            serviceConfigId?: string;
+            /** Partial failures, one for each `Operation` in the request that failed */
+            /** processing. There are three possible combinations of the RPC status: */
+            /**  */
+            /** 1. The combination of a successful RPC status and an empty `report_errors` */
+            /**    list indicates a complete success where all `Operations` in the */
+            /**    request are processed successfully. */
+            /** 2. The combination of a successful RPC status and a non-empty */
+            /**    `report_errors` list indicates a partial success where some */
+            /**    `Operations` in the request succeeded. Each */
+            /**    `Operation` that failed processing has a corresponding item */
+            /**    in this list. */
+            /** 3. A failed RPC status indicates a general non-deterministic failure. */
+            /**    When this happens, it's impossible to know which of the */
+            /**    'Operations' in the request succeeded or failed. */
+            reportErrors?: ReportError[];
         }
         
         interface CheckResponse {
@@ -552,18 +434,6 @@ declare namespace gapi.client {
             /** Quota information for the check request associated with this response. */
             /**  */
             quotaInfo?: QuotaInfo;
-        }
-        
-        interface Status {
-            /** The status code, which should be an enum value of google.rpc.Code. */
-            code?: number;
-            /** A developer-facing error message, which should be in English. Any */
-            /** user-facing error message should be localized and sent in the */
-            /** google.rpc.Status.details field, or localized by the client. */
-            message?: string;
-            /** A list of messages that carry the error details.  There is a common set of */
-            /** message types for APIs to use. */
-            details?: Array<Record<string, any>>;            
         }
         
         interface ReportRequest {
@@ -586,29 +456,46 @@ declare namespace gapi.client {
             operations?: Operation[];
         }
         
+        interface Status {
+            /** A list of messages that carry the error details.  There is a common set of */
+            /** message types for APIs to use. */
+            details?: Array<Record<string, any>>;            
+            /** The status code, which should be an enum value of google.rpc.Code. */
+            code?: number;
+            /** A developer-facing error message, which should be in English. Any */
+            /** user-facing error message should be localized and sent in the */
+            /** google.rpc.Status.details field, or localized by the client. */
+            message?: string;
+        }
+        
+        interface LogEntry {
+            /** A set of user-defined (key, value) data that provides additional */
+            /** information about the log entry. */
+            labels?: Record<string, string>;            
+            /** The severity of the log entry. The default value is */
+            /** `LogSeverity.DEFAULT`. */
+            severity?: string;
+            /** A unique ID for the log entry used for deduplication. If omitted, */
+            /** the implementation will generate one based on operation_id. */
+            insertId?: string;
+            /** Required. The log to which this log entry belongs. Examples: `"syslog"`, */
+            /** `"book_log"`. */
+            name?: string;
+            /** The log entry payload, represented as a structure that */
+            /** is expressed as a JSON object. */
+            structPayload?: Record<string, any>;            
+            /** The log entry payload, represented as a Unicode string (UTF-8). */
+            textPayload?: string;
+            /** The log entry payload, represented as a protocol buffer that is */
+            /** expressed as a JSON object. The only accepted type currently is */
+            /** AuditLog. */
+            protoPayload?: Record<string, any>;            
+            /** The time the event described by the log entry occurred. If */
+            /** omitted, defaults to operation start time. */
+            timestamp?: string;
+        }
+        
         interface AuditLog {
-            /** Other service-specific data about the request, response, and other */
-            /** activities. */
-            serviceData?: Record<string, any>;            
-            /** Metadata about the operation. */
-            requestMetadata?: RequestMetadata;
-            /** The number of items returned from a List or Query API method, */
-            /** if applicable. */
-            numResponseItems?: string;
-            /** The status of the overall operation. */
-            status?: Status;
-            /** Authentication information. */
-            authenticationInfo?: AuthenticationInfo;
-            /** The operation response. This may not include all response elements, */
-            /** such as those that are too large, privacy-sensitive, or duplicated */
-            /** elsewhere in the log record. */
-            /** It should never include user-generated data, such as file contents. */
-            /** When the JSON object represented here has a proto equivalent, the proto */
-            /** name will be indicated in the `@type` property. */
-            response?: Record<string, any>;            
-            /** The name of the API service performing the operation. For example, */
-            /** `"datastore.googleapis.com"`. */
-            serviceName?: string;
             /** The name of the service method or operation. */
             /** For API calls, this should be the name of the API method. */
             /** For example, */
@@ -634,36 +521,39 @@ declare namespace gapi.client {
             /** When the JSON object represented here has a proto equivalent, the proto */
             /** name will be indicated in the `@type` property. */
             request?: Record<string, any>;            
-        }
-        
-        interface LogEntry {
-            /** The log entry payload, represented as a Unicode string (UTF-8). */
-            textPayload?: string;
-            /** The log entry payload, represented as a protocol buffer that is */
-            /** expressed as a JSON object. You can only pass `protoPayload` */
-            /** values that belong to a set of approved types. */
-            protoPayload?: Record<string, any>;            
-            /** The time the event described by the log entry occurred. If */
-            /** omitted, defaults to operation start time. */
-            timestamp?: string;
-            /** A set of user-defined (key, value) data that provides additional */
-            /** information about the log entry. */
-            labels?: Record<string, string>;            
-            /** The severity of the log entry. The default value is */
-            /** `LogSeverity.DEFAULT`. */
-            severity?: string;
-            /** Required. The log to which this log entry belongs. Examples: `"syslog"`, */
-            /** `"book_log"`. */
-            name?: string;
-            /** A unique ID for the log entry used for deduplication. If omitted, */
-            /** the implementation will generate one based on operation_id. */
-            insertId?: string;
-            /** The log entry payload, represented as a structure that */
-            /** is expressed as a JSON object. */
-            structPayload?: Record<string, any>;            
+            /** Other service-specific data about the request, response, and other */
+            /** activities. */
+            serviceData?: Record<string, any>;            
+            /** Metadata about the operation. */
+            requestMetadata?: RequestMetadata;
+            /** The number of items returned from a List or Query API method, */
+            /** if applicable. */
+            numResponseItems?: string;
+            /** Authentication information. */
+            authenticationInfo?: AuthenticationInfo;
+            /** The status of the overall operation. */
+            status?: Status;
+            /** The operation response. This may not include all response elements, */
+            /** such as those that are too large, privacy-sensitive, or duplicated */
+            /** elsewhere in the log record. */
+            /** It should never include user-generated data, such as file contents. */
+            /** When the JSON object represented here has a proto equivalent, the proto */
+            /** name will be indicated in the `@type` property. */
+            response?: Record<string, any>;            
+            /** The name of the API service performing the operation. For example, */
+            /** `"datastore.googleapis.com"`. */
+            serviceName?: string;
         }
         
         interface MetricValue {
+            /** The labels describing the metric value. */
+            /** See comments on google.api.servicecontrol.v1.Operation.labels for */
+            /** the overriding relationship. */
+            labels?: Record<string, string>;            
+            /** A text string value. */
+            stringValue?: string;
+            /** A double precision floating point value. */
+            doubleValue?: number;
             /** A signed 64-bit integer value. */
             int64Value?: string;
             /** A distribution value. */
@@ -680,20 +570,9 @@ declare namespace gapi.client {
             startTime?: string;
             /** A money value. */
             moneyValue?: Money;
-            /** The labels describing the metric value. */
-            /** See comments on google.api.servicecontrol.v1.Operation.labels for */
-            /** the overriding relationship. */
-            labels?: Record<string, string>;            
-            /** A text string value. */
-            stringValue?: string;
-            /** A double precision floating point value. */
-            doubleValue?: number;
         }
         
         interface Money {
-            /** The whole units of the amount. */
-            /** For example if `currencyCode` is `"USD"`, then 1 unit is one US dollar. */
-            units?: string;
             /** The 3-letter currency code defined in ISO 4217. */
             currencyCode?: string;
             /** Number of nano (10^-9) units of the amount. */
@@ -703,6 +582,9 @@ declare namespace gapi.client {
             /** If `units` is negative, `nanos` must be negative or zero. */
             /** For example $-1.75 is represented as `units`=-1 and `nanos`=-750,000,000. */
             nanos?: number;
+            /** The whole units of the amount. */
+            /** For example if `currencyCode` is `"USD"`, then 1 unit is one US dollar. */
+            units?: string;
         }
         
         interface EndReconciliationResponse {
@@ -736,143 +618,128 @@ declare namespace gapi.client {
             quotaMetrics?: MetricValueSet[];
         }
         
+        interface ExplicitBuckets {
+            /** 'bound' is a list of strictly increasing boundaries between */
+            /** buckets. Note that a list of length N-1 defines N buckets because */
+            /** of fenceposting. See comments on `bucket_options` for details. */
+            /**  */
+            /** The i'th finite bucket covers the interval */
+            /**   [bound[i-1], bound[i]) */
+            /** where i ranges from 1 to bound_size() - 1. Note that there are no */
+            /** finite buckets at all if 'bound' only contains a single element; in */
+            /** that special case the single bound defines the boundary between the */
+            /** underflow and overflow buckets. */
+            /**  */
+            /** bucket number                   lower bound    upper bound */
+            /**  i == 0 (underflow)              -inf           bound[i] */
+            /**  0 < i < bound_size()            bound[i-1]     bound[i] */
+            /**  i == bound_size() (overflow)    bound[i-1]     +inf */
+            bounds?: number[];
+        }
+        
+        interface Distribution {
+            /** The total number of samples in the distribution. Must be >= 0. */
+            count?: string;
+            /** The arithmetic mean of the samples in the distribution. If `count` is */
+            /** zero then this field must be zero. */
+            mean?: number;
+            /** The number of samples in each histogram bucket. `bucket_counts` are */
+            /** optional. If present, they must sum to the `count` value. */
+            /**  */
+            /** The buckets are defined below in `bucket_option`. There are N buckets. */
+            /** `bucket_counts[0]` is the number of samples in the underflow bucket. */
+            /** `bucket_counts[1]` to `bucket_counts[N-1]` are the numbers of samples */
+            /** in each of the finite buckets. And `bucket_counts[N] is the number */
+            /** of samples in the overflow bucket. See the comments of `bucket_option` */
+            /** below for more details. */
+            /**  */
+            /** Any suffix of trailing zeros may be omitted. */
+            bucketCounts?: string[];
+            /** Buckets with arbitrary user-provided width. */
+            explicitBuckets?: ExplicitBuckets;
+            /** The maximum of the population of values. Ignored if `count` is zero. */
+            maximum?: number;
+            /** The sum of squared deviations from the mean: */
+            /**   Sum[i=1..count]((x_i - mean)^2) */
+            /** where each x_i is a sample values. If `count` is zero then this field */
+            /** must be zero, otherwise validation of the request fails. */
+            sumOfSquaredDeviation?: number;
+            /** Buckets with exponentially growing width. */
+            exponentialBuckets?: ExponentialBuckets;
+            /** Buckets with constant width. */
+            linearBuckets?: LinearBuckets;
+            /** The minimum of the population of values. Ignored if `count` is zero. */
+            minimum?: number;
+        }
+        
+        interface ExponentialBuckets {
+            /** The i'th exponential bucket covers the interval */
+            /**   [scale &#42; growth_factor^(i-1), scale &#42; growth_factor^i) */
+            /** where i ranges from 1 to num_finite_buckets inclusive. */
+            /** Must be larger than 1.0. */
+            growthFactor?: number;
+            /** The i'th exponential bucket covers the interval */
+            /**   [scale &#42; growth_factor^(i-1), scale &#42; growth_factor^i) */
+            /** where i ranges from 1 to num_finite_buckets inclusive. */
+            /** Must be > 0. */
+            scale?: number;
+            /** The number of finite buckets. With the underflow and overflow buckets, */
+            /** the total number of buckets is `num_finite_buckets` + 2. */
+            /** See comments on `bucket_options` for details. */
+            numFiniteBuckets?: number;
+        }
+        
+        interface AuthorizationInfo {
+            /** The resource being accessed, as a REST-style string. For example: */
+            /**  */
+            /**     bigquery.googleapis.com/projects/PROJECTID/datasets/DATASETID */
+            resource?: string;
+            /** Whether or not authorization for `resource` and `permission` */
+            /** was granted. */
+            granted?: boolean;
+            /** The required IAM permission. */
+            permission?: string;
+        }
+        
+        interface StartReconciliationResponse {
+            /** Metric values as tracked by One Platform before the start of */
+            /** reconciliation. The following metrics will be included: */
+            /**  */
+            /** 1. Per quota metric total usage will be specified using the following gauge */
+            /** metric: */
+            /**   "serviceruntime.googleapis.com/allocation/consumer/quota_used_count" */
+            /**  */
+            /** 2. Value for each quota limit associated with the metrics will be specified */
+            /** using the following gauge metric: */
+            /**   "serviceruntime.googleapis.com/quota/limit" */
+            quotaMetrics?: MetricValueSet[];
+            /** Indicates the decision of the reconciliation start. */
+            reconciliationErrors?: QuotaError[];
+            /** The same operation_id value used in the StartReconciliationRequest. Used */
+            /** for logging and diagnostics purposes. */
+            operationId?: string;
+            /** ID of the actual config used to process the request. */
+            serviceConfigId?: string;
+        }
+        
+        interface QuotaProperties {
+            /** LimitType IDs that should be used for checking quota. Key in this map */
+            /** should be a valid LimitType string, and the value is the ID to be used. For */
+            /** example, an entry <USER, 123> will cause all user quota limits to use 123 */
+            /** as the user ID. See google/api/quota.proto for the definition of LimitType. */
+            /** CLIENT_PROJECT: Not supported. */
+            /** USER: Value of this entry will be used for enforcing user-level quota */
+            /**       limits. If none specified, caller IP passed in the */
+            /**       servicecontrol.googleapis.com/caller_ip label will be used instead. */
+            /**       If the server cannot resolve a value for this LimitType, an error */
+            /**       will be thrown. No validation will be performed on this ID. */
+            /** Deprecated: use servicecontrol.googleapis.com/user label to send user ID. */
+            limitByIds?: Record<string, string>;            
+            /** Quota mode for this operation. */
+            quotaMode?: string;
+        }
+        
         interface ServicesResource {
-            /** Checks an operation with Google Service Control to decide whether */
-            /** the given operation should proceed. It should be called before the */
-            /** operation is executed. */
-            /**  */
-            /** If feasible, the client should cache the check results and reuse them for */
-            /** 60 seconds. In case of server errors, the client can rely on the cached */
-            /** results for longer time. */
-            /**  */
-            /** NOTE: the `CheckRequest` has the size limit of 64KB. */
-            /**  */
-            /** This method requires the `servicemanagement.services.check` permission */
-            /** on the specified service. For more information, see */
-            /** [Google Cloud IAM](https://cloud.google.com/iam). */
-            check(request: {            
-                /** Data format for response. */
-                alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** The service name as specified in its service configuration. For example, */
-                /** `"pubsub.googleapis.com"`. */
-                /**  */
-                /** See google.api.Service for the definition of a service name. */
-                serviceName: string;
-            }): Request<CheckResponse>;            
-            
-            /** Releases previously allocated quota done through AllocateQuota method. */
-            /**  */
-            /** This method requires the `servicemanagement.services.quota` */
-            /** permission on the specified service. For more information, see */
-            /** [Google Cloud IAM](https://cloud.google.com/iam). */
-            /**  */
-            /** &#42;&#42;NOTE:&#42;&#42; the client code &#42;&#42;must&#42;&#42; fail-open if the server returns one */
-            /** of the following quota errors: */
-            /** -   `PROJECT_STATUS_UNAVAILABLE` */
-            /** -   `SERVICE_STATUS_UNAVAILABLE` */
-            /** -   `BILLING_STATUS_UNAVAILABLE` */
-            /** -   `QUOTA_SYSTEM_UNAVAILABLE` */
-            /**  */
-            /** The server may inject above errors to prohibit any hard dependency */
-            /** on the quota system. */
-            releaseQuota(request: {            
-                /** Data format for response. */
-                alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Name of the service as specified in the service configuration. For example, */
-                /** `"pubsub.googleapis.com"`. */
-                /**  */
-                /** See google.api.Service for the definition of a service name. */
-                serviceName: string;
-            }): Request<ReleaseQuotaResponse>;            
-            
-            /** Signals the quota controller that service ends the ongoing usage */
-            /** reconciliation. */
-            /**  */
-            /** This method requires the `servicemanagement.services.quota` */
-            /** permission on the specified service. For more information, see */
-            /** [Google Cloud IAM](https://cloud.google.com/iam). */
-            endReconciliation(request: {            
-                /** Data format for response. */
-                alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Name of the service as specified in the service configuration. For example, */
-                /** `"pubsub.googleapis.com"`. */
-                /**  */
-                /** See google.api.Service for the definition of a service name. */
-                serviceName: string;
-            }): Request<EndReconciliationResponse>;            
-            
             /** Reports operation results to Google Service Control, such as logs and */
             /** metrics. It should be called after an operation is completed. */
             /**  */
@@ -882,22 +749,12 @@ declare namespace gapi.client {
             /** the aggregation time window to avoid data loss risk more than 0.01% */
             /** for business and compliance reasons. */
             /**  */
-            /** NOTE: the `ReportRequest` has the size limit of 1MB. */
+            /** NOTE: the ReportRequest has the size limit of 1MB. */
             /**  */
             /** This method requires the `servicemanagement.services.report` permission */
             /** on the specified service. For more information, see */
             /** [Google Cloud IAM](https://cloud.google.com/iam). */
             report(request: {            
-                /** Data format for response. */
-                alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
                 /** OAuth bearer token. */
                 bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
@@ -914,10 +771,22 @@ declare namespace gapi.client {
                 "$.xgafv"?: string;
                 /** JSONP */
                 callback?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
                 /** The service name as specified in its service configuration. For example, */
                 /** `"pubsub.googleapis.com"`. */
                 /**  */
-                /** See google.api.Service for the definition of a service name. */
+                /** See */
+                /** [google.api.Service](https://cloud.google.com/service-management/reference/rpc/google.api#google.api.Service) */
+                /** for the definition of a service name. */
                 serviceName: string;
             }): Request<ReportResponse>;            
             
@@ -938,16 +807,6 @@ declare namespace gapi.client {
             /** The server may inject above errors to prohibit any hard dependency */
             /** on the quota system. */
             allocateQuota(request: {            
-                /** Data format for response. */
-                alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
                 /** OAuth bearer token. */
                 bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
@@ -964,6 +823,16 @@ declare namespace gapi.client {
                 "$.xgafv"?: string;
                 /** JSONP */
                 callback?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
                 /** Name of the service as specified in the service configuration. For example, */
                 /** `"pubsub.googleapis.com"`. */
                 /**  */
@@ -997,16 +866,6 @@ declare namespace gapi.client {
             /** permission on the specified service. For more information, see */
             /** [Google Cloud IAM](https://cloud.google.com/iam). */
             startReconciliation(request: {            
-                /** Data format for response. */
-                alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
                 /** OAuth bearer token. */
                 bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
@@ -1023,12 +882,160 @@ declare namespace gapi.client {
                 "$.xgafv"?: string;
                 /** JSONP */
                 callback?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
                 /** Name of the service as specified in the service configuration. For example, */
                 /** `"pubsub.googleapis.com"`. */
                 /**  */
                 /** See google.api.Service for the definition of a service name. */
                 serviceName: string;
             }): Request<StartReconciliationResponse>;            
+            
+            /** Checks an operation with Google Service Control to decide whether */
+            /** the given operation should proceed. It should be called before the */
+            /** operation is executed. */
+            /**  */
+            /** If feasible, the client should cache the check results and reuse them for */
+            /** 60 seconds. In case of server errors, the client can rely on the cached */
+            /** results for longer time. */
+            /**  */
+            /** NOTE: the CheckRequest has the size limit of 64KB. */
+            /**  */
+            /** This method requires the `servicemanagement.services.check` permission */
+            /** on the specified service. For more information, see */
+            /** [Google Cloud IAM](https://cloud.google.com/iam). */
+            check(request: {            
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** The service name as specified in its service configuration. For example, */
+                /** `"pubsub.googleapis.com"`. */
+                /**  */
+                /** See */
+                /** [google.api.Service](https://cloud.google.com/service-management/reference/rpc/google.api#google.api.Service) */
+                /** for the definition of a service name. */
+                serviceName: string;
+            }): Request<CheckResponse>;            
+            
+            /** Releases previously allocated quota done through AllocateQuota method. */
+            /**  */
+            /** This method requires the `servicemanagement.services.quota` */
+            /** permission on the specified service. For more information, see */
+            /** [Google Cloud IAM](https://cloud.google.com/iam). */
+            /**  */
+            /** &#42;&#42;NOTE:&#42;&#42; the client code &#42;&#42;must&#42;&#42; fail-open if the server returns one */
+            /** of the following quota errors: */
+            /** -   `PROJECT_STATUS_UNAVAILABLE` */
+            /** -   `SERVICE_STATUS_UNAVAILABLE` */
+            /** -   `BILLING_STATUS_UNAVAILABLE` */
+            /** -   `QUOTA_SYSTEM_UNAVAILABLE` */
+            /**  */
+            /** The server may inject above errors to prohibit any hard dependency */
+            /** on the quota system. */
+            releaseQuota(request: {            
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Name of the service as specified in the service configuration. For example, */
+                /** `"pubsub.googleapis.com"`. */
+                /**  */
+                /** See google.api.Service for the definition of a service name. */
+                serviceName: string;
+            }): Request<ReleaseQuotaResponse>;            
+            
+            /** Signals the quota controller that service ends the ongoing usage */
+            /** reconciliation. */
+            /**  */
+            /** This method requires the `servicemanagement.services.quota` */
+            /** permission on the specified service. For more information, see */
+            /** [Google Cloud IAM](https://cloud.google.com/iam). */
+            endReconciliation(request: {            
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Name of the service as specified in the service configuration. For example, */
+                /** `"pubsub.googleapis.com"`. */
+                /**  */
+                /** See google.api.Service for the definition of a service name. */
+                serviceName: string;
+            }): Request<EndReconciliationResponse>;            
             
         }
     }

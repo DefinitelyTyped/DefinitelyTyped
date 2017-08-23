@@ -22,21 +22,32 @@ declare namespace gapi.client {
     
     namespace firebasedynamiclinks {
         
+        interface SocialMetaTagInfo {
+            /** A short description of the link. Optional. */
+            socialDescription?: string;
+            /** An image url string. Optional. */
+            socialImageLink?: string;
+            /** Title to be displayed. Optional. */
+            socialTitle?: string;
+        }
+        
         interface DynamicLinkStats {
             /** Dynamic Link event stats. */
             linkEventStats?: DynamicLinkEventStat[];
         }
         
         interface DynamicLinkWarning {
-            /** The document describing the warning, and helps resolve. */
-            warningDocumentLink?: string;
             /** The warning code. */
             warningCode?: string;
             /** The warning message to help developers improve their requests. */
             warningMessage?: string;
+            /** The document describing the warning, and helps resolve. */
+            warningDocumentLink?: string;
         }
         
         interface AndroidInfo {
+            /** Link to open on Android if the app is not installed. */
+            androidFallbackLink?: string;
             /** Android package name of the app. */
             androidPackageName?: string;
             /** Minimum version code for the Android app. If the installed app’s version */
@@ -44,8 +55,6 @@ declare namespace gapi.client {
             androidMinPackageVersionCode?: string;
             /** If specified, this overrides the ‘link’ parameter on Android. */
             androidLink?: string;
-            /** Link to open on Android if the app is not installed. */
-            androidFallbackLink?: string;
         }
         
         interface NavigationInfo {
@@ -55,10 +64,6 @@ declare namespace gapi.client {
         }
         
         interface IosInfo {
-            /** Link to open on iOS if the app is not installed. */
-            iosFallbackLink?: string;
-            /** iOS App Store ID. */
-            iosAppStoreId?: string;
             /** If specified, this overrides the ios_fallback_link value on iPads. */
             iosIpadFallbackLink?: string;
             /** iPad bundle ID of the app. */
@@ -69,6 +74,10 @@ declare namespace gapi.client {
             iosCustomScheme?: string;
             /** iOS bundle ID of the app. */
             iosBundleId?: string;
+            /** Link to open on iOS if the app is not installed. */
+            iosFallbackLink?: string;
+            /** iOS App Store ID. */
+            iosAppStoreId?: string;
         }
         
         interface AnalyticsInfo {
@@ -92,21 +101,21 @@ declare namespace gapi.client {
         }
         
         interface DynamicLinkEventStat {
+            /** Requested platform. */
+            platform?: string;
             /** The number of times this event occurred. */
             count?: string;
             /** Link event. */
             event?: string;
-            /** Requested platform. */
-            platform?: string;
         }
         
         interface CreateShortDynamicLinkResponse {
+            /** Information about potential warnings on link creation. */
+            warning?: DynamicLinkWarning[];
             /** Short Dynamic Link value. e.g. https://abcd.app.goo.gl/wxyz */
             shortLink?: string;
             /** Preivew link to show the link flow chart. */
             previewLink?: string;
-            /** Information about potential warnings on link creation. */
-            warning?: DynamicLinkWarning[];
         }
         
         interface Suffix {
@@ -115,23 +124,23 @@ declare namespace gapi.client {
         }
         
         interface GooglePlayAnalytics {
-            /** Campaign medium; used to identify a medium such as email or cost-per-click. */
-            utmMedium?: string;
             /** Campaign term; used with paid search to supply the keywords for ads. */
             utmTerm?: string;
             /** Campaign source; used to identify a search engine, newsletter, or other */
             /** source. */
             utmSource?: string;
-            /** Campaign name; used for keyword analysis to identify a specific product */
-            /** promotion or strategic campaign. */
-            utmCampaign?: string;
             /** [AdWords autotagging parameter](https://support.google.com/analytics/answer/1033981?hl=en); */
             /** used to measure Google AdWords ads. This value is generated dynamically */
             /** and should never be modified. */
             gclid?: string;
+            /** Campaign name; used for keyword analysis to identify a specific product */
+            /** promotion or strategic campaign. */
+            utmCampaign?: string;
             /** Campaign content; used for A/B testing and content-targeted ads to */
             /** differentiate ads or links that point to the same URL. */
             utmContent?: string;
+            /** Campaign medium; used to identify a medium such as email or cost-per-click. */
+            utmMedium?: string;
         }
         
         interface DynamicLinkInfo {
@@ -165,8 +174,6 @@ declare namespace gapi.client {
         }
         
         interface ITunesConnectAnalytics {
-            /** Affiliate token used to create affiliate-coded links. */
-            at?: string;
             /** iTune media types, including music, podcasts, audiobooks and so on. */
             mt?: string;
             /** Campaign text that developers can optionally add to any link in order to */
@@ -175,15 +182,8 @@ declare namespace gapi.client {
             /** Provider token that enables analytics for Dynamic Links from within iTunes */
             /** Connect. */
             pt?: string;
-        }
-        
-        interface SocialMetaTagInfo {
-            /** An image url string. Optional. */
-            socialImageLink?: string;
-            /** Title to be displayed. Optional. */
-            socialTitle?: string;
-            /** A short description of the link. Optional. */
-            socialDescription?: string;
+            /** Affiliate token used to create affiliate-coded links. */
+            at?: string;
         }
         
         interface ShortLinksResource {
@@ -201,20 +201,20 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
                 /** JSONP */
                 callback?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
                 /** OAuth access token. */
                 access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
@@ -236,20 +236,20 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
                 /** JSONP */
                 callback?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
                 /** OAuth access token. */
                 access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */

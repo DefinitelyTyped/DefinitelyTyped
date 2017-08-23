@@ -14,14 +14,14 @@ gapi.load('client', () => {
         // declare client_id registered in Google Developers Console
         const client_id = '<<PUT YOUR CLIENT ID HERE>>';
         const scope = [     
+                // Read Trace data for a project or application
+                'https://www.googleapis.com/auth/trace.readonly',
+            
                 // Write Trace data for a project or application
                 'https://www.googleapis.com/auth/trace.append',
             
                 // View and manage your data across Google Cloud Platform services
                 'https://www.googleapis.com/auth/cloud-platform',
-            
-                // Read Trace data for a project or application
-                'https://www.googleapis.com/auth/trace.readonly',
             ];
         const immediate = true;
 

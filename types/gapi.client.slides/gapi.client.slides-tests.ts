@@ -14,12 +14,6 @@ gapi.load('client', () => {
         // declare client_id registered in Google Developers Console
         const client_id = '<<PUT YOUR CLIENT ID HERE>>';
         const scope = [     
-                // View and manage your Google Slides presentations
-                'https://www.googleapis.com/auth/presentations',
-            
-                // View your Google Slides presentations
-                'https://www.googleapis.com/auth/presentations.readonly',
-            
                 // View your Google Spreadsheets
                 'https://www.googleapis.com/auth/spreadsheets.readonly',
             
@@ -31,6 +25,12 @@ gapi.load('client', () => {
             
                 // View and manage your spreadsheets in Google Drive
                 'https://www.googleapis.com/auth/spreadsheets',
+            
+                // View and manage your Google Slides presentations
+                'https://www.googleapis.com/auth/presentations',
+            
+                // View your Google Slides presentations
+                'https://www.googleapis.com/auth/presentations.readonly',
             ];
         const immediate = true;
 

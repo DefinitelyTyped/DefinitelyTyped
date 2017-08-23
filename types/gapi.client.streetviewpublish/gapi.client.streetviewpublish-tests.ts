@@ -31,6 +31,63 @@ gapi.load('client', () => {
 
     async function run() {  
         
+        // Deletes a list of Photos and their metadata.
+        // 
+        // Note that if
+        // BatchDeletePhotos
+        // fails, either critical fields are missing or there was an authentication
+        // error. Even if
+        // BatchDeletePhotos
+        // succeeds, there may have been failures for single photos in the batch.
+        // These failures will be specified in each
+        // PhotoResponse.status
+        // in
+        // BatchDeletePhotosResponse.results.
+        // See
+        // DeletePhoto
+        // for specific failures that can occur per photo.
+        await gapi.client.photos.batchDelete({  }); 
+        
+        // Updates the metadata of Photos, such
+        // as pose, place association, connections, etc. Changing the pixels of photos
+        // is not supported.
+        // 
+        // Note that if
+        // BatchUpdatePhotos
+        // fails, either critical fields are missing or there was an authentication
+        // error. Even if
+        // BatchUpdatePhotos
+        // succeeds, there may have been failures for single photos in the batch.
+        // These failures will be specified in each
+        // PhotoResponse.status
+        // in
+        // BatchUpdatePhotosResponse.results.
+        // See
+        // UpdatePhoto
+        // for specific failures that can occur per photo.
+        await gapi.client.photos.batchUpdate({  }); 
+        
+        // Gets the metadata of the specified
+        // Photo batch.
+        // 
+        // Note that if
+        // BatchGetPhotos
+        // fails, either critical fields are missing or there was an authentication
+        // error. Even if
+        // BatchGetPhotos
+        // succeeds, there may have been failures for single photos in the batch.
+        // These failures will be specified in each
+        // PhotoResponse.status
+        // in
+        // BatchGetPhotosResponse.results.
+        // See
+        // GetPhoto
+        // for specific failures that can occur per photo.
+        await gapi.client.photos.batchGet({  }); 
+        
+        // Lists all the Photos that belong to the user.
+        await gapi.client.photos.list({  }); 
+        
         // Deletes a Photo and its metadata.
         // 
         // This method returns the following error codes:
@@ -96,63 +153,6 @@ gapi.load('client', () => {
         // UploadRef is used with
         // CreatePhoto
         // to create the Photo object entry.
-        await gapi.client.photo.startUpload({  }); 
-        
-        // Deletes a list of Photos and their metadata.
-        // 
-        // Note that if
-        // BatchDeletePhotos
-        // fails, either critical fields are missing or there was an authentication
-        // error. Even if
-        // BatchDeletePhotos
-        // succeeds, there may have been failures for single photos in the batch.
-        // These failures will be specified in each
-        // PhotoResponse.status
-        // in
-        // BatchDeletePhotosResponse.results.
-        // See
-        // DeletePhoto
-        // for specific failures that can occur per photo.
-        await gapi.client.photos.batchDelete({  }); 
-        
-        // Updates the metadata of Photos, such
-        // as pose, place association, connections, etc. Changing the pixels of photos
-        // is not supported.
-        // 
-        // Note that if
-        // BatchUpdatePhotos
-        // fails, either critical fields are missing or there was an authentication
-        // error. Even if
-        // BatchUpdatePhotos
-        // succeeds, there may have been failures for single photos in the batch.
-        // These failures will be specified in each
-        // PhotoResponse.status
-        // in
-        // BatchUpdatePhotosResponse.results.
-        // See
-        // UpdatePhoto
-        // for specific failures that can occur per photo.
-        await gapi.client.photos.batchUpdate({  }); 
-        
-        // Gets the metadata of the specified
-        // Photo batch.
-        // 
-        // Note that if
-        // BatchGetPhotos
-        // fails, either critical fields are missing or there was an authentication
-        // error. Even if
-        // BatchGetPhotos
-        // succeeds, there may have been failures for single photos in the batch.
-        // These failures will be specified in each
-        // PhotoResponse.status
-        // in
-        // BatchGetPhotosResponse.results.
-        // See
-        // GetPhoto
-        // for specific failures that can occur per photo.
-        await gapi.client.photos.batchGet({  }); 
-        
-        // Lists all the Photos that belong to the user.
-        await gapi.client.photos.list({  });
+        await gapi.client.photo.startUpload({  });
     }
 });

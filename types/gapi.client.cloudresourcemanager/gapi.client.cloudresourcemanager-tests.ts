@@ -34,6 +34,41 @@ gapi.load('client', () => {
 
     async function run() {  
         
+        // Returns the IAM access control policy for the specified Project.
+        // Permission is denied if the policy or the resource does not exist.
+        // 
+        // Authorization requires the Google IAM permission
+        // `resourcemanager.projects.getIamPolicy` on the project
+        await gapi.client.projects.getIamPolicy({ resource: "resource",  }); 
+        
+        // Gets a `Policy` on a resource.
+        // 
+        // If no `Policy` is set on the resource, a `Policy` is returned with default
+        // values including `POLICY_TYPE_NOT_SET` for the `policy_type oneof`. The
+        // `etag` value can be used with `SetOrgPolicy()` to create or update a
+        // `Policy` during read-modify-write.
+        await gapi.client.projects.getOrgPolicy({ resource: "resource",  }); 
+        
+        // Restores the Project identified by the specified
+        // `project_id` (for example, `my-project-123`).
+        // You can only use this method for a Project that has a lifecycle state of
+        // DELETE_REQUESTED.
+        // After deletion starts, the Project cannot be restored.
+        // 
+        // The caller must have modify permissions for this Project.
+        await gapi.client.projects.undelete({ projectId: "projectId",  }); 
+        
+        // Gets the effective `Policy` on a resource. This is the result of merging
+        // `Policies` in the resource hierarchy. The returned `Policy` will not have
+        // an `etag`set because it is a computed `Policy` across multiple resources.
+        await gapi.client.projects.getEffectiveOrgPolicy({ resource: "resource",  }); 
+        
+        // Updates the attributes of the Project identified by the specified
+        // `project_id` (for example, `my-project-123`).
+        // 
+        // The caller must have modify permissions for this Project.
+        await gapi.client.projects.update({ projectId: "projectId",  }); 
+        
         // Lists Projects that are visible to the user and satisfy the
         // specified filter. This method returns Projects in an unspecified order.
         // New Projects do not necessarily appear at the end of the list.
@@ -156,40 +191,20 @@ gapi.load('client', () => {
         // Lists `Constraints` that could be applied on the specified resource.
         await gapi.client.projects.listAvailableOrgPolicyConstraints({ resource: "resource",  }); 
         
-        // Returns the IAM access control policy for the specified Project.
-        // Permission is denied if the policy or the resource does not exist.
+        // Updates the specified `Policy` on the resource. Creates a new `Policy` for
+        // that `Constraint` on the resource if one does not exist.
+        // 
+        // Not supplying an `etag` on the request `Policy` results in an unconditional
+        // write of the `Policy`.
+        await gapi.client.organizations.setOrgPolicy({ resource: "resource",  }); 
+        
+        // Sets the access control policy on an Organization resource. Replaces any
+        // existing policy. The `resource` field should be the organization's resource
+        // name, e.g. "organizations/123".
         // 
         // Authorization requires the Google IAM permission
-        // `resourcemanager.projects.getIamPolicy` on the project
-        await gapi.client.projects.getIamPolicy({ resource: "resource",  }); 
-        
-        // Gets a `Policy` on a resource.
-        // 
-        // If no `Policy` is set on the resource, a `Policy` is returned with default
-        // values including `POLICY_TYPE_NOT_SET` for the `policy_type oneof`. The
-        // `etag` value can be used with `SetOrgPolicy()` to create or update a
-        // `Policy` during read-modify-write.
-        await gapi.client.projects.getOrgPolicy({ resource: "resource",  }); 
-        
-        // Restores the Project identified by the specified
-        // `project_id` (for example, `my-project-123`).
-        // You can only use this method for a Project that has a lifecycle state of
-        // DELETE_REQUESTED.
-        // After deletion starts, the Project cannot be restored.
-        // 
-        // The caller must have modify permissions for this Project.
-        await gapi.client.projects.undelete({ projectId: "projectId",  }); 
-        
-        // Gets the effective `Policy` on a resource. This is the result of merging
-        // `Policies` in the resource hierarchy. The returned `Policy` will not have
-        // an `etag`set because it is a computed `Policy` across multiple resources.
-        await gapi.client.projects.getEffectiveOrgPolicy({ resource: "resource",  }); 
-        
-        // Updates the attributes of the Project identified by the specified
-        // `project_id` (for example, `my-project-123`).
-        // 
-        // The caller must have modify permissions for this Project.
-        await gapi.client.projects.update({ projectId: "projectId",  }); 
+        // `resourcemanager.organizations.setIamPolicy` on the specified organization
+        await gapi.client.organizations.setIamPolicy({ resource: "resource",  }); 
         
         // Lists all the `Policies` set for a particular resource.
         await gapi.client.organizations.listOrgPolicies({ resource: "resource",  }); 
@@ -205,6 +220,14 @@ gapi.load('client', () => {
         // `resourcemanager.organizations.getIamPolicy` on the specified organization
         await gapi.client.organizations.getIamPolicy({ resource: "resource",  }); 
         
+        // Gets a `Policy` on a resource.
+        // 
+        // If no `Policy` is set on the resource, a `Policy` is returned with default
+        // values including `POLICY_TYPE_NOT_SET` for the `policy_type oneof`. The
+        // `etag` value can be used with `SetOrgPolicy()` to create or update a
+        // `Policy` during read-modify-write.
+        await gapi.client.organizations.getOrgPolicy({ resource: "resource",  }); 
+        
         // Searches Organization resources that are visible to the user and satisfy
         // the specified filter. This method returns Organizations in an unspecified
         // order. New Organizations do not necessarily appear at the end of the
@@ -213,14 +236,6 @@ gapi.load('client', () => {
         // Search will only return organizations on which the user has the permission
         // `resourcemanager.organizations.get`
         await gapi.client.organizations.search({  }); 
-        
-        // Gets a `Policy` on a resource.
-        // 
-        // If no `Policy` is set on the resource, a `Policy` is returned with default
-        // values including `POLICY_TYPE_NOT_SET` for the `policy_type oneof`. The
-        // `etag` value can be used with `SetOrgPolicy()` to create or update a
-        // `Policy` during read-modify-write.
-        await gapi.client.organizations.getOrgPolicy({ resource: "resource",  }); 
         
         // Fetches an Organization resource identified by the specified resource name.
         await gapi.client.organizations.get({ name: "name",  }); 
@@ -239,21 +254,6 @@ gapi.load('client', () => {
         
         // Clears a `Policy` from a resource.
         await gapi.client.organizations.clearOrgPolicy({ resource: "resource",  }); 
-        
-        // Updates the specified `Policy` on the resource. Creates a new `Policy` for
-        // that `Constraint` on the resource if one does not exist.
-        // 
-        // Not supplying an `etag` on the request `Policy` results in an unconditional
-        // write of the `Policy`.
-        await gapi.client.organizations.setOrgPolicy({ resource: "resource",  }); 
-        
-        // Sets the access control policy on an Organization resource. Replaces any
-        // existing policy. The `resource` field should be the organization's resource
-        // name, e.g. "organizations/123".
-        // 
-        // Authorization requires the Google IAM permission
-        // `resourcemanager.organizations.setIamPolicy` on the specified organization
-        await gapi.client.organizations.setIamPolicy({ resource: "resource",  }); 
         
         // Gets the latest state of a long-running operation.  Clients can use this
         // method to poll the operation result at intervals as recommended by the API
@@ -283,6 +283,19 @@ gapi.load('client', () => {
         // NOTE: Some resources may limit the number of Liens which may be applied.
         await gapi.client.liens.create({  }); 
         
+        // Gets a `Policy` on a resource.
+        // 
+        // If no `Policy` is set on the resource, a `Policy` is returned with default
+        // values including `POLICY_TYPE_NOT_SET` for the `policy_type oneof`. The
+        // `etag` value can be used with `SetOrgPolicy()` to create or update a
+        // `Policy` during read-modify-write.
+        await gapi.client.folders.getOrgPolicy({ resource: "resource",  }); 
+        
+        // Gets the effective `Policy` on a resource. This is the result of merging
+        // `Policies` in the resource hierarchy. The returned `Policy` will not have
+        // an `etag`set because it is a computed `Policy` across multiple resources.
+        await gapi.client.folders.getEffectiveOrgPolicy({ resource: "resource",  }); 
+        
         // Clears a `Policy` from a resource.
         await gapi.client.folders.clearOrgPolicy({ resource: "resource",  }); 
         
@@ -297,19 +310,6 @@ gapi.load('client', () => {
         await gapi.client.folders.listAvailableOrgPolicyConstraints({ resource: "resource",  }); 
         
         // Lists all the `Policies` set for a particular resource.
-        await gapi.client.folders.listOrgPolicies({ resource: "resource",  }); 
-        
-        // Gets a `Policy` on a resource.
-        // 
-        // If no `Policy` is set on the resource, a `Policy` is returned with default
-        // values including `POLICY_TYPE_NOT_SET` for the `policy_type oneof`. The
-        // `etag` value can be used with `SetOrgPolicy()` to create or update a
-        // `Policy` during read-modify-write.
-        await gapi.client.folders.getOrgPolicy({ resource: "resource",  }); 
-        
-        // Gets the effective `Policy` on a resource. This is the result of merging
-        // `Policies` in the resource hierarchy. The returned `Policy` will not have
-        // an `etag`set because it is a computed `Policy` across multiple resources.
-        await gapi.client.folders.getEffectiveOrgPolicy({ resource: "resource",  });
+        await gapi.client.folders.listOrgPolicies({ resource: "resource",  });
     }
 });

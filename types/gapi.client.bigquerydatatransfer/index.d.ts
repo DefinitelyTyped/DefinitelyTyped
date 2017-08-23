@@ -20,37 +20,6 @@ declare namespace gapi.client {
     
     namespace bigquerydatatransfer {
         
-        interface CheckValidCredsResponse {
-            /** If set to `true`, the credentials exist and are valid. */
-            hasValidCreds?: boolean;
-        }
-        
-        interface ScheduleTransferRunsResponse {
-            /** The transfer runs that were created. */
-            createdRuns?: TransferRun[];
-        }
-        
-        interface ListTransferLogsResponse {
-            /** The stored pipeline transfer messages. */
-            /** @OutputOnly */
-            transferMessages?: TransferMessage[];
-            /** The next-pagination token. For multiple-page list results, */
-            /** this token can be used as the */
-            /** `GetTransferRunLogRequest.page_token` */
-            /** to request the next page of list results. */
-            /** @OutputOnly */
-            nextPageToken?: string;
-        }
-        
-        interface TransferMessage {
-            /** Message text. */
-            messageText?: string;
-            /** Message severity. */
-            severity?: string;
-            /** Time when message was logged. */
-            messageTime?: string;
-        }
-        
         interface ListDataSourcesResponse {
             /** List of supported data sources and their transfer settings. */
             dataSources?: DataSource[];
@@ -63,6 +32,19 @@ declare namespace gapi.client {
         }
         
         interface DataSourceParameter {
+            /** Is parameter required. */
+            required?: boolean;
+            /** Can parameter have multiple values. */
+            repeated?: boolean;
+            /** Parameter display name in the user interface. */
+            displayName?: string;
+            /** Description of the requirements for this field, in case the user input does */
+            /** not fulfill the regex pattern or min/max values. */
+            validationDescription?: string;
+            /** Cannot be changed after initial creation. */
+            immutable?: boolean;
+            /** When parameter is a record, describes child fields. */
+            fields?: DataSourceParameter[];
             /** For integer and double values specifies maxminum allowed value. */
             maxValue?: number;
             /** Parameter type. */
@@ -82,55 +64,42 @@ declare namespace gapi.client {
             validationRegex?: string;
             /** Parameter identifier. */
             paramId?: string;
-            /** Is parameter required. */
-            required?: boolean;
-            /** Can parameter have multiple values. */
-            repeated?: boolean;
-            /** Parameter display name in the user interface. */
-            displayName?: string;
-            /** Description of the requirements for this field, in case the user input does */
-            /** not fulfill the regex pattern or min/max values. */
-            validationDescription?: string;
-            /** Cannot be changed after initial creation. */
-            immutable?: boolean;
-            /** When parameter is a record, describes child fields. */
-            fields?: DataSourceParameter[];
         }
         
         interface ListLocationsResponse {
-            /** The standard List next-page token. */
-            nextPageToken?: string;
             /** A list of locations that matches the specified filter in the request. */
             locations?: Location[];
+            /** The standard List next-page token. */
+            nextPageToken?: string;
         }
         
         interface ListTransferRunsResponse {
+            /** The stored pipeline transfer runs. */
+            /** @OutputOnly */
+            transferRuns?: TransferRun[];
             /** The next-pagination token. For multiple-page list results, */
             /** this token can be used as the */
             /** `ListTransferRunsRequest.page_token` */
             /** to request the next page of list results. */
             /** @OutputOnly */
             nextPageToken?: string;
-            /** The stored pipeline transfer runs. */
-            /** @OutputOnly */
-            transferRuns?: TransferRun[];
+        }
+        
+        interface SetEnabledRequest {
+            /** Whether data transfer should be enabled or disabled for the project. */
+            enabled?: boolean;
         }
         
         interface ListTransferConfigsResponse {
+            /** The stored pipeline transfer configurations. */
+            /** @OutputOnly */
+            transferConfigs?: TransferConfig[];
             /** The next-pagination token. For multiple-page list results, */
             /** this token can be used as the */
             /** `ListTransferConfigsRequest.page_token` */
             /** to request the next page of list results. */
             /** @OutputOnly */
             nextPageToken?: string;
-            /** The stored pipeline transfer configurations. */
-            /** @OutputOnly */
-            transferConfigs?: TransferConfig[];
-        }
-        
-        interface SetEnabledRequest {
-            /** Whether data transfer should be enabled or disabled for the project. */
-            enabled?: boolean;
         }
         
         interface IsEnabledResponse {
@@ -139,6 +108,27 @@ declare namespace gapi.client {
         }
         
         interface DataSource {
+            /** Specifies whether the data source supports automatic data refresh for the */
+            /** past few days, and how it's supported. */
+            /** For some data sources, data might not be complete until a few days later, */
+            /** so it's useful to refresh data automatically. */
+            dataRefreshType?: string;
+            /** Data source parameters. */
+            parameters?: DataSourceParameter[];
+            /** Url for the help document for this data source. */
+            helpUrl?: string;
+            /** Default data transfer schedule. */
+            /** Examples of valid schedules include: */
+            /** `1st,3rd monday of month 15:30`, */
+            /** `every wed,fri of jan,jun 13:15`, and */
+            /** `first sunday of quarter 00:00`. */
+            defaultSchedule?: string;
+            /** Indicates whether the data source supports multiple transfers */
+            /** to different BigQuery targets. */
+            supportsMultipleTransfers?: boolean;
+            /** The number of seconds to wait for a status update from the data source */
+            /** before BigQuery marks the transfer as failed. */
+            statusUpdateDeadlineSeconds?: number;
             /** Disables backfilling and manual run scheduling */
             /** for the data source. */
             manualRunsDisabled?: boolean;
@@ -171,27 +161,6 @@ declare namespace gapi.client {
             supportsCustomSchedule?: boolean;
             /** User friendly data source name. */
             displayName?: string;
-            /** Specifies whether the data source supports automatic data refresh for the */
-            /** past few days, and how it's supported. */
-            /** For some data sources, data might not be complete until a few days later, */
-            /** so it's useful to refresh data automatically. */
-            dataRefreshType?: string;
-            /** Data source parameters. */
-            parameters?: DataSourceParameter[];
-            /** Url for the help document for this data source. */
-            helpUrl?: string;
-            /** Default data transfer schedule. */
-            /** Examples of valid schedules include: */
-            /** `1st,3rd monday of month 15:30`, */
-            /** `every wed,fri of jan,jun 13:15`, and */
-            /** `first sunday of quarter 00:00`. */
-            defaultSchedule?: string;
-            /** Indicates whether the data source supports multiple transfers */
-            /** to different BigQuery targets. */
-            supportsMultipleTransfers?: boolean;
-            /** The number of seconds to wait for a status update from the data source */
-            /** before BigQuery marks the transfer as failed. */
-            statusUpdateDeadlineSeconds?: number;
         }
         
         interface ScheduleTransferRunsRequest {
@@ -202,6 +171,10 @@ declare namespace gapi.client {
         }
         
         interface Location {
+            /** Cross-service attributes for the location. For example */
+            /**  */
+            /**     {"cloud.googleapis.com/region": "us-east1"} */
+            labels?: Record<string, string>;            
             /** Resource name for the location, which may vary between implementations. */
             /** For example: `"projects/example-project/locations/us-east1"` */
             name?: string;
@@ -210,13 +183,42 @@ declare namespace gapi.client {
             /** Service-specific metadata. For example the available capacity at the given */
             /** location. */
             metadata?: Record<string, any>;            
-            /** Cross-service attributes for the location. For example */
-            /**  */
-            /**     {"cloud.googleapis.com/region": "us-east1"} */
-            labels?: Record<string, string>;            
         }
         
         interface TransferConfig {
+            /** The number of days to look back to automatically refresh the data. */
+            /** For example, if `data_refresh_window_days = 10`, then every day */
+            /** BigQuery reingests data for [today-10, today-1], rather than ingesting data */
+            /** for just [today-1]. */
+            /** Only valid if the data source supports the feature. Set the value to  0 */
+            /** to use the default value. */
+            dataRefreshWindowDays?: number;
+            /** Data source id. Cannot be changed once data transfer is created. */
+            dataSourceId?: string;
+            /** Status of the most recently updated transfer run. */
+            /** @OutputOnly */
+            status?: string;
+            /** The BigQuery target dataset id. */
+            destinationDatasetId?: string;
+            /** GaiaID of the user on whose behalf transfer is done. Applicable only */
+            /** to data sources that do not support service accounts. When set to 0, */
+            /** the data source service account credentials are used. */
+            /** @OutputOnly */
+            userId?: string;
+            /** The resource name of the transfer run. */
+            /** Transfer run names have the form */
+            /** `projects/{project_id}/transferConfigs/{config_id}`. */
+            /** Where `config_id` is usually a uuid, even though it is not */
+            /** guaranteed or required. The name is ignored when creating a transfer run. */
+            name?: string;
+            /** Data transfer specific parameters. */
+            params?: Record<string, any>;            
+            /** Region in which BigQuery dataset is located. Currently possible values are: */
+            /** "US" and "EU". */
+            /** @OutputOnly */
+            datasetRegion?: string;
+            /** User specified display name for the data transfer. */
+            displayName?: string;
             /** Next time when data transfer will run. Output only. Applicable */
             /** only for batch data transfers. */
             /** @OutputOnly */
@@ -224,9 +226,6 @@ declare namespace gapi.client {
             /** Is this config disabled. When set to true, no runs are scheduled */
             /** for a given transfer. */
             disabled?: boolean;
-            /** Data transfer modification time. Ignored by server on input. */
-            /** @OutputOnly */
-            updateTime?: string;
             /** Data transfer schedule. */
             /** If the data source does not support a custom schedule, this should be */
             /** empty. If it is empty, the default value for the data source will be */
@@ -240,42 +239,25 @@ declare namespace gapi.client {
             /** https://cloud.google.com/appengine/docs/flexible/python/scheduling-jobs-with-cron-yaml#the_schedule_format */
             /** NOTE: the granularity should be at least 8 hours, or less frequent. */
             schedule?: string;
-            /** The number of days to look back to automatically refresh the data. */
-            /** For example, if `data_refresh_window_days = 10`, then every day */
-            /** BigQuery reingests data for [today-10, today-1], rather than ingesting data */
-            /** for just [today-1]. */
-            /** Only valid if the data source supports the feature. Set the value to  0 */
-            /** to use the default value. */
-            dataRefreshWindowDays?: number;
-            /** Data source id. Cannot be changed once data transfer is created. */
-            dataSourceId?: string;
-            /** Status of the most recently updated transfer run. */
+            /** Data transfer modification time. Ignored by server on input. */
             /** @OutputOnly */
-            status?: string;
-            /** GaiaID of the user on whose behalf transfer is done. Applicable only */
-            /** to data sources that do not support service accounts. When set to 0, */
-            /** the data source service account credentials are used. */
+            updateTime?: string;
+        }
+        
+        interface TransferRun {
+            /** Time when transfer run was started. Parameter ignored by server for input */
+            /** requests. */
             /** @OutputOnly */
-            userId?: string;
-            /** The resource name of the transfer run. */
-            /** Transfer run names have the form */
-            /** `projects/{project_id}/transferConfigs/{config_id}`. */
-            /** Where `config_id` is usually a uuid, even though it is not */
-            /** guaranteed or required. The name is ignored when creating a transfer run. */
-            name?: string;
-            /** The BigQuery target dataset id. */
-            destinationDatasetId?: string;
-            /** Data transfer specific parameters. */
-            params?: Record<string, any>;            
+            startTime?: string;
             /** Region in which BigQuery dataset is located. Currently possible values are: */
             /** "US" and "EU". */
             /** @OutputOnly */
             datasetRegion?: string;
-            /** User specified display name for the data transfer. */
-            displayName?: string;
-        }
-        
-        interface TransferRun {
+            /** Minimum time after which a transfer run can be started. */
+            scheduleTime?: string;
+            /** Last time the data transfer run status was updated. */
+            /** @OutputOnly */
+            updateTime?: string;
             /** Describes the schedule of this transfer run if it was created as part of */
             /** a regular schedule. For batch transfer runs that are directly created, */
             /** this is empty. */
@@ -283,9 +265,6 @@ declare namespace gapi.client {
             /** current load, so `schedule_time` doesn't always matches this. */
             /** @OutputOnly */
             schedule?: string;
-            /** Last time the data transfer run status was updated. */
-            /** @OutputOnly */
-            updateTime?: string;
             /** For batch transfer runs, specifies the date and time that */
             /** data should be ingested. */
             runTime?: string;
@@ -297,35 +276,62 @@ declare namespace gapi.client {
             status?: string;
             /** The BigQuery target dataset id. */
             destinationDatasetId?: string;
+            /** The user id for this transfer run. */
+            /** @OutputOnly */
+            userId?: string;
             /** The resource name of the transfer run. */
             /** Transfer run names have the form */
             /** `projects/{project_id}/locations/{location}/transferConfigs/{config_id}/runs/{run_id}`. */
             /** The name is ignored when creating a transfer run. */
             name?: string;
-            /** The user id for this transfer run. */
-            /** @OutputOnly */
-            userId?: string;
             /** Data transfer specific parameters. */
             params?: Record<string, any>;            
             /** Time when transfer run ended. Parameter ignored by server for input */
             /** requests. */
             /** @OutputOnly */
             endTime?: string;
-            /** Region in which BigQuery dataset is located. Currently possible values are: */
-            /** "US" and "EU". */
+        }
+        
+        interface CheckValidCredsResponse {
+            /** If set to `true`, the credentials exist and are valid. */
+            hasValidCreds?: boolean;
+        }
+        
+        interface ScheduleTransferRunsResponse {
+            /** The transfer runs that were created. */
+            createdRuns?: TransferRun[];
+        }
+        
+        interface TransferMessage {
+            /** Message text. */
+            messageText?: string;
+            /** Message severity. */
+            severity?: string;
+            /** Time when message was logged. */
+            messageTime?: string;
+        }
+        
+        interface ListTransferLogsResponse {
+            /** The stored pipeline transfer messages. */
             /** @OutputOnly */
-            datasetRegion?: string;
-            /** Time when transfer run was started. Parameter ignored by server for input */
-            /** requests. */
+            transferMessages?: TransferMessage[];
+            /** The next-pagination token. For multiple-page list results, */
+            /** this token can be used as the */
+            /** `GetTransferRunLogRequest.page_token` */
+            /** to request the next page of list results. */
             /** @OutputOnly */
-            startTime?: string;
-            /** Minimum time after which a transfer run can be started. */
-            scheduleTime?: string;
+            nextPageToken?: string;
         }
         
         interface TransferLogsResource {
             /** Returns user facing log messages for the data transfer run. */
             list(request: {            
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
                 /** OAuth bearer token. */
@@ -336,28 +342,16 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** JSONP */
                 callback?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Message types to return. If not populated - INFO, WARNING and ERROR */
-                /** messages are returned. */
-                messageTypes?: string;
-                /** Transfer run name in the form: */
-                /** `projects/{project_id}/transferConfigs/{config_Id}/runs/{run_id}`. */
-                parent: string;
                 /** Pagination token, which can be used to request a specific page */
                 /** of `ListTransferLogsRequest` list results. For multiple-page */
                 /** results, `ListTransferLogsResponse` outputs */
@@ -366,6 +360,12 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Page size. The default page size is the maximum value of 1000 results. */
                 pageSize?: number;
+                /** Message types to return. If not populated - INFO, WARNING and ERROR */
+                /** messages are returned. */
+                messageTypes?: string;
+                /** Transfer run name in the form: */
+                /** `projects/{project_id}/transferConfigs/{config_Id}/runs/{run_id}`. */
+                parent: string;
             }): Request<ListTransferLogsResponse>;            
             
         }
@@ -373,6 +373,12 @@ declare namespace gapi.client {
         interface RunsResource {
             /** Deletes the specified transfer run. */
             delete(request: {            
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
                 /** OAuth bearer token. */
@@ -383,22 +389,16 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** JSONP */
                 callback?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
                 /** The field will contain name of the resource requested, for example: */
                 /** `projects/{project_id}/transferConfigs/{config_id}/runs/{run_id}` */
                 name: string;
@@ -406,6 +406,12 @@ declare namespace gapi.client {
             
             /** Returns information about running and completed jobs. */
             list(request: {            
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
                 /** OAuth bearer token. */
@@ -416,22 +422,18 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** JSONP */
                 callback?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
+                /** Indicates how run attempts are to be pulled. */
+                runAttempt?: string;
                 /** Name of transfer configuration for which transfer runs should be retrieved. */
                 /** Format of transfer configuration resource name is: */
                 /** `projects/{project_id}/transferConfigs/{config_id}`. */
@@ -446,12 +448,16 @@ declare namespace gapi.client {
                 pageSize?: number;
                 /** When specified, only transfer runs with requested statuses are returned. */
                 statuses?: string;
-                /** Indicates how run attempts are to be pulled. */
-                runAttempt?: string;
             }): Request<ListTransferRunsResponse>;            
             
             /** Returns information about the particular transfer run. */
             get(request: {            
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
                 /** OAuth bearer token. */
@@ -462,22 +468,16 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** JSONP */
                 callback?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
                 /** The field will contain name of the resource requested, for example: */
                 /** `projects/{project_id}/transferConfigs/{config_id}/runs/{run_id}` */
                 name: string;
@@ -490,6 +490,12 @@ declare namespace gapi.client {
             /** Deletes a data transfer configuration, */
             /** including any associated transfer runs and logs. */
             delete(request: {            
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
                 /** OAuth bearer token. */
@@ -500,22 +506,16 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** JSONP */
                 callback?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
                 /** The field will contain name of the resource requested, for example: */
                 /** `projects/{project_id}/transferConfigs/{config_id}` */
                 name: string;
@@ -523,6 +523,12 @@ declare namespace gapi.client {
             
             /** Returns information about all data transfers in the project. */
             list(request: {            
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
                 /** OAuth bearer token. */
@@ -533,22 +539,16 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** JSONP */
                 callback?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
                 /** When specified, only configurations of requested data sources are returned. */
                 dataSourceIds?: string;
                 /** The BigQuery project id for which data sources */
@@ -566,6 +566,12 @@ declare namespace gapi.client {
             
             /** Creates a new data transfer configuration. */
             create(request: {            
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
                 /** OAuth bearer token. */
@@ -576,22 +582,16 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** JSONP */
                 callback?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
                 /** Optional OAuth2 authorization code to use with this transfer configuration. */
                 /** This is required if new credentials are needed, as indicated by */
                 /** `CheckValidCreds`. */
@@ -623,6 +623,12 @@ declare namespace gapi.client {
             /** range, one transfer run is created. */
             /** Note that runs are created per UTC time in the time range. */
             scheduleRuns(request: {            
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
                 /** OAuth bearer token. */
@@ -633,22 +639,16 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** JSONP */
                 callback?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
                 /** Transfer configuration name in the form: */
                 /** `projects/{project_id}/transferConfigs/{config_id}`. */
                 parent: string;
@@ -656,6 +656,12 @@ declare namespace gapi.client {
             
             /** Returns information about a data transfer config. */
             get(request: {            
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
                 /** OAuth bearer token. */
@@ -666,22 +672,16 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** JSONP */
                 callback?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
                 /** The field will contain name of the resource requested, for example: */
                 /** `projects/{project_id}/transferConfigs/{config_id}` */
                 name: string;
@@ -690,6 +690,12 @@ declare namespace gapi.client {
             /** Updates a data transfer configuration. */
             /** All fields must be set, even if they are not updated. */
             patch(request: {            
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
                 /** OAuth bearer token. */
@@ -700,22 +706,16 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** JSONP */
                 callback?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
                 /** Required list of fields to be updated in this request. */
                 updateMask?: string;
                 /** The resource name of the transfer run. */
@@ -750,6 +750,12 @@ declare namespace gapi.client {
             /** Lists supported data sources and returns their settings, */
             /** which can be used for UI rendering. */
             list(request: {            
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
                 /** OAuth bearer token. */
@@ -760,25 +766,16 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** JSONP */
                 callback?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** The BigQuery project id for which data sources should be returned. */
-                /** Must be in the form: `projects/{project_id}` */
-                parent: string;
                 /** Pagination token, which can be used to request a specific page */
                 /** of `ListDataSourcesRequest` list results. For multiple-page */
                 /** results, `ListDataSourcesResponse` outputs */
@@ -787,11 +784,20 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Page size. The default page size is the maximum value of 1000 results. */
                 pageSize?: number;
+                /** The BigQuery project id for which data sources should be returned. */
+                /** Must be in the form: `projects/{project_id}` */
+                parent: string;
             }): Request<ListDataSourcesResponse>;            
             
             /** Retrieves a supported data source and returns its settings, */
             /** which can be used for UI rendering. */
             get(request: {            
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
                 /** OAuth bearer token. */
@@ -802,22 +808,16 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** JSONP */
                 callback?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
                 /** The field will contain name of the resource requested, for example: */
                 /** `projects/{project_id}/dataSources/{data_source_id}` */
                 name: string;
@@ -826,6 +826,12 @@ declare namespace gapi.client {
             /** Returns true if valid credentials exist for the given data source and */
             /** requesting user. */
             checkValidCreds(request: {            
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
                 /** OAuth bearer token. */
@@ -836,22 +842,16 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** JSONP */
                 callback?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
                 /** The data source in the form: */
                 /** `projects/{project_id}/dataSources/{data_source_id}` */
                 name: string;
@@ -862,6 +862,12 @@ declare namespace gapi.client {
         interface LocationsResource {
             /** Returns true if data transfer is enabled for a project. */
             isEnabled(request: {            
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
                 /** OAuth bearer token. */
@@ -872,22 +878,16 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** JSONP */
                 callback?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
                 /** The name of the project resource in the form: */
                 /** `projects/{project_id}` */
                 name: string;
@@ -898,6 +898,12 @@ declare namespace gapi.client {
             /** 'https://www.googleapis.com/auth/cloudplatformprojects' */
             /** to manage the cloud project permissions. */
             setEnabled(request: {            
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
                 /** OAuth bearer token. */
@@ -908,22 +914,16 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** JSONP */
                 callback?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
                 /** The name of the project resource in the form: */
                 /** `projects/{project_id}` */
                 name: string;
@@ -931,6 +931,12 @@ declare namespace gapi.client {
             
             /** Get information about a location. */
             get(request: {            
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
                 /** OAuth bearer token. */
@@ -941,28 +947,28 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** JSONP */
                 callback?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
                 /** Resource name for the location. */
                 name: string;
             }): Request<Location>;            
             
             /** Lists information about the supported locations for this service. */
             list(request: {            
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
                 /** OAuth bearer token. */
@@ -973,30 +979,24 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** JSONP */
                 callback?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
+                /** The standard list filter. */
+                filter?: string;
                 /** The standard list page token. */
                 pageToken?: string;
                 /** The resource that owns the locations collection, if applicable. */
                 name: string;
                 /** The standard list page size. */
                 pageSize?: number;
-                /** The standard list filter. */
-                filter?: string;
             }): Request<ListLocationsResponse>;            
             
             transferConfigs: TransferConfigsResource;
@@ -1006,6 +1006,12 @@ declare namespace gapi.client {
         interface TransferLogsResource {
             /** Returns user facing log messages for the data transfer run. */
             list(request: {            
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
                 /** OAuth bearer token. */
@@ -1016,28 +1022,16 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** JSONP */
                 callback?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Message types to return. If not populated - INFO, WARNING and ERROR */
-                /** messages are returned. */
-                messageTypes?: string;
-                /** Transfer run name in the form: */
-                /** `projects/{project_id}/transferConfigs/{config_Id}/runs/{run_id}`. */
-                parent: string;
                 /** Pagination token, which can be used to request a specific page */
                 /** of `ListTransferLogsRequest` list results. For multiple-page */
                 /** results, `ListTransferLogsResponse` outputs */
@@ -1046,6 +1040,12 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Page size. The default page size is the maximum value of 1000 results. */
                 pageSize?: number;
+                /** Message types to return. If not populated - INFO, WARNING and ERROR */
+                /** messages are returned. */
+                messageTypes?: string;
+                /** Transfer run name in the form: */
+                /** `projects/{project_id}/transferConfigs/{config_Id}/runs/{run_id}`. */
+                parent: string;
             }): Request<ListTransferLogsResponse>;            
             
         }
@@ -1053,6 +1053,12 @@ declare namespace gapi.client {
         interface RunsResource {
             /** Deletes the specified transfer run. */
             delete(request: {            
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
                 /** OAuth bearer token. */
@@ -1063,22 +1069,16 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** JSONP */
                 callback?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
                 /** The field will contain name of the resource requested, for example: */
                 /** `projects/{project_id}/transferConfigs/{config_id}/runs/{run_id}` */
                 name: string;
@@ -1086,6 +1086,12 @@ declare namespace gapi.client {
             
             /** Returns information about running and completed jobs. */
             list(request: {            
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
                 /** OAuth bearer token. */
@@ -1096,28 +1102,16 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** JSONP */
                 callback?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Indicates how run attempts are to be pulled. */
-                runAttempt?: string;
-                /** Name of transfer configuration for which transfer runs should be retrieved. */
-                /** Format of transfer configuration resource name is: */
-                /** `projects/{project_id}/transferConfigs/{config_id}`. */
-                parent: string;
                 /** Pagination token, which can be used to request a specific page */
                 /** of `ListTransferRunsRequest` list results. For multiple-page */
                 /** results, `ListTransferRunsResponse` outputs */
@@ -1128,10 +1122,22 @@ declare namespace gapi.client {
                 pageSize?: number;
                 /** When specified, only transfer runs with requested statuses are returned. */
                 statuses?: string;
+                /** Indicates how run attempts are to be pulled. */
+                runAttempt?: string;
+                /** Name of transfer configuration for which transfer runs should be retrieved. */
+                /** Format of transfer configuration resource name is: */
+                /** `projects/{project_id}/transferConfigs/{config_id}`. */
+                parent: string;
             }): Request<ListTransferRunsResponse>;            
             
             /** Returns information about the particular transfer run. */
             get(request: {            
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
                 /** OAuth bearer token. */
@@ -1142,22 +1148,16 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** JSONP */
                 callback?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
                 /** The field will contain name of the resource requested, for example: */
                 /** `projects/{project_id}/transferConfigs/{config_id}/runs/{run_id}` */
                 name: string;
@@ -1170,6 +1170,12 @@ declare namespace gapi.client {
             /** Deletes a data transfer configuration, */
             /** including any associated transfer runs and logs. */
             delete(request: {            
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
                 /** OAuth bearer token. */
@@ -1180,22 +1186,16 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** JSONP */
                 callback?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
                 /** The field will contain name of the resource requested, for example: */
                 /** `projects/{project_id}/transferConfigs/{config_id}` */
                 name: string;
@@ -1203,6 +1203,12 @@ declare namespace gapi.client {
             
             /** Returns information about all data transfers in the project. */
             list(request: {            
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
                 /** OAuth bearer token. */
@@ -1213,27 +1219,16 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** JSONP */
                 callback?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** When specified, only configurations of requested data sources are returned. */
-                dataSourceIds?: string;
-                /** The BigQuery project id for which data sources */
-                /** should be returned: `projects/{project_id}`. */
-                parent: string;
                 /** Pagination token, which can be used to request a specific page */
                 /** of `ListTransfersRequest` list results. For multiple-page */
                 /** results, `ListTransfersResponse` outputs */
@@ -1242,10 +1237,21 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Page size. The default page size is the maximum value of 1000 results. */
                 pageSize?: number;
+                /** When specified, only configurations of requested data sources are returned. */
+                dataSourceIds?: string;
+                /** The BigQuery project id for which data sources */
+                /** should be returned: `projects/{project_id}`. */
+                parent: string;
             }): Request<ListTransferConfigsResponse>;            
             
             /** Creates a new data transfer configuration. */
             create(request: {            
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
                 /** OAuth bearer token. */
@@ -1256,22 +1262,23 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** JSONP */
                 callback?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
+                /** The BigQuery project id where the transfer configuration should be created. */
+                /** Must be in the format /projects/{project_id}/locations/{location_id} */
+                /** or */
+                /** /projects/{project_id}/locations/- */
+                /** In case when '-' is specified as location_id, location is infered from */
+                /** the destination dataset region. */
+                parent: string;
                 /** Optional OAuth2 authorization code to use with this transfer configuration. */
                 /** This is required if new credentials are needed, as indicated by */
                 /** `CheckValidCreds`. */
@@ -1289,13 +1296,6 @@ declare namespace gapi.client {
                 /**   returned in the title bar of the browser, with the page text prompting */
                 /**   the user to copy the code and paste it in the application. */
                 authorizationCode?: string;
-                /** The BigQuery project id where the transfer configuration should be created. */
-                /** Must be in the format /projects/{project_id}/locations/{location_id} */
-                /** or */
-                /** /projects/{project_id}/locations/- */
-                /** In case when '-' is specified as location_id, location is infered from */
-                /** the destination dataset region. */
-                parent: string;
             }): Request<TransferConfig>;            
             
             /** Creates transfer runs for a time range [range_start_time, range_end_time]. */
@@ -1303,6 +1303,12 @@ declare namespace gapi.client {
             /** range, one transfer run is created. */
             /** Note that runs are created per UTC time in the time range. */
             scheduleRuns(request: {            
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
                 /** OAuth bearer token. */
@@ -1313,30 +1319,29 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** JSONP */
                 callback?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
                 /** Transfer configuration name in the form: */
                 /** `projects/{project_id}/transferConfigs/{config_id}`. */
                 parent: string;
             }): Request<ScheduleTransferRunsResponse>;            
             
-            /** Updates a data transfer configuration. */
-            /** All fields must be set, even if they are not updated. */
-            patch(request: {            
+            /** Returns information about a data transfer config. */
+            get(request: {            
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
                 /** OAuth bearer token. */
@@ -1347,22 +1352,52 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** JSONP */
                 callback?: string;
                 /** Data format for response. */
                 alt?: string;
+                /** The field will contain name of the resource requested, for example: */
+                /** `projects/{project_id}/transferConfigs/{config_id}` */
+                name: string;
+            }): Request<TransferConfig>;            
+            
+            /** Updates a data transfer configuration. */
+            /** All fields must be set, even if they are not updated. */
+            patch(request: {            
                 /** OAuth access token. */
                 access_token?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** Required list of fields to be updated in this request. */
+                updateMask?: string;
                 /** The resource name of the transfer run. */
                 /** Transfer run names have the form */
                 /** `projects/{project_id}/transferConfigs/{config_id}`. */
@@ -1386,41 +1421,6 @@ declare namespace gapi.client {
                 /**   returned in the title bar of the browser, with the page text prompting */
                 /**   the user to copy the code and paste it in the application. */
                 authorizationCode?: string;
-                /** Required list of fields to be updated in this request. */
-                updateMask?: string;
-            }): Request<TransferConfig>;            
-            
-            /** Returns information about a data transfer config. */
-            get(request: {            
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** The field will contain name of the resource requested, for example: */
-                /** `projects/{project_id}/transferConfigs/{config_id}` */
-                name: string;
             }): Request<TransferConfig>;            
             
             runs: RunsResource;
@@ -1430,6 +1430,12 @@ declare namespace gapi.client {
             /** Lists supported data sources and returns their settings, */
             /** which can be used for UI rendering. */
             list(request: {            
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
                 /** OAuth bearer token. */
@@ -1440,22 +1446,19 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** JSONP */
                 callback?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
+                /** The BigQuery project id for which data sources should be returned. */
+                /** Must be in the form: `projects/{project_id}` */
+                parent: string;
                 /** Pagination token, which can be used to request a specific page */
                 /** of `ListDataSourcesRequest` list results. For multiple-page */
                 /** results, `ListDataSourcesResponse` outputs */
@@ -1464,14 +1467,17 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Page size. The default page size is the maximum value of 1000 results. */
                 pageSize?: number;
-                /** The BigQuery project id for which data sources should be returned. */
-                /** Must be in the form: `projects/{project_id}` */
-                parent: string;
             }): Request<ListDataSourcesResponse>;            
             
             /** Retrieves a supported data source and returns its settings, */
             /** which can be used for UI rendering. */
             get(request: {            
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
                 /** OAuth bearer token. */
@@ -1482,22 +1488,16 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** JSONP */
                 callback?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
                 /** The field will contain name of the resource requested, for example: */
                 /** `projects/{project_id}/dataSources/{data_source_id}` */
                 name: string;
@@ -1506,6 +1506,12 @@ declare namespace gapi.client {
             /** Returns true if valid credentials exist for the given data source and */
             /** requesting user. */
             checkValidCreds(request: {            
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
                 /** OAuth bearer token. */
@@ -1516,22 +1522,16 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** JSONP */
                 callback?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
                 /** The data source in the form: */
                 /** `projects/{project_id}/dataSources/{data_source_id}` */
                 name: string;
@@ -1540,44 +1540,17 @@ declare namespace gapi.client {
         }
         
         interface ProjectsResource {
-            /** Returns true if data transfer is enabled for a project. */
-            isEnabled(request: {            
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** The name of the project resource in the form: */
-                /** `projects/{project_id}` */
-                name: string;
-            }): Request<IsEnabledResponse>;            
-            
             /** Enables or disables data transfer for a project. This */
             /** method requires the additional scope of */
             /** 'https://www.googleapis.com/auth/cloudplatformprojects' */
             /** to manage the cloud project permissions. */
             setEnabled(request: {            
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
                 /** OAuth bearer token. */
@@ -1588,26 +1561,53 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** JSONP */
                 callback?: string;
                 /** Data format for response. */
                 alt?: string;
+                /** The name of the project resource in the form: */
+                /** `projects/{project_id}` */
+                name: string;
+            }): Request<{}>;            
+            
+            /** Returns true if data transfer is enabled for a project. */
+            isEnabled(request: {            
                 /** OAuth access token. */
                 access_token?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
+                /** Data format for response. */
+                alt?: string;
                 /** The name of the project resource in the form: */
                 /** `projects/{project_id}` */
                 name: string;
-            }): Request<{}>;            
+            }): Request<IsEnabledResponse>;            
             
             locations: LocationsResource;
             transferConfigs: TransferConfigsResource;

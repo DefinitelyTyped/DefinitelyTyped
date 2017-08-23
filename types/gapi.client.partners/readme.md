@@ -34,6 +34,17 @@ After that you can use Google Partners API resources:
 ```typescript 
     
 /* 
+Gets an Exam Token for a Partner's user to take an exam in the Exams System  
+*/
+await gapi.client.exams.getToken({ examType: "examType",  }); 
+    
+/* 
+Lists advertiser leads for a user's associated company.
+Should only be called within the context of an authorized logged in user.  
+*/
+await gapi.client.leads.list({  }); 
+    
+/* 
 Lists the Offers available for the current user  
 */
 await gapi.client.offers.list({  }); 
@@ -50,11 +61,6 @@ Lists states for current user.
 await gapi.client.userStates.list({  }); 
     
 /* 
-Updates the specified lead.  
-*/
-await gapi.client.v2.updateLeads({  }); 
-    
-/* 
 Update company.
 Should only be called within the context of an authorized logged in user.  
 */
@@ -67,24 +73,9 @@ Should only be called if the logged in user is the admin of the agency.
 await gapi.client.v2.getPartnersstatus({  }); 
     
 /* 
-Lists companies.  
+Updates the specified lead.  
 */
-await gapi.client.companies.list({  }); 
-    
-/* 
-Gets a company.  
-*/
-await gapi.client.companies.get({ companyId: "companyId",  }); 
-    
-/* 
-Deletes a user's company relation. Unaffiliaites the user from a company.  
-*/
-await gapi.client.users.deleteCompanyRelation({ userId: "userId",  }); 
-    
-/* 
-Creates a user's company relation. Affiliates the user to a company.  
-*/
-await gapi.client.users.createCompanyRelation({ userId: "userId",  }); 
+await gapi.client.v2.updateLeads({  }); 
     
 /* 
 Gets a user.  
@@ -98,6 +89,26 @@ should only be called within the context of a logged in user.
 await gapi.client.users.updateProfile({  }); 
     
 /* 
+Deletes a user's company relation. Unaffiliaites the user from a company.  
+*/
+await gapi.client.users.deleteCompanyRelation({ userId: "userId",  }); 
+    
+/* 
+Creates a user's company relation. Affiliates the user to a company.  
+*/
+await gapi.client.users.createCompanyRelation({ userId: "userId",  }); 
+    
+/* 
+Lists companies.  
+*/
+await gapi.client.companies.list({  }); 
+    
+/* 
+Gets a company.  
+*/
+await gapi.client.companies.get({ companyId: "companyId",  }); 
+    
+/* 
 Logs a user event.  
 */
 await gapi.client.userEvents.log({  }); 
@@ -107,16 +118,5 @@ Logs a generic message from the client, such as
 `Failed to render component`, `Profile page is running slow`,
 `More than 500 users have accessed this result.`, etc.  
 */
-await gapi.client.clientMessages.log({  }); 
-    
-/* 
-Gets an Exam Token for a Partner's user to take an exam in the Exams System  
-*/
-await gapi.client.exams.getToken({ examType: "examType",  }); 
-    
-/* 
-Lists advertiser leads for a user's associated company.
-Should only be called within the context of an authorized logged in user.  
-*/
-await gapi.client.leads.list({  });
+await gapi.client.clientMessages.log({  });
 ```

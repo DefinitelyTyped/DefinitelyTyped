@@ -33,9 +33,6 @@ Don't forget to authenticate your client before sending any request to resources
 // declare client_id registered in Google Developers Console
 var client_id = '',
     scope = [     
-        // View and manage your data across Google Cloud Platform services
-        'https://www.googleapis.com/auth/cloud-platform',
-    
         // Submit log data for your projects
         'https://www.googleapis.com/auth/logging.write',
     
@@ -47,6 +44,9 @@ var client_id = '',
     
         // View your data across Google Cloud Platform services
         'https://www.googleapis.com/auth/cloud-platform.read-only',
+    
+        // View and manage your data across Google Cloud Platform services
+        'https://www.googleapis.com/auth/cloud-platform',
     ],
     immediate = true;
 // ...

@@ -14,14 +14,14 @@ gapi.load('client', () => {
         // declare client_id registered in Google Developers Console
         const client_id = '<<PUT YOUR CLIENT ID HERE>>';
         const scope = [     
+                // View and manage your data across Google Cloud Platform services
+                'https://www.googleapis.com/auth/cloud-platform',
+            
                 // View and manage your data in Google BigQuery
                 'https://www.googleapis.com/auth/bigquery',
             
                 // View your data across Google Cloud Platform services
                 'https://www.googleapis.com/auth/cloud-platform.read-only',
-            
-                // View and manage your data across Google Cloud Platform services
-                'https://www.googleapis.com/auth/cloud-platform',
             ];
         const immediate = true;
 
@@ -37,13 +37,13 @@ gapi.load('client', () => {
 
     async function run() {  
         
-        // Returns true if data transfer is enabled for a project.
-        await gapi.client.projects.isEnabled({ name: "name",  }); 
-        
         // Enables or disables data transfer for a project. This
         // method requires the additional scope of
         // 'https://www.googleapis.com/auth/cloudplatformprojects'
         // to manage the cloud project permissions.
-        await gapi.client.projects.setEnabled({ name: "name",  });
+        await gapi.client.projects.setEnabled({ name: "name",  }); 
+        
+        // Returns true if data transfer is enabled for a project.
+        await gapi.client.projects.isEnabled({ name: "name",  });
     }
 });

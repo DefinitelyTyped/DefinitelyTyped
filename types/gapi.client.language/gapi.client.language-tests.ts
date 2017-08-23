@@ -14,11 +14,11 @@ gapi.load('client', () => {
         // declare client_id registered in Google Developers Console
         const client_id = '<<PUT YOUR CLIENT ID HERE>>';
         const scope = [     
-                // View and manage your data across Google Cloud Platform services
-                'https://www.googleapis.com/auth/cloud-platform',
-            
                 // Apply machine learning models to reveal the structure and meaning of text
                 'https://www.googleapis.com/auth/cloud-language',
+            
+                // View and manage your data across Google Cloud Platform services
+                'https://www.googleapis.com/auth/cloud-platform',
             ];
         const immediate = true;
 
@@ -34,6 +34,10 @@ gapi.load('client', () => {
 
     async function run() {  
         
+        // A convenience method that provides all the features that analyzeSentiment,
+        // analyzeEntities, and analyzeSyntax provide in one call.
+        await gapi.client.documents.annotateText({  }); 
+        
         // Finds named entities (currently proper names and common nouns) in the text
         // along with entity types, salience, mentions for each entity, and
         // other properties.
@@ -45,10 +49,6 @@ gapi.load('client', () => {
         await gapi.client.documents.analyzeSyntax({  }); 
         
         // Analyzes the sentiment of the provided text.
-        await gapi.client.documents.analyzeSentiment({  }); 
-        
-        // A convenience method that provides all the features that analyzeSentiment,
-        // analyzeEntities, and analyzeSyntax provide in one call.
-        await gapi.client.documents.annotateText({  });
+        await gapi.client.documents.analyzeSentiment({  });
     }
 });

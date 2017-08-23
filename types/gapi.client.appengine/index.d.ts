@@ -20,17 +20,130 @@ declare namespace gapi.client {
     
     namespace appengine {
         
-        interface Location {
-            /** Cross-service attributes for the location. For example */
-            /** {"cloud.googleapis.com/region": "us-east1"} */
-            /**  */
-            labels?: Record<string, string>;            
-            /** Resource name for the location, which may vary between implementations. For example: "projects/example-project/locations/us-east1" */
+        interface FeatureSettings {
+            /** Boolean value indicating if split health checks should be used instead of the legacy health checks. At an app.yaml level, this means defaulting to 'readiness_check' and 'liveness_check' values instead of 'health_check' ones. Once the legacy 'health_check' behavior is deprecated, and this value is always true, this setting can be removed. */
+            splitHealthChecks?: boolean;
+        }
+        
+        interface ErrorHandler {
+            /** Static file content to be served for this error. */
+            staticFile?: string;
+            /** MIME type of file. Defaults to text/html. */
+            mimeType?: string;
+            /** Error condition this handler applies to. */
+            errorCode?: string;
+        }
+        
+        interface OperationMetadataV1 {
+            /** Durable messages that persist on every operation poll. @OutputOnly */
+            warning?: string[];
+            /** Time that this operation was created.@OutputOnly */
+            insertTime?: string;
+            /** User who requested this operation.@OutputOnly */
+            user?: string;
+            /** Name of the resource that this operation is acting on. Example: apps/myapp/services/default.@OutputOnly */
+            target?: string;
+            /** Ephemeral message that may change every time the operation is polled. @OutputOnly */
+            ephemeralMessage?: string;
+            /** API method that initiated this operation. Example: google.appengine.v1.Versions.CreateVersion.@OutputOnly */
+            method?: string;
+            /** Time that this operation completed.@OutputOnly */
+            endTime?: string;
+        }
+        
+        interface Network {
+            /** Google Cloud Platform sub-network where the virtual machines are created. Specify the short name, not the resource path.If a subnetwork name is specified, a network name will also be required unless it is for the default network. */
+            /** If the network the VM instance is being created in is a Legacy network, then the IP address is allocated from the IPv4Range. */
+            /** If the network the VM instance is being created in is an auto Subnet Mode Network, then only network name should be specified (not the subnetwork_name) and the IP address is created from the IPCidrRange of the subnetwork that exists in that zone for that network. */
+            /** If the network the VM instance is being created in is a custom Subnet Mode Network, then the subnetwork_name must be specified and the IP address is created from the IPCidrRange of the subnetwork.If specified, the subnetwork must exist in the same region as the App Engine flexible environment application. */
+            subnetworkName?: string;
+            /** Tag to apply to the VM instance during creation. Only applicable for for App Engine flexible environment versions. */
+            instanceTag?: string;
+            /** List of ports, or port pairs, to forward from the virtual machine to the application container. Only applicable for App Engine flexible environment versions. */
+            forwardedPorts?: string[];
+            /** Google Compute Engine network where the virtual machines are created. Specify the short name, not the resource path.Defaults to default. */
             name?: string;
-            /** The canonical id for this location. For example: "us-east1". */
+        }
+        
+        interface Application {
+            /** Identifier of the Application resource. This identifier is equivalent to the project ID of the Google Cloud Platform project where you want to deploy your application. Example: myapp. */
+            id?: string;
+            /** Cookie expiration policy for this application. */
+            defaultCookieExpiration?: string;
+            /** Location from which this application will be run. Application instances will run out of data centers in the chosen location, which is also where all of the application's end user content is stored.Defaults to us-central.Options are:us-central - Central USeurope-west - Western Europeus-east1 - Eastern US */
             locationId?: string;
-            /** Service-specific metadata. For example the available capacity at the given location. */
-            metadata?: Record<string, any>;            
+            /** Serving status of this application. */
+            servingStatus?: string;
+            /** Hostname used to reach this application, as resolved by App Engine.@OutputOnly */
+            defaultHostname?: string;
+            /** The feature specific settings to be used in the application. */
+            featureSettings?: FeatureSettings;
+            /** Google Apps authentication domain that controls which users can access this application.Defaults to open access for any Google Account. */
+            authDomain?: string;
+            /**  */
+            iap?: IdentityAwareProxy;
+            /** Google Cloud Storage bucket that can be used for storing files associated with this application. This bucket is associated with the application and can be used by the gcloud deployment commands.@OutputOnly */
+            codeBucket?: string;
+            /** Google Cloud Storage bucket that can be used by this application to store content.@OutputOnly */
+            defaultBucket?: string;
+            /** HTTP path dispatch rules for requests to the application that do not explicitly target a service or version. Rules are order-dependent. Up to 20 dispatch rules can be supported.@OutputOnly */
+            dispatchRules?: UrlDispatchRule[];
+            /** The Google Container Registry domain used for storing managed build docker images for this application. */
+            gcrDomain?: string;
+            /** Full path to the Application resource in the API. Example: apps/myapp.@OutputOnly */
+            name?: string;
+        }
+        
+        interface Instance {
+            /** Whether this instance is in debug mode. Only applicable for instances in App Engine flexible environment.@OutputOnly */
+            vmDebugEnabled?: boolean;
+            /** Number of requests since this instance was started.@OutputOnly */
+            requests?: number;
+            /** App Engine release this instance is running on.@OutputOnly */
+            appEngineRelease?: string;
+            /** Name of the virtual machine where this instance lives. Only applicable for instances in App Engine flexible environment.@OutputOnly */
+            vmName?: string;
+            /** Average queries per second (QPS) over the last minute.@OutputOnly */
+            qps?: number;
+            /** Virtual machine ID of this instance. Only applicable for instances in App Engine flexible environment.@OutputOnly */
+            vmId?: string;
+            /** Full path to the Instance resource in the API. Example: apps/myapp/services/default/versions/v1/instances/instance-1.@OutputOnly */
+            name?: string;
+            /** Zone where the virtual machine is located. Only applicable for instances in App Engine flexible environment.@OutputOnly */
+            vmZoneName?: string;
+            /** Average latency (ms) over the last minute.@OutputOnly */
+            averageLatency?: number;
+            /** Relative name of the instance within the version. Example: instance-1.@OutputOnly */
+            id?: string;
+            /** The IP address of this instance. Only applicable for instances in App Engine flexible environment.@OutputOnly */
+            vmIp?: string;
+            /** Total memory in use (bytes).@OutputOnly */
+            memoryUsage?: string;
+            /** Status of the virtual machine where this instance lives. Only applicable for instances in App Engine flexible environment.@OutputOnly */
+            vmStatus?: string;
+            /** Availability of the instance.@OutputOnly */
+            availability?: string;
+            /** Number of errors since this instance was started.@OutputOnly */
+            errors?: number;
+            /** Time that this instance was started.@OutputOnly */
+            startTime?: string;
+        }
+        
+        interface LivenessCheck {
+            /** Interval between health checks. */
+            checkInterval?: string;
+            /** Number of consecutive failed checks required before considering the VM unhealthy. */
+            failureThreshold?: number;
+            /** Time before the check is considered failed. */
+            timeout?: string;
+            /** The initial delay before starting to execute the checks. */
+            initialDelay?: string;
+            /** The request path. */
+            path?: string;
+            /** Number of consecutive successful checks required before considering the VM healthy. */
+            successThreshold?: number;
+            /** Host header to send when performing a HTTP Liveness check. Example: "myapp.appspot.com" */
+            host?: string;
         }
         
         interface NetworkUtilization {
@@ -44,7 +157,22 @@ declare namespace gapi.client {
             targetSentBytesPerSecond?: number;
         }
         
+        interface Location {
+            /** Service-specific metadata. For example the available capacity at the given location. */
+            metadata?: Record<string, any>;            
+            /** Cross-service attributes for the location. For example */
+            /** {"cloud.googleapis.com/region": "us-east1"} */
+            /**  */
+            labels?: Record<string, string>;            
+            /** Resource name for the location, which may vary between implementations. For example: "projects/example-project/locations/us-east1" */
+            name?: string;
+            /** The canonical id for this location. For example: "us-east1". */
+            locationId?: string;
+        }
+        
         interface HealthCheck {
+            /** Whether to explicitly disable health checks for this instance. */
+            disableHealthCheck?: boolean;
             /** Host header to send when performing an HTTP health check. Example: "myapp.appspot.com" */
             host?: string;
             /** Number of consecutive successful health checks required before receiving traffic. */
@@ -57,25 +185,23 @@ declare namespace gapi.client {
             timeout?: string;
             /** Number of consecutive failed health checks required before removing traffic. */
             unhealthyThreshold?: number;
-            /** Whether to explicitly disable health checks for this instance. */
-            disableHealthCheck?: boolean;
         }
         
         interface ReadinessCheck {
-            /** Interval between health checks. */
-            checkInterval?: string;
-            /** Number of consecutive failed checks required before removing traffic. */
-            failureThreshold?: number;
             /** Time before the check is considered failed. */
             timeout?: string;
+            /** Number of consecutive failed checks required before removing traffic. */
+            failureThreshold?: number;
             /** A maximum time limit on application initialization, measured from moment the application successfully replies to a healthcheck until it is ready to serve traffic. */
             appStartTimeout?: string;
             /** The request path. */
             path?: string;
-            /** Number of consecutive successful checks required before receiving traffic. */
-            successThreshold?: number;
             /** Host header to send when performing a HTTP Readiness check. Example: "myapp.appspot.com" */
             host?: string;
+            /** Number of consecutive successful checks required before receiving traffic. */
+            successThreshold?: number;
+            /** Interval between health checks. */
+            checkInterval?: string;
         }
         
         interface DebugInstanceRequest {
@@ -86,67 +212,19 @@ declare namespace gapi.client {
         }
         
         interface OperationMetadataV1Beta5 {
-            /** API method name that initiated this operation. Example: google.appengine.v1beta5.Version.CreateVersion.@OutputOnly */
-            method?: string;
-            /** Timestamp that this operation was created.@OutputOnly */
-            insertTime?: string;
             /** Timestamp that this operation completed.@OutputOnly */
             endTime?: string;
             /** Name of the resource that this operation is acting on. Example: apps/myapp/services/default.@OutputOnly */
             target?: string;
             /** User who requested this operation.@OutputOnly */
             user?: string;
+            /** API method name that initiated this operation. Example: google.appengine.v1beta5.Version.CreateVersion.@OutputOnly */
+            method?: string;
+            /** Timestamp that this operation was created.@OutputOnly */
+            insertTime?: string;
         }
         
         interface Version {
-            /** Whether to deploy this version in a container on a virtual machine. */
-            vm?: boolean;
-            /** Serving URL for this version. Example: "https://myversion-dot-myservice-dot-myapp.appspot.com"@OutputOnly */
-            versionUrl?: string;
-            /** Instance class that is used to run this version. Valid values are: */
-            /** AutomaticScaling: F1, F2, F4, F4_1G */
-            /** ManualScaling or BasicScaling: B1, B2, B4, B8, B4_1GDefaults to F1 for AutomaticScaling and B1 for ManualScaling or BasicScaling. */
-            instanceClass?: string;
-            /** Current serving status of this version. Only the versions with a SERVING status create instances and can be billed.SERVING_STATUS_UNSPECIFIED is an invalid value. Defaults to SERVING. */
-            servingStatus?: string;
-            /** Code and application artifacts that make up this version.Only returned in GET requests if view=FULL is set. */
-            deployment?: Deployment;
-            /** The version of the API in the given runtime environment. Please see the app.yaml reference for valid values at https://cloud.google.com/appengine/docs/standard/<language>/config/appref */
-            runtimeApiVersion?: string;
-            /** Time that this version was created.@OutputOnly */
-            createTime?: string;
-            /** Machine resources for this version. Only applicable for VM runtimes. */
-            resources?: Resources;
-            /** Before an application can receive email or XMPP messages, the application must be configured to enable the service. */
-            inboundServices?: string[];
-            /** Custom static error pages. Limited to 10KB per page.Only returned in GET requests if view=FULL is set. */
-            errorHandlers?: ErrorHandler[];
-            /** Duration that static files should be cached by web proxies and browsers. Only applicable if the corresponding StaticFilesHandler (https://cloud.google.com/appengine/docs/admin-api/reference/rest/v1/apps.services.versions#staticfileshandler) does not specify its own expiration time.Only returned in GET requests if view=FULL is set. */
-            defaultExpiration?: string;
-            /** Configuration for third-party Python runtime libraries that are required by the application.Only returned in GET requests if view=FULL is set. */
-            libraries?: Library[];
-            /** Files that match this pattern will not be built into this version. Only applicable for Go runtimes.Only returned in GET requests if view=FULL is set. */
-            nobuildFilesRegex?: string;
-            /** A service with basic scaling will create an instance when the application receives a request. The instance will be turned down when the app becomes idle. Basic scaling is ideal for work that is intermittent or driven by user activity. */
-            basicScaling?: BasicScaling;
-            /** Desired runtime. Example: python27. */
-            runtime?: string;
-            /** Relative name of the version within the service. Example: v1. Version names can contain only lowercase letters, numbers, or hyphens. Reserved names: "default", "latest", and any name with the prefix "ah-". */
-            id?: string;
-            /** Email address of the user who created this version.@OutputOnly */
-            createdBy?: string;
-            /** Environment variables available to the application.Only returned in GET requests if view=FULL is set. */
-            envVariables?: Record<string, string>;            
-            /** Configures liveness health checking for VM instances. Unhealthy instances are stopped and replaced with new instancesOnly returned in GET requests if view=FULL is set. */
-            livenessCheck?: LivenessCheck;
-            /** Extra network settings. Only applicable for App Engine flexible environment versions. */
-            network?: Network;
-            /** Metadata settings that are supplied to this version to enable beta runtime features. */
-            betaSettings?: Record<string, string>;            
-            /** App Engine execution environment for this version.Defaults to standard. */
-            env?: string;
-            /** An ordered list of URL-matching patterns that should be applied to incoming requests. The first matching URL handles the request and other request handlers are not attempted.Only returned in GET requests if view=FULL is set. */
-            handlers?: UrlMap[];
             /** Automatic scaling is based on request rate, response latencies, and other application metrics. */
             automaticScaling?: AutomaticScaling;
             /** Total size in bytes of all the files that are included in this version and curerntly hosted on the App Engine disk.@OutputOnly */
@@ -165,6 +243,54 @@ declare namespace gapi.client {
             apiConfig?: ApiConfigHandler;
             /** Cloud Endpoints configuration.If endpoints_api_service is set, the Cloud Endpoints Extensible Service Proxy will be provided to serve the API implemented by the app. */
             endpointsApiService?: EndpointsApiService;
+            /** Serving URL for this version. Example: "https://myversion-dot-myservice-dot-myapp.appspot.com"@OutputOnly */
+            versionUrl?: string;
+            /** Whether to deploy this version in a container on a virtual machine. */
+            vm?: boolean;
+            /** Instance class that is used to run this version. Valid values are: */
+            /** AutomaticScaling: F1, F2, F4, F4_1G */
+            /** ManualScaling or BasicScaling: B1, B2, B4, B8, B4_1GDefaults to F1 for AutomaticScaling and B1 for ManualScaling or BasicScaling. */
+            instanceClass?: string;
+            /** Current serving status of this version. Only the versions with a SERVING status create instances and can be billed.SERVING_STATUS_UNSPECIFIED is an invalid value. Defaults to SERVING. */
+            servingStatus?: string;
+            /** The version of the API in the given runtime environment. Please see the app.yaml reference for valid values at https://cloud.google.com/appengine/docs/standard/<language>/config/appref */
+            runtimeApiVersion?: string;
+            /** Code and application artifacts that make up this version.Only returned in GET requests if view=FULL is set. */
+            deployment?: Deployment;
+            /** Time that this version was created.@OutputOnly */
+            createTime?: string;
+            /** Before an application can receive email or XMPP messages, the application must be configured to enable the service. */
+            inboundServices?: string[];
+            /** Machine resources for this version. Only applicable for VM runtimes. */
+            resources?: Resources;
+            /** Custom static error pages. Limited to 10KB per page.Only returned in GET requests if view=FULL is set. */
+            errorHandlers?: ErrorHandler[];
+            /** Duration that static files should be cached by web proxies and browsers. Only applicable if the corresponding StaticFilesHandler (https://cloud.google.com/appengine/docs/admin-api/reference/rest/v1/apps.services.versions#staticfileshandler) does not specify its own expiration time.Only returned in GET requests if view=FULL is set. */
+            defaultExpiration?: string;
+            /** Configuration for third-party Python runtime libraries that are required by the application.Only returned in GET requests if view=FULL is set. */
+            libraries?: Library[];
+            /** Files that match this pattern will not be built into this version. Only applicable for Go runtimes.Only returned in GET requests if view=FULL is set. */
+            nobuildFilesRegex?: string;
+            /** A service with basic scaling will create an instance when the application receives a request. The instance will be turned down when the app becomes idle. Basic scaling is ideal for work that is intermittent or driven by user activity. */
+            basicScaling?: BasicScaling;
+            /** Desired runtime. Example: python27. */
+            runtime?: string;
+            /** Email address of the user who created this version.@OutputOnly */
+            createdBy?: string;
+            /** Relative name of the version within the service. Example: v1. Version names can contain only lowercase letters, numbers, or hyphens. Reserved names: "default", "latest", and any name with the prefix "ah-". */
+            id?: string;
+            /** Environment variables available to the application.Only returned in GET requests if view=FULL is set. */
+            envVariables?: Record<string, string>;            
+            /** Configures liveness health checking for VM instances. Unhealthy instances are stopped and replaced with new instancesOnly returned in GET requests if view=FULL is set. */
+            livenessCheck?: LivenessCheck;
+            /** Extra network settings. Only applicable for App Engine flexible environment versions. */
+            network?: Network;
+            /** Metadata settings that are supplied to this version to enable beta runtime features. */
+            betaSettings?: Record<string, string>;            
+            /** App Engine execution environment for this version.Defaults to standard. */
+            env?: string;
+            /** An ordered list of URL-matching patterns that should be applied to incoming requests. The first matching URL handles the request and other request handlers are not attempted.Only returned in GET requests if view=FULL is set. */
+            handlers?: UrlMap[];
         }
         
         interface FileInfo {
@@ -235,23 +361,23 @@ declare namespace gapi.client {
         }
         
         interface Resources {
-            /** User specified volumes. */
-            volumes?: Volume[];
             /** Disk size (GB) needed. */
             diskGb?: number;
             /** Memory (GB) needed. */
             memoryGb?: number;
             /** Number of CPU cores needed. */
             cpu?: number;
+            /** User specified volumes. */
+            volumes?: Volume[];
         }
         
         interface Volume {
+            /** Unique name for the volume. */
+            name?: string;
             /** Underlying volume type, e.g. 'tmpfs'. */
             volumeType?: string;
             /** Volume size in gigabytes. */
             sizeGb?: number;
-            /** Unique name for the volume. */
-            name?: string;
         }
         
         interface ListInstancesResponse {
@@ -262,12 +388,6 @@ declare namespace gapi.client {
         }
         
         interface OperationMetadataV1Alpha {
-            /** Ephemeral message that may change every time the operation is polled. @OutputOnly */
-            ephemeralMessage?: string;
-            /** API method that initiated this operation. Example: google.appengine.v1alpha.Versions.CreateVersion.@OutputOnly */
-            method?: string;
-            /** Time that this operation completed.@OutputOnly */
-            endTime?: string;
             /** Durable messages that persist on every operation poll. @OutputOnly */
             warning?: string[];
             /** Time that this operation was created.@OutputOnly */
@@ -276,6 +396,12 @@ declare namespace gapi.client {
             user?: string;
             /** Name of the resource that this operation is acting on. Example: apps/myapp/services/default.@OutputOnly */
             target?: string;
+            /** Ephemeral message that may change every time the operation is polled. @OutputOnly */
+            ephemeralMessage?: string;
+            /** API method that initiated this operation. Example: google.appengine.v1alpha.Versions.CreateVersion.@OutputOnly */
+            method?: string;
+            /** Time that this operation completed.@OutputOnly */
+            endTime?: string;
         }
         
         interface UrlDispatchRule {
@@ -300,6 +426,14 @@ declare namespace gapi.client {
         }
         
         interface AutomaticScaling {
+            /** Minimum amount of time a request should wait in the pending queue before starting a new instance to handle it. */
+            minPendingLatency?: string;
+            /** Target scaling by request utilization. */
+            requestUtilization?: RequestUtilization;
+            /** Maximum number of idle instances that should be maintained for this version. */
+            maxIdleInstances?: number;
+            /** Minimum number of idle instances that should be maintained for this version. Only applicable for the default version of a service. */
+            minIdleInstances?: number;
             /** Maximum number of instances that should be started to handle requests. */
             maxTotalInstances?: number;
             /** Minimum number of instances that should be maintained for this version. */
@@ -316,14 +450,6 @@ declare namespace gapi.client {
             cpuUtilization?: CpuUtilization;
             /** Target scaling by disk usage. */
             diskUtilization?: DiskUtilization;
-            /** Minimum amount of time a request should wait in the pending queue before starting a new instance to handle it. */
-            minPendingLatency?: string;
-            /** Target scaling by request utilization. */
-            requestUtilization?: RequestUtilization;
-            /** Maximum number of idle instances that should be maintained for this version. */
-            maxIdleInstances?: number;
-            /** Minimum number of idle instances that should be maintained for this version. Only applicable for the default version of a service. */
-            minIdleInstances?: number;
         }
         
         interface ZipInfo {
@@ -359,11 +485,14 @@ declare namespace gapi.client {
             targetConcurrentRequests?: number;
         }
         
+        interface EndpointsApiService {
+            /** Endpoints service configuration id as specified by the Service Management API. For example "2016-09-19r1" */
+            configId?: string;
+            /** Endpoints service name which is the name of the "service" resource in the Service Management API. For example "myapi.endpoints.myproject.cloud.goog" */
+            name?: string;
+        }
+        
         interface UrlMap {
-            /** Returns the contents of a file, such as an image, as the response. */
-            staticFiles?: StaticFilesHandler;
-            /** 30x code to use when performing redirects for the secure field. Defaults to 302. */
-            redirectHttpResponseCode?: string;
             /** Security (HTTPS) enforcement for this URL. */
             securityLevel?: string;
             /** Action to take when users access resources that require authentication. Defaults to redirect. */
@@ -376,42 +505,45 @@ declare namespace gapi.client {
             login?: string;
             /** Uses API Endpoints to handle requests. */
             apiEndpoint?: ApiEndpointHandler;
-        }
-        
-        interface EndpointsApiService {
-            /** Endpoints service configuration id as specified by the Service Management API. For example "2016-09-19r1" */
-            configId?: string;
-            /** Endpoints service name which is the name of the "service" resource in the Service Management API. For example "myapi.endpoints.myproject.cloud.goog" */
-            name?: string;
-        }
-        
-        interface Operation {
-            /** Service-specific metadata associated with the operation. It typically contains progress information and common metadata such as create time. Some services might not provide such metadata. Any method that returns a long-running operation should document the metadata type, if any. */
-            metadata?: Record<string, any>;            
-            /** If the value is false, it means the operation is still in progress. If true, the operation is completed, and either error or response is available. */
-            done?: boolean;
-            /** The normal response of the operation in case of success. If the original method returns no data on success, such as Delete, the response is google.protobuf.Empty. If the original method is standard Get/Create/Update, the response should be the resource. For other methods, the response should have the type XxxResponse, where Xxx is the original method name. For example, if the original method name is TakeSnapshot(), the inferred response type is TakeSnapshotResponse. */
-            response?: Record<string, any>;            
-            /** The server-assigned name, which is only unique within the same service that originally returns it. If you use the default HTTP mapping, the name should have the format of operations/some/unique/name. */
-            name?: string;
-            /** The error result of the operation in case of failure or cancellation. */
-            error?: Status;
+            /** Returns the contents of a file, such as an image, as the response. */
+            staticFiles?: StaticFilesHandler;
+            /** 30x code to use when performing redirects for the secure field. Defaults to 302. */
+            redirectHttpResponseCode?: string;
         }
         
         interface ApiConfigHandler {
+            /** URL to serve the endpoint at. */
+            url?: string;
+            /** Security (HTTPS) enforcement for this URL. */
+            securityLevel?: string;
             /** Action to take when users access resources that require authentication. Defaults to redirect. */
             authFailAction?: string;
             /** Path to the script from the application root directory. */
             script?: string;
             /** Level of login required to access this resource. Defaults to optional. */
             login?: string;
-            /** URL to serve the endpoint at. */
-            url?: string;
-            /** Security (HTTPS) enforcement for this URL. */
-            securityLevel?: string;
+        }
+        
+        interface Operation {
+            /** The server-assigned name, which is only unique within the same service that originally returns it. If you use the default HTTP mapping, the name should have the format of operations/some/unique/name. */
+            name?: string;
+            /** The error result of the operation in case of failure or cancellation. */
+            error?: Status;
+            /** Service-specific metadata associated with the operation. It typically contains progress information and common metadata such as create time. Some services might not provide such metadata. Any method that returns a long-running operation should document the metadata type, if any. */
+            metadata?: Record<string, any>;            
+            /** If the value is false, it means the operation is still in progress. If true, the operation is completed, and either error or response is available. */
+            done?: boolean;
+            /** The normal response of the operation in case of success. If the original method returns no data on success, such as Delete, the response is google.protobuf.Empty. If the original method is standard Get/Create/Update, the response should be the resource. For other methods, the response should have the type XxxResponse, where Xxx is the original method name. For example, if the original method name is TakeSnapshot(), the inferred response type is TakeSnapshotResponse. */
+            response?: Record<string, any>;            
         }
         
         interface StaticFilesHandler {
+            /** Time a static file served by this handler should be cached by web proxies and browsers. */
+            expiration?: string;
+            /** Whether files should also be uploaded as code data. By default, files declared in static file handlers are uploaded as static data and are only served to end users; they cannot be read by the application. If enabled, uploads are charged against both your code and static data storage resource quotas. */
+            applicationReadable?: boolean;
+            /** HTTP headers to use for all responses from these URLs. */
+            httpHeaders?: Record<string, string>;            
             /** Regular expression that matches the file paths for all files that should be referenced by this handler. */
             uploadPathRegex?: string;
             /** Path to the static files matched by the URL pattern, from the application root directory. The path can refer to text matched in groupings in the URL pattern. */
@@ -420,30 +552,24 @@ declare namespace gapi.client {
             mimeType?: string;
             /** Whether this handler should match the request if the file referenced by the handler does not exist. */
             requireMatchingFile?: boolean;
-            /** Time a static file served by this handler should be cached by web proxies and browsers. */
-            expiration?: string;
-            /** Whether files should also be uploaded as code data. By default, files declared in static file handlers are uploaded as static data and are only served to end users; they cannot be read by the application. If enabled, uploads are charged against both your code and static data storage resource quotas. */
-            applicationReadable?: boolean;
-            /** HTTP headers to use for all responses from these URLs. */
-            httpHeaders?: Record<string, string>;            
         }
         
         interface BasicScaling {
-            /** Duration of time after the last request that an instance must wait before the instance is shut down. */
-            idleTimeout?: string;
             /** Maximum number of instances to create for this version. */
             maxInstances?: number;
+            /** Duration of time after the last request that an instance must wait before the instance is shut down. */
+            idleTimeout?: string;
         }
         
         interface DiskUtilization {
-            /** Target ops read per seconds. */
-            targetReadOpsPerSecond?: number;
-            /** Target bytes read per second. */
-            targetReadBytesPerSecond?: number;
             /** Target ops written per second. */
             targetWriteOpsPerSecond?: number;
             /** Target bytes written per second. */
             targetWriteBytesPerSecond?: number;
+            /** Target ops read per seconds. */
+            targetReadOpsPerSecond?: number;
+            /** Target bytes read per second. */
+            targetReadBytesPerSecond?: number;
         }
         
         interface CpuUtilization {
@@ -451,15 +577,6 @@ declare namespace gapi.client {
             aggregationWindowLength?: string;
             /** Target CPU utilization ratio to maintain when scaling. Must be between 0 and 1. */
             targetUtilization?: number;
-        }
-        
-        interface Status {
-            /** The status code, which should be an enum value of google.rpc.Code. */
-            code?: number;
-            /** A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the google.rpc.Status.details field, or localized by the client. */
-            message?: string;
-            /** A list of messages that carry the error details. There is a common set of message types for APIs to use. */
-            details?: Array<Record<string, any>>;            
         }
         
         interface IdentityAwareProxy {
@@ -473,16 +590,25 @@ declare namespace gapi.client {
             oauth2ClientSecretSha256?: string;
         }
         
+        interface Status {
+            /** A list of messages that carry the error details. There is a common set of message types for APIs to use. */
+            details?: Array<Record<string, any>>;            
+            /** The status code, which should be an enum value of google.rpc.Code. */
+            code?: number;
+            /** A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the google.rpc.Status.details field, or localized by the client. */
+            message?: string;
+        }
+        
         interface ManualScaling {
             /** Number of instances to assign to the service at the start. This number can later be altered by using the Modules API (https://cloud.google.com/appengine/docs/python/modules/functions) set_num_instances() function. */
             instances?: number;
         }
         
         interface LocationMetadata {
-            /** App Engine Standard Environment is available in the given location.@OutputOnly */
-            standardEnvironmentAvailable?: boolean;
             /** App Engine Flexible Environment is available in the given location.@OutputOnly */
             flexibleEnvironmentAvailable?: boolean;
+            /** App Engine Standard Environment is available in the given location.@OutputOnly */
+            standardEnvironmentAvailable?: boolean;
         }
         
         interface Service {
@@ -502,6 +628,10 @@ declare namespace gapi.client {
         }
         
         interface OperationMetadata {
+            /** User who requested this operation.@OutputOnly */
+            user?: string;
+            /** Name of the resource that this operation is acting on. Example: apps/myapp/modules/default.@OutputOnly */
+            target?: string;
             /** API method that initiated this operation. Example: google.appengine.v1beta4.Version.CreateVersion.@OutputOnly */
             method?: string;
             /** Timestamp that this operation completed.@OutputOnly */
@@ -510,254 +640,15 @@ declare namespace gapi.client {
             operationType?: string;
             /** Timestamp that this operation was created.@OutputOnly */
             insertTime?: string;
-            /** User who requested this operation.@OutputOnly */
-            user?: string;
-            /** Name of the resource that this operation is acting on. Example: apps/myapp/modules/default.@OutputOnly */
-            target?: string;
-        }
-        
-        interface FeatureSettings {
-            /** Boolean value indicating if split health checks should be used instead of the legacy health checks. At an app.yaml level, this means defaulting to 'readiness_check' and 'liveness_check' values instead of 'health_check' ones. Once the legacy 'health_check' behavior is deprecated, and this value is always true, this setting can be removed. */
-            splitHealthChecks?: boolean;
-        }
-        
-        interface ErrorHandler {
-            /** Static file content to be served for this error. */
-            staticFile?: string;
-            /** MIME type of file. Defaults to text/html. */
-            mimeType?: string;
-            /** Error condition this handler applies to. */
-            errorCode?: string;
-        }
-        
-        interface OperationMetadataV1 {
-            /** Durable messages that persist on every operation poll. @OutputOnly */
-            warning?: string[];
-            /** Time that this operation was created.@OutputOnly */
-            insertTime?: string;
-            /** User who requested this operation.@OutputOnly */
-            user?: string;
-            /** Name of the resource that this operation is acting on. Example: apps/myapp/services/default.@OutputOnly */
-            target?: string;
-            /** Ephemeral message that may change every time the operation is polled. @OutputOnly */
-            ephemeralMessage?: string;
-            /** API method that initiated this operation. Example: google.appengine.v1.Versions.CreateVersion.@OutputOnly */
-            method?: string;
-            /** Time that this operation completed.@OutputOnly */
-            endTime?: string;
-        }
-        
-        interface Application {
-            /** Full path to the Application resource in the API. Example: apps/myapp.@OutputOnly */
-            name?: string;
-            /** Identifier of the Application resource. This identifier is equivalent to the project ID of the Google Cloud Platform project where you want to deploy your application. Example: myapp. */
-            id?: string;
-            /** Cookie expiration policy for this application. */
-            defaultCookieExpiration?: string;
-            /** Location from which this application will be run. Application instances will run out of data centers in the chosen location, which is also where all of the application's end user content is stored.Defaults to us-central.Options are:us-central - Central USeurope-west - Western Europeus-east1 - Eastern US */
-            locationId?: string;
-            /** Serving status of this application. */
-            servingStatus?: string;
-            /** Hostname used to reach this application, as resolved by App Engine.@OutputOnly */
-            defaultHostname?: string;
-            /** The feature specific settings to be used in the application. */
-            featureSettings?: FeatureSettings;
-            /** Google Apps authentication domain that controls which users can access this application.Defaults to open access for any Google Account. */
-            authDomain?: string;
-            /**  */
-            iap?: IdentityAwareProxy;
-            /** Google Cloud Storage bucket that can be used for storing files associated with this application. This bucket is associated with the application and can be used by the gcloud deployment commands.@OutputOnly */
-            codeBucket?: string;
-            /** Google Cloud Storage bucket that can be used by this application to store content.@OutputOnly */
-            defaultBucket?: string;
-            /** HTTP path dispatch rules for requests to the application that do not explicitly target a service or version. Rules are order-dependent. Up to 20 dispatch rules can be supported.@OutputOnly */
-            dispatchRules?: UrlDispatchRule[];
-            /** The Google Container Registry domain used for storing managed build docker images for this application. */
-            gcrDomain?: string;
-        }
-        
-        interface Network {
-            /** Google Cloud Platform sub-network where the virtual machines are created. Specify the short name, not the resource path.If a subnetwork name is specified, a network name will also be required unless it is for the default network. */
-            /** If the network the VM instance is being created in is a Legacy network, then the IP address is allocated from the IPv4Range. */
-            /** If the network the VM instance is being created in is an auto Subnet Mode Network, then only network name should be specified (not the subnetwork_name) and the IP address is created from the IPCidrRange of the subnetwork that exists in that zone for that network. */
-            /** If the network the VM instance is being created in is a custom Subnet Mode Network, then the subnetwork_name must be specified and the IP address is created from the IPCidrRange of the subnetwork.If specified, the subnetwork must exist in the same region as the App Engine flexible environment application. */
-            subnetworkName?: string;
-            /** Tag to apply to the VM instance during creation. Only applicable for for App Engine flexible environment versions. */
-            instanceTag?: string;
-            /** List of ports, or port pairs, to forward from the virtual machine to the application container. Only applicable for App Engine flexible environment versions. */
-            forwardedPorts?: string[];
-            /** Google Compute Engine network where the virtual machines are created. Specify the short name, not the resource path.Defaults to default. */
-            name?: string;
-        }
-        
-        interface Instance {
-            /** Full path to the Instance resource in the API. Example: apps/myapp/services/default/versions/v1/instances/instance-1.@OutputOnly */
-            name?: string;
-            /** Zone where the virtual machine is located. Only applicable for instances in App Engine flexible environment.@OutputOnly */
-            vmZoneName?: string;
-            /** Average latency (ms) over the last minute.@OutputOnly */
-            averageLatency?: number;
-            /** Total memory in use (bytes).@OutputOnly */
-            memoryUsage?: string;
-            /** The IP address of this instance. Only applicable for instances in App Engine flexible environment.@OutputOnly */
-            vmIp?: string;
-            /** Relative name of the instance within the version. Example: instance-1.@OutputOnly */
-            id?: string;
-            /** Number of errors since this instance was started.@OutputOnly */
-            errors?: number;
-            /** Status of the virtual machine where this instance lives. Only applicable for instances in App Engine flexible environment.@OutputOnly */
-            vmStatus?: string;
-            /** Availability of the instance.@OutputOnly */
-            availability?: string;
-            /** Time that this instance was started.@OutputOnly */
-            startTime?: string;
-            /** Whether this instance is in debug mode. Only applicable for instances in App Engine flexible environment.@OutputOnly */
-            vmDebugEnabled?: boolean;
-            /** Number of requests since this instance was started.@OutputOnly */
-            requests?: number;
-            /** App Engine release this instance is running on.@OutputOnly */
-            appEngineRelease?: string;
-            /** Name of the virtual machine where this instance lives. Only applicable for instances in App Engine flexible environment.@OutputOnly */
-            vmName?: string;
-            /** Virtual machine ID of this instance. Only applicable for instances in App Engine flexible environment.@OutputOnly */
-            vmId?: string;
-            /** Average queries per second (QPS) over the last minute.@OutputOnly */
-            qps?: number;
-        }
-        
-        interface LivenessCheck {
-            /** The initial delay before starting to execute the checks. */
-            initialDelay?: string;
-            /** The request path. */
-            path?: string;
-            /** Number of consecutive successful checks required before considering the VM healthy. */
-            successThreshold?: number;
-            /** Host header to send when performing a HTTP Liveness check. Example: "myapp.appspot.com" */
-            host?: string;
-            /** Interval between health checks. */
-            checkInterval?: string;
-            /** Time before the check is considered failed. */
-            timeout?: string;
-            /** Number of consecutive failed checks required before considering the VM unhealthy. */
-            failureThreshold?: number;
-        }
-        
-        interface LocationsResource {
-            /** Get information about a location. */
-            get(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Part of `name`. Resource name for the location. */
-                appsId: string;
-                /** Part of `name`. See documentation of `appsId`. */
-                locationsId: string;
-            }): Request<Location>;            
-            
-            /** Lists information about the supported locations for this service. */
-            list(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** The standard list filter. */
-                filter?: string;
-                /** The standard list page token. */
-                pageToken?: string;
-                /** Part of `name`. The resource that owns the locations collection, if applicable. */
-                appsId: string;
-                /** The standard list page size. */
-                pageSize?: number;
-            }): Request<ListLocationsResponse>;            
-            
         }
         
         interface InstancesResource {
-            /** Stops a running instance. */
-            delete(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Part of `name`. See documentation of `appsId`. */
-                versionsId: string;
-                /** Part of `name`. See documentation of `appsId`. */
-                servicesId: string;
-                /** Part of `name`. See documentation of `appsId`. */
-                instancesId: string;
-                /** Part of `name`. Name of the resource requested. Example: apps/myapp/services/default/versions/v1/instances/instance-1. */
-                appsId: string;
-            }): Request<Operation>;            
-            
             /** Gets instance information. */
             get(request: {            
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -766,10 +657,10 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** JSONP */
-                callback?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -780,22 +671,22 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Part of `name`. See documentation of `appsId`. */
-                versionsId: string;
                 /** Part of `name`. See documentation of `appsId`. */
                 servicesId: string;
                 /** Part of `name`. See documentation of `appsId`. */
                 instancesId: string;
                 /** Part of `name`. Name of the resource requested. Example: apps/myapp/services/default/versions/v1/instances/instance-1. */
                 appsId: string;
+                /** Part of `name`. See documentation of `appsId`. */
+                versionsId: string;
             }): Request<Instance>;            
             
             /** Lists the instances of a version.Tip: To aggregate details about instances over time, see the Stackdriver Monitoring API (https://cloud.google.com/monitoring/api/ref_v3/rest/v3/projects.timeSeries/list). */
             list(request: {            
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -804,10 +695,10 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** JSONP */
-                callback?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -818,12 +709,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Part of `parent`. See documentation of `appsId`. */
-                servicesId: string;
                 /** Continuation token for fetching the next page of results. */
                 pageToken?: string;
                 /** Part of `parent`. Name of the parent Version resource. Example: apps/myapp/services/default/versions/v1. */
@@ -832,10 +717,16 @@ declare namespace gapi.client {
                 pageSize?: number;
                 /** Part of `parent`. See documentation of `appsId`. */
                 versionsId: string;
+                /** Part of `parent`. See documentation of `appsId`. */
+                servicesId: string;
             }): Request<ListInstancesResponse>;            
             
             /** Enables debugging on a VM instance. This allows you to use the SSH command to connect to the virtual machine where the instance lives. While in "debug mode", the instance continues to serve live traffic. You should delete the instance when you are done debugging and then allow the system to take over and determine if another instance should be started.Only applicable for instances in App Engine flexible environment. */
             debug(request: {            
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -844,10 +735,10 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** JSONP */
-                callback?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -858,10 +749,44 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
+                /** Part of `name`. See documentation of `appsId`. */
+                instancesId: string;
+                /** Part of `name`. Name of the resource requested. Example: apps/myapp/services/default/versions/v1/instances/instance-1. */
+                appsId: string;
+                /** Part of `name`. See documentation of `appsId`. */
+                versionsId: string;
+                /** Part of `name`. See documentation of `appsId`. */
+                servicesId: string;
+            }): Request<Operation>;            
+            
+            /** Stops a running instance. */
+            delete(request: {            
                 /** OAuth bearer token. */
                 bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
                 /** Part of `name`. See documentation of `appsId`. */
                 servicesId: string;
                 /** Part of `name`. See documentation of `appsId`. */
@@ -875,42 +800,12 @@ declare namespace gapi.client {
         }
         
         interface VersionsResource {
-            /** Deploys code and resource files to a new version. */
-            create(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Part of `parent`. Name of the parent resource to create this version under. Example: apps/myapp/services/default. */
-                appsId: string;
-                /** Part of `parent`. See documentation of `appsId`. */
-                servicesId: string;
-            }): Request<Operation>;            
-            
             /** Deletes an existing Version resource. */
             delete(request: {            
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -919,10 +814,10 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** JSONP */
-                callback?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -933,10 +828,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** Part of `name`. Name of the resource requested. Example: apps/myapp/services/default/versions/v1. */
                 appsId: string;
                 /** Part of `name`. See documentation of `appsId`. */
@@ -955,6 +846,10 @@ declare namespace gapi.client {
             /** automatic_scaling.cool_down_period_sec (https://cloud.google.com/appengine/docs/admin-api/reference/rest/v1/apps.services.versions#Version.FIELDS.automatic_scaling):  For Version resources that use automatic scaling and run in the App  Engine Flexible environment. */
             /** automatic_scaling.cpu_utilization.target_utilization (https://cloud.google.com/appengine/docs/admin-api/reference/rest/v1/apps.services.versions#Version.FIELDS.automatic_scaling):  For Version resources that use automatic scaling and run in the App  Engine Flexible environment. */
             patch(request: {            
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -963,10 +858,10 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** JSONP */
-                callback?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -977,10 +872,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** Standard field mask for the set of fields to be updated. */
                 updateMask?: string;
                 /** Part of `name`. See documentation of `appsId`. */
@@ -993,6 +884,10 @@ declare namespace gapi.client {
             
             /** Gets the specified Version resource. By default, only a BASIC_VIEW will be returned. Specify the FULL_VIEW parameter to get the full resource. */
             get(request: {            
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -1001,10 +896,10 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** JSONP */
-                callback?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -1015,10 +910,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** Controls the set of fields returned in the Get response. */
                 view?: string;
                 /** Part of `name`. See documentation of `appsId`. */
@@ -1031,6 +922,10 @@ declare namespace gapi.client {
             
             /** Lists the versions of a service. */
             list(request: {            
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -1039,10 +934,10 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** JSONP */
-                callback?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -1053,62 +948,62 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Controls the set of fields returned in the List response. */
-                view?: string;
-                /** Part of `parent`. See documentation of `appsId`. */
-                servicesId: string;
                 /** Continuation token for fetching the next page of results. */
                 pageToken?: string;
                 /** Part of `parent`. Name of the parent Service resource. Example: apps/myapp/services/default. */
                 appsId: string;
                 /** Maximum results to return per page. */
                 pageSize?: number;
+                /** Controls the set of fields returned in the List response. */
+                view?: string;
+                /** Part of `parent`. See documentation of `appsId`. */
+                servicesId: string;
             }): Request<ListVersionsResponse>;            
+            
+            /** Deploys code and resource files to a new version. */
+            create(request: {            
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Part of `parent`. See documentation of `appsId`. */
+                servicesId: string;
+                /** Part of `parent`. Name of the parent resource to create this version under. Example: apps/myapp/services/default. */
+                appsId: string;
+            }): Request<Operation>;            
             
             instances: InstancesResource;
         }
         
         interface ServicesResource {
-            /** Deletes the specified service and all enclosed versions. */
-            delete(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Part of `name`. Name of the resource requested. Example: apps/myapp/services/default. */
-                appsId: string;
-                /** Part of `name`. See documentation of `appsId`. */
-                servicesId: string;
-            }): Request<Operation>;            
-            
             /** Updates the configuration of the specified service. */
             patch(request: {            
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -1117,10 +1012,10 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** JSONP */
-                callback?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -1131,22 +1026,22 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Part of `name`. Name of the resource to update. Example: apps/myapp/services/default. */
-                appsId: string;
-                /** Set to true to gradually shift traffic to one or more versions that you specify. By default, traffic is shifted immediately. For gradual traffic migration, the target versions must be located within instances that are configured for both warmup requests (https://cloud.google.com/appengine/docs/admin-api/reference/rest/v1/apps.services.versions#inboundservicetype) and automatic scaling (https://cloud.google.com/appengine/docs/admin-api/reference/rest/v1/apps.services.versions#automaticscaling). You must specify the shardBy (https://cloud.google.com/appengine/docs/admin-api/reference/rest/v1/apps.services#shardby) field in the Service resource. Gradual traffic migration is not supported in the App Engine flexible environment. For examples, see Migrating and Splitting Traffic (https://cloud.google.com/appengine/docs/admin-api/migrating-splitting-traffic). */
-                migrateTraffic?: boolean;
                 /** Standard field mask for the set of fields to be updated. */
                 updateMask?: string;
                 /** Part of `name`. See documentation of `appsId`. */
                 servicesId: string;
+                /** Part of `name`. Name of the resource to update. Example: apps/myapp/services/default. */
+                appsId: string;
+                /** Set to true to gradually shift traffic to one or more versions that you specify. By default, traffic is shifted immediately. For gradual traffic migration, the target versions must be located within instances that are configured for both warmup requests (https://cloud.google.com/appengine/docs/admin-api/reference/rest/v1/apps.services.versions#inboundservicetype) and automatic scaling (https://cloud.google.com/appengine/docs/admin-api/reference/rest/v1/apps.services.versions#automaticscaling). You must specify the shardBy (https://cloud.google.com/appengine/docs/admin-api/reference/rest/v1/apps.services#shardby) field in the Service resource. Gradual traffic migration is not supported in the App Engine flexible environment. For examples, see Migrating and Splitting Traffic (https://cloud.google.com/appengine/docs/admin-api/migrating-splitting-traffic). */
+                migrateTraffic?: boolean;
             }): Request<Operation>;            
             
             /** Gets the current configuration of the specified service. */
             get(request: {            
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -1155,10 +1050,10 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** JSONP */
-                callback?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -1169,18 +1064,18 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Part of `name`. Name of the resource requested. Example: apps/myapp/services/default. */
-                appsId: string;
                 /** Part of `name`. See documentation of `appsId`. */
                 servicesId: string;
+                /** Part of `name`. Name of the resource requested. Example: apps/myapp/services/default. */
+                appsId: string;
             }): Request<Service>;            
             
             /** Lists all the services in the application. */
             list(request: {            
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -1189,10 +1084,10 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** JSONP */
-                callback?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -1203,10 +1098,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** Continuation token for fetching the next page of results. */
                 pageToken?: string;
                 /** Part of `parent`. Name of the parent Application resource. Example: apps/myapp. */
@@ -1215,12 +1106,12 @@ declare namespace gapi.client {
                 pageSize?: number;
             }): Request<ListServicesResponse>;            
             
-            versions: VersionsResource;
-        }
-        
-        interface OperationsResource {
-            /** Gets the latest state of a long-running operation. Clients can use this method to poll the operation result at intervals as recommended by the API service. */
-            get(request: {            
+            /** Deletes the specified service and all enclosed versions. */
+            delete(request: {            
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -1229,10 +1120,10 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** JSONP */
-                callback?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -1243,10 +1134,44 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
+                /** Part of `name`. See documentation of `appsId`. */
+                servicesId: string;
+                /** Part of `name`. Name of the resource requested. Example: apps/myapp/services/default. */
+                appsId: string;
+            }): Request<Operation>;            
+            
+            versions: VersionsResource;
+        }
+        
+        interface OperationsResource {
+            /** Gets the latest state of a long-running operation. Clients can use this method to poll the operation result at intervals as recommended by the API service. */
+            get(request: {            
                 /** OAuth bearer token. */
                 bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
                 /** Part of `name`. The name of the operation resource. */
                 appsId: string;
                 /** Part of `name`. See documentation of `appsId`. */
@@ -1255,6 +1180,10 @@ declare namespace gapi.client {
             
             /** Lists operations that match the specified filter in the request. If the server doesn't support this method, it returns UNIMPLEMENTED.NOTE: the name binding allows API services to override the binding to use different resource name schemes, such as users/&#42;/operations. To override the binding, API services can add a binding such as "/v1/{name=users/&#42;}/operations" to their service configuration. For backwards compatibility, the default name includes the operations collection id, however overriding users must ensure the name binding is the parent resource, without the operations collection id. */
             list(request: {            
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -1263,10 +1192,10 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** JSONP */
-                callback?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -1277,27 +1206,100 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
+                /** The standard list page size. */
+                pageSize?: number;
+                /** The standard list filter. */
+                filter?: string;
                 /** The standard list page token. */
                 pageToken?: string;
                 /** Part of `name`. The name of the operation's parent resource. */
+                appsId: string;
+            }): Request<ListOperationsResponse>;            
+            
+        }
+        
+        interface LocationsResource {
+            /** Get information about a location. */
+            get(request: {            
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** Part of `name`. See documentation of `appsId`. */
+                locationsId: string;
+                /** Part of `name`. Resource name for the location. */
+                appsId: string;
+            }): Request<Location>;            
+            
+            /** Lists information about the supported locations for this service. */
+            list(request: {            
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** The standard list page token. */
+                pageToken?: string;
+                /** Part of `name`. The resource that owns the locations collection, if applicable. */
                 appsId: string;
                 /** The standard list page size. */
                 pageSize?: number;
                 /** The standard list filter. */
                 filter?: string;
-            }): Request<ListOperationsResponse>;            
+            }): Request<ListLocationsResponse>;            
             
         }
         
         interface AppsResource {
-            /** Updates the specified Application resource. You can update the following fields: */
-            /** auth_domain - Google authentication domain for controlling user access to the application. */
-            /** default_cookie_expiration - Cookie expiration policy for the application. */
-            patch(request: {            
+            /** Recreates the required App Engine features for the specified App Engine application, for example a Cloud Storage bucket or App Engine service account. Use this method if you receive an error message about a missing feature, for example, Error retrieving the App Engine service account. */
+            repair(request: {            
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -1306,10 +1308,10 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** JSONP */
-                callback?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -1320,10 +1322,40 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
+                /** Part of `name`. Name of the application to repair. Example: apps/myapp */
+                appsId: string;
+            }): Request<Operation>;            
+            
+            /** Updates the specified Application resource. You can update the following fields: */
+            /** auth_domain - Google authentication domain for controlling user access to the application. */
+            /** default_cookie_expiration - Cookie expiration policy for the application. */
+            patch(request: {            
                 /** OAuth bearer token. */
                 bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
                 /** Standard field mask for the set of fields to be updated. */
                 updateMask?: string;
                 /** Part of `name`. Name of the Application resource to update. Example: apps/myapp. */
@@ -1332,6 +1364,10 @@ declare namespace gapi.client {
             
             /** Gets information about an application. */
             get(request: {            
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -1340,10 +1376,10 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** JSONP */
-                callback?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -1354,10 +1390,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** Part of `name`. Name of the Application resource to get. Example: apps/myapp. */
                 appsId: string;
             }): Request<Application>;            
@@ -1366,6 +1398,10 @@ declare namespace gapi.client {
             /** id - The ID of the target Cloud Platform project. */
             /** location - The region (https://cloud.google.com/appengine/docs/locations) where you want the App Engine application located.For more information about App Engine applications, see Managing Projects, Applications, and Billing (https://cloud.google.com/appengine/docs/python/console/). */
             create(request: {            
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -1374,10 +1410,10 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** JSONP */
-                callback?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** OAuth access token. */
@@ -1388,47 +1424,11 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
             }): Request<Operation>;            
             
-            /** Recreates the required App Engine features for the specified App Engine application, for example a Cloud Storage bucket or App Engine service account. Use this method if you receive an error message about a missing feature, for example, Error retrieving the App Engine service account. */
-            repair(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Part of `name`. Name of the application to repair. Example: apps/myapp */
-                appsId: string;
-            }): Request<Operation>;            
-            
-            locations: LocationsResource;
             services: ServicesResource;
             operations: OperationsResource;
+            locations: LocationsResource;
         }
     }
 }

@@ -20,20 +20,22 @@ declare namespace gapi.client {
     
     namespace manufacturers {
         
-        interface ListProductsResponse {
-            /** List of the products. */
-            products?: Product[];
-            /** The token for the retrieval of the next page of product statuses. */
-            nextPageToken?: string;
-        }
-        
         interface ProductDetail {
-            /** The name of the attribute. */
-            attributeName?: string;
             /** The value of the attribute. */
             attributeValue?: string;
             /** A short section name that can be reused between multiple product details. */
             sectionName?: string;
+            /** The name of the attribute. */
+            attributeName?: string;
+        }
+        
+        interface FeatureDescription {
+            /** A short description of the feature. */
+            headline?: string;
+            /** A detailed description of the feature. */
+            text?: string;
+            /** An optional image describing the feature. */
+            image?: Image;
         }
         
         interface Issue {
@@ -52,15 +54,6 @@ declare namespace gapi.client {
             severity?: string;
         }
         
-        interface FeatureDescription {
-            /** A detailed description of the feature. */
-            text?: string;
-            /** An optional image describing the feature. */
-            image?: Image;
-            /** A short description of the feature. */
-            headline?: string;
-        }
-        
         interface Price {
             /** The numeric value of the price. */
             amount?: string;
@@ -69,6 +62,9 @@ declare namespace gapi.client {
         }
         
         interface Image {
+            /** The status of the image. */
+            /** @OutputOnly */
+            status?: string;
             /** The type of the image, i.e., crawled or uploaded. */
             /** @OutputOnly */
             type?: string;
@@ -76,12 +72,48 @@ declare namespace gapi.client {
             /** uploaded images, this is a serving URL from Google if the image has been */
             /** processed successfully. */
             imageUrl?: string;
-            /** The status of the image. */
-            /** @OutputOnly */
-            status?: string;
         }
         
         interface Attributes {
+            /** The color of the product. For more information, see */
+            /** https://support.google.com/manufacturers/answer/6124116#color. */
+            color?: string;
+            /** The canonical name of the product. For more information, see */
+            /** https://support.google.com/manufacturers/answer/6124116#productname. */
+            productName?: string;
+            /** The size type of the product. For more information, see */
+            /** https://support.google.com/manufacturers/answer/6124116#sizetype. */
+            sizeType?: string;
+            /** The suggested retail price (MSRP) of the product. For more information, */
+            /** see https://support.google.com/manufacturers/answer/6124116#price. */
+            suggestedRetailPrice?: Price;
+            /** The rich format description of the product. For more information, see */
+            /** https://support.google.com/manufacturers/answer/6124116#featuredesc. */
+            featureDescription?: FeatureDescription[];
+            /** The target account id. Should only be used in the accounts of the data */
+            /** partners. */
+            targetAccountId?: string;
+            /** The size of the product. For more information, see */
+            /** https://support.google.com/manufacturers/answer/6124116#size. */
+            size?: string;
+            /** The title of the product. For more information, see */
+            /** https://support.google.com/manufacturers/answer/6124116#title. */
+            title?: string;
+            /** The count of the product. For more information, see */
+            /** https://support.google.com/manufacturers/answer/6124116#count. */
+            count?: Count;
+            /** The brand name of the product. For more information, see */
+            /** https://support.google.com/manufacturers/answer/6124116#brand. */
+            brand?: string;
+            /** The material of the product. For more information, see */
+            /** https://support.google.com/manufacturers/answer/6124116#material. */
+            material?: string;
+            /** The disclosure date of the product. For more information, see */
+            /** https://support.google.com/manufacturers/answer/6124116#disclosure. */
+            disclosureDate?: string;
+            /** The scent of the product. For more information, see */
+            /**  https://support.google.com/manufacturers/answer/6124116#scent. */
+            scent?: string;
             /** The target age group of the product. For more information, see */
             /** https://support.google.com/manufacturers/answer/6124116#agegroup. */
             ageGroup?: string;
@@ -100,12 +132,12 @@ declare namespace gapi.client {
             /** The release date of the product. For more information, see */
             /** https://support.google.com/manufacturers/answer/6124116#release. */
             releaseDate?: string;
-            /** The item group id of the product. For more information, see */
-            /** https://support.google.com/manufacturers/answer/6124116#itemgroupid. */
-            itemGroupId?: string;
             /** The Global Trade Item Number (GTIN) of the product. For more information, */
             /** see https://support.google.com/manufacturers/answer/6124116#gtin. */
             gtin?: string[];
+            /** The item group id of the product. For more information, see */
+            /** https://support.google.com/manufacturers/answer/6124116#itemgroupid. */
+            itemGroupId?: string;
             /** The name of the group of products related to the product. For more */
             /** information, see */
             /** https://support.google.com/manufacturers/answer/6124116#productline. */
@@ -143,45 +175,6 @@ declare namespace gapi.client {
             /** The videos of the product. For more information, see */
             /** https://support.google.com/manufacturers/answer/6124116#video. */
             videoLink?: string[];
-            /** The color of the product. For more information, see */
-            /** https://support.google.com/manufacturers/answer/6124116#color. */
-            color?: string;
-            /** The canonical name of the product. For more information, see */
-            /** https://support.google.com/manufacturers/answer/6124116#productname. */
-            productName?: string;
-            /** The size type of the product. For more information, see */
-            /** https://support.google.com/manufacturers/answer/6124116#sizetype. */
-            sizeType?: string;
-            /** The suggested retail price (MSRP) of the product. For more information, */
-            /** see https://support.google.com/manufacturers/answer/6124116#price. */
-            suggestedRetailPrice?: Price;
-            /** The rich format description of the product. For more information, see */
-            /** https://support.google.com/manufacturers/answer/6124116#featuredesc. */
-            featureDescription?: FeatureDescription[];
-            /** The target account id. Should only be used in the accounts of the data */
-            /** partners. */
-            targetAccountId?: string;
-            /** The size of the product. For more information, see */
-            /** https://support.google.com/manufacturers/answer/6124116#size. */
-            size?: string;
-            /** The title of the product. For more information, see */
-            /** https://support.google.com/manufacturers/answer/6124116#title. */
-            title?: string;
-            /** The count of the product. For more information, see */
-            /** https://support.google.com/manufacturers/answer/6124116#count. */
-            count?: Count;
-            /** The brand name of the product. For more information, see */
-            /** https://support.google.com/manufacturers/answer/6124116#brand. */
-            brand?: string;
-            /** The disclosure date of the product. For more information, see */
-            /** https://support.google.com/manufacturers/answer/6124116#disclosure. */
-            disclosureDate?: string;
-            /** The material of the product. For more information, see */
-            /** https://support.google.com/manufacturers/answer/6124116#material. */
-            material?: string;
-            /** The scent of the product. For more information, see */
-            /**  https://support.google.com/manufacturers/answer/6124116#scent. */
-            scent?: string;
         }
         
         interface Count {
@@ -192,25 +185,6 @@ declare namespace gapi.client {
         }
         
         interface Product {
-            /** Name in the format `{target_country}:{content_language}:{product_id}`. */
-            /**  */
-            /** `target_country`   - The target country of the product as a CLDR territory */
-            /**                      code (for example, US). */
-            /**  */
-            /** `content_language` - The content language of the product as a two-letter */
-            /**                      ISO 639-1 language code (for example, en). */
-            /**  */
-            /** `product_id`     -   The ID of the product. For more information, see */
-            /**                      https://support.google.com/manufacturers/answer/6124116#id. */
-            /** @OutputOnly */
-            name?: string;
-            /** Names of the attributes of the product deleted manually via the */
-            /** Manufacturer Center UI. */
-            /** @OutputOnly */
-            manuallyDeletedAttributes?: string[];
-            /** A server-generated list of issues associated with the product. */
-            /** @OutputOnly */
-            issues?: Issue[];
             /** Final attributes of the product. The final attributes are obtained by */
             /** overriding the uploaded attributes with the manually provided and deleted */
             /** attributes. Google systems only process, evaluate, review, and/or use final */
@@ -232,14 +206,33 @@ declare namespace gapi.client {
             /** Attributes of the product provided manually via the Manufacturer Center UI. */
             /** @OutputOnly */
             manuallyProvidedAttributes?: Attributes;
-            /** The content language of the product as a two-letter ISO 639-1 language code */
-            /** (for example, en). */
-            /** @OutputOnly */
-            contentLanguage?: string;
             /** The target country of the product as a CLDR territory code (for example, */
             /** US). */
             /** @OutputOnly */
             targetCountry?: string;
+            /** The content language of the product as a two-letter ISO 639-1 language code */
+            /** (for example, en). */
+            /** @OutputOnly */
+            contentLanguage?: string;
+            /** Name in the format `{target_country}:{content_language}:{product_id}`. */
+            /**  */
+            /** `target_country`   - The target country of the product as a CLDR territory */
+            /**                      code (for example, US). */
+            /**  */
+            /** `content_language` - The content language of the product as a two-letter */
+            /**                      ISO 639-1 language code (for example, en). */
+            /**  */
+            /** `product_id`     -   The ID of the product. For more information, see */
+            /**                      https://support.google.com/manufacturers/answer/6124116#id. */
+            /** @OutputOnly */
+            name?: string;
+            /** A server-generated list of issues associated with the product. */
+            /** @OutputOnly */
+            issues?: Issue[];
+            /** Names of the attributes of the product deleted manually via the */
+            /** Manufacturer Center UI. */
+            /** @OutputOnly */
+            manuallyDeletedAttributes?: string[];
         }
         
         interface Capacity {
@@ -249,52 +242,14 @@ declare namespace gapi.client {
             value?: string;
         }
         
+        interface ListProductsResponse {
+            /** List of the products. */
+            products?: Product[];
+            /** The token for the retrieval of the next page of product statuses. */
+            nextPageToken?: string;
+        }
+        
         interface ProductsResource {
-            /** Deletes the product from a Manufacturer Center account. */
-            delete(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Parent ID in the format `accounts/{account_id}`. */
-                /**  */
-                /** `account_id` - The ID of the Manufacturer Center account. */
-                parent: string;
-                /** Name in the format `{target_country}:{content_language}:{product_id}`. */
-                /**  */
-                /** `target_country`   - The target country of the product as a CLDR territory */
-                /**                      code (for example, US). */
-                /**  */
-                /** `content_language` - The content language of the product as a two-letter */
-                /**                      ISO 639-1 language code (for example, en). */
-                /**  */
-                /** `product_id`     -   The ID of the product. For more information, see */
-                /**                      https://support.google.com/manufacturers/answer/6124116#id. */
-                name: string;
-            }): Request<{}>;            
-            
             /** Gets the product from a Manufacturer Center account, including product */
             /** issues. */
             /**  */
@@ -424,6 +379,51 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
+                /** Parent ID in the format `accounts/{account_id}`. */
+                /**  */
+                /** `account_id` - The ID of the Manufacturer Center account. */
+                parent: string;
+                /** Name in the format `{target_country}:{content_language}:{product_id}`. */
+                /**  */
+                /** `target_country`   - The target country of the product as a CLDR territory */
+                /**                      code (for example, US). */
+                /**  */
+                /** `content_language` - The content language of the product as a two-letter */
+                /**                      ISO 639-1 language code (for example, en). */
+                /**  */
+                /** `product_id`     -   The ID of the product. For more information, see */
+                /**                      https://support.google.com/manufacturers/answer/6124116#id. */
+                name: string;
+            }): Request<Product>;            
+            
+            /** Deletes the product from a Manufacturer Center account. */
+            delete(request: {            
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** Name in the format `{target_country}:{content_language}:{product_id}`. */
                 /**  */
                 /** `target_country`   - The target country of the product as a CLDR territory */
@@ -439,7 +439,7 @@ declare namespace gapi.client {
                 /**  */
                 /** `account_id` - The ID of the Manufacturer Center account. */
                 parent: string;
-            }): Request<Product>;            
+            }): Request<{}>;            
             
         }
         

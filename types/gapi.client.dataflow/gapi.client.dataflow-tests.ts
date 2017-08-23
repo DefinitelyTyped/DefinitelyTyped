@@ -14,9 +14,6 @@ gapi.load('client', () => {
         // declare client_id registered in Google Developers Console
         const client_id = '<<PUT YOUR CLIENT ID HERE>>';
         const scope = [     
-                // View your Google Compute Engine resources
-                'https://www.googleapis.com/auth/compute.readonly',
-            
                 // View and manage your Google Compute Engine resources
                 'https://www.googleapis.com/auth/compute',
             
@@ -25,6 +22,9 @@ gapi.load('client', () => {
             
                 // View your email address
                 'https://www.googleapis.com/auth/userinfo.email',
+            
+                // View your Google Compute Engine resources
+                'https://www.googleapis.com/auth/compute.readonly',
             ];
         const immediate = true;
 

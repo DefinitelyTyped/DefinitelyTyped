@@ -6,6 +6,7 @@
         "max-line-length": [],
         "interface-name": [false],
         "ban-types": [false],
-        "await-promise": [false]
+        "await-promise": [false],
+        "no-irregular-whitespace": [false]
     }
 }

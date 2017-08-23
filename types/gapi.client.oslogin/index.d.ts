@@ -20,37 +20,6 @@ declare namespace gapi.client {
     
     namespace oslogin {
         
-        interface PosixAccount {
-            /** System identifier for which account the username or uid applies to. */
-            /** By default, the empty value is used. */
-            systemId?: string;
-            /** The GECOS (user information) entry for this account. */
-            gecos?: string;
-            /** Only one POSIX account can be marked as primary. */
-            primary?: boolean;
-            /** The default group ID. */
-            gid?: number;
-            /** The user ID. */
-            uid?: number;
-            /** The username of the POSIX account. */
-            username?: string;
-            /** The path to the logic shell for this account. */
-            shell?: string;
-            /** The path to the home directory for this account. */
-            homeDirectory?: string;
-        }
-        
-        interface LoginProfile {
-            /** A map from SSH public key fingerprint to the associated key object. */
-            sshPublicKeys?: Record<string, SshPublicKey>;            
-            /** The list of POSIX accounts associated with the Directory API user. */
-            posixAccounts?: PosixAccount[];
-            /** A unique user ID for identifying the user. */
-            name?: string;
-            /** Indicates if the user is suspended. */
-            suspended?: boolean;
-        }
-        
         interface SshPublicKey {
             /** An expiration time in microseconds since epoch. */
             expirationTimeUsec?: string;
@@ -67,62 +36,49 @@ declare namespace gapi.client {
             loginProfile?: LoginProfile;
         }
         
+        interface PosixAccount {
+            /** Only one POSIX account can be marked as primary. */
+            primary?: boolean;
+            /** The default group ID. */
+            gid?: number;
+            /** The user ID. */
+            uid?: number;
+            /** The username of the POSIX account. */
+            username?: string;
+            /** The path to the logic shell for this account. */
+            shell?: string;
+            /** The path to the home directory for this account. */
+            homeDirectory?: string;
+            /** System identifier for which account the username or uid applies to. */
+            /** By default, the empty value is used. */
+            systemId?: string;
+            /** The GECOS (user information) entry for this account. */
+            gecos?: string;
+        }
+        
+        interface LoginProfile {
+            /** Indicates if the user is suspended. */
+            suspended?: boolean;
+            /** A map from SSH public key fingerprint to the associated key object. */
+            sshPublicKeys?: Record<string, SshPublicKey>;            
+            /** The list of POSIX accounts associated with the Directory API user. */
+            posixAccounts?: PosixAccount[];
+            /** A unique user ID for identifying the user. */
+            name?: string;
+        }
+        
         interface SshPublicKeysResource {
-            /** Deletes an SSH public key. */
-            delete(request: {            
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** The fingerprint of the public key to update. Public keys are identified by */
-                /** their SHA-256 fingerprint. The fingerprint of the public key is in format */
-                /** `users/{user}/sshPublicKeys/{fingerprint}`. */
-                name: string;
-            }): Request<{}>;            
-            
             /** Updates an SSH public key and returns the profile information. This method */
             /** supports patch semantics. */
             patch(request: {            
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
-                /** JSONP */
-                callback?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -131,34 +87,34 @@ declare namespace gapi.client {
                 access_token?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Mask to control which fields get updated. Updates all if not present. */
+                updateMask?: string;
                 /** The fingerprint of the public key to update. Public keys are identified by */
                 /** their SHA-256 fingerprint. The fingerprint of the public key is in format */
                 /** `users/{user}/sshPublicKeys/{fingerprint}`. */
                 name: string;
-                /** Mask to control which fields get updated. Updates all if not present. */
-                updateMask?: string;
             }): Request<SshPublicKey>;            
             
             /** Retrieves an SSH public key. */
             get(request: {            
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
-                /** JSONP */
-                callback?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -167,11 +123,55 @@ declare namespace gapi.client {
                 access_token?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** The fingerprint of the public key to retrieve. Public keys are identified */
                 /** by their SHA-256 fingerprint. The fingerprint of the public key is in */
                 /** format `users/{user}/sshPublicKeys/{fingerprint}`. */
                 name: string;
             }): Request<SshPublicKey>;            
+            
+            /** Deletes an SSH public key. */
+            delete(request: {            
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** The fingerprint of the public key to update. Public keys are identified by */
+                /** their SHA-256 fingerprint. The fingerprint of the public key is in format */
+                /** `users/{user}/sshPublicKeys/{fingerprint}`. */
+                name: string;
+            }): Request<{}>;            
             
         }
         
@@ -180,24 +180,14 @@ declare namespace gapi.client {
             /** account information is set when no username and UID exist as part of the */
             /** login profile. */
             importSshPublicKey(request: {            
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
-                /** JSONP */
-                callback?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -206,6 +196,16 @@ declare namespace gapi.client {
                 access_token?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** The unique ID for the user in format `users/{user}`. */
                 parent: string;
             }): Request<ImportSshPublicKeyResponse>;            
@@ -213,24 +213,14 @@ declare namespace gapi.client {
             /** Retrieves the profile information used for logging in to a virtual machine */
             /** on Google Compute Engine. */
             getLoginProfile(request: {            
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
-                /** JSONP */
-                callback?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -239,6 +229,16 @@ declare namespace gapi.client {
                 access_token?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** The unique ID for the user in format `users/{user}`. */
                 name: string;
             }): Request<LoginProfile>;            

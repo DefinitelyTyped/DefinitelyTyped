@@ -37,13 +37,6 @@ declare namespace gapi.client {
             metadata?: Record<string, any>;            
         }
         
-        interface ListOperationsResponse {
-            /** The standard List next-page token. */
-            nextPageToken?: string;
-            /** A list of operations that matches the specified filter in the request. */
-            operations?: Operation[];
-        }
-        
         interface Operation {
             /** The normal response of the operation in case of success.  If the original */
             /** method returns no data on success, such as `Delete`, the response is */
@@ -71,6 +64,13 @@ declare namespace gapi.client {
             done?: boolean;
         }
         
+        interface ListOperationsResponse {
+            /** The standard List next-page token. */
+            nextPageToken?: string;
+            /** A list of operations that matches the specified filter in the request. */
+            operations?: Operation[];
+        }
+        
         interface OperationMetadataV1Beta2 {
             /** Target of the operation - for example */
             /** projects/project-1/locations/region-1/functions/function-1 */
@@ -82,22 +82,22 @@ declare namespace gapi.client {
         }
         
         interface Status {
+            /** A list of messages that carry the error details.  There is a common set of */
+            /** message types for APIs to use. */
+            details?: Array<Record<string, any>>;            
             /** The status code, which should be an enum value of google.rpc.Code. */
             code?: number;
             /** A developer-facing error message, which should be in English. Any */
             /** user-facing error message should be localized and sent in the */
             /** google.rpc.Status.details field, or localized by the client. */
             message?: string;
-            /** A list of messages that carry the error details.  There is a common set of */
-            /** message types for APIs to use. */
-            details?: Array<Record<string, any>>;            
         }
         
         interface ListLocationsResponse {
-            /** A list of locations that matches the specified filter in the request. */
-            locations?: Location[];
             /** The standard List next-page token. */
             nextPageToken?: string;
+            /** A list of locations that matches the specified filter in the request. */
+            locations?: Location[];
         }
         
         interface OperationsResource {
@@ -105,6 +105,14 @@ declare namespace gapi.client {
             /** method to poll the operation result at intervals as recommended by the API */
             /** service. */
             get(request: {            
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
@@ -117,20 +125,12 @@ declare namespace gapi.client {
                 callback?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** OAuth access token. */
+                access_token?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
                 /** The name of the operation resource. */
                 name: string;
             }): Request<Operation>;            
@@ -146,6 +146,14 @@ declare namespace gapi.client {
             /** collection id, however overriding users must ensure the name binding */
             /** is the parent resource, without the operations collection id. */
             list(request: {            
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
@@ -158,20 +166,12 @@ declare namespace gapi.client {
                 callback?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** OAuth access token. */
+                access_token?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
                 /** The standard list page token. */
                 pageToken?: string;
                 /** The name of the operation's parent resource. */
@@ -187,6 +187,14 @@ declare namespace gapi.client {
         interface LocationsResource {
             /** Lists information about the supported locations for this service. */
             list(request: {            
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
@@ -199,28 +207,20 @@ declare namespace gapi.client {
                 callback?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** OAuth access token. */
+                access_token?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
+                /** The standard list filter. */
+                filter?: string;
                 /** The standard list page token. */
                 pageToken?: string;
                 /** The resource that owns the locations collection, if applicable. */
                 name: string;
                 /** The standard list page size. */
                 pageSize?: number;
-                /** The standard list filter. */
-                filter?: string;
             }): Request<ListLocationsResponse>;            
             
         }

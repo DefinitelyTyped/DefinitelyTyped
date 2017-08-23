@@ -20,195 +20,23 @@ declare namespace gapi.client {
     
     namespace vision {
         
-        interface Landmark {
-            /** Face landmark position. */
-            position?: Position;
-            /** Face landmark type. */
-            type?: string;
-        }
-        
-        interface WebImage {
-            /** (Deprecated) Overall relevancy score for the image. */
-            score?: number;
-            /** The result image URL. */
-            url?: string;
-        }
-        
-        interface Word {
-            /** Additional information detected for the word. */
-            property?: TextProperty;
-            /** The bounding box for the word. */
-            /** The vertices are in the order of top-left, top-right, bottom-right, */
-            /** bottom-left. When a rotation of the bounding box is detected the rotation */
-            /** is represented as around the top-left corner as defined when the text is */
-            /** read in the 'natural' orientation. */
-            /** For example: */
-            /**   &#42; when the text is horizontal it might look like: */
-            /**      0----1 */
-            /**      |    | */
-            /**      3----2 */
-            /**   &#42; when it's rotated 180 degrees around the top-left corner it becomes: */
-            /**      2----3 */
-            /**      |    | */
-            /**      1----0 */
-            /**   and the vertice order will still be (0, 1, 2, 3). */
-            boundingBox?: BoundingPoly;
-            /** List of symbols in the word. */
-            /** The order of the symbols follows the natural reading order. */
-            symbols?: Symbol[];
-        }
-        
-        interface Paragraph {
-            /** The bounding box for the paragraph. */
-            /** The vertices are in the order of top-left, top-right, bottom-right, */
-            /** bottom-left. When a rotation of the bounding box is detected the rotation */
-            /** is represented as around the top-left corner as defined when the text is */
-            /** read in the 'natural' orientation. */
-            /** For example: */
-            /**   &#42; when the text is horizontal it might look like: */
-            /**      0----1 */
-            /**      |    | */
-            /**      3----2 */
-            /**   &#42; when it's rotated 180 degrees around the top-left corner it becomes: */
-            /**      2----3 */
-            /**      |    | */
-            /**      1----0 */
-            /**   and the vertice order will still be (0, 1, 2, 3). */
-            boundingBox?: BoundingPoly;
-            /** List of words in this paragraph. */
-            words?: Word[];
-            /** Additional information detected for the paragraph. */
-            property?: TextProperty;
-        }
-        
-        interface Image {
-            /** Google Cloud Storage image location. If both `content` and `source` */
-            /** are provided for an image, `content` takes precedence and is */
-            /** used to perform the image annotation request. */
-            source?: ImageSource;
-            /** Image content, represented as a stream of bytes. */
-            /** Note: as with all `bytes` fields, protobuffers use a pure binary */
-            /** representation, whereas JSON representations use base64. */
-            content?: string;
-        }
-        
-        interface FaceAnnotation {
-            /** The bounding polygon around the face. The coordinates of the bounding box */
-            /** are in the original image's scale, as returned in `ImageParams`. */
-            /** The bounding box is computed to "frame" the face in accordance with human */
-            /** expectations. It is based on the landmarker results. */
-            /** Note that one or more x and/or y coordinates may not be generated in the */
-            /** `BoundingPoly` (the polygon will be unbounded) if only a partial face */
-            /** appears in the image to be annotated. */
-            boundingPoly?: BoundingPoly;
-            /** Roll angle, which indicates the amount of clockwise/anti-clockwise rotation */
-            /** of the face relative to the image vertical about the axis perpendicular to */
-            /** the face. Range [-180,180]. */
-            rollAngle?: number;
-            /** Sorrow likelihood. */
-            sorrowLikelihood?: string;
-            /** Pitch angle, which indicates the upwards/downwards angle that the face is */
-            /** pointing relative to the image's horizontal plane. Range [-180,180]. */
-            tiltAngle?: number;
-            /** The `fd_bounding_poly` bounding polygon is tighter than the */
-            /** `boundingPoly`, and encloses only the skin part of the face. Typically, it */
-            /** is used to eliminate the face from any image analysis that detects the */
-            /** "amount of skin" visible in an image. It is not based on the */
-            /** landmarker results, only on the initial face detection, hence */
-            /** the <code>fd</code> (face detection) prefix. */
-            fdBoundingPoly?: BoundingPoly;
-            /** Surprise likelihood. */
-            surpriseLikelihood?: string;
-            /** Detected face landmarks. */
-            landmarks?: Landmark[];
-            /** Anger likelihood. */
-            angerLikelihood?: string;
-            /** Face landmarking confidence. Range [0, 1]. */
-            landmarkingConfidence?: number;
-            /** Joy likelihood. */
-            joyLikelihood?: string;
-            /** Under-exposed likelihood. */
-            underExposedLikelihood?: string;
-            /** Yaw angle, which indicates the leftward/rightward angle that the face is */
-            /** pointing relative to the vertical plane perpendicular to the image. Range */
-            /** [-180,180]. */
-            panAngle?: number;
-            /** Detection confidence. Range [0, 1]. */
-            detectionConfidence?: number;
-            /** Blurred likelihood. */
-            blurredLikelihood?: string;
-            /** Headwear likelihood. */
-            headwearLikelihood?: string;
-        }
-        
-        interface BatchAnnotateImagesRequest {
-            /** Individual image annotation requests for this batch. */
-            requests?: AnnotateImageRequest[];
-        }
-        
-        interface DetectedBreak {
-            /** Detected break type. */
-            type?: string;
-            /** True if break prepends the element. */
-            isPrefix?: boolean;
-        }
-        
-        interface ImageContext {
-            /** Parameters for crop hints annotation request. */
-            cropHintsParams?: CropHintsParams;
-            /** List of languages to use for TEXT_DETECTION. In most cases, an empty value */
-            /** yields the best results since it enables automatic language detection. For */
-            /** languages based on the Latin alphabet, setting `language_hints` is not */
-            /** needed. In rare cases, when the language of the text in the image is known, */
-            /** setting a hint will help get better results (although it will be a */
-            /** significant hindrance if the hint is wrong). Text detection returns an */
-            /** error if one or more of the specified languages is not one of the */
-            /** [supported languages](/vision/docs/languages). */
-            languageHints?: string[];
-            /** lat/long rectangle that specifies the location of the image. */
-            latLongRect?: LatLongRect;
-        }
-        
-        interface Page {
-            /** Page height in pixels. */
-            height?: number;
-            /** Page width in pixels. */
-            width?: number;
-            /** List of blocks of text, images etc on this page. */
-            blocks?: Block[];
-            /** Additional information detected on the page. */
-            property?: TextProperty;
-        }
-        
-        interface AnnotateImageRequest {
-            /** Requested features. */
-            features?: Feature[];
-            /** The image to be processed. */
-            image?: Image;
-            /** Additional context that may accompany the image. */
-            imageContext?: ImageContext;
-        }
-        
         interface Status {
-            /** A list of messages that carry the error details.  There is a common set of */
-            /** message types for APIs to use. */
-            details?: Array<Record<string, any>>;            
             /** The status code, which should be an enum value of google.rpc.Code. */
             code?: number;
             /** A developer-facing error message, which should be in English. Any */
             /** user-facing error message should be localized and sent in the */
             /** google.rpc.Status.details field, or localized by the client. */
             message?: string;
-        }
-        
-        interface LatLongRect {
-            /** Min lat/long pair. */
-            minLatLng?: LatLng;
-            /** Max lat/long pair. */
-            maxLatLng?: LatLng;
+            /** A list of messages that carry the error details.  There is a common set of */
+            /** message types for APIs to use. */
+            details?: Array<Record<string, any>>;            
         }
         
         interface Symbol {
+            /** The actual UTF-8 representation of the symbol. */
+            text?: string;
+            /** Additional information detected for the symbol. */
+            property?: TextProperty;
             /** The bounding box for the symbol. */
             /** The vertices are in the order of top-left, top-right, bottom-right, */
             /** bottom-left. When a rotation of the bounding box is detected the rotation */
@@ -225,10 +53,13 @@ declare namespace gapi.client {
             /**      1----0 */
             /**   and the vertice order will still be (0, 1, 2, 3). */
             boundingBox?: BoundingPoly;
-            /** The actual UTF-8 representation of the symbol. */
-            text?: string;
-            /** Additional information detected for the symbol. */
-            property?: TextProperty;
+        }
+        
+        interface LatLongRect {
+            /** Max lat/long pair. */
+            maxLatLng?: LatLng;
+            /** Min lat/long pair. */
+            minLatLng?: LatLng;
         }
         
         interface CropHintsAnnotation {
@@ -277,16 +108,16 @@ declare namespace gapi.client {
         }
         
         interface SafeSearchAnnotation {
-            /** Violence likelihood. */
-            violence?: string;
-            /** Represents the adult content likelihood for the image. */
-            adult?: string;
             /** Spoof likelihood. The likelihood that an modification */
             /** was made to the image's canonical version to make it appear */
             /** funny or offensive. */
             spoof?: string;
             /** Likelihood that this is a medical image. */
             medical?: string;
+            /** Violence likelihood. */
+            violence?: string;
+            /** Represents the adult content likelihood for the image. */
+            adult?: string;
         }
         
         interface DominantColorsAnnotation {
@@ -301,6 +132,13 @@ declare namespace gapi.client {
             text?: string;
         }
         
+        interface Vertex {
+            /** Y coordinate. */
+            y?: number;
+            /** X coordinate. */
+            x?: number;
+        }
+        
         interface DetectedLanguage {
             /** Confidence of detected language. Range [0, 1]. */
             confidence?: number;
@@ -310,28 +148,6 @@ declare namespace gapi.client {
             languageCode?: string;
         }
         
-        interface Vertex {
-            /** Y coordinate. */
-            y?: number;
-            /** X coordinate. */
-            x?: number;
-        }
-        
-        interface WebEntity {
-            /** Opaque entity ID. */
-            entityId?: string;
-            /** Canonical description of the entity, in English. */
-            description?: string;
-            /** Overall relevancy score for the entity. */
-            /** Not normalized and not comparable across different image queries. */
-            score?: number;
-        }
-        
-        interface BoundingPoly {
-            /** The bounding polygon vertices. */
-            vertices?: Vertex[];
-        }
-        
         interface TextProperty {
             /** A list of detected languages together with confidence. */
             detectedLanguages?: DetectedLanguage[];
@@ -339,11 +155,22 @@ declare namespace gapi.client {
             detectedBreak?: DetectedBreak;
         }
         
+        interface BoundingPoly {
+            /** The bounding polygon vertices. */
+            vertices?: Vertex[];
+        }
+        
+        interface WebEntity {
+            /** Overall relevancy score for the entity. */
+            /** Not normalized and not comparable across different image queries. */
+            score?: number;
+            /** Opaque entity ID. */
+            entityId?: string;
+            /** Canonical description of the entity, in English. */
+            description?: string;
+        }
+        
         interface AnnotateImageResponse {
-            /** If present, landmark detection has completed successfully. */
-            landmarkAnnotations?: EntityAnnotation[];
-            /** If present, text (OCR) detection has completed successfully. */
-            textAnnotations?: EntityAnnotation[];
             /** If present, image properties were extracted successfully. */
             imagePropertiesAnnotation?: ImageProperties;
             /** If present, face detection has completed successfully. */
@@ -367,6 +194,10 @@ declare namespace gapi.client {
             /** This annotation provides the structural hierarchy for the OCR detected */
             /** text. */
             fullTextAnnotation?: TextAnnotation;
+            /** If present, landmark detection has completed successfully. */
+            landmarkAnnotations?: EntityAnnotation[];
+            /** If present, text (OCR) detection has completed successfully. */
+            textAnnotations?: EntityAnnotation[];
         }
         
         interface CropHintsParams {
@@ -418,6 +249,27 @@ declare namespace gapi.client {
             latLng?: LatLng;
         }
         
+        interface WebDetection {
+            /** Deduced entities from similar images on the Internet. */
+            webEntities?: WebEntity[];
+            /** Web pages containing the matching images from the Internet. */
+            pagesWithMatchingImages?: WebPage[];
+            /** The visually similar image results. */
+            visuallySimilarImages?: WebImage[];
+            /** Partial matching images from the Internet. */
+            /** Those images are similar enough to share some key-point features. For */
+            /** example an original image will likely have partial matching for its crops. */
+            partialMatchingImages?: WebImage[];
+            /** Fully matching images from the Internet. */
+            /** Can include resized copies of the query image. */
+            fullMatchingImages?: WebImage[];
+        }
+        
+        interface BatchAnnotateImagesResponse {
+            /** Individual responses to image annotation requests within the batch. */
+            responses?: AnnotateImageResponse[];
+        }
+        
         interface ImageSource {
             /** NOTE: For new code `image_uri` below is preferred. */
             /** Google Cloud Storage image URI, which must be in the following form: */
@@ -437,27 +289,6 @@ declare namespace gapi.client {
             /** `gcs_image_uri` and `image_uri` are specified, `image_uri` takes */
             /** precedence. */
             imageUri?: string;
-        }
-        
-        interface WebDetection {
-            /** Fully matching images from the Internet. */
-            /** Can include resized copies of the query image. */
-            fullMatchingImages?: WebImage[];
-            /** Deduced entities from similar images on the Internet. */
-            webEntities?: WebEntity[];
-            /** Web pages containing the matching images from the Internet. */
-            pagesWithMatchingImages?: WebPage[];
-            /** The visually similar image results. */
-            visuallySimilarImages?: WebImage[];
-            /** Partial matching images from the Internet. */
-            /** Those images are similar enough to share some key-point features. For */
-            /** example an original image will likely have partial matching for its crops. */
-            partialMatchingImages?: WebImage[];
-        }
-        
-        interface BatchAnnotateImagesResponse {
-            /** Individual responses to image annotation requests within the batch. */
-            responses?: AnnotateImageResponse[];
         }
         
         interface Position {
@@ -487,6 +318,20 @@ declare namespace gapi.client {
         }
         
         interface EntityAnnotation {
+            /** Opaque entity ID. Some IDs may be available in */
+            /** [Google Knowledge Graph Search API](https://developers.google.com/knowledge-graph/). */
+            mid?: string;
+            /** The accuracy of the entity detection in an image. */
+            /** For example, for an image in which the "Eiffel Tower" entity is detected, */
+            /** this field represents the confidence that there is a tower in the query */
+            /** image. Range [0, 1]. */
+            confidence?: number;
+            /** Image region to which this entity belongs. Not produced */
+            /** for `LABEL_DETECTION` features. */
+            boundingPoly?: BoundingPoly;
+            /** The language code for the locale in which the entity textual */
+            /** `description` is expressed. */
+            locale?: string;
             /** The relevancy of the ICA (Image Content Annotation) label to the */
             /** image. For example, the relevancy of "tower" is likely higher to an image */
             /** containing the detected "Eiffel Tower" than to an image containing a */
@@ -506,20 +351,6 @@ declare namespace gapi.client {
             /** may indicate the location of the place where the image was taken. */
             /** Location information is usually present for landmarks. */
             locations?: LocationInfo[];
-            /** Opaque entity ID. Some IDs may be available in */
-            /** [Google Knowledge Graph Search API](https://developers.google.com/knowledge-graph/). */
-            mid?: string;
-            /** The accuracy of the entity detection in an image. */
-            /** For example, for an image in which the "Eiffel Tower" entity is detected, */
-            /** this field represents the confidence that there is a tower in the query */
-            /** image. Range [0, 1]. */
-            confidence?: number;
-            /** Image region to which this entity belongs. Not produced */
-            /** for `LABEL_DETECTION` features. */
-            boundingPoly?: BoundingPoly;
-            /** The language code for the locale in which the entity textual */
-            /** `description` is expressed. */
-            locale?: string;
         }
         
         interface CropHint {
@@ -533,6 +364,175 @@ declare namespace gapi.client {
             boundingPoly?: BoundingPoly;
         }
         
+        interface Landmark {
+            /** Face landmark type. */
+            type?: string;
+            /** Face landmark position. */
+            position?: Position;
+        }
+        
+        interface WebImage {
+            /** The result image URL. */
+            url?: string;
+            /** (Deprecated) Overall relevancy score for the image. */
+            score?: number;
+        }
+        
+        interface Word {
+            /** List of symbols in the word. */
+            /** The order of the symbols follows the natural reading order. */
+            symbols?: Symbol[];
+            /** Additional information detected for the word. */
+            property?: TextProperty;
+            /** The bounding box for the word. */
+            /** The vertices are in the order of top-left, top-right, bottom-right, */
+            /** bottom-left. When a rotation of the bounding box is detected the rotation */
+            /** is represented as around the top-left corner as defined when the text is */
+            /** read in the 'natural' orientation. */
+            /** For example: */
+            /**   &#42; when the text is horizontal it might look like: */
+            /**      0----1 */
+            /**      |    | */
+            /**      3----2 */
+            /**   &#42; when it's rotated 180 degrees around the top-left corner it becomes: */
+            /**      2----3 */
+            /**      |    | */
+            /**      1----0 */
+            /**   and the vertice order will still be (0, 1, 2, 3). */
+            boundingBox?: BoundingPoly;
+        }
+        
+        interface Image {
+            /** Google Cloud Storage image location. If both `content` and `source` */
+            /** are provided for an image, `content` takes precedence and is */
+            /** used to perform the image annotation request. */
+            source?: ImageSource;
+            /** Image content, represented as a stream of bytes. */
+            /** Note: as with all `bytes` fields, protobuffers use a pure binary */
+            /** representation, whereas JSON representations use base64. */
+            content?: string;
+        }
+        
+        interface Paragraph {
+            /** The bounding box for the paragraph. */
+            /** The vertices are in the order of top-left, top-right, bottom-right, */
+            /** bottom-left. When a rotation of the bounding box is detected the rotation */
+            /** is represented as around the top-left corner as defined when the text is */
+            /** read in the 'natural' orientation. */
+            /** For example: */
+            /**   &#42; when the text is horizontal it might look like: */
+            /**      0----1 */
+            /**      |    | */
+            /**      3----2 */
+            /**   &#42; when it's rotated 180 degrees around the top-left corner it becomes: */
+            /**      2----3 */
+            /**      |    | */
+            /**      1----0 */
+            /**   and the vertice order will still be (0, 1, 2, 3). */
+            boundingBox?: BoundingPoly;
+            /** List of words in this paragraph. */
+            words?: Word[];
+            /** Additional information detected for the paragraph. */
+            property?: TextProperty;
+        }
+        
+        interface FaceAnnotation {
+            /** Pitch angle, which indicates the upwards/downwards angle that the face is */
+            /** pointing relative to the image's horizontal plane. Range [-180,180]. */
+            tiltAngle?: number;
+            /** The `fd_bounding_poly` bounding polygon is tighter than the */
+            /** `boundingPoly`, and encloses only the skin part of the face. Typically, it */
+            /** is used to eliminate the face from any image analysis that detects the */
+            /** "amount of skin" visible in an image. It is not based on the */
+            /** landmarker results, only on the initial face detection, hence */
+            /** the <code>fd</code> (face detection) prefix. */
+            fdBoundingPoly?: BoundingPoly;
+            /** Surprise likelihood. */
+            surpriseLikelihood?: string;
+            /** Detected face landmarks. */
+            landmarks?: Landmark[];
+            /** Anger likelihood. */
+            angerLikelihood?: string;
+            /** Joy likelihood. */
+            joyLikelihood?: string;
+            /** Face landmarking confidence. Range [0, 1]. */
+            landmarkingConfidence?: number;
+            /** Detection confidence. Range [0, 1]. */
+            detectionConfidence?: number;
+            /** Yaw angle, which indicates the leftward/rightward angle that the face is */
+            /** pointing relative to the vertical plane perpendicular to the image. Range */
+            /** [-180,180]. */
+            panAngle?: number;
+            /** Under-exposed likelihood. */
+            underExposedLikelihood?: string;
+            /** Blurred likelihood. */
+            blurredLikelihood?: string;
+            /** Headwear likelihood. */
+            headwearLikelihood?: string;
+            /** The bounding polygon around the face. The coordinates of the bounding box */
+            /** are in the original image's scale, as returned in `ImageParams`. */
+            /** The bounding box is computed to "frame" the face in accordance with human */
+            /** expectations. It is based on the landmarker results. */
+            /** Note that one or more x and/or y coordinates may not be generated in the */
+            /** `BoundingPoly` (the polygon will be unbounded) if only a partial face */
+            /** appears in the image to be annotated. */
+            boundingPoly?: BoundingPoly;
+            /** Roll angle, which indicates the amount of clockwise/anti-clockwise rotation */
+            /** of the face relative to the image vertical about the axis perpendicular to */
+            /** the face. Range [-180,180]. */
+            rollAngle?: number;
+            /** Sorrow likelihood. */
+            sorrowLikelihood?: string;
+        }
+        
+        interface BatchAnnotateImagesRequest {
+            /** Individual image annotation requests for this batch. */
+            requests?: AnnotateImageRequest[];
+        }
+        
+        interface DetectedBreak {
+            /** Detected break type. */
+            type?: string;
+            /** True if break prepends the element. */
+            isPrefix?: boolean;
+        }
+        
+        interface ImageContext {
+            /** lat/long rectangle that specifies the location of the image. */
+            latLongRect?: LatLongRect;
+            /** Parameters for crop hints annotation request. */
+            cropHintsParams?: CropHintsParams;
+            /** List of languages to use for TEXT_DETECTION. In most cases, an empty value */
+            /** yields the best results since it enables automatic language detection. For */
+            /** languages based on the Latin alphabet, setting `language_hints` is not */
+            /** needed. In rare cases, when the language of the text in the image is known, */
+            /** setting a hint will help get better results (although it will be a */
+            /** significant hindrance if the hint is wrong). Text detection returns an */
+            /** error if one or more of the specified languages is not one of the */
+            /** [supported languages](/vision/docs/languages). */
+            languageHints?: string[];
+        }
+        
+        interface Page {
+            /** Page width in pixels. */
+            width?: number;
+            /** List of blocks of text, images etc on this page. */
+            blocks?: Block[];
+            /** Additional information detected on the page. */
+            property?: TextProperty;
+            /** Page height in pixels. */
+            height?: number;
+        }
+        
+        interface AnnotateImageRequest {
+            /** Requested features. */
+            features?: Feature[];
+            /** The image to be processed. */
+            image?: Image;
+            /** Additional context that may accompany the image. */
+            imageContext?: ImageContext;
+        }
+        
         interface ImagesResource {
             /** Run image detection and annotation for a batch of images. */
             annotate(request: {            
@@ -544,24 +544,24 @@ declare namespace gapi.client {
                 uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
                 /** JSONP */
                 callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** OAuth access token. */
+                access_token?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
             }): Request<BatchAnnotateImagesResponse>;            
             
         }

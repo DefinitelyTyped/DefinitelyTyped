@@ -20,54 +20,7 @@ declare namespace gapi.client {
     
     namespace cloudtrace {
         
-        interface Links {
-            /** A collection of links. */
-            link?: Link[];
-            /** The number of dropped links after the maximum size was enforced. If */
-            /** this value is 0, then no links were dropped. */
-            droppedLinksCount?: number;
-        }
-        
-        interface StackTrace {
-            /** The hash ID is used to conserve network bandwidth for duplicate */
-            /** stack traces within a single trace. */
-            /**  */
-            /** Often multiple spans will have identical stack traces. */
-            /** The first occurrence of a stack trace should contain both the */
-            /** `stackFrame` content and a value in `stackTraceHashId`. */
-            /**  */
-            /** Subsequent spans within the same request can refer */
-            /** to that stack trace by only setting `stackTraceHashId`. */
-            stackTraceHashId?: string;
-            /** Stack frames in this stack trace. A maximum of 128 frames are allowed. */
-            stackFrames?: StackFrames;
-        }
-        
-        interface TruncatableString {
-            /** The number of bytes removed from the original string. If this */
-            /** value is 0, then the string was not shortened. */
-            truncatedByteCount?: number;
-            /** The shortened string. For example, if the original string was 500 */
-            /** bytes long and the limit of the string was 128 bytes, then this */
-            /** value contains the first 128 bytes of the 500-byte string. Note that */
-            /** truncation always happens on the character boundary, to ensure that */
-            /** truncated string is still valid UTF8. In case of multi-byte characters, */
-            /** size of truncated string can be less than truncation limit. */
-            value?: string;
-        }
-        
-        interface TimeEvent {
-            /** An event describing an RPC message sent/received on the network. */
-            networkEvent?: NetworkEvent;
-            /** One or more key:value pairs. */
-            annotation?: Annotation;
-            /** The timestamp indicating the time the event occurred. */
-            time?: string;
-        }
-        
         interface NetworkEvent {
-            /** The number of bytes sent or received. */
-            messageSize?: string;
             /** For sent messages, this is the time at which the first bit was sent. */
             /** For received messages, this is the time at which the last bit was */
             /** received. */
@@ -77,6 +30,8 @@ declare namespace gapi.client {
             type?: string;
             /** An identifier for the message, which must be unique in this span. */
             messageId?: string;
+            /** The number of bytes sent or received. */
+            messageSize?: string;
         }
         
         interface ListSpansResponse {
@@ -89,13 +44,6 @@ declare namespace gapi.client {
         }
         
         interface StackFrame {
-            /** An un-mangled function name, if `function_name` is */
-            /** [mangled](http://www.avabodh.com/cxxin/namemangling.html). The name can */
-            /** be fully-qualified (up to 1024 bytes). */
-            originalFunctionName?: TruncatableString;
-            /** The fully-qualified name that uniquely identifies the function or */
-            /** method that is active in this frame (up to 1024 bytes). */
-            functionName?: TruncatableString;
             /** The line number in `file_name` where the function call appears. */
             lineNumber?: string;
             /** The binary module from where the code was loaded. */
@@ -108,6 +56,13 @@ declare namespace gapi.client {
             fileName?: TruncatableString;
             /** The version of the deployed source code (up to 128 bytes). */
             sourceVersion?: TruncatableString;
+            /** An un-mangled function name, if `function_name` is */
+            /** [mangled](http://www.avabodh.com/cxxin/namemangling.html). The name can */
+            /** be fully-qualified (up to 1024 bytes). */
+            originalFunctionName?: TruncatableString;
+            /** The fully-qualified name that uniquely identifies the function or */
+            /** method that is active in this frame (up to 1024 bytes). */
+            functionName?: TruncatableString;
         }
         
         interface Link {
@@ -149,14 +104,14 @@ declare namespace gapi.client {
         }
         
         interface TimeEvents {
-            /** A collection of `TimeEvent`s. */
-            timeEvent?: TimeEvent[];
             /** The number of dropped network events in all the included time events. */
             /** If the value is 0, then no network events were dropped. */
             droppedNetworkEventsCount?: number;
             /** The number of dropped annotations in all the included time events. */
             /** If the value is 0, then no annotations were dropped. */
             droppedAnnotationsCount?: number;
+            /** A collection of `TimeEvent`s. */
+            timeEvent?: TimeEvent[];
         }
         
         interface Module {
@@ -195,28 +150,6 @@ declare namespace gapi.client {
         }
         
         interface Span {
-            /** The [SPAN_ID] of this span's parent span. If this is a root span, */
-            /** then this field must be empty. */
-            parentSpanId?: string;
-            /** The end time of the span. On the client side, this is the time kept by */
-            /** the local machine where the span execution ends. On the server side, this */
-            /** is the time when the server application handler stops running. */
-            endTime?: string;
-            /** The start time of the span. On the client side, this is the time kept by */
-            /** the local machine where the span execution starts. On the server side, this */
-            /** is the time when the server's application handler starts running. */
-            startTime?: string;
-            /** A description of the span's operation (up to 128 bytes). */
-            /** Stackdriver Trace displays the description in the */
-            /** {% dynamic print site_values.console_name %}. */
-            /** For example, the display name can be a qualified method name or a file name */
-            /** and a line number where the operation is called. A best practice is to use */
-            /** the same display name within an application and at the same call point. */
-            /** This makes it easier to correlate spans in different traces. */
-            displayName?: TruncatableString;
-            /** The included time events. There can be up to 32 annotations and 128 network */
-            /** events per span. */
-            timeEvents?: TimeEvents;
             /** A maximum of 128 links are allowed per Span. */
             links?: Links;
             /** A set of attributes on the span. There is a limit of 32 attributes per */
@@ -241,15 +174,37 @@ declare namespace gapi.client {
             name?: string;
             /** Stack trace captured at the start of the span. */
             stackTrace?: StackTrace;
+            /** The [SPAN_ID] of this span's parent span. If this is a root span, */
+            /** then this field must be empty. */
+            parentSpanId?: string;
+            /** The end time of the span. On the client side, this is the time kept by */
+            /** the local machine where the span execution ends. On the server side, this */
+            /** is the time when the server application handler stops running. */
+            endTime?: string;
+            /** The start time of the span. On the client side, this is the time kept by */
+            /** the local machine where the span execution starts. On the server side, this */
+            /** is the time when the server's application handler starts running. */
+            startTime?: string;
+            /** A description of the span's operation (up to 128 bytes). */
+            /** Stackdriver Trace displays the description in the */
+            /** {% dynamic print site_values.console_name %}. */
+            /** For example, the display name can be a qualified method name or a file name */
+            /** and a line number where the operation is called. A best practice is to use */
+            /** the same display name within an application and at the same call point. */
+            /** This makes it easier to correlate spans in different traces. */
+            displayName?: TruncatableString;
+            /** The included time events. There can be up to 32 annotations and 128 network */
+            /** events per span. */
+            timeEvents?: TimeEvents;
         }
         
         interface AttributeValue {
-            /** A 64-bit signed integer. */
-            intValue?: string;
             /** A Boolean value represented by `true` or `false`. */
             boolValue?: boolean;
             /** A string up to 256 bytes long. */
             stringValue?: TruncatableString;
+            /** A 64-bit signed integer. */
+            intValue?: string;
         }
         
         interface Attributes {
@@ -268,13 +223,54 @@ declare namespace gapi.client {
             attributeMap?: Record<string, AttributeValue>;            
         }
         
+        interface Links {
+            /** The number of dropped links after the maximum size was enforced. If */
+            /** this value is 0, then no links were dropped. */
+            droppedLinksCount?: number;
+            /** A collection of links. */
+            link?: Link[];
+        }
+        
+        interface TruncatableString {
+            /** The number of bytes removed from the original string. If this */
+            /** value is 0, then the string was not shortened. */
+            truncatedByteCount?: number;
+            /** The shortened string. For example, if the original string was 500 */
+            /** bytes long and the limit of the string was 128 bytes, then this */
+            /** value contains the first 128 bytes of the 500-byte string. Note that */
+            /** truncation always happens on the character boundary, to ensure that */
+            /** truncated string is still valid UTF8. In case of multi-byte characters, */
+            /** size of truncated string can be less than truncation limit. */
+            value?: string;
+        }
+        
+        interface StackTrace {
+            /** The hash ID is used to conserve network bandwidth for duplicate */
+            /** stack traces within a single trace. */
+            /**  */
+            /** Often multiple spans will have identical stack traces. */
+            /** The first occurrence of a stack trace should contain both the */
+            /** `stackFrame` content and a value in `stackTraceHashId`. */
+            /**  */
+            /** Subsequent spans within the same request can refer */
+            /** to that stack trace by only setting `stackTraceHashId`. */
+            stackTraceHashId?: string;
+            /** Stack frames in this stack trace. A maximum of 128 frames are allowed. */
+            stackFrames?: StackFrames;
+        }
+        
+        interface TimeEvent {
+            /** One or more key:value pairs. */
+            annotation?: Annotation;
+            /** The timestamp indicating the time the event occurred. */
+            time?: string;
+            /** An event describing an RPC message sent/received on the network. */
+            networkEvent?: NetworkEvent;
+        }
+        
         interface SpansResource {
             /** Creates a new Span. */
             create(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -297,6 +293,10 @@ declare namespace gapi.client {
                 bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** The resource name of the span in the following format: */
                 /**  */
                 /**     projects/[PROJECT_ID]traces/[TRACE_ID]/spans/SPAN_ID is a unique identifier for a trace within a project. */
@@ -308,12 +308,8 @@ declare namespace gapi.client {
         }
         
         interface TracesResource {
-            /** Returns of a list of traces that match the specified filter conditions. */
-            list(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
+            /** Returns a list of spans within a trace. */
+            listSpans(request: {            
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -336,6 +332,48 @@ declare namespace gapi.client {
                 bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Optional. If present, then retrieve the next batch of results from the */
+                /** preceding call to this method. `page_token` must be the value of */
+                /** `next_page_token` from the previous response. The values of other method */
+                /** parameters should be identical to those in the previous call. */
+                pageToken?: string;
+                /** Required: The resource name of the trace containing the spans to list. */
+                /** The format is `projects/PROJECT_ID/traces/TRACE_ID`. */
+                parent: string;
+            }): Request<ListSpansResponse>;            
+            
+            /** Returns of a list of traces that match the specified filter conditions. */
+            list(request: {            
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** Optional. A single field used to sort the returned traces. */
                 /** Only the following field names can be used: */
                 /**  */
@@ -377,10 +415,6 @@ declare namespace gapi.client {
             /** undefined behavior. If the name does not match, a new trace is created */
             /** with given set of spans. */
             batchWrite(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
@@ -403,48 +437,14 @@ declare namespace gapi.client {
                 bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** Required. Name of the project where the spans belong. The format is */
                 /** `projects/PROJECT_ID`. */
                 name: string;
             }): Request<{}>;            
-            
-            /** Returns a list of spans within a trace. */
-            listSpans(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Optional. If present, then retrieve the next batch of results from the */
-                /** preceding call to this method. `page_token` must be the value of */
-                /** `next_page_token` from the previous response. The values of other method */
-                /** parameters should be identical to those in the previous call. */
-                pageToken?: string;
-                /** Required: The resource name of the trace containing the spans to list. */
-                /** The format is `projects/PROJECT_ID/traces/TRACE_ID`. */
-                parent: string;
-            }): Request<ListSpansResponse>;            
             
             spans: SpansResource;
         }

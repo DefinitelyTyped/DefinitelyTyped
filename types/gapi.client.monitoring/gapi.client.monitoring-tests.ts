@@ -14,9 +14,6 @@ gapi.load('client', () => {
         // declare client_id registered in Google Developers Console
         const client_id = '<<PUT YOUR CLIENT ID HERE>>';
         const scope = [     
-                // View and write monitoring data for all of your Google and third-party Cloud and API projects
-                'https://www.googleapis.com/auth/monitoring',
-            
                 // Publish metric data to your Google Cloud projects
                 'https://www.googleapis.com/auth/monitoring.write',
             
@@ -25,6 +22,9 @@ gapi.load('client', () => {
             
                 // View and manage your data across Google Cloud Platform services
                 'https://www.googleapis.com/auth/cloud-platform',
+            
+                // View and write monitoring data for all of your Google and third-party Cloud and API projects
+                'https://www.googleapis.com/auth/monitoring',
             ];
         const immediate = true;
 
