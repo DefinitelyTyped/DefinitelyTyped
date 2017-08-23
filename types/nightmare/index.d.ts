@@ -138,6 +138,8 @@ declare namespace Nightmare {
         phantomPath?: string;
         show?: boolean;
         typeInterval?: number;
+        x?: number;
+        y?: number;
     }
 
     export interface IRequest {
