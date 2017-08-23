@@ -49,7 +49,7 @@ i18n.init({
     overloadTranslationOptionHandler: (args: any[]) => {
         return translationOptions;
     },
-    interpolation: translationOptions,
+    interpolation: { prefix: "foo-" },
     detection: null,
     backend: null,
     cache: null,
