@@ -2,6 +2,7 @@
 // Project: https://github.com/OwlCarousel2/OwlCarousel2
 // Definitions by: Ismael Gorissen <https://github.com/igorissen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="jquery"/>
 
@@ -51,7 +52,7 @@ declare namespace OwlCarousel {
         animateOut?: string | boolean;
         animateIn?: string | boolean;
         fallbackEasing?: string;
-        info?: Function;
+        info?: HandlerCallback;
         nestedItemSelector?: string;
         itemElement?: string;
         stageElement?: string;
@@ -74,23 +75,25 @@ declare namespace OwlCarousel {
         autoHeightClass?: string;
         responsiveClass?: string | boolean;
         // EVENTS
-        onInitialize?: Function;
-        onInitialized?: Function;
-        onResize?: Function;
-        onResized?: Function;
-        onRefresh?: Function;
-        onRefreshed?: Function;
-        onDrag?: Function;
-        onDragged?: Function;
-        onTranslate?: Function;
-        onTranslated?: Function;
-        onChange?: Function;
-        onChanged?: Function;
-        onLoadLazy?: Function;
-        onLoadedLazy?: Function;
-        onStopVideo?: Function;
-        onPlayVideo?: Function;
+        onInitialize?: HandlerCallback;
+        onInitialized?: HandlerCallback;
+        onResize?: HandlerCallback;
+        onResized?: HandlerCallback;
+        onRefresh?: HandlerCallback;
+        onRefreshed?: HandlerCallback;
+        onDrag?: HandlerCallback;
+        onDragged?: HandlerCallback;
+        onTranslate?: HandlerCallback;
+        onTranslated?: HandlerCallback;
+        onChange?: HandlerCallback;
+        onChanged?: HandlerCallback;
+        onLoadLazy?: HandlerCallback;
+        onLoadedLazy?: HandlerCallback;
+        onStopVideo?: HandlerCallback;
+        onPlayVideo?: HandlerCallback;
     }
+
+    type HandlerCallback = (...args: any[]) => void;
 
     type OnEvent = 'initialize.owl.carousel'
         | 'initialized.owl.carousel'
@@ -124,7 +127,7 @@ declare namespace OwlCarousel {
 interface JQuery {
     owlCarousel(options?: OwlCarousel.Options | 'destroy'): JQuery;
 
-    on(event: OwlCarousel.OnEvent, handler: (...args: any[]) => void): JQuery;
+    on(event: OwlCarousel.OnEvent, handler: OwlCarousel.HandlerCallback): JQuery;
 
     trigger(event: OwlCarousel.TriggerEvent): JQuery;
 }
