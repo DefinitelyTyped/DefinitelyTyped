@@ -4199,7 +4199,7 @@ namespace TestFlatMap {
 }
 
 // _.flatMapDeep
-namespace TestFlatMap {
+namespace TestFlatMapDeep {
     let numArray: (number|number[])[] | null | undefined = [1, [2, 3]] as any;
     let objArray: ({a: number}|{a: number}[])[] | null | undefined = [{a: 1}, [{a: 2}, {a: 3}]] as any;
 
@@ -4215,92 +4215,72 @@ namespace TestFlatMap {
 
     let stringIterator: (value: string, index: number, collection: _.List<string>) => string|string[] = (a, b, c) => "";
 
-    let listIterator: (value: number, index: number, collection: _.List<number|number[]>) => number|number[] = (a, b, c) => 1;
+    let listIterator: (value: number|number[], index: number, collection: _.List<number|number[]>) => number|number[] = (a, b, c) => 1;
 
-    let dictionaryIterator: (value: number, key: number, collection: _.Dictionary<number|number[]>) => number|number[] = (a, b, c) => 1;
+    let dictionaryIterator: (value: number|number[], key: string, collection: _.Dictionary<number|number[]>) => number|number[] = (a, b, c) => 1;
 
-    let numericDictionaryIterator: (value: number, key: number, collection: _.NumericDictionary<number|number[]>) => number|number[] = (a, b, c) => 1;
+    let numericDictionaryIterator: (value: number|number[], key: number, collection: _.NumericDictionary<number|number[]>) => number|number[] = (a, b, c) => 1;
 
     {
         let result: string[];
 
         result = _.flatMapDeep<string>('abc');
-        result = _.flatMapDeep<string>('abc');
+        result = _.flatMapDeep('abc');
 
         result = _.flatMapDeep<string, string>('abc', stringIterator);
-        result = _.flatMapDeep<string>('abc', stringIterator);
+        result = _.flatMapDeep('abc', stringIterator);
     }
 
     {
         let result: number[];
 
-        result = _.flatMapDeep<number|number[], number>(numArray);
+        result = _.flatMapDeep(numArray);
         result = _.flatMapDeep<number>(numArray);
 
+        result = _.flatMapDeep(numArray, listIterator);
         result = _.flatMapDeep<number|number[], number>(numArray, listIterator);
-        result = _.flatMapDeep<number>(numArray, listIterator);
 
-        result = _.flatMapDeep<({a: number}|{a: number}[])[], number>(objArray, 'a');
         result = _.flatMapDeep<number>(objArray, 'a');
 
-        result = _.flatMapDeep<number|number[], number>(numList);
+        result = _.flatMapDeep(numList);
         result = _.flatMapDeep<number>(numList);
 
+        result = _.flatMapDeep(numList, listIterator);
         result = _.flatMapDeep<number|number[], number>(numList, listIterator);
-        result = _.flatMapDeep<number>(numList, listIterator);
 
-        result = _.flatMapDeep<_.List<{a: number}|{a: number}[]>, number>(objList, 'a');
         result = _.flatMapDeep<number>(objList, 'a');
 
-        result = _.flatMapDeep<number|number[], number>(numDictionary);
+        result = _.flatMapDeep(numDictionary);
         result = _.flatMapDeep<number>(numDictionary);
 
+        result = _.flatMapDeep(numDictionary, dictionaryIterator);
         result = _.flatMapDeep<number|number[], number>(numDictionary, dictionaryIterator);
-        result = _.flatMapDeep<number>(numDictionary, dictionaryIterator);
 
-        result = _.flatMapDeep<_.Dictionary<{a: number}|{a: number}[]>, number>(objDictionary, 'a');
         result = _.flatMapDeep<number>(objDictionary, 'a');
 
-        result = _.flatMapDeep<number|number[], number>(numNumericDictionary);
+        result = _.flatMapDeep(numNumericDictionary);
         result = _.flatMapDeep<number>(numNumericDictionary);
 
+        result = _.flatMapDeep(numNumericDictionary, numericDictionaryIterator);
         result = _.flatMapDeep<number|number[], number>(numNumericDictionary, numericDictionaryIterator);
-        result = _.flatMapDeep<number>(numNumericDictionary, numericDictionaryIterator);
 
         result = _.flatMapDeep<_.NumericDictionary<{a: number}|{a: number}[]>, number>(objNumericDictionary, 'a');
-        result = _.flatMapDeep<number>(objNumericDictionary, 'a');
     }
 
     {
         let result: boolean[];
 
-        result = _.flatMapDeep<({a: number}|{a: number}[])[], boolean>(objArray, ['a', 42]);
-        result = _.flatMapDeep<boolean>(objArray, ['a', 42]);
+        result = _.flatMapDeep(objArray, ['a', 42]);
+        result = _.flatMapDeep(objArray, {'a': 42});
 
-        result = _.flatMapDeep<{a: number}, ({a: number}|{a: number}[])[]>(objArray, {'a': 42});
-        result = _.flatMapDeep<({a: number}|{a: number}[])[], boolean>(objArray, {'a': 42});
-        result = _.flatMapDeep<boolean>(objArray, {'a': 42});
+        result = _.flatMapDeep(objList, ['a', 42]);
+        result = _.flatMapDeep(objList, {'a': 42});
 
-        result = _.flatMapDeep<_.List<{a: number}|{a: number}[]>, boolean>(objList, ['a', 42]);
-        result = _.flatMapDeep<boolean>(objList, ['a', 42]);
+        result = _.flatMapDeep(objDictionary, ['a', 42]);
+        result = _.flatMapDeep(objDictionary, {'a': 42});
 
-        result = _.flatMapDeep<{a: number}, _.List<{a: number}|{a: number}[]>>(objList, {'a': 42});
-        result = _.flatMapDeep<_.List<{a: number}|{a: number}[]>, boolean>(objList, {'a': 42});
-        result = _.flatMapDeep<boolean>(objList, {'a': 42});
-
-        result = _.flatMapDeep<_.Dictionary<{a: number}|{a: number}[]>, boolean>(objDictionary, ['a', 42]);
-        result = _.flatMapDeep<boolean>(objDictionary, ['a', 42]);
-
-        result = _.flatMapDeep<{a: number}, _.Dictionary<{a: number}|{a: number}[]>>(objDictionary, {'a': 42});
-        result = _.flatMapDeep<_.Dictionary<{a: number}|{a: number}[]>, boolean>(objDictionary, {'a': 42});
-        result = _.flatMapDeep<boolean>(objDictionary, {'a': 42});
-
-        result = _.flatMapDeep<_.NumericDictionary<{a: number}|{a: number}[]>, boolean>(objNumericDictionary, ['a', 42]);
-        result = _.flatMapDeep<boolean>(objNumericDictionary, ['a', 42]);
-
-        result = _.flatMapDeep<{a: number}, _.NumericDictionary<{a: number}|{a: number}[]>>(objNumericDictionary, {'a': 42});
-        result = _.flatMapDeep<_.NumericDictionary<{a: number}|{a: number}[]>, boolean>(objNumericDictionary, {'a': 42});
-        result = _.flatMapDeep<boolean>(objNumericDictionary, {'a': 42});
+        result = _.flatMapDeep(objNumericDictionary, ['a', 42]);
+        result = _.flatMapDeep(objNumericDictionary, {'a': 42});
     }
 
     {
@@ -4334,16 +4314,16 @@ namespace TestFlatMap {
         let result: _.LoDashImplicitArrayWrapper<boolean>;
 
         result = _(objArray).flatMapDeep(['a', 42]);
-        result = _(objArray).flatMapDeep<{a: number}>({a: 42});
+        result = _(objArray).flatMapDeep({a: 42});
 
         result = _(objList).flatMapDeep(['a', 42]);
-        result = _(objList).flatMapDeep<{a: number}>({a: 42});
+        result = _(objList).flatMapDeep({a: 42});
 
         result = _(objDictionary).flatMapDeep(['a', 42]);
-        result = _(objDictionary).flatMapDeep<{a: number}>({a: 42});
+        result = _(objDictionary).flatMapDeep({a: 42});
 
         result = _(objNumericDictionary).flatMapDeep(['a', 42]);
-        result = _(objNumericDictionary).flatMapDeep<{a: number}>({a: 42});
+        result = _(objNumericDictionary).flatMapDeep({a: 42});
     }
 
     {
@@ -4377,21 +4357,21 @@ namespace TestFlatMap {
         let result: _.LoDashExplicitArrayWrapper<boolean>;
 
         result = _(objArray).chain().flatMapDeep(['a', 42]);
-        result = _(objArray).chain().flatMapDeep<{a: number}>({a: 42});
+        result = _(objArray).chain().flatMapDeep({a: 42});
 
         result = _(objList).chain().flatMapDeep(['a', 42]);
-        result = _(objList).chain().flatMapDeep<{a: number}>({a: 42});
+        result = _(objList).chain().flatMapDeep({a: 42});
 
         result = _(objDictionary).chain().flatMapDeep(['a', 42]);
-        result = _(objDictionary).chain().flatMapDeep<{a: number}>({a: 42});
+        result = _(objDictionary).chain().flatMapDeep({a: 42});
 
         result = _(objNumericDictionary).chain().flatMapDeep(['a', 42]);
-        result = _(objNumericDictionary).chain().flatMapDeep<{a: number}>({a: 42});
+        result = _(objNumericDictionary).chain().flatMapDeep({a: 42});
     }
 }
 
 // _.flatMapDepth
-namespace TestFlatMap {
+namespace TestFlatMapDepth {
     let numArray: (number|number[])[] | null | undefined = [1, [2, 3]] as any;
     let objArray: ({a: number}|{a: number}[])[] | null | undefined = [{a: 1}, [{a: 2}, {a: 3}]] as any;
 
@@ -4417,82 +4397,62 @@ namespace TestFlatMap {
         let result: string[];
 
         result = _.flatMapDepth<string>('abc');
-        result = _.flatMapDepth<string>('abc');
+        result = _.flatMapDepth('abc');
 
         result = _.flatMapDepth<string, string>('abc', stringIterator, 1);
-        result = _.flatMapDepth<string>('abc', stringIterator, 1);
+        result = _.flatMapDepth('abc', stringIterator, 1);
     }
 
     {
         let result: number[];
 
-        result = _.flatMapDepth<number|number[], number>(numArray);
+        result = _.flatMapDepth(numArray);
         result = _.flatMapDepth<number>(numArray);
 
+        result = _.flatMapDepth(numArray, listIterator, 1);
         result = _.flatMapDepth<number|number[], number>(numArray, listIterator, 1);
-        result = _.flatMapDepth<number>(numArray, listIterator, 1);
 
-        result = _.flatMapDepth<({a: number}|{a: number}[])[], number>(objArray, 'a', 1);
-        result = _.flatMapDepth<number>(objArray, 'a', 1);
+        result = _.flatMapDepth<number>(objArray, 'a');
 
-        result = _.flatMapDepth<number|number[], number>(numList);
+        result = _.flatMapDepth(numList);
         result = _.flatMapDepth<number>(numList);
 
+        result = _.flatMapDepth(numList, listIterator, 1);
         result = _.flatMapDepth<number|number[], number>(numList, listIterator, 1);
-        result = _.flatMapDepth<number>(numList, listIterator, 1);
 
-        result = _.flatMapDepth<_.List<{a: number}|{a: number}[]>, number>(objList, 'a', 1);
-        result = _.flatMapDepth<number>(objList, 'a');
+        result = _.flatMapDepth<number>(objList, 'a', 1);
 
-        result = _.flatMapDepth<number|number[], number>(numDictionary);
+        result = _.flatMapDepth(numDictionary);
         result = _.flatMapDepth<number>(numDictionary);
 
+        result = _.flatMapDepth(numDictionary, dictionaryIterator, 1);
         result = _.flatMapDepth<number|number[], number>(numDictionary, dictionaryIterator, 1);
-        result = _.flatMapDepth<number>(numDictionary, dictionaryIterator, 1);
 
-        result = _.flatMapDepth<_.Dictionary<{a: number}|{a: number}[]>, number>(objDictionary, 'a', 1);
-        result = _.flatMapDepth<number>(objDictionary, 'a');
+        result = _.flatMapDepth<number>(objDictionary, 'a', 1);
 
-        result = _.flatMapDepth<number|number[], number>(numNumericDictionary);
+        result = _.flatMapDepth(numNumericDictionary);
         result = _.flatMapDepth<number>(numNumericDictionary);
 
+        result = _.flatMapDepth(numNumericDictionary, numericDictionaryIterator, 1);
         result = _.flatMapDepth<number|number[], number>(numNumericDictionary, numericDictionaryIterator, 1);
-        result = _.flatMapDepth<number>(numNumericDictionary, numericDictionaryIterator, 1);
 
         result = _.flatMapDepth<_.NumericDictionary<{a: number}|{a: number}[]>, number>(objNumericDictionary, 'a', 1);
-        result = _.flatMapDepth<number>(objNumericDictionary, 'a', 1);
     }
 
     {
         let result: boolean[];
 
-        result = _.flatMapDepth<({a: number}|{a: number}[])[], boolean>(objArray, ['a', 42], 1);
-        result = _.flatMapDepth<boolean>(objArray, ['a', 42], 1);
+        result = _.flatMapDepth(objArray, ['a', 42], 1);
+        result = _.flatMapDepth(objArray, {'a': 42}, 1);
 
-        result = _.flatMapDepth<{a: number}, ({a: number}|{a: number}[])[]>(objArray, {'a': 42}, 1);
-        result = _.flatMapDepth<({a: number}|{a: number}[])[], boolean>(objArray, {'a': 42}, 1);
-        result = _.flatMapDepth<boolean>(objArray, {'a': 42}, 1);
+        result = _.flatMapDepth(objList, ['a', 42], 1);
+        result = _.flatMapDepth(objList, {'a': 42}, 1);
 
-        result = _.flatMapDepth<_.List<{a: number}|{a: number}[]>, boolean>(objList, ['a', 42], 1);
-        result = _.flatMapDepth<boolean>(objList, ['a', 42], 1);
+        result = _.flatMapDepth(objDictionary, ['a', 42], 1);
+        result = _.flatMapDepth(objDictionary, {'a': 42}, 1);
 
-        result = _.flatMapDepth<{a: number}, _.List<{a: number}|{a: number}[]>>(objList, {'a': 42}, 1);
-        result = _.flatMapDepth<_.List<{a: number}|{a: number}[]>, boolean>(objList, {'a': 42}, 1);
-        result = _.flatMapDepth<boolean>(objList, {'a': 42}, 1);
-
-        result = _.flatMapDepth<_.Dictionary<{a: number}|{a: number}[]>, boolean>(objDictionary, ['a', 42], 1);
-        result = _.flatMapDepth<boolean>(objDictionary, ['a', 42], 1);
-
-        result = _.flatMapDepth<{a: number}, _.Dictionary<{a: number}|{a: number}[]>>(objDictionary, {'a': 42}, 1);
-        result = _.flatMapDepth<_.Dictionary<{a: number}|{a: number}[]>, boolean>(objDictionary, {'a': 42}, 1);
-        result = _.flatMapDepth<boolean>(objDictionary, {'a': 42}, 1);
-
-        result = _.flatMapDepth<_.NumericDictionary<{a: number}|{a: number}[]>, boolean>(objNumericDictionary, ['a', 42], 1);
-        result = _.flatMapDepth<boolean>(objNumericDictionary, ['a', 42], 1);
-
-        result = _.flatMapDepth<{a: number}, _.NumericDictionary<{a: number}|{a: number}[]>>(objNumericDictionary, {'a': 42}, 1);
-        result = _.flatMapDepth<_.NumericDictionary<{a: number}|{a: number}[]>, boolean>(objNumericDictionary, {'a': 42}, 1);
-        result = _.flatMapDepth<boolean>(objNumericDictionary, {'a': 42}), 1;
+        result = _.flatMapDepth(objNumericDictionary, ['a', 42], 1);
+        result = _.flatMapDepth(objNumericDictionary, {'a': 42}, 1);
     }
 
     {
@@ -4526,16 +4486,16 @@ namespace TestFlatMap {
         let result: _.LoDashImplicitArrayWrapper<boolean>;
 
         result = _(objArray).flatMapDepth(['a', 42], 1);
-        result = _(objArray).flatMapDepth<{a: number}>({a: 42}, 1);
+        result = _(objArray).flatMapDepth({a: 42}, 1);
 
         result = _(objList).flatMapDepth(['a', 42], 1);
-        result = _(objList).flatMapDepth<{a: number}>({a: 42}, 1);
+        result = _(objList).flatMapDepth({a: 42}, 1);
 
         result = _(objDictionary).flatMapDepth(['a', 42], 1);
-        result = _(objDictionary).flatMapDepth<{a: number}>({a: 42}, 1);
+        result = _(objDictionary).flatMapDepth({a: 42}, 1);
 
         result = _(objNumericDictionary).flatMapDepth(['a', 42], 1);
-        result = _(objNumericDictionary).flatMapDepth<{a: number}>({a: 42}, 1);
+        result = _(objNumericDictionary).flatMapDepth({a: 42}, 1);
     }
 
     {
@@ -4569,16 +4529,16 @@ namespace TestFlatMap {
         let result: _.LoDashExplicitArrayWrapper<boolean>;
 
         result = _(objArray).chain().flatMapDepth(['a', 42], 1);
-        result = _(objArray).chain().flatMapDepth<{a: number}>({a: 42}, 1);
+        result = _(objArray).chain().flatMapDepth({a: 42}, 1);
 
         result = _(objList).chain().flatMapDepth(['a', 42], 1);
-        result = _(objList).chain().flatMapDepth<{a: number}>({a: 42}, 1);
+        result = _(objList).chain().flatMapDepth({a: 42}, 1);
 
         result = _(objDictionary).chain().flatMapDepth(['a', 42], 1);
-        result = _(objDictionary).chain().flatMapDepth<{a: number}>({a: 42}, 1);
+        result = _(objDictionary).chain().flatMapDepth({a: 42}, 1);
 
         result = _(objNumericDictionary).chain().flatMapDepth(['a', 42], 1);
-        result = _(objNumericDictionary).chain().flatMapDepth<{a: number}>({a: 42}, 1);
+        result = _(objNumericDictionary).chain().flatMapDepth({a: 42}, 1);
     }
 }
 

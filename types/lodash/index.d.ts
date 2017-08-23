@@ -6825,7 +6825,7 @@ declare namespace _ {
             predicate: ListIteratorTypeGuard<T, S>,
             fromIndex?: number
         ): S|undefined;
-        
+
         /**
          * @see _.find
          */
@@ -6916,7 +6916,7 @@ declare namespace _ {
             predicate: ListIteratorTypeGuard<T, S>,
             fromIndex?: number
         ): S|undefined;
-        
+
         /**
          * @see _.findLast
          */
@@ -7196,17 +7196,16 @@ declare namespace _ {
          * _.flatMapDeep([1, 2], duplicate);
          * // => [1, 1, 2, 2]
          */
-        flatMapDeep<T, TResult>(
-            collection: List<T> | null | undefined,
-            iteratee?: ListIterator<T, Many<TResult>>
-        ): TResult[];
+        flatMapDeep<T>(
+            collection: List<Many<T>> | Dictionary<Many<T>> | NumericDictionary<Many<T>> | null | undefined
+        ): T[];
 
         /**
          * @see _.flatMapDeep
          */
-        flatMapDeep<TResult>(
-            collection: List<any> | null | undefined,
-            iteratee?: ListIterator<any, Many<TResult>>
+        flatMapDeep<T, TResult>(
+            collection: List<T> | null | undefined,
+            iteratee: ListIterator<T, Many<TResult>> | string
         ): TResult[];
 
         /**
@@ -7214,15 +7213,7 @@ declare namespace _ {
          */
         flatMapDeep<T, TResult>(
             collection: Dictionary<T> | null | undefined,
-            iteratee?: DictionaryIterator<T, Many<TResult>>
-        ): TResult[];
-
-        /**
-         * @see _.flatMapDeep
-         */
-        flatMapDeep<TResult>(
-            collection: Dictionary<any> | null | undefined,
-            iteratee?: DictionaryIterator<any, Many<TResult>>
+            iteratee: DictionaryIterator<T, Many<TResult>> | string
         ): TResult[];
 
         /**
@@ -7230,71 +7221,24 @@ declare namespace _ {
          */
         flatMapDeep<T, TResult>(
             collection: NumericDictionary<T> | null | undefined,
-            iteratee?: NumericDictionaryIterator<T, Many<TResult>>
+            iteratee: NumericDictionaryIterator<T, Many<TResult>> | string
         ): TResult[];
 
         /**
          * @see _.flatMapDeep
          */
         flatMapDeep<TResult>(
-            collection: NumericDictionary<any> | null | undefined,
-            iteratee?: NumericDictionaryIterator<any, Many<TResult>>
+            collection: object | null | undefined,
+            iteratee?: ObjectIterator<any, Many<TResult>> | string
         ): TResult[];
 
         /**
          * @see _.flatMapDeep
          */
-        flatMapDeep<TObject extends Object, TResult>(
-            collection: TObject | null | undefined,
-            iteratee?: ObjectIterator<any, Many<TResult>>
-        ): TResult[];
-
-        /**
-         * @see _.flatMapDeep
-         */
-        flatMapDeep<TResult>(
-            collection: Object | null | undefined,
-            iteratee?: ObjectIterator<any, Many<TResult>>
-        ): TResult[];
-
-        /**
-         * @see _.flatMapDeep
-         */
-        flatMapDeep<TWhere extends Object, TObject extends Object>(
-            collection: TObject | null | undefined,
-            iteratee: TWhere
+        flatMapDeep(
+            collection: object | null | undefined,
+            iteratee: object
         ): boolean[];
-
-        /**
-         * @see _.flatMapDeep
-         */
-        flatMapDeep<TObject extends Object, TResult>(
-            collection: TObject | null | undefined,
-            iteratee: Object|string
-        ): TResult[];
-
-        /**
-         * @see _.flatMapDeep
-         */
-        flatMapDeep<TObject extends Object>(
-            collection: TObject | null | undefined,
-            iteratee: [string, any]
-        ): boolean[];
-
-        /**
-         * @see _.flatMapDeep
-         */
-        flatMapDeep<TResult>(
-            collection: string | null | undefined
-        ): string[];
-
-        /**
-         * @see _.flatMapDeep
-         */
-        flatMapDeep<TResult>(
-            collection: Object | null | undefined,
-            iteratee?: Object|string
-        ): TResult[];
     }
 
     interface LoDashImplicitWrapper<T> {
@@ -7302,7 +7246,7 @@ declare namespace _ {
          * @see _.flatMapDeep
          */
         flatMapDeep<TResult>(
-            iteratee: ListIterator<string, Many<TResult>>
+            iteratee: StringIterator<Many<TResult>>
         ): LoDashImplicitArrayWrapper<TResult>;
 
         /**
@@ -7322,15 +7266,8 @@ declare namespace _ {
         /**
          * @see _.flatMapDeep
          */
-        flatMapDeep<TWhere extends Object>(
-            iteratee: TWhere
-        ): LoDashImplicitArrayWrapper<boolean>;
-
-        /**
-         * @see _.flatMapDeep
-         */
         flatMapDeep(
-            iteratee: [string, any]
+            iteratee: object
         ): LoDashImplicitArrayWrapper<boolean>;
 
         /**
@@ -7357,15 +7294,8 @@ declare namespace _ {
         /**
          * @see _.flatMapDeep
          */
-        flatMapDeep<TWhere extends Object>(
-            iteratee: TWhere
-        ): LoDashImplicitArrayWrapper<boolean>;
-
-        /**
-         * @see _.flatMapDeep
-         */
         flatMapDeep(
-            iteratee: [string, any]
+            iteratee: object
         ): LoDashImplicitArrayWrapper<boolean>;
 
         /**
@@ -7379,7 +7309,7 @@ declare namespace _ {
          * @see _.flatMapDeep
          */
         flatMapDeep<TResult>(
-            iteratee: ListIterator<string, Many<TResult>>
+            iteratee: StringIterator<Many<TResult>>
         ): LoDashExplicitArrayWrapper<TResult>;
 
         /**
@@ -7399,15 +7329,8 @@ declare namespace _ {
         /**
          * @see _.flatMapDeep
          */
-        flatMapDeep<TWhere extends Object>(
-            iteratee: TWhere
-        ): LoDashExplicitArrayWrapper<boolean>;
-
-        /**
-         * @see _.flatMapDeep
-         */
         flatMapDeep(
-            iteratee: [string, any]
+            iteratee: object
         ): LoDashExplicitArrayWrapper<boolean>;
 
         /**
@@ -7434,15 +7357,8 @@ declare namespace _ {
         /**
          * @see _.flatMapDeep
          */
-        flatMapDeep<TWhere extends Object>(
-            iteratee: TWhere
-        ): LoDashExplicitArrayWrapper<boolean>;
-
-        /**
-         * @see _.flatMapDeep
-         */
         flatMapDeep(
-            iteratee: [string, any]
+            iteratee: object
         ): LoDashExplicitArrayWrapper<boolean>;
 
         /**
@@ -7474,18 +7390,17 @@ declare namespace _ {
          * _.flatMapDepth([1, 2], duplicate, 2);
          * // => [[1, 1], [2, 2]]
          */
-        flatMapDepth<T, TResult>(
-            collection: List<T> | null | undefined,
-            iteratee?: ListIterator<T, Many<TResult>>,
+        flatMapDepth<T>(
+            collection: List<Many<T>> | Dictionary<Many<T>> | NumericDictionary<Many<T>> | null | undefined,
             depth?: number
-        ): TResult[];
+        ): T[];
 
         /**
          * @see _.flatMapDepth
          */
-        flatMapDepth<TResult>(
-            collection: List<any> | null | undefined,
-            iteratee?: ListIterator<any, Many<TResult>>,
+        flatMapDepth<T, TResult>(
+            collection: List<T> | null | undefined,
+            iteratee: ListIterator<T, Many<TResult>> | string,
             depth?: number
         ): TResult[];
 
@@ -7494,16 +7409,7 @@ declare namespace _ {
          */
         flatMapDepth<T, TResult>(
             collection: Dictionary<T> | null | undefined,
-            iteratee?: DictionaryIterator<T, Many<TResult>>,
-            depth?: number
-        ): TResult[];
-
-        /**
-         * @see _.flatMapDepth
-         */
-        flatMapDepth<TResult>(
-            collection: Dictionary<any> | null | undefined,
-            iteratee?: DictionaryIterator<any, Many<TResult>>,
+            iteratee: DictionaryIterator<T, Many<TResult>> | string,
             depth?: number
         ): TResult[];
 
@@ -7512,7 +7418,7 @@ declare namespace _ {
          */
         flatMapDepth<T, TResult>(
             collection: NumericDictionary<T> | null | undefined,
-            iteratee?: NumericDictionaryIterator<T, Many<TResult>>,
+            iteratee: NumericDictionaryIterator<T, Many<TResult>> | string,
             depth?: number
         ): TResult[];
 
@@ -7520,71 +7426,19 @@ declare namespace _ {
          * @see _.flatMapDepth
          */
         flatMapDepth<TResult>(
-            collection: NumericDictionary<any> | null | undefined,
-            iteratee?: NumericDictionaryIterator<any, Many<TResult>>,
+            collection: object | null | undefined,
+            iteratee?: ObjectIterator<any, Many<TResult>> | string,
             depth?: number
         ): TResult[];
 
         /**
          * @see _.flatMapDepth
          */
-        flatMapDepth<TObject extends Object, TResult>(
-            collection: TObject | null | undefined,
-            iteratee?: ObjectIterator<any, Many<TResult>>,
-            depth?: number
-        ): TResult[];
-
-        /**
-         * @see _.flatMapDepth
-         */
-        flatMapDepth<TResult>(
-            collection: Object | null | undefined,
-            iteratee?: ObjectIterator<any, Many<TResult>>,
-            depth?: number
-        ): TResult[];
-
-        /**
-         * @see _.flatMapDepth
-         */
-        flatMapDepth<TWhere extends Object, TObject extends Object>(
-            collection: TObject | null | undefined,
-            iteratee: TWhere,
+        flatMapDepth(
+            collection: object | null | undefined,
+            iteratee: object,
             depth?: number
         ): boolean[];
-
-        /**
-         * @see _.flatMapDepth
-         */
-        flatMapDepth<TObject extends Object, TResult>(
-            collection: TObject | null | undefined,
-            iteratee: Object|string,
-            depth?: number
-        ): TResult[];
-
-        /**
-         * @see _.flatMapDepth
-         */
-        flatMapDepth<TObject extends Object>(
-            collection: TObject | null | undefined,
-            iteratee: [string, any],
-            depth?: number
-        ): boolean[];
-
-        /**
-         * @see _.flatMapDepth
-         */
-        flatMapDepth<TResult>(
-            collection: string | null | undefined
-        ): string[];
-
-        /**
-         * @see _.flatMapDepth
-         */
-        flatMapDepth<TResult>(
-            collection: Object | null | undefined,
-            iteratee?: Object|string,
-            depth?: number
-        ): TResult[];
     }
 
     interface LoDashImplicitWrapper<T> {
@@ -7592,7 +7446,7 @@ declare namespace _ {
          * @see _.flatMapDepth
          */
         flatMapDepth<TResult>(
-            iteratee: ListIterator<string, Many<TResult>>,
+            iteratee: StringIterator<Many<TResult>>,
             depth?: number
         ): LoDashImplicitArrayWrapper<TResult>;
 
@@ -7614,16 +7468,8 @@ declare namespace _ {
         /**
          * @see _.flatMapDepth
          */
-        flatMapDepth<TWhere extends Object>(
-            iteratee: TWhere,
-            depth?: number
-        ): LoDashImplicitArrayWrapper<boolean>;
-
-        /**
-         * @see _.flatMapDepth
-         */
         flatMapDepth(
-            iteratee: [string, any],
+            iteratee: object,
             depth?: number
         ): LoDashImplicitArrayWrapper<boolean>;
 
@@ -7653,16 +7499,8 @@ declare namespace _ {
         /**
          * @see _.flatMapDepth
          */
-        flatMapDepth<TWhere extends Object>(
-            iteratee: TWhere,
-            depth?: number
-        ): LoDashImplicitArrayWrapper<boolean>;
-
-        /**
-         * @see _.flatMapDepth
-         */
         flatMapDepth(
-            iteratee: [string, any],
+            iteratee: object,
             depth?: number
         ): LoDashImplicitArrayWrapper<boolean>;
 
@@ -7677,7 +7515,7 @@ declare namespace _ {
          * @see _.flatMapDepth
          */
         flatMapDepth<TResult>(
-            iteratee: ListIterator<string, Many<TResult>>,
+            iteratee: StringIterator<Many<TResult>>,
             depth?: number
         ): LoDashExplicitArrayWrapper<TResult>;
 
@@ -7699,16 +7537,8 @@ declare namespace _ {
         /**
          * @see _.flatMapDepth
          */
-        flatMapDepth<TWhere extends Object>(
-            iteratee: TWhere,
-            depth?: number
-        ): LoDashExplicitArrayWrapper<boolean>;
-
-        /**
-         * @see _.flatMapDepth
-         */
         flatMapDepth(
-            iteratee: [string, any],
+            iteratee: object,
             depth?: number
         ): LoDashExplicitArrayWrapper<boolean>;
 
@@ -7738,16 +7568,8 @@ declare namespace _ {
         /**
          * @see _.flatMapDepth
          */
-        flatMapDepth<TWhere extends Object>(
-            iteratee: TWhere,
-            depth?: number
-        ): LoDashExplicitArrayWrapper<boolean>;
-
-        /**
-         * @see _.flatMapDepth
-         */
         flatMapDepth(
-            iteratee: [string, any],
+            iteratee: object,
             depth?: number
         ): LoDashExplicitArrayWrapper<boolean>;
 
