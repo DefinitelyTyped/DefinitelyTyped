@@ -155,7 +155,7 @@ declare namespace gapi.client {
                 managedZone: string;
                 /** Identifies the project addressed by this request. */
                 project: string;
-            }): gapi.client.Request<Change>;            
+            }): Request<Change>;            
             
             /** Fetch the representation of an existing Change. */
             get(request: {            
@@ -179,7 +179,7 @@ declare namespace gapi.client {
                 managedZone: string;
                 /** Identifies the project addressed by this request. */
                 project: string;
-            }): gapi.client.Request<Change>;            
+            }): Request<Change>;            
             
             /** Enumerate Changes to a ResourceRecordSet collection. */
             list(request: {            
@@ -209,7 +209,7 @@ declare namespace gapi.client {
                 sortBy?: string;
                 /** Sorting order direction: 'ascending' or 'descending'. */
                 sortOrder?: string;
-            }): gapi.client.Request<ChangesListResponse>;            
+            }): Request<ChangesListResponse>;            
             
         }
         
@@ -232,7 +232,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Identifies the project addressed by this request. */
                 project: string;
-            }): gapi.client.Request<ManagedZone>;            
+            }): Request<ManagedZone>;            
             
             /** Delete a previously created ManagedZone. */
             delete(request: {            
@@ -254,7 +254,7 @@ declare namespace gapi.client {
                 managedZone: string;
                 /** Identifies the project addressed by this request. */
                 project: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Fetch the representation of an existing ManagedZone. */
             get(request: {            
@@ -276,7 +276,7 @@ declare namespace gapi.client {
                 managedZone: string;
                 /** Identifies the project addressed by this request. */
                 project: string;
-            }): gapi.client.Request<ManagedZone>;            
+            }): Request<ManagedZone>;            
             
             /** Enumerate ManagedZones that have been created but not yet deleted. */
             list(request: {            
@@ -302,7 +302,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Identifies the project addressed by this request. */
                 project: string;
-            }): gapi.client.Request<ManagedZonesListResponse>;            
+            }): Request<ManagedZonesListResponse>;            
             
         }
         
@@ -325,7 +325,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Identifies the project addressed by this request. */
                 project: string;
-            }): gapi.client.Request<Project>;            
+            }): Request<Project>;            
             
         }
         
@@ -358,7 +358,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Restricts the list to return only records of this type. If present, the "name" parameter must also be present. */
                 type?: string;
-            }): gapi.client.Request<ResourceRecordSetsListResponse>;            
+            }): Request<ResourceRecordSetsListResponse>;            
             
         }
     }

@@ -77,7 +77,7 @@ declare namespace gapi.client {
                 currentDataVersion?: string;
                 /** The key for the data to be retrieved. */
                 stateKey: number;
-            }): gapi.client.Request<WriteResult>;            
+            }): Request<WriteResult>;            
             
             /** Deletes a key and the data associated with it. The key is removed and no longer counts against the key quota. Note that since this method is not safe in the face of concurrent modifications, it should only be used for development and testing purposes. Invoking this method in shipping code can result in data loss and data corruption. */
             delete(request: {            
@@ -97,7 +97,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The key for the data to be retrieved. */
                 stateKey: number;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Retrieves the data corresponding to the passed key. If the key does not exist on the server, an HTTP 404 will be returned. */
             get(request: {            
@@ -117,7 +117,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The key for the data to be retrieved. */
                 stateKey: number;
-            }): gapi.client.Request<GetResponse>;            
+            }): Request<GetResponse>;            
             
             /** Lists all the states keys, and optionally the state data. */
             list(request: {            
@@ -137,7 +137,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Whether to include the full data in addition to the version number */
                 includeData?: boolean;
-            }): gapi.client.Request<ListResponse>;            
+            }): Request<ListResponse>;            
             
             /** Update the data associated with the input key if and only if the passed version matches the currently stored version. This method is safe in the face of concurrent writes. Maximum per-key size is 128KB. */
             update(request: {            
@@ -159,7 +159,7 @@ declare namespace gapi.client {
                 currentStateVersion?: string;
                 /** The key for the data to be retrieved. */
                 stateKey: number;
-            }): gapi.client.Request<WriteResult>;            
+            }): Request<WriteResult>;            
             
         }
     }

@@ -104,7 +104,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The resource ID */
                 groupUniqueId: string;
-            }): gapi.client.Request<Groups>;            
+            }): Request<Groups>;            
             
             /** Updates an existing resource. This method supports patch semantics. */
             patch(request: {            
@@ -124,7 +124,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The resource ID */
                 groupUniqueId: string;
-            }): gapi.client.Request<Groups>;            
+            }): Request<Groups>;            
             
             /** Updates an existing resource. */
             update(request: {            
@@ -144,7 +144,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The resource ID */
                 groupUniqueId: string;
-            }): gapi.client.Request<Groups>;            
+            }): Request<Groups>;            
             
         }
     }

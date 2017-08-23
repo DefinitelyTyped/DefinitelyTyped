@@ -1892,7 +1892,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<AccountsAuthInfoResponse>;            
+            }): Request<AccountsAuthInfoResponse>;            
             
             /** Claims the website of a Merchant Center sub-account. This method can only be called for accounts to which the managing account has access: either the managing account itself for any Merchant Center account, or any sub-account when the managing account is a multi-client account. */
             claimwebsite(request: {            
@@ -1916,7 +1916,7 @@ declare namespace gapi.client {
                 merchantId: string;
                 /** Flag to remove any existing claim on the requested website by another account and replace it with a claim from this account. */
                 overwrite?: boolean;
-            }): gapi.client.Request<AccountsClaimWebsiteResponse>;            
+            }): Request<AccountsClaimWebsiteResponse>;            
             
             /** Retrieves, inserts, updates, and deletes multiple Merchant Center (sub-)accounts in a single request. */
             custombatch(request: {            
@@ -1936,7 +1936,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Flag to run the request in dry-run mode. */
                 dryRun?: boolean;
-            }): gapi.client.Request<AccountsCustomBatchResponse>;            
+            }): Request<AccountsCustomBatchResponse>;            
             
             /** Deletes a Merchant Center sub-account. This method can only be called for multi-client accounts. */
             delete(request: {            
@@ -1960,7 +1960,7 @@ declare namespace gapi.client {
                 dryRun?: boolean;
                 /** The ID of the managing account. */
                 merchantId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Retrieves a Merchant Center account. This method can only be called for accounts to which the managing account has access: either the managing account itself for any Merchant Center account, or any sub-account when the managing account is a multi-client account. */
             get(request: {            
@@ -1982,7 +1982,7 @@ declare namespace gapi.client {
                 accountId: string;
                 /** The ID of the managing account. */
                 merchantId: string;
-            }): gapi.client.Request<Account>;            
+            }): Request<Account>;            
             
             /** Creates a Merchant Center sub-account. This method can only be called for multi-client accounts. */
             insert(request: {            
@@ -2004,7 +2004,7 @@ declare namespace gapi.client {
                 dryRun?: boolean;
                 /** The ID of the managing account. */
                 merchantId: string;
-            }): gapi.client.Request<Account>;            
+            }): Request<Account>;            
             
             /** Lists the sub-accounts in your Merchant Center account. This method can only be called for multi-client accounts. */
             list(request: {            
@@ -2028,7 +2028,7 @@ declare namespace gapi.client {
                 merchantId: string;
                 /** The token returned by the previous request. */
                 pageToken?: string;
-            }): gapi.client.Request<AccountsListResponse>;            
+            }): Request<AccountsListResponse>;            
             
             /** Updates a Merchant Center account. This method can only be called for accounts to which the managing account has access: either the managing account itself for any Merchant Center account, or any sub-account when the managing account is a multi-client account. This method supports patch semantics. */
             patch(request: {            
@@ -2052,7 +2052,7 @@ declare namespace gapi.client {
                 dryRun?: boolean;
                 /** The ID of the managing account. */
                 merchantId: string;
-            }): gapi.client.Request<Account>;            
+            }): Request<Account>;            
             
             /** Updates a Merchant Center account. This method can only be called for accounts to which the managing account has access: either the managing account itself for any Merchant Center account, or any sub-account when the managing account is a multi-client account. */
             update(request: {            
@@ -2076,7 +2076,7 @@ declare namespace gapi.client {
                 dryRun?: boolean;
                 /** The ID of the managing account. */
                 merchantId: string;
-            }): gapi.client.Request<Account>;            
+            }): Request<Account>;            
             
         }
         
@@ -2097,7 +2097,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<AccountstatusesCustomBatchResponse>;            
+            }): Request<AccountstatusesCustomBatchResponse>;            
             
             /** Retrieves the status of a Merchant Center account. This method can only be called for accounts to which the managing account has access: either the managing account itself for any Merchant Center account, or any sub-account when the managing account is a multi-client account. */
             get(request: {            
@@ -2119,7 +2119,7 @@ declare namespace gapi.client {
                 accountId: string;
                 /** The ID of the managing account. */
                 merchantId: string;
-            }): gapi.client.Request<AccountStatus>;            
+            }): Request<AccountStatus>;            
             
             /** Lists the statuses of the sub-accounts in your Merchant Center account. This method can only be called for multi-client accounts. */
             list(request: {            
@@ -2143,7 +2143,7 @@ declare namespace gapi.client {
                 merchantId: string;
                 /** The token returned by the previous request. */
                 pageToken?: string;
-            }): gapi.client.Request<AccountstatusesListResponse>;            
+            }): Request<AccountstatusesListResponse>;            
             
         }
         
@@ -2166,7 +2166,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Flag to run the request in dry-run mode. */
                 dryRun?: boolean;
-            }): gapi.client.Request<AccounttaxCustomBatchResponse>;            
+            }): Request<AccounttaxCustomBatchResponse>;            
             
             /** Retrieves the tax settings of the account. This method can only be called for accounts to which the managing account has access: either the managing account itself for any Merchant Center account, or any sub-account when the managing account is a multi-client account. */
             get(request: {            
@@ -2188,7 +2188,7 @@ declare namespace gapi.client {
                 accountId: string;
                 /** The ID of the managing account. */
                 merchantId: string;
-            }): gapi.client.Request<AccountTax>;            
+            }): Request<AccountTax>;            
             
             /** Lists the tax settings of the sub-accounts in your Merchant Center account. This method can only be called for multi-client accounts. */
             list(request: {            
@@ -2212,7 +2212,7 @@ declare namespace gapi.client {
                 merchantId: string;
                 /** The token returned by the previous request. */
                 pageToken?: string;
-            }): gapi.client.Request<AccounttaxListResponse>;            
+            }): Request<AccounttaxListResponse>;            
             
             /** Updates the tax settings of the account. This method can only be called for accounts to which the managing account has access: either the managing account itself for any Merchant Center account, or any sub-account when the managing account is a multi-client account. This method supports patch semantics. */
             patch(request: {            
@@ -2236,7 +2236,7 @@ declare namespace gapi.client {
                 dryRun?: boolean;
                 /** The ID of the managing account. */
                 merchantId: string;
-            }): gapi.client.Request<AccountTax>;            
+            }): Request<AccountTax>;            
             
             /** Updates the tax settings of the account. This method can only be called for accounts to which the managing account has access: either the managing account itself for any Merchant Center account, or any sub-account when the managing account is a multi-client account. */
             update(request: {            
@@ -2260,7 +2260,7 @@ declare namespace gapi.client {
                 dryRun?: boolean;
                 /** The ID of the managing account. */
                 merchantId: string;
-            }): gapi.client.Request<AccountTax>;            
+            }): Request<AccountTax>;            
             
         }
         
@@ -2283,7 +2283,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Flag to run the request in dry-run mode. */
                 dryRun?: boolean;
-            }): gapi.client.Request<DatafeedsCustomBatchResponse>;            
+            }): Request<DatafeedsCustomBatchResponse>;            
             
             /** Deletes a datafeed configuration from your Merchant Center account. This method can only be called for non-multi-client accounts. */
             delete(request: {            
@@ -2307,7 +2307,7 @@ declare namespace gapi.client {
                 dryRun?: boolean;
                 /**  */
                 merchantId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Retrieves a datafeed configuration from your Merchant Center account. This method can only be called for non-multi-client accounts. */
             get(request: {            
@@ -2329,7 +2329,7 @@ declare namespace gapi.client {
                 datafeedId: string;
                 /**  */
                 merchantId: string;
-            }): gapi.client.Request<Datafeed>;            
+            }): Request<Datafeed>;            
             
             /** Registers a datafeed configuration with your Merchant Center account. This method can only be called for non-multi-client accounts. */
             insert(request: {            
@@ -2351,7 +2351,7 @@ declare namespace gapi.client {
                 dryRun?: boolean;
                 /**  */
                 merchantId: string;
-            }): gapi.client.Request<Datafeed>;            
+            }): Request<Datafeed>;            
             
             /** Lists the datafeeds in your Merchant Center account. This method can only be called for non-multi-client accounts. */
             list(request: {            
@@ -2375,7 +2375,7 @@ declare namespace gapi.client {
                 merchantId: string;
                 /** The token returned by the previous request. */
                 pageToken?: string;
-            }): gapi.client.Request<DatafeedsListResponse>;            
+            }): Request<DatafeedsListResponse>;            
             
             /** Updates a datafeed configuration of your Merchant Center account. This method can only be called for non-multi-client accounts. This method supports patch semantics. */
             patch(request: {            
@@ -2399,7 +2399,7 @@ declare namespace gapi.client {
                 dryRun?: boolean;
                 /**  */
                 merchantId: string;
-            }): gapi.client.Request<Datafeed>;            
+            }): Request<Datafeed>;            
             
             /** Updates a datafeed configuration of your Merchant Center account. This method can only be called for non-multi-client accounts. */
             update(request: {            
@@ -2423,7 +2423,7 @@ declare namespace gapi.client {
                 dryRun?: boolean;
                 /**  */
                 merchantId: string;
-            }): gapi.client.Request<Datafeed>;            
+            }): Request<Datafeed>;            
             
         }
         
@@ -2444,7 +2444,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<DatafeedstatusesCustomBatchResponse>;            
+            }): Request<DatafeedstatusesCustomBatchResponse>;            
             
             /** Retrieves the status of a datafeed from your Merchant Center account. This method can only be called for non-multi-client accounts. */
             get(request: {            
@@ -2466,7 +2466,7 @@ declare namespace gapi.client {
                 datafeedId: string;
                 /**  */
                 merchantId: string;
-            }): gapi.client.Request<DatafeedStatus>;            
+            }): Request<DatafeedStatus>;            
             
             /** Lists the statuses of the datafeeds in your Merchant Center account. This method can only be called for non-multi-client accounts. */
             list(request: {            
@@ -2490,7 +2490,7 @@ declare namespace gapi.client {
                 merchantId: string;
                 /** The token returned by the previous request. */
                 pageToken?: string;
-            }): gapi.client.Request<DatafeedstatusesListResponse>;            
+            }): Request<DatafeedstatusesListResponse>;            
             
         }
         
@@ -2513,7 +2513,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Flag to run the request in dry-run mode. */
                 dryRun?: boolean;
-            }): gapi.client.Request<InventoryCustomBatchResponse>;            
+            }): Request<InventoryCustomBatchResponse>;            
             
             /** Updates price and availability of a product in your Merchant Center account. This operation does not update the expiration date of the product. This method can only be called for non-multi-client accounts. */
             set(request: {            
@@ -2539,7 +2539,7 @@ declare namespace gapi.client {
                 productId: string;
                 /** The code of the store for which to update price and availability. Use online to update price and availability of an online product. */
                 storeCode: string;
-            }): gapi.client.Request<InventorySetResponse>;            
+            }): Request<InventorySetResponse>;            
             
         }
         
@@ -2564,7 +2564,7 @@ declare namespace gapi.client {
                 merchantId: string;
                 /** The ID of the order. */
                 orderId: string;
-            }): gapi.client.Request<OrdersAcknowledgeResponse>;            
+            }): Request<OrdersAcknowledgeResponse>;            
             
             /** Sandbox only. Moves a test order from state "inProgress" to state "pendingShipment". This method can only be called for non-multi-client accounts. */
             advancetestorder(request: {            
@@ -2586,7 +2586,7 @@ declare namespace gapi.client {
                 merchantId: string;
                 /** The ID of the test order to modify. */
                 orderId: string;
-            }): gapi.client.Request<OrdersAdvanceTestOrderResponse>;            
+            }): Request<OrdersAdvanceTestOrderResponse>;            
             
             /** Cancels all line items in an order, making a full refund. This method can only be called for non-multi-client accounts. */
             cancel(request: {            
@@ -2608,7 +2608,7 @@ declare namespace gapi.client {
                 merchantId: string;
                 /** The ID of the order to cancel. */
                 orderId: string;
-            }): gapi.client.Request<OrdersCancelResponse>;            
+            }): Request<OrdersCancelResponse>;            
             
             /** Cancels a line item, making a full refund. This method can only be called for non-multi-client accounts. */
             cancellineitem(request: {            
@@ -2630,7 +2630,7 @@ declare namespace gapi.client {
                 merchantId: string;
                 /** The ID of the order. */
                 orderId: string;
-            }): gapi.client.Request<OrdersCancelLineItemResponse>;            
+            }): Request<OrdersCancelLineItemResponse>;            
             
             /** Sandbox only. Creates a test order. This method can only be called for non-multi-client accounts. */
             createtestorder(request: {            
@@ -2650,7 +2650,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The ID of the managing account. */
                 merchantId: string;
-            }): gapi.client.Request<OrdersCreateTestOrderResponse>;            
+            }): Request<OrdersCreateTestOrderResponse>;            
             
             /** Retrieves or modifies multiple orders in a single request. This method can only be called for non-multi-client accounts. */
             custombatch(request: {            
@@ -2668,7 +2668,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<OrdersCustomBatchResponse>;            
+            }): Request<OrdersCustomBatchResponse>;            
             
             /** Retrieves an order from your Merchant Center account. This method can only be called for non-multi-client accounts. */
             get(request: {            
@@ -2690,7 +2690,7 @@ declare namespace gapi.client {
                 merchantId: string;
                 /** The ID of the order. */
                 orderId: string;
-            }): gapi.client.Request<Order>;            
+            }): Request<Order>;            
             
             /** Retrieves an order using merchant order id. This method can only be called for non-multi-client accounts. */
             getbymerchantorderid(request: {            
@@ -2712,7 +2712,7 @@ declare namespace gapi.client {
                 merchantId: string;
                 /** The merchant order id to be looked for. */
                 merchantOrderId: string;
-            }): gapi.client.Request<OrdersGetByMerchantOrderIdResponse>;            
+            }): Request<OrdersGetByMerchantOrderIdResponse>;            
             
             /** Sandbox only. Retrieves an order template that can be used to quickly create a new order in sandbox. This method can only be called for non-multi-client accounts. */
             gettestordertemplate(request: {            
@@ -2734,7 +2734,7 @@ declare namespace gapi.client {
                 merchantId: string;
                 /** The name of the template to retrieve. */
                 templateName: string;
-            }): gapi.client.Request<OrdersGetTestOrderTemplateResponse>;            
+            }): Request<OrdersGetTestOrderTemplateResponse>;            
             
             /** Lists the orders in your Merchant Center account. This method can only be called for non-multi-client accounts. */
             list(request: {            
@@ -2770,7 +2770,7 @@ declare namespace gapi.client {
                 placedDateStart?: string;
                 /** Obtains orders that match any of the specified statuses. Multiple values can be specified with comma separation. Additionally, please note that active is a shortcut for pendingShipment and partiallyShipped, and completed is a shortcut for shipped , partiallyDelivered, delivered, partiallyReturned, returned, and canceled. */
                 statuses?: string;
-            }): gapi.client.Request<OrdersListResponse>;            
+            }): Request<OrdersListResponse>;            
             
             /** Refund a portion of the order, up to the full amount paid. This method can only be called for non-multi-client accounts. */
             refund(request: {            
@@ -2792,7 +2792,7 @@ declare namespace gapi.client {
                 merchantId: string;
                 /** The ID of the order to refund. */
                 orderId: string;
-            }): gapi.client.Request<OrdersRefundResponse>;            
+            }): Request<OrdersRefundResponse>;            
             
             /** Returns a line item. This method can only be called for non-multi-client accounts. */
             returnlineitem(request: {            
@@ -2814,7 +2814,7 @@ declare namespace gapi.client {
                 merchantId: string;
                 /** The ID of the order. */
                 orderId: string;
-            }): gapi.client.Request<OrdersReturnLineItemResponse>;            
+            }): Request<OrdersReturnLineItemResponse>;            
             
             /** Marks line item(s) as shipped. This method can only be called for non-multi-client accounts. */
             shiplineitems(request: {            
@@ -2836,7 +2836,7 @@ declare namespace gapi.client {
                 merchantId: string;
                 /** The ID of the order. */
                 orderId: string;
-            }): gapi.client.Request<OrdersShipLineItemsResponse>;            
+            }): Request<OrdersShipLineItemsResponse>;            
             
             /** Updates the merchant order ID for a given order. This method can only be called for non-multi-client accounts. */
             updatemerchantorderid(request: {            
@@ -2858,7 +2858,7 @@ declare namespace gapi.client {
                 merchantId: string;
                 /** The ID of the order. */
                 orderId: string;
-            }): gapi.client.Request<OrdersUpdateMerchantOrderIdResponse>;            
+            }): Request<OrdersUpdateMerchantOrderIdResponse>;            
             
             /** Updates a shipment's status, carrier, and/or tracking ID. This method can only be called for non-multi-client accounts. */
             updateshipment(request: {            
@@ -2880,7 +2880,7 @@ declare namespace gapi.client {
                 merchantId: string;
                 /** The ID of the order. */
                 orderId: string;
-            }): gapi.client.Request<OrdersUpdateShipmentResponse>;            
+            }): Request<OrdersUpdateShipmentResponse>;            
             
         }
         
@@ -2903,7 +2903,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Flag to run the request in dry-run mode. */
                 dryRun?: boolean;
-            }): gapi.client.Request<ProductsCustomBatchResponse>;            
+            }): Request<ProductsCustomBatchResponse>;            
             
             /** Deletes a product from your Merchant Center account. This method can only be called for non-multi-client accounts. */
             delete(request: {            
@@ -2927,7 +2927,7 @@ declare namespace gapi.client {
                 merchantId: string;
                 /** The ID of the product. */
                 productId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Retrieves a product from your Merchant Center account. This method can only be called for non-multi-client accounts. */
             get(request: {            
@@ -2949,7 +2949,7 @@ declare namespace gapi.client {
                 merchantId: string;
                 /** The ID of the product. */
                 productId: string;
-            }): gapi.client.Request<Product>;            
+            }): Request<Product>;            
             
             /** Uploads a product to your Merchant Center account. If an item with the same channel, contentLanguage, offerId, and targetCountry already exists, this method updates that entry. This method can only be called for non-multi-client accounts. */
             insert(request: {            
@@ -2971,7 +2971,7 @@ declare namespace gapi.client {
                 dryRun?: boolean;
                 /** The ID of the managing account. */
                 merchantId: string;
-            }): gapi.client.Request<Product>;            
+            }): Request<Product>;            
             
             /** Lists the products in your Merchant Center account. This method can only be called for non-multi-client accounts. */
             list(request: {            
@@ -2997,7 +2997,7 @@ declare namespace gapi.client {
                 merchantId: string;
                 /** The token returned by the previous request. */
                 pageToken?: string;
-            }): gapi.client.Request<ProductsListResponse>;            
+            }): Request<ProductsListResponse>;            
             
         }
         
@@ -3020,7 +3020,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Flag to include full product data in the results of this request. The default value is false. */
                 includeAttributes?: boolean;
-            }): gapi.client.Request<ProductstatusesCustomBatchResponse>;            
+            }): Request<ProductstatusesCustomBatchResponse>;            
             
             /** Gets the status of a product from your Merchant Center account. This method can only be called for non-multi-client accounts. */
             get(request: {            
@@ -3044,7 +3044,7 @@ declare namespace gapi.client {
                 merchantId: string;
                 /** The ID of the product. */
                 productId: string;
-            }): gapi.client.Request<ProductStatus>;            
+            }): Request<ProductStatus>;            
             
             /** Lists the statuses of the products in your Merchant Center account. This method can only be called for non-multi-client accounts. */
             list(request: {            
@@ -3072,7 +3072,7 @@ declare namespace gapi.client {
                 merchantId: string;
                 /** The token returned by the previous request. */
                 pageToken?: string;
-            }): gapi.client.Request<ProductstatusesListResponse>;            
+            }): Request<ProductstatusesListResponse>;            
             
         }
         
@@ -3095,7 +3095,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Flag to run the request in dry-run mode. */
                 dryRun?: boolean;
-            }): gapi.client.Request<ShippingsettingsCustomBatchResponse>;            
+            }): Request<ShippingsettingsCustomBatchResponse>;            
             
             /** Retrieves the shipping settings of the account. This method can only be called for accounts to which the managing account has access: either the managing account itself for any Merchant Center account, or any sub-account when the managing account is a multi-client account. */
             get(request: {            
@@ -3117,7 +3117,7 @@ declare namespace gapi.client {
                 accountId: string;
                 /** The ID of the managing account. */
                 merchantId: string;
-            }): gapi.client.Request<ShippingSettings>;            
+            }): Request<ShippingSettings>;            
             
             /** Retrieves supported carriers and carrier services for an account. */
             getsupportedcarriers(request: {            
@@ -3137,7 +3137,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The ID of the account for which to retrieve the supported carriers. */
                 merchantId: string;
-            }): gapi.client.Request<ShippingsettingsGetSupportedCarriersResponse>;            
+            }): Request<ShippingsettingsGetSupportedCarriersResponse>;            
             
             /** Lists the shipping settings of the sub-accounts in your Merchant Center account. This method can only be called for multi-client accounts. */
             list(request: {            
@@ -3161,7 +3161,7 @@ declare namespace gapi.client {
                 merchantId: string;
                 /** The token returned by the previous request. */
                 pageToken?: string;
-            }): gapi.client.Request<ShippingsettingsListResponse>;            
+            }): Request<ShippingsettingsListResponse>;            
             
             /** Updates the shipping settings of the account. This method can only be called for accounts to which the managing account has access: either the managing account itself for any Merchant Center account, or any sub-account when the managing account is a multi-client account. This method supports patch semantics. */
             patch(request: {            
@@ -3185,7 +3185,7 @@ declare namespace gapi.client {
                 dryRun?: boolean;
                 /** The ID of the managing account. */
                 merchantId: string;
-            }): gapi.client.Request<ShippingSettings>;            
+            }): Request<ShippingSettings>;            
             
             /** Updates the shipping settings of the account. This method can only be called for accounts to which the managing account has access: either the managing account itself for any Merchant Center account, or any sub-account when the managing account is a multi-client account. */
             update(request: {            
@@ -3209,7 +3209,7 @@ declare namespace gapi.client {
                 dryRun?: boolean;
                 /** The ID of the managing account. */
                 merchantId: string;
-            }): gapi.client.Request<ShippingSettings>;            
+            }): Request<ShippingSettings>;            
             
         }
     }

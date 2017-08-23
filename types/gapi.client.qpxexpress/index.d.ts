@@ -381,7 +381,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<TripsSearchResponse>;            
+            }): Request<TripsSearchResponse>;            
             
         }
     }

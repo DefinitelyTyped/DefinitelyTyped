@@ -20,6 +20,47 @@ declare namespace gapi.client {
     
     namespace vision {
         
+        interface SafeSearchAnnotation {
+            /** Likelihood that this is a medical image. */
+            medical?: string;
+            /** Violence likelihood. */
+            violence?: string;
+            /** Represents the adult content likelihood for the image. */
+            adult?: string;
+            /** Spoof likelihood. The likelihood that an modification */
+            /** was made to the image's canonical version to make it appear */
+            /** funny or offensive. */
+            spoof?: string;
+        }
+        
+        interface DominantColorsAnnotation {
+            /** RGB color values with their score and pixel fraction. */
+            colors?: ColorInfo[];
+        }
+        
+        interface TextAnnotation {
+            /** List of pages detected by OCR. */
+            pages?: Page[];
+            /** UTF-8 text detected on the pages. */
+            text?: string;
+        }
+        
+        interface DetectedLanguage {
+            /** Confidence of detected language. Range [0, 1]. */
+            confidence?: number;
+            /** The BCP-47 language code, such as "en-US" or "sr-Latn". For more */
+            /** information, see */
+            /** http://www.unicode.org/reports/tr35/#Unicode_locale_identifier. */
+            languageCode?: string;
+        }
+        
+        interface Vertex {
+            /** Y coordinate. */
+            y?: number;
+            /** X coordinate. */
+            x?: number;
+        }
+        
         interface TextProperty {
             /** A list of detected languages together with confidence. */
             detectedLanguages?: DetectedLanguage[];
@@ -43,20 +84,6 @@ declare namespace gapi.client {
         }
         
         interface AnnotateImageResponse {
-            /** If present, face detection has completed successfully. */
-            faceAnnotations?: FaceAnnotation[];
-            /** If present, image properties were extracted successfully. */
-            imagePropertiesAnnotation?: ImageProperties;
-            /** If present, logo detection has completed successfully. */
-            logoAnnotations?: EntityAnnotation[];
-            /** If present, crop hints have completed successfully. */
-            cropHintsAnnotation?: CropHintsAnnotation;
-            /** If present, web detection has completed successfully. */
-            webDetection?: WebDetection;
-            /** If present, label detection has completed successfully. */
-            labelAnnotations?: EntityAnnotation[];
-            /** If present, safe-search annotation has completed successfully. */
-            safeSearchAnnotation?: SafeSearchAnnotation;
             /** If set, represents the error message for the operation. */
             /** Note that filled-in image annotations are guaranteed to be */
             /** correct, even when `error` is set. */
@@ -70,6 +97,20 @@ declare namespace gapi.client {
             landmarkAnnotations?: EntityAnnotation[];
             /** If present, text (OCR) detection has completed successfully. */
             textAnnotations?: EntityAnnotation[];
+            /** If present, face detection has completed successfully. */
+            faceAnnotations?: FaceAnnotation[];
+            /** If present, image properties were extracted successfully. */
+            imagePropertiesAnnotation?: ImageProperties;
+            /** If present, logo detection has completed successfully. */
+            logoAnnotations?: EntityAnnotation[];
+            /** If present, web detection has completed successfully. */
+            webDetection?: WebDetection;
+            /** If present, crop hints have completed successfully. */
+            cropHintsAnnotation?: CropHintsAnnotation;
+            /** If present, safe-search annotation has completed successfully. */
+            safeSearchAnnotation?: SafeSearchAnnotation;
+            /** If present, label detection has completed successfully. */
+            labelAnnotations?: EntityAnnotation[];
         }
         
         interface CropHintsParams {
@@ -83,8 +124,6 @@ declare namespace gapi.client {
         }
         
         interface Block {
-            /** List of paragraphs in this block (if this blocks is of type text). */
-            paragraphs?: Paragraph[];
             /** Additional information detected for the block. */
             property?: TextProperty;
             /** Detected block type (text, image etc) for this block. */
@@ -105,6 +144,43 @@ declare namespace gapi.client {
             /**      1----0 */
             /**   and the vertice order will still be (0, 1, 2, 3). */
             boundingBox?: BoundingPoly;
+            /** List of paragraphs in this block (if this blocks is of type text). */
+            paragraphs?: Paragraph[];
+        }
+        
+        interface Property {
+            /** Value of the property. */
+            value?: string;
+            /** Value of numeric properties. */
+            uint64Value?: string;
+            /** Name of the property. */
+            name?: string;
+        }
+        
+        interface LocationInfo {
+            /** lat/long location coordinates. */
+            latLng?: LatLng;
+        }
+        
+        interface WebDetection {
+            /** Fully matching images from the Internet. */
+            /** Can include resized copies of the query image. */
+            fullMatchingImages?: WebImage[];
+            /** Deduced entities from similar images on the Internet. */
+            webEntities?: WebEntity[];
+            /** Web pages containing the matching images from the Internet. */
+            pagesWithMatchingImages?: WebPage[];
+            /** The visually similar image results. */
+            visuallySimilarImages?: WebImage[];
+            /** Partial matching images from the Internet. */
+            /** Those images are similar enough to share some key-point features. For */
+            /** example an original image will likely have partial matching for its crops. */
+            partialMatchingImages?: WebImage[];
+        }
+        
+        interface BatchAnnotateImagesResponse {
+            /** Individual responses to image annotation requests within the batch. */
+            responses?: AnnotateImageResponse[];
         }
         
         interface ImageSource {
@@ -128,55 +204,13 @@ declare namespace gapi.client {
             imageUri?: string;
         }
         
-        interface BatchAnnotateImagesResponse {
-            /** Individual responses to image annotation requests within the batch. */
-            responses?: AnnotateImageResponse[];
-        }
-        
-        interface WebDetection {
-            /** Fully matching images from the Internet. */
-            /** Can include resized copies of the query image. */
-            fullMatchingImages?: WebImage[];
-            /** Deduced entities from similar images on the Internet. */
-            webEntities?: WebEntity[];
-            /** Web pages containing the matching images from the Internet. */
-            pagesWithMatchingImages?: WebPage[];
-            /** The visually similar image results. */
-            visuallySimilarImages?: WebImage[];
-            /** Partial matching images from the Internet. */
-            /** Those images are similar enough to share some key-point features. For */
-            /** example an original image will likely have partial matching for its crops. */
-            partialMatchingImages?: WebImage[];
-        }
-        
-        interface Property {
-            /** Value of the property. */
-            value?: string;
-            /** Value of numeric properties. */
-            uint64Value?: string;
-            /** Name of the property. */
-            name?: string;
-        }
-        
-        interface LocationInfo {
-            /** lat/long location coordinates. */
-            latLng?: LatLng;
-        }
-        
         interface Position {
-            /** Y coordinate. */
-            y?: number;
             /** Z coordinate (or depth). */
             z?: number;
             /** X coordinate. */
             x?: number;
-        }
-        
-        interface WebPage {
-            /** The result web page URL. */
-            url?: string;
-            /** (Deprecated) Overall relevancy score for the web page. */
-            score?: number;
+            /** Y coordinate. */
+            y?: number;
         }
         
         interface ColorInfo {
@@ -189,15 +223,14 @@ declare namespace gapi.client {
             score?: number;
         }
         
-        interface EntityAnnotation {
-            /** Overall score of the result. Range [0, 1]. */
+        interface WebPage {
+            /** (Deprecated) Overall relevancy score for the web page. */
             score?: number;
-            /** The location information for the detected entity. Multiple */
-            /** `LocationInfo` elements can be present because one location may */
-            /** indicate the location of the scene in the image, and another location */
-            /** may indicate the location of the place where the image was taken. */
-            /** Location information is usually present for landmarks. */
-            locations?: LocationInfo[];
+            /** The result web page URL. */
+            url?: string;
+        }
+        
+        interface EntityAnnotation {
             /** Opaque entity ID. Some IDs may be available in */
             /** [Google Knowledge Graph Search API](https://developers.google.com/knowledge-graph/). */
             mid?: string;
@@ -212,17 +245,25 @@ declare namespace gapi.client {
             /** Image region to which this entity belongs. Not produced */
             /** for `LABEL_DETECTION` features. */
             boundingPoly?: BoundingPoly;
+            /** Entity textual description, expressed in its `locale` language. */
+            description?: string;
             /** The relevancy of the ICA (Image Content Annotation) label to the */
             /** image. For example, the relevancy of "tower" is likely higher to an image */
             /** containing the detected "Eiffel Tower" than to an image containing a */
             /** detected distant towering building, even though the confidence that */
             /** there is a tower in each image may be the same. Range [0, 1]. */
             topicality?: number;
-            /** Entity textual description, expressed in its `locale` language. */
-            description?: string;
             /** Some entities may have optional user-supplied `Property` (name/value) */
             /** fields, such a score or string that qualifies the entity. */
             properties?: Property[];
+            /** Overall score of the result. Range [0, 1]. */
+            score?: number;
+            /** The location information for the detected entity. Multiple */
+            /** `LocationInfo` elements can be present because one location may */
+            /** indicate the location of the scene in the image, and another location */
+            /** may indicate the location of the place where the image was taken. */
+            /** Location information is usually present for landmarks. */
+            locations?: LocationInfo[];
         }
         
         interface CropHint {
@@ -244,13 +285,16 @@ declare namespace gapi.client {
         }
         
         interface WebImage {
-            /** (Deprecated) Overall relevancy score for the image. */
-            score?: number;
             /** The result image URL. */
             url?: string;
+            /** (Deprecated) Overall relevancy score for the image. */
+            score?: number;
         }
         
         interface Word {
+            /** List of symbols in the word. */
+            /** The order of the symbols follows the natural reading order. */
+            symbols?: Symbol[];
             /** Additional information detected for the word. */
             property?: TextProperty;
             /** The bounding box for the word. */
@@ -269,20 +313,6 @@ declare namespace gapi.client {
             /**      1----0 */
             /**   and the vertice order will still be (0, 1, 2, 3). */
             boundingBox?: BoundingPoly;
-            /** List of symbols in the word. */
-            /** The order of the symbols follows the natural reading order. */
-            symbols?: Symbol[];
-        }
-        
-        interface Image {
-            /** Google Cloud Storage image location. If both `content` and `source` */
-            /** are provided for an image, `content` takes precedence and is */
-            /** used to perform the image annotation request. */
-            source?: ImageSource;
-            /** Image content, represented as a stream of bytes. */
-            /** Note: as with all `bytes` fields, protobuffers use a pure binary */
-            /** representation, whereas JSON representations use base64. */
-            content?: string;
         }
         
         interface Paragraph {
@@ -308,6 +338,17 @@ declare namespace gapi.client {
             words?: Word[];
         }
         
+        interface Image {
+            /** Google Cloud Storage image location. If both `content` and `source` */
+            /** are provided for an image, `content` takes precedence and is */
+            /** used to perform the image annotation request. */
+            source?: ImageSource;
+            /** Image content, represented as a stream of bytes. */
+            /** Note: as with all `bytes` fields, protobuffers use a pure binary */
+            /** representation, whereas JSON representations use base64. */
+            content?: string;
+        }
+        
         interface FaceAnnotation {
             /** The `fd_bounding_poly` bounding polygon is tighter than the */
             /** `boundingPoly`, and encloses only the skin part of the face. Typically, it */
@@ -316,12 +357,12 @@ declare namespace gapi.client {
             /** landmarker results, only on the initial face detection, hence */
             /** the <code>fd</code> (face detection) prefix. */
             fdBoundingPoly?: BoundingPoly;
+            /** Anger likelihood. */
+            angerLikelihood?: string;
             /** Detected face landmarks. */
             landmarks?: Landmark[];
             /** Surprise likelihood. */
             surpriseLikelihood?: string;
-            /** Anger likelihood. */
-            angerLikelihood?: string;
             /** Face landmarking confidence. Range [0, 1]. */
             landmarkingConfidence?: number;
             /** Joy likelihood. */
@@ -363,15 +404,13 @@ declare namespace gapi.client {
         }
         
         interface DetectedBreak {
-            /** True if break prepends the element. */
-            isPrefix?: boolean;
             /** Detected break type. */
             type?: string;
+            /** True if break prepends the element. */
+            isPrefix?: boolean;
         }
         
         interface ImageContext {
-            /** Parameters for crop hints annotation request. */
-            cropHintsParams?: CropHintsParams;
             /** List of languages to use for TEXT_DETECTION. In most cases, an empty value */
             /** yields the best results since it enables automatic language detection. For */
             /** languages based on the Latin alphabet, setting `language_hints` is not */
@@ -383,17 +422,19 @@ declare namespace gapi.client {
             languageHints?: string[];
             /** lat/long rectangle that specifies the location of the image. */
             latLongRect?: LatLongRect;
+            /** Parameters for crop hints annotation request. */
+            cropHintsParams?: CropHintsParams;
         }
         
         interface Page {
+            /** Page height in pixels. */
+            height?: number;
             /** Page width in pixels. */
             width?: number;
             /** List of blocks of text, images etc on this page. */
             blocks?: Block[];
             /** Additional information detected on the page. */
             property?: TextProperty;
-            /** Page height in pixels. */
-            height?: number;
         }
         
         interface AnnotateImageRequest {
@@ -406,25 +447,27 @@ declare namespace gapi.client {
         }
         
         interface Status {
+            /** A list of messages that carry the error details.  There is a common set of */
+            /** message types for APIs to use. */
+            details?: Array<Record<string, any>>;            
             /** The status code, which should be an enum value of google.rpc.Code. */
             code?: number;
             /** A developer-facing error message, which should be in English. Any */
             /** user-facing error message should be localized and sent in the */
             /** google.rpc.Status.details field, or localized by the client. */
             message?: string;
-            /** A list of messages that carry the error details.  There is a common set of */
-            /** message types for APIs to use. */
-            details?: Array<Record<string, any>>;            
         }
         
         interface LatLongRect {
-            /** Max lat/long pair. */
-            maxLatLng?: LatLng;
             /** Min lat/long pair. */
             minLatLng?: LatLng;
+            /** Max lat/long pair. */
+            maxLatLng?: LatLng;
         }
         
         interface Symbol {
+            /** The actual UTF-8 representation of the symbol. */
+            text?: string;
             /** Additional information detected for the symbol. */
             property?: TextProperty;
             /** The bounding box for the symbol. */
@@ -443,8 +486,6 @@ declare namespace gapi.client {
             /**      1----0 */
             /**   and the vertice order will still be (0, 1, 2, 3). */
             boundingBox?: BoundingPoly;
-            /** The actual UTF-8 representation of the symbol. */
-            text?: string;
         }
         
         interface CropHintsAnnotation {
@@ -453,10 +494,10 @@ declare namespace gapi.client {
         }
         
         interface LatLng {
-            /** The longitude in degrees. It must be in the range [-180.0, +180.0]. */
-            longitude?: number;
             /** The latitude in degrees. It must be in the range [-90.0, +90.0]. */
             latitude?: number;
+            /** The longitude in degrees. It must be in the range [-180.0, +180.0]. */
+            longitude?: number;
         }
         
         interface Color {
@@ -480,11 +521,6 @@ declare namespace gapi.client {
             green?: number;
         }
         
-        interface ImageProperties {
-            /** If present, dominant colors completed successfully. */
-            dominantColors?: DominantColorsAnnotation;
-        }
-        
         interface Feature {
             /** Maximum number of results of this type. */
             maxResults?: number;
@@ -492,50 +528,24 @@ declare namespace gapi.client {
             type?: string;
         }
         
-        interface SafeSearchAnnotation {
-            /** Violence likelihood. */
-            violence?: string;
-            /** Represents the adult content likelihood for the image. */
-            adult?: string;
-            /** Spoof likelihood. The likelihood that an modification */
-            /** was made to the image's canonical version to make it appear */
-            /** funny or offensive. */
-            spoof?: string;
-            /** Likelihood that this is a medical image. */
-            medical?: string;
-        }
-        
-        interface DominantColorsAnnotation {
-            /** RGB color values with their score and pixel fraction. */
-            colors?: ColorInfo[];
-        }
-        
-        interface TextAnnotation {
-            /** List of pages detected by OCR. */
-            pages?: Page[];
-            /** UTF-8 text detected on the pages. */
-            text?: string;
-        }
-        
-        interface DetectedLanguage {
-            /** The BCP-47 language code, such as "en-US" or "sr-Latn". For more */
-            /** information, see */
-            /** http://www.unicode.org/reports/tr35/#Unicode_locale_identifier. */
-            languageCode?: string;
-            /** Confidence of detected language. Range [0, 1]. */
-            confidence?: number;
-        }
-        
-        interface Vertex {
-            /** Y coordinate. */
-            y?: number;
-            /** X coordinate. */
-            x?: number;
+        interface ImageProperties {
+            /** If present, dominant colors completed successfully. */
+            dominantColors?: DominantColorsAnnotation;
         }
         
         interface ImagesResource {
             /** Run image detection and annotation for a batch of images. */
             annotate(request: {            
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth access token. */
@@ -544,25 +554,15 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-            }): gapi.client.Request<BatchAnnotateImagesResponse>;            
+            }): Request<BatchAnnotateImagesResponse>;            
             
         }
     }

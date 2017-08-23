@@ -1632,7 +1632,7 @@ declare namespace gapi.client {
                 "start-date": string;
                 /** An index of the first entity to retrieve. Use this parameter as a pagination mechanism along with the max-results parameter. */
                 "start-index"?: number;
-            }): gapi.client.Request<GaData>;            
+            }): Request<GaData>;            
             
         }
         
@@ -1673,7 +1673,7 @@ declare namespace gapi.client {
                 "start-date": string;
                 /** An index of the first entity to retrieve. Use this parameter as a pagination mechanism along with the max-results parameter. */
                 "start-index"?: number;
-            }): gapi.client.Request<McfData>;            
+            }): Request<McfData>;            
             
         }
         
@@ -1706,7 +1706,7 @@ declare namespace gapi.client {
                 metrics: string;
                 /** A comma-separated list of dimensions or metrics that determine the sort order for real time data. */
                 sort?: string;
-            }): gapi.client.Request<RealtimeData>;            
+            }): Request<RealtimeData>;            
             
         }
         
@@ -1737,7 +1737,7 @@ declare namespace gapi.client {
                 "max-results"?: number;
                 /** An index of the first entity to retrieve. Use this parameter as a pagination mechanism along with the max-results parameter. */
                 "start-index"?: number;
-            }): gapi.client.Request<AccountSummaries>;            
+            }): Request<AccountSummaries>;            
             
         }
         
@@ -1762,7 +1762,7 @@ declare namespace gapi.client {
                 accountId: string;
                 /** Link ID to delete the user link for. */
                 linkId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Adds a new user to the given account. */
             insert(request: {            
@@ -1782,7 +1782,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Account ID to create the user link for. */
                 accountId: string;
-            }): gapi.client.Request<EntityUserLink>;            
+            }): Request<EntityUserLink>;            
             
             /** Lists account-user links for a given account. */
             list(request: {            
@@ -1806,7 +1806,7 @@ declare namespace gapi.client {
                 "max-results"?: number;
                 /** An index of the first account-user link to retrieve. Use this parameter as a pagination mechanism along with the max-results parameter. */
                 "start-index"?: number;
-            }): gapi.client.Request<EntityUserLinks>;            
+            }): Request<EntityUserLinks>;            
             
             /** Updates permissions for an existing user on the given account. */
             update(request: {            
@@ -1828,7 +1828,7 @@ declare namespace gapi.client {
                 accountId: string;
                 /** Link ID to update the account-user link for. */
                 linkId: string;
-            }): gapi.client.Request<EntityUserLink>;            
+            }): Request<EntityUserLink>;            
             
         }
         
@@ -1853,7 +1853,7 @@ declare namespace gapi.client {
                 "max-results"?: number;
                 /** An index of the first account to retrieve. Use this parameter as a pagination mechanism along with the max-results parameter. */
                 "start-index"?: number;
-            }): gapi.client.Request<Accounts>;            
+            }): Request<Accounts>;            
             
         }
         
@@ -1882,7 +1882,7 @@ declare namespace gapi.client {
                 "start-index"?: number;
                 /** Web property Id for the custom data sources to retrieve. */
                 webPropertyId: string;
-            }): gapi.client.Request<CustomDataSources>;            
+            }): Request<CustomDataSources>;            
             
         }
         
@@ -1909,7 +1909,7 @@ declare namespace gapi.client {
                 customDimensionId: string;
                 /** Web property ID for the custom dimension to retrieve. */
                 webPropertyId: string;
-            }): gapi.client.Request<CustomDimension>;            
+            }): Request<CustomDimension>;            
             
             /** Create a new custom dimension. */
             insert(request: {            
@@ -1931,7 +1931,7 @@ declare namespace gapi.client {
                 accountId: string;
                 /** Web property ID for the custom dimension to create. */
                 webPropertyId: string;
-            }): gapi.client.Request<CustomDimension>;            
+            }): Request<CustomDimension>;            
             
             /** Lists custom dimensions to which the user has access. */
             list(request: {            
@@ -1957,7 +1957,7 @@ declare namespace gapi.client {
                 "start-index"?: number;
                 /** Web property ID for the custom dimensions to retrieve. */
                 webPropertyId: string;
-            }): gapi.client.Request<CustomDimensions>;            
+            }): Request<CustomDimensions>;            
             
             /** Updates an existing custom dimension. This method supports patch semantics. */
             patch(request: {            
@@ -1983,7 +1983,7 @@ declare namespace gapi.client {
                 ignoreCustomDataSourceLinks?: boolean;
                 /** Web property ID for the custom dimension to update. */
                 webPropertyId: string;
-            }): gapi.client.Request<CustomDimension>;            
+            }): Request<CustomDimension>;            
             
             /** Updates an existing custom dimension. */
             update(request: {            
@@ -2009,7 +2009,7 @@ declare namespace gapi.client {
                 ignoreCustomDataSourceLinks?: boolean;
                 /** Web property ID for the custom dimension to update. */
                 webPropertyId: string;
-            }): gapi.client.Request<CustomDimension>;            
+            }): Request<CustomDimension>;            
             
         }
         
@@ -2036,7 +2036,7 @@ declare namespace gapi.client {
                 customMetricId: string;
                 /** Web property ID for the custom metric to retrieve. */
                 webPropertyId: string;
-            }): gapi.client.Request<CustomMetric>;            
+            }): Request<CustomMetric>;            
             
             /** Create a new custom metric. */
             insert(request: {            
@@ -2058,7 +2058,7 @@ declare namespace gapi.client {
                 accountId: string;
                 /** Web property ID for the custom dimension to create. */
                 webPropertyId: string;
-            }): gapi.client.Request<CustomMetric>;            
+            }): Request<CustomMetric>;            
             
             /** Lists custom metrics to which the user has access. */
             list(request: {            
@@ -2084,7 +2084,7 @@ declare namespace gapi.client {
                 "start-index"?: number;
                 /** Web property ID for the custom metrics to retrieve. */
                 webPropertyId: string;
-            }): gapi.client.Request<CustomMetrics>;            
+            }): Request<CustomMetrics>;            
             
             /** Updates an existing custom metric. This method supports patch semantics. */
             patch(request: {            
@@ -2110,7 +2110,7 @@ declare namespace gapi.client {
                 ignoreCustomDataSourceLinks?: boolean;
                 /** Web property ID for the custom metric to update. */
                 webPropertyId: string;
-            }): gapi.client.Request<CustomMetric>;            
+            }): Request<CustomMetric>;            
             
             /** Updates an existing custom metric. */
             update(request: {            
@@ -2136,7 +2136,7 @@ declare namespace gapi.client {
                 ignoreCustomDataSourceLinks?: boolean;
                 /** Web property ID for the custom metric to update. */
                 webPropertyId: string;
-            }): gapi.client.Request<CustomMetric>;            
+            }): Request<CustomMetric>;            
             
         }
         
@@ -2165,7 +2165,7 @@ declare namespace gapi.client {
                 profileId: string;
                 /** Web property ID to which the experiment belongs */
                 webPropertyId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Returns an experiment to which the user has access. */
             get(request: {            
@@ -2191,7 +2191,7 @@ declare namespace gapi.client {
                 profileId: string;
                 /** Web property ID to retrieve the experiment for. */
                 webPropertyId: string;
-            }): gapi.client.Request<Experiment>;            
+            }): Request<Experiment>;            
             
             /** Create a new experiment. */
             insert(request: {            
@@ -2215,7 +2215,7 @@ declare namespace gapi.client {
                 profileId: string;
                 /** Web property ID to create the experiment for. */
                 webPropertyId: string;
-            }): gapi.client.Request<Experiment>;            
+            }): Request<Experiment>;            
             
             /** Lists experiments to which the user has access. */
             list(request: {            
@@ -2243,7 +2243,7 @@ declare namespace gapi.client {
                 "start-index"?: number;
                 /** Web property ID to retrieve experiments for. */
                 webPropertyId: string;
-            }): gapi.client.Request<Experiments>;            
+            }): Request<Experiments>;            
             
             /** Update an existing experiment. This method supports patch semantics. */
             patch(request: {            
@@ -2269,7 +2269,7 @@ declare namespace gapi.client {
                 profileId: string;
                 /** Web property ID of the experiment to update. */
                 webPropertyId: string;
-            }): gapi.client.Request<Experiment>;            
+            }): Request<Experiment>;            
             
             /** Update an existing experiment. */
             update(request: {            
@@ -2295,7 +2295,7 @@ declare namespace gapi.client {
                 profileId: string;
                 /** Web property ID of the experiment to update. */
                 webPropertyId: string;
-            }): gapi.client.Request<Experiment>;            
+            }): Request<Experiment>;            
             
         }
         
@@ -2320,7 +2320,7 @@ declare namespace gapi.client {
                 accountId: string;
                 /** ID of the filter to be deleted. */
                 filterId: string;
-            }): gapi.client.Request<Filter>;            
+            }): Request<Filter>;            
             
             /** Returns a filters to which the user has access. */
             get(request: {            
@@ -2342,7 +2342,7 @@ declare namespace gapi.client {
                 accountId: string;
                 /** Filter ID to retrieve filters for. */
                 filterId: string;
-            }): gapi.client.Request<Filter>;            
+            }): Request<Filter>;            
             
             /** Create a new filter. */
             insert(request: {            
@@ -2362,7 +2362,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Account ID to create filter for. */
                 accountId: string;
-            }): gapi.client.Request<Filter>;            
+            }): Request<Filter>;            
             
             /** Lists all filters for an account */
             list(request: {            
@@ -2386,7 +2386,7 @@ declare namespace gapi.client {
                 "max-results"?: number;
                 /** An index of the first entity to retrieve. Use this parameter as a pagination mechanism along with the max-results parameter. */
                 "start-index"?: number;
-            }): gapi.client.Request<Filters>;            
+            }): Request<Filters>;            
             
             /** Updates an existing filter. This method supports patch semantics. */
             patch(request: {            
@@ -2408,7 +2408,7 @@ declare namespace gapi.client {
                 accountId: string;
                 /** ID of the filter to be updated. */
                 filterId: string;
-            }): gapi.client.Request<Filter>;            
+            }): Request<Filter>;            
             
             /** Updates an existing filter. */
             update(request: {            
@@ -2430,7 +2430,7 @@ declare namespace gapi.client {
                 accountId: string;
                 /** ID of the filter to be updated. */
                 filterId: string;
-            }): gapi.client.Request<Filter>;            
+            }): Request<Filter>;            
             
         }
         
@@ -2459,7 +2459,7 @@ declare namespace gapi.client {
                 profileId: string;
                 /** Web property ID to retrieve the goal for. */
                 webPropertyId: string;
-            }): gapi.client.Request<Goal>;            
+            }): Request<Goal>;            
             
             /** Create a new goal. */
             insert(request: {            
@@ -2483,7 +2483,7 @@ declare namespace gapi.client {
                 profileId: string;
                 /** Web property ID to create the goal for. */
                 webPropertyId: string;
-            }): gapi.client.Request<Goal>;            
+            }): Request<Goal>;            
             
             /** Lists goals to which the user has access. */
             list(request: {            
@@ -2511,7 +2511,7 @@ declare namespace gapi.client {
                 "start-index"?: number;
                 /** Web property ID to retrieve goals for. Can either be a specific web property ID or '~all', which refers to all the web properties that user has access to. */
                 webPropertyId: string;
-            }): gapi.client.Request<Goals>;            
+            }): Request<Goals>;            
             
             /** Updates an existing goal. This method supports patch semantics. */
             patch(request: {            
@@ -2537,7 +2537,7 @@ declare namespace gapi.client {
                 profileId: string;
                 /** Web property ID to update the goal. */
                 webPropertyId: string;
-            }): gapi.client.Request<Goal>;            
+            }): Request<Goal>;            
             
             /** Updates an existing goal. */
             update(request: {            
@@ -2563,7 +2563,7 @@ declare namespace gapi.client {
                 profileId: string;
                 /** Web property ID to update the goal. */
                 webPropertyId: string;
-            }): gapi.client.Request<Goal>;            
+            }): Request<Goal>;            
             
         }
         
@@ -2592,7 +2592,7 @@ declare namespace gapi.client {
                 profileId: string;
                 /** Web property Id to which the profile filter link belongs. */
                 webPropertyId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Returns a single profile filter link. */
             get(request: {            
@@ -2618,7 +2618,7 @@ declare namespace gapi.client {
                 profileId: string;
                 /** Web property Id to retrieve profile filter link for. */
                 webPropertyId: string;
-            }): gapi.client.Request<ProfileFilterLink>;            
+            }): Request<ProfileFilterLink>;            
             
             /** Create a new profile filter link. */
             insert(request: {            
@@ -2642,7 +2642,7 @@ declare namespace gapi.client {
                 profileId: string;
                 /** Web property Id to create profile filter link for. */
                 webPropertyId: string;
-            }): gapi.client.Request<ProfileFilterLink>;            
+            }): Request<ProfileFilterLink>;            
             
             /** Lists all profile filter links for a profile. */
             list(request: {            
@@ -2670,7 +2670,7 @@ declare namespace gapi.client {
                 "start-index"?: number;
                 /** Web property Id for profile filter links for. Can either be a specific web property ID or '~all', which refers to all the web properties that user has access to. */
                 webPropertyId: string;
-            }): gapi.client.Request<ProfileFilterLinks>;            
+            }): Request<ProfileFilterLinks>;            
             
             /** Update an existing profile filter link. This method supports patch semantics. */
             patch(request: {            
@@ -2696,7 +2696,7 @@ declare namespace gapi.client {
                 profileId: string;
                 /** Web property Id to which profile filter link belongs */
                 webPropertyId: string;
-            }): gapi.client.Request<ProfileFilterLink>;            
+            }): Request<ProfileFilterLink>;            
             
             /** Update an existing profile filter link. */
             update(request: {            
@@ -2722,7 +2722,7 @@ declare namespace gapi.client {
                 profileId: string;
                 /** Web property Id to which profile filter link belongs */
                 webPropertyId: string;
-            }): gapi.client.Request<ProfileFilterLink>;            
+            }): Request<ProfileFilterLink>;            
             
         }
         
@@ -2751,7 +2751,7 @@ declare namespace gapi.client {
                 profileId: string;
                 /** Web Property ID to delete the user link for. */
                 webPropertyId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Adds a new user to the given view (profile). */
             insert(request: {            
@@ -2775,7 +2775,7 @@ declare namespace gapi.client {
                 profileId: string;
                 /** Web Property ID to create the user link for. */
                 webPropertyId: string;
-            }): gapi.client.Request<EntityUserLink>;            
+            }): Request<EntityUserLink>;            
             
             /** Lists profile-user links for a given view (profile). */
             list(request: {            
@@ -2803,7 +2803,7 @@ declare namespace gapi.client {
                 "start-index"?: number;
                 /** Web Property ID which the given view (profile) belongs to. Can either be a specific web property ID or '~all', which refers to all the web properties that user has access to. */
                 webPropertyId: string;
-            }): gapi.client.Request<EntityUserLinks>;            
+            }): Request<EntityUserLinks>;            
             
             /** Updates permissions for an existing user on the given view (profile). */
             update(request: {            
@@ -2829,7 +2829,7 @@ declare namespace gapi.client {
                 profileId: string;
                 /** Web Property ID to update the user link for. */
                 webPropertyId: string;
-            }): gapi.client.Request<EntityUserLink>;            
+            }): Request<EntityUserLink>;            
             
         }
         
@@ -2856,7 +2856,7 @@ declare namespace gapi.client {
                 profileId: string;
                 /** Web property ID to delete the view (profile) for. */
                 webPropertyId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Gets a view (profile) to which the user has access. */
             get(request: {            
@@ -2880,7 +2880,7 @@ declare namespace gapi.client {
                 profileId: string;
                 /** Web property ID to retrieve the view (profile) for. */
                 webPropertyId: string;
-            }): gapi.client.Request<Profile>;            
+            }): Request<Profile>;            
             
             /** Create a new view (profile). */
             insert(request: {            
@@ -2902,7 +2902,7 @@ declare namespace gapi.client {
                 accountId: string;
                 /** Web property ID to create the view (profile) for. */
                 webPropertyId: string;
-            }): gapi.client.Request<Profile>;            
+            }): Request<Profile>;            
             
             /** Lists views (profiles) to which the user has access. */
             list(request: {            
@@ -2928,7 +2928,7 @@ declare namespace gapi.client {
                 "start-index"?: number;
                 /** Web property ID for the views (profiles) to retrieve. Can either be a specific web property ID or '~all', which refers to all the web properties to which the user has access. */
                 webPropertyId: string;
-            }): gapi.client.Request<Profiles>;            
+            }): Request<Profiles>;            
             
             /** Updates an existing view (profile). This method supports patch semantics. */
             patch(request: {            
@@ -2952,7 +2952,7 @@ declare namespace gapi.client {
                 profileId: string;
                 /** Web property ID to which the view (profile) belongs */
                 webPropertyId: string;
-            }): gapi.client.Request<Profile>;            
+            }): Request<Profile>;            
             
             /** Updates an existing view (profile). */
             update(request: {            
@@ -2976,7 +2976,7 @@ declare namespace gapi.client {
                 profileId: string;
                 /** Web property ID to which the view (profile) belongs */
                 webPropertyId: string;
-            }): gapi.client.Request<Profile>;            
+            }): Request<Profile>;            
             
         }
         
@@ -3003,7 +3003,7 @@ declare namespace gapi.client {
                 remarketingAudienceId: string;
                 /** Web property ID to which the remarketing audience belongs. */
                 webPropertyId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Gets a remarketing audience to which the user has access. */
             get(request: {            
@@ -3027,7 +3027,7 @@ declare namespace gapi.client {
                 remarketingAudienceId: string;
                 /** The web property ID of the remarketing audience to retrieve. */
                 webPropertyId: string;
-            }): gapi.client.Request<RemarketingAudience>;            
+            }): Request<RemarketingAudience>;            
             
             /** Creates a new remarketing audience. */
             insert(request: {            
@@ -3049,7 +3049,7 @@ declare namespace gapi.client {
                 accountId: string;
                 /** Web property ID for which to create the remarketing audience. */
                 webPropertyId: string;
-            }): gapi.client.Request<RemarketingAudience>;            
+            }): Request<RemarketingAudience>;            
             
             /** Lists remarketing audiences to which the user has access. */
             list(request: {            
@@ -3077,7 +3077,7 @@ declare namespace gapi.client {
                 type?: string;
                 /** The web property ID of the remarketing audiences to retrieve. */
                 webPropertyId: string;
-            }): gapi.client.Request<RemarketingAudiences>;            
+            }): Request<RemarketingAudiences>;            
             
             /** Updates an existing remarketing audience. This method supports patch semantics. */
             patch(request: {            
@@ -3101,7 +3101,7 @@ declare namespace gapi.client {
                 remarketingAudienceId: string;
                 /** The web property ID of the remarketing audience to update. */
                 webPropertyId: string;
-            }): gapi.client.Request<RemarketingAudience>;            
+            }): Request<RemarketingAudience>;            
             
             /** Updates an existing remarketing audience. */
             update(request: {            
@@ -3125,7 +3125,7 @@ declare namespace gapi.client {
                 remarketingAudienceId: string;
                 /** The web property ID of the remarketing audience to update. */
                 webPropertyId: string;
-            }): gapi.client.Request<RemarketingAudience>;            
+            }): Request<RemarketingAudience>;            
             
         }
         
@@ -3150,7 +3150,7 @@ declare namespace gapi.client {
                 "max-results"?: number;
                 /** An index of the first segment to retrieve. Use this parameter as a pagination mechanism along with the max-results parameter. */
                 "start-index"?: number;
-            }): gapi.client.Request<Segments>;            
+            }): Request<Segments>;            
             
         }
         
@@ -3179,7 +3179,7 @@ declare namespace gapi.client {
                 unsampledReportId: string;
                 /** Web property ID to delete the unsampled reports for. */
                 webPropertyId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Returns a single unsampled report. */
             get(request: {            
@@ -3205,7 +3205,7 @@ declare namespace gapi.client {
                 unsampledReportId: string;
                 /** Web property ID to retrieve unsampled reports for. */
                 webPropertyId: string;
-            }): gapi.client.Request<UnsampledReport>;            
+            }): Request<UnsampledReport>;            
             
             /** Create a new unsampled report. */
             insert(request: {            
@@ -3229,7 +3229,7 @@ declare namespace gapi.client {
                 profileId: string;
                 /** Web property ID to create the unsampled report for. */
                 webPropertyId: string;
-            }): gapi.client.Request<UnsampledReport>;            
+            }): Request<UnsampledReport>;            
             
             /** Lists unsampled reports to which the user has access. */
             list(request: {            
@@ -3257,7 +3257,7 @@ declare namespace gapi.client {
                 "start-index"?: number;
                 /** Web property ID to retrieve unsampled reports for. Must be a specific web property ID, ~all is not supported. */
                 webPropertyId: string;
-            }): gapi.client.Request<UnsampledReports>;            
+            }): Request<UnsampledReports>;            
             
         }
         
@@ -3284,7 +3284,7 @@ declare namespace gapi.client {
                 customDataSourceId: string;
                 /** Web property Id for the uploads to be deleted. */
                 webPropertyId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** List uploads to which the user has access. */
             get(request: {            
@@ -3310,7 +3310,7 @@ declare namespace gapi.client {
                 uploadId: string;
                 /** Web property Id for the upload to retrieve. */
                 webPropertyId: string;
-            }): gapi.client.Request<Upload>;            
+            }): Request<Upload>;            
             
             /** List uploads to which the user has access. */
             list(request: {            
@@ -3338,7 +3338,7 @@ declare namespace gapi.client {
                 "start-index"?: number;
                 /** Web property Id for the uploads to retrieve. */
                 webPropertyId: string;
-            }): gapi.client.Request<Uploads>;            
+            }): Request<Uploads>;            
             
             /** Upload data for a custom data source. */
             uploadData(request: {            
@@ -3362,7 +3362,7 @@ declare namespace gapi.client {
                 customDataSourceId: string;
                 /** Web property UA-string associated with the upload. */
                 webPropertyId: string;
-            }): gapi.client.Request<Upload>;            
+            }): Request<Upload>;            
             
         }
         
@@ -3389,7 +3389,7 @@ declare namespace gapi.client {
                 webPropertyAdWordsLinkId: string;
                 /** Web property ID to delete the AdWords link for. */
                 webPropertyId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Returns a web property-AdWords link to which the user has access. */
             get(request: {            
@@ -3413,7 +3413,7 @@ declare namespace gapi.client {
                 webPropertyAdWordsLinkId: string;
                 /** Web property ID to retrieve the AdWords link for. */
                 webPropertyId: string;
-            }): gapi.client.Request<EntityAdWordsLink>;            
+            }): Request<EntityAdWordsLink>;            
             
             /** Creates a webProperty-AdWords link. */
             insert(request: {            
@@ -3435,7 +3435,7 @@ declare namespace gapi.client {
                 accountId: string;
                 /** Web property ID to create the link for. */
                 webPropertyId: string;
-            }): gapi.client.Request<EntityAdWordsLink>;            
+            }): Request<EntityAdWordsLink>;            
             
             /** Lists webProperty-AdWords links for a given web property. */
             list(request: {            
@@ -3461,7 +3461,7 @@ declare namespace gapi.client {
                 "start-index"?: number;
                 /** Web property ID to retrieve the AdWords links for. */
                 webPropertyId: string;
-            }): gapi.client.Request<EntityAdWordsLinks>;            
+            }): Request<EntityAdWordsLinks>;            
             
             /** Updates an existing webProperty-AdWords link. This method supports patch semantics. */
             patch(request: {            
@@ -3485,7 +3485,7 @@ declare namespace gapi.client {
                 webPropertyAdWordsLinkId: string;
                 /** Web property ID to retrieve the AdWords link for. */
                 webPropertyId: string;
-            }): gapi.client.Request<EntityAdWordsLink>;            
+            }): Request<EntityAdWordsLink>;            
             
             /** Updates an existing webProperty-AdWords link. */
             update(request: {            
@@ -3509,7 +3509,7 @@ declare namespace gapi.client {
                 webPropertyAdWordsLinkId: string;
                 /** Web property ID to retrieve the AdWords link for. */
                 webPropertyId: string;
-            }): gapi.client.Request<EntityAdWordsLink>;            
+            }): Request<EntityAdWordsLink>;            
             
         }
         
@@ -3534,7 +3534,7 @@ declare namespace gapi.client {
                 accountId: string;
                 /** ID to retrieve the web property for. */
                 webPropertyId: string;
-            }): gapi.client.Request<Webproperty>;            
+            }): Request<Webproperty>;            
             
             /** Create a new property if the account has fewer than 20 properties. Web properties are visible in the Google Analytics interface only if they have at least one profile. */
             insert(request: {            
@@ -3554,7 +3554,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Account ID to create the web property for. */
                 accountId: string;
-            }): gapi.client.Request<Webproperty>;            
+            }): Request<Webproperty>;            
             
             /** Lists web properties to which the user has access. */
             list(request: {            
@@ -3578,7 +3578,7 @@ declare namespace gapi.client {
                 "max-results"?: number;
                 /** An index of the first entity to retrieve. Use this parameter as a pagination mechanism along with the max-results parameter. */
                 "start-index"?: number;
-            }): gapi.client.Request<Webproperties>;            
+            }): Request<Webproperties>;            
             
             /** Updates an existing web property. This method supports patch semantics. */
             patch(request: {            
@@ -3600,7 +3600,7 @@ declare namespace gapi.client {
                 accountId: string;
                 /** Web property ID */
                 webPropertyId: string;
-            }): gapi.client.Request<Webproperty>;            
+            }): Request<Webproperty>;            
             
             /** Updates an existing web property. */
             update(request: {            
@@ -3622,7 +3622,7 @@ declare namespace gapi.client {
                 accountId: string;
                 /** Web property ID */
                 webPropertyId: string;
-            }): gapi.client.Request<Webproperty>;            
+            }): Request<Webproperty>;            
             
         }
         
@@ -3649,7 +3649,7 @@ declare namespace gapi.client {
                 linkId: string;
                 /** Web Property ID to delete the user link for. */
                 webPropertyId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Adds a new user to the given web property. */
             insert(request: {            
@@ -3671,7 +3671,7 @@ declare namespace gapi.client {
                 accountId: string;
                 /** Web Property ID to create the user link for. */
                 webPropertyId: string;
-            }): gapi.client.Request<EntityUserLink>;            
+            }): Request<EntityUserLink>;            
             
             /** Lists webProperty-user links for a given web property. */
             list(request: {            
@@ -3697,7 +3697,7 @@ declare namespace gapi.client {
                 "start-index"?: number;
                 /** Web Property ID for the webProperty-user links to retrieve. Can either be a specific web property ID or '~all', which refers to all the web properties that user has access to. */
                 webPropertyId: string;
-            }): gapi.client.Request<EntityUserLinks>;            
+            }): Request<EntityUserLinks>;            
             
             /** Updates permissions for an existing user on the given web property. */
             update(request: {            
@@ -3721,7 +3721,7 @@ declare namespace gapi.client {
                 linkId: string;
                 /** Web property ID to update the account-user link for. */
                 webPropertyId: string;
-            }): gapi.client.Request<EntityUserLink>;            
+            }): Request<EntityUserLink>;            
             
         }
         
@@ -3766,7 +3766,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Report type. Allowed Values: 'ga'. Where 'ga' corresponds to the Core Reporting API */
                 reportType: string;
-            }): gapi.client.Request<Columns>;            
+            }): Request<Columns>;            
             
         }
         
@@ -3791,7 +3791,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<AccountTicket>;            
+            }): Request<AccountTicket>;            
             
         }
     }

@@ -16,193 +16,47 @@ declare namespace gapi.client {
     function load(name: "genomics", version: "v1"): PromiseLike<void>;    
     function load(name: "genomics", version: "v1", callback: () => any): void;    
     
-    const operations: genomics.OperationsResource; 
-    
-    const referencesets: genomics.ReferencesetsResource; 
-    
-    const readgroupsets: genomics.ReadgroupsetsResource; 
+    const callsets: genomics.CallsetsResource; 
     
     const reads: genomics.ReadsResource; 
     
-    const callsets: genomics.CallsetsResource; 
-    
-    const annotationsets: genomics.AnnotationsetsResource; 
+    const readgroupsets: genomics.ReadgroupsetsResource; 
     
     const variants: genomics.VariantsResource; 
+    
+    const annotationsets: genomics.AnnotationsetsResource; 
     
     const references: genomics.ReferencesResource; 
     
     const datasets: genomics.DatasetsResource; 
     
+    const variantsets: genomics.VariantsetsResource; 
+    
     const annotations: genomics.AnnotationsResource; 
     
-    const variantsets: genomics.VariantsetsResource; 
+    const operations: genomics.OperationsResource; 
+    
+    const referencesets: genomics.ReferencesetsResource; 
     
     namespace genomics {
         
-        interface Annotation {
-            /** The display name corresponding to the reference specified by */
-            /** `referenceId`, for example `chr1`, `1`, or `chrX`. */
-            referenceName?: string;
-            /** A map of additional read alignment information. This must be of the form */
-            /** map<string, string[]> (string key mapping to a list of string values). */
-            info?: Record<string, any[]>;            
-            /** The data type for this annotation. Must match the containing annotation */
-            /** set's type. */
-            type?: string;
-            /** The end position of the range on the reference, 0-based exclusive. */
-            end?: string;
-            /** A transcript value represents the assertion that a particular region of */
-            /** the reference genome may be transcribed as RNA. An alternative splicing */
-            /** pattern would be represented as a separate transcript object. This field */
-            /** is only set for annotations of type `TRANSCRIPT`. */
-            transcript?: Transcript;
-            /** The start position of the range on the reference, 0-based inclusive. */
-            start?: string;
-            /** The annotation set to which this annotation belongs. */
-            annotationSetId?: string;
-            /** The display name of this annotation. */
-            name?: string;
-            /** A variant annotation, which describes the effect of a variant on the */
-            /** genome, the coding sequence, and/or higher level consequences at the */
-            /** organism level e.g. pathogenicity. This field is only set for annotations */
-            /** of type `VARIANT`. */
-            variant?: VariantAnnotation;
-            /** The ID of the Google Genomics reference associated with this range. */
-            referenceId?: string;
-            /** The server-generated annotation ID, unique across all annotations. */
-            id?: string;
-            /** Whether this range refers to the reverse strand, as opposed to the forward */
-            /** strand. Note that regardless of this field, the start/end position of the */
-            /** range always refer to the forward strand. */
-            reverseStrand?: boolean;
-        }
-        
-        interface SearchReadsRequest {
-            /** The start position of the range on the reference, 0-based inclusive. If */
-            /** specified, `referenceName` must also be specified. */
-            start?: string;
-            /** The reference sequence name, for example `chr1`, `1`, or `chrX`. If set to */
-            /** `&#42;`, only unmapped reads are returned. If unspecified, all reads (mapped */
-            /** and unmapped) are returned. */
-            referenceName?: string;
-            /** The IDs of the read groups sets within which to search for reads. All */
-            /** specified read group sets must be aligned against a common set of reference */
-            /** sequences; this defines the genomic coordinates for the query. Must specify */
-            /** one of `readGroupSetIds` or `readGroupIds`. */
-            readGroupSetIds?: string[];
-            /** The IDs of the read groups within which to search for reads. All specified */
-            /** read groups must belong to the same read group sets. Must specify one of */
-            /** `readGroupSetIds` or `readGroupIds`. */
-            readGroupIds?: string[];
-            /** The end position of the range on the reference, 0-based exclusive. If */
-            /** specified, `referenceName` must also be specified. */
-            end?: string;
-            /** The continuation token, which is used to page through large result sets. */
-            /** To get the next page of results, set this parameter to the value of */
-            /** `nextPageToken` from the previous response. */
-            pageToken?: string;
-            /** The maximum number of results to return in a single page. If unspecified, */
-            /** defaults to 256. The maximum value is 2048. */
-            pageSize?: number;
-        }
-        
-        interface RuntimeMetadata {
-            /** Execution information specific to Google Compute Engine. */
-            computeEngine?: ComputeEngine;
-        }
-        
-        interface Operation {
-            /** An OperationMetadata object. This will always be returned with the Operation. */
-            metadata?: Record<string, any>;            
-            /** If the value is `false`, it means the operation is still in progress. */
-            /** If true, the operation is completed, and either `error` or `response` is */
-            /** available. */
-            done?: boolean;
-            /** If importing ReadGroupSets, an ImportReadGroupSetsResponse is returned. If importing Variants, an ImportVariantsResponse is returned. For pipelines and exports, an empty response is returned. */
-            response?: Record<string, any>;            
-            /** The server-assigned name, which is only unique within the same service that originally returns it. For example&#58; `operations/CJHU7Oi_ChDrveSpBRjfuL-qzoWAgEw` */
-            name?: string;
-            /** The error result of the operation in case of failure or cancellation. */
-            error?: Status;
-        }
-        
-        interface ImportReadGroupSetsResponse {
-            /** IDs of the read group sets that were created. */
-            readGroupSetIds?: string[];
-        }
-        
-        interface VariantCall {
-            /** A map of additional variant call information. This must be of the form */
-            /** map<string, string[]> (string key mapping to a list of string values). */
-            info?: Record<string, any[]>;            
-            /** The name of the call set this variant call belongs to. */
-            callSetName?: string;
-            /** The genotype likelihoods for this variant call. Each array entry */
-            /** represents how likely a specific genotype is for this call. The value */
-            /** ordering is defined by the GL tag in the VCF spec. */
-            /** If Phred-scaled genotype likelihood scores (PL) are available and */
-            /** log10(P) genotype likelihood scores (GL) are not, PL scores are converted */
-            /** to GL scores.  If both are available, PL scores are stored in `info`. */
-            genotypeLikelihood?: number[];
-            /** The ID of the call set this variant call belongs to. */
-            callSetId?: string;
-            /** The genotype of this variant call. Each value represents either the value */
-            /** of the `referenceBases` field or a 1-based index into */
-            /** `alternateBases`. If a variant had a `referenceBases` */
-            /** value of `T` and an `alternateBases` */
-            /** value of `["A", "C"]`, and the `genotype` was */
-            /** `[2, 1]`, that would mean the call */
-            /** represented the heterozygous value `CA` for this variant. */
-            /** If the `genotype` was instead `[0, 1]`, the */
-            /** represented value would be `TA`. Ordering of the */
-            /** genotype values is important if the `phaseset` is present. */
-            /** If a genotype is not called (that is, a `.` is present in the */
-            /** GT string) -1 is returned. */
-            genotype?: number[];
-            /** If this field is present, this variant call's genotype ordering implies */
-            /** the phase of the bases and is consistent with any other variant calls in */
-            /** the same reference sequence which have the same phaseset value. */
-            /** When importing data from VCF, if the genotype data was phased but no */
-            /** phase set was specified this field will be set to `&#42;`. */
-            phaseset?: string;
-        }
-        
-        interface SearchVariantsResponse {
-            /** The list of matching Variants. */
-            variants?: Variant[];
-            /** The continuation token, which is used to page through large result sets. */
-            /** Provide this value in a subsequent request to return the next page of */
-            /** results. This field will be empty if there aren't any additional results. */
-            nextPageToken?: string;
-        }
-        
-        interface ListBasesResponse {
-            /** A substring of the bases that make up this reference. */
-            sequence?: string;
-            /** The offset position (0-based) of the given `sequence` from the */
-            /** start of this `Reference`. This value will differ for each page */
-            /** in a paginated request. */
-            offset?: string;
-            /** The continuation token, which is used to page through large result sets. */
-            /** Provide this value in a subsequent request to return the next page of */
-            /** results. This field will be empty if there aren't any additional results. */
-            nextPageToken?: string;
-        }
-        
         interface Status {
+            /** A list of messages that carry the error details.  There is a common set of */
+            /** message types for APIs to use. */
+            details?: Array<Record<string, any>>;            
             /** The status code, which should be an enum value of google.rpc.Code. */
             code?: number;
             /** A developer-facing error message, which should be in English. Any */
             /** user-facing error message should be localized and sent in the */
             /** google.rpc.Status.details field, or localized by the client. */
             message?: string;
-            /** A list of messages that carry the error details.  There is a common set of */
-            /** message types for APIs to use. */
-            details?: Array<Record<string, any>>;            
         }
         
         interface Binding {
+            /** Role that is assigned to `members`. */
+            /** For example, `roles/viewer`, `roles/editor`, or `roles/owner`. */
+            /** Required */
+            role?: string;
             /** Specifies the identities requesting access for a Cloud Platform resource. */
             /** `members` can have the following values: */
             /**  */
@@ -228,30 +82,19 @@ declare namespace gapi.client {
             /**  */
             /**  */
             members?: string[];
-            /** Role that is assigned to `members`. */
-            /** For example, `roles/viewer`, `roles/editor`, or `roles/owner`. */
-            /** Required */
-            role?: string;
         }
         
         interface Range {
+            /** The end position of the range on the reference, 0-based exclusive. */
+            end?: string;
             /** The reference sequence name, for example `chr1`, */
             /** `1`, or `chrX`. */
             referenceName?: string;
             /** The start position of the range on the reference, 0-based inclusive. */
             start?: string;
-            /** The end position of the range on the reference, 0-based exclusive. */
-            end?: string;
         }
         
         interface VariantSet {
-            /** The metadata associated with this variant set. */
-            metadata?: VariantSetMetadata[];
-            /** A list of all references used by the variants in a variant set */
-            /** with associated coordinate upper bounds for each one. */
-            referenceBounds?: ReferenceBound[];
-            /** The server-generated variant set ID, unique across all variant sets. */
-            id?: string;
             /** A textual description of this variant set. */
             description?: string;
             /** The dataset to which this variant set belongs. */
@@ -269,14 +112,13 @@ declare namespace gapi.client {
             /** contain only an entry for 'X', while the associated reference set */
             /** enumerates all possible references: '1', '2', 'X', 'Y', 'MT', etc. */
             referenceSetId?: string;
-        }
-        
-        interface ReferenceBound {
-            /** The name of the reference associated with this reference bound. */
-            referenceName?: string;
-            /** An upper bound (inclusive) on the starting coordinate of any */
-            /** variant in the reference sequence. */
-            upperBound?: string;
+            /** The metadata associated with this variant set. */
+            metadata?: VariantSetMetadata[];
+            /** A list of all references used by the variants in a variant set */
+            /** with associated coordinate upper bounds for each one. */
+            referenceBounds?: ReferenceBound[];
+            /** The server-generated variant set ID, unique across all variant sets. */
+            id?: string;
         }
         
         interface BatchCreateAnnotationsResponse {
@@ -285,13 +127,19 @@ declare namespace gapi.client {
             entries?: Entry[];
         }
         
-        interface SearchCallSetsResponse {
-            /** The continuation token, which is used to page through large result sets. */
-            /** Provide this value in a subsequent request to return the next page of */
-            /** results. This field will be empty if there aren't any additional results. */
+        interface ReferenceBound {
+            /** An upper bound (inclusive) on the starting coordinate of any */
+            /** variant in the reference sequence. */
+            upperBound?: string;
+            /** The name of the reference associated with this reference bound. */
+            referenceName?: string;
+        }
+        
+        interface ListOperationsResponse {
+            /** A list of operations that matches the specified filter in the request. */
+            operations?: Operation[];
+            /** The standard List next-page token. */
             nextPageToken?: string;
-            /** The list of matching call sets. */
-            callSets?: CallSet[];
         }
         
         interface Variant {
@@ -306,10 +154,10 @@ declare namespace gapi.client {
             /** The reference bases for this variant. They start at the given */
             /** position. */
             referenceBases?: string;
-            /** The bases that appear instead of the reference bases. */
-            alternateBases?: string[];
             /** Names for the variant, for example a RefSNP ID. */
             names?: string[];
+            /** The bases that appear instead of the reference bases. */
+            alternateBases?: string[];
             /** The end position (0-based) of this variant. This corresponds to the first */
             /** base after the last base in the reference allele. So, the length of */
             /** the reference allele is (end - start). This is useful for variants */
@@ -333,20 +181,49 @@ declare namespace gapi.client {
             id?: string;
         }
         
-        interface ListOperationsResponse {
-            /** A list of operations that matches the specified filter in the request. */
-            operations?: Operation[];
-            /** The standard List next-page token. */
+        interface SearchCallSetsResponse {
+            /** The continuation token, which is used to page through large result sets. */
+            /** Provide this value in a subsequent request to return the next page of */
+            /** results. This field will be empty if there aren't any additional results. */
             nextPageToken?: string;
+            /** The list of matching call sets. */
+            callSets?: CallSet[];
+        }
+        
+        interface SearchVariantsRequest {
+            /** Required. Only return variants in this reference sequence. */
+            referenceName?: string;
+            /** At most one variant set ID must be provided. Only variants from this */
+            /** variant set will be returned. If omitted, a call set id must be included in */
+            /** the request. */
+            variantSetIds?: string[];
+            /** The end of the window, 0-based exclusive. If unspecified or 0, defaults to */
+            /** the length of the reference. */
+            end?: string;
+            /** The maximum number of calls to return in a single page. Note that this */
+            /** limit may be exceeded in the event that a matching variant contains more */
+            /** calls than the requested maximum. If unspecified, defaults to 5000. The */
+            /** maximum value is 10000. */
+            maxCalls?: number;
+            /** The continuation token, which is used to page through large result sets. */
+            /** To get the next page of results, set this parameter to the value of */
+            /** `nextPageToken` from the previous response. */
+            pageToken?: string;
+            /** The maximum number of variants to return in a single page. If unspecified, */
+            /** defaults to 5000. The maximum value is 10000. */
+            pageSize?: number;
+            /** Only return variant calls which belong to call sets with these ids. */
+            /** Leaving this blank returns all variant calls. If a variant has no */
+            /** calls belonging to any of these call sets, it won't be returned at all. */
+            callSetIds?: string[];
+            /** Only return variants which have exactly this name. */
+            variantName?: string;
+            /** The beginning of the window (0-based, inclusive) for which */
+            /** overlapping variants should be returned. If unspecified, defaults to 0. */
+            start?: string;
         }
         
         interface OperationMetadata {
-            /** The time at which the job stopped running. */
-            endTime?: string;
-            /** Optional event messages that were generated during the job's execution. */
-            /** This also contains any warnings that were generated during import */
-            /** or export. */
-            events?: OperationEvent[];
             /** The time at which the job began to run. */
             startTime?: string;
             /** The original request that started the operation. Note that this will be in */
@@ -365,39 +242,12 @@ declare namespace gapi.client {
             /** This field is deprecated. Use `labels` instead. Optionally provided by the */
             /** caller when submitting the request that creates the operation. */
             clientId?: string;
-        }
-        
-        interface SearchVariantsRequest {
-            /** Only return variant calls which belong to call sets with these ids. */
-            /** Leaving this blank returns all variant calls. If a variant has no */
-            /** calls belonging to any of these call sets, it won't be returned at all. */
-            callSetIds?: string[];
-            /** The beginning of the window (0-based, inclusive) for which */
-            /** overlapping variants should be returned. If unspecified, defaults to 0. */
-            start?: string;
-            /** Only return variants which have exactly this name. */
-            variantName?: string;
-            /** Required. Only return variants in this reference sequence. */
-            referenceName?: string;
-            /** At most one variant set ID must be provided. Only variants from this */
-            /** variant set will be returned. If omitted, a call set id must be included in */
-            /** the request. */
-            variantSetIds?: string[];
-            /** The end of the window, 0-based exclusive. If unspecified or 0, defaults to */
-            /** the length of the reference. */
-            end?: string;
-            /** The continuation token, which is used to page through large result sets. */
-            /** To get the next page of results, set this parameter to the value of */
-            /** `nextPageToken` from the previous response. */
-            pageToken?: string;
-            /** The maximum number of calls to return in a single page. Note that this */
-            /** limit may be exceeded in the event that a matching variant contains more */
-            /** calls than the requested maximum. If unspecified, defaults to 5000. The */
-            /** maximum value is 10000. */
-            maxCalls?: number;
-            /** The maximum number of variants to return in a single page. If unspecified, */
-            /** defaults to 5000. The maximum value is 10000. */
-            pageSize?: number;
+            /** The time at which the job stopped running. */
+            endTime?: string;
+            /** Optional event messages that were generated during the job's execution. */
+            /** This also contains any warnings that were generated during import */
+            /** or export. */
+            events?: OperationEvent[];
         }
         
         interface SearchReadGroupSetsRequest {
@@ -417,12 +267,24 @@ declare namespace gapi.client {
         }
         
         interface SearchAnnotationsResponse {
+            /** The matching annotations. */
+            annotations?: Annotation[];
             /** The continuation token, which is used to page through large result sets. */
             /** Provide this value in a subsequent request to return the next page of */
             /** results. This field will be empty if there aren't any additional results. */
             nextPageToken?: string;
-            /** The matching annotations. */
-            annotations?: Annotation[];
+        }
+        
+        interface SearchReadsResponse {
+            /** The continuation token, which is used to page through large result sets. */
+            /** Provide this value in a subsequent request to return the next page of */
+            /** results. This field will be empty if there aren't any additional results. */
+            nextPageToken?: string;
+            /** The list of matching alignments sorted by mapped genomic coordinate, */
+            /** if any, ascending in position within the same reference. Unmapped reads, */
+            /** which have no position, are returned contiguously and are sorted in */
+            /** ascending lexicographic order by fragment name. */
+            alignments?: Read[];
         }
         
         interface ClinicalCondition {
@@ -436,18 +298,6 @@ declare namespace gapi.client {
             omimId?: string;
             /** The set of external IDs for this condition. */
             externalIds?: ExternalId[];
-        }
-        
-        interface SearchReadsResponse {
-            /** The continuation token, which is used to page through large result sets. */
-            /** Provide this value in a subsequent request to return the next page of */
-            /** results. This field will be empty if there aren't any additional results. */
-            nextPageToken?: string;
-            /** The list of matching alignments sorted by mapped genomic coordinate, */
-            /** if any, ascending in position within the same reference. Unmapped reads, */
-            /** which have no position, are returned contiguously and are sorted in */
-            /** ascending lexicographic order by fragment name. */
-            alignments?: Read[];
         }
         
         interface Program {
@@ -465,17 +315,6 @@ declare namespace gapi.client {
             id?: string;
         }
         
-        interface ComputeEngine {
-            /** The availability zone in which the instance resides. */
-            zone?: string;
-            /** The names of the disks that were created for this pipeline. */
-            diskNames?: string[];
-            /** The machine type of the instance. */
-            machineType?: string;
-            /** The instance on which the operation is running. */
-            instanceName?: string;
-        }
-        
         interface CoverageBucket {
             /** The average number of reads which are aligned to each individual */
             /** reference base in this bucket. */
@@ -484,49 +323,27 @@ declare namespace gapi.client {
             range?: Range;
         }
         
+        interface ComputeEngine {
+            /** The instance on which the operation is running. */
+            instanceName?: string;
+            /** The availability zone in which the instance resides. */
+            zone?: string;
+            /** The names of the disks that were created for this pipeline. */
+            diskNames?: string[];
+            /** The machine type of the instance. */
+            machineType?: string;
+        }
+        
         interface ExternalId {
-            /** The name of the source of this data. */
-            sourceName?: string;
             /** The id used by the source of this data. */
             id?: string;
-        }
-        
-        interface SearchVariantSetsRequest {
-            /** Exactly one dataset ID must be provided here. Only variant sets which */
-            /** belong to this dataset will be returned. */
-            datasetIds?: string[];
-            /** The continuation token, which is used to page through large result sets. */
-            /** To get the next page of results, set this parameter to the value of */
-            /** `nextPageToken` from the previous response. */
-            pageToken?: string;
-            /** The maximum number of results to return in a single page. If unspecified, */
-            /** defaults to 1024. */
-            pageSize?: number;
-        }
-        
-        interface VariantSetMetadata {
-            /** Remaining structured metadata key-value pairs. This must be of the form */
-            /** map<string, string[]> (string key mapping to a list of string values). */
-            info?: Record<string, any[]>;            
-            /** The type of data. Possible types include: Integer, Float, */
-            /** Flag, Character, and String. */
-            type?: string;
-            /** The number of values that can be included in a field described by this */
-            /** metadata. */
-            number?: string;
-            /** User-provided ID field, not enforced by this API. */
-            /** Two or more pieces of structured metadata with identical */
-            /** id and key fields are considered equivalent. */
-            id?: string;
-            /** The value field for simple metadata */
-            value?: string;
-            /** The top-level key. */
-            key?: string;
-            /** A textual description of this metadata. */
-            description?: string;
+            /** The name of the source of this data. */
+            sourceName?: string;
         }
         
         interface Reference {
+            /** The name of this reference, for example `22`. */
+            name?: string;
             /** MD5 of the upper-case sequence excluding all whitespace characters (this */
             /** is equivalent to SQ:M5 in SAM). This value is represented in lower case */
             /** hexadecimal format. */
@@ -543,8 +360,41 @@ declare namespace gapi.client {
             sourceUri?: string;
             /** ID from http://www.ncbi.nlm.nih.gov/taxonomy. For example, 9606 for human. */
             ncbiTaxonId?: number;
-            /** The name of this reference, for example `22`. */
-            name?: string;
+        }
+        
+        interface VariantSetMetadata {
+            /** The type of data. Possible types include: Integer, Float, */
+            /** Flag, Character, and String. */
+            type?: string;
+            /** Remaining structured metadata key-value pairs. This must be of the form */
+            /** map<string, string[]> (string key mapping to a list of string values). */
+            info?: Record<string, any[]>;            
+            /** The value field for simple metadata */
+            value?: string;
+            /** User-provided ID field, not enforced by this API. */
+            /** Two or more pieces of structured metadata with identical */
+            /** id and key fields are considered equivalent. */
+            id?: string;
+            /** The number of values that can be included in a field described by this */
+            /** metadata. */
+            number?: string;
+            /** The top-level key. */
+            key?: string;
+            /** A textual description of this metadata. */
+            description?: string;
+        }
+        
+        interface SearchVariantSetsRequest {
+            /** Exactly one dataset ID must be provided here. Only variant sets which */
+            /** belong to this dataset will be returned. */
+            datasetIds?: string[];
+            /** The continuation token, which is used to page through large result sets. */
+            /** To get the next page of results, set this parameter to the value of */
+            /** `nextPageToken` from the previous response. */
+            pageToken?: string;
+            /** The maximum number of results to return in a single page. If unspecified, */
+            /** defaults to 1024. */
+            pageSize?: number;
         }
         
         interface SearchReferenceSetsRequest {
@@ -586,21 +436,52 @@ declare namespace gapi.client {
             variantSetId?: string;
         }
         
-        interface BatchCreateAnnotationsRequest {
-            /** The annotations to be created. At most 4096 can be specified in a single */
-            /** request. */
-            annotations?: Annotation[];
-            /** A unique request ID which enables the server to detect duplicated requests. */
-            /** If provided, duplicated requests will result in the same response; if not */
-            /** provided, duplicated requests may result in duplicated data. For a given */
-            /** annotation set, callers should not reuse `request_id`s when writing */
-            /** different batches of annotations - behavior in this case is undefined. */
-            /** A common approach is to use a UUID. For batch jobs where worker crashes are */
-            /** a possibility, consider using some unique variant of a worker or run ID. */
-            requestId?: string;
-        }
-        
         interface Read {
+            /** Whether this alignment is supplementary. Equivalent to SAM flag 0x800. */
+            /** Supplementary alignments are used in the representation of a chimeric */
+            /** alignment. In a chimeric alignment, a read is split into multiple */
+            /** linear alignments that map to different reference contigs. The first */
+            /** linear alignment in the read will be designated as the representative */
+            /** alignment; the remaining linear alignments will be designated as */
+            /** supplementary alignments. These alignments may have different mapping */
+            /** quality scores. In each linear alignment in a chimeric alignment, the read */
+            /** will be hard clipped. The `alignedSequence` and */
+            /** `alignedQuality` fields in the alignment record will only */
+            /** represent the bases for its respective linear alignment. */
+            supplementaryAlignment?: boolean;
+            /** The orientation and the distance between reads from the fragment are */
+            /** consistent with the sequencing protocol (SAM flag 0x2). */
+            properPlacement?: boolean;
+            /** The observed length of the fragment, equivalent to TLEN in SAM. */
+            fragmentLength?: number;
+            /** Whether this read did not pass filters, such as platform or vendor quality */
+            /** controls (SAM flag 0x200). */
+            failedVendorQualityChecks?: boolean;
+            /** The quality of the read sequence contained in this alignment record */
+            /** (equivalent to QUAL in SAM). */
+            /** `alignedSequence` and `alignedQuality` may be shorter than the full read */
+            /** sequence and quality. This will occur if the alignment is part of a */
+            /** chimeric alignment, or if the read was trimmed. When this occurs, the CIGAR */
+            /** for this read will begin/end with a hard clip operator that will indicate */
+            /** the length of the excised sequence. */
+            alignedQuality?: number[];
+            /** The linear alignment for this alignment record. This field is null for */
+            /** unmapped reads. */
+            alignment?: LinearAlignment;
+            /** The server-generated read ID, unique across all reads. This is different */
+            /** from the `fragmentName`. */
+            id?: string;
+            /** The number of reads in the fragment (extension to SAM flag 0x1). */
+            numberReads?: number;
+            /** Whether this alignment is secondary. Equivalent to SAM flag 0x100. */
+            /** A secondary alignment represents an alternative to the primary alignment */
+            /** for this read. Aligners may return secondary alignments if a read can map */
+            /** ambiguously to multiple coordinates in the genome. By convention, each read */
+            /** has one and only one alignment where both `secondaryAlignment` */
+            /** and `supplementaryAlignment` are false. */
+            secondaryAlignment?: boolean;
+            /** The fragment name. Equivalent to QNAME (query template name) in SAM. */
+            fragmentName?: string;
             /** The ID of the read group set this read belongs to. A read belongs to */
             /** exactly one read group set. */
             readGroupSetId?: string;
@@ -622,69 +503,30 @@ declare namespace gapi.client {
             /** RG tag (for that value, see */
             /** ReadGroup.name). */
             readGroupId?: string;
-            /** A map of additional read alignment information. This must be of the form */
-            /** map<string, string[]> (string key mapping to a list of string values). */
-            info?: Record<string, any[]>;            
             /** The mapping of the primary alignment of the */
             /** `(readNumber+1)%numberReads` read in the fragment. It replaces */
             /** mate position and mate strand in SAM. */
             nextMatePosition?: Position;
-            /** The orientation and the distance between reads from the fragment are */
-            /** consistent with the sequencing protocol (SAM flag 0x2). */
-            properPlacement?: boolean;
-            /** Whether this alignment is supplementary. Equivalent to SAM flag 0x800. */
-            /** Supplementary alignments are used in the representation of a chimeric */
-            /** alignment. In a chimeric alignment, a read is split into multiple */
-            /** linear alignments that map to different reference contigs. The first */
-            /** linear alignment in the read will be designated as the representative */
-            /** alignment; the remaining linear alignments will be designated as */
-            /** supplementary alignments. These alignments may have different mapping */
-            /** quality scores. In each linear alignment in a chimeric alignment, the read */
-            /** will be hard clipped. The `alignedSequence` and */
-            /** `alignedQuality` fields in the alignment record will only */
-            /** represent the bases for its respective linear alignment. */
-            supplementaryAlignment?: boolean;
-            /** The observed length of the fragment, equivalent to TLEN in SAM. */
-            fragmentLength?: number;
-            /** Whether this read did not pass filters, such as platform or vendor quality */
-            /** controls (SAM flag 0x200). */
-            failedVendorQualityChecks?: boolean;
-            /** The quality of the read sequence contained in this alignment record */
-            /** (equivalent to QUAL in SAM). */
-            /** `alignedSequence` and `alignedQuality` may be shorter than the full read */
-            /** sequence and quality. This will occur if the alignment is part of a */
-            /** chimeric alignment, or if the read was trimmed. When this occurs, the CIGAR */
-            /** for this read will begin/end with a hard clip operator that will indicate */
-            /** the length of the excised sequence. */
-            alignedQuality?: number[];
-            /** The linear alignment for this alignment record. This field is null for */
-            /** unmapped reads. */
-            alignment?: LinearAlignment;
-            /** The number of reads in the fragment (extension to SAM flag 0x1). */
-            numberReads?: number;
-            /** The server-generated read ID, unique across all reads. This is different */
-            /** from the `fragmentName`. */
-            id?: string;
-            /** Whether this alignment is secondary. Equivalent to SAM flag 0x100. */
-            /** A secondary alignment represents an alternative to the primary alignment */
-            /** for this read. Aligners may return secondary alignments if a read can map */
-            /** ambiguously to multiple coordinates in the genome. By convention, each read */
-            /** has one and only one alignment where both `secondaryAlignment` */
-            /** and `supplementaryAlignment` are false. */
-            secondaryAlignment?: boolean;
-            /** The fragment name. Equivalent to QNAME (query template name) in SAM. */
-            fragmentName?: string;
+            /** A map of additional read alignment information. This must be of the form */
+            /** map<string, string[]> (string key mapping to a list of string values). */
+            info?: Record<string, any[]>;            
+        }
+        
+        interface BatchCreateAnnotationsRequest {
+            /** A unique request ID which enables the server to detect duplicated requests. */
+            /** If provided, duplicated requests will result in the same response; if not */
+            /** provided, duplicated requests may result in duplicated data. For a given */
+            /** annotation set, callers should not reuse `request_id`s when writing */
+            /** different batches of annotations - behavior in this case is undefined. */
+            /** A common approach is to use a UUID. For batch jobs where worker crashes are */
+            /** a possibility, consider using some unique variant of a worker or run ID. */
+            requestId?: string;
+            /** The annotations to be created. At most 4096 can be specified in a single */
+            /** request. */
+            annotations?: Annotation[];
         }
         
         interface ReferenceSet {
-            /** Order-independent MD5 checksum which identifies this reference set. The */
-            /** checksum is computed by sorting all lower case hexidecimal string */
-            /** `reference.md5checksum` (for all reference in this set) in */
-            /** ascending lexicographic order, concatenating, and taking the MD5 of that */
-            /** value. The resulting value is represented in lower case hexadecimal format. */
-            md5checksum?: string;
-            /** Public id of this reference set, such as `GRCh37`. */
-            assemblyId?: string;
             /** The server-generated reference set ID, unique across all reference sets. */
             id?: string;
             /** Free text description of this reference set. */
@@ -692,32 +534,45 @@ declare namespace gapi.client {
             /** All known corresponding accession IDs in INSDC (GenBank/ENA/DDBJ) ideally */
             /** with a version number, for example `NC_000001.11`. */
             sourceAccessions?: string[];
+            /** The URI from which the references were obtained. */
+            sourceUri?: string;
             /** ID from http://www.ncbi.nlm.nih.gov/taxonomy (for example, 9606 for human) */
             /** indicating the species which this reference set is intended to model. Note */
             /** that contained references may specify a different `ncbiTaxonId`, as */
             /** assemblies may contain reference sequences which do not belong to the */
             /** modeled species, for example EBV in a human reference genome. */
             ncbiTaxonId?: number;
-            /** The URI from which the references were obtained. */
-            sourceUri?: string;
             /** The IDs of the reference objects that are part of this set. */
             /** `Reference.md5checksum` must be unique within this set. */
             referenceIds?: string[];
+            /** Public id of this reference set, such as `GRCh37`. */
+            assemblyId?: string;
+            /** Order-independent MD5 checksum which identifies this reference set. The */
+            /** checksum is computed by sorting all lower case hexidecimal string */
+            /** `reference.md5checksum` (for all reference in this set) in */
+            /** ascending lexicographic order, concatenating, and taking the MD5 of that */
+            /** value. The resulting value is represented in lower case hexadecimal format. */
+            md5checksum?: string;
         }
         
         interface CigarUnit {
+            /** The number of genomic bases that the operation runs for. Required. */
+            operationLength?: string;
+            /**  */
+            operation?: string;
             /** `referenceSequence` is only used at mismatches */
             /** (`SEQUENCE_MISMATCH`) and deletions (`DELETE`). */
             /** Filling this field replaces SAM's MD tag. If the relevant information is */
             /** not available, this field is unset. */
             referenceSequence?: string;
-            /** The number of genomic bases that the operation runs for. Required. */
-            operationLength?: string;
-            /**  */
-            operation?: string;
         }
         
         interface AnnotationSet {
+            /** The display name for this annotation set. */
+            name?: string;
+            /** The ID of the reference set that defines the coordinate space for this */
+            /** set's annotations. */
+            referenceSetId?: string;
             /** The type of annotations contained within this set. */
             type?: string;
             /** A map of additional read alignment information. This must be of the form */
@@ -725,16 +580,11 @@ declare namespace gapi.client {
             info?: Record<string, any[]>;            
             /** The server-generated annotation set ID, unique across all annotation sets. */
             id?: string;
-            /** The dataset to which this annotation set belongs. */
-            datasetId?: string;
             /** The source URI describing the file from which this annotation set was */
             /** generated, if any. */
             sourceUri?: string;
-            /** The display name for this annotation set. */
-            name?: string;
-            /** The ID of the reference set that defines the coordinate space for this */
-            /** set's annotations. */
-            referenceSetId?: string;
+            /** The dataset to which this annotation set belongs. */
+            datasetId?: string;
         }
         
         interface Transcript {
@@ -906,7 +756,30 @@ declare namespace gapi.client {
             format?: string;
         }
         
+        interface ListCoverageBucketsResponse {
+            /** The length of each coverage bucket in base pairs. Note that buckets at the */
+            /** end of a reference sequence may be shorter. This value is omitted if the */
+            /** bucket width is infinity (the default behaviour, with no range or */
+            /** `targetBucketWidth`). */
+            bucketWidth?: string;
+            /** The coverage buckets. The list of buckets is sparse; a bucket with 0 */
+            /** overlapping reads is not returned. A bucket never crosses more than one */
+            /** reference sequence. Each bucket has width `bucketWidth`, unless */
+            /** its end is the end of the reference sequence. */
+            coverageBuckets?: CoverageBucket[];
+            /** The continuation token, which is used to page through large result sets. */
+            /** Provide this value in a subsequent request to return the next page of */
+            /** results. This field will be empty if there aren't any additional results. */
+            nextPageToken?: string;
+        }
+        
         interface VariantAnnotation {
+            /** Type has been adapted from ClinVar's list of variant types. */
+            type?: string;
+            /** The alternate allele for this variant. If multiple alternate alleles */
+            /** exist at this location, create a separate variant for each one, as they */
+            /** may represent distinct conditions. */
+            alternateBases?: string;
             /** Google annotation ID of the gene affected by this variant. This should */
             /** be provided when the variant is created. */
             geneId?: string;
@@ -923,39 +796,9 @@ declare namespace gapi.client {
             /** Google annotation IDs of the transcripts affected by this variant. These */
             /** should be provided when the variant is created. */
             transcriptIds?: string[];
-            /** Type has been adapted from ClinVar's list of variant types. */
-            type?: string;
-            /** The alternate allele for this variant. If multiple alternate alleles */
-            /** exist at this location, create a separate variant for each one, as they */
-            /** may represent distinct conditions. */
-            alternateBases?: string;
-        }
-        
-        interface ListCoverageBucketsResponse {
-            /** The continuation token, which is used to page through large result sets. */
-            /** Provide this value in a subsequent request to return the next page of */
-            /** results. This field will be empty if there aren't any additional results. */
-            nextPageToken?: string;
-            /** The length of each coverage bucket in base pairs. Note that buckets at the */
-            /** end of a reference sequence may be shorter. This value is omitted if the */
-            /** bucket width is infinity (the default behaviour, with no range or */
-            /** `targetBucketWidth`). */
-            bucketWidth?: string;
-            /** The coverage buckets. The list of buckets is sparse; a bucket with 0 */
-            /** overlapping reads is not returned. A bucket never crosses more than one */
-            /** reference sequence. Each bucket has width `bucketWidth`, unless */
-            /** its end is the end of the reference sequence. */
-            coverageBuckets?: CoverageBucket[];
         }
         
         interface ExportVariantSetRequest {
-            /** Required. The Google Cloud project ID that owns the destination */
-            /** BigQuery dataset. The caller must have WRITE access to this project.  This */
-            /** project will also own the resulting export job. */
-            projectId?: string;
-            /** If provided, only variant call information from the specified call sets */
-            /** will be exported. By default all variant calls are exported. */
-            callSetIds?: string[];
             /** Required. The BigQuery table to export data to. */
             /** If the table doesn't exist, it will be created. If it already exists, it */
             /** will be overwritten. */
@@ -965,9 +808,23 @@ declare namespace gapi.client {
             bigqueryDataset?: string;
             /** The format for the exported data. */
             format?: string;
+            /** Required. The Google Cloud project ID that owns the destination */
+            /** BigQuery dataset. The caller must have WRITE access to this project.  This */
+            /** project will also own the resulting export job. */
+            projectId?: string;
+            /** If provided, only variant call information from the specified call sets */
+            /** will be exported. By default all variant calls are exported. */
+            callSetIds?: string[];
         }
         
         interface SearchAnnotationsRequest {
+            /** The ID of the reference to query. */
+            referenceId?: string;
+            /** The end position of the range on the reference, 0-based exclusive. If */
+            /** referenceId or */
+            /** referenceName */
+            /** must be specified, Defaults to the length of the reference. */
+            end?: string;
             /** The continuation token, which is used to page through large result sets. */
             /** To get the next page of results, set this parameter to the value of */
             /** `nextPageToken` from the previous response. */
@@ -988,13 +845,6 @@ declare namespace gapi.client {
             /** The name of the reference to query, within the reference set associated */
             /** with this query. */
             referenceName?: string;
-            /** The ID of the reference to query. */
-            referenceId?: string;
-            /** The end position of the range on the reference, 0-based exclusive. If */
-            /** referenceId or */
-            /** referenceName */
-            /** must be specified, Defaults to the length of the reference. */
-            end?: string;
         }
         
         interface OperationEvent {
@@ -1008,14 +858,14 @@ declare namespace gapi.client {
         }
         
         interface CodingSequence {
-            /** The start of the coding sequence on this annotation's reference sequence, */
-            /** 0-based inclusive. Note that this position is relative to the reference */
-            /** start, and &#42;not&#42; the containing annotation start. */
-            start?: string;
             /** The end of the coding sequence on this annotation's reference sequence, */
             /** 0-based exclusive. Note that this position is relative to the reference */
             /** start, and &#42;not&#42; the containing annotation start. */
             end?: string;
+            /** The start of the coding sequence on this annotation's reference sequence, */
+            /** 0-based inclusive. Note that this position is relative to the reference */
+            /** start, and &#42;not&#42; the containing annotation start. */
+            start?: string;
         }
         
         interface SearchReferencesResponse {
@@ -1034,12 +884,6 @@ declare namespace gapi.client {
         }
         
         interface SearchAnnotationSetsRequest {
-            /** Only return annotations sets for which a substring of the name matches this */
-            /** string (case insensitive). */
-            name?: string;
-            /** If specified, only annotation sets associated with the given reference set */
-            /** are returned. */
-            referenceSetId?: string;
             /** The continuation token, which is used to page through large result sets. */
             /** To get the next page of results, set this parameter to the value of */
             /** `nextPageToken` from the previous response. */
@@ -1053,15 +897,21 @@ declare namespace gapi.client {
             /** If specified, only annotation sets that have any of these types are */
             /** returned. */
             types?: string[];
+            /** Only return annotations sets for which a substring of the name matches this */
+            /** string (case insensitive). */
+            name?: string;
+            /** If specified, only annotation sets associated with the given reference set */
+            /** are returned. */
+            referenceSetId?: string;
         }
         
         interface SearchReadGroupSetsResponse {
+            /** The list of matching read group sets. */
+            readGroupSets?: ReadGroupSet[];
             /** The continuation token, which is used to page through large result sets. */
             /** Provide this value in a subsequent request to return the next page of */
             /** results. This field will be empty if there aren't any additional results. */
             nextPageToken?: string;
-            /** The list of matching read group sets. */
-            readGroupSets?: ReadGroupSet[];
         }
         
         interface SearchReferencesRequest {
@@ -1085,28 +935,28 @@ declare namespace gapi.client {
         }
         
         interface LinearAlignment {
+            /** Represents the local alignment of this sequence (alignment matches, indels, */
+            /** etc) against the reference. */
+            cigar?: CigarUnit[];
+            /** The position of this alignment. */
+            position?: Position;
             /** The mapping quality of this alignment. Represents how likely */
             /** the read maps to this position as opposed to other locations. */
             /**  */
             /** Specifically, this is -10 log10 Pr(mapping position is wrong), rounded to */
             /** the nearest integer. */
             mappingQuality?: number;
-            /** Represents the local alignment of this sequence (alignment matches, indels, */
-            /** etc) against the reference. */
-            cigar?: CigarUnit[];
-            /** The position of this alignment. */
-            position?: Position;
         }
         
         interface Dataset {
-            /** The dataset name. */
-            name?: string;
             /** The Google Cloud project ID that this dataset belongs to. */
             projectId?: string;
             /** The server-generated dataset ID, unique across all datasets. */
             id?: string;
             /** The time this dataset was created, in seconds from the epoch. */
             createTime?: string;
+            /** The dataset name. */
+            name?: string;
         }
         
         interface ImportVariantsResponse {
@@ -1115,8 +965,6 @@ declare namespace gapi.client {
         }
         
         interface ReadGroup {
-            /** The experiment used to generate this read group. */
-            experiment?: Experiment;
             /** The read group name. This corresponds to the @RG ID field in the SAM spec. */
             name?: string;
             /** The reference set the reads in this read group are aligned to. */
@@ -1128,27 +976,25 @@ declare namespace gapi.client {
             /** Note: This is different than the @RG ID field in the SAM spec. For that */
             /** value, see name. */
             id?: string;
-            /** The predicted insert size of this read group. The insert size is the length */
-            /** the sequenced DNA fragment from end-to-end, not including the adapters. */
-            predictedInsertSize?: number;
             /** The programs used to generate this read group. Programs are always */
             /** identical for all read groups within a read group set. For this reason, */
             /** only the first read group in a returned set will have this field */
             /** populated. */
             programs?: Program[];
+            /** The predicted insert size of this read group. The insert size is the length */
+            /** the sequenced DNA fragment from end-to-end, not including the adapters. */
+            predictedInsertSize?: number;
             /** A free-form text description of this read group. */
             description?: string;
             /** A client-supplied sample identifier for the reads in this read group. */
             sampleId?: string;
             /** The dataset to which this read group belongs. */
             datasetId?: string;
+            /** The experiment used to generate this read group. */
+            experiment?: Experiment;
         }
         
         interface ReadGroupSet {
-            /** A map of additional read group set information. */
-            info?: Record<string, any[]>;            
-            /** The server-generated read group set ID, unique for all read group sets. */
-            id?: string;
             /** The dataset to which this read group set belongs. */
             datasetId?: string;
             /** The read groups in this set. There are typically 1-10 read groups in a read */
@@ -1161,6 +1007,10 @@ declare namespace gapi.client {
             name?: string;
             /** The reference set to which the reads in this read group set are aligned. */
             referenceSetId?: string;
+            /** A map of additional read group set information. */
+            info?: Record<string, any[]>;            
+            /** The server-generated read group set ID, unique for all read group sets. */
+            id?: string;
         }
         
         interface SearchVariantSetsResponse {
@@ -1180,22 +1030,22 @@ declare namespace gapi.client {
         }
         
         interface Position {
-            /** The 0-based offset from the start of the forward strand for that reference. */
-            position?: string;
             /** The name of the reference in whatever reference set is being used. */
             referenceName?: string;
             /** Whether this position is on the reverse strand, as opposed to the forward */
             /** strand. */
             reverseStrand?: boolean;
+            /** The 0-based offset from the start of the forward strand for that reference. */
+            position?: string;
         }
         
         interface SearchReferenceSetsResponse {
+            /** The matching references sets. */
+            referenceSets?: ReferenceSet[];
             /** The continuation token, which is used to page through large result sets. */
             /** Provide this value in a subsequent request to return the next page of */
             /** results. This field will be empty if there aren't any additional results. */
             nextPageToken?: string;
-            /** The matching references sets. */
-            referenceSets?: ReferenceSet[];
         }
         
         interface SearchCallSetsRequest {
@@ -1215,6 +1065,9 @@ declare namespace gapi.client {
         }
         
         interface ImportReadGroupSetsRequest {
+            /** Required. The ID of the dataset these read group sets will belong to. The */
+            /** caller must have WRITE permissions to this dataset. */
+            datasetId?: string;
             /** A list of URIs pointing at [BAM */
             /** files](https://samtools.github.io/hts-specs/SAMv1.pdf) */
             /** in Google Cloud Storage. */
@@ -1234,9 +1087,6 @@ declare namespace gapi.client {
             /** The partition strategy describes how read groups are partitioned into read */
             /** group sets. */
             partitionStrategy?: string;
-            /** Required. The ID of the dataset these read group sets will belong to. The */
-            /** caller must have WRITE permissions to this dataset. */
-            datasetId?: string;
         }
         
         interface Policy {
@@ -1258,141 +1108,248 @@ declare namespace gapi.client {
             bindings?: Binding[];
         }
         
-        interface OperationsResource {
-            /** Gets the latest state of a long-running operation.  Clients can use this */
-            /** method to poll the operation result at intervals as recommended by the API */
-            /** service. */
-            get(request: {            
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** The name of the operation resource. */
-                name: string;
-            }): gapi.client.Request<Operation>;            
-            
-            /** Lists operations that match the specified filter in the request. */
-            list(request: {            
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** A string for filtering Operations. */
-                /** The following filter fields are supported&#58; */
-                /**  */
-                /** &#42; projectId&#58; Required. Corresponds to */
-                /**   OperationMetadata.projectId. */
-                /** &#42; createTime&#58; The time this job was created, in seconds from the */
-                /**   [epoch](http://en.wikipedia.org/wiki/Unix_time). Can use `>=` and/or `<=` */
-                /**   operators. */
-                /** &#42; status&#58; Can be `RUNNING`, `SUCCESS`, `FAILURE`, or `CANCELED`. Only */
-                /**   one status may be specified. */
-                /** &#42; labels.key where key is a label key. */
-                /**  */
-                /** Examples&#58; */
-                /**  */
-                /** &#42; `projectId = my-project AND createTime >= 1432140000` */
-                /** &#42; `projectId = my-project AND createTime >= 1432140000 AND createTime <= 1432150000 AND status = RUNNING` */
-                /** &#42; `projectId = my-project AND labels.color = &#42;` */
-                /** &#42; `projectId = my-project AND labels.color = red` */
-                filter?: string;
-                /** The standard list page token. */
-                pageToken?: string;
-                /** The name of the operation's parent resource. */
-                name: string;
-                /** The maximum number of results to return. If unspecified, defaults to */
-                /** 256. The maximum value is 2048. */
-                pageSize?: number;
-            }): gapi.client.Request<ListOperationsResponse>;            
-            
-            /** Starts asynchronous cancellation on a long-running operation. The server makes a best effort to cancel the operation, but success is not guaranteed. Clients may use Operations.GetOperation or Operations.ListOperations to check whether the cancellation succeeded or the operation completed despite cancellation. */
-            cancel(request: {            
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** The name of the operation resource to be cancelled. */
-                name: string;
-            }): gapi.client.Request<{}>;            
-            
+        interface SearchReadsRequest {
+            /** The reference sequence name, for example `chr1`, `1`, or `chrX`. If set to */
+            /** `&#42;`, only unmapped reads are returned. If unspecified, all reads (mapped */
+            /** and unmapped) are returned. */
+            referenceName?: string;
+            /** The IDs of the read groups sets within which to search for reads. All */
+            /** specified read group sets must be aligned against a common set of reference */
+            /** sequences; this defines the genomic coordinates for the query. Must specify */
+            /** one of `readGroupSetIds` or `readGroupIds`. */
+            readGroupSetIds?: string[];
+            /** The IDs of the read groups within which to search for reads. All specified */
+            /** read groups must belong to the same read group sets. Must specify one of */
+            /** `readGroupSetIds` or `readGroupIds`. */
+            readGroupIds?: string[];
+            /** The end position of the range on the reference, 0-based exclusive. If */
+            /** specified, `referenceName` must also be specified. */
+            end?: string;
+            /** The continuation token, which is used to page through large result sets. */
+            /** To get the next page of results, set this parameter to the value of */
+            /** `nextPageToken` from the previous response. */
+            pageToken?: string;
+            /** The maximum number of results to return in a single page. If unspecified, */
+            /** defaults to 256. The maximum value is 2048. */
+            pageSize?: number;
+            /** The start position of the range on the reference, 0-based inclusive. If */
+            /** specified, `referenceName` must also be specified. */
+            start?: string;
         }
         
-        interface ReferencesetsResource {
-            /** Searches for reference sets which match the given criteria. */
+        interface Annotation {
+            /** The start position of the range on the reference, 0-based inclusive. */
+            start?: string;
+            /** The annotation set to which this annotation belongs. */
+            annotationSetId?: string;
+            /** The display name of this annotation. */
+            name?: string;
+            /** A variant annotation, which describes the effect of a variant on the */
+            /** genome, the coding sequence, and/or higher level consequences at the */
+            /** organism level e.g. pathogenicity. This field is only set for annotations */
+            /** of type `VARIANT`. */
+            variant?: VariantAnnotation;
+            /** The ID of the Google Genomics reference associated with this range. */
+            referenceId?: string;
+            /** The server-generated annotation ID, unique across all annotations. */
+            id?: string;
+            /** Whether this range refers to the reverse strand, as opposed to the forward */
+            /** strand. Note that regardless of this field, the start/end position of the */
+            /** range always refer to the forward strand. */
+            reverseStrand?: boolean;
+            /** The display name corresponding to the reference specified by */
+            /** `referenceId`, for example `chr1`, `1`, or `chrX`. */
+            referenceName?: string;
+            /** A map of additional read alignment information. This must be of the form */
+            /** map<string, string[]> (string key mapping to a list of string values). */
+            info?: Record<string, any[]>;            
+            /** The data type for this annotation. Must match the containing annotation */
+            /** set's type. */
+            type?: string;
+            /** The end position of the range on the reference, 0-based exclusive. */
+            end?: string;
+            /** A transcript value represents the assertion that a particular region of */
+            /** the reference genome may be transcribed as RNA. An alternative splicing */
+            /** pattern would be represented as a separate transcript object. This field */
+            /** is only set for annotations of type `TRANSCRIPT`. */
+            transcript?: Transcript;
+        }
+        
+        interface Operation {
+            /** If importing ReadGroupSets, an ImportReadGroupSetsResponse is returned. If importing Variants, an ImportVariantsResponse is returned. For pipelines and exports, an empty response is returned. */
+            response?: Record<string, any>;            
+            /** The server-assigned name, which is only unique within the same service that originally returns it. For example&#58; `operations/CJHU7Oi_ChDrveSpBRjfuL-qzoWAgEw` */
+            name?: string;
+            /** The error result of the operation in case of failure or cancellation. */
+            error?: Status;
+            /** An OperationMetadata object. This will always be returned with the Operation. */
+            metadata?: Record<string, any>;            
+            /** If the value is `false`, it means the operation is still in progress. */
+            /** If true, the operation is completed, and either `error` or `response` is */
+            /** available. */
+            done?: boolean;
+        }
+        
+        interface RuntimeMetadata {
+            /** Execution information specific to Google Compute Engine. */
+            computeEngine?: ComputeEngine;
+        }
+        
+        interface ImportReadGroupSetsResponse {
+            /** IDs of the read group sets that were created. */
+            readGroupSetIds?: string[];
+        }
+        
+        interface VariantCall {
+            /** The ID of the call set this variant call belongs to. */
+            callSetId?: string;
+            /** The genotype of this variant call. Each value represents either the value */
+            /** of the `referenceBases` field or a 1-based index into */
+            /** `alternateBases`. If a variant had a `referenceBases` */
+            /** value of `T` and an `alternateBases` */
+            /** value of `["A", "C"]`, and the `genotype` was */
+            /** `[2, 1]`, that would mean the call */
+            /** represented the heterozygous value `CA` for this variant. */
+            /** If the `genotype` was instead `[0, 1]`, the */
+            /** represented value would be `TA`. Ordering of the */
+            /** genotype values is important if the `phaseset` is present. */
+            /** If a genotype is not called (that is, a `.` is present in the */
+            /** GT string) -1 is returned. */
+            genotype?: number[];
+            /** If this field is present, this variant call's genotype ordering implies */
+            /** the phase of the bases and is consistent with any other variant calls in */
+            /** the same reference sequence which have the same phaseset value. */
+            /** When importing data from VCF, if the genotype data was phased but no */
+            /** phase set was specified this field will be set to `&#42;`. */
+            phaseset?: string;
+            /** A map of additional variant call information. This must be of the form */
+            /** map<string, string[]> (string key mapping to a list of string values). */
+            info?: Record<string, any[]>;            
+            /** The name of the call set this variant call belongs to. */
+            callSetName?: string;
+            /** The genotype likelihoods for this variant call. Each array entry */
+            /** represents how likely a specific genotype is for this call. The value */
+            /** ordering is defined by the GL tag in the VCF spec. */
+            /** If Phred-scaled genotype likelihood scores (PL) are available and */
+            /** log10(P) genotype likelihood scores (GL) are not, PL scores are converted */
+            /** to GL scores.  If both are available, PL scores are stored in `info`. */
+            genotypeLikelihood?: number[];
+        }
+        
+        interface SearchVariantsResponse {
+            /** The list of matching Variants. */
+            variants?: Variant[];
+            /** The continuation token, which is used to page through large result sets. */
+            /** Provide this value in a subsequent request to return the next page of */
+            /** results. This field will be empty if there aren't any additional results. */
+            nextPageToken?: string;
+        }
+        
+        interface ListBasesResponse {
+            /** The offset position (0-based) of the given `sequence` from the */
+            /** start of this `Reference`. This value will differ for each page */
+            /** in a paginated request. */
+            offset?: string;
+            /** The continuation token, which is used to page through large result sets. */
+            /** Provide this value in a subsequent request to return the next page of */
+            /** results. This field will be empty if there aren't any additional results. */
+            nextPageToken?: string;
+            /** A substring of the bases that make up this reference. */
+            sequence?: string;
+        }
+        
+        interface CallsetsResource {
+            /** Creates a new call set. */
             /**  */
-            /** For the definitions of references and other genomics resources, see */
+            /** For the definitions of call sets and other genomics resources, see */
+            /** [Fundamentals of Google */
+            /** Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics) */
+            create(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+            }): Request<CallSet>;            
+            
+            /** Deletes a call set. */
+            /**  */
+            /** For the definitions of call sets and other genomics resources, see */
+            /** [Fundamentals of Google */
+            /** Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics) */
+            delete(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** The ID of the call set to be deleted. */
+                callSetId: string;
+            }): Request<{}>;            
+            
+            /** Gets a list of call sets matching the criteria. */
+            /**  */
+            /** For the definitions of call sets and other genomics resources, see */
             /** [Fundamentals of Google */
             /** Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics) */
             /**  */
             /** Implements */
-            /** [GlobalAllianceApi.searchReferenceSets](https://github.com/ga4gh/schemas/blob/v0.5.1/src/main/resources/avro/referencemethods.avdl#L71) */
+            /** [GlobalAllianceApi.searchCallSets](https://github.com/ga4gh/schemas/blob/v0.5.1/src/main/resources/avro/variantmethods.avdl#L178). */
             search(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
@@ -1407,219 +1364,26 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-            }): gapi.client.Request<SearchReferenceSetsResponse>;            
+            }): Request<SearchCallSetsResponse>;            
             
-            /** Gets a reference set. */
+            /** Gets a call set by ID. */
             /**  */
-            /** For the definitions of references and other genomics resources, see */
-            /** [Fundamentals of Google */
-            /** Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics) */
-            /**  */
-            /** Implements */
-            /** [GlobalAllianceApi.getReferenceSet](https://github.com/ga4gh/schemas/blob/v0.5.1/src/main/resources/avro/referencemethods.avdl#L83). */
-            get(request: {            
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** The ID of the reference set. */
-                referenceSetId: string;
-            }): gapi.client.Request<ReferenceSet>;            
-            
-        }
-        
-        interface CoveragebucketsResource {
-            /** Lists fixed width coverage buckets for a read group set, each of which */
-            /** correspond to a range of a reference sequence. Each bucket summarizes */
-            /** coverage information across its corresponding genomic range. */
-            /**  */
-            /** For the definitions of read group sets and other genomics resources, see */
-            /** [Fundamentals of Google */
-            /** Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics) */
-            /**  */
-            /** Coverage is defined as the number of reads which are aligned to a given */
-            /** base in the reference sequence. Coverage buckets are available at several */
-            /** precomputed bucket widths, enabling retrieval of various coverage 'zoom */
-            /** levels'. The caller must have READ permissions for the target read group */
-            /** set. */
-            list(request: {            
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** The start position of the range on the reference, 0-based inclusive. If */
-                /** specified, `referenceName` must also be specified. Defaults to 0. */
-                start?: string;
-                /** The desired width of each reported coverage bucket in base pairs. This */
-                /** will be rounded down to the nearest precomputed bucket width; the value */
-                /** of which is returned as `bucketWidth` in the response. Defaults */
-                /** to infinity (each bucket spans an entire reference sequence) or the length */
-                /** of the target range, if specified. The smallest precomputed */
-                /** `bucketWidth` is currently 2048 base pairs; this is subject to */
-                /** change. */
-                targetBucketWidth?: string;
-                /** Required. The ID of the read group set over which coverage is requested. */
-                readGroupSetId: string;
-                /** The name of the reference to query, within the reference set associated */
-                /** with this query. Optional. */
-                referenceName?: string;
-                /** The end position of the range on the reference, 0-based exclusive. If */
-                /** specified, `referenceName` must also be specified. If unset or 0, defaults */
-                /** to the length of the reference. */
-                end?: string;
-                /** The continuation token, which is used to page through large result sets. */
-                /** To get the next page of results, set this parameter to the value of */
-                /** `nextPageToken` from the previous response. */
-                pageToken?: string;
-                /** The maximum number of results to return in a single page. If unspecified, */
-                /** defaults to 1024. The maximum value is 2048. */
-                pageSize?: number;
-            }): gapi.client.Request<ListCoverageBucketsResponse>;            
-            
-        }
-        
-        interface ReadgroupsetsResource {
-            /** Exports a read group set to a BAM file in Google Cloud Storage. */
-            /**  */
-            /** For the definitions of read group sets and other genomics resources, see */
-            /** [Fundamentals of Google */
-            /** Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics) */
-            /**  */
-            /** Note that currently there may be some differences between exported BAM */
-            /** files and the original BAM file at the time of import. See */
-            /** ImportReadGroupSets */
-            /** for caveats. */
-            export(request: {            
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Required. The ID of the read group set to export. The caller must have */
-                /** READ access to this read group set. */
-                readGroupSetId: string;
-            }): gapi.client.Request<Operation>;            
-            
-            /** Searches for read group sets matching the criteria. */
-            /**  */
-            /** For the definitions of read group sets and other genomics resources, see */
-            /** [Fundamentals of Google */
-            /** Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics) */
-            /**  */
-            /** Implements */
-            /** [GlobalAllianceApi.searchReadGroupSets](https://github.com/ga4gh/schemas/blob/v0.5.1/src/main/resources/avro/readmethods.avdl#L135). */
-            search(request: {            
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-            }): gapi.client.Request<SearchReadGroupSetsResponse>;            
-            
-            /** Gets a read group set by ID. */
-            /**  */
-            /** For the definitions of read group sets and other genomics resources, see */
+            /** For the definitions of call sets and other genomics resources, see */
             /** [Fundamentals of Google */
             /** Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics) */
             get(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
@@ -1634,30 +1398,30 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** The ID of the read group set. */
-                readGroupSetId: string;
-            }): gapi.client.Request<ReadGroupSet>;            
+                /** The ID of the call set. */
+                callSetId: string;
+            }): Request<CallSet>;            
             
-            /** Updates a read group set. */
+            /** Updates a call set. */
             /**  */
-            /** For the definitions of read group sets and other genomics resources, see */
+            /** For the definitions of call sets and other genomics resources, see */
             /** [Fundamentals of Google */
             /** Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics) */
             /**  */
             /** This method supports patch semantics. */
             patch(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
@@ -1672,116 +1436,15 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** The ID of the read group set to be updated. The caller must have WRITE */
-                /** permissions to the dataset associated with this read group set. */
-                readGroupSetId: string;
-                /** An optional mask specifying which fields to update. Supported fields: */
-                /**  */
-                /** &#42; name. */
-                /** &#42; referenceSetId. */
-                /**  */
-                /** Leaving `updateMask` unset is equivalent to specifying all mutable */
-                /** fields. */
+                /** The ID of the call set to be updated. */
+                callSetId: string;
+                /** An optional mask specifying which fields to update. At this time, the only */
+                /** mutable field is name. The only */
+                /** acceptable value is "name". If unspecified, all mutable fields will be */
+                /** updated. */
                 updateMask?: string;
-            }): gapi.client.Request<ReadGroupSet>;            
+            }): Request<CallSet>;            
             
-            /** Creates read group sets by asynchronously importing the provided */
-            /** information. */
-            /**  */
-            /** For the definitions of read group sets and other genomics resources, see */
-            /** [Fundamentals of Google */
-            /** Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics) */
-            /**  */
-            /** The caller must have WRITE permissions to the dataset. */
-            /**  */
-            /** ## Notes on [BAM](https://samtools.github.io/hts-specs/SAMv1.pdf) import */
-            /**  */
-            /** - Tags will be converted to strings - tag types are not preserved */
-            /** - Comments (`@CO`) in the input file header will not be preserved */
-            /** - Original header order of references (`@SQ`) will not be preserved */
-            /** - Any reverse stranded unmapped reads will be reverse complemented, and */
-            /** their qualities (also the "BQ" and "OQ" tags, if any) will be reversed */
-            /** - Unmapped reads will be stripped of positional information (reference name */
-            /** and position) */
-            import(request: {            
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-            }): gapi.client.Request<Operation>;            
-            
-            /** Deletes a read group set. */
-            /**  */
-            /** For the definitions of read group sets and other genomics resources, see */
-            /** [Fundamentals of Google */
-            /** Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics) */
-            delete(request: {            
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** The ID of the read group set to be deleted. The caller must have WRITE */
-                /** permissions to the dataset associated with this read group set. */
-                readGroupSetId: string;
-            }): gapi.client.Request<{}>;            
-            
-            coveragebuckets: CoveragebucketsResource;
         }
         
         interface ReadsResource {
@@ -1810,6 +1473,18 @@ declare namespace gapi.client {
             /** Implements */
             /** [GlobalAllianceApi.searchReads](https://github.com/ga4gh/schemas/blob/v0.5.1/src/main/resources/avro/readmethods.avdl#L85). */
             search(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
@@ -1824,29 +1499,37 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-            }): gapi.client.Request<SearchReadsResponse>;            
+            }): Request<SearchReadsResponse>;            
             
         }
         
-        interface CallsetsResource {
-            /** Deletes a call set. */
+        interface CoveragebucketsResource {
+            /** Lists fixed width coverage buckets for a read group set, each of which */
+            /** correspond to a range of a reference sequence. Each bucket summarizes */
+            /** coverage information across its corresponding genomic range. */
             /**  */
-            /** For the definitions of call sets and other genomics resources, see */
+            /** For the definitions of read group sets and other genomics resources, see */
             /** [Fundamentals of Google */
             /** Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics) */
-            delete(request: {            
+            /**  */
+            /** Coverage is defined as the number of reads which are aligned to a given */
+            /** base in the reference sequence. Coverage buckets are available at several */
+            /** precomputed bucket widths, enabling retrieval of various coverage 'zoom */
+            /** levels'. The caller must have READ permissions for the target read group */
+            /** set. */
+            list(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
@@ -1861,65 +1544,56 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** The ID of the call set to be deleted. */
-                callSetId: string;
-            }): gapi.client.Request<{}>;            
+                /** The maximum number of results to return in a single page. If unspecified, */
+                /** defaults to 1024. The maximum value is 2048. */
+                pageSize?: number;
+                /** The start position of the range on the reference, 0-based inclusive. If */
+                /** specified, `referenceName` must also be specified. Defaults to 0. */
+                start?: string;
+                /** Required. The ID of the read group set over which coverage is requested. */
+                readGroupSetId: string;
+                /** The desired width of each reported coverage bucket in base pairs. This */
+                /** will be rounded down to the nearest precomputed bucket width; the value */
+                /** of which is returned as `bucketWidth` in the response. Defaults */
+                /** to infinity (each bucket spans an entire reference sequence) or the length */
+                /** of the target range, if specified. The smallest precomputed */
+                /** `bucketWidth` is currently 2048 base pairs; this is subject to */
+                /** change. */
+                targetBucketWidth?: string;
+                /** The name of the reference to query, within the reference set associated */
+                /** with this query. Optional. */
+                referenceName?: string;
+                /** The end position of the range on the reference, 0-based exclusive. If */
+                /** specified, `referenceName` must also be specified. If unset or 0, defaults */
+                /** to the length of the reference. */
+                end?: string;
+                /** The continuation token, which is used to page through large result sets. */
+                /** To get the next page of results, set this parameter to the value of */
+                /** `nextPageToken` from the previous response. */
+                pageToken?: string;
+            }): Request<ListCoverageBucketsResponse>;            
             
-            /** Gets a list of call sets matching the criteria. */
+        }
+        
+        interface ReadgroupsetsResource {
+            /** Gets a read group set by ID. */
             /**  */
-            /** For the definitions of call sets and other genomics resources, see */
-            /** [Fundamentals of Google */
-            /** Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics) */
-            /**  */
-            /** Implements */
-            /** [GlobalAllianceApi.searchCallSets](https://github.com/ga4gh/schemas/blob/v0.5.1/src/main/resources/avro/variantmethods.avdl#L178). */
-            search(request: {            
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-            }): gapi.client.Request<SearchCallSetsResponse>;            
-            
-            /** Gets a call set by ID. */
-            /**  */
-            /** For the definitions of call sets and other genomics resources, see */
+            /** For the definitions of read group sets and other genomics resources, see */
             /** [Fundamentals of Google */
             /** Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics) */
             get(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
@@ -1934,30 +1608,30 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** The ID of the call set. */
-                callSetId: string;
-            }): gapi.client.Request<CallSet>;            
+                /** The ID of the read group set. */
+                readGroupSetId: string;
+            }): Request<ReadGroupSet>;            
             
-            /** Updates a call set. */
+            /** Updates a read group set. */
             /**  */
-            /** For the definitions of call sets and other genomics resources, see */
+            /** For the definitions of read group sets and other genomics resources, see */
             /** [Fundamentals of Google */
             /** Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics) */
             /**  */
             /** This method supports patch semantics. */
             patch(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
@@ -1972,33 +1646,50 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** An optional mask specifying which fields to update. At this time, the only */
-                /** mutable field is name. The only */
-                /** acceptable value is "name". If unspecified, all mutable fields will be */
-                /** updated. */
+                /** The ID of the read group set to be updated. The caller must have WRITE */
+                /** permissions to the dataset associated with this read group set. */
+                readGroupSetId: string;
+                /** An optional mask specifying which fields to update. Supported fields: */
+                /**  */
+                /** &#42; name. */
+                /** &#42; referenceSetId. */
+                /**  */
+                /** Leaving `updateMask` unset is equivalent to specifying all mutable */
+                /** fields. */
                 updateMask?: string;
-                /** The ID of the call set to be updated. */
-                callSetId: string;
-            }): gapi.client.Request<CallSet>;            
+            }): Request<ReadGroupSet>;            
             
-            /** Creates a new call set. */
+            /** Creates read group sets by asynchronously importing the provided */
+            /** information. */
             /**  */
-            /** For the definitions of call sets and other genomics resources, see */
+            /** For the definitions of read group sets and other genomics resources, see */
             /** [Fundamentals of Google */
             /** Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics) */
-            create(request: {            
+            /**  */
+            /** The caller must have WRITE permissions to the dataset. */
+            /**  */
+            /** ## Notes on [BAM](https://samtools.github.io/hts-specs/SAMv1.pdf) import */
+            /**  */
+            /** - Tags will be converted to strings - tag types are not preserved */
+            /** - Comments (`@CO`) in the input file header will not be preserved */
+            /** - Original header order of references (`@SQ`) will not be preserved */
+            /** - Any reverse stranded unmapped reads will be reverse complemented, and */
+            /** their qualities (also the "BQ" and "OQ" tags, if any) will be reversed */
+            /** - Unmapped reads will be stripped of positional information (reference name */
+            /** and position) */
+            import(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
@@ -2013,26 +1704,26 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-            }): gapi.client.Request<CallSet>;            
+            }): Request<Operation>;            
             
-        }
-        
-        interface AnnotationsetsResource {
-            /** Deletes an annotation set. Caller must have WRITE permission */
-            /** for the associated annotation set. */
+            /** Deletes a read group set. */
+            /**  */
+            /** For the definitions of read group sets and other genomics resources, see */
+            /** [Fundamentals of Google */
+            /** Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics) */
             delete(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
@@ -2047,6 +1738,22 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth access token. */
                 access_token?: string;
+                /** The ID of the read group set to be deleted. The caller must have WRITE */
+                /** permissions to the dataset associated with this read group set. */
+                readGroupSetId: string;
+            }): Request<{}>;            
+            
+            /** Exports a read group set to a BAM file in Google Cloud Storage. */
+            /**  */
+            /** For the definitions of read group sets and other genomics resources, see */
+            /** [Fundamentals of Google */
+            /** Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics) */
+            /**  */
+            /** Note that currently there may be some differences between exported BAM */
+            /** files and the original BAM file at the time of import. See */
+            /** ImportReadGroupSets */
+            /** for caveats. */
+            export(request: {            
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
@@ -2059,16 +1766,46 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** The ID of the annotation set to be deleted. */
-                annotationSetId: string;
-            }): gapi.client.Request<{}>;            
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Required. The ID of the read group set to export. The caller must have */
+                /** READ access to this read group set. */
+                readGroupSetId: string;
+            }): Request<Operation>;            
             
-            /** Searches for annotation sets that match the given criteria. Annotation sets */
-            /** are returned in an unspecified order. This order is consistent, such that */
-            /** two queries for the same content (regardless of page size) yield annotation */
-            /** sets in the same order across their respective streams of paginated */
-            /** responses. Caller must have READ permission for the queried datasets. */
+            /** Searches for read group sets matching the criteria. */
+            /**  */
+            /** For the definitions of read group sets and other genomics resources, see */
+            /** [Fundamentals of Google */
+            /** Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics) */
+            /**  */
+            /** Implements */
+            /** [GlobalAllianceApi.searchReadGroupSets](https://github.com/ga4gh/schemas/blob/v0.5.1/src/main/resources/avro/readmethods.avdl#L135). */
             search(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
@@ -2083,141 +1820,33 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-            }): gapi.client.Request<SearchAnnotationSetsResponse>;            
+            }): Request<SearchReadGroupSetsResponse>;            
             
-            /** Gets an annotation set. Caller must have READ permission for */
-            /** the associated dataset. */
-            get(request: {            
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** The ID of the annotation set to be retrieved. */
-                annotationSetId: string;
-            }): gapi.client.Request<AnnotationSet>;            
-            
-            /** Updates an annotation set. The update must respect all mutability */
-            /** restrictions and other invariants described on the annotation set resource. */
-            /** Caller must have WRITE permission for the associated dataset. */
-            update(request: {            
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** The ID of the annotation set to be updated. */
-                annotationSetId: string;
-                /** An optional mask specifying which fields to update. Mutable fields are */
-                /** name, */
-                /** source_uri, and */
-                /** info. If unspecified, all */
-                /** mutable fields will be updated. */
-                updateMask?: string;
-            }): gapi.client.Request<AnnotationSet>;            
-            
-            /** Creates a new annotation set. Caller must have WRITE permission for the */
-            /** associated dataset. */
-            /**  */
-            /** The following fields are required: */
-            /**  */
-            /**   &#42; datasetId */
-            /**   &#42; referenceSetId */
-            /**  */
-            /** All other fields may be optionally specified, unless documented as being */
-            /** server-generated (for example, the `id` field). */
-            create(request: {            
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-            }): gapi.client.Request<AnnotationSet>;            
-            
+            coveragebuckets: CoveragebucketsResource;
         }
         
         interface VariantsResource {
-            /** Deletes a variant. */
+            /** Gets a list of variants matching the criteria. */
             /**  */
             /** For the definitions of variants and other genomics resources, see */
             /** [Fundamentals of Google */
             /** Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics) */
-            delete(request: {            
+            /**  */
+            /** Implements */
+            /** [GlobalAllianceApi.searchVariants](https://github.com/ga4gh/schemas/blob/v0.5.1/src/main/resources/avro/variantmethods.avdl#L126). */
+            search(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
@@ -2232,6 +1861,14 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth access token. */
                 access_token?: string;
+            }): Request<SearchVariantsResponse>;            
+            
+            /** Gets a variant by ID. */
+            /**  */
+            /** For the definitions of variants and other genomics resources, see */
+            /** [Fundamentals of Google */
+            /** Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics) */
+            get(request: {            
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
@@ -2244,9 +1881,67 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** The ID of the variant to be deleted. */
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** The ID of the variant. */
                 variantId: string;
-            }): gapi.client.Request<{}>;            
+            }): Request<Variant>;            
+            
+            /** Updates a variant. */
+            /**  */
+            /** For the definitions of variants and other genomics resources, see */
+            /** [Fundamentals of Google */
+            /** Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics) */
+            /**  */
+            /** This method supports patch semantics. Returns the modified variant without */
+            /** its calls. */
+            patch(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** An optional mask specifying which fields to update. At this time, mutable */
+                /** fields are names and */
+                /** info. Acceptable values are "names" and */
+                /** "info". If unspecified, all mutable fields will be updated. */
+                updateMask?: string;
+                /** The ID of the variant to be updated. */
+                variantId: string;
+            }): Request<Variant>;            
             
             /** Merges the given variants with existing variants. */
             /**  */
@@ -2340,6 +2035,18 @@ declare namespace gapi.client {
             /** This may be the desired outcome, but it is up to the user to determine if */
             /** if that is indeed the case. */
             merge(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
@@ -2354,19 +2061,7 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-            }): gapi.client.Request<{}>;            
+            }): Request<{}>;            
             
             /** Creates variant data by asynchronously importing the provided information. */
             /**  */
@@ -2387,6 +2082,18 @@ declare namespace gapi.client {
             /** call-specific context. */
             /** Imported VCF headers are appended to the metadata already in a variant set. */
             import(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
@@ -2401,6 +2108,14 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth access token. */
                 access_token?: string;
+            }): Request<Operation>;            
+            
+            /** Deletes a variant. */
+            /**  */
+            /** For the definitions of variants and other genomics resources, see */
+            /** [Fundamentals of Google */
+            /** Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics) */
+            delete(request: {            
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
@@ -2413,7 +2128,23 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-            }): gapi.client.Request<Operation>;            
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** The ID of the variant to be deleted. */
+                variantId: string;
+            }): Request<{}>;            
             
             /** Creates a new variant. */
             /**  */
@@ -2421,6 +2152,18 @@ declare namespace gapi.client {
             /** [Fundamentals of Google */
             /** Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics) */
             create(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
@@ -2435,29 +2178,29 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-            }): gapi.client.Request<Variant>;            
+            }): Request<Variant>;            
             
-            /** Gets a list of variants matching the criteria. */
-            /**  */
-            /** For the definitions of variants and other genomics resources, see */
-            /** [Fundamentals of Google */
-            /** Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics) */
-            /**  */
-            /** Implements */
-            /** [GlobalAllianceApi.searchVariants](https://github.com/ga4gh/schemas/blob/v0.5.1/src/main/resources/avro/variantmethods.avdl#L126). */
+        }
+        
+        interface AnnotationsetsResource {
+            /** Searches for annotation sets that match the given criteria. Annotation sets */
+            /** are returned in an unspecified order. This order is consistent, such that */
+            /** two queries for the same content (regardless of page size) yield annotation */
+            /** sets in the same order across their respective streams of paginated */
+            /** responses. Caller must have READ permission for the queried datasets. */
             search(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
@@ -2472,70 +2215,23 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-            }): gapi.client.Request<SearchVariantsResponse>;            
+            }): Request<SearchAnnotationSetsResponse>;            
             
-            /** Updates a variant. */
-            /**  */
-            /** For the definitions of variants and other genomics resources, see */
-            /** [Fundamentals of Google */
-            /** Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics) */
-            /**  */
-            /** This method supports patch semantics. Returns the modified variant without */
-            /** its calls. */
-            patch(request: {            
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** An optional mask specifying which fields to update. At this time, mutable */
-                /** fields are names and */
-                /** info. Acceptable values are "names" and */
-                /** "info". If unspecified, all mutable fields will be updated. */
-                updateMask?: string;
-                /** The ID of the variant to be updated. */
-                variantId: string;
-            }): gapi.client.Request<Variant>;            
-            
-            /** Gets a variant by ID. */
-            /**  */
-            /** For the definitions of variants and other genomics resources, see */
-            /** [Fundamentals of Google */
-            /** Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics) */
+            /** Gets an annotation set. Caller must have READ permission for */
+            /** the associated dataset. */
             get(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
@@ -2550,6 +2246,14 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth access token. */
                 access_token?: string;
+                /** The ID of the annotation set to be retrieved. */
+                annotationSetId: string;
+            }): Request<AnnotationSet>;            
+            
+            /** Updates an annotation set. The update must respect all mutability */
+            /** restrictions and other invariants described on the annotation set resource. */
+            /** Caller must have WRITE permission for the associated dataset. */
+            update(request: {            
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
@@ -2562,9 +2266,101 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** The ID of the variant. */
-                variantId: string;
-            }): gapi.client.Request<Variant>;            
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** The ID of the annotation set to be updated. */
+                annotationSetId: string;
+                /** An optional mask specifying which fields to update. Mutable fields are */
+                /** name, */
+                /** source_uri, and */
+                /** info. If unspecified, all */
+                /** mutable fields will be updated. */
+                updateMask?: string;
+            }): Request<AnnotationSet>;            
+            
+            /** Creates a new annotation set. Caller must have WRITE permission for the */
+            /** associated dataset. */
+            /**  */
+            /** The following fields are required: */
+            /**  */
+            /**   &#42; datasetId */
+            /**   &#42; referenceSetId */
+            /**  */
+            /** All other fields may be optionally specified, unless documented as being */
+            /** server-generated (for example, the `id` field). */
+            create(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+            }): Request<AnnotationSet>;            
+            
+            /** Deletes an annotation set. Caller must have WRITE permission */
+            /** for the associated annotation set. */
+            delete(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** The ID of the annotation set to be deleted. */
+                annotationSetId: string;
+            }): Request<{}>;            
             
         }
         
@@ -2578,6 +2374,18 @@ declare namespace gapi.client {
             /** Implements */
             /** [GlobalAllianceApi.getReferenceBases](https://github.com/ga4gh/schemas/blob/v0.5.1/src/main/resources/avro/referencemethods.avdl#L221). */
             list(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
@@ -2592,22 +2400,6 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** The start position (0-based) of this query. Defaults to 0. */
-                start?: string;
-                /** The ID of the reference. */
-                referenceId: string;
                 /** The end position (0-based, exclusive) of this query. Defaults to the length */
                 /** of this reference. */
                 end?: string;
@@ -2619,7 +2411,11 @@ declare namespace gapi.client {
                 /** defaults to 200Kbp (kilo base pairs). The maximum value is 10Mbp (mega base */
                 /** pairs). */
                 pageSize?: number;
-            }): gapi.client.Request<ListBasesResponse>;            
+                /** The start position (0-based) of this query. Defaults to 0. */
+                start?: string;
+                /** The ID of the reference. */
+                referenceId: string;
+            }): Request<ListBasesResponse>;            
             
         }
         
@@ -2633,6 +2429,18 @@ declare namespace gapi.client {
             /** Implements */
             /** [GlobalAllianceApi.searchReferences](https://github.com/ga4gh/schemas/blob/v0.5.1/src/main/resources/avro/referencemethods.avdl#L146). */
             search(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
@@ -2647,19 +2455,7 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-            }): gapi.client.Request<SearchReferencesResponse>;            
+            }): Request<SearchReferencesResponse>;            
             
             /** Gets a reference. */
             /**  */
@@ -2670,6 +2466,18 @@ declare namespace gapi.client {
             /** Implements */
             /** [GlobalAllianceApi.getReference](https://github.com/ga4gh/schemas/blob/v0.5.1/src/main/resources/avro/referencemethods.avdl#L158). */
             get(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
@@ -2684,6 +2492,22 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth access token. */
                 access_token?: string;
+                /** The ID of the reference. */
+                referenceId: string;
+            }): Request<Reference>;            
+            
+            bases: BasesResource;
+        }
+        
+        interface DatasetsResource {
+            /** Returns permissions that a caller has on the specified resource. */
+            /** See <a href="/iam/docs/managing-policies#testing_permissions">Testing */
+            /** Permissions</a> for more information. */
+            /**  */
+            /** For the definitions of datasets and other genomics resources, see */
+            /** [Fundamentals of Google */
+            /** Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics) */
+            testIamPermissions(request: {            
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
@@ -2696,14 +2520,25 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** The ID of the reference. */
-                referenceId: string;
-            }): gapi.client.Request<Reference>;            
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** REQUIRED: The resource for which policy is being specified. Format is */
+                /** `datasets/<dataset ID>`. */
+                resource: string;
+            }): Request<TestIamPermissionsResponse>;            
             
-            bases: BasesResource;
-        }
-        
-        interface DatasetsResource {
             /** Deletes a dataset and all of its contents (all read group sets, */
             /** reference sets, variant sets, call sets, annotation sets, etc.) */
             /** This is reversible (up to one week after the deletion) via */
@@ -2715,6 +2550,18 @@ declare namespace gapi.client {
             /** [Fundamentals of Google */
             /** Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics) */
             delete(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
@@ -2729,21 +2576,9 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
                 /** The ID of the dataset to be deleted. */
                 datasetId: string;
-            }): gapi.client.Request<{}>;            
+            }): Request<{}>;            
             
             /** Lists datasets within a project. */
             /**  */
@@ -2751,6 +2586,18 @@ declare namespace gapi.client {
             /** [Fundamentals of Google */
             /** Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics) */
             list(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
@@ -2765,28 +2612,16 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
+                /** The maximum number of results to return in a single page. If unspecified, */
+                /** defaults to 50. The maximum value is 1024. */
+                pageSize?: number;
                 /** Required. The Google Cloud project ID to list datasets for. */
                 projectId?: string;
                 /** The continuation token, which is used to page through large result sets. */
                 /** To get the next page of results, set this parameter to the value of */
                 /** `nextPageToken` from the previous response. */
                 pageToken?: string;
-                /** The maximum number of results to return in a single page. If unspecified, */
-                /** defaults to 50. The maximum value is 1024. */
-                pageSize?: number;
-            }): gapi.client.Request<ListDatasetsResponse>;            
+            }): Request<ListDatasetsResponse>;            
             
             /** Creates a new dataset. */
             /**  */
@@ -2794,6 +2629,18 @@ declare namespace gapi.client {
             /** [Fundamentals of Google */
             /** Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics) */
             create(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
@@ -2808,19 +2655,7 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-            }): gapi.client.Request<Dataset>;            
+            }): Request<Dataset>;            
             
             /** Sets the access control policy on the specified dataset. Replaces any */
             /** existing policy. */
@@ -2832,6 +2667,18 @@ declare namespace gapi.client {
             /** See <a href="/iam/docs/managing-policies#setting_a_policy">Setting a */
             /** Policy</a> for more information. */
             setIamPolicy(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
@@ -2846,22 +2693,10 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
                 /** REQUIRED: The resource for which policy is being specified. Format is */
                 /** `datasets/<dataset ID>`. */
                 resource: string;
-            }): gapi.client.Request<Policy>;            
+            }): Request<Policy>;            
             
             /** Gets the access control policy for the dataset. This is empty if the */
             /** policy or resource does not exist. */
@@ -2873,6 +2708,18 @@ declare namespace gapi.client {
             /** [Fundamentals of Google */
             /** Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics) */
             getIamPolicy(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
@@ -2887,22 +2734,10 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
                 /** REQUIRED: The resource for which policy is being specified. Format is */
                 /** `datasets/<dataset ID>`. */
                 resource: string;
-            }): gapi.client.Request<Policy>;            
+            }): Request<Policy>;            
             
             /** Updates a dataset. */
             /**  */
@@ -2912,6 +2747,18 @@ declare namespace gapi.client {
             /**  */
             /** This method supports patch semantics. */
             patch(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
@@ -2926,18 +2773,6 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
                 /** The ID of the dataset to be updated. */
                 datasetId: string;
                 /** An optional mask specifying which fields to update. At this time, the only */
@@ -2945,43 +2780,7 @@ declare namespace gapi.client {
                 /** acceptable value is "name". If unspecified, all mutable fields will be */
                 /** updated. */
                 updateMask?: string;
-            }): gapi.client.Request<Dataset>;            
-            
-            /** Gets a dataset by ID. */
-            /**  */
-            /** For the definitions of datasets and other genomics resources, see */
-            /** [Fundamentals of Google */
-            /** Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics) */
-            get(request: {            
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** The ID of the dataset. */
-                datasetId: string;
-            }): gapi.client.Request<Dataset>;            
+            }): Request<Dataset>;            
             
             /** Undeletes a dataset by restoring a dataset which was deleted via this API. */
             /**  */
@@ -2991,6 +2790,18 @@ declare namespace gapi.client {
             /**  */
             /** This operation is only possible for a week after the deletion occurred. */
             undelete(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
@@ -3005,30 +2816,28 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
                 /** The ID of the dataset to be undeleted. */
                 datasetId: string;
-            }): gapi.client.Request<Dataset>;            
+            }): Request<Dataset>;            
             
-            /** Returns permissions that a caller has on the specified resource. */
-            /** See <a href="/iam/docs/managing-policies#testing_permissions">Testing */
-            /** Permissions</a> for more information. */
+            /** Gets a dataset by ID. */
             /**  */
             /** For the definitions of datasets and other genomics resources, see */
             /** [Fundamentals of Google */
             /** Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics) */
-            testIamPermissions(request: {            
+            get(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
@@ -3043,6 +2852,20 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth access token. */
                 access_token?: string;
+                /** The ID of the dataset. */
+                datasetId: string;
+            }): Request<Dataset>;            
+            
+        }
+        
+        interface VariantsetsResource {
+            /** Deletes a variant set including all variants, call sets, and calls within. */
+            /** This is not reversible. */
+            /**  */
+            /** For the definitions of variant sets and other genomics resources, see */
+            /** [Fundamentals of Google */
+            /** Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics) */
+            delete(request: {            
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
@@ -3055,17 +2878,240 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** REQUIRED: The resource for which policy is being specified. Format is */
-                /** `datasets/<dataset ID>`. */
-                resource: string;
-            }): gapi.client.Request<TestIamPermissionsResponse>;            
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** The ID of the variant set to be deleted. */
+                variantSetId: string;
+            }): Request<{}>;            
+            
+            /** Creates a new variant set. */
+            /**  */
+            /** For the definitions of variant sets and other genomics resources, see */
+            /** [Fundamentals of Google */
+            /** Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics) */
+            /**  */
+            /** The provided variant set must have a valid `datasetId` set - all other */
+            /** fields are optional. Note that the `id` field will be ignored, as this is */
+            /** assigned by the server. */
+            create(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+            }): Request<VariantSet>;            
+            
+            /** Exports variant set data to an external destination. */
+            /**  */
+            /** For the definitions of variant sets and other genomics resources, see */
+            /** [Fundamentals of Google */
+            /** Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics) */
+            export(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Required. The ID of the variant set that contains variant data which */
+                /** should be exported. The caller must have READ access to this variant set. */
+                variantSetId: string;
+            }): Request<Operation>;            
+            
+            /** Returns a list of all variant sets matching search criteria. */
+            /**  */
+            /** For the definitions of variant sets and other genomics resources, see */
+            /** [Fundamentals of Google */
+            /** Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics) */
+            /**  */
+            /** Implements */
+            /** [GlobalAllianceApi.searchVariantSets](https://github.com/ga4gh/schemas/blob/v0.5.1/src/main/resources/avro/variantmethods.avdl#L49). */
+            search(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+            }): Request<SearchVariantSetsResponse>;            
+            
+            /** Gets a variant set by ID. */
+            /**  */
+            /** For the definitions of variant sets and other genomics resources, see */
+            /** [Fundamentals of Google */
+            /** Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics) */
+            get(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Required. The ID of the variant set. */
+                variantSetId: string;
+            }): Request<VariantSet>;            
+            
+            /** Updates a variant set using patch semantics. */
+            /**  */
+            /** For the definitions of variant sets and other genomics resources, see */
+            /** [Fundamentals of Google */
+            /** Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics) */
+            patch(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** The ID of the variant to be updated (must already exist). */
+                variantSetId: string;
+                /** An optional mask specifying which fields to update. Supported fields: */
+                /**  */
+                /** &#42; metadata. */
+                /** &#42; name. */
+                /** &#42; description. */
+                /**  */
+                /** Leaving `updateMask` unset is equivalent to specifying all mutable */
+                /** fields. */
+                updateMask?: string;
+            }): Request<VariantSet>;            
             
         }
         
         interface AnnotationsResource {
-            /** Gets an annotation. Caller must have READ permission */
-            /** for the associated annotation set. */
-            get(request: {            
+            /** Searches for annotations that match the given criteria. Results are */
+            /** ordered by genomic coordinate (by reference sequence, then position). */
+            /** Annotations with equivalent genomic coordinates are returned in an */
+            /** unspecified order. This order is consistent, such that two queries for the */
+            /** same content (regardless of page size) yield annotations in the same order */
+            /** across their respective streams of paginated responses. Caller must have */
+            /** READ permission for the queried annotation sets. */
+            search(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
@@ -3080,6 +3126,11 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth access token. */
                 access_token?: string;
+            }): Request<SearchAnnotationsResponse>;            
+            
+            /** Gets an annotation. Caller must have READ permission */
+            /** for the associated annotation set. */
+            get(request: {            
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
@@ -3092,13 +3143,39 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
                 /** The ID of the annotation to be retrieved. */
                 annotationId: string;
-            }): gapi.client.Request<Annotation>;            
+            }): Request<Annotation>;            
             
             /** Updates an annotation. Caller must have */
             /** WRITE permission for the associated dataset. */
             update(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
@@ -3113,18 +3190,6 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
                 /** An optional mask specifying which fields to update. Mutable fields are */
                 /** name, */
                 /** variant, */
@@ -3134,11 +3199,23 @@ declare namespace gapi.client {
                 updateMask?: string;
                 /** The ID of the annotation to be updated. */
                 annotationId: string;
-            }): gapi.client.Request<Annotation>;            
+            }): Request<Annotation>;            
             
             /** Deletes an annotation. Caller must have WRITE permission for */
             /** the associated annotation set. */
             delete(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
@@ -3153,21 +3230,9 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
                 /** The ID of the annotation to be deleted. */
                 annotationId: string;
-            }): gapi.client.Request<{}>;            
+            }): Request<{}>;            
             
             /** Creates a new annotation. Caller must have WRITE permission */
             /** for the associated annotation set. */
@@ -3192,6 +3257,18 @@ declare namespace gapi.client {
             /** Annotation resource */
             /** for additional restrictions on each field. */
             create(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
@@ -3206,19 +3283,7 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-            }): gapi.client.Request<Annotation>;            
+            }): Request<Annotation>;            
             
             /** Creates one or more new annotations atomically. All annotations must */
             /** belong to the same annotation set. Caller must have WRITE */
@@ -3235,6 +3300,18 @@ declare namespace gapi.client {
             /** see */
             /** CreateAnnotation. */
             batchCreate(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
@@ -3249,65 +3326,25 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-            }): gapi.client.Request<BatchCreateAnnotationsResponse>;            
-            
-            /** Searches for annotations that match the given criteria. Results are */
-            /** ordered by genomic coordinate (by reference sequence, then position). */
-            /** Annotations with equivalent genomic coordinates are returned in an */
-            /** unspecified order. This order is consistent, such that two queries for the */
-            /** same content (regardless of page size) yield annotations in the same order */
-            /** across their respective streams of paginated responses. Caller must have */
-            /** READ permission for the queried annotation sets. */
-            search(request: {            
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-            }): gapi.client.Request<SearchAnnotationsResponse>;            
+            }): Request<BatchCreateAnnotationsResponse>;            
             
         }
         
-        interface VariantsetsResource {
-            /** Updates a variant set using patch semantics. */
-            /**  */
-            /** For the definitions of variant sets and other genomics resources, see */
-            /** [Fundamentals of Google */
-            /** Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics) */
-            patch(request: {            
+        interface OperationsResource {
+            /** Starts asynchronous cancellation on a long-running operation. The server makes a best effort to cancel the operation, but success is not guaranteed. Clients may use Operations.GetOperation or Operations.ListOperations to check whether the cancellation succeeded or the operation completed despite cancellation. */
+            cancel(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
@@ -3322,37 +3359,26 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** The ID of the variant to be updated (must already exist). */
-                variantSetId: string;
-                /** An optional mask specifying which fields to update. Supported fields: */
-                /**  */
-                /** &#42; metadata. */
-                /** &#42; name. */
-                /** &#42; description. */
-                /**  */
-                /** Leaving `updateMask` unset is equivalent to specifying all mutable */
-                /** fields. */
-                updateMask?: string;
-            }): gapi.client.Request<VariantSet>;            
+                /** The name of the operation resource to be cancelled. */
+                name: string;
+            }): Request<{}>;            
             
-            /** Gets a variant set by ID. */
-            /**  */
-            /** For the definitions of variant sets and other genomics resources, see */
-            /** [Fundamentals of Google */
-            /** Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics) */
+            /** Gets the latest state of a long-running operation.  Clients can use this */
+            /** method to poll the operation result at intervals as recommended by the API */
+            /** service. */
             get(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
@@ -3367,6 +3393,12 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth access token. */
                 access_token?: string;
+                /** The name of the operation resource. */
+                name: string;
+            }): Request<Operation>;            
+            
+            /** Lists operations that match the specified filter in the request. */
+            list(request: {            
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
@@ -3379,17 +3411,6 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Required. The ID of the variant set. */
-                variantSetId: string;
-            }): gapi.client.Request<VariantSet>;            
-            
-            /** Deletes a variant set including all variants, call sets, and calls within. */
-            /** This is not reversible. */
-            /**  */
-            /** For the definitions of variant sets and other genomics resources, see */
-            /** [Fundamentals of Google */
-            /** Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics) */
-            delete(request: {            
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
@@ -3404,106 +3425,58 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** The ID of the variant set to be deleted. */
-                variantSetId: string;
-            }): gapi.client.Request<{}>;            
+                /** A string for filtering Operations. */
+                /** The following filter fields are supported&#58; */
+                /**  */
+                /** &#42; projectId&#58; Required. Corresponds to */
+                /**   OperationMetadata.projectId. */
+                /** &#42; createTime&#58; The time this job was created, in seconds from the */
+                /**   [epoch](http://en.wikipedia.org/wiki/Unix_time). Can use `>=` and/or `<=` */
+                /**   operators. */
+                /** &#42; status&#58; Can be `RUNNING`, `SUCCESS`, `FAILURE`, or `CANCELED`. Only */
+                /**   one status may be specified. */
+                /** &#42; labels.key where key is a label key. */
+                /**  */
+                /** Examples&#58; */
+                /**  */
+                /** &#42; `projectId = my-project AND createTime >= 1432140000` */
+                /** &#42; `projectId = my-project AND createTime >= 1432140000 AND createTime <= 1432150000 AND status = RUNNING` */
+                /** &#42; `projectId = my-project AND labels.color = &#42;` */
+                /** &#42; `projectId = my-project AND labels.color = red` */
+                filter?: string;
+                /** The standard list page token. */
+                pageToken?: string;
+                /** The name of the operation's parent resource. */
+                name: string;
+                /** The maximum number of results to return. If unspecified, defaults to */
+                /** 256. The maximum value is 2048. */
+                pageSize?: number;
+            }): Request<ListOperationsResponse>;            
             
-            /** Creates a new variant set. */
+        }
+        
+        interface ReferencesetsResource {
+            /** Searches for reference sets which match the given criteria. */
             /**  */
-            /** For the definitions of variant sets and other genomics resources, see */
-            /** [Fundamentals of Google */
-            /** Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics) */
-            /**  */
-            /** The provided variant set must have a valid `datasetId` set - all other */
-            /** fields are optional. Note that the `id` field will be ignored, as this is */
-            /** assigned by the server. */
-            create(request: {            
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-            }): gapi.client.Request<VariantSet>;            
-            
-            /** Exports variant set data to an external destination. */
-            /**  */
-            /** For the definitions of variant sets and other genomics resources, see */
-            /** [Fundamentals of Google */
-            /** Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics) */
-            export(request: {            
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Required. The ID of the variant set that contains variant data which */
-                /** should be exported. The caller must have READ access to this variant set. */
-                variantSetId: string;
-            }): gapi.client.Request<Operation>;            
-            
-            /** Returns a list of all variant sets matching search criteria. */
-            /**  */
-            /** For the definitions of variant sets and other genomics resources, see */
+            /** For the definitions of references and other genomics resources, see */
             /** [Fundamentals of Google */
             /** Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics) */
             /**  */
             /** Implements */
-            /** [GlobalAllianceApi.searchVariantSets](https://github.com/ga4gh/schemas/blob/v0.5.1/src/main/resources/avro/variantmethods.avdl#L49). */
+            /** [GlobalAllianceApi.searchReferenceSets](https://github.com/ga4gh/schemas/blob/v0.5.1/src/main/resources/avro/referencemethods.avdl#L71) */
             search(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
@@ -3518,6 +3491,17 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth access token. */
                 access_token?: string;
+            }): Request<SearchReferenceSetsResponse>;            
+            
+            /** Gets a reference set. */
+            /**  */
+            /** For the definitions of references and other genomics resources, see */
+            /** [Fundamentals of Google */
+            /** Genomics](https://cloud.google.com/genomics/fundamentals-of-google-genomics) */
+            /**  */
+            /** Implements */
+            /** [GlobalAllianceApi.getReferenceSet](https://github.com/ga4gh/schemas/blob/v0.5.1/src/main/resources/avro/referencemethods.avdl#L83). */
+            get(request: {            
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
@@ -3530,7 +3514,23 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-            }): gapi.client.Request<SearchVariantSetsResponse>;            
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** The ID of the reference set. */
+                referenceSetId: string;
+            }): Request<ReferenceSet>;            
             
         }
     }

@@ -312,7 +312,7 @@ declare namespace gapi.client {
                 sort?: string;
                 /** The index of the first result to return */
                 start?: number;
-            }): gapi.client.Request<Search>;            
+            }): Request<Search>;            
             
         }
     }

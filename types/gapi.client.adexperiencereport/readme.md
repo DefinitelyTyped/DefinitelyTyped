@@ -53,12 +53,12 @@ After that you can use Google Ad Experience Report API resources:
 ```typescript 
     
 /* 
-Lists sites with Ad Experience Report statuses of "Failing" or "Warning".  
-*/
-await gapi.client.violatingSites.list({  }); 
-    
-/* 
 Gets a summary of the ad experience rating of a site.  
 */
-await gapi.client.sites.get({ name: "name",  });
+await gapi.client.sites.get({ name: "name",  }); 
+    
+/* 
+Lists sites with Ad Experience Report statuses of "Failing" or "Warning".  
+*/
+await gapi.client.violatingSites.list({  });
 ```

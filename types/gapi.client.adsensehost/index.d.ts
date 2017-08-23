@@ -274,7 +274,7 @@ declare namespace gapi.client {
                 accountId: string;
                 /** Ad client to get. */
                 adClientId: string;
-            }): gapi.client.Request<AdClient>;            
+            }): Request<AdClient>;            
             
             /** List all hosted ad clients in the specified hosted account. */
             list(request: {            
@@ -298,7 +298,7 @@ declare namespace gapi.client {
                 maxResults?: number;
                 /** A continuation token, used to page through ad clients. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous response. */
                 pageToken?: string;
-            }): gapi.client.Request<AdClients>;            
+            }): Request<AdClients>;            
             
         }
         
@@ -325,7 +325,7 @@ declare namespace gapi.client {
                 adClientId: string;
                 /** Ad unit to delete. */
                 adUnitId: string;
-            }): gapi.client.Request<AdUnit>;            
+            }): Request<AdUnit>;            
             
             /** Get the specified host ad unit in this AdSense account. */
             get(request: {            
@@ -349,7 +349,7 @@ declare namespace gapi.client {
                 adClientId: string;
                 /** Ad unit to get. */
                 adUnitId: string;
-            }): gapi.client.Request<AdUnit>;            
+            }): Request<AdUnit>;            
             
             /** Get ad code for the specified ad unit, attaching the specified host custom channels. */
             getAdCode(request: {            
@@ -375,7 +375,7 @@ declare namespace gapi.client {
                 adUnitId: string;
                 /** Host custom channel to attach to the ad code. */
                 hostCustomChannelId?: string;
-            }): gapi.client.Request<AdCode>;            
+            }): Request<AdCode>;            
             
             /** Insert the supplied ad unit into the specified publisher AdSense account. */
             insert(request: {            
@@ -397,7 +397,7 @@ declare namespace gapi.client {
                 accountId: string;
                 /** Ad client into which to insert the ad unit. */
                 adClientId: string;
-            }): gapi.client.Request<AdUnit>;            
+            }): Request<AdUnit>;            
             
             /** List all ad units in the specified publisher's AdSense account. */
             list(request: {            
@@ -425,7 +425,7 @@ declare namespace gapi.client {
                 maxResults?: number;
                 /** A continuation token, used to page through ad units. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous response. */
                 pageToken?: string;
-            }): gapi.client.Request<AdUnits>;            
+            }): Request<AdUnits>;            
             
             /** Update the supplied ad unit in the specified publisher AdSense account. This method supports patch semantics. */
             patch(request: {            
@@ -449,7 +449,7 @@ declare namespace gapi.client {
                 adClientId: string;
                 /** Ad unit to get. */
                 adUnitId: string;
-            }): gapi.client.Request<AdUnit>;            
+            }): Request<AdUnit>;            
             
             /** Update the supplied ad unit in the specified publisher AdSense account. */
             update(request: {            
@@ -471,7 +471,7 @@ declare namespace gapi.client {
                 accountId: string;
                 /** Ad client which contains the ad unit. */
                 adClientId: string;
-            }): gapi.client.Request<AdUnit>;            
+            }): Request<AdUnit>;            
             
         }
         
@@ -512,7 +512,7 @@ declare namespace gapi.client {
                 startDate: string;
                 /** Index of the first row of report data to return. */
                 startIndex?: number;
-            }): gapi.client.Request<Report>;            
+            }): Request<Report>;            
             
         }
         
@@ -535,7 +535,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Account to get information about. */
                 accountId: string;
-            }): gapi.client.Request<Account>;            
+            }): Request<Account>;            
             
             /** List hosted accounts associated with this AdSense account by ad client id. */
             list(request: {            
@@ -555,7 +555,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Ad clients to list accounts for. */
                 filterAdClientId: string;
-            }): gapi.client.Request<Accounts>;            
+            }): Request<Accounts>;            
             
             adclients: AdclientsResource;
             adunits: AdunitsResource;
@@ -581,7 +581,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Ad client to get. */
                 adClientId: string;
-            }): gapi.client.Request<AdClient>;            
+            }): Request<AdClient>;            
             
             /** List all host ad clients in this AdSense account. */
             list(request: {            
@@ -603,7 +603,7 @@ declare namespace gapi.client {
                 maxResults?: number;
                 /** A continuation token, used to page through ad clients. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous response. */
                 pageToken?: string;
-            }): gapi.client.Request<AdClients>;            
+            }): Request<AdClients>;            
             
         }
         
@@ -632,7 +632,7 @@ declare namespace gapi.client {
                 websiteLocale?: string;
                 /** The URL of the user's hosted website. */
                 websiteUrl: string;
-            }): gapi.client.Request<AssociationSession>;            
+            }): Request<AssociationSession>;            
             
             /** Verify an association session after the association callback returns from AdSense signup. */
             verify(request: {            
@@ -652,7 +652,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The token returned to the association callback URL. */
                 token: string;
-            }): gapi.client.Request<AssociationSession>;            
+            }): Request<AssociationSession>;            
             
         }
         
@@ -677,7 +677,7 @@ declare namespace gapi.client {
                 adClientId: string;
                 /** Custom channel to delete. */
                 customChannelId: string;
-            }): gapi.client.Request<CustomChannel>;            
+            }): Request<CustomChannel>;            
             
             /** Get a specific custom channel from the host AdSense account. */
             get(request: {            
@@ -699,7 +699,7 @@ declare namespace gapi.client {
                 adClientId: string;
                 /** Custom channel to get. */
                 customChannelId: string;
-            }): gapi.client.Request<CustomChannel>;            
+            }): Request<CustomChannel>;            
             
             /** Add a new custom channel to the host AdSense account. */
             insert(request: {            
@@ -719,7 +719,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Ad client to which the new custom channel will be added. */
                 adClientId: string;
-            }): gapi.client.Request<CustomChannel>;            
+            }): Request<CustomChannel>;            
             
             /** List all host custom channels in this AdSense account. */
             list(request: {            
@@ -743,7 +743,7 @@ declare namespace gapi.client {
                 maxResults?: number;
                 /** A continuation token, used to page through custom channels. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous response. */
                 pageToken?: string;
-            }): gapi.client.Request<CustomChannels>;            
+            }): Request<CustomChannels>;            
             
             /** Update a custom channel in the host AdSense account. This method supports patch semantics. */
             patch(request: {            
@@ -765,7 +765,7 @@ declare namespace gapi.client {
                 adClientId: string;
                 /** Custom channel to get. */
                 customChannelId: string;
-            }): gapi.client.Request<CustomChannel>;            
+            }): Request<CustomChannel>;            
             
             /** Update a custom channel in the host AdSense account. */
             update(request: {            
@@ -785,7 +785,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Ad client in which the custom channel will be updated. */
                 adClientId: string;
-            }): gapi.client.Request<CustomChannel>;            
+            }): Request<CustomChannel>;            
             
         }
         
@@ -824,7 +824,7 @@ declare namespace gapi.client {
                 startDate: string;
                 /** Index of the first row of report data to return. */
                 startIndex?: number;
-            }): gapi.client.Request<Report>;            
+            }): Request<Report>;            
             
         }
         
@@ -849,7 +849,7 @@ declare namespace gapi.client {
                 adClientId: string;
                 /** URL channel to delete. */
                 urlChannelId: string;
-            }): gapi.client.Request<UrlChannel>;            
+            }): Request<UrlChannel>;            
             
             /** Add a new URL channel to the host AdSense account. */
             insert(request: {            
@@ -869,7 +869,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Ad client to which the new URL channel will be added. */
                 adClientId: string;
-            }): gapi.client.Request<UrlChannel>;            
+            }): Request<UrlChannel>;            
             
             /** List all host URL channels in the host AdSense account. */
             list(request: {            
@@ -893,7 +893,7 @@ declare namespace gapi.client {
                 maxResults?: number;
                 /** A continuation token, used to page through URL channels. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous response. */
                 pageToken?: string;
-            }): gapi.client.Request<UrlChannels>;            
+            }): Request<UrlChannels>;            
             
         }
     }

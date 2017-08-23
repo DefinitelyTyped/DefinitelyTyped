@@ -868,7 +868,7 @@ declare namespace gapi.client {
                 deleteContents?: boolean;
                 /** Project ID of the dataset being deleted */
                 projectId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Returns the dataset specified by datasetID. */
             get(request: {            
@@ -890,7 +890,7 @@ declare namespace gapi.client {
                 datasetId: string;
                 /** Project ID of the requested dataset */
                 projectId: string;
-            }): gapi.client.Request<Dataset>;            
+            }): Request<Dataset>;            
             
             /** Creates a new empty dataset. */
             insert(request: {            
@@ -910,7 +910,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Project ID of the new dataset */
                 projectId: string;
-            }): gapi.client.Request<Dataset>;            
+            }): Request<Dataset>;            
             
             /** Lists all datasets in the specified project to which you have been granted the READER dataset role. */
             list(request: {            
@@ -938,7 +938,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Project ID of the datasets to be listed */
                 projectId: string;
-            }): gapi.client.Request<DatasetList>;            
+            }): Request<DatasetList>;            
             
             /** Updates information in an existing dataset. The update method replaces the entire dataset resource, whereas the patch method only replaces fields that are provided in the submitted dataset resource. This method supports patch semantics. */
             patch(request: {            
@@ -960,7 +960,7 @@ declare namespace gapi.client {
                 datasetId: string;
                 /** Project ID of the dataset being updated */
                 projectId: string;
-            }): gapi.client.Request<Dataset>;            
+            }): Request<Dataset>;            
             
             /** Updates information in an existing dataset. The update method replaces the entire dataset resource, whereas the patch method only replaces fields that are provided in the submitted dataset resource. */
             update(request: {            
@@ -982,7 +982,7 @@ declare namespace gapi.client {
                 datasetId: string;
                 /** Project ID of the dataset being updated */
                 projectId: string;
-            }): gapi.client.Request<Dataset>;            
+            }): Request<Dataset>;            
             
         }
         
@@ -1007,7 +1007,7 @@ declare namespace gapi.client {
                 jobId: string;
                 /** [Required] Project ID of the job to cancel */
                 projectId: string;
-            }): gapi.client.Request<JobCancelResponse>;            
+            }): Request<JobCancelResponse>;            
             
             /** Returns information about a specific job. Job information is available for a six month period after creation. Requires that you're the person who ran the job, or have the Is Owner project role. */
             get(request: {            
@@ -1029,7 +1029,7 @@ declare namespace gapi.client {
                 jobId: string;
                 /** [Required] Project ID of the requested job */
                 projectId: string;
-            }): gapi.client.Request<Job>;            
+            }): Request<Job>;            
             
             /** Retrieves the results of a query job. */
             getQueryResults(request: {            
@@ -1059,7 +1059,7 @@ declare namespace gapi.client {
                 startIndex?: string;
                 /** How long to wait for the query to complete, in milliseconds, before returning. Default is 10 seconds. If the timeout passes before the job completes, the 'jobComplete' field in the response will be false */
                 timeoutMs?: number;
-            }): gapi.client.Request<GetQueryResultsResponse>;            
+            }): Request<GetQueryResultsResponse>;            
             
             /** Starts a new asynchronous job. Requires the Can View project role. */
             insert(request: {            
@@ -1079,7 +1079,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Project ID of the project that will be billed for the job */
                 projectId: string;
-            }): gapi.client.Request<Job>;            
+            }): Request<Job>;            
             
             /** Lists all jobs that you started in the specified project. Job information is available for a six month period after creation. The job list is sorted in reverse chronological order, by job creation time. Requires the Can View project role, or the Is Owner project role if you set the allUsers property. */
             list(request: {            
@@ -1109,7 +1109,7 @@ declare namespace gapi.client {
                 projection?: string;
                 /** Filter for job state */
                 stateFilter?: string;
-            }): gapi.client.Request<JobList>;            
+            }): Request<JobList>;            
             
             /** Runs a BigQuery SQL query synchronously and returns query results if the query completes within a specified timeout. */
             query(request: {            
@@ -1129,7 +1129,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Project ID of the project billed for the query */
                 projectId: string;
-            }): gapi.client.Request<QueryResponse>;            
+            }): Request<QueryResponse>;            
             
         }
         
@@ -1154,7 +1154,7 @@ declare namespace gapi.client {
                 maxResults?: number;
                 /** Page token, returned by a previous call, to request the next page of results */
                 pageToken?: string;
-            }): gapi.client.Request<ProjectList>;            
+            }): Request<ProjectList>;            
             
         }
         
@@ -1181,7 +1181,7 @@ declare namespace gapi.client {
                 projectId: string;
                 /** Table ID of the destination table. */
                 tableId: string;
-            }): gapi.client.Request<TableDataInsertAllResponse>;            
+            }): Request<TableDataInsertAllResponse>;            
             
             /** Retrieves table data from a specified set of rows. Requires the READER dataset role. */
             list(request: {            
@@ -1213,7 +1213,7 @@ declare namespace gapi.client {
                 startIndex?: string;
                 /** Table ID of the table to read */
                 tableId: string;
-            }): gapi.client.Request<TableDataList>;            
+            }): Request<TableDataList>;            
             
         }
         
@@ -1240,7 +1240,7 @@ declare namespace gapi.client {
                 projectId: string;
                 /** Table ID of the table to delete */
                 tableId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Gets the specified table resource by table ID. This method does not return the data in the table, it only returns the table resource, which describes the structure of this table. */
             get(request: {            
@@ -1266,7 +1266,7 @@ declare namespace gapi.client {
                 selectedFields?: string;
                 /** Table ID of the requested table */
                 tableId: string;
-            }): gapi.client.Request<Table>;            
+            }): Request<Table>;            
             
             /** Creates a new, empty table in the dataset. */
             insert(request: {            
@@ -1288,7 +1288,7 @@ declare namespace gapi.client {
                 datasetId: string;
                 /** Project ID of the new table */
                 projectId: string;
-            }): gapi.client.Request<Table>;            
+            }): Request<Table>;            
             
             /** Lists all tables in the specified dataset. Requires the READER dataset role. */
             list(request: {            
@@ -1314,7 +1314,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Project ID of the tables to list */
                 projectId: string;
-            }): gapi.client.Request<TableList>;            
+            }): Request<TableList>;            
             
             /** Updates information in an existing table. The update method replaces the entire table resource, whereas the patch method only replaces fields that are provided in the submitted table resource. This method supports patch semantics. */
             patch(request: {            
@@ -1338,7 +1338,7 @@ declare namespace gapi.client {
                 projectId: string;
                 /** Table ID of the table to update */
                 tableId: string;
-            }): gapi.client.Request<Table>;            
+            }): Request<Table>;            
             
             /** Updates information in an existing table. The update method replaces the entire table resource, whereas the patch method only replaces fields that are provided in the submitted table resource. */
             update(request: {            
@@ -1362,7 +1362,7 @@ declare namespace gapi.client {
                 projectId: string;
                 /** Table ID of the table to update */
                 tableId: string;
-            }): gapi.client.Request<Table>;            
+            }): Request<Table>;            
             
         }
     }

@@ -159,7 +159,7 @@ declare namespace gapi.client {
                 source?: string;
                 /** Indicates the user to return activity for. Use the special value me to indicate the currently authenticated user. */
                 userId?: string;
-            }): gapi.client.Request<ListActivitiesResponse>;            
+            }): Request<ListActivitiesResponse>;            
             
         }
     }

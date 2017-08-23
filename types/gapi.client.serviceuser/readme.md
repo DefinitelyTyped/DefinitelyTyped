@@ -33,14 +33,14 @@ Don't forget to authenticate your client before sending any request to resources
 // declare client_id registered in Google Developers Console
 var client_id = '',
     scope = [     
-        // Manage your Google API service configuration
-        'https://www.googleapis.com/auth/service.management',
-    
         // View your data across Google Cloud Platform services
         'https://www.googleapis.com/auth/cloud-platform.read-only',
     
         // View and manage your data across Google Cloud Platform services
         'https://www.googleapis.com/auth/cloud-platform',
+    
+        // Manage your Google API service configuration
+        'https://www.googleapis.com/auth/service.management',
     ],
     immediate = true;
 // ...

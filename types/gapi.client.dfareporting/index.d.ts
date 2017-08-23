@@ -3668,7 +3668,7 @@ declare namespace gapi.client {
                 profileId: string;
                 /** Account ID. */
                 summaryAccountId: string;
-            }): gapi.client.Request<AccountActiveAdSummary>;            
+            }): Request<AccountActiveAdSummary>;            
             
         }
         
@@ -3693,7 +3693,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<AccountPermissionGroup>;            
+            }): Request<AccountPermissionGroup>;            
             
             /** Retrieves the list of account permission groups. */
             list(request: {            
@@ -3713,7 +3713,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<AccountPermissionGroupsListResponse>;            
+            }): Request<AccountPermissionGroupsListResponse>;            
             
         }
         
@@ -3738,7 +3738,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<AccountPermission>;            
+            }): Request<AccountPermission>;            
             
             /** Retrieves the list of account permissions. */
             list(request: {            
@@ -3758,7 +3758,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<AccountPermissionsListResponse>;            
+            }): Request<AccountPermissionsListResponse>;            
             
         }
         
@@ -3783,7 +3783,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<AccountUserProfile>;            
+            }): Request<AccountUserProfile>;            
             
             /** Inserts a new account user profile. */
             insert(request: {            
@@ -3803,7 +3803,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<AccountUserProfile>;            
+            }): Request<AccountUserProfile>;            
             
             /** Retrieves a list of account user profiles, possibly filtered. This method supports paging. */
             list(request: {            
@@ -3841,7 +3841,7 @@ declare namespace gapi.client {
                 subaccountId?: string;
                 /** Select only user profiles with the specified user role ID. */
                 userRoleId?: string;
-            }): gapi.client.Request<AccountUserProfilesListResponse>;            
+            }): Request<AccountUserProfilesListResponse>;            
             
             /** Updates an existing account user profile. This method supports patch semantics. */
             patch(request: {            
@@ -3863,7 +3863,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<AccountUserProfile>;            
+            }): Request<AccountUserProfile>;            
             
             /** Updates an existing account user profile. */
             update(request: {            
@@ -3883,7 +3883,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<AccountUserProfile>;            
+            }): Request<AccountUserProfile>;            
             
         }
         
@@ -3908,7 +3908,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<Account>;            
+            }): Request<Account>;            
             
             /** Retrieves the list of accounts, possibly filtered. This method supports paging. */
             list(request: {            
@@ -3942,7 +3942,7 @@ declare namespace gapi.client {
                 sortField?: string;
                 /** Order of sorted results. */
                 sortOrder?: string;
-            }): gapi.client.Request<AccountsListResponse>;            
+            }): Request<AccountsListResponse>;            
             
             /** Updates an existing account. This method supports patch semantics. */
             patch(request: {            
@@ -3964,7 +3964,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<Account>;            
+            }): Request<Account>;            
             
             /** Updates an existing account. */
             update(request: {            
@@ -3984,7 +3984,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<Account>;            
+            }): Request<Account>;            
             
         }
         
@@ -4009,7 +4009,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<Ad>;            
+            }): Request<Ad>;            
             
             /** Inserts a new ad. */
             insert(request: {            
@@ -4029,7 +4029,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<Ad>;            
+            }): Request<Ad>;            
             
             /** Retrieves a list of ads, possibly filtered. This method supports paging. */
             list(request: {            
@@ -4095,7 +4095,7 @@ declare namespace gapi.client {
                 sslRequired?: boolean;
                 /** Select only ads with these types. */
                 type?: string;
-            }): gapi.client.Request<AdsListResponse>;            
+            }): Request<AdsListResponse>;            
             
             /** Updates an existing ad. This method supports patch semantics. */
             patch(request: {            
@@ -4117,7 +4117,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<Ad>;            
+            }): Request<Ad>;            
             
             /** Updates an existing ad. */
             update(request: {            
@@ -4137,7 +4137,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<Ad>;            
+            }): Request<Ad>;            
             
         }
         
@@ -4162,7 +4162,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Gets one advertiser group by ID. */
             get(request: {            
@@ -4184,7 +4184,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<AdvertiserGroup>;            
+            }): Request<AdvertiserGroup>;            
             
             /** Inserts a new advertiser group. */
             insert(request: {            
@@ -4204,7 +4204,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<AdvertiserGroup>;            
+            }): Request<AdvertiserGroup>;            
             
             /** Retrieves a list of advertiser groups, possibly filtered. This method supports paging. */
             list(request: {            
@@ -4236,7 +4236,7 @@ declare namespace gapi.client {
                 sortField?: string;
                 /** Order of sorted results. */
                 sortOrder?: string;
-            }): gapi.client.Request<AdvertiserGroupsListResponse>;            
+            }): Request<AdvertiserGroupsListResponse>;            
             
             /** Updates an existing advertiser group. This method supports patch semantics. */
             patch(request: {            
@@ -4258,7 +4258,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<AdvertiserGroup>;            
+            }): Request<AdvertiserGroup>;            
             
             /** Updates an existing advertiser group. */
             update(request: {            
@@ -4278,7 +4278,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<AdvertiserGroup>;            
+            }): Request<AdvertiserGroup>;            
             
         }
         
@@ -4303,7 +4303,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<Advertiser>;            
+            }): Request<Advertiser>;            
             
             /** Inserts a new advertiser. */
             insert(request: {            
@@ -4323,7 +4323,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<Advertiser>;            
+            }): Request<Advertiser>;            
             
             /** Retrieves a list of advertisers, possibly filtered. This method supports paging. */
             list(request: {            
@@ -4367,7 +4367,7 @@ declare namespace gapi.client {
                 status?: string;
                 /** Select only advertisers with these subaccount IDs. */
                 subaccountId?: string;
-            }): gapi.client.Request<AdvertisersListResponse>;            
+            }): Request<AdvertisersListResponse>;            
             
             /** Updates an existing advertiser. This method supports patch semantics. */
             patch(request: {            
@@ -4389,7 +4389,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<Advertiser>;            
+            }): Request<Advertiser>;            
             
             /** Updates an existing advertiser. */
             update(request: {            
@@ -4409,7 +4409,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<Advertiser>;            
+            }): Request<Advertiser>;            
             
         }
         
@@ -4432,7 +4432,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<BrowsersListResponse>;            
+            }): Request<BrowsersListResponse>;            
             
         }
         
@@ -4457,7 +4457,7 @@ declare namespace gapi.client {
                 campaignId: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<CampaignCreativeAssociation>;            
+            }): Request<CampaignCreativeAssociation>;            
             
             /** Retrieves the list of creative IDs associated with the specified campaign. This method supports paging. */
             list(request: {            
@@ -4485,7 +4485,7 @@ declare namespace gapi.client {
                 profileId: string;
                 /** Order of sorted results. */
                 sortOrder?: string;
-            }): gapi.client.Request<CampaignCreativeAssociationsListResponse>;            
+            }): Request<CampaignCreativeAssociationsListResponse>;            
             
         }
         
@@ -4510,7 +4510,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<Campaign>;            
+            }): Request<Campaign>;            
             
             /** Inserts a new campaign. */
             insert(request: {            
@@ -4534,7 +4534,7 @@ declare namespace gapi.client {
                 defaultLandingPageUrl: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<Campaign>;            
+            }): Request<Campaign>;            
             
             /** Retrieves a list of campaigns, possibly filtered. This method supports paging. */
             list(request: {            
@@ -4580,7 +4580,7 @@ declare namespace gapi.client {
                 sortOrder?: string;
                 /** Select only campaigns that belong to this subaccount. */
                 subaccountId?: string;
-            }): gapi.client.Request<CampaignsListResponse>;            
+            }): Request<CampaignsListResponse>;            
             
             /** Updates an existing campaign. This method supports patch semantics. */
             patch(request: {            
@@ -4602,7 +4602,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<Campaign>;            
+            }): Request<Campaign>;            
             
             /** Updates an existing campaign. */
             update(request: {            
@@ -4622,7 +4622,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<Campaign>;            
+            }): Request<Campaign>;            
             
         }
         
@@ -4647,7 +4647,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<ChangeLog>;            
+            }): Request<ChangeLog>;            
             
             /** Retrieves a list of change logs. This method supports paging. */
             list(request: {            
@@ -4687,7 +4687,7 @@ declare namespace gapi.client {
                 searchString?: string;
                 /** Select only change logs with these user profile IDs. */
                 userProfileIds?: string;
-            }): gapi.client.Request<ChangeLogsListResponse>;            
+            }): Request<ChangeLogsListResponse>;            
             
         }
         
@@ -4718,7 +4718,7 @@ declare namespace gapi.client {
                 profileId: string;
                 /** Select only cities from these regions. */
                 regionDartIds?: string;
-            }): gapi.client.Request<CitiesListResponse>;            
+            }): Request<CitiesListResponse>;            
             
         }
         
@@ -4743,7 +4743,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<ConnectionType>;            
+            }): Request<ConnectionType>;            
             
             /** Retrieves a list of connection types. */
             list(request: {            
@@ -4763,7 +4763,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<ConnectionTypesListResponse>;            
+            }): Request<ConnectionTypesListResponse>;            
             
         }
         
@@ -4788,7 +4788,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Gets one content category by ID. */
             get(request: {            
@@ -4810,7 +4810,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<ContentCategory>;            
+            }): Request<ContentCategory>;            
             
             /** Inserts a new content category. */
             insert(request: {            
@@ -4830,7 +4830,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<ContentCategory>;            
+            }): Request<ContentCategory>;            
             
             /** Retrieves a list of content categories, possibly filtered. This method supports paging. */
             list(request: {            
@@ -4862,7 +4862,7 @@ declare namespace gapi.client {
                 sortField?: string;
                 /** Order of sorted results. */
                 sortOrder?: string;
-            }): gapi.client.Request<ContentCategoriesListResponse>;            
+            }): Request<ContentCategoriesListResponse>;            
             
             /** Updates an existing content category. This method supports patch semantics. */
             patch(request: {            
@@ -4884,7 +4884,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<ContentCategory>;            
+            }): Request<ContentCategory>;            
             
             /** Updates an existing content category. */
             update(request: {            
@@ -4904,7 +4904,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<ContentCategory>;            
+            }): Request<ContentCategory>;            
             
         }
         
@@ -4927,7 +4927,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<ConversionsBatchInsertResponse>;            
+            }): Request<ConversionsBatchInsertResponse>;            
             
             /** Updates existing conversions. */
             batchupdate(request: {            
@@ -4947,7 +4947,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<ConversionsBatchUpdateResponse>;            
+            }): Request<ConversionsBatchUpdateResponse>;            
             
         }
         
@@ -4972,7 +4972,7 @@ declare namespace gapi.client {
                 dartId: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<Country>;            
+            }): Request<Country>;            
             
             /** Retrieves a list of countries. */
             list(request: {            
@@ -4992,7 +4992,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<CountriesListResponse>;            
+            }): Request<CountriesListResponse>;            
             
         }
         
@@ -5017,7 +5017,7 @@ declare namespace gapi.client {
                 advertiserId: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<CreativeAssetMetadata>;            
+            }): Request<CreativeAssetMetadata>;            
             
         }
         
@@ -5044,7 +5044,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Gets one creative field value by ID. */
             get(request: {            
@@ -5068,7 +5068,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<CreativeFieldValue>;            
+            }): Request<CreativeFieldValue>;            
             
             /** Inserts a new creative field value. */
             insert(request: {            
@@ -5090,7 +5090,7 @@ declare namespace gapi.client {
                 creativeFieldId: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<CreativeFieldValue>;            
+            }): Request<CreativeFieldValue>;            
             
             /** Retrieves a list of creative field values, possibly filtered. This method supports paging. */
             list(request: {            
@@ -5124,7 +5124,7 @@ declare namespace gapi.client {
                 sortField?: string;
                 /** Order of sorted results. */
                 sortOrder?: string;
-            }): gapi.client.Request<CreativeFieldValuesListResponse>;            
+            }): Request<CreativeFieldValuesListResponse>;            
             
             /** Updates an existing creative field value. This method supports patch semantics. */
             patch(request: {            
@@ -5148,7 +5148,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<CreativeFieldValue>;            
+            }): Request<CreativeFieldValue>;            
             
             /** Updates an existing creative field value. */
             update(request: {            
@@ -5170,7 +5170,7 @@ declare namespace gapi.client {
                 creativeFieldId: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<CreativeFieldValue>;            
+            }): Request<CreativeFieldValue>;            
             
         }
         
@@ -5195,7 +5195,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Gets one creative field by ID. */
             get(request: {            
@@ -5217,7 +5217,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<CreativeField>;            
+            }): Request<CreativeField>;            
             
             /** Inserts a new creative field. */
             insert(request: {            
@@ -5237,7 +5237,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<CreativeField>;            
+            }): Request<CreativeField>;            
             
             /** Retrieves a list of creative fields, possibly filtered. This method supports paging. */
             list(request: {            
@@ -5271,7 +5271,7 @@ declare namespace gapi.client {
                 sortField?: string;
                 /** Order of sorted results. */
                 sortOrder?: string;
-            }): gapi.client.Request<CreativeFieldsListResponse>;            
+            }): Request<CreativeFieldsListResponse>;            
             
             /** Updates an existing creative field. This method supports patch semantics. */
             patch(request: {            
@@ -5293,7 +5293,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<CreativeField>;            
+            }): Request<CreativeField>;            
             
             /** Updates an existing creative field. */
             update(request: {            
@@ -5313,7 +5313,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<CreativeField>;            
+            }): Request<CreativeField>;            
             
         }
         
@@ -5338,7 +5338,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<CreativeGroup>;            
+            }): Request<CreativeGroup>;            
             
             /** Inserts a new creative group. */
             insert(request: {            
@@ -5358,7 +5358,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<CreativeGroup>;            
+            }): Request<CreativeGroup>;            
             
             /** Retrieves a list of creative groups, possibly filtered. This method supports paging. */
             list(request: {            
@@ -5394,7 +5394,7 @@ declare namespace gapi.client {
                 sortField?: string;
                 /** Order of sorted results. */
                 sortOrder?: string;
-            }): gapi.client.Request<CreativeGroupsListResponse>;            
+            }): Request<CreativeGroupsListResponse>;            
             
             /** Updates an existing creative group. This method supports patch semantics. */
             patch(request: {            
@@ -5416,7 +5416,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<CreativeGroup>;            
+            }): Request<CreativeGroup>;            
             
             /** Updates an existing creative group. */
             update(request: {            
@@ -5436,7 +5436,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<CreativeGroup>;            
+            }): Request<CreativeGroup>;            
             
         }
         
@@ -5461,7 +5461,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<Creative>;            
+            }): Request<Creative>;            
             
             /** Inserts a new creative. */
             insert(request: {            
@@ -5481,7 +5481,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<Creative>;            
+            }): Request<Creative>;            
             
             /** Retrieves a list of creatives, possibly filtered. This method supports paging. */
             list(request: {            
@@ -5533,7 +5533,7 @@ declare namespace gapi.client {
                 studioCreativeId?: string;
                 /** Select only creatives with these creative types. */
                 types?: string;
-            }): gapi.client.Request<CreativesListResponse>;            
+            }): Request<CreativesListResponse>;            
             
             /** Updates an existing creative. This method supports patch semantics. */
             patch(request: {            
@@ -5555,7 +5555,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<Creative>;            
+            }): Request<Creative>;            
             
             /** Updates an existing creative. */
             update(request: {            
@@ -5575,7 +5575,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<Creative>;            
+            }): Request<Creative>;            
             
         }
         
@@ -5602,7 +5602,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** The DFA user profile ID. */
                 profileId: string;
-            }): gapi.client.Request<DimensionValueList>;            
+            }): Request<DimensionValueList>;            
             
         }
         
@@ -5627,7 +5627,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<DirectorySiteContact>;            
+            }): Request<DirectorySiteContact>;            
             
             /** Retrieves a list of directory site contacts, possibly filtered. This method supports paging. */
             list(request: {            
@@ -5661,7 +5661,7 @@ declare namespace gapi.client {
                 sortField?: string;
                 /** Order of sorted results. */
                 sortOrder?: string;
-            }): gapi.client.Request<DirectorySiteContactsListResponse>;            
+            }): Request<DirectorySiteContactsListResponse>;            
             
         }
         
@@ -5686,7 +5686,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<DirectorySite>;            
+            }): Request<DirectorySite>;            
             
             /** Inserts a new directory site. */
             insert(request: {            
@@ -5706,7 +5706,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<DirectorySite>;            
+            }): Request<DirectorySite>;            
             
             /** Retrieves a list of directory sites, possibly filtered. This method supports paging. */
             list(request: {            
@@ -5752,7 +5752,7 @@ declare namespace gapi.client {
                 sortField?: string;
                 /** Order of sorted results. */
                 sortOrder?: string;
-            }): gapi.client.Request<DirectorySitesListResponse>;            
+            }): Request<DirectorySitesListResponse>;            
             
         }
         
@@ -5781,7 +5781,7 @@ declare namespace gapi.client {
                 objectType: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Inserts a new dynamic targeting key. Keys must be created at the advertiser level before being assigned to the advertiser's ads, creatives, or placements. There is a maximum of 1000 keys per advertiser, out of which a maximum of 20 keys can be assigned per ad, creative, or placement. */
             insert(request: {            
@@ -5801,7 +5801,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<DynamicTargetingKey>;            
+            }): Request<DynamicTargetingKey>;            
             
             /** Retrieves a list of dynamic targeting keys. */
             list(request: {            
@@ -5829,7 +5829,7 @@ declare namespace gapi.client {
                 objectType?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<DynamicTargetingKeysListResponse>;            
+            }): Request<DynamicTargetingKeysListResponse>;            
             
         }
         
@@ -5854,7 +5854,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Gets one event tag by ID. */
             get(request: {            
@@ -5876,7 +5876,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<EventTag>;            
+            }): Request<EventTag>;            
             
             /** Inserts a new event tag. */
             insert(request: {            
@@ -5896,7 +5896,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<EventTag>;            
+            }): Request<EventTag>;            
             
             /** Retrieves a list of event tags, possibly filtered. */
             list(request: {            
@@ -5936,7 +5936,7 @@ declare namespace gapi.client {
                 sortField?: string;
                 /** Order of sorted results. */
                 sortOrder?: string;
-            }): gapi.client.Request<EventTagsListResponse>;            
+            }): Request<EventTagsListResponse>;            
             
             /** Updates an existing event tag. This method supports patch semantics. */
             patch(request: {            
@@ -5958,7 +5958,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<EventTag>;            
+            }): Request<EventTag>;            
             
             /** Updates an existing event tag. */
             update(request: {            
@@ -5978,7 +5978,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<EventTag>;            
+            }): Request<EventTag>;            
             
         }
         
@@ -6003,7 +6003,7 @@ declare namespace gapi.client {
                 fileId: string;
                 /** The ID of the report. */
                 reportId: string;
-            }): gapi.client.Request<File>;            
+            }): Request<File>;            
             
             /** Lists files for a user profile. */
             list(request: {            
@@ -6033,7 +6033,7 @@ declare namespace gapi.client {
                 sortField?: string;
                 /** Order of sorted results. */
                 sortOrder?: string;
-            }): gapi.client.Request<FileList>;            
+            }): Request<FileList>;            
             
         }
         
@@ -6058,7 +6058,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Generates a tag for a floodlight activity. */
             generatetag(request: {            
@@ -6080,7 +6080,7 @@ declare namespace gapi.client {
                 floodlightActivityId?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<FloodlightActivitiesGenerateTagResponse>;            
+            }): Request<FloodlightActivitiesGenerateTagResponse>;            
             
             /** Gets one floodlight activity by ID. */
             get(request: {            
@@ -6102,7 +6102,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<FloodlightActivity>;            
+            }): Request<FloodlightActivity>;            
             
             /** Inserts a new floodlight activity. */
             insert(request: {            
@@ -6122,7 +6122,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<FloodlightActivity>;            
+            }): Request<FloodlightActivity>;            
             
             /** Retrieves a list of floodlight activities, possibly filtered. This method supports paging. */
             list(request: {            
@@ -6168,7 +6168,7 @@ declare namespace gapi.client {
                 sortOrder?: string;
                 /** Select only floodlight activities with the specified tag string. */
                 tagString?: string;
-            }): gapi.client.Request<FloodlightActivitiesListResponse>;            
+            }): Request<FloodlightActivitiesListResponse>;            
             
             /** Updates an existing floodlight activity. This method supports patch semantics. */
             patch(request: {            
@@ -6190,7 +6190,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<FloodlightActivity>;            
+            }): Request<FloodlightActivity>;            
             
             /** Updates an existing floodlight activity. */
             update(request: {            
@@ -6210,7 +6210,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<FloodlightActivity>;            
+            }): Request<FloodlightActivity>;            
             
         }
         
@@ -6235,7 +6235,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<FloodlightActivityGroup>;            
+            }): Request<FloodlightActivityGroup>;            
             
             /** Inserts a new floodlight activity group. */
             insert(request: {            
@@ -6255,7 +6255,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<FloodlightActivityGroup>;            
+            }): Request<FloodlightActivityGroup>;            
             
             /** Retrieves a list of floodlight activity groups, possibly filtered. This method supports paging. */
             list(request: {            
@@ -6293,7 +6293,7 @@ declare namespace gapi.client {
                 sortOrder?: string;
                 /** Select only floodlight activity groups with the specified floodlight activity group type. */
                 type?: string;
-            }): gapi.client.Request<FloodlightActivityGroupsListResponse>;            
+            }): Request<FloodlightActivityGroupsListResponse>;            
             
             /** Updates an existing floodlight activity group. This method supports patch semantics. */
             patch(request: {            
@@ -6315,7 +6315,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<FloodlightActivityGroup>;            
+            }): Request<FloodlightActivityGroup>;            
             
             /** Updates an existing floodlight activity group. */
             update(request: {            
@@ -6335,7 +6335,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<FloodlightActivityGroup>;            
+            }): Request<FloodlightActivityGroup>;            
             
         }
         
@@ -6360,7 +6360,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<FloodlightConfiguration>;            
+            }): Request<FloodlightConfiguration>;            
             
             /** Retrieves a list of floodlight configurations, possibly filtered. */
             list(request: {            
@@ -6382,7 +6382,7 @@ declare namespace gapi.client {
                 ids?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<FloodlightConfigurationsListResponse>;            
+            }): Request<FloodlightConfigurationsListResponse>;            
             
             /** Updates an existing floodlight configuration. This method supports patch semantics. */
             patch(request: {            
@@ -6404,7 +6404,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<FloodlightConfiguration>;            
+            }): Request<FloodlightConfiguration>;            
             
             /** Updates an existing floodlight configuration. */
             update(request: {            
@@ -6424,7 +6424,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<FloodlightConfiguration>;            
+            }): Request<FloodlightConfiguration>;            
             
         }
         
@@ -6451,7 +6451,7 @@ declare namespace gapi.client {
                 profileId: string;
                 /** Project ID for order documents. */
                 projectId: string;
-            }): gapi.client.Request<InventoryItem>;            
+            }): Request<InventoryItem>;            
             
             /** Retrieves a list of inventory items, possibly filtered. This method supports paging. */
             list(request: {            
@@ -6491,7 +6491,7 @@ declare namespace gapi.client {
                 sortOrder?: string;
                 /** Select only inventory items with this type. */
                 type?: string;
-            }): gapi.client.Request<InventoryItemsListResponse>;            
+            }): Request<InventoryItemsListResponse>;            
             
         }
         
@@ -6518,7 +6518,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Gets one campaign landing page by ID. */
             get(request: {            
@@ -6542,7 +6542,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<LandingPage>;            
+            }): Request<LandingPage>;            
             
             /** Inserts a new landing page for the specified campaign. */
             insert(request: {            
@@ -6564,7 +6564,7 @@ declare namespace gapi.client {
                 campaignId: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<LandingPage>;            
+            }): Request<LandingPage>;            
             
             /** Retrieves the list of landing pages for the specified campaign. */
             list(request: {            
@@ -6586,7 +6586,7 @@ declare namespace gapi.client {
                 campaignId: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<LandingPagesListResponse>;            
+            }): Request<LandingPagesListResponse>;            
             
             /** Updates an existing campaign landing page. This method supports patch semantics. */
             patch(request: {            
@@ -6610,7 +6610,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<LandingPage>;            
+            }): Request<LandingPage>;            
             
             /** Updates an existing campaign landing page. */
             update(request: {            
@@ -6632,7 +6632,7 @@ declare namespace gapi.client {
                 campaignId: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<LandingPage>;            
+            }): Request<LandingPage>;            
             
         }
         
@@ -6655,7 +6655,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<LanguagesListResponse>;            
+            }): Request<LanguagesListResponse>;            
             
         }
         
@@ -6678,7 +6678,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<MetrosListResponse>;            
+            }): Request<MetrosListResponse>;            
             
         }
         
@@ -6703,7 +6703,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<MobileCarrier>;            
+            }): Request<MobileCarrier>;            
             
             /** Retrieves a list of mobile carriers. */
             list(request: {            
@@ -6723,7 +6723,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<MobileCarriersListResponse>;            
+            }): Request<MobileCarriersListResponse>;            
             
         }
         
@@ -6748,7 +6748,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<OperatingSystemVersion>;            
+            }): Request<OperatingSystemVersion>;            
             
             /** Retrieves a list of operating system versions. */
             list(request: {            
@@ -6768,7 +6768,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<OperatingSystemVersionsListResponse>;            
+            }): Request<OperatingSystemVersionsListResponse>;            
             
         }
         
@@ -6793,7 +6793,7 @@ declare namespace gapi.client {
                 dartId: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<OperatingSystem>;            
+            }): Request<OperatingSystem>;            
             
             /** Retrieves a list of operating systems. */
             list(request: {            
@@ -6813,7 +6813,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<OperatingSystemsListResponse>;            
+            }): Request<OperatingSystemsListResponse>;            
             
         }
         
@@ -6840,7 +6840,7 @@ declare namespace gapi.client {
                 profileId: string;
                 /** Project ID for order documents. */
                 projectId: string;
-            }): gapi.client.Request<OrderDocument>;            
+            }): Request<OrderDocument>;            
             
             /** Retrieves a list of order documents, possibly filtered. This method supports paging. */
             list(request: {            
@@ -6880,7 +6880,7 @@ declare namespace gapi.client {
                 sortField?: string;
                 /** Order of sorted results. */
                 sortOrder?: string;
-            }): gapi.client.Request<OrderDocumentsListResponse>;            
+            }): Request<OrderDocumentsListResponse>;            
             
         }
         
@@ -6907,7 +6907,7 @@ declare namespace gapi.client {
                 profileId: string;
                 /** Project ID for orders. */
                 projectId: string;
-            }): gapi.client.Request<Order>;            
+            }): Request<Order>;            
             
             /** Retrieves a list of orders, possibly filtered. This method supports paging. */
             list(request: {            
@@ -6943,7 +6943,7 @@ declare namespace gapi.client {
                 sortField?: string;
                 /** Order of sorted results. */
                 sortOrder?: string;
-            }): gapi.client.Request<OrdersListResponse>;            
+            }): Request<OrdersListResponse>;            
             
         }
         
@@ -6968,7 +6968,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<PlacementGroup>;            
+            }): Request<PlacementGroup>;            
             
             /** Inserts a new placement group. */
             insert(request: {            
@@ -6988,7 +6988,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<PlacementGroup>;            
+            }): Request<PlacementGroup>;            
             
             /** Retrieves a list of placement groups, possibly filtered. This method supports paging. */
             list(request: {            
@@ -7046,7 +7046,7 @@ declare namespace gapi.client {
                 sortField?: string;
                 /** Order of sorted results. */
                 sortOrder?: string;
-            }): gapi.client.Request<PlacementGroupsListResponse>;            
+            }): Request<PlacementGroupsListResponse>;            
             
             /** Updates an existing placement group. This method supports patch semantics. */
             patch(request: {            
@@ -7068,7 +7068,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<PlacementGroup>;            
+            }): Request<PlacementGroup>;            
             
             /** Updates an existing placement group. */
             update(request: {            
@@ -7088,7 +7088,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<PlacementGroup>;            
+            }): Request<PlacementGroup>;            
             
         }
         
@@ -7113,7 +7113,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Gets one placement strategy by ID. */
             get(request: {            
@@ -7135,7 +7135,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<PlacementStrategy>;            
+            }): Request<PlacementStrategy>;            
             
             /** Inserts a new placement strategy. */
             insert(request: {            
@@ -7155,7 +7155,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<PlacementStrategy>;            
+            }): Request<PlacementStrategy>;            
             
             /** Retrieves a list of placement strategies, possibly filtered. This method supports paging. */
             list(request: {            
@@ -7187,7 +7187,7 @@ declare namespace gapi.client {
                 sortField?: string;
                 /** Order of sorted results. */
                 sortOrder?: string;
-            }): gapi.client.Request<PlacementStrategiesListResponse>;            
+            }): Request<PlacementStrategiesListResponse>;            
             
             /** Updates an existing placement strategy. This method supports patch semantics. */
             patch(request: {            
@@ -7209,7 +7209,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<PlacementStrategy>;            
+            }): Request<PlacementStrategy>;            
             
             /** Updates an existing placement strategy. */
             update(request: {            
@@ -7229,7 +7229,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<PlacementStrategy>;            
+            }): Request<PlacementStrategy>;            
             
         }
         
@@ -7260,7 +7260,7 @@ declare namespace gapi.client {
                 /**  */
                 /** Note: PLACEMENT_TAG_STANDARD can only be generated for 1x1 placements. */
                 tagFormats?: string;
-            }): gapi.client.Request<PlacementsGenerateTagsResponse>;            
+            }): Request<PlacementsGenerateTagsResponse>;            
             
             /** Gets one placement by ID. */
             get(request: {            
@@ -7282,7 +7282,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<Placement>;            
+            }): Request<Placement>;            
             
             /** Inserts a new placement. */
             insert(request: {            
@@ -7302,7 +7302,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<Placement>;            
+            }): Request<Placement>;            
             
             /** Retrieves a list of placements, possibly filtered. This method supports paging. */
             list(request: {            
@@ -7366,7 +7366,7 @@ declare namespace gapi.client {
                 sortField?: string;
                 /** Order of sorted results. */
                 sortOrder?: string;
-            }): gapi.client.Request<PlacementsListResponse>;            
+            }): Request<PlacementsListResponse>;            
             
             /** Updates an existing placement. This method supports patch semantics. */
             patch(request: {            
@@ -7388,7 +7388,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<Placement>;            
+            }): Request<Placement>;            
             
             /** Updates an existing placement. */
             update(request: {            
@@ -7408,7 +7408,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<Placement>;            
+            }): Request<Placement>;            
             
         }
         
@@ -7433,7 +7433,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<PlatformType>;            
+            }): Request<PlatformType>;            
             
             /** Retrieves a list of platform types. */
             list(request: {            
@@ -7453,7 +7453,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<PlatformTypesListResponse>;            
+            }): Request<PlatformTypesListResponse>;            
             
         }
         
@@ -7478,7 +7478,7 @@ declare namespace gapi.client {
                 code: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<PostalCode>;            
+            }): Request<PostalCode>;            
             
             /** Retrieves a list of postal codes. */
             list(request: {            
@@ -7498,7 +7498,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<PostalCodesListResponse>;            
+            }): Request<PostalCodesListResponse>;            
             
         }
         
@@ -7523,7 +7523,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<Project>;            
+            }): Request<Project>;            
             
             /** Retrieves a list of projects, possibly filtered. This method supports paging. */
             list(request: {            
@@ -7557,7 +7557,7 @@ declare namespace gapi.client {
                 sortField?: string;
                 /** Order of sorted results. */
                 sortOrder?: string;
-            }): gapi.client.Request<ProjectsListResponse>;            
+            }): Request<ProjectsListResponse>;            
             
         }
         
@@ -7580,7 +7580,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<RegionsListResponse>;            
+            }): Request<RegionsListResponse>;            
             
         }
         
@@ -7605,7 +7605,7 @@ declare namespace gapi.client {
                 profileId: string;
                 /** Remarketing list ID. */
                 remarketingListId: string;
-            }): gapi.client.Request<RemarketingListShare>;            
+            }): Request<RemarketingListShare>;            
             
             /** Updates an existing remarketing list share. This method supports patch semantics. */
             patch(request: {            
@@ -7627,7 +7627,7 @@ declare namespace gapi.client {
                 profileId: string;
                 /** Remarketing list ID. */
                 remarketingListId: string;
-            }): gapi.client.Request<RemarketingListShare>;            
+            }): Request<RemarketingListShare>;            
             
             /** Updates an existing remarketing list share. */
             update(request: {            
@@ -7647,7 +7647,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<RemarketingListShare>;            
+            }): Request<RemarketingListShare>;            
             
         }
         
@@ -7672,7 +7672,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<RemarketingList>;            
+            }): Request<RemarketingList>;            
             
             /** Inserts a new remarketing list. */
             insert(request: {            
@@ -7692,7 +7692,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<RemarketingList>;            
+            }): Request<RemarketingList>;            
             
             /** Retrieves a list of remarketing lists, possibly filtered. This method supports paging. */
             list(request: {            
@@ -7728,7 +7728,7 @@ declare namespace gapi.client {
                 sortField?: string;
                 /** Order of sorted results. */
                 sortOrder?: string;
-            }): gapi.client.Request<RemarketingListsListResponse>;            
+            }): Request<RemarketingListsListResponse>;            
             
             /** Updates an existing remarketing list. This method supports patch semantics. */
             patch(request: {            
@@ -7750,7 +7750,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<RemarketingList>;            
+            }): Request<RemarketingList>;            
             
             /** Updates an existing remarketing list. */
             update(request: {            
@@ -7770,7 +7770,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<RemarketingList>;            
+            }): Request<RemarketingList>;            
             
         }
         
@@ -7793,7 +7793,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The DFA user profile ID. */
                 profileId: string;
-            }): gapi.client.Request<CompatibleFields>;            
+            }): Request<CompatibleFields>;            
             
         }
         
@@ -7820,7 +7820,7 @@ declare namespace gapi.client {
                 profileId: string;
                 /** The ID of the report. */
                 reportId: string;
-            }): gapi.client.Request<File>;            
+            }): Request<File>;            
             
             /** Lists files for a report. */
             list(request: {            
@@ -7850,7 +7850,7 @@ declare namespace gapi.client {
                 sortField?: string;
                 /** Order of sorted results. */
                 sortOrder?: string;
-            }): gapi.client.Request<FileList>;            
+            }): Request<FileList>;            
             
         }
         
@@ -7875,7 +7875,7 @@ declare namespace gapi.client {
                 profileId: string;
                 /** The ID of the report. */
                 reportId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Retrieves a report by its ID. */
             get(request: {            
@@ -7897,7 +7897,7 @@ declare namespace gapi.client {
                 profileId: string;
                 /** The ID of the report. */
                 reportId: string;
-            }): gapi.client.Request<Report>;            
+            }): Request<Report>;            
             
             /** Creates a report. */
             insert(request: {            
@@ -7917,7 +7917,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The DFA user profile ID. */
                 profileId: string;
-            }): gapi.client.Request<Report>;            
+            }): Request<Report>;            
             
             /** Retrieves list of reports. */
             list(request: {            
@@ -7947,7 +7947,7 @@ declare namespace gapi.client {
                 sortField?: string;
                 /** Order of sorted results. */
                 sortOrder?: string;
-            }): gapi.client.Request<ReportList>;            
+            }): Request<ReportList>;            
             
             /** Updates a report. This method supports patch semantics. */
             patch(request: {            
@@ -7969,7 +7969,7 @@ declare namespace gapi.client {
                 profileId: string;
                 /** The ID of the report. */
                 reportId: string;
-            }): gapi.client.Request<Report>;            
+            }): Request<Report>;            
             
             /** Runs a report. */
             run(request: {            
@@ -7993,7 +7993,7 @@ declare namespace gapi.client {
                 reportId: string;
                 /** If set and true, tries to run the report synchronously. */
                 synchronous?: boolean;
-            }): gapi.client.Request<File>;            
+            }): Request<File>;            
             
             /** Updates a report. */
             update(request: {            
@@ -8015,7 +8015,7 @@ declare namespace gapi.client {
                 profileId: string;
                 /** The ID of the report. */
                 reportId: string;
-            }): gapi.client.Request<Report>;            
+            }): Request<Report>;            
             
             compatibleFields: CompatibleFieldsResource;
             files: FilesResource;
@@ -8042,7 +8042,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<Site>;            
+            }): Request<Site>;            
             
             /** Inserts a new site. */
             insert(request: {            
@@ -8062,7 +8062,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<Site>;            
+            }): Request<Site>;            
             
             /** Retrieves a list of sites, possibly filtered. This method supports paging. */
             list(request: {            
@@ -8112,7 +8112,7 @@ declare namespace gapi.client {
                 subaccountId?: string;
                 /** Select only sites that have not been mapped to a directory site. */
                 unmappedSite?: boolean;
-            }): gapi.client.Request<SitesListResponse>;            
+            }): Request<SitesListResponse>;            
             
             /** Updates an existing site. This method supports patch semantics. */
             patch(request: {            
@@ -8134,7 +8134,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<Site>;            
+            }): Request<Site>;            
             
             /** Updates an existing site. */
             update(request: {            
@@ -8154,7 +8154,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<Site>;            
+            }): Request<Site>;            
             
         }
         
@@ -8179,7 +8179,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<Size>;            
+            }): Request<Size>;            
             
             /** Inserts a new size. */
             insert(request: {            
@@ -8199,7 +8199,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<Size>;            
+            }): Request<Size>;            
             
             /** Retrieves a list of sizes, possibly filtered. */
             list(request: {            
@@ -8227,7 +8227,7 @@ declare namespace gapi.client {
                 profileId: string;
                 /** Select only sizes with this width. */
                 width?: number;
-            }): gapi.client.Request<SizesListResponse>;            
+            }): Request<SizesListResponse>;            
             
         }
         
@@ -8252,7 +8252,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<Subaccount>;            
+            }): Request<Subaccount>;            
             
             /** Inserts a new subaccount. */
             insert(request: {            
@@ -8272,7 +8272,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<Subaccount>;            
+            }): Request<Subaccount>;            
             
             /** Gets a list of subaccounts, possibly filtered. This method supports paging. */
             list(request: {            
@@ -8304,7 +8304,7 @@ declare namespace gapi.client {
                 sortField?: string;
                 /** Order of sorted results. */
                 sortOrder?: string;
-            }): gapi.client.Request<SubaccountsListResponse>;            
+            }): Request<SubaccountsListResponse>;            
             
             /** Updates an existing subaccount. This method supports patch semantics. */
             patch(request: {            
@@ -8326,7 +8326,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<Subaccount>;            
+            }): Request<Subaccount>;            
             
             /** Updates an existing subaccount. */
             update(request: {            
@@ -8346,7 +8346,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<Subaccount>;            
+            }): Request<Subaccount>;            
             
         }
         
@@ -8371,7 +8371,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<TargetableRemarketingList>;            
+            }): Request<TargetableRemarketingList>;            
             
             /** Retrieves a list of targetable remarketing lists, possibly filtered. This method supports paging. */
             list(request: {            
@@ -8405,7 +8405,7 @@ declare namespace gapi.client {
                 sortField?: string;
                 /** Order of sorted results. */
                 sortOrder?: string;
-            }): gapi.client.Request<TargetableRemarketingListsListResponse>;            
+            }): Request<TargetableRemarketingListsListResponse>;            
             
         }
         
@@ -8430,7 +8430,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<TargetingTemplate>;            
+            }): Request<TargetingTemplate>;            
             
             /** Inserts a new targeting template. */
             insert(request: {            
@@ -8450,7 +8450,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<TargetingTemplate>;            
+            }): Request<TargetingTemplate>;            
             
             /** Retrieves a list of targeting templates, optionally filtered. This method supports paging. */
             list(request: {            
@@ -8484,7 +8484,7 @@ declare namespace gapi.client {
                 sortField?: string;
                 /** Order of sorted results. */
                 sortOrder?: string;
-            }): gapi.client.Request<TargetingTemplatesListResponse>;            
+            }): Request<TargetingTemplatesListResponse>;            
             
             /** Updates an existing targeting template. This method supports patch semantics. */
             patch(request: {            
@@ -8506,7 +8506,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<TargetingTemplate>;            
+            }): Request<TargetingTemplate>;            
             
             /** Updates an existing targeting template. */
             update(request: {            
@@ -8526,7 +8526,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<TargetingTemplate>;            
+            }): Request<TargetingTemplate>;            
             
         }
         
@@ -8549,7 +8549,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The user profile ID. */
                 profileId: string;
-            }): gapi.client.Request<UserProfile>;            
+            }): Request<UserProfile>;            
             
             /** Retrieves list of user profiles for a user. */
             list(request: {            
@@ -8567,7 +8567,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<UserProfileList>;            
+            }): Request<UserProfileList>;            
             
         }
         
@@ -8592,7 +8592,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<UserRolePermissionGroup>;            
+            }): Request<UserRolePermissionGroup>;            
             
             /** Gets a list of all supported user role permission groups. */
             list(request: {            
@@ -8612,7 +8612,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<UserRolePermissionGroupsListResponse>;            
+            }): Request<UserRolePermissionGroupsListResponse>;            
             
         }
         
@@ -8637,7 +8637,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<UserRolePermission>;            
+            }): Request<UserRolePermission>;            
             
             /** Gets a list of user role permissions, possibly filtered. */
             list(request: {            
@@ -8659,7 +8659,7 @@ declare namespace gapi.client {
                 ids?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<UserRolePermissionsListResponse>;            
+            }): Request<UserRolePermissionsListResponse>;            
             
         }
         
@@ -8684,7 +8684,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Gets one user role by ID. */
             get(request: {            
@@ -8706,7 +8706,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<UserRole>;            
+            }): Request<UserRole>;            
             
             /** Inserts a new user role. */
             insert(request: {            
@@ -8726,7 +8726,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<UserRole>;            
+            }): Request<UserRole>;            
             
             /** Retrieves a list of user roles, possibly filtered. This method supports paging. */
             list(request: {            
@@ -8762,7 +8762,7 @@ declare namespace gapi.client {
                 sortOrder?: string;
                 /** Select only user roles that belong to this subaccount. */
                 subaccountId?: string;
-            }): gapi.client.Request<UserRolesListResponse>;            
+            }): Request<UserRolesListResponse>;            
             
             /** Updates an existing user role. This method supports patch semantics. */
             patch(request: {            
@@ -8784,7 +8784,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<UserRole>;            
+            }): Request<UserRole>;            
             
             /** Updates an existing user role. */
             update(request: {            
@@ -8804,7 +8804,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<UserRole>;            
+            }): Request<UserRole>;            
             
         }
         
@@ -8829,7 +8829,7 @@ declare namespace gapi.client {
                 id: number;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<VideoFormat>;            
+            }): Request<VideoFormat>;            
             
             /** Lists available video formats. */
             list(request: {            
@@ -8849,7 +8849,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User profile ID associated with this request. */
                 profileId: string;
-            }): gapi.client.Request<VideoFormatsListResponse>;            
+            }): Request<VideoFormatsListResponse>;            
             
         }
     }

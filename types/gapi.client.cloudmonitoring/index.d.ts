@@ -216,7 +216,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The project id. The value can be the numeric project ID or string-based project name. */
                 project: string;
-            }): gapi.client.Request<MetricDescriptor>;            
+            }): Request<MetricDescriptor>;            
             
             /** Delete an existing metric. */
             delete(request: {            
@@ -238,7 +238,7 @@ declare namespace gapi.client {
                 metric: string;
                 /** The project ID to which the metric belongs. */
                 project: string;
-            }): gapi.client.Request<DeleteMetricDescriptorResponse>;            
+            }): Request<DeleteMetricDescriptorResponse>;            
             
             /** List metric descriptors that match the query. If the query is not set, then all of the metric descriptors will be returned. Large responses will be paginated, use the nextPageToken returned in the response to request subsequent pages of results by setting the pageToken query parameter to the value of the nextPageToken. */
             list(request: {            
@@ -264,7 +264,7 @@ declare namespace gapi.client {
                 project: string;
                 /** The query used to search against existing metrics. Separate keywords with a space; the service joins all keywords with AND, meaning that all keywords must match for a metric to be returned. If this field is omitted, all metrics are returned. If an empty string is passed with this field, no metrics are returned. */
                 query?: string;
-            }): gapi.client.Request<ListMetricDescriptorsResponse>;            
+            }): Request<ListMetricDescriptorsResponse>;            
             
         }
         
@@ -321,7 +321,7 @@ declare namespace gapi.client {
                 window?: string;
                 /** End of the time interval (inclusive), which is expressed as an RFC 3339 timestamp. */
                 youngest: string;
-            }): gapi.client.Request<ListTimeseriesResponse>;            
+            }): Request<ListTimeseriesResponse>;            
             
             /** Put data points to one or more time series for one or more metrics. If a time series does not exist, a new time series will be created. It is not allowed to write a time series point that is older than the existing youngest point of that time series. Points that are older than the existing youngest point of that time series will be discarded silently. Therefore, users should make sure that points of a time series are written sequentially in the order of their end time. */
             write(request: {            
@@ -341,7 +341,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The project ID. The value can be the numeric project ID or string-based project name. */
                 project: string;
-            }): gapi.client.Request<WriteTimeseriesResponse>;            
+            }): Request<WriteTimeseriesResponse>;            
             
         }
         
@@ -398,7 +398,7 @@ declare namespace gapi.client {
                 window?: string;
                 /** End of the time interval (inclusive), which is expressed as an RFC 3339 timestamp. */
                 youngest: string;
-            }): gapi.client.Request<ListTimeseriesDescriptorsResponse>;            
+            }): Request<ListTimeseriesDescriptorsResponse>;            
             
         }
     }

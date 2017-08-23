@@ -21,25 +21,18 @@ declare namespace gapi.client {
     namespace runtimeconfig {
         
         interface Status {
+            /** A developer-facing error message, which should be in English. Any */
+            /** user-facing error message should be localized and sent in the */
+            /** google.rpc.Status.details field, or localized by the client. */
+            message?: string;
             /** A list of messages that carry the error details.  There is a common set of */
             /** message types for APIs to use. */
             details?: Array<Record<string, any>>;            
             /** The status code, which should be an enum value of google.rpc.Code. */
             code?: number;
-            /** A developer-facing error message, which should be in English. Any */
-            /** user-facing error message should be localized and sent in the */
-            /** google.rpc.Status.details field, or localized by the client. */
-            message?: string;
         }
         
         interface Operation {
-            /** The error result of the operation in case of failure or cancellation. */
-            error?: Status;
-            /** Service-specific metadata associated with the operation.  It typically */
-            /** contains progress information and common metadata such as create time. */
-            /** Some services might not provide such metadata.  Any method that returns a */
-            /** long-running operation should document the metadata type, if any. */
-            metadata?: Record<string, any>;            
             /** If the value is `false`, it means the operation is still in progress. */
             /** If true, the operation is completed, and either `error` or `response` is */
             /** available. */
@@ -57,6 +50,13 @@ declare namespace gapi.client {
             /** originally returns it. If you use the default HTTP mapping, the */
             /** `name` should have the format of `operations/some/unique/name`. */
             name?: string;
+            /** The error result of the operation in case of failure or cancellation. */
+            error?: Status;
+            /** Service-specific metadata associated with the operation.  It typically */
+            /** contains progress information and common metadata such as create time. */
+            /** Some services might not provide such metadata.  Any method that returns a */
+            /** long-running operation should document the metadata type, if any. */
+            metadata?: Record<string, any>;            
         }
         
         interface ListOperationsResponse {
@@ -67,53 +67,6 @@ declare namespace gapi.client {
         }
         
         interface OperationsResource {
-            /** Lists operations that match the specified filter in the request. If the */
-            /** server doesn't support this method, it returns `UNIMPLEMENTED`. */
-            /**  */
-            /** NOTE: the `name` binding allows API services to override the binding */
-            /** to use different resource name schemes, such as `users/&#42;/operations`. To */
-            /** override the binding, API services can add a binding such as */
-            /** `"/v1/{name=users/&#42;}/operations"` to their service configuration. */
-            /** For backwards compatibility, the default name includes the operations */
-            /** collection id, however overriding users must ensure the name binding */
-            /** is the parent resource, without the operations collection id. */
-            list(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** The standard list page size. */
-                pageSize?: number;
-                /** The standard list filter. */
-                filter?: string;
-                /** The standard list page token. */
-                pageToken?: string;
-                /** The name of the operation's parent resource. */
-                name: string;
-            }): gapi.client.Request<ListOperationsResponse>;            
-            
             /** Starts asynchronous cancellation on a long-running operation.  The server */
             /** makes a best effort to cancel the operation, but success is not */
             /** guaranteed.  If the server doesn't support this method, it returns */
@@ -125,6 +78,18 @@ declare namespace gapi.client {
             /** an Operation.error value with a google.rpc.Status.code of 1, */
             /** corresponding to `Code.CANCELLED`. */
             cancel(request: {            
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -139,27 +104,27 @@ declare namespace gapi.client {
                 callback?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** The name of the operation resource to be cancelled. */
                 name: string;
-            }): gapi.client.Request<{}>;            
+            }): Request<{}>;            
             
             /** Deletes a long-running operation. This method indicates that the client is */
             /** no longer interested in the operation result. It does not cancel the */
             /** operation. If the server doesn't support this method, it returns */
             /** `google.rpc.Code.UNIMPLEMENTED`. */
             delete(request: {            
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -174,6 +139,21 @@ declare namespace gapi.client {
                 callback?: string;
                 /** Data format for response. */
                 alt?: string;
+                /** The name of the operation resource to be deleted. */
+                name: string;
+            }): Request<{}>;            
+            
+            /** Lists operations that match the specified filter in the request. If the */
+            /** server doesn't support this method, it returns `UNIMPLEMENTED`. */
+            /**  */
+            /** NOTE: the `name` binding allows API services to override the binding */
+            /** to use different resource name schemes, such as `users/&#42;/operations`. To */
+            /** override the binding, API services can add a binding such as */
+            /** `"/v1/{name=users/&#42;}/operations"` to their service configuration. */
+            /** For backwards compatibility, the default name includes the operations */
+            /** collection id, however overriding users must ensure the name binding */
+            /** is the parent resource, without the operations collection id. */
+            list(request: {            
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth access token. */
@@ -186,9 +166,29 @@ declare namespace gapi.client {
                 bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
-                /** The name of the operation resource to be deleted. */
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** The standard list filter. */
+                filter?: string;
+                /** The standard list page token. */
+                pageToken?: string;
+                /** The name of the operation's parent resource. */
                 name: string;
-            }): gapi.client.Request<{}>;            
+                /** The standard list page size. */
+                pageSize?: number;
+            }): Request<ListOperationsResponse>;            
             
         }
     }

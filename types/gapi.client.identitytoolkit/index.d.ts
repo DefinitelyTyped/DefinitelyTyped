@@ -711,7 +711,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<CreateAuthUriResponse>;            
+            }): Request<CreateAuthUriResponse>;            
             
             /** Delete user account. */
             deleteAccount(request: {            
@@ -729,7 +729,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<DeleteAccountResponse>;            
+            }): Request<DeleteAccountResponse>;            
             
             /** Batch download user accounts. */
             downloadAccount(request: {            
@@ -747,7 +747,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<DownloadAccountResponse>;            
+            }): Request<DownloadAccountResponse>;            
             
             /** Returns the account info. */
             getAccountInfo(request: {            
@@ -765,7 +765,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<GetAccountInfoResponse>;            
+            }): Request<GetAccountInfoResponse>;            
             
             /** Get a code for user action confirmation. */
             getOobConfirmationCode(request: {            
@@ -783,7 +783,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<GetOobConfirmationCodeResponse>;            
+            }): Request<GetOobConfirmationCodeResponse>;            
             
             /** Get project configuration. */
             getProjectConfig(request: {            
@@ -805,7 +805,7 @@ declare namespace gapi.client {
                 delegatedProjectNumber?: string;
                 /** GCP project number of the request. */
                 projectNumber?: string;
-            }): gapi.client.Request<IdentitytoolkitRelyingpartyGetProjectConfigResponse>;            
+            }): Request<IdentitytoolkitRelyingpartyGetProjectConfigResponse>;            
             
             /** Get token signing public key. */
             getPublicKeys(request: {            
@@ -823,7 +823,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<{}>;            
+            }): Request<{}>;            
             
             /** Get recaptcha secure param. */
             getRecaptchaParam(request: {            
@@ -841,7 +841,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<GetRecaptchaParamResponse>;            
+            }): Request<GetRecaptchaParamResponse>;            
             
             /** Reset password for a user. */
             resetPassword(request: {            
@@ -859,7 +859,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<ResetPasswordResponse>;            
+            }): Request<ResetPasswordResponse>;            
             
             /** Set account info for a user. */
             setAccountInfo(request: {            
@@ -877,7 +877,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<SetAccountInfoResponse>;            
+            }): Request<SetAccountInfoResponse>;            
             
             /** Set project configuration. */
             setProjectConfig(request: {            
@@ -895,7 +895,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<IdentitytoolkitRelyingpartySetProjectConfigResponse>;            
+            }): Request<IdentitytoolkitRelyingpartySetProjectConfigResponse>;            
             
             /** Sign out user. */
             signOutUser(request: {            
@@ -913,7 +913,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<IdentitytoolkitRelyingpartySignOutUserResponse>;            
+            }): Request<IdentitytoolkitRelyingpartySignOutUserResponse>;            
             
             /** Signup new user. */
             signupNewUser(request: {            
@@ -931,7 +931,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<SignupNewUserResponse>;            
+            }): Request<SignupNewUserResponse>;            
             
             /** Batch upload existing user accounts. */
             uploadAccount(request: {            
@@ -949,7 +949,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<UploadAccountResponse>;            
+            }): Request<UploadAccountResponse>;            
             
             /** Verifies the assertion returned by the IdP. */
             verifyAssertion(request: {            
@@ -967,7 +967,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<VerifyAssertionResponse>;            
+            }): Request<VerifyAssertionResponse>;            
             
             /** Verifies the developer asserted ID token. */
             verifyCustomToken(request: {            
@@ -985,7 +985,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<VerifyCustomTokenResponse>;            
+            }): Request<VerifyCustomTokenResponse>;            
             
             /** Verifies the user entered password. */
             verifyPassword(request: {            
@@ -1003,7 +1003,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<VerifyPasswordResponse>;            
+            }): Request<VerifyPasswordResponse>;            
             
         }
     }

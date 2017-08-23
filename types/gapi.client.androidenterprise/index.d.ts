@@ -655,7 +655,7 @@ declare namespace gapi.client {
                 enterpriseId: string;
                 /** The ID of the user. */
                 userId: string;
-            }): gapi.client.Request<Device>;            
+            }): Request<Device>;            
             
             /** Retrieves whether a device's access to Google services is enabled or disabled. The device state takes effect only if enforcing EMM policies on Android devices is enabled in the Google Admin Console. Otherwise, the device state is ignored and all devices are allowed access to Google services. This is only supported for Google-managed users. */
             getState(request: {            
@@ -679,7 +679,7 @@ declare namespace gapi.client {
                 enterpriseId: string;
                 /** The ID of the user. */
                 userId: string;
-            }): gapi.client.Request<DeviceState>;            
+            }): Request<DeviceState>;            
             
             /** Retrieves the IDs of all of a user's devices. */
             list(request: {            
@@ -701,7 +701,7 @@ declare namespace gapi.client {
                 enterpriseId: string;
                 /** The ID of the user. */
                 userId: string;
-            }): gapi.client.Request<DevicesListResponse>;            
+            }): Request<DevicesListResponse>;            
             
             /** Sets whether a device's access to Google services is enabled or disabled. The device state takes effect only if enforcing EMM policies on Android devices is enabled in the Google Admin Console. Otherwise, the device state is ignored and all devices are allowed access to Google services. This is only supported for Google-managed users. */
             setState(request: {            
@@ -725,7 +725,7 @@ declare namespace gapi.client {
                 enterpriseId: string;
                 /** The ID of the user. */
                 userId: string;
-            }): gapi.client.Request<DeviceState>;            
+            }): Request<DeviceState>;            
             
         }
         
@@ -748,7 +748,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The notification set ID as returned by Enterprises.PullNotificationSet. This must be provided. */
                 notificationSetId?: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Completes the signup flow, by specifying the Completion token and Enterprise token. This request must not be called multiple times for a given Enterprise Token. */
             completeSignup(request: {            
@@ -770,7 +770,7 @@ declare namespace gapi.client {
                 completionToken?: string;
                 /** The Enterprise token appended to the Callback URL. */
                 enterpriseToken?: string;
-            }): gapi.client.Request<Enterprise>;            
+            }): Request<Enterprise>;            
             
             /** Returns a unique token to access an embeddable UI. To generate a web UI, pass the generated token into the managed Google Play javascript API. Each token may only be used to start one UI session. See the javascript API documentation for further information. */
             createWebToken(request: {            
@@ -790,7 +790,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The ID of the enterprise. */
                 enterpriseId: string;
-            }): gapi.client.Request<AdministratorWebToken>;            
+            }): Request<AdministratorWebToken>;            
             
             /** Deletes the binding between the EMM and enterprise. This is now deprecated. Use this method only to unenroll customers that were previously enrolled with the insert call, then enroll them again with the enroll call. */
             delete(request: {            
@@ -810,7 +810,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The ID of the enterprise. */
                 enterpriseId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Enrolls an enterprise with the calling EMM. */
             enroll(request: {            
@@ -830,7 +830,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The token provided by the enterprise to register the EMM. */
                 token: string;
-            }): gapi.client.Request<Enterprise>;            
+            }): Request<Enterprise>;            
             
             /** Generates a sign-up URL. */
             generateSignupUrl(request: {            
@@ -851,7 +851,7 @@ declare namespace gapi.client {
                 /** The callback URL to which the Admin will be redirected after successfully creating an enterprise. Before redirecting there the system will add a single query parameter to this URL named "enterpriseToken" which will contain an opaque token to be used for the CompleteSignup request. */
                 /** Beware that this means that the URL will be parsed, the parameter added and then a new URL formatted, i.e. there may be some minor formatting changes and, more importantly, the URL must be well-formed so that it can be parsed. */
                 callbackUrl?: string;
-            }): gapi.client.Request<SignupInfo>;            
+            }): Request<SignupInfo>;            
             
             /** Retrieves the name and domain of an enterprise. */
             get(request: {            
@@ -871,7 +871,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The ID of the enterprise. */
                 enterpriseId: string;
-            }): gapi.client.Request<Enterprise>;            
+            }): Request<Enterprise>;            
             
             /** Returns the Android Device Policy config resource. */
             getAndroidDevicePolicyConfig(request: {            
@@ -891,7 +891,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The ID of the enterprise. */
                 enterpriseId: string;
-            }): gapi.client.Request<AndroidDevicePolicyConfig>;            
+            }): Request<AndroidDevicePolicyConfig>;            
             
             /** Returns a service account and credentials. The service account can be bound to the enterprise by calling setAccount. The service account is unique to this enterprise and EMM, and will be deleted if the enterprise is unbound. The credentials contain private key data and are not stored server-side. */
             /**  */
@@ -919,7 +919,7 @@ declare namespace gapi.client {
                 enterpriseId: string;
                 /** The type of credential to return with the service account. Required. */
                 keyType?: string;
-            }): gapi.client.Request<ServiceAccount>;            
+            }): Request<ServiceAccount>;            
             
             /** Returns the store layout for the enterprise. If the store layout has not been set, returns "basic" as the store layout type and no homepage. */
             getStoreLayout(request: {            
@@ -939,7 +939,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The ID of the enterprise. */
                 enterpriseId: string;
-            }): gapi.client.Request<StoreLayout>;            
+            }): Request<StoreLayout>;            
             
             /** Establishes the binding between the EMM and an enterprise. This is now deprecated; use enroll instead. */
             insert(request: {            
@@ -959,7 +959,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The token provided by the enterprise to register the EMM. */
                 token: string;
-            }): gapi.client.Request<Enterprise>;            
+            }): Request<Enterprise>;            
             
             /** Looks up an enterprise by domain name. This is only supported for enterprises created via the Google-initiated creation flow. Lookup of the id is not needed for enterprises created via the EMM-initiated flow since the EMM learns the enterprise ID in the callback specified in the Enterprises.generateSignupUrl call. */
             list(request: {            
@@ -979,7 +979,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The exact primary domain name of the enterprise to look up. */
                 domain: string;
-            }): gapi.client.Request<EnterprisesListResponse>;            
+            }): Request<EnterprisesListResponse>;            
             
             /** Pulls and returns a notification set for the enterprises associated with the service account authenticated for the request. The notification set may be empty if no notification are pending. */
             /** A notification set returned needs to be acknowledged within 20 seconds by calling Enterprises.AcknowledgeNotificationSet, unless the notification set is empty. */
@@ -1006,7 +1006,7 @@ declare namespace gapi.client {
                 /** Speciying returnImmediately will cause the request to immediately return the pending notifications, or an empty list if no notifications are present. */
                 /** If omitted, defaults to waitForNotifications. */
                 requestMode?: string;
-            }): gapi.client.Request<NotificationSet>;            
+            }): Request<NotificationSet>;            
             
             /** Sends a test push notification to validate the EMM integration with the Google Cloud Pub/Sub service for this enterprise. */
             sendTestPushNotification(request: {            
@@ -1026,7 +1026,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The ID of the enterprise. */
                 enterpriseId: string;
-            }): gapi.client.Request<EnterprisesSendTestPushNotificationResponse>;            
+            }): Request<EnterprisesSendTestPushNotificationResponse>;            
             
             /** Sets the account that will be used to authenticate to the API as the enterprise. */
             setAccount(request: {            
@@ -1046,7 +1046,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The ID of the enterprise. */
                 enterpriseId: string;
-            }): gapi.client.Request<EnterpriseAccount>;            
+            }): Request<EnterpriseAccount>;            
             
             /** Sets the Android Device Policy config resource. EMM may use this method to enable or disable Android Device Policy support for the specified enterprise. To learn more about managing devices and apps with Android Device Policy, see the Android Management API. */
             setAndroidDevicePolicyConfig(request: {            
@@ -1066,7 +1066,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The ID of the enterprise. */
                 enterpriseId: string;
-            }): gapi.client.Request<AndroidDevicePolicyConfig>;            
+            }): Request<AndroidDevicePolicyConfig>;            
             
             /** Sets the store layout for the enterprise. By default, storeLayoutType is set to "basic" and the basic store layout is enabled. The basic layout only contains apps approved by the admin, and that have been added to the available product set for a user (using the  setAvailableProductSet call). Apps on the page are sorted in order of their product ID value. If you create a custom store layout (by setting storeLayoutType = "custom" and setting a homepage), the basic store layout is disabled. */
             setStoreLayout(request: {            
@@ -1086,7 +1086,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The ID of the enterprise. */
                 enterpriseId: string;
-            }): gapi.client.Request<StoreLayout>;            
+            }): Request<StoreLayout>;            
             
             /** Unenrolls an enterprise from the calling EMM. */
             unenroll(request: {            
@@ -1106,7 +1106,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The ID of the enterprise. */
                 enterpriseId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
         }
         
@@ -1133,7 +1133,7 @@ declare namespace gapi.client {
                 entitlementId: string;
                 /** The ID of the user. */
                 userId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Retrieves details of an entitlement. */
             get(request: {            
@@ -1157,7 +1157,7 @@ declare namespace gapi.client {
                 entitlementId: string;
                 /** The ID of the user. */
                 userId: string;
-            }): gapi.client.Request<Entitlement>;            
+            }): Request<Entitlement>;            
             
             /** Lists all entitlements for the specified user. Only the ID is set. */
             list(request: {            
@@ -1179,7 +1179,7 @@ declare namespace gapi.client {
                 enterpriseId: string;
                 /** The ID of the user. */
                 userId: string;
-            }): gapi.client.Request<EntitlementsListResponse>;            
+            }): Request<EntitlementsListResponse>;            
             
             /** Adds or updates an entitlement to an app for a user. This method supports patch semantics. */
             patch(request: {            
@@ -1205,7 +1205,7 @@ declare namespace gapi.client {
                 install?: boolean;
                 /** The ID of the user. */
                 userId: string;
-            }): gapi.client.Request<Entitlement>;            
+            }): Request<Entitlement>;            
             
             /** Adds or updates an entitlement to an app for a user. */
             update(request: {            
@@ -1231,7 +1231,7 @@ declare namespace gapi.client {
                 install?: boolean;
                 /** The ID of the user. */
                 userId: string;
-            }): gapi.client.Request<Entitlement>;            
+            }): Request<Entitlement>;            
             
         }
         
@@ -1256,7 +1256,7 @@ declare namespace gapi.client {
                 enterpriseId: string;
                 /** The ID of the product the group license is for, e.g. "app:com.google.android.gm". */
                 groupLicenseId: string;
-            }): gapi.client.Request<GroupLicense>;            
+            }): Request<GroupLicense>;            
             
             /** Retrieves IDs of all products for which the enterprise has a group license. */
             list(request: {            
@@ -1276,7 +1276,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The ID of the enterprise. */
                 enterpriseId: string;
-            }): gapi.client.Request<GroupLicensesListResponse>;            
+            }): Request<GroupLicensesListResponse>;            
             
         }
         
@@ -1301,7 +1301,7 @@ declare namespace gapi.client {
                 enterpriseId: string;
                 /** The ID of the product the group license is for, e.g. "app:com.google.android.gm". */
                 groupLicenseId: string;
-            }): gapi.client.Request<GroupLicenseUsersListResponse>;            
+            }): Request<GroupLicenseUsersListResponse>;            
             
         }
         
@@ -1330,7 +1330,7 @@ declare namespace gapi.client {
                 installId: string;
                 /** The ID of the user. */
                 userId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Retrieves details of an installation of an app on a device. */
             get(request: {            
@@ -1356,7 +1356,7 @@ declare namespace gapi.client {
                 installId: string;
                 /** The ID of the user. */
                 userId: string;
-            }): gapi.client.Request<Install>;            
+            }): Request<Install>;            
             
             /** Retrieves the details of all apps installed on the specified device. */
             list(request: {            
@@ -1380,7 +1380,7 @@ declare namespace gapi.client {
                 enterpriseId: string;
                 /** The ID of the user. */
                 userId: string;
-            }): gapi.client.Request<InstallsListResponse>;            
+            }): Request<InstallsListResponse>;            
             
             /** Requests to install the latest version of an app to a device. If the app is already installed, then it is updated to the latest version if necessary. This method supports patch semantics. */
             patch(request: {            
@@ -1406,7 +1406,7 @@ declare namespace gapi.client {
                 installId: string;
                 /** The ID of the user. */
                 userId: string;
-            }): gapi.client.Request<Install>;            
+            }): Request<Install>;            
             
             /** Requests to install the latest version of an app to a device. If the app is already installed, then it is updated to the latest version if necessary. */
             update(request: {            
@@ -1432,7 +1432,7 @@ declare namespace gapi.client {
                 installId: string;
                 /** The ID of the user. */
                 userId: string;
-            }): gapi.client.Request<Install>;            
+            }): Request<Install>;            
             
         }
         
@@ -1461,7 +1461,7 @@ declare namespace gapi.client {
                 managedConfigurationForDeviceId: string;
                 /** The ID of the user. */
                 userId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Retrieves details of a per-device managed configuration. */
             get(request: {            
@@ -1487,7 +1487,7 @@ declare namespace gapi.client {
                 managedConfigurationForDeviceId: string;
                 /** The ID of the user. */
                 userId: string;
-            }): gapi.client.Request<ManagedConfiguration>;            
+            }): Request<ManagedConfiguration>;            
             
             /** Lists all the per-device managed configurations for the specified device. Only the ID is set. */
             list(request: {            
@@ -1511,7 +1511,7 @@ declare namespace gapi.client {
                 enterpriseId: string;
                 /** The ID of the user. */
                 userId: string;
-            }): gapi.client.Request<ManagedConfigurationsForDeviceListResponse>;            
+            }): Request<ManagedConfigurationsForDeviceListResponse>;            
             
             /** Adds or updates a per-device managed configuration for an app for the specified device. This method supports patch semantics. */
             patch(request: {            
@@ -1537,7 +1537,7 @@ declare namespace gapi.client {
                 managedConfigurationForDeviceId: string;
                 /** The ID of the user. */
                 userId: string;
-            }): gapi.client.Request<ManagedConfiguration>;            
+            }): Request<ManagedConfiguration>;            
             
             /** Adds or updates a per-device managed configuration for an app for the specified device. */
             update(request: {            
@@ -1563,7 +1563,7 @@ declare namespace gapi.client {
                 managedConfigurationForDeviceId: string;
                 /** The ID of the user. */
                 userId: string;
-            }): gapi.client.Request<ManagedConfiguration>;            
+            }): Request<ManagedConfiguration>;            
             
         }
         
@@ -1590,7 +1590,7 @@ declare namespace gapi.client {
                 managedConfigurationForUserId: string;
                 /** The ID of the user. */
                 userId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Retrieves details of a per-user managed configuration for an app for the specified user. */
             get(request: {            
@@ -1614,7 +1614,7 @@ declare namespace gapi.client {
                 managedConfigurationForUserId: string;
                 /** The ID of the user. */
                 userId: string;
-            }): gapi.client.Request<ManagedConfiguration>;            
+            }): Request<ManagedConfiguration>;            
             
             /** Lists all the per-user managed configurations for the specified user. Only the ID is set. */
             list(request: {            
@@ -1636,7 +1636,7 @@ declare namespace gapi.client {
                 enterpriseId: string;
                 /** The ID of the user. */
                 userId: string;
-            }): gapi.client.Request<ManagedConfigurationsForUserListResponse>;            
+            }): Request<ManagedConfigurationsForUserListResponse>;            
             
             /** Adds or updates a per-user managed configuration for an app for the specified user. This method supports patch semantics. */
             patch(request: {            
@@ -1660,7 +1660,7 @@ declare namespace gapi.client {
                 managedConfigurationForUserId: string;
                 /** The ID of the user. */
                 userId: string;
-            }): gapi.client.Request<ManagedConfiguration>;            
+            }): Request<ManagedConfiguration>;            
             
             /** Adds or updates a per-user managed configuration for an app for the specified user. */
             update(request: {            
@@ -1684,7 +1684,7 @@ declare namespace gapi.client {
                 managedConfigurationForUserId: string;
                 /** The ID of the user. */
                 userId: string;
-            }): gapi.client.Request<ManagedConfiguration>;            
+            }): Request<ManagedConfiguration>;            
             
         }
         
@@ -1709,7 +1709,7 @@ declare namespace gapi.client {
                 language?: string;
                 /** The ID of the permission. */
                 permissionId: string;
-            }): gapi.client.Request<Permission>;            
+            }): Request<Permission>;            
             
         }
         
@@ -1736,7 +1736,7 @@ declare namespace gapi.client {
                 enterpriseId: string;
                 /** The ID of the product. */
                 productId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Generates a URL that can be rendered in an iframe to display the permissions (if any) of a product. An enterprise admin must view these permissions and accept them on behalf of their organization in order to approve that product. */
             /**  */
@@ -1762,7 +1762,7 @@ declare namespace gapi.client {
                 languageCode?: string;
                 /** The ID of the product. */
                 productId: string;
-            }): gapi.client.Request<ProductsGenerateApprovalUrlResponse>;            
+            }): Request<ProductsGenerateApprovalUrlResponse>;            
             
             /** Retrieves details of a product for display to an enterprise admin. */
             get(request: {            
@@ -1786,7 +1786,7 @@ declare namespace gapi.client {
                 language?: string;
                 /** The ID of the product, e.g. "app:com.google.android.gm". */
                 productId: string;
-            }): gapi.client.Request<Product>;            
+            }): Request<Product>;            
             
             /** Retrieves the schema that defines the configurable properties for this product. All products have a schema, but this schema may be empty if no managed configurations have been defined. This schema can be used to populate a UI that allows an admin to configure the product. To apply a managed configuration based on the schema obtained using this API, see Managed Configurations through Play. */
             getAppRestrictionsSchema(request: {            
@@ -1810,7 +1810,7 @@ declare namespace gapi.client {
                 language?: string;
                 /** The ID of the product. */
                 productId: string;
-            }): gapi.client.Request<AppRestrictionsSchema>;            
+            }): Request<AppRestrictionsSchema>;            
             
             /** Retrieves the Android app permissions required by this app. */
             getPermissions(request: {            
@@ -1832,7 +1832,7 @@ declare namespace gapi.client {
                 enterpriseId: string;
                 /** The ID of the product. */
                 productId: string;
-            }): gapi.client.Request<ProductPermissions>;            
+            }): Request<ProductPermissions>;            
             
             /** Finds approved products that match a query, or all approved products if there is no query. */
             list(request: {            
@@ -1862,7 +1862,7 @@ declare namespace gapi.client {
                 query?: string;
                 /** A pagination token is contained in a request''s response when there are more products. The token can be used in a subsequent request to obtain more products, and so forth. This parameter cannot be used in the initial request. */
                 token?: string;
-            }): gapi.client.Request<ProductsListResponse>;            
+            }): Request<ProductsListResponse>;            
             
             /** Unapproves the specified product (and the relevant app permissions, if any) */
             unapprove(request: {            
@@ -1884,7 +1884,7 @@ declare namespace gapi.client {
                 enterpriseId: string;
                 /** The ID of the product. */
                 productId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
         }
         
@@ -1909,7 +1909,7 @@ declare namespace gapi.client {
                 enterpriseId: string;
                 /** The ID of the key. */
                 keyId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Generates new credentials for the service account associated with this enterprise. The calling service account must have been retrieved by calling Enterprises.GetServiceAccount and must have been set as the enterprise service account by calling Enterprises.SetAccount. */
             /**  */
@@ -1931,7 +1931,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The ID of the enterprise. */
                 enterpriseId: string;
-            }): gapi.client.Request<ServiceAccountKey>;            
+            }): Request<ServiceAccountKey>;            
             
             /** Lists all active credentials for the service account associated with this enterprise. Only the ID and key type are returned. The calling service account must have been retrieved by calling Enterprises.GetServiceAccount and must have been set as the enterprise service account by calling Enterprises.SetAccount. */
             list(request: {            
@@ -1951,7 +1951,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The ID of the enterprise. */
                 enterpriseId: string;
-            }): gapi.client.Request<ServiceAccountKeysListResponse>;            
+            }): Request<ServiceAccountKeysListResponse>;            
             
         }
         
@@ -1978,7 +1978,7 @@ declare namespace gapi.client {
                 enterpriseId: string;
                 /** The ID of the page. */
                 pageId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Retrieves details of a cluster. */
             get(request: {            
@@ -2002,7 +2002,7 @@ declare namespace gapi.client {
                 enterpriseId: string;
                 /** The ID of the page. */
                 pageId: string;
-            }): gapi.client.Request<StoreCluster>;            
+            }): Request<StoreCluster>;            
             
             /** Inserts a new cluster in a page. */
             insert(request: {            
@@ -2024,7 +2024,7 @@ declare namespace gapi.client {
                 enterpriseId: string;
                 /** The ID of the page. */
                 pageId: string;
-            }): gapi.client.Request<StoreCluster>;            
+            }): Request<StoreCluster>;            
             
             /** Retrieves the details of all clusters on the specified page. */
             list(request: {            
@@ -2046,7 +2046,7 @@ declare namespace gapi.client {
                 enterpriseId: string;
                 /** The ID of the page. */
                 pageId: string;
-            }): gapi.client.Request<StoreLayoutClustersListResponse>;            
+            }): Request<StoreLayoutClustersListResponse>;            
             
             /** Updates a cluster. This method supports patch semantics. */
             patch(request: {            
@@ -2070,7 +2070,7 @@ declare namespace gapi.client {
                 enterpriseId: string;
                 /** The ID of the page. */
                 pageId: string;
-            }): gapi.client.Request<StoreCluster>;            
+            }): Request<StoreCluster>;            
             
             /** Updates a cluster. */
             update(request: {            
@@ -2094,7 +2094,7 @@ declare namespace gapi.client {
                 enterpriseId: string;
                 /** The ID of the page. */
                 pageId: string;
-            }): gapi.client.Request<StoreCluster>;            
+            }): Request<StoreCluster>;            
             
         }
         
@@ -2119,7 +2119,7 @@ declare namespace gapi.client {
                 enterpriseId: string;
                 /** The ID of the page. */
                 pageId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Retrieves details of a store page. */
             get(request: {            
@@ -2141,7 +2141,7 @@ declare namespace gapi.client {
                 enterpriseId: string;
                 /** The ID of the page. */
                 pageId: string;
-            }): gapi.client.Request<StorePage>;            
+            }): Request<StorePage>;            
             
             /** Inserts a new store page. */
             insert(request: {            
@@ -2161,7 +2161,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The ID of the enterprise. */
                 enterpriseId: string;
-            }): gapi.client.Request<StorePage>;            
+            }): Request<StorePage>;            
             
             /** Retrieves the details of all pages in the store. */
             list(request: {            
@@ -2181,7 +2181,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The ID of the enterprise. */
                 enterpriseId: string;
-            }): gapi.client.Request<StoreLayoutPagesListResponse>;            
+            }): Request<StoreLayoutPagesListResponse>;            
             
             /** Updates the content of a store page. This method supports patch semantics. */
             patch(request: {            
@@ -2203,7 +2203,7 @@ declare namespace gapi.client {
                 enterpriseId: string;
                 /** The ID of the page. */
                 pageId: string;
-            }): gapi.client.Request<StorePage>;            
+            }): Request<StorePage>;            
             
             /** Updates the content of a store page. */
             update(request: {            
@@ -2225,7 +2225,7 @@ declare namespace gapi.client {
                 enterpriseId: string;
                 /** The ID of the page. */
                 pageId: string;
-            }): gapi.client.Request<StorePage>;            
+            }): Request<StorePage>;            
             
         }
         
@@ -2250,7 +2250,7 @@ declare namespace gapi.client {
                 enterpriseId: string;
                 /** The ID of the user. */
                 userId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Generates an authentication token which the device policy client can use to provision the given EMM-managed user account on a device. The generated token is single-use and expires after a few minutes. */
             /**  */
@@ -2274,7 +2274,7 @@ declare namespace gapi.client {
                 enterpriseId: string;
                 /** The ID of the user. */
                 userId: string;
-            }): gapi.client.Request<AuthenticationToken>;            
+            }): Request<AuthenticationToken>;            
             
             /** Generates a token (activation code) to allow this user to configure their managed account in the Android Setup Wizard. Revokes any previously generated token. */
             /**  */
@@ -2298,7 +2298,7 @@ declare namespace gapi.client {
                 enterpriseId: string;
                 /** The ID of the user. */
                 userId: string;
-            }): gapi.client.Request<UserToken>;            
+            }): Request<UserToken>;            
             
             /** Retrieves a user's details. */
             get(request: {            
@@ -2320,7 +2320,7 @@ declare namespace gapi.client {
                 enterpriseId: string;
                 /** The ID of the user. */
                 userId: string;
-            }): gapi.client.Request<User>;            
+            }): Request<User>;            
             
             /** Retrieves the set of products a user is entitled to access. */
             getAvailableProductSet(request: {            
@@ -2342,7 +2342,7 @@ declare namespace gapi.client {
                 enterpriseId: string;
                 /** The ID of the user. */
                 userId: string;
-            }): gapi.client.Request<ProductSet>;            
+            }): Request<ProductSet>;            
             
             /** Creates a new EMM-managed user. */
             /**  */
@@ -2365,7 +2365,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The ID of the enterprise. */
                 enterpriseId: string;
-            }): gapi.client.Request<User>;            
+            }): Request<User>;            
             
             /** Looks up a user by primary email address. This is only supported for Google-managed users. Lookup of the id is not needed for EMM-managed users because the id is already returned in the result of the Users.insert call. */
             list(request: {            
@@ -2387,7 +2387,7 @@ declare namespace gapi.client {
                 email: string;
                 /** The ID of the enterprise. */
                 enterpriseId: string;
-            }): gapi.client.Request<UsersListResponse>;            
+            }): Request<UsersListResponse>;            
             
             /** Updates the details of an EMM-managed user. */
             /**  */
@@ -2411,7 +2411,7 @@ declare namespace gapi.client {
                 enterpriseId: string;
                 /** The ID of the user. */
                 userId: string;
-            }): gapi.client.Request<User>;            
+            }): Request<User>;            
             
             /** Revokes a previously generated token (activation code) for the user. */
             revokeToken(request: {            
@@ -2433,7 +2433,7 @@ declare namespace gapi.client {
                 enterpriseId: string;
                 /** The ID of the user. */
                 userId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Modifies the set of products that a user is entitled to access (referred to as whitelisted products). Only products that are approved or products that were previously approved (products with revoked approval) can be whitelisted. */
             setAvailableProductSet(request: {            
@@ -2455,7 +2455,7 @@ declare namespace gapi.client {
                 enterpriseId: string;
                 /** The ID of the user. */
                 userId: string;
-            }): gapi.client.Request<ProductSet>;            
+            }): Request<ProductSet>;            
             
             /** Updates the details of an EMM-managed user. */
             /**  */
@@ -2479,7 +2479,7 @@ declare namespace gapi.client {
                 enterpriseId: string;
                 /** The ID of the user. */
                 userId: string;
-            }): gapi.client.Request<User>;            
+            }): Request<User>;            
             
         }
     }

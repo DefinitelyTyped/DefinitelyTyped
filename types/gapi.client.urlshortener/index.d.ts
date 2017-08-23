@@ -104,7 +104,7 @@ declare namespace gapi.client {
                 projection?: string;
                 /** The short URL, including the protocol. */
                 shortUrl: string;
-            }): gapi.client.Request<Url>;            
+            }): Request<Url>;            
             
             /** Creates a new short URL. */
             insert(request: {            
@@ -122,7 +122,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<Url>;            
+            }): Request<Url>;            
             
             /** Retrieves a list of URLs shortened by a user. */
             list(request: {            
@@ -144,7 +144,7 @@ declare namespace gapi.client {
                 projection?: string;
                 /** Token for requesting successive pages of results. */
                 "start-token"?: string;
-            }): gapi.client.Request<UrlHistory>;            
+            }): Request<UrlHistory>;            
             
         }
     }

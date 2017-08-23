@@ -1485,7 +1485,7 @@ declare namespace gapi.client {
                 maxResults?: number;
                 /** The token returned by the previous request. */
                 pageToken?: string;
-            }): gapi.client.Request<AchievementDefinitionsListResponse>;            
+            }): Request<AchievementDefinitionsListResponse>;            
             
         }
         
@@ -1514,7 +1514,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** The number of steps to increment. */
                 stepsToIncrement: number;
-            }): gapi.client.Request<AchievementIncrementResponse>;            
+            }): Request<AchievementIncrementResponse>;            
             
             /** Lists the progress for all your application's achievements for the currently authenticated player. */
             list(request: {            
@@ -1544,7 +1544,7 @@ declare namespace gapi.client {
                 playerId: string;
                 /** Tells the server to return only achievements with the specified state. If this parameter isn't specified, all achievements are returned. */
                 state?: string;
-            }): gapi.client.Request<PlayerAchievementListResponse>;            
+            }): Request<PlayerAchievementListResponse>;            
             
             /** Sets the state of the achievement with the given ID to REVEALED for the currently authenticated player. */
             reveal(request: {            
@@ -1566,7 +1566,7 @@ declare namespace gapi.client {
                 achievementId: string;
                 /** The last-seen mutation timestamp. */
                 consistencyToken?: string;
-            }): gapi.client.Request<AchievementRevealResponse>;            
+            }): Request<AchievementRevealResponse>;            
             
             /** Sets the steps for the currently authenticated player towards unlocking an achievement. If the steps parameter is less than the current number of steps that the player already gained for the achievement, the achievement is not modified. */
             setStepsAtLeast(request: {            
@@ -1590,7 +1590,7 @@ declare namespace gapi.client {
                 consistencyToken?: string;
                 /** The minimum value to set the steps to. */
                 steps: number;
-            }): gapi.client.Request<AchievementSetStepsAtLeastResponse>;            
+            }): Request<AchievementSetStepsAtLeastResponse>;            
             
             /** Unlocks this achievement for the currently authenticated player. */
             unlock(request: {            
@@ -1612,7 +1612,7 @@ declare namespace gapi.client {
                 achievementId: string;
                 /** The last-seen mutation timestamp. */
                 consistencyToken?: string;
-            }): gapi.client.Request<AchievementUnlockResponse>;            
+            }): Request<AchievementUnlockResponse>;            
             
             /** Updates multiple achievements for the currently authenticated player. */
             updateMultiple(request: {            
@@ -1632,7 +1632,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The last-seen mutation timestamp. */
                 consistencyToken?: string;
-            }): gapi.client.Request<AchievementUpdateMultipleResponse>;            
+            }): Request<AchievementUpdateMultipleResponse>;            
             
         }
         
@@ -1661,7 +1661,7 @@ declare namespace gapi.client {
                 language?: string;
                 /** Restrict application details returned to the specific platform. */
                 platformType?: string;
-            }): gapi.client.Request<Application>;            
+            }): Request<Application>;            
             
             /** Indicate that the the currently authenticated user is playing your application. */
             played(request: {            
@@ -1681,7 +1681,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The last-seen mutation timestamp. */
                 consistencyToken?: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Verifies the auth token provided with this request is for the application with the specified ID, and returns the ID of the player it was granted for. */
             verify(request: {            
@@ -1703,7 +1703,7 @@ declare namespace gapi.client {
                 applicationId: string;
                 /** The last-seen mutation timestamp. */
                 consistencyToken?: string;
-            }): gapi.client.Request<ApplicationVerifyResponse>;            
+            }): Request<ApplicationVerifyResponse>;            
             
         }
         
@@ -1732,7 +1732,7 @@ declare namespace gapi.client {
                 maxResults?: number;
                 /** The token returned by the previous request. */
                 pageToken?: string;
-            }): gapi.client.Request<PlayerEventListResponse>;            
+            }): Request<PlayerEventListResponse>;            
             
             /** Returns a list of the event definitions in this application. */
             listDefinitions(request: {            
@@ -1758,7 +1758,7 @@ declare namespace gapi.client {
                 maxResults?: number;
                 /** The token returned by the previous request. */
                 pageToken?: string;
-            }): gapi.client.Request<EventDefinitionListResponse>;            
+            }): Request<EventDefinitionListResponse>;            
             
             /** Records a batch of changes to the number of times events have occurred for the currently authenticated user of this application. */
             record(request: {            
@@ -1780,7 +1780,7 @@ declare namespace gapi.client {
                 consistencyToken?: string;
                 /** The preferred language to use for strings returned by this method. */
                 language?: string;
-            }): gapi.client.Request<EventUpdateResponse>;            
+            }): Request<EventUpdateResponse>;            
             
         }
         
@@ -1807,7 +1807,7 @@ declare namespace gapi.client {
                 language?: string;
                 /** The ID of the leaderboard. */
                 leaderboardId: string;
-            }): gapi.client.Request<Leaderboard>;            
+            }): Request<Leaderboard>;            
             
             /** Lists all the leaderboard metadata for your application. */
             list(request: {            
@@ -1833,7 +1833,7 @@ declare namespace gapi.client {
                 maxResults?: number;
                 /** The token returned by the previous request. */
                 pageToken?: string;
-            }): gapi.client.Request<LeaderboardListResponse>;            
+            }): Request<LeaderboardListResponse>;            
             
         }
         
@@ -1856,7 +1856,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The last-seen mutation timestamp. */
                 consistencyToken?: string;
-            }): gapi.client.Request<MetagameConfig>;            
+            }): Request<MetagameConfig>;            
             
             /** List play data aggregated per category for the player corresponding to playerId. */
             listCategoriesByPlayer(request: {            
@@ -1886,7 +1886,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** A player ID. A value of me may be used in place of the authenticated player's ID. */
                 playerId: string;
-            }): gapi.client.Request<CategoryListResponse>;            
+            }): Request<CategoryListResponse>;            
             
         }
         
@@ -1913,7 +1913,7 @@ declare namespace gapi.client {
                 language?: string;
                 /** A player ID. A value of me may be used in place of the authenticated player's ID. */
                 playerId: string;
-            }): gapi.client.Request<Player>;            
+            }): Request<Player>;            
             
             /** Get the collection of players for the currently authenticated user. */
             list(request: {            
@@ -1941,7 +1941,7 @@ declare namespace gapi.client {
                 maxResults?: number;
                 /** The token returned by the previous request. */
                 pageToken?: string;
-            }): gapi.client.Request<PlayerListResponse>;            
+            }): Request<PlayerListResponse>;            
             
         }
         
@@ -1964,7 +1964,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The last-seen mutation timestamp. */
                 consistencyToken?: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Registers a push token for the current user and application. */
             update(request: {            
@@ -1984,7 +1984,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The last-seen mutation timestamp. */
                 consistencyToken?: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
         }
         
@@ -2013,7 +2013,7 @@ declare namespace gapi.client {
                 questId: string;
                 /** A numeric ID to ensure that the request is handled correctly across retries. Your client application must generate this ID randomly. */
                 requestId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
         }
         
@@ -2040,7 +2040,7 @@ declare namespace gapi.client {
                 language?: string;
                 /** The ID of the quest. */
                 questId: string;
-            }): gapi.client.Request<Quest>;            
+            }): Request<Quest>;            
             
             /** Get a list of quests for your application and the currently authenticated player. */
             list(request: {            
@@ -2068,7 +2068,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** A player ID. A value of me may be used in place of the authenticated player's ID. */
                 playerId: string;
-            }): gapi.client.Request<QuestListResponse>;            
+            }): Request<QuestListResponse>;            
             
         }
         
@@ -2098,7 +2098,7 @@ declare namespace gapi.client {
                 clientRevision: string;
                 /** The last-seen mutation timestamp. */
                 consistencyToken?: string;
-            }): gapi.client.Request<RevisionCheckResponse>;            
+            }): Request<RevisionCheckResponse>;            
             
         }
         
@@ -2123,7 +2123,7 @@ declare namespace gapi.client {
                 consistencyToken?: string;
                 /** The preferred language to use for strings returned by this method. */
                 language?: string;
-            }): gapi.client.Request<Room>;            
+            }): Request<Room>;            
             
             /** Decline an invitation to join a room. For internal use by the Games SDK only. Calling this method directly is unsupported. */
             decline(request: {            
@@ -2147,7 +2147,7 @@ declare namespace gapi.client {
                 language?: string;
                 /** The ID of the room. */
                 roomId: string;
-            }): gapi.client.Request<Room>;            
+            }): Request<Room>;            
             
             /** Dismiss an invitation to join a room. For internal use by the Games SDK only. Calling this method directly is unsupported. */
             dismiss(request: {            
@@ -2169,7 +2169,7 @@ declare namespace gapi.client {
                 consistencyToken?: string;
                 /** The ID of the room. */
                 roomId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Get the data for a room. */
             get(request: {            
@@ -2193,7 +2193,7 @@ declare namespace gapi.client {
                 language?: string;
                 /** The ID of the room. */
                 roomId: string;
-            }): gapi.client.Request<Room>;            
+            }): Request<Room>;            
             
             /** Join a room. For internal use by the Games SDK only. Calling this method directly is unsupported. */
             join(request: {            
@@ -2217,7 +2217,7 @@ declare namespace gapi.client {
                 language?: string;
                 /** The ID of the room. */
                 roomId: string;
-            }): gapi.client.Request<Room>;            
+            }): Request<Room>;            
             
             /** Leave a room. For internal use by the Games SDK only. Calling this method directly is unsupported. */
             leave(request: {            
@@ -2241,7 +2241,7 @@ declare namespace gapi.client {
                 language?: string;
                 /** The ID of the room. */
                 roomId: string;
-            }): gapi.client.Request<Room>;            
+            }): Request<Room>;            
             
             /** Returns invitations to join rooms. */
             list(request: {            
@@ -2267,7 +2267,7 @@ declare namespace gapi.client {
                 maxResults?: number;
                 /** The token returned by the previous request. */
                 pageToken?: string;
-            }): gapi.client.Request<RoomList>;            
+            }): Request<RoomList>;            
             
             /** Updates sent by a client reporting the status of peers in a room. For internal use by the Games SDK only. Calling this method directly is unsupported. */
             reportStatus(request: {            
@@ -2291,7 +2291,7 @@ declare namespace gapi.client {
                 language?: string;
                 /** The ID of the room. */
                 roomId: string;
-            }): gapi.client.Request<RoomStatus>;            
+            }): Request<RoomStatus>;            
             
         }
         
@@ -2329,7 +2329,7 @@ declare namespace gapi.client {
                 playerId: string;
                 /** The time span for the scores and ranks you're requesting. */
                 timeSpan: string;
-            }): gapi.client.Request<PlayerLeaderboardScoreListResponse>;            
+            }): Request<PlayerLeaderboardScoreListResponse>;            
             
             /** Lists the scores in a leaderboard, starting from the top. */
             list(request: {            
@@ -2361,7 +2361,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** The time span for the scores and ranks you're requesting. */
                 timeSpan: string;
-            }): gapi.client.Request<LeaderboardScores>;            
+            }): Request<LeaderboardScores>;            
             
             /** Lists the scores in a leaderboard around (and including) a player's score. */
             listWindow(request: {            
@@ -2397,7 +2397,7 @@ declare namespace gapi.client {
                 returnTopIfAbsent?: boolean;
                 /** The time span for the scores and ranks you're requesting. */
                 timeSpan: string;
-            }): gapi.client.Request<LeaderboardScores>;            
+            }): Request<LeaderboardScores>;            
             
             /** Submits a score to the specified leaderboard. */
             submit(request: {            
@@ -2425,7 +2425,7 @@ declare namespace gapi.client {
                 score: string;
                 /** Additional information about the score you're submitting. Values must contain no more than 64 URI-safe characters as defined by section 2.3 of RFC 3986. */
                 scoreTag?: string;
-            }): gapi.client.Request<PlayerScoreResponse>;            
+            }): Request<PlayerScoreResponse>;            
             
             /** Submits multiple scores to leaderboards. */
             submitMultiple(request: {            
@@ -2447,7 +2447,7 @@ declare namespace gapi.client {
                 consistencyToken?: string;
                 /** The preferred language to use for strings returned by this method. */
                 language?: string;
-            }): gapi.client.Request<PlayerScoreListResponse>;            
+            }): Request<PlayerScoreListResponse>;            
             
         }
         
@@ -2474,7 +2474,7 @@ declare namespace gapi.client {
                 language?: string;
                 /** The ID of the snapshot. */
                 snapshotId: string;
-            }): gapi.client.Request<Snapshot>;            
+            }): Request<Snapshot>;            
             
             /** Retrieves a list of snapshots created by your application for the player corresponding to the player ID. */
             list(request: {            
@@ -2502,7 +2502,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** A player ID. A value of me may be used in place of the authenticated player's ID. */
                 playerId: string;
-            }): gapi.client.Request<SnapshotListResponse>;            
+            }): Request<SnapshotListResponse>;            
             
         }
         
@@ -2527,7 +2527,7 @@ declare namespace gapi.client {
                 consistencyToken?: string;
                 /** The ID of the match. */
                 matchId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Create a turn-based match. */
             create(request: {            
@@ -2549,7 +2549,7 @@ declare namespace gapi.client {
                 consistencyToken?: string;
                 /** The preferred language to use for strings returned by this method. */
                 language?: string;
-            }): gapi.client.Request<TurnBasedMatch>;            
+            }): Request<TurnBasedMatch>;            
             
             /** Decline an invitation to play a turn-based match. */
             decline(request: {            
@@ -2573,7 +2573,7 @@ declare namespace gapi.client {
                 language?: string;
                 /** The ID of the match. */
                 matchId: string;
-            }): gapi.client.Request<TurnBasedMatch>;            
+            }): Request<TurnBasedMatch>;            
             
             /** Dismiss a turn-based match from the match list. The match will no longer show up in the list and will not generate notifications. */
             dismiss(request: {            
@@ -2595,7 +2595,7 @@ declare namespace gapi.client {
                 consistencyToken?: string;
                 /** The ID of the match. */
                 matchId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Finish a turn-based match. Each player should make this call once, after all results are in. Only the player whose turn it is may make the first call to Finish, and can pass in the final match state. */
             finish(request: {            
@@ -2619,7 +2619,7 @@ declare namespace gapi.client {
                 language?: string;
                 /** The ID of the match. */
                 matchId: string;
-            }): gapi.client.Request<TurnBasedMatch>;            
+            }): Request<TurnBasedMatch>;            
             
             /** Get the data for a turn-based match. */
             get(request: {            
@@ -2645,7 +2645,7 @@ declare namespace gapi.client {
                 language?: string;
                 /** The ID of the match. */
                 matchId: string;
-            }): gapi.client.Request<TurnBasedMatch>;            
+            }): Request<TurnBasedMatch>;            
             
             /** Join a turn-based match. */
             join(request: {            
@@ -2669,7 +2669,7 @@ declare namespace gapi.client {
                 language?: string;
                 /** The ID of the match. */
                 matchId: string;
-            }): gapi.client.Request<TurnBasedMatch>;            
+            }): Request<TurnBasedMatch>;            
             
             /** Leave a turn-based match when it is not the current player's turn, without canceling the match. */
             leave(request: {            
@@ -2693,7 +2693,7 @@ declare namespace gapi.client {
                 language?: string;
                 /** The ID of the match. */
                 matchId: string;
-            }): gapi.client.Request<TurnBasedMatch>;            
+            }): Request<TurnBasedMatch>;            
             
             /** Leave a turn-based match during the current player's turn, without canceling the match. */
             leaveTurn(request: {            
@@ -2721,7 +2721,7 @@ declare namespace gapi.client {
                 matchVersion: number;
                 /** The ID of another participant who should take their turn next. If not set, the match will wait for other player(s) to join via automatching; this is only valid if automatch criteria is set on the match with remaining slots for automatched players. */
                 pendingParticipantId?: string;
-            }): gapi.client.Request<TurnBasedMatch>;            
+            }): Request<TurnBasedMatch>;            
             
             /** Returns turn-based matches the player is or was involved in. */
             list(request: {            
@@ -2751,7 +2751,7 @@ declare namespace gapi.client {
                 maxResults?: number;
                 /** The token returned by the previous request. */
                 pageToken?: string;
-            }): gapi.client.Request<TurnBasedMatchList>;            
+            }): Request<TurnBasedMatchList>;            
             
             /** Create a rematch of a match that was previously completed, with the same participants. This can be called by only one player on a match still in their list; the player must have called Finish first. Returns the newly created match; it will be the caller's turn. */
             rematch(request: {            
@@ -2777,7 +2777,7 @@ declare namespace gapi.client {
                 matchId: string;
                 /** A randomly generated numeric ID for each request specified by the caller. This number is used at the server to ensure that the request is handled correctly across retries. */
                 requestId?: string;
-            }): gapi.client.Request<TurnBasedMatchRematch>;            
+            }): Request<TurnBasedMatchRematch>;            
             
             /** Returns turn-based matches the player is or was involved in that changed since the last sync call, with the least recent changes coming first. Matches that should be removed from the local cache will have a status of MATCH_DELETED. */
             sync(request: {            
@@ -2807,7 +2807,7 @@ declare namespace gapi.client {
                 maxResults?: number;
                 /** The token returned by the previous request. */
                 pageToken?: string;
-            }): gapi.client.Request<TurnBasedMatchSync>;            
+            }): Request<TurnBasedMatchSync>;            
             
             /** Commit the results of a player turn. */
             takeTurn(request: {            
@@ -2831,7 +2831,7 @@ declare namespace gapi.client {
                 language?: string;
                 /** The ID of the match. */
                 matchId: string;
-            }): gapi.client.Request<TurnBasedMatch>;            
+            }): Request<TurnBasedMatch>;            
             
         }
     }

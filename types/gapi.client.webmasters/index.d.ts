@@ -201,7 +201,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The site's URL, including protocol. For example: http://www.example.com/ */
                 siteUrl: string;
-            }): gapi.client.Request<SearchAnalyticsQueryResponse>;            
+            }): Request<SearchAnalyticsQueryResponse>;            
             
         }
         
@@ -226,7 +226,7 @@ declare namespace gapi.client {
                 feedpath: string;
                 /** The site's URL, including protocol. For example: http://www.example.com/ */
                 siteUrl: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Retrieves information about a specific sitemap. */
             get(request: {            
@@ -248,7 +248,7 @@ declare namespace gapi.client {
                 feedpath: string;
                 /** The site's URL, including protocol. For example: http://www.example.com/ */
                 siteUrl: string;
-            }): gapi.client.Request<WmxSitemap>;            
+            }): Request<WmxSitemap>;            
             
             /** Lists the sitemaps-entries submitted for this site, or included in the sitemap index file (if sitemapIndex is specified in the request). */
             list(request: {            
@@ -270,7 +270,7 @@ declare namespace gapi.client {
                 siteUrl: string;
                 /** A URL of a site's sitemap index. For example: http://www.example.com/sitemapindex.xml */
                 sitemapIndex?: string;
-            }): gapi.client.Request<SitemapsListResponse>;            
+            }): Request<SitemapsListResponse>;            
             
             /** Submits a sitemap for a site. */
             submit(request: {            
@@ -292,7 +292,7 @@ declare namespace gapi.client {
                 feedpath: string;
                 /** The site's URL, including protocol. For example: http://www.example.com/ */
                 siteUrl: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
         }
         
@@ -315,7 +315,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The URL of the site to add. */
                 siteUrl: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Removes a site from the set of the user's Search Console sites. */
             delete(request: {            
@@ -335,7 +335,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The URI of the property as defined in Search Console. Examples: http://www.example.com/ or android-app://com.example/ */
                 siteUrl: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Retrieves information about specific site. */
             get(request: {            
@@ -355,7 +355,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The URI of the property as defined in Search Console. Examples: http://www.example.com/ or android-app://com.example/ */
                 siteUrl: string;
-            }): gapi.client.Request<WmxSite>;            
+            }): Request<WmxSite>;            
             
             /** Lists the user's Search Console sites. */
             list(request: {            
@@ -373,7 +373,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<SitesListResponse>;            
+            }): Request<SitesListResponse>;            
             
         }
         
@@ -402,7 +402,7 @@ declare namespace gapi.client {
                 platform?: string;
                 /** The site's URL, including protocol. For example: http://www.example.com/ */
                 siteUrl: string;
-            }): gapi.client.Request<UrlCrawlErrorsCountsQueryResponse>;            
+            }): Request<UrlCrawlErrorsCountsQueryResponse>;            
             
         }
         
@@ -431,7 +431,7 @@ declare namespace gapi.client {
                 siteUrl: string;
                 /** The relative path (without the site) of the sample URL. It must be one of the URLs returned by list(). For example, for the URL https://www.example.com/pagename on the site https://www.example.com/, the url value is pagename */
                 url: string;
-            }): gapi.client.Request<UrlCrawlErrorsSample>;            
+            }): Request<UrlCrawlErrorsSample>;            
             
             /** Lists a site's sample URLs for the specified crawl error category and platform. */
             list(request: {            
@@ -455,7 +455,7 @@ declare namespace gapi.client {
                 platform: string;
                 /** The site's URL, including protocol. For example: http://www.example.com/ */
                 siteUrl: string;
-            }): gapi.client.Request<UrlCrawlErrorsSamplesListResponse>;            
+            }): Request<UrlCrawlErrorsSamplesListResponse>;            
             
             /** Marks the provided site's sample URL as fixed, and removes it from the samples list. */
             markAsFixed(request: {            
@@ -481,7 +481,7 @@ declare namespace gapi.client {
                 siteUrl: string;
                 /** The relative path (without the site) of the sample URL. It must be one of the URLs returned by list(). For example, for the URL https://www.example.com/pagename on the site https://www.example.com/, the url value is pagename */
                 url: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
         }
     }

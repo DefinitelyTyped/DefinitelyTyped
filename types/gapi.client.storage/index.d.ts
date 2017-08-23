@@ -498,7 +498,7 @@ declare namespace gapi.client {
                 entity: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Returns the ACL entry for the specified entity on the specified bucket. */
             get(request: {            
@@ -522,7 +522,7 @@ declare namespace gapi.client {
                 entity: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): gapi.client.Request<BucketAccessControl>;            
+            }): Request<BucketAccessControl>;            
             
             /** Creates a new ACL entry on the specified bucket. */
             insert(request: {            
@@ -544,7 +544,7 @@ declare namespace gapi.client {
                 bucket: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): gapi.client.Request<BucketAccessControl>;            
+            }): Request<BucketAccessControl>;            
             
             /** Retrieves ACL entries on the specified bucket. */
             list(request: {            
@@ -566,7 +566,7 @@ declare namespace gapi.client {
                 bucket: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): gapi.client.Request<BucketAccessControls>;            
+            }): Request<BucketAccessControls>;            
             
             /** Updates an ACL entry on the specified bucket. This method supports patch semantics. */
             patch(request: {            
@@ -590,7 +590,7 @@ declare namespace gapi.client {
                 entity: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): gapi.client.Request<BucketAccessControl>;            
+            }): Request<BucketAccessControl>;            
             
             /** Updates an ACL entry on the specified bucket. */
             update(request: {            
@@ -614,7 +614,7 @@ declare namespace gapi.client {
                 entity: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): gapi.client.Request<BucketAccessControl>;            
+            }): Request<BucketAccessControl>;            
             
         }
         
@@ -643,7 +643,7 @@ declare namespace gapi.client {
                 ifMetagenerationNotMatch?: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Returns metadata for the specified bucket. */
             get(request: {            
@@ -671,7 +671,7 @@ declare namespace gapi.client {
                 projection?: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): gapi.client.Request<Bucket>;            
+            }): Request<Bucket>;            
             
             /** Returns an IAM policy for the specified bucket. */
             getIamPolicy(request: {            
@@ -693,7 +693,7 @@ declare namespace gapi.client {
                 bucket: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): gapi.client.Request<Policy>;            
+            }): Request<Policy>;            
             
             /** Creates a new bucket. */
             insert(request: {            
@@ -719,7 +719,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Set of properties to return. Defaults to noAcl, unless the bucket resource specifies acl or defaultObjectAcl properties, when it defaults to full. */
                 projection?: string;
-            }): gapi.client.Request<Bucket>;            
+            }): Request<Bucket>;            
             
             /** Retrieves a list of buckets for a given project. */
             list(request: {            
@@ -747,7 +747,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Set of properties to return. Defaults to noAcl. */
                 projection?: string;
-            }): gapi.client.Request<Buckets>;            
+            }): Request<Buckets>;            
             
             /** Updates a bucket. Changes to the bucket will be readable immediately after writing, but configuration changes may take time to propagate. This method supports patch semantics. */
             patch(request: {            
@@ -779,7 +779,7 @@ declare namespace gapi.client {
                 projection?: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): gapi.client.Request<Bucket>;            
+            }): Request<Bucket>;            
             
             /** Updates an IAM policy for the specified bucket. */
             setIamPolicy(request: {            
@@ -801,7 +801,7 @@ declare namespace gapi.client {
                 bucket: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): gapi.client.Request<Policy>;            
+            }): Request<Policy>;            
             
             /** Tests a set of permissions on the given bucket to see which, if any, are held by the caller. */
             testIamPermissions(request: {            
@@ -825,7 +825,7 @@ declare namespace gapi.client {
                 permissions: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): gapi.client.Request<TestIamPermissionsResponse>;            
+            }): Request<TestIamPermissionsResponse>;            
             
             /** Updates a bucket. Changes to the bucket will be readable immediately after writing, but configuration changes may take time to propagate. */
             update(request: {            
@@ -857,7 +857,7 @@ declare namespace gapi.client {
                 projection?: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): gapi.client.Request<Bucket>;            
+            }): Request<Bucket>;            
             
         }
         
@@ -878,7 +878,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
         }
         
@@ -905,7 +905,7 @@ declare namespace gapi.client {
                 entity: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Returns the default object ACL entry for the specified entity on the specified bucket. */
             get(request: {            
@@ -929,7 +929,7 @@ declare namespace gapi.client {
                 entity: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): gapi.client.Request<ObjectAccessControl>;            
+            }): Request<ObjectAccessControl>;            
             
             /** Creates a new default object ACL entry on the specified bucket. */
             insert(request: {            
@@ -951,7 +951,7 @@ declare namespace gapi.client {
                 bucket: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): gapi.client.Request<ObjectAccessControl>;            
+            }): Request<ObjectAccessControl>;            
             
             /** Retrieves default object ACL entries on the specified bucket. */
             list(request: {            
@@ -977,7 +977,7 @@ declare namespace gapi.client {
                 ifMetagenerationNotMatch?: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): gapi.client.Request<ObjectAccessControls>;            
+            }): Request<ObjectAccessControls>;            
             
             /** Updates a default object ACL entry on the specified bucket. This method supports patch semantics. */
             patch(request: {            
@@ -1001,7 +1001,7 @@ declare namespace gapi.client {
                 entity: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): gapi.client.Request<ObjectAccessControl>;            
+            }): Request<ObjectAccessControl>;            
             
             /** Updates a default object ACL entry on the specified bucket. */
             update(request: {            
@@ -1025,7 +1025,7 @@ declare namespace gapi.client {
                 entity: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): gapi.client.Request<ObjectAccessControl>;            
+            }): Request<ObjectAccessControl>;            
             
         }
         
@@ -1052,7 +1052,7 @@ declare namespace gapi.client {
                 notification: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** View a notification configuration. */
             get(request: {            
@@ -1076,7 +1076,7 @@ declare namespace gapi.client {
                 notification: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): gapi.client.Request<Notification>;            
+            }): Request<Notification>;            
             
             /** Creates a notification subscription for a given bucket. */
             insert(request: {            
@@ -1098,7 +1098,7 @@ declare namespace gapi.client {
                 bucket: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): gapi.client.Request<Notification>;            
+            }): Request<Notification>;            
             
             /** Retrieves a list of notification subscriptions for a given bucket. */
             list(request: {            
@@ -1120,7 +1120,7 @@ declare namespace gapi.client {
                 bucket: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): gapi.client.Request<Notifications>;            
+            }): Request<Notifications>;            
             
         }
         
@@ -1151,7 +1151,7 @@ declare namespace gapi.client {
                 object: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Returns the ACL entry for the specified entity on the specified object. */
             get(request: {            
@@ -1179,7 +1179,7 @@ declare namespace gapi.client {
                 object: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): gapi.client.Request<ObjectAccessControl>;            
+            }): Request<ObjectAccessControl>;            
             
             /** Creates a new ACL entry on the specified object. */
             insert(request: {            
@@ -1205,7 +1205,7 @@ declare namespace gapi.client {
                 object: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): gapi.client.Request<ObjectAccessControl>;            
+            }): Request<ObjectAccessControl>;            
             
             /** Retrieves ACL entries on the specified object. */
             list(request: {            
@@ -1231,7 +1231,7 @@ declare namespace gapi.client {
                 object: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): gapi.client.Request<ObjectAccessControls>;            
+            }): Request<ObjectAccessControls>;            
             
             /** Updates an ACL entry on the specified object. This method supports patch semantics. */
             patch(request: {            
@@ -1259,7 +1259,7 @@ declare namespace gapi.client {
                 object: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): gapi.client.Request<ObjectAccessControl>;            
+            }): Request<ObjectAccessControl>;            
             
             /** Updates an ACL entry on the specified object. */
             update(request: {            
@@ -1287,7 +1287,7 @@ declare namespace gapi.client {
                 object: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): gapi.client.Request<ObjectAccessControl>;            
+            }): Request<ObjectAccessControl>;            
             
         }
         
@@ -1322,7 +1322,7 @@ declare namespace gapi.client {
                 kmsKeyName?: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): gapi.client.Request<Object>;            
+            }): Request<Object>;            
             
             /** Copies a source object to a destination object. Optionally overrides metadata. */
             copy(request: {            
@@ -1372,7 +1372,7 @@ declare namespace gapi.client {
                 sourceObject: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): gapi.client.Request<Object>;            
+            }): Request<Object>;            
             
             /** Deletes an object and its metadata. Deletions are permanent if versioning is not enabled for the bucket, or if the generation parameter is used. */
             delete(request: {            
@@ -1406,7 +1406,7 @@ declare namespace gapi.client {
                 object: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Retrieves an object or its metadata. */
             get(request: {            
@@ -1442,7 +1442,7 @@ declare namespace gapi.client {
                 projection?: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): gapi.client.Request<Object>;            
+            }): Request<Object>;            
             
             /** Returns an IAM policy for the specified object. */
             getIamPolicy(request: {            
@@ -1468,7 +1468,7 @@ declare namespace gapi.client {
                 object: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): gapi.client.Request<Policy>;            
+            }): Request<Policy>;            
             
             /** Stores a new object and metadata. */
             insert(request: {            
@@ -1508,7 +1508,7 @@ declare namespace gapi.client {
                 projection?: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): gapi.client.Request<Object>;            
+            }): Request<Object>;            
             
             /** Retrieves a list of objects matching the criteria. */
             list(request: {            
@@ -1542,7 +1542,7 @@ declare namespace gapi.client {
                 userProject?: string;
                 /** If true, lists all versions of an object as distinct results. The default is false. For more information, see Object Versioning. */
                 versions?: boolean;
-            }): gapi.client.Request<Objects>;            
+            }): Request<Objects>;            
             
             /** Updates an object's metadata. This method supports patch semantics. */
             patch(request: {            
@@ -1580,7 +1580,7 @@ declare namespace gapi.client {
                 projection?: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): gapi.client.Request<Object>;            
+            }): Request<Object>;            
             
             /** Rewrites a source object to a destination object. Optionally overrides metadata. */
             rewrite(request: {            
@@ -1636,7 +1636,7 @@ declare namespace gapi.client {
                 sourceObject: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): gapi.client.Request<RewriteResponse>;            
+            }): Request<RewriteResponse>;            
             
             /** Updates an IAM policy for the specified object. */
             setIamPolicy(request: {            
@@ -1662,7 +1662,7 @@ declare namespace gapi.client {
                 object: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): gapi.client.Request<Policy>;            
+            }): Request<Policy>;            
             
             /** Tests a set of permissions on the given object to see which, if any, are held by the caller. */
             testIamPermissions(request: {            
@@ -1690,7 +1690,7 @@ declare namespace gapi.client {
                 permissions: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): gapi.client.Request<TestIamPermissionsResponse>;            
+            }): Request<TestIamPermissionsResponse>;            
             
             /** Updates an object's metadata. */
             update(request: {            
@@ -1728,7 +1728,7 @@ declare namespace gapi.client {
                 projection?: string;
                 /** The project to be billed for this request, for Requester Pays buckets. */
                 userProject?: string;
-            }): gapi.client.Request<Object>;            
+            }): Request<Object>;            
             
             /** Watch for changes on all objects in a bucket. */
             watchAll(request: {            
@@ -1762,7 +1762,7 @@ declare namespace gapi.client {
                 userProject?: string;
                 /** If true, lists all versions of an object as distinct results. The default is false. For more information, see Object Versioning. */
                 versions?: boolean;
-            }): gapi.client.Request<Channel>;            
+            }): Request<Channel>;            
             
         }
         
@@ -1785,7 +1785,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Project ID */
                 projectId: string;
-            }): gapi.client.Request<ServiceAccount>;            
+            }): Request<ServiceAccount>;            
             
         }
         

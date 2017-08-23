@@ -641,7 +641,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<About>;            
+            }): Request<About>;            
             
         }
         
@@ -666,7 +666,7 @@ declare namespace gapi.client {
                 supportsTeamDrives?: boolean;
                 /** The ID of the Team Drive for which the starting pageToken for listing future changes from that Team Drive will be returned. */
                 teamDriveId?: string;
-            }): gapi.client.Request<StartPageToken>;            
+            }): Request<StartPageToken>;            
             
             /** Lists the changes for a user or Team Drive. */
             list(request: {            
@@ -702,7 +702,7 @@ declare namespace gapi.client {
                 supportsTeamDrives?: boolean;
                 /** The Team Drive from which changes will be returned. If specified the change IDs will be reflective of the Team Drive; use the combined Team Drive ID and change ID as an identifier. */
                 teamDriveId?: string;
-            }): gapi.client.Request<ChangeList>;            
+            }): Request<ChangeList>;            
             
             /** Subscribes to changes for a user. */
             watch(request: {            
@@ -738,7 +738,7 @@ declare namespace gapi.client {
                 supportsTeamDrives?: boolean;
                 /** The Team Drive from which changes will be returned. If specified the change IDs will be reflective of the Team Drive; use the combined Team Drive ID and change ID as an identifier. */
                 teamDriveId?: string;
-            }): gapi.client.Request<Channel>;            
+            }): Request<Channel>;            
             
         }
         
@@ -759,7 +759,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
         }
         
@@ -782,7 +782,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The ID of the file. */
                 fileId: string;
-            }): gapi.client.Request<Comment>;            
+            }): Request<Comment>;            
             
             /** Deletes a comment. */
             delete(request: {            
@@ -804,7 +804,7 @@ declare namespace gapi.client {
                 commentId: string;
                 /** The ID of the file. */
                 fileId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Gets a comment by ID. */
             get(request: {            
@@ -828,7 +828,7 @@ declare namespace gapi.client {
                 fileId: string;
                 /** Whether to return deleted comments. Deleted comments will not include their original content. */
                 includeDeleted?: boolean;
-            }): gapi.client.Request<Comment>;            
+            }): Request<Comment>;            
             
             /** Lists a file's comments. */
             list(request: {            
@@ -856,7 +856,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** The minimum value of 'modifiedTime' for the result comments (RFC 3339 date-time). */
                 startModifiedTime?: string;
-            }): gapi.client.Request<CommentList>;            
+            }): Request<CommentList>;            
             
             /** Updates a comment with patch semantics. */
             update(request: {            
@@ -878,7 +878,7 @@ declare namespace gapi.client {
                 commentId: string;
                 /** The ID of the file. */
                 fileId: string;
-            }): gapi.client.Request<Comment>;            
+            }): Request<Comment>;            
             
         }
         
@@ -909,7 +909,7 @@ declare namespace gapi.client {
                 ocrLanguage?: string;
                 /** Whether the requesting application supports Team Drives. */
                 supportsTeamDrives?: boolean;
-            }): gapi.client.Request<File>;            
+            }): Request<File>;            
             
             /** Creates a new file. */
             create(request: {            
@@ -937,7 +937,7 @@ declare namespace gapi.client {
                 supportsTeamDrives?: boolean;
                 /** Whether to use the uploaded content as indexable text. */
                 useContentAsIndexableText?: boolean;
-            }): gapi.client.Request<File>;            
+            }): Request<File>;            
             
             /** Permanently deletes a file owned by the user without moving it to the trash. If the file belongs to a Team Drive the user must be an organizer on the parent. If the target is a folder, all descendants owned by the user are also deleted. */
             delete(request: {            
@@ -959,7 +959,7 @@ declare namespace gapi.client {
                 fileId: string;
                 /** Whether the requesting application supports Team Drives. */
                 supportsTeamDrives?: boolean;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Permanently deletes all of the user's trashed files. */
             emptyTrash(request: {            
@@ -977,7 +977,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Exports a Google Doc to the requested MIME type and returns the exported content. Please note that the exported content is limited to 10MB. */
             export(request: {            
@@ -999,7 +999,7 @@ declare namespace gapi.client {
                 fileId: string;
                 /** The MIME type of the format requested for this export. */
                 mimeType: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Generates a set of file IDs which can be provided in create requests. */
             generateIds(request: {            
@@ -1021,7 +1021,7 @@ declare namespace gapi.client {
                 count?: number;
                 /** The space in which the IDs can be used to create new files. Supported values are 'drive' and 'appDataFolder'. */
                 space?: string;
-            }): gapi.client.Request<GeneratedIds>;            
+            }): Request<GeneratedIds>;            
             
             /** Gets a file's metadata or content by ID. */
             get(request: {            
@@ -1045,7 +1045,7 @@ declare namespace gapi.client {
                 fileId: string;
                 /** Whether the requesting application supports Team Drives. */
                 supportsTeamDrives?: boolean;
-            }): gapi.client.Request<File>;            
+            }): Request<File>;            
             
             /** Lists or searches files. */
             list(request: {            
@@ -1083,7 +1083,7 @@ declare namespace gapi.client {
                 supportsTeamDrives?: boolean;
                 /** ID of Team Drive to search. */
                 teamDriveId?: string;
-            }): gapi.client.Request<FileList>;            
+            }): Request<FileList>;            
             
             /** Updates a file's metadata and/or content with patch semantics. */
             update(request: {            
@@ -1115,7 +1115,7 @@ declare namespace gapi.client {
                 supportsTeamDrives?: boolean;
                 /** Whether to use the uploaded content as indexable text. */
                 useContentAsIndexableText?: boolean;
-            }): gapi.client.Request<File>;            
+            }): Request<File>;            
             
             /** Subscribes to changes to a file */
             watch(request: {            
@@ -1139,7 +1139,7 @@ declare namespace gapi.client {
                 fileId: string;
                 /** Whether the requesting application supports Team Drives. */
                 supportsTeamDrives?: boolean;
-            }): gapi.client.Request<Channel>;            
+            }): Request<Channel>;            
             
         }
         
@@ -1170,7 +1170,7 @@ declare namespace gapi.client {
                 supportsTeamDrives?: boolean;
                 /** Whether to transfer ownership to the specified user and downgrade the current owner to a writer. This parameter is required as an acknowledgement of the side effect. */
                 transferOwnership?: boolean;
-            }): gapi.client.Request<Permission>;            
+            }): Request<Permission>;            
             
             /** Deletes a permission. */
             delete(request: {            
@@ -1194,7 +1194,7 @@ declare namespace gapi.client {
                 permissionId: string;
                 /** Whether the requesting application supports Team Drives. */
                 supportsTeamDrives?: boolean;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Gets a permission by ID. */
             get(request: {            
@@ -1218,7 +1218,7 @@ declare namespace gapi.client {
                 permissionId: string;
                 /** Whether the requesting application supports Team Drives. */
                 supportsTeamDrives?: boolean;
-            }): gapi.client.Request<Permission>;            
+            }): Request<Permission>;            
             
             /** Lists a file's or Team Drive's permissions. */
             list(request: {            
@@ -1244,7 +1244,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Whether the requesting application supports Team Drives. */
                 supportsTeamDrives?: boolean;
-            }): gapi.client.Request<PermissionList>;            
+            }): Request<PermissionList>;            
             
             /** Updates a permission with patch semantics. */
             update(request: {            
@@ -1272,7 +1272,7 @@ declare namespace gapi.client {
                 supportsTeamDrives?: boolean;
                 /** Whether to transfer ownership to the specified user and downgrade the current owner to a writer. This parameter is required as an acknowledgement of the side effect. */
                 transferOwnership?: boolean;
-            }): gapi.client.Request<Permission>;            
+            }): Request<Permission>;            
             
         }
         
@@ -1297,7 +1297,7 @@ declare namespace gapi.client {
                 commentId: string;
                 /** The ID of the file. */
                 fileId: string;
-            }): gapi.client.Request<Reply>;            
+            }): Request<Reply>;            
             
             /** Deletes a reply. */
             delete(request: {            
@@ -1321,7 +1321,7 @@ declare namespace gapi.client {
                 fileId: string;
                 /** The ID of the reply. */
                 replyId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Gets a reply by ID. */
             get(request: {            
@@ -1347,7 +1347,7 @@ declare namespace gapi.client {
                 includeDeleted?: boolean;
                 /** The ID of the reply. */
                 replyId: string;
-            }): gapi.client.Request<Reply>;            
+            }): Request<Reply>;            
             
             /** Lists a comment's replies. */
             list(request: {            
@@ -1375,7 +1375,7 @@ declare namespace gapi.client {
                 pageSize?: number;
                 /** The token for continuing a previous list request on the next page. This should be set to the value of 'nextPageToken' from the previous response. */
                 pageToken?: string;
-            }): gapi.client.Request<ReplyList>;            
+            }): Request<ReplyList>;            
             
             /** Updates a reply with patch semantics. */
             update(request: {            
@@ -1399,7 +1399,7 @@ declare namespace gapi.client {
                 fileId: string;
                 /** The ID of the reply. */
                 replyId: string;
-            }): gapi.client.Request<Reply>;            
+            }): Request<Reply>;            
             
         }
         
@@ -1424,7 +1424,7 @@ declare namespace gapi.client {
                 fileId: string;
                 /** The ID of the revision. */
                 revisionId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Gets a revision's metadata or content by ID. */
             get(request: {            
@@ -1448,7 +1448,7 @@ declare namespace gapi.client {
                 fileId: string;
                 /** The ID of the revision. */
                 revisionId: string;
-            }): gapi.client.Request<Revision>;            
+            }): Request<Revision>;            
             
             /** Lists a file's revisions. */
             list(request: {            
@@ -1472,7 +1472,7 @@ declare namespace gapi.client {
                 pageSize?: number;
                 /** The token for continuing a previous list request on the next page. This should be set to the value of 'nextPageToken' from the previous response. */
                 pageToken?: string;
-            }): gapi.client.Request<RevisionList>;            
+            }): Request<RevisionList>;            
             
             /** Updates a revision with patch semantics. */
             update(request: {            
@@ -1494,7 +1494,7 @@ declare namespace gapi.client {
                 fileId: string;
                 /** The ID of the revision. */
                 revisionId: string;
-            }): gapi.client.Request<Revision>;            
+            }): Request<Revision>;            
             
         }
         
@@ -1517,7 +1517,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** An ID, such as a random UUID, which uniquely identifies this user's request for idempotent creation of a Team Drive. A repeated request by the same user and with the same request ID will avoid creating duplicates by attempting to create the same Team Drive. If the Team Drive already exists a 409 error will be returned. */
                 requestId: string;
-            }): gapi.client.Request<TeamDrive>;            
+            }): Request<TeamDrive>;            
             
             /** Permanently deletes a Team Drive for which the user is an organizer. The Team Drive cannot contain any untrashed items. */
             delete(request: {            
@@ -1537,7 +1537,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The ID of the Team Drive */
                 teamDriveId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Gets a Team Drive's metadata by ID. */
             get(request: {            
@@ -1557,7 +1557,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The ID of the Team Drive */
                 teamDriveId: string;
-            }): gapi.client.Request<TeamDrive>;            
+            }): Request<TeamDrive>;            
             
             /** Lists the user's Team Drives. */
             list(request: {            
@@ -1579,7 +1579,7 @@ declare namespace gapi.client {
                 pageSize?: number;
                 /** Page token for Team Drives. */
                 pageToken?: string;
-            }): gapi.client.Request<TeamDriveList>;            
+            }): Request<TeamDriveList>;            
             
             /** Updates a Team Drive's metadata */
             update(request: {            
@@ -1599,7 +1599,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The ID of the Team Drive */
                 teamDriveId: string;
-            }): gapi.client.Request<TeamDrive>;            
+            }): Request<TeamDrive>;            
             
         }
     }

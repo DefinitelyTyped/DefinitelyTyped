@@ -705,7 +705,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** GTM Container's API relative path. Example: accounts/{account_id}/containers/{container_id} */
                 parent: string;
-            }): gapi.client.Request<Environment>;            
+            }): Request<Environment>;            
             
             /** Deletes a GTM Environment. */
             delete(request: {            
@@ -725,7 +725,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** GTM Environment's API relative path. Example: accounts/{account_id}/containers/{container_id}/environments/{environment_id} */
                 path: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Gets a GTM Environment. */
             get(request: {            
@@ -745,7 +745,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** GTM Environment's API relative path. Example: accounts/{account_id}/containers/{container_id}/environments/{environment_id} */
                 path: string;
-            }): gapi.client.Request<Environment>;            
+            }): Request<Environment>;            
             
             /** Lists all GTM Environments of a GTM Container. */
             list(request: {            
@@ -767,7 +767,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** GTM Container's API relative path. Example: accounts/{account_id}/containers/{container_id} */
                 parent: string;
-            }): gapi.client.Request<ListEnvironmentsResponse>;            
+            }): Request<ListEnvironmentsResponse>;            
             
             /** Updates a GTM Environment. This method supports patch semantics. */
             patch(request: {            
@@ -789,7 +789,7 @@ declare namespace gapi.client {
                 fingerprint?: string;
                 /** GTM Environment's API relative path. Example: accounts/{account_id}/containers/{container_id}/environments/{environment_id} */
                 path: string;
-            }): gapi.client.Request<Environment>;            
+            }): Request<Environment>;            
             
             /** Re-generates the authorization code for a GTM Environment. */
             reauthorize(request: {            
@@ -809,7 +809,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** GTM Environment's API relative path. Example: accounts/{account_id}/containers/{container_id}/environments/{environment_id} */
                 path: string;
-            }): gapi.client.Request<Environment>;            
+            }): Request<Environment>;            
             
             /** Updates a GTM Environment. */
             update(request: {            
@@ -831,7 +831,7 @@ declare namespace gapi.client {
                 fingerprint?: string;
                 /** GTM Environment's API relative path. Example: accounts/{account_id}/containers/{container_id}/environments/{environment_id} */
                 path: string;
-            }): gapi.client.Request<Environment>;            
+            }): Request<Environment>;            
             
         }
         
@@ -854,7 +854,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** GTM Container's API relative path. Example: accounts/{account_id}/containers/{container_id} */
                 parent: string;
-            }): gapi.client.Request<ContainerVersionHeader>;            
+            }): Request<ContainerVersionHeader>;            
             
             /** Lists all Container Versions of a GTM Container. */
             list(request: {            
@@ -878,7 +878,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** GTM Container's API relative path. Example: accounts/{account_id}/containers/{container_id} */
                 parent: string;
-            }): gapi.client.Request<ListContainerVersionsResponse>;            
+            }): Request<ListContainerVersionsResponse>;            
             
         }
         
@@ -901,7 +901,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** GTM ContainerVersion's API relative path. Example: accounts/{account_id}/containers/{container_id}/versions/{version_id} */
                 path: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Gets a Container Version. */
             get(request: {            
@@ -923,7 +923,7 @@ declare namespace gapi.client {
                 containerVersionId?: string;
                 /** GTM ContainerVersion's API relative path. Example: accounts/{account_id}/containers/{container_id}/versions/{version_id} */
                 path: string;
-            }): gapi.client.Request<ContainerVersion>;            
+            }): Request<ContainerVersion>;            
             
             /** Gets the live (i.e. published) container version */
             live(request: {            
@@ -943,7 +943,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** GTM Container's API relative path. Example: accounts/{account_id}/containers/{container_id} */
                 parent: string;
-            }): gapi.client.Request<ContainerVersion>;            
+            }): Request<ContainerVersion>;            
             
             /** Publishes a Container Version. */
             publish(request: {            
@@ -965,7 +965,7 @@ declare namespace gapi.client {
                 fingerprint?: string;
                 /** GTM ContainerVersion's API relative path. Example: accounts/{account_id}/containers/{container_id}/versions/{version_id} */
                 path: string;
-            }): gapi.client.Request<PublishContainerVersionResponse>;            
+            }): Request<PublishContainerVersionResponse>;            
             
             /** Sets the latest version used for synchronization of workspaces when detecting conflicts and errors. */
             set_latest(request: {            
@@ -985,7 +985,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** GTM ContainerVersion's API relative path. Example: accounts/{account_id}/containers/{container_id}/versions/{version_id} */
                 path: string;
-            }): gapi.client.Request<ContainerVersion>;            
+            }): Request<ContainerVersion>;            
             
             /** Undeletes a Container Version. */
             undelete(request: {            
@@ -1005,7 +1005,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** GTM ContainerVersion's API relative path. Example: accounts/{account_id}/containers/{container_id}/versions/{version_id} */
                 path: string;
-            }): gapi.client.Request<ContainerVersion>;            
+            }): Request<ContainerVersion>;            
             
             /** Updates a Container Version. */
             update(request: {            
@@ -1027,7 +1027,7 @@ declare namespace gapi.client {
                 fingerprint?: string;
                 /** GTM ContainerVersion's API relative path. Example: accounts/{account_id}/containers/{container_id}/versions/{version_id} */
                 path: string;
-            }): gapi.client.Request<ContainerVersion>;            
+            }): Request<ContainerVersion>;            
             
         }
         
@@ -1052,7 +1052,7 @@ declare namespace gapi.client {
                 parent: string;
                 /** The types of built-in variables to enable. */
                 type?: string;
-            }): gapi.client.Request<CreateBuiltInVariableResponse>;            
+            }): Request<CreateBuiltInVariableResponse>;            
             
             /** Deletes one or more GTM Built-In Variables. */
             delete(request: {            
@@ -1074,7 +1074,7 @@ declare namespace gapi.client {
                 path: string;
                 /** The types of built-in variables to delete. */
                 type?: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Lists all the enabled Built-In Variables of a GTM Container. */
             list(request: {            
@@ -1096,7 +1096,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** GTM Workspace's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id} */
                 parent: string;
-            }): gapi.client.Request<ListEnabledBuiltInVariablesResponse>;            
+            }): Request<ListEnabledBuiltInVariablesResponse>;            
             
             /** Reverts changes to a GTM Built-In Variables in a GTM Workspace. */
             revert(request: {            
@@ -1118,7 +1118,7 @@ declare namespace gapi.client {
                 path: string;
                 /** The type of built-in variable to revert. */
                 type?: string;
-            }): gapi.client.Request<RevertBuiltInVariableResponse>;            
+            }): Request<RevertBuiltInVariableResponse>;            
             
         }
         
@@ -1141,7 +1141,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** GTM Workspace's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id} */
                 parent: string;
-            }): gapi.client.Request<Folder>;            
+            }): Request<Folder>;            
             
             /** Deletes a GTM Folder. */
             delete(request: {            
@@ -1161,7 +1161,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** GTM Folder's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id}/folders/{folder_id} */
                 path: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** List all entities in a GTM Folder. */
             entities(request: {            
@@ -1183,7 +1183,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** GTM Folder's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id}/folders/{folder_id} */
                 path: string;
-            }): gapi.client.Request<FolderEntities>;            
+            }): Request<FolderEntities>;            
             
             /** Gets a GTM Folder. */
             get(request: {            
@@ -1203,7 +1203,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** GTM Folder's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id}/folders/{folder_id} */
                 path: string;
-            }): gapi.client.Request<Folder>;            
+            }): Request<Folder>;            
             
             /** Lists all GTM Folders of a Container. */
             list(request: {            
@@ -1225,7 +1225,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** GTM Workspace's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id} */
                 parent: string;
-            }): gapi.client.Request<ListFoldersResponse>;            
+            }): Request<ListFoldersResponse>;            
             
             /** Moves entities to a GTM Folder. */
             move_entities_to_folder(request: {            
@@ -1251,7 +1251,7 @@ declare namespace gapi.client {
                 triggerId?: string;
                 /** The variables to be moved to the folder. */
                 variableId?: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Reverts changes to a GTM Folder in a GTM Workspace. */
             revert(request: {            
@@ -1273,7 +1273,7 @@ declare namespace gapi.client {
                 fingerprint?: string;
                 /** GTM Folder's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id}/folders/{folder_id} */
                 path: string;
-            }): gapi.client.Request<RevertFolderResponse>;            
+            }): Request<RevertFolderResponse>;            
             
             /** Updates a GTM Folder. */
             update(request: {            
@@ -1295,7 +1295,7 @@ declare namespace gapi.client {
                 fingerprint?: string;
                 /** GTM Folder's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id}/folders/{folder_id} */
                 path: string;
-            }): gapi.client.Request<Folder>;            
+            }): Request<Folder>;            
             
         }
         
@@ -1318,7 +1318,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** GTM Workspace's API relative path. Example: accounts/{aid}/containers/{cid}/workspace/{wid} */
                 parent: string;
-            }): gapi.client.Request<WorkspaceProposal>;            
+            }): Request<WorkspaceProposal>;            
             
             /** Deletes a GTM Workspace Proposal. */
             delete(request: {            
@@ -1338,7 +1338,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** GTM workspace proposal's relative path: Example: accounts/{aid}/containers/{cid}/workspace/{wid}/workspace_proposal */
                 path: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
         }
         
@@ -1361,7 +1361,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** GTM Workspace's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id} */
                 parent: string;
-            }): gapi.client.Request<Tag>;            
+            }): Request<Tag>;            
             
             /** Deletes a GTM Tag. */
             delete(request: {            
@@ -1381,7 +1381,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** GTM Tag's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id}/tags/{tag_id} */
                 path: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Gets a GTM Tag. */
             get(request: {            
@@ -1401,7 +1401,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** GTM Tag's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id}/tags/{tag_id} */
                 path: string;
-            }): gapi.client.Request<Tag>;            
+            }): Request<Tag>;            
             
             /** Lists all GTM Tags of a Container. */
             list(request: {            
@@ -1423,7 +1423,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** GTM Workspace's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id} */
                 parent: string;
-            }): gapi.client.Request<ListTagsResponse>;            
+            }): Request<ListTagsResponse>;            
             
             /** Reverts changes to a GTM Tag in a GTM Workspace. */
             revert(request: {            
@@ -1445,7 +1445,7 @@ declare namespace gapi.client {
                 fingerprint?: string;
                 /** GTM Tag's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id}/tags/{tag_id} */
                 path: string;
-            }): gapi.client.Request<RevertTagResponse>;            
+            }): Request<RevertTagResponse>;            
             
             /** Updates a GTM Tag. */
             update(request: {            
@@ -1467,7 +1467,7 @@ declare namespace gapi.client {
                 fingerprint?: string;
                 /** GTM Tag's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id}/tags/{tag_id} */
                 path: string;
-            }): gapi.client.Request<Tag>;            
+            }): Request<Tag>;            
             
         }
         
@@ -1490,7 +1490,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** GTM Workspaces's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id} */
                 parent: string;
-            }): gapi.client.Request<Trigger>;            
+            }): Request<Trigger>;            
             
             /** Deletes a GTM Trigger. */
             delete(request: {            
@@ -1510,7 +1510,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** GTM Trigger's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id}/triggers/{trigger_id} */
                 path: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Gets a GTM Trigger. */
             get(request: {            
@@ -1530,7 +1530,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** GTM Trigger's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id}/triggers/{trigger_id} */
                 path: string;
-            }): gapi.client.Request<Trigger>;            
+            }): Request<Trigger>;            
             
             /** Lists all GTM Triggers of a Container. */
             list(request: {            
@@ -1552,7 +1552,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** GTM Workspaces's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id} */
                 parent: string;
-            }): gapi.client.Request<ListTriggersResponse>;            
+            }): Request<ListTriggersResponse>;            
             
             /** Reverts changes to a GTM Trigger in a GTM Workspace. */
             revert(request: {            
@@ -1574,7 +1574,7 @@ declare namespace gapi.client {
                 fingerprint?: string;
                 /** GTM Trigger's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id}/triggers/{trigger_id} */
                 path: string;
-            }): gapi.client.Request<RevertTriggerResponse>;            
+            }): Request<RevertTriggerResponse>;            
             
             /** Updates a GTM Trigger. */
             update(request: {            
@@ -1596,7 +1596,7 @@ declare namespace gapi.client {
                 fingerprint?: string;
                 /** GTM Trigger's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id}/triggers/{trigger_id} */
                 path: string;
-            }): gapi.client.Request<Trigger>;            
+            }): Request<Trigger>;            
             
         }
         
@@ -1619,7 +1619,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** GTM Workspace's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id} */
                 parent: string;
-            }): gapi.client.Request<Variable>;            
+            }): Request<Variable>;            
             
             /** Deletes a GTM Variable. */
             delete(request: {            
@@ -1639,7 +1639,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** GTM Variable's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id}/variables/{variable_id} */
                 path: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Gets a GTM Variable. */
             get(request: {            
@@ -1659,7 +1659,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** GTM Variable's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id}/variables/{variable_id} */
                 path: string;
-            }): gapi.client.Request<Variable>;            
+            }): Request<Variable>;            
             
             /** Lists all GTM Variables of a Container. */
             list(request: {            
@@ -1681,7 +1681,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** GTM Workspace's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id} */
                 parent: string;
-            }): gapi.client.Request<ListVariablesResponse>;            
+            }): Request<ListVariablesResponse>;            
             
             /** Reverts changes to a GTM Variable in a GTM Workspace. */
             revert(request: {            
@@ -1703,7 +1703,7 @@ declare namespace gapi.client {
                 fingerprint?: string;
                 /** GTM Variable's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id}/variables/{variable_id} */
                 path: string;
-            }): gapi.client.Request<RevertVariableResponse>;            
+            }): Request<RevertVariableResponse>;            
             
             /** Updates a GTM Variable. */
             update(request: {            
@@ -1725,7 +1725,7 @@ declare namespace gapi.client {
                 fingerprint?: string;
                 /** GTM Variable's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id}/variables/{variable_id} */
                 path: string;
-            }): gapi.client.Request<Variable>;            
+            }): Request<Variable>;            
             
         }
         
@@ -1748,7 +1748,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** GTM parent Container's API relative path. Example: accounts/{account_id}/containers/{container_id} */
                 parent: string;
-            }): gapi.client.Request<Workspace>;            
+            }): Request<Workspace>;            
             
             /** Creates a Container Version from the entities present in the workspace, deletes the workspace, and sets the base container version to the newly created version. */
             create_version(request: {            
@@ -1768,7 +1768,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** GTM Workspace's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id} */
                 path: string;
-            }): gapi.client.Request<CreateContainerVersionResponse>;            
+            }): Request<CreateContainerVersionResponse>;            
             
             /** Deletes a Workspace. */
             delete(request: {            
@@ -1788,7 +1788,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** GTM Workspace's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id} */
                 path: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Gets a Workspace. */
             get(request: {            
@@ -1808,7 +1808,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** GTM Workspace's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id} */
                 path: string;
-            }): gapi.client.Request<Workspace>;            
+            }): Request<Workspace>;            
             
             /** Gets a GTM Workspace Proposal. */
             getProposal(request: {            
@@ -1828,7 +1828,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** GTM workspace proposal's relative path: Example: accounts/{aid}/containers/{cid}/workspace/{wid}/workspace_proposal */
                 path: string;
-            }): gapi.client.Request<WorkspaceProposal>;            
+            }): Request<WorkspaceProposal>;            
             
             /** Finds conflicting and modified entities in the workspace. */
             getStatus(request: {            
@@ -1848,7 +1848,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** GTM Workspace's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id} */
                 path: string;
-            }): gapi.client.Request<GetWorkspaceStatusResponse>;            
+            }): Request<GetWorkspaceStatusResponse>;            
             
             /** Lists all Workspaces that belong to a GTM Container. */
             list(request: {            
@@ -1870,7 +1870,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** GTM parent Container's API relative path. Example: accounts/{account_id}/containers/{container_id} */
                 parent: string;
-            }): gapi.client.Request<ListWorkspacesResponse>;            
+            }): Request<ListWorkspacesResponse>;            
             
             /** Quick previews a workspace by creating a fake container version from all entities in the provided workspace. */
             quick_preview(request: {            
@@ -1890,7 +1890,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** GTM Workspace's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id} */
                 path: string;
-            }): gapi.client.Request<QuickPreviewResponse>;            
+            }): Request<QuickPreviewResponse>;            
             
             /** Resolves a merge conflict for a workspace entity by updating it to the resolved entity passed in the request. */
             resolve_conflict(request: {            
@@ -1912,7 +1912,7 @@ declare namespace gapi.client {
                 fingerprint?: string;
                 /** GTM Workspace's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id} */
                 path: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Syncs a workspace to the latest container version by updating all unmodified workspace entities and displaying conflicts for modified entities. */
             sync(request: {            
@@ -1932,7 +1932,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** GTM Workspace's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id} */
                 path: string;
-            }): gapi.client.Request<SyncWorkspaceResponse>;            
+            }): Request<SyncWorkspaceResponse>;            
             
             /** Updates a Workspace. */
             update(request: {            
@@ -1954,7 +1954,7 @@ declare namespace gapi.client {
                 fingerprint?: string;
                 /** GTM Workspace's API relative path. Example: accounts/{account_id}/containers/{container_id}/workspaces/{workspace_id} */
                 path: string;
-            }): gapi.client.Request<Workspace>;            
+            }): Request<Workspace>;            
             
             /** Updates a GTM Workspace Proposal. */
             updateProposal(request: {            
@@ -1974,7 +1974,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** GTM workspace proposal's relative path: Example: accounts/{aid}/containers/{cid}/workspace/{wid}/workspace_proposal */
                 path: string;
-            }): gapi.client.Request<WorkspaceProposal>;            
+            }): Request<WorkspaceProposal>;            
             
             built_in_variables: Built_in_variablesResource;
             folders: FoldersResource;
@@ -2003,7 +2003,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** GTM Account's API relative path. Example: accounts/{account_id}. */
                 parent: string;
-            }): gapi.client.Request<Container>;            
+            }): Request<Container>;            
             
             /** Deletes a Container. */
             delete(request: {            
@@ -2023,7 +2023,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** GTM Container's API relative path. Example: accounts/{account_id}/containers/{container_id} */
                 path: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Gets a Container. */
             get(request: {            
@@ -2043,7 +2043,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** GTM Container's API relative path. Example: accounts/{account_id}/containers/{container_id} */
                 path: string;
-            }): gapi.client.Request<Container>;            
+            }): Request<Container>;            
             
             /** Lists all Containers that belongs to a GTM Account. */
             list(request: {            
@@ -2065,7 +2065,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** GTM Accounts's API relative path. Example: accounts/{account_id}. */
                 parent: string;
-            }): gapi.client.Request<ListContainersResponse>;            
+            }): Request<ListContainersResponse>;            
             
             /** Updates a Container. */
             update(request: {            
@@ -2087,7 +2087,7 @@ declare namespace gapi.client {
                 fingerprint?: string;
                 /** GTM Container's API relative path. Example: accounts/{account_id}/containers/{container_id} */
                 path: string;
-            }): gapi.client.Request<Container>;            
+            }): Request<Container>;            
             
             environments: EnvironmentsResource;
             version_headers: Version_headersResource;
@@ -2114,7 +2114,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** GTM Account's API relative path. Example: accounts/{account_id} */
                 parent: string;
-            }): gapi.client.Request<UserPermission>;            
+            }): Request<UserPermission>;            
             
             /** Removes a user from the account, revoking access to it and all of its containers. */
             delete(request: {            
@@ -2134,7 +2134,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** GTM UserPermission's API relative path. Example: accounts/{account_id}/user_permissions/{user_permission_id} */
                 path: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Gets a user's Account & Container access. */
             get(request: {            
@@ -2154,7 +2154,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** GTM UserPermission's API relative path. Example: accounts/{account_id}/user_permissions/{user_permission_id} */
                 path: string;
-            }): gapi.client.Request<UserPermission>;            
+            }): Request<UserPermission>;            
             
             /** List all users that have access to the account along with Account and Container user access granted to each of them. */
             list(request: {            
@@ -2176,7 +2176,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** GTM Accounts's API relative path. Example: accounts/{account_id} */
                 parent: string;
-            }): gapi.client.Request<ListUserPermissionsResponse>;            
+            }): Request<ListUserPermissionsResponse>;            
             
             /** Updates a user's Account & Container access. */
             update(request: {            
@@ -2196,7 +2196,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** GTM UserPermission's API relative path. Example: accounts/{account_id}/user_permissions/{user_permission_id} */
                 path: string;
-            }): gapi.client.Request<UserPermission>;            
+            }): Request<UserPermission>;            
             
         }
         
@@ -2219,7 +2219,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** GTM Accounts's API relative path. Example: accounts/{account_id} */
                 path: string;
-            }): gapi.client.Request<Account>;            
+            }): Request<Account>;            
             
             /** Lists all GTM Accounts that a user has access to. */
             list(request: {            
@@ -2239,7 +2239,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Continuation token for fetching the next page of results. */
                 pageToken?: string;
-            }): gapi.client.Request<ListAccountsResponse>;            
+            }): Request<ListAccountsResponse>;            
             
             /** Updates a GTM Account. */
             update(request: {            
@@ -2261,7 +2261,7 @@ declare namespace gapi.client {
                 fingerprint?: string;
                 /** GTM Accounts's API relative path. Example: accounts/{account_id} */
                 path: string;
-            }): gapi.client.Request<Account>;            
+            }): Request<Account>;            
             
             containers: ContainersResource;
             user_permissions: User_permissionsResource;

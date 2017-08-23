@@ -552,7 +552,7 @@ declare namespace gapi.client {
                 calendarId: string;
                 /** ACL rule identifier. */
                 ruleId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Returns an access control rule. */
             get(request: {            
@@ -574,7 +574,7 @@ declare namespace gapi.client {
                 calendarId: string;
                 /** ACL rule identifier. */
                 ruleId: string;
-            }): gapi.client.Request<AclRule>;            
+            }): Request<AclRule>;            
             
             /** Creates an access control rule. */
             insert(request: {            
@@ -594,7 +594,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Calendar identifier. To retrieve calendar IDs call the calendarList.list method. If you want to access the primary calendar of the currently logged in user, use the "primary" keyword. */
                 calendarId: string;
-            }): gapi.client.Request<AclRule>;            
+            }): Request<AclRule>;            
             
             /** Returns the rules in the access control list for the calendar. */
             list(request: {            
@@ -625,7 +625,7 @@ declare namespace gapi.client {
                 /** Learn more about incremental synchronization. */
                 /** Optional. The default is to return all entries. */
                 syncToken?: string;
-            }): gapi.client.Request<Acl>;            
+            }): Request<Acl>;            
             
             /** Updates an access control rule. This method supports patch semantics. */
             patch(request: {            
@@ -647,7 +647,7 @@ declare namespace gapi.client {
                 calendarId: string;
                 /** ACL rule identifier. */
                 ruleId: string;
-            }): gapi.client.Request<AclRule>;            
+            }): Request<AclRule>;            
             
             /** Updates an access control rule. */
             update(request: {            
@@ -669,7 +669,7 @@ declare namespace gapi.client {
                 calendarId: string;
                 /** ACL rule identifier. */
                 ruleId: string;
-            }): gapi.client.Request<AclRule>;            
+            }): Request<AclRule>;            
             
             /** Watch for changes to ACL resources. */
             watch(request: {            
@@ -700,7 +700,7 @@ declare namespace gapi.client {
                 /** Learn more about incremental synchronization. */
                 /** Optional. The default is to return all entries. */
                 syncToken?: string;
-            }): gapi.client.Request<Channel>;            
+            }): Request<Channel>;            
             
         }
         
@@ -723,7 +723,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Calendar identifier. To retrieve calendar IDs call the calendarList.list method. If you want to access the primary calendar of the currently logged in user, use the "primary" keyword. */
                 calendarId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Returns an entry on the user's calendar list. */
             get(request: {            
@@ -743,7 +743,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Calendar identifier. To retrieve calendar IDs call the calendarList.list method. If you want to access the primary calendar of the currently logged in user, use the "primary" keyword. */
                 calendarId: string;
-            }): gapi.client.Request<CalendarListEntry>;            
+            }): Request<CalendarListEntry>;            
             
             /** Adds an entry to the user's calendar list. */
             insert(request: {            
@@ -763,7 +763,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Whether to use the foregroundColor and backgroundColor fields to write the calendar colors (RGB). If this feature is used, the index-based colorId field will be set to the best matching option automatically. Optional. The default is False. */
                 colorRgbFormat?: boolean;
-            }): gapi.client.Request<CalendarListEntry>;            
+            }): Request<CalendarListEntry>;            
             
             /** Returns entries on the user's calendar list. */
             list(request: {            
@@ -797,7 +797,7 @@ declare namespace gapi.client {
                 /** Learn more about incremental synchronization. */
                 /** Optional. The default is to return all entries. */
                 syncToken?: string;
-            }): gapi.client.Request<CalendarList>;            
+            }): Request<CalendarList>;            
             
             /** Updates an entry on the user's calendar list. This method supports patch semantics. */
             patch(request: {            
@@ -819,7 +819,7 @@ declare namespace gapi.client {
                 calendarId: string;
                 /** Whether to use the foregroundColor and backgroundColor fields to write the calendar colors (RGB). If this feature is used, the index-based colorId field will be set to the best matching option automatically. Optional. The default is False. */
                 colorRgbFormat?: boolean;
-            }): gapi.client.Request<CalendarListEntry>;            
+            }): Request<CalendarListEntry>;            
             
             /** Updates an entry on the user's calendar list. */
             update(request: {            
@@ -841,7 +841,7 @@ declare namespace gapi.client {
                 calendarId: string;
                 /** Whether to use the foregroundColor and backgroundColor fields to write the calendar colors (RGB). If this feature is used, the index-based colorId field will be set to the best matching option automatically. Optional. The default is False. */
                 colorRgbFormat?: boolean;
-            }): gapi.client.Request<CalendarListEntry>;            
+            }): Request<CalendarListEntry>;            
             
             /** Watch for changes to CalendarList resources. */
             watch(request: {            
@@ -875,7 +875,7 @@ declare namespace gapi.client {
                 /** Learn more about incremental synchronization. */
                 /** Optional. The default is to return all entries. */
                 syncToken?: string;
-            }): gapi.client.Request<Channel>;            
+            }): Request<Channel>;            
             
         }
         
@@ -898,7 +898,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Calendar identifier. To retrieve calendar IDs call the calendarList.list method. If you want to access the primary calendar of the currently logged in user, use the "primary" keyword. */
                 calendarId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Deletes a secondary calendar. Use calendars.clear for clearing all events on primary calendars. */
             delete(request: {            
@@ -918,7 +918,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Calendar identifier. To retrieve calendar IDs call the calendarList.list method. If you want to access the primary calendar of the currently logged in user, use the "primary" keyword. */
                 calendarId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Returns metadata for a calendar. */
             get(request: {            
@@ -938,7 +938,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Calendar identifier. To retrieve calendar IDs call the calendarList.list method. If you want to access the primary calendar of the currently logged in user, use the "primary" keyword. */
                 calendarId: string;
-            }): gapi.client.Request<Calendar>;            
+            }): Request<Calendar>;            
             
             /** Creates a secondary calendar. */
             insert(request: {            
@@ -956,7 +956,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<Calendar>;            
+            }): Request<Calendar>;            
             
             /** Updates metadata for a calendar. This method supports patch semantics. */
             patch(request: {            
@@ -976,7 +976,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Calendar identifier. To retrieve calendar IDs call the calendarList.list method. If you want to access the primary calendar of the currently logged in user, use the "primary" keyword. */
                 calendarId: string;
-            }): gapi.client.Request<Calendar>;            
+            }): Request<Calendar>;            
             
             /** Updates metadata for a calendar. */
             update(request: {            
@@ -996,7 +996,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Calendar identifier. To retrieve calendar IDs call the calendarList.list method. If you want to access the primary calendar of the currently logged in user, use the "primary" keyword. */
                 calendarId: string;
-            }): gapi.client.Request<Calendar>;            
+            }): Request<Calendar>;            
             
         }
         
@@ -1017,7 +1017,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
         }
         
@@ -1038,7 +1038,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<Colors>;            
+            }): Request<Colors>;            
             
         }
         
@@ -1065,7 +1065,7 @@ declare namespace gapi.client {
                 eventId: string;
                 /** Whether to send notifications about the deletion of the event. Optional. The default is False. */
                 sendNotifications?: boolean;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Returns an event. */
             get(request: {            
@@ -1093,7 +1093,7 @@ declare namespace gapi.client {
                 maxAttendees?: number;
                 /** Time zone used in the response. Optional. The default is the time zone of the calendar. */
                 timeZone?: string;
-            }): gapi.client.Request<Event>;            
+            }): Request<Event>;            
             
             /** Imports an event. This operation is used to add a private copy of an existing event to a calendar. */
             import(request: {            
@@ -1115,7 +1115,7 @@ declare namespace gapi.client {
                 calendarId: string;
                 /** Whether API client performing operation supports event attachments. Optional. The default is False. */
                 supportsAttachments?: boolean;
-            }): gapi.client.Request<Event>;            
+            }): Request<Event>;            
             
             /** Creates an event. */
             insert(request: {            
@@ -1141,7 +1141,7 @@ declare namespace gapi.client {
                 sendNotifications?: boolean;
                 /** Whether API client performing operation supports event attachments. Optional. The default is False. */
                 supportsAttachments?: boolean;
-            }): gapi.client.Request<Event>;            
+            }): Request<Event>;            
             
             /** Returns instances of the specified recurring event. */
             instances(request: {            
@@ -1181,7 +1181,7 @@ declare namespace gapi.client {
                 timeMin?: string;
                 /** Time zone used in the response. Optional. The default is the time zone of the calendar. */
                 timeZone?: string;
-            }): gapi.client.Request<Events>;            
+            }): Request<Events>;            
             
             /** Returns events on the specified calendar. */
             list(request: {            
@@ -1248,7 +1248,7 @@ declare namespace gapi.client {
                 timeZone?: string;
                 /** Lower bound for an event's last modification time (as a RFC3339 timestamp) to filter by. When specified, entries deleted since this time will always be included regardless of showDeleted. Optional. The default is not to filter by last modification time. */
                 updatedMin?: string;
-            }): gapi.client.Request<Events>;            
+            }): Request<Events>;            
             
             /** Moves an event to another calendar, i.e. changes an event's organizer. */
             move(request: {            
@@ -1274,7 +1274,7 @@ declare namespace gapi.client {
                 eventId: string;
                 /** Whether to send notifications about the change of the event's organizer. Optional. The default is False. */
                 sendNotifications?: boolean;
-            }): gapi.client.Request<Event>;            
+            }): Request<Event>;            
             
             /** Updates an event. This method supports patch semantics. */
             patch(request: {            
@@ -1304,7 +1304,7 @@ declare namespace gapi.client {
                 sendNotifications?: boolean;
                 /** Whether API client performing operation supports event attachments. Optional. The default is False. */
                 supportsAttachments?: boolean;
-            }): gapi.client.Request<Event>;            
+            }): Request<Event>;            
             
             /** Creates an event based on a simple text string. */
             quickAdd(request: {            
@@ -1328,7 +1328,7 @@ declare namespace gapi.client {
                 sendNotifications?: boolean;
                 /** The text describing the event to be created. */
                 text: string;
-            }): gapi.client.Request<Event>;            
+            }): Request<Event>;            
             
             /** Updates an event. */
             update(request: {            
@@ -1358,7 +1358,7 @@ declare namespace gapi.client {
                 sendNotifications?: boolean;
                 /** Whether API client performing operation supports event attachments. Optional. The default is False. */
                 supportsAttachments?: boolean;
-            }): gapi.client.Request<Event>;            
+            }): Request<Event>;            
             
             /** Watch for changes to Events resources. */
             watch(request: {            
@@ -1425,7 +1425,7 @@ declare namespace gapi.client {
                 timeZone?: string;
                 /** Lower bound for an event's last modification time (as a RFC3339 timestamp) to filter by. When specified, entries deleted since this time will always be included regardless of showDeleted. Optional. The default is not to filter by last modification time. */
                 updatedMin?: string;
-            }): gapi.client.Request<Channel>;            
+            }): Request<Channel>;            
             
         }
         
@@ -1446,7 +1446,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<FreeBusyResponse>;            
+            }): Request<FreeBusyResponse>;            
             
         }
         
@@ -1469,7 +1469,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The id of the user setting. */
                 setting: string;
-            }): gapi.client.Request<Setting>;            
+            }): Request<Setting>;            
             
             /** Returns all user settings for the authenticated user. */
             list(request: {            
@@ -1496,7 +1496,7 @@ declare namespace gapi.client {
                 /** Learn more about incremental synchronization. */
                 /** Optional. The default is to return all entries. */
                 syncToken?: string;
-            }): gapi.client.Request<Settings>;            
+            }): Request<Settings>;            
             
             /** Watch for changes to Settings resources. */
             watch(request: {            
@@ -1523,7 +1523,7 @@ declare namespace gapi.client {
                 /** Learn more about incremental synchronization. */
                 /** Optional. The default is to return all entries. */
                 syncToken?: string;
-            }): gapi.client.Request<Channel>;            
+            }): Request<Channel>;            
             
         }
     }

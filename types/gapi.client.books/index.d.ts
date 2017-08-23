@@ -1143,7 +1143,7 @@ declare namespace gapi.client {
                 startIndex?: number;
                 /** ID of user for whom to retrieve bookshelf volumes. */
                 userId: string;
-            }): gapi.client.Request<Volumes>;            
+            }): Request<Volumes>;            
             
         }
         
@@ -1170,7 +1170,7 @@ declare namespace gapi.client {
                 source?: string;
                 /** ID of user for whom to retrieve bookshelves. */
                 userId: string;
-            }): gapi.client.Request<Bookshelf>;            
+            }): Request<Bookshelf>;            
             
             /** Retrieves a list of public bookshelves for the specified user. */
             list(request: {            
@@ -1192,7 +1192,7 @@ declare namespace gapi.client {
                 source?: string;
                 /** ID of user for whom to retrieve bookshelves. */
                 userId: string;
-            }): gapi.client.Request<Bookshelves>;            
+            }): Request<Bookshelves>;            
             
             volumes: VolumesResource;
         }
@@ -1222,7 +1222,7 @@ declare namespace gapi.client {
                 name?: string;
                 /**  */
                 upload_client_token?: string;
-            }): gapi.client.Request<BooksCloudloadingResource>;            
+            }): Request<BooksCloudloadingResource>;            
             
             /** Remove the book and its contents */
             deleteBook(request: {            
@@ -1242,7 +1242,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The id of the book to be removed. */
                 volumeId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /**  */
             updateBook(request: {            
@@ -1260,7 +1260,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<BooksCloudloadingResource>;            
+            }): Request<BooksCloudloadingResource>;            
             
         }
         
@@ -1283,7 +1283,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The device/version ID from which to request the data. */
                 cpksver: string;
-            }): gapi.client.Request<Metadata>;            
+            }): Request<Metadata>;            
             
         }
         
@@ -1324,7 +1324,7 @@ declare namespace gapi.client {
                 volumeId: string;
                 /** The requested pixel width for any images. If width is provided height must also be provided. */
                 w?: number;
-            }): gapi.client.Request<Annotationdata>;            
+            }): Request<Annotationdata>;            
             
             /** Gets the annotation data for a volume and layer. */
             list(request: {            
@@ -1368,7 +1368,7 @@ declare namespace gapi.client {
                 volumeId: string;
                 /** The requested pixel width for any images. If width is provided height must also be provided. */
                 w?: number;
-            }): gapi.client.Request<Annotationsdata>;            
+            }): Request<Annotationsdata>;            
             
         }
         
@@ -1399,7 +1399,7 @@ declare namespace gapi.client {
                 source?: string;
                 /** The volume to retrieve annotations for. */
                 volumeId: string;
-            }): gapi.client.Request<Volumeannotation>;            
+            }): Request<Volumeannotation>;            
             
             /** Gets the volume annotations for a volume and layer. */
             list(request: {            
@@ -1447,7 +1447,7 @@ declare namespace gapi.client {
                 volumeAnnotationsVersion?: string;
                 /** The volume to retrieve annotations for. */
                 volumeId: string;
-            }): gapi.client.Request<Volumeannotations>;            
+            }): Request<Volumeannotations>;            
             
         }
         
@@ -1476,7 +1476,7 @@ declare namespace gapi.client {
                 summaryId: string;
                 /** The volume to retrieve layers for. */
                 volumeId: string;
-            }): gapi.client.Request<Layersummary>;            
+            }): Request<Layersummary>;            
             
             /** List the layer summaries for a volume. */
             list(request: {            
@@ -1504,7 +1504,7 @@ declare namespace gapi.client {
                 source?: string;
                 /** The volume to retrieve layers for. */
                 volumeId: string;
-            }): gapi.client.Request<Layersummaries>;            
+            }): Request<Layersummaries>;            
             
             annotationData: AnnotationDataResource;
             volumeAnnotations: VolumeAnnotationsResource;
@@ -1527,7 +1527,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<Usersettings>;            
+            }): Request<Usersettings>;            
             
             /** Release downloaded content access restriction. */
             releaseDownloadAccess(request: {            
@@ -1553,7 +1553,7 @@ declare namespace gapi.client {
                 source?: string;
                 /** The volume(s) to release restrictions for. */
                 volumeIds: string;
-            }): gapi.client.Request<DownloadAccesses>;            
+            }): Request<DownloadAccesses>;            
             
             /** Request concurrent and download access restrictions. */
             requestAccess(request: {            
@@ -1583,7 +1583,7 @@ declare namespace gapi.client {
                 source: string;
                 /** The volume to request concurrent/download restrictions for. */
                 volumeId: string;
-            }): gapi.client.Request<RequestAccess>;            
+            }): Request<RequestAccess>;            
             
             /** Request downloaded content access for specified volumes on the My eBooks shelf. */
             syncVolumeLicenses(request: {            
@@ -1617,7 +1617,7 @@ declare namespace gapi.client {
                 source: string;
                 /** The volume(s) to request download restrictions for. */
                 volumeIds?: string;
-            }): gapi.client.Request<Volumes>;            
+            }): Request<Volumes>;            
             
             /** Sets the settings for the user. If a sub-object is specified, it will overwrite the existing sub-object stored in the server. Unspecified sub-objects will retain the existing value. */
             updateUserSettings(request: {            
@@ -1635,7 +1635,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<Usersettings>;            
+            }): Request<Usersettings>;            
             
         }
         
@@ -1660,7 +1660,7 @@ declare namespace gapi.client {
                 annotationId: string;
                 /** String to identify the originator of this request. */
                 source?: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Inserts a new annotation. */
             insert(request: {            
@@ -1686,7 +1686,7 @@ declare namespace gapi.client {
                 showOnlySummaryInResponse?: boolean;
                 /** String to identify the originator of this request. */
                 source?: string;
-            }): gapi.client.Request<Annotation>;            
+            }): Request<Annotation>;            
             
             /** Retrieves a list of annotations, possibly filtered. */
             list(request: {            
@@ -1724,7 +1724,7 @@ declare namespace gapi.client {
                 updatedMin?: string;
                 /** The volume to restrict annotations to. */
                 volumeId?: string;
-            }): gapi.client.Request<Annotations>;            
+            }): Request<Annotations>;            
             
             /** Gets the summary of specified layers. */
             summary(request: {            
@@ -1746,7 +1746,7 @@ declare namespace gapi.client {
                 layerIds: string;
                 /** Volume id to get the summary for. */
                 volumeId: string;
-            }): gapi.client.Request<AnnotationsSummary>;            
+            }): Request<AnnotationsSummary>;            
             
             /** Updates an existing annotation. */
             update(request: {            
@@ -1768,7 +1768,7 @@ declare namespace gapi.client {
                 annotationId: string;
                 /** String to identify the originator of this request. */
                 source?: string;
-            }): gapi.client.Request<Annotation>;            
+            }): Request<Annotation>;            
             
         }
         
@@ -1805,7 +1805,7 @@ declare namespace gapi.client {
                 source?: string;
                 /** Index of the first element to return (starts at 0) */
                 startIndex?: number;
-            }): gapi.client.Request<Volumes>;            
+            }): Request<Volumes>;            
             
         }
         
@@ -1834,7 +1834,7 @@ declare namespace gapi.client {
                 source?: string;
                 /** ID of volume to add. */
                 volumeId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Clears all volumes from a bookshelf. */
             clearVolumes(request: {            
@@ -1856,7 +1856,7 @@ declare namespace gapi.client {
                 shelf: string;
                 /** String to identify the originator of this request. */
                 source?: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Retrieves metadata for a specific bookshelf belonging to the authenticated user. */
             get(request: {            
@@ -1878,7 +1878,7 @@ declare namespace gapi.client {
                 shelf: string;
                 /** String to identify the originator of this request. */
                 source?: string;
-            }): gapi.client.Request<Bookshelf>;            
+            }): Request<Bookshelf>;            
             
             /** Retrieves a list of bookshelves belonging to the authenticated user. */
             list(request: {            
@@ -1898,7 +1898,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** String to identify the originator of this request. */
                 source?: string;
-            }): gapi.client.Request<Bookshelves>;            
+            }): Request<Bookshelves>;            
             
             /** Moves a volume within a bookshelf. */
             moveVolume(request: {            
@@ -1924,7 +1924,7 @@ declare namespace gapi.client {
                 volumeId: string;
                 /** Position on shelf to move the item (0 puts the item before the current first item, 1 puts it between the first and the second and so on.) */
                 volumePosition: number;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Removes a volume from a bookshelf. */
             removeVolume(request: {            
@@ -1950,7 +1950,7 @@ declare namespace gapi.client {
                 source?: string;
                 /** ID of volume to remove. */
                 volumeId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             volumes: VolumesResource;
         }
@@ -1978,7 +1978,7 @@ declare namespace gapi.client {
                 source?: string;
                 /** ID of volume for which to retrieve a reading position. */
                 volumeId: string;
-            }): gapi.client.Request<ReadingPosition>;            
+            }): Request<ReadingPosition>;            
             
             /** Sets my reading position information for a volume. */
             setPosition(request: {            
@@ -2010,7 +2010,7 @@ declare namespace gapi.client {
                 timestamp: string;
                 /** ID of volume for which to update the reading position. */
                 volumeId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
         }
         
@@ -2043,7 +2043,7 @@ declare namespace gapi.client {
                 notification_id: string;
                 /** String to identify the originator of this request. */
                 source?: string;
-            }): gapi.client.Request<Notification>;            
+            }): Request<Notification>;            
             
         }
         
@@ -2066,7 +2066,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** ISO-639-1 language and ISO-3166-1 country code. Default is en-US if unset. */
                 locale?: string;
-            }): gapi.client.Request<Category>;            
+            }): Request<Category>;            
             
             /** List available volumes under categories for onboarding experience. */
             listCategoryVolumes(request: {            
@@ -2094,7 +2094,7 @@ declare namespace gapi.client {
                 pageSize?: number;
                 /** The value of the nextToken from the previous page. */
                 pageToken?: string;
-            }): gapi.client.Request<Volume2>;            
+            }): Request<Volume2>;            
             
         }
         
@@ -2121,7 +2121,7 @@ declare namespace gapi.client {
                 maxAllowedMaturityRating?: string;
                 /** String to identify the originator of this request. */
                 source?: string;
-            }): gapi.client.Request<Discoveryclusters>;            
+            }): Request<Discoveryclusters>;            
             
         }
         
@@ -2158,7 +2158,7 @@ declare namespace gapi.client {
                 serial?: string;
                 /** Volume id to exercise the offer */
                 volumeId?: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /**  */
             dismiss(request: {            
@@ -2190,7 +2190,7 @@ declare namespace gapi.client {
                 product?: string;
                 /** device serial */
                 serial?: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Returns a list of promo offers available to the user */
             get(request: {            
@@ -2220,7 +2220,7 @@ declare namespace gapi.client {
                 product?: string;
                 /** device serial */
                 serial?: string;
-            }): gapi.client.Request<Offers>;            
+            }): Request<Offers>;            
             
         }
         
@@ -2247,7 +2247,7 @@ declare namespace gapi.client {
                 page_token?: string;
                 /** String that identifies the series */
                 series_id: string;
-            }): gapi.client.Request<Seriesmembership>;            
+            }): Request<Seriesmembership>;            
             
         }
         
@@ -2270,7 +2270,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** String that identifies the series */
                 series_id: string;
-            }): gapi.client.Request<Series>;            
+            }): Request<Series>;            
             
             membership: MembershipResource;
         }
@@ -2302,7 +2302,7 @@ declare namespace gapi.client {
                 source?: string;
                 /** ID of the source volume. */
                 volumeId: string;
-            }): gapi.client.Request<Volumes>;            
+            }): Request<Volumes>;            
             
         }
         
@@ -2337,7 +2337,7 @@ declare namespace gapi.client {
                 source?: string;
                 /** Index of the first result to return (starts at 0) */
                 startIndex?: number;
-            }): gapi.client.Request<Volumes>;            
+            }): Request<Volumes>;            
             
         }
         
@@ -2364,7 +2364,7 @@ declare namespace gapi.client {
                 maxAllowedMaturityRating?: string;
                 /** String to identify the originator of this request. */
                 source?: string;
-            }): gapi.client.Request<Volumes>;            
+            }): Request<Volumes>;            
             
             /** Rate a recommended book for the current user. */
             rate(request: {            
@@ -2390,7 +2390,7 @@ declare namespace gapi.client {
                 source?: string;
                 /** ID of the source volume. */
                 volumeId: string;
-            }): gapi.client.Request<BooksVolumesRecommendedRateResponse>;            
+            }): Request<BooksVolumesRecommendedRateResponse>;            
             
         }
         
@@ -2423,7 +2423,7 @@ declare namespace gapi.client {
                 startIndex?: number;
                 /** The ids of the volumes to be returned. If not specified all that match the processingState are returned. */
                 volumeId?: string;
-            }): gapi.client.Request<Volumes>;            
+            }): Request<Volumes>;            
             
         }
         
@@ -2458,7 +2458,7 @@ declare namespace gapi.client {
                 user_library_consistent_read?: boolean;
                 /** ID of volume to retrieve. */
                 volumeId: string;
-            }): gapi.client.Request<Volume>;            
+            }): Request<Volume>;            
             
             /** Performs a book search. */
             list(request: {            
@@ -2504,7 +2504,7 @@ declare namespace gapi.client {
                 source?: string;
                 /** Index of the first result to return (starts at 0) */
                 startIndex?: number;
-            }): gapi.client.Request<Volumes>;            
+            }): Request<Volumes>;            
             
             associated: AssociatedResource;
             mybooks: MybooksResource;

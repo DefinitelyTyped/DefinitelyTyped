@@ -293,7 +293,7 @@ declare namespace gapi.client {
                 /** The resource name of the project associated with the billing information */
                 /** that you want to update. For example, `projects/tokyo-rain-123`. */
                 name: string;
-            }): gapi.client.Request<ProjectBillingInfo>;            
+            }): Request<ProjectBillingInfo>;            
             
             /** Gets the billing information for a project. The current authenticated user */
             /** must have [permission to view the */
@@ -329,7 +329,7 @@ declare namespace gapi.client {
                 /** The resource name of the project for which billing information is */
                 /** retrieved. For example, `projects/tokyo-rain-123`. */
                 name: string;
-            }): gapi.client.Request<ProjectBillingInfo>;            
+            }): Request<ProjectBillingInfo>;            
             
         }
         
@@ -374,7 +374,7 @@ declare namespace gapi.client {
                 /** `next_page_token` value returned from a previous `ListProjectBillingInfo` */
                 /** call. If unspecified, the first page of results is returned. */
                 pageToken?: string;
-            }): gapi.client.Request<ListProjectBillingInfoResponse>;            
+            }): Request<ListProjectBillingInfoResponse>;            
             
         }
         
@@ -412,7 +412,7 @@ declare namespace gapi.client {
                 /** The resource name of the billing account to retrieve. For example, */
                 /** `billingAccounts/012345-567890-ABCDEF`. */
                 name: string;
-            }): gapi.client.Request<BillingAccount>;            
+            }): Request<BillingAccount>;            
             
             /** Lists the billing accounts that the current authenticated user */
             /** [owns](https://support.google.com/cloud/answer/4430947). */
@@ -450,7 +450,7 @@ declare namespace gapi.client {
                 /** `next_page_token` value returned from a previous `ListBillingAccounts` */
                 /** call. If unspecified, the first page of results is returned. */
                 pageToken?: string;
-            }): gapi.client.Request<ListBillingAccountsResponse>;            
+            }): Request<ListBillingAccountsResponse>;            
             
             projects: ProjectsResource;
         }
@@ -509,7 +509,7 @@ declare namespace gapi.client {
                 /** `next_page_token` value returned from a previous `ListSkus` */
                 /** call. If unspecified, the first page of results is returned. */
                 pageToken?: string;
-            }): gapi.client.Request<ListSkusResponse>;            
+            }): Request<ListSkusResponse>;            
             
         }
         
@@ -548,7 +548,7 @@ declare namespace gapi.client {
                 /** `next_page_token` value returned from a previous `ListServices` */
                 /** call. If unspecified, the first page of results is returned. */
                 pageToken?: string;
-            }): gapi.client.Request<ListServicesResponse>;            
+            }): Request<ListServicesResponse>;            
             
             skus: SkusResource;
         }

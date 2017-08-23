@@ -20,6 +20,27 @@ declare namespace gapi.client {
     
     namespace ml {
         
+        interface GoogleIamV1__LogConfig {
+            /** Data access options. */
+            dataAccess?: GoogleIamV1_LogConfig_DataAccessOptions;
+            /** Cloud audit options. */
+            cloudAudit?: GoogleIamV1_LogConfig_CloudAuditOptions;
+            /** Counter options. */
+            counter?: GoogleIamV1_LogConfig_CounterOptions;
+        }
+        
+        interface GoogleRpc__Status {
+            /** A developer-facing error message, which should be in English. Any */
+            /** user-facing error message should be localized and sent in the */
+            /** google.rpc.Status.details field, or localized by the client. */
+            message?: string;
+            /** A list of messages that carry the error details.  There is a common set of */
+            /** message types for APIs to use. */
+            details?: Array<Record<string, any>>;            
+            /** The status code, which should be an enum value of google.rpc.Code. */
+            code?: number;
+        }
+        
         interface GoogleCloudMlV1__AutoScaling {
             /** Optional. The minimum number of nodes to allocate for this model. These */
             /** nodes are always up, starting from the time the model is deployed, so the */
@@ -42,19 +63,25 @@ declare namespace gapi.client {
             minNodes?: number;
         }
         
-        interface GoogleRpc__Status {
-            /** A list of messages that carry the error details.  There is a common set of */
-            /** message types for APIs to use. */
-            details?: Array<Record<string, any>>;            
-            /** The status code, which should be an enum value of google.rpc.Code. */
-            code?: number;
-            /** A developer-facing error message, which should be in English. Any */
-            /** user-facing error message should be localized and sent in the */
-            /** google.rpc.Status.details field, or localized by the client. */
-            message?: string;
-        }
-        
         interface GoogleCloudMlV1__TrainingInput {
+            /** Optional. A Google Cloud Storage path in which to store training outputs */
+            /** and other data needed for training. This path is passed to your TensorFlow */
+            /** program as the 'job_dir' command-line argument. The benefit of specifying */
+            /** this field is that Cloud ML validates the path for use in training. */
+            jobDir?: string;
+            /** Optional. The set of Hyperparameters to tune. */
+            hyperparameters?: GoogleCloudMlV1__HyperparameterSpec;
+            /** Optional. The number of parameter server replicas to use for the training */
+            /** job. Each replica in the cluster will be of the type specified in */
+            /** `parameter_server_type`. */
+            /**  */
+            /** This value can only be used when `scale_tier` is set to `CUSTOM`.If you */
+            /** set this value, you must also set `parameter_server_type`. */
+            parameterServerCount?: string;
+            /** Required. The Google Cloud Storage location of the packages with */
+            /** the training program and any additional dependencies. */
+            /** The maximum number of package URIs is 100. */
+            packageUris?: string[];
             /** Optional. The number of worker replicas to use for the training job. Each */
             /** replica in the cluster will be of the type specified in `worker_type`. */
             /**  */
@@ -116,6 +143,10 @@ declare namespace gapi.client {
             runtimeVersion?: string;
             /** Required. The Python module name to run after installing the packages. */
             pythonModule?: string;
+            /** Required. The Google Compute Engine region to run the training job in. */
+            region?: string;
+            /** Optional. Command line arguments to pass to the program. */
+            args?: string[];
             /** Optional. Specifies the type of virtual machine to use for your training */
             /** job's worker nodes. */
             /**  */
@@ -125,10 +156,6 @@ declare namespace gapi.client {
             /** This value must be present when `scaleTier` is set to `CUSTOM` and */
             /** `workerCount` is greater than zero. */
             workerType?: string;
-            /** Optional. Command line arguments to pass to the program. */
-            args?: string[];
-            /** Required. The Google Compute Engine region to run the training job in. */
-            region?: string;
             /** Optional. Specifies the type of virtual machine to use for your training */
             /** job's parameter server. */
             /**  */
@@ -141,32 +168,14 @@ declare namespace gapi.client {
             /** Required. Specifies the machine types, the number of replicas for workers */
             /** and parameter servers. */
             scaleTier?: string;
-            /** Optional. A Google Cloud Storage path in which to store training outputs */
-            /** and other data needed for training. This path is passed to your TensorFlow */
-            /** program as the 'job_dir' command-line argument. The benefit of specifying */
-            /** this field is that Cloud ML validates the path for use in training. */
-            jobDir?: string;
-            /** Optional. The set of Hyperparameters to tune. */
-            hyperparameters?: GoogleCloudMlV1__HyperparameterSpec;
-            /** Optional. The number of parameter server replicas to use for the training */
-            /** job. Each replica in the cluster will be of the type specified in */
-            /** `parameter_server_type`. */
-            /**  */
-            /** This value can only be used when `scale_tier` is set to `CUSTOM`.If you */
-            /** set this value, you must also set `parameter_server_type`. */
-            parameterServerCount?: string;
-            /** Required. The Google Cloud Storage location of the packages with */
-            /** the training program and any additional dependencies. */
-            /** The maximum number of package URIs is 100. */
-            packageUris?: string[];
         }
         
         interface GoogleCloudMlV1__ListModelsResponse {
-            /** The list of models. */
-            models?: GoogleCloudMlV1__Model[];
             /** Optional. Pass this token as the `page_token` field of the request for a */
             /** subsequent call. */
             nextPageToken?: string;
+            /** The list of models. */
+            models?: GoogleCloudMlV1__Model[];
         }
         
         interface GoogleCloudMlV1__Job {
@@ -186,20 +195,20 @@ declare namespace gapi.client {
             trainingInput?: GoogleCloudMlV1__TrainingInput;
             /** Output only. When the job was created. */
             createTime?: string;
-            /** Output only. The detailed state of a job. */
-            state?: string;
             /** Input parameters to create a prediction job. */
             predictionInput?: GoogleCloudMlV1__PredictionInput;
+            /** Output only. The detailed state of a job. */
+            state?: string;
         }
         
         interface GoogleApi__HttpBody {
+            /** The HTTP Content-Type string representing the content type of the body. */
+            contentType?: string;
             /** Application specific response metadata. Must be set in the first response */
             /** for streaming APIs. */
             extensions?: Array<Record<string, any>>;            
             /** HTTP body binary data. */
             data?: string;
-            /** The HTTP Content-Type string representing the content type of the body. */
-            contentType?: string;
         }
         
         interface GoogleCloudMlV1__GetConfigResponse {
@@ -213,17 +222,6 @@ declare namespace gapi.client {
             /** A subset of `TestPermissionsRequest.permissions` that the caller is */
             /** allowed. */
             permissions?: string[];
-        }
-        
-        interface GoogleCloudMlV1__HyperparameterOutput {
-            /** The hyperparameters given to this trial. */
-            hyperparameters?: Record<string, string>;            
-            /** The trial id for these results. */
-            trialId?: string;
-            /** All recorded object metrics for this trial. */
-            allMetrics?: GoogleCloudMlV1_HyperparameterOutput_HyperparameterMetric[];
-            /** The final objective metric seen for this trial. */
-            finalMetric?: GoogleCloudMlV1_HyperparameterOutput_HyperparameterMetric;
         }
         
         interface GoogleIamV1__SetIamPolicyRequest {
@@ -240,18 +238,41 @@ declare namespace gapi.client {
             policy?: GoogleIamV1__Policy;
         }
         
+        interface GoogleCloudMlV1__HyperparameterOutput {
+            /** All recorded object metrics for this trial. */
+            allMetrics?: GoogleCloudMlV1_HyperparameterOutput_HyperparameterMetric[];
+            /** The final objective metric seen for this trial. */
+            finalMetric?: GoogleCloudMlV1_HyperparameterOutput_HyperparameterMetric;
+            /** The hyperparameters given to this trial. */
+            hyperparameters?: Record<string, string>;            
+            /** The trial id for these results. */
+            trialId?: string;
+        }
+        
         interface GoogleCloudMlV1__PredictionOutput {
+            /** The number of data instances which resulted in errors. */
+            errorCount?: string;
             /** Node hours used by the batch prediction job. */
             nodeHours?: number;
             /** The output Google Cloud Storage location provided at the job creation time. */
             outputPath?: string;
             /** The number of generated predictions. */
             predictionCount?: string;
-            /** The number of data instances which resulted in errors. */
-            errorCount?: string;
         }
         
         interface GoogleIamV1__Policy {
+            /**  */
+            iamOwned?: boolean;
+            /** If more than one rule is specified, the rules are applied in the following */
+            /** manner: */
+            /** - All matching LOG rules are always applied. */
+            /** - If any DENY/DENY_WITH_LOG rule matches, permission is denied. */
+            /**   Logging will be applied if one or more matching rule requires logging. */
+            /** - Otherwise, if any ALLOW/ALLOW_WITH_LOG rule matches, permission is */
+            /**   granted. */
+            /**   Logging will be applied if one or more matching rule requires logging. */
+            /** - Otherwise, if no rule applies, permission is denied. */
+            rules?: GoogleIamV1__Rule[];
             /** Version of the `Policy`. The default version is 0. */
             version?: number;
             /** Specifies cloud audit logging configuration for this policy. */
@@ -270,18 +291,6 @@ declare namespace gapi.client {
             /** If no `etag` is provided in the call to `setIamPolicy`, then the existing */
             /** policy is overwritten blindly. */
             etag?: string;
-            /**  */
-            iamOwned?: boolean;
-            /** If more than one rule is specified, the rules are applied in the following */
-            /** manner: */
-            /** - All matching LOG rules are always applied. */
-            /** - If any DENY/DENY_WITH_LOG rule matches, permission is denied. */
-            /**   Logging will be applied if one or more matching rule requires logging. */
-            /** - Otherwise, if any ALLOW/ALLOW_WITH_LOG rule matches, permission is */
-            /**   granted. */
-            /**   Logging will be applied if one or more matching rule requires logging. */
-            /** - Otherwise, if no rule applies, permission is denied. */
-            rules?: GoogleIamV1__Rule[];
         }
         
         interface GoogleLongrunning__ListOperationsResponse {
@@ -292,19 +301,19 @@ declare namespace gapi.client {
         }
         
         interface GoogleIamV1__Condition {
-            /** The objects of the condition. This is mutually exclusive with 'value'. */
-            values?: string[];
-            /** Trusted attributes supplied by the IAM system. */
-            iam?: string;
-            /** An operator to apply the subject with. */
-            op?: string;
-            /** Trusted attributes discharged by the service. */
-            svc?: string;
             /** DEPRECATED. Use 'values' instead. */
             value?: string;
             /** Trusted attributes supplied by any service that owns resources and uses */
             /** the IAM system for access control. */
             sys?: string;
+            /** Trusted attributes supplied by the IAM system. */
+            iam?: string;
+            /** The objects of the condition. This is mutually exclusive with 'value'. */
+            values?: string[];
+            /** An operator to apply the subject with. */
+            op?: string;
+            /** Trusted attributes discharged by the service. */
+            svc?: string;
         }
         
         interface GoogleCloudMlV1__ManualScaling {
@@ -313,6 +322,19 @@ declare namespace gapi.client {
             /** this model will be proportional to `nodes` &#42; number of hours since */
             /** last billing cycle plus the cost for each prediction performed. */
             nodes?: number;
+        }
+        
+        interface GoogleCloudMlV1__TrainingOutput {
+            /** Results for individual Hyperparameter trials. */
+            /** Only set for hyperparameter tuning jobs. */
+            trials?: GoogleCloudMlV1__HyperparameterOutput[];
+            /** The number of hyperparameter tuning trials that completed successfully. */
+            /** Only set for hyperparameter tuning jobs. */
+            completedTrialCount?: string;
+            /** Whether this job is a hyperparameter tuning job. */
+            isHyperparameterTuningJob?: boolean;
+            /** The amount of ML units consumed by the job. */
+            consumedMLUnits?: number;
         }
         
         interface GoogleIamV1__Binding {
@@ -351,19 +373,6 @@ declare namespace gapi.client {
             /** For example, `roles/viewer`, `roles/editor`, or `roles/owner`. */
             /** Required */
             role?: string;
-        }
-        
-        interface GoogleCloudMlV1__TrainingOutput {
-            /** Results for individual Hyperparameter trials. */
-            /** Only set for hyperparameter tuning jobs. */
-            trials?: GoogleCloudMlV1__HyperparameterOutput[];
-            /** The number of hyperparameter tuning trials that completed successfully. */
-            /** Only set for hyperparameter tuning jobs. */
-            completedTrialCount?: string;
-            /** Whether this job is a hyperparameter tuning job. */
-            isHyperparameterTuningJob?: boolean;
-            /** The amount of ML units consumed by the job. */
-            consumedMLUnits?: number;
         }
         
         interface GoogleIamV1__Rule {
@@ -416,11 +425,11 @@ declare namespace gapi.client {
         }
         
         interface GoogleCloudMlV1__Version {
+            /** Output only. The time the version was last used for prediction. */
+            lastUseTime?: string;
             /** Optional. The Google Cloud ML runtime version to use for this deployment. */
             /** If not set, Google Cloud ML will choose a version. */
             runtimeVersion?: string;
-            /** Output only. The time the version was last used for prediction. */
-            lastUseTime?: string;
             /** Optional. The description specified for the version when it was created. */
             description?: string;
             /** Required. The Google Cloud Storage location of the trained model used to */
@@ -449,8 +458,6 @@ declare namespace gapi.client {
             isDefault?: boolean;
             /** Output only. The time the version was created. */
             createTime?: string;
-            /** Output only. The state of a version. */
-            state?: string;
             /** Manually select the number of nodes to use for serving the */
             /** model. You should generally use `auto_scaling` with an appropriate */
             /** `min_nodes` instead, but this option is available if you want more */
@@ -458,6 +465,8 @@ declare namespace gapi.client {
             /** if the traffic exceeds that capability of the system to serve it based */
             /** on the selected number of nodes. */
             manualScaling?: GoogleCloudMlV1__ManualScaling;
+            /** Output only. The state of a version. */
+            state?: string;
             /** Required.The name specified for the version when it was created. */
             /**  */
             /** The version name must be unique within the model it is created in. */
@@ -467,6 +476,16 @@ declare namespace gapi.client {
         }
         
         interface GoogleCloudMlV1__ParameterSpec {
+            /** Required if type is `DOUBLE` or `INTEGER`. This field */
+            /** should be unset if type is `CATEGORICAL`. This value should be integers if */
+            /** type is INTEGER. */
+            minValue?: number;
+            /** Required if type is `DISCRETE`. */
+            /** A list of feasible points. */
+            /** The list should be in strictly increasing order. For instance, this */
+            /** parameter might have possible settings of 1.5, 2.5, and 4.0. This list */
+            /** should not contain more than 1,000 values. */
+            discreteValues?: number[];
             /** Optional. How the parameter should be scaled to the hypercube. */
             /** Leave unset for categorical parameters. */
             /** Some kind of scaling is strongly recommended for real or integral */
@@ -478,21 +497,11 @@ declare namespace gapi.client {
             maxValue?: number;
             /** Required. The type of the parameter. */
             type?: string;
-            /** Required if type is `CATEGORICAL`. The list of possible categories. */
-            categoricalValues?: string[];
             /** Required. The parameter name must be unique amongst all ParameterConfigs in */
             /** a HyperparameterSpec message. E.g., "learning_rate". */
             parameterName?: string;
-            /** Required if type is `DOUBLE` or `INTEGER`. This field */
-            /** should be unset if type is `CATEGORICAL`. This value should be integers if */
-            /** type is INTEGER. */
-            minValue?: number;
-            /** Required if type is `DISCRETE`. */
-            /** A list of feasible points. */
-            /** The list should be in strictly increasing order. For instance, this */
-            /** parameter might have possible settings of 1.5, 2.5, and 4.0. This list */
-            /** should not contain more than 1,000 values. */
-            discreteValues?: number[];
+            /** Required if type is `CATEGORICAL`. The list of possible categories. */
+            categoricalValues?: string[];
         }
         
         interface GoogleIamV1_LogConfig_DataAccessOptions {
@@ -502,6 +511,9 @@ declare namespace gapi.client {
         }
         
         interface GoogleCloudMlV1__PredictionInput {
+            /** Required. The Google Cloud Storage location of the input data files. */
+            /** May contain wildcards. */
+            inputPaths?: string[];
             /** Required. The Google Compute Engine region to run the prediction job in. */
             region?: string;
             /** Use this field if you want to specify a version of the model to use. The */
@@ -517,45 +529,44 @@ declare namespace gapi.client {
             modelName?: string;
             /** Required. The output Google Cloud Storage location. */
             outputPath?: string;
-            /** Optional. The maximum number of workers to be used for parallel processing. */
-            /** Defaults to 10 if not specified. */
-            maxWorkerCount?: string;
             /** Use this field if you want to specify a Google Cloud Storage path for */
             /** the model to use. */
             uri?: string;
+            /** Optional. The maximum number of workers to be used for parallel processing. */
+            /** Defaults to 10 if not specified. */
+            maxWorkerCount?: string;
             /** Required. The format of the input data files. */
             dataFormat?: string;
-            /** Optional. Number of records per batch, defaults to 64. */
-            /** The service will buffer batch_size number of records in memory before */
-            /** invoking one Tensorflow prediction call internally. So take the record */
-            /** size and memory available into consideration when setting this parameter. */
-            batchSize?: string;
             /** Optional. The Google Cloud ML runtime version to use for this batch */
             /** prediction. If not set, Google Cloud ML will pick the runtime version used */
             /** during the CreateVersion request for this model version, or choose the */
             /** latest stable version when model version information is not available */
             /** such as when the model is specified by uri. */
             runtimeVersion?: string;
-            /** Required. The Google Cloud Storage location of the input data files. */
-            /** May contain wildcards. */
-            inputPaths?: string[];
+            /** Optional. Number of records per batch, defaults to 64. */
+            /** The service will buffer batch_size number of records in memory before */
+            /** invoking one Tensorflow prediction call internally. So take the record */
+            /** size and memory available into consideration when setting this parameter. */
+            batchSize?: string;
         }
         
-        interface GoogleCloudMlV1__OperationMetadata {
-            /** The time the operation was submitted. */
-            createTime?: string;
-            /** Contains the name of the model associated with the operation. */
-            modelName?: string;
-            /** Contains the version associated with the operation. */
-            version?: GoogleCloudMlV1__Version;
-            /** The time operation processing completed. */
-            endTime?: string;
-            /** The operation type. */
-            operationType?: string;
-            /** The time operation processing started. */
-            startTime?: string;
-            /** Indicates whether a request to cancel this operation has been made. */
-            isCancellationRequested?: boolean;
+        interface GoogleType__Expr {
+            /** An optional description of the expression. This is a longer text which */
+            /** describes the expression, e.g. when hovered over it in a UI. */
+            description?: string;
+            /** Textual representation of an expression in */
+            /** Common Expression Language syntax. */
+            /**  */
+            /** The application context of the containing message determines which */
+            /** well-known feature set of CEL is supported. */
+            expression?: string;
+            /** An optional string indicating the location of the expression for error */
+            /** reporting, e.g. a file name and a position in the file. */
+            location?: string;
+            /** An optional title for the expression, i.e. a short string describing */
+            /** its purpose. This can be used e.g. in UIs which allow to enter the */
+            /** expression. */
+            title?: string;
         }
         
         interface GoogleIamV1__AuditLogConfig {
@@ -567,26 +578,31 @@ declare namespace gapi.client {
             logType?: string;
         }
         
-        interface GoogleType__Expr {
-            /** An optional string indicating the location of the expression for error */
-            /** reporting, e.g. a file name and a position in the file. */
-            location?: string;
-            /** An optional title for the expression, i.e. a short string describing */
-            /** its purpose. This can be used e.g. in UIs which allow to enter the */
-            /** expression. */
-            title?: string;
-            /** An optional description of the expression. This is a longer text which */
-            /** describes the expression, e.g. when hovered over it in a UI. */
-            description?: string;
-            /** Textual representation of an expression in */
-            /** Common Expression Language syntax. */
-            /**  */
-            /** The application context of the containing message determines which */
-            /** well-known feature set of CEL is supported. */
-            expression?: string;
+        interface GoogleCloudMlV1__OperationMetadata {
+            /** Contains the version associated with the operation. */
+            version?: GoogleCloudMlV1__Version;
+            /** The time operation processing completed. */
+            endTime?: string;
+            /** The operation type. */
+            operationType?: string;
+            /** The time operation processing started. */
+            startTime?: string;
+            /** Indicates whether a request to cancel this operation has been made. */
+            isCancellationRequested?: boolean;
+            /** The time the operation was submitted. */
+            createTime?: string;
+            /** Contains the name of the model associated with the operation. */
+            modelName?: string;
         }
         
         interface GoogleCloudMlV1__HyperparameterSpec {
+            /** Optional. How many training trials should be attempted to optimize */
+            /** the specified hyperparameters. */
+            /**  */
+            /** Defaults to one. */
+            maxTrials?: number;
+            /** Required. The set of parameters to tune. */
+            params?: GoogleCloudMlV1__ParameterSpec[];
             /** Optional. The number of training trials to run concurrently. */
             /** You can reduce the time it takes to perform hyperparameter tuning by adding */
             /** trials in parallel. However, each trail only benefits from the information */
@@ -609,13 +625,6 @@ declare namespace gapi.client {
             /**  */
             /** Defaults to `MAXIMIZE`. */
             goal?: string;
-            /** Optional. How many training trials should be attempted to optimize */
-            /** the specified hyperparameters. */
-            /**  */
-            /** Defaults to one. */
-            maxTrials?: number;
-            /** Required. The set of parameters to tune. */
-            params?: GoogleCloudMlV1__ParameterSpec[];
         }
         
         interface GoogleCloudMlV1__ListJobsResponse {
@@ -654,29 +663,18 @@ declare namespace gapi.client {
         }
         
         interface GoogleIamV1__AuditConfig {
+            /** Specifies a service that will be enabled for audit logging. */
+            /** For example, `storage.googleapis.com`, `cloudsql.googleapis.com`. */
+            /** `allServices` is a special value that covers all services. */
+            service?: string;
             /** The configuration for logging of each type of permission. */
             /** Next ID: 4 */
             auditLogConfigs?: GoogleIamV1__AuditLogConfig[];
             /**  */
             exemptedMembers?: string[];
-            /** Specifies a service that will be enabled for audit logging. */
-            /** For example, `storage.googleapis.com`, `cloudsql.googleapis.com`. */
-            /** `allServices` is a special value that covers all services. */
-            service?: string;
         }
         
         interface GoogleCloudMlV1__Model {
-            /** Optional. The description specified for the model when it was created. */
-            description?: string;
-            /** Optional. If true, enables StackDriver Logging for online prediction. */
-            /** Default is false. */
-            onlinePredictionLogging?: boolean;
-            /** Output only. The default version of the model. This version will be used to */
-            /** handle prediction requests that do not specify a version. */
-            /**  */
-            /** You can change the default version by calling */
-            /** [projects.methods.versions.setDefault](/ml-engine/reference/rest/v1/projects.models.versions/setDefault). */
-            defaultVersion?: GoogleCloudMlV1__Version;
             /** Optional. The list of regions where the model is going to be deployed. */
             /** Currently only one region per model is supported. */
             /** Defaults to 'us-central1' if nothing is set. */
@@ -691,14 +689,25 @@ declare namespace gapi.client {
             /**  */
             /** The model name must be unique within the project it is created in. */
             name?: string;
+            /** Optional. The description specified for the model when it was created. */
+            description?: string;
+            /** Optional. If true, enables StackDriver Logging for online prediction. */
+            /** Default is false. */
+            onlinePredictionLogging?: boolean;
+            /** Output only. The default version of the model. This version will be used to */
+            /** handle prediction requests that do not specify a version. */
+            /**  */
+            /** You can change the default version by calling */
+            /** [projects.methods.versions.setDefault](/ml-engine/reference/rest/v1/projects.models.versions/setDefault). */
+            defaultVersion?: GoogleCloudMlV1__Version;
         }
         
         interface GoogleCloudMlV1__ListVersionsResponse {
-            /** The list of versions. */
-            versions?: GoogleCloudMlV1__Version[];
             /** Optional. Pass this token as the `page_token` field of the request for a */
             /** subsequent call. */
             nextPageToken?: string;
+            /** The list of versions. */
+            versions?: GoogleCloudMlV1__Version[];
         }
         
         interface GoogleIamV1__TestIamPermissionsRequest {
@@ -709,16 +718,47 @@ declare namespace gapi.client {
             permissions?: string[];
         }
         
-        interface GoogleIamV1__LogConfig {
-            /** Counter options. */
-            counter?: GoogleIamV1_LogConfig_CounterOptions;
-            /** Data access options. */
-            dataAccess?: GoogleIamV1_LogConfig_DataAccessOptions;
-            /** Cloud audit options. */
-            cloudAudit?: GoogleIamV1_LogConfig_CloudAuditOptions;
-        }
-        
         interface VersionsResource {
+            /** Deletes a model version. */
+            /**  */
+            /** Each model can have multiple versions deployed and in use at any given */
+            /** time. Use this method to remove a single version. */
+            /**  */
+            /** Note: You cannot delete the version that is set as the default version */
+            /** of the model unless it is the only remaining version. */
+            delete(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Required. The name of the version. You can get the names of all the */
+                /** versions of a model by calling */
+                /** [projects.models.versions.list](/ml-engine/reference/rest/v1/projects.models.versions/list). */
+                name: string;
+            }): Request<GoogleLongrunning__Operation>;            
+            
             /** Gets information about a model version. */
             /**  */
             /** Models can have multiple versions. You can call */
@@ -726,14 +766,22 @@ declare namespace gapi.client {
             /** to get the same information that this method returns for all of the */
             /** versions of a model. */
             get(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** JSONP */
@@ -744,17 +792,9 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** Required. The name of the version. */
                 name: string;
-            }): gapi.client.Request<GoogleCloudMlV1__Version>;            
+            }): Request<GoogleCloudMlV1__Version>;            
             
             /** Gets basic information about all the versions of a model. */
             /**  */
@@ -762,14 +802,22 @@ declare namespace gapi.client {
             /** only a limited number of results at a time, you can request that the list */
             /** be retrieved in batches (called pages): */
             list(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** JSONP */
@@ -780,14 +828,8 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
+                /** Required. The name of the model for which to list the version. */
+                parent: string;
                 /** Optional. A page token to request the next page of results. */
                 /**  */
                 /** You get the token from the `next_page_token` field of the response from */
@@ -799,9 +841,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The default value is 20, and the maximum page size is 100. */
                 pageSize?: number;
-                /** Required. The name of the model for which to list the version. */
-                parent: string;
-            }): gapi.client.Request<GoogleCloudMlV1__ListVersionsResponse>;            
+            }): Request<GoogleCloudMlV1__ListVersionsResponse>;            
             
             /** Creates a new version of a model from a trained TensorFlow model. */
             /**  */
@@ -812,14 +852,22 @@ declare namespace gapi.client {
             /** new version to be the default, you must call */
             /** [projects.models.versions.setDefault](/ml-engine/reference/rest/v1/projects.models.versions/setDefault). */
             create(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** JSONP */
@@ -830,17 +878,9 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** Required. The name of the model. */
                 parent: string;
-            }): gapi.client.Request<GoogleLongrunning__Operation>;            
+            }): Request<GoogleLongrunning__Operation>;            
             
             /** Designates a version to be the default for the model. */
             /**  */
@@ -851,14 +891,22 @@ declare namespace gapi.client {
             /** default. You must make any subsequent changes to the default version */
             /** setting manually using this method. */
             setDefault(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** JSONP */
@@ -869,75 +917,36 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** Required. The name of the version to make the default for the model. You */
                 /** can get the names of all the versions of a model by calling */
                 /** [projects.models.versions.list](/ml-engine/reference/rest/v1/projects.models.versions/list). */
                 name: string;
-            }): gapi.client.Request<GoogleCloudMlV1__Version>;            
-            
-            /** Deletes a model version. */
-            /**  */
-            /** Each model can have multiple versions deployed and in use at any given */
-            /** time. Use this method to remove a single version. */
-            /**  */
-            /** Note: You cannot delete the version that is set as the default version */
-            /** of the model unless it is the only remaining version. */
-            delete(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Required. The name of the version. You can get the names of all the */
-                /** versions of a model by calling */
-                /** [projects.models.versions.list](/ml-engine/reference/rest/v1/projects.models.versions/list). */
-                name: string;
-            }): gapi.client.Request<GoogleLongrunning__Operation>;            
+            }): Request<GoogleCloudMlV1__Version>;            
             
         }
         
         interface ModelsResource {
-            /** Gets the access control policy for a resource. */
-            /** Returns an empty policy if the resource exists and does not have a policy */
-            /** set. */
-            getIamPolicy(request: {            
+            /** Lists the models in a project. */
+            /**  */
+            /** Each project can contain multiple models, and each model can have multiple */
+            /** versions. */
+            list(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** JSONP */
@@ -948,6 +957,24 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth access token. */
                 access_token?: string;
+                /** Optional. The number of models to retrieve per "page" of results. If there */
+                /** are more remaining results than this number, the response message will */
+                /** contain a valid value in the `next_page_token` field. */
+                /**  */
+                /** The default value is 20, and the maximum page size is 100. */
+                pageSize?: number;
+                /** Required. The name of the project whose models are to be listed. */
+                parent: string;
+                /** Optional. A page token to request the next page of results. */
+                /**  */
+                /** You get the token from the `next_page_token` field of the response from */
+                /** the previous call. */
+                pageToken?: string;
+            }): Request<GoogleCloudMlV1__ListModelsResponse>;            
+            
+            /** Sets the access control policy on the specified resource. Replaces any */
+            /** existing policy. */
+            setIamPolicy(request: {            
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
@@ -956,23 +983,120 @@ declare namespace gapi.client {
                 bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** REQUIRED: The resource for which the policy is being specified. */
+                /** See the operation documentation for the appropriate value for this field. */
+                resource: string;
+            }): Request<GoogleIamV1__Policy>;            
+            
+            /** Creates a model which will later contain one or more versions. */
+            /**  */
+            /** You must add at least one version before you can request predictions from */
+            /** the model. Add versions by calling */
+            /** [projects.models.versions.create](/ml-engine/reference/rest/v1/projects.models.versions/create). */
+            create(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Required. The project name. */
+                parent: string;
+            }): Request<GoogleCloudMlV1__Model>;            
+            
+            /** Gets the access control policy for a resource. */
+            /** Returns an empty policy if the resource exists and does not have a policy */
+            /** set. */
+            getIamPolicy(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
                 /** REQUIRED: The resource for which the policy is being requested. */
                 /** See the operation documentation for the appropriate value for this field. */
                 resource: string;
-            }): gapi.client.Request<GoogleIamV1__Policy>;            
+            }): Request<GoogleIamV1__Policy>;            
             
             /** Gets information about a model, including its name, the description (if */
             /** set), and the default version (if at least one version of the model has */
             /** been deployed). */
             get(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** JSONP */
@@ -983,17 +1107,9 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** Required. The name of the model. */
                 name: string;
-            }): gapi.client.Request<GoogleCloudMlV1__Model>;            
+            }): Request<GoogleCloudMlV1__Model>;            
             
             /** Returns permissions that a caller has on the specified resource. */
             /** If the resource does not exist, this will return an empty set of */
@@ -1003,14 +1119,22 @@ declare namespace gapi.client {
             /** UIs and command-line tools, not for authorization checking. This operation */
             /** may "fail open" without warning. */
             testIamPermissions(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** JSONP */
@@ -1021,18 +1145,10 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** REQUIRED: The resource for which the policy detail is being requested. */
                 /** See the operation documentation for the appropriate value for this field. */
                 resource: string;
-            }): gapi.client.Request<GoogleIamV1__TestIamPermissionsResponse>;            
+            }): Request<GoogleIamV1__TestIamPermissionsResponse>;            
             
             /** Deletes a model. */
             /**  */
@@ -1040,14 +1156,22 @@ declare namespace gapi.client {
             /** versions by calling */
             /** [projects.models.versions.delete](/ml-engine/reference/rest/v1/projects.models.versions/delete). */
             delete(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** JSONP */
@@ -1058,150 +1182,35 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** Required. The name of the model. */
                 name: string;
-            }): gapi.client.Request<GoogleLongrunning__Operation>;            
-            
-            /** Lists the models in a project. */
-            /**  */
-            /** Each project can contain multiple models, and each model can have multiple */
-            /** versions. */
-            list(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Optional. A page token to request the next page of results. */
-                /**  */
-                /** You get the token from the `next_page_token` field of the response from */
-                /** the previous call. */
-                pageToken?: string;
-                /** Optional. The number of models to retrieve per "page" of results. If there */
-                /** are more remaining results than this number, the response message will */
-                /** contain a valid value in the `next_page_token` field. */
-                /**  */
-                /** The default value is 20, and the maximum page size is 100. */
-                pageSize?: number;
-                /** Required. The name of the project whose models are to be listed. */
-                parent: string;
-            }): gapi.client.Request<GoogleCloudMlV1__ListModelsResponse>;            
-            
-            /** Creates a model which will later contain one or more versions. */
-            /**  */
-            /** You must add at least one version before you can request predictions from */
-            /** the model. Add versions by calling */
-            /** [projects.models.versions.create](/ml-engine/reference/rest/v1/projects.models.versions/create). */
-            create(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Required. The project name. */
-                parent: string;
-            }): gapi.client.Request<GoogleCloudMlV1__Model>;            
-            
-            /** Sets the access control policy on the specified resource. Replaces any */
-            /** existing policy. */
-            setIamPolicy(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** REQUIRED: The resource for which the policy is being specified. */
-                /** See the operation documentation for the appropriate value for this field. */
-                resource: string;
-            }): gapi.client.Request<GoogleIamV1__Policy>;            
+            }): Request<GoogleLongrunning__Operation>;            
             
             versions: VersionsResource;
         }
         
         interface OperationsResource {
-            /** Gets the latest state of a long-running operation.  Clients can use this */
-            /** method to poll the operation result at intervals as recommended by the API */
-            /** service. */
-            get(request: {            
+            /** Deletes a long-running operation. This method indicates that the client is */
+            /** no longer interested in the operation result. It does not cancel the */
+            /** operation. If the server doesn't support this method, it returns */
+            /** `google.rpc.Code.UNIMPLEMENTED`. */
+            delete(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** JSONP */
@@ -1212,6 +1221,14 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth access token. */
                 access_token?: string;
+                /** The name of the operation resource to be deleted. */
+                name: string;
+            }): Request<{}>;            
+            
+            /** Gets the latest state of a long-running operation.  Clients can use this */
+            /** method to poll the operation result at intervals as recommended by the API */
+            /** service. */
+            get(request: {            
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
@@ -1220,9 +1237,27 @@ declare namespace gapi.client {
                 bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
                 /** The name of the operation resource. */
                 name: string;
-            }): gapi.client.Request<GoogleLongrunning__Operation>;            
+            }): Request<GoogleLongrunning__Operation>;            
             
             /** Lists operations that match the specified filter in the request. If the */
             /** server doesn't support this method, it returns `UNIMPLEMENTED`. */
@@ -1235,14 +1270,22 @@ declare namespace gapi.client {
             /** collection id, however overriding users must ensure the name binding */
             /** is the parent resource, without the operations collection id. */
             list(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** JSONP */
@@ -1253,23 +1296,15 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** The standard list filter. */
-                filter?: string;
                 /** The standard list page token. */
                 pageToken?: string;
                 /** The name of the operation's parent resource. */
                 name: string;
                 /** The standard list page size. */
                 pageSize?: number;
-            }): gapi.client.Request<GoogleLongrunning__ListOperationsResponse>;            
+                /** The standard list filter. */
+                filter?: string;
+            }): Request<GoogleLongrunning__ListOperationsResponse>;            
             
             /** Starts asynchronous cancellation on a long-running operation.  The server */
             /** makes a best effort to cancel the operation, but success is not */
@@ -1282,14 +1317,22 @@ declare namespace gapi.client {
             /** an Operation.error value with a google.rpc.Status.code of 1, */
             /** corresponding to `Code.CANCELLED`. */
             cancel(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** JSONP */
@@ -1300,52 +1343,9 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** The name of the operation resource to be cancelled. */
                 name: string;
-            }): gapi.client.Request<{}>;            
-            
-            /** Deletes a long-running operation. This method indicates that the client is */
-            /** no longer interested in the operation result. It does not cancel the */
-            /** operation. If the server doesn't support this method, it returns */
-            /** `google.rpc.Code.UNIMPLEMENTED`. */
-            delete(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** The name of the operation resource to be deleted. */
-                name: string;
-            }): gapi.client.Request<{}>;            
+            }): Request<{}>;            
             
         }
         
@@ -1358,14 +1358,22 @@ declare namespace gapi.client {
             /** UIs and command-line tools, not for authorization checking. This operation */
             /** may "fail open" without warning. */
             testIamPermissions(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** JSONP */
@@ -1376,29 +1384,29 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** REQUIRED: The resource for which the policy detail is being requested. */
                 /** See the operation documentation for the appropriate value for this field. */
                 resource: string;
-            }): gapi.client.Request<GoogleIamV1__TestIamPermissionsResponse>;            
+            }): Request<GoogleIamV1__TestIamPermissionsResponse>;            
             
             /** Lists the jobs in the project. */
             list(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** JSONP */
@@ -1409,20 +1417,6 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Optional. The number of jobs to retrieve per "page" of results. If there */
-                /** are more remaining results than this number, the response message will */
-                /** contain a valid value in the `next_page_token` field. */
-                /**  */
-                /** The default value is 20, and the maximum page size is 100. */
-                pageSize?: number;
                 /** Required. The name of the project for which to list jobs. */
                 parent: string;
                 /** Optional. Specifies the subset of jobs to retrieve. */
@@ -1432,19 +1426,65 @@ declare namespace gapi.client {
                 /** You get the token from the `next_page_token` field of the response from */
                 /** the previous call. */
                 pageToken?: string;
-            }): gapi.client.Request<GoogleCloudMlV1__ListJobsResponse>;            
+                /** Optional. The number of jobs to retrieve per "page" of results. If there */
+                /** are more remaining results than this number, the response message will */
+                /** contain a valid value in the `next_page_token` field. */
+                /**  */
+                /** The default value is 20, and the maximum page size is 100. */
+                pageSize?: number;
+            }): Request<GoogleCloudMlV1__ListJobsResponse>;            
+            
+            /** Creates a training or a batch prediction job. */
+            create(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Required. The project name. */
+                parent: string;
+            }): Request<GoogleCloudMlV1__Job>;            
             
             /** Sets the access control policy on the specified resource. Replaces any */
             /** existing policy. */
             setIamPolicy(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** JSONP */
@@ -1455,61 +1495,29 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** REQUIRED: The resource for which the policy is being specified. */
                 /** See the operation documentation for the appropriate value for this field. */
                 resource: string;
-            }): gapi.client.Request<GoogleIamV1__Policy>;            
-            
-            /** Creates a training or a batch prediction job. */
-            create(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Required. The project name. */
-                parent: string;
-            }): gapi.client.Request<GoogleCloudMlV1__Job>;            
+            }): Request<GoogleIamV1__Policy>;            
             
             /** Cancels a running job. */
             cancel(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** JSONP */
@@ -1520,30 +1528,30 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** Required. The name of the job to cancel. */
                 name: string;
-            }): gapi.client.Request<{}>;            
+            }): Request<{}>;            
             
             /** Gets the access control policy for a resource. */
             /** Returns an empty policy if the resource exists and does not have a policy */
             /** set. */
             getIamPolicy(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** JSONP */
@@ -1554,29 +1562,29 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** REQUIRED: The resource for which the policy is being requested. */
                 /** See the operation documentation for the appropriate value for this field. */
                 resource: string;
-            }): gapi.client.Request<GoogleIamV1__Policy>;            
+            }): Request<GoogleIamV1__Policy>;            
             
             /** Describes a job. */
             get(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** JSONP */
@@ -1587,17 +1595,9 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** Required. The name of the job to get the description of. */
                 name: string;
-            }): gapi.client.Request<GoogleCloudMlV1__Job>;            
+            }): Request<GoogleCloudMlV1__Job>;            
             
         }
         
@@ -1607,14 +1607,22 @@ declare namespace gapi.client {
             /** the Google Cloud Storage location where you put your model training code */
             /** for training the model with Google Cloud Machine Learning. */
             getConfig(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** JSONP */
@@ -1625,30 +1633,30 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** Required. The project name. */
                 name: string;
-            }): gapi.client.Request<GoogleCloudMlV1__GetConfigResponse>;            
+            }): Request<GoogleCloudMlV1__GetConfigResponse>;            
             
             /** Performs prediction on the data in the request. */
             /**  */
             /** &#42;&#42;&#42;&#42; REMOVE FROM GENERATED DOCUMENTATION */
             predict(request: {            
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** JSONP */
@@ -1659,19 +1667,11 @@ declare namespace gapi.client {
                 key?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
                 /** Required. The resource name of a model or a version. */
                 /**  */
                 /** Authorization: requires the `predict` permission on the specified resource. */
                 name: string;
-            }): gapi.client.Request<GoogleApi__HttpBody>;            
+            }): Request<GoogleApi__HttpBody>;            
             
             models: ModelsResource;
             operations: OperationsResource;

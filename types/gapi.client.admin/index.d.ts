@@ -212,7 +212,7 @@ declare namespace gapi.client {
                 startTime?: string;
                 /** Represents the profile id or the user email for which the data should be filtered. When 'all' is specified as the userKey, it returns usageReports for all users. */
                 userKey: string;
-            }): gapi.client.Request<Activities>;            
+            }): Request<Activities>;            
             
             /** Push changes to activities */
             watch(request: {            
@@ -250,7 +250,7 @@ declare namespace gapi.client {
                 startTime?: string;
                 /** Represents the profile id or the user email for which the data should be filtered. When 'all' is specified as the userKey, it returns usageReports for all users. */
                 userKey: string;
-            }): gapi.client.Request<Channel>;            
+            }): Request<Channel>;            
             
         }
         
@@ -271,7 +271,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
         }
         
@@ -300,7 +300,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Represents the application name, parameter name pairs to fetch in csv as app_name1:param_name1, app_name2:param_name2. */
                 parameters?: string;
-            }): gapi.client.Request<UsageReports>;            
+            }): Request<UsageReports>;            
             
         }
         
@@ -335,7 +335,7 @@ declare namespace gapi.client {
                 parameters?: string;
                 /** Represents the profile id or the user email for which the data should be filtered. */
                 userKey: string;
-            }): gapi.client.Request<UsageReports>;            
+            }): Request<UsageReports>;            
             
         }
     }

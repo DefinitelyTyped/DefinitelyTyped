@@ -504,7 +504,7 @@ declare namespace gapi.client {
                 deployment: string;
                 /** The project ID for this request. */
                 project: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Deletes a deployment and all of the resources in the deployment. */
             delete(request: {            
@@ -528,7 +528,7 @@ declare namespace gapi.client {
                 deployment: string;
                 /** The project ID for this request. */
                 project: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Gets information about a specific deployment. */
             get(request: {            
@@ -550,7 +550,7 @@ declare namespace gapi.client {
                 deployment: string;
                 /** The project ID for this request. */
                 project: string;
-            }): gapi.client.Request<Deployment>;            
+            }): Request<Deployment>;            
             
             /** Gets the access control policy for a resource. May be empty if no such policy or resource exists. */
             getIamPolicy(request: {            
@@ -572,7 +572,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Name of the resource for this request. */
                 resource: string;
-            }): gapi.client.Request<Policy>;            
+            }): Request<Policy>;            
             
             /** Creates a deployment and all of the resources described by the deployment manifest. */
             insert(request: {            
@@ -594,7 +594,7 @@ declare namespace gapi.client {
                 preview?: boolean;
                 /** The project ID for this request. */
                 project: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Lists all deployments for a given project. */
             list(request: {            
@@ -634,7 +634,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** The project ID for this request. */
                 project: string;
-            }): gapi.client.Request<DeploymentsListResponse>;            
+            }): Request<DeploymentsListResponse>;            
             
             /** Updates a deployment and all of the resources described by the deployment manifest. This method supports patch semantics. */
             patch(request: {            
@@ -662,7 +662,7 @@ declare namespace gapi.client {
                 preview?: boolean;
                 /** The project ID for this request. */
                 project: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Sets the access control policy on the specified resource. Replaces any existing policy. */
             setIamPolicy(request: {            
@@ -684,7 +684,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Name of the resource for this request. */
                 resource: string;
-            }): gapi.client.Request<Policy>;            
+            }): Request<Policy>;            
             
             /** Stops an ongoing operation. This does not roll back any work that has already been completed, but prevents any new work from being started. */
             stop(request: {            
@@ -706,7 +706,7 @@ declare namespace gapi.client {
                 deployment: string;
                 /** The project ID for this request. */
                 project: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Returns permissions that a caller has on the specified resource. */
             testIamPermissions(request: {            
@@ -728,7 +728,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Name of the resource for this request. */
                 resource: string;
-            }): gapi.client.Request<TestPermissionsResponse>;            
+            }): Request<TestPermissionsResponse>;            
             
             /** Updates a deployment and all of the resources described by the deployment manifest. */
             update(request: {            
@@ -756,7 +756,7 @@ declare namespace gapi.client {
                 preview?: boolean;
                 /** The project ID for this request. */
                 project: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
         }
         
@@ -783,7 +783,7 @@ declare namespace gapi.client {
                 manifest: string;
                 /** The project ID for this request. */
                 project: string;
-            }): gapi.client.Request<Manifest>;            
+            }): Request<Manifest>;            
             
             /** Lists all manifests for a given deployment. */
             list(request: {            
@@ -825,7 +825,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** The project ID for this request. */
                 project: string;
-            }): gapi.client.Request<ManifestsListResponse>;            
+            }): Request<ManifestsListResponse>;            
             
         }
         
@@ -850,7 +850,7 @@ declare namespace gapi.client {
                 operation: string;
                 /** The project ID for this request. */
                 project: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Lists all operations for a project. */
             list(request: {            
@@ -890,7 +890,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** The project ID for this request. */
                 project: string;
-            }): gapi.client.Request<OperationsListResponse>;            
+            }): Request<OperationsListResponse>;            
             
         }
         
@@ -917,7 +917,7 @@ declare namespace gapi.client {
                 project: string;
                 /** The name of the resource for this request. */
                 resource: string;
-            }): gapi.client.Request<Resource>;            
+            }): Request<Resource>;            
             
             /** Lists all resources in a given deployment. */
             list(request: {            
@@ -959,7 +959,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** The project ID for this request. */
                 project: string;
-            }): gapi.client.Request<ResourcesListResponse>;            
+            }): Request<ResourcesListResponse>;            
             
         }
         
@@ -1002,7 +1002,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** The project ID for this request. */
                 project: string;
-            }): gapi.client.Request<TypesListResponse>;            
+            }): Request<TypesListResponse>;            
             
         }
     }

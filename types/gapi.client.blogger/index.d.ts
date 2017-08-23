@@ -412,7 +412,7 @@ declare namespace gapi.client {
                 maxPosts?: number;
                 /** ID of the user whose blogs are to be fetched. Either the word 'self' (sans quote marks) or the user's profile identifier. */
                 userId: string;
-            }): gapi.client.Request<BlogUserInfo>;            
+            }): Request<BlogUserInfo>;            
             
         }
         
@@ -439,7 +439,7 @@ declare namespace gapi.client {
                 maxPosts?: number;
                 /** Access level with which to view the blog. Note that some fields require elevated access. */
                 view?: string;
-            }): gapi.client.Request<Blog>;            
+            }): Request<Blog>;            
             
             /** Retrieve a Blog by URL. */
             getByUrl(request: {            
@@ -461,7 +461,7 @@ declare namespace gapi.client {
                 url: string;
                 /** Access level with which to view the blog. Note that some fields require elevated access. */
                 view?: string;
-            }): gapi.client.Request<Blog>;            
+            }): Request<Blog>;            
             
             /** Retrieves a list of blogs, possibly filtered. */
             listByUser(request: {            
@@ -489,7 +489,7 @@ declare namespace gapi.client {
                 userId: string;
                 /** Access level with which to view the blogs. Note that some fields require elevated access. */
                 view?: string;
-            }): gapi.client.Request<BlogList>;            
+            }): Request<BlogList>;            
             
         }
         
@@ -516,7 +516,7 @@ declare namespace gapi.client {
                 commentId: string;
                 /** The ID of the Post. */
                 postId: string;
-            }): gapi.client.Request<Comment>;            
+            }): Request<Comment>;            
             
             /** Delete a comment by ID. */
             delete(request: {            
@@ -540,7 +540,7 @@ declare namespace gapi.client {
                 commentId: string;
                 /** The ID of the Post. */
                 postId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Gets one comment by ID. */
             get(request: {            
@@ -566,7 +566,7 @@ declare namespace gapi.client {
                 postId: string;
                 /** Access level for the requested comment (default: READER). Note that some comments will require elevated permissions, for example comments where the parent posts which is in a draft state, or comments that are pending moderation. */
                 view?: string;
-            }): gapi.client.Request<Comment>;            
+            }): Request<Comment>;            
             
             /** Retrieves the comments for a post, possibly filtered. */
             list(request: {            
@@ -602,7 +602,7 @@ declare namespace gapi.client {
                 status?: string;
                 /** Access level with which to view the returned result. Note that some fields require elevated access. */
                 view?: string;
-            }): gapi.client.Request<CommentList>;            
+            }): Request<CommentList>;            
             
             /** Retrieves the comments for a blog, across all posts, possibly filtered. */
             listByBlog(request: {            
@@ -634,7 +634,7 @@ declare namespace gapi.client {
                 startDate?: string;
                 /**  */
                 status?: string;
-            }): gapi.client.Request<CommentList>;            
+            }): Request<CommentList>;            
             
             /** Marks a comment as spam. */
             markAsSpam(request: {            
@@ -658,7 +658,7 @@ declare namespace gapi.client {
                 commentId: string;
                 /** The ID of the Post. */
                 postId: string;
-            }): gapi.client.Request<Comment>;            
+            }): Request<Comment>;            
             
             /** Removes the content of a comment. */
             removeContent(request: {            
@@ -682,7 +682,7 @@ declare namespace gapi.client {
                 commentId: string;
                 /** The ID of the Post. */
                 postId: string;
-            }): gapi.client.Request<Comment>;            
+            }): Request<Comment>;            
             
         }
         
@@ -707,7 +707,7 @@ declare namespace gapi.client {
                 blogId: string;
                 /**  */
                 range?: string;
-            }): gapi.client.Request<Pageviews>;            
+            }): Request<Pageviews>;            
             
         }
         
@@ -732,7 +732,7 @@ declare namespace gapi.client {
                 blogId: string;
                 /** The ID of the Page. */
                 pageId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Gets one blog page by ID. */
             get(request: {            
@@ -756,7 +756,7 @@ declare namespace gapi.client {
                 pageId: string;
                 /**  */
                 view?: string;
-            }): gapi.client.Request<Page>;            
+            }): Request<Page>;            
             
             /** Add a page. */
             insert(request: {            
@@ -778,7 +778,7 @@ declare namespace gapi.client {
                 blogId: string;
                 /** Whether to create the page as a draft (default: false). */
                 isDraft?: boolean;
-            }): gapi.client.Request<Page>;            
+            }): Request<Page>;            
             
             /** Retrieves the pages for a blog, optionally including non-LIVE statuses. */
             list(request: {            
@@ -808,7 +808,7 @@ declare namespace gapi.client {
                 status?: string;
                 /** Access level with which to view the returned result. Note that some fields require elevated access. */
                 view?: string;
-            }): gapi.client.Request<PageList>;            
+            }): Request<PageList>;            
             
             /** Update a page. This method supports patch semantics. */
             patch(request: {            
@@ -834,7 +834,7 @@ declare namespace gapi.client {
                 publish?: boolean;
                 /** Whether a revert action should be performed when the page is updated (default: false). */
                 revert?: boolean;
-            }): gapi.client.Request<Page>;            
+            }): Request<Page>;            
             
             /** Publishes a draft page. */
             publish(request: {            
@@ -856,7 +856,7 @@ declare namespace gapi.client {
                 blogId: string;
                 /** The ID of the page. */
                 pageId: string;
-            }): gapi.client.Request<Page>;            
+            }): Request<Page>;            
             
             /** Revert a published or scheduled page to draft state. */
             revert(request: {            
@@ -878,7 +878,7 @@ declare namespace gapi.client {
                 blogId: string;
                 /** The ID of the page. */
                 pageId: string;
-            }): gapi.client.Request<Page>;            
+            }): Request<Page>;            
             
             /** Update a page. */
             update(request: {            
@@ -904,7 +904,7 @@ declare namespace gapi.client {
                 publish?: boolean;
                 /** Whether a revert action should be performed when the page is updated (default: false). */
                 revert?: boolean;
-            }): gapi.client.Request<Page>;            
+            }): Request<Page>;            
             
         }
         
@@ -933,7 +933,7 @@ declare namespace gapi.client {
                 postId: string;
                 /** ID of the user for the per-user information to be fetched. Either the word 'self' (sans quote marks) or the user's profile identifier. */
                 userId: string;
-            }): gapi.client.Request<PostUserInfo>;            
+            }): Request<PostUserInfo>;            
             
             /** Retrieves a list of post and post user info pairs, possibly filtered. The post user info contains per-user information about the post, such as access rights, specific to the user. */
             list(request: {            
@@ -973,7 +973,7 @@ declare namespace gapi.client {
                 userId: string;
                 /** Access level with which to view the returned result. Note that some fields require elevated access. */
                 view?: string;
-            }): gapi.client.Request<PostUserInfosList>;            
+            }): Request<PostUserInfosList>;            
             
         }
         
@@ -998,7 +998,7 @@ declare namespace gapi.client {
                 blogId: string;
                 /** The ID of the Post. */
                 postId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Get a post by ID. */
             get(request: {            
@@ -1028,7 +1028,7 @@ declare namespace gapi.client {
                 postId: string;
                 /** Access level with which to view the returned result. Note that some fields require elevated access. */
                 view?: string;
-            }): gapi.client.Request<Post>;            
+            }): Request<Post>;            
             
             /** Retrieve a Post by Path. */
             getByPath(request: {            
@@ -1054,7 +1054,7 @@ declare namespace gapi.client {
                 path: string;
                 /** Access level with which to view the returned result. Note that some fields require elevated access. */
                 view?: string;
-            }): gapi.client.Request<Post>;            
+            }): Request<Post>;            
             
             /** Add a post. */
             insert(request: {            
@@ -1080,7 +1080,7 @@ declare namespace gapi.client {
                 fetchImages?: boolean;
                 /** Whether to create the post as a draft (default: false). */
                 isDraft?: boolean;
-            }): gapi.client.Request<Post>;            
+            }): Request<Post>;            
             
             /** Retrieves a list of posts, possibly filtered. */
             list(request: {            
@@ -1120,7 +1120,7 @@ declare namespace gapi.client {
                 status?: string;
                 /** Access level with which to view the returned result. Note that some fields require escalated access. */
                 view?: string;
-            }): gapi.client.Request<PostList>;            
+            }): Request<PostList>;            
             
             /** Update a post. This method supports patch semantics. */
             patch(request: {            
@@ -1152,7 +1152,7 @@ declare namespace gapi.client {
                 publish?: boolean;
                 /** Whether a revert action should be performed when the post is updated (default: false). */
                 revert?: boolean;
-            }): gapi.client.Request<Post>;            
+            }): Request<Post>;            
             
             /** Publishes a draft post, optionally at the specific time of the given publishDate parameter. */
             publish(request: {            
@@ -1176,7 +1176,7 @@ declare namespace gapi.client {
                 postId: string;
                 /** Optional date and time to schedule the publishing of the Blog. If no publishDate parameter is given, the post is either published at the a previously saved schedule date (if present), or the current time. If a future date is given, the post will be scheduled to be published. */
                 publishDate?: string;
-            }): gapi.client.Request<Post>;            
+            }): Request<Post>;            
             
             /** Revert a published or scheduled post to draft state. */
             revert(request: {            
@@ -1198,7 +1198,7 @@ declare namespace gapi.client {
                 blogId: string;
                 /** The ID of the Post. */
                 postId: string;
-            }): gapi.client.Request<Post>;            
+            }): Request<Post>;            
             
             /** Search for a post. */
             search(request: {            
@@ -1224,7 +1224,7 @@ declare namespace gapi.client {
                 orderBy?: string;
                 /** Query terms to search this blog for matching posts. */
                 q: string;
-            }): gapi.client.Request<PostList>;            
+            }): Request<PostList>;            
             
             /** Update a post. */
             update(request: {            
@@ -1256,7 +1256,7 @@ declare namespace gapi.client {
                 publish?: boolean;
                 /** Whether a revert action should be performed when the post is updated (default: false). */
                 revert?: boolean;
-            }): gapi.client.Request<Post>;            
+            }): Request<Post>;            
             
         }
         
@@ -1279,7 +1279,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The ID of the user to get. */
                 userId: string;
-            }): gapi.client.Request<User>;            
+            }): Request<User>;            
             
         }
     }

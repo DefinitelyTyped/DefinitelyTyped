@@ -465,7 +465,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<PawsGetSpectrumResponse>;            
+            }): Request<PawsGetSpectrumResponse>;            
             
             /** The Google Spectrum Database does not support batch requests, so this method always yields an UNIMPLEMENTED error. */
             getSpectrumBatch(request: {            
@@ -483,7 +483,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<PawsGetSpectrumBatchResponse>;            
+            }): Request<PawsGetSpectrumBatchResponse>;            
             
             /** Initializes the connection between a white space device and the database. */
             init(request: {            
@@ -501,7 +501,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<PawsInitResponse>;            
+            }): Request<PawsInitResponse>;            
             
             /** Notifies the database that the device has selected certain frequency ranges for transmission. Only to be invoked when required by the regulator. The Google Spectrum Database does not operate in domains that require notification, so this always yields an UNIMPLEMENTED error. */
             notifySpectrumUse(request: {            
@@ -519,7 +519,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<PawsNotifySpectrumUseResponse>;            
+            }): Request<PawsNotifySpectrumUseResponse>;            
             
             /** The Google Spectrum Database implements registration in the getSpectrum method. As such this always returns an UNIMPLEMENTED error. */
             register(request: {            
@@ -537,7 +537,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<PawsRegisterResponse>;            
+            }): Request<PawsRegisterResponse>;            
             
             /** Validates a device for white space use in accordance with regulatory rules. The Google Spectrum Database does not support master/slave configurations, so this always yields an UNIMPLEMENTED error. */
             verifyDevice(request: {            
@@ -555,7 +555,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<PawsVerifyDeviceResponse>;            
+            }): Request<PawsVerifyDeviceResponse>;            
             
         }
     }

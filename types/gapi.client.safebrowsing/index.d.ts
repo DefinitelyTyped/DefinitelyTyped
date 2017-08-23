@@ -16,6 +16,8 @@ declare namespace gapi.client {
     function load(name: "safebrowsing", version: "v4"): PromiseLike<void>;    
     function load(name: "safebrowsing", version: "v4", callback: () => any): void;    
     
+    const threatListUpdates: safebrowsing.ThreatListUpdatesResource; 
+    
     const encodedFullHashes: safebrowsing.EncodedFullHashesResource; 
     
     const threatLists: safebrowsing.ThreatListsResource; 
@@ -26,88 +28,7 @@ declare namespace gapi.client {
     
     const encodedUpdates: safebrowsing.EncodedUpdatesResource; 
     
-    const threatListUpdates: safebrowsing.ThreatListUpdatesResource; 
-    
     namespace safebrowsing {
-        
-        interface Constraints {
-            /** Requests the list for a specific geographic location. If not set the */
-            /** server may pick that value based on the user's IP address. Expects ISO */
-            /** 3166-1 alpha-2 format. */
-            region?: string;
-            /** Sets the maximum number of entries that the client is willing to have */
-            /** in the local database. This should be a power of 2 between 2&#42;&#42;10 and */
-            /** 2&#42;&#42;20. If zero, no database size limit is set. */
-            maxDatabaseEntries?: number;
-            /** The compression types supported by the client. */
-            supportedCompressions?: string[];
-            /** The maximum size in number of entries. The update will not contain more */
-            /** entries than this value.  This should be a power of 2 between 2&#42;&#42;10 and */
-            /** 2&#42;&#42;20.  If zero, no update size limit is set. */
-            maxUpdateEntries?: number;
-        }
-        
-        interface ThreatMatch {
-            /** The cache lifetime for the returned match. Clients must not cache this */
-            /** response for more than this duration to avoid false positives. */
-            cacheDuration?: string;
-            /** The threat type matching this threat. */
-            threatType?: string;
-            /** Optional metadata associated with this threat. */
-            threatEntryMetadata?: ThreatEntryMetadata;
-            /** The threat matching this threat. */
-            threat?: ThreatEntry;
-            /** The platform type matching this threat. */
-            platformType?: string;
-            /** The threat entry type matching this threat. */
-            threatEntryType?: string;
-        }
-        
-        interface ListThreatListsResponse {
-            /** The lists available for download by the client. */
-            threatLists?: ThreatListDescriptor[];
-        }
-        
-        interface RiceDeltaEncoding {
-            /** The encoded deltas that are encoded using the Golomb-Rice coder. */
-            encodedData?: string;
-            /** The offset of the first entry in the encoded data, or, if only a single */
-            /** integer was encoded, that single integer's value. */
-            firstValue?: string;
-            /** The number of entries that are delta encoded in the encoded data. If only a */
-            /** single integer was encoded, this will be zero and the single value will be */
-            /** stored in `first_value`. */
-            numEntries?: number;
-            /** The Golomb-Rice parameter, which is a number between 2 and 28. This field */
-            /** is missing (that is, zero) if `num_entries` is zero. */
-            riceParameter?: number;
-        }
-        
-        interface FindThreatMatchesResponse {
-            /** The threat list matches. */
-            matches?: ThreatMatch[];
-        }
-        
-        interface ThreatEntry {
-            /** The digest of an executable in SHA256 format. The API supports both */
-            /** binary and hex digests. For JSON requests, digests are base64-encoded. */
-            digest?: string;
-            /** A hash prefix, consisting of the most significant 4-32 bytes of a SHA256 */
-            /** hash. This field is in binary format. For JSON requests, hashes are */
-            /** base64-encoded. */
-            hash?: string;
-            /** A URL. */
-            url?: string;
-        }
-        
-        interface ThreatListDescriptor {
-            /** The entry types contained in the list. */
-            threatEntryType?: string;
-            /** The platform type targeted by the list's entries. */
-            platformType?: string;
-            /** The threat type posed by the list's entries. */
-            threatType?: string;
-        }
         
         interface MetadataEntry {
             /** The metadata entry value. For JSON requests, the value is base64-encoded. */
@@ -124,13 +45,6 @@ declare namespace gapi.client {
             clientVersion?: string;
         }
         
-        interface FindThreatMatchesRequest {
-            /** The client metadata. */
-            client?: ClientInfo;
-            /** The lists and entries to be checked for matches. */
-            threatInfo?: ThreatInfo;
-        }
-        
         interface ThreatInfo {
             /** The entry types to be checked. */
             threatEntryTypes?: string[];
@@ -140,6 +54,13 @@ declare namespace gapi.client {
             platformTypes?: string[];
             /** The threat entries to be checked. */
             threatEntries?: ThreatEntry[];
+        }
+        
+        interface FindThreatMatchesRequest {
+            /** The client metadata. */
+            client?: ClientInfo;
+            /** The lists and entries to be checked for matches. */
+            threatInfo?: ThreatInfo;
         }
         
         interface ThreatEntryMetadata {
@@ -170,12 +91,6 @@ declare namespace gapi.client {
             listUpdateResponses?: ListUpdateResponse[];
         }
         
-        interface Checksum {
-            /** The SHA256 hash of the client state; that is, of the sorted list of all */
-            /** hashes present in the database. */
-            sha256?: string;
-        }
-        
         interface FindFullHashesResponse {
             /** The minimum duration the client must wait before issuing any find hashes */
             /** request. If this field is not set, clients can issue a request as soon as */
@@ -186,6 +101,12 @@ declare namespace gapi.client {
             /** For requested entities that did not match the threat list, how long to */
             /** cache the response. */
             negativeCacheDuration?: string;
+        }
+        
+        interface Checksum {
+            /** The SHA256 hash of the client state; that is, of the sorted list of all */
+            /** hashes present in the database. */
+            sha256?: string;
         }
         
         interface ThreatEntrySet {
@@ -207,18 +128,21 @@ declare namespace gapi.client {
         }
         
         interface FindFullHashesRequest {
-            /** Client metadata associated with callers of higher-level APIs built on top */
-            /** of the client's implementation. */
-            apiClient?: ClientInfo;
             /** The current client states for each of the client's local threat lists. */
             clientStates?: string[];
             /** The client metadata. */
             client?: ClientInfo;
             /** The lists and hashes to be checked. */
             threatInfo?: ThreatInfo;
+            /** Client metadata associated with callers of higher-level APIs built on top */
+            /** of the client's implementation. */
+            apiClient?: ClientInfo;
         }
         
         interface ListUpdateRequest {
+            /** The current state of the client for the requested list (the encrypted */
+            /** client state that was received from the last successful list update). */
+            state?: string;
             /** The type of platform at risk by entries present in the list. */
             platformType?: string;
             /** The constraints associated with this request. */
@@ -227,9 +151,6 @@ declare namespace gapi.client {
             threatType?: string;
             /** The types of entries present in the list. */
             threatEntryType?: string;
-            /** The current state of the client for the requested list (the encrypted */
-            /** client state that was received from the last successful list update). */
-            state?: string;
         }
         
         interface FetchThreatListUpdatesRequest {
@@ -265,9 +186,93 @@ declare namespace gapi.client {
             additions?: ThreatEntrySet[];
         }
         
-        interface EncodedFullHashesResource {
-            /**  */
-            get(request: {            
+        interface Constraints {
+            /** Requests the list for a specific geographic location. If not set the */
+            /** server may pick that value based on the user's IP address. Expects ISO */
+            /** 3166-1 alpha-2 format. */
+            region?: string;
+            /** Sets the maximum number of entries that the client is willing to have */
+            /** in the local database. This should be a power of 2 between 2&#42;&#42;10 and */
+            /** 2&#42;&#42;20. If zero, no database size limit is set. */
+            maxDatabaseEntries?: number;
+            /** The compression types supported by the client. */
+            supportedCompressions?: string[];
+            /** The maximum size in number of entries. The update will not contain more */
+            /** entries than this value.  This should be a power of 2 between 2&#42;&#42;10 and */
+            /** 2&#42;&#42;20.  If zero, no update size limit is set. */
+            maxUpdateEntries?: number;
+        }
+        
+        interface ThreatMatch {
+            /** The threat entry type matching this threat. */
+            threatEntryType?: string;
+            /** The cache lifetime for the returned match. Clients must not cache this */
+            /** response for more than this duration to avoid false positives. */
+            cacheDuration?: string;
+            /** Optional metadata associated with this threat. */
+            threatEntryMetadata?: ThreatEntryMetadata;
+            /** The threat type matching this threat. */
+            threatType?: string;
+            /** The threat matching this threat. */
+            threat?: ThreatEntry;
+            /** The platform type matching this threat. */
+            platformType?: string;
+        }
+        
+        interface ListThreatListsResponse {
+            /** The lists available for download by the client. */
+            threatLists?: ThreatListDescriptor[];
+        }
+        
+        interface RiceDeltaEncoding {
+            /** The Golomb-Rice parameter, which is a number between 2 and 28. This field */
+            /** is missing (that is, zero) if `num_entries` is zero. */
+            riceParameter?: number;
+            /** The encoded deltas that are encoded using the Golomb-Rice coder. */
+            encodedData?: string;
+            /** The offset of the first entry in the encoded data, or, if only a single */
+            /** integer was encoded, that single integer's value. */
+            firstValue?: string;
+            /** The number of entries that are delta encoded in the encoded data. If only a */
+            /** single integer was encoded, this will be zero and the single value will be */
+            /** stored in `first_value`. */
+            numEntries?: number;
+        }
+        
+        interface FindThreatMatchesResponse {
+            /** The threat list matches. */
+            matches?: ThreatMatch[];
+        }
+        
+        interface ThreatEntry {
+            /** The digest of an executable in SHA256 format. The API supports both */
+            /** binary and hex digests. For JSON requests, digests are base64-encoded. */
+            digest?: string;
+            /** A hash prefix, consisting of the most significant 4-32 bytes of a SHA256 */
+            /** hash. This field is in binary format. For JSON requests, hashes are */
+            /** base64-encoded. */
+            hash?: string;
+            /** A URL. */
+            url?: string;
+        }
+        
+        interface ThreatListDescriptor {
+            /** The platform type targeted by the list's entries. */
+            platformType?: string;
+            /** The threat type posed by the list's entries. */
+            threatType?: string;
+            /** The entry types contained in the list. */
+            threatEntryType?: string;
+        }
+        
+        interface ThreatListUpdatesResource {
+            /** Fetches the most recent threat list updates. A client can request updates */
+            /** for multiple lists at once. */
+            fetch(request: {            
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
@@ -290,24 +295,57 @@ declare namespace gapi.client {
                 "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
+            }): Request<FetchThreatListUpdatesResponse>;            
+            
+        }
+        
+        interface EncodedFullHashesResource {
+            /**  */
+            get(request: {            
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
                 /** OAuth access token. */
                 access_token?: string;
-                /** A serialized FindFullHashesRequest proto. */
-                encodedRequest: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
                 /** A client ID that (hopefully) uniquely identifies the client implementation */
                 /** of the Safe Browsing API. */
                 clientId?: string;
                 /** The version of the client implementation. */
                 clientVersion?: string;
-            }): gapi.client.Request<FindFullHashesResponse>;            
+                /** A serialized FindFullHashesRequest proto. */
+                encodedRequest: string;
+            }): Request<FindFullHashesResponse>;            
             
         }
         
         interface ThreatListsResource {
             /** Lists the Safe Browsing threat lists available for download. */
             list(request: {            
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
@@ -330,17 +368,17 @@ declare namespace gapi.client {
                 "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-            }): gapi.client.Request<ListThreatListsResponse>;            
+            }): Request<ListThreatListsResponse>;            
             
         }
         
         interface ThreatMatchesResource {
             /** Finds the threat entries that match the Safe Browsing lists. */
             find(request: {            
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
@@ -363,17 +401,17 @@ declare namespace gapi.client {
                 "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-            }): gapi.client.Request<FindThreatMatchesResponse>;            
+            }): Request<FindThreatMatchesResponse>;            
             
         }
         
         interface FullHashesResource {
             /** Finds the full hashes that match the requested hash prefixes. */
             find(request: {            
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
@@ -396,17 +434,17 @@ declare namespace gapi.client {
                 "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-            }): gapi.client.Request<FindFullHashesResponse>;            
+            }): Request<FindFullHashesResponse>;            
             
         }
         
         interface EncodedUpdatesResource {
             /**  */
             get(request: {            
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
@@ -429,10 +467,6 @@ declare namespace gapi.client {
                 "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
                 /** The version of the client implementation. */
                 clientVersion?: string;
                 /** A serialized FetchThreatListUpdatesRequest proto. */
@@ -440,41 +474,7 @@ declare namespace gapi.client {
                 /** A client ID that uniquely identifies the client implementation of the Safe */
                 /** Browsing API. */
                 clientId?: string;
-            }): gapi.client.Request<FetchThreatListUpdatesResponse>;            
-            
-        }
-        
-        interface ThreatListUpdatesResource {
-            /** Fetches the most recent threat list updates. A client can request updates */
-            /** for multiple lists at once. */
-            fetch(request: {            
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-            }): gapi.client.Request<FetchThreatListUpdatesResponse>;            
+            }): Request<FetchThreatListUpdatesResponse>;            
             
         }
     }

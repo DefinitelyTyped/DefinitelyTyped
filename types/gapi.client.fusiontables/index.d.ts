@@ -336,7 +336,7 @@ declare namespace gapi.client {
                 columnId: string;
                 /** Table from which the column is being deleted. */
                 tableId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Retrieves a specific column by its ID. */
             get(request: {            
@@ -358,7 +358,7 @@ declare namespace gapi.client {
                 columnId: string;
                 /** Table to which the column belongs. */
                 tableId: string;
-            }): gapi.client.Request<Column>;            
+            }): Request<Column>;            
             
             /** Adds a new column to the table. */
             insert(request: {            
@@ -378,7 +378,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Table for which a new column is being added. */
                 tableId: string;
-            }): gapi.client.Request<Column>;            
+            }): Request<Column>;            
             
             /** Retrieves a list of columns. */
             list(request: {            
@@ -402,7 +402,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Table whose columns are being listed. */
                 tableId: string;
-            }): gapi.client.Request<ColumnList>;            
+            }): Request<ColumnList>;            
             
             /** Updates the name or type of an existing column. This method supports patch semantics. */
             patch(request: {            
@@ -424,7 +424,7 @@ declare namespace gapi.client {
                 columnId: string;
                 /** Table for which the column is being updated. */
                 tableId: string;
-            }): gapi.client.Request<Column>;            
+            }): Request<Column>;            
             
             /** Updates the name or type of an existing column. */
             update(request: {            
@@ -446,7 +446,7 @@ declare namespace gapi.client {
                 columnId: string;
                 /** Table for which the column is being updated. */
                 tableId: string;
-            }): gapi.client.Request<Column>;            
+            }): Request<Column>;            
             
         }
         
@@ -487,7 +487,7 @@ declare namespace gapi.client {
                 sql: string;
                 /** Whether typed values are returned in the (JSON) response: numbers for numeric values and parsed geometries for KML values. Default is true. */
                 typed?: boolean;
-            }): gapi.client.Request<Sqlresponse>;            
+            }): Request<Sqlresponse>;            
             
             /** Executes a SQL statement which can be any of  */
             /** - SELECT */
@@ -517,7 +517,7 @@ declare namespace gapi.client {
                 sql: string;
                 /** Whether typed values are returned in the (JSON) response: numbers for numeric values and parsed geometries for KML values. Default is true. */
                 typed?: boolean;
-            }): gapi.client.Request<Sqlresponse>;            
+            }): Request<Sqlresponse>;            
             
         }
         
@@ -542,7 +542,7 @@ declare namespace gapi.client {
                 styleId: number;
                 /** Table from which the style is being deleted */
                 tableId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Gets a specific style. */
             get(request: {            
@@ -564,7 +564,7 @@ declare namespace gapi.client {
                 styleId: number;
                 /** Table to which the requested style belongs */
                 tableId: string;
-            }): gapi.client.Request<StyleSetting>;            
+            }): Request<StyleSetting>;            
             
             /** Adds a new style for the table. */
             insert(request: {            
@@ -584,7 +584,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Table for which a new style is being added */
                 tableId: string;
-            }): gapi.client.Request<StyleSetting>;            
+            }): Request<StyleSetting>;            
             
             /** Retrieves a list of styles. */
             list(request: {            
@@ -608,7 +608,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Table whose styles are being listed */
                 tableId: string;
-            }): gapi.client.Request<StyleSettingList>;            
+            }): Request<StyleSettingList>;            
             
             /** Updates an existing style. This method supports patch semantics. */
             patch(request: {            
@@ -630,7 +630,7 @@ declare namespace gapi.client {
                 styleId: number;
                 /** Table whose style is being updated. */
                 tableId: string;
-            }): gapi.client.Request<StyleSetting>;            
+            }): Request<StyleSetting>;            
             
             /** Updates an existing style. */
             update(request: {            
@@ -652,7 +652,7 @@ declare namespace gapi.client {
                 styleId: number;
                 /** Table whose style is being updated. */
                 tableId: string;
-            }): gapi.client.Request<StyleSetting>;            
+            }): Request<StyleSetting>;            
             
         }
         
@@ -677,7 +677,7 @@ declare namespace gapi.client {
                 copyPresentation?: boolean;
                 /** ID of the table that is being copied. */
                 tableId: string;
-            }): gapi.client.Request<Table>;            
+            }): Request<Table>;            
             
             /** Deletes a table. */
             delete(request: {            
@@ -697,7 +697,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** ID of the table to be deleted. */
                 tableId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Retrieves a specific table by its ID. */
             get(request: {            
@@ -717,7 +717,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Identifier for the table being requested. */
                 tableId: string;
-            }): gapi.client.Request<Table>;            
+            }): Request<Table>;            
             
             /** Imports more rows into a table. */
             importRows(request: {            
@@ -747,7 +747,7 @@ declare namespace gapi.client {
                 startLine?: number;
                 /** The table into which new rows are being imported. */
                 tableId: string;
-            }): gapi.client.Request<Import>;            
+            }): Request<Import>;            
             
             /** Imports a new table. */
             importTable(request: {            
@@ -771,7 +771,7 @@ declare namespace gapi.client {
                 encoding?: string;
                 /** The name to be assigned to the new table. */
                 name: string;
-            }): gapi.client.Request<Table>;            
+            }): Request<Table>;            
             
             /** Creates a new table. */
             insert(request: {            
@@ -789,7 +789,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<Table>;            
+            }): Request<Table>;            
             
             /** Retrieves a list of tables a user owns. */
             list(request: {            
@@ -811,7 +811,7 @@ declare namespace gapi.client {
                 maxResults?: number;
                 /** Continuation token specifying which result page to return. */
                 pageToken?: string;
-            }): gapi.client.Request<TableList>;            
+            }): Request<TableList>;            
             
             /** Updates an existing table. Unless explicitly requested, only the name, description, and attribution will be updated. This method supports patch semantics. */
             patch(request: {            
@@ -833,7 +833,7 @@ declare namespace gapi.client {
                 replaceViewDefinition?: boolean;
                 /** ID of the table that is being updated. */
                 tableId: string;
-            }): gapi.client.Request<Table>;            
+            }): Request<Table>;            
             
             /** Replaces rows of an existing table. Current rows remain visible until all replacement rows are ready. */
             replaceRows(request: {            
@@ -863,7 +863,7 @@ declare namespace gapi.client {
                 startLine?: number;
                 /** Table whose rows will be replaced. */
                 tableId: string;
-            }): gapi.client.Request<Task>;            
+            }): Request<Task>;            
             
             /** Updates an existing table. Unless explicitly requested, only the name, description, and attribution will be updated. */
             update(request: {            
@@ -885,7 +885,7 @@ declare namespace gapi.client {
                 replaceViewDefinition?: boolean;
                 /** ID of the table that is being updated. */
                 tableId: string;
-            }): gapi.client.Request<Table>;            
+            }): Request<Table>;            
             
         }
         
@@ -910,7 +910,7 @@ declare namespace gapi.client {
                 tableId: string;
                 /** The identifier of the task to delete. */
                 taskId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Retrieves a specific task by its ID. */
             get(request: {            
@@ -932,7 +932,7 @@ declare namespace gapi.client {
                 tableId: string;
                 /** The identifier of the task to get. */
                 taskId: string;
-            }): gapi.client.Request<Task>;            
+            }): Request<Task>;            
             
             /** Retrieves a list of tasks. */
             list(request: {            
@@ -958,7 +958,7 @@ declare namespace gapi.client {
                 startIndex?: number;
                 /** Table whose tasks are being listed. */
                 tableId: string;
-            }): gapi.client.Request<TaskList>;            
+            }): Request<TaskList>;            
             
         }
         
@@ -983,7 +983,7 @@ declare namespace gapi.client {
                 tableId: string;
                 /** Identifier for the template which is being deleted */
                 templateId: number;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Retrieves a specific template by its id */
             get(request: {            
@@ -1005,7 +1005,7 @@ declare namespace gapi.client {
                 tableId: string;
                 /** Identifier for the template that is being requested */
                 templateId: number;
-            }): gapi.client.Request<Template>;            
+            }): Request<Template>;            
             
             /** Creates a new template for the table. */
             insert(request: {            
@@ -1025,7 +1025,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Table for which a new template is being created */
                 tableId: string;
-            }): gapi.client.Request<Template>;            
+            }): Request<Template>;            
             
             /** Retrieves a list of templates. */
             list(request: {            
@@ -1049,7 +1049,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Identifier for the table whose templates are being requested */
                 tableId: string;
-            }): gapi.client.Request<TemplateList>;            
+            }): Request<TemplateList>;            
             
             /** Updates an existing template. This method supports patch semantics. */
             patch(request: {            
@@ -1071,7 +1071,7 @@ declare namespace gapi.client {
                 tableId: string;
                 /** Identifier for the template that is being updated */
                 templateId: number;
-            }): gapi.client.Request<Template>;            
+            }): Request<Template>;            
             
             /** Updates an existing template */
             update(request: {            
@@ -1093,7 +1093,7 @@ declare namespace gapi.client {
                 tableId: string;
                 /** Identifier for the template that is being updated */
                 templateId: number;
-            }): gapi.client.Request<Template>;            
+            }): Request<Template>;            
             
         }
     }

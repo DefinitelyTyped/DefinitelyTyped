@@ -209,7 +209,7 @@ declare namespace gapi.client {
                 project: string;
                 /** The name of the zone in which the instance group manager resides. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Deletes the instance group manager and all instances contained within. If you'd like to delete the manager without deleting the instances, you must first abandon the instances to remove them from the group. */
             delete(request: {            
@@ -233,7 +233,7 @@ declare namespace gapi.client {
                 project: string;
                 /** The name of the zone in which the instance group manager resides. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Deletes the specified instances. The instances are deleted, then removed from the instance group and any target pools of which they were a member. The targetSize of the instance group manager is reduced by the number of instances deleted. */
             deleteInstances(request: {            
@@ -257,7 +257,7 @@ declare namespace gapi.client {
                 project: string;
                 /** The name of the zone in which the instance group manager resides. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Returns the specified Instance Group Manager resource. */
             get(request: {            
@@ -281,7 +281,7 @@ declare namespace gapi.client {
                 project: string;
                 /** The name of the zone in which the instance group manager resides. */
                 zone: string;
-            }): gapi.client.Request<InstanceGroupManager>;            
+            }): Request<InstanceGroupManager>;            
             
             /** Creates an instance group manager, as well as the instance group and the specified number of instances. */
             insert(request: {            
@@ -305,7 +305,7 @@ declare namespace gapi.client {
                 size: number;
                 /** The name of the zone in which the instance group manager resides. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Retrieves the list of Instance Group Manager resources contained within the specified zone. */
             list(request: {            
@@ -333,7 +333,7 @@ declare namespace gapi.client {
                 project: string;
                 /** The name of the zone in which the instance group manager resides. */
                 zone: string;
-            }): gapi.client.Request<InstanceGroupManagerList>;            
+            }): Request<InstanceGroupManagerList>;            
             
             /** Recreates the specified instances. The instances are deleted, then recreated using the instance group manager's current instance template. */
             recreateInstances(request: {            
@@ -357,7 +357,7 @@ declare namespace gapi.client {
                 project: string;
                 /** The name of the zone in which the instance group manager resides. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Resizes the managed instance group up or down. If resized up, new instances are created using the current instance template. If resized down, instances are removed in the order outlined in Resizing a managed instance group. */
             resize(request: {            
@@ -383,7 +383,7 @@ declare namespace gapi.client {
                 size: number;
                 /** The name of the zone in which the instance group manager resides. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Sets the instance template to use when creating new instances in this group. Existing instances are not affected. */
             setInstanceTemplate(request: {            
@@ -407,7 +407,7 @@ declare namespace gapi.client {
                 project: string;
                 /** The name of the zone in which the instance group manager resides. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Modifies the target pools to which all new instances in this group are assigned. Existing instances in the group are not affected. */
             setTargetPools(request: {            
@@ -431,7 +431,7 @@ declare namespace gapi.client {
                 project: string;
                 /** The name of the zone in which the instance group manager resides. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
         }
         
@@ -458,7 +458,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Name of the zone scoping this request. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Retrieves the list of operation resources contained within the specified zone. */
             list(request: {            
@@ -486,7 +486,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Name of the zone scoping this request. */
                 zone: string;
-            }): gapi.client.Request<OperationList>;            
+            }): Request<OperationList>;            
             
         }
     }

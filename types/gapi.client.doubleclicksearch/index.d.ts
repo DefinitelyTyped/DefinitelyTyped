@@ -320,7 +320,7 @@ declare namespace gapi.client {
                 startDate: number;
                 /** The 0-based starting index for retrieving conversions results. */
                 startRow: number;
-            }): gapi.client.Request<ConversionList>;            
+            }): Request<ConversionList>;            
             
             /** Inserts a batch of new conversions into DoubleClick Search. */
             insert(request: {            
@@ -338,7 +338,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<ConversionList>;            
+            }): Request<ConversionList>;            
             
             /** Updates a batch of conversions in DoubleClick Search. This method supports patch semantics. */
             patch(request: {            
@@ -370,7 +370,7 @@ declare namespace gapi.client {
                 startDate: number;
                 /** The 0-based starting index for retrieving conversions results. */
                 startRow: number;
-            }): gapi.client.Request<ConversionList>;            
+            }): Request<ConversionList>;            
             
             /** Updates a batch of conversions in DoubleClick Search. */
             update(request: {            
@@ -388,7 +388,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<ConversionList>;            
+            }): Request<ConversionList>;            
             
             /** Updates the availabilities of a batch of floodlight activities in DoubleClick Search. */
             updateAvailability(request: {            
@@ -406,7 +406,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<UpdateAvailabilityResponse>;            
+            }): Request<UpdateAvailabilityResponse>;            
             
         }
         
@@ -427,7 +427,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<Report>;            
+            }): Request<Report>;            
             
             /** Polls for the status of a report request. */
             get(request: {            
@@ -447,7 +447,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** ID of the report request being polled. */
                 reportId: string;
-            }): gapi.client.Request<Report>;            
+            }): Request<Report>;            
             
             /** Downloads a report file encoded in UTF-8. */
             getFile(request: {            
@@ -469,7 +469,7 @@ declare namespace gapi.client {
                 reportFragment: number;
                 /** ID of the report. */
                 reportId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Inserts a report request into the reporting system. */
             request(request: {            
@@ -487,7 +487,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<Report>;            
+            }): Request<Report>;            
             
         }
         
@@ -512,7 +512,7 @@ declare namespace gapi.client {
                 advertiserId: string;
                 /** DS ID of the agency. */
                 agencyId: string;
-            }): gapi.client.Request<SavedColumnList>;            
+            }): Request<SavedColumnList>;            
             
         }
     }

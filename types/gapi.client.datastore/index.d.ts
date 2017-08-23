@@ -20,95 +20,6 @@ declare namespace gapi.client {
     
     namespace datastore {
         
-        interface GoogleDatastoreAdminV1beta1ImportEntitiesMetadata {
-            /** The location of the import metadata file. This will be the same value as */
-            /** the google.datastore.admin.v1beta1.ExportEntitiesResponse.output_url */
-            /** field. */
-            inputUrl?: string;
-            /** An estimate of the number of bytes processed. */
-            progressBytes?: GoogleDatastoreAdminV1beta1Progress;
-            /** Description of which entities are being imported. */
-            entityFilter?: GoogleDatastoreAdminV1beta1EntityFilter;
-            /** An estimate of the number of entities processed. */
-            progressEntities?: GoogleDatastoreAdminV1beta1Progress;
-            /** Metadata common to all Datastore Admin operations. */
-            common?: GoogleDatastoreAdminV1beta1CommonMetadata;
-        }
-        
-        interface AllocateIdsResponse {
-            /** The keys specified in the request (in the same order), each with */
-            /** its key path completed with a newly allocated ID. */
-            keys?: Key[];
-        }
-        
-        interface Query {
-            /** The kinds to query (if empty, returns entities of all kinds). */
-            /** Currently at most 1 kind may be specified. */
-            kind?: KindExpression[];
-            /** The properties to make distinct. The query results will contain the first */
-            /** result for each distinct combination of values for the given properties */
-            /** (if empty, all results are returned). */
-            distinctOn?: PropertyReference[];
-            /** The order to apply to the query results (if empty, order is unspecified). */
-            order?: PropertyOrder[];
-            /** The projection to return. Defaults to returning all properties. */
-            projection?: Projection[];
-            /** An ending point for the query results. Query cursors are */
-            /** returned in query result batches and */
-            /** [can only be used to limit the same query](https://cloud.google.com/datastore/docs/concepts/queries#cursors_limits_and_offsets). */
-            endCursor?: string;
-            /** The filter to apply. */
-            filter?: Filter;
-            /** The maximum number of results to return. Applies after all other */
-            /** constraints. Optional. */
-            /** Unspecified is interpreted as no limit. */
-            /** Must be >= 0 if specified. */
-            limit?: number;
-            /** A starting point for the query results. Query cursors are */
-            /** returned in query result batches and */
-            /** [can only be used to continue the same query](https://cloud.google.com/datastore/docs/concepts/queries#cursors_limits_and_offsets). */
-            startCursor?: string;
-            /** The number of results to skip. Applies before limit, but after all other */
-            /** constraints. Optional. Must be >= 0 if specified. */
-            offset?: number;
-        }
-        
-        interface GoogleLongrunningOperation {
-            /** The error result of the operation in case of failure or cancellation. */
-            error?: Status;
-            /** Service-specific metadata associated with the operation.  It typically */
-            /** contains progress information and common metadata such as create time. */
-            /** Some services might not provide such metadata.  Any method that returns a */
-            /** long-running operation should document the metadata type, if any. */
-            metadata?: Record<string, any>;            
-            /** If the value is `false`, it means the operation is still in progress. */
-            /** If true, the operation is completed, and either `error` or `response` is */
-            /** available. */
-            done?: boolean;
-            /** The normal response of the operation in case of success.  If the original */
-            /** method returns no data on success, such as `Delete`, the response is */
-            /** `google.protobuf.Empty`.  If the original method is standard */
-            /** `Get`/`Create`/`Update`, the response should be the resource.  For other */
-            /** methods, the response should have the type `XxxResponse`, where `Xxx` */
-            /** is the original method name.  For example, if the original method name */
-            /** is `TakeSnapshot()`, the inferred response type is */
-            /** `TakeSnapshotResponse`. */
-            response?: Record<string, any>;            
-            /** The server-assigned name, which is only unique within the same service that */
-            /** originally returns it. If you use the default HTTP mapping, the */
-            /** `name` should have the format of `operations/some/unique/name`. */
-            name?: string;
-        }
-        
-        interface PropertyFilter {
-            /** The value to compare the property to. */
-            value?: Value;
-            /** The property to filter by. */
-            property?: PropertyReference;
-            /** The operator to filter by. */
-            op?: string;
-        }
-        
         interface EntityResult {
             /** A cursor that points to the position after the result entity. */
             /** Set only when the `EntityResult` is part of a `QueryResultBatch` message. */
@@ -137,6 +48,10 @@ declare namespace gapi.client {
         }
         
         interface Value {
+            /** A UTF-8 encoded string value. */
+            /** When `exclude_from_indexes` is false (it is indexed) , may have at most 1500 bytes. */
+            /** Otherwise, may be set to at least 1,000,000 bytes. */
+            stringValue?: string;
             /** If the value should be excluded from all indexes including those defined */
             /** explicitly. */
             excludeFromIndexes?: boolean;
@@ -174,17 +89,13 @@ declare namespace gapi.client {
             keyValue?: Key;
             /** An integer value. */
             integerValue?: string;
-            /** A UTF-8 encoded string value. */
-            /** When `exclude_from_indexes` is false (it is indexed) , may have at most 1500 bytes. */
-            /** Otherwise, may be set to at least 1,000,000 bytes. */
-            stringValue?: string;
         }
         
         interface PartitionId {
-            /** If not empty, the ID of the namespace to which the entities belong. */
-            namespaceId?: string;
             /** The ID of the project to which the entities belong. */
             projectId?: string;
+            /** If not empty, the ID of the namespace to which the entities belong. */
+            namespaceId?: string;
         }
         
         interface ReadWrite {
@@ -193,13 +104,6 @@ declare namespace gapi.client {
         }
         
         interface Entity {
-            /** The entity's key. */
-            /**  */
-            /** An entity must have a key, unless otherwise documented (for example, */
-            /** an entity in `Value.entity_value` may have no key). */
-            /** An entity's kind is its key path's last element's kind, */
-            /** or null if it has no key. */
-            key?: Key;
             /** The entity's properties. */
             /** The map's keys are property names. */
             /** A property name matching regex `__.&#42;__` is reserved. */
@@ -207,6 +111,13 @@ declare namespace gapi.client {
             /** The name must not contain more than 500 characters. */
             /** The name cannot be `""`. */
             properties?: Record<string, Value>;            
+            /** The entity's key. */
+            /**  */
+            /** An entity must have a key, unless otherwise documented (for example, */
+            /** an entity in `Value.entity_value` may have no key). */
+            /** An entity's kind is its key path's last element's kind, */
+            /** or null if it has no key. */
+            key?: Key;
         }
         
         interface GoogleDatastoreAdminV1beta1Progress {
@@ -218,6 +129,10 @@ declare namespace gapi.client {
         }
         
         interface QueryResultBatch {
+            /** A cursor that points to the position after the last result in the batch. */
+            endCursor?: string;
+            /** The state of the query after the current batch. */
+            moreResults?: string;
             /** The version number of the snapshot this batch was returned from. */
             /** This applies to the range of results from the query's `start_cursor` (or */
             /** the beginning of the query if no cursor was given) to this batch's */
@@ -237,10 +152,6 @@ declare namespace gapi.client {
             entityResultType?: string;
             /** The results for this batch. */
             entityResults?: EntityResult[];
-            /** The state of the query after the current batch. */
-            moreResults?: string;
-            /** A cursor that points to the position after the last result in the batch. */
-            endCursor?: string;
         }
         
         interface LookupRequest {
@@ -276,22 +187,22 @@ declare namespace gapi.client {
         }
         
         interface Status {
-            /** A developer-facing error message, which should be in English. Any */
-            /** user-facing error message should be localized and sent in the */
-            /** google.rpc.Status.details field, or localized by the client. */
-            message?: string;
             /** A list of messages that carry the error details.  There is a common set of */
             /** message types for APIs to use. */
             details?: Array<Record<string, any>>;            
             /** The status code, which should be an enum value of google.rpc.Code. */
             code?: number;
+            /** A developer-facing error message, which should be in English. Any */
+            /** user-facing error message should be localized and sent in the */
+            /** google.rpc.Status.details field, or localized by the client. */
+            message?: string;
         }
         
         interface GoogleLongrunningListOperationsResponse {
-            /** The standard List next-page token. */
-            nextPageToken?: string;
             /** A list of operations that matches the specified filter in the request. */
             operations?: GoogleLongrunningOperation[];
+            /** The standard List next-page token. */
+            nextPageToken?: string;
         }
         
         interface BeginTransactionResponse {
@@ -306,17 +217,13 @@ declare namespace gapi.client {
         }
         
         interface RunQueryResponse {
-            /** The parsed form of the `GqlQuery` from the request, if it was set. */
-            query?: Query;
             /** A batch of query results (always present). */
             batch?: QueryResultBatch;
+            /** The parsed form of the `GqlQuery` from the request, if it was set. */
+            query?: Query;
         }
         
         interface LookupResponse {
-            /** A list of keys that were not looked up due to resource constraints. The */
-            /** order of results in this field is undefined and has no relation to the */
-            /** order of the keys in the input. */
-            deferred?: Key[];
             /** Entities not found as `ResultType.KEY_ONLY` entities. The order of results */
             /** in this field is undefined and has no relation to the order of the keys */
             /** in the input. */
@@ -325,9 +232,17 @@ declare namespace gapi.client {
             /** field is undefined and has no relation to the order of the keys in the */
             /** input. */
             found?: EntityResult[];
+            /** A list of keys that were not looked up due to resource constraints. The */
+            /** order of results in this field is undefined and has no relation to the */
+            /** order of the keys in the input. */
+            deferred?: Key[];
         }
         
         interface CommitRequest {
+            /** The identifier of the transaction associated with the commit. A */
+            /** transaction identifier is returned by a call to */
+            /** Datastore.BeginTransaction. */
+            transaction?: string;
             /** The type of commit to perform. Defaults to `TRANSACTIONAL`. */
             mode?: string;
             /** The mutations to perform. */
@@ -344,10 +259,6 @@ declare namespace gapi.client {
             /** When mode is `NON_TRANSACTIONAL`, no two mutations may affect a single */
             /** entity. */
             mutations?: Mutation[];
-            /** The identifier of the transaction associated with the commit. A */
-            /** transaction identifier is returned by a call to */
-            /** Datastore.BeginTransaction. */
-            transaction?: string;
         }
         
         interface BeginTransactionRequest {
@@ -368,6 +279,10 @@ declare namespace gapi.client {
         }
         
         interface Key {
+            /** Entities are partitioned into subsets, currently identified by a project */
+            /** ID and namespace ID. */
+            /** Queries are scoped to a single partition. */
+            partitionId?: PartitionId;
             /** The entity path. */
             /** An entity path consists of one or more elements composed of a kind and a */
             /** string or numerical identifier, which identify entities. The first */
@@ -385,10 +300,6 @@ declare namespace gapi.client {
             /**  */
             /** A path can never be empty, and a path can have at most 100 elements. */
             path?: PathElement[];
-            /** Entities are partitioned into subsets, currently identified by a project */
-            /** ID and namespace ID. */
-            /** Queries are scoped to a single partition. */
-            partitionId?: PartitionId;
         }
         
         interface LatLng {
@@ -399,8 +310,6 @@ declare namespace gapi.client {
         }
         
         interface GoogleDatastoreAdminV1beta1EntityFilter {
-            /** If empty, then this represents all kinds. */
-            kinds?: string[];
             /** An empty list represents all namespaces.  This is the preferred */
             /** usage for projects that don't use namespaces. */
             /**  */
@@ -409,6 +318,8 @@ declare namespace gapi.client {
             /** include them. */
             /** Each namespace in this list must be unique. */
             namespaceIds?: string[];
+            /** If empty, then this represents all kinds. */
+            kinds?: string[];
         }
         
         interface PropertyReference {
@@ -418,6 +329,11 @@ declare namespace gapi.client {
         }
         
         interface GoogleDatastoreAdminV1beta1CommonMetadata {
+            /** The client-assigned labels which were provided when the operation was */
+            /** created.  May also include additional labels. */
+            labels?: Record<string, string>;            
+            /** The time the operation ended, either successfully or otherwise. */
+            endTime?: string;
             /** The current state of the Operation. */
             state?: string;
             /** The type of the operation.  Can be used as a filter in */
@@ -425,11 +341,6 @@ declare namespace gapi.client {
             operationType?: string;
             /** The time that work began on the operation. */
             startTime?: string;
-            /** The client-assigned labels which were provided when the operation was */
-            /** created.  May also include additional labels. */
-            labels?: Record<string, string>;            
-            /** The time the operation ended, either successfully or otherwise. */
-            endTime?: string;
         }
         
         interface ArrayValue {
@@ -445,12 +356,6 @@ declare namespace gapi.client {
         }
         
         interface Mutation {
-            /** The version of the entity that this mutation is being applied to. If this */
-            /** does not match the current version on the server, the mutation conflicts. */
-            baseVersion?: string;
-            /** The entity to insert. The entity must not already exist. */
-            /** The entity key's final path element may be incomplete. */
-            insert?: Entity;
             /** The entity to update. The entity must already exist. */
             /** Must have a complete key path. */
             update?: Entity;
@@ -460,6 +365,12 @@ declare namespace gapi.client {
             /** The key of the entity to delete. The entity may or may not already exist. */
             /** Must have a complete key path and must not be reserved/read-only. */
             delete?: Key;
+            /** The version of the entity that this mutation is being applied to. If this */
+            /** does not match the current version on the server, the mutation conflicts. */
+            baseVersion?: string;
+            /** The entity to insert. The entity must not already exist. */
+            /** The entity key's final path element may be incomplete. */
+            insert?: Entity;
         }
         
         interface ReadOptions {
@@ -481,18 +392,18 @@ declare namespace gapi.client {
         }
         
         interface MutationResult {
-            /** The version of the entity on the server after processing the mutation. If */
-            /** the mutation doesn't change anything on the server, then the version will */
-            /** be the version of the current entity or, if no entity is present, a version */
-            /** that is strictly greater than the version of any previous entity and less */
-            /** than the version of any possible future entity. */
-            version?: string;
             /** Whether a conflict was detected for this mutation. Always false when a */
             /** conflict detection strategy field is not set in the mutation. */
             conflictDetected?: boolean;
             /** The automatically allocated key. */
             /** Set only when the mutation allocated a key. */
             key?: Key;
+            /** The version of the entity on the server after processing the mutation. If */
+            /** the mutation doesn't change anything on the server, then the version will */
+            /** be the version of the current entity or, if no entity is present, a version */
+            /** that is strictly greater than the version of any previous entity and less */
+            /** than the version of any possible future entity. */
+            version?: string;
         }
         
         interface GqlQuery {
@@ -519,10 +430,10 @@ declare namespace gapi.client {
         }
         
         interface Filter {
-            /** A composite filter. */
-            compositeFilter?: CompositeFilter;
             /** A filter on a property. */
             propertyFilter?: PropertyFilter;
+            /** A composite filter. */
+            compositeFilter?: CompositeFilter;
         }
         
         interface RollbackRequest {
@@ -532,6 +443,10 @@ declare namespace gapi.client {
         }
         
         interface RunQueryRequest {
+            /** The options for this query. */
+            readOptions?: ReadOptions;
+            /** The query to run. */
+            query?: Query;
             /** The GQL query to run. */
             gqlQuery?: GqlQuery;
             /** Entities are partitioned into subsets, identified by a partition ID. */
@@ -539,10 +454,6 @@ declare namespace gapi.client {
             /** This partition ID is normalized with the standard default context */
             /** partition ID. */
             partitionId?: PartitionId;
-            /** The options for this query. */
-            readOptions?: ReadOptions;
-            /** The query to run. */
-            query?: Query;
         }
         
         interface GoogleDatastoreAdminV1beta1ExportEntitiesMetadata {
@@ -570,90 +481,103 @@ declare namespace gapi.client {
         }
         
         interface CompositeFilter {
+            /** The operator for combining multiple filters. */
+            op?: string;
             /** The list of filters to combine. */
             /** Must contain at least one filter. */
             filters?: Filter[];
-            /** The operator for combining multiple filters. */
+        }
+        
+        interface GoogleDatastoreAdminV1beta1ImportEntitiesMetadata {
+            /** The location of the import metadata file. This will be the same value as */
+            /** the google.datastore.admin.v1beta1.ExportEntitiesResponse.output_url */
+            /** field. */
+            inputUrl?: string;
+            /** An estimate of the number of bytes processed. */
+            progressBytes?: GoogleDatastoreAdminV1beta1Progress;
+            /** Description of which entities are being imported. */
+            entityFilter?: GoogleDatastoreAdminV1beta1EntityFilter;
+            /** An estimate of the number of entities processed. */
+            progressEntities?: GoogleDatastoreAdminV1beta1Progress;
+            /** Metadata common to all Datastore Admin operations. */
+            common?: GoogleDatastoreAdminV1beta1CommonMetadata;
+        }
+        
+        interface AllocateIdsResponse {
+            /** The keys specified in the request (in the same order), each with */
+            /** its key path completed with a newly allocated ID. */
+            keys?: Key[];
+        }
+        
+        interface Query {
+            /** The projection to return. Defaults to returning all properties. */
+            projection?: Projection[];
+            /** An ending point for the query results. Query cursors are */
+            /** returned in query result batches and */
+            /** [can only be used to limit the same query](https://cloud.google.com/datastore/docs/concepts/queries#cursors_limits_and_offsets). */
+            endCursor?: string;
+            /** The maximum number of results to return. Applies after all other */
+            /** constraints. Optional. */
+            /** Unspecified is interpreted as no limit. */
+            /** Must be >= 0 if specified. */
+            limit?: number;
+            /** The filter to apply. */
+            filter?: Filter;
+            /** The number of results to skip. Applies before limit, but after all other */
+            /** constraints. Optional. Must be >= 0 if specified. */
+            offset?: number;
+            /** A starting point for the query results. Query cursors are */
+            /** returned in query result batches and */
+            /** [can only be used to continue the same query](https://cloud.google.com/datastore/docs/concepts/queries#cursors_limits_and_offsets). */
+            startCursor?: string;
+            /** The kinds to query (if empty, returns entities of all kinds). */
+            /** Currently at most 1 kind may be specified. */
+            kind?: KindExpression[];
+            /** The properties to make distinct. The query results will contain the first */
+            /** result for each distinct combination of values for the given properties */
+            /** (if empty, all results are returned). */
+            distinctOn?: PropertyReference[];
+            /** The order to apply to the query results (if empty, order is unspecified). */
+            order?: PropertyOrder[];
+        }
+        
+        interface GoogleLongrunningOperation {
+            /** If the value is `false`, it means the operation is still in progress. */
+            /** If true, the operation is completed, and either `error` or `response` is */
+            /** available. */
+            done?: boolean;
+            /** The normal response of the operation in case of success.  If the original */
+            /** method returns no data on success, such as `Delete`, the response is */
+            /** `google.protobuf.Empty`.  If the original method is standard */
+            /** `Get`/`Create`/`Update`, the response should be the resource.  For other */
+            /** methods, the response should have the type `XxxResponse`, where `Xxx` */
+            /** is the original method name.  For example, if the original method name */
+            /** is `TakeSnapshot()`, the inferred response type is */
+            /** `TakeSnapshotResponse`. */
+            response?: Record<string, any>;            
+            /** The server-assigned name, which is only unique within the same service that */
+            /** originally returns it. If you use the default HTTP mapping, the */
+            /** `name` should have the format of `operations/some/unique/name`. */
+            name?: string;
+            /** The error result of the operation in case of failure or cancellation. */
+            error?: Status;
+            /** Service-specific metadata associated with the operation.  It typically */
+            /** contains progress information and common metadata such as create time. */
+            /** Some services might not provide such metadata.  Any method that returns a */
+            /** long-running operation should document the metadata type, if any. */
+            metadata?: Record<string, any>;            
+        }
+        
+        interface PropertyFilter {
+            /** The value to compare the property to. */
+            value?: Value;
+            /** The property to filter by. */
+            property?: PropertyReference;
+            /** The operator to filter by. */
             op?: string;
         }
         
         interface OperationsResource {
-            /** Starts asynchronous cancellation on a long-running operation.  The server */
-            /** makes a best effort to cancel the operation, but success is not */
-            /** guaranteed.  If the server doesn't support this method, it returns */
-            /** `google.rpc.Code.UNIMPLEMENTED`.  Clients can use */
-            /** Operations.GetOperation or */
-            /** other methods to check whether the cancellation succeeded or whether the */
-            /** operation completed despite cancellation. On successful cancellation, */
-            /** the operation is not deleted; instead, it becomes an operation with */
-            /** an Operation.error value with a google.rpc.Status.code of 1, */
-            /** corresponding to `Code.CANCELLED`. */
-            cancel(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** The name of the operation resource to be cancelled. */
-                name: string;
-            }): gapi.client.Request<{}>;            
-            
-            /** Deletes a long-running operation. This method indicates that the client is */
-            /** no longer interested in the operation result. It does not cancel the */
-            /** operation. If the server doesn't support this method, it returns */
-            /** `google.rpc.Code.UNIMPLEMENTED`. */
-            delete(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** The name of the operation resource to be deleted. */
-                name: string;
-            }): gapi.client.Request<{}>;            
-            
             /** Gets the latest state of a long-running operation.  Clients can use this */
             /** method to poll the operation result at intervals as recommended by the API */
             /** service. */
@@ -662,20 +586,20 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** JSONP */
                 callback?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** OAuth access token. */
+                access_token?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
@@ -686,7 +610,7 @@ declare namespace gapi.client {
                 bearer_token?: string;
                 /** The name of the operation resource. */
                 name: string;
-            }): gapi.client.Request<GoogleLongrunningOperation>;            
+            }): Request<GoogleLongrunningOperation>;            
             
             /** Lists operations that match the specified filter in the request. If the */
             /** server doesn't support this method, it returns `UNIMPLEMENTED`. */
@@ -703,20 +627,20 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** JSONP */
                 callback?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** OAuth access token. */
+                access_token?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
@@ -725,40 +649,45 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
-                /** The standard list page size. */
-                pageSize?: number;
                 /** The standard list filter. */
                 filter?: string;
                 /** The standard list page token. */
                 pageToken?: string;
                 /** The name of the operation's parent resource. */
                 name: string;
-            }): gapi.client.Request<GoogleLongrunningListOperationsResponse>;            
+                /** The standard list page size. */
+                pageSize?: number;
+            }): Request<GoogleLongrunningListOperationsResponse>;            
             
-        }
-        
-        interface ProjectsResource {
-            /** Allocates IDs for the given keys, which is useful for referencing an entity */
-            /** before it is inserted. */
-            allocateIds(request: {            
+            /** Starts asynchronous cancellation on a long-running operation.  The server */
+            /** makes a best effort to cancel the operation, but success is not */
+            /** guaranteed.  If the server doesn't support this method, it returns */
+            /** `google.rpc.Code.UNIMPLEMENTED`.  Clients can use */
+            /** Operations.GetOperation or */
+            /** other methods to check whether the cancellation succeeded or whether the */
+            /** operation completed despite cancellation. On successful cancellation, */
+            /** the operation is not deleted; instead, it becomes an operation with */
+            /** an Operation.error value with a google.rpc.Status.code of 1, */
+            /** corresponding to `Code.CANCELLED`. */
+            cancel(request: {            
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** JSONP */
                 callback?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** OAuth access token. */
+                access_token?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
@@ -767,30 +696,68 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** OAuth bearer token. */
                 bearer_token?: string;
-                /** The ID of the project against which to make the request. */
-                projectId: string;
-            }): gapi.client.Request<AllocateIdsResponse>;            
+                /** The name of the operation resource to be cancelled. */
+                name: string;
+            }): Request<{}>;            
             
+            /** Deletes a long-running operation. This method indicates that the client is */
+            /** no longer interested in the operation result. It does not cancel the */
+            /** operation. If the server doesn't support this method, it returns */
+            /** `google.rpc.Code.UNIMPLEMENTED`. */
+            delete(request: {            
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** The name of the operation resource to be deleted. */
+                name: string;
+            }): Request<{}>;            
+            
+        }
+        
+        interface ProjectsResource {
             /** Begins a new transaction. */
             beginTransaction(request: {            
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** JSONP */
                 callback?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** OAuth access token. */
+                access_token?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
@@ -801,7 +768,7 @@ declare namespace gapi.client {
                 bearer_token?: string;
                 /** The ID of the project against which to make the request. */
                 projectId: string;
-            }): gapi.client.Request<BeginTransactionResponse>;            
+            }): Request<BeginTransactionResponse>;            
             
             /** Commits a transaction, optionally creating, deleting or modifying some */
             /** entities. */
@@ -810,20 +777,20 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** JSONP */
                 callback?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** OAuth access token. */
+                access_token?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
@@ -834,7 +801,7 @@ declare namespace gapi.client {
                 bearer_token?: string;
                 /** The ID of the project against which to make the request. */
                 projectId: string;
-            }): gapi.client.Request<CommitResponse>;            
+            }): Request<CommitResponse>;            
             
             /** Queries for entities. */
             runQuery(request: {            
@@ -842,20 +809,20 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** JSONP */
                 callback?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** OAuth access token. */
+                access_token?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
@@ -866,7 +833,7 @@ declare namespace gapi.client {
                 bearer_token?: string;
                 /** The ID of the project against which to make the request. */
                 projectId: string;
-            }): gapi.client.Request<RunQueryResponse>;            
+            }): Request<RunQueryResponse>;            
             
             /** Rolls back a transaction. */
             rollback(request: {            
@@ -874,20 +841,20 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** JSONP */
                 callback?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** OAuth access token. */
+                access_token?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
@@ -898,7 +865,7 @@ declare namespace gapi.client {
                 bearer_token?: string;
                 /** The ID of the project against which to make the request. */
                 projectId: string;
-            }): gapi.client.Request<{}>;            
+            }): Request<{}>;            
             
             /** Looks up entities by key. */
             lookup(request: {            
@@ -906,20 +873,20 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** JSONP */
                 callback?: string;
                 /** V1 error format. */
                 "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
+                /** OAuth access token. */
+                access_token?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
@@ -930,7 +897,40 @@ declare namespace gapi.client {
                 bearer_token?: string;
                 /** The ID of the project against which to make the request. */
                 projectId: string;
-            }): gapi.client.Request<LookupResponse>;            
+            }): Request<LookupResponse>;            
+            
+            /** Allocates IDs for the given keys, which is useful for referencing an entity */
+            /** before it is inserted. */
+            allocateIds(request: {            
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** The ID of the project against which to make the request. */
+                projectId: string;
+            }): Request<AllocateIdsResponse>;            
             
             operations: OperationsResource;
         }

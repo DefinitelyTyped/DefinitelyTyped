@@ -262,7 +262,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<DownloadLineItemsResponse>;            
+            }): Request<DownloadLineItemsResponse>;            
             
             /** Uploads line items in CSV format. */
             uploadlineitems(request: {            
@@ -280,7 +280,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<UploadLineItemsResponse>;            
+            }): Request<UploadLineItemsResponse>;            
             
         }
         
@@ -301,7 +301,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<Query>;            
+            }): Request<Query>;            
             
             /** Deletes a stored query as well as the associated stored reports. */
             deletequery(request: {            
@@ -321,7 +321,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Query ID to delete. */
                 queryId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Retrieves a stored query. */
             getquery(request: {            
@@ -341,7 +341,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Query ID to retrieve. */
                 queryId: string;
-            }): gapi.client.Request<Query>;            
+            }): Request<Query>;            
             
             /** Retrieves stored queries. */
             listqueries(request: {            
@@ -359,7 +359,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<ListQueriesResponse>;            
+            }): Request<ListQueriesResponse>;            
             
             /** Runs a stored query to generate a report. */
             runquery(request: {            
@@ -379,7 +379,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Query ID to run. */
                 queryId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
         }
         
@@ -402,7 +402,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Query ID with which the reports are associated. */
                 queryId: string;
-            }): gapi.client.Request<ListReportsResponse>;            
+            }): Request<ListReportsResponse>;            
             
         }
         
@@ -423,7 +423,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<DownloadResponse>;            
+            }): Request<DownloadResponse>;            
             
         }
     }

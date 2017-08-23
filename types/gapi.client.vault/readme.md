@@ -34,6 +34,29 @@ After that you can use Google Vault API resources:
 ```typescript 
     
 /* 
+Closes the specified matter. Returns matter with updated state.  
+*/
+await gapi.client.matters.close({ matterId: "matterId",  }); 
+    
+/* 
+Undeletes the specified matter. Returns matter with updated state.  
+*/
+await gapi.client.matters.undelete({ matterId: "matterId",  }); 
+    
+/* 
+Gets the specified matter.  
+*/
+await gapi.client.matters.get({ matterId: "matterId",  }); 
+    
+/* 
+Updates the specified matter.
+This updates only the name and description of the matter, identified by
+matter id. Changes to any other fields are ignored.
+Returns the default view of the matter.  
+*/
+await gapi.client.matters.update({ matterId: "matterId",  }); 
+    
+/* 
 Deletes the specified matter. Returns matter with updated state.  
 */
 await gapi.client.matters.delete({ matterId: "matterId",  }); 
@@ -61,28 +84,5 @@ await gapi.client.matters.removePermissions({ matterId: "matterId",  });
 /* 
 Reopens the specified matter. Returns matter with updated state.  
 */
-await gapi.client.matters.reopen({ matterId: "matterId",  }); 
-    
-/* 
-Closes the specified matter. Returns matter with updated state.  
-*/
-await gapi.client.matters.close({ matterId: "matterId",  }); 
-    
-/* 
-Undeletes the specified matter. Returns matter with updated state.  
-*/
-await gapi.client.matters.undelete({ matterId: "matterId",  }); 
-    
-/* 
-Gets the specified matter.  
-*/
-await gapi.client.matters.get({ matterId: "matterId",  }); 
-    
-/* 
-Updates the specified matter.
-This updates only the name and description of the matter, identified by
-matter id. Changes to any other fields are ignored.
-Returns the default view of the matter.  
-*/
-await gapi.client.matters.update({ matterId: "matterId",  });
+await gapi.client.matters.reopen({ matterId: "matterId",  });
 ```

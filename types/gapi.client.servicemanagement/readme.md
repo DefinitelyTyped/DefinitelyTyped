@@ -62,42 +62,9 @@ After that you can use Google Service Management API resources:
 ```typescript 
     
 /* 
-Gets the latest state of a long-running operation.  Clients can use this
-method to poll the operation result at intervals as recommended by the API
-service.  
-*/
-await gapi.client.operations.get({ name: "name",  }); 
-    
-/* 
-Lists service operations that match the specified filter in the request.  
-*/
-await gapi.client.operations.list({  }); 
-    
-/* 
-Returns permissions that a caller has on the specified resource.
-If the resource does not exist, this will return an empty set of
-permissions, not a NOT_FOUND error.
-
-Note: This operation is designed to be used for building permission-aware
-UIs and command-line tools, not for authorization checking. This operation
-may "fail open" without warning.  
-*/
-await gapi.client.services.testIamPermissions({ resource: "resource",  }); 
-    
-/* 
 Gets a service configuration (version) for a managed service.  
 */
 await gapi.client.services.getConfig({ serviceName: "serviceName",  }); 
-    
-/* 
-Enables a service for a project, so it can be used
-for the project. See
-[Cloud Auth Guide](https://cloud.google.com/docs/authentication) for
-more information.
-
-Operation<response: EnableServiceResponse>  
-*/
-await gapi.client.services.enable({ serviceName: "serviceName",  }); 
     
 /* 
 Deletes a managed service. This method will change the service to the
@@ -108,6 +75,16 @@ After 30 days, the service will be permanently deleted.
 Operation<response: google.protobuf.Empty>  
 */
 await gapi.client.services.delete({ serviceName: "serviceName",  }); 
+    
+/* 
+Enables a service for a project, so it can be used
+for the project. See
+[Cloud Auth Guide](https://cloud.google.com/docs/authentication) for
+more information.
+
+Operation<response: EnableServiceResponse>  
+*/
+await gapi.client.services.enable({ serviceName: "serviceName",  }); 
     
 /* 
 Sets the access control policy on the specified resource. Replaces any
@@ -181,5 +158,28 @@ await gapi.client.services.generateConfigReport({  });
 Gets a managed service. Authentication is required unless the service is
 public.  
 */
-await gapi.client.services.get({ serviceName: "serviceName",  });
+await gapi.client.services.get({ serviceName: "serviceName",  }); 
+    
+/* 
+Returns permissions that a caller has on the specified resource.
+If the resource does not exist, this will return an empty set of
+permissions, not a NOT_FOUND error.
+
+Note: This operation is designed to be used for building permission-aware
+UIs and command-line tools, not for authorization checking. This operation
+may "fail open" without warning.  
+*/
+await gapi.client.services.testIamPermissions({ resource: "resource",  }); 
+    
+/* 
+Gets the latest state of a long-running operation.  Clients can use this
+method to poll the operation result at intervals as recommended by the API
+service.  
+*/
+await gapi.client.operations.get({ name: "name",  }); 
+    
+/* 
+Lists service operations that match the specified filter in the request.  
+*/
+await gapi.client.operations.list({  });
 ```

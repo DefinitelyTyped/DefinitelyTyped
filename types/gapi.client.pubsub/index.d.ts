@@ -20,74 +20,6 @@ declare namespace gapi.client {
     
     namespace pubsub {
         
-        interface ReceivedMessage {
-            /** The message. */
-            message?: PubsubMessage;
-            /** This ID can be used to acknowledge the received message. */
-            ackId?: string;
-        }
-        
-        interface PushConfig {
-            /** Endpoint configuration attributes. */
-            /**  */
-            /** Every endpoint has a set of API supported attributes that can be used to */
-            /** control different aspects of the message delivery. */
-            /**  */
-            /** The currently supported attribute is `x-goog-version`, which you can */
-            /** use to change the format of the pushed message. This attribute */
-            /** indicates the version of the data expected by the endpoint. This */
-            /** controls the shape of the pushed message (i.e., its fields and metadata). */
-            /** The endpoint version is based on the version of the Pub/Sub API. */
-            /**  */
-            /** If not present during the `CreateSubscription` call, it will default to */
-            /** the version of the API used to make such call. If not present during a */
-            /** `ModifyPushConfig` call, its value will not be changed. `GetSubscription` */
-            /** calls will always return a valid version, even if the subscription was */
-            /** created without this attribute. */
-            /**  */
-            /** The possible values for this attribute are: */
-            /**  */
-            /** &#42; `v1beta1`: uses the push format defined in the v1beta1 Pub/Sub API. */
-            /** &#42; `v1` or `v1beta2`: uses the push format defined in the v1 Pub/Sub API. */
-            attributes?: Record<string, string>;            
-            /** A URL locating the endpoint to which messages should be pushed. */
-            /** For example, a Webhook endpoint might use "https://example.com/push". */
-            pushEndpoint?: string;
-        }
-        
-        interface TestIamPermissionsResponse {
-            /** A subset of `TestPermissionsRequest.permissions` that the caller is */
-            /** allowed. */
-            permissions?: string[];
-        }
-        
-        interface PullRequest {
-            /** If this field set to true, the system will respond immediately even if */
-            /** it there are no messages available to return in the `Pull` response. */
-            /** Otherwise, the system may wait (for a bounded amount of time) until at */
-            /** least one message is available, rather than returning no messages. The */
-            /** client may cancel the request if it does not wish to wait any longer for */
-            /** the response. */
-            returnImmediately?: boolean;
-            /** The maximum number of messages returned for this request. The Pub/Sub */
-            /** system may return fewer than the number specified. */
-            maxMessages?: number;
-        }
-        
-        interface ListSubscriptionsResponse {
-            /** If not empty, indicates that there may be more subscriptions that match */
-            /** the request; this value should be passed in a new */
-            /** `ListSubscriptionsRequest` to get more subscriptions. */
-            nextPageToken?: string;
-            /** The subscriptions that match the request. */
-            subscriptions?: Subscription[];
-        }
-        
-        interface PublishRequest {
-            /** The messages to publish. */
-            messages?: PubsubMessage[];
-        }
-        
         interface PublishResponse {
             /** The server-assigned ID of each published message, in the same order as */
             /** the messages in the request. IDs are guaranteed to be unique within */
@@ -96,6 +28,18 @@ declare namespace gapi.client {
         }
         
         interface Subscription {
+            /** The name of the subscription. It must have the format */
+            /** `"projects/{project}/subscriptions/{subscription}"`. `{subscription}` must */
+            /** start with a letter, and contain only letters (`[A-Za-z]`), numbers */
+            /** (`[0-9]`), dashes (`-`), underscores (`_`), periods (`.`), tildes (`~`), */
+            /** plus (`+`) or percent signs (`%`). It must be between 3 and 255 characters */
+            /** in length, and it must not start with `"goog"`. */
+            name?: string;
+            /** The name of the topic from which this subscription is receiving messages. */
+            /** Format is `projects/{project}/topics/{topic}`. */
+            /** The value of this field will be `_deleted-topic_` if the topic has been */
+            /** deleted. */
+            topic?: string;
             /** If push delivery is used with this subscription, this field is */
             /** used to configure it. An empty `pushConfig` signifies that the subscriber */
             /** will pull and ack messages using API methods. */
@@ -120,18 +64,6 @@ declare namespace gapi.client {
             /** If the subscriber never acknowledges the message, the Pub/Sub */
             /** system will eventually redeliver the message. */
             ackDeadlineSeconds?: number;
-            /** The name of the subscription. It must have the format */
-            /** `"projects/{project}/subscriptions/{subscription}"`. `{subscription}` must */
-            /** start with a letter, and contain only letters (`[A-Za-z]`), numbers */
-            /** (`[0-9]`), dashes (`-`), underscores (`_`), periods (`.`), tildes (`~`), */
-            /** plus (`+`) or percent signs (`%`). It must be between 3 and 255 characters */
-            /** in length, and it must not start with `"goog"`. */
-            name?: string;
-            /** The name of the topic from which this subscription is receiving messages. */
-            /** Format is `projects/{project}/topics/{topic}`. */
-            /** The value of this field will be `_deleted-topic_` if the topic has been */
-            /** deleted. */
-            topic?: string;
         }
         
         interface TestIamPermissionsRequest {
@@ -140,16 +72,6 @@ declare namespace gapi.client {
             /** information see */
             /** [IAM Overview](https://cloud.google.com/iam/docs/overview#permissions). */
             permissions?: string[];
-        }
-        
-        interface Topic {
-            /** The name of the topic. It must have the format */
-            /** `"projects/{project}/topics/{topic}"`. `{topic}` must start with a letter, */
-            /** and contain only letters (`[A-Za-z]`), numbers (`[0-9]`), dashes (`-`), */
-            /** underscores (`_`), periods (`.`), tildes (`~`), plus (`+`) or percent */
-            /** signs (`%`). It must be between 3 and 255 characters in length, and it */
-            /** must not start with `"goog"`. */
-            name?: string;
         }
         
         interface Policy {
@@ -171,9 +93,17 @@ declare namespace gapi.client {
             bindings?: Binding[];
         }
         
+        interface Topic {
+            /** The name of the topic. It must have the format */
+            /** `"projects/{project}/topics/{topic}"`. `{topic}` must start with a letter, */
+            /** and contain only letters (`[A-Za-z]`), numbers (`[0-9]`), dashes (`-`), */
+            /** underscores (`_`), periods (`.`), tildes (`~`), plus (`+`) or percent */
+            /** signs (`%`). It must be between 3 and 255 characters in length, and it */
+            /** must not start with `"goog"`. */
+            name?: string;
+        }
+        
         interface ModifyAckDeadlineRequest {
-            /** List of acknowledgment IDs. */
-            ackIds?: string[];
             /** The new ack deadline with respect to the time this request was sent to */
             /** the Pub/Sub system. For example, if the value is 10, the new */
             /** ack deadline will expire 10 seconds after the `ModifyAckDeadline` call */
@@ -182,6 +112,8 @@ declare namespace gapi.client {
             /** The minimum deadline you can specify is 0 seconds. */
             /** The maximum deadline you can specify is 600 seconds (10 minutes). */
             ackDeadlineSeconds?: number;
+            /** List of acknowledgment IDs. */
+            ackIds?: string[];
         }
         
         interface SetIamPolicyRequest {
@@ -281,96 +213,83 @@ declare namespace gapi.client {
             receivedMessages?: ReceivedMessage[];
         }
         
-        interface SnapshotsResource {
-            /** Sets the access control policy on the specified resource. Replaces any */
-            /** existing policy. */
-            setIamPolicy(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** REQUIRED: The resource for which the policy is being specified. */
-                /** See the operation documentation for the appropriate value for this field. */
-                resource: string;
-            }): gapi.client.Request<Policy>;            
-            
-            /** Returns permissions that a caller has on the specified resource. */
-            /** If the resource does not exist, this will return an empty set of */
-            /** permissions, not a NOT_FOUND error. */
+        interface ReceivedMessage {
+            /** This ID can be used to acknowledge the received message. */
+            ackId?: string;
+            /** The message. */
+            message?: PubsubMessage;
+        }
+        
+        interface PushConfig {
+            /** Endpoint configuration attributes. */
             /**  */
-            /** Note: This operation is designed to be used for building permission-aware */
-            /** UIs and command-line tools, not for authorization checking. This operation */
-            /** may "fail open" without warning. */
-            testIamPermissions(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** REQUIRED: The resource for which the policy detail is being requested. */
-                /** See the operation documentation for the appropriate value for this field. */
-                resource: string;
-            }): gapi.client.Request<TestIamPermissionsResponse>;            
-            
+            /** Every endpoint has a set of API supported attributes that can be used to */
+            /** control different aspects of the message delivery. */
+            /**  */
+            /** The currently supported attribute is `x-goog-version`, which you can */
+            /** use to change the format of the pushed message. This attribute */
+            /** indicates the version of the data expected by the endpoint. This */
+            /** controls the shape of the pushed message (i.e., its fields and metadata). */
+            /** The endpoint version is based on the version of the Pub/Sub API. */
+            /**  */
+            /** If not present during the `CreateSubscription` call, it will default to */
+            /** the version of the API used to make such call. If not present during a */
+            /** `ModifyPushConfig` call, its value will not be changed. `GetSubscription` */
+            /** calls will always return a valid version, even if the subscription was */
+            /** created without this attribute. */
+            /**  */
+            /** The possible values for this attribute are: */
+            /**  */
+            /** &#42; `v1beta1`: uses the push format defined in the v1beta1 Pub/Sub API. */
+            /** &#42; `v1` or `v1beta2`: uses the push format defined in the v1 Pub/Sub API. */
+            attributes?: Record<string, string>;            
+            /** A URL locating the endpoint to which messages should be pushed. */
+            /** For example, a Webhook endpoint might use "https://example.com/push". */
+            pushEndpoint?: string;
+        }
+        
+        interface TestIamPermissionsResponse {
+            /** A subset of `TestPermissionsRequest.permissions` that the caller is */
+            /** allowed. */
+            permissions?: string[];
+        }
+        
+        interface PullRequest {
+            /** If this field set to true, the system will respond immediately even if */
+            /** it there are no messages available to return in the `Pull` response. */
+            /** Otherwise, the system may wait (for a bounded amount of time) until at */
+            /** least one message is available, rather than returning no messages. The */
+            /** client may cancel the request if it does not wish to wait any longer for */
+            /** the response. */
+            returnImmediately?: boolean;
+            /** The maximum number of messages returned for this request. The Pub/Sub */
+            /** system may return fewer than the number specified. */
+            maxMessages?: number;
+        }
+        
+        interface ListSubscriptionsResponse {
+            /** If not empty, indicates that there may be more subscriptions that match */
+            /** the request; this value should be passed in a new */
+            /** `ListSubscriptionsRequest` to get more subscriptions. */
+            nextPageToken?: string;
+            /** The subscriptions that match the request. */
+            subscriptions?: Subscription[];
+        }
+        
+        interface PublishRequest {
+            /** The messages to publish. */
+            messages?: PubsubMessage[];
+        }
+        
+        interface SnapshotsResource {
             /** Gets the access control policy for a resource. */
             /** Returns an empty policy if the resource exists and does not have a policy */
             /** set. */
             getIamPolicy(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
                 /** JSONP */
                 callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -381,18 +300,57 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** REQUIRED: The resource for which the policy is being requested. */
                 /** See the operation documentation for the appropriate value for this field. */
                 resource: string;
-            }): gapi.client.Request<Policy>;            
+            }): Request<Policy>;            
             
-        }
-        
-        interface SubscriptionsResource {
+            /** Sets the access control policy on the specified resource. Replaces any */
+            /** existing policy. */
+            setIamPolicy(request: {            
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** REQUIRED: The resource for which the policy is being specified. */
+                /** See the operation documentation for the appropriate value for this field. */
+                resource: string;
+            }): Request<Policy>;            
+            
             /** Returns permissions that a caller has on the specified resource. */
             /** If the resource does not exist, this will return an empty set of */
             /** permissions, not a NOT_FOUND error. */
@@ -401,18 +359,10 @@ declare namespace gapi.client {
             /** UIs and command-line tools, not for authorization checking. This operation */
             /** may "fail open" without warning. */
             testIamPermissions(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
                 /** JSONP */
                 callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -423,14 +373,97 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** REQUIRED: The resource for which the policy detail is being requested. */
                 /** See the operation documentation for the appropriate value for this field. */
                 resource: string;
-            }): gapi.client.Request<TestIamPermissionsResponse>;            
+            }): Request<TestIamPermissionsResponse>;            
+            
+        }
+        
+        interface SubscriptionsResource {
+            /** Gets the configuration details of a subscription. */
+            get(request: {            
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** The name of the subscription to get. */
+                /** Format is `projects/{project}/subscriptions/{sub}`. */
+                subscription: string;
+            }): Request<Subscription>;            
+            
+            /** Returns permissions that a caller has on the specified resource. */
+            /** If the resource does not exist, this will return an empty set of */
+            /** permissions, not a NOT_FOUND error. */
+            /**  */
+            /** Note: This operation is designed to be used for building permission-aware */
+            /** UIs and command-line tools, not for authorization checking. This operation */
+            /** may "fail open" without warning. */
+            testIamPermissions(request: {            
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** REQUIRED: The resource for which the policy detail is being requested. */
+                /** See the operation documentation for the appropriate value for this field. */
+                resource: string;
+            }): Request<TestIamPermissionsResponse>;            
             
             /** Modifies the `PushConfig` for a specified subscription. */
             /**  */
@@ -439,18 +472,10 @@ declare namespace gapi.client {
             /** attributes of a push subscription. Messages will accumulate for delivery */
             /** continuously through the call regardless of changes to the `PushConfig`. */
             modifyPushConfig(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
                 /** JSONP */
                 callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -461,14 +486,22 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** The name of the subscription. */
                 /** Format is `projects/{project}/subscriptions/{sub}`. */
                 subscription: string;
-            }): gapi.client.Request<{}>;            
+            }): Request<{}>;            
             
             /** Deletes an existing subscription. All messages retained in the subscription */
             /** are immediately dropped. Calls to `Pull` after deletion will return */
@@ -476,18 +509,10 @@ declare namespace gapi.client {
             /** the same name, but the new one has no association with the old */
             /** subscription or its topic unless the same topic is specified. */
             delete(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
                 /** JSONP */
                 callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -498,32 +523,32 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** The subscription to delete. */
                 /** Format is `projects/{project}/subscriptions/{sub}`. */
                 subscription: string;
-            }): gapi.client.Request<{}>;            
+            }): Request<{}>;            
             
             /** Pulls messages from the server. Returns an empty list if there are no */
             /** messages available in the backlog. The server may return `UNAVAILABLE` if */
             /** there are too many concurrent pull requests pending for the given */
             /** subscription. */
             pull(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
                 /** JSONP */
                 callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -534,29 +559,29 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** The subscription from which messages should be pulled. */
                 /** Format is `projects/{project}/subscriptions/{sub}`. */
                 subscription: string;
-            }): gapi.client.Request<PullResponse>;            
+            }): Request<PullResponse>;            
             
             /** Lists matching subscriptions. */
             list(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
                 /** JSONP */
                 callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -567,36 +592,36 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** The value returned by the last `ListSubscriptionsResponse`; indicates that */
+                /** this is a continuation of a prior `ListSubscriptions` call, and that the */
+                /** system should return the next page of data. */
+                pageToken?: string;
                 /** Maximum number of subscriptions to return. */
                 pageSize?: number;
                 /** The name of the cloud project that subscriptions belong to. */
                 /** Format is `projects/{project}`. */
                 project: string;
-                /** The value returned by the last `ListSubscriptionsResponse`; indicates that */
-                /** this is a continuation of a prior `ListSubscriptions` call, and that the */
-                /** system should return the next page of data. */
-                pageToken?: string;
-            }): gapi.client.Request<ListSubscriptionsResponse>;            
+            }): Request<ListSubscriptionsResponse>;            
             
             /** Sets the access control policy on the specified resource. Replaces any */
             /** existing policy. */
             setIamPolicy(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
                 /** JSONP */
                 callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -607,14 +632,22 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** REQUIRED: The resource for which the policy is being specified. */
                 /** See the operation documentation for the appropriate value for this field. */
                 resource: string;
-            }): gapi.client.Request<Policy>;            
+            }): Request<Policy>;            
             
             /** Creates a subscription to a given topic. */
             /** If the subscription already exists, returns `ALREADY_EXISTS`. */
@@ -627,18 +660,10 @@ declare namespace gapi.client {
             /** The generated name is populated in the returned Subscription object. */
             /** Note that for REST API requests, you must specify a name in the request. */
             create(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
                 /** JSONP */
                 callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -649,10 +674,18 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** The name of the subscription. It must have the format */
                 /** `"projects/{project}/subscriptions/{subscription}"`. `{subscription}` must */
                 /** start with a letter, and contain only letters (`[A-Za-z]`), numbers */
@@ -660,42 +693,7 @@ declare namespace gapi.client {
                 /** plus (`+`) or percent signs (`%`). It must be between 3 and 255 characters */
                 /** in length, and it must not start with `"goog"`. */
                 name: string;
-            }): gapi.client.Request<Subscription>;            
-            
-            /** Gets the access control policy for a resource. */
-            /** Returns an empty policy if the resource exists and does not have a policy */
-            /** set. */
-            getIamPolicy(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** REQUIRED: The resource for which the policy is being requested. */
-                /** See the operation documentation for the appropriate value for this field. */
-                resource: string;
-            }): gapi.client.Request<Policy>;            
+            }): Request<Subscription>;            
             
             /** Modifies the ack deadline for a specific message. This method is useful */
             /** to indicate that more time is needed to process a message by the */
@@ -703,18 +701,10 @@ declare namespace gapi.client {
             /** processing was interrupted. Note that this does not modify the */
             /** subscription-level `ackDeadlineSeconds` used for subsequent messages. */
             modifyAckDeadline(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
                 /** JSONP */
                 callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -725,14 +715,22 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** The name of the subscription. */
                 /** Format is `projects/{project}/subscriptions/{sub}`. */
                 subscription: string;
-            }): gapi.client.Request<{}>;            
+            }): Request<{}>;            
             
             /** Acknowledges the messages associated with the `ack_ids` in the */
             /** `AcknowledgeRequest`. The Pub/Sub system can remove the relevant messages */
@@ -742,18 +740,10 @@ declare namespace gapi.client {
             /** but such a message may be redelivered later. Acknowledging a message more */
             /** than once will not result in an error. */
             acknowledge(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
                 /** JSONP */
                 callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -764,29 +754,31 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** The subscription whose message is being acknowledged. */
                 /** Format is `projects/{project}/subscriptions/{sub}`. */
                 subscription: string;
-            }): gapi.client.Request<{}>;            
+            }): Request<{}>;            
             
-            /** Gets the configuration details of a subscription. */
-            get(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
+            /** Gets the access control policy for a resource. */
+            /** Returns an empty policy if the resource exists and does not have a policy */
+            /** set. */
+            getIamPolicy(request: {            
                 /** JSONP */
                 callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -797,32 +789,32 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
-                /** The name of the subscription to get. */
-                /** Format is `projects/{project}/subscriptions/{sub}`. */
-                subscription: string;
-            }): gapi.client.Request<Subscription>;            
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** REQUIRED: The resource for which the policy is being requested. */
+                /** See the operation documentation for the appropriate value for this field. */
+                resource: string;
+            }): Request<Policy>;            
             
         }
         
         interface SubscriptionsResource {
             /** Lists the name of the subscriptions for this topic. */
             list(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
                 /** JSONP */
                 callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -833,38 +825,42 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** The value returned by the last `ListTopicSubscriptionsResponse`; indicates */
+                /** that this is a continuation of a prior `ListTopicSubscriptions` call, and */
+                /** that the system should return the next page of data. */
+                pageToken?: string;
                 /** Maximum number of subscription names to return. */
                 pageSize?: number;
                 /** The name of the topic that subscriptions are attached to. */
                 /** Format is `projects/{project}/topics/{topic}`. */
                 topic: string;
-                /** The value returned by the last `ListTopicSubscriptionsResponse`; indicates */
-                /** that this is a continuation of a prior `ListTopicSubscriptions` call, and */
-                /** that the system should return the next page of data. */
-                pageToken?: string;
-            }): gapi.client.Request<ListTopicSubscriptionsResponse>;            
+            }): Request<ListTopicSubscriptionsResponse>;            
             
         }
         
         interface TopicsResource {
-            /** Lists matching topics. */
-            list(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
+            /** Deletes the topic with the given name. Returns `NOT_FOUND` if the topic */
+            /** does not exist. After a topic is deleted, a new topic may be created with */
+            /** the same name; this is an entirely new topic with none of the old */
+            /** configuration or subscriptions. Existing subscriptions to this topic are */
+            /** not deleted, but their `topic` field is set to `_deleted-topic_`. */
+            delete(request: {            
                 /** JSONP */
                 callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -875,35 +871,68 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Name of the topic to delete. */
+                /** Format is `projects/{project}/topics/{topic}`. */
+                topic: string;
+            }): Request<{}>;            
+            
+            /** Lists matching topics. */
+            list(request: {            
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** The value returned by the last `ListTopicsResponse`; indicates that this is */
+                /** a continuation of a prior `ListTopics` call, and that the system should */
+                /** return the next page of data. */
+                pageToken?: string;
                 /** Maximum number of topics to return. */
                 pageSize?: number;
                 /** The name of the cloud project that topics belong to. */
                 /** Format is `projects/{project}`. */
                 project: string;
-                /** The value returned by the last `ListTopicsResponse`; indicates that this is */
-                /** a continuation of a prior `ListTopics` call, and that the system should */
-                /** return the next page of data. */
-                pageToken?: string;
-            }): gapi.client.Request<ListTopicsResponse>;            
+            }): Request<ListTopicsResponse>;            
             
             /** Creates the given topic with the given name. */
             create(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
                 /** JSONP */
                 callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -914,10 +943,18 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** The name of the topic. It must have the format */
                 /** `"projects/{project}/topics/{topic}"`. `{topic}` must start with a letter, */
                 /** and contain only letters (`[A-Za-z]`), numbers (`[0-9]`), dashes (`-`), */
@@ -925,23 +962,15 @@ declare namespace gapi.client {
                 /** signs (`%`). It must be between 3 and 255 characters in length, and it */
                 /** must not start with `"goog"`. */
                 name: string;
-            }): gapi.client.Request<Topic>;            
+            }): Request<Topic>;            
             
             /** Sets the access control policy on the specified resource. Replaces any */
             /** existing policy. */
             setIamPolicy(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
                 /** JSONP */
                 callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -952,31 +981,31 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** REQUIRED: The resource for which the policy is being specified. */
                 /** See the operation documentation for the appropriate value for this field. */
                 resource: string;
-            }): gapi.client.Request<Policy>;            
+            }): Request<Policy>;            
             
             /** Gets the access control policy for a resource. */
             /** Returns an empty policy if the resource exists and does not have a policy */
             /** set. */
             getIamPolicy(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
                 /** JSONP */
                 callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -987,29 +1016,29 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** REQUIRED: The resource for which the policy is being requested. */
                 /** See the operation documentation for the appropriate value for this field. */
                 resource: string;
-            }): gapi.client.Request<Policy>;            
+            }): Request<Policy>;            
             
             /** Gets the configuration of a topic. */
             get(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
                 /** JSONP */
                 callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -1020,31 +1049,31 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** The name of the topic to get. */
                 /** Format is `projects/{project}/topics/{topic}`. */
                 topic: string;
-            }): gapi.client.Request<Topic>;            
+            }): Request<Topic>;            
             
             /** Adds one or more messages to the topic. Returns `NOT_FOUND` if the topic */
             /** does not exist. The message payload must not be empty; it must contain */
             /**  either a non-empty data field, or at least one attribute. */
             publish(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
                 /** JSONP */
                 callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -1055,14 +1084,22 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** The messages in the request will be published on this topic. */
                 /** Format is `projects/{project}/topics/{topic}`. */
                 topic: string;
-            }): gapi.client.Request<PublishResponse>;            
+            }): Request<PublishResponse>;            
             
             /** Returns permissions that a caller has on the specified resource. */
             /** If the resource does not exist, this will return an empty set of */
@@ -1072,18 +1109,10 @@ declare namespace gapi.client {
             /** UIs and command-line tools, not for authorization checking. This operation */
             /** may "fail open" without warning. */
             testIamPermissions(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
                 /** JSONP */
                 callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -1094,51 +1123,22 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Pretty-print response. */
                 pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
                 /** REQUIRED: The resource for which the policy detail is being requested. */
                 /** See the operation documentation for the appropriate value for this field. */
                 resource: string;
-            }): gapi.client.Request<TestIamPermissionsResponse>;            
-            
-            /** Deletes the topic with the given name. Returns `NOT_FOUND` if the topic */
-            /** does not exist. After a topic is deleted, a new topic may be created with */
-            /** the same name; this is an entirely new topic with none of the old */
-            /** configuration or subscriptions. Existing subscriptions to this topic are */
-            /** not deleted, but their `topic` field is set to `_deleted-topic_`. */
-            delete(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** Name of the topic to delete. */
-                /** Format is `projects/{project}/topics/{topic}`. */
-                topic: string;
-            }): gapi.client.Request<{}>;            
+            }): Request<TestIamPermissionsResponse>;            
             
             subscriptions: SubscriptionsResource;
         }

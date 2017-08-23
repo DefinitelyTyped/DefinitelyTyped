@@ -224,7 +224,7 @@ declare namespace gapi.client {
                 hostedModelName: string;
                 /** The project associated with the model. */
                 project: string;
-            }): gapi.client.Request<Output>;            
+            }): Request<Output>;            
             
         }
         
@@ -249,7 +249,7 @@ declare namespace gapi.client {
                 id: string;
                 /** The project associated with the model. */
                 project: string;
-            }): gapi.client.Request<Analyze>;            
+            }): Request<Analyze>;            
             
             /** Delete a trained model. */
             delete(request: {            
@@ -271,7 +271,7 @@ declare namespace gapi.client {
                 id: string;
                 /** The project associated with the model. */
                 project: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Check training status of your model. */
             get(request: {            
@@ -293,7 +293,7 @@ declare namespace gapi.client {
                 id: string;
                 /** The project associated with the model. */
                 project: string;
-            }): gapi.client.Request<Insert2>;            
+            }): Request<Insert2>;            
             
             /** Train a Prediction API model. */
             insert(request: {            
@@ -313,7 +313,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The project associated with the model. */
                 project: string;
-            }): gapi.client.Request<Insert2>;            
+            }): Request<Insert2>;            
             
             /** List available models. */
             list(request: {            
@@ -337,7 +337,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** The project associated with the model. */
                 project: string;
-            }): gapi.client.Request<List>;            
+            }): Request<List>;            
             
             /** Submit model id and request a prediction. */
             predict(request: {            
@@ -359,7 +359,7 @@ declare namespace gapi.client {
                 id: string;
                 /** The project associated with the model. */
                 project: string;
-            }): gapi.client.Request<Output>;            
+            }): Request<Output>;            
             
             /** Add new data to a trained model. */
             update(request: {            
@@ -381,7 +381,7 @@ declare namespace gapi.client {
                 id: string;
                 /** The project associated with the model. */
                 project: string;
-            }): gapi.client.Request<Insert2>;            
+            }): Request<Insert2>;            
             
         }
     }

@@ -407,7 +407,7 @@ declare namespace gapi.client {
                 maxResults?: number;
                 /** A continuation token, used to page through ad clients. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous response. */
                 pageToken?: string;
-            }): gapi.client.Request<AdClients>;            
+            }): Request<AdClients>;            
             
         }
         
@@ -438,7 +438,7 @@ declare namespace gapi.client {
                 maxResults?: number;
                 /** A continuation token, used to page through custom channels. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous response. */
                 pageToken?: string;
-            }): gapi.client.Request<CustomChannels>;            
+            }): Request<CustomChannels>;            
             
         }
         
@@ -465,7 +465,7 @@ declare namespace gapi.client {
                 adClientId: string;
                 /** Ad unit to retrieve. */
                 adUnitId: string;
-            }): gapi.client.Request<AdUnit>;            
+            }): Request<AdUnit>;            
             
             /** Get ad code for the specified ad unit. */
             getAdCode(request: {            
@@ -489,7 +489,7 @@ declare namespace gapi.client {
                 adClientId: string;
                 /** Ad unit to get the code for. */
                 adUnitId: string;
-            }): gapi.client.Request<AdCode>;            
+            }): Request<AdCode>;            
             
             /** List all ad units in the specified ad client for the specified account. */
             list(request: {            
@@ -517,7 +517,7 @@ declare namespace gapi.client {
                 maxResults?: number;
                 /** A continuation token, used to page through ad units. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous response. */
                 pageToken?: string;
-            }): gapi.client.Request<AdUnits>;            
+            }): Request<AdUnits>;            
             
             customchannels: CustomchannelsResource;
         }
@@ -543,7 +543,7 @@ declare namespace gapi.client {
                 accountId: string;
                 /** Alert to delete. */
                 alertId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** List the alerts for the specified AdSense account. */
             list(request: {            
@@ -565,7 +565,7 @@ declare namespace gapi.client {
                 accountId: string;
                 /** The locale to use for translating alert messages. The account locale will be used if this is not supplied. The AdSense default (English) will be used if the supplied locale is invalid or unsupported. */
                 locale?: string;
-            }): gapi.client.Request<Alerts>;            
+            }): Request<Alerts>;            
             
         }
         
@@ -598,7 +598,7 @@ declare namespace gapi.client {
                 maxResults?: number;
                 /** A continuation token, used to page through ad units. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous response. */
                 pageToken?: string;
-            }): gapi.client.Request<AdUnits>;            
+            }): Request<AdUnits>;            
             
         }
         
@@ -625,7 +625,7 @@ declare namespace gapi.client {
                 adClientId: string;
                 /** Custom channel to retrieve. */
                 customChannelId: string;
-            }): gapi.client.Request<CustomChannel>;            
+            }): Request<CustomChannel>;            
             
             /** List all custom channels in the specified ad client for the specified account. */
             list(request: {            
@@ -651,7 +651,7 @@ declare namespace gapi.client {
                 maxResults?: number;
                 /** A continuation token, used to page through custom channels. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous response. */
                 pageToken?: string;
-            }): gapi.client.Request<CustomChannels>;            
+            }): Request<CustomChannels>;            
             
             adunits: AdunitsResource;
         }
@@ -675,7 +675,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Account for which to retrieve the payments. */
                 accountId: string;
-            }): gapi.client.Request<Payments>;            
+            }): Request<Payments>;            
             
         }
         
@@ -706,7 +706,7 @@ declare namespace gapi.client {
                 savedReportId: string;
                 /** Index of the first row of report data to return. */
                 startIndex?: number;
-            }): gapi.client.Request<AdsenseReportsGenerateResponse>;            
+            }): Request<AdsenseReportsGenerateResponse>;            
             
             /** List all saved reports in the specified AdSense account. */
             list(request: {            
@@ -730,7 +730,7 @@ declare namespace gapi.client {
                 maxResults?: number;
                 /** A continuation token, used to page through saved reports. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous response. */
                 pageToken?: string;
-            }): gapi.client.Request<SavedReports>;            
+            }): Request<SavedReports>;            
             
         }
         
@@ -775,7 +775,7 @@ declare namespace gapi.client {
                 startIndex?: number;
                 /** Whether the report should be generated in the AdSense account's local timezone. If false default PST/PDT timezone will be used. */
                 useTimezoneReporting?: boolean;
-            }): gapi.client.Request<AdsenseReportsGenerateResponse>;            
+            }): Request<AdsenseReportsGenerateResponse>;            
             
             saved: SavedResource;
         }
@@ -801,7 +801,7 @@ declare namespace gapi.client {
                 accountId: string;
                 /** Saved ad style to retrieve. */
                 savedAdStyleId: string;
-            }): gapi.client.Request<SavedAdStyle>;            
+            }): Request<SavedAdStyle>;            
             
             /** List all saved ad styles in the specified account. */
             list(request: {            
@@ -825,7 +825,7 @@ declare namespace gapi.client {
                 maxResults?: number;
                 /** A continuation token, used to page through saved ad styles. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous response. */
                 pageToken?: string;
-            }): gapi.client.Request<SavedAdStyles>;            
+            }): Request<SavedAdStyles>;            
             
         }
         
@@ -854,7 +854,7 @@ declare namespace gapi.client {
                 maxResults?: number;
                 /** A continuation token, used to page through URL channels. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous response. */
                 pageToken?: string;
-            }): gapi.client.Request<UrlChannels>;            
+            }): Request<UrlChannels>;            
             
         }
         
@@ -879,7 +879,7 @@ declare namespace gapi.client {
                 accountId: string;
                 /** Whether the tree of sub accounts should be returned. */
                 tree?: boolean;
-            }): gapi.client.Request<Account>;            
+            }): Request<Account>;            
             
             /** List all accounts available to this AdSense account. */
             list(request: {            
@@ -901,7 +901,7 @@ declare namespace gapi.client {
                 maxResults?: number;
                 /** A continuation token, used to page through accounts. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous response. */
                 pageToken?: string;
-            }): gapi.client.Request<Accounts>;            
+            }): Request<Accounts>;            
             
             adclients: AdclientsResource;
             adunits: AdunitsResource;
@@ -934,7 +934,7 @@ declare namespace gapi.client {
                 maxResults?: number;
                 /** A continuation token, used to page through ad clients. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous response. */
                 pageToken?: string;
-            }): gapi.client.Request<AdClients>;            
+            }): Request<AdClients>;            
             
         }
         
@@ -963,7 +963,7 @@ declare namespace gapi.client {
                 maxResults?: number;
                 /** A continuation token, used to page through custom channels. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous response. */
                 pageToken?: string;
-            }): gapi.client.Request<CustomChannels>;            
+            }): Request<CustomChannels>;            
             
         }
         
@@ -988,7 +988,7 @@ declare namespace gapi.client {
                 adClientId: string;
                 /** Ad unit to retrieve. */
                 adUnitId: string;
-            }): gapi.client.Request<AdUnit>;            
+            }): Request<AdUnit>;            
             
             /** Get ad code for the specified ad unit. */
             getAdCode(request: {            
@@ -1010,7 +1010,7 @@ declare namespace gapi.client {
                 adClientId: string;
                 /** Ad unit to get the code for. */
                 adUnitId: string;
-            }): gapi.client.Request<AdCode>;            
+            }): Request<AdCode>;            
             
             /** List all ad units in the specified ad client for this AdSense account. */
             list(request: {            
@@ -1036,7 +1036,7 @@ declare namespace gapi.client {
                 maxResults?: number;
                 /** A continuation token, used to page through ad units. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous response. */
                 pageToken?: string;
-            }): gapi.client.Request<AdUnits>;            
+            }): Request<AdUnits>;            
             
             customchannels: CustomchannelsResource;
         }
@@ -1060,7 +1060,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Alert to delete. */
                 alertId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** List the alerts for this AdSense account. */
             list(request: {            
@@ -1080,7 +1080,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The locale to use for translating alert messages. The account locale will be used if this is not supplied. The AdSense default (English) will be used if the supplied locale is invalid or unsupported. */
                 locale?: string;
-            }): gapi.client.Request<Alerts>;            
+            }): Request<Alerts>;            
             
         }
         
@@ -1111,7 +1111,7 @@ declare namespace gapi.client {
                 maxResults?: number;
                 /** A continuation token, used to page through ad units. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous response. */
                 pageToken?: string;
-            }): gapi.client.Request<AdUnits>;            
+            }): Request<AdUnits>;            
             
         }
         
@@ -1136,7 +1136,7 @@ declare namespace gapi.client {
                 adClientId: string;
                 /** Custom channel to retrieve. */
                 customChannelId: string;
-            }): gapi.client.Request<CustomChannel>;            
+            }): Request<CustomChannel>;            
             
             /** List all custom channels in the specified ad client for this AdSense account. */
             list(request: {            
@@ -1160,7 +1160,7 @@ declare namespace gapi.client {
                 maxResults?: number;
                 /** A continuation token, used to page through custom channels. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous response. */
                 pageToken?: string;
-            }): gapi.client.Request<CustomChannels>;            
+            }): Request<CustomChannels>;            
             
             adunits: AdunitsResource;
         }
@@ -1182,7 +1182,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<Metadata>;            
+            }): Request<Metadata>;            
             
         }
         
@@ -1203,7 +1203,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<Metadata>;            
+            }): Request<Metadata>;            
             
         }
         
@@ -1229,7 +1229,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<Payments>;            
+            }): Request<Payments>;            
             
         }
         
@@ -1258,7 +1258,7 @@ declare namespace gapi.client {
                 savedReportId: string;
                 /** Index of the first row of report data to return. */
                 startIndex?: number;
-            }): gapi.client.Request<AdsenseReportsGenerateResponse>;            
+            }): Request<AdsenseReportsGenerateResponse>;            
             
             /** List all saved reports in this AdSense account. */
             list(request: {            
@@ -1280,7 +1280,7 @@ declare namespace gapi.client {
                 maxResults?: number;
                 /** A continuation token, used to page through saved reports. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous response. */
                 pageToken?: string;
-            }): gapi.client.Request<SavedReports>;            
+            }): Request<SavedReports>;            
             
         }
         
@@ -1325,7 +1325,7 @@ declare namespace gapi.client {
                 startIndex?: number;
                 /** Whether the report should be generated in the AdSense account's local timezone. If false default PST/PDT timezone will be used. */
                 useTimezoneReporting?: boolean;
-            }): gapi.client.Request<AdsenseReportsGenerateResponse>;            
+            }): Request<AdsenseReportsGenerateResponse>;            
             
             saved: SavedResource;
         }
@@ -1349,7 +1349,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Saved ad style to retrieve. */
                 savedAdStyleId: string;
-            }): gapi.client.Request<SavedAdStyle>;            
+            }): Request<SavedAdStyle>;            
             
             /** List all saved ad styles in the user's account. */
             list(request: {            
@@ -1371,7 +1371,7 @@ declare namespace gapi.client {
                 maxResults?: number;
                 /** A continuation token, used to page through saved ad styles. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous response. */
                 pageToken?: string;
-            }): gapi.client.Request<SavedAdStyles>;            
+            }): Request<SavedAdStyles>;            
             
         }
         
@@ -1398,7 +1398,7 @@ declare namespace gapi.client {
                 maxResults?: number;
                 /** A continuation token, used to page through URL channels. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous response. */
                 pageToken?: string;
-            }): gapi.client.Request<UrlChannels>;            
+            }): Request<UrlChannels>;            
             
         }
     }

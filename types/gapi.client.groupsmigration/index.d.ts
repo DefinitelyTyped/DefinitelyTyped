@@ -46,7 +46,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The group ID */
                 groupId: string;
-            }): gapi.client.Request<Groups>;            
+            }): Request<Groups>;            
             
         }
     }

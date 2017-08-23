@@ -656,7 +656,7 @@ declare namespace gapi.client {
                 instance: string;
                 /** Project ID of the project that contains the instance. */
                 project: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Retrieves a resource containing information about a backup run. */
             get(request: {            
@@ -680,7 +680,7 @@ declare namespace gapi.client {
                 instance: string;
                 /** Project ID of the project that contains the instance. */
                 project: string;
-            }): gapi.client.Request<BackupRun>;            
+            }): Request<BackupRun>;            
             
             /** Creates a new backup run on demand. This method is applicable only to Second Generation instances. */
             insert(request: {            
@@ -702,7 +702,7 @@ declare namespace gapi.client {
                 instance: string;
                 /** Project ID of the project that contains the instance. */
                 project: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Lists all backup runs associated with a given instance and configuration in the reverse chronological order of the enqueued time. */
             list(request: {            
@@ -728,7 +728,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Project ID of the project that contains the instance. */
                 project: string;
-            }): gapi.client.Request<BackupRunsListResponse>;            
+            }): Request<BackupRunsListResponse>;            
             
         }
         
@@ -755,7 +755,7 @@ declare namespace gapi.client {
                 instance: string;
                 /** Project ID of the project that contains the instance. */
                 project: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Retrieves a resource containing information about a database inside a Cloud SQL instance. */
             get(request: {            
@@ -779,7 +779,7 @@ declare namespace gapi.client {
                 instance: string;
                 /** Project ID of the project that contains the instance. */
                 project: string;
-            }): gapi.client.Request<Database>;            
+            }): Request<Database>;            
             
             /** Inserts a resource containing information about a database inside a Cloud SQL instance. */
             insert(request: {            
@@ -801,7 +801,7 @@ declare namespace gapi.client {
                 instance: string;
                 /** Project ID of the project that contains the instance. */
                 project: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Lists databases in the specified Cloud SQL instance. */
             list(request: {            
@@ -823,7 +823,7 @@ declare namespace gapi.client {
                 instance: string;
                 /** Project ID of the project for which to list Cloud SQL instances. */
                 project: string;
-            }): gapi.client.Request<DatabasesListResponse>;            
+            }): Request<DatabasesListResponse>;            
             
             /** Updates a resource containing information about a database inside a Cloud SQL instance. This method supports patch semantics. */
             patch(request: {            
@@ -847,7 +847,7 @@ declare namespace gapi.client {
                 instance: string;
                 /** Project ID of the project that contains the instance. */
                 project: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Updates a resource containing information about a database inside a Cloud SQL instance. */
             update(request: {            
@@ -871,7 +871,7 @@ declare namespace gapi.client {
                 instance: string;
                 /** Project ID of the project that contains the instance. */
                 project: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
         }
         
@@ -894,7 +894,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Database version for flag retrieval. Flags are specific to the database version. */
                 databaseVersion?: string;
-            }): gapi.client.Request<FlagsListResponse>;            
+            }): Request<FlagsListResponse>;            
             
         }
         
@@ -919,7 +919,7 @@ declare namespace gapi.client {
                 instance: string;
                 /** Project ID of the source as well as the clone Cloud SQL instance. */
                 project: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Deletes a Cloud SQL instance. */
             delete(request: {            
@@ -941,7 +941,7 @@ declare namespace gapi.client {
                 instance: string;
                 /** Project ID of the project that contains the instance to be deleted. */
                 project: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Exports data from a Cloud SQL instance to a Google Cloud Storage bucket as a MySQL dump file. */
             export(request: {            
@@ -963,7 +963,7 @@ declare namespace gapi.client {
                 instance: string;
                 /** Project ID of the project that contains the instance to be exported. */
                 project: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Failover the instance to its failover replica instance. */
             failover(request: {            
@@ -985,7 +985,7 @@ declare namespace gapi.client {
                 instance: string;
                 /** ID of the project that contains the read replica. */
                 project: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Retrieves a resource containing information about a Cloud SQL instance. */
             get(request: {            
@@ -1007,7 +1007,7 @@ declare namespace gapi.client {
                 instance: string;
                 /** Project ID of the project that contains the instance. */
                 project: string;
-            }): gapi.client.Request<DatabaseInstance>;            
+            }): Request<DatabaseInstance>;            
             
             /** Imports data into a Cloud SQL instance from a MySQL dump file in Google Cloud Storage. */
             import(request: {            
@@ -1029,7 +1029,7 @@ declare namespace gapi.client {
                 instance: string;
                 /** Project ID of the project that contains the instance. */
                 project: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Creates a new Cloud SQL instance. */
             insert(request: {            
@@ -1049,7 +1049,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Project ID of the project to which the newly created Cloud SQL instances should belong. */
                 project: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Lists instances under a given project in the alphabetical order of the instance name. */
             list(request: {            
@@ -1075,7 +1075,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Project ID of the project for which to list Cloud SQL instances. */
                 project: string;
-            }): gapi.client.Request<InstancesListResponse>;            
+            }): Request<InstancesListResponse>;            
             
             /** Updates settings of a Cloud SQL instance. Caution: This is not a partial update, so you must include values for all the settings that you want to retain. For partial updates, use patch.. This method supports patch semantics. */
             patch(request: {            
@@ -1097,7 +1097,7 @@ declare namespace gapi.client {
                 instance: string;
                 /** Project ID of the project that contains the instance. */
                 project: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Promotes the read replica instance to be a stand-alone Cloud SQL instance. */
             promoteReplica(request: {            
@@ -1119,7 +1119,7 @@ declare namespace gapi.client {
                 instance: string;
                 /** ID of the project that contains the read replica. */
                 project: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Deletes all client certificates and generates a new server SSL certificate for the instance. The changes will not take effect until the instance is restarted. Existing instances without a server certificate will need to call this once to set a server certificate. */
             resetSslConfig(request: {            
@@ -1141,7 +1141,7 @@ declare namespace gapi.client {
                 instance: string;
                 /** Project ID of the project that contains the instance. */
                 project: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Restarts a Cloud SQL instance. */
             restart(request: {            
@@ -1163,7 +1163,7 @@ declare namespace gapi.client {
                 instance: string;
                 /** Project ID of the project that contains the instance to be restarted. */
                 project: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Restores a backup of a Cloud SQL instance. */
             restoreBackup(request: {            
@@ -1185,7 +1185,7 @@ declare namespace gapi.client {
                 instance: string;
                 /** Project ID of the project that contains the instance. */
                 project: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Starts the replication in the read replica instance. */
             startReplica(request: {            
@@ -1207,7 +1207,7 @@ declare namespace gapi.client {
                 instance: string;
                 /** ID of the project that contains the read replica. */
                 project: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Stops the replication in the read replica instance. */
             stopReplica(request: {            
@@ -1229,7 +1229,7 @@ declare namespace gapi.client {
                 instance: string;
                 /** ID of the project that contains the read replica. */
                 project: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Truncate MySQL general and slow query log tables */
             truncateLog(request: {            
@@ -1251,7 +1251,7 @@ declare namespace gapi.client {
                 instance: string;
                 /** Project ID of the Cloud SQL project. */
                 project: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Updates settings of a Cloud SQL instance. Caution: This is not a partial update, so you must include values for all the settings that you want to retain. For partial updates, use patch. */
             update(request: {            
@@ -1273,7 +1273,7 @@ declare namespace gapi.client {
                 instance: string;
                 /** Project ID of the project that contains the instance. */
                 project: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
         }
         
@@ -1298,7 +1298,7 @@ declare namespace gapi.client {
                 operation: string;
                 /** Project ID of the project that contains the instance. */
                 project: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Lists all instance operations that have been performed on the given Cloud SQL instance in the reverse chronological order of the start time. */
             list(request: {            
@@ -1324,7 +1324,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Project ID of the project that contains the instance. */
                 project: string;
-            }): gapi.client.Request<OperationsListResponse>;            
+            }): Request<OperationsListResponse>;            
             
         }
         
@@ -1349,7 +1349,7 @@ declare namespace gapi.client {
                 instance: string;
                 /** Project ID of the Cloud SQL project. */
                 project: string;
-            }): gapi.client.Request<SslCert>;            
+            }): Request<SslCert>;            
             
             /** Deletes the SSL certificate. The change will not take effect until the instance is restarted. */
             delete(request: {            
@@ -1373,7 +1373,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Sha1 FingerPrint. */
                 sha1Fingerprint: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Retrieves a particular SSL certificate. Does not include the private key (required for usage). The private key must be saved from the response to initial creation. */
             get(request: {            
@@ -1397,7 +1397,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Sha1 FingerPrint. */
                 sha1Fingerprint: string;
-            }): gapi.client.Request<SslCert>;            
+            }): Request<SslCert>;            
             
             /** Creates an SSL certificate and returns it along with the private key and server certificate authority. The new certificate will not be usable until the instance is restarted. */
             insert(request: {            
@@ -1419,7 +1419,7 @@ declare namespace gapi.client {
                 instance: string;
                 /** Project ID of the project to which the newly created Cloud SQL instances should belong. */
                 project: string;
-            }): gapi.client.Request<SslCertsInsertResponse>;            
+            }): Request<SslCertsInsertResponse>;            
             
             /** Lists all of the current SSL certificates for the instance. */
             list(request: {            
@@ -1441,7 +1441,7 @@ declare namespace gapi.client {
                 instance: string;
                 /** Project ID of the project for which to list Cloud SQL instances. */
                 project: string;
-            }): gapi.client.Request<SslCertsListResponse>;            
+            }): Request<SslCertsListResponse>;            
             
         }
         
@@ -1464,7 +1464,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Project ID of the project for which to list tiers. */
                 project: string;
-            }): gapi.client.Request<TiersListResponse>;            
+            }): Request<TiersListResponse>;            
             
         }
         
@@ -1493,7 +1493,7 @@ declare namespace gapi.client {
                 name: string;
                 /** Project ID of the project that contains the instance. */
                 project: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Creates a new user in a Cloud SQL instance. */
             insert(request: {            
@@ -1515,7 +1515,7 @@ declare namespace gapi.client {
                 instance: string;
                 /** Project ID of the project that contains the instance. */
                 project: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Lists users in the specified Cloud SQL instance. */
             list(request: {            
@@ -1537,7 +1537,7 @@ declare namespace gapi.client {
                 instance: string;
                 /** Project ID of the project that contains the instance. */
                 project: string;
-            }): gapi.client.Request<UsersListResponse>;            
+            }): Request<UsersListResponse>;            
             
             /** Updates an existing user in a Cloud SQL instance. */
             update(request: {            
@@ -1563,7 +1563,7 @@ declare namespace gapi.client {
                 name: string;
                 /** Project ID of the project that contains the instance. */
                 project: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
         }
     }

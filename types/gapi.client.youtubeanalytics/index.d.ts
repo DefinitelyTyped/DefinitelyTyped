@@ -124,7 +124,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The onBehalfOfContentOwner parameter indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value. This parameter is intended for YouTube content partners that own and manage many different YouTube channels. It allows content owners to authenticate once and get access to all their video and channel data, without having to provide authentication credentials for each individual channel. The CMS account that the user authenticates with must be linked to the specified YouTube content owner. */
                 onBehalfOfContentOwner?: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Creates a group item. */
             insert(request: {            
@@ -146,7 +146,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The onBehalfOfContentOwner parameter indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value. This parameter is intended for YouTube content partners that own and manage many different YouTube channels. It allows content owners to authenticate once and get access to all their video and channel data, without having to provide authentication credentials for each individual channel. The CMS account that the user authenticates with must be linked to the specified YouTube content owner. */
                 onBehalfOfContentOwner?: string;
-            }): gapi.client.Request<GroupItem>;            
+            }): Request<GroupItem>;            
             
             /** Returns a collection of group items that match the API request parameters. */
             list(request: {            
@@ -170,7 +170,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The onBehalfOfContentOwner parameter indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value. This parameter is intended for YouTube content partners that own and manage many different YouTube channels. It allows content owners to authenticate once and get access to all their video and channel data, without having to provide authentication credentials for each individual channel. The CMS account that the user authenticates with must be linked to the specified YouTube content owner. */
                 onBehalfOfContentOwner?: string;
-            }): gapi.client.Request<GroupItemListResponse>;            
+            }): Request<GroupItemListResponse>;            
             
         }
         
@@ -197,7 +197,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The onBehalfOfContentOwner parameter indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value. This parameter is intended for YouTube content partners that own and manage many different YouTube channels. It allows content owners to authenticate once and get access to all their video and channel data, without having to provide authentication credentials for each individual channel. The CMS account that the user authenticates with must be linked to the specified YouTube content owner. */
                 onBehalfOfContentOwner?: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Creates a group. */
             insert(request: {            
@@ -219,7 +219,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The onBehalfOfContentOwner parameter indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value. This parameter is intended for YouTube content partners that own and manage many different YouTube channels. It allows content owners to authenticate once and get access to all their video and channel data, without having to provide authentication credentials for each individual channel. The CMS account that the user authenticates with must be linked to the specified YouTube content owner. */
                 onBehalfOfContentOwner?: string;
-            }): gapi.client.Request<Group>;            
+            }): Request<Group>;            
             
             /** Returns a collection of groups that match the API request parameters. For example, you can retrieve all groups that the authenticated user owns, or you can retrieve one or more groups by their unique IDs. */
             list(request: {            
@@ -247,7 +247,7 @@ declare namespace gapi.client {
                 onBehalfOfContentOwner?: string;
                 /** The pageToken parameter identifies a specific page in the result set that should be returned. In an API response, the nextPageToken property identifies the next page that can be retrieved. */
                 pageToken?: string;
-            }): gapi.client.Request<GroupListResponse>;            
+            }): Request<GroupListResponse>;            
             
             /** Modifies a group. For example, you could change a group's title. */
             update(request: {            
@@ -269,7 +269,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The onBehalfOfContentOwner parameter indicates that the request's authorization credentials identify a YouTube CMS user who is acting on behalf of the content owner specified in the parameter value. This parameter is intended for YouTube content partners that own and manage many different YouTube channels. It allows content owners to authenticate once and get access to all their video and channel data, without having to provide authentication credentials for each individual channel. The CMS account that the user authenticates with must be linked to the specified YouTube content owner. */
                 onBehalfOfContentOwner?: string;
-            }): gapi.client.Request<Group>;            
+            }): Request<Group>;            
             
         }
         
@@ -314,7 +314,7 @@ declare namespace gapi.client {
                 "start-date": string;
                 /** An index of the first entity to retrieve. Use this parameter as a pagination mechanism along with the max-results parameter (one-based, inclusive). */
                 "start-index"?: number;
-            }): gapi.client.Request<ResultTable>;            
+            }): Request<ResultTable>;            
             
         }
     }

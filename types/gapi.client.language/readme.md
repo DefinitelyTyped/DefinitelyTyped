@@ -56,6 +56,11 @@ After that you can use Google Cloud Natural Language API resources:
 ```typescript 
     
 /* 
+Analyzes the sentiment of the provided text.  
+*/
+await gapi.client.documents.analyzeSentiment({  }); 
+    
+/* 
 A convenience method that provides all the features that analyzeSentiment,
 analyzeEntities, and analyzeSyntax provide in one call.  
 */
@@ -73,10 +78,5 @@ Analyzes the syntax of the text and provides sentence boundaries and
 tokenization along with part of speech tags, dependency trees, and other
 properties.  
 */
-await gapi.client.documents.analyzeSyntax({  }); 
-    
-/* 
-Analyzes the sentiment of the provided text.  
-*/
-await gapi.client.documents.analyzeSentiment({  });
+await gapi.client.documents.analyzeSyntax({  });
 ```

@@ -569,7 +569,7 @@ declare namespace gapi.client {
                 callbackUrl?: string;
                 /** The id of the Google Cloud Platform project which will own the enterprise. */
                 projectId?: string;
-            }): gapi.client.Request<SignupUrl>;            
+            }): Request<SignupUrl>;            
             
         }
         
@@ -604,7 +604,7 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** The name of the policy in the form enterprises/{enterpriseId}/policies/{policyId} */
                 name: string;
-            }): gapi.client.Request<Policy>;            
+            }): Request<Policy>;            
             
             /** Lists policies for a given enterprise. */
             list(request: {            
@@ -640,7 +640,7 @@ declare namespace gapi.client {
                 parent: string;
                 /** A token identifying a page of results the server should return. */
                 pageToken?: string;
-            }): gapi.client.Request<ListPoliciesResponse>;            
+            }): Request<ListPoliciesResponse>;            
             
             /** Updates or creates a policy. */
             patch(request: {            
@@ -674,7 +674,7 @@ declare namespace gapi.client {
                 updateMask?: string;
                 /** The name of the policy in the form enterprises/{enterpriseId}/policies/{policyId} */
                 name: string;
-            }): gapi.client.Request<Policy>;            
+            }): Request<Policy>;            
             
             /** Deletes a policy. This operation is only permitted if no devices are currently referencing the policy. */
             delete(request: {            
@@ -706,7 +706,7 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** The name of the policy in the form enterprises/{enterpriseId}/policies/{policyId} */
                 name: string;
-            }): gapi.client.Request<{}>;            
+            }): Request<{}>;            
             
         }
         
@@ -743,7 +743,7 @@ declare namespace gapi.client {
                 languageCode?: string;
                 /** The name of the application in the form enterprises/{enterpriseId}/applications/{package_name} */
                 name: string;
-            }): gapi.client.Request<Application>;            
+            }): Request<Application>;            
             
         }
         
@@ -778,7 +778,7 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** The name of the enterprise in the form enterprises/{enterpriseId} */
                 parent: string;
-            }): gapi.client.Request<EnrollmentToken>;            
+            }): Request<EnrollmentToken>;            
             
             /** Deletes an enrollment token, which prevents future use of the token. */
             delete(request: {            
@@ -810,7 +810,7 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** The name of the enrollment token in the form enterprises/{enterpriseId}/enrollmentTokens/{enrollmentTokenId} */
                 name: string;
-            }): gapi.client.Request<{}>;            
+            }): Request<{}>;            
             
         }
         
@@ -845,7 +845,7 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** The name of the enterprise in the form enterprises/{enterpriseId} */
                 parent: string;
-            }): gapi.client.Request<WebToken>;            
+            }): Request<WebToken>;            
             
         }
         
@@ -880,7 +880,7 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** The name of the operation resource. */
                 name: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Lists operations that match the specified filter in the request. If the server doesn't support this method, it returns UNIMPLEMENTED.NOTE: the name binding allows API services to override the binding to use different resource name schemes, such as users/&#42;/operations. To override the binding, API services can add a binding such as "/v1/{name=users/&#42;}/operations" to their service configuration. For backwards compatibility, the default name includes the operations collection id, however overriding users must ensure the name binding is the parent resource, without the operations collection id. */
             list(request: {            
@@ -918,7 +918,7 @@ declare namespace gapi.client {
                 name: string;
                 /** The standard list page token. */
                 pageToken?: string;
-            }): gapi.client.Request<ListOperationsResponse>;            
+            }): Request<ListOperationsResponse>;            
             
             /** Deletes a long-running operation. This method indicates that the client is no longer interested in the operation result. It does not cancel the operation. If the server doesn't support this method, it returns google.rpc.Code.UNIMPLEMENTED. */
             delete(request: {            
@@ -950,7 +950,7 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** The name of the operation resource to be deleted. */
                 name: string;
-            }): gapi.client.Request<{}>;            
+            }): Request<{}>;            
             
             /** Starts asynchronous cancellation on a long-running operation. The server makes a best effort to cancel the operation, but success is not guaranteed. If the server doesn't support this method, it returns google.rpc.Code.UNIMPLEMENTED. Clients can use Operations.GetOperation or other methods to check whether the cancellation succeeded or whether the operation completed despite cancellation. On successful cancellation, the operation is not deleted; instead, it becomes an operation with an Operation.error value with a google.rpc.Status.code of 1, corresponding to Code.CANCELLED. */
             cancel(request: {            
@@ -982,7 +982,7 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** The name of the operation resource to be cancelled. */
                 name: string;
-            }): gapi.client.Request<{}>;            
+            }): Request<{}>;            
             
         }
         
@@ -1017,7 +1017,7 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** The name of the device in the form enterprises/{enterpriseId}/devices/{deviceId} */
                 name: string;
-            }): gapi.client.Request<Device>;            
+            }): Request<Device>;            
             
             /** Lists devices for a given enterprise. */
             list(request: {            
@@ -1053,7 +1053,7 @@ declare namespace gapi.client {
                 parent: string;
                 /** A token identifying a page of results the server should return. */
                 pageToken?: string;
-            }): gapi.client.Request<ListDevicesResponse>;            
+            }): Request<ListDevicesResponse>;            
             
             /** Issues a command to a device. The Operation resource returned contains a Command in its metadata field. Use the get operation method to get the status of the command. */
             issueCommand(request: {            
@@ -1085,7 +1085,7 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** The name of the device in the form enterprises/{enterpriseId}/devices/{deviceId} */
                 name: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Updates a device. */
             patch(request: {            
@@ -1119,7 +1119,7 @@ declare namespace gapi.client {
                 updateMask?: string;
                 /** The name of the device in the form enterprises/{enterpriseId}/devices/{deviceId} */
                 name: string;
-            }): gapi.client.Request<Device>;            
+            }): Request<Device>;            
             
             /** Deletes a device, which causes the device to be wiped. */
             delete(request: {            
@@ -1151,7 +1151,7 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** The name of the device in the form enterprises/{enterpriseId}/devices/{deviceId} */
                 name: string;
-            }): gapi.client.Request<{}>;            
+            }): Request<{}>;            
             
             operations: OperationsResource;
         }
@@ -1191,7 +1191,7 @@ declare namespace gapi.client {
                 enterpriseToken?: string;
                 /** The id of the Google Cloud Platform project which will own the enterprise. */
                 projectId?: string;
-            }): gapi.client.Request<Enterprise>;            
+            }): Request<Enterprise>;            
             
             /** Gets an enterprise. */
             get(request: {            
@@ -1223,7 +1223,7 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** The name of the enterprise in the form enterprises/{enterpriseId} */
                 name: string;
-            }): gapi.client.Request<Enterprise>;            
+            }): Request<Enterprise>;            
             
             /** Updates an enterprise. */
             patch(request: {            
@@ -1257,7 +1257,7 @@ declare namespace gapi.client {
                 updateMask?: string;
                 /** The name of the enterprise in the form enterprises/{enterpriseId} */
                 name: string;
-            }): gapi.client.Request<Enterprise>;            
+            }): Request<Enterprise>;            
             
             policies: PoliciesResource;
             applications: ApplicationsResource;

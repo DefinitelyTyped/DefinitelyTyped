@@ -65,7 +65,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Enables sorting of the list */
                 sort?: string;
-            }): gapi.client.Request<WebfontList>;            
+            }): Request<WebfontList>;            
             
         }
     }

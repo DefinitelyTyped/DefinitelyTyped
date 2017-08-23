@@ -193,7 +193,7 @@ declare namespace gapi.client {
                 strategy?: string;
                 /** The URL to fetch and analyze */
                 url: string;
-            }): gapi.client.Request<Result>;            
+            }): Request<Result>;            
             
         }
     }

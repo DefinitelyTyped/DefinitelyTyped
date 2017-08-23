@@ -107,7 +107,7 @@ declare namespace gapi.client {
                 project: string;
                 /** The id of the taskqueue to get the properties of. */
                 taskqueue: string;
-            }): gapi.client.Request<TaskQueue>;            
+            }): Request<TaskQueue>;            
             
         }
         
@@ -134,7 +134,7 @@ declare namespace gapi.client {
                 task: string;
                 /** The taskqueue to delete a task from. */
                 taskqueue: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Get a particular task from a TaskQueue. */
             get(request: {            
@@ -158,7 +158,7 @@ declare namespace gapi.client {
                 task: string;
                 /** The taskqueue in which the task belongs. */
                 taskqueue: string;
-            }): gapi.client.Request<Task>;            
+            }): Request<Task>;            
             
             /** Insert a new task in a TaskQueue */
             insert(request: {            
@@ -180,7 +180,7 @@ declare namespace gapi.client {
                 project: string;
                 /** The taskqueue to insert the task into */
                 taskqueue: string;
-            }): gapi.client.Request<Task>;            
+            }): Request<Task>;            
             
             /** Lease 1 or more tasks from a TaskQueue. */
             lease(request: {            
@@ -210,7 +210,7 @@ declare namespace gapi.client {
                 tag?: string;
                 /** The taskqueue to lease a task from. */
                 taskqueue: string;
-            }): gapi.client.Request<Tasks>;            
+            }): Request<Tasks>;            
             
             /** List Tasks in a TaskQueue */
             list(request: {            
@@ -232,7 +232,7 @@ declare namespace gapi.client {
                 project: string;
                 /** The id of the taskqueue to list tasks from. */
                 taskqueue: string;
-            }): gapi.client.Request<Tasks2>;            
+            }): Request<Tasks2>;            
             
             /** Update tasks that are leased out of a TaskQueue. This method supports patch semantics. */
             patch(request: {            
@@ -258,7 +258,7 @@ declare namespace gapi.client {
                 task: string;
                 /**  */
                 taskqueue: string;
-            }): gapi.client.Request<Task>;            
+            }): Request<Task>;            
             
             /** Update tasks that are leased out of a TaskQueue. */
             update(request: {            
@@ -284,7 +284,7 @@ declare namespace gapi.client {
                 task: string;
                 /**  */
                 taskqueue: string;
-            }): gapi.client.Request<Task>;            
+            }): Request<Task>;            
             
         }
     }

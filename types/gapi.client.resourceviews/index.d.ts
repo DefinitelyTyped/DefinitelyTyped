@@ -221,7 +221,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Name of the zone scoping this request. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Retrieves the list of operation resources contained within the specified zone. */
             list(request: {            
@@ -249,7 +249,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Name of the zone scoping this request. */
                 zone: string;
-            }): gapi.client.Request<OperationList>;            
+            }): Request<OperationList>;            
             
         }
         
@@ -276,7 +276,7 @@ declare namespace gapi.client {
                 resourceView: string;
                 /** The zone name of the resource view. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Delete a resource view. */
             delete(request: {            
@@ -300,7 +300,7 @@ declare namespace gapi.client {
                 resourceView: string;
                 /** The zone name of the resource view. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Get the information of a zonal resource view. */
             get(request: {            
@@ -324,7 +324,7 @@ declare namespace gapi.client {
                 resourceView: string;
                 /** The zone name of the resource view. */
                 zone: string;
-            }): gapi.client.Request<ResourceView>;            
+            }): Request<ResourceView>;            
             
             /** Get the service information of a resource view or a resource. */
             getService(request: {            
@@ -350,7 +350,7 @@ declare namespace gapi.client {
                 resourceView: string;
                 /** The zone name of the resource view. */
                 zone: string;
-            }): gapi.client.Request<ZoneViewsGetServiceResponse>;            
+            }): Request<ZoneViewsGetServiceResponse>;            
             
             /** Create a resource view. */
             insert(request: {            
@@ -372,7 +372,7 @@ declare namespace gapi.client {
                 project: string;
                 /** The zone name of the resource view. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** List resource views. */
             list(request: {            
@@ -398,7 +398,7 @@ declare namespace gapi.client {
                 project: string;
                 /** The zone name of the resource view. */
                 zone: string;
-            }): gapi.client.Request<ZoneViewsList>;            
+            }): Request<ZoneViewsList>;            
             
             /** List the resources of the resource view. */
             listResources(request: {            
@@ -432,7 +432,7 @@ declare namespace gapi.client {
                 serviceName?: string;
                 /** The zone name of the resource view. */
                 zone: string;
-            }): gapi.client.Request<ZoneViewsListResourcesResponse>;            
+            }): Request<ZoneViewsListResourcesResponse>;            
             
             /** Remove resources from the view. */
             removeResources(request: {            
@@ -456,7 +456,7 @@ declare namespace gapi.client {
                 resourceView: string;
                 /** The zone name of the resource view. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Update the service information of a resource view or a resource. */
             setService(request: {            
@@ -480,7 +480,7 @@ declare namespace gapi.client {
                 resourceView: string;
                 /** The zone name of the resource view. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
         }
     }

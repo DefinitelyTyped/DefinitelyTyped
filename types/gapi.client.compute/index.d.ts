@@ -3692,7 +3692,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<AcceleratorTypeAggregatedList>;            
+            }): Request<AcceleratorTypeAggregatedList>;            
             
             /** Returns the specified accelerator type. Get a list of available accelerator types by making a list() request. */
             get(request: {            
@@ -3716,7 +3716,7 @@ declare namespace gapi.client {
                 project: string;
                 /** The name of the zone for this request. */
                 zone: string;
-            }): gapi.client.Request<AcceleratorType>;            
+            }): Request<AcceleratorType>;            
             
             /** Retrieves a list of accelerator types available to the specified project. */
             list(request: {            
@@ -3758,7 +3758,7 @@ declare namespace gapi.client {
                 project: string;
                 /** The name of the zone for this request. */
                 zone: string;
-            }): gapi.client.Request<AcceleratorTypeList>;            
+            }): Request<AcceleratorTypeList>;            
             
         }
         
@@ -3801,7 +3801,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<AddressAggregatedList>;            
+            }): Request<AddressAggregatedList>;            
             
             /** Deletes the specified address resource. */
             delete(request: {            
@@ -3831,7 +3831,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Returns the specified address resource. */
             get(request: {            
@@ -3855,7 +3855,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Name of the region for this request. */
                 region: string;
-            }): gapi.client.Request<Address>;            
+            }): Request<Address>;            
             
             /** Creates an address resource in the specified project using the data included in the request. */
             insert(request: {            
@@ -3883,7 +3883,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Retrieves a list of addresses contained within the specified region. */
             list(request: {            
@@ -3925,7 +3925,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Name of the region for this request. */
                 region: string;
-            }): gapi.client.Request<AddressList>;            
+            }): Request<AddressList>;            
             
         }
         
@@ -3968,7 +3968,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<AutoscalerAggregatedList>;            
+            }): Request<AutoscalerAggregatedList>;            
             
             /** Deletes the specified autoscaler. */
             delete(request: {            
@@ -3998,7 +3998,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** Name of the zone for this request. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Returns the specified autoscaler resource. Get a list of available autoscalers by making a list() request. */
             get(request: {            
@@ -4022,7 +4022,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Name of the zone for this request. */
                 zone: string;
-            }): gapi.client.Request<Autoscaler>;            
+            }): Request<Autoscaler>;            
             
             /** Creates an autoscaler in the specified project using the data included in the request. */
             insert(request: {            
@@ -4050,7 +4050,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** Name of the zone for this request. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Retrieves a list of autoscalers contained within the specified zone. */
             list(request: {            
@@ -4092,7 +4092,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Name of the zone for this request. */
                 zone: string;
-            }): gapi.client.Request<AutoscalerList>;            
+            }): Request<AutoscalerList>;            
             
             /** Updates an autoscaler in the specified project using the data included in the request. This method supports PATCH semantics and uses the JSON merge patch format and processing rules. */
             patch(request: {            
@@ -4122,7 +4122,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** Name of the zone for this request. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Updates an autoscaler in the specified project using the data included in the request. */
             update(request: {            
@@ -4152,7 +4152,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** Name of the zone for this request. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
         }
         
@@ -4183,7 +4183,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Returns the specified BackendBucket resource. Get a list of available backend buckets by making a list() request. */
             get(request: {            
@@ -4205,7 +4205,7 @@ declare namespace gapi.client {
                 backendBucket: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<BackendBucket>;            
+            }): Request<BackendBucket>;            
             
             /** Creates a BackendBucket resource in the specified project using the data included in the request. */
             insert(request: {            
@@ -4231,7 +4231,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Retrieves the list of BackendBucket resources available to the specified project. */
             list(request: {            
@@ -4271,7 +4271,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<BackendBucketList>;            
+            }): Request<BackendBucketList>;            
             
             /** Updates the specified BackendBucket resource with the data included in the request. This method supports PATCH semantics and uses the JSON merge patch format and processing rules. */
             patch(request: {            
@@ -4299,7 +4299,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Updates the specified BackendBucket resource with the data included in the request. */
             update(request: {            
@@ -4327,7 +4327,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
         }
         
@@ -4370,7 +4370,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Name of the project scoping this request. */
                 project: string;
-            }): gapi.client.Request<BackendServiceAggregatedList>;            
+            }): Request<BackendServiceAggregatedList>;            
             
             /** Deletes the specified BackendService resource. */
             delete(request: {            
@@ -4398,7 +4398,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Returns the specified BackendService resource. Get a list of available backend services by making a list() request. */
             get(request: {            
@@ -4420,7 +4420,7 @@ declare namespace gapi.client {
                 backendService: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<BackendService>;            
+            }): Request<BackendService>;            
             
             /** Gets the most recent health check results for this BackendService. */
             getHealth(request: {            
@@ -4442,7 +4442,7 @@ declare namespace gapi.client {
                 backendService: string;
                 /**  */
                 project: string;
-            }): gapi.client.Request<BackendServiceGroupHealth>;            
+            }): Request<BackendServiceGroupHealth>;            
             
             /** Creates a BackendService resource in the specified project using the data included in the request. There are several restrictions and guidelines to keep in mind when creating a backend service. Read  Restrictions and Guidelines for more information. */
             insert(request: {            
@@ -4468,7 +4468,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Retrieves the list of BackendService resources available to the specified project. */
             list(request: {            
@@ -4508,7 +4508,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<BackendServiceList>;            
+            }): Request<BackendServiceList>;            
             
             /** Patches the specified BackendService resource with the data included in the request. There are several restrictions and guidelines to keep in mind when updating a backend service. Read  Restrictions and Guidelines for more information. This method supports PATCH semantics and uses the JSON merge patch format and processing rules. */
             patch(request: {            
@@ -4536,7 +4536,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Updates the specified BackendService resource with the data included in the request. There are several restrictions and guidelines to keep in mind when updating a backend service. Read  Restrictions and Guidelines for more information. */
             update(request: {            
@@ -4564,7 +4564,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
         }
         
@@ -4607,7 +4607,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<DiskTypeAggregatedList>;            
+            }): Request<DiskTypeAggregatedList>;            
             
             /** Returns the specified disk type. Get a list of available disk types by making a list() request. */
             get(request: {            
@@ -4631,7 +4631,7 @@ declare namespace gapi.client {
                 project: string;
                 /** The name of the zone for this request. */
                 zone: string;
-            }): gapi.client.Request<DiskType>;            
+            }): Request<DiskType>;            
             
             /** Retrieves a list of disk types available to the specified project. */
             list(request: {            
@@ -4673,7 +4673,7 @@ declare namespace gapi.client {
                 project: string;
                 /** The name of the zone for this request. */
                 zone: string;
-            }): gapi.client.Request<DiskTypeList>;            
+            }): Request<DiskTypeList>;            
             
         }
         
@@ -4716,7 +4716,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<DiskAggregatedList>;            
+            }): Request<DiskAggregatedList>;            
             
             /** Creates a snapshot of a specified persistent disk. */
             createSnapshot(request: {            
@@ -4748,7 +4748,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** The name of the zone for this request. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Deletes the specified persistent disk. Deleting a disk removes its data permanently and is irreversible. However, deleting a disk does not delete any snapshots previously made from the disk. You must separately delete snapshots. */
             delete(request: {            
@@ -4778,7 +4778,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** The name of the zone for this request. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Returns a specified persistent disk. Get a list of available persistent disks by making a list() request. */
             get(request: {            
@@ -4802,7 +4802,7 @@ declare namespace gapi.client {
                 project: string;
                 /** The name of the zone for this request. */
                 zone: string;
-            }): gapi.client.Request<Disk>;            
+            }): Request<Disk>;            
             
             /** Creates a persistent disk in the specified project using the data in the request. You can create a disk with a sourceImage, a sourceSnapshot, or create an empty 500 GB data disk by omitting all properties. You can also create a disk that is larger than the default size by specifying the sizeGb property. */
             insert(request: {            
@@ -4832,7 +4832,7 @@ declare namespace gapi.client {
                 sourceImage?: string;
                 /** The name of the zone for this request. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Retrieves a list of persistent disks contained within the specified zone. */
             list(request: {            
@@ -4874,7 +4874,7 @@ declare namespace gapi.client {
                 project: string;
                 /** The name of the zone for this request. */
                 zone: string;
-            }): gapi.client.Request<DiskList>;            
+            }): Request<DiskList>;            
             
             /** Resizes the specified persistent disk. */
             resize(request: {            
@@ -4904,7 +4904,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** The name of the zone for this request. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Sets the labels on a disk. To learn more about labels, read the Labeling Resources documentation. */
             setLabels(request: {            
@@ -4934,7 +4934,7 @@ declare namespace gapi.client {
                 resource: string;
                 /** The name of the zone for this request. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
         }
         
@@ -4965,7 +4965,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Returns the specified firewall. */
             get(request: {            
@@ -4987,7 +4987,7 @@ declare namespace gapi.client {
                 firewall: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<Firewall>;            
+            }): Request<Firewall>;            
             
             /** Creates a firewall rule in the specified project using the data included in the request. */
             insert(request: {            
@@ -5013,7 +5013,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Retrieves the list of firewall rules available to the specified project. */
             list(request: {            
@@ -5053,7 +5053,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<FirewallList>;            
+            }): Request<FirewallList>;            
             
             /** Updates the specified firewall rule with the data included in the request. This method supports PATCH semantics and uses the JSON merge patch format and processing rules. */
             patch(request: {            
@@ -5081,7 +5081,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Updates the specified firewall rule with the data included in the request. Using PUT method, can only update following fields of firewall rule: allowed, description, sourceRanges, sourceTags, targetTags. */
             update(request: {            
@@ -5109,7 +5109,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
         }
         
@@ -5152,7 +5152,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<ForwardingRuleAggregatedList>;            
+            }): Request<ForwardingRuleAggregatedList>;            
             
             /** Deletes the specified ForwardingRule resource. */
             delete(request: {            
@@ -5182,7 +5182,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Returns the specified ForwardingRule resource. */
             get(request: {            
@@ -5206,7 +5206,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Name of the region scoping this request. */
                 region: string;
-            }): gapi.client.Request<ForwardingRule>;            
+            }): Request<ForwardingRule>;            
             
             /** Creates a ForwardingRule resource in the specified project and region using the data included in the request. */
             insert(request: {            
@@ -5234,7 +5234,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Retrieves a list of ForwardingRule resources available to the specified project and region. */
             list(request: {            
@@ -5276,7 +5276,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Name of the region scoping this request. */
                 region: string;
-            }): gapi.client.Request<ForwardingRuleList>;            
+            }): Request<ForwardingRuleList>;            
             
             /** Changes target URL for forwarding rule. The new target should be of the same type as the old target. */
             setTarget(request: {            
@@ -5306,7 +5306,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
         }
         
@@ -5337,7 +5337,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Returns the specified address resource. Get a list of available addresses by making a list() request. */
             get(request: {            
@@ -5359,7 +5359,7 @@ declare namespace gapi.client {
                 address: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<Address>;            
+            }): Request<Address>;            
             
             /** Creates an address resource in the specified project using the data included in the request. */
             insert(request: {            
@@ -5385,7 +5385,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Retrieves a list of global addresses. */
             list(request: {            
@@ -5425,7 +5425,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<AddressList>;            
+            }): Request<AddressList>;            
             
         }
         
@@ -5456,7 +5456,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Returns the specified GlobalForwardingRule resource. Get a list of available forwarding rules by making a list() request. */
             get(request: {            
@@ -5478,7 +5478,7 @@ declare namespace gapi.client {
                 forwardingRule: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<ForwardingRule>;            
+            }): Request<ForwardingRule>;            
             
             /** Creates a GlobalForwardingRule resource in the specified project using the data included in the request. */
             insert(request: {            
@@ -5504,7 +5504,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Retrieves a list of GlobalForwardingRule resources available to the specified project. */
             list(request: {            
@@ -5544,7 +5544,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<ForwardingRuleList>;            
+            }): Request<ForwardingRuleList>;            
             
             /** Changes target URL for the GlobalForwardingRule resource. The new target should be of the same type as the old target. */
             setTarget(request: {            
@@ -5572,7 +5572,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
         }
         
@@ -5615,7 +5615,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<OperationAggregatedList>;            
+            }): Request<OperationAggregatedList>;            
             
             /** Deletes the specified Operations resource. */
             delete(request: {            
@@ -5637,7 +5637,7 @@ declare namespace gapi.client {
                 operation: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Retrieves the specified Operations resource. Get a list of operations by making a list() request. */
             get(request: {            
@@ -5659,7 +5659,7 @@ declare namespace gapi.client {
                 operation: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Retrieves a list of Operation resources contained within the specified project. */
             list(request: {            
@@ -5699,7 +5699,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<OperationList>;            
+            }): Request<OperationList>;            
             
         }
         
@@ -5730,7 +5730,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Returns the specified HealthCheck resource. Get a list of available health checks by making a list() request. */
             get(request: {            
@@ -5752,7 +5752,7 @@ declare namespace gapi.client {
                 healthCheck: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<HealthCheck>;            
+            }): Request<HealthCheck>;            
             
             /** Creates a HealthCheck resource in the specified project using the data included in the request. */
             insert(request: {            
@@ -5778,7 +5778,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Retrieves the list of HealthCheck resources available to the specified project. */
             list(request: {            
@@ -5818,7 +5818,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<HealthCheckList>;            
+            }): Request<HealthCheckList>;            
             
             /** Updates a HealthCheck resource in the specified project using the data included in the request. This method supports PATCH semantics and uses the JSON merge patch format and processing rules. */
             patch(request: {            
@@ -5846,7 +5846,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Updates a HealthCheck resource in the specified project using the data included in the request. */
             update(request: {            
@@ -5874,7 +5874,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
         }
         
@@ -5905,7 +5905,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Returns the specified HttpHealthCheck resource. Get a list of available HTTP health checks by making a list() request. */
             get(request: {            
@@ -5927,7 +5927,7 @@ declare namespace gapi.client {
                 httpHealthCheck: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<HttpHealthCheck>;            
+            }): Request<HttpHealthCheck>;            
             
             /** Creates a HttpHealthCheck resource in the specified project using the data included in the request. */
             insert(request: {            
@@ -5953,7 +5953,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Retrieves the list of HttpHealthCheck resources available to the specified project. */
             list(request: {            
@@ -5993,7 +5993,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<HttpHealthCheckList>;            
+            }): Request<HttpHealthCheckList>;            
             
             /** Updates a HttpHealthCheck resource in the specified project using the data included in the request. This method supports PATCH semantics and uses the JSON merge patch format and processing rules. */
             patch(request: {            
@@ -6021,7 +6021,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Updates a HttpHealthCheck resource in the specified project using the data included in the request. */
             update(request: {            
@@ -6049,7 +6049,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
         }
         
@@ -6080,7 +6080,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Returns the specified HttpsHealthCheck resource. Get a list of available HTTPS health checks by making a list() request. */
             get(request: {            
@@ -6102,7 +6102,7 @@ declare namespace gapi.client {
                 httpsHealthCheck: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<HttpsHealthCheck>;            
+            }): Request<HttpsHealthCheck>;            
             
             /** Creates a HttpsHealthCheck resource in the specified project using the data included in the request. */
             insert(request: {            
@@ -6128,7 +6128,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Retrieves the list of HttpsHealthCheck resources available to the specified project. */
             list(request: {            
@@ -6168,7 +6168,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<HttpsHealthCheckList>;            
+            }): Request<HttpsHealthCheckList>;            
             
             /** Updates a HttpsHealthCheck resource in the specified project using the data included in the request. This method supports PATCH semantics and uses the JSON merge patch format and processing rules. */
             patch(request: {            
@@ -6196,7 +6196,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Updates a HttpsHealthCheck resource in the specified project using the data included in the request. */
             update(request: {            
@@ -6224,7 +6224,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
         }
         
@@ -6255,7 +6255,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Sets the deprecation status of an image. */
             /**  */
@@ -6285,7 +6285,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Returns the specified image. Get a list of available images by making a list() request. */
             get(request: {            
@@ -6307,7 +6307,7 @@ declare namespace gapi.client {
                 image: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<Image>;            
+            }): Request<Image>;            
             
             /** Returns the latest image that is part of an image family and is not deprecated. */
             getFromFamily(request: {            
@@ -6329,7 +6329,7 @@ declare namespace gapi.client {
                 family: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<Image>;            
+            }): Request<Image>;            
             
             /** Creates an image in the specified project using the data included in the request. */
             insert(request: {            
@@ -6357,7 +6357,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Retrieves the list of private images available to the specified project. Private images are images you create that belong to your project. This method does not get any images that belong to other projects, including publicly-available images, like Debian 8. If you want to get a list of publicly-available images, use this method to make a request to the respective image project, such as debian-cloud or windows-cloud. */
             list(request: {            
@@ -6397,7 +6397,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<ImageList>;            
+            }): Request<ImageList>;            
             
             /** Sets the labels on an image. To learn more about labels, read the Labeling Resources documentation. */
             setLabels(request: {            
@@ -6419,7 +6419,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Name of the resource for this request. */
                 resource: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
         }
         
@@ -6456,7 +6456,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** The name of the zone where the managed instance group is located. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Retrieves the list of managed instance groups and groups them by zone. */
             aggregatedList(request: {            
@@ -6496,7 +6496,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<InstanceGroupManagerAggregatedList>;            
+            }): Request<InstanceGroupManagerAggregatedList>;            
             
             /** Deletes the specified managed instance group and all of the instances in that group. Note that the instance group must not belong to a backend service. Read  Deleting an instance group for more information. */
             delete(request: {            
@@ -6526,7 +6526,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** The name of the zone where the managed instance group is located. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Schedules a group action to delete the specified instances in the managed instance group. The instances are also removed from any target pools of which they were a member. This method reduces the targetSize of the managed instance group by the number of instances that you delete. This operation is marked as DONE when the action is scheduled even if the instances are still being deleted. You must separately verify the status of the deleting action with the listmanagedinstances method. */
             /**  */
@@ -6560,7 +6560,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** The name of the zone where the managed instance group is located. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Returns all of the details about the specified managed instance group. Get a list of available managed instance groups by making a list() request. */
             get(request: {            
@@ -6584,7 +6584,7 @@ declare namespace gapi.client {
                 project: string;
                 /** The name of the zone where the managed instance group is located. */
                 zone: string;
-            }): gapi.client.Request<InstanceGroupManager>;            
+            }): Request<InstanceGroupManager>;            
             
             /** Creates a managed instance group using the information that you specify in the request. After the group is created, it schedules an action to create instances in the group using the specified instance template. This operation is marked as DONE when the group is created even if the instances in the group have not yet been created. You must separately verify the status of the individual instances with the listmanagedinstances method. */
             /**  */
@@ -6614,7 +6614,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** The name of the zone where you want to create the managed instance group. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Retrieves a list of managed instance groups that are contained within the specified project and zone. */
             list(request: {            
@@ -6656,7 +6656,7 @@ declare namespace gapi.client {
                 project: string;
                 /** The name of the zone where the managed instance group is located. */
                 zone: string;
-            }): gapi.client.Request<InstanceGroupManagerList>;            
+            }): Request<InstanceGroupManagerList>;            
             
             /** Lists all of the instances in the managed instance group. Each instance in the list has a currentAction, which indicates the action that the managed instance group is performing on the instance. For example, if the group is still creating an instance, the currentAction is CREATING. If a previous action failed, the list displays the errors for that failed action. */
             listManagedInstances(request: {            
@@ -6688,7 +6688,7 @@ declare namespace gapi.client {
                 project: string;
                 /** The name of the zone where the managed instance group is located. */
                 zone: string;
-            }): gapi.client.Request<InstanceGroupManagersListManagedInstancesResponse>;            
+            }): Request<InstanceGroupManagersListManagedInstancesResponse>;            
             
             /** Schedules a group action to recreate the specified instances in the managed instance group. The instances are deleted and recreated using the current instance template for the managed instance group. This operation is marked as DONE when the action is scheduled even if the instances have not yet been recreated. You must separately verify the status of the recreating action with the listmanagedinstances method. */
             /**  */
@@ -6722,7 +6722,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** The name of the zone where the managed instance group is located. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Resizes the managed instance group. If you increase the size, the group creates new instances using the current instance template. If you decrease the size, the group deletes instances. The resize operation is marked DONE when the resize actions are scheduled even if the group has not yet added or deleted any instances. You must separately verify the status of the creating or deleting actions with the listmanagedinstances method. */
             /**  */
@@ -6756,7 +6756,7 @@ declare namespace gapi.client {
                 size: number;
                 /** The name of the zone where the managed instance group is located. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Specifies the instance template to use when creating new instances in this group. The templates for existing instances in the group do not change unless you recreate them. */
             setInstanceTemplate(request: {            
@@ -6786,7 +6786,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** The name of the zone where the managed instance group is located. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Modifies the target pools to which all instances in this managed instance group are assigned. The target pools automatically apply to all of the instances in the managed instance group. This operation is marked DONE when you make the request even if the instances have not yet been added to their target pools. The change might take some time to apply to all of the instances in the group depending on the size of the group. */
             setTargetPools(request: {            
@@ -6816,7 +6816,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** The name of the zone where the managed instance group is located. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
         }
         
@@ -6849,7 +6849,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** The name of the zone where the instance group is located. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Retrieves the list of instance groups and sorts them by zone. */
             aggregatedList(request: {            
@@ -6889,7 +6889,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<InstanceGroupAggregatedList>;            
+            }): Request<InstanceGroupAggregatedList>;            
             
             /** Deletes the specified instance group. The instances in the group are not deleted. Note that instance group must not belong to a backend service. Read  Deleting an instance group for more information. */
             delete(request: {            
@@ -6919,7 +6919,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** The name of the zone where the instance group is located. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Returns the specified instance group. Get a list of available instance groups by making a list() request. */
             get(request: {            
@@ -6943,7 +6943,7 @@ declare namespace gapi.client {
                 project: string;
                 /** The name of the zone where the instance group is located. */
                 zone: string;
-            }): gapi.client.Request<InstanceGroup>;            
+            }): Request<InstanceGroup>;            
             
             /** Creates an instance group in the specified project using the parameters that are included in the request. */
             insert(request: {            
@@ -6971,7 +6971,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** The name of the zone where you want to create the instance group. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Retrieves the list of instance groups that are located in the specified project and zone. */
             list(request: {            
@@ -7013,7 +7013,7 @@ declare namespace gapi.client {
                 project: string;
                 /** The name of the zone where the instance group is located. */
                 zone: string;
-            }): gapi.client.Request<InstanceGroupList>;            
+            }): Request<InstanceGroupList>;            
             
             /** Lists the instances in the specified instance group. */
             listInstances(request: {            
@@ -7057,7 +7057,7 @@ declare namespace gapi.client {
                 project: string;
                 /** The name of the zone where the instance group is located. */
                 zone: string;
-            }): gapi.client.Request<InstanceGroupsListInstances>;            
+            }): Request<InstanceGroupsListInstances>;            
             
             /** Removes one or more instances from the specified instance group, but does not delete those instances. */
             /**  */
@@ -7089,7 +7089,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** The name of the zone where the instance group is located. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Sets the named ports for the specified instance group. */
             setNamedPorts(request: {            
@@ -7119,7 +7119,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** The name of the zone where the instance group is located. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
         }
         
@@ -7150,7 +7150,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Returns the specified instance template. Get a list of available instance templates by making a list() request. */
             get(request: {            
@@ -7172,7 +7172,7 @@ declare namespace gapi.client {
                 instanceTemplate: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<InstanceTemplate>;            
+            }): Request<InstanceTemplate>;            
             
             /** Creates an instance template in the specified project using the data that is included in the request. If you are creating a new template to update an existing instance group, your new instance template must use the same network or, if applicable, the same subnetwork as the original template. */
             insert(request: {            
@@ -7198,7 +7198,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Retrieves a list of instance templates that are contained within the specified project and zone. */
             list(request: {            
@@ -7238,7 +7238,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<InstanceTemplateList>;            
+            }): Request<InstanceTemplateList>;            
             
         }
         
@@ -7273,7 +7273,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** The name of the zone for this request. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Retrieves aggregated list of instances. */
             aggregatedList(request: {            
@@ -7313,7 +7313,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<InstanceAggregatedList>;            
+            }): Request<InstanceAggregatedList>;            
             
             /** Attaches an existing Disk resource to an instance. You must first create the disk before you can attach it. It is not possible to create and attach a disk at the same time. For more information, read Adding a persistent disk to your instance. */
             attachDisk(request: {            
@@ -7343,7 +7343,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** The name of the zone for this request. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Deletes the specified Instance resource. For more information, see Stopping or Deleting an Instance. */
             delete(request: {            
@@ -7373,7 +7373,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** The name of the zone for this request. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Deletes an access config from an instance's network interface. */
             deleteAccessConfig(request: {            
@@ -7407,7 +7407,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** The name of the zone for this request. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Detaches a disk from an instance. */
             detachDisk(request: {            
@@ -7439,7 +7439,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** The name of the zone for this request. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Returns the specified Instance resource. Get a list of available instances by making a list() request. */
             get(request: {            
@@ -7463,7 +7463,7 @@ declare namespace gapi.client {
                 project: string;
                 /** The name of the zone for this request. */
                 zone: string;
-            }): gapi.client.Request<Instance>;            
+            }): Request<Instance>;            
             
             /** Returns the specified instance's serial port output. */
             getSerialPortOutput(request: {            
@@ -7491,7 +7491,7 @@ declare namespace gapi.client {
                 start?: string;
                 /** The name of the zone for this request. */
                 zone: string;
-            }): gapi.client.Request<SerialPortOutput>;            
+            }): Request<SerialPortOutput>;            
             
             /** Creates an instance resource in the specified project using the data included in the request. */
             insert(request: {            
@@ -7519,7 +7519,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** The name of the zone for this request. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Retrieves the list of instances contained within the specified zone. */
             list(request: {            
@@ -7561,7 +7561,7 @@ declare namespace gapi.client {
                 project: string;
                 /** The name of the zone for this request. */
                 zone: string;
-            }): gapi.client.Request<InstanceList>;            
+            }): Request<InstanceList>;            
             
             /** Performs a reset on the instance. For more information, see Resetting an instance. */
             reset(request: {            
@@ -7591,7 +7591,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** The name of the zone for this request. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Sets the auto-delete flag for a disk attached to an instance. */
             setDiskAutoDelete(request: {            
@@ -7625,7 +7625,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** The name of the zone for this request. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Sets labels on an instance. To learn more about labels, read the Labeling Resources documentation. */
             setLabels(request: {            
@@ -7655,7 +7655,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** The name of the zone for this request. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Changes the number and/or type of accelerator for a stopped instance to the values specified in the request. */
             setMachineResources(request: {            
@@ -7685,7 +7685,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** The name of the zone for this request. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Changes the machine type for a stopped instance to the machine type specified in the request. */
             setMachineType(request: {            
@@ -7715,7 +7715,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** The name of the zone for this request. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Sets metadata for the specified instance to the data included in the request. */
             setMetadata(request: {            
@@ -7745,7 +7745,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** The name of the zone for this request. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Sets an instance's scheduling options. */
             setScheduling(request: {            
@@ -7775,7 +7775,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** The name of the zone for this request. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Sets the service account on the instance. For more information, read Changing the service account and access scopes for an instance. */
             setServiceAccount(request: {            
@@ -7805,7 +7805,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** The name of the zone for this request. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Sets tags for the specified instance to the data included in the request. */
             setTags(request: {            
@@ -7835,7 +7835,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** The name of the zone for this request. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Starts an instance that was stopped using the using the instances().stop method. For more information, see Restart an instance. */
             start(request: {            
@@ -7865,7 +7865,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** The name of the zone for this request. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Starts an instance that was stopped using the using the instances().stop method. For more information, see Restart an instance. */
             startWithEncryptionKey(request: {            
@@ -7895,7 +7895,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** The name of the zone for this request. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Stops a running instance, shutting it down cleanly, and allows you to restart the instance at a later time. Stopped instances do not incur per-minute, virtual machine usage charges while they are stopped, but any resources that the virtual machine is using, such as persistent disks and static IP addresses, will continue to be charged until they are deleted. For more information, see Stopping an instance. */
             stop(request: {            
@@ -7925,7 +7925,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** The name of the zone for this request. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
         }
         
@@ -7950,7 +7950,7 @@ declare namespace gapi.client {
                 license: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<License>;            
+            }): Request<License>;            
             
         }
         
@@ -7993,7 +7993,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<MachineTypeAggregatedList>;            
+            }): Request<MachineTypeAggregatedList>;            
             
             /** Returns the specified machine type. Get a list of available machine types by making a list() request. */
             get(request: {            
@@ -8017,7 +8017,7 @@ declare namespace gapi.client {
                 project: string;
                 /** The name of the zone for this request. */
                 zone: string;
-            }): gapi.client.Request<MachineType>;            
+            }): Request<MachineType>;            
             
             /** Retrieves a list of machine types available to the specified project. */
             list(request: {            
@@ -8059,7 +8059,7 @@ declare namespace gapi.client {
                 project: string;
                 /** The name of the zone for this request. */
                 zone: string;
-            }): gapi.client.Request<MachineTypeList>;            
+            }): Request<MachineTypeList>;            
             
         }
         
@@ -8090,7 +8090,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Deletes the specified network. */
             delete(request: {            
@@ -8118,7 +8118,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Returns the specified network. Get a list of available networks by making a list() request. */
             get(request: {            
@@ -8140,7 +8140,7 @@ declare namespace gapi.client {
                 network: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<Network>;            
+            }): Request<Network>;            
             
             /** Creates a network in the specified project using the data included in the request. */
             insert(request: {            
@@ -8166,7 +8166,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Retrieves the list of networks available to the specified project. */
             list(request: {            
@@ -8206,7 +8206,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<NetworkList>;            
+            }): Request<NetworkList>;            
             
             /** Removes a peering from the specified network. */
             removePeering(request: {            
@@ -8234,7 +8234,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Switches the network mode from auto subnet mode to custom subnet mode. */
             switchToCustomMode(request: {            
@@ -8262,7 +8262,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
         }
         
@@ -8291,7 +8291,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Disable a serivce resource (a.k.a service project) associated with this host project. */
             disableXpnResource(request: {            
@@ -8317,7 +8317,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Enable this project as a shared VPC host project. */
             enableXpnHost(request: {            
@@ -8343,7 +8343,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Enable service resource (a.k.a service project) for a host project, so that subnets in the host project can be used by instances in the service project. */
             enableXpnResource(request: {            
@@ -8369,7 +8369,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Returns the specified Project resource. */
             get(request: {            
@@ -8389,7 +8389,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<Project>;            
+            }): Request<Project>;            
             
             /** Get the shared VPC host project that this project links to. May be empty if no link exists. */
             getXpnHost(request: {            
@@ -8409,7 +8409,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<Project>;            
+            }): Request<Project>;            
             
             /** Get service resources (a.k.a service project) associated with this host project. */
             getXpnResources(request: {            
@@ -8437,7 +8437,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<ProjectsGetXpnResources>;            
+            }): Request<ProjectsGetXpnResources>;            
             
             /** List all shared VPC host projects visible to the user in an organization. */
             listXpnHosts(request: {            
@@ -8465,7 +8465,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<XpnHostList>;            
+            }): Request<XpnHostList>;            
             
             /** Moves a persistent disk from one zone to another. */
             moveDisk(request: {            
@@ -8491,7 +8491,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Moves an instance and its attached persistent disks from one zone to another. */
             moveInstance(request: {            
@@ -8517,7 +8517,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Sets metadata common to all instances within the specified project using the data included in the request. */
             setCommonInstanceMetadata(request: {            
@@ -8543,7 +8543,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Enables the usage export feature and sets the usage export bucket where reports are stored. If you provide an empty request body using this method, the usage export feature will be disabled. */
             setUsageExportBucket(request: {            
@@ -8569,7 +8569,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
         }
         
@@ -8602,7 +8602,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Returns the specified autoscaler. */
             get(request: {            
@@ -8626,7 +8626,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Name of the region scoping this request. */
                 region: string;
-            }): gapi.client.Request<Autoscaler>;            
+            }): Request<Autoscaler>;            
             
             /** Creates an autoscaler in the specified project using the data included in the request. */
             insert(request: {            
@@ -8654,7 +8654,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Retrieves a list of autoscalers contained within the specified region. */
             list(request: {            
@@ -8696,7 +8696,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Name of the region scoping this request. */
                 region: string;
-            }): gapi.client.Request<RegionAutoscalerList>;            
+            }): Request<RegionAutoscalerList>;            
             
             /** Updates an autoscaler in the specified project using the data included in the request. This method supports PATCH semantics and uses the JSON merge patch format and processing rules. */
             patch(request: {            
@@ -8726,7 +8726,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Updates an autoscaler in the specified project using the data included in the request. */
             update(request: {            
@@ -8756,7 +8756,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
         }
         
@@ -8789,7 +8789,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Returns the specified regional BackendService resource. */
             get(request: {            
@@ -8813,7 +8813,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Name of the region scoping this request. */
                 region: string;
-            }): gapi.client.Request<BackendService>;            
+            }): Request<BackendService>;            
             
             /** Gets the most recent health check results for this regional BackendService. */
             getHealth(request: {            
@@ -8837,7 +8837,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Name of the region scoping this request. */
                 region: string;
-            }): gapi.client.Request<BackendServiceGroupHealth>;            
+            }): Request<BackendServiceGroupHealth>;            
             
             /** Creates a regional BackendService resource in the specified project using the data included in the request. There are several restrictions and guidelines to keep in mind when creating a regional backend service. Read  Restrictions and Guidelines for more information. */
             insert(request: {            
@@ -8865,7 +8865,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Retrieves the list of regional BackendService resources available to the specified project in the given region. */
             list(request: {            
@@ -8907,7 +8907,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Name of the region scoping this request. */
                 region: string;
-            }): gapi.client.Request<BackendServiceList>;            
+            }): Request<BackendServiceList>;            
             
             /** Updates the specified regional BackendService resource with the data included in the request. There are several restrictions and guidelines to keep in mind when updating a backend service. Read  Restrictions and Guidelines for more information. This method supports PATCH semantics and uses the JSON merge patch format and processing rules. */
             patch(request: {            
@@ -8937,7 +8937,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Updates the specified regional BackendService resource with the data included in the request. There are several restrictions and guidelines to keep in mind when updating a backend service. Read  Restrictions and Guidelines for more information. */
             update(request: {            
@@ -8967,7 +8967,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
         }
         
@@ -9010,7 +9010,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<CommitmentAggregatedList>;            
+            }): Request<CommitmentAggregatedList>;            
             
             /** Returns the specified commitment resource. Get a list of available commitments by making a list() request. */
             get(request: {            
@@ -9034,7 +9034,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Name of the region for this request. */
                 region: string;
-            }): gapi.client.Request<Commitment>;            
+            }): Request<Commitment>;            
             
             /** Creates a commitment in the specified project using the data included in the request. */
             insert(request: {            
@@ -9062,7 +9062,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Retrieves a list of commitments contained within the specified region. */
             list(request: {            
@@ -9104,7 +9104,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Name of the region for this request. */
                 region: string;
-            }): gapi.client.Request<CommitmentList>;            
+            }): Request<CommitmentList>;            
             
         }
         
@@ -9141,7 +9141,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Deletes the specified managed instance group and all of the instances in that group. */
             delete(request: {            
@@ -9171,7 +9171,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Schedules a group action to delete the specified instances in the managed instance group. The instances are also removed from any target pools of which they were a member. This method reduces the targetSize of the managed instance group by the number of instances that you delete. This operation is marked as DONE when the action is scheduled even if the instances are still being deleted. You must separately verify the status of the deleting action with the listmanagedinstances method. */
             /**  */
@@ -9205,7 +9205,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Returns all of the details about the specified managed instance group. */
             get(request: {            
@@ -9229,7 +9229,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Name of the region scoping this request. */
                 region: string;
-            }): gapi.client.Request<InstanceGroupManager>;            
+            }): Request<InstanceGroupManager>;            
             
             /** Creates a managed instance group using the information that you specify in the request. After the group is created, it schedules an action to create instances in the group using the specified instance template. This operation is marked as DONE when the group is created even if the instances in the group have not yet been created. You must separately verify the status of the individual instances with the listmanagedinstances method. */
             /**  */
@@ -9259,7 +9259,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Retrieves the list of managed instance groups that are contained within the specified region. */
             list(request: {            
@@ -9301,7 +9301,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Name of the region scoping this request. */
                 region: string;
-            }): gapi.client.Request<RegionInstanceGroupManagerList>;            
+            }): Request<RegionInstanceGroupManagerList>;            
             
             /** Lists the instances in the managed instance group and instances that are scheduled to be created. The list includes any current actions that the group has scheduled for its instances. */
             listManagedInstances(request: {            
@@ -9333,7 +9333,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Name of the region scoping this request. */
                 region: string;
-            }): gapi.client.Request<RegionInstanceGroupManagersListInstancesResponse>;            
+            }): Request<RegionInstanceGroupManagersListInstancesResponse>;            
             
             /** Schedules a group action to recreate the specified instances in the managed instance group. The instances are deleted and recreated using the current instance template for the managed instance group. This operation is marked as DONE when the action is scheduled even if the instances have not yet been recreated. You must separately verify the status of the recreating action with the listmanagedinstances method. */
             /**  */
@@ -9367,7 +9367,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Changes the intended size for the managed instance group. If you increase the size, the group schedules actions to create new instances using the current instance template. If you decrease the size, the group schedules delete actions on one or more instances. The resize operation is marked DONE when the resize actions are scheduled even if the group has not yet added or deleted any instances. You must separately verify the status of the creating or deleting actions with the listmanagedinstances method. */
             /**  */
@@ -9401,7 +9401,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** Number of instances that should exist in this instance group manager. */
                 size: number;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Sets the instance template to use when creating new instances or recreating instances in this group. Existing instances are not affected. */
             setInstanceTemplate(request: {            
@@ -9431,7 +9431,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Modifies the target pools to which all new instances in this group are assigned. Existing instances in the group are not affected. */
             setTargetPools(request: {            
@@ -9461,7 +9461,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
         }
         
@@ -9488,7 +9488,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Name of the region scoping this request. */
                 region: string;
-            }): gapi.client.Request<InstanceGroup>;            
+            }): Request<InstanceGroup>;            
             
             /** Retrieves the list of instance group resources contained within the specified region. */
             list(request: {            
@@ -9530,7 +9530,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Name of the region scoping this request. */
                 region: string;
-            }): gapi.client.Request<RegionInstanceGroupList>;            
+            }): Request<RegionInstanceGroupList>;            
             
             /** Lists the instances in the specified instance group and displays information about the named ports. Depending on the specified options, this method can list all instances or only the instances that are running. */
             listInstances(request: {            
@@ -9574,7 +9574,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Name of the region scoping this request. */
                 region: string;
-            }): gapi.client.Request<RegionInstanceGroupsListInstances>;            
+            }): Request<RegionInstanceGroupsListInstances>;            
             
             /** Sets the named ports for the specified regional instance group. */
             setNamedPorts(request: {            
@@ -9604,7 +9604,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
         }
         
@@ -9631,7 +9631,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Name of the region for this request. */
                 region: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Retrieves the specified region-specific Operations resource. */
             get(request: {            
@@ -9655,7 +9655,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Name of the region for this request. */
                 region: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Retrieves a list of Operation resources contained within the specified region. */
             list(request: {            
@@ -9697,7 +9697,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Name of the region for this request. */
                 region: string;
-            }): gapi.client.Request<OperationList>;            
+            }): Request<OperationList>;            
             
         }
         
@@ -9722,7 +9722,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Name of the region resource to return. */
                 region: string;
-            }): gapi.client.Request<Region>;            
+            }): Request<Region>;            
             
             /** Retrieves the list of region resources available to the specified project. */
             list(request: {            
@@ -9762,7 +9762,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<RegionList>;            
+            }): Request<RegionList>;            
             
         }
         
@@ -9805,7 +9805,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<RouterAggregatedList>;            
+            }): Request<RouterAggregatedList>;            
             
             /** Deletes the specified Router resource. */
             delete(request: {            
@@ -9835,7 +9835,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** Name of the Router resource to delete. */
                 router: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Returns the specified Router resource. Get a list of available routers by making a list() request. */
             get(request: {            
@@ -9859,7 +9859,7 @@ declare namespace gapi.client {
                 region: string;
                 /** Name of the Router resource to return. */
                 router: string;
-            }): gapi.client.Request<Router>;            
+            }): Request<Router>;            
             
             /** Retrieves runtime information of the specified router. */
             getRouterStatus(request: {            
@@ -9883,7 +9883,7 @@ declare namespace gapi.client {
                 region: string;
                 /** Name of the Router resource to query. */
                 router: string;
-            }): gapi.client.Request<RouterStatusResponse>;            
+            }): Request<RouterStatusResponse>;            
             
             /** Creates a Router resource in the specified project and region using the data included in the request. */
             insert(request: {            
@@ -9911,7 +9911,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Retrieves a list of Router resources available to the specified project. */
             list(request: {            
@@ -9953,7 +9953,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Name of the region for this request. */
                 region: string;
-            }): gapi.client.Request<RouterList>;            
+            }): Request<RouterList>;            
             
             /** Patches the specified Router resource with the data included in the request. This method supports PATCH semantics and uses JSON merge patch format and processing rules. */
             patch(request: {            
@@ -9983,7 +9983,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** Name of the Router resource to patch. */
                 router: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Preview fields auto-generated during router create and update operations. Calling this method does NOT create or update the router. */
             preview(request: {            
@@ -10007,7 +10007,7 @@ declare namespace gapi.client {
                 region: string;
                 /** Name of the Router resource to query. */
                 router: string;
-            }): gapi.client.Request<RoutersPreviewResponse>;            
+            }): Request<RoutersPreviewResponse>;            
             
             /** Updates the specified Router resource with the data included in the request. */
             update(request: {            
@@ -10037,7 +10037,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** Name of the Router resource to update. */
                 router: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
         }
         
@@ -10068,7 +10068,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** Name of the Route resource to delete. */
                 route: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Returns the specified Route resource. Get a list of available routes by making a list() request. */
             get(request: {            
@@ -10090,7 +10090,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Name of the Route resource to return. */
                 route: string;
-            }): gapi.client.Request<Route>;            
+            }): Request<Route>;            
             
             /** Creates a Route resource in the specified project using the data included in the request. */
             insert(request: {            
@@ -10116,7 +10116,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Retrieves the list of Route resources available to the specified project. */
             list(request: {            
@@ -10156,7 +10156,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<RouteList>;            
+            }): Request<RouteList>;            
             
         }
         
@@ -10189,7 +10189,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** Name of the Snapshot resource to delete. */
                 snapshot: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Returns the specified Snapshot resource. Get a list of available snapshots by making a list() request. */
             get(request: {            
@@ -10211,7 +10211,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Name of the Snapshot resource to return. */
                 snapshot: string;
-            }): gapi.client.Request<Snapshot>;            
+            }): Request<Snapshot>;            
             
             /** Retrieves the list of Snapshot resources contained within the specified project. */
             list(request: {            
@@ -10251,7 +10251,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<SnapshotList>;            
+            }): Request<SnapshotList>;            
             
             /** Sets the labels on a snapshot. To learn more about labels, read the Labeling Resources documentation. */
             setLabels(request: {            
@@ -10273,7 +10273,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Name of the resource for this request. */
                 resource: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
         }
         
@@ -10304,7 +10304,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** Name of the SslCertificate resource to delete. */
                 sslCertificate: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Returns the specified SslCertificate resource. Get a list of available SSL certificates by making a list() request. */
             get(request: {            
@@ -10326,7 +10326,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Name of the SslCertificate resource to return. */
                 sslCertificate: string;
-            }): gapi.client.Request<SslCertificate>;            
+            }): Request<SslCertificate>;            
             
             /** Creates a SslCertificate resource in the specified project using the data included in the request. */
             insert(request: {            
@@ -10352,7 +10352,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Retrieves the list of SslCertificate resources available to the specified project. */
             list(request: {            
@@ -10392,7 +10392,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<SslCertificateList>;            
+            }): Request<SslCertificateList>;            
             
         }
         
@@ -10435,7 +10435,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<SubnetworkAggregatedList>;            
+            }): Request<SubnetworkAggregatedList>;            
             
             /** Deletes the specified subnetwork. */
             delete(request: {            
@@ -10465,7 +10465,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** Name of the Subnetwork resource to delete. */
                 subnetwork: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Expands the IP CIDR range of the subnetwork to a specified value. */
             expandIpCidrRange(request: {            
@@ -10495,7 +10495,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** Name of the Subnetwork resource to update. */
                 subnetwork: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Returns the specified subnetwork. Get a list of available subnetworks list() request. */
             get(request: {            
@@ -10519,7 +10519,7 @@ declare namespace gapi.client {
                 region: string;
                 /** Name of the Subnetwork resource to return. */
                 subnetwork: string;
-            }): gapi.client.Request<Subnetwork>;            
+            }): Request<Subnetwork>;            
             
             /** Creates a subnetwork in the specified project using the data included in the request. */
             insert(request: {            
@@ -10547,7 +10547,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Retrieves a list of subnetworks available to the specified project. */
             list(request: {            
@@ -10589,7 +10589,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Name of the region scoping this request. */
                 region: string;
-            }): gapi.client.Request<SubnetworkList>;            
+            }): Request<SubnetworkList>;            
             
             /** Set whether VMs in this subnet can access Google services without assigning external IP addresses through Private Google Access. */
             setPrivateIpGoogleAccess(request: {            
@@ -10619,7 +10619,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** Name of the Subnetwork resource. */
                 subnetwork: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
         }
         
@@ -10650,7 +10650,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** Name of the TargetHttpProxy resource to delete. */
                 targetHttpProxy: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Returns the specified TargetHttpProxy resource. Get a list of available target HTTP proxies by making a list() request. */
             get(request: {            
@@ -10672,7 +10672,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Name of the TargetHttpProxy resource to return. */
                 targetHttpProxy: string;
-            }): gapi.client.Request<TargetHttpProxy>;            
+            }): Request<TargetHttpProxy>;            
             
             /** Creates a TargetHttpProxy resource in the specified project using the data included in the request. */
             insert(request: {            
@@ -10698,7 +10698,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Retrieves the list of TargetHttpProxy resources available to the specified project. */
             list(request: {            
@@ -10738,7 +10738,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<TargetHttpProxyList>;            
+            }): Request<TargetHttpProxyList>;            
             
             /** Changes the URL map for TargetHttpProxy. */
             setUrlMap(request: {            
@@ -10766,7 +10766,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** Name of the TargetHttpProxy to set a URL map for. */
                 targetHttpProxy: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
         }
         
@@ -10797,7 +10797,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** Name of the TargetHttpsProxy resource to delete. */
                 targetHttpsProxy: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Returns the specified TargetHttpsProxy resource. Get a list of available target HTTPS proxies by making a list() request. */
             get(request: {            
@@ -10819,7 +10819,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Name of the TargetHttpsProxy resource to return. */
                 targetHttpsProxy: string;
-            }): gapi.client.Request<TargetHttpsProxy>;            
+            }): Request<TargetHttpsProxy>;            
             
             /** Creates a TargetHttpsProxy resource in the specified project using the data included in the request. */
             insert(request: {            
@@ -10845,7 +10845,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Retrieves the list of TargetHttpsProxy resources available to the specified project. */
             list(request: {            
@@ -10885,7 +10885,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<TargetHttpsProxyList>;            
+            }): Request<TargetHttpsProxyList>;            
             
             /** Replaces SslCertificates for TargetHttpsProxy. */
             setSslCertificates(request: {            
@@ -10913,7 +10913,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** Name of the TargetHttpsProxy resource to set an SslCertificates resource for. */
                 targetHttpsProxy: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Changes the URL map for TargetHttpsProxy. */
             setUrlMap(request: {            
@@ -10941,7 +10941,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** Name of the TargetHttpsProxy resource whose URL map is to be set. */
                 targetHttpsProxy: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
         }
         
@@ -10984,7 +10984,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<TargetInstanceAggregatedList>;            
+            }): Request<TargetInstanceAggregatedList>;            
             
             /** Deletes the specified TargetInstance resource. */
             delete(request: {            
@@ -11014,7 +11014,7 @@ declare namespace gapi.client {
                 targetInstance: string;
                 /** Name of the zone scoping this request. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Returns the specified TargetInstance resource. Get a list of available target instances by making a list() request. */
             get(request: {            
@@ -11038,7 +11038,7 @@ declare namespace gapi.client {
                 targetInstance: string;
                 /** Name of the zone scoping this request. */
                 zone: string;
-            }): gapi.client.Request<TargetInstance>;            
+            }): Request<TargetInstance>;            
             
             /** Creates a TargetInstance resource in the specified project and zone using the data included in the request. */
             insert(request: {            
@@ -11066,7 +11066,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** Name of the zone scoping this request. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Retrieves a list of TargetInstance resources available to the specified project and zone. */
             list(request: {            
@@ -11108,7 +11108,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Name of the zone scoping this request. */
                 zone: string;
-            }): gapi.client.Request<TargetInstanceList>;            
+            }): Request<TargetInstanceList>;            
             
         }
         
@@ -11141,7 +11141,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** Name of the target pool to add a health check to. */
                 targetPool: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Adds an instance to a target pool. */
             addInstance(request: {            
@@ -11171,7 +11171,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** Name of the TargetPool resource to add instances to. */
                 targetPool: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Retrieves an aggregated list of target pools. */
             aggregatedList(request: {            
@@ -11211,7 +11211,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<TargetPoolAggregatedList>;            
+            }): Request<TargetPoolAggregatedList>;            
             
             /** Deletes the specified target pool. */
             delete(request: {            
@@ -11241,7 +11241,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** Name of the TargetPool resource to delete. */
                 targetPool: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Returns the specified target pool. Get a list of available target pools by making a list() request. */
             get(request: {            
@@ -11265,7 +11265,7 @@ declare namespace gapi.client {
                 region: string;
                 /** Name of the TargetPool resource to return. */
                 targetPool: string;
-            }): gapi.client.Request<TargetPool>;            
+            }): Request<TargetPool>;            
             
             /** Gets the most recent health check results for each IP for the instance that is referenced by the given target pool. */
             getHealth(request: {            
@@ -11289,7 +11289,7 @@ declare namespace gapi.client {
                 region: string;
                 /** Name of the TargetPool resource to which the queried instance belongs. */
                 targetPool: string;
-            }): gapi.client.Request<TargetPoolInstanceHealth>;            
+            }): Request<TargetPoolInstanceHealth>;            
             
             /** Creates a target pool in the specified project and region using the data included in the request. */
             insert(request: {            
@@ -11317,7 +11317,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Retrieves a list of target pools available to the specified project and region. */
             list(request: {            
@@ -11359,7 +11359,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Name of the region scoping this request. */
                 region: string;
-            }): gapi.client.Request<TargetPoolList>;            
+            }): Request<TargetPoolList>;            
             
             /** Removes health check URL from a target pool. */
             removeHealthCheck(request: {            
@@ -11389,7 +11389,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** Name of the target pool to remove health checks from. */
                 targetPool: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Removes instance URL from a target pool. */
             removeInstance(request: {            
@@ -11419,7 +11419,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** Name of the TargetPool resource to remove instances from. */
                 targetPool: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Changes a backup target pool's configurations. */
             setBackup(request: {            
@@ -11451,7 +11451,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** Name of the TargetPool resource to set a backup pool for. */
                 targetPool: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
         }
         
@@ -11482,7 +11482,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** Name of the TargetSslProxy resource to delete. */
                 targetSslProxy: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Returns the specified TargetSslProxy resource. Get a list of available target SSL proxies by making a list() request. */
             get(request: {            
@@ -11504,7 +11504,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Name of the TargetSslProxy resource to return. */
                 targetSslProxy: string;
-            }): gapi.client.Request<TargetSslProxy>;            
+            }): Request<TargetSslProxy>;            
             
             /** Creates a TargetSslProxy resource in the specified project using the data included in the request. */
             insert(request: {            
@@ -11530,7 +11530,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Retrieves the list of TargetSslProxy resources available to the specified project. */
             list(request: {            
@@ -11570,7 +11570,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<TargetSslProxyList>;            
+            }): Request<TargetSslProxyList>;            
             
             /** Changes the BackendService for TargetSslProxy. */
             setBackendService(request: {            
@@ -11598,7 +11598,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** Name of the TargetSslProxy resource whose BackendService resource is to be set. */
                 targetSslProxy: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Changes the ProxyHeaderType for TargetSslProxy. */
             setProxyHeader(request: {            
@@ -11626,7 +11626,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** Name of the TargetSslProxy resource whose ProxyHeader is to be set. */
                 targetSslProxy: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Changes SslCertificates for TargetSslProxy. */
             setSslCertificates(request: {            
@@ -11654,7 +11654,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** Name of the TargetSslProxy resource whose SslCertificate resource is to be set. */
                 targetSslProxy: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
         }
         
@@ -11685,7 +11685,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** Name of the TargetTcpProxy resource to delete. */
                 targetTcpProxy: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Returns the specified TargetTcpProxy resource. Get a list of available target TCP proxies by making a list() request. */
             get(request: {            
@@ -11707,7 +11707,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Name of the TargetTcpProxy resource to return. */
                 targetTcpProxy: string;
-            }): gapi.client.Request<TargetTcpProxy>;            
+            }): Request<TargetTcpProxy>;            
             
             /** Creates a TargetTcpProxy resource in the specified project using the data included in the request. */
             insert(request: {            
@@ -11733,7 +11733,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Retrieves the list of TargetTcpProxy resources available to the specified project. */
             list(request: {            
@@ -11773,7 +11773,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<TargetTcpProxyList>;            
+            }): Request<TargetTcpProxyList>;            
             
             /** Changes the BackendService for TargetTcpProxy. */
             setBackendService(request: {            
@@ -11801,7 +11801,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** Name of the TargetTcpProxy resource whose BackendService resource is to be set. */
                 targetTcpProxy: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Changes the ProxyHeaderType for TargetTcpProxy. */
             setProxyHeader(request: {            
@@ -11829,7 +11829,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** Name of the TargetTcpProxy resource whose ProxyHeader is to be set. */
                 targetTcpProxy: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
         }
         
@@ -11872,7 +11872,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<TargetVpnGatewayAggregatedList>;            
+            }): Request<TargetVpnGatewayAggregatedList>;            
             
             /** Deletes the specified target VPN gateway. */
             delete(request: {            
@@ -11902,7 +11902,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** Name of the target VPN gateway to delete. */
                 targetVpnGateway: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Returns the specified target VPN gateway. Get a list of available target VPN gateways by making a list() request. */
             get(request: {            
@@ -11926,7 +11926,7 @@ declare namespace gapi.client {
                 region: string;
                 /** Name of the target VPN gateway to return. */
                 targetVpnGateway: string;
-            }): gapi.client.Request<TargetVpnGateway>;            
+            }): Request<TargetVpnGateway>;            
             
             /** Creates a target VPN gateway in the specified project and region using the data included in the request. */
             insert(request: {            
@@ -11954,7 +11954,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Retrieves a list of target VPN gateways available to the specified project and region. */
             list(request: {            
@@ -11996,7 +11996,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Name of the region for this request. */
                 region: string;
-            }): gapi.client.Request<TargetVpnGatewayList>;            
+            }): Request<TargetVpnGatewayList>;            
             
         }
         
@@ -12027,7 +12027,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** Name of the UrlMap resource to delete. */
                 urlMap: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Returns the specified UrlMap resource. Get a list of available URL maps by making a list() request. */
             get(request: {            
@@ -12049,7 +12049,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Name of the UrlMap resource to return. */
                 urlMap: string;
-            }): gapi.client.Request<UrlMap>;            
+            }): Request<UrlMap>;            
             
             /** Creates a UrlMap resource in the specified project using the data included in the request. */
             insert(request: {            
@@ -12075,7 +12075,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Initiates a cache invalidation operation, invalidating the specified path, scoped to the specified UrlMap. */
             invalidateCache(request: {            
@@ -12103,7 +12103,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** Name of the UrlMap scoping this request. */
                 urlMap: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Retrieves the list of UrlMap resources available to the specified project. */
             list(request: {            
@@ -12143,7 +12143,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<UrlMapList>;            
+            }): Request<UrlMapList>;            
             
             /** Patches the specified UrlMap resource with the data included in the request. This method supports PATCH semantics and uses the JSON merge patch format and processing rules. */
             patch(request: {            
@@ -12171,7 +12171,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** Name of the UrlMap resource to patch. */
                 urlMap: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Updates the specified UrlMap resource with the data included in the request. */
             update(request: {            
@@ -12199,7 +12199,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** Name of the UrlMap resource to update. */
                 urlMap: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Runs static validation for the UrlMap. In particular, the tests of the provided UrlMap will be run. Calling this method does NOT create the UrlMap. */
             validate(request: {            
@@ -12221,7 +12221,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Name of the UrlMap resource to be validated as. */
                 urlMap: string;
-            }): gapi.client.Request<UrlMapsValidateResponse>;            
+            }): Request<UrlMapsValidateResponse>;            
             
         }
         
@@ -12264,7 +12264,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<VpnTunnelAggregatedList>;            
+            }): Request<VpnTunnelAggregatedList>;            
             
             /** Deletes the specified VpnTunnel resource. */
             delete(request: {            
@@ -12294,7 +12294,7 @@ declare namespace gapi.client {
                 requestId?: string;
                 /** Name of the VpnTunnel resource to delete. */
                 vpnTunnel: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Returns the specified VpnTunnel resource. Get a list of available VPN tunnels by making a list() request. */
             get(request: {            
@@ -12318,7 +12318,7 @@ declare namespace gapi.client {
                 region: string;
                 /** Name of the VpnTunnel resource to return. */
                 vpnTunnel: string;
-            }): gapi.client.Request<VpnTunnel>;            
+            }): Request<VpnTunnel>;            
             
             /** Creates a VpnTunnel resource in the specified project and region using the data included in the request. */
             insert(request: {            
@@ -12346,7 +12346,7 @@ declare namespace gapi.client {
                 /**  */
                 /** The request ID must be a valid UUID with the exception that zero UUID is not supported (00000000-0000-0000-0000-000000000000). */
                 requestId?: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Retrieves a list of VpnTunnel resources contained in the specified project and region. */
             list(request: {            
@@ -12388,7 +12388,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Name of the region for this request. */
                 region: string;
-            }): gapi.client.Request<VpnTunnelList>;            
+            }): Request<VpnTunnelList>;            
             
         }
         
@@ -12415,7 +12415,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Name of the zone for this request. */
                 zone: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Retrieves the specified zone-specific Operations resource. */
             get(request: {            
@@ -12439,7 +12439,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Name of the zone for this request. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Retrieves a list of Operation resources contained within the specified zone. */
             list(request: {            
@@ -12481,7 +12481,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Name of the zone for request. */
                 zone: string;
-            }): gapi.client.Request<OperationList>;            
+            }): Request<OperationList>;            
             
         }
         
@@ -12506,7 +12506,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Name of the zone resource to return. */
                 zone: string;
-            }): gapi.client.Request<Zone>;            
+            }): Request<Zone>;            
             
             /** Retrieves the list of Zone resources available to the specified project. */
             list(request: {            
@@ -12546,7 +12546,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<ZoneList>;            
+            }): Request<ZoneList>;            
             
         }
     }

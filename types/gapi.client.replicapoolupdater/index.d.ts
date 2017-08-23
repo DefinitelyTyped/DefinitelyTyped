@@ -237,7 +237,7 @@ declare namespace gapi.client {
                 rollingUpdate: string;
                 /** The name of the zone in which the update's target resides. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Returns information about an update. */
             get(request: {            
@@ -261,7 +261,7 @@ declare namespace gapi.client {
                 rollingUpdate: string;
                 /** The name of the zone in which the update's target resides. */
                 zone: string;
-            }): gapi.client.Request<RollingUpdate>;            
+            }): Request<RollingUpdate>;            
             
             /** Inserts and starts a new update. */
             insert(request: {            
@@ -283,7 +283,7 @@ declare namespace gapi.client {
                 project: string;
                 /** The name of the zone in which the update's target resides. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Lists recent updates for a given managed instance group, in reverse chronological order and paginated format. */
             list(request: {            
@@ -311,7 +311,7 @@ declare namespace gapi.client {
                 project: string;
                 /** The name of the zone in which the update's target resides. */
                 zone: string;
-            }): gapi.client.Request<RollingUpdateList>;            
+            }): Request<RollingUpdateList>;            
             
             /** Lists the current status for each instance within a given update. */
             listInstanceUpdates(request: {            
@@ -341,7 +341,7 @@ declare namespace gapi.client {
                 rollingUpdate: string;
                 /** The name of the zone in which the update's target resides. */
                 zone: string;
-            }): gapi.client.Request<InstanceUpdateList>;            
+            }): Request<InstanceUpdateList>;            
             
             /** Pauses the update in state from ROLLING_FORWARD or ROLLING_BACK. Has no effect if invoked when the state of the update is PAUSED. */
             pause(request: {            
@@ -365,7 +365,7 @@ declare namespace gapi.client {
                 rollingUpdate: string;
                 /** The name of the zone in which the update's target resides. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Continues an update in PAUSED state. Has no effect if invoked when the state of the update is ROLLED_OUT. */
             resume(request: {            
@@ -389,7 +389,7 @@ declare namespace gapi.client {
                 rollingUpdate: string;
                 /** The name of the zone in which the update's target resides. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Rolls back the update in state from ROLLING_FORWARD or PAUSED. Has no effect if invoked when the state of the update is ROLLED_BACK. */
             rollback(request: {            
@@ -413,7 +413,7 @@ declare namespace gapi.client {
                 rollingUpdate: string;
                 /** The name of the zone in which the update's target resides. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
         }
         
@@ -440,7 +440,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Name of the zone scoping this request. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Retrieves the list of Operation resources contained within the specified zone. */
             list(request: {            
@@ -468,7 +468,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Name of the zone scoping this request. */
                 zone: string;
-            }): gapi.client.Request<OperationList>;            
+            }): Request<OperationList>;            
             
         }
     }

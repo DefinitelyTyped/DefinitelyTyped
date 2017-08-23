@@ -54,6 +54,11 @@ After that you can use Street View Publish API resources:
 ```typescript 
     
 /* 
+Lists all the Photos that belong to the user.  
+*/
+await gapi.client.photos.list({  }); 
+    
+/* 
 Deletes a list of Photos and their metadata.
 
 Note that if
@@ -114,9 +119,17 @@ for specific failures that can occur per photo.
 await gapi.client.photos.batchGet({  }); 
     
 /* 
-Lists all the Photos that belong to the user.  
+Gets the metadata of the specified
+Photo.
+
+This method returns the following error codes:
+
+* google.rpc.Code.PERMISSION_DENIED if the requesting user did not
+create the requested Photo.
+* google.rpc.Code.NOT_FOUND if the requested
+Photo does not exist.  
 */
-await gapi.client.photos.list({  }); 
+await gapi.client.photo.get({ photoId: "photoId",  }); 
     
 /* 
 Updates the metadata of a Photo, such
@@ -180,18 +193,5 @@ This method returns the following error codes:
 create the requested photo.
 * google.rpc.Code.NOT_FOUND if the photo ID does not exist.  
 */
-await gapi.client.photo.delete({ photoId: "photoId",  }); 
-    
-/* 
-Gets the metadata of the specified
-Photo.
-
-This method returns the following error codes:
-
-* google.rpc.Code.PERMISSION_DENIED if the requesting user did not
-create the requested Photo.
-* google.rpc.Code.NOT_FOUND if the requested
-Photo does not exist.  
-*/
-await gapi.client.photo.get({ photoId: "photoId",  });
+await gapi.client.photo.delete({ photoId: "photoId",  });
 ```

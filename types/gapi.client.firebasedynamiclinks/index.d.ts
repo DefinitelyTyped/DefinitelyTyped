@@ -16,11 +16,20 @@ declare namespace gapi.client {
     function load(name: "firebasedynamiclinks", version: "v1"): PromiseLike<void>;    
     function load(name: "firebasedynamiclinks", version: "v1", callback: () => any): void;    
     
-    const v1: firebasedynamiclinks.V1Resource; 
-    
     const shortLinks: firebasedynamiclinks.ShortLinksResource; 
     
+    const v1: firebasedynamiclinks.V1Resource; 
+    
     namespace firebasedynamiclinks {
+        
+        interface CreateShortDynamicLinkResponse {
+            /** Information about potential warnings on link creation. */
+            warning?: DynamicLinkWarning[];
+            /** Short Dynamic Link value. e.g. https://abcd.app.goo.gl/wxyz */
+            shortLink?: string;
+            /** Preivew link to show the link flow chart. */
+            previewLink?: string;
+        }
         
         interface Suffix {
             /** Suffix option. */
@@ -48,6 +57,15 @@ declare namespace gapi.client {
         }
         
         interface DynamicLinkInfo {
+            /** iOS related information. See iOS related parameters in the */
+            /** [documentation](https://firebase.google.com/docs/dynamic-links/create-manually). */
+            iosInfo?: IosInfo;
+            /** Parameters for social meta tag params. */
+            /** Used to set meta tag data for link previews on social sites. */
+            socialMetaTagInfo?: SocialMetaTagInfo;
+            /** Android related information. See Android related parameters in the */
+            /** [documentation](https://firebase.google.com/docs/dynamic-links/create-manually). */
+            androidInfo?: AndroidInfo;
             /** Information of navigation behavior of a Firebase Dynamic Links. */
             navigationInfo?: NavigationInfo;
             /** Parameters used for tracking. See all tracking parameters in the */
@@ -66,15 +84,6 @@ declare namespace gapi.client {
             /**  */
             /** Required. */
             link?: string;
-            /** iOS related information. See iOS related parameters in the */
-            /** [documentation](https://firebase.google.com/docs/dynamic-links/create-manually). */
-            iosInfo?: IosInfo;
-            /** Parameters for social meta tag params. */
-            /** Used to set meta tag data for link previews on social sites. */
-            socialMetaTagInfo?: SocialMetaTagInfo;
-            /** Android related information. See Android related parameters in the */
-            /** [documentation](https://firebase.google.com/docs/dynamic-links/create-manually). */
-            androidInfo?: AndroidInfo;
         }
         
         interface ITunesConnectAnalytics {
@@ -99,20 +108,6 @@ declare namespace gapi.client {
             socialTitle?: string;
         }
         
-        interface DynamicLinkStats {
-            /** Dynamic Link event stats. */
-            linkEventStats?: DynamicLinkEventStat[];
-        }
-        
-        interface DynamicLinkWarning {
-            /** The warning code. */
-            warningCode?: string;
-            /** The warning message to help developers improve their requests. */
-            warningMessage?: string;
-            /** The document describing the warning, and helps resolve. */
-            warningDocumentLink?: string;
-        }
-        
         interface AndroidInfo {
             /** Android package name of the app. */
             androidPackageName?: string;
@@ -125,6 +120,20 @@ declare namespace gapi.client {
             androidFallbackLink?: string;
         }
         
+        interface DynamicLinkWarning {
+            /** The warning message to help developers improve their requests. */
+            warningMessage?: string;
+            /** The document describing the warning, and helps resolve. */
+            warningDocumentLink?: string;
+            /** The warning code. */
+            warningCode?: string;
+        }
+        
+        interface DynamicLinkStats {
+            /** Dynamic Link event stats. */
+            linkEventStats?: DynamicLinkEventStat[];
+        }
+        
         interface NavigationInfo {
             /** If this option is on, FDL click will be forced to redirect rather than */
             /** show an interstitial page. */
@@ -132,6 +141,8 @@ declare namespace gapi.client {
         }
         
         interface IosInfo {
+            /** iPad bundle ID of the app. */
+            iosIpadBundleId?: string;
             /** Custom (destination) scheme to use for iOS. By default, we’ll use the */
             /** bundle ID as the custom scheme. Developer can override this behavior using */
             /** this param. */
@@ -144,8 +155,6 @@ declare namespace gapi.client {
             iosAppStoreId?: string;
             /** If specified, this overrides the ios_fallback_link value on iPads. */
             iosIpadFallbackLink?: string;
-            /** iPad bundle ID of the app. */
-            iosIpadBundleId?: string;
         }
         
         interface AnalyticsInfo {
@@ -156,6 +165,9 @@ declare namespace gapi.client {
         }
         
         interface CreateShortDynamicLinkRequest {
+            /** Information about the Dynamic Link to be shortened. */
+            /** [Learn more](https://firebase.google.com/docs/dynamic-links/android#create-a-dynamic-link-programmatically). */
+            dynamicLinkInfo?: DynamicLinkInfo;
             /** Full long Dynamic Link URL with desired query parameters specified. */
             /** For example, */
             /** "https://sample.app.goo.gl/?link=http://www.google.com&apn=com.sample", */
@@ -163,9 +175,6 @@ declare namespace gapi.client {
             longDynamicLink?: string;
             /** Short Dynamic Link suffix. Optional. */
             suffix?: Suffix;
-            /** Information about the Dynamic Link to be shortened. */
-            /** [Learn more](https://firebase.google.com/docs/dynamic-links/android#create-a-dynamic-link-programmatically). */
-            dynamicLinkInfo?: DynamicLinkInfo;
         }
         
         interface DynamicLinkEventStat {
@@ -175,54 +184,6 @@ declare namespace gapi.client {
             count?: string;
             /** Link event. */
             event?: string;
-        }
-        
-        interface CreateShortDynamicLinkResponse {
-            /** Short Dynamic Link value. e.g. https://abcd.app.goo.gl/wxyz */
-            shortLink?: string;
-            /** Preivew link to show the link flow chart. */
-            previewLink?: string;
-            /** Information about potential warnings on link creation. */
-            warning?: DynamicLinkWarning[];
-        }
-        
-        interface V1Resource {
-            /** Fetches analytics stats of a short Dynamic Link for a given */
-            /** duration. Metrics include number of clicks, redirects, installs, */
-            /** app first opens, and app reopens. */
-            getLinkStats(request: {            
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** The span of time requested in days. */
-                durationDays?: string;
-                /** Dynamic Link URL. e.g. https://abcd.app.goo.gl/wxyz */
-                dynamicLink: string;
-            }): gapi.client.Request<DynamicLinkStats>;            
-            
         }
         
         interface ShortLinksResource {
@@ -262,7 +223,46 @@ declare namespace gapi.client {
                 bearer_token?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
-            }): gapi.client.Request<CreateShortDynamicLinkResponse>;            
+            }): Request<CreateShortDynamicLinkResponse>;            
+            
+        }
+        
+        interface V1Resource {
+            /** Fetches analytics stats of a short Dynamic Link for a given */
+            /** duration. Metrics include number of clicks, redirects, installs, */
+            /** app first opens, and app reopens. */
+            getLinkStats(request: {            
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** JSONP */
+                callback?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** The span of time requested in days. */
+                durationDays?: string;
+                /** Dynamic Link URL. e.g. https://abcd.app.goo.gl/wxyz */
+                dynamicLink: string;
+            }): Request<DynamicLinkStats>;            
             
         }
     }

@@ -368,7 +368,7 @@ declare namespace gapi.client {
                 operation: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Retrieves the specified operation resource. */
             get(request: {            
@@ -390,7 +390,7 @@ declare namespace gapi.client {
                 operation: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Retrieves the list of operation resources contained within the specified project. */
             list(request: {            
@@ -430,7 +430,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<OperationList>;            
+            }): Request<OperationList>;            
             
         }
         
@@ -455,7 +455,7 @@ declare namespace gapi.client {
                 groupName: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Deletes the specified Group resource. */
             delete(request: {            
@@ -477,7 +477,7 @@ declare namespace gapi.client {
                 groupName: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Returns the specified Group resource. */
             get(request: {            
@@ -499,7 +499,7 @@ declare namespace gapi.client {
                 groupName: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<Group>;            
+            }): Request<Group>;            
             
             /** Gets the access control policy for a resource. May be empty if no such policy or resource exists. */
             getIamPolicy(request: {            
@@ -521,7 +521,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Name of the resource for this request. */
                 resource: string;
-            }): gapi.client.Request<Policy>;            
+            }): Request<Policy>;            
             
             /** Creates a Group resource in the specified project using the data included in the request. */
             insert(request: {            
@@ -541,7 +541,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Retrieves the list of groups contained within the specified project. */
             list(request: {            
@@ -581,7 +581,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<GroupList>;            
+            }): Request<GroupList>;            
             
             /** Removes users from the specified group. */
             removeMember(request: {            
@@ -603,7 +603,7 @@ declare namespace gapi.client {
                 groupName: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Sets the access control policy on the specified resource. Replaces any existing policy. */
             setIamPolicy(request: {            
@@ -625,7 +625,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Name of the resource for this request. */
                 resource: string;
-            }): gapi.client.Request<Policy>;            
+            }): Request<Policy>;            
             
             /** Returns permissions that a caller has on the specified resource. */
             testIamPermissions(request: {            
@@ -647,7 +647,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Name of the resource for this request. */
                 resource: string;
-            }): gapi.client.Request<TestPermissionsResponse>;            
+            }): Request<TestPermissionsResponse>;            
             
         }
         
@@ -678,7 +678,7 @@ declare namespace gapi.client {
                 user: string;
                 /** Name of the zone for this request. */
                 zone: string;
-            }): gapi.client.Request<LinuxGetAuthorizedKeysViewResponse>;            
+            }): Request<LinuxGetAuthorizedKeysViewResponse>;            
             
             /** Retrieves a list of user accounts for an instance within a specific project. */
             getLinuxAccountViews(request: {            
@@ -722,7 +722,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Name of the zone for this request. */
                 zone: string;
-            }): gapi.client.Request<LinuxGetLinuxAccountViewsResponse>;            
+            }): Request<LinuxGetLinuxAccountViewsResponse>;            
             
         }
         
@@ -747,7 +747,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Name of the user for this request. */
                 user: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Deletes the specified User resource. */
             delete(request: {            
@@ -769,7 +769,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Name of the user resource to delete. */
                 user: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Returns the specified User resource. */
             get(request: {            
@@ -791,7 +791,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Name of the user resource to return. */
                 user: string;
-            }): gapi.client.Request<User>;            
+            }): Request<User>;            
             
             /** Gets the access control policy for a resource. May be empty if no such policy or resource exists. */
             getIamPolicy(request: {            
@@ -813,7 +813,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Name of the resource for this request. */
                 resource: string;
-            }): gapi.client.Request<Policy>;            
+            }): Request<Policy>;            
             
             /** Creates a User resource in the specified project using the data included in the request. */
             insert(request: {            
@@ -833,7 +833,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Retrieves a list of users contained within the specified project. */
             list(request: {            
@@ -873,7 +873,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Project ID for this request. */
                 project: string;
-            }): gapi.client.Request<UserList>;            
+            }): Request<UserList>;            
             
             /** Removes the specified public key from the user. */
             removePublicKey(request: {            
@@ -897,7 +897,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Name of the user for this request. */
                 user: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Sets the access control policy on the specified resource. Replaces any existing policy. */
             setIamPolicy(request: {            
@@ -919,7 +919,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Name of the resource for this request. */
                 resource: string;
-            }): gapi.client.Request<Policy>;            
+            }): Request<Policy>;            
             
             /** Returns permissions that a caller has on the specified resource. */
             testIamPermissions(request: {            
@@ -941,7 +941,7 @@ declare namespace gapi.client {
                 project: string;
                 /** Name of the resource for this request. */
                 resource: string;
-            }): gapi.client.Request<TestPermissionsResponse>;            
+            }): Request<TestPermissionsResponse>;            
             
         }
     }

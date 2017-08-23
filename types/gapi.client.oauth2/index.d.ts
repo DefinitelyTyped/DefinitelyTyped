@@ -101,7 +101,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<Userinfoplus>;            
+            }): Request<Userinfoplus>;            
             
         }
         
@@ -126,7 +126,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<Userinfoplus>;            
+            }): Request<Userinfoplus>;            
             
             v2: V2Resource;
         }

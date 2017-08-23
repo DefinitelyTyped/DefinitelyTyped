@@ -250,7 +250,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** External URL ID for the panel. */
                 panelId: string;
-            }): gapi.client.Request<MobileAppPanel>;            
+            }): Request<MobileAppPanel>;            
             
             /** Lists the MobileAppPanels available to the authenticated user. */
             list(request: {            
@@ -274,7 +274,7 @@ declare namespace gapi.client {
                 startIndex?: number;
                 /**  */
                 token?: string;
-            }): gapi.client.Request<MobileAppPanelsListResponse>;            
+            }): Request<MobileAppPanelsListResponse>;            
             
             /** Updates a MobileAppPanel. Currently the only property that can be updated is the owners property. */
             update(request: {            
@@ -294,7 +294,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** External URL ID for the panel. */
                 panelId: string;
-            }): gapi.client.Request<MobileAppPanel>;            
+            }): Request<MobileAppPanel>;            
             
         }
         
@@ -317,7 +317,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** External URL ID for the survey. */
                 surveyUrlId: string;
-            }): gapi.client.Request<SurveyResults>;            
+            }): Request<SurveyResults>;            
             
         }
         
@@ -340,7 +340,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** External URL ID for the survey. */
                 surveyUrlId: string;
-            }): gapi.client.Request<SurveysDeleteResponse>;            
+            }): Request<SurveysDeleteResponse>;            
             
             /** Retrieves information about the specified survey. */
             get(request: {            
@@ -360,7 +360,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** External URL ID for the survey. */
                 surveyUrlId: string;
-            }): gapi.client.Request<Survey>;            
+            }): Request<Survey>;            
             
             /** Creates a survey. */
             insert(request: {            
@@ -378,7 +378,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<Survey>;            
+            }): Request<Survey>;            
             
             /** Lists the surveys owned by the authenticated user. */
             list(request: {            
@@ -402,7 +402,7 @@ declare namespace gapi.client {
                 startIndex?: number;
                 /**  */
                 token?: string;
-            }): gapi.client.Request<SurveysListResponse>;            
+            }): Request<SurveysListResponse>;            
             
             /** Begins running a survey. */
             start(request: {            
@@ -422,7 +422,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /**  */
                 resourceId: string;
-            }): gapi.client.Request<SurveysStartResponse>;            
+            }): Request<SurveysStartResponse>;            
             
             /** Stops a running survey. */
             stop(request: {            
@@ -442,7 +442,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /**  */
                 resourceId: string;
-            }): gapi.client.Request<SurveysStopResponse>;            
+            }): Request<SurveysStopResponse>;            
             
             /** Updates a survey. Currently the only property that can be updated is the owners property. */
             update(request: {            
@@ -462,7 +462,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** External URL ID for the survey. */
                 surveyUrlId: string;
-            }): gapi.client.Request<Survey>;            
+            }): Request<Survey>;            
             
         }
     }

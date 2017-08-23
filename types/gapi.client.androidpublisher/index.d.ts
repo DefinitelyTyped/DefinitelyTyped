@@ -604,7 +604,7 @@ declare namespace gapi.client {
                 language: string;
                 /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
                 packageName: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Deletes all the APK-specific localized listings for a specified APK. */
             deleteall(request: {            
@@ -628,7 +628,7 @@ declare namespace gapi.client {
                 editId: string;
                 /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
                 packageName: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Fetches the APK-specific localized listing for a specified APK and language code. */
             get(request: {            
@@ -654,7 +654,7 @@ declare namespace gapi.client {
                 language: string;
                 /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
                 packageName: string;
-            }): gapi.client.Request<ApkListing>;            
+            }): Request<ApkListing>;            
             
             /** Lists all the APK-specific localized listings for a specified APK. */
             list(request: {            
@@ -678,7 +678,7 @@ declare namespace gapi.client {
                 editId: string;
                 /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
                 packageName: string;
-            }): gapi.client.Request<ApkListingsListResponse>;            
+            }): Request<ApkListingsListResponse>;            
             
             /** Updates or creates the APK-specific localized listing for a specified APK and language code. This method supports patch semantics. */
             patch(request: {            
@@ -704,7 +704,7 @@ declare namespace gapi.client {
                 language: string;
                 /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
                 packageName: string;
-            }): gapi.client.Request<ApkListing>;            
+            }): Request<ApkListing>;            
             
             /** Updates or creates the APK-specific localized listing for a specified APK and language code. */
             update(request: {            
@@ -730,7 +730,7 @@ declare namespace gapi.client {
                 language: string;
                 /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
                 packageName: string;
-            }): gapi.client.Request<ApkListing>;            
+            }): Request<ApkListing>;            
             
         }
         
@@ -755,7 +755,7 @@ declare namespace gapi.client {
                 editId: string;
                 /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
                 packageName: string;
-            }): gapi.client.Request<ApksAddExternallyHostedResponse>;            
+            }): Request<ApksAddExternallyHostedResponse>;            
             
             /**  */
             list(request: {            
@@ -777,7 +777,7 @@ declare namespace gapi.client {
                 editId: string;
                 /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
                 packageName: string;
-            }): gapi.client.Request<ApksListResponse>;            
+            }): Request<ApksListResponse>;            
             
             /**  */
             upload(request: {            
@@ -799,7 +799,7 @@ declare namespace gapi.client {
                 editId: string;
                 /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
                 packageName: string;
-            }): gapi.client.Request<Apk>;            
+            }): Request<Apk>;            
             
         }
         
@@ -828,7 +828,7 @@ declare namespace gapi.client {
                 editId: string;
                 /** Unique identifier of the Android app for which the deobfuscatiuon files are being uploaded; for example, "com.spiffygame". */
                 packageName: string;
-            }): gapi.client.Request<DeobfuscationFilesUploadResponse>;            
+            }): Request<DeobfuscationFilesUploadResponse>;            
             
         }
         
@@ -853,7 +853,7 @@ declare namespace gapi.client {
                 editId: string;
                 /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
                 packageName: string;
-            }): gapi.client.Request<AppDetails>;            
+            }): Request<AppDetails>;            
             
             /** Updates app details for this edit. This method supports patch semantics. */
             patch(request: {            
@@ -875,7 +875,7 @@ declare namespace gapi.client {
                 editId: string;
                 /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
                 packageName: string;
-            }): gapi.client.Request<AppDetails>;            
+            }): Request<AppDetails>;            
             
             /** Updates app details for this edit. */
             update(request: {            
@@ -897,7 +897,7 @@ declare namespace gapi.client {
                 editId: string;
                 /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
                 packageName: string;
-            }): gapi.client.Request<AppDetails>;            
+            }): Request<AppDetails>;            
             
         }
         
@@ -926,7 +926,7 @@ declare namespace gapi.client {
                 expansionFileType: string;
                 /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
                 packageName: string;
-            }): gapi.client.Request<ExpansionFile>;            
+            }): Request<ExpansionFile>;            
             
             /** Updates the APK's Expansion File configuration to reference another APK's Expansion Files. To add a new Expansion File use the Upload method. This method supports patch semantics. */
             patch(request: {            
@@ -952,7 +952,7 @@ declare namespace gapi.client {
                 expansionFileType: string;
                 /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
                 packageName: string;
-            }): gapi.client.Request<ExpansionFile>;            
+            }): Request<ExpansionFile>;            
             
             /** Updates the APK's Expansion File configuration to reference another APK's Expansion Files. To add a new Expansion File use the Upload method. */
             update(request: {            
@@ -978,7 +978,7 @@ declare namespace gapi.client {
                 expansionFileType: string;
                 /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
                 packageName: string;
-            }): gapi.client.Request<ExpansionFile>;            
+            }): Request<ExpansionFile>;            
             
             /** Uploads and attaches a new Expansion File to the APK specified. */
             upload(request: {            
@@ -1004,7 +1004,7 @@ declare namespace gapi.client {
                 expansionFileType: string;
                 /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
                 packageName: string;
-            }): gapi.client.Request<ExpansionFilesUploadResponse>;            
+            }): Request<ExpansionFilesUploadResponse>;            
             
         }
         
@@ -1035,7 +1035,7 @@ declare namespace gapi.client {
                 language: string;
                 /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
                 packageName: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Deletes all images for the specified language and image type. */
             deleteall(request: {            
@@ -1061,7 +1061,7 @@ declare namespace gapi.client {
                 language: string;
                 /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
                 packageName: string;
-            }): gapi.client.Request<ImagesDeleteAllResponse>;            
+            }): Request<ImagesDeleteAllResponse>;            
             
             /** Lists all images for the specified language and image type. */
             list(request: {            
@@ -1087,7 +1087,7 @@ declare namespace gapi.client {
                 language: string;
                 /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
                 packageName: string;
-            }): gapi.client.Request<ImagesListResponse>;            
+            }): Request<ImagesListResponse>;            
             
             /** Uploads a new image and adds it to the list of images for the specified language and image type. */
             upload(request: {            
@@ -1113,7 +1113,7 @@ declare namespace gapi.client {
                 language: string;
                 /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
                 packageName: string;
-            }): gapi.client.Request<ImagesUploadResponse>;            
+            }): Request<ImagesUploadResponse>;            
             
         }
         
@@ -1140,7 +1140,7 @@ declare namespace gapi.client {
                 language: string;
                 /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
                 packageName: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Deletes all localized listings from an edit. */
             deleteall(request: {            
@@ -1162,7 +1162,7 @@ declare namespace gapi.client {
                 editId: string;
                 /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
                 packageName: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Fetches information about a localized store listing. */
             get(request: {            
@@ -1186,7 +1186,7 @@ declare namespace gapi.client {
                 language: string;
                 /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
                 packageName: string;
-            }): gapi.client.Request<Listing>;            
+            }): Request<Listing>;            
             
             /** Returns all of the localized store listings attached to this edit. */
             list(request: {            
@@ -1208,7 +1208,7 @@ declare namespace gapi.client {
                 editId: string;
                 /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
                 packageName: string;
-            }): gapi.client.Request<ListingsListResponse>;            
+            }): Request<ListingsListResponse>;            
             
             /** Creates or updates a localized store listing. This method supports patch semantics. */
             patch(request: {            
@@ -1232,7 +1232,7 @@ declare namespace gapi.client {
                 language: string;
                 /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
                 packageName: string;
-            }): gapi.client.Request<Listing>;            
+            }): Request<Listing>;            
             
             /** Creates or updates a localized store listing. */
             update(request: {            
@@ -1256,7 +1256,7 @@ declare namespace gapi.client {
                 language: string;
                 /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
                 packageName: string;
-            }): gapi.client.Request<Listing>;            
+            }): Request<Listing>;            
             
         }
         
@@ -1283,7 +1283,7 @@ declare namespace gapi.client {
                 packageName: string;
                 /**  */
                 track: string;
-            }): gapi.client.Request<Testers>;            
+            }): Request<Testers>;            
             
             /**  */
             patch(request: {            
@@ -1307,7 +1307,7 @@ declare namespace gapi.client {
                 packageName: string;
                 /**  */
                 track: string;
-            }): gapi.client.Request<Testers>;            
+            }): Request<Testers>;            
             
             /**  */
             update(request: {            
@@ -1331,7 +1331,7 @@ declare namespace gapi.client {
                 packageName: string;
                 /**  */
                 track: string;
-            }): gapi.client.Request<Testers>;            
+            }): Request<Testers>;            
             
         }
         
@@ -1358,7 +1358,7 @@ declare namespace gapi.client {
                 packageName: string;
                 /** The track type to read or modify. */
                 track: string;
-            }): gapi.client.Request<Track>;            
+            }): Request<Track>;            
             
             /** Lists all the track configurations for this edit. */
             list(request: {            
@@ -1380,7 +1380,7 @@ declare namespace gapi.client {
                 editId: string;
                 /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
                 packageName: string;
-            }): gapi.client.Request<TracksListResponse>;            
+            }): Request<TracksListResponse>;            
             
             /** Updates the track configuration for the specified track type. When halted, the rollout track cannot be updated without adding new APKs, and adding new APKs will cause it to resume. This method supports patch semantics. */
             patch(request: {            
@@ -1404,7 +1404,7 @@ declare namespace gapi.client {
                 packageName: string;
                 /** The track type to read or modify. */
                 track: string;
-            }): gapi.client.Request<Track>;            
+            }): Request<Track>;            
             
             /** Updates the track configuration for the specified track type. When halted, the rollout track cannot be updated without adding new APKs, and adding new APKs will cause it to resume. */
             update(request: {            
@@ -1428,7 +1428,7 @@ declare namespace gapi.client {
                 packageName: string;
                 /** The track type to read or modify. */
                 track: string;
-            }): gapi.client.Request<Track>;            
+            }): Request<Track>;            
             
         }
         
@@ -1453,7 +1453,7 @@ declare namespace gapi.client {
                 editId: string;
                 /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
                 packageName: string;
-            }): gapi.client.Request<AppEdit>;            
+            }): Request<AppEdit>;            
             
             /** Deletes an edit for an app. Creating a new edit will automatically delete any of your previous edits so this method need only be called if you want to preemptively abandon an edit. */
             delete(request: {            
@@ -1475,7 +1475,7 @@ declare namespace gapi.client {
                 editId: string;
                 /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
                 packageName: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Returns information about the edit specified. Calls will fail if the edit is no long active (e.g. has been deleted, superseded or expired). */
             get(request: {            
@@ -1497,7 +1497,7 @@ declare namespace gapi.client {
                 editId: string;
                 /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
                 packageName: string;
-            }): gapi.client.Request<AppEdit>;            
+            }): Request<AppEdit>;            
             
             /** Creates a new edit for an app, populated with the app's current state. */
             insert(request: {            
@@ -1517,7 +1517,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
                 packageName: string;
-            }): gapi.client.Request<AppEdit>;            
+            }): Request<AppEdit>;            
             
             /** Checks that the edit can be successfully committed. The edit's changes are not applied to the live app. */
             validate(request: {            
@@ -1539,7 +1539,7 @@ declare namespace gapi.client {
                 editId: string;
                 /** Unique identifier for the Android app that is being updated; for example, "com.spiffygame". */
                 packageName: string;
-            }): gapi.client.Request<AppEdit>;            
+            }): Request<AppEdit>;            
             
             apklistings: ApklistingsResource;
             apks: ApksResource;
@@ -1579,7 +1579,7 @@ declare namespace gapi.client {
                 startIndex?: number;
                 /**  */
                 token?: string;
-            }): gapi.client.Request<EntitlementsListResponse>;            
+            }): Request<EntitlementsListResponse>;            
             
         }
         
@@ -1600,7 +1600,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<InappproductsBatchResponse>;            
+            }): Request<InappproductsBatchResponse>;            
             
             /** Delete an in-app product for an app. */
             delete(request: {            
@@ -1622,7 +1622,7 @@ declare namespace gapi.client {
                 packageName: string;
                 /** Unique identifier for the in-app product. */
                 sku: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Returns information about the in-app product specified. */
             get(request: {            
@@ -1644,7 +1644,7 @@ declare namespace gapi.client {
                 packageName: string;
                 /** Unique identifier for the in-app product. */
                 sku: string;
-            }): gapi.client.Request<InAppProduct>;            
+            }): Request<InAppProduct>;            
             
             /** Creates a new in-app product for an app. */
             insert(request: {            
@@ -1666,7 +1666,7 @@ declare namespace gapi.client {
                 autoConvertMissingPrices?: boolean;
                 /** Unique identifier for the Android app; for example, "com.spiffygame". */
                 packageName: string;
-            }): gapi.client.Request<InAppProduct>;            
+            }): Request<InAppProduct>;            
             
             /** List all the in-app products for an Android app, both subscriptions and managed in-app products.. */
             list(request: {            
@@ -1692,7 +1692,7 @@ declare namespace gapi.client {
                 startIndex?: number;
                 /**  */
                 token?: string;
-            }): gapi.client.Request<InappproductsListResponse>;            
+            }): Request<InappproductsListResponse>;            
             
             /** Updates the details of an in-app product. This method supports patch semantics. */
             patch(request: {            
@@ -1716,7 +1716,7 @@ declare namespace gapi.client {
                 packageName: string;
                 /** Unique identifier for the in-app product. */
                 sku: string;
-            }): gapi.client.Request<InAppProduct>;            
+            }): Request<InAppProduct>;            
             
             /** Updates the details of an in-app product. */
             update(request: {            
@@ -1740,7 +1740,7 @@ declare namespace gapi.client {
                 packageName: string;
                 /** Unique identifier for the in-app product. */
                 sku: string;
-            }): gapi.client.Request<InAppProduct>;            
+            }): Request<InAppProduct>;            
             
         }
         
@@ -1767,7 +1767,7 @@ declare namespace gapi.client {
                 productId: string;
                 /** The token provided to the user's device when the inapp product was purchased. */
                 token: string;
-            }): gapi.client.Request<ProductPurchase>;            
+            }): Request<ProductPurchase>;            
             
         }
         
@@ -1794,7 +1794,7 @@ declare namespace gapi.client {
                 subscriptionId: string;
                 /** The token provided to the user's device when the subscription was purchased. */
                 token: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Defers a user's subscription purchase until a specified future expiration time. */
             defer(request: {            
@@ -1818,7 +1818,7 @@ declare namespace gapi.client {
                 subscriptionId: string;
                 /** The token provided to the user's device when the subscription was purchased. */
                 token: string;
-            }): gapi.client.Request<SubscriptionPurchasesDeferResponse>;            
+            }): Request<SubscriptionPurchasesDeferResponse>;            
             
             /** Checks whether a user's subscription purchase is valid and returns its expiry time. */
             get(request: {            
@@ -1842,7 +1842,7 @@ declare namespace gapi.client {
                 subscriptionId: string;
                 /** The token provided to the user's device when the subscription was purchased. */
                 token: string;
-            }): gapi.client.Request<SubscriptionPurchase>;            
+            }): Request<SubscriptionPurchase>;            
             
             /** Refunds a user's subscription purchase, but the subscription remains valid until its expiration time and it will continue to recur. */
             refund(request: {            
@@ -1866,7 +1866,7 @@ declare namespace gapi.client {
                 subscriptionId: string;
                 /** The token provided to the user's device when the subscription was purchased. */
                 token: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Refunds and immediately revokes a user's subscription purchase. Access to the subscription will be terminated immediately and it will stop recurring. */
             revoke(request: {            
@@ -1890,7 +1890,7 @@ declare namespace gapi.client {
                 subscriptionId: string;
                 /** The token provided to the user's device when the subscription was purchased. */
                 token: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
         }
         
@@ -1923,7 +1923,7 @@ declare namespace gapi.client {
                 startTime?: string;
                 /**  */
                 token?: string;
-            }): gapi.client.Request<VoidedPurchasesListResponse>;            
+            }): Request<VoidedPurchasesListResponse>;            
             
         }
         
@@ -1956,7 +1956,7 @@ declare namespace gapi.client {
                 reviewId: string;
                 /**  */
                 translationLanguage?: string;
-            }): gapi.client.Request<Review>;            
+            }): Request<Review>;            
             
             /** Returns a list of reviews. Only reviews from last week will be returned. */
             list(request: {            
@@ -1984,7 +1984,7 @@ declare namespace gapi.client {
                 token?: string;
                 /**  */
                 translationLanguage?: string;
-            }): gapi.client.Request<ReviewsListResponse>;            
+            }): Request<ReviewsListResponse>;            
             
             /** Reply to a single review, or update an existing reply. */
             reply(request: {            
@@ -2006,7 +2006,7 @@ declare namespace gapi.client {
                 packageName: string;
                 /**  */
                 reviewId: string;
-            }): gapi.client.Request<ReviewsReplyResponse>;            
+            }): Request<ReviewsReplyResponse>;            
             
         }
     }

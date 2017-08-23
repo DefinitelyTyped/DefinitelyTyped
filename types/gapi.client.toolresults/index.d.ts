@@ -768,7 +768,7 @@ declare namespace gapi.client {
                 /**  */
                 /** Required. */
                 projectId: string;
-            }): gapi.client.Request<ListScreenshotClustersResponse>;            
+            }): Request<ListScreenshotClustersResponse>;            
             
         }
         
@@ -799,7 +799,7 @@ declare namespace gapi.client {
                 projectId: string;
                 /** A tool results step ID. */
                 stepId: string;
-            }): gapi.client.Request<PerfMetricsSummary>;            
+            }): Request<PerfMetricsSummary>;            
             
         }
         
@@ -832,7 +832,7 @@ declare namespace gapi.client {
                 sampleSeriesId: string;
                 /** A tool results step ID. */
                 stepId: string;
-            }): gapi.client.Request<BatchCreatePerfSamplesResponse>;            
+            }): Request<BatchCreatePerfSamplesResponse>;            
             
             /** Lists the Performance Samples of a given Sample Series - The list results are sorted by timestamps ascending - The default page size is 500 samples; and maximum size allowed 5000 - The response token indicates the last returned PerfSample timestamp - When the results size exceeds the page size, submit a subsequent request including the page token to return the rest of the samples up to the page limit */
             /**  */
@@ -866,7 +866,7 @@ declare namespace gapi.client {
                 sampleSeriesId: string;
                 /** A tool results step ID. */
                 stepId: string;
-            }): gapi.client.Request<ListPerfSamplesResponse>;            
+            }): Request<ListPerfSamplesResponse>;            
             
         }
         
@@ -897,7 +897,7 @@ declare namespace gapi.client {
                 projectId: string;
                 /** A tool results step ID. */
                 stepId: string;
-            }): gapi.client.Request<PerfSampleSeries>;            
+            }): Request<PerfSampleSeries>;            
             
             /** Gets a PerfSampleSeries. */
             /**  */
@@ -927,7 +927,7 @@ declare namespace gapi.client {
                 sampleSeriesId: string;
                 /** A tool results step ID. */
                 stepId: string;
-            }): gapi.client.Request<PerfSampleSeries>;            
+            }): Request<PerfSampleSeries>;            
             
             /** Lists PerfSampleSeries for a given Step. */
             /**  */
@@ -959,7 +959,7 @@ declare namespace gapi.client {
                 projectId: string;
                 /** A tool results step ID. */
                 stepId: string;
-            }): gapi.client.Request<ListPerfSampleSeriesResponse>;            
+            }): Request<ListPerfSampleSeriesResponse>;            
             
             samples: SamplesResource;
         }
@@ -1009,7 +1009,7 @@ declare namespace gapi.client {
                 /**  */
                 /** Required. */
                 stepId: string;
-            }): gapi.client.Request<ListStepThumbnailsResponse>;            
+            }): Request<ListStepThumbnailsResponse>;            
             
         }
         
@@ -1052,7 +1052,7 @@ declare namespace gapi.client {
                 /**  */
                 /** Optional, but strongly recommended. */
                 requestId?: string;
-            }): gapi.client.Request<Step>;            
+            }): Request<Step>;            
             
             /** Gets a Step. */
             /**  */
@@ -1090,7 +1090,7 @@ declare namespace gapi.client {
                 /**  */
                 /** Required. */
                 stepId: string;
-            }): gapi.client.Request<Step>;            
+            }): Request<Step>;            
             
             /** Retrieves a PerfMetricsSummary. */
             /**  */
@@ -1118,7 +1118,7 @@ declare namespace gapi.client {
                 projectId: string;
                 /** A tool results step ID. */
                 stepId: string;
-            }): gapi.client.Request<PerfMetricsSummary>;            
+            }): Request<PerfMetricsSummary>;            
             
             /** Lists Steps for a given Execution. */
             /**  */
@@ -1164,7 +1164,7 @@ declare namespace gapi.client {
                 /**  */
                 /** Required. */
                 projectId: string;
-            }): gapi.client.Request<ListStepsResponse>;            
+            }): Request<ListStepsResponse>;            
             
             /** Updates an existing Step with the supplied partial entity. */
             /**  */
@@ -1206,7 +1206,7 @@ declare namespace gapi.client {
                 /**  */
                 /** Required. */
                 stepId: string;
-            }): gapi.client.Request<Step>;            
+            }): Request<Step>;            
             
             /** Publish xml files to an existing Step. */
             /**  */
@@ -1244,7 +1244,7 @@ declare namespace gapi.client {
                 /**  */
                 /** Required. */
                 stepId: string;
-            }): gapi.client.Request<Step>;            
+            }): Request<Step>;            
             
             perfMetricsSummary: PerfMetricsSummaryResource;
             perfSampleSeries: PerfSampleSeriesResource;
@@ -1286,7 +1286,7 @@ declare namespace gapi.client {
                 /**  */
                 /** Optional, but strongly recommended. */
                 requestId?: string;
-            }): gapi.client.Request<Execution>;            
+            }): Request<Execution>;            
             
             /** Gets an Execution. */
             /**  */
@@ -1320,7 +1320,7 @@ declare namespace gapi.client {
                 /**  */
                 /** Required. */
                 projectId: string;
-            }): gapi.client.Request<Execution>;            
+            }): Request<Execution>;            
             
             /** Lists Histories for a given Project. */
             /**  */
@@ -1362,7 +1362,7 @@ declare namespace gapi.client {
                 /**  */
                 /** Required. */
                 projectId: string;
-            }): gapi.client.Request<ListExecutionsResponse>;            
+            }): Request<ListExecutionsResponse>;            
             
             /** Updates an existing Execution with the supplied partial entity. */
             /**  */
@@ -1394,7 +1394,7 @@ declare namespace gapi.client {
                 /**  */
                 /** Optional, but strongly recommended. */
                 requestId?: string;
-            }): gapi.client.Request<Execution>;            
+            }): Request<Execution>;            
             
             clusters: ClustersResource;
             steps: StepsResource;
@@ -1431,7 +1431,7 @@ declare namespace gapi.client {
                 /**  */
                 /** Optional, but strongly recommended. */
                 requestId?: string;
-            }): gapi.client.Request<History>;            
+            }): Request<History>;            
             
             /** Gets a History. */
             /**  */
@@ -1461,7 +1461,7 @@ declare namespace gapi.client {
                 /**  */
                 /** Required. */
                 projectId: string;
-            }): gapi.client.Request<History>;            
+            }): Request<History>;            
             
             /** Lists Histories for a given Project. */
             /**  */
@@ -1503,7 +1503,7 @@ declare namespace gapi.client {
                 /**  */
                 /** Required. */
                 projectId: string;
-            }): gapi.client.Request<ListHistoriesResponse>;            
+            }): Request<ListHistoriesResponse>;            
             
             executions: ExecutionsResource;
         }
@@ -1533,7 +1533,7 @@ declare namespace gapi.client {
                 /**  */
                 /** Required. */
                 projectId: string;
-            }): gapi.client.Request<ProjectSettings>;            
+            }): Request<ProjectSettings>;            
             
             /** Creates resources for settings which have not yet been set. */
             /**  */
@@ -1565,7 +1565,7 @@ declare namespace gapi.client {
                 /**  */
                 /** Required. */
                 projectId: string;
-            }): gapi.client.Request<ProjectSettings>;            
+            }): Request<ProjectSettings>;            
             
             histories: HistoriesResource;
         }

@@ -78,7 +78,7 @@ declare namespace gapi.client {
                 skuId: string;
                 /** email id or unique Id of the user */
                 userId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Get license assignment of a particular product and sku for a user */
             get(request: {            
@@ -102,7 +102,7 @@ declare namespace gapi.client {
                 skuId: string;
                 /** email id or unique Id of the user */
                 userId: string;
-            }): gapi.client.Request<LicenseAssignment>;            
+            }): Request<LicenseAssignment>;            
             
             /** Assign License. */
             insert(request: {            
@@ -124,7 +124,7 @@ declare namespace gapi.client {
                 productId: string;
                 /** Name for sku */
                 skuId: string;
-            }): gapi.client.Request<LicenseAssignment>;            
+            }): Request<LicenseAssignment>;            
             
             /** List license assignments for given product of the customer. */
             listForProduct(request: {            
@@ -150,7 +150,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Name for product */
                 productId: string;
-            }): gapi.client.Request<LicenseAssignmentList>;            
+            }): Request<LicenseAssignmentList>;            
             
             /** List license assignments for given product and sku of the customer. */
             listForProductAndSku(request: {            
@@ -178,7 +178,7 @@ declare namespace gapi.client {
                 productId: string;
                 /** Name for sku */
                 skuId: string;
-            }): gapi.client.Request<LicenseAssignmentList>;            
+            }): Request<LicenseAssignmentList>;            
             
             /** Assign License. This method supports patch semantics. */
             patch(request: {            
@@ -202,7 +202,7 @@ declare namespace gapi.client {
                 skuId: string;
                 /** email id or unique Id of the user */
                 userId: string;
-            }): gapi.client.Request<LicenseAssignment>;            
+            }): Request<LicenseAssignment>;            
             
             /** Assign License. */
             update(request: {            
@@ -226,7 +226,7 @@ declare namespace gapi.client {
                 skuId: string;
                 /** email id or unique Id of the user */
                 userId: string;
-            }): gapi.client.Request<LicenseAssignment>;            
+            }): Request<LicenseAssignment>;            
             
         }
     }

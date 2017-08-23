@@ -20,6 +20,89 @@ declare namespace gapi.client {
     
     namespace analyticsreporting {
         
+        interface DimensionFilterClause {
+            /** The repeated set of filters. They are logically combined based on the */
+            /** operator specified. */
+            filters?: DimensionFilter[];
+            /** The operator for combining multiple dimension filters. If unspecified, it */
+            /** is treated as an `OR`. */
+            operator?: string;
+        }
+        
+        interface GetReportsResponse {
+            /** Responses corresponding to each of the request. */
+            reports?: Report[];
+        }
+        
+        interface SequenceSegment {
+            /** If set, first step condition must match the first hit of the visitor (in */
+            /** the date range). */
+            firstStepShouldMatchFirstHit?: boolean;
+            /** The list of steps in the sequence. */
+            segmentSequenceSteps?: SegmentSequenceStep[];
+        }
+        
+        interface SegmentMetricFilter {
+            /** The metric that will be filtered on. A `metricFilter` must contain a */
+            /** metric name. */
+            metricName?: string;
+            /** Scope for a metric defines the level at which that metric is defined.  The */
+            /** specified metric scope must be equal to or greater than its primary scope */
+            /** as defined in the data model. The primary scope is defined by if the */
+            /** segment is selecting users or sessions. */
+            scope?: string;
+            /** Max comparison value is only used for `BETWEEN` operator. */
+            maxComparisonValue?: string;
+            /** The value to compare against. If the operator is `BETWEEN`, this value is */
+            /** treated as minimum comparison value. */
+            comparisonValue?: string;
+            /** Specifies is the operation to perform to compare the metric. The default */
+            /** is `EQUAL`. */
+            operator?: string;
+        }
+        
+        interface DateRangeValues {
+            /** Each value corresponds to each Metric in the request. */
+            values?: string[];
+            /** The values of each pivot region. */
+            pivotValueRegions?: PivotValueRegion[];
+        }
+        
+        interface CohortGroup {
+            /** Enable Life Time Value (LTV).  LTV measures lifetime value for users */
+            /** acquired through different channels. */
+            /** Please see: */
+            /** [Cohort Analysis](https://support.google.com/analytics/answer/6074676) and */
+            /** [Lifetime Value](https://support.google.com/analytics/answer/6182550) */
+            /** If the value of lifetimeValue is false: */
+            /**  */
+            /** - The metric values are similar to the values in the web interface cohort */
+            /**   report. */
+            /** - The cohort definition date ranges must be aligned to the calendar week */
+            /**   and month. i.e. while requesting `ga:cohortNthWeek` the `startDate` in */
+            /**   the cohort definition should be a Sunday and the `endDate` should be the */
+            /**   following Saturday, and for `ga:cohortNthMonth`, the `startDate` */
+            /**   should be the 1st of the month and `endDate` should be the last day */
+            /**   of the month. */
+            /**  */
+            /** When the lifetimeValue is true: */
+            /**  */
+            /** - The metric values will correspond to the values in the web interface */
+            /**   LifeTime value report. */
+            /** - The Lifetime Value report shows you how user value (Revenue) and */
+            /**   engagement (Appviews, Goal Completions, Sessions, and Session Duration) */
+            /**   grow during the 90 days after a user is acquired. */
+            /** - The metrics are calculated as a cumulative average per user per the time */
+            /**   increment. */
+            /** - The cohort definition date ranges need not be aligned to the calendar */
+            /**   week and month boundaries. */
+            /** - The `viewId` must be an */
+            /**   [app view ID](https://support.google.com/analytics/answer/2649553#WebVersusAppViews) */
+            lifetimeValue?: boolean;
+            /** The definition for the cohort. */
+            cohorts?: Cohort[];
+        }
+        
         interface GetReportsRequest {
             /** Requests, each request will have a separate response. */
             /** There can be a maximum of 5 requests. All requests should have the same */
@@ -28,6 +111,21 @@ declare namespace gapi.client {
         }
         
         interface Pivot {
+            /** DimensionFilterClauses are logically combined with an `AND` operator: only */
+            /** data that is included by all these DimensionFilterClauses contributes to */
+            /** the values in this pivot region. Dimension filters can be used to restrict */
+            /** the columns shown in the pivot region. For example if you have */
+            /** `ga:browser` as the requested dimension in the pivot region, and you */
+            /** specify key filters to restrict `ga:browser` to only "IE" or "Firefox", */
+            /** then only those two browsers would show up as columns. */
+            dimensionFilterClauses?: DimensionFilterClause[];
+            /** A list of dimensions to show as pivot columns. A Pivot can have a maximum */
+            /** of 4 dimensions. Pivot dimensions are part of the restriction on the */
+            /** total number of dimensions allowed in the request. */
+            dimensions?: Dimension[];
+            /** Specifies the maximum number of groups to return. */
+            /** The default value is 10, also the maximum value is 1,000. */
+            maxGroupCount?: number;
             /** If k metrics were requested, then the response will contain some */
             /** data-dependent multiple of k columns in the report.  E.g., if you pivoted */
             /** on the dimension `ga:browser` then you'd get k columns for "Firefox", k */
@@ -45,21 +143,6 @@ declare namespace gapi.client {
             /** The pivot metrics. Pivot metrics are part of the */
             /** restriction on total number of metrics allowed in the request. */
             metrics?: Metric[];
-            /** DimensionFilterClauses are logically combined with an `AND` operator: only */
-            /** data that is included by all these DimensionFilterClauses contributes to */
-            /** the values in this pivot region. Dimension filters can be used to restrict */
-            /** the columns shown in the pivot region. For example if you have */
-            /** `ga:browser` as the requested dimension in the pivot region, and you */
-            /** specify key filters to restrict `ga:browser` to only "IE" or "Firefox", */
-            /** then only those two browsers would show up as columns. */
-            dimensionFilterClauses?: DimensionFilterClause[];
-            /** A list of dimensions to show as pivot columns. A Pivot can have a maximum */
-            /** of 4 dimensions. Pivot dimensions are part of the restriction on the */
-            /** total number of dimensions allowed in the request. */
-            dimensions?: Dimension[];
-            /** Specifies the maximum number of groups to return. */
-            /** The default value is 10, also the maximum value is 1,000. */
-            maxGroupCount?: number;
         }
         
         interface PivotHeaderEntry {
@@ -72,10 +155,6 @@ declare namespace gapi.client {
         }
         
         interface SegmentFilter {
-            /** Sequence conditions consist of one or more steps, where each step is */
-            /** defined by one or more dimension/metric conditions. Multiple steps can */
-            /** be combined with special sequence operators. */
-            sequenceSegment?: SequenceSegment;
             /** If true, match the complement of simple or sequence segment. */
             /** For example, to match all visits not from "New York", we can define the */
             /** segment as follows: */
@@ -99,6 +178,10 @@ declare namespace gapi.client {
             /** A Simple segment conditions consist of one or more dimension/metric */
             /** conditions that can be combined */
             simpleSegment?: SimpleSegment;
+            /** Sequence conditions consist of one or more steps, where each step is */
+            /** defined by one or more dimension/metric conditions. Multiple steps can */
+            /** be combined with special sequence operators. */
+            sequenceSegment?: SequenceSegment;
         }
         
         interface SegmentDefinition {
@@ -115,10 +198,21 @@ declare namespace gapi.client {
         }
         
         interface ReportData {
+            /** Indicates if response to this request is golden or not. Data is */
+            /** golden when the exact same request will not produce any new results if */
+            /** asked at a later point in time. */
+            isDataGolden?: boolean;
+            /** There's one ReportRow for every unique combination of dimensions. */
+            rows?: ReportRow[];
+            /** Total number of matching rows for this query. */
+            rowCount?: number;
+            /** The last time the data in the report was refreshed. All the hits received */
+            /** before this timestamp are included in the calculation of the report. */
+            dataLastRefreshed?: string;
             /** Minimum and maximum values seen over all matching rows. These are both */
             /** empty when `hideValueRanges` in the request is false, or when */
             /** rowCount is zero. */
-            minimums?: DateRangeValues[];
+            maximums?: DateRangeValues[];
             /** If the results are */
             /** [sampled](https://support.google.com/analytics/answer/2637192), */
             /** this returns the total number of */
@@ -127,6 +221,10 @@ declare namespace gapi.client {
             /** [developer guide](/analytics/devguides/reporting/core/v4/basics#sampling) */
             /** for details. */
             samplingSpaceSizes?: string[];
+            /** Minimum and maximum values seen over all matching rows. These are both */
+            /** empty when `hideValueRanges` in the request is false, or when */
+            /** rowCount is zero. */
+            minimums?: DateRangeValues[];
             /** For each requested date range, for the set of all rows that match */
             /** the query, every requested value format gets a total. The total */
             /** for a value format is computed by first totaling the metrics */
@@ -143,26 +241,9 @@ declare namespace gapi.client {
             /** [developer guide](/analytics/devguides/reporting/core/v4/basics#sampling) */
             /** for details. */
             samplesReadCounts?: string[];
-            /** Total number of matching rows for this query. */
-            rowCount?: number;
-            /** There's one ReportRow for every unique combination of dimensions. */
-            rows?: ReportRow[];
-            /** Indicates if response to this request is golden or not. Data is */
-            /** golden when the exact same request will not produce any new results if */
-            /** asked at a later point in time. */
-            isDataGolden?: boolean;
-            /** The last time the data in the report was refreshed. All the hits received */
-            /** before this timestamp are included in the calculation of the report. */
-            dataLastRefreshed?: string;
-            /** Minimum and maximum values seen over all matching rows. These are both */
-            /** empty when `hideValueRanges` in the request is false, or when */
-            /** rowCount is zero. */
-            maximums?: DateRangeValues[];
         }
         
         interface DimensionFilter {
-            /** Should the match be case sensitive? Default is false. */
-            caseSensitive?: boolean;
             /** How to match the dimension to the expression. The default is REGEXP. */
             operator?: string;
             /** The dimension to filter on. A DimensionFilter must contain a dimension. */
@@ -175,6 +256,8 @@ declare namespace gapi.client {
             /** Logical `NOT` operator. If this boolean is set to true, then the matching */
             /** dimension values will be excluded in the report. The default is false. */
             not?: boolean;
+            /** Should the match be case sensitive? Default is false. */
+            caseSensitive?: boolean;
         }
         
         interface Segment {
@@ -197,18 +280,18 @@ declare namespace gapi.client {
         }
         
         interface SegmentDimensionFilter {
-            /** Minimum comparison values for `BETWEEN` match type. */
-            minComparisonValue?: string;
-            /** Maximum comparison values for `BETWEEN` match type. */
-            maxComparisonValue?: string;
-            /** The operator to use to match the dimension with the expressions. */
-            operator?: string;
             /** Name of the dimension for which the filter is being applied. */
             dimensionName?: string;
+            /** The operator to use to match the dimension with the expressions. */
+            operator?: string;
             /** The list of expressions, only the first element is used for all operators */
             expressions?: string[];
             /** Should the match be case sensitive, ignored for `IN_LIST` operator. */
             caseSensitive?: boolean;
+            /** Minimum comparison values for `BETWEEN` match type. */
+            minComparisonValue?: string;
+            /** Maximum comparison values for `BETWEEN` match type. */
+            maxComparisonValue?: string;
         }
         
         interface SegmentSequenceStep {
@@ -221,6 +304,12 @@ declare namespace gapi.client {
         }
         
         interface Metric {
+            /** An alias for the metric expression is an alternate name for the */
+            /** expression. The alias can be used for filtering and sorting. This field */
+            /** is optional and is useful if the expression is not a single metric but */
+            /** a complex expression which cannot be used in filtering and sorting. */
+            /** The alias is also used in the response column header. */
+            alias?: string;
             /** A metric expression in the request. An expression is constructed from one */
             /** or more metrics and numbers. Accepted operators include: Plus (+), Minus */
             /** (-), Negation (Unary -), Divided by (/), Multiplied by (&#42;), Parenthesis, */
@@ -233,12 +322,6 @@ declare namespace gapi.client {
             /** Specifies how the metric expression should be formatted, for example */
             /** `INTEGER`. */
             formattingType?: string;
-            /** An alias for the metric expression is an alternate name for the */
-            /** expression. The alias can be used for filtering and sorting. This field */
-            /** is optional and is useful if the expression is not a single metric but */
-            /** a complex expression which cannot be used in filtering and sorting. */
-            /** The alias is also used in the response column header. */
-            alias?: string;
         }
         
         interface PivotValueRegion {
@@ -263,19 +346,13 @@ declare namespace gapi.client {
         }
         
         interface DateRange {
-            /** The end date for the query in the format `YYYY-MM-DD`. */
-            endDate?: string;
             /** The start date for the query in the format `YYYY-MM-DD`. */
             startDate?: string;
+            /** The end date for the query in the format `YYYY-MM-DD`. */
+            endDate?: string;
         }
         
         interface MetricFilter {
-            /** The metric that will be filtered on. A metricFilter must contain a metric */
-            /** name. A metric name can be an alias earlier defined as a metric or it can */
-            /** also be a metric expression. */
-            metricName?: string;
-            /** The value to compare against. */
-            comparisonValue?: string;
             /** Is the metric `EQUAL`, `LESS_THAN` or `GREATER_THAN` the */
             /** comparisonValue, the default is `EQUAL`. If the operator is */
             /** `IS_MISSING`, checks if the metric is missing and would ignore the */
@@ -284,6 +361,12 @@ declare namespace gapi.client {
             /** Logical `NOT` operator. If this boolean is set to true, then the matching */
             /** metric values will be excluded in the report. The default is false. */
             not?: boolean;
+            /** The metric that will be filtered on. A metricFilter must contain a metric */
+            /** name. A metric name can be an alias earlier defined as a metric or it can */
+            /** also be a metric expression. */
+            metricName?: string;
+            /** The value to compare against. */
+            comparisonValue?: string;
         }
         
         interface ReportRequest {
@@ -307,6 +390,11 @@ declare namespace gapi.client {
             /** If set to true, hides the total of all metrics for all the matching rows, */
             /** for every date range. The default false and will return the totals. */
             hideTotals?: boolean;
+            /** Cohort group associated with this request. If there is a cohort group */
+            /** in the request the `ga:cohort` dimension must be present. */
+            /** Every [ReportRequest](#ReportRequest) within a `batchGet` method must */
+            /** contain the same `cohortGroup` definition. */
+            cohortGroup?: CohortGroup;
             /** Dimension or metric filters that restrict the data returned for your */
             /** request. To use the `filtersExpression`, supply a dimension or metric on */
             /** which to filter, followed by the filter expression. For example, the */
@@ -315,11 +403,6 @@ declare namespace gapi.client {
             /** and metric filters, see */
             /** [Filters reference](https://developers.google.com/analytics/devguides/reporting/core/v3/reference#filters). */
             filtersExpression?: string;
-            /** Cohort group associated with this request. If there is a cohort group */
-            /** in the request the `ga:cohort` dimension must be present. */
-            /** Every [ReportRequest](#ReportRequest) within a `batchGet` method must */
-            /** contain the same `cohortGroup` definition. */
-            cohortGroup?: CohortGroup;
             /** The Analytics */
             /** [view ID](https://support.google.com/analytics/answer/1009618) */
             /** from which to retrieve data. Every [ReportRequest](#ReportRequest) */
@@ -417,6 +500,12 @@ declare namespace gapi.client {
             name?: string;
         }
         
+        interface SimpleSegment {
+            /** A list of segment filters groups which are combined with logical `AND` */
+            /** operator. */
+            orFiltersForSegment?: OrFiltersForSegment[];
+        }
+        
         interface DynamicSegment {
             /** Session Segment to select sessions to include in the segment. */
             sessionSegment?: SegmentDefinition;
@@ -424,12 +513,6 @@ declare namespace gapi.client {
             name?: string;
             /** User Segment to select users to include in the segment. */
             userSegment?: SegmentDefinition;
-        }
-        
-        interface SimpleSegment {
-            /** A list of segment filters groups which are combined with logical `AND` */
-            /** operator. */
-            orFiltersForSegment?: OrFiltersForSegment[];
         }
         
         interface ColumnHeader {
@@ -440,19 +523,19 @@ declare namespace gapi.client {
         }
         
         interface SegmentFilterClause {
+            /** Metric Filter for the segment definition. */
+            metricFilter?: SegmentMetricFilter;
             /** Matches the complement (`!`) of the filter. */
             not?: boolean;
             /** Dimension Filter for the segment definition. */
             dimensionFilter?: SegmentDimensionFilter;
-            /** Metric Filter for the segment definition. */
-            metricFilter?: SegmentMetricFilter;
         }
         
         interface ReportRow {
-            /** List of metrics for each requested DateRange. */
-            metrics?: DateRangeValues[];
             /** List of requested dimensions. */
             dimensions?: string[];
+            /** List of metrics for each requested DateRange. */
+            metrics?: DateRangeValues[];
         }
         
         interface Cohort {
@@ -492,106 +575,15 @@ declare namespace gapi.client {
         }
         
         interface MetricHeader {
-            /** Headers for the metrics in the response. */
-            metricHeaderEntries?: MetricHeaderEntry[];
             /** Headers for the pivots in the response. */
             pivotHeaders?: PivotHeader[];
-        }
-        
-        interface DimensionFilterClause {
-            /** The repeated set of filters. They are logically combined based on the */
-            /** operator specified. */
-            filters?: DimensionFilter[];
-            /** The operator for combining multiple dimension filters. If unspecified, it */
-            /** is treated as an `OR`. */
-            operator?: string;
-        }
-        
-        interface GetReportsResponse {
-            /** Responses corresponding to each of the request. */
-            reports?: Report[];
-        }
-        
-        interface SequenceSegment {
-            /** The list of steps in the sequence. */
-            segmentSequenceSteps?: SegmentSequenceStep[];
-            /** If set, first step condition must match the first hit of the visitor (in */
-            /** the date range). */
-            firstStepShouldMatchFirstHit?: boolean;
-        }
-        
-        interface SegmentMetricFilter {
-            /** The metric that will be filtered on. A `metricFilter` must contain a */
-            /** metric name. */
-            metricName?: string;
-            /** Scope for a metric defines the level at which that metric is defined.  The */
-            /** specified metric scope must be equal to or greater than its primary scope */
-            /** as defined in the data model. The primary scope is defined by if the */
-            /** segment is selecting users or sessions. */
-            scope?: string;
-            /** Max comparison value is only used for `BETWEEN` operator. */
-            maxComparisonValue?: string;
-            /** The value to compare against. If the operator is `BETWEEN`, this value is */
-            /** treated as minimum comparison value. */
-            comparisonValue?: string;
-            /** Specifies is the operation to perform to compare the metric. The default */
-            /** is `EQUAL`. */
-            operator?: string;
-        }
-        
-        interface DateRangeValues {
-            /** Each value corresponds to each Metric in the request. */
-            values?: string[];
-            /** The values of each pivot region. */
-            pivotValueRegions?: PivotValueRegion[];
-        }
-        
-        interface CohortGroup {
-            /** Enable Life Time Value (LTV).  LTV measures lifetime value for users */
-            /** acquired through different channels. */
-            /** Please see: */
-            /** [Cohort Analysis](https://support.google.com/analytics/answer/6074676) and */
-            /** [Lifetime Value](https://support.google.com/analytics/answer/6182550) */
-            /** If the value of lifetimeValue is false: */
-            /**  */
-            /** - The metric values are similar to the values in the web interface cohort */
-            /**   report. */
-            /** - The cohort definition date ranges must be aligned to the calendar week */
-            /**   and month. i.e. while requesting `ga:cohortNthWeek` the `startDate` in */
-            /**   the cohort definition should be a Sunday and the `endDate` should be the */
-            /**   following Saturday, and for `ga:cohortNthMonth`, the `startDate` */
-            /**   should be the 1st of the month and `endDate` should be the last day */
-            /**   of the month. */
-            /**  */
-            /** When the lifetimeValue is true: */
-            /**  */
-            /** - The metric values will correspond to the values in the web interface */
-            /**   LifeTime value report. */
-            /** - The Lifetime Value report shows you how user value (Revenue) and */
-            /**   engagement (Appviews, Goal Completions, Sessions, and Session Duration) */
-            /**   grow during the 90 days after a user is acquired. */
-            /** - The metrics are calculated as a cumulative average per user per the time */
-            /**   increment. */
-            /** - The cohort definition date ranges need not be aligned to the calendar */
-            /**   week and month boundaries. */
-            /** - The `viewId` must be an */
-            /**   [app view ID](https://support.google.com/analytics/answer/2649553#WebVersusAppViews) */
-            lifetimeValue?: boolean;
-            /** The definition for the cohort. */
-            cohorts?: Cohort[];
+            /** Headers for the metrics in the response. */
+            metricHeaderEntries?: MetricHeaderEntry[];
         }
         
         interface ReportsResource {
             /** Returns the Analytics data. */
             batchGet(request: {            
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** JSONP */
-                callback?: string;
                 /** Data format for response. */
                 alt?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
@@ -610,7 +602,15 @@ declare namespace gapi.client {
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-            }): gapi.client.Request<GetReportsResponse>;            
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+            }): Request<GetReportsResponse>;            
             
         }
     }

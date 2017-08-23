@@ -207,7 +207,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The ID of the achievement used by this method. */
                 achievementId: string;
-            }): gapi.client.Request<AchievementResetResponse>;            
+            }): Request<AchievementResetResponse>;            
             
             /** Resets all achievements for the currently authenticated player for your application. This method is only accessible to whitelisted tester accounts for your application. */
             resetAll(request: {            
@@ -225,7 +225,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<AchievementResetAllResponse>;            
+            }): Request<AchievementResetAllResponse>;            
             
             /** Resets all draft achievements for all players. This method is only available to user accounts for your developer console. */
             resetAllForAllPlayers(request: {            
@@ -243,7 +243,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Resets the achievement with the given ID for all players. This method is only available to user accounts for your developer console. Only draft achievements can be reset. */
             resetForAllPlayers(request: {            
@@ -263,7 +263,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The ID of the achievement used by this method. */
                 achievementId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Resets achievements with the given IDs for all players. This method is only available to user accounts for your developer console. Only draft achievements may be reset. */
             resetMultipleForAllPlayers(request: {            
@@ -281,7 +281,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
         }
         
@@ -308,7 +308,7 @@ declare namespace gapi.client {
                 maxResults?: number;
                 /** The token returned by the previous request. */
                 pageToken?: string;
-            }): gapi.client.Request<HiddenPlayerList>;            
+            }): Request<HiddenPlayerList>;            
             
         }
         
@@ -331,7 +331,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The ID of the event. */
                 eventId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Resets all player progress on all events for the currently authenticated player. This method is only accessible to whitelisted tester accounts for your application. All quests for this player will also be reset. */
             resetAll(request: {            
@@ -349,7 +349,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Resets all draft events for all players. This method is only available to user accounts for your developer console. All quests that use any of these events will also be reset. */
             resetAllForAllPlayers(request: {            
@@ -367,7 +367,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Resets the event with the given ID for all players. This method is only available to user accounts for your developer console. Only draft events can be reset. All quests that use the event will also be reset. */
             resetForAllPlayers(request: {            
@@ -387,7 +387,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The ID of the event. */
                 eventId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Resets events with the given IDs for all players. This method is only available to user accounts for your developer console. Only draft events may be reset. All quests that use any of the events will also be reset. */
             resetMultipleForAllPlayers(request: {            
@@ -405,7 +405,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
         }
         
@@ -430,7 +430,7 @@ declare namespace gapi.client {
                 applicationId: string;
                 /** A player ID. A value of me may be used in place of the authenticated player's ID. */
                 playerId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Unhide the given player's leaderboard scores from the given application. This method is only available to user accounts for your developer console. */
             unhide(request: {            
@@ -452,7 +452,7 @@ declare namespace gapi.client {
                 applicationId: string;
                 /** A player ID. A value of me may be used in place of the authenticated player's ID. */
                 playerId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
         }
         
@@ -475,7 +475,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The ID of the quest. */
                 questId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Resets all player progress on all quests for the currently authenticated player. This method is only accessible to whitelisted tester accounts for your application. */
             resetAll(request: {            
@@ -493,7 +493,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Resets all draft quests for all players. This method is only available to user accounts for your developer console. */
             resetAllForAllPlayers(request: {            
@@ -511,7 +511,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Resets all player progress on the quest with the given ID for all players. This method is only available to user accounts for your developer console. Only draft quests can be reset. */
             resetForAllPlayers(request: {            
@@ -531,7 +531,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The ID of the quest. */
                 questId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Resets quests with the given IDs for all players. This method is only available to user accounts for your developer console. Only draft quests may be reset. */
             resetMultipleForAllPlayers(request: {            
@@ -549,7 +549,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
         }
         
@@ -570,7 +570,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Deletes rooms where the only room participants are from whitelisted tester accounts for your application. This method is only available to user accounts for your developer console. */
             resetForAllPlayers(request: {            
@@ -588,7 +588,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
         }
         
@@ -611,7 +611,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The ID of the leaderboard. */
                 leaderboardId: string;
-            }): gapi.client.Request<PlayerScoreResetResponse>;            
+            }): Request<PlayerScoreResetResponse>;            
             
             /** Resets all scores for all leaderboards for the currently authenticated players. This method is only accessible to whitelisted tester accounts for your application. */
             resetAll(request: {            
@@ -629,7 +629,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<PlayerScoreResetAllResponse>;            
+            }): Request<PlayerScoreResetAllResponse>;            
             
             /** Resets scores for all draft leaderboards for all players. This method is only available to user accounts for your developer console. */
             resetAllForAllPlayers(request: {            
@@ -647,7 +647,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Resets scores for the leaderboard with the given ID for all players. This method is only available to user accounts for your developer console. Only draft leaderboards can be reset. */
             resetForAllPlayers(request: {            
@@ -667,7 +667,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The ID of the leaderboard. */
                 leaderboardId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Resets scores for the leaderboards with the given IDs for all players. This method is only available to user accounts for your developer console. Only draft leaderboards may be reset. */
             resetMultipleForAllPlayers(request: {            
@@ -685,7 +685,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
         }
         
@@ -706,7 +706,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Deletes turn-based matches where the only match participants are from whitelisted tester accounts for your application. This method is only available to user accounts for your developer console. */
             resetForAllPlayers(request: {            
@@ -724,7 +724,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
         }
     }

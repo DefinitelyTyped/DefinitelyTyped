@@ -393,7 +393,7 @@ declare namespace gapi.client {
                 accountType: string;
                 /** The ID for the user. */
                 userToken: string;
-            }): gapi.client.Request<Account>;            
+            }): Request<Account>;            
             
         }
         
@@ -416,7 +416,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The ID of the contact. */
                 id: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Gets a single contact by ID. */
             get(request: {            
@@ -436,7 +436,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The ID of the contact. */
                 id: string;
-            }): gapi.client.Request<Contact>;            
+            }): Request<Contact>;            
             
             /** Inserts a new contact. */
             insert(request: {            
@@ -454,7 +454,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<Contact>;            
+            }): Request<Contact>;            
             
             /** Retrieves a list of contacts for the authenticated user. */
             list(request: {            
@@ -472,7 +472,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<ContactsListResponse>;            
+            }): Request<ContactsListResponse>;            
             
             /** Updates a contact in place. This method supports patch semantics. */
             patch(request: {            
@@ -492,7 +492,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The ID of the contact. */
                 id: string;
-            }): gapi.client.Request<Contact>;            
+            }): Request<Contact>;            
             
             /** Updates a contact in place. */
             update(request: {            
@@ -512,7 +512,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The ID of the contact. */
                 id: string;
-            }): gapi.client.Request<Contact>;            
+            }): Request<Contact>;            
             
         }
         
@@ -535,7 +535,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The ID of the location or latest for the last known location. */
                 id: string;
-            }): gapi.client.Request<Location>;            
+            }): Request<Location>;            
             
             /** Retrieves a list of locations for the user. */
             list(request: {            
@@ -553,7 +553,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<LocationsListResponse>;            
+            }): Request<LocationsListResponse>;            
             
         }
         
@@ -578,7 +578,7 @@ declare namespace gapi.client {
                 /** - locale - The key to the user’s language/locale (BCP 47 identifier) that Glassware should use to render localized content.  */
                 /** - timezone - The key to the user’s current time zone region as defined in the tz database. Example: America/Los_Angeles. */
                 id: string;
-            }): gapi.client.Request<Setting>;            
+            }): Request<Setting>;            
             
         }
         
@@ -601,7 +601,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The ID of the subscription. */
                 id: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Creates a new subscription. */
             insert(request: {            
@@ -619,7 +619,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<Subscription>;            
+            }): Request<Subscription>;            
             
             /** Retrieves a list of subscriptions for the authenticated user and service. */
             list(request: {            
@@ -637,7 +637,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<SubscriptionsListResponse>;            
+            }): Request<SubscriptionsListResponse>;            
             
             /** Updates an existing subscription in place. */
             update(request: {            
@@ -657,7 +657,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The ID of the subscription. */
                 id: string;
-            }): gapi.client.Request<Subscription>;            
+            }): Request<Subscription>;            
             
         }
         
@@ -682,7 +682,7 @@ declare namespace gapi.client {
                 attachmentId: string;
                 /** The ID of the timeline item the attachment belongs to. */
                 itemId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Retrieves an attachment on a timeline item by item ID and attachment ID. */
             get(request: {            
@@ -704,7 +704,7 @@ declare namespace gapi.client {
                 attachmentId: string;
                 /** The ID of the timeline item the attachment belongs to. */
                 itemId: string;
-            }): gapi.client.Request<Attachment>;            
+            }): Request<Attachment>;            
             
             /** Adds a new attachment to a timeline item. */
             insert(request: {            
@@ -724,7 +724,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The ID of the timeline item the attachment belongs to. */
                 itemId: string;
-            }): gapi.client.Request<Attachment>;            
+            }): Request<Attachment>;            
             
             /** Returns a list of attachments for a timeline item. */
             list(request: {            
@@ -744,7 +744,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The ID of the timeline item whose attachments should be listed. */
                 itemId: string;
-            }): gapi.client.Request<AttachmentsListResponse>;            
+            }): Request<AttachmentsListResponse>;            
             
         }
         
@@ -767,7 +767,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The ID of the timeline item. */
                 id: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Gets a single timeline item by ID. */
             get(request: {            
@@ -787,7 +787,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The ID of the timeline item. */
                 id: string;
-            }): gapi.client.Request<TimelineItem>;            
+            }): Request<TimelineItem>;            
             
             /** Inserts a new item into the timeline. */
             insert(request: {            
@@ -805,7 +805,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<TimelineItem>;            
+            }): Request<TimelineItem>;            
             
             /** Retrieves a list of timeline items for the authenticated user. */
             list(request: {            
@@ -837,7 +837,7 @@ declare namespace gapi.client {
                 pinnedOnly?: boolean;
                 /** If provided, only items with the given sourceItemId will be returned. */
                 sourceItemId?: string;
-            }): gapi.client.Request<TimelineListResponse>;            
+            }): Request<TimelineListResponse>;            
             
             /** Updates a timeline item in place. This method supports patch semantics. */
             patch(request: {            
@@ -857,7 +857,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The ID of the timeline item. */
                 id: string;
-            }): gapi.client.Request<TimelineItem>;            
+            }): Request<TimelineItem>;            
             
             /** Updates a timeline item in place. */
             update(request: {            
@@ -877,7 +877,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The ID of the timeline item. */
                 id: string;
-            }): gapi.client.Request<TimelineItem>;            
+            }): Request<TimelineItem>;            
             
             attachments: AttachmentsResource;
         }

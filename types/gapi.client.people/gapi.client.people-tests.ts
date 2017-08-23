@@ -14,6 +14,18 @@ gapi.load('client', () => {
         // declare client_id registered in Google Developers Console
         const client_id = '<<PUT YOUR CLIENT ID HERE>>';
         const scope = [     
+                // View your phone numbers
+                'https://www.googleapis.com/auth/user.phonenumbers.read',
+            
+                // View your email address
+                'https://www.googleapis.com/auth/userinfo.email',
+            
+                // View your contacts
+                'https://www.googleapis.com/auth/contacts.readonly',
+            
+                // View your complete date of birth
+                'https://www.googleapis.com/auth/user.birthday.read',
+            
                 // Know the list of people in your circles, your age range, and language
                 'https://www.googleapis.com/auth/plus.login',
             
@@ -28,18 +40,6 @@ gapi.load('client', () => {
             
                 // View your street addresses
                 'https://www.googleapis.com/auth/user.addresses.read',
-            
-                // View your email address
-                'https://www.googleapis.com/auth/userinfo.email',
-            
-                // View your phone numbers
-                'https://www.googleapis.com/auth/user.phonenumbers.read',
-            
-                // View your contacts
-                'https://www.googleapis.com/auth/contacts.readonly',
-            
-                // View your complete date of birth
-                'https://www.googleapis.com/auth/user.birthday.read',
             ];
         const immediate = true;
 
@@ -54,9 +54,6 @@ gapi.load('client', () => {
     });
 
     async function run() {  
-        
-        // Create a new contact group owned by the authenticated user.
-        await gapi.client.contactGroups.create({  }); 
         
         // Get a specific contact group owned by the authenticated user by specifying
         // a contact group resource name.
@@ -78,6 +75,22 @@ gapi.load('client', () => {
         // contact groups are not populated.
         await gapi.client.contactGroups.list({  }); 
         
+        // Create a new contact group owned by the authenticated user.
+        await gapi.client.contactGroups.create({  }); 
+        
+        // Provides information about a list of specific people by specifying a list
+        // of requested resource names. Use `people/me` to indicate the authenticated
+        // user.
+        // <br>
+        // The request throws a 400 error if 'personFields' is not specified.
+        await gapi.client.people.getBatchGet({  }); 
+        
+        // Provides information about a person by specifying a resource name. Use
+        // `people/me` to indicate the authenticated user.
+        // <br>
+        // The request throws a 400 error if 'personFields' is not specified.
+        await gapi.client.people.get({ resourceName: "resourceName",  }); 
+        
         // Update contact data for an existing contact person. Any non-contact data
         // will not be modified.
         // 
@@ -96,19 +109,6 @@ gapi.load('client', () => {
         await gapi.client.people.createContact({  }); 
         
         // Delete a contact person. Any non-contact data will not be deleted.
-        await gapi.client.people.deleteContact({ resourceName: "resourceName",  }); 
-        
-        // Provides information about a list of specific people by specifying a list
-        // of requested resource names. Use `people/me` to indicate the authenticated
-        // user.
-        // <br>
-        // The request throws a 400 error if 'personFields' is not specified.
-        await gapi.client.people.getBatchGet({  }); 
-        
-        // Provides information about a person by specifying a resource name. Use
-        // `people/me` to indicate the authenticated user.
-        // <br>
-        // The request throws a 400 error if 'personFields' is not specified.
-        await gapi.client.people.get({ resourceName: "resourceName",  });
+        await gapi.client.people.deleteContact({ resourceName: "resourceName",  });
     }
 });

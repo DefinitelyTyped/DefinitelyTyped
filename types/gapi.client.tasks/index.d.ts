@@ -118,7 +118,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Task list identifier. */
                 tasklist: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Returns the authenticated user's specified task list. */
             get(request: {            
@@ -138,7 +138,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Task list identifier. */
                 tasklist: string;
-            }): gapi.client.Request<TaskList>;            
+            }): Request<TaskList>;            
             
             /** Creates a new task list and adds it to the authenticated user's task lists. */
             insert(request: {            
@@ -156,7 +156,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<TaskList>;            
+            }): Request<TaskList>;            
             
             /** Returns all the authenticated user's task lists. */
             list(request: {            
@@ -178,7 +178,7 @@ declare namespace gapi.client {
                 maxResults?: string;
                 /** Token specifying the result page to return. Optional. */
                 pageToken?: string;
-            }): gapi.client.Request<TaskLists>;            
+            }): Request<TaskLists>;            
             
             /** Updates the authenticated user's specified task list. This method supports patch semantics. */
             patch(request: {            
@@ -198,7 +198,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Task list identifier. */
                 tasklist: string;
-            }): gapi.client.Request<TaskList>;            
+            }): Request<TaskList>;            
             
             /** Updates the authenticated user's specified task list. */
             update(request: {            
@@ -218,7 +218,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Task list identifier. */
                 tasklist: string;
-            }): gapi.client.Request<TaskList>;            
+            }): Request<TaskList>;            
             
         }
         
@@ -241,7 +241,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Task list identifier. */
                 tasklist: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Deletes the specified task from the task list. */
             delete(request: {            
@@ -263,7 +263,7 @@ declare namespace gapi.client {
                 task: string;
                 /** Task list identifier. */
                 tasklist: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Returns the specified task. */
             get(request: {            
@@ -285,7 +285,7 @@ declare namespace gapi.client {
                 task: string;
                 /** Task list identifier. */
                 tasklist: string;
-            }): gapi.client.Request<Task>;            
+            }): Request<Task>;            
             
             /** Creates a new task on the specified task list. */
             insert(request: {            
@@ -309,7 +309,7 @@ declare namespace gapi.client {
                 previous?: string;
                 /** Task list identifier. */
                 tasklist: string;
-            }): gapi.client.Request<Task>;            
+            }): Request<Task>;            
             
             /** Returns all tasks in the specified task list. */
             list(request: {            
@@ -349,7 +349,7 @@ declare namespace gapi.client {
                 tasklist: string;
                 /** Lower bound for a task's last modification time (as a RFC 3339 timestamp) to filter by. Optional. The default is not to filter by last modification time. */
                 updatedMin?: string;
-            }): gapi.client.Request<Tasks>;            
+            }): Request<Tasks>;            
             
             /** Moves the specified task to another position in the task list. This can include putting it as a child task under a new parent and/or move it to a different position among its sibling tasks. */
             move(request: {            
@@ -375,7 +375,7 @@ declare namespace gapi.client {
                 task: string;
                 /** Task list identifier. */
                 tasklist: string;
-            }): gapi.client.Request<Task>;            
+            }): Request<Task>;            
             
             /** Updates the specified task. This method supports patch semantics. */
             patch(request: {            
@@ -397,7 +397,7 @@ declare namespace gapi.client {
                 task: string;
                 /** Task list identifier. */
                 tasklist: string;
-            }): gapi.client.Request<Task>;            
+            }): Request<Task>;            
             
             /** Updates the specified task. */
             update(request: {            
@@ -419,7 +419,7 @@ declare namespace gapi.client {
                 task: string;
                 /** Task list identifier. */
                 tasklist: string;
-            }): gapi.client.Request<Task>;            
+            }): Request<Task>;            
             
         }
     }

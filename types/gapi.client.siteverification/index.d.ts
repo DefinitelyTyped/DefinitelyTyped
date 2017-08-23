@@ -77,7 +77,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The id of a verified site or domain. */
                 id: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Get the most current data for a website or domain. */
             get(request: {            
@@ -97,7 +97,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The id of a verified site or domain. */
                 id: string;
-            }): gapi.client.Request<SiteVerificationWebResourceResource>;            
+            }): Request<SiteVerificationWebResourceResource>;            
             
             /** Get a verification token for placing on a website or domain. */
             getToken(request: {            
@@ -115,7 +115,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<SiteVerificationWebResourceGettokenResponse>;            
+            }): Request<SiteVerificationWebResourceGettokenResponse>;            
             
             /** Attempt verification of a website or domain. */
             insert(request: {            
@@ -135,7 +135,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The method to use for verifying a site or domain. */
                 verificationMethod: string;
-            }): gapi.client.Request<SiteVerificationWebResourceResource>;            
+            }): Request<SiteVerificationWebResourceResource>;            
             
             /** Get the list of your verified websites and domains. */
             list(request: {            
@@ -153,7 +153,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<SiteVerificationWebResourceListResponse>;            
+            }): Request<SiteVerificationWebResourceListResponse>;            
             
             /** Modify the list of owners for your website or domain. This method supports patch semantics. */
             patch(request: {            
@@ -173,7 +173,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The id of a verified site or domain. */
                 id: string;
-            }): gapi.client.Request<SiteVerificationWebResourceResource>;            
+            }): Request<SiteVerificationWebResourceResource>;            
             
             /** Modify the list of owners for your website or domain. */
             update(request: {            
@@ -193,7 +193,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The id of a verified site or domain. */
                 id: string;
-            }): gapi.client.Request<SiteVerificationWebResourceResource>;            
+            }): Request<SiteVerificationWebResourceResource>;            
             
         }
     }

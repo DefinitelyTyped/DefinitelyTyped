@@ -21,13 +21,13 @@ declare namespace gapi.client {
     namespace kgsearch {
         
         interface SearchResponse {
+            /** The schema type of top-level JSON-LD object, e.g. ItemList. */
+            "@type"?: any;
             /** The item list of search results. */
             itemListElement?: any[];
             /** The local context applicable for the response. See more details at */
             /** http://www.w3.org/TR/json-ld/#context-definitions. */
             "@context"?: any;
-            /** The schema type of top-level JSON-LD object, e.g. ItemList. */
-            "@type"?: any;
         }
         
         interface EntitiesResource {
@@ -35,12 +35,6 @@ declare namespace gapi.client {
             /** A list of matched entities will be returned in response, which will be in */
             /** JSON-LD format and compatible with http://schema.org */
             search(request: {            
-                /** Data format for response. */
-                alt?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
                 quotaUser?: string;
                 /** Pretty-print response. */
@@ -61,6 +55,16 @@ declare namespace gapi.client {
                 "$.xgafv"?: string;
                 /** JSONP */
                 callback?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** Enables prefix match against names and aliases of entities */
+                prefix?: boolean;
+                /** The literal query string for search. */
+                query?: string;
                 /** Restricts returned entities with these types, e.g. Person */
                 /** (as defined in http://schema.org/Person). If multiple types are specified, */
                 /** returned entities will contain one or more of these types. */
@@ -76,11 +80,7 @@ declare namespace gapi.client {
                 ids?: string;
                 /** Limits the number of entities to be returned. */
                 limit?: number;
-                /** Enables prefix match against names and aliases of entities */
-                prefix?: boolean;
-                /** The literal query string for search. */
-                query?: string;
-            }): gapi.client.Request<SearchResponse>;            
+            }): Request<SearchResponse>;            
             
         }
     }

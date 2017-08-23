@@ -82,7 +82,7 @@ declare namespace gapi {
         /**
          * An object encapsulating an HTTP request. This object is not instantiated directly, rather it is returned by gapi.client.request.
          */
-        interface Request<T> extends PromiseLike<Response<T>> {
+        interface Request<T> extends Promise<Response<T>> {
             /**
              * Executes the request and runs the supplied callback on response.
              * @param callback The callback function which executes when the request succeeds or fails.
@@ -102,7 +102,7 @@ declare namespace gapi {
         /**
          * Represents an HTTP Batch operation. Individual HTTP requests are added with the add method and the batch is executed using execute.
          */
-        interface Batch<T> extends PromiseLike<Response<ResponseMap<T>>> {
+        interface Batch<T> extends Promise<Response<ResponseMap<T>>> {
             /**
              * Adds a gapi.client.Request to the batch.
              * @param request The HTTP request to add to this batch.

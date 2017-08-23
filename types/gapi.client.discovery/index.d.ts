@@ -283,7 +283,7 @@ declare namespace gapi.client {
                 api: string;
                 /** The version of the API. */
                 version: string;
-            }): gapi.client.Request<RestDescription>;            
+            }): Request<RestDescription>;            
             
             /** Retrieve the list of APIs supported at this endpoint. */
             list(request: {            
@@ -305,7 +305,7 @@ declare namespace gapi.client {
                 name?: string;
                 /** Return only the preferred version of an API. */
                 preferred?: boolean;
-            }): gapi.client.Request<DirectoryList>;            
+            }): Request<DirectoryList>;            
             
         }
     }

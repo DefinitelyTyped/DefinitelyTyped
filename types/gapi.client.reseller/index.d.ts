@@ -227,7 +227,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Either the customer's primary domain name or the customer's unique identifier. If using the domain name, we do not recommend using a customerId as a key for persistent data. If the domain name for a customerId is changed, the Google system automatically updates. */
                 customerId: string;
-            }): gapi.client.Request<Customer>;            
+            }): Request<Customer>;            
             
             /** Order a new customer's account. */
             insert(request: {            
@@ -247,7 +247,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The customerAuthToken query string is required when creating a resold account that transfers a direct customer's subscription or transfers another reseller customer's subscription to your reseller management. This is a hexadecimal authentication token needed to complete the subscription transfer. For more information, see the administrator help center. */
                 customerAuthToken?: string;
-            }): gapi.client.Request<Customer>;            
+            }): Request<Customer>;            
             
             /** Update a customer account's settings. This method supports patch semantics. */
             patch(request: {            
@@ -267,7 +267,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Either the customer's primary domain name or the customer's unique identifier. If using the domain name, we do not recommend using a customerId as a key for persistent data. If the domain name for a customerId is changed, the Google system automatically updates. */
                 customerId: string;
-            }): gapi.client.Request<Customer>;            
+            }): Request<Customer>;            
             
             /** Update a customer account's settings. */
             update(request: {            
@@ -287,7 +287,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Either the customer's primary domain name or the customer's unique identifier. If using the domain name, we do not recommend using a customerId as a key for persistent data. If the domain name for a customerId is changed, the Google system automatically updates. */
                 customerId: string;
-            }): gapi.client.Request<Customer>;            
+            }): Request<Customer>;            
             
         }
         
@@ -308,7 +308,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<ResellernotifyGetwatchdetailsResponse>;            
+            }): Request<ResellernotifyGetwatchdetailsResponse>;            
             
             /** Registers a Reseller for receiving notifications. */
             register(request: {            
@@ -328,7 +328,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The service account which will own the created Cloud-PubSub topic. */
                 serviceAccountEmailAddress?: string;
-            }): gapi.client.Request<ResellernotifyResource>;            
+            }): Request<ResellernotifyResource>;            
             
             /** Unregisters a Reseller for receiving notifications. */
             unregister(request: {            
@@ -348,7 +348,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The service account which owns the Cloud-PubSub topic. */
                 serviceAccountEmailAddress?: string;
-            }): gapi.client.Request<ResellernotifyResource>;            
+            }): Request<ResellernotifyResource>;            
             
         }
         
@@ -373,7 +373,7 @@ declare namespace gapi.client {
                 customerId: string;
                 /** This is a required property. The subscriptionId is the subscription identifier and is unique for each customer. Since a subscriptionId changes when a subscription is updated, we recommend to not use this ID as a key for persistent data. And the subscriptionId can be found using the retrieve all reseller subscriptions method. */
                 subscriptionId: string;
-            }): gapi.client.Request<Subscription>;            
+            }): Request<Subscription>;            
             
             /** Update a subscription plan. Use this method to update a plan for a 30-day trial or a flexible plan subscription to an annual commitment plan with monthly or yearly payments. */
             changePlan(request: {            
@@ -395,7 +395,7 @@ declare namespace gapi.client {
                 customerId: string;
                 /** This is a required property. The subscriptionId is the subscription identifier and is unique for each customer. Since a subscriptionId changes when a subscription is updated, we recommend to not use this ID as a key for persistent data. And the subscriptionId can be found using the retrieve all reseller subscriptions method. */
                 subscriptionId: string;
-            }): gapi.client.Request<Subscription>;            
+            }): Request<Subscription>;            
             
             /** Update a user license's renewal settings. This is applicable for accounts with annual commitment plans only. */
             changeRenewalSettings(request: {            
@@ -417,7 +417,7 @@ declare namespace gapi.client {
                 customerId: string;
                 /** This is a required property. The subscriptionId is the subscription identifier and is unique for each customer. Since a subscriptionId changes when a subscription is updated, we recommend to not use this ID as a key for persistent data. And the subscriptionId can be found using the retrieve all reseller subscriptions method. */
                 subscriptionId: string;
-            }): gapi.client.Request<Subscription>;            
+            }): Request<Subscription>;            
             
             /** Update a subscription's user license settings. */
             changeSeats(request: {            
@@ -439,7 +439,7 @@ declare namespace gapi.client {
                 customerId: string;
                 /** This is a required property. The subscriptionId is the subscription identifier and is unique for each customer. Since a subscriptionId changes when a subscription is updated, we recommend to not use this ID as a key for persistent data. And the subscriptionId can be found using the retrieve all reseller subscriptions method. */
                 subscriptionId: string;
-            }): gapi.client.Request<Subscription>;            
+            }): Request<Subscription>;            
             
             /** Cancel, suspend or transfer a subscription to direct. */
             delete(request: {            
@@ -463,7 +463,7 @@ declare namespace gapi.client {
                 deletionType: string;
                 /** This is a required property. The subscriptionId is the subscription identifier and is unique for each customer. Since a subscriptionId changes when a subscription is updated, we recommend to not use this ID as a key for persistent data. And the subscriptionId can be found using the retrieve all reseller subscriptions method. */
                 subscriptionId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Get a specific subscription. */
             get(request: {            
@@ -485,7 +485,7 @@ declare namespace gapi.client {
                 customerId: string;
                 /** This is a required property. The subscriptionId is the subscription identifier and is unique for each customer. Since a subscriptionId changes when a subscription is updated, we recommend to not use this ID as a key for persistent data. And the subscriptionId can be found using the retrieve all reseller subscriptions method. */
                 subscriptionId: string;
-            }): gapi.client.Request<Subscription>;            
+            }): Request<Subscription>;            
             
             /** Create or transfer a subscription. */
             insert(request: {            
@@ -507,7 +507,7 @@ declare namespace gapi.client {
                 customerAuthToken?: string;
                 /** Either the customer's primary domain name or the customer's unique identifier. If using the domain name, we do not recommend using a customerId as a key for persistent data. If the domain name for a customerId is changed, the Google system automatically updates. */
                 customerId: string;
-            }): gapi.client.Request<Subscription>;            
+            }): Request<Subscription>;            
             
             /** List of subscriptions managed by the reseller. The list can be all subscriptions, all of a customer's subscriptions, or all of a customer's transferable subscriptions. */
             list(request: {            
@@ -537,7 +537,7 @@ declare namespace gapi.client {
                 maxResults?: number;
                 /** Token to specify next page in the list */
                 pageToken?: string;
-            }): gapi.client.Request<Subscriptions>;            
+            }): Request<Subscriptions>;            
             
             /** Immediately move a 30-day free trial subscription to a paid service subscription. */
             startPaidService(request: {            
@@ -559,7 +559,7 @@ declare namespace gapi.client {
                 customerId: string;
                 /** This is a required property. The subscriptionId is the subscription identifier and is unique for each customer. Since a subscriptionId changes when a subscription is updated, we recommend to not use this ID as a key for persistent data. And the subscriptionId can be found using the retrieve all reseller subscriptions method. */
                 subscriptionId: string;
-            }): gapi.client.Request<Subscription>;            
+            }): Request<Subscription>;            
             
             /** Suspends an active subscription. */
             suspend(request: {            
@@ -581,7 +581,7 @@ declare namespace gapi.client {
                 customerId: string;
                 /** This is a required property. The subscriptionId is the subscription identifier and is unique for each customer. Since a subscriptionId changes when a subscription is updated, we recommend to not use this ID as a key for persistent data. And the subscriptionId can be found using the retrieve all reseller subscriptions method. */
                 subscriptionId: string;
-            }): gapi.client.Request<Subscription>;            
+            }): Request<Subscription>;            
             
         }
     }

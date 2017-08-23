@@ -738,7 +738,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The ID of the activity to get. */
                 activityId: string;
-            }): gapi.client.Request<Activity>;            
+            }): Request<Activity>;            
             
             /** Create a new activity for the authenticated user. */
             insert(request: {            
@@ -760,7 +760,7 @@ declare namespace gapi.client {
                 preview?: boolean;
                 /** The ID of the user to create the activity on behalf of. Its value should be "me", to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<Activity>;            
+            }): Request<Activity>;            
             
             /** List all of the activities in the specified collection for a particular user. */
             list(request: {            
@@ -786,7 +786,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** The ID of the user to get activities for. The special value "me" can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<ActivityFeed>;            
+            }): Request<ActivityFeed>;            
             
         }
         
@@ -813,7 +813,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** The ID of the user to get audiences for. The special value "me" can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<AudiencesFeed>;            
+            }): Request<AudiencesFeed>;            
             
         }
         
@@ -840,7 +840,7 @@ declare namespace gapi.client {
                 email?: string;
                 /** IDs of the people to add to the circle. Optional, can be repeated. */
                 userId?: string;
-            }): gapi.client.Request<Circle>;            
+            }): Request<Circle>;            
             
             /** Get a circle. */
             get(request: {            
@@ -860,7 +860,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The ID of the circle to get. */
                 circleId: string;
-            }): gapi.client.Request<Circle>;            
+            }): Request<Circle>;            
             
             /** Create a new circle for the authenticated user. */
             insert(request: {            
@@ -880,7 +880,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The ID of the user to create the circle on behalf of. The value "me" can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<Circle>;            
+            }): Request<Circle>;            
             
             /** List all of the circles for a user. */
             list(request: {            
@@ -904,7 +904,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** The ID of the user to get circles for. The special value "me" can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<CircleFeed>;            
+            }): Request<CircleFeed>;            
             
             /** Update a circle's description. This method supports patch semantics. */
             patch(request: {            
@@ -924,7 +924,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The ID of the circle to update. */
                 circleId: string;
-            }): gapi.client.Request<Circle>;            
+            }): Request<Circle>;            
             
             /** Delete a circle. */
             remove(request: {            
@@ -944,7 +944,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The ID of the circle to delete. */
                 circleId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Remove a person from a circle. */
             removePeople(request: {            
@@ -968,7 +968,7 @@ declare namespace gapi.client {
                 email?: string;
                 /** IDs of the people to remove from the circle. Optional, can be repeated. */
                 userId?: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Update a circle's description. */
             update(request: {            
@@ -988,7 +988,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The ID of the circle to update. */
                 circleId: string;
-            }): gapi.client.Request<Circle>;            
+            }): Request<Circle>;            
             
         }
         
@@ -1011,7 +1011,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The ID of the comment to get. */
                 commentId: string;
-            }): gapi.client.Request<Comment>;            
+            }): Request<Comment>;            
             
             /** Create a new comment in reply to an activity. */
             insert(request: {            
@@ -1031,7 +1031,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The ID of the activity to reply to. */
                 activityId: string;
-            }): gapi.client.Request<Comment>;            
+            }): Request<Comment>;            
             
             /** List all of the comments for an activity. */
             list(request: {            
@@ -1057,7 +1057,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** The order in which to sort the list of comments. */
                 sortOrder?: string;
-            }): gapi.client.Request<CommentFeed>;            
+            }): Request<CommentFeed>;            
             
         }
         
@@ -1082,7 +1082,7 @@ declare namespace gapi.client {
                 collection: string;
                 /** The ID of the user to create the activity on behalf of. */
                 userId: string;
-            }): gapi.client.Request<Media>;            
+            }): Request<Media>;            
             
         }
         
@@ -1105,7 +1105,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The ID of the person to get the profile for. The special value "me" can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<Person>;            
+            }): Request<Person>;            
             
             /** List all of the people in the specified collection. */
             list(request: {            
@@ -1133,7 +1133,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Get the collection of people for the person identified. Use "me" to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<PeopleFeed>;            
+            }): Request<PeopleFeed>;            
             
             /** List all of the people in the specified collection for a particular activity. */
             listByActivity(request: {            
@@ -1159,7 +1159,7 @@ declare namespace gapi.client {
                 maxResults?: number;
                 /** The continuation token, which is used to page through large result sets. To get the next page of results, set this parameter to the value of "nextPageToken" from the previous response. */
                 pageToken?: string;
-            }): gapi.client.Request<PeopleFeed>;            
+            }): Request<PeopleFeed>;            
             
             /** List all of the people who are members of a circle. */
             listByCircle(request: {            
@@ -1183,7 +1183,7 @@ declare namespace gapi.client {
                 maxResults?: number;
                 /** The continuation token, which is used to page through large result sets. To get the next page of results, set this parameter to the value of "nextPageToken" from the previous response. */
                 pageToken?: string;
-            }): gapi.client.Request<PeopleFeed>;            
+            }): Request<PeopleFeed>;            
             
         }
     }

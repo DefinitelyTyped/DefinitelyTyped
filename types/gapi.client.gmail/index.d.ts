@@ -433,7 +433,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The user's email address. The special value me can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<Draft>;            
+            }): Request<Draft>;            
             
             /** Immediately and permanently deletes the specified draft. Does not simply trash it. */
             delete(request: {            
@@ -455,7 +455,7 @@ declare namespace gapi.client {
                 id: string;
                 /** The user's email address. The special value me can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Gets the specified draft. */
             get(request: {            
@@ -479,7 +479,7 @@ declare namespace gapi.client {
                 id: string;
                 /** The user's email address. The special value me can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<Draft>;            
+            }): Request<Draft>;            
             
             /** Lists the drafts in the user's mailbox. */
             list(request: {            
@@ -507,7 +507,7 @@ declare namespace gapi.client {
                 q?: string;
                 /** The user's email address. The special value me can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<ListDraftsResponse>;            
+            }): Request<ListDraftsResponse>;            
             
             /** Sends the specified, existing draft to the recipients in the To, Cc, and Bcc headers. */
             send(request: {            
@@ -527,7 +527,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The user's email address. The special value me can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<Message>;            
+            }): Request<Message>;            
             
             /** Replaces a draft's content. */
             update(request: {            
@@ -549,7 +549,7 @@ declare namespace gapi.client {
                 id: string;
                 /** The user's email address. The special value me can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<Draft>;            
+            }): Request<Draft>;            
             
         }
         
@@ -582,7 +582,7 @@ declare namespace gapi.client {
                 startHistoryId?: string;
                 /** The user's email address. The special value me can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<ListHistoryResponse>;            
+            }): Request<ListHistoryResponse>;            
             
         }
         
@@ -605,7 +605,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The user's email address. The special value me can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<Label>;            
+            }): Request<Label>;            
             
             /** Immediately and permanently deletes the specified label and removes it from any messages and threads that it is applied to. */
             delete(request: {            
@@ -627,7 +627,7 @@ declare namespace gapi.client {
                 id: string;
                 /** The user's email address. The special value me can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Gets the specified label. */
             get(request: {            
@@ -649,7 +649,7 @@ declare namespace gapi.client {
                 id: string;
                 /** The user's email address. The special value me can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<Label>;            
+            }): Request<Label>;            
             
             /** Lists all labels in the user's mailbox. */
             list(request: {            
@@ -669,7 +669,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The user's email address. The special value me can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<ListLabelsResponse>;            
+            }): Request<ListLabelsResponse>;            
             
             /** Updates the specified label. This method supports patch semantics. */
             patch(request: {            
@@ -691,7 +691,7 @@ declare namespace gapi.client {
                 id: string;
                 /** The user's email address. The special value me can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<Label>;            
+            }): Request<Label>;            
             
             /** Updates the specified label. */
             update(request: {            
@@ -713,7 +713,7 @@ declare namespace gapi.client {
                 id: string;
                 /** The user's email address. The special value me can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<Label>;            
+            }): Request<Label>;            
             
         }
         
@@ -740,7 +740,7 @@ declare namespace gapi.client {
                 messageId: string;
                 /** The user's email address. The special value me can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<MessagePartBody>;            
+            }): Request<MessagePartBody>;            
             
         }
         
@@ -763,7 +763,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The user's email address. The special value me can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Modifies the labels on the specified messages. */
             batchModify(request: {            
@@ -783,7 +783,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The user's email address. The special value me can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Immediately and permanently deletes the specified message. This operation cannot be undone. Prefer messages.trash instead. */
             delete(request: {            
@@ -805,7 +805,7 @@ declare namespace gapi.client {
                 id: string;
                 /** The user's email address. The special value me can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Gets the specified message. */
             get(request: {            
@@ -831,7 +831,7 @@ declare namespace gapi.client {
                 metadataHeaders?: string;
                 /** The user's email address. The special value me can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<Message>;            
+            }): Request<Message>;            
             
             /** Imports a message into only this user's mailbox, with standard email delivery scanning and classification similar to receiving via SMTP. Does not send a message. */
             import(request: {            
@@ -859,7 +859,7 @@ declare namespace gapi.client {
                 processForCalendar?: boolean;
                 /** The user's email address. The special value me can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<Message>;            
+            }): Request<Message>;            
             
             /** Directly inserts a message into only this user's mailbox similar to IMAP APPEND, bypassing most scanning and classification. Does not send a message. */
             insert(request: {            
@@ -883,7 +883,7 @@ declare namespace gapi.client {
                 internalDateSource?: string;
                 /** The user's email address. The special value me can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<Message>;            
+            }): Request<Message>;            
             
             /** Lists the messages in the user's mailbox. */
             list(request: {            
@@ -913,7 +913,7 @@ declare namespace gapi.client {
                 q?: string;
                 /** The user's email address. The special value me can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<ListMessagesResponse>;            
+            }): Request<ListMessagesResponse>;            
             
             /** Modifies the labels on the specified message. */
             modify(request: {            
@@ -935,7 +935,7 @@ declare namespace gapi.client {
                 id: string;
                 /** The user's email address. The special value me can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<Message>;            
+            }): Request<Message>;            
             
             /** Sends the specified message to the recipients in the To, Cc, and Bcc headers. */
             send(request: {            
@@ -955,7 +955,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The user's email address. The special value me can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<Message>;            
+            }): Request<Message>;            
             
             /** Moves the specified message to the trash. */
             trash(request: {            
@@ -977,7 +977,7 @@ declare namespace gapi.client {
                 id: string;
                 /** The user's email address. The special value me can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<Message>;            
+            }): Request<Message>;            
             
             /** Removes the specified message from the trash. */
             untrash(request: {            
@@ -999,7 +999,7 @@ declare namespace gapi.client {
                 id: string;
                 /** The user's email address. The special value me can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<Message>;            
+            }): Request<Message>;            
             
             attachments: AttachmentsResource;
         }
@@ -1023,7 +1023,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User's email address. The special value "me" can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<Filter>;            
+            }): Request<Filter>;            
             
             /** Deletes a filter. */
             delete(request: {            
@@ -1045,7 +1045,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User's email address. The special value "me" can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Gets a filter. */
             get(request: {            
@@ -1067,7 +1067,7 @@ declare namespace gapi.client {
                 id: string;
                 /** User's email address. The special value "me" can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<Filter>;            
+            }): Request<Filter>;            
             
             /** Lists the message filters of a Gmail user. */
             list(request: {            
@@ -1087,7 +1087,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User's email address. The special value "me" can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<ListFiltersResponse>;            
+            }): Request<ListFiltersResponse>;            
             
         }
         
@@ -1112,7 +1112,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User's email address. The special value "me" can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<ForwardingAddress>;            
+            }): Request<ForwardingAddress>;            
             
             /** Deletes the specified forwarding address and revokes any verification that may have been required. */
             /**  */
@@ -1136,7 +1136,7 @@ declare namespace gapi.client {
                 forwardingEmail: string;
                 /** User's email address. The special value "me" can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Gets the specified forwarding address. */
             get(request: {            
@@ -1158,7 +1158,7 @@ declare namespace gapi.client {
                 forwardingEmail: string;
                 /** User's email address. The special value "me" can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<ForwardingAddress>;            
+            }): Request<ForwardingAddress>;            
             
             /** Lists the forwarding addresses for the specified account. */
             list(request: {            
@@ -1178,7 +1178,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User's email address. The special value "me" can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<ListForwardingAddressesResponse>;            
+            }): Request<ListForwardingAddressesResponse>;            
             
         }
         
@@ -1205,7 +1205,7 @@ declare namespace gapi.client {
                 sendAsEmail: string;
                 /** The user's email address. The special value me can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Gets the specified S/MIME config for the specified send-as alias. */
             get(request: {            
@@ -1229,7 +1229,7 @@ declare namespace gapi.client {
                 sendAsEmail: string;
                 /** The user's email address. The special value me can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<SmimeInfo>;            
+            }): Request<SmimeInfo>;            
             
             /** Insert (upload) the given S/MIME config for the specified send-as alias. Note that pkcs12 format is required for the key. */
             insert(request: {            
@@ -1251,7 +1251,7 @@ declare namespace gapi.client {
                 sendAsEmail: string;
                 /** The user's email address. The special value me can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<SmimeInfo>;            
+            }): Request<SmimeInfo>;            
             
             /** Lists S/MIME configs for the specified send-as alias. */
             list(request: {            
@@ -1273,7 +1273,7 @@ declare namespace gapi.client {
                 sendAsEmail: string;
                 /** The user's email address. The special value me can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<ListSmimeInfoResponse>;            
+            }): Request<ListSmimeInfoResponse>;            
             
             /** Sets the default S/MIME config for the specified send-as alias. */
             setDefault(request: {            
@@ -1297,7 +1297,7 @@ declare namespace gapi.client {
                 sendAsEmail: string;
                 /** The user's email address. The special value me can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
         }
         
@@ -1322,7 +1322,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User's email address. The special value "me" can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<SendAs>;            
+            }): Request<SendAs>;            
             
             /** Deletes the specified send-as alias. Revokes any verification that may have been required for using it. */
             /**  */
@@ -1346,7 +1346,7 @@ declare namespace gapi.client {
                 sendAsEmail: string;
                 /** User's email address. The special value "me" can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Gets the specified send-as alias. Fails with an HTTP 404 error if the specified address is not a member of the collection. */
             get(request: {            
@@ -1368,7 +1368,7 @@ declare namespace gapi.client {
                 sendAsEmail: string;
                 /** User's email address. The special value "me" can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<SendAs>;            
+            }): Request<SendAs>;            
             
             /** Lists the send-as aliases for the specified account. The result includes the primary send-as address associated with the account as well as any custom "from" aliases. */
             list(request: {            
@@ -1388,7 +1388,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User's email address. The special value "me" can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<ListSendAsResponse>;            
+            }): Request<ListSendAsResponse>;            
             
             /** Updates a send-as alias. If a signature is provided, Gmail will sanitize the HTML before saving it with the alias. */
             /**  */
@@ -1412,7 +1412,7 @@ declare namespace gapi.client {
                 sendAsEmail: string;
                 /** User's email address. The special value "me" can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<SendAs>;            
+            }): Request<SendAs>;            
             
             /** Updates a send-as alias. If a signature is provided, Gmail will sanitize the HTML before saving it with the alias. */
             /**  */
@@ -1436,7 +1436,7 @@ declare namespace gapi.client {
                 sendAsEmail: string;
                 /** User's email address. The special value "me" can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<SendAs>;            
+            }): Request<SendAs>;            
             
             /** Sends a verification email to the specified send-as alias address. The verification status must be pending. */
             /**  */
@@ -1460,7 +1460,7 @@ declare namespace gapi.client {
                 sendAsEmail: string;
                 /** User's email address. The special value "me" can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             smimeInfo: SmimeInfoResource;
         }
@@ -1484,7 +1484,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User's email address. The special value "me" can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<AutoForwarding>;            
+            }): Request<AutoForwarding>;            
             
             /** Gets IMAP settings. */
             getImap(request: {            
@@ -1504,7 +1504,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User's email address. The special value "me" can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<ImapSettings>;            
+            }): Request<ImapSettings>;            
             
             /** Gets POP settings. */
             getPop(request: {            
@@ -1524,7 +1524,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User's email address. The special value "me" can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<PopSettings>;            
+            }): Request<PopSettings>;            
             
             /** Gets vacation responder settings. */
             getVacation(request: {            
@@ -1544,7 +1544,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User's email address. The special value "me" can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<VacationSettings>;            
+            }): Request<VacationSettings>;            
             
             /** Updates the auto-forwarding setting for the specified account. A verified forwarding address must be specified when auto-forwarding is enabled. */
             /**  */
@@ -1566,7 +1566,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User's email address. The special value "me" can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<AutoForwarding>;            
+            }): Request<AutoForwarding>;            
             
             /** Updates IMAP settings. */
             updateImap(request: {            
@@ -1586,7 +1586,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User's email address. The special value "me" can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<ImapSettings>;            
+            }): Request<ImapSettings>;            
             
             /** Updates POP settings. */
             updatePop(request: {            
@@ -1606,7 +1606,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User's email address. The special value "me" can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<PopSettings>;            
+            }): Request<PopSettings>;            
             
             /** Updates vacation responder settings. */
             updateVacation(request: {            
@@ -1626,7 +1626,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** User's email address. The special value "me" can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<VacationSettings>;            
+            }): Request<VacationSettings>;            
             
             filters: FiltersResource;
             forwardingAddresses: ForwardingAddressesResource;
@@ -1654,7 +1654,7 @@ declare namespace gapi.client {
                 id: string;
                 /** The user's email address. The special value me can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Gets the specified thread. */
             get(request: {            
@@ -1680,7 +1680,7 @@ declare namespace gapi.client {
                 metadataHeaders?: string;
                 /** The user's email address. The special value me can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<Thread>;            
+            }): Request<Thread>;            
             
             /** Lists the threads in the user's mailbox. */
             list(request: {            
@@ -1710,7 +1710,7 @@ declare namespace gapi.client {
                 q?: string;
                 /** The user's email address. The special value me can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<ListThreadsResponse>;            
+            }): Request<ListThreadsResponse>;            
             
             /** Modifies the labels applied to the thread. This applies to all messages in the thread. */
             modify(request: {            
@@ -1732,7 +1732,7 @@ declare namespace gapi.client {
                 id: string;
                 /** The user's email address. The special value me can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<Thread>;            
+            }): Request<Thread>;            
             
             /** Moves the specified thread to the trash. */
             trash(request: {            
@@ -1754,7 +1754,7 @@ declare namespace gapi.client {
                 id: string;
                 /** The user's email address. The special value me can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<Thread>;            
+            }): Request<Thread>;            
             
             /** Removes the specified thread from the trash. */
             untrash(request: {            
@@ -1776,7 +1776,7 @@ declare namespace gapi.client {
                 id: string;
                 /** The user's email address. The special value me can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<Thread>;            
+            }): Request<Thread>;            
             
         }
         
@@ -1799,7 +1799,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The user's email address. The special value me can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<Profile>;            
+            }): Request<Profile>;            
             
             /** Stop receiving push notifications for the given user mailbox. */
             stop(request: {            
@@ -1819,7 +1819,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The user's email address. The special value me can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Set up or update a push notification watch on the given user mailbox. */
             watch(request: {            
@@ -1839,7 +1839,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The user's email address. The special value me can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<WatchResponse>;            
+            }): Request<WatchResponse>;            
             
             drafts: DraftsResource;
             history: HistoryResource;

@@ -34,6 +34,9 @@ gapi.load('client', () => {
 
     async function run() {  
         
+        // Analyzes the sentiment of the provided text.
+        await gapi.client.documents.analyzeSentiment({  }); 
+        
         // A convenience method that provides all the features that analyzeSentiment,
         // analyzeEntities, and analyzeSyntax provide in one call.
         await gapi.client.documents.annotateText({  }); 
@@ -46,9 +49,6 @@ gapi.load('client', () => {
         // Analyzes the syntax of the text and provides sentence boundaries and
         // tokenization along with part of speech tags, dependency trees, and other
         // properties.
-        await gapi.client.documents.analyzeSyntax({  }); 
-        
-        // Analyzes the sentiment of the provided text.
-        await gapi.client.documents.analyzeSentiment({  });
+        await gapi.client.documents.analyzeSyntax({  });
     }
 });

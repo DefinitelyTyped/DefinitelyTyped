@@ -194,7 +194,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The ID of the achievement used by this method. */
                 achievementId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Retrieves the metadata of the achievement configuration with the given ID. */
             get(request: {            
@@ -214,7 +214,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The ID of the achievement used by this method. */
                 achievementId: string;
-            }): gapi.client.Request<AchievementConfiguration>;            
+            }): Request<AchievementConfiguration>;            
             
             /** Insert a new achievement configuration in this application. */
             insert(request: {            
@@ -234,7 +234,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The application ID from the Google Play developer console. */
                 applicationId: string;
-            }): gapi.client.Request<AchievementConfiguration>;            
+            }): Request<AchievementConfiguration>;            
             
             /** Returns a list of the achievement configurations in this application. */
             list(request: {            
@@ -258,7 +258,7 @@ declare namespace gapi.client {
                 maxResults?: number;
                 /** The token returned by the previous request. */
                 pageToken?: string;
-            }): gapi.client.Request<AchievementConfigurationListResponse>;            
+            }): Request<AchievementConfigurationListResponse>;            
             
             /** Update the metadata of the achievement configuration with the given ID. This method supports patch semantics. */
             patch(request: {            
@@ -278,7 +278,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The ID of the achievement used by this method. */
                 achievementId: string;
-            }): gapi.client.Request<AchievementConfiguration>;            
+            }): Request<AchievementConfiguration>;            
             
             /** Update the metadata of the achievement configuration with the given ID. */
             update(request: {            
@@ -298,7 +298,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The ID of the achievement used by this method. */
                 achievementId: string;
-            }): gapi.client.Request<AchievementConfiguration>;            
+            }): Request<AchievementConfiguration>;            
             
         }
         
@@ -323,7 +323,7 @@ declare namespace gapi.client {
                 imageType: string;
                 /** The ID of the resource used by this method. */
                 resourceId: string;
-            }): gapi.client.Request<ImageConfiguration>;            
+            }): Request<ImageConfiguration>;            
             
         }
         
@@ -346,7 +346,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The ID of the leaderboard. */
                 leaderboardId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Retrieves the metadata of the leaderboard configuration with the given ID. */
             get(request: {            
@@ -366,7 +366,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The ID of the leaderboard. */
                 leaderboardId: string;
-            }): gapi.client.Request<LeaderboardConfiguration>;            
+            }): Request<LeaderboardConfiguration>;            
             
             /** Insert a new leaderboard configuration in this application. */
             insert(request: {            
@@ -386,7 +386,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The application ID from the Google Play developer console. */
                 applicationId: string;
-            }): gapi.client.Request<LeaderboardConfiguration>;            
+            }): Request<LeaderboardConfiguration>;            
             
             /** Returns a list of the leaderboard configurations in this application. */
             list(request: {            
@@ -410,7 +410,7 @@ declare namespace gapi.client {
                 maxResults?: number;
                 /** The token returned by the previous request. */
                 pageToken?: string;
-            }): gapi.client.Request<LeaderboardConfigurationListResponse>;            
+            }): Request<LeaderboardConfigurationListResponse>;            
             
             /** Update the metadata of the leaderboard configuration with the given ID. This method supports patch semantics. */
             patch(request: {            
@@ -430,7 +430,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The ID of the leaderboard. */
                 leaderboardId: string;
-            }): gapi.client.Request<LeaderboardConfiguration>;            
+            }): Request<LeaderboardConfiguration>;            
             
             /** Update the metadata of the leaderboard configuration with the given ID. */
             update(request: {            
@@ -450,7 +450,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The ID of the leaderboard. */
                 leaderboardId: string;
-            }): gapi.client.Request<LeaderboardConfiguration>;            
+            }): Request<LeaderboardConfiguration>;            
             
         }
     }

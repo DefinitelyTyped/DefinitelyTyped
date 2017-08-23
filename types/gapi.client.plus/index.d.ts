@@ -587,7 +587,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The ID of the activity to get. */
                 activityId: string;
-            }): gapi.client.Request<Activity>;            
+            }): Request<Activity>;            
             
             /** List all of the activities in the specified collection for a particular user. */
             list(request: {            
@@ -613,7 +613,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** The ID of the user to get activities for. The special value "me" can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<ActivityFeed>;            
+            }): Request<ActivityFeed>;            
             
             /** Search public activities. */
             search(request: {            
@@ -641,7 +641,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Full-text search query string. */
                 query: string;
-            }): gapi.client.Request<ActivityFeed>;            
+            }): Request<ActivityFeed>;            
             
         }
         
@@ -664,7 +664,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The ID of the comment to get. */
                 commentId: string;
-            }): gapi.client.Request<Comment>;            
+            }): Request<Comment>;            
             
             /** List all of the comments for an activity. */
             list(request: {            
@@ -690,7 +690,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** The order in which to sort the list of comments. */
                 sortOrder?: string;
-            }): gapi.client.Request<CommentFeed>;            
+            }): Request<CommentFeed>;            
             
         }
         
@@ -713,7 +713,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The ID of the person to get the profile for. The special value "me" can be used to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<Person>;            
+            }): Request<Person>;            
             
             /** List all of the people in the specified collection. */
             list(request: {            
@@ -741,7 +741,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Get the collection of people for the person identified. Use "me" to indicate the authenticated user. */
                 userId: string;
-            }): gapi.client.Request<PeopleFeed>;            
+            }): Request<PeopleFeed>;            
             
             /** List all of the people in the specified collection for a particular activity. */
             listByActivity(request: {            
@@ -767,7 +767,7 @@ declare namespace gapi.client {
                 maxResults?: number;
                 /** The continuation token, which is used to page through large result sets. To get the next page of results, set this parameter to the value of "nextPageToken" from the previous response. */
                 pageToken?: string;
-            }): gapi.client.Request<PeopleFeed>;            
+            }): Request<PeopleFeed>;            
             
             /** Search all public profiles. */
             search(request: {            
@@ -793,7 +793,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Specify a query string for full text search of public text in all profiles. */
                 query: string;
-            }): gapi.client.Request<PeopleFeed>;            
+            }): Request<PeopleFeed>;            
             
         }
     }

@@ -254,7 +254,7 @@ declare namespace gapi.client {
                 maxResults?: number;
                 /** A continuation token, used to page through ad clients. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous response. */
                 pageToken?: string;
-            }): gapi.client.Request<AdClients>;            
+            }): Request<AdClients>;            
             
         }
         
@@ -279,7 +279,7 @@ declare namespace gapi.client {
                 accountId: string;
                 /** The locale to use for translating alert messages. The account locale will be used if this is not supplied. The AdSense default (English) will be used if the supplied locale is invalid or unsupported. */
                 locale?: string;
-            }): gapi.client.Request<Alerts>;            
+            }): Request<Alerts>;            
             
         }
         
@@ -306,7 +306,7 @@ declare namespace gapi.client {
                 adClientId: string;
                 /** Custom channel to retrieve. */
                 customChannelId: string;
-            }): gapi.client.Request<CustomChannel>;            
+            }): Request<CustomChannel>;            
             
             /** List all custom channels in the specified ad client for this Ad Exchange account. */
             list(request: {            
@@ -332,7 +332,7 @@ declare namespace gapi.client {
                 maxResults?: number;
                 /** A continuation token, used to page through custom channels. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous response. */
                 pageToken?: string;
-            }): gapi.client.Request<CustomChannels>;            
+            }): Request<CustomChannels>;            
             
         }
         
@@ -355,7 +355,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Account with visibility to the dimensions. */
                 accountId: string;
-            }): gapi.client.Request<Metadata>;            
+            }): Request<Metadata>;            
             
         }
         
@@ -378,7 +378,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Account with visibility to the metrics. */
                 accountId: string;
-            }): gapi.client.Request<Metadata>;            
+            }): Request<Metadata>;            
             
         }
         
@@ -408,7 +408,7 @@ declare namespace gapi.client {
                 accountId: string;
                 /** Preferred deal to get information about. */
                 dealId: string;
-            }): gapi.client.Request<PreferredDeal>;            
+            }): Request<PreferredDeal>;            
             
             /** List the preferred deals for this Ad Exchange account. */
             list(request: {            
@@ -428,7 +428,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Account owning the deals. */
                 accountId: string;
-            }): gapi.client.Request<PreferredDeals>;            
+            }): Request<PreferredDeals>;            
             
         }
         
@@ -459,7 +459,7 @@ declare namespace gapi.client {
                 savedReportId: string;
                 /** Index of the first row of report data to return. */
                 startIndex?: number;
-            }): gapi.client.Request<Report>;            
+            }): Request<Report>;            
             
             /** List all saved reports in this Ad Exchange account. */
             list(request: {            
@@ -483,7 +483,7 @@ declare namespace gapi.client {
                 maxResults?: number;
                 /** A continuation token, used to page through saved reports. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous response. */
                 pageToken?: string;
-            }): gapi.client.Request<SavedReports>;            
+            }): Request<SavedReports>;            
             
         }
         
@@ -524,7 +524,7 @@ declare namespace gapi.client {
                 startDate: string;
                 /** Index of the first row of report data to return. */
                 startIndex?: number;
-            }): gapi.client.Request<Report>;            
+            }): Request<Report>;            
             
             saved: SavedResource;
         }
@@ -554,7 +554,7 @@ declare namespace gapi.client {
                 maxResults?: number;
                 /** A continuation token, used to page through URL channels. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous response. */
                 pageToken?: string;
-            }): gapi.client.Request<UrlChannels>;            
+            }): Request<UrlChannels>;            
             
         }
         
@@ -577,7 +577,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Account to get information about. Tip: 'myaccount' is a valid ID. */
                 accountId: string;
-            }): gapi.client.Request<Account>;            
+            }): Request<Account>;            
             
             /** List all accounts available to this Ad Exchange account. */
             list(request: {            
@@ -599,7 +599,7 @@ declare namespace gapi.client {
                 maxResults?: number;
                 /** A continuation token, used to page through accounts. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous response. */
                 pageToken?: string;
-            }): gapi.client.Request<Accounts>;            
+            }): Request<Accounts>;            
             
             adclients: AdclientsResource;
             alerts: AlertsResource;

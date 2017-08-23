@@ -20,23 +20,317 @@ declare namespace gapi.client {
     
     namespace container {
         
-        interface Cluster {
-            /** The initial Kubernetes version for this cluster.  Valid versions are those */
-            /** found in validMasterVersions returned by getServerConfig.  The version can */
-            /** be upgraded over time; such upgrades are reflected in */
-            /** currentMasterVersion and currentNodeVersion. */
-            initialClusterVersion?: string;
-            /** Configuration for cluster IP allocation. */
-            ipAllocationPolicy?: IPAllocationPolicy;
-            /** Configuration for the legacy ABAC authorization mode. */
-            legacyAbac?: LegacyAbac;
-            /** [Output only] The IP address of this cluster's master endpoint. */
-            /** The endpoint can be accessed from the internet at */
-            /** `https://username:password@endpoint/`. */
+        interface ClusterUpdate {
+            /** The Kubernetes version to change the master to. The only valid value is the */
+            /** latest supported version. Use "-" to have the server automatically select */
+            /** the latest version. */
+            desiredMasterVersion?: string;
+            /** Master authorized networks is a Beta feature. */
+            /** The desired configuration options for master authorized networks feature. */
+            desiredMasterAuthorizedNetworksConfig?: MasterAuthorizedNetworksConfig;
+            /** The desired list of Google Compute Engine */
+            /** [locations](/compute/docs/zones#available) in which the cluster's nodes */
+            /** should be located. Changing the locations a cluster is in will result */
+            /** in nodes being either created or removed from the cluster, depending on */
+            /** whether locations are being added or removed. */
             /**  */
-            /** See the `masterAuth` property of this resource for username and */
-            /** password information. */
-            endpoint?: string;
+            /** This list must always include the cluster's primary zone. */
+            desiredLocations?: string[];
+            /** Autoscaler configuration for the node pool specified in */
+            /** desired_node_pool_id. If there is only one pool in the */
+            /** cluster and desired_node_pool_id is not provided then */
+            /** the change applies to that single node pool. */
+            desiredNodePoolAutoscaling?: NodePoolAutoscaling;
+            /** The monitoring service the cluster should use to write metrics. */
+            /** Currently available options: */
+            /**  */
+            /** &#42; "monitoring.googleapis.com" - the Google Cloud Monitoring service */
+            /** &#42; "none" - no metrics will be exported from the cluster */
+            desiredMonitoringService?: string;
+            /** The desired image type for the node pool. */
+            /** NOTE: Set the "desired_node_pool" field as well. */
+            desiredImageType?: string;
+            /** Configurations for the various addons available to run in the cluster. */
+            desiredAddonsConfig?: AddonsConfig;
+            /** The node pool to be upgraded. This field is mandatory if */
+            /** "desired_node_version", "desired_image_family" or */
+            /** "desired_node_pool_autoscaling" is specified and there is more than one */
+            /** node pool on the cluster. */
+            desiredNodePoolId?: string;
+            /** The Kubernetes version to change the nodes to (typically an */
+            /** upgrade). Use `-` to upgrade to the latest version supported by */
+            /** the server. */
+            desiredNodeVersion?: string;
+        }
+        
+        interface IPAllocationPolicy {
+            /** A custom subnetwork name to be used if `create_subnetwork` is true.  If */
+            /** this field is empty, then an automatic name will be chosen for the new */
+            /** subnetwork. */
+            subnetworkName?: string;
+            /** The IP address range for the cluster pod IPs. If this field is set, then */
+            /** `cluster.cluster_ipv4_cidr` must be left blank. */
+            /**  */
+            /** This field is only applicable when `use_ip_aliases` is true. */
+            /**  */
+            /** Set to blank to have a range will be chosen with the default size. */
+            /**  */
+            /** Set to /netmask (e.g. `/14`) to have a range be chosen with a specific */
+            /** netmask. */
+            /**  */
+            /** Set to a [CIDR](http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) */
+            /** notation (e.g. `10.96.0.0/14`) from the RFC-1918 private networks (e.g. */
+            /** `10.0.0.0/8`, `172.16.0.0/12`, `192.168.0.0/16`) to pick a specific range */
+            /** to use. */
+            clusterIpv4Cidr?: string;
+            /** The IP address range of the instance IPs in this cluster. */
+            /**  */
+            /** This is applicable only if `create_subnetwork` is true. */
+            /**  */
+            /** Set to blank to have a range will be chosen with the default size. */
+            /**  */
+            /** Set to /netmask (e.g. `/14`) to have a range be chosen with a specific */
+            /** netmask. */
+            /**  */
+            /** Set to a [CIDR](http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) */
+            /** notation (e.g. `10.96.0.0/14`) from the RFC-1918 private networks (e.g. */
+            /** `10.0.0.0/8`, `172.16.0.0/12`, `192.168.0.0/16`) to pick a specific range */
+            /** to use. */
+            nodeIpv4Cidr?: string;
+            /** The IP address range of the services IPs in this cluster. If blank, a range */
+            /** will be automatically chosen with the default size. */
+            /**  */
+            /** This field is only applicable when `use_ip_aliases` is true. */
+            /**  */
+            /** Set to blank to have a range will be chosen with the default size. */
+            /**  */
+            /** Set to /netmask (e.g. `/14`) to have a range be chosen with a specific */
+            /** netmask. */
+            /**  */
+            /** Set to a [CIDR](http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) */
+            /** notation (e.g. `10.96.0.0/14`) from the RFC-1918 private networks (e.g. */
+            /** `10.0.0.0/8`, `172.16.0.0/12`, `192.168.0.0/16`) to pick a specific range */
+            /** to use. */
+            servicesIpv4Cidr?: string;
+            /** Whether a new subnetwork will be created automatically for the cluster. */
+            /**  */
+            /** This field is only applicable when `use_ip_aliases` is true. */
+            createSubnetwork?: boolean;
+            /** Whether alias IPs will be used for pod IPs in the cluster. */
+            useIpAliases?: boolean;
+        }
+        
+        interface SetLoggingServiceRequest {
+            /** The logging service the cluster should use to write metrics. */
+            /** Currently available options: */
+            /**  */
+            /** &#42; "logging.googleapis.com" - the Google Cloud Logging service */
+            /** &#42; "none" - no metrics will be exported from the cluster */
+            loggingService?: string;
+        }
+        
+        interface HorizontalPodAutoscaling {
+            /** Whether the Horizontal Pod Autoscaling feature is enabled in the cluster. */
+            /** When enabled, it ensures that a Heapster pod is running in the cluster, */
+            /** which is also used by the Cloud Monitoring service. */
+            disabled?: boolean;
+        }
+        
+        interface MasterAuthorizedNetworksConfig {
+            /** Whether or not master authorized networks is enabled. */
+            enabled?: boolean;
+            /** cidr_blocks define up to 10 external networks that could access */
+            /** Kubernetes master through HTTPS. */
+            cidrBlocks?: CidrBlock[];
+        }
+        
+        interface SetNodePoolManagementRequest {
+            /** NodeManagement configuration for the node pool. */
+            management?: NodeManagement;
+        }
+        
+        interface SetNodePoolAutoscalingRequest {
+            /** Autoscaling configuration for the node pool. */
+            autoscaling?: NodePoolAutoscaling;
+        }
+        
+        interface CreateClusterRequest {
+            /** A [cluster */
+            /** resource](/container-engine/reference/rest/v1/projects.zones.clusters) */
+            cluster?: Cluster;
+        }
+        
+        interface ListNodePoolsResponse {
+            /** A list of node pools for a cluster. */
+            nodePools?: NodePool[];
+        }
+        
+        interface LegacyAbac {
+            /** Whether the ABAC authorizer is enabled for this cluster. When enabled, */
+            /** identities in the system, including service accounts, nodes, and */
+            /** controllers, will have statically granted permissions beyond those */
+            /** provided by the RBAC configuration or IAM. */
+            enabled?: boolean;
+        }
+        
+        interface AcceleratorConfig {
+            /** The accelerator type resource name. List of supported accelerators */
+            /** [here](/compute/docs/gpus/#Introduction) */
+            acceleratorType?: string;
+            /** The number of the accelerator cards exposed to an instance. */
+            acceleratorCount?: string;
+        }
+        
+        interface UpdateNodePoolRequest {
+            /** The desired image type for the node pool. */
+            imageType?: string;
+            /** The Kubernetes version to change the nodes to (typically an */
+            /** upgrade). Use `-` to upgrade to the latest version supported by */
+            /** the server. */
+            nodeVersion?: string;
+        }
+        
+        interface SetAddonsConfigRequest {
+            /** The desired configurations for the various addons available to run in the */
+            /** cluster. */
+            addonsConfig?: AddonsConfig;
+        }
+        
+        interface SetLabelsRequest {
+            /** The labels to set for that cluster. */
+            resourceLabels?: Record<string, string>;            
+            /** The fingerprint of the previous set of labels for this resource, */
+            /** used to detect conflicts. The fingerprint is initially generated by */
+            /** Container Engine and changes after every request to modify or update */
+            /** labels. You must always provide an up-to-date fingerprint hash when */
+            /** updating or changing labels. Make a <code>get()</code> request to the */
+            /** resource to get the latest fingerprint. */
+            labelFingerprint?: string;
+        }
+        
+        interface NodePool {
+            /** [Output only] Server-defined URL for the resource. */
+            selfLink?: string;
+            /** [Output only] The version of the Kubernetes of this node. */
+            version?: string;
+            /** [Output only] The resource URLs of [instance */
+            /** groups](/compute/docs/instance-groups/) associated with this */
+            /** node pool. */
+            instanceGroupUrls?: string[];
+            /** [Output only] The status of the nodes in this pool instance. */
+            status?: string;
+            /** The node configuration of the pool. */
+            config?: NodeConfig;
+            /** [Output only] Additional information about the current status of this */
+            /** node pool instance, if available. */
+            statusMessage?: string;
+            /** The name of the node pool. */
+            name?: string;
+            /** Autoscaler configuration for this NodePool. Autoscaler is enabled */
+            /** only if a valid configuration is present. */
+            autoscaling?: NodePoolAutoscaling;
+            /** The initial node count for the pool. You must ensure that your */
+            /** Compute Engine <a href="/compute/docs/resource-quotas">resource quota</a> */
+            /** is sufficient for this number of instances. You must also have available */
+            /** firewall and routes quota. */
+            initialNodeCount?: number;
+            /** NodeManagement configuration for this NodePool. */
+            management?: NodeManagement;
+        }
+        
+        interface NodeManagement {
+            /** A flag that specifies whether the node auto-repair is enabled for the node */
+            /** pool. If enabled, the nodes in this node pool will be monitored and, if */
+            /** they fail health checks too many times, an automatic repair action will be */
+            /** triggered. */
+            autoRepair?: boolean;
+            /** A flag that specifies whether node auto-upgrade is enabled for the node */
+            /** pool. If enabled, node auto-upgrade helps keep the nodes in your node pool */
+            /** up to date with the latest release version of Kubernetes. */
+            autoUpgrade?: boolean;
+            /** Specifies the Auto Upgrade knobs for the node pool. */
+            upgradeOptions?: AutoUpgradeOptions;
+        }
+        
+        interface SetLegacyAbacRequest {
+            /** Whether ABAC authorization will be enabled in the cluster. */
+            enabled?: boolean;
+        }
+        
+        interface KubernetesDashboard {
+            /** Whether the Kubernetes Dashboard is enabled for this cluster. */
+            disabled?: boolean;
+        }
+        
+        interface Operation {
+            /** Server-defined URL for the target of the operation. */
+            targetLink?: string;
+            /** Detailed operation progress, if available. */
+            detail?: string;
+            /** The operation type. */
+            operationType?: string;
+            /** The name of the Google Compute Engine */
+            /** [zone](/compute/docs/zones#available) in which the operation */
+            /** is taking place. */
+            zone?: string;
+            /** The current status of the operation. */
+            status?: string;
+            /** If an error has occurred, a textual description of the error. */
+            statusMessage?: string;
+            /** The server-assigned ID for the operation. */
+            name?: string;
+            /** Server-defined URL for the resource. */
+            selfLink?: string;
+        }
+        
+        interface AddonsConfig {
+            /** Configuration for the horizontal pod autoscaling feature, which */
+            /** increases or decreases the number of replica pods a replication controller */
+            /** has based on the resource usage of the existing pods. */
+            horizontalPodAutoscaling?: HorizontalPodAutoscaling;
+            /** Configuration for the HTTP (L7) load balancing controller addon, which */
+            /** makes it easy to set up HTTP load balancers for services in a cluster. */
+            httpLoadBalancing?: HttpLoadBalancing;
+            /** Configuration for the Kubernetes Dashboard. */
+            kubernetesDashboard?: KubernetesDashboard;
+        }
+        
+        interface SetLocationsRequest {
+            /** The desired list of Google Compute Engine */
+            /** [locations](/compute/docs/zones#available) in which the cluster's nodes */
+            /** should be located. Changing the locations a cluster is in will result */
+            /** in nodes being either created or removed from the cluster, depending on */
+            /** whether locations are being added or removed. */
+            /**  */
+            /** This list must always include the cluster's primary zone. */
+            locations?: string[];
+        }
+        
+        interface SetNodePoolSizeRequest {
+            /** The desired node count for the pool. */
+            nodeCount?: number;
+        }
+        
+        interface UpdateClusterRequest {
+            /** A description of the update. */
+            update?: ClusterUpdate;
+        }
+        
+        interface NetworkPolicy {
+            /** Whether network policy is enabled on the cluster. */
+            enabled?: boolean;
+            /** The selected network policy provider. */
+            provider?: string;
+        }
+        
+        interface UpdateMasterRequest {
+            /** The Kubernetes version to change the master to. The only valid value is the */
+            /** latest supported version. Use "-" to have the server automatically select */
+            /** the latest version. */
+            masterVersion?: string;
+        }
+        
+        interface Cluster {
             /** [Output only] The time the cluster was created, in */
             /** [RFC3339](https://www.ietf.org/rfc/rfc3339.txt) text format. */
             createTime?: string;
@@ -68,14 +362,14 @@ declare namespace gapi.client {
             /** groups](/compute/docs/instance-groups/) associated with this */
             /** cluster. */
             instanceGroupUrls?: string[];
-            /** Configuration options for the NetworkPolicy feature. */
-            networkPolicy?: NetworkPolicy;
             /** [Output only] The IP address range of the Kubernetes services in */
             /** this cluster, in */
             /** [CIDR](http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) */
             /** notation (e.g. `1.2.3.4/29`). Service addresses are */
             /** typically put in the last `/16` from the container CIDR. */
             servicesIpv4Cidr?: string;
+            /** Configuration options for the NetworkPolicy feature. */
+            networkPolicy?: NetworkPolicy;
             /** Kubernetes alpha features are enabled on this cluster. This includes alpha */
             /** API groups (e.g. v1alpha1) and features that may not be production ready in */
             /** the kubernetes version of the master and nodes. */
@@ -162,6 +456,22 @@ declare namespace gapi.client {
             /** &#42; Must start with a letter. */
             /** &#42; Must end with a number or a letter. */
             name?: string;
+            /** The initial Kubernetes version for this cluster.  Valid versions are those */
+            /** found in validMasterVersions returned by getServerConfig.  The version can */
+            /** be upgraded over time; such upgrades are reflected in */
+            /** currentMasterVersion and currentNodeVersion. */
+            initialClusterVersion?: string;
+            /** Configuration for cluster IP allocation. */
+            ipAllocationPolicy?: IPAllocationPolicy;
+            /** Configuration for the legacy ABAC authorization mode. */
+            legacyAbac?: LegacyAbac;
+            /** [Output only] The IP address of this cluster's master endpoint. */
+            /** The endpoint can be accessed from the internet at */
+            /** `https://username:password@endpoint/`. */
+            /**  */
+            /** See the `masterAuth` property of this resource for username and */
+            /** password information. */
+            endpoint?: string;
         }
         
         interface CreateNodePoolRequest {
@@ -187,10 +497,10 @@ declare namespace gapi.client {
         }
         
         interface CidrBlock {
-            /** cidr_block must be specified in CIDR notation. */
-            cidrBlock?: string;
             /** display_name is an optional field for users to identify CIDR blocks. */
             displayName?: string;
+            /** cidr_block must be specified in CIDR notation. */
+            cidrBlock?: string;
         }
         
         interface ServerConfig {
@@ -207,6 +517,16 @@ declare namespace gapi.client {
         }
         
         interface MasterAuth {
+            /** [Output only] Base64-encoded public certificate that is the root of */
+            /** trust for the cluster. */
+            clusterCaCertificate?: string;
+            /** [Output only] Base64-encoded public certificate used by clients to */
+            /** authenticate to the cluster endpoint. */
+            clientCertificate?: string;
+            /** The username to use for HTTP basic authentication to the master endpoint. */
+            /** For clusters v1.6.0 and later, you can disable basic authentication by */
+            /** providing an empty username. */
+            username?: string;
             /** The password to use for HTTP basic authentication to the master endpoint. */
             /** Because the master endpoint is open to the Internet, you should create a */
             /** strong password.  If a password is provided for cluster creation, username */
@@ -218,53 +538,9 @@ declare namespace gapi.client {
             /** [Output only] Base64-encoded private key used by clients to authenticate */
             /** to the cluster endpoint. */
             clientKey?: string;
-            /** [Output only] Base64-encoded public certificate that is the root of */
-            /** trust for the cluster. */
-            clusterCaCertificate?: string;
-            /** [Output only] Base64-encoded public certificate used by clients to */
-            /** authenticate to the cluster endpoint. */
-            clientCertificate?: string;
-            /** The username to use for HTTP basic authentication to the master endpoint. */
-            /** For clusters v1.6.0 and later, you can disable basic authentication by */
-            /** providing an empty username. */
-            username?: string;
         }
         
         interface NodeConfig {
-            /** The number of local SSD disks to be attached to the node. */
-            /**  */
-            /** The limit for this value is dependant upon the maximum number of */
-            /** disks available on a machine per zone. See: */
-            /** https://cloud.google.com/compute/docs/disks/local-ssd#local_ssd_limits */
-            /** for more information. */
-            localSsdCount?: number;
-            /** The metadata key/value pairs assigned to instances in the cluster. */
-            /**  */
-            /** Keys must conform to the regexp [a-zA-Z0-9-_]+ and be less than 128 bytes */
-            /** in length. These are reflected as part of a URL in the metadata server. */
-            /** Additionally, to avoid ambiguity, keys must not conflict with any other */
-            /** metadata keys for the project or be one of the four reserved keys: */
-            /** "instance-template", "kube-env", "startup-script", and "user-data" */
-            /**  */
-            /** Values are free-form strings, and only have meaning as interpreted by */
-            /** the image running in the instance. The only restriction placed on them is */
-            /** that each value's size must be less than or equal to 32 KB. */
-            /**  */
-            /** The total size of all keys and values must be less than 512 KB. */
-            metadata?: Record<string, string>;            
-            /** Size of the disk attached to each node, specified in GB. */
-            /** The smallest allowed disk size is 10GB. */
-            /**  */
-            /** If unspecified, the default disk size is 100GB. */
-            diskSizeGb?: number;
-            /** The list of instance tags applied to all nodes. Tags are used to identify */
-            /** valid sources or targets for network firewalls and are specified by */
-            /** the client during cluster or node pool creation. Each tag within the list */
-            /** must comply with RFC1035. */
-            tags?: string[];
-            /** The Google Cloud Platform Service Account to be used by the node VMs. If */
-            /** no Service Account is specified, the "default" service account is used. */
-            serviceAccount?: string;
             /** A list of hardware accelerators to be attached to each node. */
             /** See https://cloud.google.com/compute/docs/gpus for more information about */
             /** support for GPUs. */
@@ -307,6 +583,40 @@ declare namespace gapi.client {
             /** For more information, including usage and the valid values, see: */
             /** http://kubernetes.io/v1.1/docs/user-guide/labels.html */
             labels?: Record<string, string>;            
+            /** The number of local SSD disks to be attached to the node. */
+            /**  */
+            /** The limit for this value is dependant upon the maximum number of */
+            /** disks available on a machine per zone. See: */
+            /** https://cloud.google.com/compute/docs/disks/local-ssd#local_ssd_limits */
+            /** for more information. */
+            localSsdCount?: number;
+            /** The metadata key/value pairs assigned to instances in the cluster. */
+            /**  */
+            /** Keys must conform to the regexp [a-zA-Z0-9-_]+ and be less than 128 bytes */
+            /** in length. These are reflected as part of a URL in the metadata server. */
+            /** Additionally, to avoid ambiguity, keys must not conflict with any other */
+            /** metadata keys for the project or be one of the four reserved keys: */
+            /** "instance-template", "kube-env", "startup-script", and "user-data" */
+            /**  */
+            /** Values are free-form strings, and only have meaning as interpreted by */
+            /** the image running in the instance. The only restriction placed on them is */
+            /** that each value's size must be less than or equal to 32 KB. */
+            /**  */
+            /** The total size of all keys and values must be less than 512 KB. */
+            metadata?: Record<string, string>;            
+            /** Size of the disk attached to each node, specified in GB. */
+            /** The smallest allowed disk size is 10GB. */
+            /**  */
+            /** If unspecified, the default disk size is 100GB. */
+            diskSizeGb?: number;
+            /** The list of instance tags applied to all nodes. Tags are used to identify */
+            /** valid sources or targets for network firewalls and are specified by */
+            /** the client during cluster or node pool creation. Each tag within the list */
+            /** must comply with RFC1035. */
+            tags?: string[];
+            /** The Google Cloud Platform Service Account to be used by the node VMs. If */
+            /** no Service Account is specified, the "default" service account is used. */
+            serviceAccount?: string;
         }
         
         interface AutoUpgradeOptions {
@@ -320,12 +630,12 @@ declare namespace gapi.client {
         }
         
         interface ListClustersResponse {
-            /** A list of clusters in the project in the specified zone, or */
-            /** across all ones. */
-            clusters?: Cluster[];
             /** If any zones are listed here, the list of clusters returned */
             /** may be missing those zones. */
             missingZones?: string[];
+            /** A list of clusters in the project in the specified zone, or */
+            /** across all ones. */
+            clusters?: Cluster[];
         }
         
         interface HttpLoadBalancing {
@@ -336,19 +646,19 @@ declare namespace gapi.client {
         }
         
         interface NodePoolAutoscaling {
+            /** Minimum number of nodes in the NodePool. Must be >= 1 and <= */
+            /** max_node_count. */
+            minNodeCount?: number;
             /** Is autoscaling enabled for this node pool. */
             enabled?: boolean;
             /** Maximum number of nodes in the NodePool. Must be >= min_node_count. There */
             /** has to enough quota to scale up the cluster. */
             maxNodeCount?: number;
-            /** Minimum number of nodes in the NodePool. Must be >= 1 and <= */
-            /** max_node_count. */
-            minNodeCount?: number;
         }
         
-        interface ClientCertificateConfig {
-            /** Issue a client certificate. */
-            issueClientCertificate?: boolean;
+        interface SetNetworkPolicyRequest {
+            /** Configuration options for the NetworkPolicy feature. */
+            networkPolicy?: NetworkPolicy;
         }
         
         interface SetMasterAuthRequest {
@@ -358,336 +668,14 @@ declare namespace gapi.client {
             action?: string;
         }
         
-        interface SetNetworkPolicyRequest {
-            /** Configuration options for the NetworkPolicy feature. */
-            networkPolicy?: NetworkPolicy;
+        interface ClientCertificateConfig {
+            /** Issue a client certificate. */
+            issueClientCertificate?: boolean;
         }
         
-        interface IPAllocationPolicy {
-            /** A custom subnetwork name to be used if `create_subnetwork` is true.  If */
-            /** this field is empty, then an automatic name will be chosen for the new */
-            /** subnetwork. */
-            subnetworkName?: string;
-            /** The IP address range for the cluster pod IPs. If this field is set, then */
-            /** `cluster.cluster_ipv4_cidr` must be left blank. */
-            /**  */
-            /** This field is only applicable when `use_ip_aliases` is true. */
-            /**  */
-            /** Set to blank to have a range will be chosen with the default size. */
-            /**  */
-            /** Set to /netmask (e.g. `/14`) to have a range be chosen with a specific */
-            /** netmask. */
-            /**  */
-            /** Set to a [CIDR](http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) */
-            /** notation (e.g. `10.96.0.0/14`) from the RFC-1918 private networks (e.g. */
-            /** `10.0.0.0/8`, `172.16.0.0/12`, `192.168.0.0/16`) to pick a specific range */
-            /** to use. */
-            clusterIpv4Cidr?: string;
-            /** The IP address range of the instance IPs in this cluster. */
-            /**  */
-            /** This is applicable only if `create_subnetwork` is true. */
-            /**  */
-            /** Set to blank to have a range will be chosen with the default size. */
-            /**  */
-            /** Set to /netmask (e.g. `/14`) to have a range be chosen with a specific */
-            /** netmask. */
-            /**  */
-            /** Set to a [CIDR](http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) */
-            /** notation (e.g. `10.96.0.0/14`) from the RFC-1918 private networks (e.g. */
-            /** `10.0.0.0/8`, `172.16.0.0/12`, `192.168.0.0/16`) to pick a specific range */
-            /** to use. */
-            nodeIpv4Cidr?: string;
-            /** The IP address range of the services IPs in this cluster. If blank, a range */
-            /** will be automatically chosen with the default size. */
-            /**  */
-            /** This field is only applicable when `use_ip_aliases` is true. */
-            /**  */
-            /** Set to blank to have a range will be chosen with the default size. */
-            /**  */
-            /** Set to /netmask (e.g. `/14`) to have a range be chosen with a specific */
-            /** netmask. */
-            /**  */
-            /** Set to a [CIDR](http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) */
-            /** notation (e.g. `10.96.0.0/14`) from the RFC-1918 private networks (e.g. */
-            /** `10.0.0.0/8`, `172.16.0.0/12`, `192.168.0.0/16`) to pick a specific range */
-            /** to use. */
-            servicesIpv4Cidr?: string;
-            /** Whether a new subnetwork will be created automatically for the cluster. */
-            /**  */
-            /** This field is only applicable when `use_ip_aliases` is true. */
-            createSubnetwork?: boolean;
-            /** Whether alias IPs will be used for pod IPs in the cluster. */
-            useIpAliases?: boolean;
-        }
-        
-        interface ClusterUpdate {
-            /** Master authorized networks is a Beta feature. */
-            /** The desired configuration options for master authorized networks feature. */
-            desiredMasterAuthorizedNetworksConfig?: MasterAuthorizedNetworksConfig;
-            /** The desired list of Google Compute Engine */
-            /** [locations](/compute/docs/zones#available) in which the cluster's nodes */
-            /** should be located. Changing the locations a cluster is in will result */
-            /** in nodes being either created or removed from the cluster, depending on */
-            /** whether locations are being added or removed. */
-            /**  */
-            /** This list must always include the cluster's primary zone. */
-            desiredLocations?: string[];
-            /** Autoscaler configuration for the node pool specified in */
-            /** desired_node_pool_id. If there is only one pool in the */
-            /** cluster and desired_node_pool_id is not provided then */
-            /** the change applies to that single node pool. */
-            desiredNodePoolAutoscaling?: NodePoolAutoscaling;
-            /** The monitoring service the cluster should use to write metrics. */
-            /** Currently available options: */
-            /**  */
-            /** &#42; "monitoring.googleapis.com" - the Google Cloud Monitoring service */
-            /** &#42; "none" - no metrics will be exported from the cluster */
-            desiredMonitoringService?: string;
-            /** The desired image type for the node pool. */
-            /** NOTE: Set the "desired_node_pool" field as well. */
-            desiredImageType?: string;
-            /** Configurations for the various addons available to run in the cluster. */
-            desiredAddonsConfig?: AddonsConfig;
-            /** The node pool to be upgraded. This field is mandatory if */
-            /** "desired_node_version", "desired_image_family" or */
-            /** "desired_node_pool_autoscaling" is specified and there is more than one */
-            /** node pool on the cluster. */
-            desiredNodePoolId?: string;
-            /** The Kubernetes version to change the nodes to (typically an */
-            /** upgrade). Use `-` to upgrade to the latest version supported by */
-            /** the server. */
-            desiredNodeVersion?: string;
-            /** The Kubernetes version to change the master to. The only valid value is the */
-            /** latest supported version. Use "-" to have the server automatically select */
-            /** the latest version. */
-            desiredMasterVersion?: string;
-        }
-        
-        interface SetLoggingServiceRequest {
-            /** The logging service the cluster should use to write metrics. */
-            /** Currently available options: */
-            /**  */
-            /** &#42; "logging.googleapis.com" - the Google Cloud Logging service */
-            /** &#42; "none" - no metrics will be exported from the cluster */
-            loggingService?: string;
-        }
-        
-        interface HorizontalPodAutoscaling {
-            /** Whether the Horizontal Pod Autoscaling feature is enabled in the cluster. */
-            /** When enabled, it ensures that a Heapster pod is running in the cluster, */
-            /** which is also used by the Cloud Monitoring service. */
-            disabled?: boolean;
-        }
-        
-        interface SetNodePoolManagementRequest {
-            /** NodeManagement configuration for the node pool. */
-            management?: NodeManagement;
-        }
-        
-        interface MasterAuthorizedNetworksConfig {
-            /** Whether or not master authorized networks is enabled. */
-            enabled?: boolean;
-            /** cidr_blocks define up to 10 external networks that could access */
-            /** Kubernetes master through HTTPS. */
-            cidrBlocks?: CidrBlock[];
-        }
-        
-        interface SetNodePoolAutoscalingRequest {
-            /** Autoscaling configuration for the node pool. */
-            autoscaling?: NodePoolAutoscaling;
-        }
-        
-        interface CreateClusterRequest {
-            /** A [cluster */
-            /** resource](/container-engine/reference/rest/v1/projects.zones.clusters) */
-            cluster?: Cluster;
-        }
-        
-        interface ListNodePoolsResponse {
-            /** A list of node pools for a cluster. */
-            nodePools?: NodePool[];
-        }
-        
-        interface LegacyAbac {
-            /** Whether the ABAC authorizer is enabled for this cluster. When enabled, */
-            /** identities in the system, including service accounts, nodes, and */
-            /** controllers, will have statically granted permissions beyond those */
-            /** provided by the RBAC configuration or IAM. */
-            enabled?: boolean;
-        }
-        
-        interface AcceleratorConfig {
-            /** The accelerator type resource name. List of supported accelerators */
-            /** [here](/compute/docs/gpus/#Introduction) */
-            acceleratorType?: string;
-            /** The number of the accelerator cards exposed to an instance. */
-            acceleratorCount?: string;
-        }
-        
-        interface UpdateNodePoolRequest {
-            /** The Kubernetes version to change the nodes to (typically an */
-            /** upgrade). Use `-` to upgrade to the latest version supported by */
-            /** the server. */
-            nodeVersion?: string;
-            /** The desired image type for the node pool. */
-            imageType?: string;
-        }
-        
-        interface SetAddonsConfigRequest {
-            /** The desired configurations for the various addons available to run in the */
-            /** cluster. */
-            addonsConfig?: AddonsConfig;
-        }
-        
-        interface NodePool {
-            /** [Output only] The status of the nodes in this pool instance. */
-            status?: string;
-            /** The node configuration of the pool. */
-            config?: NodeConfig;
-            /** The name of the node pool. */
-            name?: string;
-            /** [Output only] Additional information about the current status of this */
-            /** node pool instance, if available. */
-            statusMessage?: string;
-            /** Autoscaler configuration for this NodePool. Autoscaler is enabled */
-            /** only if a valid configuration is present. */
-            autoscaling?: NodePoolAutoscaling;
-            /** The initial node count for the pool. You must ensure that your */
-            /** Compute Engine <a href="/compute/docs/resource-quotas">resource quota</a> */
-            /** is sufficient for this number of instances. You must also have available */
-            /** firewall and routes quota. */
-            initialNodeCount?: number;
-            /** NodeManagement configuration for this NodePool. */
-            management?: NodeManagement;
-            /** [Output only] Server-defined URL for the resource. */
-            selfLink?: string;
-            /** [Output only] The resource URLs of [instance */
-            /** groups](/compute/docs/instance-groups/) associated with this */
-            /** node pool. */
-            instanceGroupUrls?: string[];
-            /** [Output only] The version of the Kubernetes of this node. */
-            version?: string;
-        }
-        
-        interface SetLabelsRequest {
-            /** The labels to set for that cluster. */
-            resourceLabels?: Record<string, string>;            
-            /** The fingerprint of the previous set of labels for this resource, */
-            /** used to detect conflicts. The fingerprint is initially generated by */
-            /** Container Engine and changes after every request to modify or update */
-            /** labels. You must always provide an up-to-date fingerprint hash when */
-            /** updating or changing labels. Make a <code>get()</code> request to the */
-            /** resource to get the latest fingerprint. */
-            labelFingerprint?: string;
-        }
-        
-        interface NodeManagement {
-            /** A flag that specifies whether the node auto-repair is enabled for the node */
-            /** pool. If enabled, the nodes in this node pool will be monitored and, if */
-            /** they fail health checks too many times, an automatic repair action will be */
-            /** triggered. */
-            autoRepair?: boolean;
-            /** A flag that specifies whether node auto-upgrade is enabled for the node */
-            /** pool. If enabled, node auto-upgrade helps keep the nodes in your node pool */
-            /** up to date with the latest release version of Kubernetes. */
-            autoUpgrade?: boolean;
-            /** Specifies the Auto Upgrade knobs for the node pool. */
-            upgradeOptions?: AutoUpgradeOptions;
-        }
-        
-        interface KubernetesDashboard {
-            /** Whether the Kubernetes Dashboard is enabled for this cluster. */
-            disabled?: boolean;
-        }
-        
-        interface SetLegacyAbacRequest {
-            /** Whether ABAC authorization will be enabled in the cluster. */
-            enabled?: boolean;
-        }
-        
-        interface Operation {
-            /** The server-assigned ID for the operation. */
-            name?: string;
-            /** If an error has occurred, a textual description of the error. */
-            statusMessage?: string;
-            /** Server-defined URL for the resource. */
-            selfLink?: string;
-            /** Server-defined URL for the target of the operation. */
-            targetLink?: string;
-            /** Detailed operation progress, if available. */
-            detail?: string;
-            /** The operation type. */
-            operationType?: string;
-            /** The name of the Google Compute Engine */
-            /** [zone](/compute/docs/zones#available) in which the operation */
-            /** is taking place. */
-            zone?: string;
-            /** The current status of the operation. */
-            status?: string;
-        }
-        
-        interface AddonsConfig {
-            /** Configuration for the HTTP (L7) load balancing controller addon, which */
-            /** makes it easy to set up HTTP load balancers for services in a cluster. */
-            httpLoadBalancing?: HttpLoadBalancing;
-            /** Configuration for the Kubernetes Dashboard. */
-            kubernetesDashboard?: KubernetesDashboard;
-            /** Configuration for the horizontal pod autoscaling feature, which */
-            /** increases or decreases the number of replica pods a replication controller */
-            /** has based on the resource usage of the existing pods. */
-            horizontalPodAutoscaling?: HorizontalPodAutoscaling;
-        }
-        
-        interface SetLocationsRequest {
-            /** The desired list of Google Compute Engine */
-            /** [locations](/compute/docs/zones#available) in which the cluster's nodes */
-            /** should be located. Changing the locations a cluster is in will result */
-            /** in nodes being either created or removed from the cluster, depending on */
-            /** whether locations are being added or removed. */
-            /**  */
-            /** This list must always include the cluster's primary zone. */
-            locations?: string[];
-        }
-        
-        interface SetNodePoolSizeRequest {
-            /** The desired node count for the pool. */
-            nodeCount?: number;
-        }
-        
-        interface UpdateClusterRequest {
-            /** A description of the update. */
-            update?: ClusterUpdate;
-        }
-        
-        interface NetworkPolicy {
-            /** Whether network policy is enabled on the cluster. */
-            enabled?: boolean;
-            /** The selected network policy provider. */
-            provider?: string;
-        }
-        
-        interface UpdateMasterRequest {
-            /** The Kubernetes version to change the master to. The only valid value is the */
-            /** latest supported version. Use "-" to have the server automatically select */
-            /** the latest version. */
-            masterVersion?: string;
-        }
-        
-        interface NodePoolsResource {
-            /** Retrieves the node pool requested. */
+        interface OperationsResource {
+            /** Gets the specified operation. */
             get(request: {            
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -702,6 +690,137 @@ declare namespace gapi.client {
                 "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** The Google Developers Console [project ID or project */
+                /** number](https://support.google.com/cloud/answer/6158840). */
+                projectId: string;
+                /** The name of the Google Compute Engine */
+                /** [zone](/compute/docs/zones#available) in which the cluster */
+                /** resides. */
+                zone: string;
+                /** The server-assigned `name` of the operation. */
+                operationId: string;
+            }): Request<Operation>;            
+            
+            /** Lists all operations in a project in a specific zone or all zones. */
+            list(request: {            
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** The Google Developers Console [project ID or project */
+                /** number](https://support.google.com/cloud/answer/6158840). */
+                projectId: string;
+                /** The name of the Google Compute Engine [zone](/compute/docs/zones#available) */
+                /** to return operations for, or `-` for all zones. */
+                zone: string;
+            }): Request<ListOperationsResponse>;            
+            
+            /** Cancels the specified operation. */
+            cancel(request: {            
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** The server-assigned `name` of the operation. */
+                operationId: string;
+                /** The Google Developers Console [project ID or project */
+                /** number](https://support.google.com/cloud/answer/6158840). */
+                projectId: string;
+                /** The name of the Google Compute Engine */
+                /** [zone](/compute/docs/zones#available) in which the operation resides. */
+                zone: string;
+            }): Request<{}>;            
+            
+        }
+        
+        interface NodePoolsResource {
+            /** Retrieves the node pool requested. */
+            get(request: {            
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** The Google Developers Console [project ID or project */
+                /** number](https://developers.google.com/console/help/new/#projectnumber). */
+                projectId: string;
                 /** The name of the Google Compute Engine */
                 /** [zone](/compute/docs/zones#available) in which the cluster */
                 /** resides. */
@@ -710,25 +829,10 @@ declare namespace gapi.client {
                 clusterId: string;
                 /** The name of the node pool. */
                 nodePoolId: string;
-                /** The Google Developers Console [project ID or project */
-                /** number](https://developers.google.com/console/help/new/#projectnumber). */
-                projectId: string;
-            }): gapi.client.Request<NodePool>;            
+            }): Request<NodePool>;            
             
             /** Updates the version and/or image type of a specific node pool. */
             update(request: {            
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -743,6 +847,20 @@ declare namespace gapi.client {
                 "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** The name of the node pool to upgrade. */
+                nodePoolId: string;
                 /** The Google Developers Console [project ID or project */
                 /** number](https://support.google.com/cloud/answer/6158840). */
                 projectId: string;
@@ -752,24 +870,10 @@ declare namespace gapi.client {
                 zone: string;
                 /** The name of the cluster to upgrade. */
                 clusterId: string;
-                /** The name of the node pool to upgrade. */
-                nodePoolId: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Deletes a node pool from a cluster. */
             delete(request: {            
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -784,6 +888,18 @@ declare namespace gapi.client {
                 "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** The Google Developers Console [project ID or project */
                 /** number](https://developers.google.com/console/help/new/#projectnumber). */
                 projectId: string;
@@ -795,22 +911,10 @@ declare namespace gapi.client {
                 clusterId: string;
                 /** The name of the node pool to delete. */
                 nodePoolId: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Sets the NodeManagement options for a node pool. */
             setManagement(request: {            
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -825,6 +929,18 @@ declare namespace gapi.client {
                 "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** The name of the node pool to update. */
                 nodePoolId: string;
                 /** The Google Developers Console [project ID or project */
@@ -836,22 +952,10 @@ declare namespace gapi.client {
                 zone: string;
                 /** The name of the cluster to update. */
                 clusterId: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Sets the size of a specific node pool. */
             setSize(request: {            
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -866,10 +970,18 @@ declare namespace gapi.client {
                 "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** The name of the Google Compute Engine */
-                /** [zone](/compute/docs/zones#available) in which the cluster */
-                /** resides. */
-                zone: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** The name of the cluster to update. */
                 clusterId: string;
                 /** The name of the node pool to update. */
@@ -877,22 +989,14 @@ declare namespace gapi.client {
                 /** The Google Developers Console [project ID or project */
                 /** number](https://support.google.com/cloud/answer/6158840). */
                 projectId: string;
-            }): gapi.client.Request<Operation>;            
+                /** The name of the Google Compute Engine */
+                /** [zone](/compute/docs/zones#available) in which the cluster */
+                /** resides. */
+                zone: string;
+            }): Request<Operation>;            
             
             /** Lists the node pools for a cluster. */
             list(request: {            
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -907,6 +1011,20 @@ declare namespace gapi.client {
                 "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** The name of the cluster. */
+                clusterId: string;
                 /** The Google Developers Console [project ID or project */
                 /** number](https://developers.google.com/console/help/new/#projectnumber). */
                 projectId: string;
@@ -914,25 +1032,11 @@ declare namespace gapi.client {
                 /** [zone](/compute/docs/zones#available) in which the cluster */
                 /** resides. */
                 zone: string;
-                /** The name of the cluster. */
-                clusterId: string;
-            }): gapi.client.Request<ListNodePoolsResponse>;            
+            }): Request<ListNodePoolsResponse>;            
             
             /** Roll back the previously Aborted or Failed NodePool upgrade. */
             /** This will be an no-op if the last upgrade successfully completed. */
             rollback(request: {            
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -947,6 +1051,21 @@ declare namespace gapi.client {
                 "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** The Google Developers Console [project ID or project */
+                /** number](https://support.google.com/cloud/answer/6158840). */
+                projectId: string;
                 /** The name of the Google Compute Engine */
                 /** [zone](/compute/docs/zones#available) in which the cluster */
                 /** resides. */
@@ -955,25 +1074,10 @@ declare namespace gapi.client {
                 clusterId: string;
                 /** The name of the node pool to rollback. */
                 nodePoolId: string;
-                /** The Google Developers Console [project ID or project */
-                /** number](https://support.google.com/cloud/answer/6158840). */
-                projectId: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Creates a node pool for a cluster. */
             create(request: {            
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -988,8 +1092,18 @@ declare namespace gapi.client {
                 "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** The name of the cluster. */
-                clusterId: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** The Google Developers Console [project ID or project */
                 /** number](https://developers.google.com/console/help/new/#projectnumber). */
                 projectId: string;
@@ -997,22 +1111,12 @@ declare namespace gapi.client {
                 /** [zone](/compute/docs/zones#available) in which the cluster */
                 /** resides. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+                /** The name of the cluster. */
+                clusterId: string;
+            }): Request<Operation>;            
             
             /** Sets the autoscaling settings of a specific node pool. */
             autoscaling(request: {            
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -1027,6 +1131,18 @@ declare namespace gapi.client {
                 "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** The Google Developers Console [project ID or project */
                 /** number](https://support.google.com/cloud/answer/6158840). */
                 projectId: string;
@@ -1038,25 +1154,13 @@ declare namespace gapi.client {
                 clusterId: string;
                 /** The name of the node pool to upgrade. */
                 nodePoolId: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
         }
         
         interface ClustersResource {
-            /** Start master IP rotation. */
-            startIpRotation(request: {            
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
+            /** Completes master IP rotation. */
+            completeIpRotation(request: {            
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -1071,6 +1175,18 @@ declare namespace gapi.client {
                 "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** The Google Developers Console [project ID or project */
                 /** number](https://developers.google.com/console/help/new/#projectnumber). */
                 projectId: string;
@@ -1080,22 +1196,10 @@ declare namespace gapi.client {
                 zone: string;
                 /** The name of the cluster. */
                 clusterId: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
-            /** Sets the addons of a specific cluster. */
-            addons(request: {            
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
+            /** Enables/Disables Network Policy for a cluster. */
+            setNetworkPolicy(request: {            
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -1110,6 +1214,174 @@ declare namespace gapi.client {
                 "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** The Google Developers Console [project ID or project */
+                /** number](https://developers.google.com/console/help/new/#projectnumber). */
+                projectId: string;
+                /** The name of the Google Compute Engine */
+                /** [zone](/compute/docs/zones#available) in which the cluster */
+                /** resides. */
+                zone: string;
+                /** The name of the cluster. */
+                clusterId: string;
+            }): Request<Operation>;            
+            
+            /** Enables or disables the ABAC authorization mechanism on a cluster. */
+            legacyAbac(request: {            
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** The Google Developers Console [project ID or project */
+                /** number](https://support.google.com/cloud/answer/6158840). */
+                projectId: string;
+                /** The name of the Google Compute Engine */
+                /** [zone](/compute/docs/zones#available) in which the cluster */
+                /** resides. */
+                zone: string;
+                /** The name of the cluster to update. */
+                clusterId: string;
+            }): Request<Operation>;            
+            
+            /** Gets the details of a specific cluster. */
+            get(request: {            
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** The Google Developers Console [project ID or project */
+                /** number](https://support.google.com/cloud/answer/6158840). */
+                projectId: string;
+                /** The name of the Google Compute Engine */
+                /** [zone](/compute/docs/zones#available) in which the cluster */
+                /** resides. */
+                zone: string;
+                /** The name of the cluster to retrieve. */
+                clusterId: string;
+            }): Request<Cluster>;            
+            
+            /** Start master IP rotation. */
+            startIpRotation(request: {            
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** The Google Developers Console [project ID or project */
+                /** number](https://developers.google.com/console/help/new/#projectnumber). */
+                projectId: string;
+                /** The name of the Google Compute Engine */
+                /** [zone](/compute/docs/zones#available) in which the cluster */
+                /** resides. */
+                zone: string;
+                /** The name of the cluster. */
+                clusterId: string;
+            }): Request<Operation>;            
+            
+            /** Sets the addons of a specific cluster. */
+            addons(request: {            
+                /** Upload protocol for media (e.g. "raw", "multipart"). */
+                upload_protocol?: string;
+                /** Returns response with indentations and line breaks. */
+                prettyPrint?: boolean;
+                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
+                uploadType?: string;
+                /** Selector specifying which fields to include in a partial response. */
+                fields?: string;
+                /** JSONP */
+                callback?: string;
+                /** V1 error format. */
+                "$.xgafv"?: string;
+                /** Data format for response. */
+                alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** The Google Developers Console [project ID or project */
                 /** number](https://support.google.com/cloud/answer/6158840). */
                 projectId: string;
@@ -1119,7 +1391,7 @@ declare namespace gapi.client {
                 zone: string;
                 /** The name of the cluster to upgrade. */
                 clusterId: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Deletes the cluster, including the Kubernetes endpoint and all worker */
             /** nodes. */
@@ -1131,18 +1403,6 @@ declare namespace gapi.client {
             /** (e.g. load balancer resources) will not be deleted if they weren't present */
             /** at the initial create time. */
             delete(request: {            
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -1157,6 +1417,18 @@ declare namespace gapi.client {
                 "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** The Google Developers Console [project ID or project */
                 /** number](https://support.google.com/cloud/answer/6158840). */
                 projectId: string;
@@ -1166,22 +1438,10 @@ declare namespace gapi.client {
                 zone: string;
                 /** The name of the cluster to delete. */
                 clusterId: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Sets the locations of a specific cluster. */
             locations(request: {            
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -1196,31 +1456,31 @@ declare namespace gapi.client {
                 "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
+                /** The Google Developers Console [project ID or project */
+                /** number](https://support.google.com/cloud/answer/6158840). */
+                projectId: string;
                 /** The name of the Google Compute Engine */
                 /** [zone](/compute/docs/zones#available) in which the cluster */
                 /** resides. */
                 zone: string;
                 /** The name of the cluster to upgrade. */
                 clusterId: string;
-                /** The Google Developers Console [project ID or project */
-                /** number](https://support.google.com/cloud/answer/6158840). */
-                projectId: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Updates the settings of a specific cluster. */
             update(request: {            
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -1235,6 +1495,18 @@ declare namespace gapi.client {
                 "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** The Google Developers Console [project ID or project */
                 /** number](https://support.google.com/cloud/answer/6158840). */
                 projectId: string;
@@ -1244,22 +1516,10 @@ declare namespace gapi.client {
                 zone: string;
                 /** The name of the cluster to upgrade. */
                 clusterId: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Sets the monitoring service of a specific cluster. */
             monitoring(request: {            
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -1274,6 +1534,18 @@ declare namespace gapi.client {
                 "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** The Google Developers Console [project ID or project */
                 /** number](https://support.google.com/cloud/answer/6158840). */
                 projectId: string;
@@ -1283,22 +1555,10 @@ declare namespace gapi.client {
                 zone: string;
                 /** The name of the cluster to upgrade. */
                 clusterId: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Updates the master of a specific cluster. */
             master(request: {            
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -1313,6 +1573,18 @@ declare namespace gapi.client {
                 "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** The Google Developers Console [project ID or project */
                 /** number](https://support.google.com/cloud/answer/6158840). */
                 projectId: string;
@@ -1322,24 +1594,12 @@ declare namespace gapi.client {
                 zone: string;
                 /** The name of the cluster to upgrade. */
                 clusterId: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Used to set master auth materials. Currently supports :- */
             /** Changing the admin password of a specific cluster. */
             /** This can be either via password generation or explicitly set the password. */
             setMasterAuth(request: {            
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -1354,6 +1614,18 @@ declare namespace gapi.client {
                 "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** The Google Developers Console [project ID or project */
                 /** number](https://support.google.com/cloud/answer/6158840). */
                 projectId: string;
@@ -1363,22 +1635,10 @@ declare namespace gapi.client {
                 zone: string;
                 /** The name of the cluster to upgrade. */
                 clusterId: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Sets the logging service of a specific cluster. */
             logging(request: {            
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -1393,6 +1653,18 @@ declare namespace gapi.client {
                 "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** The Google Developers Console [project ID or project */
                 /** number](https://support.google.com/cloud/answer/6158840). */
                 projectId: string;
@@ -1402,23 +1674,11 @@ declare namespace gapi.client {
                 zone: string;
                 /** The name of the cluster to upgrade. */
                 clusterId: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Lists all clusters owned by a project in either the specified zone or all */
             /** zones. */
             list(request: {            
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -1433,6 +1693,18 @@ declare namespace gapi.client {
                 "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** The Google Developers Console [project ID or project */
                 /** number](https://support.google.com/cloud/answer/6158840). */
                 projectId: string;
@@ -1440,7 +1712,7 @@ declare namespace gapi.client {
                 /** [zone](/compute/docs/zones#available) in which the cluster */
                 /** resides, or "-" for all zones. */
                 zone: string;
-            }): gapi.client.Request<ListClustersResponse>;            
+            }): Request<ListClustersResponse>;            
             
             /** Creates a cluster, consisting of the specified number and type of Google */
             /** Compute Engine instances. */
@@ -1456,18 +1728,6 @@ declare namespace gapi.client {
             /** Finally, an entry is added to the project's global metadata indicating */
             /** which CIDR range is being used by the cluster. */
             create(request: {            
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -1482,6 +1742,18 @@ declare namespace gapi.client {
                 "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** The Google Developers Console [project ID or project */
                 /** number](https://support.google.com/cloud/answer/6158840). */
                 projectId: string;
@@ -1489,22 +1761,10 @@ declare namespace gapi.client {
                 /** [zone](/compute/docs/zones#available) in which the cluster */
                 /** resides. */
                 zone: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             /** Sets labels on a cluster. */
             resourceLabels(request: {            
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -1519,6 +1779,18 @@ declare namespace gapi.client {
                 "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** The Google Developers Console [project ID or project */
                 /** number](https://developers.google.com/console/help/new/#projectnumber). */
                 projectId: string;
@@ -1528,298 +1800,14 @@ declare namespace gapi.client {
                 zone: string;
                 /** The name of the cluster. */
                 clusterId: string;
-            }): gapi.client.Request<Operation>;            
-            
-            /** Completes master IP rotation. */
-            completeIpRotation(request: {            
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** The Google Developers Console [project ID or project */
-                /** number](https://developers.google.com/console/help/new/#projectnumber). */
-                projectId: string;
-                /** The name of the Google Compute Engine */
-                /** [zone](/compute/docs/zones#available) in which the cluster */
-                /** resides. */
-                zone: string;
-                /** The name of the cluster. */
-                clusterId: string;
-            }): gapi.client.Request<Operation>;            
-            
-            /** Enables/Disables Network Policy for a cluster. */
-            setNetworkPolicy(request: {            
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** The Google Developers Console [project ID or project */
-                /** number](https://developers.google.com/console/help/new/#projectnumber). */
-                projectId: string;
-                /** The name of the Google Compute Engine */
-                /** [zone](/compute/docs/zones#available) in which the cluster */
-                /** resides. */
-                zone: string;
-                /** The name of the cluster. */
-                clusterId: string;
-            }): gapi.client.Request<Operation>;            
-            
-            /** Gets the details of a specific cluster. */
-            get(request: {            
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** The Google Developers Console [project ID or project */
-                /** number](https://support.google.com/cloud/answer/6158840). */
-                projectId: string;
-                /** The name of the Google Compute Engine */
-                /** [zone](/compute/docs/zones#available) in which the cluster */
-                /** resides. */
-                zone: string;
-                /** The name of the cluster to retrieve. */
-                clusterId: string;
-            }): gapi.client.Request<Cluster>;            
-            
-            /** Enables or disables the ABAC authorization mechanism on a cluster. */
-            legacyAbac(request: {            
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** The name of the Google Compute Engine */
-                /** [zone](/compute/docs/zones#available) in which the cluster */
-                /** resides. */
-                zone: string;
-                /** The name of the cluster to update. */
-                clusterId: string;
-                /** The Google Developers Console [project ID or project */
-                /** number](https://support.google.com/cloud/answer/6158840). */
-                projectId: string;
-            }): gapi.client.Request<Operation>;            
+            }): Request<Operation>;            
             
             nodePools: NodePoolsResource;
-        }
-        
-        interface OperationsResource {
-            /** Cancels the specified operation. */
-            cancel(request: {            
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** The Google Developers Console [project ID or project */
-                /** number](https://support.google.com/cloud/answer/6158840). */
-                projectId: string;
-                /** The name of the Google Compute Engine */
-                /** [zone](/compute/docs/zones#available) in which the operation resides. */
-                zone: string;
-                /** The server-assigned `name` of the operation. */
-                operationId: string;
-            }): gapi.client.Request<{}>;            
-            
-            /** Gets the specified operation. */
-            get(request: {            
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** The server-assigned `name` of the operation. */
-                operationId: string;
-                /** The Google Developers Console [project ID or project */
-                /** number](https://support.google.com/cloud/answer/6158840). */
-                projectId: string;
-                /** The name of the Google Compute Engine */
-                /** [zone](/compute/docs/zones#available) in which the cluster */
-                /** resides. */
-                zone: string;
-            }): gapi.client.Request<Operation>;            
-            
-            /** Lists all operations in a project in a specific zone or all zones. */
-            list(request: {            
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
-                /** Upload protocol for media (e.g. "raw", "multipart"). */
-                upload_protocol?: string;
-                /** Returns response with indentations and line breaks. */
-                prettyPrint?: boolean;
-                /** Legacy upload protocol for media (e.g. "media", "multipart"). */
-                uploadType?: string;
-                /** Selector specifying which fields to include in a partial response. */
-                fields?: string;
-                /** JSONP */
-                callback?: string;
-                /** V1 error format. */
-                "$.xgafv"?: string;
-                /** Data format for response. */
-                alt?: string;
-                /** The Google Developers Console [project ID or project */
-                /** number](https://support.google.com/cloud/answer/6158840). */
-                projectId: string;
-                /** The name of the Google Compute Engine [zone](/compute/docs/zones#available) */
-                /** to return operations for, or `-` for all zones. */
-                zone: string;
-            }): gapi.client.Request<ListOperationsResponse>;            
-            
         }
         
         interface ZonesResource {
             /** Returns configuration info about the Container Engine service. */
             getServerconfig(request: {            
-                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
-                key?: string;
-                /** OAuth access token. */
-                access_token?: string;
-                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
-                quotaUser?: string;
-                /** Pretty-print response. */
-                pp?: boolean;
-                /** OAuth 2.0 token for the current user. */
-                oauth_token?: string;
-                /** OAuth bearer token. */
-                bearer_token?: string;
                 /** Upload protocol for media (e.g. "raw", "multipart"). */
                 upload_protocol?: string;
                 /** Returns response with indentations and line breaks. */
@@ -1834,16 +1822,28 @@ declare namespace gapi.client {
                 "$.xgafv"?: string;
                 /** Data format for response. */
                 alt?: string;
-                /** The name of the Google Compute Engine [zone](/compute/docs/zones#available) */
-                /** to return operations for. */
-                zone: string;
+                /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
+                key?: string;
+                /** OAuth access token. */
+                access_token?: string;
+                /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. */
+                quotaUser?: string;
+                /** Pretty-print response. */
+                pp?: boolean;
+                /** OAuth 2.0 token for the current user. */
+                oauth_token?: string;
+                /** OAuth bearer token. */
+                bearer_token?: string;
                 /** The Google Developers Console [project ID or project */
                 /** number](https://support.google.com/cloud/answer/6158840). */
                 projectId: string;
-            }): gapi.client.Request<ServerConfig>;            
+                /** The name of the Google Compute Engine [zone](/compute/docs/zones#available) */
+                /** to return operations for. */
+                zone: string;
+            }): Request<ServerConfig>;            
             
-            clusters: ClustersResource;
             operations: OperationsResource;
+            clusters: ClustersResource;
         }
         
         interface ProjectsResource {

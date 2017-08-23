@@ -469,7 +469,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The search query. Queries can cover any parts of a OCD ID or a human readable division name. All words given in the query are treated as required patterns. In addition to that, most query operators of the Apache Lucene library are supported. See http://lucene.apache.org/core/2_9_4/queryparsersyntax.html */
                 query?: string;
-            }): gapi.client.Request<DivisionSearchResponse>;            
+            }): Request<DivisionSearchResponse>;            
             
         }
         
@@ -490,7 +490,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<ElectionsQueryResponse>;            
+            }): Request<ElectionsQueryResponse>;            
             
             /** Looks up information relevant to a voter based on the voter's registered address. */
             voterInfoQuery(request: {            
@@ -516,7 +516,7 @@ declare namespace gapi.client {
                 officialOnly?: boolean;
                 /** If set to true, the query will return the success codeand include any partial information when it is unable to determine a matching address or unable to determine the election for electionId=0 queries. */
                 returnAllAvailableData?: boolean;
-            }): gapi.client.Request<VoterInfoResponse>;            
+            }): Request<VoterInfoResponse>;            
             
         }
         
@@ -545,7 +545,7 @@ declare namespace gapi.client {
                 levels?: string;
                 /** A list of office roles to filter by. Only offices fulfilling one of these roles will be returned. Divisions that don't contain a matching office will not be returned. */
                 roles?: string;
-            }): gapi.client.Request<RepresentativeInfoResponse>;            
+            }): Request<RepresentativeInfoResponse>;            
             
             /** Looks up representative information for a single geographic division. */
             representativeInfoByDivision(request: {            
@@ -571,7 +571,7 @@ declare namespace gapi.client {
                 recursive?: boolean;
                 /** A list of office roles to filter by. Only offices fulfilling one of these roles will be returned. Divisions that don't contain a matching office will not be returned. */
                 roles?: string;
-            }): gapi.client.Request<RepresentativeInfoData>;            
+            }): Request<RepresentativeInfoData>;            
             
         }
     }

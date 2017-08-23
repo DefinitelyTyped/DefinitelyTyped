@@ -1048,7 +1048,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The account id */
                 id: number;
-            }): gapi.client.Request<Account>;            
+            }): Request<Account>;            
             
             /** Retrieves the authenticated user's list of accounts. */
             list(request: {            
@@ -1066,7 +1066,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<AccountsList>;            
+            }): Request<AccountsList>;            
             
             /** Updates an existing account. This method supports patch semantics. */
             patch(request: {            
@@ -1088,7 +1088,7 @@ declare namespace gapi.client {
                 confirmUnsafeAccountChange?: boolean;
                 /** The account id */
                 id: number;
-            }): gapi.client.Request<Account>;            
+            }): Request<Account>;            
             
             /** Updates an existing account. */
             update(request: {            
@@ -1110,7 +1110,7 @@ declare namespace gapi.client {
                 confirmUnsafeAccountChange?: boolean;
                 /** The account id */
                 id: number;
-            }): gapi.client.Request<Account>;            
+            }): Request<Account>;            
             
         }
         
@@ -1133,7 +1133,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The account id. */
                 accountId: number;
-            }): gapi.client.Request<BillingInfo>;            
+            }): Request<BillingInfo>;            
             
             /** Retrieves a list of billing information for all accounts of the authenticated user. */
             list(request: {            
@@ -1151,7 +1151,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<BillingInfoList>;            
+            }): Request<BillingInfoList>;            
             
         }
         
@@ -1176,7 +1176,7 @@ declare namespace gapi.client {
                 accountId: string;
                 /** The billing id to get the budget information for. */
                 billingId: string;
-            }): gapi.client.Request<Budget>;            
+            }): Request<Budget>;            
             
             /** Updates the budget amount for the budget of the adgroup specified by the accountId and billingId, with the budget amount in the request. This method supports patch semantics. */
             patch(request: {            
@@ -1198,7 +1198,7 @@ declare namespace gapi.client {
                 accountId: string;
                 /** The billing id associated with the budget being updated. */
                 billingId: string;
-            }): gapi.client.Request<Budget>;            
+            }): Request<Budget>;            
             
             /** Updates the budget amount for the budget of the adgroup specified by the accountId and billingId, with the budget amount in the request. */
             update(request: {            
@@ -1220,7 +1220,7 @@ declare namespace gapi.client {
                 accountId: string;
                 /** The billing id associated with the budget being updated. */
                 billingId: string;
-            }): gapi.client.Request<Budget>;            
+            }): Request<Budget>;            
             
         }
         
@@ -1247,7 +1247,7 @@ declare namespace gapi.client {
                 buyerCreativeId: string;
                 /** The id of the deal id to associate with this creative. */
                 dealId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Gets the status for a single creative. A creative will be available 30-40 minutes after submission. */
             get(request: {            
@@ -1269,7 +1269,7 @@ declare namespace gapi.client {
                 accountId: number;
                 /** The buyer-specific id for this creative. */
                 buyerCreativeId: string;
-            }): gapi.client.Request<Creative>;            
+            }): Request<Creative>;            
             
             /** Submit a new creative. */
             insert(request: {            
@@ -1287,7 +1287,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<Creative>;            
+            }): Request<Creative>;            
             
             /** Retrieves a list of the authenticated user's active creatives. A creative will be available 30-40 minutes after submission. */
             list(request: {            
@@ -1317,7 +1317,7 @@ declare namespace gapi.client {
                 openAuctionStatusFilter?: string;
                 /** A continuation token, used to page through ad clients. To retrieve the next page, set this parameter to the value of "nextPageToken" from the previous response. Optional. */
                 pageToken?: string;
-            }): gapi.client.Request<CreativesList>;            
+            }): Request<CreativesList>;            
             
             /** Lists the external deal ids associated with the creative. */
             listDeals(request: {            
@@ -1339,7 +1339,7 @@ declare namespace gapi.client {
                 accountId: number;
                 /** The buyer-specific id for this creative. */
                 buyerCreativeId: string;
-            }): gapi.client.Request<CreativeDealIds>;            
+            }): Request<CreativeDealIds>;            
             
             /** Remove a deal id associated with the creative. */
             removeDeal(request: {            
@@ -1363,7 +1363,7 @@ declare namespace gapi.client {
                 buyerCreativeId: string;
                 /** The id of the deal id to disassociate with this creative. */
                 dealId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
         }
         
@@ -1386,7 +1386,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The proposalId to delete deals from. */
                 proposalId: string;
-            }): gapi.client.Request<DeleteOrderDealsResponse>;            
+            }): Request<DeleteOrderDealsResponse>;            
             
             /** Add new deals for the specified proposal */
             insert(request: {            
@@ -1406,7 +1406,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** proposalId for which deals need to be added. */
                 proposalId: string;
-            }): gapi.client.Request<AddOrderDealsResponse>;            
+            }): Request<AddOrderDealsResponse>;            
             
             /** List all the deals for a given proposal */
             list(request: {            
@@ -1428,7 +1428,7 @@ declare namespace gapi.client {
                 pqlQuery?: string;
                 /** The proposalId to get deals for. To search across all proposals specify order_id = '-' as part of the URL. */
                 proposalId: string;
-            }): gapi.client.Request<GetOrderDealsResponse>;            
+            }): Request<GetOrderDealsResponse>;            
             
             /** Replaces all the deals in the proposal with the passed in deals */
             update(request: {            
@@ -1448,7 +1448,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The proposalId to edit deals on. */
                 proposalId: string;
-            }): gapi.client.Request<EditAllOrderDealsResponse>;            
+            }): Request<EditAllOrderDealsResponse>;            
             
         }
         
@@ -1471,7 +1471,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The proposalId to add notes for. */
                 proposalId: string;
-            }): gapi.client.Request<AddOrderNotesResponse>;            
+            }): Request<AddOrderNotesResponse>;            
             
             /** Get all the notes associated with a proposal */
             list(request: {            
@@ -1493,7 +1493,7 @@ declare namespace gapi.client {
                 pqlQuery?: string;
                 /** The proposalId to get notes for. To search across all proposals specify order_id = '-' as part of the URL. */
                 proposalId: string;
-            }): gapi.client.Request<GetOrderNotesResponse>;            
+            }): Request<GetOrderNotesResponse>;            
             
         }
         
@@ -1516,7 +1516,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The private auction id to be updated. */
                 privateAuctionId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
         }
         
@@ -1547,7 +1547,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** The start time of the report in ISO 8601 timestamp format using UTC. */
                 startDateTime: string;
-            }): gapi.client.Request<PerformanceReportList>;            
+            }): Request<PerformanceReportList>;            
             
         }
         
@@ -1572,7 +1572,7 @@ declare namespace gapi.client {
                 accountId: string;
                 /** The specific id of the configuration to delete. */
                 configId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Gets a specific pretargeting configuration */
             get(request: {            
@@ -1594,7 +1594,7 @@ declare namespace gapi.client {
                 accountId: string;
                 /** The specific id of the configuration to retrieve. */
                 configId: string;
-            }): gapi.client.Request<PretargetingConfig>;            
+            }): Request<PretargetingConfig>;            
             
             /** Inserts a new pretargeting configuration. */
             insert(request: {            
@@ -1614,7 +1614,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The account id to insert the pretargeting config for. */
                 accountId: string;
-            }): gapi.client.Request<PretargetingConfig>;            
+            }): Request<PretargetingConfig>;            
             
             /** Retrieves a list of the authenticated user's pretargeting configurations. */
             list(request: {            
@@ -1634,7 +1634,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The account id to get the pretargeting configs for. */
                 accountId: string;
-            }): gapi.client.Request<PretargetingConfigList>;            
+            }): Request<PretargetingConfigList>;            
             
             /** Updates an existing pretargeting config. This method supports patch semantics. */
             patch(request: {            
@@ -1656,7 +1656,7 @@ declare namespace gapi.client {
                 accountId: string;
                 /** The specific id of the configuration to update. */
                 configId: string;
-            }): gapi.client.Request<PretargetingConfig>;            
+            }): Request<PretargetingConfig>;            
             
             /** Updates an existing pretargeting config. */
             update(request: {            
@@ -1678,7 +1678,7 @@ declare namespace gapi.client {
                 accountId: string;
                 /** The specific id of the configuration to update. */
                 configId: string;
-            }): gapi.client.Request<PretargetingConfig>;            
+            }): Request<PretargetingConfig>;            
             
         }
         
@@ -1701,7 +1701,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The id for the product to get the head revision for. */
                 productId: string;
-            }): gapi.client.Request<Product>;            
+            }): Request<Product>;            
             
             /** Gets the requested product. */
             search(request: {            
@@ -1721,7 +1721,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The pql query used to query for products. */
                 pqlQuery?: string;
-            }): gapi.client.Request<GetOffersResponse>;            
+            }): Request<GetOffersResponse>;            
             
         }
         
@@ -1744,7 +1744,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Id of the proposal to retrieve. */
                 proposalId: string;
-            }): gapi.client.Request<Proposal>;            
+            }): Request<Proposal>;            
             
             /** Create the given list of proposals */
             insert(request: {            
@@ -1762,7 +1762,7 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-            }): gapi.client.Request<CreateOrdersResponse>;            
+            }): Request<CreateOrdersResponse>;            
             
             /** Update the given proposal. This method supports patch semantics. */
             patch(request: {            
@@ -1786,7 +1786,7 @@ declare namespace gapi.client {
                 revisionNumber: string;
                 /** The proposed action to take on the proposal. This field is required and it must be set when updating a proposal. */
                 updateAction: string;
-            }): gapi.client.Request<Proposal>;            
+            }): Request<Proposal>;            
             
             /** Search for proposals using pql query */
             search(request: {            
@@ -1806,7 +1806,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Query string to retrieve specific proposals. */
                 pqlQuery?: string;
-            }): gapi.client.Request<GetOrdersResponse>;            
+            }): Request<GetOrdersResponse>;            
             
             /** Update the given proposal to indicate that setup has been completed. */
             setupcomplete(request: {            
@@ -1826,7 +1826,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The proposal id for which the setup is complete */
                 proposalId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Update the given proposal */
             update(request: {            
@@ -1850,7 +1850,7 @@ declare namespace gapi.client {
                 revisionNumber: string;
                 /** The proposed action to take on the proposal. This field is required and it must be set when updating a proposal. */
                 updateAction: string;
-            }): gapi.client.Request<Proposal>;            
+            }): Request<Proposal>;            
             
         }
         
@@ -1873,7 +1873,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** The accountId of the publisher to get profiles for. */
                 accountId: number;
-            }): gapi.client.Request<GetPublisherProfilesByAccountIdResponse>;            
+            }): Request<GetPublisherProfilesByAccountIdResponse>;            
             
         }
     }

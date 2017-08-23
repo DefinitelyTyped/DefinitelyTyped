@@ -46,7 +46,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Developer account ID. */
                 account: string;
-            }): gapi.client.Request<CustomApp>;            
+            }): Request<CustomApp>;            
             
         }
         

@@ -14,11 +14,11 @@ gapi.load('client', () => {
         // declare client_id registered in Google Developers Console
         const client_id = '<<PUT YOUR CLIENT ID HERE>>';
         const scope = [     
-                // View and manage your data across Google Cloud Platform services
-                'https://www.googleapis.com/auth/cloud-platform',
-            
                 // Manage your Google Service Control data
                 'https://www.googleapis.com/auth/servicecontrol',
+            
+                // View and manage your data across Google Cloud Platform services
+                'https://www.googleapis.com/auth/cloud-platform',
             ];
         const immediate = true;
 
@@ -33,6 +33,47 @@ gapi.load('client', () => {
     });
 
     async function run() {  
+        
+        // Releases previously allocated quota done through AllocateQuota method.
+        // 
+        // This method requires the `servicemanagement.services.quota`
+        // permission on the specified service. For more information, see
+        // [Google Cloud IAM](https://cloud.google.com/iam).
+        // 
+        // **NOTE:** the client code **must** fail-open if the server returns one
+        // of the following quota errors:
+        // -   `PROJECT_STATUS_UNAVAILABLE`
+        // -   `SERVICE_STATUS_UNAVAILABLE`
+        // -   `BILLING_STATUS_UNAVAILABLE`
+        // -   `QUOTA_SYSTEM_UNAVAILABLE`
+        // 
+        // The server may inject above errors to prohibit any hard dependency
+        // on the quota system.
+        await gapi.client.services.releaseQuota({ serviceName: "serviceName",  }); 
+        
+        // Signals the quota controller that service ends the ongoing usage
+        // reconciliation.
+        // 
+        // This method requires the `servicemanagement.services.quota`
+        // permission on the specified service. For more information, see
+        // [Google Cloud IAM](https://cloud.google.com/iam).
+        await gapi.client.services.endReconciliation({ serviceName: "serviceName",  }); 
+        
+        // Reports operation results to Google Service Control, such as logs and
+        // metrics. It should be called after an operation is completed.
+        // 
+        // If feasible, the client should aggregate reporting data for up to 5
+        // seconds to reduce API traffic. Limiting aggregation to 5 seconds is to
+        // reduce data loss during client crashes. Clients should carefully choose
+        // the aggregation time window to avoid data loss risk more than 0.01%
+        // for business and compliance reasons.
+        // 
+        // NOTE: the `ReportRequest` has the size limit of 1MB.
+        // 
+        // This method requires the `servicemanagement.services.report` permission
+        // on the specified service. For more information, see
+        // [Google Cloud IAM](https://cloud.google.com/iam).
+        await gapi.client.services.report({ serviceName: "serviceName",  }); 
         
         // Attempts to allocate quota for the specified consumer. It should be called
         // before the operation is executed.
@@ -87,52 +128,11 @@ gapi.load('client', () => {
         // 60 seconds. In case of server errors, the client can rely on the cached
         // results for longer time.
         // 
-        // NOTE: the CheckRequest has the size limit of 64KB.
+        // NOTE: the `CheckRequest` has the size limit of 64KB.
         // 
         // This method requires the `servicemanagement.services.check` permission
         // on the specified service. For more information, see
         // [Google Cloud IAM](https://cloud.google.com/iam).
-        await gapi.client.services.check({ serviceName: "serviceName",  }); 
-        
-        // Releases previously allocated quota done through AllocateQuota method.
-        // 
-        // This method requires the `servicemanagement.services.quota`
-        // permission on the specified service. For more information, see
-        // [Google Cloud IAM](https://cloud.google.com/iam).
-        // 
-        // **NOTE:** the client code **must** fail-open if the server returns one
-        // of the following quota errors:
-        // -   `PROJECT_STATUS_UNAVAILABLE`
-        // -   `SERVICE_STATUS_UNAVAILABLE`
-        // -   `BILLING_STATUS_UNAVAILABLE`
-        // -   `QUOTA_SYSTEM_UNAVAILABLE`
-        // 
-        // The server may inject above errors to prohibit any hard dependency
-        // on the quota system.
-        await gapi.client.services.releaseQuota({ serviceName: "serviceName",  }); 
-        
-        // Signals the quota controller that service ends the ongoing usage
-        // reconciliation.
-        // 
-        // This method requires the `servicemanagement.services.quota`
-        // permission on the specified service. For more information, see
-        // [Google Cloud IAM](https://cloud.google.com/iam).
-        await gapi.client.services.endReconciliation({ serviceName: "serviceName",  }); 
-        
-        // Reports operation results to Google Service Control, such as logs and
-        // metrics. It should be called after an operation is completed.
-        // 
-        // If feasible, the client should aggregate reporting data for up to 5
-        // seconds to reduce API traffic. Limiting aggregation to 5 seconds is to
-        // reduce data loss during client crashes. Clients should carefully choose
-        // the aggregation time window to avoid data loss risk more than 0.01%
-        // for business and compliance reasons.
-        // 
-        // NOTE: the ReportRequest has the size limit of 1MB.
-        // 
-        // This method requires the `servicemanagement.services.report` permission
-        // on the specified service. For more information, see
-        // [Google Cloud IAM](https://cloud.google.com/iam).
-        await gapi.client.services.report({ serviceName: "serviceName",  });
+        await gapi.client.services.check({ serviceName: "serviceName",  });
     }
 });

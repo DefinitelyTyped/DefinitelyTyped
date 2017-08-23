@@ -34,12 +34,12 @@ gapi.load('client', () => {
         // Returns the list of root categories of sensitive information.
         await gapi.client.rootCategories.list({  }); 
         
-        // Redacts potentially sensitive info from a list of strings.
-        // This method has limits on input size, processing time, and output size.
-        await gapi.client.content.redact({  }); 
-        
         // Finds potentially sensitive info in a list of strings.
         // This method has limits on input size, processing time, and output size.
-        await gapi.client.content.inspect({  });
+        await gapi.client.content.inspect({  }); 
+        
+        // Redacts potentially sensitive info from a list of strings.
+        // This method has limits on input size, processing time, and output size.
+        await gapi.client.content.redact({  });
     }
 });

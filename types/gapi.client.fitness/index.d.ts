@@ -288,7 +288,7 @@ declare namespace gapi.client {
                 modifiedTimeMillis?: string;
                 /** Delete a dataset for the person identified. Use me to indicate the authenticated user. Only me is supported at this time. */
                 userId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Returns a dataset containing all data points whose start and end times overlap with the specified range of the dataset minimum start time and maximum end time. Specifically, any data point whose start time is less than or equal to the dataset end time and whose end time is greater than or equal to the dataset start time. */
             get(request: {            
@@ -316,7 +316,7 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Retrieve a dataset for the person identified. Use me to indicate the authenticated user. Only me is supported at this time. */
                 userId: string;
-            }): gapi.client.Request<Dataset>;            
+            }): Request<Dataset>;            
             
             /** Adds data points to a dataset. The dataset need not be previously created. All points within the given dataset will be returned with subsquent calls to retrieve this dataset. Data points can belong to more than one dataset. This method does not use patch semantics. */
             patch(request: {            
@@ -342,7 +342,7 @@ declare namespace gapi.client {
                 datasetId: string;
                 /** Patch a dataset for the person identified. Use me to indicate the authenticated user. Only me is supported at this time. */
                 userId: string;
-            }): gapi.client.Request<Dataset>;            
+            }): Request<Dataset>;            
             
         }
         
@@ -365,7 +365,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Create the data source for the person identified. Use me to indicate the authenticated user. Only me is supported at this time. */
                 userId: string;
-            }): gapi.client.Request<DataSource>;            
+            }): Request<DataSource>;            
             
             /** Deletes the specified data source. The request will fail if the data source contains any data points. */
             delete(request: {            
@@ -387,7 +387,7 @@ declare namespace gapi.client {
                 dataSourceId: string;
                 /** Retrieve a data source for the person identified. Use me to indicate the authenticated user. Only me is supported at this time. */
                 userId: string;
-            }): gapi.client.Request<DataSource>;            
+            }): Request<DataSource>;            
             
             /** Returns the specified data source. */
             get(request: {            
@@ -409,7 +409,7 @@ declare namespace gapi.client {
                 dataSourceId: string;
                 /** Retrieve a data source for the person identified. Use me to indicate the authenticated user. Only me is supported at this time. */
                 userId: string;
-            }): gapi.client.Request<DataSource>;            
+            }): Request<DataSource>;            
             
             /** Lists all data sources that are visible to the developer, using the OAuth scopes provided. The list is not exhaustive; the user may have private data sources that are only visible to other developers, or calls using other scopes. */
             list(request: {            
@@ -431,7 +431,7 @@ declare namespace gapi.client {
                 dataTypeName?: string;
                 /** List data sources for the person identified. Use me to indicate the authenticated user. Only me is supported at this time. */
                 userId: string;
-            }): gapi.client.Request<ListDataSourcesResponse>;            
+            }): Request<ListDataSourcesResponse>;            
             
             /** Updates the specified data source. The dataStreamId, dataType, type, dataStreamName, and device properties with the exception of version, cannot be modified. */
             /**  */
@@ -455,7 +455,7 @@ declare namespace gapi.client {
                 dataSourceId: string;
                 /** Update the data source for the person identified. Use me to indicate the authenticated user. Only me is supported at this time. */
                 userId: string;
-            }): gapi.client.Request<DataSource>;            
+            }): Request<DataSource>;            
             
             /** Updates the specified data source. The dataStreamId, dataType, type, dataStreamName, and device properties with the exception of version, cannot be modified. */
             /**  */
@@ -479,7 +479,7 @@ declare namespace gapi.client {
                 dataSourceId: string;
                 /** Update the data source for the person identified. Use me to indicate the authenticated user. Only me is supported at this time. */
                 userId: string;
-            }): gapi.client.Request<DataSource>;            
+            }): Request<DataSource>;            
             
             datasets: DatasetsResource;
         }
@@ -503,7 +503,7 @@ declare namespace gapi.client {
                 userIp?: string;
                 /** Aggregate data for the person identified. Use me to indicate the authenticated user. Only me is supported at this time. */
                 userId: string;
-            }): gapi.client.Request<AggregateResponse>;            
+            }): Request<AggregateResponse>;            
             
         }
         
@@ -530,7 +530,7 @@ declare namespace gapi.client {
                 sessionId: string;
                 /** Delete a session for the person identified. Use me to indicate the authenticated user. Only me is supported at this time. */
                 userId: string;
-            }): gapi.client.Request<void>;            
+            }): Request<void>;            
             
             /** Lists sessions previously created. */
             list(request: {            
@@ -558,7 +558,7 @@ declare namespace gapi.client {
                 startTime?: string;
                 /** List sessions for the person identified. Use me to indicate the authenticated user. Only me is supported at this time. */
                 userId: string;
-            }): gapi.client.Request<ListSessionsResponse>;            
+            }): Request<ListSessionsResponse>;            
             
             /** Updates or insert a given session. */
             update(request: {            
@@ -582,7 +582,7 @@ declare namespace gapi.client {
                 sessionId: string;
                 /** Create sessions for the person identified. Use me to indicate the authenticated user. Only me is supported at this time. */
                 userId: string;
-            }): gapi.client.Request<Session>;            
+            }): Request<Session>;            
             
         }
         
