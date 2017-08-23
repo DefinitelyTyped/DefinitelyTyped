@@ -1,7 +1,7 @@
 // Type definitions for Highcharts 5.0.10
 // Project: http://www.highcharts.com/
-// Definitions by: Damiano Gambarotto <http://github.com/damianog>
-//                 Dan Lewi Harkestad <http://github.com/baltie>
+// Definitions by: Damiano Gambarotto <https://github.com/damianog>
+//                 Dan Lewi Harkestad <https://github.com/baltie>
 //                 Albert Ozimek <https://github.com/AlbertOzimek>
 //                 Juliën Hanssens <https://github.com/hanssens>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -6380,11 +6380,11 @@ declare namespace Highcharts {
          * found, the first item is updated. So for example, running chart.update with a series item without an id, will cause
          * the existing chart's first series to be updated.
          * See also the responsive option set. Switching between responsive.rules basically runs chart.update under the hood.
-         * @param {ChartOptions} option A configuration object for the new chart options as defined in the options section of the API.
+         * @param {Options} option A configuration object for the new chart options as defined in the options section of the API.
          * @param [boolean] redraw Whether to redraw the chart. Defaults to true.
          * @since 5.0.0
          */
-        update(options: ChartOptions, redraw?: boolean): void;
+        update(options: Options, redraw?: boolean): void;
         /**
          * This method is deprecated as of 2.0.1. Updating the chart position after a move operation is no longer necessary.
          * @since 1.2.5
@@ -6556,7 +6556,7 @@ declare namespace Highcharts {
          * @param {def} A serialized form of an SVG definition, including children.
          * @since 5.0.0
          */
-        definition(def: object): Highcharts.ElementObject;
+        definition(def: object): ElementObject;
         /**
          * Add an SVG/VML group.
          * @param [string] name The name of the group. This will be used in the class name, which will be 'highcharts-'+ name.

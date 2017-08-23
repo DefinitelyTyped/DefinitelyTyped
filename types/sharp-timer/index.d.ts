@@ -1,6 +1,6 @@
 // Type definitions for sharp-timer library. 1.0
 // Project: https://github.com/afractal/SharpTimer
-// Definitions by: Hermes Gjini - afractal <https://github.com/afractal/>
+// Definitions by: Hermes Gjini - afractal <https://github.com/afractal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />

@@ -50,7 +50,7 @@ const someNextTask = () => {
 
 gulp.task(someTask);
 
-let foo: gulp.TaskFunction = () => { };
+const foo: gulp.TaskFunction = () => { };
 foo.name === 'foo'; // true
 
 const bar: gulp.TaskFunction = () => { };
@@ -59,7 +59,7 @@ bar.name === ''; // true
 bar.name = 'bar';
 bar.name === ''; // true
 
-let test: gulp.TaskFunction = (done) => {
+const test: gulp.TaskFunction = (done) => {
     done();
 };
 
@@ -126,11 +126,11 @@ gulp.watch('js/**/*.js', gulp.parallel('concat', 'uglify'));
 const watcher = gulp.watch('js/**/*.js', gulp.parallel('concat', 'uglify'));
 // watcher.close
 watcher.on('change', (path, stats) => {
-    console.log('File ' + path + ' was changed');
+    console.log(`File ${path} was changed`);
 });
 
 watcher.on('unlink', (path: string) => {
-    console.log('File ' + path + ' was removed');
+    console.log(`File ${path} was removed`);
 });
 
 gulp.task('one', (done) => {

@@ -1561,6 +1561,7 @@ export interface ViewStyle extends FlexStyle, TransformsStyle {
     borderTopLeftRadius?: number;
     borderTopRightRadius?: number;
     borderTopWidth?: number;
+    display?: "none" | "flex";
     opacity?: number;
     overflow?: "visible" | "hidden"
     shadowColor?: string;
@@ -3430,6 +3431,23 @@ export interface ImageStatic extends NativeMethodsMixin, React.ComponentClass<Im
     queryCache?(urls: string[]): Promise<Map<string, 'memory' | 'disk'>>
 }
 
+export interface ImageBackgroundProperties extends ImageProperties {
+    style?: StyleProp<ViewStyle>
+    imageStyle?: StyleProp<ImageStyle>
+}
+
+export interface ImageBackgroundStatic extends NativeMethodsMixin, React.ComponentClass<ImageBackgroundProperties> {
+    resizeMode: ImageResizeMode
+    getSize(
+      uri: string,
+      success: (width: number, height: number) => void,
+      failure: (error: any) => void
+    ): any
+    prefetch(url: string): any
+    abortPrefetch?(requestId: number): void
+    queryCache?(urls: string[]): Promise<Map<string, 'memory' | 'disk'>>
+}
+
 export interface ViewToken {
     item: any;
     key: string;
@@ -3491,7 +3509,7 @@ export interface FlatListProperties<ItemT> extends VirtualizedListProperties<Ite
     /**
      * Rendered in between each item, but not at the top or bottom
      */
-    ItemSeparatorComponent?: React.ComponentClass<any> | null
+    ItemSeparatorComponent?: React.ComponentType<any> | null
 
     /**
      * Rendered when the list is empty.
@@ -5645,7 +5663,23 @@ export interface Dimensions {
      * This should only be called from native code by sending the didUpdateDimensions event.
      * @param {object} dims Simple string-keyed object of dimensions to set
      */
-    set( dims: {[key: string]: any} ): void
+    set( dims: {[key: string]: any} ): void;
+
+    /**
+     * Add an event listener for dimension changes
+     *
+     * @param {string} type the type of event to listen to
+     * @param {function} handler the event handler
+     */
+    addEventListener(type: "change", handler: () => void): void;
+
+    /**
+     * Remove an event listener
+     *
+     * @param {string} type the type of event
+     * @param {function} handler the event handler
+     */
+    removeEventListener(type: "change", handler: () => void): void;
 }
 
 export type SimpleTask = {
@@ -6538,7 +6572,7 @@ export interface ShareStatic {
      * - `dialogTitle`
      *
      */
-    share(content: ShareContent, options: ShareOptions): Promise<Object>
+    share(content: ShareContent, options?: ShareOptions): Promise<Object>
     sharedAction: string
     dismissedAction: string
 }
@@ -8835,8 +8869,8 @@ export type DrawerLayoutAndroid = DrawerLayoutAndroidStatic
 export var Image: ImageStatic
 export type Image = ImageStatic
 
-export var ImageBackground: ImageStatic
-export type ImageBackground = ImageStatic
+export var ImageBackground: ImageBackgroundStatic
+export type ImageBackground = ImageBackgroundStatic
 
 export var ImagePickerIOS: ImagePickerIOSStatic
 export type ImagePickerIOS = ImagePickerIOSStatic

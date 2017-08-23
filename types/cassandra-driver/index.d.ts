@@ -1,6 +1,6 @@
 // Type definitions for nodejs-driver v0.8.2
 // Project: https://github.com/datastax/nodejs-driver
-// Definitions by: Marc Fisher <http://github.com/Svjard>
+// Definitions by: Marc Fisher <https://github.com/Svjard>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -508,6 +508,7 @@ export interface Client extends events.EventEmitter {
   batch(queries: Array<string> | Array<{ query: string, params?: any }>, options: QueryOptions, callback: ResultCallback): void;
   connect(callback: Callback): void;
   eachRow(query: string, params?: any, options?: QueryOptions, rowCallback?: Callback, callback?: Callback): void;
+  execute(query: string, params?: any, callback?: ResultCallback): void;
   execute(query: string, params?: any, options?: QueryOptions, callback?: ResultCallback): void;
   getReplicas(keyspace: string, token: Buffer): Array<any>; // TODO: Should this be a more explicit return?
   shutdown(callback?: Callback): void;

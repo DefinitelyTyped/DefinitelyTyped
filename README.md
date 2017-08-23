@@ -178,6 +178,18 @@ If a `tslint.json` turns rules off, this is because that hasn't been fixed yet. 
 
 (To indicate that a lint rule truly does not apply, use `// tslint:disable rule-name` or better, `//tslint:disable-next-line rule-name`.)
 
+To assert that an expression is of a given type, use `$ExpectType`. To assert that an expression causes a compile error, use `$ExpectError`.
+
+```js
+// $ExpectType void
+f(1);
+
+// $ExpectError
+f("one");
+```
+
+For more details, see [dtslint](https://github.com/Microsoft/dtslint#write-tests) readme.
+
 Test by running `npm run lint package-name` where `package-name` is the name of your package.
 This script uses [dtslint](https://github.com/Microsoft/dtslint).
 
@@ -264,6 +276,17 @@ Also, `/// <reference types=".." />` will not work with path mapping, so depende
 #### What about scoped packages?
 
 Types for a scoped package `@foo/bar` should go in `types/foo__bar`. Note the double underscore.
+
+When `dts-gen` is used to scaffold a scoped package, the `paths` property has to be manually adapted in the generated
+`tsconfig.json` to correctly reference the scoped package:
+
+```json
+{
+    "paths":{
+      "@foo/bar": ["foo__bar"]
+    }
+}
+``` 
 
 
 #### The file history in GitHub looks incomplete.

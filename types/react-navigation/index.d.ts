@@ -7,6 +7,8 @@
 //                 petejkim <https://github.com/petejkim>
 //                 Kyle Roach <https://github.com/iRoachie>
 //                 phanalpha <https://github.com/phanalpha>
+//                 charlesfamu <https://github.com/charlesfamu>
+//                 Tim Wang <https://github.com/timwangdev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -43,7 +45,7 @@ export type HeaderProps = NavigationSceneRendererProps & {
   getScreenDetails: (navigationScene: NavigationScene) => NavigationScreenDetails<
     NavigationStackScreenOptions
   >,
-  style: Style,
+  style: ViewStyle,
 };
 
 /**
@@ -146,8 +148,6 @@ export type NavigationScreenOption<T> =
     navigation: NavigationScreenProp<NavigationRoute<any>, NavigationAction>,
     config: T
   ) => T);
-
-export type Style = ViewStyle;
 
 export type NavigationScreenDetails<T> = {
   options: T,
@@ -252,7 +252,7 @@ export interface NavigationUriAction extends NavigationUriActionPayload {
 export interface NavigationStackViewConfig {
   mode?: 'card' | 'modal',
   headerMode?: HeaderMode,
-  cardStyle?: Style,
+  cardStyle?: ViewStyle,
   transitionConfig?: () => TransitionConfig,
   onTransitionStart?: () => void,
   onTransitionEnd?: () => void,
@@ -261,15 +261,15 @@ export interface NavigationStackViewConfig {
 export type NavigationStackScreenOptions = NavigationScreenOptions & {
   header?: (React.ReactElement<any> | ((headerProps: HeaderProps) => React.ReactElement<any>)) | null,
   headerTitle?: string | React.ReactElement<any>,
-  headerTitleStyle?: Style,
+  headerTitleStyle?: TextStyle,
   headerTintColor?: string,
   headerLeft?: React.ReactElement<any>,
   headerBackTitle?: string | null,
   headerTruncatedBackTitle?: string,
-  headerBackTitleStyle?: Style,
+  headerBackTitleStyle?: TextStyle,
   headerPressColorAndroid?: string,
   headerRight?: React.ReactElement<any>,
-  headerStyle?: Style,
+  headerStyle?: ViewStyle,
   gesturesEnabled?: boolean,
 };
 
@@ -468,7 +468,7 @@ export type NavigationSceneRenderer = () => (React.ReactElement<any> | null);
 
 export type NavigationStyleInterpolator = (
   props: NavigationSceneRendererProps
-) => Style;
+) => ViewStyle;
 
 export type LayoutEvent = {
   nativeEvent: {
@@ -489,6 +489,13 @@ export type LayoutEvent = {
 /**
  * BEGIN MANUAL DEFINITIONS OUTSIDE OF TYPEDEFINITION.JS
  */
+
+
+// From navigators/NavigatorTypes.js
+export type NavigatorType =
+| 'react-navigation/STACK'
+| 'react-navigation/TABS'
+| 'react-navigation/DRAWER';
 
 // From addNavigatorHelpers.js
 export function addNavigationHelpers<S>(navigation: NavigationProp<S, NavigationAction>): NavigationScreenProp<S, NavigationAction>;
@@ -523,13 +530,17 @@ export function StackNavigator<T>(
   stackConfig?: StackNavigatorConfig,
 ): NavigationContainer;
 
+// DrawerItems
+export const DrawerItems: React.ComponentClass<any>;
+
+
 /**
  * Drawer Navigator
  */
 export interface DrawerViewConfig {
   drawerWidth: number,
   drawerPosition: 'left' | 'right',
-  contentComponent: React.ComponentClass<any>,
+  contentComponent: (props: any) => React.ReactElement<any> | React.ComponentClass<any>,
   contentOptions?: any,
   style?: ViewStyle,
 }
@@ -659,6 +670,30 @@ export function StackRouter(
   routeConfigs: NavigationRouteConfigMap,
   config: NavigationTabRouterConfig
 ): NavigationRouter<any, any, any>
+
+/**
+ * Create Navigator
+ *
+ * @see https://github.com/react-community/react-navigation/blob/master/src/navigators/createNavigator.js
+ */
+export function createNavigator<C, S, A, NavigatorConfig, Options>(
+  router: NavigationRouter<S, A, Options>,
+  routeConfigs?: NavigationRouteConfigMap,
+  navigatorConfig?: NavigatorConfig,
+  navigatorType?: NavigatorType
+): (NavigationView: React.ComponentClass<C>) => NavigationNavigator<C, S, A, Options>
+
+/**
+ * Create an HOC that injects the navigation and manages the navigation state
+ * in case it's not passed from above.
+ * This allows to use e.g. the StackNavigator and TabNavigator as root-level
+ * components.
+ *
+ * @see https://github.com/react-community/react-navigation/blob/master/src/createNavigationContainer.js
+ */
+export function createNavigationContainer<S, O>(
+  Component: NavigationNavigator<any, S, any, O>
+): React.Component<any, any>
 /**
  * END MANUAL DEFINITIONS OUTSIDE OF TYPEDEFINITION.JS
  */

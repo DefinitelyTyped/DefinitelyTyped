@@ -13,14 +13,13 @@ export = Redlock;
 declare namespace Redlock {
     type Callback<T> = (err: any, value?: T) => void;
 
-    interface Lock {
+    class Lock {
         redlock: Redlock;
         resource: string;
         value: string | null;
         expiration: number;
-
+        constructor(redlock: Redlock, resource: string, value: string | null, expiration: number);
         unlock(callback?: Callback<void>): Promise<void>;
-
         extend(ttl: number, callback?: Callback<Lock>): Promise<Lock>;
     }
 
@@ -34,14 +33,9 @@ declare namespace Redlock {
         extendScript?(origExtendScript: string): string;
     }
 
-    interface LockErrorConstructor {
-        new(message?: string): LockError;
-        (message?: string): LockError;
-        readonly prototype: LockError;
-    }
-
-    interface LockError extends Error {
+    class LockError extends Error {
         readonly name: 'LockError';
+        constructor(message?: string);
     }
 
     interface CompatibleRedisClient {
@@ -51,7 +45,8 @@ declare namespace Redlock {
 }
 
 declare class Redlock extends EventEmitter {
-    LockError: Redlock.LockErrorConstructor;
+    LockError: typeof Redlock.LockError;
+    Lock: typeof Redlock.Lock;
     driftFactor: number;
     retryCount: number;
     retryDelay: number;

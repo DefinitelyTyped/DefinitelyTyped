@@ -1,6 +1,7 @@
 // Type definitions for CodeMirror
 // Project: https://github.com/marijnh/CodeMirror
 // Definitions by: mihailik <https://github.com/mihailik>
+//                 nrbernard <https://github.com/nrbernard>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = CodeMirror;
@@ -101,6 +102,21 @@ declare namespace CodeMirror {
     Handlers for such events can be registered with the on and off methods on the objects that the event fires on.
     To fire your own events, use CodeMirror.signal(target, name, args...), where target is a non-DOM-node object. */
     function signal(target: any, name: string, ...args: any[]): void;
+
+    type DOMEvent = 'mousedown' | 'dblclick' | 'touchstart' | 'contextmenu' | 'keydown' | 'keypress' | 'keyup' | 'cut' | 'copy' | 'paste' | 'dragstart' | 'dragenter' | 'dragover' | 'dragleave' | 'drop';
+
+    interface Token {
+        /** The character(on the given line) at which the token starts. */
+        start: number;
+        /** The character at which the token ends. */
+        end: number;
+        /** The token's string. */
+        string: string;
+        /** The token type the mode assigned to the token, such as "keyword" or "comment" (may also be null). */
+        type: string | null;
+        /** The mode's state at the end of this token. */
+        state: any;
+    }
 
     interface Editor {
 
@@ -287,20 +303,11 @@ declare namespace CodeMirror {
         you should probably follow up by calling this method to ensure CodeMirror is still looking as intended. */
         refresh(): void;
 
-
         /** Retrieves information about the token the current mode found before the given position (a {line, ch} object). */
-        getTokenAt(pos: CodeMirror.Position): {
-            /** The character(on the given line) at which the token starts. */
-            start: number;
-            /** The character at which the token ends. */
-            end: number;
-            /** The token's string. */
-            string: string;
-            /** The token type the mode assigned to the token, such as "keyword" or "comment" (may also be null). */
-            type: string | null;
-            /** The mode's state at the end of this token. */
-            state: any;
-        };
+        getTokenAt(pos: CodeMirror.Position): Token;
+
+        /** This is similar to getTokenAt, but collects all tokens for a given line into an array. */
+        getLineTokens(line: number, precise?: boolean): Token[];
 
         /** Returns the mode's parser state, if any, at the end of the given line number.
         If no line number is given, the state at the end of the document is returned.
@@ -405,6 +412,10 @@ declare namespace CodeMirror {
         on(eventName: 'renderLine', handler: (instance: CodeMirror.Editor, line: CodeMirror.LineHandle, element: HTMLElement) => void ): void;
         off(eventName: 'renderLine', handler: (instance: CodeMirror.Editor, line: CodeMirror.LineHandle, element: HTMLElement) => void ): void;
 
+        /** Fires when one of the DOM events fires. */
+        on(eventName: DOMEvent, handler: (instance: CodeMirror.Editor, event: Event) => void ): void;
+        off(eventName: DOMEvent, handler: (instance: CodeMirror.Editor, event: Event) => void ): void;
+
         /** Expose the state object, so that the Editor.state.completionActive property is reachable*/
         state: any;
     }
@@ -487,6 +498,9 @@ declare namespace CodeMirror {
 
         /** Get the currently selected code. */
         getSelection(): string;
+        
+        /** Returns an array containing a string for each selection, representing the content of the selections. */
+        getSelections(lineSep?: string): Array<string>;
 
         /** Replace the selection with the given string. By default, the new selection will span the inserted text.
         The optional collapse argument can be used to change this � passing "start" or "end" will collapse the selection to the start or end of the inserted text. */

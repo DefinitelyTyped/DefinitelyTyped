@@ -1,6 +1,6 @@
 // Type definitions for Globalize
 // Project: https://github.com/jquery/globalize
-// Definitions by: Grégoire Castre <https://github.com/gcastre/>, Aram Taieb <https://github.com/afromogli/>
+// Definitions by: Grégoire Castre <https://github.com/gcastre>, Aram Taieb <https://github.com/afromogli>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Note: You'll need the cldr.js definition file to use the globalize (https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/cldr.js)
 

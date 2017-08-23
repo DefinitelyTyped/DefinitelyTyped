@@ -6,12 +6,25 @@
 // TypeScript Version: 2.3
 
 import * as t from 'babel-types';
-export {t as types};
+export { t as types };
 export type Node = t.Node;
 export import template = require('babel-template');
 export const version: string;
 import traverse, { Visitor } from "babel-traverse";
 export { traverse, Visitor };
+
+// A babel plugin is a simple function which must return an object matching
+// the following interface. Babel will throw if it finds unknown properties.
+// The list of allowed plugin keys is here:
+// https://github.com/babel/babel/blob/4e50b2d9d9c376cee7a2cbf56553fe5b982ea53c/packages/babel-core/src/config/option-manager.js#L71
+export interface PluginObj<S = {}> {
+    name?: string;
+    manipulateOptions?(opts: any, parserOpts: any): void;
+    pre?(this: S, state: any): void;
+    visitor: Visitor<S>;
+    post?(this: S, state: any): void;
+    inherits?: any;
+}
 
 /** Transforms the passed in `code`. Returning an object with the generated code, source map, and AST. */
 export function transform(code: string, opts?: TransformOptions): BabelFileResult;

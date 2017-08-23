@@ -643,6 +643,12 @@ namespace util_tests {
         var readPromised = util.promisify(fs.readFile);
         var sampleRead: Promise<any> = readPromised(__filename).then((data: Buffer): void => { }).catch((error: Error): void => { });
         assert(typeof util.promisify.custom === 'symbol');
+        // util.deprecate
+        const foo = () => {};
+        // $ExpectType () => void
+        util.deprecate(foo, 'foo() is deprecated, use bar() instead');
+        // $ExpectType <T extends Function>(fn: T, message: string) => T
+        util.deprecate(util.deprecate, 'deprecate() is deprecated, use bar() instead');
     }
 }
 
@@ -2813,4 +2819,20 @@ namespace async_hooks_tests {
 
     const tId: number = async_hooks.triggerAsyncId();
     const eId: number = async_hooks.executionAsyncId();
+}
+
+////////////////////////////////////////////////////
+/// zlib tests : http://nodejs.org/api/zlib.html ///
+////////////////////////////////////////////////////
+
+namespace zlib_tests {
+    {
+        const gzipped = zlib.gzipSync('test');
+        const unzipped = zlib.gunzipSync(gzipped.toString());
+    }
+
+    {
+        const deflate = zlib.deflateSync('test');
+        const inflate = zlib.inflateSync(deflate.toString());
+    }
 }
