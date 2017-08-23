@@ -731,3 +731,21 @@ declare var x: React.DOMElement<{
         transition: string;
     };
 }, Element>;
+
+// Test the use of `Partial<T>` in `setState()`
+// --------------------------------------------------------------------------
+{
+    interface ComponentState {
+        state1: string;
+        state2: string;
+    }
+
+    class Component extends React.Component<{}, ComponentState> {
+        some() {
+            const newState: Partial<ComponentState> = {};
+            newState.state1 = 'a';
+            if (true) newState.state2 = 'b';
+            this.setState(newState);
+        }
+    }
+}
