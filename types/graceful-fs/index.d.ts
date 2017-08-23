@@ -7,20 +7,43 @@
 /// <reference types="node" />
 
 declare module 'graceful-fs' {
-    import * as nodeFs from 'fs';
+    import * as fs from 'fs';
 
-    export = gracefulFs;
+    export * from 'fs';
 
-    const gracefulFs: gracefulFs & typeof nodeFs;
+    /**
+     * Use this method to patch the global fs module (or any other fs-like module).
+     * NOTE: This should only ever be done at the top-level application layer, in order to delay on
+     * EMFILE errors from any fs-using dependencies. You should **not** do this in a library, because
+     * it can cause unexpected delays in other parts of the program.
+     * @param fsModule The reference to the fs module or an fs-like module.
+     */
+    // tslint:disable-next-line strict-export-declare-modifiers
+    export function gracefulify<T>(fsModule: T): T & Lutimes;
 
-    interface gracefulFs {
-        gracefulify<T>(fsModule: T): T & typeof nodeFs;
+    interface Lutimes {
+        /**
+         * Asynchronously change file timestamps of the file referenced by the supplied path.
+         * If path refers to a symbolic link, then the link is not dereferenced: instead, the timestamps
+         * of the symbolic link are changed.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * @param atime The last access time. If a string is provided, it will be coerced to number.
+         * @param mtime The last modified time. If a string is provided, it will be coerced to number.
+         */
+        lutimes: typeof fs.lutimes;
+        /**
+         * Synchronously change file timestamps of the file referenced by the supplied path.
+         * If path refers to a symbolic link, then the link is not dereferenced: instead, the timestamps
+         * of the symbolic link are changed.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * @param atime The last access time. If a string is provided, it will be coerced to number.
+         * @param mtime The last modified time. If a string is provided, it will be coerced to number.
+         */
+        lutimesSync: typeof fs.lutimesSync;
     }
 }
 
 declare module 'fs' {
-    import { URL } from 'url';
-
     /**
      * Asynchronously change file timestamps of the file referenced by the supplied path.
      * If path refers to a symbolic link, then the link is not dereferenced: instead, the timestamps
@@ -29,12 +52,10 @@ declare module 'fs' {
      * @param atime The last access time. If a string is provided, it will be coerced to number.
      * @param mtime The last modified time. If a string is provided, it will be coerced to number.
      */
-    function lutimes(
-        path: string | Buffer | URL,
-        atime: string | number | Date,
-        mtime: string | number | Date,
-        callback?: (err: NodeJS.ErrnoException | null) => void
-    ): void;
+    function lutimes(path: PathLike,
+                     atime: string | number | Date,
+                     mtime: string | number | Date,
+                     callback?: (err: NodeJS.ErrnoException | null) => void): void;
 
     // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
     namespace lutimes {
@@ -46,7 +67,7 @@ declare module 'fs' {
          * @param atime The last access time. If a string is provided, it will be coerced to number.
          * @param mtime The last modified time. If a string is provided, it will be coerced to number.
          */
-        function __promisify__(path: string | Buffer | URL, atime: string | number | Date, mtime: string | number | Date): Promise<void>;
+        function __promisify__(path: PathLike, atime: string | number | Date, mtime: string | number | Date): Promise<void>;
     }
 
     /**
@@ -57,5 +78,5 @@ declare module 'fs' {
      * @param atime The last access time. If a string is provided, it will be coerced to number.
      * @param mtime The last modified time. If a string is provided, it will be coerced to number.
      */
-    function lutimesSync(path: string | Buffer | URL, atime: string | number | Date, mtime: string | number | Date): void;
+    function lutimesSync(path: PathLike, atime: string | number | Date, mtime: string | number | Date): void;
 }

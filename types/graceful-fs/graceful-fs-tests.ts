@@ -1,25 +1,29 @@
-import fs = require('graceful-fs');
-import * as fs2 from 'graceful-fs';
-import * as nodeFs from 'fs';
+import gfs = require('graceful-fs');
+import * as gfs2 from 'graceful-fs';
+import * as fs from 'fs';
 import * as fse from 'fs-extra';
 import { promisify } from 'util';
 
 const str = '';
 const buf = new Buffer('');
 
-fs.renameSync(str, str);
-fs2.chmodSync(buf, 1);
+// verify that interfaces & types are correctly re-exported
+const watcher: gfs.FSWatcher | null = null;
 
-const gracefulified = fs.gracefulify(nodeFs);
-gracefulified; // $ExpectType typeof "fs"
+gfs.renameSync(str, str);
+gfs2.chmodSync(buf, 1);
+
+const gracefulified = gfs.gracefulify(fs);
+gracefulified; // $ExpectType typeof "fs" & Lutimes
 gracefulified.lutimes; // $ExpectType typeof lutimes
+promisify(gracefulified.lutimes); // $ExpectType (path: PathLike, atime: string | number | Date, mtime: string | number | Date) => Promise<void>
 
-const fseGrace = fs.gracefulify(fse);
+const fseGrace = gfs.gracefulify(fse);
 fseGrace.lutimes; // $ExpectType typeof lutimes
 
-nodeFs.lutimes(buf, str, str);
-nodeFs.lutimes(buf, str, str, err => {
+fs.lutimes(buf, str, str);
+fs.lutimes(buf, str, str, err => {
     err; // $ExpectType ErrnoException | null
 });
-nodeFs.lutimesSync(buf, str, str);
-promisify(nodeFs.lutimes); // $ExpectType (path: string | Buffer | URL, atime: string | number | Date, mtime: string | number | Date) => Promise<void>
+fs.lutimesSync(buf, str, str);
+promisify(fs.lutimes); // $ExpectType (path: PathLike, atime: string | number | Date, mtime: string | number | Date) => Promise<void>
