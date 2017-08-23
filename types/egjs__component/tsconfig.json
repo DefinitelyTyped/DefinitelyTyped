@@ -13,13 +13,13 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "paths":{
+            "@egjs/component": ["egjs__component"]
+        }
     },
     "files": [
         "index.d.ts",
         "egjs__component-tests.ts"
-    ],
-    "paths":{
-        "@egjs/component": ["egjs__component"]
-    }
+    ]
 }
