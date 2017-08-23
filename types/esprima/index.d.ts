@@ -1,6 +1,6 @@
-// Type definitions for Esprima v2.1.0
+// Type definitions for Esprima v4.0.0
 // Project: http://esprima.org
-// Definitions by: teppeis <https://github.com/teppeis>, RReverser <https://github.com/RReverser>
+// Definitions by: teppeis <https://github.com/teppeis>, RReverser <https://github.com/RReverser>, peter-scott <https://github.com/peter-scott>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="estree" />
@@ -13,34 +13,39 @@ declare namespace esprima {
 
     const version: string;
 
-    function parse(code: string, options?: Options, delegate?: (node: ESTree.Node, meta: any) => void): ESTree.Program;
-    function tokenize(code: string, options?: Options): Array<Token>;
+    function parseScript(input: string, config?: ParseOptions, delegate?: (node: ESTree.Node, meta: any) => void): ESTree.Program;
+    function parseModule(input: string, config?: ParseOptions, delegate?: (node: ESTree.Node, meta: any) => void): ESTree.Program;
+    function tokenize(input: string, config?: TokenizeOptions): Array<Token>;
 
     interface Token {
         type: string;
         value: string;
     }
 
-    interface Options {
-        loc?: boolean;
+    interface ParseOptions {
+        jsx?: boolean,
         range?: boolean;
-        raw?: boolean;
+        loc?: boolean;
+        tolerant?: boolean;
         tokens?: boolean;
         comment?: boolean;
-        attachComment?: boolean;
-        tolerant?: boolean;
-        source?: boolean;
-        sourceType?: 'script' | 'module';
+    }
+
+    interface TokenizeOptions {
+        range?: boolean;
+        loc?: boolean;
+        comment?: boolean;
     }
 
     const Syntax: {
-        AssignmentExpression: 'AssignmentExpression',
-        AssignmentPattern: 'AssignmentPattern',
         ArrayExpression: 'ArrayExpression',
         ArrayPattern: 'ArrayPattern',
         ArrowFunctionExpression: 'ArrowFunctionExpression',
-        BlockStatement: 'BlockStatement',
+        AssignmentExpression: 'AssignmentExpression',
+        AssignmentPattern: 'AssignmentPattern',
+        AwaitExpression: 'AwaitExpression',
         BinaryExpression: 'BinaryExpression',
+        BlockStatement: 'BlockStatement',
         BreakStatement: 'BreakStatement',
         CallExpression: 'CallExpression',
         CatchClause: 'CatchClause',
@@ -49,27 +54,28 @@ declare namespace esprima {
         ClassExpression: 'ClassExpression',
         ConditionalExpression: 'ConditionalExpression',
         ContinueStatement: 'ContinueStatement',
-        DoWhileStatement: 'DoWhileStatement',
         DebuggerStatement: 'DebuggerStatement',
+        DoWhileStatement: 'DoWhileStatement',
         EmptyStatement: 'EmptyStatement',
         ExportAllDeclaration: 'ExportAllDeclaration',
         ExportDefaultDeclaration: 'ExportDefaultDeclaration',
         ExportNamedDeclaration: 'ExportNamedDeclaration',
         ExportSpecifier: 'ExportSpecifier',
         ExpressionStatement: 'ExpressionStatement',
-        ForStatement: 'ForStatement',
-        ForOfStatement: 'ForOfStatement',
         ForInStatement: 'ForInStatement',
+        ForOfStatement: 'ForOfStatement',
+        ForStatement: 'ForStatement',
         FunctionDeclaration: 'FunctionDeclaration',
         FunctionExpression: 'FunctionExpression',
         Identifier: 'Identifier',
         IfStatement: 'IfStatement',
+        Import: 'Import',
         ImportDeclaration: 'ImportDeclaration',
         ImportDefaultSpecifier: 'ImportDefaultSpecifier',
         ImportNamespaceSpecifier: 'ImportNamespaceSpecifier',
         ImportSpecifier: 'ImportSpecifier',
-        Literal: 'Literal',
         LabeledStatement: 'LabeledStatement',
+        Literal: 'Literal',
         LogicalExpression: 'LogicalExpression',
         MemberExpression: 'MemberExpression',
         MetaProperty: 'MetaProperty',
