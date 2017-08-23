@@ -189,8 +189,8 @@ const domElement: React.DOMElement<React.HTMLAttributes<HTMLDivElement>, HTMLDiv
 const htmlElement = React.createElement("input", { type: "text" });
 const svgElement = React.createElement("svg", { accentHeight: 12 });
 
-let customProps: React.HTMLProps<HTMLElement> = props;
-let customDomElement: string = "my-element";
+const customProps: React.HTMLProps<HTMLElement> = props;
+const customDomElement = "my-element";
 const nonLiteralElement = React.createElement(customDomElement, customProps);
 
 // React.cloneElement
@@ -202,7 +202,9 @@ React.cloneElement(element, {}, null);
 const clonedElement2: React.CElement<Props, ModernComponent> =
     // known problem: cloning with key or ref requires cast
     React.cloneElement(element, {
-        ref: c => c && c.reset()
+        ref: c => {
+            if (c) c.reset();
+        }
     } as React.ClassAttributes<ModernComponent>);
 const clonedElement3: React.CElement<Props, ModernComponent> =
     React.cloneElement(element, {
@@ -221,7 +223,7 @@ const clonedDOMElement: React.DOMElement<React.HTMLAttributes<HTMLDivElement>, H
         className: "clonedDOMElement"
     });
 // Clone ReactHTMLElement
-const clonedHtmlElement: React.ReactHTMLElement<HTMLDivElement> =
+const clonedHtmlElement: React.ReactHTMLElement<HTMLInputElement> =
     React.cloneElement(htmlElement, {
         className: "clonedHTMLElement"
     });
@@ -656,24 +658,24 @@ React.createFactory(TransitionGroup)({ component: "div" });
 // --------------------------------------------------------------------------
 {
     // These are copied from https://facebook.github.io/react/docs/update.html
-    let initialArray = [1, 2, 3];
-    let newArray = update(initialArray, { $push: [4] }); // => [1, 2, 3, 4]
+    const initialArray = [1, 2, 3];
+    const newArray = update(initialArray, { $push: [4] }); // => [1, 2, 3, 4]
 
-    let collection = [1, 2, { a: [12, 17, 15] }];
-    let newCollection = update(collection, { 2: { a: { $splice: [[1, 1, 13, 14]] } } });
+    const collection = [1, 2, { a: [12, 17, 15] }];
+    const newCollection = update(collection, { 2: { a: { $splice: [[1, 1, 13, 14]] } } });
     // => [1, 2, {a: [12, 13, 14, 15]}]
 
-    let obj = { a: 5, b: 3 };
-    let newObj = update(obj, {
+    const obj = { a: 5, b: 3 };
+    const newObj = update(obj, {
         b: {
             $apply: (x) => x * 2
         }
     });
     // => {a: 5, b: 6}
-    let newObj2 = update(obj, { b: { $set: obj.b * 2 } });
+    const newObj2 = update(obj, { b: { $set: obj.b * 2 } });
 
-    let objShallow = { a: 5, b: 3 };
-    let newObjShallow = update(obj, { $merge: { b: 6, c: 7 } }); // => {a: 5, b: 6, c: 7}
+    const objShallow = { a: 5, b: 3 };
+    const newObjShallow = update(obj, { $merge: { b: 6, c: 7 } }); // => {a: 5, b: 6, c: 7}
 }
 
 //
