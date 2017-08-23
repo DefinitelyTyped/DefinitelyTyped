@@ -1,5 +1,3 @@
-// examples from http://sunnywalker.github.io/jQuery.FilterTable/
-
 $('table').filterTable();
 
 $('table').filterTable({ quickList: ['class', 'tag'] });
