@@ -266,7 +266,6 @@ declare namespace gapi.client {
         }
         
         interface EncodedFullHashesResource {
-            /**  */
             get(request: {            
                 /** V1 error format. */
                 "$.xgafv"?: string;
@@ -306,7 +305,6 @@ declare namespace gapi.client {
         }
         
         interface EncodedUpdatesResource {
-            /**  */
             get(request: {            
                 /** V1 error format. */
                 "$.xgafv"?: string;

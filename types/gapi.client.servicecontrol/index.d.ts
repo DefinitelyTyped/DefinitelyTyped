@@ -178,7 +178,6 @@ declare namespace gapi.client {
             /** Used for logging and diagnostics purposes. */
             operationId?: string;
             /** Quota information for the check request associated with this response. */
-            /**  */
             quotaInfo?: QuotaInfo;
             /** The actual config id used to process the request. */
             serviceConfigId?: string;
@@ -328,8 +327,8 @@ declare namespace gapi.client {
             /** `"book_log"`. */
             name?: string;
             /** The log entry payload, represented as a protocol buffer that is */
-            /** expressed as a JSON object. The only accepted type currently is */
-            /** AuditLog. */
+            /** expressed as a JSON object. You can only pass `protoPayload` */
+            /** values that belong to a set of approved types. */
             protoPayload?: Record<string, any>;            
             /** The severity of the log entry. The default value is */
             /** `LogSeverity.DEFAULT`. */
@@ -461,9 +460,6 @@ declare namespace gapi.client {
             /**     - “folders/<folder-id>” */
             /**     - “organizations/<organization-id>” */
             resourceContainer?: string;
-            /** DO NOT USE. */
-            /** This field is not ready for use yet. */
-            resourceContainers?: string[];
             /** Required. Start time of the operation. */
             startTime?: string;
             /** User defined labels for the resource that this operation is associated */
@@ -497,7 +493,6 @@ declare namespace gapi.client {
             /** complexity of scaling in Chemist client code base. For simplicity, we will */
             /** keep this field for Castor (that scales quota usage) and 'quota_metrics' */
             /** for SuperQuota (that doesn't scale quota usage). */
-            /**  */
             quotaConsumed?: Record<string, number>;            
             /** Quota metrics to indicate the usage. Depending on the check request, one or */
             /** more of the following metrics will be included: */
@@ -612,7 +607,7 @@ declare namespace gapi.client {
         interface ReportError {
             /** The Operation.operation_id value from the request. */
             operationId?: string;
-            /** Details of the error when processing the Operation. */
+            /** Details of the error when processing the `Operation`. */
             status?: Status;
         }
         
@@ -667,7 +662,6 @@ declare namespace gapi.client {
             /** info. A deadline exceeded quota request will not have quota usage info. */
             /**  */
             /** If there is no quota release request, report_quota_info will be empty. */
-            /**  */
             reportInfos?: ReportInfo[];
             /** The actual config id used to process the request. */
             serviceConfigId?: string;
@@ -798,7 +792,7 @@ declare namespace gapi.client {
             /** 60 seconds. In case of server errors, the client can rely on the cached */
             /** results for longer time. */
             /**  */
-            /** NOTE: the CheckRequest has the size limit of 64KB. */
+            /** NOTE: the `CheckRequest` has the size limit of 64KB. */
             /**  */
             /** This method requires the `servicemanagement.services.check` permission */
             /** on the specified service. For more information, see */
@@ -829,9 +823,7 @@ declare namespace gapi.client {
                 /** The service name as specified in its service configuration. For example, */
                 /** `"pubsub.googleapis.com"`. */
                 /**  */
-                /** See */
-                /** [google.api.Service](https://cloud.google.com/service-management/reference/rpc/google.api#google.api.Service) */
-                /** for the definition of a service name. */
+                /** See google.api.Service for the definition of a service name. */
                 serviceName: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;
@@ -937,7 +929,7 @@ declare namespace gapi.client {
             /** the aggregation time window to avoid data loss risk more than 0.01% */
             /** for business and compliance reasons. */
             /**  */
-            /** NOTE: the ReportRequest has the size limit of 1MB. */
+            /** NOTE: the `ReportRequest` has the size limit of 1MB. */
             /**  */
             /** This method requires the `servicemanagement.services.report` permission */
             /** on the specified service. For more information, see */
@@ -968,9 +960,7 @@ declare namespace gapi.client {
                 /** The service name as specified in its service configuration. For example, */
                 /** `"pubsub.googleapis.com"`. */
                 /**  */
-                /** See */
-                /** [google.api.Service](https://cloud.google.com/service-management/reference/rpc/google.api#google.api.Service) */
-                /** for the definition of a service name. */
+                /** See google.api.Service for the definition of a service name. */
                 serviceName: string;
                 /** Legacy upload protocol for media (e.g. "media", "multipart"). */
                 uploadType?: string;

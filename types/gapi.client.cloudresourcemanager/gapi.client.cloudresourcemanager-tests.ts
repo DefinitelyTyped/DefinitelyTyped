@@ -14,11 +14,11 @@ gapi.load('client', () => {
         // declare client_id registered in Google Developers Console
         const client_id = '<<PUT YOUR CLIENT ID HERE>>';
         const scope = [     
-                // View your data across Google Cloud Platform services
-                'https://www.googleapis.com/auth/cloud-platform.read-only',
-            
                 // View and manage your data across Google Cloud Platform services
                 'https://www.googleapis.com/auth/cloud-platform',
+            
+                // View your data across Google Cloud Platform services
+                'https://www.googleapis.com/auth/cloud-platform.read-only',
             ];
         const immediate = true;
 
@@ -37,18 +37,10 @@ gapi.load('client', () => {
         // Clears a `Policy` from a resource.
         await gapi.client.folders.clearOrgPolicy({ resource: "resource",  }); 
         
-        // Updates the specified `Policy` on the resource. Creates a new `Policy` for
-        // that `Constraint` on the resource if one does not exist.
-        // 
-        // Not supplying an `etag` on the request `Policy` results in an unconditional
-        // write of the `Policy`.
-        await gapi.client.folders.setOrgPolicy({ resource: "resource",  }); 
-        
-        // Lists `Constraints` that could be applied on the specified resource.
-        await gapi.client.folders.listAvailableOrgPolicyConstraints({ resource: "resource",  }); 
-        
-        // Lists all the `Policies` set for a particular resource.
-        await gapi.client.folders.listOrgPolicies({ resource: "resource",  }); 
+        // Gets the effective `Policy` on a resource. This is the result of merging
+        // `Policies` in the resource hierarchy. The returned `Policy` will not have
+        // an `etag`set because it is a computed `Policy` across multiple resources.
+        await gapi.client.folders.getEffectiveOrgPolicy({ resource: "resource",  }); 
         
         // Gets a `Policy` on a resource.
         // 
@@ -58,22 +50,113 @@ gapi.load('client', () => {
         // `Policy` during read-modify-write.
         await gapi.client.folders.getOrgPolicy({ resource: "resource",  }); 
         
-        // Gets the effective `Policy` on a resource. This is the result of merging
-        // `Policies` in the resource hierarchy. The returned `Policy` will not have
-        // an `etag`set because it is a computed `Policy` across multiple resources.
-        await gapi.client.folders.getEffectiveOrgPolicy({ resource: "resource",  }); 
+        // Lists `Constraints` that could be applied on the specified resource.
+        await gapi.client.folders.listAvailableOrgPolicyConstraints({ resource: "resource",  }); 
         
-        // Lists Projects that are visible to the user and satisfy the
-        // specified filter. This method returns Projects in an unspecified order.
-        // New Projects do not necessarily appear at the end of the list.
-        await gapi.client.projects.list({  }); 
+        // Lists all the `Policies` set for a particular resource.
+        await gapi.client.folders.listOrgPolicies({ resource: "resource",  }); 
         
         // Updates the specified `Policy` on the resource. Creates a new `Policy` for
         // that `Constraint` on the resource if one does not exist.
         // 
         // Not supplying an `etag` on the request `Policy` results in an unconditional
         // write of the `Policy`.
-        await gapi.client.projects.setOrgPolicy({ resource: "resource",  }); 
+        await gapi.client.folders.setOrgPolicy({ resource: "resource",  }); 
+        
+        // Create a Lien which applies to the resource denoted by the `parent` field.
+        // 
+        // Callers of this method will require permission on the `parent` resource.
+        // For example, applying to `projects/1234` requires permission
+        // `resourcemanager.projects.updateLiens`.
+        // 
+        // NOTE: Some resources may limit the number of Liens which may be applied.
+        await gapi.client.liens.create({  }); 
+        
+        // Delete a Lien by `name`.
+        // 
+        // Callers of this method will require permission on the `parent` resource.
+        // For example, a Lien with a `parent` of `projects/1234` requires permission
+        // `resourcemanager.projects.updateLiens`.
+        await gapi.client.liens.delete({ name: "name",  }); 
+        
+        // List all Liens applied to the `parent` resource.
+        // 
+        // Callers of this method will require permission on the `parent` resource.
+        // For example, a Lien with a `parent` of `projects/1234` requires permission
+        // `resourcemanager.projects.get`.
+        await gapi.client.liens.list({  }); 
+        
+        // Gets the latest state of a long-running operation.  Clients can use this
+        // method to poll the operation result at intervals as recommended by the API
+        // service.
+        await gapi.client.operations.get({ name: "name",  }); 
+        
+        // Clears a `Policy` from a resource.
+        await gapi.client.organizations.clearOrgPolicy({ resource: "resource",  }); 
+        
+        // Fetches an Organization resource identified by the specified resource name.
+        await gapi.client.organizations.get({ name: "name",  }); 
+        
+        // Gets the effective `Policy` on a resource. This is the result of merging
+        // `Policies` in the resource hierarchy. The returned `Policy` will not have
+        // an `etag`set because it is a computed `Policy` across multiple resources.
+        await gapi.client.organizations.getEffectiveOrgPolicy({ resource: "resource",  }); 
+        
+        // Gets the access control policy for an Organization resource. May be empty
+        // if no such policy or resource exists. The `resource` field should be the
+        // organization's resource name, e.g. "organizations/123".
+        // 
+        // Authorization requires the Google IAM permission
+        // `resourcemanager.organizations.getIamPolicy` on the specified organization
+        await gapi.client.organizations.getIamPolicy({ resource: "resource",  }); 
+        
+        // Gets a `Policy` on a resource.
+        // 
+        // If no `Policy` is set on the resource, a `Policy` is returned with default
+        // values including `POLICY_TYPE_NOT_SET` for the `policy_type oneof`. The
+        // `etag` value can be used with `SetOrgPolicy()` to create or update a
+        // `Policy` during read-modify-write.
+        await gapi.client.organizations.getOrgPolicy({ resource: "resource",  }); 
+        
+        // Lists `Constraints` that could be applied on the specified resource.
+        await gapi.client.organizations.listAvailableOrgPolicyConstraints({ resource: "resource",  }); 
+        
+        // Lists all the `Policies` set for a particular resource.
+        await gapi.client.organizations.listOrgPolicies({ resource: "resource",  }); 
+        
+        // Searches Organization resources that are visible to the user and satisfy
+        // the specified filter. This method returns Organizations in an unspecified
+        // order. New Organizations do not necessarily appear at the end of the
+        // results.
+        // 
+        // Search will only return organizations on which the user has the permission
+        // `resourcemanager.organizations.get`
+        await gapi.client.organizations.search({  }); 
+        
+        // Sets the access control policy on an Organization resource. Replaces any
+        // existing policy. The `resource` field should be the organization's resource
+        // name, e.g. "organizations/123".
+        // 
+        // Authorization requires the Google IAM permission
+        // `resourcemanager.organizations.setIamPolicy` on the specified organization
+        await gapi.client.organizations.setIamPolicy({ resource: "resource",  }); 
+        
+        // Updates the specified `Policy` on the resource. Creates a new `Policy` for
+        // that `Constraint` on the resource if one does not exist.
+        // 
+        // Not supplying an `etag` on the request `Policy` results in an unconditional
+        // write of the `Policy`.
+        await gapi.client.organizations.setOrgPolicy({ resource: "resource",  }); 
+        
+        // Returns permissions that a caller has on the specified Organization.
+        // The `resource` field should be the organization's resource name,
+        // e.g. "organizations/123".
+        // 
+        // There are no permissions required for making this API call.
+        await gapi.client.organizations.testIamPermissions({ resource: "resource",  }); 
+        
+        // Clears a `Policy` from a resource.
+        await gapi.client.projects.clearOrgPolicy({ resource: "resource",  }); 
         
         // Request that a new Project be created. The result is an Operation which
         // can be used to track the creation process. It is automatically deleted
@@ -88,26 +171,6 @@ gapi.load('client', () => {
         // `resourcemanager.projects.create` on the specified parent for the new
         // project.
         await gapi.client.projects.create({  }); 
-        
-        // Lists all the `Policies` set for a particular resource.
-        await gapi.client.projects.listOrgPolicies({ resource: "resource",  }); 
-        
-        // Retrieves the Project identified by the specified
-        // `project_id` (for example, `my-project-123`).
-        // 
-        // The caller must have read permissions for this Project.
-        await gapi.client.projects.get({ projectId: "projectId",  }); 
-        
-        // Gets a list of ancestors in the resource hierarchy for the Project
-        // identified by the specified `project_id` (for example, `my-project-123`).
-        // 
-        // The caller must have read permissions for this Project.
-        await gapi.client.projects.getAncestry({ projectId: "projectId",  }); 
-        
-        // Returns permissions that a caller has on the specified Project.
-        // 
-        // There are no permissions required for making this API call.
-        await gapi.client.projects.testIamPermissions({ resource: "resource",  }); 
         
         // Marks the Project identified by the specified
         // `project_id` (for example, `my-project-123`) for deletion.
@@ -135,8 +198,48 @@ gapi.load('client', () => {
         // The caller must have modify permissions for this Project.
         await gapi.client.projects.delete({ projectId: "projectId",  }); 
         
-        // Clears a `Policy` from a resource.
-        await gapi.client.projects.clearOrgPolicy({ resource: "resource",  }); 
+        // Retrieves the Project identified by the specified
+        // `project_id` (for example, `my-project-123`).
+        // 
+        // The caller must have read permissions for this Project.
+        await gapi.client.projects.get({ projectId: "projectId",  }); 
+        
+        // Gets a list of ancestors in the resource hierarchy for the Project
+        // identified by the specified `project_id` (for example, `my-project-123`).
+        // 
+        // The caller must have read permissions for this Project.
+        await gapi.client.projects.getAncestry({ projectId: "projectId",  }); 
+        
+        // Gets the effective `Policy` on a resource. This is the result of merging
+        // `Policies` in the resource hierarchy. The returned `Policy` will not have
+        // an `etag`set because it is a computed `Policy` across multiple resources.
+        await gapi.client.projects.getEffectiveOrgPolicy({ resource: "resource",  }); 
+        
+        // Returns the IAM access control policy for the specified Project.
+        // Permission is denied if the policy or the resource does not exist.
+        // 
+        // Authorization requires the Google IAM permission
+        // `resourcemanager.projects.getIamPolicy` on the project
+        await gapi.client.projects.getIamPolicy({ resource: "resource",  }); 
+        
+        // Gets a `Policy` on a resource.
+        // 
+        // If no `Policy` is set on the resource, a `Policy` is returned with default
+        // values including `POLICY_TYPE_NOT_SET` for the `policy_type oneof`. The
+        // `etag` value can be used with `SetOrgPolicy()` to create or update a
+        // `Policy` during read-modify-write.
+        await gapi.client.projects.getOrgPolicy({ resource: "resource",  }); 
+        
+        // Lists Projects that are visible to the user and satisfy the
+        // specified filter. This method returns Projects in an unspecified order.
+        // New Projects do not necessarily appear at the end of the list.
+        await gapi.client.projects.list({  }); 
+        
+        // Lists `Constraints` that could be applied on the specified resource.
+        await gapi.client.projects.listAvailableOrgPolicyConstraints({ resource: "resource",  }); 
+        
+        // Lists all the `Policies` set for a particular resource.
+        await gapi.client.projects.listOrgPolicies({ resource: "resource",  }); 
         
         // Sets the IAM access control policy for the specified Project. Replaces
         // any existing policy.
@@ -182,23 +285,17 @@ gapi.load('client', () => {
         // `resourcemanager.projects.setIamPolicy` on the project
         await gapi.client.projects.setIamPolicy({ resource: "resource",  }); 
         
-        // Lists `Constraints` that could be applied on the specified resource.
-        await gapi.client.projects.listAvailableOrgPolicyConstraints({ resource: "resource",  }); 
-        
-        // Returns the IAM access control policy for the specified Project.
-        // Permission is denied if the policy or the resource does not exist.
+        // Updates the specified `Policy` on the resource. Creates a new `Policy` for
+        // that `Constraint` on the resource if one does not exist.
         // 
-        // Authorization requires the Google IAM permission
-        // `resourcemanager.projects.getIamPolicy` on the project
-        await gapi.client.projects.getIamPolicy({ resource: "resource",  }); 
+        // Not supplying an `etag` on the request `Policy` results in an unconditional
+        // write of the `Policy`.
+        await gapi.client.projects.setOrgPolicy({ resource: "resource",  }); 
         
-        // Gets a `Policy` on a resource.
+        // Returns permissions that a caller has on the specified Project.
         // 
-        // If no `Policy` is set on the resource, a `Policy` is returned with default
-        // values including `POLICY_TYPE_NOT_SET` for the `policy_type oneof`. The
-        // `etag` value can be used with `SetOrgPolicy()` to create or update a
-        // `Policy` during read-modify-write.
-        await gapi.client.projects.getOrgPolicy({ resource: "resource",  }); 
+        // There are no permissions required for making this API call.
+        await gapi.client.projects.testIamPermissions({ resource: "resource",  }); 
         
         // Restores the Project identified by the specified
         // `project_id` (for example, `my-project-123`).
@@ -209,107 +306,10 @@ gapi.load('client', () => {
         // The caller must have modify permissions for this Project.
         await gapi.client.projects.undelete({ projectId: "projectId",  }); 
         
-        // Gets the effective `Policy` on a resource. This is the result of merging
-        // `Policies` in the resource hierarchy. The returned `Policy` will not have
-        // an `etag`set because it is a computed `Policy` across multiple resources.
-        await gapi.client.projects.getEffectiveOrgPolicy({ resource: "resource",  }); 
-        
         // Updates the attributes of the Project identified by the specified
         // `project_id` (for example, `my-project-123`).
         // 
         // The caller must have modify permissions for this Project.
-        await gapi.client.projects.update({ projectId: "projectId",  }); 
-        
-        // Clears a `Policy` from a resource.
-        await gapi.client.organizations.clearOrgPolicy({ resource: "resource",  }); 
-        
-        // Updates the specified `Policy` on the resource. Creates a new `Policy` for
-        // that `Constraint` on the resource if one does not exist.
-        // 
-        // Not supplying an `etag` on the request `Policy` results in an unconditional
-        // write of the `Policy`.
-        await gapi.client.organizations.setOrgPolicy({ resource: "resource",  }); 
-        
-        // Sets the access control policy on an Organization resource. Replaces any
-        // existing policy. The `resource` field should be the organization's resource
-        // name, e.g. "organizations/123".
-        // 
-        // Authorization requires the Google IAM permission
-        // `resourcemanager.organizations.setIamPolicy` on the specified organization
-        await gapi.client.organizations.setIamPolicy({ resource: "resource",  }); 
-        
-        // Lists `Constraints` that could be applied on the specified resource.
-        await gapi.client.organizations.listAvailableOrgPolicyConstraints({ resource: "resource",  }); 
-        
-        // Lists all the `Policies` set for a particular resource.
-        await gapi.client.organizations.listOrgPolicies({ resource: "resource",  }); 
-        
-        // Gets the access control policy for an Organization resource. May be empty
-        // if no such policy or resource exists. The `resource` field should be the
-        // organization's resource name, e.g. "organizations/123".
-        // 
-        // Authorization requires the Google IAM permission
-        // `resourcemanager.organizations.getIamPolicy` on the specified organization
-        await gapi.client.organizations.getIamPolicy({ resource: "resource",  }); 
-        
-        // Searches Organization resources that are visible to the user and satisfy
-        // the specified filter. This method returns Organizations in an unspecified
-        // order. New Organizations do not necessarily appear at the end of the
-        // results.
-        // 
-        // Search will only return organizations on which the user has the permission
-        // `resourcemanager.organizations.get`
-        await gapi.client.organizations.search({  }); 
-        
-        // Gets a `Policy` on a resource.
-        // 
-        // If no `Policy` is set on the resource, a `Policy` is returned with default
-        // values including `POLICY_TYPE_NOT_SET` for the `policy_type oneof`. The
-        // `etag` value can be used with `SetOrgPolicy()` to create or update a
-        // `Policy` during read-modify-write.
-        await gapi.client.organizations.getOrgPolicy({ resource: "resource",  }); 
-        
-        // Gets the effective `Policy` on a resource. This is the result of merging
-        // `Policies` in the resource hierarchy. The returned `Policy` will not have
-        // an `etag`set because it is a computed `Policy` across multiple resources.
-        await gapi.client.organizations.getEffectiveOrgPolicy({ resource: "resource",  }); 
-        
-        // Fetches an Organization resource identified by the specified resource name.
-        await gapi.client.organizations.get({ name: "name",  }); 
-        
-        // Returns permissions that a caller has on the specified Organization.
-        // The `resource` field should be the organization's resource name,
-        // e.g. "organizations/123".
-        // 
-        // There are no permissions required for making this API call.
-        await gapi.client.organizations.testIamPermissions({ resource: "resource",  }); 
-        
-        // Gets the latest state of a long-running operation.  Clients can use this
-        // method to poll the operation result at intervals as recommended by the API
-        // service.
-        await gapi.client.operations.get({ name: "name",  }); 
-        
-        // Delete a Lien by `name`.
-        // 
-        // Callers of this method will require permission on the `parent` resource.
-        // For example, a Lien with a `parent` of `projects/1234` requires permission
-        // `resourcemanager.projects.updateLiens`.
-        await gapi.client.liens.delete({ name: "name",  }); 
-        
-        // List all Liens applied to the `parent` resource.
-        // 
-        // Callers of this method will require permission on the `parent` resource.
-        // For example, a Lien with a `parent` of `projects/1234` requires permission
-        // `resourcemanager.projects.get`.
-        await gapi.client.liens.list({  }); 
-        
-        // Create a Lien which applies to the resource denoted by the `parent` field.
-        // 
-        // Callers of this method will require permission on the `parent` resource.
-        // For example, applying to `projects/1234` requires permission
-        // `resourcemanager.projects.updateLiens`.
-        // 
-        // NOTE: Some resources may limit the number of Liens which may be applied.
-        await gapi.client.liens.create({  });
+        await gapi.client.projects.update({ projectId: "projectId",  });
     }
 });

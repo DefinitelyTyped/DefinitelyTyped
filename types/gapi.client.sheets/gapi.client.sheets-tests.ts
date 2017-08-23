@@ -14,20 +14,20 @@ gapi.load('client', () => {
         // declare client_id registered in Google Developers Console
         const client_id = '<<PUT YOUR CLIENT ID HERE>>';
         const scope = [     
+                // View and manage the files in your Google Drive
+                'https://www.googleapis.com/auth/drive',
+            
                 // View and manage Google Drive files and folders that you have opened or created with this app
                 'https://www.googleapis.com/auth/drive.file',
-            
-                // View your Google Spreadsheets
-                'https://www.googleapis.com/auth/spreadsheets.readonly',
             
                 // View the files in your Google Drive
                 'https://www.googleapis.com/auth/drive.readonly',
             
-                // View and manage the files in your Google Drive
-                'https://www.googleapis.com/auth/drive',
-            
                 // View and manage your spreadsheets in Google Drive
                 'https://www.googleapis.com/auth/spreadsheets',
+            
+                // View your Google Spreadsheets
+                'https://www.googleapis.com/auth/spreadsheets.readonly',
             ];
         const immediate = true;
 

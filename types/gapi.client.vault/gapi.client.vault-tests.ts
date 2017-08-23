@@ -16,37 +16,37 @@ gapi.load('client', () => {
 
     async function run() {  
         
-        // Lists matters the user has access to.
-        await gapi.client.matters.list({  }); 
-        
         // Adds an account as a matter collaborator.
         await gapi.client.matters.addPermissions({ matterId: "matterId",  }); 
-        
-        // Creates a new matter. Returns created matter with default view.
-        await gapi.client.matters.create({  }); 
-        
-        // Reopens the specified matter. Returns matter with updated state.
-        await gapi.client.matters.reopen({ matterId: "matterId",  }); 
-        
-        // Removes an account as a matter collaborator.
-        await gapi.client.matters.removePermissions({ matterId: "matterId",  }); 
         
         // Closes the specified matter. Returns matter with updated state.
         await gapi.client.matters.close({ matterId: "matterId",  }); 
         
-        // Undeletes the specified matter. Returns matter with updated state.
-        await gapi.client.matters.undelete({ matterId: "matterId",  }); 
+        // Creates a new matter. Returns created matter with default view.
+        await gapi.client.matters.create({  }); 
+        
+        // Deletes the specified matter. Returns matter with updated state.
+        await gapi.client.matters.delete({ matterId: "matterId",  }); 
         
         // Gets the specified matter.
         await gapi.client.matters.get({ matterId: "matterId",  }); 
+        
+        // Lists matters the user has access to.
+        await gapi.client.matters.list({  }); 
+        
+        // Removes an account as a matter collaborator.
+        await gapi.client.matters.removePermissions({ matterId: "matterId",  }); 
+        
+        // Reopens the specified matter. Returns matter with updated state.
+        await gapi.client.matters.reopen({ matterId: "matterId",  }); 
+        
+        // Undeletes the specified matter. Returns matter with updated state.
+        await gapi.client.matters.undelete({ matterId: "matterId",  }); 
         
         // Updates the specified matter.
         // This updates only the name and description of the matter, identified by
         // matter id. Changes to any other fields are ignored.
         // Returns the default view of the matter.
-        await gapi.client.matters.update({ matterId: "matterId",  }); 
-        
-        // Deletes the specified matter. Returns matter with updated state.
-        await gapi.client.matters.delete({ matterId: "matterId",  });
+        await gapi.client.matters.update({ matterId: "matterId",  });
     }
 });

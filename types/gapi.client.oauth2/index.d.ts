@@ -21,19 +21,12 @@ declare namespace gapi.client {
     namespace oauth2 {
         
         interface Jwk {
-            /**  */
             keys?: Array<{            
-                /**  */
                 alg?: string;
-                /**  */
                 e?: string;
-                /**  */
                 kid?: string;
-                /**  */
                 kty?: string;
-                /**  */
                 n?: string;
-                /**  */
                 use?: string;
             }>;            
         }
@@ -85,7 +78,6 @@ declare namespace gapi.client {
         }
         
         interface MeResource {
-            /**  */
             get(request: {            
                 /** Data format for the response. */
                 alt?: string;
@@ -110,7 +102,6 @@ declare namespace gapi.client {
         }
         
         interface UserinfoResource {
-            /**  */
             get(request: {            
                 /** Data format for the response. */
                 alt?: string;

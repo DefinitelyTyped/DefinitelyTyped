@@ -58,7 +58,6 @@ declare namespace gapi.client {
             /** else */
             /**   ... worker specific actions ... */
             /** fi */
-            /**  */
             initializationActions?: NodeInitializationAction[];
             /** Optional. The Google Compute Engine config settings for the master instance in a cluster. */
             masterConfig?: InstanceGroupConfig;
@@ -386,7 +385,6 @@ declare namespace gapi.client {
             /**     ] */
             /**   } */
             /** } */
-            /**  */
             queries?: string[];
         }
         

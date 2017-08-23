@@ -37,11 +37,11 @@ var client_id = '',
         // View and manage your data across Google Cloud Platform services
         'https://www.googleapis.com/auth/cloud-platform',
     
-        // View all your Firebase data and settings
-        'https://www.googleapis.com/auth/firebase.readonly',
-    
         // View and administer all your Firebase data and settings
         'https://www.googleapis.com/auth/firebase',
+    
+        // View all your Firebase data and settings
+        'https://www.googleapis.com/auth/firebase.readonly',
     ],
     immediate = true;
 // ...

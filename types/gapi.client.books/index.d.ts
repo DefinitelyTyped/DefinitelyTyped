@@ -87,7 +87,6 @@ declare namespace gapi.client {
             kind?: string;
             /** The layer this annotation is for. */
             layerId?: string;
-            /**  */
             layerSummary?: {            
                 /** Maximum allowed characters on this layer, especially for the "copy" layer. */
                 allowedCharacterCount?: number;
@@ -111,7 +110,6 @@ declare namespace gapi.client {
         interface Annotationdata {
             /** The type of annotation this data is for. */
             annotationType?: string;
-            /**  */
             data?: any;
             /** Base64 encoded data for this annotation data. */
             encoded_data?: string;
@@ -141,19 +139,12 @@ declare namespace gapi.client {
         }
         
         interface AnnotationsSummary {
-            /**  */
             kind?: string;
-            /**  */
             layers?: Array<{            
-                /**  */
                 allowedCharacterCount?: number;
-                /**  */
                 layerId?: string;
-                /**  */
                 limitType?: string;
-                /**  */
                 remainingCharacterCount?: number;
-                /**  */
                 updated?: string;
             }>;            
         }
@@ -181,18 +172,13 @@ declare namespace gapi.client {
         }
         
         interface BooksCloudloadingResource {
-            /**  */
             author?: string;
-            /**  */
             processingState?: string;
-            /**  */
             title?: string;
-            /**  */
             volumeId?: string;
         }
         
         interface BooksVolumesRecommendedRateResponse {
-            /**  */
             consistency_token?: string;
         }
         
@@ -229,11 +215,8 @@ declare namespace gapi.client {
         interface Category {
             /** A list of onboarding categories. */
             items?: Array<{            
-                /**  */
                 badgeUrl?: string;
-                /**  */
                 categoryId?: string;
-                /**  */
                 name?: string;
             }>;            
             /** Resource type. */
@@ -266,145 +249,90 @@ declare namespace gapi.client {
         }
         
         interface Dictlayerdata {
-            /**  */
             common?: {            
                 /** The display title and localized canonical name to use when searching for this entity on Google search. */
                 title?: string;
             };            
-            /**  */
             dict?: {            
                 /** The source, url and attribution for this dictionary data. */
                 source?: {                
-                    /**  */
                     attribution?: string;
-                    /**  */
                     url?: string;
                 };                
-                /**  */
                 words?: Array<{                
-                    /**  */
                     derivatives?: Array<{                    
-                        /**  */
                         source?: {                        
-                            /**  */
                             attribution?: string;
-                            /**  */
                             url?: string;
                         };                        
-                        /**  */
                         text?: string;
                     }>;                    
-                    /**  */
                     examples?: Array<{                    
-                        /**  */
                         source?: {                        
-                            /**  */
                             attribution?: string;
-                            /**  */
                             url?: string;
                         };                        
-                        /**  */
                         text?: string;
                     }>;                    
-                    /**  */
                     senses?: Array<{                    
-                        /**  */
                         conjugations?: Array<{                        
-                            /**  */
                             type?: string;
-                            /**  */
                             value?: string;
                         }>;                        
-                        /**  */
                         definitions?: Array<{                        
-                            /**  */
                             definition?: string;
-                            /**  */
                             examples?: Array<{                            
-                                /**  */
                                 source?: {                                
-                                    /**  */
                                     attribution?: string;
-                                    /**  */
                                     url?: string;
                                 };                                
-                                /**  */
                                 text?: string;
                             }>;                            
                         }>;                        
-                        /**  */
                         partOfSpeech?: string;
-                        /**  */
                         pronunciation?: string;
-                        /**  */
                         pronunciationUrl?: string;
-                        /**  */
                         source?: {                        
-                            /**  */
                             attribution?: string;
-                            /**  */
                             url?: string;
                         };                        
-                        /**  */
                         syllabification?: string;
-                        /**  */
                         synonyms?: Array<{                        
-                            /**  */
                             source?: {                            
-                                /**  */
                                 attribution?: string;
-                                /**  */
                                 url?: string;
                             };                            
-                            /**  */
                             text?: string;
                         }>;                        
                     }>;                    
                     /** The words with different meanings but not related words, e.g. "go" (game) and "go" (verb). */
                     source?: {                    
-                        /**  */
                         attribution?: string;
-                        /**  */
                         url?: string;
                     };                    
                 }>;                
             };            
-            /**  */
             kind?: string;
         }
         
         interface Discoveryclusters {
-            /**  */
             clusters?: Array<{            
-                /**  */
                 banner_with_content_container?: {                
-                    /**  */
                     fillColorArgb?: string;
-                    /**  */
                     imageUrl?: string;
-                    /**  */
                     maskColorArgb?: string;
-                    /**  */
                     moreButtonText?: string;
-                    /**  */
                     moreButtonUrl?: string;
-                    /**  */
                     textColorArgb?: string;
                 };                
-                /**  */
                 subTitle?: string;
-                /**  */
                 title?: string;
-                /**  */
                 totalVolumes?: number;
-                /**  */
                 uid?: string;
-                /**  */
                 volumes?: Volume[];
             }>;            
             /** Resorce type. */
             kind?: string;
-            /**  */
             totalClusters?: number;
         }
         
@@ -443,7 +371,6 @@ declare namespace gapi.client {
         }
         
         interface Geolayerdata {
-            /**  */
             common?: {            
                 /** The language of the information url and description. */
                 lang?: string;
@@ -456,13 +383,10 @@ declare namespace gapi.client {
                 /** The display title and localized canonical name to use when searching for this entity on Google search. */
                 title?: string;
             };            
-            /**  */
             geo?: {            
                 /** The boundary of the location as a set of loops containing pairs of latitude, longitude coordinates. */
                 boundary?: Array<Array<{                
-                    /**  */
                     latitude?: number;
-                    /**  */
                     longitude?: number;
                 }>>;                
                 /** The cache policy active for this data. EX: UNRESTRICTED, RESTRICTED, NEVER */
@@ -477,25 +401,18 @@ declare namespace gapi.client {
                 mapType?: string;
                 /** The viewport for showing this location. This is a latitude, longitude rectangle. */
                 viewport?: {                
-                    /**  */
                     hi?: {                    
-                        /**  */
                         latitude?: number;
-                        /**  */
                         longitude?: number;
                     };                    
-                    /**  */
                     lo?: {                    
-                        /**  */
                         latitude?: number;
-                        /**  */
                         longitude?: number;
                     };                    
                 };                
                 /** The Zoom level to use for the map. Zoom levels between 0 (the lowest zoom level, in which the entire world can be seen on one map) to 21+ (down to individual buildings). See: https://developers.google.com/maps/documentation/staticmaps/#Zoomlevels */
                 zoom?: number;
             };            
-            /**  */
             kind?: string;
         }
         
@@ -540,15 +457,10 @@ declare namespace gapi.client {
         interface Metadata {
             /** A list of offline dictionary metadata. */
             items?: Array<{            
-                /**  */
                 download_url?: string;
-                /**  */
                 encrypted_key?: string;
-                /**  */
                 language?: string;
-                /**  */
                 size?: string;
-                /**  */
                 version?: string;
             }>;            
             /** Resource type. */
@@ -556,58 +468,36 @@ declare namespace gapi.client {
         }
         
         interface Notification {
-            /**  */
             body?: string;
             /** The list of crm experiment ids. */
             crmExperimentIds?: string[];
-            /**  */
             doc_id?: string;
-            /**  */
             doc_type?: string;
-            /**  */
             dont_show_notification?: boolean;
-            /**  */
             iconUrl?: string;
             /** Resource type. */
             kind?: string;
-            /**  */
             notificationGroup?: string;
-            /**  */
             notification_type?: string;
-            /**  */
             pcampaign_id?: string;
-            /**  */
             reason?: string;
-            /**  */
             show_notification_settings_action?: boolean;
-            /**  */
             targetUrl?: string;
-            /**  */
             title?: string;
         }
         
         interface Offers {
             /** A list of offers. */
             items?: Array<{            
-                /**  */
                 artUrl?: string;
-                /**  */
                 gservicesKey?: string;
-                /**  */
                 id?: string;
-                /**  */
                 items?: Array<{                
-                    /**  */
                     author?: string;
-                    /**  */
                     canonicalVolumeLink?: string;
-                    /**  */
                     coverUrl?: string;
-                    /**  */
                     description?: string;
-                    /**  */
                     title?: string;
-                    /**  */
                     volumeId?: string;
                 }>;                
             }>;            
@@ -677,17 +567,11 @@ declare namespace gapi.client {
         interface Series {
             /** Resource type. */
             kind?: string;
-            /**  */
             series?: Array<{            
-                /**  */
                 bannerImageUrl?: string;
-                /**  */
                 imageUrl?: string;
-                /**  */
                 seriesId?: string;
-                /**  */
                 seriesType?: string;
-                /**  */
                 title?: string;
             }>;            
         }
@@ -695,9 +579,7 @@ declare namespace gapi.client {
         interface Seriesmembership {
             /** Resorce type. */
             kind?: string;
-            /**  */
             member?: Volume[];
-            /**  */
             nextPageToken?: string;
         }
         
@@ -706,26 +588,17 @@ declare namespace gapi.client {
             kind?: string;
             /** User settings in sub-objects, each for different purposes. */
             notesExport?: {            
-                /**  */
                 folderName?: string;
-                /**  */
                 isEnabled?: boolean;
             };            
-            /**  */
             notification?: {            
-                /**  */
                 moreFromAuthors?: {                
-                    /**  */
                     opted_state?: string;
                 };                
-                /**  */
                 moreFromSeries?: {                
-                    /**  */
                     opted_state?: string;
                 };                
-                /**  */
                 rewardExpirations?: {                
-                    /**  */
                     opted_state?: string;
                 };                
             };            
@@ -821,23 +694,17 @@ declare namespace gapi.client {
                     giftable?: boolean;
                     /** Offer list (=undiscounted) price in Micros. */
                     listPrice?: {                    
-                        /**  */
                         amountInMicros?: number;
-                        /**  */
                         currencyCode?: string;
                     };                    
                     /** The rental duration (for rental offers only). */
                     rentalDuration?: {                    
-                        /**  */
                         count?: number;
-                        /**  */
                         unit?: string;
                     };                    
                     /** Offer retail (=discounted) price in Micros */
                     retailPrice?: {                    
-                        /**  */
                         amountInMicros?: number;
-                        /**  */
                         currencyCode?: string;
                     };                    
                 }>;                
@@ -868,13 +735,9 @@ declare namespace gapi.client {
                 acquisitionType?: number;
                 /** Copy/Paste accounting information. */
                 copy?: {                
-                    /**  */
                     allowedCharacterCount?: number;
-                    /**  */
                     limitType?: string;
-                    /**  */
                     remainingCharacterCount?: number;
-                    /**  */
                     updated?: string;
                 };                
                 /** Whether this volume is purchased, sample, pd download etc. */
@@ -908,9 +771,7 @@ declare namespace gapi.client {
                 readingPosition?: ReadingPosition;
                 /** Period during this book is/was a valid rental. */
                 rentalPeriod?: {                
-                    /**  */
                     endUtcSec?: string;
-                    /**  */
                     startUtcSec?: string;
                 };                
                 /** Whether this book is an active or an expired rental. */
@@ -919,9 +780,7 @@ declare namespace gapi.client {
                 review?: Review;
                 /** Timestamp when this volume was last modified by a user action, such as a reading position update, volume purchase or writing a review. (RFC 3339 UTC date-time format). */
                 updated?: string;
-                /**  */
                 userUploadedVolumeInfo?: {                
-                    /**  */
                     processingState?: string;
                 };                
             };            
@@ -978,19 +837,14 @@ declare namespace gapi.client {
                 language?: string;
                 /** The main category to which this volume belongs. It will be the category from the categories list returned below that has the highest weight. */
                 mainCategory?: string;
-                /**  */
                 maturityRating?: string;
                 /** Total number of pages as per publisher metadata. */
                 pageCount?: number;
                 /** A top-level summary of the panelization info in this volume. */
                 panelizationSummary?: {                
-                    /**  */
                     containsEpubBubbles?: boolean;
-                    /**  */
                     containsImageBubbles?: boolean;
-                    /**  */
                     epubBubbleVersion?: string;
-                    /**  */
                     imageBubbleVersion?: string;
                 };                
                 /** URL to preview this volume on the Google Books site. */
@@ -1009,7 +863,6 @@ declare namespace gapi.client {
                 readingModes?: any;
                 /** Total number of sample pages as per publisher metadata. */
                 samplePageCount?: number;
-                /**  */
                 seriesInfo?: Volumeseriesinfo;
                 /** Volume subtitle. (In LITE projection.) */
                 subtitle?: string;
@@ -1023,7 +876,6 @@ declare namespace gapi.client {
             items?: Volume[];
             /** Resource type. */
             kind?: string;
-            /**  */
             nextPageToken?: string;
         }
         
@@ -1096,13 +948,10 @@ declare namespace gapi.client {
             kind?: string;
             /** Short book title in the context of the series. */
             shortSeriesBookTitle?: string;
-            /**  */
             volumeSeries?: Array<{            
                 /** List of issues. Applicable only for Collection Edition and Omnibus. */
                 issue?: Array<{                
-                    /**  */
                     issueDisplayNumber?: string;
-                    /**  */
                     issueOrderNumber?: number;
                 }>;                
                 /** The book order number in the series. */
@@ -1198,7 +1047,6 @@ declare namespace gapi.client {
         }
         
         interface CloudloadingResource {
-            /**  */
             addBook(request: {            
                 /** Data format for the response. */
                 alt?: string;
@@ -1218,7 +1066,6 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /**  */
                 upload_client_token?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
@@ -1244,7 +1091,6 @@ declare namespace gapi.client {
                 volumeId: string;
             }): Request<void>;            
             
-            /**  */
             updateBook(request: {            
                 /** Data format for the response. */
                 alt?: string;
@@ -2126,7 +1972,6 @@ declare namespace gapi.client {
         }
         
         interface PromoofferResource {
-            /**  */
             accept(request: {            
                 /** Data format for the response. */
                 alt?: string;
@@ -2144,7 +1989,6 @@ declare namespace gapi.client {
                 model?: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
-                /**  */
                 offerId?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
@@ -2160,7 +2004,6 @@ declare namespace gapi.client {
                 volumeId?: string;
             }): Request<void>;            
             
-            /**  */
             dismiss(request: {            
                 /** Data format for the response. */
                 alt?: string;
@@ -2454,7 +2297,6 @@ declare namespace gapi.client {
                 source?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /**  */
                 user_library_consistent_read?: boolean;
                 /** ID of volume to retrieve. */
                 volumeId: string;

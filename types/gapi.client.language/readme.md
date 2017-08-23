@@ -56,17 +56,16 @@ After that you can use Google Cloud Natural Language API resources:
 ```typescript 
     
 /* 
-A convenience method that provides all the features that analyzeSentiment,
-analyzeEntities, and analyzeSyntax provide in one call.  
-*/
-await gapi.client.documents.annotateText({  }); 
-    
-/* 
 Finds named entities (currently proper names and common nouns) in the text
 along with entity types, salience, mentions for each entity, and
 other properties.  
 */
 await gapi.client.documents.analyzeEntities({  }); 
+    
+/* 
+Analyzes the sentiment of the provided text.  
+*/
+await gapi.client.documents.analyzeSentiment({  }); 
     
 /* 
 Analyzes the syntax of the text and provides sentence boundaries and
@@ -76,7 +75,8 @@ properties.
 await gapi.client.documents.analyzeSyntax({  }); 
     
 /* 
-Analyzes the sentiment of the provided text.  
+A convenience method that provides all the features that analyzeSentiment,
+analyzeEntities, and analyzeSyntax provide in one call.  
 */
-await gapi.client.documents.analyzeSentiment({  });
+await gapi.client.documents.annotateText({  });
 ```

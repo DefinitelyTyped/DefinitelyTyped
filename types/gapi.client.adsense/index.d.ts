@@ -39,7 +39,6 @@ declare namespace gapi.client {
     namespace adsense {
         
         interface Account {
-            /**  */
             creation_time?: string;
             /** Unique identifier of this account. */
             id?: string;
@@ -279,7 +278,6 @@ declare namespace gapi.client {
         }
         
         interface Metadata {
-            /**  */
             items?: ReportingMetadataEntry[];
             /** Kind of list this is, in this case adsense#metadata. */
             kind?: string;

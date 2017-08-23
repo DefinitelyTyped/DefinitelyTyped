@@ -56,7 +56,6 @@ declare namespace gapi.client {
             /** `google.feature.v1`. For major versions 0 and 1, the suffix can */
             /** be omitted. Zero major versions must only be used for */
             /** experimental, non-GA interfaces. */
-            /**  */
             version?: string;
         }
         

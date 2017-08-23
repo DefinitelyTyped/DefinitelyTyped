@@ -94,7 +94,6 @@ declare namespace gapi.client {
         interface Geometry {
             /** The list of geometries in this geometry collection. */
             geometries?: any[];
-            /**  */
             geometry?: any;
             /** Type: A collection of geometries. */
             type?: string;

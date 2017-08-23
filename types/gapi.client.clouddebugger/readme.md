@@ -34,11 +34,11 @@ Don't forget to authenticate your client before sending any request to resources
 // declare client_id registered in Google Developers Console
 var client_id = '',
     scope = [     
-        // Manage cloud debugger
-        'https://www.googleapis.com/auth/cloud_debugger',
-    
         // View and manage your data across Google Cloud Platform services
         'https://www.googleapis.com/auth/cloud-platform',
+    
+        // Manage cloud debugger
+        'https://www.googleapis.com/auth/cloud_debugger',
     ],
     immediate = true;
 // ...

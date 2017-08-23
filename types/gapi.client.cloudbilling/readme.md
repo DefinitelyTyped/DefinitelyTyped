@@ -54,6 +54,27 @@ After that you can use Google Cloud Billing API resources:
 ```typescript 
     
 /* 
+Gets information about a billing account. The current authenticated user
+must be an [owner of the billing
+account](https://support.google.com/cloud/answer/4430947).  
+*/
+await gapi.client.billingAccounts.get({ name: "name",  }); 
+    
+/* 
+Lists the billing accounts that the current authenticated user
+[owns](https://support.google.com/cloud/answer/4430947).  
+*/
+await gapi.client.billingAccounts.list({  }); 
+    
+/* 
+Gets the billing information for a project. The current authenticated user
+must have [permission to view the
+project](https://cloud.google.com/docs/permissions-overview#h.bgs0oxofvnoo
+).  
+*/
+await gapi.client.projects.getBillingInfo({ name: "name",  }); 
+    
+/* 
 Sets or updates the billing account associated with a project. You specify
 the new billing account by setting the `billing_account_name` in the
 `ProjectBillingInfo` resource to the resource name of a billing account.
@@ -87,27 +108,6 @@ disable billing, you should always call this method with the name of an
 *open* billing account.  
 */
 await gapi.client.projects.updateBillingInfo({ name: "name",  }); 
-    
-/* 
-Gets the billing information for a project. The current authenticated user
-must have [permission to view the
-project](https://cloud.google.com/docs/permissions-overview#h.bgs0oxofvnoo
-).  
-*/
-await gapi.client.projects.getBillingInfo({ name: "name",  }); 
-    
-/* 
-Gets information about a billing account. The current authenticated user
-must be an [owner of the billing
-account](https://support.google.com/cloud/answer/4430947).  
-*/
-await gapi.client.billingAccounts.get({ name: "name",  }); 
-    
-/* 
-Lists the billing accounts that the current authenticated user
-[owns](https://support.google.com/cloud/answer/4430947).  
-*/
-await gapi.client.billingAccounts.list({  }); 
     
 /* 
 Lists all public cloud services.  

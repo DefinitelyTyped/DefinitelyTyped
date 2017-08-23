@@ -114,24 +114,20 @@ declare namespace gapi.client {
         interface HistoryLabelAdded {
             /** Label IDs added to the message. */
             labelIds?: string[];
-            /**  */
             message?: Message;
         }
         
         interface HistoryLabelRemoved {
             /** Label IDs removed from the message. */
             labelIds?: string[];
-            /**  */
             message?: Message;
         }
         
         interface HistoryMessageAdded {
-            /**  */
             message?: Message;
         }
         
         interface HistoryMessageDeleted {
-            /**  */
             message?: Message;
         }
         

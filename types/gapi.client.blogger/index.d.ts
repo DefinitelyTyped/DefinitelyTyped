@@ -271,7 +271,6 @@ declare namespace gapi.client {
             id?: string;
             /** Display image for the Post. */
             images?: Array<{            
-                /**  */
                 url?: string;
             }>;            
             /** The kind of this entity. Always blogger#post */
@@ -596,7 +595,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Earliest date of comment to fetch, a date-time with RFC 3339 formatting. */
                 startDate?: string;
-                /**  */
                 status?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
@@ -630,7 +628,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Earliest date of comment to fetch, a date-time with RFC 3339 formatting. */
                 startDate?: string;
-                /**  */
                 status?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
@@ -703,7 +700,6 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /**  */
                 range?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
@@ -754,7 +750,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
-                /**  */
                 view?: string;
             }): Request<Page>;            
             
@@ -802,7 +797,6 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /**  */
                 status?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
@@ -965,7 +959,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** Earliest post date to fetch, a date-time with RFC 3339 formatting. */
                 startDate?: string;
-                /**  */
                 status?: string;
                 /** ID of the user for the per-user information to be fetched. Either the word 'self' (sans quote marks) or the user's profile identifier. */
                 userId: string;

@@ -193,7 +193,6 @@ declare namespace gapi.client {
             batchId?: number;
             /** The ID of the managing account. */
             merchantId?: string;
-            /**  */
             method?: string;
             /** Only applicable if the method is claimwebsite. Indicates whether or not to take the claim from another account in case there is a conflict. */
             overwrite?: boolean;
@@ -222,7 +221,6 @@ declare namespace gapi.client {
             kind?: string;
             /** The token for the retrieval of the next page of accounts. */
             nextPageToken?: string;
-            /**  */
             resources?: Account[];
         }
         
@@ -263,7 +261,6 @@ declare namespace gapi.client {
             kind?: string;
             /** The token for the retrieval of the next page of account statuses. */
             nextPageToken?: string;
-            /**  */
             resources?: AccountStatus[];
         }
         
@@ -281,7 +278,6 @@ declare namespace gapi.client {
             batchId?: number;
             /** The ID of the managing account. */
             merchantId?: string;
-            /**  */
             method?: string;
         }
         
@@ -308,7 +304,6 @@ declare namespace gapi.client {
             kind?: string;
             /** The token for the retrieval of the next page of account tax settings. */
             nextPageToken?: string;
-            /**  */
             resources?: AccountTax[];
         }
         
@@ -444,7 +439,6 @@ declare namespace gapi.client {
             datafeedId?: string;
             /** The ID of the managing account. */
             merchantId?: string;
-            /**  */
             method?: string;
         }
         
@@ -469,7 +463,6 @@ declare namespace gapi.client {
             kind?: string;
             /** The token for the retrieval of the next page of datafeeds. */
             nextPageToken?: string;
-            /**  */
             resources?: Datafeed[];
         }
         
@@ -485,7 +478,6 @@ declare namespace gapi.client {
             datafeedId?: string;
             /** The ID of the managing account. */
             merchantId?: string;
-            /**  */
             method?: string;
         }
         
@@ -510,7 +502,6 @@ declare namespace gapi.client {
             kind?: string;
             /** The token for the retrieval of the next page of datafeed statuses. */
             nextPageToken?: string;
-            /**  */
             resources?: DatafeedStatus[];
         }
         
@@ -678,7 +669,6 @@ declare namespace gapi.client {
             kind?: string;
             /** Line items that are ordered. */
             lineItems?: OrderLineItem[];
-            /**  */
             merchantId?: string;
             /** Merchant-provided id of the order. */
             merchantOrderId?: string;
@@ -874,7 +864,6 @@ declare namespace gapi.client {
         }
         
         interface OrderPromotion {
-            /**  */
             benefits?: OrderPromotionBenefit[];
             /** The date and time frame when the promotion is active and ready for validation review. Note that the promotion live time may be delayed for a few hours due to the validation review. */
             /** Start date and end date are separated by a forward slash (/). The start date is specified by the format (YYYY-MM-DD), followed by the letter ?T?, the time of the day when the sale starts (in Greenwich Mean Time, GMT), followed by an expression of the time zone for the sale. The end date is in the same format. */
@@ -1156,7 +1145,6 @@ declare namespace gapi.client {
             kind?: string;
             /** The token for the retrieval of the next page of orders. */
             nextPageToken?: string;
-            /**  */
             resources?: Order[];
         }
         
@@ -1585,7 +1573,6 @@ declare namespace gapi.client {
             batchId?: number;
             /** The ID of the managing account. */
             merchantId?: string;
-            /**  */
             method?: string;
             /** The product to insert. Only required if the method is insert. */
             product?: Product;
@@ -1616,7 +1603,6 @@ declare namespace gapi.client {
             kind?: string;
             /** The token for the retrieval of the next page of products. */
             nextPageToken?: string;
-            /**  */
             resources?: Product[];
         }
         
@@ -1628,11 +1614,9 @@ declare namespace gapi.client {
         interface ProductstatusesCustomBatchRequestEntry {
             /** An entry ID, unique within the batch request. */
             batchId?: number;
-            /**  */
             includeAttributes?: boolean;
             /** The ID of the managing account. */
             merchantId?: string;
-            /**  */
             method?: string;
             /** The ID of the product whose status to get. */
             productId?: string;
@@ -1661,7 +1645,6 @@ declare namespace gapi.client {
             kind?: string;
             /** The token for the retrieval of the next page of products statuses. */
             nextPageToken?: string;
-            /**  */
             resources?: ProductStatus[];
         }
         
@@ -1719,7 +1702,6 @@ declare namespace gapi.client {
             batchId?: number;
             /** The ID of the managing account. */
             merchantId?: string;
-            /**  */
             method?: string;
             /** The account shipping settings to update. Only defined if the method is update. */
             shippingSettings?: ShippingSettings;
@@ -1755,7 +1737,6 @@ declare namespace gapi.client {
             kind?: string;
             /** The token for the retrieval of the next page of shipping settings. */
             nextPageToken?: string;
-            /**  */
             resources?: ShippingSettings[];
         }
         
@@ -2081,7 +2062,6 @@ declare namespace gapi.client {
         }
         
         interface AccountstatusesResource {
-            /**  */
             custombatch(request: {            
                 /** Data format for the response. */
                 alt?: string;
@@ -2265,7 +2245,6 @@ declare namespace gapi.client {
         }
         
         interface DatafeedsResource {
-            /**  */
             custombatch(request: {            
                 /** Data format for the response. */
                 alt?: string;
@@ -2289,7 +2268,6 @@ declare namespace gapi.client {
             delete(request: {            
                 /** Data format for the response. */
                 alt?: string;
-                /**  */
                 datafeedId: string;
                 /** Flag to run the request in dry-run mode. */
                 dryRun?: boolean;
@@ -2297,7 +2275,6 @@ declare namespace gapi.client {
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
-                /**  */
                 merchantId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
@@ -2313,13 +2290,11 @@ declare namespace gapi.client {
             get(request: {            
                 /** Data format for the response. */
                 alt?: string;
-                /**  */
                 datafeedId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
-                /**  */
                 merchantId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
@@ -2341,7 +2316,6 @@ declare namespace gapi.client {
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
-                /**  */
                 merchantId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
@@ -2381,7 +2355,6 @@ declare namespace gapi.client {
             patch(request: {            
                 /** Data format for the response. */
                 alt?: string;
-                /**  */
                 datafeedId: string;
                 /** Flag to run the request in dry-run mode. */
                 dryRun?: boolean;
@@ -2389,7 +2362,6 @@ declare namespace gapi.client {
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
-                /**  */
                 merchantId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
@@ -2405,7 +2377,6 @@ declare namespace gapi.client {
             update(request: {            
                 /** Data format for the response. */
                 alt?: string;
-                /**  */
                 datafeedId: string;
                 /** Flag to run the request in dry-run mode. */
                 dryRun?: boolean;
@@ -2413,7 +2384,6 @@ declare namespace gapi.client {
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
-                /**  */
                 merchantId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
@@ -2428,7 +2398,6 @@ declare namespace gapi.client {
         }
         
         interface DatafeedstatusesResource {
-            /**  */
             custombatch(request: {            
                 /** Data format for the response. */
                 alt?: string;
@@ -2450,13 +2419,11 @@ declare namespace gapi.client {
             get(request: {            
                 /** Data format for the response. */
                 alt?: string;
-                /**  */
                 datafeedId: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
-                /**  */
                 merchantId: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;

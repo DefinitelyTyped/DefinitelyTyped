@@ -365,7 +365,6 @@ declare namespace gapi.client {
             hour?: number;
             /** This is always sql#maintenanceWindow. */
             kind?: string;
-            /**  */
             updateTrack?: string;
         }
         
@@ -426,7 +425,6 @@ declare namespace gapi.client {
             status?: string;
             /** Name of the database instance related to this operation. */
             targetId?: string;
-            /**  */
             targetLink?: string;
             /** The project ID of the target instance related to this operation. */
             targetProject?: string;

@@ -14,11 +14,11 @@ gapi.load('client', () => {
         // declare client_id registered in Google Developers Console
         const client_id = '<<PUT YOUR CLIENT ID HERE>>';
         const scope = [     
-                // Manage your Google Cloud Platform services' runtime configuration
-                'https://www.googleapis.com/auth/cloudruntimeconfig',
-            
                 // View and manage your data across Google Cloud Platform services
                 'https://www.googleapis.com/auth/cloud-platform',
+            
+                // Manage your Google Cloud Platform services' runtime configuration
+                'https://www.googleapis.com/auth/cloudruntimeconfig',
             ];
         const immediate = true;
 

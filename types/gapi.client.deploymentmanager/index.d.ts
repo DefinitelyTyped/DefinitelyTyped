@@ -31,7 +31,6 @@ declare namespace gapi.client {
         interface AuditConfig {
             /** The configuration for logging of each type of permission. */
             auditLogConfigs?: AuditLogConfig[];
-            /**  */
             exemptedMembers?: string[];
             /** Specifies a service that will be enabled for audit logging. For example, `storage.googleapis.com`, `cloudsql.googleapis.com`. `allServices` is a special value that covers all services. */
             service?: string;
@@ -122,9 +121,7 @@ declare namespace gapi.client {
         }
         
         interface DeploymentLabelEntry {
-            /**  */
             key?: string;
-            /**  */
             value?: string;
         }
         
@@ -138,9 +135,7 @@ declare namespace gapi.client {
         }
         
         interface DeploymentUpdateLabelEntry {
-            /**  */
             key?: string;
-            /**  */
             value?: string;
         }
         
@@ -327,7 +322,6 @@ declare namespace gapi.client {
             /**  */
             /** If no `etag` is provided in the call to `setIamPolicy`, then the existing policy is overwritten blindly. */
             etag?: string;
-            /**  */
             iamOwned?: boolean;
             /** If more than one rule is specified, the rules are applied in the following manner: - All matching LOG rules are always applied. - If any DENY/DENY_WITH_LOG rule matches, permission is denied. Logging will be applied if one or more matching rule requires logging. - Otherwise, if any ALLOW/ALLOW_WITH_LOG rule matches, permission is granted. Logging will be applied if one or more matching rule requires logging. - Otherwise, if no rule applies, permission is denied. */
             rules?: Rule[];

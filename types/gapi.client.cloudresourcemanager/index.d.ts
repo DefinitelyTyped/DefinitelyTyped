@@ -75,8 +75,6 @@ declare namespace gapi.client {
             /**  */
             /** &#42; `domain:{domain}`: A Google Apps domain name that represents all the */
             /**    users of that domain. For example, `google.com` or `example.com`. */
-            /**  */
-            /**  */
             members?: string[];
             /** Role that is assigned to `members`. */
             /** For example, `roles/viewer`, `roles/editor`, or `roles/owner`. */

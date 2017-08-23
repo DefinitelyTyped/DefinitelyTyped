@@ -60,11 +60,9 @@ declare namespace gapi.client {
         }
         
         interface Operation {
-            /**  */
             clientOperationId?: string;
             /** [Output Only] Creation timestamp in RFC3339 text format. */
             creationTimestamp?: string;
-            /**  */
             endTime?: string;
             /** [Output Only] If errors occurred during processing of this operation, this field will be populated. */
             error?: {            
@@ -78,9 +76,7 @@ declare namespace gapi.client {
                     message?: string;
                 }>;                
             };            
-            /**  */
             httpErrorMessage?: string;
-            /**  */
             httpErrorStatusCode?: number;
             /** [Output Only] Unique identifier for the resource; defined by the server. */
             id?: string;
@@ -90,9 +86,7 @@ declare namespace gapi.client {
             kind?: string;
             /** [Output Only] Name of the resource. */
             name?: string;
-            /**  */
             operationType?: string;
-            /**  */
             progress?: number;
             /** [Output Only] URL of the region where the operation resides. */
             region?: string;
@@ -108,9 +102,7 @@ declare namespace gapi.client {
             targetId?: string;
             /** [Output Only] URL of the resource the operation is mutating. */
             targetLink?: string;
-            /**  */
             user?: string;
-            /**  */
             warnings?: Array<{            
                 /** [Output only] The warning type identifier for this warning. */
                 code?: string;

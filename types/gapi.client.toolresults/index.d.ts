@@ -89,11 +89,8 @@ declare namespace gapi.client {
         }
         
         interface BasicPerfSampleSeries {
-            /**  */
             perfMetricType?: string;
-            /**  */
             perfUnit?: string;
-            /**  */
             sampleSeriesLabel?: string;
         }
         
@@ -103,7 +100,6 @@ declare namespace gapi.client {
         }
         
         interface BatchCreatePerfSamplesResponse {
-            /**  */
             perfSamples?: PerfSample[];
         }
         
@@ -265,7 +261,6 @@ declare namespace gapi.client {
         interface ListPerfSamplesResponse {
             /** Optional, returned if result size exceeds the page size specified in the request (or the default page size, 500, if unspecified). It indicates the last sample timestamp to be used as page_token in subsequent request */
             nextPageToken?: string;
-            /**  */
             perfSamples?: PerfSample[];
         }
         
@@ -340,7 +335,6 @@ declare namespace gapi.client {
         }
         
         interface PerfMetricsSummary {
-            /**  */
             appStartTime?: AppStartTime;
             /** A tool results execution ID. */
             executionId?: string;
@@ -550,16 +544,12 @@ declare namespace gapi.client {
         }
         
         interface StepDimensionValueEntry {
-            /**  */
             key?: string;
-            /**  */
             value?: string;
         }
         
         interface StepLabelsEntry {
-            /**  */
             key?: string;
-            /**  */
             value?: string;
         }
         

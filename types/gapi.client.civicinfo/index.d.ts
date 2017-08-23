@@ -40,7 +40,6 @@ declare namespace gapi.client {
         interface AdministrativeBody {
             /** A URL provided by this administrative body for information on absentee voting. */
             absenteeVotingInfoUrl?: string;
-            /**  */
             addressLines?: string[];
             /** A URL provided by this administrative body to give contest information to the voter. */
             ballotInfoUrl?: string;
@@ -146,24 +145,20 @@ declare namespace gapi.client {
         }
         
         interface ContextParams {
-            /**  */
             clientProfile?: string;
         }
         
         interface DivisionRepresentativeInfoRequest {
-            /**  */
             contextParams?: ContextParams;
         }
         
         interface DivisionSearchRequest {
-            /**  */
             contextParams?: ContextParams;
         }
         
         interface DivisionSearchResponse {
             /** Identifies what kind of resource this is. Value: the fixed string "civicinfo#divisionSearchResponse". */
             kind?: string;
-            /**  */
             results?: DivisionSearchResult[];
         }
         
@@ -201,7 +196,6 @@ declare namespace gapi.client {
         }
         
         interface ElectionsQueryRequest {
-            /**  */
             contextParams?: ContextParams;
         }
         
@@ -215,7 +209,6 @@ declare namespace gapi.client {
         interface ElectoralDistrict {
             /** An identifier for this district, relative to its scope. For example, the 34th State Senate district would have id "34" and a scope of stateUpper. */
             id?: string;
-            /**  */
             kgForeignKey?: string;
             /** The name of the district. */
             name?: string;
@@ -292,67 +285,36 @@ declare namespace gapi.client {
         }
         
         interface PostalAddress {
-            /**  */
             addressLines?: string[];
-            /**  */
             administrativeAreaName?: string;
-            /**  */
             countryName?: string;
-            /**  */
             countryNameCode?: string;
-            /**  */
             dependentLocalityName?: string;
-            /**  */
             dependentThoroughfareLeadingType?: string;
-            /**  */
             dependentThoroughfareName?: string;
-            /**  */
             dependentThoroughfarePostDirection?: string;
-            /**  */
             dependentThoroughfarePreDirection?: string;
-            /**  */
             dependentThoroughfareTrailingType?: string;
-            /**  */
             dependentThoroughfaresConnector?: string;
-            /**  */
             dependentThoroughfaresIndicator?: string;
-            /**  */
             dependentThoroughfaresType?: string;
-            /**  */
             firmName?: string;
-            /**  */
             isDisputed?: boolean;
-            /**  */
             languageCode?: string;
-            /**  */
             localityName?: string;
-            /**  */
             postBoxNumber?: string;
-            /**  */
             postalCodeNumber?: string;
-            /**  */
             postalCodeNumberExtension?: string;
-            /**  */
             premiseName?: string;
-            /**  */
             recipientName?: string;
-            /**  */
             sortingCode?: string;
-            /**  */
             subAdministrativeAreaName?: string;
-            /**  */
             subPremiseName?: string;
-            /**  */
             thoroughfareLeadingType?: string;
-            /**  */
             thoroughfareName?: string;
-            /**  */
             thoroughfareNumber?: string;
-            /**  */
             thoroughfarePostDirection?: string;
-            /**  */
             thoroughfarePreDirection?: string;
-            /**  */
             thoroughfareTrailingType?: string;
         }
         
@@ -366,7 +328,6 @@ declare namespace gapi.client {
         }
         
         interface RepresentativeInfoRequest {
-            /**  */
             contextParams?: ContextParams;
         }
         
@@ -408,9 +369,7 @@ declare namespace gapi.client {
         }
         
         interface VoterInfoRequest {
-            /**  */
             contextParams?: ContextParams;
-            /**  */
             voterInfoSegmentResult?: VoterInfoSegmentResult;
         }
         
@@ -433,20 +392,15 @@ declare namespace gapi.client {
             otherElections?: Election[];
             /** Locations where the voter is eligible to vote on election day. */
             pollingLocations?: PollingLocation[];
-            /**  */
             precinctId?: string;
             /** Local Election Information for the state that the voter votes in. For the US, there will only be one element in this array. */
             state?: AdministrationRegion[];
         }
         
         interface VoterInfoSegmentResult {
-            /**  */
             generatedMillis?: string;
-            /**  */
             postalAddress?: PostalAddress;
-            /**  */
             request?: VoterInfoRequest;
-            /**  */
             response?: VoterInfoResponse;
         }
         

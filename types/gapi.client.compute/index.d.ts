@@ -564,7 +564,6 @@ declare namespace gapi.client {
             backends?: Backend[];
             /** Cloud CDN configuration for this BackendService. */
             cdnPolicy?: BackendServiceCdnPolicy;
-            /**  */
             connectionDraining?: ConnectionDraining;
             /** [Output Only] Creation timestamp in RFC3339 text format. */
             creationTimestamp?: string;
@@ -580,7 +579,6 @@ declare namespace gapi.client {
             /**  */
             /** For internal load balancing, a URL to a HealthCheck resource must be specified instead. */
             healthChecks?: string[];
-            /**  */
             iap?: BackendServiceIAP;
             /** [Output Only] The unique identifier for the resource. This identifier is defined by the server. */
             id?: string;
@@ -639,18 +637,14 @@ declare namespace gapi.client {
         }
         
         interface BackendServiceGroupHealth {
-            /**  */
             healthStatus?: HealthStatus[];
             /** [Output Only] Type of resource. Always compute#backendServiceGroupHealth for the health of backend services. */
             kind?: string;
         }
         
         interface BackendServiceIAP {
-            /**  */
             enabled?: boolean;
-            /**  */
             oauth2ClientId?: string;
-            /**  */
             oauth2ClientSecret?: string;
             /** [Output Only] SHA256 hash value for the field oauth2_client_secret above. */
             oauth2ClientSecretSha256?: string;
@@ -692,7 +686,6 @@ declare namespace gapi.client {
         interface CacheInvalidationRule {
             /** If set, this invalidation rule will only apply to requests with a Host header matching host. */
             host?: string;
-            /**  */
             path?: string;
         }
         
@@ -1254,9 +1247,7 @@ declare namespace gapi.client {
             description?: string;
             /** A so-far unhealthy instance will be marked healthy after this many consecutive successes. The default value is 2. */
             healthyThreshold?: number;
-            /**  */
             httpHealthCheck?: HTTPHealthCheck;
-            /**  */
             httpsHealthCheck?: HTTPSHealthCheck;
             /** [Output Only] The unique identifier for the resource. This identifier is defined by the server. */
             id?: string;
@@ -1266,9 +1257,7 @@ declare namespace gapi.client {
             name?: string;
             /** [Output Only] Server-defined URL for the resource. */
             selfLink?: string;
-            /**  */
             sslHealthCheck?: SSLHealthCheck;
-            /**  */
             tcpHealthCheck?: TCPHealthCheck;
             /** How long (in seconds) to wait before claiming failure. The default value is 5 seconds. It is invalid for timeoutSec to have greater value than checkIntervalSec. */
             timeoutSec?: number;
@@ -1292,7 +1281,6 @@ declare namespace gapi.client {
         }
         
         interface HealthCheckReference {
-            /**  */
             healthCheck?: string;
         }
         
@@ -1918,7 +1906,6 @@ declare namespace gapi.client {
         interface InstancesSetLabelsRequest {
             /** Fingerprint of the previous set of labels for this resource, used to prevent conflicts. Provide the latest fingerprint value when making a request to add or change labels. */
             labelFingerprint?: string;
-            /**  */
             labels?: Record<string, string>;            
         }
         
@@ -2685,7 +2672,6 @@ declare namespace gapi.client {
             bestRoutes?: Route[];
             /** Best routes learned by this router. */
             bestRoutesForRouter?: Route[];
-            /**  */
             bgpPeerStatus?: RouterStatusBgpPeerStatus[];
             /** URI of the network to which this router belongs. */
             network?: string;
@@ -2717,7 +2703,6 @@ declare namespace gapi.client {
         interface RouterStatusResponse {
             /** Type of resource. */
             kind?: string;
-            /**  */
             result?: RouterStatus;
         }
         
@@ -2966,7 +2951,6 @@ declare namespace gapi.client {
         }
         
         interface SubnetworksSetPrivateIpGoogleAccessRequest {
-            /**  */
             privateIpGoogleAccess?: boolean;
         }
         
@@ -3184,7 +3168,6 @@ declare namespace gapi.client {
         }
         
         interface TargetPoolInstanceHealth {
-            /**  */
             healthStatus?: HealthStatus[];
             /** [Output Only] Type of resource. Always compute#targetPoolInstanceHealth when checking the health of an instance. */
             kind?: string;
@@ -3250,7 +3233,6 @@ declare namespace gapi.client {
         }
         
         interface TargetReference {
-            /**  */
             target?: string;
         }
         
@@ -3417,13 +3399,9 @@ declare namespace gapi.client {
         }
         
         interface TestFailure {
-            /**  */
             actualService?: string;
-            /**  */
             expectedService?: string;
-            /**  */
             host?: string;
-            /**  */
             path?: string;
         }
         
@@ -3466,7 +3444,6 @@ declare namespace gapi.client {
         }
         
         interface UrlMapReference {
-            /**  */
             urlMap?: string;
         }
         
@@ -3482,11 +3459,9 @@ declare namespace gapi.client {
         }
         
         interface UrlMapValidationResult {
-            /**  */
             loadErrors?: string[];
             /** Whether the given UrlMap can be successfully loaded. If false, 'loadErrors' indicates the reasons. */
             loadSucceeded?: boolean;
-            /**  */
             testFailures?: TestFailure[];
             /** If successfully loaded, this field indicates whether the test passed. If false, 'testFailures's indicate the reason of failure. */
             testPassed?: boolean;
@@ -3498,7 +3473,6 @@ declare namespace gapi.client {
         }
         
         interface UrlMapsValidateResponse {
-            /**  */
             result?: UrlMapValidationResult;
         }
         
@@ -4436,7 +4410,6 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /**  */
                 project: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
@@ -4726,7 +4699,6 @@ declare namespace gapi.client {
                 disk: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /**  */
                 guestFlush?: boolean;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
@@ -6664,19 +6636,15 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /**  */
                 filter?: string;
                 /** The name of the managed instance group. */
                 instanceGroupManager: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
-                /**  */
                 maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
-                /**  */
                 order_by?: string;
-                /**  */
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
@@ -8417,17 +8385,13 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /**  */
                 filter?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
-                /**  */
                 maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
-                /**  */
                 order_by?: string;
-                /**  */
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
@@ -8445,17 +8409,13 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /**  */
                 filter?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
-                /**  */
                 maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
-                /**  */
                 order_by?: string;
-                /**  */
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
@@ -8829,7 +8789,6 @@ declare namespace gapi.client {
                 oauth_token?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;
-                /**  */
                 project: string;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
@@ -9309,19 +9268,15 @@ declare namespace gapi.client {
                 alt?: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;
-                /**  */
                 filter?: string;
                 /** The name of the managed instance group. */
                 instanceGroupManager: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
-                /**  */
                 maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
-                /**  */
                 order_by?: string;
-                /**  */
                 pageToken?: string;
                 /** Returns response with indentations and line breaks. */
                 prettyPrint?: boolean;

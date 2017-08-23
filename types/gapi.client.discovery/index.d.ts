@@ -107,9 +107,7 @@ declare namespace gapi.client {
                 discriminant?: string;
                 /** The map of discriminant value to schema to use for parsing.. */
                 map?: Array<{                
-                    /**  */
                     $ref?: string;
-                    /**  */
                     type_value?: string;
                 }>;                
             };            
@@ -188,7 +186,6 @@ declare namespace gapi.client {
             title?: string;
             /** The version of this API. */
             version?: string;
-            /**  */
             version_module?: boolean;
         }
         

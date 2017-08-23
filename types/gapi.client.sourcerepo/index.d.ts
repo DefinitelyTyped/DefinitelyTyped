@@ -24,7 +24,6 @@ declare namespace gapi.client {
             /** The configuration for logging of each type of permission. */
             /** Next ID: 4 */
             auditLogConfigs?: AuditLogConfig[];
-            /**  */
             exemptedMembers?: string[];
             /** Specifies a service that will be enabled for audit logging. */
             /** For example, `storage.googleapis.com`, `cloudsql.googleapis.com`. */
@@ -64,8 +63,6 @@ declare namespace gapi.client {
             /**  */
             /** &#42; `domain:{domain}`: A Google Apps domain name that represents all the */
             /**    users of that domain. For example, `google.com` or `example.com`. */
-            /**  */
-            /**  */
             members?: string[];
             /** Role that is assigned to `members`. */
             /** For example, `roles/viewer`, `roles/editor`, or `roles/owner`. */
@@ -151,7 +148,6 @@ declare namespace gapi.client {
             /** If no `etag` is provided in the call to `setIamPolicy`, then the existing */
             /** policy is overwritten blindly. */
             etag?: string;
-            /**  */
             iamOwned?: boolean;
             /** If more than one rule is specified, the rules are applied in the following */
             /** manner: */

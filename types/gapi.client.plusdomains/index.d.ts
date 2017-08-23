@@ -1066,7 +1066,6 @@ declare namespace gapi.client {
             insert(request: {            
                 /** Data format for the response. */
                 alt?: string;
-                /**  */
                 collection: string;
                 /** Selector specifying which fields to include in a partial response. */
                 fields?: string;

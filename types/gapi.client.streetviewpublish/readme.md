@@ -54,20 +54,6 @@ After that you can use Street View Publish API resources:
 ```typescript 
     
 /* 
-Updates the metadata of a Photo, such
-as pose, place association, connections, etc. Changing the pixels of a
-photo is not supported.
-
-This method returns the following error codes:
-
-* google.rpc.Code.PERMISSION_DENIED if the requesting user did not
-create the requested photo.
-* google.rpc.Code.INVALID_ARGUMENT if the request is malformed.
-* google.rpc.Code.NOT_FOUND if the requested photo does not exist.  
-*/
-await gapi.client.photo.update({ id: "id",  }); 
-    
-/* 
 After the client finishes uploading the photo with the returned
 UploadRef,
 CreatePhoto
@@ -82,29 +68,6 @@ This method returns the following error codes:
 storage limit.  
 */
 await gapi.client.photo.create({  }); 
-    
-/* 
-Creates an upload session to start uploading photo bytes. The upload URL of
-the returned UploadRef is used to
-upload the bytes for the Photo.
-
-In addition to the photo requirements shown in
-https://support.google.com/maps/answer/7012050?hl=en&ref_topic=6275604,
-the photo must also meet the following requirements:
-
-* Photo Sphere XMP metadata must be included in the photo medadata. See
-https://developers.google.com/streetview/spherical-metadata for the
-required fields.
-* The pixel size of the photo must meet the size requirements listed in
-https://support.google.com/maps/answer/7012050?hl=en&ref_topic=6275604, and
-the photo must be a full 360 horizontally.
-
-After the upload is complete, the
-UploadRef is used with
-CreatePhoto
-to create the Photo object entry.  
-*/
-await gapi.client.photo.startUpload({  }); 
     
 /* 
 Deletes a Photo and its metadata.
@@ -131,29 +94,41 @@ Photo does not exist.
 await gapi.client.photo.get({ photoId: "photoId",  }); 
     
 /* 
-Gets the metadata of the specified
-Photo batch.
+Creates an upload session to start uploading photo bytes. The upload URL of
+the returned UploadRef is used to
+upload the bytes for the Photo.
 
-Note that if
-BatchGetPhotos
-fails, either critical fields are missing or there was an authentication
-error. Even if
-BatchGetPhotos
-succeeds, there may have been failures for single photos in the batch.
-These failures will be specified in each
-PhotoResponse.status
-in
-BatchGetPhotosResponse.results.
-See
-GetPhoto
-for specific failures that can occur per photo.  
+In addition to the photo requirements shown in
+https://support.google.com/maps/answer/7012050?hl=en&ref_topic=6275604,
+the photo must also meet the following requirements:
+
+* Photo Sphere XMP metadata must be included in the photo medadata. See
+https://developers.google.com/streetview/spherical-metadata for the
+required fields.
+* The pixel size of the photo must meet the size requirements listed in
+https://support.google.com/maps/answer/7012050?hl=en&ref_topic=6275604, and
+the photo must be a full 360 horizontally.
+
+After the upload is complete, the
+UploadRef is used with
+CreatePhoto
+to create the Photo object entry.  
 */
-await gapi.client.photos.batchGet({  }); 
+await gapi.client.photo.startUpload({  }); 
     
 /* 
-Lists all the Photos that belong to the user.  
+Updates the metadata of a Photo, such
+as pose, place association, connections, etc. Changing the pixels of a
+photo is not supported.
+
+This method returns the following error codes:
+
+* google.rpc.Code.PERMISSION_DENIED if the requesting user did not
+create the requested photo.
+* google.rpc.Code.INVALID_ARGUMENT if the request is malformed.
+* google.rpc.Code.NOT_FOUND if the requested photo does not exist.  
 */
-await gapi.client.photos.list({  }); 
+await gapi.client.photo.update({ id: "id",  }); 
     
 /* 
 Deletes a list of Photos and their metadata.
@@ -175,6 +150,26 @@ for specific failures that can occur per photo.
 await gapi.client.photos.batchDelete({  }); 
     
 /* 
+Gets the metadata of the specified
+Photo batch.
+
+Note that if
+BatchGetPhotos
+fails, either critical fields are missing or there was an authentication
+error. Even if
+BatchGetPhotos
+succeeds, there may have been failures for single photos in the batch.
+These failures will be specified in each
+PhotoResponse.status
+in
+BatchGetPhotosResponse.results.
+See
+GetPhoto
+for specific failures that can occur per photo.  
+*/
+await gapi.client.photos.batchGet({  }); 
+    
+/* 
 Updates the metadata of Photos, such
 as pose, place association, connections, etc. Changing the pixels of photos
 is not supported.
@@ -193,5 +188,10 @@ See
 UpdatePhoto
 for specific failures that can occur per photo.  
 */
-await gapi.client.photos.batchUpdate({  });
+await gapi.client.photos.batchUpdate({  }); 
+    
+/* 
+Lists all the Photos that belong to the user.  
+*/
+await gapi.client.photos.list({  });
 ```

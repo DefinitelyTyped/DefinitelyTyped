@@ -53,7 +53,6 @@ declare namespace gapi.client {
             dispatchRules?: UrlDispatchRule[];
             /** The Google Container Registry domain used for storing managed build docker images for this application. */
             gcrDomain?: string;
-            /**  */
             iap?: IdentityAwareProxy;
             /** Identifier of the Application resource. This identifier is equivalent to the project ID of the Google Cloud Platform project where you want to deploy your application. Example: myapp. */
             id?: string;
@@ -288,7 +287,6 @@ declare namespace gapi.client {
         interface Location {
             /** Cross-service attributes for the location. For example */
             /** {"cloud.googleapis.com/region": "us-east1"} */
-            /**  */
             labels?: Record<string, string>;            
             /** The canonical id for this location. For example: "us-east1". */
             locationId?: string;

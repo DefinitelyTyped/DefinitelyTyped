@@ -36,17 +36,17 @@ var client_id = '',
         // View and manage your data across Google Cloud Platform services
         'https://www.googleapis.com/auth/cloud-platform',
     
-        // Submit log data for your projects
-        'https://www.googleapis.com/auth/logging.write',
-    
-        // View log data for your projects
-        'https://www.googleapis.com/auth/logging.read',
+        // View your data across Google Cloud Platform services
+        'https://www.googleapis.com/auth/cloud-platform.read-only',
     
         // Administrate log data for your projects
         'https://www.googleapis.com/auth/logging.admin',
     
-        // View your data across Google Cloud Platform services
-        'https://www.googleapis.com/auth/cloud-platform.read-only',
+        // View log data for your projects
+        'https://www.googleapis.com/auth/logging.read',
+    
+        // Submit log data for your projects
+        'https://www.googleapis.com/auth/logging.write',
     ],
     immediate = true;
 // ...
@@ -65,11 +65,6 @@ After that you can use Stackdriver Logging API resources:
 ```typescript 
     
 /* 
-Lists the descriptors for monitored resource types used by Stackdriver Logging.  
-*/
-await gapi.client.monitoredResourceDescriptors.list({  }); 
-    
-/* 
 Lists log entries. Use this method to retrieve log entries from Stackdriver Logging. For ways to export log entries, see Exporting Logs.  
 */
 await gapi.client.entries.list({  }); 
@@ -77,5 +72,10 @@ await gapi.client.entries.list({  });
 /* 
 Writes log entries to Stackdriver Logging.  
 */
-await gapi.client.entries.write({  });
+await gapi.client.entries.write({  }); 
+    
+/* 
+Lists the descriptors for monitored resource types used by Stackdriver Logging.  
+*/
+await gapi.client.monitoredResourceDescriptors.list({  });
 ```

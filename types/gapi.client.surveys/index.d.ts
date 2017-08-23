@@ -25,9 +25,7 @@ declare namespace gapi.client {
     namespace surveys {
         
         interface FieldMask {
-            /**  */
             fields?: FieldMask[];
-            /**  */
             id?: number;
         }
         
@@ -47,34 +45,26 @@ declare namespace gapi.client {
         }
         
         interface MobileAppPanelsListResponse {
-            /**  */
             pageInfo?: PageInfo;
             /** Unique request ID used for logging and debugging. Please include in any error reporting or troubleshooting requests. */
             requestId?: string;
             /** An individual predefined panel of Opinion Rewards mobile users. */
             resources?: MobileAppPanel[];
-            /**  */
             tokenPagination?: TokenPagination;
         }
         
         interface PageInfo {
-            /**  */
             resultPerPage?: number;
-            /**  */
             startIndex?: number;
-            /**  */
             totalResults?: number;
         }
         
         interface ResultsGetRequest {
-            /**  */
             resultMask?: ResultsMask;
         }
         
         interface ResultsMask {
-            /**  */
             fields?: FieldMask[];
-            /**  */
             projection?: string;
         }
         
@@ -140,7 +130,6 @@ declare namespace gapi.client {
             hasOther?: boolean;
             /** For rating questions, the text for the higher end of the scale, such as 'Best'. For numeric questions, a string representing a floating-point that is the maximum allowed number for a response. */
             highValueLabel?: string;
-            /**  */
             images?: SurveyQuestionImage[];
             /** Currently only support pinning an answer option to the last position. */
             lastAnswerPositionPinned?: boolean;
@@ -199,13 +188,11 @@ declare namespace gapi.client {
         }
         
         interface SurveysListResponse {
-            /**  */
             pageInfo?: PageInfo;
             /** Unique request ID used for logging and debugging. Please include in any error reporting or troubleshooting requests. */
             requestId?: string;
             /** An individual survey resource. */
             resources?: Survey[];
-            /**  */
             tokenPagination?: TokenPagination;
         }
         
@@ -225,9 +212,7 @@ declare namespace gapi.client {
         }
         
         interface TokenPagination {
-            /**  */
             nextPageToken?: string;
-            /**  */
             previousPageToken?: string;
         }
         
@@ -260,7 +245,6 @@ declare namespace gapi.client {
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
-                /**  */
                 maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
@@ -268,9 +252,7 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /**  */
                 startIndex?: number;
-                /**  */
                 token?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
@@ -388,7 +370,6 @@ declare namespace gapi.client {
                 fields?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
-                /**  */
                 maxResults?: number;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
@@ -396,9 +377,7 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /**  */
                 startIndex?: number;
-                /**  */
                 token?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
@@ -418,7 +397,6 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /**  */
                 resourceId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;
@@ -438,7 +416,6 @@ declare namespace gapi.client {
                 prettyPrint?: boolean;
                 /** Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided. */
                 quotaUser?: string;
-                /**  */
                 resourceId: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;

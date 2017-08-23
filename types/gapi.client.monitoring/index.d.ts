@@ -211,12 +211,10 @@ declare namespace gapi.client {
             metricKind?: string;
             /** The resource name of the metric descriptor. Depending on the implementation, the name typically includes: (1) the parent resource name that defines the scope of the metric type or of its data; and (2) the metric's URL-encoded type, which also appears in the type field of this descriptor. For example, following is the resource name of a custom metric within the GCP project my-project-id: */
             /** "projects/my-project-id/metricDescriptors/custom.googleapis.com%2Finvoice%2Fpaid%2Famount" */
-            /**  */
             name?: string;
             /** The metric type, including its DNS name prefix. The type is not URL-encoded. All user-defined custom metric types have the DNS name custom.googleapis.com. Metric types should use a natural hierarchical grouping. For example: */
             /** "custom.googleapis.com/invoice/paid/amount" */
             /** "appengine.googleapis.com/http/server/response_latencies" */
-            /**  */
             type?: string;
             /** The unit in which the metric value is reported. It is only applicable if the value_type is INT64, DOUBLE, or DISTRIBUTION. The supported units are a subset of The Unified Code for Units of Measure (http://unitsofmeasure.org/ucum.html) standard:Basic units (UNIT) */
             /** bit bit */
@@ -409,7 +407,6 @@ declare namespace gapi.client {
                 fields?: string;
                 /** An optional list filter describing the members to be returned. The filter may reference the type, labels, and metadata of monitored resources that comprise the group. For example, to return only resources representing Compute Engine VM instances, use this filter: */
                 /** resource.type = "gce_instance" */
-                /**  */
                 filter?: string;
                 /** Required. The end of the time interval. */
                 "interval.endTime"?: string;
@@ -730,7 +727,6 @@ declare namespace gapi.client {
                 fields?: string;
                 /** If this field is empty, all custom and system-defined metric descriptors are returned. Otherwise, the filter specifies which metric descriptors are to be returned. For example, the following filter matches all custom metrics: */
                 /** metric.type = starts_with("custom.googleapis.com/") */
-                /**  */
                 filter?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
@@ -805,7 +801,6 @@ declare namespace gapi.client {
                 fields?: string;
                 /** An optional filter describing the descriptors to be returned. The filter can reference the descriptor's type and labels. For example, the following filter returns only Google Compute Engine descriptors that have an id label: */
                 /** resource.type = starts_with("gce_") AND resource.label:id */
-                /**  */
                 filter?: string;
                 /** API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token. */
                 key?: string;
@@ -889,7 +884,6 @@ declare namespace gapi.client {
                 /** A monitoring filter that specifies which time series should be returned. The filter must specify a single metric type, and can additionally specify metric labels and other information. For example: */
                 /** metric.type = "compute.googleapis.com/instance/cpu/usage_time" AND */
                 /**     metric.label.instance_name = "my-instance-name" */
-                /**  */
                 filter?: string;
                 /** Required. The end of the time interval. */
                 "interval.endTime"?: string;

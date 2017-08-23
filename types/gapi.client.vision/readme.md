@@ -33,11 +33,11 @@ Don't forget to authenticate your client before sending any request to resources
 // declare client_id registered in Google Developers Console
 var client_id = '',
     scope = [     
-        // Apply machine learning models to understand and label images
-        'https://www.googleapis.com/auth/cloud-vision',
-    
         // View and manage your data across Google Cloud Platform services
         'https://www.googleapis.com/auth/cloud-platform',
+    
+        // Apply machine learning models to understand and label images
+        'https://www.googleapis.com/auth/cloud-vision',
     ],
     immediate = true;
 // ...

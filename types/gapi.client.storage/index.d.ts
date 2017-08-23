@@ -57,7 +57,6 @@ declare namespace gapi.client {
             defaultObjectAcl?: ObjectAccessControl[];
             /** Encryption configuration used by default for newly inserted objects, when no encryption config is specified. */
             encryption?: {            
-                /**  */
                 defaultKmsKeyName?: string;
             };            
             /** HTTP 1.1 Entity tag for the bucket. */

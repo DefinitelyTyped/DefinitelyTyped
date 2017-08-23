@@ -41,22 +41,30 @@ gapi.load('client', () => {
         // only be used by Storage Transfer Service.
         await gapi.client.googleServiceAccounts.get({ projectId: "projectId",  }); 
         
-        // Resumes a transfer operation that is paused.
-        await gapi.client.transferOperations.resume({ name: "name",  }); 
+        // Creates a transfer job that runs periodically.
+        await gapi.client.transferJobs.create({  }); 
+        
+        // Gets a transfer job.
+        await gapi.client.transferJobs.get({ jobName: "jobName",  }); 
+        
+        // Lists transfer jobs.
+        await gapi.client.transferJobs.list({  }); 
+        
+        // Updates a transfer job. Updating a job's transfer spec does not affect
+        // transfer operations that are running already. Updating the scheduling
+        // of a job is not allowed.
+        await gapi.client.transferJobs.patch({ jobName: "jobName",  }); 
         
         // Cancels a transfer. Use the get method to check whether the cancellation succeeded or whether the operation completed despite cancellation.
         await gapi.client.transferOperations.cancel({ name: "name",  }); 
+        
+        // This method is not supported and the server returns `UNIMPLEMENTED`.
+        await gapi.client.transferOperations.delete({ name: "name",  }); 
         
         // Gets the latest state of a long-running operation.  Clients can use this
         // method to poll the operation result at intervals as recommended by the API
         // service.
         await gapi.client.transferOperations.get({ name: "name",  }); 
-        
-        // Pauses a transfer operation.
-        await gapi.client.transferOperations.pause({ name: "name",  }); 
-        
-        // This method is not supported and the server returns `UNIMPLEMENTED`.
-        await gapi.client.transferOperations.delete({ name: "name",  }); 
         
         // Lists operations that match the specified filter in the request. If the
         // server doesn't support this method, it returns `UNIMPLEMENTED`.
@@ -70,18 +78,10 @@ gapi.load('client', () => {
         // is the parent resource, without the operations collection id.
         await gapi.client.transferOperations.list({ name: "name",  }); 
         
-        // Lists transfer jobs.
-        await gapi.client.transferJobs.list({  }); 
+        // Pauses a transfer operation.
+        await gapi.client.transferOperations.pause({ name: "name",  }); 
         
-        // Gets a transfer job.
-        await gapi.client.transferJobs.get({ jobName: "jobName",  }); 
-        
-        // Updates a transfer job. Updating a job's transfer spec does not affect
-        // transfer operations that are running already. Updating the scheduling
-        // of a job is not allowed.
-        await gapi.client.transferJobs.patch({ jobName: "jobName",  }); 
-        
-        // Creates a transfer job that runs periodically.
-        await gapi.client.transferJobs.create({  });
+        // Resumes a transfer operation that is paused.
+        await gapi.client.transferOperations.resume({ name: "name",  });
     }
 });

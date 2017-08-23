@@ -166,7 +166,6 @@ declare namespace gapi.client {
             authorizedDomains?: string[];
             /** Change email template. */
             changeEmailTemplate?: EmailTemplate;
-            /**  */
             dynamicLinksDomain?: string;
             /** Whether anonymous user is enabled. */
             enableAnonymousUser?: boolean;

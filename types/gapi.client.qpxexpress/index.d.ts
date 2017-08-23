@@ -89,7 +89,6 @@ declare namespace gapi.client {
         }
         
         interface FareInfo {
-            /**  */
             basisCode?: string;
             /** The carrier of the aircraft or other vehicle commuting between two points. */
             carrier?: string;
@@ -106,7 +105,6 @@ declare namespace gapi.client {
         }
         
         interface FlightInfo {
-            /**  */
             carrier?: string;
             /** The flight number. */
             number?: string;

@@ -29,9 +29,7 @@ declare namespace gapi.client {
             /** Example: If aggregation_level is "DAILY" and aggregation_count is 14, */
             /** aggregation will be over 14 days. */
             aggregationCount?: number;
-            /**  */
             aggregationInterval?: string;
-            /**  */
             aggregationLevel?: string;
         }
         

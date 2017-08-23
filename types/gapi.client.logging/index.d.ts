@@ -218,12 +218,10 @@ declare namespace gapi.client {
             endTime?: string;
             /** Optional. An advanced logs filter. The only exported log entries are those that are in the resource owning the sink and that match the filter. The filter must use the log entry format specified by the output_version_format parameter. For example, in the v2 format: */
             /** logName="projects/[PROJECT_ID]/logs/[LOG_ID]" AND severity>=ERROR */
-            /**  */
             filter?: string;
             /** Optional. This field applies only to sinks owned by organizations and folders. If the field is false, the default, only the logs owned by the sink's parent resource are available for export. If the field is true, then logs from all the projects, folders, and billing accounts contained in the sink's parent resource are also available for export. Whether a particular log entry from the children is exported depends on the sink's filter expression. For example, if this field is true, then the filter resource.type=gce_instance would export all Compute Engine VM instance log entries from all projects in the sink's parent. To only export entries from certain child projects, filter on the project part of the log name: */
             /** logName:("projects/test-project1/" OR "projects/test-project2/") AND */
             /** resource.type=gce_instance */
-            /**  */
             includeChildren?: boolean;
             /** Required. The client-assigned sink identifier, unique within the project. Example: "my-syslog-errors-to-pubsub". Sink identifiers are limited to 100 characters and can include only the following characters: upper and lower-case alphanumeric characters, underscores, hyphens, and periods. */
             name?: string;
@@ -425,7 +423,6 @@ declare namespace gapi.client {
                 /** "organizations/[ORGANIZATION_ID]" */
                 /** "billingAccounts/[BILLING_ACCOUNT_ID]" */
                 /** "folders/[FOLDER_ID]" */
-                /**  */
                 parent: string;
                 /** Pretty-print response. */
                 pp?: boolean;
@@ -582,7 +579,6 @@ declare namespace gapi.client {
                 /** "organizations/[ORGANIZATION_ID]" */
                 /** "billingAccounts/[BILLING_ACCOUNT_ID]" */
                 /** "folders/[FOLDER_ID]" */
-                /**  */
                 parent: string;
                 /** Pretty-print response. */
                 pp?: boolean;
@@ -815,7 +811,6 @@ declare namespace gapi.client {
                 /** "organizations/[ORGANIZATION_ID]" */
                 /** "billingAccounts/[BILLING_ACCOUNT_ID]" */
                 /** "folders/[FOLDER_ID]" */
-                /**  */
                 parent: string;
                 /** Pretty-print response. */
                 pp?: boolean;
@@ -972,7 +967,6 @@ declare namespace gapi.client {
                 /** "organizations/[ORGANIZATION_ID]" */
                 /** "billingAccounts/[BILLING_ACCOUNT_ID]" */
                 /** "folders/[FOLDER_ID]" */
-                /**  */
                 parent: string;
                 /** Pretty-print response. */
                 pp?: boolean;
@@ -1179,7 +1173,6 @@ declare namespace gapi.client {
                 /** "organizations/[ORGANIZATION_ID]" */
                 /** "billingAccounts/[BILLING_ACCOUNT_ID]" */
                 /** "folders/[FOLDER_ID]" */
-                /**  */
                 parent: string;
                 /** Pretty-print response. */
                 pp?: boolean;
@@ -1336,7 +1329,6 @@ declare namespace gapi.client {
                 /** "organizations/[ORGANIZATION_ID]" */
                 /** "billingAccounts/[BILLING_ACCOUNT_ID]" */
                 /** "folders/[FOLDER_ID]" */
-                /**  */
                 parent: string;
                 /** Pretty-print response. */
                 pp?: boolean;
@@ -1506,7 +1498,6 @@ declare namespace gapi.client {
                 /** "organizations/[ORGANIZATION_ID]" */
                 /** "billingAccounts/[BILLING_ACCOUNT_ID]" */
                 /** "folders/[FOLDER_ID]" */
-                /**  */
                 parent: string;
                 /** Pretty-print response. */
                 pp?: boolean;
@@ -1575,7 +1566,6 @@ declare namespace gapi.client {
                 key?: string;
                 /** The resource name of the metric to delete: */
                 /** "projects/[PROJECT_ID]/metrics/[METRIC_ID]" */
-                /**  */
                 metricName: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
@@ -1609,7 +1599,6 @@ declare namespace gapi.client {
                 key?: string;
                 /** The resource name of the desired metric: */
                 /** "projects/[PROJECT_ID]/metrics/[METRIC_ID]" */
-                /**  */
                 metricName: string;
                 /** OAuth 2.0 token for the current user. */
                 oauth_token?: string;
@@ -1649,7 +1638,6 @@ declare namespace gapi.client {
                 pageToken?: string;
                 /** Required. The name of the project containing the metrics: */
                 /** "projects/[PROJECT_ID]" */
-                /**  */
                 parent: string;
                 /** Pretty-print response. */
                 pp?: boolean;
@@ -1840,7 +1828,6 @@ declare namespace gapi.client {
                 /** "organizations/[ORGANIZATION_ID]" */
                 /** "billingAccounts/[BILLING_ACCOUNT_ID]" */
                 /** "folders/[FOLDER_ID]" */
-                /**  */
                 parent: string;
                 /** Pretty-print response. */
                 pp?: boolean;

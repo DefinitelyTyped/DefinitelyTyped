@@ -31,9 +31,6 @@ gapi.load('client', () => {
 
     async function run() {  
         
-        // Creates an enterprise signup URL.
-        await gapi.client.signupUrls.create({  }); 
-        
         // Creates an enterprise by completing the enterprise signup flow.
         await gapi.client.enterprises.create({  }); 
         
@@ -41,6 +38,9 @@ gapi.load('client', () => {
         await gapi.client.enterprises.get({ name: "name",  }); 
         
         // Updates an enterprise.
-        await gapi.client.enterprises.patch({ name: "name",  });
+        await gapi.client.enterprises.patch({ name: "name",  }); 
+        
+        // Creates an enterprise signup URL.
+        await gapi.client.signupUrls.create({  });
     }
 });

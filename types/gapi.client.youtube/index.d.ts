@@ -217,11 +217,9 @@ declare namespace gapi.client {
             kind?: string;
             /** The token that can be used as the value of the pageToken parameter to retrieve the next page in the result set. */
             nextPageToken?: string;
-            /**  */
             pageInfo?: PageInfo;
             /** The token that can be used as the value of the pageToken parameter to retrieve the previous page in the result set. */
             prevPageToken?: string;
-            /**  */
             tokenPagination?: any;
             /** The visitorId identifies the visitor. */
             visitorId?: string;
@@ -375,7 +373,6 @@ declare namespace gapi.client {
         }
         
         interface ChannelContentDetails {
-            /**  */
             relatedPlaylists?: {            
                 /** The ID of the playlist that contains the channel"s favorite videos. Use the  playlistItems.insert and  playlistItems.delete to add or remove items from that list. */
                 favorites?: string;
@@ -420,11 +417,9 @@ declare namespace gapi.client {
             kind?: string;
             /** The token that can be used as the value of the pageToken parameter to retrieve the next page in the result set. */
             nextPageToken?: string;
-            /**  */
             pageInfo?: PageInfo;
             /** The token that can be used as the value of the pageToken parameter to retrieve the previous page in the result set. */
             prevPageToken?: string;
-            /**  */
             tokenPagination?: any;
             /** The visitorId identifies the visitor. */
             visitorId?: string;
@@ -519,7 +514,6 @@ declare namespace gapi.client {
         interface ChannelSettings {
             /** The country of the channel. */
             country?: string;
-            /**  */
             defaultLanguage?: string;
             /** Which content tab users should see when viewing the channel. */
             defaultTab?: string;
@@ -617,9 +611,7 @@ declare namespace gapi.client {
             kind?: string;
             /** The token that can be used as the value of the pageToken parameter to retrieve the next page in the result set. */
             nextPageToken?: string;
-            /**  */
             pageInfo?: PageInfo;
-            /**  */
             tokenPagination?: any;
             /** The visitorId identifies the visitor. */
             visitorId?: string;
@@ -682,9 +674,7 @@ declare namespace gapi.client {
             kind?: string;
             /** The token that can be used as the value of the pageToken parameter to retrieve the next page in the result set. */
             nextPageToken?: string;
-            /**  */
             pageInfo?: PageInfo;
-            /**  */
             tokenPagination?: any;
             /** The visitorId identifies the visitor. */
             visitorId?: string;
@@ -871,9 +861,7 @@ declare namespace gapi.client {
             kind?: string;
             /** The token that can be used as the value of the pageToken parameter to retrieve the next page in the result set. */
             nextPageToken?: string;
-            /**  */
             pageInfo?: PageInfo;
-            /**  */
             tokenPagination?: any;
             /** The visitorId identifies the visitor. */
             visitorId?: string;
@@ -927,18 +915,15 @@ declare namespace gapi.client {
             kind?: string;
             /** The token that can be used as the value of the pageToken parameter to retrieve the next page in the result set. */
             nextPageToken?: string;
-            /**  */
             pageInfo?: PageInfo;
             /** The token that can be used as the value of the pageToken parameter to retrieve the previous page in the result set. */
             prevPageToken?: string;
-            /**  */
             tokenPagination?: any;
             /** The visitorId identifies the visitor. */
             visitorId?: string;
         }
         
         interface GuideCategorySnippet {
-            /**  */
             channelId?: string;
             /** Description of the guide category. */
             title?: string;
@@ -1067,15 +1052,10 @@ declare namespace gapi.client {
         }
         
         interface InvideoBranding {
-            /**  */
             imageBytes?: string;
-            /**  */
             imageUrl?: string;
-            /**  */
             position?: InvideoPosition;
-            /**  */
             targetChannelId?: string;
-            /**  */
             timing?: InvideoTiming;
         }
         
@@ -1107,7 +1087,6 @@ declare namespace gapi.client {
         }
         
         interface LanguageTag {
-            /**  */
             value?: string;
         }
         
@@ -1126,7 +1105,6 @@ declare namespace gapi.client {
             statistics?: LiveBroadcastStatistics;
             /** The status object contains information about the event's status. */
             status?: LiveBroadcastStatus;
-            /**  */
             topicDetails?: LiveBroadcastTopicDetails;
         }
         
@@ -1135,7 +1113,6 @@ declare namespace gapi.client {
             boundStreamId?: string;
             /** The date and time that the live stream referenced by boundStreamId was last updated. */
             boundStreamLastUpdateTimeMs?: string;
-            /**  */
             closedCaptionsType?: string;
             /** This setting indicates whether HTTP POST closed captioning is enabled for this broadcast. The ingestion URL of the closed captions is returned through the liveStreams API. This is mutually exclusive with using the closed_captions_type property, and is equivalent to setting closed_captions_type to CLOSED_CAPTIONS_HTTP_POST. */
             enableClosedCaptions?: boolean;
@@ -1176,11 +1153,9 @@ declare namespace gapi.client {
             kind?: string;
             /** The token that can be used as the value of the pageToken parameter to retrieve the next page in the result set. */
             nextPageToken?: string;
-            /**  */
             pageInfo?: PageInfo;
             /** The token that can be used as the value of the pageToken parameter to retrieve the previous page in the result set. */
             prevPageToken?: string;
-            /**  */
             tokenPagination?: any;
             /** The visitorId identifies the visitor. */
             visitorId?: string;
@@ -1195,7 +1170,6 @@ declare namespace gapi.client {
             channelId?: string;
             /** The broadcast's description. As with the title, you can set this field by modifying the broadcast resource or by setting the description field of the corresponding video resource. */
             description?: string;
-            /**  */
             isDefaultBroadcast?: boolean;
             /** The id of the live chat for this broadcast. */
             liveChatId?: string;
@@ -1239,7 +1213,6 @@ declare namespace gapi.client {
         }
         
         interface LiveBroadcastTopicDetails {
-            /**  */
             topics?: LiveBroadcastTopic[];
         }
         
@@ -1264,7 +1237,6 @@ declare namespace gapi.client {
         interface LiveChatBanSnippet {
             /** The duration of a ban, only filled if the ban has type TEMPORARY. */
             banDurationSeconds?: string;
-            /**  */
             bannedUserDetails?: ChannelProfileDetails;
             /** The chat this ban is pertinent to. */
             liveChatId?: string;
@@ -1316,7 +1288,6 @@ declare namespace gapi.client {
         }
         
         interface LiveChatMessageDeletedDetails {
-            /**  */
             deletedMessageId?: string;
         }
         
@@ -1333,18 +1304,15 @@ declare namespace gapi.client {
             nextPageToken?: string;
             /** The date and time when the underlying stream went offline. The value is specified in ISO 8601 (YYYY-MM-DDThh:mm:ss.sZ) format. */
             offlineAt?: string;
-            /**  */
             pageInfo?: PageInfo;
             /** The amount of time the client should wait before polling again. */
             pollingIntervalMillis?: number;
-            /**  */
             tokenPagination?: any;
             /** The visitorId identifies the visitor. */
             visitorId?: string;
         }
         
         interface LiveChatMessageRetractedDetails {
-            /**  */
             retractedMessageId?: string;
         }
         
@@ -1357,19 +1325,12 @@ declare namespace gapi.client {
             fanFundingEventDetails?: LiveChatFanFundingEventDetails;
             /** Whether the message has display content that should be displayed to users. */
             hasDisplayContent?: boolean;
-            /**  */
             liveChatId?: string;
-            /**  */
             messageDeletedDetails?: LiveChatMessageDeletedDetails;
-            /**  */
             messageRetractedDetails?: LiveChatMessageRetractedDetails;
-            /**  */
             pollClosedDetails?: LiveChatPollClosedDetails;
-            /**  */
             pollEditedDetails?: LiveChatPollEditedDetails;
-            /**  */
             pollOpenedDetails?: LiveChatPollOpenedDetails;
-            /**  */
             pollVotedDetails?: LiveChatPollVotedDetails;
             /** The date and time when the message was orignally published. The value is specified in ISO 8601 (YYYY-MM-DDThh:mm:ss.sZ) format. */
             publishedAt?: string;
@@ -1379,7 +1340,6 @@ declare namespace gapi.client {
             textMessageDetails?: LiveChatTextMessageDetails;
             /** The type of message, this will always be present, it determines the contents of the message as well as which fields will be present. */
             type?: string;
-            /**  */
             userBannedDetails?: LiveChatUserBannedMessageDetails;
         }
         
@@ -1405,11 +1365,9 @@ declare namespace gapi.client {
             kind?: string;
             /** The token that can be used as the value of the pageToken parameter to retrieve the next page in the result set. */
             nextPageToken?: string;
-            /**  */
             pageInfo?: PageInfo;
             /** The token that can be used as the value of the pageToken parameter to retrieve the previous page in the result set. */
             prevPageToken?: string;
-            /**  */
             tokenPagination?: any;
             /** The visitorId identifies the visitor. */
             visitorId?: string;
@@ -1428,27 +1386,20 @@ declare namespace gapi.client {
         }
         
         interface LiveChatPollEditedDetails {
-            /**  */
             id?: string;
-            /**  */
             items?: LiveChatPollItem[];
-            /**  */
             prompt?: string;
         }
         
         interface LiveChatPollItem {
             /** Plain text description of the item. */
             description?: string;
-            /**  */
             itemId?: string;
         }
         
         interface LiveChatPollOpenedDetails {
-            /**  */
             id?: string;
-            /**  */
             items?: LiveChatPollItem[];
-            /**  */
             prompt?: string;
         }
         
@@ -1546,11 +1497,9 @@ declare namespace gapi.client {
             kind?: string;
             /** The token that can be used as the value of the pageToken parameter to retrieve the next page in the result set. */
             nextPageToken?: string;
-            /**  */
             pageInfo?: PageInfo;
             /** The token that can be used as the value of the pageToken parameter to retrieve the previous page in the result set. */
             prevPageToken?: string;
-            /**  */
             tokenPagination?: any;
             /** The visitorId identifies the visitor. */
             visitorId?: string;
@@ -1561,7 +1510,6 @@ declare namespace gapi.client {
             channelId?: string;
             /** The stream's description. The value cannot be longer than 10000 characters. */
             description?: string;
-            /**  */
             isDefaultStream?: boolean;
             /** The date and time that the stream was created. The value is specified in ISO 8601 (YYYY-MM-DDThh:mm:ss.sZ) format. */
             publishedAt?: string;
@@ -1572,23 +1520,18 @@ declare namespace gapi.client {
         interface LiveStreamStatus {
             /** The health status of the stream. */
             healthStatus?: LiveStreamHealthStatus;
-            /**  */
             streamStatus?: string;
         }
         
         interface LocalizedProperty {
-            /**  */
             default?: string;
             /** The language of the default property. */
             defaultLanguage?: LanguageTag;
-            /**  */
             localized?: LocalizedString[];
         }
         
         interface LocalizedString {
-            /**  */
             language?: string;
-            /**  */
             value?: string;
         }
         
@@ -1675,11 +1618,9 @@ declare namespace gapi.client {
             kind?: string;
             /** The token that can be used as the value of the pageToken parameter to retrieve the next page in the result set. */
             nextPageToken?: string;
-            /**  */
             pageInfo?: PageInfo;
             /** The token that can be used as the value of the pageToken parameter to retrieve the previous page in the result set. */
             prevPageToken?: string;
-            /**  */
             tokenPagination?: any;
             /** The visitorId identifies the visitor. */
             visitorId?: string;
@@ -1722,11 +1663,9 @@ declare namespace gapi.client {
             kind?: string;
             /** The token that can be used as the value of the pageToken parameter to retrieve the next page in the result set. */
             nextPageToken?: string;
-            /**  */
             pageInfo?: PageInfo;
             /** The token that can be used as the value of the pageToken parameter to retrieve the previous page in the result set. */
             prevPageToken?: string;
-            /**  */
             tokenPagination?: any;
             /** The visitorId identifies the visitor. */
             visitorId?: string;
@@ -1821,13 +1760,10 @@ declare namespace gapi.client {
             kind?: string;
             /** The token that can be used as the value of the pageToken parameter to retrieve the next page in the result set. */
             nextPageToken?: string;
-            /**  */
             pageInfo?: PageInfo;
             /** The token that can be used as the value of the pageToken parameter to retrieve the previous page in the result set. */
             prevPageToken?: string;
-            /**  */
             regionCode?: string;
-            /**  */
             tokenPagination?: any;
             /** The visitorId identifies the visitor. */
             visitorId?: string;
@@ -1883,9 +1819,7 @@ declare namespace gapi.client {
             kind?: string;
             /** The token that can be used as the value of the pageToken parameter to retrieve the next page in the result set. */
             nextPageToken?: string;
-            /**  */
             pageInfo?: PageInfo;
-            /**  */
             tokenPagination?: any;
             /** The visitorId identifies the visitor. */
             visitorId?: string;
@@ -1935,11 +1869,9 @@ declare namespace gapi.client {
             kind?: string;
             /** The token that can be used as the value of the pageToken parameter to retrieve the next page in the result set. */
             nextPageToken?: string;
-            /**  */
             pageInfo?: PageInfo;
             /** The token that can be used as the value of the pageToken parameter to retrieve the previous page in the result set. */
             prevPageToken?: string;
-            /**  */
             tokenPagination?: any;
             /** The visitorId identifies the visitor. */
             visitorId?: string;
@@ -1995,9 +1927,7 @@ declare namespace gapi.client {
             kind?: string;
             /** The token that can be used as the value of the pageToken parameter to retrieve the next page in the result set. */
             nextPageToken?: string;
-            /**  */
             pageInfo?: PageInfo;
-            /**  */
             tokenPagination?: any;
             /** The visitorId identifies the visitor. */
             visitorId?: string;
@@ -2180,18 +2110,15 @@ declare namespace gapi.client {
             kind?: string;
             /** The token that can be used as the value of the pageToken parameter to retrieve the next page in the result set. */
             nextPageToken?: string;
-            /**  */
             pageInfo?: PageInfo;
             /** The token that can be used as the value of the pageToken parameter to retrieve the previous page in the result set. */
             prevPageToken?: string;
-            /**  */
             tokenPagination?: any;
             /** The visitorId identifies the visitor. */
             visitorId?: string;
         }
         
         interface VideoCategorySnippet {
-            /**  */
             assignable?: boolean;
             /** The YouTube channel that created the video category. */
             channelId?: string;
@@ -2307,11 +2234,9 @@ declare namespace gapi.client {
             kind?: string;
             /** The token that can be used as the value of the pageToken parameter to retrieve the next page in the result set. */
             nextPageToken?: string;
-            /**  */
             pageInfo?: PageInfo;
             /** The token that can be used as the value of the pageToken parameter to retrieve the previous page in the result set. */
             prevPageToken?: string;
-            /**  */
             tokenPagination?: any;
             /** The visitorId identifies the visitor. */
             visitorId?: string;
@@ -2345,7 +2270,6 @@ declare namespace gapi.client {
         }
         
         interface VideoPlayer {
-            /**  */
             embedHeight?: string;
             /** An <iframe> tag that embeds a player that will play the video. */
             embedHtml?: string;
@@ -2390,9 +2314,7 @@ declare namespace gapi.client {
         }
         
         interface VideoRating {
-            /**  */
             rating?: string;
-            /**  */
             videoId?: string;
         }
         

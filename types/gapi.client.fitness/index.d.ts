@@ -92,16 +92,13 @@ declare namespace gapi.client {
         interface BucketByTime {
             /** Specifies that result buckets aggregate data by exactly durationMillis time frames. Time frames that contain no data will be included in the response with an empty dataset. */
             durationMillis?: string;
-            /**  */
             period?: BucketByTimePeriod;
         }
         
         interface BucketByTimePeriod {
             /** org.joda.timezone.DateTimeZone */
             timeZoneId?: string;
-            /**  */
             type?: string;
-            /**  */
             value?: number;
         }
         
@@ -129,7 +126,6 @@ declare namespace gapi.client {
         interface DataSource {
             /** Information about an application which feeds sensor data into the platform. */
             application?: Application;
-            /**  */
             dataQualityStandard?: string[];
             /** A unique identifier for the data stream produced by this data source. The identifier includes: */
             /**  */
@@ -171,7 +167,6 @@ declare namespace gapi.client {
             format?: string;
             /** Defines the name and format of data. Unlike data type names, field names are not namespaced, and only need to be unique within the data type. */
             name?: string;
-            /**  */
             optional?: boolean;
         }
         
@@ -255,9 +250,7 @@ declare namespace gapi.client {
         }
         
         interface ValueMapValEntry {
-            /**  */
             key?: string;
-            /**  */
             value?: MapValue;
         }
         

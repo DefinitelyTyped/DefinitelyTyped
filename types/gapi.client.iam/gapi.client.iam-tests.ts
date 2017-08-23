@@ -35,15 +35,15 @@ gapi.load('client', () => {
         // A permission is testable if it can be tested for an identity on a resource.
         await gapi.client.permissions.queryTestablePermissions({  }); 
         
-        // Queries roles that can be granted on a particular resource.
-        // A role is grantable if it can be used as the role in a binding for a policy
-        // for that resource.
-        await gapi.client.roles.queryGrantableRoles({  }); 
-        
         // Gets a Role definition.
         await gapi.client.roles.get({ name: "name",  }); 
         
         // Lists the Roles defined on a resource.
-        await gapi.client.roles.list({  });
+        await gapi.client.roles.list({  }); 
+        
+        // Queries roles that can be granted on a particular resource.
+        // A role is grantable if it can be used as the role in a binding for a policy
+        // for that resource.
+        await gapi.client.roles.queryGrantableRoles({  });
     }
 });

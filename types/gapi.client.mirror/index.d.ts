@@ -31,13 +31,9 @@ declare namespace gapi.client {
     namespace mirror {
         
         interface Account {
-            /**  */
             authTokens?: AuthToken[];
-            /**  */
             features?: string[];
-            /**  */
             password?: string;
-            /**  */
             userData?: UserData[];
         }
         
@@ -60,9 +56,7 @@ declare namespace gapi.client {
         }
         
         interface AuthToken {
-            /**  */
             authToken?: string;
-            /**  */
             type?: string;
         }
         
@@ -364,9 +358,7 @@ declare namespace gapi.client {
         }
         
         interface UserData {
-            /**  */
             key?: string;
-            /**  */
             value?: string;
         }
         

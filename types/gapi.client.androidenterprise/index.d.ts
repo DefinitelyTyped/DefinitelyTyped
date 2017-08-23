@@ -395,11 +395,8 @@ declare namespace gapi.client {
         }
         
         interface PageInfo {
-            /**  */
             resultPerPage?: number;
-            /**  */
             startIndex?: number;
-            /**  */
             totalResults?: number;
         }
         
@@ -593,9 +590,7 @@ declare namespace gapi.client {
         }
         
         interface TokenPagination {
-            /**  */
             nextPageToken?: string;
-            /**  */
             previousPageToken?: string;
         }
         

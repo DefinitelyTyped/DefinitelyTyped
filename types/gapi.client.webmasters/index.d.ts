@@ -29,31 +29,21 @@ declare namespace gapi.client {
     namespace webmasters {
         
         interface ApiDataRow {
-            /**  */
             clicks?: number;
-            /**  */
             ctr?: number;
-            /**  */
             impressions?: number;
-            /**  */
             keys?: string[];
-            /**  */
             position?: number;
         }
         
         interface ApiDimensionFilter {
-            /**  */
             dimension?: string;
-            /**  */
             expression?: string;
-            /**  */
             operator?: string;
         }
         
         interface ApiDimensionFilterGroup {
-            /**  */
             filters?: ApiDimensionFilter[];
-            /**  */
             groupType?: string;
         }
         

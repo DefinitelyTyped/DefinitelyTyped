@@ -111,7 +111,6 @@ declare namespace gapi.client {
         }
         
         interface AddOrderNotesResponse {
-            /**  */
             notes?: MarketplaceNote[];
         }
         
@@ -237,15 +236,11 @@ declare namespace gapi.client {
             languages?: string[];
             /** If nativeAd is set, HTMLSnippet and the videoURL outside of nativeAd should not be set. (The videoURL inside nativeAd can be set.) */
             nativeAd?: {            
-                /**  */
                 advertiser?: string;
                 /** The app icon, for app download ads. */
                 appIcon?: {                
-                    /**  */
                     height?: number;
-                    /**  */
                     url?: string;
-                    /**  */
                     width?: number;
                 };                
                 /** A long description of the ad. */
@@ -260,22 +255,16 @@ declare namespace gapi.client {
                 headline?: string;
                 /** A large image. */
                 image?: {                
-                    /**  */
                     height?: number;
-                    /**  */
                     url?: string;
-                    /**  */
                     width?: number;
                 };                
                 /** The URLs are called when the impression is rendered. */
                 impressionTrackingUrl?: string[];
                 /** A smaller image, for the advertiser logo. */
                 logo?: {                
-                    /**  */
                     height?: number;
-                    /**  */
                     url?: string;
-                    /**  */
                     width?: number;
                 };                
                 /** The price of the promoted app including the currency info. */
@@ -359,15 +348,11 @@ declare namespace gapi.client {
         }
         
         interface DealServingMetadataDealPauseStatus {
-            /**  */
             buyerPauseReason?: string;
             /** If the deal is paused, records which party paused the deal first. */
             firstPausedBy?: string;
-            /**  */
             hasBuyerPaused?: boolean;
-            /**  */
             hasSellerPaused?: boolean;
-            /**  */
             sellerPauseReason?: string;
         }
         
@@ -454,27 +439,19 @@ declare namespace gapi.client {
         }
         
         interface DeliveryControl {
-            /**  */
             creativeBlockingLevel?: string;
-            /**  */
             deliveryRateType?: string;
-            /**  */
             frequencyCaps?: DeliveryControlFrequencyCap[];
         }
         
         interface DeliveryControlFrequencyCap {
-            /**  */
             maxImpressions?: number;
-            /**  */
             numTimeUnits?: number;
-            /**  */
             timeUnitType?: string;
         }
         
         interface Dimension {
-            /**  */
             dimensionType?: string;
-            /**  */
             dimensionValues?: DimensionDimensionValue[];
         }
         
@@ -569,7 +546,6 @@ declare namespace gapi.client {
             productRevisionNumber?: string;
             /** Specifies the creative source for programmatic deals, PUBLISHER means creative is provided by seller and ADVERTISR means creative is provided by buyer. (buyer-readonly) */
             programmaticCreativeSource?: string;
-            /**  */
             proposalId?: string;
             /** Optional Seller contact information for the deal (buyer-readonly) */
             sellerContacts?: ContactInformation[];
@@ -579,7 +555,6 @@ declare namespace gapi.client {
             syndicationProduct?: string;
             /** The negotiable terms of the deal. (updatable) */
             terms?: DealTerms;
-            /**  */
             webPropertyCode?: string;
         }
         
@@ -781,9 +756,7 @@ declare namespace gapi.client {
         }
         
         interface PrivateData {
-            /**  */
             referenceId?: string;
-            /**  */
             referencePayload?: string;
         }
         
@@ -916,7 +889,6 @@ declare namespace gapi.client {
             logoUrl?: string;
             /** The url for additional marketing and sales materials. */
             mediaKitLink?: string;
-            /**  */
             name?: string;
             /** Publisher provided overview. */
             overview?: string;
@@ -992,22 +964,15 @@ declare namespace gapi.client {
         }
         
         interface TargetingValueDayPartTargeting {
-            /**  */
             dayParts?: TargetingValueDayPartTargetingDayPart[];
-            /**  */
             timeZoneType?: string;
         }
         
         interface TargetingValueDayPartTargetingDayPart {
-            /**  */
             dayOfWeek?: string;
-            /**  */
             endHour?: number;
-            /**  */
             endMinute?: number;
-            /**  */
             startHour?: number;
-            /**  */
             startMinute?: number;
         }
         

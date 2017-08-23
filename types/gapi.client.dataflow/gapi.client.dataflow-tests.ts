@@ -14,14 +14,14 @@ gapi.load('client', () => {
         // declare client_id registered in Google Developers Console
         const client_id = '<<PUT YOUR CLIENT ID HERE>>';
         const scope = [     
-                // View your Google Compute Engine resources
-                'https://www.googleapis.com/auth/compute.readonly',
+                // View and manage your data across Google Cloud Platform services
+                'https://www.googleapis.com/auth/cloud-platform',
             
                 // View and manage your Google Compute Engine resources
                 'https://www.googleapis.com/auth/compute',
             
-                // View and manage your data across Google Cloud Platform services
-                'https://www.googleapis.com/auth/cloud-platform',
+                // View your Google Compute Engine resources
+                'https://www.googleapis.com/auth/compute.readonly',
             
                 // View your email address
                 'https://www.googleapis.com/auth/userinfo.email',

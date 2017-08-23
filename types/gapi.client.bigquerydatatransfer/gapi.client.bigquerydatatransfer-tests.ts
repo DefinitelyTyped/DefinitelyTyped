@@ -17,11 +17,11 @@ gapi.load('client', () => {
                 // View and manage your data in Google BigQuery
                 'https://www.googleapis.com/auth/bigquery',
             
-                // View your data across Google Cloud Platform services
-                'https://www.googleapis.com/auth/cloud-platform.read-only',
-            
                 // View and manage your data across Google Cloud Platform services
                 'https://www.googleapis.com/auth/cloud-platform',
+            
+                // View your data across Google Cloud Platform services
+                'https://www.googleapis.com/auth/cloud-platform.read-only',
             ];
         const immediate = true;
 

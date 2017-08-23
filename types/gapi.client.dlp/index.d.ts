@@ -79,7 +79,6 @@ declare namespace gapi.client {
         }
         
         interface GooglePrivacyDlpV2beta1CloudStorageOptions {
-            /**  */
             fileSet?: GooglePrivacyDlpV2beta1FileSet;
         }
         
@@ -268,7 +267,6 @@ declare namespace gapi.client {
         interface GooglePrivacyDlpV2beta1InspectOperationMetadata {
             /** The time which this request was started. */
             createTime?: string;
-            /**  */
             infoTypeStats?: GooglePrivacyDlpV2beta1InfoTypeStatistics[];
             /** Total size in bytes that were processed. */
             processedBytes?: string;
@@ -412,9 +410,7 @@ declare namespace gapi.client {
         }
         
         interface GooglePrivacyDlpV2beta1RecordKey {
-            /**  */
             cloudStorageKey?: GooglePrivacyDlpV2beta1CloudStorageKey;
-            /**  */
             datastoreKey?: GooglePrivacyDlpV2beta1DatastoreKey;
         }
         
@@ -446,7 +442,6 @@ declare namespace gapi.client {
         }
         
         interface GooglePrivacyDlpV2beta1Row {
-            /**  */
             values?: GooglePrivacyDlpV2beta1Value[];
         }
         
@@ -460,9 +455,7 @@ declare namespace gapi.client {
         }
         
         interface GooglePrivacyDlpV2beta1Table {
-            /**  */
             headers?: GooglePrivacyDlpV2beta1FieldId[];
-            /**  */
             rows?: GooglePrivacyDlpV2beta1Row[];
         }
         
@@ -472,19 +465,12 @@ declare namespace gapi.client {
         }
         
         interface GooglePrivacyDlpV2beta1Value {
-            /**  */
             booleanValue?: boolean;
-            /**  */
             dateValue?: GoogleTypeDate;
-            /**  */
             floatValue?: number;
-            /**  */
             integerValue?: string;
-            /**  */
             stringValue?: string;
-            /**  */
             timeValue?: GoogleTypeTimeOfDay;
-            /**  */
             timestampValue?: string;
         }
         

@@ -25,63 +25,40 @@ declare namespace gapi.client {
     namespace youtubeanalytics {
         
         interface Group {
-            /**  */
             contentDetails?: {            
-                /**  */
                 itemCount?: string;
-                /**  */
                 itemType?: string;
             };            
-            /**  */
             etag?: string;
-            /**  */
             id?: string;
-            /**  */
             kind?: string;
-            /**  */
             snippet?: {            
-                /**  */
                 publishedAt?: string;
-                /**  */
                 title?: string;
             };            
         }
         
         interface GroupItem {
-            /**  */
             etag?: string;
-            /**  */
             groupId?: string;
-            /**  */
             id?: string;
-            /**  */
             kind?: string;
-            /**  */
             resource?: {            
-                /**  */
                 id?: string;
-                /**  */
                 kind?: string;
             };            
         }
         
         interface GroupItemListResponse {
-            /**  */
             etag?: string;
-            /**  */
             items?: GroupItem[];
-            /**  */
             kind?: string;
         }
         
         interface GroupListResponse {
-            /**  */
             etag?: string;
-            /**  */
             items?: Group[];
-            /**  */
             kind?: string;
-            /**  */
             nextPageToken?: string;
         }
         

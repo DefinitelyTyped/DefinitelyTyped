@@ -171,7 +171,6 @@ declare namespace gapi.client {
         interface CustomDataSource {
             /** Account ID to which this custom data source belongs. */
             accountId?: string;
-            /**  */
             childLink?: {            
                 /** Link to the list of daily uploads for this custom data source. Link to the list of uploads for this custom data source. */
                 href?: string;
@@ -184,7 +183,6 @@ declare namespace gapi.client {
             description?: string;
             /** Custom data source ID. */
             id?: string;
-            /**  */
             importBehavior?: string;
             /** Resource type for Analytics custom data source. */
             kind?: string;
@@ -345,7 +343,6 @@ declare namespace gapi.client {
             adWordsAccounts?: AdWordsAccount[];
             /** Web property being linked. */
             entity?: {            
-                /**  */
                 webPropertyRef?: WebPropertyRef;
             };            
             /** Entity AdWords link ID */
@@ -751,22 +748,14 @@ declare namespace gapi.client {
             containsSampledData?: boolean;
             /** The last refreshed time in seconds for Analytics data. */
             dataLastRefreshed?: string;
-            /**  */
             dataTable?: {            
-                /**  */
                 cols?: Array<{                
-                    /**  */
                     id?: string;
-                    /**  */
                     label?: string;
-                    /**  */
                     type?: string;
                 }>;                
-                /**  */
                 rows?: Array<{                
-                    /**  */
                     c?: Array<{                    
-                        /**  */
                         v?: string;
                     }>;                    
                 }>;                
@@ -1482,7 +1471,6 @@ declare namespace gapi.client {
             email?: string;
             /** User ID. */
             id?: string;
-            /**  */
             kind?: string;
         }
         
@@ -3071,7 +3059,6 @@ declare namespace gapi.client {
                 quotaUser?: string;
                 /** An index of the first entity to retrieve. Use this parameter as a pagination mechanism along with the max-results parameter. */
                 "start-index"?: number;
-                /**  */
                 type?: string;
                 /** IP address of the site where the request originates. Use this if you want to enforce per-user limits. */
                 userIp?: string;

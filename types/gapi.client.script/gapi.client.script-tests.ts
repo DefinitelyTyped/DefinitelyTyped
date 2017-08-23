@@ -14,17 +14,14 @@ gapi.load('client', () => {
         // declare client_id registered in Google Developers Console
         const client_id = '<<PUT YOUR CLIENT ID HERE>>';
         const scope = [     
-                // View and manage forms that this application has been installed in
-                'https://www.googleapis.com/auth/forms.currentonly',
-            
-                // View and manage the files in your Google Drive
-                'https://www.googleapis.com/auth/drive',
-            
-                // View and manage your spreadsheets in Google Drive
-                'https://www.googleapis.com/auth/spreadsheets',
-            
                 // Read, send, delete, and manage your email
                 'https://mail.google.com/',
+            
+                // Manage your calendars
+                'https://www.google.com/calendar/feeds',
+            
+                // Manage your contacts
+                'https://www.google.com/m8/feeds',
             
                 // View and manage the provisioning of groups on your domain
                 'https://www.googleapis.com/auth/admin.directory.group',
@@ -32,20 +29,23 @@ gapi.load('client', () => {
                 // View and manage the provisioning of users on your domain
                 'https://www.googleapis.com/auth/admin.directory.user',
             
+                // View and manage the files in your Google Drive
+                'https://www.googleapis.com/auth/drive',
+            
                 // View and manage your forms in Google Drive
                 'https://www.googleapis.com/auth/forms',
             
-                // Manage your contacts
-                'https://www.google.com/m8/feeds',
-            
-                // View your email address
-                'https://www.googleapis.com/auth/userinfo.email',
-            
-                // Manage your calendars
-                'https://www.google.com/calendar/feeds',
+                // View and manage forms that this application has been installed in
+                'https://www.googleapis.com/auth/forms.currentonly',
             
                 // View and manage your Google Groups
                 'https://www.googleapis.com/auth/groups',
+            
+                // View and manage your spreadsheets in Google Drive
+                'https://www.googleapis.com/auth/spreadsheets',
+            
+                // View your email address
+                'https://www.googleapis.com/auth/userinfo.email',
             ];
         const immediate = true;
 

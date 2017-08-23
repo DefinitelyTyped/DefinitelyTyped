@@ -118,7 +118,6 @@ declare namespace gapi.client {
         }
         
         interface Metadata {
-            /**  */
             items?: ReportingMetadataEntry[];
             /** Kind of list this is, in this case adexchangeseller#metadata. */
             kind?: string;

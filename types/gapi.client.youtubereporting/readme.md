@@ -33,11 +33,11 @@ Don't forget to authenticate your client before sending any request to resources
 // declare client_id registered in Google Developers Console
 var client_id = '',
     scope = [     
-        // View YouTube Analytics reports for your YouTube content
-        'https://www.googleapis.com/auth/yt-analytics.readonly',
-    
         // View monetary and non-monetary YouTube Analytics reports for your YouTube content
         'https://www.googleapis.com/auth/yt-analytics-monetary.readonly',
+    
+        // View YouTube Analytics reports for your YouTube content
+        'https://www.googleapis.com/auth/yt-analytics.readonly',
     ],
     immediate = true;
 // ...
@@ -56,15 +56,14 @@ After that you can use YouTube Reporting API resources:
 ```typescript 
     
 /* 
-Lists report types.  
+Creates a job and returns it.  
 */
-await gapi.client.reportTypes.list({  }); 
+await gapi.client.jobs.create({  }); 
     
 /* 
-Method for media download. Download is supported
-on the URI `/v1/media/{+name}?alt=media`.  
+Deletes a job.  
 */
-await gapi.client.media.download({ resourceName: "resourceName",  }); 
+await gapi.client.jobs.delete({ jobId: "jobId",  }); 
     
 /* 
 Gets a job.  
@@ -77,12 +76,13 @@ Lists jobs.
 await gapi.client.jobs.list({  }); 
     
 /* 
-Creates a job and returns it.  
+Method for media download. Download is supported
+on the URI `/v1/media/{+name}?alt=media`.  
 */
-await gapi.client.jobs.create({  }); 
+await gapi.client.media.download({ resourceName: "resourceName",  }); 
     
 /* 
-Deletes a job.  
+Lists report types.  
 */
-await gapi.client.jobs.delete({ jobId: "jobId",  });
+await gapi.client.reportTypes.list({  });
 ```
