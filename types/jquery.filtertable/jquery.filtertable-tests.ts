@@ -1,4 +1,4 @@
-﻿//import $ = require('jquery');
+//import $ = require('jquery');
 
 $(() => {
     // examples from http://sunnywalker.github.io/jQuery.FilterTable/
@@ -12,5 +12,4 @@ $(() => {
             table.find('tr').removeClass('striped').filter(':visible:even').addClass('striped');
         }
     });
-
 });
