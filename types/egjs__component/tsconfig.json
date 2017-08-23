@@ -17,6 +17,6 @@
     },
     "files": [
         "index.d.ts",
-        "egjs-component-tests.ts"
+        "egjs__component-tests.ts"
     ]
 }
