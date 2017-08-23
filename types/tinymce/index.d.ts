@@ -64,10 +64,10 @@ export interface Settings {
   external_plugins?: {};
 
   hidden_input?: boolean;
-    
-  paste_data_images: boolean;
 
-  advlist_number_styles: string;
+  paste_data_images?: boolean;
+
+  advlist_number_styles?: string;
 
   init_instance_callback?(editor: Editor): void;
 
