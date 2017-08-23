@@ -1,11 +1,11 @@
 // Type definitions for react-select 1.0
 // Project: https://github.com/JedWatson/react-select
-// Definitions by: ESQUIBET Hugo <https://github.com/Hesquibet/>
-//                 Gilad Gray <https://github.com/giladgray/>
-//                 Izaak Baker <https://github.com/iebaker/>
-//                 Tadas Dailyda <https://github.com/skirsdeda/>
-//                 Mark Vujevits <https://github.com/vujevits/>
-//                 Mike Deverell <https://github.com/devrelm/>
+// Definitions by: ESQUIBET Hugo <https://github.com/Hesquibet>
+//                 Gilad Gray <https://github.com/giladgray>
+//                 Izaak Baker <https://github.com/iebaker>
+//                 Tadas Dailyda <https://github.com/skirsdeda>
+//                 Mark Vujevits <https://github.com/vujevits>
+//                 Mike Deverell <https://github.com/devrelm>
 //                 MartynasZilinskas <https://github.com/MartynasZilinskas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
@@ -284,7 +284,7 @@ declare namespace ReactSelectClass {
          * placeholder displayed when there are no matching search results or a falsy value to hide it
          * @default "No results found"
          */
-        noResultsText?: string;
+        noResultsText?: string | JSX.Element;
         /**
          * onBlur handler: function (event) {}
          */
@@ -494,7 +494,7 @@ declare namespace ReactSelectClass {
         /**
          *  placeholder displayed when there are no matching search results (shared with Select)
          */
-        noResultsText?: string;
+        noResultsText?: string | JSX.Element;
         /**
          *  field placeholder; displayed when there's no value (shared with Select)
          */

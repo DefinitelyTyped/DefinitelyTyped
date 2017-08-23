@@ -1,6 +1,6 @@
 // Type definitions for circular-json v0.1.6
 // Project: https://github.com/WebReflection/circular-json
-// Definitions by: Jonathan Pevarnek <https://github.com/jpevarnek/>
+// Definitions by: Jonathan Pevarnek <https://github.com/jpevarnek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 

@@ -4,7 +4,7 @@ import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 
-class Example extends React.Component<{}, {}> {
+class Example extends React.Component {
   handleButton() {
     console.log('You pressed me');
   }

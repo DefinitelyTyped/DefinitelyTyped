@@ -1,6 +1,6 @@
 // Type definitions for Egg 1.x
 // Project: https://github.com/eggjs/egg
-// Definitions by: Eward Song <https://github.com/sheperdwind/>
+// Definitions by: Eward Song <https://github.com/sheperdwind>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 

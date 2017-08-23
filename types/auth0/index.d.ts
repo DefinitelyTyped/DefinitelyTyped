@@ -360,6 +360,7 @@ export class ManagementClient {
 
   // Users
   getUsers(params?: GetUsersData): Promise<User[]>;
+  getUsers(cb: (err: Error, users: User[]) => void): void;
   getUsers(params?: GetUsersData, cb?: (err: Error, users: User[]) => void): void;
 
   getUser(params: ObjectWithId): Promise<User>;

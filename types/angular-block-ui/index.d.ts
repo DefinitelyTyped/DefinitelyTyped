@@ -70,7 +70,7 @@ declare module 'angular' {
              * @param {angular.IRequestConfig} config - the Angular request config object.
              *
              */
-            requestFilter?(config: angular.IRequestConfig): (string | boolean);
+            requestFilter?(config: IRequestConfig): (string | boolean);
 
             /**
              * When the module is started it will inject the main block element

@@ -29,7 +29,7 @@ window.HTMLImports.isIE;
 window.HTMLImports.rootDocument.querySelectorAll("div");
 window.HTMLImports.useNative;
 window.HTMLImports.whenReady(() => {
-    return window.HTMLImports.ready === true;
+    return window.HTMLImports.ready;
 });
 
 document.querySelectorAll(`link[type=${window.HTMLImports.IMPORT_LINK_TYPE}`);
@@ -48,8 +48,7 @@ shadow.host;
  */
 window.WebComponents.flags;
 
-window.customElements.define( "lw-arrival-pie",
-
+window.customElements.define("lw-arrival-pie",
     /**
      * ArrivalPie custom element
      */

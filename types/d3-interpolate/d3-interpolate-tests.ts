@@ -44,7 +44,6 @@ let iString: Interpolator<string>;
 let iDate: Interpolator<Date>;
 let iArrayNum: Interpolator<number[]>;
 let iArrayStr: Interpolator<string[]>;
-let iArrayDate: Interpolator<Date[]>;
 let iArrayMixed: Interpolator<[Date, string]>;
 let iKeyVal: Interpolator<{ [key: string]: any }>;
 let iRGBColorObj: Interpolator<d3Color.RGBColor>;
@@ -56,7 +55,6 @@ let arrNum: number[];
 let arrStr: string[];
 let objKeyVal: { [key: string]: any };
 let objRGBColor: d3Color.RGBColor;
-let objHSVColor: d3Hsv.HSVColor;
 let zoom: [number, number, number];
 
 // test interpolate(a, b) signature ----------------------------------------------------

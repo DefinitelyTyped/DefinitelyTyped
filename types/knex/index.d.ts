@@ -7,6 +7,7 @@
 /// <reference types="node" />
 
 import events = require("events");
+import stream = require ("stream");
 import Promise = require("bluebird");
 
 type Callback = Function;
@@ -350,9 +351,10 @@ declare namespace Knex {
     interface ChainableInterface extends Promise<any> {
         toQuery(): string;
         options(options: any): QueryBuilder;
-        stream(options?: any, callback?: (builder: QueryBuilder) => any): QueryBuilder;
-        stream(callback?: (builder: QueryBuilder) => any): QueryBuilder;
-        pipe(writable: any): QueryBuilder;
+        stream(callback: (readable: stream.PassThrough) => any): Promise<any>;
+        stream(options?: { [key: string]: any }): stream.PassThrough;
+        stream(options: { [key: string]: any }, callback: (readable: stream.PassThrough) => any): Promise<any>;
+        pipe(writable: any): stream.PassThrough;
         exec(callback: Function): QueryBuilder;
     }
 

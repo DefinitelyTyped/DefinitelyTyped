@@ -129,9 +129,23 @@ class BasicTest {
         var args = new yfiles.lang.EventArgs();
         yfiles.input.KeyEventRecognizers.META_PRESSED(null, args);
     }
+    
+    testsForVersion2012() {
+        //isInstance type-guard
+        let r : any;
+        let p : any;
+        if(yfiles.geometry.Rect.isInstance(r) && yfiles.geometry.Point.isInstance(p)) {
+            r.contains(p);
+        }
+
+        //Typings for yfiles.lang.Object instance methods.
+        let r2 : yfiles.geometry.Rect = new yfiles.geometry.Rect(0,0,100,100);
+        let r3 : yfiles.geometry.Rect = new yfiles.geometry.Rect(0,0,100,100);
+        r2.equals(r3);
+    }
 }
 
-class MyHitTestable extends yfiles.lang.BaseClass<Object>(yfiles.input.IHitTestable) implements yfiles.input.IHitTestable {
+class MyHitTestable extends yfiles.lang.BaseClass(yfiles.input.IHitTestable) implements yfiles.input.IHitTestable {
     isHit(ctx:yfiles.input.IInputModeContext, p:yfiles.geometry.Point):boolean {
         return false;
     }
@@ -141,5 +155,21 @@ class MyNodeStyle extends yfiles.styles.NodeStyleBase {
     createVisual(renderContext:yfiles.view.IRenderContext, node:yfiles.graph.INode):yfiles.view.SvgVisual {
         let g = document.createElementNS("http://www.w3.org/2000/svg", "g");
         return new yfiles.view.SvgVisual(g);
+    }
+}
+
+// tests for version 2.0.1.2
+
+// parameterless baseclass call.
+class MyHitTestable2 extends yfiles.lang.BaseClass(yfiles.input.IHitTestable) implements yfiles.input.IHitTestable {
+    isHit(context: yfiles.input.IInputModeContext, location: yfiles.geometry.Point): boolean {
+        return null;
+    }
+}
+
+// yfiles.lang.Object as baseclass.
+class MyHitTestable3 extends yfiles.lang.BaseClass<yfiles.lang.Object>(yfiles.input.IHitTestable) implements yfiles.input.IHitTestable {
+    isHit(context: yfiles.input.IInputModeContext, location: yfiles.geometry.Point): boolean {
+        return null;
     }
 }

@@ -1,6 +1,6 @@
 // Type definitions for express-openapi 0.11.x
 // Project: https://github.com/kogosoftwarellc/express-openapi
-// Definitions by: TANAKA Koichi <https://github.com/mugeso/>
+// Definitions by: TANAKA Koichi <https://github.com/mugeso>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /* =================== USAGE ===================
