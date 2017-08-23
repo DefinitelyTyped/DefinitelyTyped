@@ -1,4 +1,4 @@
- $("#container").waitMe();
+$("#container").waitMe();
 
 $('#container').waitMe({});
 
