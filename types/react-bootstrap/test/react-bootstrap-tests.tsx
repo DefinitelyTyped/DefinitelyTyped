@@ -21,8 +21,8 @@ export class ReactBootstrapTest extends Component {
     }
 
     render() {
-        let style: CSSProperties = { padding: '50px' };
-        let tooltip = (<Tooltip><strong>Holy guacamole!</strong> Check this info.</Tooltip>);
+        const style: CSSProperties = { padding: '50px' };
+        const tooltip = (<Tooltip><strong>Holy guacamole!</strong> Check this info.</Tooltip>);
 
         const innerGlyphicon = <Glyphicon glyph='music' />;
         const innerButton = <Button>Before</Button>;
@@ -109,7 +109,7 @@ export class ReactBootstrapTest extends Component {
                     </ButtonToolbar>
                 </div>
 
-                <div style={style as CSSProperties}>
+                <div style={style}>
                     <ButtonToolbar>
                         <ButtonGroup>
                             <Button>1</Button>
@@ -407,7 +407,7 @@ export class ReactBootstrapTest extends Component {
                 </div>
 
                 <div style={style}>
-                  <div style={{ height: 120, position: 'relative' } as CSSProperties}>
+                  <div style={{ height: 120, position: 'relative' }}>
                     <Popover placement='right' positionLeft={200} positionTop={50} title='Popover right'>
                       And here's some <strong>amazing</strong> content. It's very engaging. right?
                     </Popover>
@@ -685,7 +685,7 @@ export class ReactBootstrapTest extends Component {
 
                 <div style={style}>
                     <Pagination
-                      buttonComponentClass={( props: any ) =>
+                      buttonComponentClass={(props: any) =>
                           <SafeAnchor href="/test" disabled role="role"/>
                       }
                       maxButtons={10}/>
