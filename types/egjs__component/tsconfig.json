@@ -18,5 +18,8 @@
     "files": [
         "index.d.ts",
         "egjs__component-tests.ts"
-    ]
+    ],
+    "paths":{
+        "@egjs/component": ["egjs__component"]
+    }
 }
