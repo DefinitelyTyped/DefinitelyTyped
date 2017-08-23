@@ -1,4 +1,4 @@
-﻿//import $ = require('jquery');
+//import $ = require('jquery');
 
 $(() => {
     // examples from http://vadimsva.github.io/waitMe/
@@ -26,6 +26,5 @@ $(() => {
         });
 
     $("asdsa").waitMe("hide");
-
 
 });
