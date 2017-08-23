@@ -61,7 +61,7 @@ let input = { value: "" };
         history.goBack();
     }
 
-    let unblock = history.block(true);
+    let unblock = history.block("Test Prompt");
     unblock();
 
     history.entries.forEach(function (location) {
