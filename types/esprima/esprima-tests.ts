@@ -1,10 +1,9 @@
 import esprima = require('esprima');
 import * as ESTree from 'estree';
 
-var token: esprima.Token;
-var comment: ESTree.Comment;
-var program: ESTree.Program;
-var string: string;
+let token: esprima.Token;
+let program: ESTree.Program;
+let string: string;
 
 // esprima
 string = esprima.version;
@@ -14,7 +13,8 @@ program = esprima.parseScript('answer = 42');
 program = esprima.parseModule('import { sqrt } from "math.js"');
 
 // Parsing Options
-program = esprima.parseScript('var el= <title>${product}</title>', { jsx: true });
+const title = 'Hello World!';
+program = esprima.parseScript(`var el= <title>${title}</title>`, { jsx: true });
 program = esprima.parseScript('if (x) function y() {}');
 program = esprima.parseScript('"use strict"; with (x) {}', { tolerant: true });
 program = esprima.parseScript('answer = 42', { range: true });
@@ -28,9 +28,8 @@ token = esprima.tokenize('code')[0];
 token = esprima.tokenize('code', {range: true})[0];
 
 // Syntax Delegate
-esprima.parseScript('answer = 42', {}, function (node) {
+esprima.parseScript('answer = 42', {}, (node) => {
     if (node.type === esprima.Syntax.VariableDeclaration) {
-
     }
 });
 
@@ -38,11 +37,8 @@ esprima.parseScript('answer = 42', {}, function (node) {
 string = token.type;
 string = token.value;
 
-// Comment
-string = comment.value;
-
 // Type narrowing
-var node: ESTree.Node;
-if(node.type === esprima.Syntax.IfStatement){
+const node: ESTree.Node = program.body[0];
+if (node.type === esprima.Syntax.IfStatement) {
     node.consequent = node;
 }
