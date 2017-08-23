@@ -20,4 +20,4 @@ $('#container').waitMe()
             //console.log(e);
     });
 
-$("asdsa").waitMe("hide");
+$("#container").waitMe("hide");
