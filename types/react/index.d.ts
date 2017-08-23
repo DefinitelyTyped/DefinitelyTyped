@@ -279,8 +279,6 @@ declare namespace React {
         // tslint:disable:unified-signatures
         setState<K extends keyof S>(f: (prevState: S, props: P) => Pick<S, K>, callback?: () => any): void;
         setState<K extends keyof S>(state: Pick<S, K>, callback?: () => any): void;
-        setState(f: (prevState: S, props: P) => Partial<S>, callback?: () => any): void;
-        setState(state: Partial<S>, callback?: () => any): void;
         // tslint:enable:unified-signatures
 
         forceUpdate(callBack?: () => any): void;
