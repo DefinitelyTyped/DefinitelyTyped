@@ -5836,14 +5836,13 @@ declare module "async_hooks" {
 declare module "http2" {
     import * as events from "events";
     import * as fs from "fs";
-    import * as http from "http";
     import * as net from "net";
     import * as stream from "stream";
     import * as tls from "tls";
     import * as url from "url";
 
-    export interface IncomingHttpHeaders extends http.IncomingHttpHeaders {}
-    export interface OutgoingHttpHeaders extends http.OutgoingHttpHeaders {}
+    import { IncomingHttpHeaders, OutgoingHttpHeaders } from "http";
+    export { IncomingHttpHeaders, OutgoingHttpHeaders } from "http";
 
     // Http2Stream
 
@@ -6212,8 +6211,8 @@ declare module "http2" {
         settings?: Settings;
     }
 
-    export interface ClientSessionOptions extends SessionOptions {}
-    export interface ServerSessionOptions extends SessionOptions {}
+    export type ClientSessionOptions = SessionOptions;
+    export type ServerSessionOptions = SessionOptions;
 
     export interface SecureClientSessionOptions extends ClientSessionOptions, tls.ConnectionOptions {}
     export interface SecureServerSessionOptions extends ServerSessionOptions, tls.TlsOptions {}
