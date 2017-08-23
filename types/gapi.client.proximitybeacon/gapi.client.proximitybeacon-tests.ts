@@ -31,6 +31,12 @@ gapi.load('client', () => {
 
     async function run() {  
         
+        // Given one or more beacon observations, returns any beacon information
+        // and attachments accessible to your application. Authorize by using the
+        // [API key](https://developers.google.com/beacons/proximity/get-started#request_a_browser_api_key)
+        // for the application.
+        await gapi.client.beaconinfo.getforobserved({  }); 
+        
         // Lists all attachment namespaces owned by your Google Developers Console
         // project. Attachment data associated with a beacon must include a
         // namespaced type, and the namespace must be owned by your project.
@@ -53,24 +59,13 @@ gapi.load('client', () => {
         // Eddystone-EID beacon.
         await gapi.client.v1beta1.getEidparams({  }); 
         
-        // Deletes the specified beacon including all diagnostics data for the beacon
-        // as well as any attachments on the beacon (including those belonging to
-        // other projects). This operation cannot be undone.
+        // Registers a previously unregistered beacon given its `advertisedId`.
+        // These IDs are unique within the system. An ID can be registered only once.
         // 
         // Authenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2)
         // from a signed-in user with **Is owner** or **Can edit** permissions in the
         // Google Developers Console project.
-        await gapi.client.beacons.delete({ beaconName: "beaconName",  }); 
-        
-        // Deactivates a beacon. Once deactivated, the API will not return
-        // information nor attachment data for the beacon when queried via
-        // `beaconinfo.getforobserved`. Calling this method on an already inactive
-        // beacon will do nothing (but will return a successful response code).
-        // 
-        // Authenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2)
-        // from a signed-in user with **Is owner** or **Can edit** permissions in the
-        // Google Developers Console project.
-        await gapi.client.beacons.deactivate({ beaconName: "beaconName",  }); 
+        await gapi.client.beacons.register({  }); 
         
         // Searches the beacon registry for beacons that match the given search
         // criteria. Only those beacons that the client has permission to list
@@ -80,14 +75,6 @@ gapi.load('client', () => {
         // from a signed-in user with **viewer**, **Is owner** or **Can edit**
         // permissions in the Google Developers Console project.
         await gapi.client.beacons.list({  }); 
-        
-        // Registers a previously unregistered beacon given its `advertisedId`.
-        // These IDs are unique within the system. An ID can be registered only once.
-        // 
-        // Authenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2)
-        // from a signed-in user with **Is owner** or **Can edit** permissions in the
-        // Google Developers Console project.
-        await gapi.client.beacons.register({  }); 
         
         // Activates a beacon. A beacon that is active will return information
         // and attachment data when queried via `beaconinfo.getforobserved`.
@@ -135,10 +122,23 @@ gapi.load('client', () => {
         // Google Developers Console project.
         await gapi.client.beacons.decommission({ beaconName: "beaconName",  }); 
         
-        // Given one or more beacon observations, returns any beacon information
-        // and attachments accessible to your application. Authorize by using the
-        // [API key](https://developers.google.com/beacons/proximity/get-started#request_a_browser_api_key)
-        // for the application.
-        await gapi.client.beaconinfo.getforobserved({  });
+        // Deactivates a beacon. Once deactivated, the API will not return
+        // information nor attachment data for the beacon when queried via
+        // `beaconinfo.getforobserved`. Calling this method on an already inactive
+        // beacon will do nothing (but will return a successful response code).
+        // 
+        // Authenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2)
+        // from a signed-in user with **Is owner** or **Can edit** permissions in the
+        // Google Developers Console project.
+        await gapi.client.beacons.deactivate({ beaconName: "beaconName",  }); 
+        
+        // Deletes the specified beacon including all diagnostics data for the beacon
+        // as well as any attachments on the beacon (including those belonging to
+        // other projects). This operation cannot be undone.
+        // 
+        // Authenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2)
+        // from a signed-in user with **Is owner** or **Can edit** permissions in the
+        // Google Developers Console project.
+        await gapi.client.beacons.delete({ beaconName: "beaconName",  });
     }
 });

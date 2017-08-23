@@ -14,6 +14,12 @@ gapi.load('client', () => {
         // declare client_id registered in Google Developers Console
         const client_id = '<<PUT YOUR CLIENT ID HERE>>';
         const scope = [     
+                // Know the list of people in your circles, your age range, and language
+                'https://www.googleapis.com/auth/plus.login',
+            
+                // View your basic profile info
+                'https://www.googleapis.com/auth/userinfo.profile',
+            
                 // View your email addresses
                 'https://www.googleapis.com/auth/user.emails.read',
             
@@ -23,23 +29,17 @@ gapi.load('client', () => {
                 // View your street addresses
                 'https://www.googleapis.com/auth/user.addresses.read',
             
-                // View your phone numbers
-                'https://www.googleapis.com/auth/user.phonenumbers.read',
-            
                 // View your email address
                 'https://www.googleapis.com/auth/userinfo.email',
+            
+                // View your phone numbers
+                'https://www.googleapis.com/auth/user.phonenumbers.read',
             
                 // View your contacts
                 'https://www.googleapis.com/auth/contacts.readonly',
             
                 // View your complete date of birth
                 'https://www.googleapis.com/auth/user.birthday.read',
-            
-                // Know the list of people in your circles, your age range, and language
-                'https://www.googleapis.com/auth/plus.login',
-            
-                // View your basic profile info
-                'https://www.googleapis.com/auth/userinfo.profile',
             ];
         const immediate = true;
 
@@ -55,6 +55,9 @@ gapi.load('client', () => {
 
     async function run() {  
         
+        // Create a new contact group owned by the authenticated user.
+        await gapi.client.contactGroups.create({  }); 
+        
         // Get a specific contact group owned by the authenticated user by specifying
         // a contact group resource name.
         await gapi.client.contactGroups.get({ resourceName: "resourceName",  }); 
@@ -63,26 +66,17 @@ gapi.load('client', () => {
         // user.
         await gapi.client.contactGroups.update({ resourceName: "resourceName",  }); 
         
-        // Delete an existing contact group owned by the authenticated user by
-        // specifying a contact group resource name.
-        await gapi.client.contactGroups.delete({ resourceName: "resourceName",  }); 
-        
         // Get a list of contact groups owned by the authenticated user by specifying
         // a list of contact group resource names.
         await gapi.client.contactGroups.batchGet({  }); 
         
+        // Delete an existing contact group owned by the authenticated user by
+        // specifying a contact group resource name.
+        await gapi.client.contactGroups.delete({ resourceName: "resourceName",  }); 
+        
         // List all contact groups owned by the authenticated user. Members of the
         // contact groups are not populated.
         await gapi.client.contactGroups.list({  }); 
-        
-        // Create a new contact group owned by the authenticated user.
-        await gapi.client.contactGroups.create({  }); 
-        
-        // Provides information about a person by specifying a resource name. Use
-        // `people/me` to indicate the authenticated user.
-        // <br>
-        // The request throws a 400 error if 'personFields' is not specified.
-        await gapi.client.people.get({ resourceName: "resourceName",  }); 
         
         // Update contact data for an existing contact person. Any non-contact data
         // will not be modified.
@@ -109,6 +103,12 @@ gapi.load('client', () => {
         // user.
         // <br>
         // The request throws a 400 error if 'personFields' is not specified.
-        await gapi.client.people.getBatchGet({  });
+        await gapi.client.people.getBatchGet({  }); 
+        
+        // Provides information about a person by specifying a resource name. Use
+        // `people/me` to indicate the authenticated user.
+        // <br>
+        // The request throws a 400 error if 'personFields' is not specified.
+        await gapi.client.people.get({ resourceName: "resourceName",  });
     }
 });

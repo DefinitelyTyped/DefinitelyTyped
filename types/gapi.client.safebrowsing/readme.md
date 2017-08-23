@@ -34,12 +34,6 @@ After that you can use Google Safe Browsing API resources:
 ```typescript 
     
 /* 
-Fetches the most recent threat list updates. A client can request updates
-for multiple lists at once.  
-*/
-await gapi.client.threatListUpdates.fetch({  }); 
-    
-/* 
   
 */
 await gapi.client.encodedFullHashes.get({ encodedRequest: "encodedRequest",  }); 
@@ -62,5 +56,11 @@ await gapi.client.fullHashes.find({  });
 /* 
   
 */
-await gapi.client.encodedUpdates.get({ encodedRequest: "encodedRequest",  });
+await gapi.client.encodedUpdates.get({ encodedRequest: "encodedRequest",  }); 
+    
+/* 
+Fetches the most recent threat list updates. A client can request updates
+for multiple lists at once.  
+*/
+await gapi.client.threatListUpdates.fetch({  });
 ```

@@ -31,27 +31,6 @@ gapi.load('client', () => {
 
     async function run() {  
         
-        // Gets the metadata of the specified
-        // Photo batch.
-        // 
-        // Note that if
-        // BatchGetPhotos
-        // fails, either critical fields are missing or there was an authentication
-        // error. Even if
-        // BatchGetPhotos
-        // succeeds, there may have been failures for single photos in the batch.
-        // These failures will be specified in each
-        // PhotoResponse.status
-        // in
-        // BatchGetPhotosResponse.results.
-        // See
-        // GetPhoto
-        // for specific failures that can occur per photo.
-        await gapi.client.photos.batchGet({  }); 
-        
-        // Lists all the Photos that belong to the user.
-        await gapi.client.photos.list({  }); 
-        
         // Deletes a list of Photos and their metadata.
         // 
         // Note that if
@@ -88,25 +67,26 @@ gapi.load('client', () => {
         // for specific failures that can occur per photo.
         await gapi.client.photos.batchUpdate({  }); 
         
-        // Deletes a Photo and its metadata.
-        // 
-        // This method returns the following error codes:
-        // 
-        // * google.rpc.Code.PERMISSION_DENIED if the requesting user did not
-        // create the requested photo.
-        // * google.rpc.Code.NOT_FOUND if the photo ID does not exist.
-        await gapi.client.photo.delete({ photoId: "photoId",  }); 
-        
         // Gets the metadata of the specified
-        // Photo.
+        // Photo batch.
         // 
-        // This method returns the following error codes:
-        // 
-        // * google.rpc.Code.PERMISSION_DENIED if the requesting user did not
-        // create the requested Photo.
-        // * google.rpc.Code.NOT_FOUND if the requested
-        // Photo does not exist.
-        await gapi.client.photo.get({ photoId: "photoId",  }); 
+        // Note that if
+        // BatchGetPhotos
+        // fails, either critical fields are missing or there was an authentication
+        // error. Even if
+        // BatchGetPhotos
+        // succeeds, there may have been failures for single photos in the batch.
+        // These failures will be specified in each
+        // PhotoResponse.status
+        // in
+        // BatchGetPhotosResponse.results.
+        // See
+        // GetPhoto
+        // for specific failures that can occur per photo.
+        await gapi.client.photos.batchGet({  }); 
+        
+        // Lists all the Photos that belong to the user.
+        await gapi.client.photos.list({  }); 
         
         // Updates the metadata of a Photo, such
         // as pose, place association, connections, etc. Changing the pixels of a
@@ -153,6 +133,26 @@ gapi.load('client', () => {
         // UploadRef is used with
         // CreatePhoto
         // to create the Photo object entry.
-        await gapi.client.photo.startUpload({  });
+        await gapi.client.photo.startUpload({  }); 
+        
+        // Deletes a Photo and its metadata.
+        // 
+        // This method returns the following error codes:
+        // 
+        // * google.rpc.Code.PERMISSION_DENIED if the requesting user did not
+        // create the requested photo.
+        // * google.rpc.Code.NOT_FOUND if the photo ID does not exist.
+        await gapi.client.photo.delete({ photoId: "photoId",  }); 
+        
+        // Gets the metadata of the specified
+        // Photo.
+        // 
+        // This method returns the following error codes:
+        // 
+        // * google.rpc.Code.PERMISSION_DENIED if the requesting user did not
+        // create the requested Photo.
+        // * google.rpc.Code.NOT_FOUND if the requested
+        // Photo does not exist.
+        await gapi.client.photo.get({ photoId: "photoId",  });
     }
 });

@@ -14,6 +14,18 @@ gapi.load('client', () => {
         // declare client_id registered in Google Developers Console
         const client_id = '<<PUT YOUR CLIENT ID HERE>>';
         const scope = [     
+                // View and manage your spreadsheets in Google Drive
+                'https://www.googleapis.com/auth/spreadsheets',
+            
+                // Read, send, delete, and manage your email
+                'https://mail.google.com/',
+            
+                // View and manage the provisioning of groups on your domain
+                'https://www.googleapis.com/auth/admin.directory.group',
+            
+                // View and manage the provisioning of users on your domain
+                'https://www.googleapis.com/auth/admin.directory.user',
+            
                 // View and manage your forms in Google Drive
                 'https://www.googleapis.com/auth/forms',
             
@@ -34,18 +46,6 @@ gapi.load('client', () => {
             
                 // View and manage the files in your Google Drive
                 'https://www.googleapis.com/auth/drive',
-            
-                // View and manage your spreadsheets in Google Drive
-                'https://www.googleapis.com/auth/spreadsheets',
-            
-                // Read, send, delete, and manage your email
-                'https://mail.google.com/',
-            
-                // View and manage the provisioning of users on your domain
-                'https://www.googleapis.com/auth/admin.directory.user',
-            
-                // View and manage the provisioning of groups on your domain
-                'https://www.googleapis.com/auth/admin.directory.group',
             ];
         const immediate = true;
 

@@ -56,6 +56,20 @@ After that you can use Google Cloud Runtime Configuration API resources:
 ```typescript 
     
 /* 
+Lists operations that match the specified filter in the request. If the
+server doesn't support this method, it returns `UNIMPLEMENTED`.
+
+NOTE: the `name` binding allows API services to override the binding
+to use different resource name schemes, such as `users/*/operations`. To
+override the binding, API services can add a binding such as
+`"/v1/{name=users/*}/operations"` to their service configuration.
+For backwards compatibility, the default name includes the operations
+collection id, however overriding users must ensure the name binding
+is the parent resource, without the operations collection id.  
+*/
+await gapi.client.operations.list({ name: "name",  }); 
+    
+/* 
 Starts asynchronous cancellation on a long-running operation.  The server
 makes a best effort to cancel the operation, but success is not
 guaranteed.  If the server doesn't support this method, it returns
@@ -75,19 +89,5 @@ no longer interested in the operation result. It does not cancel the
 operation. If the server doesn't support this method, it returns
 `google.rpc.Code.UNIMPLEMENTED`.  
 */
-await gapi.client.operations.delete({ name: "name",  }); 
-    
-/* 
-Lists operations that match the specified filter in the request. If the
-server doesn't support this method, it returns `UNIMPLEMENTED`.
-
-NOTE: the `name` binding allows API services to override the binding
-to use different resource name schemes, such as `users/*/operations`. To
-override the binding, API services can add a binding such as
-`"/v1/{name=users/*}/operations"` to their service configuration.
-For backwards compatibility, the default name includes the operations
-collection id, however overriding users must ensure the name binding
-is the parent resource, without the operations collection id.  
-*/
-await gapi.client.operations.list({ name: "name",  });
+await gapi.client.operations.delete({ name: "name",  });
 ```

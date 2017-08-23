@@ -14,11 +14,11 @@ gapi.load('client', () => {
         // declare client_id registered in Google Developers Console
         const client_id = '<<PUT YOUR CLIENT ID HERE>>';
         const scope = [     
-                // View and manage your Google Cloud Datastore data
-                'https://www.googleapis.com/auth/datastore',
-            
                 // View and manage your data across Google Cloud Platform services
                 'https://www.googleapis.com/auth/cloud-platform',
+            
+                // View and manage your Google Cloud Datastore data
+                'https://www.googleapis.com/auth/datastore',
             ];
         const immediate = true;
 
@@ -34,9 +34,6 @@ gapi.load('client', () => {
 
     async function run() {  
         
-        // Looks up entities by key.
-        await gapi.client.projects.lookup({ projectId: "projectId",  }); 
-        
         // Allocates IDs for the given keys, which is useful for referencing an entity
         // before it is inserted.
         await gapi.client.projects.allocateIds({ projectId: "projectId",  }); 
@@ -48,10 +45,13 @@ gapi.load('client', () => {
         // entities.
         await gapi.client.projects.commit({ projectId: "projectId",  }); 
         
+        // Queries for entities.
+        await gapi.client.projects.runQuery({ projectId: "projectId",  }); 
+        
         // Rolls back a transaction.
         await gapi.client.projects.rollback({ projectId: "projectId",  }); 
         
-        // Queries for entities.
-        await gapi.client.projects.runQuery({ projectId: "projectId",  });
+        // Looks up entities by key.
+        await gapi.client.projects.lookup({ projectId: "projectId",  });
     }
 });

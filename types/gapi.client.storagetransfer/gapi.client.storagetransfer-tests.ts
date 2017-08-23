@@ -41,6 +41,12 @@ gapi.load('client', () => {
         // only be used by Storage Transfer Service.
         await gapi.client.googleServiceAccounts.get({ projectId: "projectId",  }); 
         
+        // Pauses a transfer operation.
+        await gapi.client.transferOperations.pause({ name: "name",  }); 
+        
+        // This method is not supported and the server returns `UNIMPLEMENTED`.
+        await gapi.client.transferOperations.delete({ name: "name",  }); 
+        
         // Lists operations that match the specified filter in the request. If the
         // server doesn't support this method, it returns `UNIMPLEMENTED`.
         // 
@@ -63,12 +69,6 @@ gapi.load('client', () => {
         // method to poll the operation result at intervals as recommended by the API
         // service.
         await gapi.client.transferOperations.get({ name: "name",  }); 
-        
-        // Pauses a transfer operation.
-        await gapi.client.transferOperations.pause({ name: "name",  }); 
-        
-        // This method is not supported and the server returns `UNIMPLEMENTED`.
-        await gapi.client.transferOperations.delete({ name: "name",  }); 
         
         // Lists transfer jobs.
         await gapi.client.transferJobs.list({  }); 

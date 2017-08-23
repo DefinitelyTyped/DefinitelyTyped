@@ -37,11 +37,6 @@ gapi.load('client', () => {
 
     async function run() {  
         
-        // Creates an App Engine application for a Google Cloud Platform project. Required fields:
-        // id - The ID of the target Cloud Platform project.
-        // location - The region (https://cloud.google.com/appengine/docs/locations) where you want the App Engine application located.For more information about App Engine applications, see Managing Projects, Applications, and Billing (https://cloud.google.com/appengine/docs/python/console/).
-        await gapi.client.apps.create({  }); 
-        
         // Recreates the required App Engine features for the specified App Engine application, for example a Cloud Storage bucket or App Engine service account. Use this method if you receive an error message about a missing feature, for example, Error retrieving the App Engine service account.
         await gapi.client.apps.repair({ appsId: "appsId",  }); 
         
@@ -51,6 +46,11 @@ gapi.load('client', () => {
         await gapi.client.apps.patch({ appsId: "appsId",  }); 
         
         // Gets information about an application.
-        await gapi.client.apps.get({ appsId: "appsId",  });
+        await gapi.client.apps.get({ appsId: "appsId",  }); 
+        
+        // Creates an App Engine application for a Google Cloud Platform project. Required fields:
+        // id - The ID of the target Cloud Platform project.
+        // location - The region (https://cloud.google.com/appengine/docs/locations) where you want the App Engine application located.For more information about App Engine applications, see Managing Projects, Applications, and Billing (https://cloud.google.com/appengine/docs/python/console/).
+        await gapi.client.apps.create({  });
     }
 });

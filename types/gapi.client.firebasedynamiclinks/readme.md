@@ -53,6 +53,13 @@ After that you can use Firebase Dynamic Links API resources:
 ```typescript 
     
 /* 
+Fetches analytics stats of a short Dynamic Link for a given
+duration. Metrics include number of clicks, redirects, installs,
+app first opens, and app reopens.  
+*/
+await gapi.client.v1.getLinkStats({ dynamicLink: "dynamicLink",  }); 
+    
+/* 
 Creates a short Dynamic Link given either a valid long Dynamic Link or
 details such as Dynamic Link domain, Android and iOS app information.
 The created short Dynamic Link will not expire.
@@ -63,12 +70,5 @@ will produce the same short Dynamic Link.
 The Dynamic Link domain in the request must be owned by requester's
 Firebase project.  
 */
-await gapi.client.shortLinks.create({  }); 
-    
-/* 
-Fetches analytics stats of a short Dynamic Link for a given
-duration. Metrics include number of clicks, redirects, installs,
-app first opens, and app reopens.  
-*/
-await gapi.client.v1.getLinkStats({ dynamicLink: "dynamicLink",  });
+await gapi.client.shortLinks.create({  });
 ```
