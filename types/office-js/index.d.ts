@@ -1872,7 +1872,7 @@ declare namespace Office {
         setSelectedDataAsync(data: string, options?: AsyncContextOptions & CoercionTypeOptions, callback?: (result: AsyncResult) => void): void;
     }
     export interface ItemRead extends Item {
-        attachment: Array<AttachmentDetails>;
+        attachments: Array<AttachmentDetails>;
         itemClass: string;
         itemId: string;
         normalizedSubject: string;
