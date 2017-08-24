@@ -122,7 +122,7 @@ export interface Resolutions {
 }
 
 export interface SlotValue {
-    confirmationStatus: ConfirmationStatuses;
+    confirmationStatus?: ConfirmationStatuses;
     name: string;
     value?: any;
     resolutions?: Resolutions;
