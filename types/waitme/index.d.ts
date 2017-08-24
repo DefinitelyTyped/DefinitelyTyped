@@ -89,24 +89,18 @@ declare namespace WaitMe {
     interface WaitMeStatic {
         /**
          * init with default options
-         * @returns {JQuery}
-         */
-        (): JQuery;
-
-        /**
+         * Use: $(container).waitMe();
+         *
          * init with custom options
-         * @param method
-         * @returns {JQuery}
-         */
-        (method: WaitMeOptions): JQuery;
-
-        /**
+         * Use: $(container).waitMe({param1 : value1, param2 : value2, ...});
+         *
          * for close waitMe.
          * Use: $(container).waitMe("hide");
-         * @param hide
+         *
+         * @param options
          * @returns {JQuery}
          */
-        (hide: "hide"): JQuery;
+        (options?: WaitMeOptions | "hide"): JQuery;
     }
 }
 
