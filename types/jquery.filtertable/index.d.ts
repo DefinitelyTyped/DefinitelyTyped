@@ -7,7 +7,6 @@
 ///<reference types="jquery" />
 
 declare namespace FilterTable {
-
     interface FilterTableOptions {
         /**
          * Makes the filter input field autofocused (not recommended for accessibility reasons)
@@ -120,7 +119,6 @@ declare namespace FilterTable {
     }
 
     interface FilterTableStatic {
-
         /**
          * init with default options
          * @returns {JQuery}
@@ -137,7 +135,6 @@ declare namespace FilterTable {
 }
 
 interface JQuery {
-
     /**
      * if this code appears after your tables; otherwise, include it in your document.ready() code.
      * $('table').filterTable()
