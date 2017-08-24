@@ -8194,6 +8194,10 @@ export namespace Animated {
         friction?: number;
     }
 
+    interface LoopAnimationConfig {
+        iterations?: number; // default -1 for infinite
+    }
+
     /**
      * Creates a new Animated value composed from two Animated values added
      * together.
@@ -8273,6 +8277,18 @@ export namespace Animated {
     export function stagger(
         time: number,
         animations: Array<CompositeAnimation>
+    ): CompositeAnimation
+
+    /**
+     * Loops a given animation continuously, so that each time it reaches the end,
+     * it resets and begins again from the start. Can specify number of times to
+     * loop using the key 'iterations' in the config. Will loop without blocking
+     * the UI thread if the child animation is set to 'useNativeDriver'.
+     */
+
+    export function loop(
+        animation: CompositeAnimation,
+        config?: LoopAnimationConfig,
     ): CompositeAnimation
 
     /**
