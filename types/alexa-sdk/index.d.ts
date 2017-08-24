@@ -99,33 +99,33 @@ export interface Request {
 }
 
 export interface ResolutionStatus {
-    code: String
+    code: string;
 }
 
 export interface ResolutionValue {
-    name: String,
-    id: String
+    name: string;
+    id: string;
 }
 
 export interface ResolutionValueContainer {
-    value: ResolutionValue
+    value: ResolutionValue;
 }
 
 export interface Resolution {
-    authority: String,
-    status: ResolutionStatus,
-    values: Array<ResolutionValueContainer>
+    authority: string;
+    status: ResolutionStatus;
+    values: ResolutionValueContainer[];
 }
 
 export interface Resolutions {
-    resolutionsPerAuthority: Array<Resolution>
+    resolutionsPerAuthority: Resolution[];
 }
 
 export interface SlotValue {
-    confirmationStatus?: ConfirmationStatuses;
+    confirmationStatus: ConfirmationStatuses;
     name: string;
     value?: any;
-    resolutions?: Resolutions
+    resolutions?: Resolutions;
 }
 
 export interface Intent {
