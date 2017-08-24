@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "waitMe-tests.ts"
+        "waitme-tests.ts"
     ]
 }
