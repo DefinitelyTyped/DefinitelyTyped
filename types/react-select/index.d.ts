@@ -82,6 +82,11 @@ declare namespace ReactSelectClass {
          * @default false
          */
         disabled?: boolean;
+        /**
+         * In the event that a custom menuRenderer is provided, Option should be able
+         * to accept arbitrary key-value pairs. See react-virtualized-select.
+         */
+        [property: string]: any;
     }
 
     type OptionValues = string | number | boolean;
