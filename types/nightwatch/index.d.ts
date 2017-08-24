@@ -1116,7 +1116,7 @@ interface NightWatchClient {
      * this.demoTest = function (browser) {
      *  browser.getTitle(function(title) {
      *      this.assert.equal(typeof title, 'string');
-     *      this.assert.equal(title, 'NightWatch.js');
+     *      this.assert.equal(title, 'nightwatch.js');
      *  });
      * };
      * ```
