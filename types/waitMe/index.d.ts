@@ -1,8 +1,9 @@
-﻿/// <reference path="../jquery/jquery.d.ts" />
 // Type definitions for waitMe 1.18
 // Project: https://github.com/vadimsva/waitMe
 // Definitions by: TotPeRo <https://github.com/totpero/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+///<reference types="jquery" />
 
 declare namespace WaitMe {
 
