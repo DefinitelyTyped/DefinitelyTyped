@@ -3,11 +3,12 @@
 // Definitions by: BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as proj4 from "proj4";
-import * as Leaflet from "leaflet";
+import * as geojson from 'geojson';
+import * as L from 'leaflet';
+import * as proj4 from 'proj4';
 
-declare global {
-  namespace L.Proj {
+declare module 'leaflet' {
+  namespace Proj {
     class CRS implements CRS {
       projection: Projection;
       transformation: Transformation;
@@ -38,13 +39,11 @@ declare global {
       wrapLatLng(latlng: LatLng | LatLngLiteral): LatLng;
     }
 
-    class GeoJSON extends Leaflet.GeoJSON {
-    }
+    class GeoJSON extends L.GeoJSON {}
 
-    const geoJson: (geojson?: GeoJSONGeoJsonObject, options?: GeoJSONOptions) => GeoJSON;
+    const geoJson: (geojson?: geojson.GeoJsonObject, options?: GeoJSONOptions) => GeoJSON;
 
-    class ImageOverlay extends Leaflet.ImageOverlay {
-    }
+    class ImageOverlay extends L.ImageOverlay {}
 
     const imageOverlay: (imageUrl: string, bounds: LatLngBoundsExpression, options?: ImageOverlayOptions) => ImageOverlay;
 
@@ -57,5 +56,3 @@ declare global {
     }
   }
 }
-
-export = L;
