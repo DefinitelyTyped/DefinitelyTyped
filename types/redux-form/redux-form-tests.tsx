@@ -96,7 +96,20 @@ const MyField: StatelessComponent<MyFieldProps> = ({
     children,
     input,
     meta
-}) => null;
+}) => {
+    input.onBlur("value");
+    input.onBlur({} as React.SyntheticEvent<HTMLDivElement>);
+
+    input.onChange("value");
+    input.onChange({} as React.SyntheticEvent<HTMLDivElement>);
+
+    input.onDragStart({} as React.DragEvent<HTMLDivElement>);
+
+    input.onDrop({} as React.DragEvent<HTMLDivElement>);
+
+    input.onFocus({} as React.FocusEvent<HTMLDivElement>);
+    return null;
+};
 const FieldCustom = Field as new () => GenericField<MyFieldCustomProps>;
 
 const MyFieldImm: StatelessComponent<MyFieldProps> = ({
