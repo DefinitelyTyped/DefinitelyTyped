@@ -17,10 +17,10 @@ declare namespace FilterTable {
         * Callback function after a filter is performed.
         * Default: 'null'
         * @param term filter term (string)
-        * @param table table being filtered (jQuery object)
+        * @param table table being filtered (JQuery object)
         * @returns {void} 
         */
-        callback?: (term:string, table:jQuery) => void;
+        callback?: (term:string, table:JQuery) => void;
         /**
          * Class applied to the main filter input container
          * Default: 'filter-table'
