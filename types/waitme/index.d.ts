@@ -7,7 +7,6 @@
 ///<reference types="jquery" />
 
 declare namespace WaitMe {
-
     interface WaitMeOptions {
         /**
          * animation effect (string).
@@ -86,9 +85,8 @@ declare namespace WaitMe {
          */
         onClose?: () => void;
     }
-
+    
     interface WaitMeStatic {
-
         /**
          * init with default options
          * @returns {JQuery}
@@ -113,7 +111,6 @@ declare namespace WaitMe {
 }
 
 interface JQuery {
-
     /**
      * $(container).waitMe({param1 : value1, param2 : value2, ...});
      */
