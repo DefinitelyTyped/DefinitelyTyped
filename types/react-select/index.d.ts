@@ -32,11 +32,11 @@ declare namespace ReactSelectClass {
     type MenuRendererHandler = (props: MenuRendererProps) => HandlerRendererResult;
     type OnCloseHandler = () => void;
     type OnInputChangeHandler = (inputValue: string) => void;
-    type OnInputKeyDownHandler = React.KeyboardEventHandler<HTMLDivElement>;
+    type OnInputKeyDownHandler = React.KeyboardEventHandler<HTMLDivElement | HTMLInputElement>;
     type OnMenuScrollToBottomHandler = () => void;
     type OnOpenHandler = () => void;
-    type OnFocusHandler = React.FocusEventHandler<HTMLDivElement>;
-    type OnBlurHandler = React.FocusEventHandler<HTMLDivElement>;
+    type OnFocusHandler = React.FocusEventHandler<HTMLDivElement | HTMLInputElement>;
+    type OnBlurHandler = React.FocusEventHandler<HTMLDivElement | HTMLInputElement>;
     type OptionRendererHandler = (option: Option) => HandlerRendererResult;
     type ValueRendererHandler = (option: Option) => HandlerRendererResult;
     type OnValueClickHandler = (value: string, event: React.MouseEvent<HTMLAnchorElement>) => void;
