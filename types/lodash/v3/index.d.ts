@@ -1198,14 +1198,14 @@ declare module _ {
         /**
          * @see _.first
          */
-        first<T>(): T;
+        first(): LoDashExplicitObjectWrapper<T>;
     }
 
     interface LoDashExplicitObjectWrapper<T> {
         /**
          * @see _.first
          */
-        first<T>(): T;
+        first<T>(): LoDashExplicitObjectWrapper<T>;
     }
 
     interface RecursiveArray<T> extends Array<T|RecursiveArray<T>> {}
