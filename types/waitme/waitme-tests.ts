@@ -17,7 +17,7 @@ $('#container').waitMe({
 
 $('#container').waitMe()
     .on('close', () => {
-    //code here
+    // code here
 });
 
 $("#container").waitMe("hide");
