@@ -1,9 +1,13 @@
 import * as Component from "@egjs/component";
-import { AxisOption, Axis } from "./AxisManager";
+import { AnimationManager } from "./AnimationManager";
+import { EventManager } from "./EventManager";
+import { InterruptManager } from "./InterruptManager";
+import { AxisManager, AxisOption, Axis } from "./AxisManager";
+import { InputObserver } from "./InputObserver";
 import { PanInput } from "./inputType/PanInput";
 import { PinchInput } from "./inputType/PinchInput";
 import { WheelInput } from "./inputType/WheelInput";
-import { DIRECTION } from "./const";
+import { TRANSFORM, DIRECTION } from "./const";
 import { IInputType } from "./inputType/InputType";
 export interface AxesOption {
     easing?: (x: number) => number;
@@ -30,12 +34,12 @@ export default class Axes extends Component {
     static DIRECTION_VERTICAL: DIRECTION;
     static DIRECTION_ALL: DIRECTION;
     options: AxesOption;
-    private _em;
-    private _axm;
-    private _itm;
-    private _am;
-    private _io;
-    private _inputs;
+    private _em: EventManager;
+    private _axm: AxisManager;
+    private _itm: InterruptManager;
+    private _am: AnimationManager;
+    private _io: InputObserver;
+    private _inputs: IInputType[];
     constructor(axis: {
         [key: string]: AxisOption;
     }, options: AxesOption, startPos?: Axis);
