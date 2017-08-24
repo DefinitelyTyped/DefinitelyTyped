@@ -17785,17 +17785,7 @@ declare namespace _ {
         updateWith<TResult>(
             object: Object,
             path: Many<StringRepresentable>,
-            updater: Function,
-            customizer?: SetWithCustomizer<Object>
-        ): TResult;
-
-        /**
-         * @see _.updateWith
-         */
-        updateWith<U extends Function, TResult>(
-            object: Object,
-            path: Many<StringRepresentable>,
-            updater: U,
+            updater: (oldValue: any) => any,
             customizer?: SetWithCustomizer<Object>
         ): TResult;
 
@@ -17805,17 +17795,7 @@ declare namespace _ {
         updateWith<O extends {}, TResult>(
             object: O,
             path: Many<StringRepresentable>,
-            updater: Function,
-            customizer?: SetWithCustomizer<O>
-        ): TResult;
-
-        /**
-         * @see _.updateWith
-         */
-        updateWith<O, U extends Function, TResult>(
-            object: O,
-            path: Many<StringRepresentable>,
-            updater: U,
+            updater: (oldValue: any) => any,
             customizer?: SetWithCustomizer<O>
         ): TResult;
     }
@@ -17826,16 +17806,7 @@ declare namespace _ {
          */
         updateWith<TResult>(
             path: Many<StringRepresentable>,
-            updater: any,
-            customizer?: SetWithCustomizer<T>
-        ): LoDashImplicitObjectWrapper<TResult>;
-
-        /**
-         * @see _.updateWith
-         */
-        updateWith<U extends Function, TResult>(
-            path: Many<StringRepresentable>,
-            updater: U,
+            updater: (oldValue: any) => any,
             customizer?: SetWithCustomizer<T>
         ): LoDashImplicitObjectWrapper<TResult>;
     }
@@ -17846,16 +17817,7 @@ declare namespace _ {
          */
         updateWith<TResult>(
             path: Many<StringRepresentable>,
-            updater: any,
-            customizer?: SetWithCustomizer<T>
-        ): LoDashExplicitObjectWrapper<TResult>;
-
-        /**
-         * @see _.updateWith
-         */
-        updateWith<U extends Function, TResult>(
-            path: Many<StringRepresentable>,
-            updater: U,
+            updater: (oldValue: any) => any,
             customizer?: SetWithCustomizer<T>
         ): LoDashExplicitObjectWrapper<TResult>;
     }

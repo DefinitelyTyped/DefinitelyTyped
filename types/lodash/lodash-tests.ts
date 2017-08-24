@@ -11580,20 +11580,10 @@ namespace TestUpdateWith {
         result = _.updateWith<SampleResult>(object, ['a', 'b', 1], updater);
         result = _.updateWith<SampleResult>(object, ['a', 'b', 1], updater, customizer);
 
-        result = _.updateWith<(value: any) => number, SampleResult>(object, 'a.b[1]', updater);
-        result = _.updateWith<(value: any) => number, SampleResult>(object, 'a.b[1]', updater, customizer);
-        result = _.updateWith<(value: any) => number, SampleResult>(object, ['a', 'b', 1], updater);
-        result = _.updateWith<(value: any) => number, SampleResult>(object, ['a', 'b', 1], updater, customizer);
-
-        result = _.updateWith<SampleObject, SampleResult>(object, 'a.b[1]', updater);
-        result = _.updateWith<SampleObject, SampleResult>(object, 'a.b[1]', updater, customizer);
-        result = _.updateWith<SampleObject, SampleResult>(object, ['a', 'b', 1], updater);
-        result = _.updateWith<SampleObject, SampleResult>(object, ['a', 'b', 1], updater, customizer);
-
-        result = _.updateWith<SampleObject, (value: any) => number, SampleResult>(object, 'a.b[1]', updater);
-        result = _.updateWith<SampleObject, (value: any) => number, SampleResult>(object, 'a.b[1]', updater, customizer);
-        result = _.updateWith<SampleObject, (value: any) => number, SampleResult>(object, ['a', 'b', 1], updater);
-        result = _.updateWith<SampleObject, (value: any) => number, SampleResult>(object, ['a', 'b', 1], updater, customizer);
+        result = _.updateWith<SampleResult>(object, 'a.b[1]', updater);
+        result = _.updateWith<SampleResult>(object, 'a.b[1]', updater, customizer);
+        result = _.updateWith<SampleResult>(object, ['a', 'b', 1], updater);
+        result = _.updateWith<SampleResult>(object, ['a', 'b', 1], updater, customizer);
     }
 
     {
@@ -11603,11 +11593,6 @@ namespace TestUpdateWith {
         result = _(object).updateWith<SampleResult>('a.b[1]', updater, customizer);
         result = _(object).updateWith<SampleResult>(['a', 'b', 1], updater);
         result = _(object).updateWith<SampleResult>(['a', 'b', 1], updater, customizer);
-
-        result = _(object).updateWith<(value: any) => number, SampleResult>('a.b[1]', updater);
-        result = _(object).updateWith<(value: any) => number, SampleResult>('a.b[1]', updater, customizer);
-        result = _(object).updateWith<(value: any) => number, SampleResult>(['a', 'b', 1], updater);
-        result = _(object).updateWith<(value: any) => number, SampleResult>(['a', 'b', 1], updater, customizer);
     }
 
     {
@@ -11617,11 +11602,6 @@ namespace TestUpdateWith {
         result = _(object).chain().updateWith<SampleResult>('a.b[1]', updater, customizer);
         result = _(object).chain().updateWith<SampleResult>(['a', 'b', 1], updater);
         result = _(object).chain().updateWith<SampleResult>(['a', 'b', 1], updater, customizer);
-
-        result = _(object).chain().updateWith<(value: any) => number, SampleResult>('a.b[1]', updater);
-        result = _(object).chain().updateWith<(value: any) => number, SampleResult>('a.b[1]', updater, customizer);
-        result = _(object).chain().updateWith<(value: any) => number, SampleResult>(['a', 'b', 1], updater);
-        result = _(object).chain().updateWith<(value: any) => number, SampleResult>(['a', 'b', 1], updater, customizer);
     }
 }
 
