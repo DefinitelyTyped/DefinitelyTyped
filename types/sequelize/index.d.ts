@@ -5,6 +5,7 @@
 //                 Ivan Drinchev <https://github.com/drinchev>
 //                 Brendan Abolivier <https://github.com/babolivier>
 //                 Patsakol Tangjitcharoenchai <https://github.com/kukoo1>
+//                 Sebastien Bramille <https://github.com/oktapodia>
 //                 Nick Mueller <https://github.com/morpheusxaut>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
@@ -4176,7 +4177,7 @@ declare namespace sequelize {
         /**
          * Adds a new index to a table
          */
-        addIndex(tableName: string | Object, attributes: string[], options?: QueryOptions,
+        addIndex(tableName: string | Object, attributes: string[], options?: DefineIndexOptions,
             rawTablename?: string): Promise<void>;
 
         /**
@@ -4824,6 +4825,38 @@ declare namespace sequelize {
          */
         [name: string]: any;
 
+    }
+
+    interface DefineIndexOptions {
+        /**
+         * The index type
+         */
+        indicesType?: 'UNIQUE' | 'FULLTEXT' | 'SPATIAL';
+
+        /**
+         * The name of the index. Default is __
+         */
+        indexName?: string;
+
+        /**
+         * For FULLTEXT columns set your parser
+         */
+        parser?: string;
+
+        /**
+         * Set a type for the index, e.g. BTREE. See the documentation of the used dialect
+         */
+        indexType?: string;
+
+        /**
+         * A function that receives the sql query, e.g. console.log
+         */
+        logging?: Function;
+
+        /**
+         * A hash of attributes to limit your index(Filtered Indexes - MSSQL & PostgreSQL only)
+         */
+        where?: AnyWhereOptions;
     }
 
     /**
