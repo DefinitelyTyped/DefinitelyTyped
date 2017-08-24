@@ -965,23 +965,28 @@ declare module "child_process" {
 }
 
 declare module "url" {
-    export interface Url {
+    export interface UrlObject {
         href?: string;
         protocol?: string;
         slashes?: boolean;
         host?: string;
         auth?: string;
         hostname?: string;
-        port?: string;
+        port?: string | number;
         pathname?: string;
         search?: string;
         path?: string;
-        query?: any; // string | Object
+        query?: string | { [key: string]: any; };
         hash?: string;
     }
 
+    export interface Url extends UrlObject {
+        port?: string;
+        query?: string | any;
+    }
+
     export function parse(urlStr: string, parseQueryString?: boolean , slashesDenoteHost?: boolean ): Url;
-    export function format(url: Url): string;
+    export function format(urlObject: UrlObject): string;
     export function resolve(from: string, to: string): string;
 }
 
