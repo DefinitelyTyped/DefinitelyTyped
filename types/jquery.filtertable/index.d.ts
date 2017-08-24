@@ -20,7 +20,7 @@ declare namespace FilterTable {
         * @param table table being filtered (jQuery object)
         * @returns {void} 
         */
-        callback?: (term, table) => void;
+        callback?: (term:string, table:jQuery) => void;
         /**
          * Class applied to the main filter input container
          * Default: 'filter-table'
