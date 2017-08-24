@@ -16,8 +16,8 @@ $('#container').waitMe({
 });
 
 $('#container').waitMe()
-    .on('close', (e) => {
-            //console.log(e);
-    });
+    .on('close', () => {
+    //code here
+});
 
 $("#container").waitMe("hide");
