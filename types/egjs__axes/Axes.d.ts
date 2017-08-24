@@ -7,7 +7,7 @@ import { InputObserver } from "./InputObserver";
 import { PanInput } from "./inputType/PanInput";
 import { PinchInput } from "./inputType/PinchInput";
 import { WheelInput } from "./inputType/WheelInput";
-import { TRANSFORM, DIRECTION } from "./const";
+import { DIRECTION } from "./const";
 import { IInputType } from "./inputType/InputType";
 export interface AxesOption {
     easing?: (x: number) => number;
