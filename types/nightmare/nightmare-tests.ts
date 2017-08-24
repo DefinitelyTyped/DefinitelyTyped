@@ -172,12 +172,12 @@ new Nightmare()
   })
   .run(done);
 
-  new Nightmare()
+new Nightmare()
   .goto('http://yahoo.com')
   .screenshot('test/test.png', { x: 10, y: 5, width: 10, height: 10})
   .run(done);
 
-  new Nightmare()
+new Nightmare()
   .goto('http://yahoo.com')
   .screenshot({ x: 10, y: 5, width: 10, height: 10}, (err, buffer) => {
     console.log(Buffer.isBuffer(buffer));
