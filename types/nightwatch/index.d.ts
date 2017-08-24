@@ -170,7 +170,7 @@ interface NightWatchOptions {
     /**
      * This object contains all the test related options. See below for details.
      */
-    test_settings: NightWatchTestSettingScreenshots;
+    test_settings: NightWatchTestSettings;
 
     /**
      * Whether or not to buffer the output in case of parallel running. See below for details.
