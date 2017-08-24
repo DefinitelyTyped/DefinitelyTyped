@@ -170,7 +170,7 @@ interface NightWatchOptions {
     /**
      * This object contains all the test related options. See below for details.
      */
-    test_settings: NightWatchTestSettings;
+    test_settings: NightWatchTestSettingScreenshots;
 
     /**
      * Whether or not to buffer the output in case of parallel running. See below for details.
@@ -238,19 +238,19 @@ interface SeleniumOptions {
      * If you wish to use an existing Firefox profile you can specify its name here.
      * Complete list of Firefox Driver arguments available https://code.google.com/p/selenium/wiki/FirefoxDriver.
      *
-     * webdriver.chrome.driver: Nightwatch can run the tests using Chrome browser also. To enable this you have to download the ChromeDriver binary
+     * webdriver.chrome.driver: NightWatch can run the tests using Chrome browser also. To enable this you have to download the ChromeDriver binary
      * (http://chromedriver.storage.googleapis.com/index.html) and specify it's location here. Also don't forget to specify chrome as the browser name in the
      * desiredCapabilities object.
      * More information can be found on the ChromeDriver website (https://sites.google.com/a/chromium.org/chromedriver/).
      *
-     * webdriver.ie.driver: Nightwatch has support for Internet Explorer also. To enable this you have to download the IE Driver binary
+     * webdriver.ie.driver: NightWatch has support for Internet Explorer also. To enable this you have to download the IE Driver binary
      * (https://code.google.com/p/selenium/wiki/InternetExplorerDriver) and specify it's location here. Also don't forget to specify "internet explorer" as the browser
      * name in the desiredCapabilities object.
      */
     cli_args: any;
 }
 
-interface NightWatchTestSettings {
+interface NightWatchTestSettingGeneric {
     /**
      * A url which can be used later in the tests as the main url to load. Can be useful if your tests will run on different environments, each one with a different url.
      */
@@ -280,19 +280,6 @@ interface NightWatchTestSettings {
      * Use to disable colored output in the terminal.
      */
     disable_colors: boolean;
-
-    /**
-     * Selenium generates screenshots when command errors occur. With on_failure set to true, also generates screenshots for failing or erroring tests. These are saved on the disk.
-     * Since v0.7.5 you can disable screenshots for command errors by setting "on_error" to false.
-     * Example:
-     * "screenshots" : {
-     *      "enabled" : true,
-     *      "on_failure" : true,
-     *      "on_error" : false,
-     *      "path" : ""
-     * }
-     */
-    screenshots: ScreenshotOptions;
 
     /**
      * In case the selenium server requires credentials this username will be used to compute the Authorization header.
@@ -365,6 +352,26 @@ interface NightWatchTestSettings {
     skip_testcases_on_fail: boolean;
 }
 
+interface NightWatchTestSettingScreenshots extends NightWatchTestSettingGeneric {
+  /**
+   * Selenium generates screenshots when command errors occur. With on_failure set to true, also generates screenshots for failing or erroring tests. These are saved on the disk.
+   * Since v0.7.5 you can disable screenshots for command errors by setting "on_error" to false.
+   * Example:
+   * "screenshots" : {
+   *      "enabled" : true,
+   *      "on_failure" : true,
+   *      "on_error" : false,
+   *      "path" : ""
+   * }
+   */
+  screenshots: ScreenshotOptions;
+}
+
+interface NightWatchTestOptions extends NightWatchTestSettingGeneric {
+  screenshots: boolean;
+  screenshotsPath: string;
+}
+
 interface TestSuite {
     name: string;
     "module": string;
@@ -392,6 +399,10 @@ interface LanguageChains {
     with: Expect;
     at: Expect;
     of: Expect;
+}
+
+interface NightWatchTestSettings {
+  [key: string]: NightWatchTestSettingScreenshots;
 }
 
 interface Expect extends LanguageChains, NightWatchBrowser {
@@ -1105,7 +1116,7 @@ interface NightWatchClient {
      * this.demoTest = function (browser) {
      *  browser.getTitle(function(title) {
      *      this.assert.equal(typeof title, 'string');
-     *      this.assert.equal(title, 'Nightwatch.js');
+     *      this.assert.equal(title, 'NightWatch.js');
      *  });
      * };
      * ```
@@ -1328,12 +1339,12 @@ interface NightWatchClient {
     saveScreenshot(fileName: string, callback?: () => void): NightWatchBrowser;
 
     /**
-     * SessionId of the session used by the Nightwatch api.
+     * SessionId of the session used by the NightWatch api.
      */
     sessionId: string;
 
     /**
-     * Override the sessionId used by Nightwatch client with another session id.
+     * Override the sessionId used by NightWatch client with another session id.
      * @param sessionId: The session Id to set.
      * @returns {}
      */
@@ -1366,7 +1377,7 @@ interface NightWatchClient {
     /**
      * Sends some text to an element. Can be used to set the value of a form element or to send a sequence of key strokes to an element. Any UTF-8 character may be specified.
      * An object map with available keys and their respective UTF-8 characters, as defined on W3C WebDriver draft spec (http://www.w3.org/TR/webdriver/#character-types),
-     * is loaded onto the main Nightwatch instance as client.Keys.
+     * is loaded onto the main NightWatch instance as client.Keys.
      *
      * Usage:
      * ```
@@ -1880,7 +1891,7 @@ interface NightWatchClient {
 
     /**
      * Send a sequence of key strokes to the active element. The sequence is defined in the same format as the sendKeys command.
-     * An object map with available keys and their respective UTF-8 characters, as defined on W3C WebDriver draft spec, is loaded onto the main Nightwatch instance as client.Keys.
+     * An object map with available keys and their respective UTF-8 characters, as defined on W3C WebDriver draft spec, is loaded onto the main NightWatch instance as client.Keys.
      * Rather than the setValue, the modifiers are not released at the end of the call. The state of the modifier keys is kept between calls, so mouse interactions can be performed while modifier keys are depressed.
      * @param keysToSend: The keys sequence to be sent.
      * @param callback: Optional callback function to be called when the command finishes.
@@ -2195,6 +2206,8 @@ interface NightWatchClient {
      * @returns {}
      */
     useCss(): NightWatchBrowser;
+
+    options: NightWatchTestOptions;
 
     Keys: Keys;
 
