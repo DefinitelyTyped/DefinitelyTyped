@@ -98,10 +98,34 @@ export interface Request {
     locale?: string;
 }
 
+export interface ResolutionStatus {
+    code: String
+}
+
+export interface ResolutionValue {
+    name: String,
+    id: String
+}
+
+export interface ResolutionValueContainer {
+    value: ResolutionValue
+}
+
+export interface Resolution {
+    authority: String,
+    status: ResolutionStatus,
+    values: Array<ResolutionValueContainer>
+}
+
+export interface Resolutions {
+    resolutionsPerAuthority: Array<Resolution>
+}
+
 export interface SlotValue {
     confirmationStatus?: ConfirmationStatuses;
     name: string;
     value?: any;
+    resolutions?: Resolutions
 }
 
 export interface Intent {
