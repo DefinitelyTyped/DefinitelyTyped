@@ -11,7 +11,7 @@ import http = require('http');
 type RetryStrategy = (err: Error, response: http.IncomingMessage, body: any) => boolean;
 
 declare namespace requestRetry {
-	interface RequestAPI extends request.RequestAPI<request.Request, requestRetry.RequestRetryOptions, request.RequiredUriUrl> {
+	interface RequestAPI extends request.RequestAPI<request.Request, RequestRetryOptions, request.RequiredUriUrl> {
 		RetryStrategies: {
 			'HttpError': RetryStrategy;
 			'HTTPOrNetworkError': RetryStrategy;

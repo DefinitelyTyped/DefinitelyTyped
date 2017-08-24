@@ -1,6 +1,8 @@
 {
   "extends": "dtslint/dt.json",
   "rules": {
+    // TODOs
+    "no-unnecessary-type-assertion": false,
     "prefer-declare-function": false,
     "strict-export-declare-modifiers": false,
     "unified-signatures": false

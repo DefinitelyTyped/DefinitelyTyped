@@ -54,5 +54,5 @@ client.histogram('my_histogram', 42, ['tag'], next);
 client.histogram('my_histogram', 42, 0.25, ['tag'], next);
 
 client.socket.on('error', (error) => {
-  return console.error("Error in socket: ", error);
+  console.error("Error in socket: ", error);
 });

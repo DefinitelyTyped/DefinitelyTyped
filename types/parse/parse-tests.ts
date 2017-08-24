@@ -37,7 +37,9 @@ function test_object() {
 
     var game = new Game();
 
-    game.fetch((g: Game) => {});
+    game.fetch({
+        success(g: Game) {}
+    });
 
 // Create a new instance of that class.
     var gameScore = new GameScore();

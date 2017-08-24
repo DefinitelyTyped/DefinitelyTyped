@@ -35,7 +35,7 @@ function ShallowWrapperTest() {
     let boolVal: boolean;
     let stringVal: string;
     let numOrStringVal: number | string;
-    let elementWrapper: ShallowWrapper<HTMLAttributes<{}>, {}>;
+    let elementWrapper: ShallowWrapper<HTMLAttributes<{}>>;
     let statelessWrapper: ShallowWrapper<StatelessProps, never>;
 
     function test_props_state_inferring() {
@@ -374,7 +374,7 @@ function ReactWrapperTest() {
     let domElement: Element;
     let boolVal: boolean;
     let stringVal: string;
-    let elementWrapper: ReactWrapper<HTMLAttributes<{}>, {}>;
+    let elementWrapper: ReactWrapper<HTMLAttributes<{}>>;
     let statelessWrapper: ReactWrapper<StatelessProps, never>;
 
     function test_prop_state_inferring() {

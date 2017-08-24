@@ -1,6 +1,6 @@
 // Type definitions for koa-views 2.x
 // Project: https://github.com/queckezz/koa-views
-// Definitions by: Alex Friedman <https://github.com/brooklyndev/>
+// Definitions by: Alex Friedman <https://github.com/brooklyndev>
 // Definitions: https://github.com/brooklyndev/DefinitelyTyped
 
 /* =================== USAGE ===================
@@ -46,8 +46,6 @@ declare function views(dir: string, opts?: {
 declare namespace views { }
 
 export = views;
-
-import * as koa from "koa";
 
 declare module 'koa' {
     interface Context {

@@ -812,7 +812,7 @@ namespace TestFill {
 namespace TestFindIndex {
     let array: TResult[] | null | undefined = [] as any;
     let list: _.List<TResult> | null | undefined = [] as any;
-    let fromIndex: number = 0;
+    let fromIndex = 0;
 
     {
         let result: number;
@@ -846,6 +846,7 @@ namespace TestFindIndex {
             index; // $ExpectType number
             collection; // $ExpectType ArrayLike<TResult>
         }, fromIndex);
+        result = _.findIndex([{ b: 5 }], ['b', 5]);
 
         result = _(array).findIndex();
         result = _(array).findIndex((value, index, collection) => {
@@ -913,7 +914,7 @@ namespace TestFindIndex {
 namespace TestFindLastIndex {
     let array: TResult[] | null | undefined = [] as any;
     let list: _.List<TResult> | null | undefined = [] as any;
-    let fromIndex: number = 0;
+    let fromIndex = 0;
 
     {
         let result: number;
@@ -947,6 +948,7 @@ namespace TestFindLastIndex {
             index; // $ExpectType number
             collection; // $ExpectType ArrayLike<TResult>
         }, fromIndex);
+        result = _.findLastIndex([{ b: 5 }], ['b', 5]);
 
         result = _(array).findLastIndex();
         result = _(array).findLastIndex((value, index, collection) => {
@@ -1578,7 +1580,7 @@ namespace TestLastIndexOf {
 namespace TestNth {
     let array: TResult[] | null | undefined = [] as any;
     let list: _.List<TResult> | null | undefined = [] as any;
-    let value: number = 0;
+    let value = 0;
 
     {
         let result: TResult | undefined;
@@ -6363,7 +6365,7 @@ namespace TestSome {
         result = _.some(list, {a: 42});
 
         result = _.some(dictionary);
-        result = _.some(numericDictionary, dictionaryIterator);
+        result = _.some(numericDictionary, numericDictionaryIterator);
         result = _.some(dictionary, (value, key, collection) => {
             value; // $ExpectType TResult
             key; // $ExpectType string
@@ -11684,7 +11686,7 @@ namespace TestSet {
     type SampleObject = {a: {}};
 
     let object: SampleObject = { a: {} };
-    let value: number = 0;
+    let value = 0;
 
     {
         let result: SampleObject;
@@ -11725,7 +11727,7 @@ namespace TestSetWith {
     type SampleObject = {a: {}};
 
     let object: SampleObject = { a: {} };
-    let value: number = 0;
+    let value = 0;
     let customizer = (value: any, key: string, object: SampleObject) => 0;
 
     {

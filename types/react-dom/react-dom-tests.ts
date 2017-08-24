@@ -11,18 +11,18 @@ class TestComponent extends React.Component { }
 
 describe('ReactDOM', () => {
     it('render', () => {
-        let rootElement = document.createElement('div');
+        const rootElement = document.createElement('div');
         ReactDOM.render(React.createElement('div'), rootElement);
     });
 
     it('unmounts', () => {
-        let rootElement = document.createElement('div');
+        const rootElement = document.createElement('div');
         ReactDOM.render(React.createElement('div'), rootElement);
         ReactDOM.unmountComponentAtNode(rootElement);
     });
 
     it('find dom node', () => {
-        let rootElement = document.createElement('div');
+        const rootElement = document.createElement('div');
         ReactDOM.render(React.createElement('div'), rootElement);
         ReactDOM.findDOMNode(rootElement);
     });
@@ -55,7 +55,7 @@ describe('React dom test utils', () => {
             React.createElement('input', { type: 'text' }),
             element
         ) as Element;
-        const node = ReactDOM.findDOMNode(dom) as HTMLInputElement;
+        const node = ReactDOM.findDOMNode(dom);
 
         node.value = 'giraffe';
         ReactTestUtils.Simulate.change(node);
@@ -89,13 +89,13 @@ describe('React dom test utils', () => {
 
     it('isCompositeComponent', () => {
         const element = React.createElement(TestComponent);
-        const instance = ReactTestUtils.renderIntoDocument(element) as TestComponent;
+        const instance: TestComponent = ReactTestUtils.renderIntoDocument(element);
         const isCompositeComponent: boolean = ReactTestUtils.isCompositeComponent(instance);
     });
 
     it('isCompositeComponentWithType', () => {
         const element = React.createElement(TestComponent);
-        const instance = ReactTestUtils.renderIntoDocument(element) as TestComponent;
+        const instance: TestComponent = ReactTestUtils.renderIntoDocument(element);
         const isCompositeComponent: boolean = ReactTestUtils.isCompositeComponentWithType(instance, TestComponent);
     });
 

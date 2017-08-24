@@ -5,10 +5,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { Plugin } from 'prosemirror-state';
-import { EditorState } from 'prosemirror-state';
+import { Plugin, EditorState, Transaction } from 'prosemirror-state';
 import { Step } from 'prosemirror-transform';
-import { Transaction } from 'prosemirror-state';
 
 export function collab<T>(config?: { version?: number, clientID?: number | string }): Plugin<T>;
 export function receiveTransaction(state: EditorState, steps: Step[], clientIDs: Array<number | string>): Transaction;

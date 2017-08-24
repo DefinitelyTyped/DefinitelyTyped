@@ -1278,21 +1278,21 @@ declare module "zlib" {
     export function deflateRaw(buf: Buffer | string, callback: (error: Error, result: Buffer) => void): void;
     export function deflateRaw(buf: Buffer | string, options: ZlibOptions, callback: (error: Error, result: Buffer) => void): void;
     export function deflateRawSync(buf: Buffer | string, options?: ZlibOptions): Buffer;
-    export function gzip(buf: Buffer, callback: (error: Error, result: Buffer) => void): void;
-    export function gzip(buf: Buffer, options: ZlibOptions, callback: (error: Error, result: Buffer) => void): void;
-    export function gzipSync(buf: Buffer, options?: ZlibOptions): Buffer;
-    export function gunzip(buf: Buffer, callback: (error: Error, result: Buffer) => void): void;
-    export function gunzip(buf: Buffer, options: ZlibOptions, callback: (error: Error, result: Buffer) => void): void;
-    export function gunzipSync(buf: Buffer, options?: ZlibOptions): Buffer;
-    export function inflate(buf: Buffer, callback: (error: Error, result: Buffer) => void): void;
-    export function inflate(buf: Buffer, options: ZlibOptions, callback: (error: Error, result: Buffer) => void): void;
-    export function inflateSync(buf: Buffer, options?: ZlibOptions): Buffer;
-    export function inflateRaw(buf: Buffer, callback: (error: Error, result: Buffer) => void): void;
-    export function inflateRaw(buf: Buffer, options: ZlibOptions, callback: (error: Error, result: Buffer) => void): void;
-    export function inflateRawSync(buf: Buffer, options?: ZlibOptions): Buffer;
-    export function unzip(buf: Buffer, callback: (error: Error, result: Buffer) => void): void;
-    export function unzip(buf: Buffer, options: ZlibOptions, callback: (error: Error, result: Buffer) => void): void;
-    export function unzipSync(buf: Buffer, options?: ZlibOptions): Buffer;
+    export function gzip(buf: Buffer | string, callback: (error: Error, result: Buffer) => void): void;
+    export function gzip(buf: Buffer | string, options: ZlibOptions, callback: (error: Error, result: Buffer) => void): void;
+    export function gzipSync(buf: Buffer | string, options?: ZlibOptions): Buffer;
+    export function gunzip(buf: Buffer | string, callback: (error: Error, result: Buffer) => void): void;
+    export function gunzip(buf: Buffer | string, options: ZlibOptions, callback: (error: Error, result: Buffer) => void): void;
+    export function gunzipSync(buf: Buffer | string, options?: ZlibOptions): Buffer;
+    export function inflate(buf: Buffer | string, callback: (error: Error, result: Buffer) => void): void;
+    export function inflate(buf: Buffer | string, options: ZlibOptions, callback: (error: Error, result: Buffer) => void): void;
+    export function inflateSync(buf: Buffer | string, options?: ZlibOptions): Buffer;
+    export function inflateRaw(buf: Buffer | string, callback: (error: Error, result: Buffer) => void): void;
+    export function inflateRaw(buf: Buffer | string, options: ZlibOptions, callback: (error: Error, result: Buffer) => void): void;
+    export function inflateRawSync(buf: Buffer | string, options?: ZlibOptions): Buffer;
+    export function unzip(buf: Buffer | string, callback: (error: Error, result: Buffer) => void): void;
+    export function unzip(buf: Buffer | string, options: ZlibOptions, callback: (error: Error, result: Buffer) => void): void;
+    export function unzipSync(buf: Buffer | string, options?: ZlibOptions): Buffer;
 
     export namespace constants {
         // Allowed flush values.
@@ -1379,13 +1379,23 @@ declare module "os" {
         };
     }
 
-    export interface NetworkInterfaceInfo {
+    export interface NetworkInterfaceBase {
         address: string;
         netmask: string;
-        family: string;
         mac: string;
         internal: boolean;
     }
+
+    export interface NetworkInterfaceInfoIPv4 extends NetworkInterfaceBase {
+        family: "IPv4";
+    }
+
+    export interface NetworkInterfaceInfoIPv6 extends NetworkInterfaceBase {
+        family: "IPv6";
+        scopeid: number;
+    }
+
+    export type NetworkInterfaceInfo = NetworkInterfaceInfoIPv4 | NetworkInterfaceInfoIPv6;
 
     export function hostname(): string;
     export function loadavg(): number[];

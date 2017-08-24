@@ -1,6 +1,6 @@
 // Type definitions for Application Insights v0.15.12
 // Project: https://github.com/Microsoft/ApplicationInsights-node.js
-// Definitions by: Scott Southwood <https://github.com/scsouthw/>
+// Definitions by: Scott Southwood <https://github.com/scsouthw>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface AutoCollectConsole {
@@ -341,9 +341,9 @@ interface Client {
     trackMetric(name: string, value: number, count?:number, min?: number, max?: number, stdDev?: number, properties?: {
         [key: string]: string;
     }): void;
-    
+
     /**
-     * Log an incoming http request to your server. The request data will be tracked during the response "finish" event if it is successful or the request "error" 
+     * Log an incoming http request to your server. The request data will be tracked during the response "finish" event if it is successful or the request "error"
      * event if it fails. The request duration is automatically calculated as the timespan between when the trackRequest method was called, and when the response "finish"
      * or request "error" events were fired.
      * @param request   The http.IncomingMessage object to track
@@ -353,7 +353,7 @@ interface Client {
     trackRequest(request: any /* http.IncomingMessage */, response: any /* http.ServerResponse */, properties?: {
         [key: string]: string;
     }): void;
-    
+
     /**
      * Log an incoming http request to your server. The request data is tracked synchronously rather than waiting for the response "finish"" or request "error"" events.
      * Use this if you need your request telemetry to respect custom app insights operation and user context (for example if you set any appInsights.client.context.tags).
@@ -365,7 +365,7 @@ interface Client {
      */
     trackRequestSync(request: any /*http.IncomingMessage */, response: any /*http.ServerResponse */, ellapsedMilliseconds?: number, properties?: {
         [key: string]: string;}, error?: any) : void;
-    
+
     /**
      * Log information about a dependency of your app. Typically used to track the time database calls or outgoing http requests take from your server.
      * @param name   The name of the dependency (i.e. "myDatabse")
