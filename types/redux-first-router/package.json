@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "redux": "^3.7.0",
-    "history": "^4.6.2"
+    "redux": "^3.7.0"
   }
 }
