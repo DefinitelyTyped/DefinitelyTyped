@@ -28,7 +28,11 @@ import * as v8 from "v8";
 import * as dns from "dns";
 import * as async_hooks from "async_hooks";
 import * as http2 from "http2";
+<<<<<<< HEAD
 import Module = require("module");
+=======
+import * as inspector from "inspector";
+>>>>>>> Add tests and various updates
 
 // Specifically test buffer module regression.
 import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer } from "buffer";
@@ -3398,4 +3402,45 @@ namespace module_tests {
     Module.wrap("some code");
 
     const m1 = new Module("moduleId");
+
+///////////////////////////////////////////////////////////
+/// HTTP/2 Tests                                        ///
+///////////////////////////////////////////////////////////
+
+namespace inspector_tests {
+    {
+        inspector.open();
+        inspector.open(0);
+        inspector.open(0, 'localhost');
+        inspector.open(0, 'localhost', true);
+        inspector.close();
+        const inspectorUrl: string = inspector.url();
+
+        const session = new inspector.Session();
+        session.connect();
+        session.disconnect();
+
+        // Unknown post method
+        session.post('A.b', { key: 'value' }, (err: Error, params: object) => {});
+        session.post('A.b', (err: Error, params: object) => {});
+        session.post('A.b');
+        // Known post method
+        const parameter: inspector.Runtime.EvaluateParameterType = { expression: '2 + 2' };
+        session.post('Runtime.evaluate', parameter,
+            (err: Error, params: inspector.Runtime.EvaluateReturnType) => {});
+        session.post('Runtime.evaluate', (err: Error, params: inspector.Runtime.EvaluateReturnType) => {
+            const exceptionDetails: inspector.Runtime.ExceptionDetails = params.exceptionDetails;
+            const resultClassName: string = params.result.className;
+        });
+        session.post('Runtime.evaluate');
+
+        // General event
+        session.on('inspectorNotification', (message: inspector.InspectorNotification<object>) => {});
+        // Known events
+        session.on('Debugger.paused', (message: inspector.InspectorNotification<inspector.Debugger.PausedEventDataType>) => {
+            const method: string = message.method;
+            const pauseReason: string = message.params.reason;
+        });
+        session.on('Debugger.resumed', () => {});
+    }
 }

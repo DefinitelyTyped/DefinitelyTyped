@@ -1692,321 +1692,321 @@ declare module "inspector" {
         /**
          * Posts a message to the inspector back-end. callback will be notified when a response is received. callback is a function that accepts two optional arguments - error and message-specific result.
          */
-        post(method: string, params?: object, callback?: (err?: Error | null, params?: object) => void): void;
-        post(method: string, callback?: (err?: Error | null, params?: object) => void): void;
+        post(method: string, params?: object, callback?: (err: Error, params?: object) => void): void;
+        post(method: string, callback?: (err: Error, params?: object) => void): void;
 
         /**
          * Returns supported domains.
          */
-        post(method: "Schema.getDomains", callback?: (err: Error | null, params?: Schema.GetDomainsReturnType) => void): void;
+        post(method: "Schema.getDomains", callback?: (err: Error, params: Schema.GetDomainsReturnType) => void): void;
         /**
          * Evaluates expression on global object.
          */
-        post(method: "Runtime.evaluate", params?: Runtime.EvaluateParameterType, callback?: (err: Error | null, params?: Runtime.EvaluateReturnType) => void): void;
-        post(method: "Runtime.evaluate", callback?: (err: Error | null, params?: Runtime.EvaluateReturnType) => void): void;
+        post(method: "Runtime.evaluate", params?: Runtime.EvaluateParameterType, callback?: (err: Error, params: Runtime.EvaluateReturnType) => void): void;
+        post(method: "Runtime.evaluate", callback?: (err: Error, params: Runtime.EvaluateReturnType) => void): void;
 
         /**
          * Add handler to promise with given promise object id.
          */
-        post(method: "Runtime.awaitPromise", params?: Runtime.AwaitPromiseParameterType, callback?: (err: Error | null, params?: Runtime.AwaitPromiseReturnType) => void): void;
-        post(method: "Runtime.awaitPromise", callback?: (err: Error | null, params?: Runtime.AwaitPromiseReturnType) => void): void;
+        post(method: "Runtime.awaitPromise", params?: Runtime.AwaitPromiseParameterType, callback?: (err: Error, params: Runtime.AwaitPromiseReturnType) => void): void;
+        post(method: "Runtime.awaitPromise", callback?: (err: Error, params: Runtime.AwaitPromiseReturnType) => void): void;
 
         /**
          * Calls function with given declaration on the given object. Object group of the result is inherited from the target object.
          */
-        post(method: "Runtime.callFunctionOn", params?: Runtime.CallFunctionOnParameterType, callback?: (err: Error | null, params?: Runtime.CallFunctionOnReturnType) => void): void;
-        post(method: "Runtime.callFunctionOn", callback?: (err: Error | null, params?: Runtime.CallFunctionOnReturnType) => void): void;
+        post(method: "Runtime.callFunctionOn", params?: Runtime.CallFunctionOnParameterType, callback?: (err: Error, params: Runtime.CallFunctionOnReturnType) => void): void;
+        post(method: "Runtime.callFunctionOn", callback?: (err: Error, params: Runtime.CallFunctionOnReturnType) => void): void;
 
         /**
          * Returns properties of a given object. Object group of the result is inherited from the target object.
          */
-        post(method: "Runtime.getProperties", params?: Runtime.GetPropertiesParameterType, callback?: (err: Error | null, params?: Runtime.GetPropertiesReturnType) => void): void;
-        post(method: "Runtime.getProperties", callback?: (err: Error | null, params?: Runtime.GetPropertiesReturnType) => void): void;
+        post(method: "Runtime.getProperties", params?: Runtime.GetPropertiesParameterType, callback?: (err: Error, params: Runtime.GetPropertiesReturnType) => void): void;
+        post(method: "Runtime.getProperties", callback?: (err: Error, params: Runtime.GetPropertiesReturnType) => void): void;
 
         /**
          * Releases remote object with given id.
          */
-        post(method: "Runtime.releaseObject", params?: Runtime.ReleaseObjectParameterType, callback?: (err?: Error) => void): void;
-        post(method: "Runtime.releaseObject", callback?: (err?: Error) => void): void;
+        post(method: "Runtime.releaseObject", params?: Runtime.ReleaseObjectParameterType, callback?: (err: Error) => void): void;
+        post(method: "Runtime.releaseObject", callback?: (err: Error) => void): void;
 
         /**
          * Releases all remote objects that belong to a given group.
          */
-        post(method: "Runtime.releaseObjectGroup", params?: Runtime.ReleaseObjectGroupParameterType, callback?: (err?: Error) => void): void;
-        post(method: "Runtime.releaseObjectGroup", callback?: (err?: Error) => void): void;
+        post(method: "Runtime.releaseObjectGroup", params?: Runtime.ReleaseObjectGroupParameterType, callback?: (err: Error) => void): void;
+        post(method: "Runtime.releaseObjectGroup", callback?: (err: Error) => void): void;
 
         /**
          * Tells inspected instance to run if it was waiting for debugger to attach.
          */
-        post(method: "Runtime.runIfWaitingForDebugger", callback?: (err?: Error) => void): void;
+        post(method: "Runtime.runIfWaitingForDebugger", callback?: (err: Error) => void): void;
 
         /**
          * Enables reporting of execution contexts creation by means of <code>executionContextCreated</code> event. When the reporting gets enabled the event will be sent immediately for each existing execution context.
          */
-        post(method: "Runtime.enable", callback?: (err?: Error) => void): void;
+        post(method: "Runtime.enable", callback?: (err: Error) => void): void;
 
         /**
          * Disables reporting of execution contexts creation.
          */
-        post(method: "Runtime.disable", callback?: (err?: Error) => void): void;
+        post(method: "Runtime.disable", callback?: (err: Error) => void): void;
 
         /**
          * Discards collected exceptions and console API calls.
          */
-        post(method: "Runtime.discardConsoleEntries", callback?: (err?: Error) => void): void;
+        post(method: "Runtime.discardConsoleEntries", callback?: (err: Error) => void): void;
 
         /**
          * @experimental
          */
-        post(method: "Runtime.setCustomObjectFormatterEnabled", params?: Runtime.SetCustomObjectFormatterEnabledParameterType, callback?: (err?: Error) => void): void;
-        post(method: "Runtime.setCustomObjectFormatterEnabled", callback?: (err?: Error) => void): void;
+        post(method: "Runtime.setCustomObjectFormatterEnabled", params?: Runtime.SetCustomObjectFormatterEnabledParameterType, callback?: (err: Error) => void): void;
+        post(method: "Runtime.setCustomObjectFormatterEnabled", callback?: (err: Error) => void): void;
 
         /**
          * Compiles expression.
          */
-        post(method: "Runtime.compileScript", params?: Runtime.CompileScriptParameterType, callback?: (err: Error | null, params?: Runtime.CompileScriptReturnType) => void): void;
-        post(method: "Runtime.compileScript", callback?: (err: Error | null, params?: Runtime.CompileScriptReturnType) => void): void;
+        post(method: "Runtime.compileScript", params?: Runtime.CompileScriptParameterType, callback?: (err: Error, params: Runtime.CompileScriptReturnType) => void): void;
+        post(method: "Runtime.compileScript", callback?: (err: Error, params: Runtime.CompileScriptReturnType) => void): void;
 
         /**
          * Runs script with given id in a given context.
          */
-        post(method: "Runtime.runScript", params?: Runtime.RunScriptParameterType, callback?: (err: Error | null, params?: Runtime.RunScriptReturnType) => void): void;
-        post(method: "Runtime.runScript", callback?: (err: Error | null, params?: Runtime.RunScriptReturnType) => void): void;
+        post(method: "Runtime.runScript", params?: Runtime.RunScriptParameterType, callback?: (err: Error, params: Runtime.RunScriptReturnType) => void): void;
+        post(method: "Runtime.runScript", callback?: (err: Error, params: Runtime.RunScriptReturnType) => void): void;
 
         /**
          * @experimental
          */
-        post(method: "Runtime.queryObjects", params?: Runtime.QueryObjectsParameterType, callback?: (err: Error | null, params?: Runtime.QueryObjectsReturnType) => void): void;
-        post(method: "Runtime.queryObjects", callback?: (err: Error | null, params?: Runtime.QueryObjectsReturnType) => void): void;
+        post(method: "Runtime.queryObjects", params?: Runtime.QueryObjectsParameterType, callback?: (err: Error, params: Runtime.QueryObjectsReturnType) => void): void;
+        post(method: "Runtime.queryObjects", callback?: (err: Error, params: Runtime.QueryObjectsReturnType) => void): void;
         /**
          * Enables debugger for the given page. Clients should not assume that the debugging has been enabled until the result for this command is received.
          */
-        post(method: "Debugger.enable", callback?: (err?: Error) => void): void;
+        post(method: "Debugger.enable", callback?: (err: Error) => void): void;
 
         /**
          * Disables debugger for given page.
          */
-        post(method: "Debugger.disable", callback?: (err?: Error) => void): void;
+        post(method: "Debugger.disable", callback?: (err: Error) => void): void;
 
         /**
          * Activates / deactivates all breakpoints on the page.
          */
-        post(method: "Debugger.setBreakpointsActive", params?: Debugger.SetBreakpointsActiveParameterType, callback?: (err?: Error) => void): void;
-        post(method: "Debugger.setBreakpointsActive", callback?: (err?: Error) => void): void;
+        post(method: "Debugger.setBreakpointsActive", params?: Debugger.SetBreakpointsActiveParameterType, callback?: (err: Error) => void): void;
+        post(method: "Debugger.setBreakpointsActive", callback?: (err: Error) => void): void;
 
         /**
          * Makes page not interrupt on any pauses (breakpoint, exception, dom exception etc).
          */
-        post(method: "Debugger.setSkipAllPauses", params?: Debugger.SetSkipAllPausesParameterType, callback?: (err?: Error) => void): void;
-        post(method: "Debugger.setSkipAllPauses", callback?: (err?: Error) => void): void;
+        post(method: "Debugger.setSkipAllPauses", params?: Debugger.SetSkipAllPausesParameterType, callback?: (err: Error) => void): void;
+        post(method: "Debugger.setSkipAllPauses", callback?: (err: Error) => void): void;
 
         /**
          * Sets JavaScript breakpoint at given location specified either by URL or URL regex. Once this command is issued, all existing parsed scripts will have breakpoints resolved and returned in <code>locations</code> property. Further matching script parsing will result in subsequent <code>breakpointResolved</code> events issued. This logical breakpoint will survive page reloads.
          */
-        post(method: "Debugger.setBreakpointByUrl", params?: Debugger.SetBreakpointByUrlParameterType, callback?: (err: Error | null, params?: Debugger.SetBreakpointByUrlReturnType) => void): void;
-        post(method: "Debugger.setBreakpointByUrl", callback?: (err: Error | null, params?: Debugger.SetBreakpointByUrlReturnType) => void): void;
+        post(method: "Debugger.setBreakpointByUrl", params?: Debugger.SetBreakpointByUrlParameterType, callback?: (err: Error, params: Debugger.SetBreakpointByUrlReturnType) => void): void;
+        post(method: "Debugger.setBreakpointByUrl", callback?: (err: Error, params: Debugger.SetBreakpointByUrlReturnType) => void): void;
 
         /**
          * Sets JavaScript breakpoint at a given location.
          */
-        post(method: "Debugger.setBreakpoint", params?: Debugger.SetBreakpointParameterType, callback?: (err: Error | null, params?: Debugger.SetBreakpointReturnType) => void): void;
-        post(method: "Debugger.setBreakpoint", callback?: (err: Error | null, params?: Debugger.SetBreakpointReturnType) => void): void;
+        post(method: "Debugger.setBreakpoint", params?: Debugger.SetBreakpointParameterType, callback?: (err: Error, params: Debugger.SetBreakpointReturnType) => void): void;
+        post(method: "Debugger.setBreakpoint", callback?: (err: Error, params: Debugger.SetBreakpointReturnType) => void): void;
 
         /**
          * Removes JavaScript breakpoint.
          */
-        post(method: "Debugger.removeBreakpoint", params?: Debugger.RemoveBreakpointParameterType, callback?: (err?: Error) => void): void;
-        post(method: "Debugger.removeBreakpoint", callback?: (err?: Error) => void): void;
+        post(method: "Debugger.removeBreakpoint", params?: Debugger.RemoveBreakpointParameterType, callback?: (err: Error) => void): void;
+        post(method: "Debugger.removeBreakpoint", callback?: (err: Error) => void): void;
 
         /**
          * Returns possible locations for breakpoint. scriptId in start and end range locations should be the same.
          * @experimental
          */
-        post(method: "Debugger.getPossibleBreakpoints", params?: Debugger.GetPossibleBreakpointsParameterType, callback?: (err: Error | null, params?: Debugger.GetPossibleBreakpointsReturnType) => void): void;
-        post(method: "Debugger.getPossibleBreakpoints", callback?: (err: Error | null, params?: Debugger.GetPossibleBreakpointsReturnType) => void): void;
+        post(method: "Debugger.getPossibleBreakpoints", params?: Debugger.GetPossibleBreakpointsParameterType, callback?: (err: Error, params: Debugger.GetPossibleBreakpointsReturnType) => void): void;
+        post(method: "Debugger.getPossibleBreakpoints", callback?: (err: Error, params: Debugger.GetPossibleBreakpointsReturnType) => void): void;
 
         /**
          * Continues execution until specific location is reached.
          */
-        post(method: "Debugger.continueToLocation", params?: Debugger.ContinueToLocationParameterType, callback?: (err?: Error) => void): void;
-        post(method: "Debugger.continueToLocation", callback?: (err?: Error) => void): void;
+        post(method: "Debugger.continueToLocation", params?: Debugger.ContinueToLocationParameterType, callback?: (err: Error) => void): void;
+        post(method: "Debugger.continueToLocation", callback?: (err: Error) => void): void;
 
         /**
          * Steps over the statement.
          */
-        post(method: "Debugger.stepOver", callback?: (err?: Error) => void): void;
+        post(method: "Debugger.stepOver", callback?: (err: Error) => void): void;
 
         /**
          * Steps into the function call.
          */
-        post(method: "Debugger.stepInto", callback?: (err?: Error) => void): void;
+        post(method: "Debugger.stepInto", callback?: (err: Error) => void): void;
 
         /**
          * Steps out of the function call.
          */
-        post(method: "Debugger.stepOut", callback?: (err?: Error) => void): void;
+        post(method: "Debugger.stepOut", callback?: (err: Error) => void): void;
 
         /**
          * Stops on the next JavaScript statement.
          */
-        post(method: "Debugger.pause", callback?: (err?: Error) => void): void;
+        post(method: "Debugger.pause", callback?: (err: Error) => void): void;
 
         /**
          * Steps into next scheduled async task if any is scheduled before next pause. Returns success when async task is actually scheduled, returns error if no task were scheduled or another scheduleStepIntoAsync was called.
          * @experimental
          */
-        post(method: "Debugger.scheduleStepIntoAsync", callback?: (err?: Error) => void): void;
+        post(method: "Debugger.scheduleStepIntoAsync", callback?: (err: Error) => void): void;
 
         /**
          * Resumes JavaScript execution.
          */
-        post(method: "Debugger.resume", callback?: (err?: Error) => void): void;
+        post(method: "Debugger.resume", callback?: (err: Error) => void): void;
 
         /**
          * Searches for given string in script content.
          * @experimental
          */
-        post(method: "Debugger.searchInContent", params?: Debugger.SearchInContentParameterType, callback?: (err: Error | null, params?: Debugger.SearchInContentReturnType) => void): void;
-        post(method: "Debugger.searchInContent", callback?: (err: Error | null, params?: Debugger.SearchInContentReturnType) => void): void;
+        post(method: "Debugger.searchInContent", params?: Debugger.SearchInContentParameterType, callback?: (err: Error, params: Debugger.SearchInContentReturnType) => void): void;
+        post(method: "Debugger.searchInContent", callback?: (err: Error, params: Debugger.SearchInContentReturnType) => void): void;
 
         /**
          * Edits JavaScript source live.
          */
-        post(method: "Debugger.setScriptSource", params?: Debugger.SetScriptSourceParameterType, callback?: (err: Error | null, params?: Debugger.SetScriptSourceReturnType) => void): void;
-        post(method: "Debugger.setScriptSource", callback?: (err: Error | null, params?: Debugger.SetScriptSourceReturnType) => void): void;
+        post(method: "Debugger.setScriptSource", params?: Debugger.SetScriptSourceParameterType, callback?: (err: Error, params: Debugger.SetScriptSourceReturnType) => void): void;
+        post(method: "Debugger.setScriptSource", callback?: (err: Error, params: Debugger.SetScriptSourceReturnType) => void): void;
 
         /**
          * Restarts particular call frame from the beginning.
          */
-        post(method: "Debugger.restartFrame", params?: Debugger.RestartFrameParameterType, callback?: (err: Error | null, params?: Debugger.RestartFrameReturnType) => void): void;
-        post(method: "Debugger.restartFrame", callback?: (err: Error | null, params?: Debugger.RestartFrameReturnType) => void): void;
+        post(method: "Debugger.restartFrame", params?: Debugger.RestartFrameParameterType, callback?: (err: Error, params: Debugger.RestartFrameReturnType) => void): void;
+        post(method: "Debugger.restartFrame", callback?: (err: Error, params: Debugger.RestartFrameReturnType) => void): void;
 
         /**
          * Returns source for the script with given id.
          */
-        post(method: "Debugger.getScriptSource", params?: Debugger.GetScriptSourceParameterType, callback?: (err: Error | null, params?: Debugger.GetScriptSourceReturnType) => void): void;
-        post(method: "Debugger.getScriptSource", callback?: (err: Error | null, params?: Debugger.GetScriptSourceReturnType) => void): void;
+        post(method: "Debugger.getScriptSource", params?: Debugger.GetScriptSourceParameterType, callback?: (err: Error, params: Debugger.GetScriptSourceReturnType) => void): void;
+        post(method: "Debugger.getScriptSource", callback?: (err: Error, params: Debugger.GetScriptSourceReturnType) => void): void;
 
         /**
          * Defines pause on exceptions state. Can be set to stop on all exceptions, uncaught exceptions or no exceptions. Initial pause on exceptions state is <code>none</code>.
          */
-        post(method: "Debugger.setPauseOnExceptions", params?: Debugger.SetPauseOnExceptionsParameterType, callback?: (err?: Error) => void): void;
-        post(method: "Debugger.setPauseOnExceptions", callback?: (err?: Error) => void): void;
+        post(method: "Debugger.setPauseOnExceptions", params?: Debugger.SetPauseOnExceptionsParameterType, callback?: (err: Error) => void): void;
+        post(method: "Debugger.setPauseOnExceptions", callback?: (err: Error) => void): void;
 
         /**
          * Evaluates expression on a given call frame.
          */
-        post(method: "Debugger.evaluateOnCallFrame", params?: Debugger.EvaluateOnCallFrameParameterType, callback?: (err: Error | null, params?: Debugger.EvaluateOnCallFrameReturnType) => void): void;
-        post(method: "Debugger.evaluateOnCallFrame", callback?: (err: Error | null, params?: Debugger.EvaluateOnCallFrameReturnType) => void): void;
+        post(method: "Debugger.evaluateOnCallFrame", params?: Debugger.EvaluateOnCallFrameParameterType, callback?: (err: Error, params: Debugger.EvaluateOnCallFrameReturnType) => void): void;
+        post(method: "Debugger.evaluateOnCallFrame", callback?: (err: Error, params: Debugger.EvaluateOnCallFrameReturnType) => void): void;
 
         /**
          * Changes value of variable in a callframe. Object-based scopes are not supported and must be mutated manually.
          */
-        post(method: "Debugger.setVariableValue", params?: Debugger.SetVariableValueParameterType, callback?: (err?: Error) => void): void;
-        post(method: "Debugger.setVariableValue", callback?: (err?: Error) => void): void;
+        post(method: "Debugger.setVariableValue", params?: Debugger.SetVariableValueParameterType, callback?: (err: Error) => void): void;
+        post(method: "Debugger.setVariableValue", callback?: (err: Error) => void): void;
 
         /**
          * Enables or disables async call stacks tracking.
          */
-        post(method: "Debugger.setAsyncCallStackDepth", params?: Debugger.SetAsyncCallStackDepthParameterType, callback?: (err?: Error) => void): void;
-        post(method: "Debugger.setAsyncCallStackDepth", callback?: (err?: Error) => void): void;
+        post(method: "Debugger.setAsyncCallStackDepth", params?: Debugger.SetAsyncCallStackDepthParameterType, callback?: (err: Error) => void): void;
+        post(method: "Debugger.setAsyncCallStackDepth", callback?: (err: Error) => void): void;
 
         /**
          * Replace previous blackbox patterns with passed ones. Forces backend to skip stepping/pausing in scripts with url matching one of the patterns. VM will try to leave blackboxed script by performing 'step in' several times, finally resorting to 'step out' if unsuccessful.
          * @experimental
          */
-        post(method: "Debugger.setBlackboxPatterns", params?: Debugger.SetBlackboxPatternsParameterType, callback?: (err?: Error) => void): void;
-        post(method: "Debugger.setBlackboxPatterns", callback?: (err?: Error) => void): void;
+        post(method: "Debugger.setBlackboxPatterns", params?: Debugger.SetBlackboxPatternsParameterType, callback?: (err: Error) => void): void;
+        post(method: "Debugger.setBlackboxPatterns", callback?: (err: Error) => void): void;
 
         /**
          * Makes backend skip steps in the script in blackboxed ranges. VM will try leave blacklisted scripts by performing 'step in' several times, finally resorting to 'step out' if unsuccessful. Positions array contains positions where blackbox state is changed. First interval isn't blackboxed. Array should be sorted.
          * @experimental
          */
-        post(method: "Debugger.setBlackboxedRanges", params?: Debugger.SetBlackboxedRangesParameterType, callback?: (err?: Error) => void): void;
-        post(method: "Debugger.setBlackboxedRanges", callback?: (err?: Error) => void): void;
+        post(method: "Debugger.setBlackboxedRanges", params?: Debugger.SetBlackboxedRangesParameterType, callback?: (err: Error) => void): void;
+        post(method: "Debugger.setBlackboxedRanges", callback?: (err: Error) => void): void;
         /**
          * Enables console domain, sends the messages collected so far to the client by means of the <code>messageAdded</code> notification.
          */
-        post(method: "Console.enable", callback?: (err?: Error) => void): void;
+        post(method: "Console.enable", callback?: (err: Error) => void): void;
 
         /**
          * Disables console domain, prevents further console messages from being reported to the client.
          */
-        post(method: "Console.disable", callback?: (err?: Error) => void): void;
+        post(method: "Console.disable", callback?: (err: Error) => void): void;
 
         /**
          * Does nothing.
          */
-        post(method: "Console.clearMessages", callback?: (err?: Error) => void): void;
-        post(method: "Profiler.enable", callback?: (err?: Error) => void): void;
+        post(method: "Console.clearMessages", callback?: (err: Error) => void): void;
+        post(method: "Profiler.enable", callback?: (err: Error) => void): void;
 
-        post(method: "Profiler.disable", callback?: (err?: Error) => void): void;
+        post(method: "Profiler.disable", callback?: (err: Error) => void): void;
 
         /**
          * Changes CPU profiler sampling interval. Must be called before CPU profiles recording started.
          */
-        post(method: "Profiler.setSamplingInterval", params?: Profiler.SetSamplingIntervalParameterType, callback?: (err?: Error) => void): void;
-        post(method: "Profiler.setSamplingInterval", callback?: (err?: Error) => void): void;
+        post(method: "Profiler.setSamplingInterval", params?: Profiler.SetSamplingIntervalParameterType, callback?: (err: Error) => void): void;
+        post(method: "Profiler.setSamplingInterval", callback?: (err: Error) => void): void;
 
-        post(method: "Profiler.start", callback?: (err?: Error) => void): void;
+        post(method: "Profiler.start", callback?: (err: Error) => void): void;
 
-        post(method: "Profiler.stop", callback?: (err: Error | null, params?: Profiler.StopReturnType) => void): void;
+        post(method: "Profiler.stop", callback?: (err: Error, params: Profiler.StopReturnType) => void): void;
 
         /**
          * Enable precise code coverage. Coverage data for JavaScript executed before enabling precise code coverage may be incomplete. Enabling prevents running optimized code and resets execution counters.
          * @experimental
          */
-        post(method: "Profiler.startPreciseCoverage", params?: Profiler.StartPreciseCoverageParameterType, callback?: (err?: Error) => void): void;
-        post(method: "Profiler.startPreciseCoverage", callback?: (err?: Error) => void): void;
+        post(method: "Profiler.startPreciseCoverage", params?: Profiler.StartPreciseCoverageParameterType, callback?: (err: Error) => void): void;
+        post(method: "Profiler.startPreciseCoverage", callback?: (err: Error) => void): void;
 
         /**
          * Disable precise code coverage. Disabling releases unnecessary execution count records and allows executing optimized code.
          * @experimental
          */
-        post(method: "Profiler.stopPreciseCoverage", callback?: (err?: Error) => void): void;
+        post(method: "Profiler.stopPreciseCoverage", callback?: (err: Error) => void): void;
 
         /**
          * Collect coverage data for the current isolate, and resets execution counters. Precise code coverage needs to have started.
          * @experimental
          */
-        post(method: "Profiler.takePreciseCoverage", callback?: (err: Error | null, params?: Profiler.TakePreciseCoverageReturnType) => void): void;
+        post(method: "Profiler.takePreciseCoverage", callback?: (err: Error, params: Profiler.TakePreciseCoverageReturnType) => void): void;
 
         /**
          * Collect coverage data for the current isolate. The coverage data may be incomplete due to garbage collection.
          * @experimental
          */
-        post(method: "Profiler.getBestEffortCoverage", callback?: (err: Error | null, params?: Profiler.GetBestEffortCoverageReturnType) => void): void;
-        post(method: "HeapProfiler.enable", callback?: (err?: Error) => void): void;
+        post(method: "Profiler.getBestEffortCoverage", callback?: (err: Error, params: Profiler.GetBestEffortCoverageReturnType) => void): void;
+        post(method: "HeapProfiler.enable", callback?: (err: Error) => void): void;
 
-        post(method: "HeapProfiler.disable", callback?: (err?: Error) => void): void;
+        post(method: "HeapProfiler.disable", callback?: (err: Error) => void): void;
 
-        post(method: "HeapProfiler.startTrackingHeapObjects", params?: HeapProfiler.StartTrackingHeapObjectsParameterType, callback?: (err?: Error) => void): void;
-        post(method: "HeapProfiler.startTrackingHeapObjects", callback?: (err?: Error) => void): void;
+        post(method: "HeapProfiler.startTrackingHeapObjects", params?: HeapProfiler.StartTrackingHeapObjectsParameterType, callback?: (err: Error) => void): void;
+        post(method: "HeapProfiler.startTrackingHeapObjects", callback?: (err: Error) => void): void;
 
-        post(method: "HeapProfiler.stopTrackingHeapObjects", params?: HeapProfiler.StopTrackingHeapObjectsParameterType, callback?: (err?: Error) => void): void;
-        post(method: "HeapProfiler.stopTrackingHeapObjects", callback?: (err?: Error) => void): void;
+        post(method: "HeapProfiler.stopTrackingHeapObjects", params?: HeapProfiler.StopTrackingHeapObjectsParameterType, callback?: (err: Error) => void): void;
+        post(method: "HeapProfiler.stopTrackingHeapObjects", callback?: (err: Error) => void): void;
 
-        post(method: "HeapProfiler.takeHeapSnapshot", params?: HeapProfiler.TakeHeapSnapshotParameterType, callback?: (err?: Error) => void): void;
-        post(method: "HeapProfiler.takeHeapSnapshot", callback?: (err?: Error) => void): void;
+        post(method: "HeapProfiler.takeHeapSnapshot", params?: HeapProfiler.TakeHeapSnapshotParameterType, callback?: (err: Error) => void): void;
+        post(method: "HeapProfiler.takeHeapSnapshot", callback?: (err: Error) => void): void;
 
-        post(method: "HeapProfiler.collectGarbage", callback?: (err?: Error) => void): void;
+        post(method: "HeapProfiler.collectGarbage", callback?: (err: Error) => void): void;
 
-        post(method: "HeapProfiler.getObjectByHeapObjectId", params?: HeapProfiler.GetObjectByHeapObjectIdParameterType, callback?: (err: Error | null, params?: HeapProfiler.GetObjectByHeapObjectIdReturnType) => void): void;
-        post(method: "HeapProfiler.getObjectByHeapObjectId", callback?: (err: Error | null, params?: HeapProfiler.GetObjectByHeapObjectIdReturnType) => void): void;
+        post(method: "HeapProfiler.getObjectByHeapObjectId", params?: HeapProfiler.GetObjectByHeapObjectIdParameterType, callback?: (err: Error, params: HeapProfiler.GetObjectByHeapObjectIdReturnType) => void): void;
+        post(method: "HeapProfiler.getObjectByHeapObjectId", callback?: (err: Error, params: HeapProfiler.GetObjectByHeapObjectIdReturnType) => void): void;
 
         /**
          * Enables console to refer to the node with given id via $x (see Command Line API for more details $x functions).
          */
-        post(method: "HeapProfiler.addInspectedHeapObject", params?: HeapProfiler.AddInspectedHeapObjectParameterType, callback?: (err?: Error) => void): void;
-        post(method: "HeapProfiler.addInspectedHeapObject", callback?: (err?: Error) => void): void;
+        post(method: "HeapProfiler.addInspectedHeapObject", params?: HeapProfiler.AddInspectedHeapObjectParameterType, callback?: (err: Error) => void): void;
+        post(method: "HeapProfiler.addInspectedHeapObject", callback?: (err: Error) => void): void;
 
-        post(method: "HeapProfiler.getHeapObjectId", params?: HeapProfiler.GetHeapObjectIdParameterType, callback?: (err: Error | null, params?: HeapProfiler.GetHeapObjectIdReturnType) => void): void;
-        post(method: "HeapProfiler.getHeapObjectId", callback?: (err: Error | null, params?: HeapProfiler.GetHeapObjectIdReturnType) => void): void;
+        post(method: "HeapProfiler.getHeapObjectId", params?: HeapProfiler.GetHeapObjectIdParameterType, callback?: (err: Error, params: HeapProfiler.GetHeapObjectIdReturnType) => void): void;
+        post(method: "HeapProfiler.getHeapObjectId", callback?: (err: Error, params: HeapProfiler.GetHeapObjectIdReturnType) => void): void;
 
-        post(method: "HeapProfiler.startSampling", params?: HeapProfiler.StartSamplingParameterType, callback?: (err?: Error) => void): void;
-        post(method: "HeapProfiler.startSampling", callback?: (err?: Error) => void): void;
+        post(method: "HeapProfiler.startSampling", params?: HeapProfiler.StartSamplingParameterType, callback?: (err: Error) => void): void;
+        post(method: "HeapProfiler.startSampling", callback?: (err: Error) => void): void;
 
-        post(method: "HeapProfiler.stopSampling", callback?: (err: Error | null, params?: HeapProfiler.StopSamplingReturnType) => void): void;
+        post(method: "HeapProfiler.stopSampling", callback?: (err: Error, params: HeapProfiler.StopSamplingReturnType) => void): void;
 
         // Events
 
