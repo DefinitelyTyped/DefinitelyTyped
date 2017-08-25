@@ -1,4 +1,4 @@
-// Type definitions for Umzug v1.8.0
+// Type definitions for Umzug v2.0.1
 // Project: https://github.com/sequelize/umzug
 // Definitions by: Ivan Drinchev <https://github.com/drinchev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -122,7 +122,7 @@ declare namespace umzug {
 
     }
 
-    interface UpDownToOptions {
+    interface UpToOptions {
 
         /**
          * It is also possible to pass the name of a migration in order to
@@ -130,6 +130,17 @@ declare namespace umzug {
          * migration name.
          */
         to: string;
+
+    }
+
+    interface DownToOptions {
+
+        /**
+         * It is also possible to pass the name of a migration in order to
+         * just run the migrations from the current state to the passed
+         * migration name. down allows to pass 0 to revert everything.
+         */
+        to: string | 0;
 
     }
 
@@ -170,19 +181,19 @@ declare namespace umzug {
          */
         up(migration?: string): Promise<Migration[]>;
         up(migrations?: string[]): Promise<Migration[]>;
-        up(options?: UpDownToOptions | UpDownMigrationsOptions): Promise<Migration[]>;
+        up(options?: UpToOptions | UpDownMigrationsOptions): Promise<Migration[]>;
 
         /**
          * The down method can be used to revert the last executed migration.
          */
         down(migration?: string): Promise<Migration[]>;
         down(migrations?: string[]): Promise<Migration[]>;
-        down(options?: UpDownToOptions | UpDownMigrationsOptions): Promise<Migration[]>;
+        down(options?: DownToOptions | UpDownMigrationsOptions): Promise<Migration[]>;
 
     }
 
     interface UmzugStatic {
-        new (options?: UmzugOptions): Umzug;
+        new(options?: UmzugOptions): Umzug;
     }
 }
 
