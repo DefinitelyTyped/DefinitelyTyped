@@ -25,7 +25,6 @@ export class Parser {
      */
     results: any[];
 
-    constructor(rules: CompiledRules, start: string, options?: ParserOptions);
     constructor(grammar: Grammar, options?: ParserOptions);
 
     /**
@@ -54,35 +53,37 @@ export class Rule {
     id: number;
     name: string;
     symbols: any[];
-    postprocess?(data: any[], reference: number, wantedBy: any): void;
+    postprocess?: Postprocessor;
 
-    constructor(name: string, symbols: any[], postprocess?: (data: any[], reference: number, wantedBy: any) => void);
+    constructor(name: string, symbols: any[], postprocess?: Postprocessor);
 
     toString(withCursorAt?: number): string;
 }
 
 export class Grammar {
-    static fromCompiled(rules: CompiledRules, start?: string): Grammar;
+    static fromCompiled(rules: CompiledRules): Grammar;
 
     rules: Rule[];
     start: string;
     byName: {[ruleName: string]: Rule[]};
     lexer?: Lexer;
 
-    constructor(rules: Rule[], start?: string);
+    constructor(rules: Rule[]);
 }
 
 export interface CompiledRules {
     Lexer?: Lexer;
-    ParserStart: number;
+    ParserStart: string;
     ParserRules: ParserRule[];
 }
 
 export interface ParserRule {
     name: string;
     symbols: any[];
-    postprocess?(data: any[], reference: number, wantedBy: any): void;
+    postprocess?: Postprocessor;
 }
+
+export type Postprocessor = (data: any[], reference: number, wantedBy: {}) => void;
 
 export interface Lexer {
     /**
