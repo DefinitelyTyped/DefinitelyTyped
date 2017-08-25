@@ -5209,12 +5209,22 @@ declare namespace sequelize {
          * The maximum time, in milliseconds, that a connection can be idle before being released.
          */
         idle?: number;
+                     
+        /**
+         * The maximum time, in milliseconds, that pool will try to get connection before throwing error
+         */
+        acquire?: number;
 
         /**
          * A function that validates a connection. Called with client. The default function checks that client is an
          * object, and that its state is not disconnected.
          */
-        validateConnection?: (client?: any) => boolean;
+        validate?: (client?: any) => boolean;
+                     
+        /*
+         * The time interval, in milliseconds, for evicting stale connections
+         */
+        evict?: number;
 
     }
 
