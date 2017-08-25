@@ -1608,14 +1608,14 @@ export class Object3D extends EventDispatcher {
     /**
      * Calls before rendering object
      */
-    onBeforeRender: (renderer: THREE.WebGLRenderer, scene: THREE.Scene, camera: THREE.Camera, geometry: THREE.Geometry | THREE.BufferGeometry,
-                     material: THREE.Material, group: THREE.Group) => void;
+    onBeforeRender: (renderer: WebGLRenderer, scene: Scene, camera: Camera, geometry: Geometry | BufferGeometry,
+                     material: Material, group: Group) => void;
 
     /**
      * Calls after rendering object
      */
-    onAfterRender: (renderer: THREE.WebGLRenderer, scene: THREE.Scene, camera: THREE.Camera, geometry: THREE.Geometry | THREE.BufferGeometry,
-                    material: THREE.Material, group: THREE.Group) => void;
+    onAfterRender: (renderer: WebGLRenderer, scene: Scene, camera: Camera, geometry: Geometry | BufferGeometry,
+                    material: Material, group: Group) => void;
 
     /**
      *
