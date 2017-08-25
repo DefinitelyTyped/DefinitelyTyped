@@ -286,7 +286,7 @@ declare module "inspector" {
             /**
              * Embedder-specific auxiliary data.
              */
-            auxData?: object;
+            auxData?: {};
         }
 
         /**
@@ -718,7 +718,7 @@ declare module "inspector" {
 
         export interface InspectRequestedEventDataType {
             object: Runtime.RemoteObject;
-            hints: object;
+            hints: {};
         }
     }
 
@@ -1183,7 +1183,7 @@ declare module "inspector" {
             /**
              * Embedder-specific auxiliary data.
              */
-            executionContextAuxData?: object;
+            executionContextAuxData?: {};
             /**
              * True, if this script is generated as a result of the live edit operation.
              * @experimental
@@ -1251,7 +1251,7 @@ declare module "inspector" {
             /**
              * Embedder-specific auxiliary data.
              */
-            executionContextAuxData?: object;
+            executionContextAuxData?: {};
             /**
              * URL of source map associated with script (if any).
              */
@@ -1301,7 +1301,7 @@ declare module "inspector" {
             /**
              * Object containing break-specific auxiliary properties.
              */
-            data?: object;
+            data?: {};
             /**
              * Hit breakpoints IDs
              */
@@ -1692,8 +1692,8 @@ declare module "inspector" {
         /**
          * Posts a message to the inspector back-end. callback will be notified when a response is received. callback is a function that accepts two optional arguments - error and message-specific result.
          */
-        post(method: string, params?: object, callback?: (err: Error, params?: object) => void): void;
-        post(method: string, callback?: (err: Error, params?: object) => void): void;
+        post(method: string, params?: {}, callback?: (err: Error, params?: {}) => void): void;
+        post(method: string, callback?: (err: Error, params?: {}) => void): void;
 
         /**
          * Returns supported domains.
@@ -2015,7 +2015,7 @@ declare module "inspector" {
         /**
          * Emitted when any notification from the V8 Inspector is received.
          */
-        addListener(event: "inspectorNotification", listener: (message: InspectorNotification<object>) => void): this;
+        addListener(event: "inspectorNotification", listener: (message: InspectorNotification<{}>) => void): this;
 
         /**
          * Issued when new execution context is created.
@@ -2103,7 +2103,7 @@ declare module "inspector" {
         addListener(event: "HeapProfiler.heapStatsUpdate", listener: (message: InspectorNotification<HeapProfiler.HeapStatsUpdateEventDataType>) => void): this;
 
         emit(event: string | symbol, ...args: any[]): boolean;
-        emit(event: "inspectorNotification", message: InspectorNotification<object>): boolean;
+        emit(event: "inspectorNotification", message: InspectorNotification<{}>): boolean;
         emit(event: "Runtime.executionContextCreated", message: InspectorNotification<Runtime.ExecutionContextCreatedEventDataType>): boolean;
         emit(event: "Runtime.executionContextDestroyed", message: InspectorNotification<Runtime.ExecutionContextDestroyedEventDataType>): boolean;
         emit(event: "Runtime.executionContextsCleared"): boolean;
@@ -2130,7 +2130,7 @@ declare module "inspector" {
         /**
          * Emitted when any notification from the V8 Inspector is received.
          */
-        on(event: "inspectorNotification", listener: (message: InspectorNotification<object>) => void): this;
+        on(event: "inspectorNotification", listener: (message: InspectorNotification<{}>) => void): this;
 
         /**
          * Issued when new execution context is created.
@@ -2222,7 +2222,7 @@ declare module "inspector" {
         /**
          * Emitted when any notification from the V8 Inspector is received.
          */
-        once(event: "inspectorNotification", listener: (message: InspectorNotification<object>) => void): this;
+        once(event: "inspectorNotification", listener: (message: InspectorNotification<{}>) => void): this;
 
         /**
          * Issued when new execution context is created.
@@ -2314,7 +2314,7 @@ declare module "inspector" {
         /**
          * Emitted when any notification from the V8 Inspector is received.
          */
-        prependListener(event: "inspectorNotification", listener: (message: InspectorNotification<object>) => void): this;
+        prependListener(event: "inspectorNotification", listener: (message: InspectorNotification<{}>) => void): this;
 
         /**
          * Issued when new execution context is created.
@@ -2406,7 +2406,7 @@ declare module "inspector" {
         /**
          * Emitted when any notification from the V8 Inspector is received.
          */
-        prependOnceListener(event: "inspectorNotification", listener: (message: InspectorNotification<object>) => void): this;
+        prependOnceListener(event: "inspectorNotification", listener: (message: InspectorNotification<{}>) => void): this;
 
         /**
          * Issued when new execution context is created.
