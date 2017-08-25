@@ -1,10 +1,8 @@
 // Type definitions for passport-jwt 2.0
 // Project: https://github.com/themikenicholson/passport-jwt
-
 // Definitions by: TANAKA Koichi <https://github.com/mugeso/>
 //                 Alex Young <https://github.com/alsiola/>
 //                 David Ng <https://github.com/davidNHK/>
-
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { Strategy as PassportStrategy } from 'passport-strategy';
