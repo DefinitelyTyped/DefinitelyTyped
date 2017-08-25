@@ -65,6 +65,10 @@ export interface Settings {
 
   hidden_input?: boolean;
 
+  paste_data_images?: boolean;
+
+  advlist_number_styles?: string;
+
   init_instance_callback?(editor: Editor): void;
 
   plugins?: string | string[];

@@ -21,7 +21,10 @@
     "lint": "dtslint types"
   },
   "devDependencies": {
-    "dtslint": "Microsoft/dtslint#production",
+    "dtslint": "github:Microsoft/dtslint#production",
     "types-publisher": "Microsoft/types-publisher#production"
+  },
+  "dependencies": {
+    "@egjs/axes": "^2.0.0"
   }
 }

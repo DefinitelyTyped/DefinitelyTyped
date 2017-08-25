@@ -32,8 +32,7 @@ function main(): void {
     return todoDb.select().from(itemSchema).where(column.eq(false)).exec();
 }).then((results) => {
     results.forEach((row) => {
-      document.body.textContent = (row as any).description + ' before ' +
-          (row as any).deadline;
+      document.body.textContent = `${(row as any).description} before ${(row as any).deadline}`;
     });
 
     return todoDb.delete().from(itemSchema);
