@@ -35,11 +35,9 @@ export interface PoolConfig extends ClientConfig {
       // properties from module 'node-pool'
       max?: number;
       min?: number;
-      refreshIdle?: boolean;
       connectionTimeoutMillis?: number;
       idleTimeoutMillis?: number;
-      reapIntervalMillis?: number;
-      returnToHead?: boolean;
+
       application_name?: string;
       Promise?: PromiseConstructorLike;
 }
