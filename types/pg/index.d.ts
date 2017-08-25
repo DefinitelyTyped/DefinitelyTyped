@@ -1,6 +1,6 @@
 // Type definitions for pg 7.1
 // Project: https://github.com/brianc/node-postgres
-// Definitions by: Phips Peter <http://pspeter3.com>
+// Definitions by: Phips Peter <https://github.com/pspeter3>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
