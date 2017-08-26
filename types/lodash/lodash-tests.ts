@@ -1233,7 +1233,7 @@ namespace TestIndexOf {
 }
 
 // _.sortedIndexOf
-namespace TestIndexOf {
+{
     let array: TResult[] | null | undefined = [] as any;
     let list: _.List<TResult> | null | undefined = [] as any;
     let value: TResult = { a: 1, b: "", c: true };
@@ -1330,7 +1330,7 @@ namespace TestIntersectionBy {
 }
 
 // _.intersectionWith
-namespace TestDifferenceWith {
+{
     let array: TResult[] | null | undefined = any;
     let list: _.List<TResult> | null | undefined = any;
     let comparator: (arrVal: TResult, othVal: TResult) => boolean = _.isEqual;
@@ -2112,7 +2112,7 @@ namespace TestSortedLastIndexBy {
 }
 
 // _.sortedLastIndexOf
-namespace TestSortedLastIndex {
+{
     interface SampleType { a: number; b: string; c: boolean; }
 
     let array: SampleType[] = [];
@@ -2752,7 +2752,7 @@ namespace TestUniqWith {
     }).value();
 
     result = _(list).uniqWith().value();
-    result = _(list).uniqWith( (a, b) => {
+    result = _(list).uniqWith((a, b) => {
         a; // $ExpectType TResult
         b; // $ExpectType TResult
         return true;
@@ -4230,6 +4230,8 @@ namespace TestEvery {
         result = _.every(numericDictionary, ['a', 42]);
         result = _.every(numericDictionary, {a: 42});
 
+        result = _.every([{ a: 1, b: { c: '', d: true }}], { b: { c: '' }});
+
         result = _(array).every();
         result = _(array).every(listIterator);
         result = _(array).every('a');
@@ -4253,6 +4255,8 @@ namespace TestEvery {
         result = _(numericDictionary).every('a');
         result = _(numericDictionary).every(['a', 42]);
         result = _(numericDictionary).every({a: 42});
+
+        result = _([{ a: 1, b: { c: '', d: true }}]).every({ b: { c: '' }});
     }
 
     {
@@ -4281,6 +4285,8 @@ namespace TestEvery {
         result = _(numericDictionary).chain().every('a');
         result = _(numericDictionary).chain().every(['a', 42]);
         result = _(numericDictionary).chain().every({a: 42});
+
+        result = _([{ a: 1, b: { c: '', d: true }}]).chain().every({ b: { c: '' }});
     }
 }
 
@@ -5385,8 +5391,6 @@ namespace TestGroupBy {
     let dictionary: _.Dictionary<SampleType> | null | undefined = any;
 
     let stringIterator = (char: string, index: number, string: string) => 0;
-    let listIterator = (value: SampleType, index: number, collection: _.List<SampleType>) => 0;
-    let dictionaryIterator = (value: SampleType, key: string, collection: _.Dictionary<SampleType>) => 0;
 
     {
         let result: _.Dictionary<string[]>;
@@ -5403,33 +5407,57 @@ namespace TestGroupBy {
         let result: _.Dictionary<SampleType[]>;
 
         result = _.groupBy(list);
-        result = _.groupBy(list, listIterator);
+        result = _.groupBy(list, (value, key, collection) => {
+            value; // ExpectType SampleType
+            key; // ExpectType number
+            collection; // ExpectType ArrayLike<SampleType>
+        });
         result = _.groupBy(list, '');
         result = _.groupBy(list, {a: 42});
         result = _.groupBy(list, ['a', 42]);
         result = _(list).groupBy().value();
-        result = _(list).groupBy(listIterator).value();
+        result = _(list).groupBy((value, key, collection) => {
+            value; // ExpectType SampleType
+            key; // ExpectType number
+            collection; // ExpectType ArrayLike<SampleType>
+        }).value();
         result = _(list).groupBy('').value();
         result = _(list).groupBy({a: 42}).value();
         result = _(list).groupBy(['a', 42]).value();
         result = _.chain(list).groupBy().value();
-        result = _.chain(list).groupBy(listIterator).value();
+        result = _.chain(list).groupBy((value, key, collection) => {
+            value; // ExpectType SampleType
+            key; // ExpectType number
+            collection; // ExpectType ArrayLike<SampleType>
+        }).value();
         result = _.chain(list).groupBy('').value();
         result = _.chain(list).groupBy({a: 42}).value();
         result = _.chain(list).groupBy(['a', 42]).value();
 
         result = _.groupBy(dictionary);
-        result = _.groupBy(dictionary, dictionaryIterator);
+        result = _.groupBy(dictionary, (value, key, collection) => {
+            value; // ExpectType SampleType
+            key; // ExpectType string
+            collection; // ExpectType Dictionary<SampleType>
+        });
         result = _.groupBy(dictionary, '');
         result = _.groupBy(dictionary, {a: 42});
         result = _.groupBy(dictionary, ['a', 42]);
         result = _(dictionary).groupBy().value();
-        result = _(dictionary).groupBy(dictionaryIterator).value();
+        result = _(dictionary).groupBy((value, key, collection) => {
+            value; // ExpectType SampleType
+            key; // ExpectType string
+            collection; // ExpectType Dictionary<SampleType>
+        }).value();
         result = _(dictionary).groupBy('').value();
         result = _(dictionary).groupBy({a: 42}).value();
         result = _(dictionary).groupBy(['a', 42]).value();
         result = _.chain(dictionary).groupBy().value();
-        result = _.chain(dictionary).groupBy(dictionaryIterator).value();
+        result = _.chain(dictionary).groupBy((value, key, collection) => {
+            value; // ExpectType SampleType
+            key; // ExpectType string
+            collection; // ExpectType Dictionary<SampleType>
+        }).value();
         result = _.chain(dictionary).groupBy('').value();
         result = _.chain(dictionary).groupBy({a: 42}).value();
         result = _.chain(dictionary).groupBy(['a', 42]).value();
@@ -8327,7 +8355,7 @@ namespace TestIsBuffer {
 }
 
 // _.isDate
-namespace TestIsBoolean {
+{
     {
         let value: number|Date = 0;
 
@@ -8622,8 +8650,8 @@ namespace TestIsMatch {
 
     let result: boolean;
 
-    result = <boolean>_.isMatch({}, {});
-    result = <boolean>_({}).isMatch({});
+    result = _.isMatch({}, {});
+    result = _({}).isMatch({});
 }
 
 // _.isMatchWith
@@ -8632,8 +8660,8 @@ namespace TestIsMatchWith {
 
     let result: boolean;
 
-    result = <boolean>_.isMatchWith({}, {}, testIsMatchCustiomizerFn);
-    result = <boolean>_({}).isMatchWith({}, testIsMatchCustiomizerFn);
+    result = _.isMatchWith({}, {}, testIsMatchCustiomizerFn);
+    result = _({}).isMatchWith({}, testIsMatchCustiomizerFn);
 }
 
 // _.isNaN
@@ -9525,7 +9553,7 @@ namespace TestMean {
 }
 
 // _.meanBy
-namespace TestMean {
+{
     let array: TResult[] = [];
 
     let result: number;
@@ -12313,10 +12341,7 @@ namespace TestValues {
         result = _(list).chain().values();
         result = _(object).chain().values();
     }
-}
 
-// _.values
-namespace TestValues {
     {
         let object: _.Dictionary<TResult> = {};
 
@@ -12334,8 +12359,6 @@ namespace TestValues {
     }
 
     {
-        let object: TResult = any;
-
         _.values(any); // $ExpectType any[]
         _(any).values(); // $ExpectType LoDashImplicitWrapper<any[]>
         _.chain(any).values(); // $ExpectType LoDashExplicitWrapper<any[]>
@@ -13314,7 +13337,7 @@ namespace TestMatches {
 }
 
 // _.matchesProperty
-namespace TestMatches {
+{
     let path: {toString(): string;}|Array<{toString(): string;}> = [];
     let source: TResult = { a: 1, b: "", c: true };
 
@@ -13511,22 +13534,20 @@ namespace TestNoConflict {
 // _.noop
 namespace TestNoop {
     {
-        let result: void; // tslint:disable-line:void-return
+        _.noop(); // $ExpectType void
+        _.noop(1); // $ExpectType void
+        _.noop('a', 1); // $ExpectType void
+        _.noop(true, 'a', 1); // $ExpectType void
 
-        result = _.noop();
-        result = _.noop(1);
-        result = _.noop('a', 1);
-        result = _.noop(true, 'a', 1);
-
-        result = _('a').noop(true, 'a', 1);
-        result = _([1]).noop(true, 'a', 1);
-        result = _([]).noop(true, 'a', 1);
-        result = _({}).noop(true, 'a', 1);
-        result = _(any).noop(true, 'a', 1);
+        _('a').noop(true, 'a', 1); // $ExpectType void
+        _([1]).noop(true, 'a', 1); // $ExpectType void
+        _([]).noop(true, 'a', 1); // $ExpectType void
+        _({}).noop(true, 'a', 1); // $ExpectType void
+        _(any).noop(true, 'a', 1); // $ExpectType void
     }
 
     {
-        let result: _.LoDashExplicitWrapper<void>;
+        let result: _.LoDashExplicitWrapper<undefined>;
 
         result = _('a').chain().noop(true, 'a', 1);
         result = _([1]).chain().noop(true, 'a', 1);
@@ -13961,6 +13982,7 @@ _.templateSettings; // $ExpectType TemplateSettings
     function func4(arg1: number, arg2: string, arg3: boolean, arg4: number): number {
         return arg1 * arg2.length + (arg3 ? 1 : 0) - arg4;
     }
+    // tslint:disable:space-within-parens
     let res____: () => number;
     let res1___: (arg1: number                                              ) => number;
     let res_2__: (              arg2: string                                ) => number;
@@ -14057,6 +14079,7 @@ _.templateSettings; // $ExpectType TemplateSettings
     res_2__ = _.partialRight(func4, 42,     _, true, 100);
     res1___ = _.partialRight(func4,     "foo", true, 100);
     res____ = _.partialRight(func4, 42, "foo", true, 100);
+    // tslint:enable:space-within-parens
 }
 
 // Test _.PartialDeep type

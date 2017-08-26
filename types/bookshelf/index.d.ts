@@ -170,7 +170,7 @@ declare namespace Bookshelf {
 		all<R extends {}>(predicate?: R): boolean;
 		any(predicate?: Lodash.ListIterator<T, boolean> | Lodash.DictionaryIterator<T, boolean> | string, thisArg?: any): boolean;
 		any<R extends {}>(predicate?: R): boolean;
-		chain(): Lodash.LoDashExplicitObjectWrapper<T>;
+		chain(): Lodash.LoDashExplicitWrapper<T>;
 		collect(predicate?: Lodash.ListIterator<T, boolean> | Lodash.DictionaryIterator<T, boolean> | string, thisArg?: any): T[];
 		collect<R extends {}>(predicate?: R): T[];
 		contains(value: any, fromIndex?: number): boolean;

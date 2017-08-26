@@ -395,7 +395,7 @@ declare namespace _ {
          * @param value The value to cache.
          * @return Returns the cache object.
          */
-        set(key: string, value: any): _.Dictionary<any>;
+        set(key: string, value: any): Dictionary<any>;
 
         /**
          * Removes all key-value entries from the map.
@@ -1213,7 +1213,7 @@ declare namespace _ {
 
     //_.first
     interface LoDashStatic {
-        first: typeof _.head;
+        first: typeof _.head; // tslint:disable-line:no-unnecessary-qualifier
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -1343,7 +1343,7 @@ declare namespace _ {
          * // => { 'fred': 30, 'barney': 40 }
          */
         fromPairs<T>(
-          array: List<[_.StringRepresentable, T]> | null | undefined
+          array: List<[StringRepresentable, T]> | null | undefined
         ): Dictionary<T>;
 
         /**
@@ -1360,7 +1360,7 @@ declare namespace _ {
          * @see _.fromPairs
          */
         fromPairs<T>(
-          this: LoDashImplicitWrapper<List<[_.StringRepresentable, T]> | null | undefined>
+          this: LoDashImplicitWrapper<List<[StringRepresentable, T]> | null | undefined>
         ): LoDashImplicitWrapper<Dictionary<T>>;
 
         /**
@@ -1376,7 +1376,7 @@ declare namespace _ {
          * @see _.fromPairs
          */
         fromPairs<T>(
-          this: LoDashExplicitWrapper<List<[_.StringRepresentable, T]> | null | undefined>
+          this: LoDashExplicitWrapper<List<[StringRepresentable, T]> | null | undefined>
         ): LoDashExplicitWrapper<Dictionary<T>>;
 
         /**
@@ -3538,7 +3538,7 @@ declare namespace _ {
         zip<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
             ...arrays: Array<List<T> | null | undefined>
-        ): _.LoDashImplicitWrapper<T[][]>;
+        ): LoDashImplicitWrapper<T[][]>;
     }
 
     interface LoDashExplicitWrapper<TValue> {
@@ -3548,7 +3548,7 @@ declare namespace _ {
         zip<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
             ...arrays: Array<List<T> | null | undefined>
-        ): _.LoDashExplicitWrapper<T[][]>;
+        ): LoDashExplicitWrapper<T[][]>;
     }
 
     //_.zipObject
@@ -4164,7 +4164,7 @@ declare namespace _ {
 
     //_.each
     interface LoDashStatic {
-        each: typeof _.forEach;
+        each: typeof _.forEach; // tslint:disable-line:no-unnecessary-qualifier
     }
 
     interface LoDashWrapper<TValue> {
@@ -4203,7 +4203,7 @@ declare namespace _ {
 
     //_.eachRight
     interface LoDashStatic {
-        eachRight: typeof _.forEachRight;
+        eachRight: typeof _.forEachRight; // tslint:disable-line:no-unnecessary-qualifier
     }
 
     interface LoDashWrapper<TValue> {
@@ -5138,7 +5138,7 @@ declare namespace _ {
          * @see _.groupBy
          */
         groupBy<T extends object>(
-            collection: LoDashImplicitWrapper<T | null | undefined>,
+            this: LoDashImplicitWrapper<T | null | undefined>,
             iteratee?: ObjectIteratee<T>
         ): LoDashImplicitWrapper<Dictionary<Array<T[keyof T]>>>;
 
@@ -5172,7 +5172,7 @@ declare namespace _ {
          * @see _.groupBy
          */
         groupBy<T extends object>(
-            collection: LoDashExplicitWrapper<T | null | undefined>,
+            this: LoDashExplicitWrapper<T | null | undefined>,
             iteratee?: ObjectIteratee<T>
         ): LoDashExplicitWrapper<Dictionary<Array<T[keyof T]>>>;
     }
@@ -7076,29 +7076,29 @@ declare namespace _ {
         (t1: T1, t2: T2, t3: T3, t4: T4): CurriedFunction1<T5, R>;
         (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5): R;
     }
-    interface RightCurriedFunction1<T1, R>{
+    interface RightCurriedFunction1<T1, R> {
         (): RightCurriedFunction1<T1, R>;
         (t1: T1): R;
     }
-    interface RightCurriedFunction2<T1, T2, R>{
+    interface RightCurriedFunction2<T1, T2, R> {
         (): RightCurriedFunction2<T1, T2, R>;
         (t2: T2): RightCurriedFunction1<T1, R>;
         (t1: T1, t2: T2): R;
     }
-    interface RightCurriedFunction3<T1, T2, T3, R>{
+    interface RightCurriedFunction3<T1, T2, T3, R> {
         (): RightCurriedFunction3<T1, T2, T3, R>;
         (t3: T3): RightCurriedFunction2<T1, T2, R>;
         (t2: T2, t3: T3): RightCurriedFunction1<T1, R>;
         (t1: T1, t2: T2, t3: T3): R;
     }
-    interface RightCurriedFunction4<T1, T2, T3, T4, R>{
+    interface RightCurriedFunction4<T1, T2, T3, T4, R> {
         (): RightCurriedFunction4<T1, T2, T3, T4, R>;
         (t4: T4): RightCurriedFunction3<T1, T2, T3, R>;
         (t3: T3, t4: T4): RightCurriedFunction2<T1, T2, R>;
         (t2: T2, t3: T3, t4: T4): RightCurriedFunction1<T1, R>;
         (t1: T1, t2: T2, t3: T3, t4: T4): R;
     }
-    interface RightCurriedFunction5<T1, T2, T3, T4, T5, R>{
+    interface RightCurriedFunction5<T1, T2, T3, T4, T5, R> {
         (): RightCurriedFunction5<T1, T2, T3, T4, T5, R>;
         (t5: T5): RightCurriedFunction4<T1, T2, T3, T4, R>;
         (t4: T4, t5: T5): RightCurriedFunction3<T1, T2, T3, R>;
@@ -12404,14 +12404,14 @@ declare namespace _ {
         /**
          * @see _.functions
          */
-        functions(): _.LoDashImplicitWrapper<string[]>;
+        functions(): LoDashImplicitWrapper<string[]>;
     }
 
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.functions
          */
-        functions(): _.LoDashExplicitWrapper<string[]>;
+        functions(): LoDashExplicitWrapper<string[]>;
     }
 
     //_.functionsIn
@@ -12444,14 +12444,14 @@ declare namespace _ {
         /**
          * @see _.functionsIn
          */
-        functionsIn(): _.LoDashImplicitWrapper<string[]>;
+        functionsIn(): LoDashImplicitWrapper<string[]>;
     }
 
     interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.functionsIn
          */
-        functionsIn(): _.LoDashExplicitWrapper<string[]>;
+        functionsIn(): LoDashExplicitWrapper<string[]>;
     }
 
     //_.get
@@ -15213,7 +15213,7 @@ declare namespace _ {
         /**
          * @see _.iteratee
          */
-        iteratee(): typeof _.identity;
+        iteratee(): typeof _.identity; // tslint:disable-line:no-unnecessary-qualifier
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -15504,7 +15504,7 @@ declare namespace _ {
         /**
          * @see _.noop
          */
-        noop(...args: any[]): _.LoDashExplicitWrapper<void>;
+        noop(...args: any[]): LoDashExplicitWrapper<undefined>;
     }
 
     //_.nthArg
@@ -15808,7 +15808,7 @@ declare namespace _ {
         /**
          * @see _.stubArray
          */
-        stubArray(): _.LoDashExplicitWrapper<any[]>;
+        stubArray(): LoDashExplicitWrapper<any[]>;
     }
 
     // _.stubFalse
@@ -15832,7 +15832,7 @@ declare namespace _ {
         /**
          * @see _.stubFalse
          */
-        stubFalse(): _.LoDashExplicitWrapper<boolean>;
+        stubFalse(): LoDashExplicitWrapper<boolean>;
     }
 
     interface LoDashStatic {
@@ -15855,7 +15855,7 @@ declare namespace _ {
         /**
          * @see _.stubObject
          */
-        stubObject(): _.LoDashExplicitWrapper<any>;
+        stubObject(): LoDashExplicitWrapper<any>;
     }
 
     interface LoDashStatic {
@@ -15878,7 +15878,7 @@ declare namespace _ {
         /**
          * @see _.stubString
          */
-        stubString(): _.LoDashExplicitWrapper<string>;
+        stubString(): LoDashExplicitWrapper<string>;
     }
 
     interface LoDashStatic {
@@ -15901,7 +15901,7 @@ declare namespace _ {
         /**
          * @see _.stubTrue
          */
-        stubTrue(): _.LoDashExplicitWrapper<boolean>;
+        stubTrue(): LoDashExplicitWrapper<boolean>;
     }
 
     //_.times
@@ -16043,6 +16043,8 @@ declare namespace _ {
 
     type MemoVoidIterator<T, TResult> = (prev: TResult, curr: T, indexOrKey: any, list: T[]) => void;
 
+    /** @deprecated Use MemoListIterator or MemoObjectIterator instead.  */
+    type MemoIterator<T, TResult> = (prev: TResult, curr: T, indexOrKey: any, list: T[]) => TResult;
     type MemoListIterator<T, TResult, TList> = (prev: TResult, curr: T, index: number, list: TList) => TResult;
     type MemoObjectIterator<T, TResult, TList> = (prev: TResult, curr: T, key: string, list: TList) => TResult;
 
