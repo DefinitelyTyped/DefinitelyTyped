@@ -559,6 +559,12 @@
             "asOfVersion": "0.3.0"
         },
         {
+            "libraryName": "router5",
+            "typingsPackageName": "router5",
+            "sourceRepoURL": "https://github.com/router5/router5",
+            "asOfVersion": "5.0.0"
+        },
+        {
             "libraryName": "samchon",
             "typingsPackageName": "samchon",
             "sourceRepoURL": "https://github.com/samchon/framework",
