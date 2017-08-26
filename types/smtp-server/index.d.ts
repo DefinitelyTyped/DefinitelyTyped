@@ -1,9 +1,12 @@
 // Type definitions for smtp-server v1.15.0
 // Project: https://github.com/andris9/smtp-server
 // Definitions by: markisme <https://github.com/markisme>
+//                 taisiias <https://github.com/Taisiias>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped 
 
-export class SMTPServer {
+/// <reference types="node"/>
+
+export class SMTPServer extends NodeJS.EventEmitter {
     constructor(options: SMTPServerOptions);
     close(callback: (err?: Error) => any): any;
     listen(...args: any[]): void;
