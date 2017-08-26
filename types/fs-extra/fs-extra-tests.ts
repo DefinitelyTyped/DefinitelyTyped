@@ -43,11 +43,7 @@ fs.copy(src, dest, { overwrite: true }).then(() => {
 	// stub
 });
 fs.copy(src, dest, errorCallback);
-<<<<<<< HEAD
 fs.copy(src, dest, { filter: (src: string, dest: string) => false }, errorCallback);
-=======
-fs.copy(src, dest, { filter: src => false }, errorCallback);
->>>>>>> fa47ad6b0cb548c0409bdd7367d8bd3f057b7851
 fs.copy(src, dest,
 	{
 		overwrite: true,
