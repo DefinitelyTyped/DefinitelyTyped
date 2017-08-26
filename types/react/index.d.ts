@@ -284,7 +284,7 @@ declare namespace React {
         // tslint:enable:unified-signatures
 
         forceUpdate(callBack?: () => any): void;
-        render(): JSX.Element | null | false;
+        render(): JSX.Element | JSX.Element[] | null | false;
 
         // React.Props<T> is now deprecated, which means that the `children`
         // property is not available on `P` by default, even though you can
