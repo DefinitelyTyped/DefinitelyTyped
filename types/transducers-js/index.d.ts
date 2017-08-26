@@ -39,8 +39,18 @@ export function isReduced(x: any): boolean;
 /**
  * Function composition. Take N function and return their composition.
  */
-// Infers correct return type when all arguments have same type.
-export function comp<T extends (x: any) => any>(...args: T[]): T;
+// 2-4 Transducers
+export function comp<A, B, C>(a: Transducer<A, B>, b: Transducer<B, C>): Transducer<A, C>;
+export function comp<A, B, C, D>(a: Transducer<A, B>, b: Transducer<B, C>, c: Transducer<C, D>): Transducer<A, D>;
+export function comp<A, B, C, D, E>(a: Transducer<A, B>, b: Transducer<B, C>, c: Transducer<C, D>, d: Transducer<D, E>): Transducer<A, E>;
+// N identical Transducers
+export function comp<A>(...args: Array<Transducer<A, A>>): Transducer<A, A>;
+// 2-4 arbitrary functions
+export function comp<A, B, C>(a: (a: A) => B, b: (b: B) => C): (a: A) => C;
+export function comp<A, B, C, D>(a: (a: A) => B, b: (b: B) => C, c: (c: C) => D): (a: A) => D;
+export function comp<A, B, C, D, E>(a: (a: A) => B, b: (b: B) => C, c: (c: C) => D, d: (d: D) => E): (a: A) => E;
+// N identical functions
+export function comp<A>(...args: Array<(a: A) => A>): A;
 // Falls back to (any => any) when argument types differ.
 export function comp(...args: Array<(x: any) => any>): (x: any) => any;
 
