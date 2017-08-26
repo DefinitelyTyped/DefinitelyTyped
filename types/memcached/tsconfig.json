@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        "strictNullChecks": true,
+        "noImplicitReturns": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "lib": ["es6"],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "module": "commonjs",
+        "target": "es5",
+        "sourceMap": false,
+        "baseUrl": "../",
+        "typeRoots": ["../"]
+    },
+    "files": [
+        "index.d.ts",
+        "memcached-tests.ts"
+    ]
+}

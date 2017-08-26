@@ -1,0 +1,19 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        // TODOs
+        "unified-signatures": false,
+        "class-name": true,
+        "indent": [
+            true,
+            "spaces"
+        ],
+        "max-line-length": [true, 250],
+        "no-unnecessary-type-assertion": false,
+        "quotemark": [
+            true,
+            "double"
+        ],
+        "jsdoc-format": true
+    }
+}
