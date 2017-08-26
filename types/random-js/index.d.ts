@@ -35,8 +35,8 @@ interface Random {
 }
 
 interface RandomConstructor {
-    (engine?: Engine): Random;
-    new (engine?: Engine): Random;
+    (engine?: Random.Engine): Random;
+    new (engine?: Random.Engine): Random;
 
     engines: {
         nativeMath: Random.Engine,

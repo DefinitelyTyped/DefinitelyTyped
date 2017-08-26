@@ -1987,8 +1987,12 @@ export class PointLight extends Light {
     distance: number;
 
     decay: number;
-    shadow: LightShadow;
+    shadow: PointLightShadow;
     power: number;
+}
+
+export class PointLightShadow extends LightShadow {
+	camera: PerspectiveCamera;
 }
 
 /**

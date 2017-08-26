@@ -3,10 +3,11 @@
 // Definitions by:  Pete Beegle <https://github.com/petebeegle>
 //                  Huw <https://github.com/hoo29>
 //                  pascalwhoop <https://github.com/pascalwhoop>
+//                  Ben <https://github.com/blforce>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export function handler<T>(event: RequestBody<T>, context: Context, callback?: (err: any, response: any) => void ): AlexaObject<T>;
+export function handler<T>(event: RequestBody<T>, context: Context, callback?: (err: any, response: any) => void): AlexaObject<T>;
 export function CreateStateHandler(state: string, obj: any): any;
 export let StateString: string;
 
@@ -20,6 +21,7 @@ export interface AlexaObject<T> extends Handler<T> {
     state: any;
     appId: any;
     response: any;
+    resources: any;
     dynamoDBTableName: any;
     saveBeforeResponse: boolean;
     registerHandlers: (...handlers: Array<Handlers<T>>) => any;

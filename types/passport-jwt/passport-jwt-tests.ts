@@ -2,7 +2,7 @@
 /// <reference types="passport" />
 'use strict';
 
-import {Strategy as JwtStrategy, ExtractJwt, StrategyOptions} from 'passport-jwt';
+import { Strategy as JwtStrategy, ExtractJwt, StrategyOptions } from 'passport-jwt';
 import {Request} from 'express';
 import * as passport from 'passport';
 

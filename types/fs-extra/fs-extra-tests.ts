@@ -1,5 +1,5 @@
-import * as fs from 'fs-extra';
-import * as Path from 'path';
+import * as fs from "fs-extra";
+import * as Path from "path";
 
 const len = 2;
 const src = "";
@@ -43,7 +43,11 @@ fs.copy(src, dest, { overwrite: true }).then(() => {
 	// stub
 });
 fs.copy(src, dest, errorCallback);
+<<<<<<< HEAD
 fs.copy(src, dest, { filter: (src: string, dest: string) => false }, errorCallback);
+=======
+fs.copy(src, dest, { filter: src => false }, errorCallback);
+>>>>>>> fa47ad6b0cb548c0409bdd7367d8bd3f057b7851
 fs.copy(src, dest,
 	{
 		overwrite: true,
@@ -67,7 +71,7 @@ fs.copySync(src, dest,
 	{
 		overwrite: true,
 		preserveTimestamps: true,
-		filter: (src: string) => false
+		filter: (src: string, dest: string) => false
 	}
 );
 fs.copySync(src, dest,
@@ -212,6 +216,16 @@ fs.lchmodSync(path, modeNum);
 fs.lchmodSync(path, modeStr);
 fs.statSync(path);
 fs.lstatSync(path);
+
+fs.read(0, new Buffer(""), 0, 0, null).then(x => {
+	const a = x.buffer;
+	const b = x.bytesRead;
+});
+
+fs.write(0, new Buffer(""), 0, 0, null).then(x => {
+	const a = x.buffer;
+	const b = x.bytesWritten;
+});
 
 // $ExpectType Promise<void>
 fs.writeFile("foo.txt", "i am foo", { encoding: "utf-8" });
