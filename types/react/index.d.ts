@@ -3453,7 +3453,7 @@ declare global {
         // tslint:disable:no-empty-interface
         interface Element extends React.ReactElement<any> { }
         interface ElementClass extends React.Component<any> {
-            render(): Element | null | false;
+            render(): Element | Element[] | null | false;
         }
         interface ElementAttributesProperty { props: {}; }
         interface ElementChildrenAttribute { children: {}; }
