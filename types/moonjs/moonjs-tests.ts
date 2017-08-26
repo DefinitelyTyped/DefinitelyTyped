@@ -72,9 +72,14 @@ const componentConstructor = Moon.component('my-component', {
     }),
     methods: {
         halfFoo() {
-            // $ExpectType: number
             const currentFoo = this.get('foo');
+            currentFoo; // $ExpectType: number
             return currentFoo / 2;
+        },
+        bothProps(): [any, any] {
+            const compProp = this.get('componentprop');
+            const otherProp = this.get('otherprop');
+            return [compProp, otherProp];
         }
     },
 });
@@ -90,10 +95,21 @@ Moon.config.keycodes({
 
 // 'data' needs to be a function when creating components.
 // $ExpectError
-Moon.component('sup', {
+Moon.component('broken1', {
     el: testHTMLElement,
     data: {
         foo: 100,
         bar: 200,
+    },
+});
+
+// Misspelled prop
+Moon.component('broken2', {
+    props: ['hello'],
+    methods: {
+        noHallo() {
+            // $ExpectError
+            this.get('hallo');
+        }
     },
 });

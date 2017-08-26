@@ -22,7 +22,7 @@ declare namespace Moon {
     }
 
     interface MoonConstructor {
-        new <Props extends string, Data, Methods>(options?: ConstructorOptions<Props, Data, Methods>): Instance<Data & Methods>;
+        new <Props extends string, Data, Methods>(options?: ConstructorOptions<Props, Data, Methods>): Instance<Data & Methods & Record<Props, any>>;
     }
 
     interface MoonStatic extends MoonConstructor {
@@ -36,11 +36,11 @@ declare namespace Moon {
 
     type ConstructorOptions<Props extends string, Data, Methods> =
         & ComponentOptionsProperties<Props, (() => Data) | Data, Methods>
-        & ThisType<Instance<Data & Methods>>;
+        & ThisType<Instance<Data & Methods & Record<Props, any>>>;
 
     type ComponentOptions<Props extends string, Data, Methods> =
         & ComponentOptionsProperties<Props, () => Data, Methods>
-        & ThisType<Instance<Data & Methods>>;
+        & ThisType<Instance<Data & Methods & Record<Props, any>>>;
 
     interface ComponentOptionsProperties<Props extends string, Data, Methods> {
         el?: string | HTMLElement;
