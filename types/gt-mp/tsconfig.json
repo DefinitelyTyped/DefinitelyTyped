@@ -16,7 +16,6 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "index.d.ts",
-        "gt-mp-tests.ts"
+        "index.d.ts"
     ]
 }
