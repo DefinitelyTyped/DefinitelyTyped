@@ -1,4 +1,4 @@
-// Type definitions for moonjs 0.9
+// Type definitions for moonjs 0.11
 // Project: https://github.com/KingPixil/moon
 // Definitions by: Daniel Rosenwasser <https://github.com/DanielRosenwasser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -22,11 +22,11 @@ declare namespace Moon {
     }
 
     interface MoonConstructor {
-        new <Props extends string, Data, Methods>(options?: ThisAwareComponentOptions<Props, Data, Methods>): Instance<Data & Methods>;
+        new <Props extends string, Data, Methods>(options?: ConstructorOptions<Props, Data, Methods>): Instance<Data & Methods>;
     }
 
     interface MoonStatic extends MoonConstructor {
-        component<Props extends string, Data, Methods>(name: string, options: ThisAwareComponentOptions<Props, Data, Methods>): MoonConstructor;
+        component<Props extends string, Data, Methods>(name: string, options: ComponentOptions<Props, Data, Methods>): MoonConstructor;
         config: MoonConfig;
         use(plugin: object): void;
         compile(template: string): void;
@@ -34,12 +34,16 @@ declare namespace Moon {
         directive(name: string, action: (el: any, val: any) => void): void;
     }
 
-    type ThisAwareComponentOptions<Props extends string, Data, Methods> =
-        & ComponentOptions<Props, Data, Methods>
+    type ConstructorOptions<Props extends string, Data, Methods> =
+        & ComponentOptionsProperties<Props, (() => Data) | Data, Methods>
         & ThisType<Instance<Data & Methods>>;
 
-    interface ComponentOptions<Props extends string, Data, Methods> {
-        el?: string;
+    type ComponentOptions<Props extends string, Data, Methods> =
+        & ComponentOptionsProperties<Props, () => Data, Methods>
+        & ThisType<Instance<Data & Methods>>;
+
+    interface ComponentOptionsProperties<Props extends string, Data, Methods> {
+        el?: string | HTMLElement;
         template?: string;
         name?: string;
 
