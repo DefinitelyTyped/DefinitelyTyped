@@ -6,14 +6,17 @@ const app = new Moon({
     },
     methods: {
         increment() {
-            this.set("count", this.get("count") + 1);
+            const current = this.get("count");
+            current; // $ExpectType number
+            this.set("count", current + 1);
         }
     }
 });
 
-const count: number = app.get("count");
-app.get("increment")();
-app.callMethod("increment");
+const count = app.get("count");
+count;                          // $ExpectType number
+app.get("increment")();         // $ExpectType void
+app.callMethod("increment");    // $ExpectType any
 
 app.destroy();
 
@@ -45,9 +48,9 @@ const renderApp = new Moon({
     render(h) {
         return h("div", { attrs: { id: "render" } }, { shouldRender: true, eventListeners: {} }, [h("#text", { shouldRender: true, eventListeners: {} }, this.get("msg"))]);
     },
-    data: {
+    data: () => ({
         msg: "Hello Moon!"
-    }
+    }),
 });
 
 Moon.component("functional-component", {
@@ -58,16 +61,39 @@ Moon.component("functional-component", {
     }
 });
 
-// Component instances should be subtypes of Moon.
+const testHTMLElement = document.createElement("div");
 const componentConstructor = Moon.component('my-component', {
     props: ['componentprop', 'otherprop'],
-    template: "<div>{{componentprop}}</div>"
+    template: "<div>{{componentprop}}</div>",
+    el: testHTMLElement,
+    data: () => ({
+        foo: 100,
+        bar: 200,
+    }),
+    methods: {
+        halfFoo() {
+            // $ExpectType: number
+            const currentFoo = this.get('foo');
+            return currentFoo / 2;
+        }
+    },
 });
 
-const moon: Moon.Instance<object> = new componentConstructor();
-componentConstructor instanceof Moon;
+// Component instances should be subtypes of Moon.
+const componentInstance = new componentConstructor();
+componentInstance instanceof Moon;
 
 Moon.config.silent = true;
 Moon.config.keycodes({
     m: 77,
+});
+
+// 'data' needs to be a function when creating components.
+// $ExpectError
+Moon.component('sup', {
+    el: testHTMLElement,
+    data: {
+        foo: 100,
+        bar: 200,
+    },
 });
