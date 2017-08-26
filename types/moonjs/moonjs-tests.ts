@@ -1,6 +1,6 @@
 import Moon = require("moonjs");
 
-let app = new Moon({
+const app = new Moon({
     data: {
         count: 0
     },
@@ -11,7 +11,7 @@ let app = new Moon({
     }
 });
 
-let count: number = app.get("count");
+const count: number = app.get("count");
 app.get("increment")();
 app.callMethod("increment");
 
@@ -40,9 +40,9 @@ new Moon({
     }
 });
 
-var renderApp = new Moon({
+const renderApp = new Moon({
     el: "#render",
-    render: (h) => {
+    render(h) {
         return h("div", { attrs: { id: "render" } }, { shouldRender: true, eventListeners: {} }, [h("#text", { shouldRender: true, eventListeners: {} }, this.get("msg"))]);
     },
     data: {
@@ -59,12 +59,12 @@ Moon.component("functional-component", {
 });
 
 // Component instances should be subtypes of Moon.
-var componentConstructor = Moon.component('my-component', {
+const componentConstructor = Moon.component('my-component', {
     props: ['componentprop', 'otherprop'],
     template: "<div>{{componentprop}}</div>"
 });
 
-var moon: Moon<object> = new componentConstructor();
+const moon: Moon.Instance<object> = new componentConstructor();
 componentConstructor instanceof Moon;
 
 Moon.config.silent = true;
