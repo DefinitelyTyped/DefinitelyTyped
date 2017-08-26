@@ -5,7 +5,7 @@
 // TypeScript Version: 2.3
 
 declare namespace Moon {
-    export interface Moon<Data> {
+    interface Instance<Data> {
         get<K extends keyof Data>(name: K): Data[K];
         set<K extends keyof Data>(name: K, value: Data[K]): void;
 
@@ -21,11 +21,11 @@ declare namespace Moon {
         $data: Data;
     }
 
-    export interface MoonConstructor {
-        new <Props extends string, Data, Methods>(options?: ThisAwareComponentOptions<Props, Data, Methods>): Moon<Data & Methods>;
+    interface MoonConstructor {
+        new <Props extends string, Data, Methods>(options?: ThisAwareComponentOptions<Props, Data, Methods>): Instance<Data & Methods>;
     }
 
-    export interface MoonStatic extends MoonConstructor {
+    interface MoonStatic extends MoonConstructor {
         component<Props extends string, Data, Methods>(name: string, options: ThisAwareComponentOptions<Props, Data, Methods>): MoonConstructor;
         config: MoonConfig;
         use(plugin: object): void;
@@ -34,11 +34,11 @@ declare namespace Moon {
         directive(name: string, action: (el: any, val: any) => void): void;
     }
 
-    export type ThisAwareComponentOptions<Props extends string, Data, Methods> =
+    type ThisAwareComponentOptions<Props extends string, Data, Methods> =
         & ComponentOptions<Props, Data, Methods>
-        & ThisType<Moon<Data & Methods>>;
+        & ThisType<Instance<Data & Methods>>;
 
-    export interface ComponentOptions<Props extends string, Data, Methods> {
+    interface ComponentOptions<Props extends string, Data, Methods> {
         el?: string;
         template?: string;
         name?: string;
@@ -51,12 +51,12 @@ declare namespace Moon {
         render?(h: CreateElement, ctx: any): VDomElement;
     }
 
-    export interface CreateElement {
+    interface CreateElement {
         (tag: "#text", attrs: Record<string, any>, metadata?: any, children?: string): VDomElement;
-        (tag: string | Moon<object>, attrs: Record<string, any>, metadata?: any, children?: string | VDomElement[]): VDomElement;
+        (tag: string | Instance<object>, attrs: Record<string, any>, metadata?: any, children?: string | VDomElement[]): VDomElement;
     }
 
-    export interface VDomElement {
+    interface VDomElement {
         type: string;
         val: string;
         props: Record<string, any>;
@@ -64,14 +64,14 @@ declare namespace Moon {
         children: VDomElement[];
     }
 
-    export interface LifecycleHooks {
+    interface LifecycleHooks {
         init?(): void;
         mounted?(): void;
         updated?(): void;
         destroyed?(): void;
     }
 
-    export interface MoonConfig {
+    interface MoonConfig {
         silent: boolean;
         prefix: string;
         keycodes(codemap: Record<string, number>): void;
