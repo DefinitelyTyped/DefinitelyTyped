@@ -1,14 +1,3 @@
-declare const $: any;
-declare const jQuery: any;
-
-class Dog {
-    constructor(public name: string) { }
-
-    bark() {
-        // Woof
-    }
-}
-
 let any: any;
 
 interface TResult {
@@ -60,6 +49,10 @@ namespace TestWrapper {
     }
 
     {
+        _(any); // $ExpectType LoDashImplicitWrapper<any>
+    }
+
+    {
         let result: _.LoDashExplicitWrapper<string>;
         result = _.chain('');
         result = _('').chain();
@@ -95,6 +88,10 @@ namespace TestWrapper {
         let a: TResult[] | null | undefined = any;
         result = _.chain(a);
         result = _(a).chain();
+    }
+
+    {
+        _.chain(any); // $ExpectType LoDashExplicitWrapper<any>
     }
 }
 
@@ -4385,6 +4382,27 @@ namespace TestFilter {
         _(a2).chain().filter((item: string | number): item is number => typeof item === "number"); // $ExpectType LoDashExplicitWrapper<number[]>
         _(d2).chain().filter((item: string | number): item is number => typeof item === "number"); // $ExpectType LoDashExplicitWrapper<number[]>
     }
+
+    {
+        // $ExpectType any[]
+        _.filter(any, (value, key, collection) => {
+            value; // $ExpectType any
+            key; // $ExpectType string
+            collection; // $ExpectType any
+        });
+        // $ExpectType LoDashImplicitWrapper<any[]>
+        _(any).filter((value, key, collection) => {
+            value; // $ExpectType any
+            key; // $ExpectType string
+            collection; // $ExpectType any
+        });
+        // $ExpectType LoDashExplicitWrapper<any[]>
+        _.chain(any).filter((value, key, collection) => {
+            value; // $ExpectType any
+            key; // $ExpectType string
+            collection; // $ExpectType any
+        });
+    }
 }
 
 // _.find
@@ -4764,10 +4782,6 @@ namespace TestForEach {
     let nilList: _.List<TResult> | null | undefined = [] as any;
     let nilDictionary: _.Dictionary<TResult> | null | undefined = any;
 
-    let listIterator: (value: TResult, index: number, collection: _.List<TResult>) => any = (value, index, collection) => 1;
-    let dictionaryIterator: (value: TResult, key: string, collection: _.Dictionary<TResult>) => any = (value, key, collection) => 1;
-    let objectIterator: (value: number | string | boolean, key: string, collection: TResult) => any = (value, key, collection) => 1;
-
     {
         let result: string;
 
@@ -4797,8 +4811,7 @@ namespace TestForEach {
         result = _.forEach(array, (value, index, collection) => {
             value; // $ExpectType TResult
             index; // $ExpectType number
-            // Note: ideally we'd like collection TResult[], but it seems the best we can get is List<TResult>.
-            collection; // $ExpectType ArrayLike<TResult>
+            collection; // $ExpectType TResult[]
         });
     }
 
@@ -4812,8 +4825,7 @@ namespace TestForEach {
         result = _.forEach(nilArray, (value, index, collection) => {
             value; // $ExpectType TResult
             index; // $ExpectType number
-            // Note: ideally we'd like collection TResult[], but it seems the best we can get is List<TResult>.
-            collection; // $ExpectType ArrayLike<TResult>
+            collection; // $ExpectType TResult[]
         });
     }
 
@@ -4824,12 +4836,13 @@ namespace TestForEach {
         result = _.forEach(anyArray, (value, index, collection) => {
             value; // $ExpectType any
             index; // $ExpectType number
-            collection; // $ExpectType ArrayLike<any>
+            collection; // $ExpectType any[]
         });
-        result = _.forEach(any, (value, index, collection) => {
+        // $ExpectType any
+        _.forEach(any, (value, index, collection) => {
             value; // $ExpectType any
-            index; // $ExpectType number
-            collection; // $ExpectType ArrayLike<any>
+            index; // $ExpectType string
+            collection; // $ExpectType any
         });
     }
 
@@ -4856,9 +4869,8 @@ namespace TestForEach {
     {
         let result: _.Dictionary<TResult>;
 
-        result = _.forEach(dictionary, (value, index, collection) => {
+        result = _.forEach(dictionary, (value, index: string, collection) => {
             value; // $ExpectType TResult
-            index; // $ExpectType string
             collection; // $ExpectType Dictionary<TResult>
         });
     }
@@ -4875,9 +4887,8 @@ namespace TestForEach {
 
     {
         let sample1: TResult = any;
-        sample1 = _.forEach(sample1, (value, index, collection) => {
+        sample1 = _.forEach(sample1, (value, index: string, collection) => {
             value; // $ExpectType string | number | boolean
-            index; // $ExpectType string
             collection; // $ExpectType TResult
         });
 
@@ -4905,7 +4916,7 @@ namespace TestForEach {
         result = _(array).forEach((value, index, collection) => {
             value; // $ExpectType TResult
             index; // $ExpectType number
-            collection; // $ExpectType ArrayLike<TResult>
+            collection; // $ExpectType TResult[]
         });
     }
 
@@ -4915,32 +4926,65 @@ namespace TestForEach {
         result = _(nilArray).forEach((value, index, collection) => {
             value; // $ExpectType TResult
             index; // $ExpectType number
-            collection; // $ExpectType ArrayLike<TResult>
+            collection; // $ExpectType TResult[]
+        });
+    }
+
+    {
+        let anyArray: any[] | null | undefined = any;
+        let result: _.LoDashImplicitWrapper<any[] | null | undefined>;
+
+        result = _(anyArray).forEach((value, index, collection) => {
+            value; // $ExpectType any
+            index; // $ExpectType number
+            collection; // $ExpectType any[]
+        });
+        // $ExpectType LoDashImplicitWrapper<any>
+        _(any).forEach((value, index, collection) => {
+            value; // $ExpectType any
+            index; // $ExpectType string
+            collection; // $ExpectType any
         });
     }
 
     {
         let result: _.LoDashImplicitWrapper<_.List<TResult>>;
 
-        result = _(list).forEach(listIterator);
+        result = _(list).forEach((value, index, collection) => {
+            value; // $ExpectType TResult
+            index; // $ExpectType number
+            collection; // $ExpectType ArrayLike<TResult>
+        });
     }
 
     {
         let result: _.LoDashImplicitWrapper<_.List<TResult> | null | undefined>;
 
-        result = _(nilList).forEach(listIterator);
+        result = _(nilList).forEach((value, index, collection) => {
+            value; // $ExpectType TResult
+            index; // $ExpectType number
+            collection; // $ExpectType ArrayLike<TResult>
+        });
     }
 
     {
         let result: _.LoDashImplicitWrapper<_.Dictionary<TResult>>;
 
-        result = _(dictionary).forEach(dictionaryIterator);
+        result = _(dictionary).forEach((value, index, collection) => {
+            value; // $ExpectType TResult
+            index; // $ExpectType string
+            collection; // $ExpectType Dictionary<TResult>
+        });
     }
 
     {
         let result: _.LoDashImplicitWrapper<_.Dictionary<TResult> | null | undefined>;
 
-        result = _(nilDictionary).forEach(dictionaryIterator);
+        result = _(nilDictionary).forEach((value, index, collection) => {
+            value; // $ExpectType TResult
+            index; // $ExpectType string
+            collection; // $ExpectType Dictionary<TResult>
+        });
     }
 
     {
@@ -4959,7 +5003,7 @@ namespace TestForEach {
         result = _(array).chain().forEach((value, index, collection) => {
             value; // $ExpectType TResult
             index; // $ExpectType number
-            collection; // $ExpectType ArrayLike<TResult>
+            collection; // $ExpectType TResult[]
         });
     }
 
@@ -4969,32 +5013,65 @@ namespace TestForEach {
         result = _(nilArray).chain().forEach((value, index, collection) => {
             value; // $ExpectType TResult
             index; // $ExpectType number
-            collection; // $ExpectType ArrayLike<TResult>
+            collection; // $ExpectType TResult[]
+        });
+    }
+
+    {
+        let anyArray: any[] | null | undefined = any;
+        let result: _.LoDashExplicitWrapper<any[] | null | undefined>;
+
+        result = _(anyArray).chain().forEach((value, index, collection) => {
+            value; // $ExpectType any
+            index; // $ExpectType number
+            collection; // $ExpectType any[]
+        });
+        // $ExpectType LoDashExplicitWrapper<any>
+        _(any).chain().forEach((value, index, collection) => {
+            value; // $ExpectType any
+            index; // $ExpectType string
+            collection; // $ExpectType any
         });
     }
 
     {
         let result: _.LoDashExplicitWrapper<_.List<TResult>>;
 
-        result = _(list).chain().forEach(listIterator);
+        result = _(list).chain().forEach((value, index, collection) => {
+            value; // $ExpectType TResult
+            index; // $ExpectType number
+            collection; // $ExpectType ArrayLike<TResult>
+        });
     }
 
     {
         let result: _.LoDashExplicitWrapper<_.List<TResult> | null | undefined>;
 
-        result = _(nilList).chain().forEach(listIterator);
+        result = _(nilList).chain().forEach((value, index, collection) => {
+            value; // $ExpectType TResult
+            index; // $ExpectType number
+            collection; // $ExpectType ArrayLike<TResult>
+        });
     }
 
     {
         let result: _.LoDashExplicitWrapper<_.Dictionary<TResult>>;
 
-        result = _(dictionary).chain().forEach(dictionaryIterator);
+        result = _(dictionary).chain().forEach((value, index, collection) => {
+            value; // $ExpectType TResult
+            index; // $ExpectType string
+            collection; // $ExpectType Dictionary<TResult>
+        });
     }
 
     {
         let result: _.LoDashExplicitWrapper<_.Dictionary<TResult> | null | undefined>;
 
-        result = _(nilDictionary).chain().forEach(dictionaryIterator);
+        result = _(nilDictionary).chain().forEach((value, index, collection) => {
+            value; // $ExpectType TResult
+            index; // $ExpectType string
+            collection; // $ExpectType Dictionary<TResult>
+        });
     }
 }
 
@@ -5006,9 +5083,6 @@ namespace TestForEachRight {
     let nilArray: TResult[] | null | undefined = [] as any;
     let nilList: _.List<TResult> | null | undefined = [] as any;
     let nilDictionary: _.Dictionary<TResult> | null | undefined = any;
-
-    let listIterator: (value: TResult, index: number, collection: _.List<TResult>) => any = (value: TResult, index: number, collection: _.List<TResult>) => 1;
-    let dictionaryIterator: (value: TResult, key: string, collection: _.Dictionary<TResult>) => any = (value: TResult, key: string, collection: _.Dictionary<TResult>) => 1;
 
     {
         let result: string;
@@ -5032,21 +5106,45 @@ namespace TestForEachRight {
 
     {
         let result: TResult[];
-
+        result = _.forEachRight(array, (value, index, collection: TResult[]) => {
+            value; // $ExpectType TResult
+            index; // $ExpectType number
+        });
         result = _.forEachRight(array, (value, index, collection) => {
             value; // $ExpectType TResult
             index; // $ExpectType number
-            collection; // $ExpectType ArrayLike<TResult>
+            collection; // $ExpectType TResult[]
         });
     }
 
     {
         let result: TResult[] | null | undefined;
 
+        result = _.forEachRight(array, (value, index, collection: TResult[]) => {
+            value; // $ExpectType TResult
+            index; // $ExpectType number
+        });
         result = _.forEachRight(nilArray, (value, index, collection) => {
             value; // $ExpectType TResult
             index; // $ExpectType number
-            collection; // $ExpectType ArrayLike<TResult>
+            collection; // $ExpectType TResult[]
+        });
+    }
+
+    {
+        let anyArray: any[] | null | undefined = any;
+        let result: any[] | null | undefined;
+
+        result = _.forEachRight(anyArray, (value, index, collection) => {
+            value; // $ExpectType any
+            index; // $ExpectType number
+            collection; // $ExpectType any[]
+        });
+        // $ExpectType any
+        _.forEachRight(any, (value, index, collection) => {
+            value; // $ExpectType any
+            index; // $ExpectType string
+            collection; // $ExpectType any
         });
     }
 
@@ -5073,9 +5171,8 @@ namespace TestForEachRight {
     {
         let result: _.Dictionary<TResult>;
 
-        result = _.forEachRight(dictionary, (value, index, collection) => {
+        result = _.forEachRight(dictionary, (value, index: string, collection) => {
             value; // $ExpectType TResult
-            index; // $ExpectType string
             collection; // $ExpectType Dictionary<TResult>
         });
     }
@@ -5087,6 +5184,21 @@ namespace TestForEachRight {
             value; // $ExpectType TResult
             index; // $ExpectType string
             collection; // $ExpectType Dictionary<TResult>
+        });
+    }
+
+    {
+        let sample1: TResult = any;
+        sample1 = _.forEachRight(sample1, (value, index: string, collection) => {
+            value; // $ExpectType string | number | boolean
+            collection; // $ExpectType TResult
+        });
+
+        let sample2: TResult | null | undefined = any;
+        sample2 = _.forEachRight(sample2, (value, index, collection) => {
+            value; // $ExpectType string | number | boolean
+            index; // $ExpectType string
+            collection; // $ExpectType TResult
         });
     }
 
@@ -5106,7 +5218,7 @@ namespace TestForEachRight {
         result = _(array).forEachRight((value, index, collection) => {
             value; // $ExpectType TResult
             index; // $ExpectType number
-            collection; // $ExpectType ArrayLike<TResult>
+            collection; // $ExpectType TResult[]
         });
     }
 
@@ -5116,32 +5228,65 @@ namespace TestForEachRight {
         result = _(nilArray).forEachRight((value, index, collection) => {
             value; // $ExpectType TResult
             index; // $ExpectType number
-            collection; // $ExpectType ArrayLike<TResult>
+            collection; // $ExpectType TResult[]
+        });
+    }
+
+    {
+        let anyArray: any[] | null | undefined = any;
+        let result: _.LoDashImplicitWrapper<any[] | null | undefined>;
+
+        result = _(anyArray).forEachRight((value, index, collection) => {
+            value; // $ExpectType any
+            index; // $ExpectType number
+            collection; // $ExpectType any[]
+        });
+        // $ExpectType LoDashImplicitWrapper<any>
+        _(any).forEachRight((value, index, collection) => {
+            value; // $ExpectType any
+            index; // $ExpectType string
+            collection; // $ExpectType any
         });
     }
 
     {
         let result: _.LoDashImplicitWrapper<_.List<TResult>>;
 
-        result = _(list).forEachRight(listIterator);
+        result = _(list).forEachRight((value, index, collection) => {
+            value; // $ExpectType TResult
+            index; // $ExpectType number
+            collection; // $ExpectType ArrayLike<TResult>
+        });
     }
 
     {
         let result: _.LoDashImplicitWrapper<_.List<TResult> | null | undefined>;
 
-        result = _(nilList).forEachRight(listIterator);
+        result = _(nilList).forEachRight((value, index, collection) => {
+            value; // $ExpectType TResult
+            index; // $ExpectType number
+            collection; // $ExpectType ArrayLike<TResult>
+        });
     }
 
     {
         let result: _.LoDashImplicitWrapper<_.Dictionary<TResult>>;
 
-        result = _(dictionary).forEachRight(dictionaryIterator);
+        result = _(dictionary).forEachRight((value, index, collection) => {
+            value; // $ExpectType TResult
+            index; // $ExpectType string
+            collection; // $ExpectType Dictionary<TResult>
+        });
     }
 
     {
         let result: _.LoDashImplicitWrapper<_.Dictionary<TResult> | null | undefined>;
 
-        result = _(nilDictionary).forEachRight(dictionaryIterator);
+        result = _(nilDictionary).forEachRight((value, index, collection) => {
+            value; // $ExpectType TResult
+            index; // $ExpectType string
+            collection; // $ExpectType Dictionary<TResult>
+        });
     }
 
     {
@@ -5160,7 +5305,7 @@ namespace TestForEachRight {
         result = _(array).chain().forEachRight((value, index, collection) => {
             value; // $ExpectType TResult
             index; // $ExpectType number
-            collection; // $ExpectType ArrayLike<TResult>
+            collection; // $ExpectType TResult[]
         });
     }
 
@@ -5170,32 +5315,65 @@ namespace TestForEachRight {
         result = _(nilArray).chain().forEachRight((value, index, collection) => {
             value; // $ExpectType TResult
             index; // $ExpectType number
-            collection; // $ExpectType ArrayLike<TResult>
+            collection; // $ExpectType TResult[]
+        });
+    }
+
+    {
+        let anyArray: any[] | null | undefined = any;
+        let result: _.LoDashExplicitWrapper<any[] | null | undefined>;
+
+        result = _(anyArray).chain().forEachRight((value, index, collection) => {
+            value; // $ExpectType any
+            index; // $ExpectType number
+            collection; // $ExpectType any[]
+        });
+        // $ExpectType LoDashExplicitWrapper<any>
+        _(any).chain().forEachRight((value, index, collection) => {
+            value; // $ExpectType any
+            index; // $ExpectType string
+            collection; // $ExpectType any
         });
     }
 
     {
         let result: _.LoDashExplicitWrapper<_.List<TResult>>;
 
-        result = _(list).chain().forEachRight(listIterator);
+        result = _(list).chain().forEachRight((value, index, collection) => {
+            value; // $ExpectType TResult
+            index; // $ExpectType number
+            collection; // $ExpectType ArrayLike<TResult>
+        });
     }
 
     {
         let result: _.LoDashExplicitWrapper<_.List<TResult> | null | undefined>;
 
-        result = _(nilList).chain().forEachRight(listIterator);
+        result = _(nilList).chain().forEachRight((value, index, collection) => {
+            value; // $ExpectType TResult
+            index; // $ExpectType number
+            collection; // $ExpectType ArrayLike<TResult>
+        });
     }
 
     {
         let result: _.LoDashExplicitWrapper<_.Dictionary<TResult>>;
 
-        result = _(dictionary).chain().forEachRight(dictionaryIterator);
+        result = _(dictionary).chain().forEachRight((value, index, collection) => {
+            value; // $ExpectType TResult
+            index; // $ExpectType string
+            collection; // $ExpectType Dictionary<TResult>
+        });
     }
 
     {
         let result: _.LoDashExplicitWrapper<_.Dictionary<TResult> | null | undefined>;
 
-        result = _(nilDictionary).chain().forEachRight(dictionaryIterator);
+        result = _(nilDictionary).chain().forEachRight((value, index, collection) => {
+            value; // $ExpectType TResult
+            index; // $ExpectType string
+            collection; // $ExpectType Dictionary<TResult>
+        });
     }
 }
 
@@ -6064,6 +6242,27 @@ namespace TestReject {
         result = _(dictionary).chain().reject('');
         result = _(dictionary).chain().reject({a: 42});
         result = _(dictionary).chain().reject(['a', 42]);
+    }
+
+    {
+        // $ExpectType any[]
+        _.reject(any, (value, key, collection) => {
+            value; // $ExpectType any
+            key; // $ExpectType string
+            collection; // $ExpectType any
+        });
+        // $ExpectType LoDashImplicitWrapper<any[]>
+        _(any).reject((value, key, collection) => {
+            value; // $ExpectType any
+            key; // $ExpectType string
+            collection; // $ExpectType any
+        });
+        // $ExpectType LoDashExplicitWrapper<any[]>
+        _.chain(any).reject((value, key, collection) => {
+            value; // $ExpectType any
+            key; // $ExpectType string
+            collection; // $ExpectType any
+        });
     }
 }
 

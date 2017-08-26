@@ -6,8 +6,6 @@
         "jsdoc-format": false,
         "max-line-length": [false],
         "no-empty-interface": false,
-        "no-namespace": false,
-        "no-mergeable-namespace": false,
         "prefer-const": false,
         "typedef-whitespace": [false],
         "unified-signatures": false,

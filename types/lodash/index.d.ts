@@ -4171,6 +4171,14 @@ declare namespace _ {
         /**
          * @see _.forEach
          */
+        each<T>(
+            this: LoDashWrapper<T[] | null | undefined>,
+            iteratee?: ArrayIterator<T, any>
+        ): this;
+
+        /**
+         * @see _.forEach
+         */
         each(
             this: LoDashWrapper<string | null | undefined>,
             iteratee?: StringIterator<any>
@@ -4199,6 +4207,14 @@ declare namespace _ {
     }
 
     interface LoDashWrapper<TValue> {
+        /**
+         * @see _.forEachRight
+         */
+        eachRight<T>(
+            this: LoDashWrapper<T[] | null | undefined>,
+            iteratee?: ArrayIterator<T, any>
+        ): this;
+
         /**
          * @see _.forEachRight
          */
@@ -4862,6 +4878,46 @@ declare namespace _ {
          * @param iteratee The function invoked per iteration.
          * @param thisArg The this binding of iteratee.
          */
+        forEach<T>(
+            collection: T[],
+            iteratee?: ArrayIterator<T, any>
+        ): T[];
+
+        /**
+         * @see _.forEach
+         */
+        forEach(
+            collection: string,
+            iteratee?: StringIterator<any>
+        ): string;
+
+        /**
+         * @see _.forEach
+         */
+        forEach<T>(
+            collection: List<T>,
+            iteratee?: ListIterator<T, any>
+        ): List<T>;
+
+        /**
+         * @see _.forEach
+         */
+        forEach<T extends object>(
+            collection: T,
+            iteratee?: ObjectIterator<T, any>
+        ): T;
+
+        /**
+         * @see _.forEach
+         */
+        forEach<T, TArray extends T[] | null | undefined>(
+            collection: TArray & (T[] | null | undefined),
+            iteratee?: ArrayIterator<T, any>
+        ): TArray;
+
+        /**
+         * @see _.forEach
+         */
         forEach<TString extends string | null | undefined>(
             collection: TString,
             iteratee?: StringIterator<any>
@@ -4879,20 +4935,20 @@ declare namespace _ {
          * @see _.forEach
          */
         forEach<T extends object>(
-            collection: T,
-            iteratee?: ObjectIterator<T, any>
-        ): T;
-
-        /**
-         * @see _.forEach
-         */
-        forEach<T extends object>(
             collection: T | null | undefined,
             iteratee?: ObjectIterator<T, any>
         ): T | null | undefined;
     }
 
     interface LoDashWrapper<TValue> {
+        /**
+         * @see _.forEach
+         */
+        forEach<T>(
+            this: LoDashWrapper<T[] | null | undefined>,
+            iteratee?: ArrayIterator<T, any>
+        ): this;
+
         /**
          * @see _.forEach
          */
@@ -4929,6 +4985,46 @@ declare namespace _ {
          * @param iteratee The function called per iteration.
          * @param thisArg The this binding of callback.
          */
+        forEachRight<T>(
+            collection: T[],
+            iteratee?: ArrayIterator<T, any>
+        ): T[];
+
+        /**
+         * @see _.forEachRight
+         */
+        forEachRight(
+            collection: string,
+            iteratee?: StringIterator<any>
+        ): string;
+
+        /**
+         * @see _.forEachRight
+         */
+        forEachRight<T>(
+            collection: List<T>,
+            iteratee?: ListIterator<T, any>
+        ): List<T>;
+
+        /**
+         * @see _.forEachRight
+         */
+        forEachRight<T extends object>(
+            collection: T,
+            iteratee?: ObjectIterator<T, any>
+        ): T;
+
+        /**
+         * @see _.forEachRight
+         */
+        forEachRight<T, TArray extends T[] | null | undefined>(
+            collection: TArray & (T[] | null | undefined),
+            iteratee?: ArrayIterator<T, any>
+        ): TArray;
+
+        /**
+         * @see _.forEachRight
+         */
         forEachRight<TString extends string | null | undefined>(
             collection: TString,
             iteratee?: StringIterator<any>
@@ -4946,20 +5042,20 @@ declare namespace _ {
          * @see _.forEachRight
          */
         forEachRight<T extends object>(
-            collection: T,
-            iteratee?: ObjectIterator<T, any>
-        ): T;
-
-        /**
-         * @see _.forEachRight
-         */
-        forEachRight<T extends object>(
             collection: T | null | undefined,
             iteratee?: ObjectIterator<T, any>
         ): T | null | undefined;
     }
 
     interface LoDashWrapper<TValue> {
+        /**
+         * @see _.forEachRight
+         */
+        forEachRight<T>(
+            this: LoDashWrapper<T[] | null | undefined>,
+            iteratee?: ArrayIterator<T, any>
+        ): this;
+
         /**
          * @see _.forEachRight
          */
@@ -15926,6 +16022,7 @@ declare namespace _ {
         uniqueId(): LoDashExplicitWrapper<string>;
     }
 
+    type ArrayIterator<T, TResult> = (value: T, index: number, collection: T[]) => TResult;
     type ListIterator<T, TResult> = (value: T, index: number, collection: List<T>) => TResult;
     type ListIteratee<T> = ListIterator<T, any> | string | [string, any] | PartialDeep<T>;
     type ListIteratorTypeGuard<T, S extends T> = (value: T, index: number, collection: List<T>) => value is S;
@@ -15954,8 +16051,6 @@ declare namespace _ {
 
     type ValueIteratee<T> = ((value: T) => any) | string | [string, any] | PartialDeep<T>;
     type ValueKeyIteratee<T> = ((value: T, key: string) => any) | string | [string, any] | PartialDeep<T>;
-    // TODO: not sure if PartialDeep<any> is a good idea...
-    type Iteratee = ((element: any, key: number | string, collection: any) => any) | string | [string, any] | PartialDeep<any>;
     type Comparator<T> = (a: T, b: T) => boolean;
 
     /** Common interface between Arrays and jQuery objects */
