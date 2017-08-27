@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { View, StyleSheet, TouchableNativeFeedback } from 'react-native';
-import { Button, Text, Badge, Avatar } from 'react-native-elements';
+import { View, StyleSheet, TouchableNativeFeedback, Image } from 'react-native';
+import { Button, Text, Badge, Avatar, Card } from 'react-native-elements';
 
 class TextTest extends React.Component<any, any> {
   render() {
@@ -187,3 +187,53 @@ const ButtonStyles = StyleSheet.create({
     color: 'pink'
   }
 });
+
+class CardTest extends React.Component<any, any> {
+  render() {
+    const users = [
+      {
+         name: 'brynn',
+         avatar: 'https://s3.amazonaws.com/uifaces/faces/twitter/brynn/128.jpg'
+      },
+     ];
+
+    return(
+      <View>
+        {/* implemented without image with header */}
+        <Card title="CARD WITH DIVIDER">
+          {
+            users.map((u, i) => {
+              return (
+                <View key={i}>
+                  <Image
+                    resizeMode="cover"
+                    source={{ uri: u.avatar }}
+                  />
+                  <Text>{u.name}</Text>
+                </View>
+              );
+            })
+          }
+        </Card>
+
+        {/* implemented with Text and Button as children */}
+        <Card
+          title='HELLO WORLD'
+          image={require('../images/pic2.jpg')}>
+          <Text style={{marginBottom: 10}}>
+            The idea with React Native Elements is more about component structure than actual design.
+          </Text>
+          <Button
+            onPress={() => {}}
+            icon={{name: 'code'}}
+            backgroundColor='#03A9F4'
+            fontFamily='Lato'
+            buttonStyle={{
+              borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0
+            }}
+            title='VIEW NOW' />
+        </Card>
+      </View>
+    );
+  }
+}

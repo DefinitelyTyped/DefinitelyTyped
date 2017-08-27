@@ -372,3 +372,89 @@ export interface BadgeProperties {
  * @see https://react-native-training.github.io/react-native-elements/API/badge/
  */
 export class Badge extends React.Component<BadgeProperties, any> {}
+
+export interface CardProps {
+    /**
+     * Flex direction (row or column)
+     *
+     * @default 'column'
+     */
+    flexDirection?: 'column' | 'row';
+
+    /**
+     * Outer container style
+     */
+    containerStyle?: ViewStyle;
+
+    /**
+     * Inner container style
+     */
+    wrapperStyle?: ViewStyle;
+
+    /**
+     * Card title
+     */
+    title?: string;
+
+    /**
+     * Additional title styling (if title provided)
+     */
+    titleStyle?: TextStyle;
+
+    /**
+     * Title rendered over the image
+     * (only works if image prop is present)
+     */
+    featuredTitle?: string;
+
+    /**
+     * Styling for featured title
+     */
+    featuredTitleStyle?: TextStyle;
+
+    /**
+     * Subtitle rendered over the image
+     * (only works if image prop is present)
+     */
+    featuredSubtitle?: string;
+
+    /**
+     * Styling for featured subtitle
+     */
+    featuredSubtitleStyle?: TextStyle;
+
+    /**
+     * Additional divider styling
+     * (if title provided)
+     */
+    dividerStyle?: ViewStyle;
+
+    /**
+     * Specify different font family
+     *
+     * @default System font bold (iOS), Sans Serif Bold (android)
+     */
+    fontFamily?: string;
+
+    /**
+     * Specify image styling if image is provided
+     */
+    imageStyle?: ImageStyle;
+
+    /**
+     * Specify styling for view surrounding image
+     */
+    imageWrapperStyle?: ViewStyle;
+
+    /**
+     * Add an image as the heading with the image prop
+     */
+    image?: ImageURISource;
+}
+
+/**
+ * Card component
+ *
+ * @see https://react-native-training.github.io/react-native-elements/API/card/
+ */
+export class Card extends React.Component<CardProps, any> {}
