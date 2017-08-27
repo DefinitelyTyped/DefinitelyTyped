@@ -38,7 +38,7 @@ export const QueryDocumentKeys: {
     EnumValueDefinition: string[];
     InputObjectTypeDefinition: string[];
     TypeExtensionDefinition: string[];
-}
+};
 
 export const BREAK: any;
 

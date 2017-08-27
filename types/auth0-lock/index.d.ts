@@ -155,7 +155,7 @@ interface Auth0LockStatic {
     getProfile(token: string, callback: (error: auth0.Auth0Error, profile: auth0.Auth0UserProfile) => void): void;
     getUserInfo(token: string, callback: (error: auth0.Auth0Error, profile: auth0.Auth0UserProfile) => void): void;
     // https://github.com/auth0/lock#resumeauthhash-callback
-    resumeAuth( hash: string, callback: (error: auth0.Auth0Error, authResult: AuthResult) =>  void): void;
+    resumeAuth(hash: string, callback: (error: auth0.Auth0Error, authResult: AuthResult) => void): void;
     show(options?: Auth0LockShowOptions): void;
     hide(): void;
     logout(query: any): void;

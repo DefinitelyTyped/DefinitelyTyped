@@ -7,3 +7,13 @@ const jsx = (
     {elements}
   </Head>
 );
+
+if (!Head.canUseDOM) {
+  Head.rewind().map(
+    x => [x.key, x.props, x.type]
+  );
+}
+
+Head.peek().map(
+  x => [x.key, x.props, x.type]
+);

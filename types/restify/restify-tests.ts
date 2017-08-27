@@ -34,16 +34,17 @@ function send(req: restify.Request, res: restify.Response, next: restify.Next) {
     req.trailer('key', 'val');
     req.trailer('key') === 'val';
 
-    req.accepts('test') === true;
-    req.accepts(['test']) === true;
-    req.acceptsEncoding('test') === true;
-    req.acceptsEncoding(['test']) === true;
-    req.is('test') === true;
-    req.isChunked() === true;
-    req.isKeepAlive() === true;
-    req.isSecure() === true;
-    req.isUpgradeRequest() === true;
-    req.isUpload() === true;
+    let b: boolean;
+    b = req.accepts('test');
+    b = req.accepts(['test']);
+    b = req.acceptsEncoding('test');
+    b = req.acceptsEncoding(['test']);
+    b = req.is('test');
+    b = req.isChunked();
+    b = req.isKeepAlive();
+    b = req.isSecure();
+    b = req.isUpgradeRequest();
+    b = req.isUpload();
     req.userAgent() === 'test';
     req.startHandlerTimer('test');
     req.endHandlerTimer('test');
@@ -142,7 +143,7 @@ server.use(restify.plugins.throttle({
     }
 }));
 
-server.on('after', restify.plugins.auditLogger({ log: {} as Logger }));
+server.on('after', restify.plugins.auditLogger({ event: 'after', log: {} as Logger }));
 
 server.on('after', (req: restify.Request, res: restify.Response, route: restify.Route, err: any) => {
     route.spec.method === 'GET';
@@ -150,7 +151,7 @@ server.on('after', (req: restify.Request, res: restify.Response, route: restify.
     route.spec.path === '/some/path';
     route.spec.path === /\/some\/path\/.*/;
     route.spec.versions === ['v1'];
-    restify.plugins.auditLogger({ log: {} as Logger })(req, res, route, err);
+    restify.plugins.auditLogger({ event: 'after', log: {} as Logger })(req, res, route, err);
 });
 
 (<any> restify).defaultResponseHeaders = function(this: restify.Request, data: any) {

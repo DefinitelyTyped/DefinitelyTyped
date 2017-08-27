@@ -1,12 +1,13 @@
-// Type definitions for Nodemailer 1.3.2
+// Type definitions for Nodemailer 3.1.5
 // Project: https://github.com/andris9/Nodemailer
-// Definitions by: Rogier Schouten <https://github.com/rogierschouten/>
+// Definitions by: Rogier Schouten <https://github.com/rogierschouten>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
 
 import directTransport = require("nodemailer-direct-transport");
 import smtpTransport = require("nodemailer-smtp-transport");
+import sesTransport = require("nodemailer-ses-transport")
 
 /**
  * Transporter plugin
@@ -29,17 +30,6 @@ export interface Transporter {
      * return Promise
      */
     sendMail(mail: SendMailOptions): Promise<SentMessageInfo>;
-
-	/**
-	 * Send mail using a template.
-	 */
-	templateSender(template?: any, defaults?: any): (mailData: any, context: any) => Promise<SentMessageInfo>;
-
-	/**
-	 * Send mail using a template with a callback.
-	 */
-	templateSender(template?: any, defaults?: any, callback?: (error: Error, info: SentMessageInfo) => void): void;
-
 
 	/**
 	 * Attach a plugin. 'compile' and 'stream' plugins can be attached with use(plugin) method
@@ -73,6 +63,14 @@ export declare function createTransport(options?: directTransport.DirectOptions,
  * Create an SMTP transporter
  */
 export declare function createTransport(options?: smtpTransport.SmtpOptions, defaults?: Object): Transporter;
+/**
+ * Create an SMTP transporter using a connection url
+ */
+export declare function createTransport(connectionUrl: string, defaults?: Object): Transporter;
+/**
+ * Create an AWS SES transporter
+ */
+export declare function createTransport(options?: sesTransport.SesOptions, defaults?: Object): Transporter;
 /**
  * Create a transporter from a given implementation
  */

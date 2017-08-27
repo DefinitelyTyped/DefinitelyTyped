@@ -1,6 +1,6 @@
 // Type definitions for depd 1.1.0
 // Project: https://github.com/dougwilson/nodejs-depd
-// Definitions by: Zhiyuan Wang <https://github.com/danny8002/>
+// Definitions by: Zhiyuan Wang <https://github.com/danny8002>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 

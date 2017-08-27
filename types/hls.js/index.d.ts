@@ -56,6 +56,11 @@ declare namespace Hls {
      */
     const BUFFER_CODECS: string;
     /**
+     * fired when sourcebuffers have been created
+     * data: { tracks: tracks }
+     */
+    const BUFFER_CREATED: string;
+    /**
      * fired when we append a segment to the buffer
      * data: { segment: segment object }
      */
@@ -206,6 +211,11 @@ declare namespace Hls {
      */
     const FRAG_LOAD_PROGRESS: string;
     /**
+     * identifier for fragment load aborting for emergency switch down
+     * data: { frag: fragment object }
+     */
+    const FRAG_LOAD_ERMERGENCY_ABORTED: string;
+    /**
      * fired when a fragment loading is completed
      * data: { frag : fragment object, payload : fragment payload, stats : { trequest, tfirst, tload, length}}
      */
@@ -275,12 +285,18 @@ declare namespace Hls {
      * data: { }
      */
     const DESTROYING: string;
+    /**
+     * fired upon stream controller state transitions
+     * data: { previousState, nextState }
+     */
+    const STREAM_STATE_TRANSITION: string;
   }
 
   /**
    * Hls error details
    */
   namespace ErrorDetails {
+    // NETWORK_ERRORS //
     /**
      * raised when manifest loading fails because of a network error
      * data: { type : NETWORK_ERROR, details : Hls.ErrorDetails.MANIFEST_LOAD_ERROR, fatal : true, url : manifest URL, response : { code: error code, text: error text }, loader : URL loader }
@@ -307,35 +323,57 @@ declare namespace Hls {
      */
     const LEVEL_LOAD_TIMEOUT: string;
     /**
-     * raised when level switching fails
-     * data: { type : OTHER_ERROR, details : Hls.ErrorDetails.LEVEL_SWITCH_ERROR, fatal : false, level : failed level index, reason : failure reason }
+     * raised when audio track loading fails because of a network error
+     * data: { type: NETWORK_ERROR, details: Hls.ErrorDetails.AUDIO_TRACK_LOAD_ERROR, fatal: false, url: audio URL, loader: URL loader }
      */
-    const LEVEL_SWITCH_ERROR: string;
+    const AUDIO_TRACK_LOAD_ERROR: string;
+    /**
+     * raised when audio track loading fails because of a timeout
+     * data: { type: NETWORK_ERROR, details: Hls.ErrorDetails.AUDIO_TRACK_LOAD_TIMEOUT, fatal: false, url: audio URL, response: { code: error code, text: error text }, loader: URL loader }
+     */
+    const AUDIO_TRACK_LOAD_TIMEOUT: string;
     /**
      * raised when fragment loading fails because of a network error
      * data: { type : NETWORK_ERROR, details : Hls.ErrorDetails.FRAG_LOAD_ERROR, fatal : true or false, frag : fragment object, response : { code: error code, text: error text } }
      */
     const FRAG_LOAD_ERROR: string;
     /**
-     * raised upon detection of same fragment being requested in loop
-     * data: { type : NETWORK_ERROR, details : Hls.ErrorDetails.FRAG_LOOP_LOADING_ERROR, fatal : true or false, frag : fragment object }
-     */
-    const FRAG_LOOP_LOADING_ERROR: string;
-    /**
      * raised when fragment loading fails because of a timeout
      * data: { type : NETWORK_ERROR, details : Hls.ErrorDetails.FRAG_LOAD_TIMEOUT, fatal : true or false, frag : fragment object }
      */
     const FRAG_LOAD_TIMEOUT: string;
     /**
-     * raised when fragment parsing fails
-     * data: { type : NETWORK_ERROR, details : Hls.ErrorDetails.FRAG_PARSING_ERROR, fatal : true or false, reason : failure reason }
+     * raised when decrypt key loading fails because of a network error
+     * data: { type: NETWORK_ERROR, details: Hls.ErrorDetails.KEY_LOAD_ERROR, fatal: false, frag: fragment object }
      */
-    const FRAG_PARSING_ERROR: string;
+    const KEY_LOAD_ERROR: string;
+    /**
+     * raised when decrypt key loading fails because of timeout
+     * data: { type: NETWORK_EROR, details: Hls.ErrorDetails.KEY_LOAD_TIMEOUT, fatal: true, frag: fragment object }
+     */
+    const KEY_LOAD_TIMEOUT: string;
+
+    // MEDIA_ERRORS //
     /**
      * raised when manifest only contains quality level with codecs incompatible with MediaSource Engine.
      * data: { type : MEDIA_ERROR, details : Hls.ErrorDetails.MANIFEST_INCOMPATIBLE_CODECS_ERROR, fatal : true, url : manifest URL }
      */
     const MANIFEST_INCOMPATIBLE_CODECS_ERROR: string;
+    /**
+     * raised upon detection of same fragment being requested in loop
+     * data: { type : NETWORK_ERROR, details : Hls.ErrorDetails.FRAG_LOOP_LOADING_ERROR, fatal : true or false, frag : fragment object }
+     */
+    const FRAG_LOOP_LOADING_ERROR: string;
+    /**
+     * raised when fragment decryption fails
+     * data: { type: MEDIA_ERROR, details: Hls.ErrorDetails.FRAG_DECRYPT_ERROR, fatal: true, reason: failure reason }
+     */
+    const FRAG_DECRYPT_ERROR: string;
+    /**
+     * raised when fragment parsing fails
+     * data: { type : NETWORK_ERROR, details : Hls.ErrorDetails.FRAG_PARSING_ERROR, fatal : true or false, reason : failure reason }
+     */
+    const FRAG_PARSING_ERROR: string;
     /**
      *  raised when MediaSource fails to add new sourceBuffer
      * data: { type : MEDIA_ERROR, details : Hls.ErrorDetails.BUFFER_ADD_CODEC_ERROR, fatal : false, err : error raised by MediaSource, mimeType: mimeType on which the failure happened }
@@ -367,6 +405,30 @@ declare namespace Hls {
      * data: { type : MEDIA_ERROR, details : Hls.ErrorDetails.BUFFER_SEEK_OVER_HOLE, fatal : false, hole : hole duration }
      */
     const BUFFER_SEEK_OVER_HOLE: string;
+    /**
+     * raised when playback is stuck although currentTime is in a buffered aread
+     * data: { type: MEDIA_ERROR, details: Hls.ErrorDetails.BUFFERED_STALLED_ERROR, fatal: true }
+     */
+    const BUFFER_NUDGE_ON_STALL: string;
+
+    // MUX_ERROR //
+    /**
+     * raised when memory allocation fails during remuxing
+     * data: { type: MUX_ERROR, details: Hls.ErrorDetails.REMUX_ALLOC_ERROR, fatal: false, bytes: mdat size, reason: failure reason }
+     */
+    const REMUX_ALLOC_ERROR: string;
+
+    // OTHER_ERROR //
+    /**
+     * raised when level switching fails
+     * data: { type : OTHER_ERROR, details : Hls.ErrorDetails.LEVEL_SWITCH_ERROR, fatal : false, level : failed level index, reason : failure reason }
+     */
+    const LEVEL_SWITCH_ERROR: string;
+    /**
+     * raised when an exception occurs in an internal hls.js event handler
+     * data: { type: OTHER_ERROR, details: Hls.ErrorDetails.INTERNAL_EXCEPTION, fatal: true or false, event: event object or string, error: { message: error message } }
+     */
+    const INTERNAL_EXCEPTION: string;
   }
 
   /**
@@ -381,6 +443,10 @@ declare namespace Hls {
      * media/video related errors
      */
     const MEDIA_ERROR: string;
+    /**
+     * muxing related errors
+     */
+    const MUX_ERROR: string;
     /**
      * all other erros
      */
@@ -1364,9 +1430,9 @@ declare namespace Hls {
      */
     levelId?: number;
     /**
-     * levelDetails object
+     * ErrorDetails type
      */
-    details?: LevelDetails;
+    details?: string;
     /**
      * PTS drift observed when parsing last fragment
      */
@@ -1659,24 +1725,24 @@ declare class Hls {
    *
    * set to -1 for automatic level selection
    */
-  nextLevel: Hls.Level;
+  nextLevel: number;
   /**
    * get: return last loaded fragment quality level
    * set: quality level for next loaded fragment
    * set to -1 for automatic level selection
    */
-  loadLevel: Hls.Level;
+  loadLevel: number;
   /**
    * get: return quality level that will be used to load next fragment
    * set: force quality level for next loaded fragment
    * quality level will be forced only for that fragment
    * after a fragment at this quality level has been loaded, hls.loadLevel will prevail
    */
-  nextLoadLevel: Hls.Level;
+  nextLoadLevel: number;
   /**
    * first level index (index of first level appearing in Manifest. it is usually defined as start level hint for player)
    */
-  firstLevel: Hls.Level;
+  firstLevel: number;
   /**
    * array of audio tracks exposed in manifest
    */

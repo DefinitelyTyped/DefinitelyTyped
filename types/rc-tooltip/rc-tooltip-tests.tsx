@@ -10,6 +10,13 @@ ReactDOM.render(
 );
 
 ReactDOM.render(
+    <Tooltip overlay="tooltip">
+        <a href='#'>hover</a>
+    </Tooltip>,
+    document.querySelector('.app')
+);
+
+ReactDOM.render(
     <Tooltip
         placement="bottomRight"
         trigger={['click', 'focus']}

@@ -1,6 +1,11 @@
 // Type definitions for graphql 0.10
 // Project: https://www.npmjs.com/package/graphql
-// Definitions by: TonyYang <https://github.com/TonyPythoneer>, Caleb Meredith <https://github.com/calebmer>, Dominic Watson <https://github.com/intellix>, Firede <https://github.com/firede>, Kepennar <https://github.com/kepennar>
+// Definitions by: TonyYang <https://github.com/TonyPythoneer>
+//                 Caleb Meredith <https://github.com/calebmer>
+//                 Dominic Watson <https://github.com/intellix>
+//                 Firede <https://github.com/firede>
+//                 Kepennar <https://github.com/kepennar>
+//                 Mikhail Novikov <https://github.com/freiksenet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -9,11 +14,8 @@ export {
     graphql
 } from './graphql';
 
-/// <reference types="graphql" />
-
 // Create and operate on GraphQL type definitions and schema.
 export * from './type';
-
 
 // Parse and operate on GraphQL language source files.
 export * from './language';
@@ -28,14 +30,12 @@ export {
     ExecutionResult,
 } from './execution';
 
-
 // Validate GraphQL queries.
 export {
     validate,
     ValidationContext,
     specifiedRules,
 } from './validation';
-
 
 // Create and format GraphQL errors.
 export {
@@ -44,7 +44,6 @@ export {
     GraphQLFormattedError,
     GraphQLErrorLocation,
 } from './error';
-
 
 // Utilities for operating on GraphQL type schema and parsed sources.
 export {

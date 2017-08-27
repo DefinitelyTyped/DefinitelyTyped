@@ -157,7 +157,7 @@ class UrlLocatorTestService implements IUrlLocatorTestService {
 
             // Note that we do not concern ourselves with what to do if this request fails,
             // because if it fails, the web page will be redirected away to the login screen.
-            this.$http({ url: "/api/me", method: "GET" }).then((response: ng.IHttpPromiseCallbackArg<any>) => {
+            this.$http({ url: "/api/me", method: "GET" }).then((response: ng.IHttpResponse<any>) => {
                 this.currentUser = response.data;
 
                 // sync the ui-state with the location in the browser, which effectively

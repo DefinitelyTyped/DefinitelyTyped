@@ -1,6 +1,6 @@
 // Type definitions for hapi 12.0.1
-// Project: http://github.com/spumko/hapi
-// Definitions by: Jason Swearingen <http://github.com/jasonswearingen>
+// Project: https://github.com/spumko/hapi
+// Definitions by: Jason Swearingen <https://github.com/jasonswearingen>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
 // Note/Disclaimer:

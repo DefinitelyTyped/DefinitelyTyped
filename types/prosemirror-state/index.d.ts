@@ -63,7 +63,7 @@ export class Plugin<T = any> {
   constructor(spec: PluginSpec<T>)
   props: PluginSpecProps;
   spec: AnyObject;
-  getState(state: EditorState): any;
+  getState(state: EditorState): T | undefined;
 }
 
 export interface StateField <T> {

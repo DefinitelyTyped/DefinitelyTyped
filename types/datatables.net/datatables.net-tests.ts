@@ -12,6 +12,7 @@ $(document).ready(function () {
         "loadingRecords": "Loading...",
         "processing": "Processing...",
         "search": "Search:",
+        "searchPlaceholder": "Default text",
         "zeroRecords": "No matching records found",
         "paginate": {
             "first": "First",
@@ -413,6 +414,7 @@ $(document).ready(function () {
     var modifier: DataTables.ObjectSelectorModifier = {
         order: "current",
         search: "none",
+        searchPlaceholder: "Default text",
         page: "all",
     };
 

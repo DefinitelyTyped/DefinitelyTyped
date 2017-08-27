@@ -1,6 +1,6 @@
-// Type definitions for request
+// Type definitions for request 2.0
 // Project: https://github.com/request/request
-// Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>, bonnici <https://github.com/bonnici>, Bart van der Schoor <https://github.com/Bartvds>, Joe Skeen <http://github.com/joeskeen>, Christopher Currens <https://github.com/ccurrens>
+// Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>, bonnici <https://github.com/bonnici>, Bart van der Schoor <https://github.com/Bartvds>, Joe Skeen <https://github.com/joeskeen>, Christopher Currens <https://github.com/ccurrens>, Jon Stevens <https://github.com/lookfirst>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/d.ts
@@ -142,7 +142,9 @@ declare namespace request {
         timeout?: number;
         localAddress?: string;
         proxy?: any;
+        tunnel?: boolean;
         strictSSL?: boolean;
+        rejectUnauthorized?: boolean;
         time?: boolean;
         gzip?: boolean;
         preambleCRLF?: boolean;
@@ -154,7 +156,6 @@ declare namespace request {
         ca?: string | Buffer | string[] | Buffer[];
         har?: HttpArchiveRequest;
         useQuerystring?: boolean;
-        time?: boolean;
     }
 
     interface UriOptions {
@@ -178,6 +179,22 @@ declare namespace request {
 	export interface RequestResponse extends http.IncomingMessage {
 		request: Options;
 		body: any;
+		timingStart?: number;
+		timings?: {
+			socket: number;
+			lookup: number;
+			connect: number;
+			response: number;
+			end: number;
+		};
+		timingPhases?: {
+			wait: number;
+			dns: number;
+			tcp: number;
+			firstByte: number;
+			download: number;
+			total: number;
+		};
 	}
 
     export interface HttpArchiveRequest {

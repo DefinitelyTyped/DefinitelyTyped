@@ -1,20 +1,30 @@
-// Type definitions for babel-core v6.7
+// Type definitions for babel-core 6.25
 // Project: https://github.com/babel/babel/tree/master/packages/babel-core
 // Definitions by: Troy Gerwien <https://github.com/yortus>
+//                 Marvin Hagemeister <https://github.com/marvinhagemeister>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference types="babel-template" />
-/// <reference types="babel-traverse" />
-/// <reference types="babel-types" />
+// TypeScript Version: 2.3
 
 import * as t from 'babel-types';
-export {t as types};
-type Node = t.Node;
+export { t as types };
+export type Node = t.Node;
 export import template = require('babel-template');
-export var version: string;
-import traverse, {Visitor} from "babel-traverse";
-export {traverse, Visitor};
+export const version: string;
+import traverse, { Visitor } from "babel-traverse";
+export { traverse, Visitor };
 
+// A babel plugin is a simple function which must return an object matching
+// the following interface. Babel will throw if it finds unknown properties.
+// The list of allowed plugin keys is here:
+// https://github.com/babel/babel/blob/4e50b2d9d9c376cee7a2cbf56553fe5b982ea53c/packages/babel-core/src/config/option-manager.js#L71
+export interface PluginObj<S = {}> {
+    name?: string;
+    manipulateOptions?(opts: any, parserOpts: any): void;
+    pre?(this: S, state: any): void;
+    visitor: Visitor<S>;
+    post?(this: S, state: any): void;
+    inherits?: any;
+}
 
 /** Transforms the passed in `code`. Returning an object with the generated code, source map, and AST. */
 export function transform(code: string, opts?: TransformOptions): BabelFileResult;
@@ -28,7 +38,6 @@ export function transformFileSync(filename: string, opts?: TransformOptions): Ba
 export function transformFromAst(ast: Node, code?: string, opts?: TransformOptions): BabelFileResult;
 
 export interface TransformOptions {
-
     /** Filename to use when reading from stdin - this will be used in source-maps, errors etc. Default: "unknown". */
     filename?: string;
 
@@ -36,7 +45,7 @@ export interface TransformOptions {
     filenameRelative?: string;
 
     /** A source map object that the output source map will be based on. */
-    inputSourceMap?: Object;
+    inputSourceMap?: object;
 
     /**
      * This is an object of keys that represent different environments. For example, you may have:
@@ -44,7 +53,7 @@ export interface TransformOptions {
      * which will use those options when the enviroment variable `BABEL_ENV` is set to `"production"`.
      * If `BABEL_ENV` isn't set then `NODE_ENV` will be used, if it's not set then it defaults to `"development"`.
      */
-    env?: Object;
+    env?: object;
 
     /** Retain line numbers - will result in really ugly code. Default: `false` */
     retainLines?: boolean;
@@ -83,7 +92,7 @@ export interface TransformOptions {
      * An optional callback that controls whether a comment should be output or not. Called as
      * `shouldPrintComment(commentContents)`. **NOTE**: This overrides the `comments` option when used.
      */
-    shouldPrintComment?: (comment: string) => boolean;
+    shouldPrintComment?(comment: string): boolean;
 
     /**
      * Do not include superfluous whitespace characters and line terminators. When set to `"auto"`, `compact` is set to
@@ -120,7 +129,7 @@ export interface TransformOptions {
      * Specify a custom callback to generate a module id with. Called as `getModuleId(moduleName)`.
      * If falsy value is returned then the generated module id is used.
      */
-    getModuleId?: (moduleName: string) => string;
+    getModuleId?(moduleName: string): string;
 
     /** Optional prefix for the AMD module formatter that will be prepend to the filename on module definitions. */
     moduleRoot?: string;
@@ -138,7 +147,6 @@ export interface TransformOptions {
 export interface BabelFileResult {
     ast?: Node;
     code?: string;
-    map?: Object;
+    map?: object;
 }
 export as namespace babel;
-

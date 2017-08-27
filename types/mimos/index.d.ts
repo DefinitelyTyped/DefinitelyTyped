@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import {DataStructure as MimeDbDataStructure} from 'mime-db';
+import { DataStructure as MimeDbDataStructure } from 'mime-db';
 
 /**
  *
