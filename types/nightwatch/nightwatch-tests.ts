@@ -1,4 +1,4 @@
-const test: NightWatchTests = {
+const test: NightwatchTests = {
   'Demo test Google': (browser) => {
     browser
       .url('http://www.google.com')
