@@ -11,7 +11,8 @@ export interface WrapperState {
 	isOpen: boolean;
 }
 
-export type WrapperProps<T extends HTMLElement> = React.HTMLAttributes<T> & {
+export interface WrapperProps<T extends HTMLElement>
+	extends React.HTMLAttributes<T> {
 	/**
 	 * A callback to run when the user makes a selection
 	 * (i.e. clicks or presses Enter or Space on a `MenuItem`).
@@ -35,7 +36,7 @@ export type WrapperProps<T extends HTMLElement> = React.HTMLAttributes<T> & {
 	isOpen?: boolean;
 
 	tag?: T["tagName"];
-};
+}
 
 /**
  * A simple component to group a `Button`/`Menu`/`MenuItem` set,
@@ -48,7 +49,8 @@ export type WrapperProps<T extends HTMLElement> = React.HTMLAttributes<T> & {
  */
 export class Wrapper extends React.Component<WrapperProps<HTMLElement>> {}
 
-export type ButtonProps<T extends HTMLElement> = React.HTMLAttributes<T> & {
+export interface ButtonProps<T extends HTMLElement>
+	extends React.HTMLAttributes<T> {
 	/**
 	 * If true, the element is disabled
 	 * (aria-disabled='true', not in tab order, clicking has no effect).
@@ -59,7 +61,7 @@ export type ButtonProps<T extends HTMLElement> = React.HTMLAttributes<T> & {
 	 * The HTML tag for this element. Default: 'span'.
 	 */
 	tag?: T["tagName"];
-};
+}
 
 /**
  * A React component to wrap the content of your
@@ -71,19 +73,21 @@ export type ButtonProps<T extends HTMLElement> = React.HTMLAttributes<T> & {
  */
 export class Button extends React.Component<ButtonProps<HTMLElement>> {}
 
-export type MenuProps<T extends HTMLElement> = React.HTMLAttributes<T> & {
+export interface MenuProps<T extends HTMLElement>
+	extends React.HTMLAttributes<T> {
 	/**
 	 * The HTML tag for this element. Default: 'span'.
 	 */
 	tag?: T["tagName"];
-};
+}
 
 /**
  * A React component to wrap the content of your menu-button-pattern's menu.
  */
 export class Menu extends React.Component<MenuProps<HTMLElement>> {}
 
-export type MenuItemProps<T extends HTMLElement> = React.HTMLAttributes<T> & {
+export interface MenuItemProps<T extends HTMLElement>
+	extends React.HTMLAttributes<T> {
 	/**
 	 * If value has a value, it will be passed to the onSelection handler
 	 * when the `MenuItem` is selected
@@ -100,7 +104,7 @@ export type MenuItemProps<T extends HTMLElement> = React.HTMLAttributes<T> & {
 	 * The HTML tag for this element. Default: 'span'.
 	 */
 	tag?: T["tagName"];
-};
+}
 
 /**
  * A React component to wrap the content of one of your
