@@ -1,4 +1,4 @@
-// Type definitions for js-yaml 3.5.2
+// Type definitions for js-yaml 3.9.1
 // Project: https://github.com/nodeca/js-yaml
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>, Sebastian Clausen <https://github.com/sclausen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -14,7 +14,8 @@ declare namespace jsyaml {
 	}
 	export class Schema {
 		constructor(definition: SchemaDefinition);
-		public static create(args: any[]): Schema;
+		public static create(types: Type[] | Type): Schema;
+		public static create(schemas: Schema[] | Schema, types: Type[] | Type): Schema;
 	}
 
 	export function safeLoadAll(str: string, iterator: (doc: any) => void, opts?: LoadOptions): any;
@@ -51,6 +52,8 @@ declare namespace jsyaml {
 		noRefs?: boolean;
 		// if true don't try to be compatible with older yaml versions. Currently: don't quote "yes", "no" and so on, as required for YAML 1.1 (default: false)
 		noCompatMode?: boolean;
+		// if true flow sequences will be condensed, omitting the space between `key: value` or `a, b`. Eg. `'[a,b]'` or `{a:{b:c}}`. Can be useful when using yaml for pretty URL query params as spaces are %-encoded. (default: false)
+		condenseFlow?: boolean;
 	}
 
 	export interface TypeConstructorOptions {

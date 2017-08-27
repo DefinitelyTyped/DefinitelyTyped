@@ -1,10 +1,9 @@
-function testConstructor() {
-    interface MyModel {
-        numericProperty: number;
-    }
-    let model: PouchDB.Core.Document<MyModel>;
+interface MyModel {
+    numericProperty: number;
+}
 
-    let db = new PouchDB<MyModel>('myDb', {
+function testConstructor(model: PouchDB.Core.Document<MyModel>) {
+    const db = new PouchDB<MyModel>('myDb', {
         adapter: 'http',
     });
     db.get('model').then((result) => model);

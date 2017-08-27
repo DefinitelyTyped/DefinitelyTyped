@@ -3,6 +3,7 @@ import * as stream from 'stream';
 import { SObjectCreateOptions } from './create-options';
 import { DescribeSObjectResult } from './describe-result';
 import { Query } from './query';
+import { Record } from './record';
 import { RecordResult } from './record-result';
 import { Connection } from './connection';
 import { SalesforceId } from './salesforce-id';
@@ -10,8 +11,8 @@ import { SalesforceId } from './salesforce-id';
 export class SObject {
     record(options: any, callback?: (err: Error, ret: any) => void): void;
     update(options: SObjectCreateOptions, callback?: (err: Error, ret: any) => void): void;
-    retrieve(ids: string | string[], callback?: (err: Error, ret: any) => void): void;
-    retrieve(ids: string | string[], options?: Object, callback?: (err: Error, ret: any) => void): void;
+    retrieve(ids: string | string[], callback?: (err: Error, ret: Record | Record[]) => void): Promise<Record | Record[]>;
+    retrieve(ids: string | string[], options?: Object, callback?: (err: Error, ret: Record | Record[]) => void): Promise<Record | Record[]>;
     upsert(records: Record | Record[], extIdField: SalesforceId, options?: Object, callback?: (err: Error, ret: RecordResult) => void): Promise<RecordResult | RecordResult[]>;
     upsertBulk(input?: Record[] | stream.Stream | string, callback?: (err: Error, ret: RecordResult) => void): Batch;
     describeGlobal(callback: (err: Error, res: any) => void): void;

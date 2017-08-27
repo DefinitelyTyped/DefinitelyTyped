@@ -1,6 +1,6 @@
 // Type definitions for promisify-supertest v1.0.0
 // Project: https://www.npmjs.com/package/promisify-supertest
-// Definitions by: Leo Liang <https://github.com/aleung/>
+// Definitions by: Leo Liang <https://github.com/aleung>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -19,7 +19,7 @@ declare namespace supertest {
     interface SuperTest extends superagent.SuperAgent<Test> {
     }
 
-    interface Test extends superagent.Request {
+    interface Test extends superagent.SuperAgentRequest {
         url: string;
         serverAddress(app: any, path: string): string;
         expect(status: number, callback?: CallbackHandler): this;

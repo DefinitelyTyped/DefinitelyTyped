@@ -1,4 +1,4 @@
-import {Collection} from "wonder-commonlib/dist/es2015/Collection";
+import { Collection } from "wonder-commonlib/dist/es2015/Collection";
 
 var list = Collection.create();
 

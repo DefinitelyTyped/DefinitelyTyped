@@ -13,13 +13,20 @@ addDecorator(Decorator);
 
 // setAddon
 interface AnyAddon {
-    xyz(): void;
+    addWithSideEffect<T>(this: Story & T, storyName: string, storyFn: RenderFunction): Story & T;
 }
 const AnyAddon: AnyAddon = {
-    xyz() {}
+    addWithSideEffect<T>(this: Story & T, storyName: string, storyFn: RenderFunction): Story & T {
+        console.log(this.kind === 'withAnyAddon');
+        return this.add(storyName, storyFn);
+    }
 };
 setAddon(AnyAddon);
-storiesOf<AnyAddon>('withAnyAddon', module).xyz();
+storiesOf<AnyAddon>('withAnyAddon', module)
+    .addWithSideEffect('custom story', () => <div/>)
+    .addWithSideEffect('more', () => <div/>)
+    .add('another story', () => <div/>)
+    .addWithSideEffect('even more', () => <div/>);
 
 // configure
 configure(() => undefined, module);

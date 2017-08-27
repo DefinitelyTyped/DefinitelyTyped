@@ -1,9 +1,10 @@
 import * as React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TabBarIOS } from 'react-native';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
+import Ionicon from 'react-native-vector-icons/Ionicons';
 
-class Example extends React.Component<{}, {}> {
+class Example extends React.Component {
   handleButton() {
     console.log('You pressed me');
   }
@@ -25,6 +26,46 @@ class Example extends React.Component<{}, {}> {
           </Text>
         </FontAwesomeIcon.Button>
       </View>
+    );
+  }
+}
+
+class TabTest extends React.Component<any, {selectedTab: string}> {
+  constructor() {
+    super();
+
+    this.state = {
+      selectedTab: 'tab1'
+    };
+  }
+
+  render() {
+    return (
+      <TabBarIOS barTintColor="white">
+        <Ionicon.TabBarItemIOS
+          title="Tab1"
+          iconName="ios-keypad-outline"
+          selectedIconName="ios-keypad"
+          selectedIconColor="pink"
+          renderAsOriginal
+          selected={this.state.selectedTab === 'tab1'}
+          onPress={() => this.setState({selectedTab: 'tab1'})}
+        >
+          <View />
+        </Ionicon.TabBarItemIOS>
+
+        <Ionicon.TabBarItemIOS
+          title="Tab2"
+          iconName="ios-bookmark-outline"
+          selectedIconName="ios-bookmark"
+          selectedIconColor='pink'
+          renderAsOriginal
+          selected={this.state.selectedTab === 'tab2'}
+          onPress={() => this.setState({selectedTab: 'tab2'})}
+        >
+          <View />
+        </Ionicon.TabBarItemIOS>
+      </TabBarIOS>
     );
   }
 }

@@ -1,13 +1,16 @@
 // Type definitions for Angular JS 1.6
 // Project: http://angularjs.org
-// Definitions by: Diego Vilar <http://github.com/diegovilar>
-//                 Georgii Dolzhykov <http://github.com/thorn0>
+// Definitions by: Diego Vilar <https://github.com/diegovilar>
+//                 Georgii Dolzhykov <https://github.com/thorn0>
 //                 Caleb St-Denis <https://github.com/calebstdenis>
 //                 Leonard Thieu <https://github.com/leonard-thieu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 /// <reference path="jqlite.d.ts" />
+
+// NOTE: @types/angular technically doesn't require TypeScript 2.3, only TypeScript 2.1.
+// It has a TypeScript 2.3 header so that merging tests with @types/jquery v3 will work.
 
 declare var angular: angular.IAngularStatic;
 
@@ -451,8 +454,6 @@ declare namespace angular {
      * see https://docs.angularjs.org/api/ng/type/$rootScope.Scope and https://docs.angularjs.org/api/ng/service/$rootScope
      */
     interface IRootScopeService {
-        [index: string]: any;
-
         $apply(): any;
         $apply(exp: string): any;
         $apply(exp: (scope: IScope) => any): any;
@@ -976,7 +977,7 @@ declare namespace angular {
     // DocumentService
     // see http://docs.angularjs.org/api/ng.$document
     ///////////////////////////////////////////////////////////////////////////
-    interface IDocumentService extends JQuery {
+    interface IDocumentService extends JQLite {
         // Must return intersection type for index signature compatibility with JQuery
         [index: number]: HTMLElement & Document;
     }
@@ -993,7 +994,7 @@ declare namespace angular {
     // RootElementService
     // see http://docs.angularjs.org/api/ng.$rootElement
     ///////////////////////////////////////////////////////////////////////////
-    interface IRootElementService extends JQuery {}
+    interface IRootElementService extends JQLite {}
 
     interface IQResolveReject<T> {
         (): void;
@@ -1037,6 +1038,12 @@ declare namespace angular {
          * Creates a Deferred object which represents a task which will finish in the future.
          */
         defer<T>(): IDeferred<T>;
+        /**
+         * Returns a promise that resolves or rejects as soon as one of those promises resolves or rejects, with the value or reason from that promise.
+         *
+         * @param promises A list or hash of promises.
+         */
+        race<T>(promises: Array<IPromise<T>> | {[key: string]: IPromise<T>}): IPromise<T>;
         /**
          * Creates a promise that is resolved as rejected with the specified reason. This api should be used to forward rejection in a chain of promises. If you are dealing with the last promise in a promise chain, you don't need to worry about it.
          *
@@ -1298,12 +1305,12 @@ declare namespace angular {
 
     interface ICloneAttachFunction {
         // Let's hint but not force cloneAttachFn's signature
-        (clonedElement?: JQuery, scope?: IScope): any;
+        (clonedElement?: JQLite, scope?: IScope): any;
     }
 
     // This corresponds to the "publicLinkFn" returned by $compile.
     interface ITemplateLinkingFunction {
-        (scope: IScope, cloneAttachFn?: ICloneAttachFunction, options?: ITemplateLinkingFunctionOptions): JQuery;
+        (scope: IScope, cloneAttachFn?: ICloneAttachFunction, options?: ITemplateLinkingFunctionOptions): JQLite;
     }
 
     interface ITemplateLinkingFunctionOptions {
@@ -1321,9 +1328,9 @@ declare namespace angular {
      */
     interface ITranscludeFunction {
         // If the scope is provided, then the cloneAttachFn must be as well.
-        (scope: IScope, cloneAttachFn: ICloneAttachFunction, futureParentElement?: JQuery, slotName?: string): JQuery;
+        (scope: IScope, cloneAttachFn: ICloneAttachFunction, futureParentElement?: JQuery, slotName?: string): JQLite;
         // If one argument is provided, then it's assumed to be the cloneAttachFn.
-        (cloneAttachFn?: ICloneAttachFunction, futureParentElement?: JQuery, slotName?: string): JQuery;
+        (cloneAttachFn?: ICloneAttachFunction, futureParentElement?: JQuery, slotName?: string): JQLite;
 
         /**
          * Returns true if the specified slot contains content (i.e. one or more DOM nodes)
@@ -1474,6 +1481,12 @@ declare namespace angular {
          * See [XMLHttpRequest.responseType]https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest#xmlhttprequest-responsetype
          */
         responseType?: string;
+
+        /**
+         * Name of the parameter added (by AngularJS) to the request to specify the name (in the server response) of the JSON-P callback to invoke.
+         * If unspecified, $http.defaults.jsonpCallbackParam will be used by default. This property is only applicable to JSON-P requests.
+         */
+        jsonpCallbackParam?: string;
     }
 
     /**
@@ -1510,23 +1523,27 @@ declare namespace angular {
         (data: T, status: number, headers: IHttpHeadersGetter, config: IRequestConfig): void;
     }
 
-    interface IHttpPromiseCallbackArg<T> {
-        data?: T;
-        status?: number;
-        headers?: IHttpHeadersGetter;
-        config?: IRequestConfig;
-        statusText?: string;
+    interface IHttpResponse<T> {
+        data: T;
+        status: number;
+        headers: IHttpHeadersGetter;
+        config: IRequestConfig;
+        statusText: string;
+        /** Added in AngularJS 1.6.6 */
+        xhrStatus: 'complete' | 'error' | 'timeout' | 'abort';
     }
 
-    interface IHttpPromise<T> extends IPromise<IHttpPromiseCallbackArg<T>> {
-    }
+    /** @deprecated The old name of IHttpResponse. Kept for compatibility. */
+    type IHttpPromiseCallbackArg<T> = IHttpResponse<T>;
+
+    type IHttpPromise<T> = IPromise<IHttpResponse<T>>;
 
     // See the jsdoc for transformData() at https://github.com/angular/angular.js/blob/master/src/ng/http.js#L228
     interface IHttpRequestTransformer {
         (data: any, headersGetter: IHttpHeadersGetter): any;
     }
 
-    // The definition of fields are the same as IHttpPromiseCallbackArg
+    // The definition of fields are the same as IHttpResponse
     interface IHttpResponseTransformer {
         (data: any, headersGetter: IHttpHeadersGetter, status: number): any;
     }
@@ -1599,10 +1616,10 @@ declare namespace angular {
     }
 
     interface IHttpInterceptor {
-        request?(config: IRequestConfig): IRequestConfig|IPromise<IRequestConfig>;
-        requestError?(rejection: any): any;
-        response?<T>(response: IHttpPromiseCallbackArg<T>): IPromise<IHttpPromiseCallbackArg<T>>|IHttpPromiseCallbackArg<T>;
-        responseError?(rejection: any): any;
+        request?(config: IRequestConfig): IRequestConfig | IPromise<IRequestConfig>;
+        requestError?(rejection: any): IRequestConfig | IPromise<IRequestConfig>;
+        response?<T>(response: IHttpResponse<T>): IPromise<IHttpResponse<T>> | IHttpResponse<T>;
+        responseError?<T>(rejection: any): IPromise<IHttpResponse<T>> | IHttpResponse<T>;
     }
 
     interface IHttpInterceptorFactory {
@@ -1952,7 +1969,7 @@ declare namespace angular {
     interface IDirectiveLinkFn {
         (
             scope: IScope,
-            instanceElement: JQuery,
+            instanceElement: JQLite,
             instanceAttributes: IAttributes,
             controller?: IController | IController[] | {[key: string]: IController},
             transclude?: ITranscludeFunction
@@ -1966,7 +1983,7 @@ declare namespace angular {
 
     interface IDirectiveCompileFn {
         (
-            templateElement: JQuery,
+            templateElement: JQLite,
             templateAttributes: IAttributes,
             /**
              * @deprecated
@@ -1998,9 +2015,9 @@ declare namespace angular {
         require?: string | string[] | {[controller: string]: string};
         restrict?: string;
         scope?: boolean | {[boundProperty: string]: string};
-        template?: string | ((tElement: JQuery, tAttrs: IAttributes) => string);
+        template?: string | ((tElement: JQLite, tAttrs: IAttributes) => string);
         templateNamespace?: string;
-        templateUrl?: string | ((tElement: JQuery, tAttrs: IAttributes) => string);
+        templateUrl?: string | ((tElement: JQLite, tAttrs: IAttributes) => string);
         terminal?: boolean;
         transclude?: boolean | 'element' | {[slot: string]: string};
     }
@@ -2013,7 +2030,7 @@ declare namespace angular {
      * See: http://docs.angularjs.org/api/angular.element
      */
     interface IAugmentedJQueryStatic extends JQueryStatic {}
-    interface IAugmentedJQuery extends JQuery {}
+    interface IAugmentedJQuery extends JQLite {}
 
     /**
      * Same as IController. Keeping it for compatibility with older versions of these type definitions.

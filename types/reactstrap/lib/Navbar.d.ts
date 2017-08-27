@@ -1,3 +1,5 @@
+import { CSSModule } from '../index';
+
 interface Props {
   light?: boolean;
   inverse?: boolean;
@@ -8,6 +10,7 @@ interface Props {
   role?: string;
   tag?: React.ReactType;
   className?: string;
+  cssModule?: CSSModule;
   toggleable?: boolean | string;
 }
 

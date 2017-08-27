@@ -76,6 +76,10 @@ declare namespace L {
         function enableImageDrag(): void;
         function preventOutline(el: HTMLElement): void;
         function restoreOutline(): void;
+
+        let TRANSFORM: string;
+        let TRANSITION: string;
+        let TRANSITION_END: string;
     }
 
     interface CRS {
@@ -170,7 +174,7 @@ declare namespace L {
 
     function latLngBounds(southWest: LatLngExpression, northEast: LatLngExpression): LatLngBounds;
 
-    function latLngBounds(latlngs: LatLngBoundsLiteral): LatLngBounds;
+    function latLngBounds(latlngs: LatLngExpression[]): LatLngBounds;
 
     type PointTuple = [number, number];
 
@@ -611,13 +615,13 @@ declare namespace L {
     function polyline(latlngs: LatLngExpression[], options?: PolylineOptions): Polyline;
 
     class Polygon extends InternalPolyline {
-        constructor(latlngs: LatLngExpression[], options?: PolylineOptions);
+        constructor(latlngs: LatLngExpression[] | LatLngExpression[][], options?: PolylineOptions);
         toGeoJSON(): GeoJSONFeature<GeoJSONPolygon | GeoJSONMultiPolygon>;
 
         feature?: GeoJSONFeature<GeoJSONPolygon | GeoJSONMultiPolygon>;
     }
 
-    function polygon(latlngs: LatLngExpression[], options?: PolylineOptions): Polygon;
+    function polygon(latlngs: LatLngExpression[] | LatLngExpression[][], options?: PolylineOptions): Polygon;
 
     class Rectangle extends Polygon {
         constructor(latLngBounds: LatLngBoundsExpression, options?: PolylineOptions);
@@ -757,7 +761,7 @@ declare namespace L {
         /**
          * Sets the given path options to each layer of the group that has a setStyle method.
          */
-        setStyle(style: PathOptions): this;
+        setStyle(style: StyleFunction): this;
 
         /**
          * Brings the layer group to the top of all other layers
@@ -1035,7 +1039,7 @@ declare namespace L {
         }
 
         class Layers extends Control {
-            constructor(baseLayers?: LayersObject, overlays?: LayersObject, options?: Control.LayersOptions);
+            constructor(baseLayers?: LayersObject, overlays?: LayersObject, options?: LayersOptions);
             addBaseLayer(layer: Layer, name: string): this;
             addOverlay(layer: Layer, name: string): this;
             removeLayer(layer: Layer): this;
@@ -1052,7 +1056,7 @@ declare namespace L {
         }
 
         class Scale extends Control {
-            constructor(options?: Control.ScaleOptions);
+            constructor(options?: ScaleOptions);
             options: ScaleOptions;
         }
     }
@@ -1541,6 +1545,7 @@ declare namespace L {
         function indexOf(array: any[], el: any): number;
         function requestAnimFrame(fn: () => void, context?: any, immediate?: boolean): number;
         function cancelAnimFrame(id: number): void;
+
         let lastId: number;
         let emptyImageUrl: string;
     }

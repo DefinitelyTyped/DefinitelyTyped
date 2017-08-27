@@ -2,7 +2,6 @@
 // Project: https://github.com/nathanbuchar/electron-settings
 // Definitions by: Leonard Thieu <https://github.com/leonard-thieu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
 
 /// <reference types="node" />
 
@@ -20,7 +19,7 @@ declare class Settings extends EventEmitter {
      *
      * @throws if options is not an object.
      */
-    configure(options: ElectronSettings.Options.Param): void;
+    configure(options: ElectronSettings.Options): void;
 
     /**
      * Globally configures default settings.
@@ -79,14 +78,14 @@ declare class Settings extends EventEmitter {
      * @throws if options is not an object.
      * @see setSync
      */
-    set(keyPath: string, value: any, options?: ElectronSettings.Options.Param): Promise<void>;
+    set(keyPath: string, value: any, options?: ElectronSettings.Options): Promise<void>;
 
     /**
      * The synchronous version of set().
      *
      * @see set
      */
-    setSync(keyPath: string, value: any, options?: ElectronSettings.Options.Param): void;
+    setSync(keyPath: string, value: any, options?: ElectronSettings.Options): void;
 
     /**
      * Deletes the key and value at the chosen key path.
@@ -97,14 +96,14 @@ declare class Settings extends EventEmitter {
      * @throws if options is not an object.
      * @see deleteSync
      */
-    delete(keyPath: string, options?: ElectronSettings.Options.Param): Promise<void>;
+    delete(keyPath: string, options?: ElectronSettings.Options): Promise<void>;
 
     /**
      * The synchronous version of delete().
      *
      * @see delete
      */
-    deleteSync(keyPath: string, options?: ElectronSettings.Options.Param): void;
+    deleteSync(keyPath: string, options?: ElectronSettings.Options): void;
 
     /**
      * Clears the entire settings object.
@@ -113,14 +112,14 @@ declare class Settings extends EventEmitter {
      * @throws if options is not an object.
      * @see clearSync
      */
-    clear(options?: ElectronSettings.Options.Param): Promise<void>;
+    clear(options?: ElectronSettings.Options): Promise<void>;
 
     /**
      * The synchronous version of clear().
      *
      * @see clear
      */
-    clearSync(options?: ElectronSettings.Options.Param): void;
+    clearSync(options?: ElectronSettings.Options): void;
 
     /**
      * Applies defaults to the current settings object (deep).
@@ -133,14 +132,14 @@ declare class Settings extends EventEmitter {
      * @see defaults
      * @see applyDefaultsSync
      */
-    applyDefaults(options?: ElectronSettings.ApplyDefaultsOptions.Param): Promise<void>;
+    applyDefaults(options?: ElectronSettings.ApplyDefaultsOptions): Promise<void>;
 
     /**
      * The synchronous version of applyDefaults().
      *
      * @see applyDefaults
      */
-    applyDefaultsSync(options?: ElectronSettings.ApplyDefaultsOptions.Param): void;
+    applyDefaultsSync(options?: ElectronSettings.ApplyDefaultsOptions): void;
 
     /**
      * Resets all settings to defaults.
@@ -151,14 +150,14 @@ declare class Settings extends EventEmitter {
      * @see defaults
      * @see resetToDefaultsSync
      */
-    resetToDefaults(options?: ElectronSettings.Options.Param): Promise<void>;
+    resetToDefaults(options?: ElectronSettings.Options): Promise<void>;
 
     /**
      * The synchronous version of resetToDefaults().
      *
      * @see resetToDefaults
      */
-    resetToDefaultsSync(options?: ElectronSettings.Options.Param): void;
+    resetToDefaultsSync(options?: ElectronSettings.Options): void;
 
     /**
      * Observes the chosen key path for changes and calls the handler if the value changes.
@@ -209,40 +208,28 @@ declare namespace ElectronSettings {
         dispose(): void;
     }
 
-    interface Options extends Pick<Options._Impl, keyof Options._Impl> { }
-
-    namespace Options {
-        type Param = Options | object;
-
-        interface _Impl {
-            /**
-             * Whether electron-settings should create a tmp file during save to ensure data-write consistency.
-             *
-             * @default true
-             */
-            atomicSaving: boolean;
-            /**
-             * Prettify the JSON output.
-             *
-             * @default false
-             */
-            prettify: boolean;
-        }
+    interface Options {
+        /**
+         * Whether electron-settings should create a tmp file during save to ensure data-write consistency.
+         *
+         * @default true
+         */
+        atomicSaving?: boolean;
+        /**
+         * Prettify the JSON output.
+         *
+         * @default false
+         */
+        prettify?: boolean;
     }
 
-    interface ApplyDefaultsOptions extends Pick<ApplyDefaultsOptions._Impl, keyof ApplyDefaultsOptions._Impl> { }
-
-    namespace ApplyDefaultsOptions {
-        type Param = ApplyDefaultsOptions | object;
-
-        interface _Impl extends Options._Impl {
-            /**
-             * Overwrite pre-existing settings with their respective default values.
-             *
-             * @default false
-             */
-            overwrite: boolean;
-        }
+    interface ApplyDefaultsOptions extends Options {
+        /**
+         * Overwrite pre-existing settings with their respective default values.
+         *
+         * @default false
+         */
+        overwrite?: boolean;
     }
 
     interface ChangeEvent {

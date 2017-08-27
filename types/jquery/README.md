@@ -31,6 +31,8 @@ Note that while the factory function ignores the second parameter, it is require
     - Tests generated from examples in jQuery documentation.
 - [test/longdesc-tests.ts](test/longdesc-tests.ts)
     - Tests generated from non-example snippets in jQuery documentation.
+- [test/learn-tests.ts](test/learn-tests.ts)
+    - Tests imported from examples in [jQuery Learning Center](https://learn.jquery.com).
 - [test/jquery-window-module-tests.ts](test/jquery-window-module-tests.ts)<br>
   [test/jquery-slim-window-module-tests.ts](test/jquery-slim-window-module-tests.ts)
     - Tests importing jQuery with a DOM available
