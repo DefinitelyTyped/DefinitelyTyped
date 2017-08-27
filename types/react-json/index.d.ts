@@ -17,4 +17,3 @@ declare class Json extends React.Component<JsonProperties> {
 }
 
 export default Json;
-
