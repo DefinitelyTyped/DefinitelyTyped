@@ -12,5 +12,5 @@ export interface JsonProperties {
     onChange?: OnChangeHandler;
 }
 
-export class Json extends React.Component<JsonProperties, {}> {
+export class Json extends React.Component<JsonProperties> {
 }
