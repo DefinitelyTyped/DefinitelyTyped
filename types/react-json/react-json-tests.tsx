@@ -1,9 +1,9 @@
 /// <reference types="node" />
 
 import * as React from 'react';
-let Json = require('react-json');
+const Json = require('react-json');
 
-let TestObject = {
+const TestObject = {
     s: "Hello, world",
     b: true,
     n: 666,
