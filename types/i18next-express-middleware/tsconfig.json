@@ -11,11 +11,6 @@
         "typeRoots": [
             "../"
         ],
-        "paths": {
-            "i18next": [
-                "i18next/v2"
-            ]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

@@ -4,7 +4,7 @@
         // TODOs
         "adjacent-overload-signatures": false,
         "ban-types": false,
-        "only-arrow-functions": false,
+        "dt-header": false,
         "unified-signatures": false
     }
 }

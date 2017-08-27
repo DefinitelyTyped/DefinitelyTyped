@@ -1,4 +1,4 @@
-// Type definitions for Spectacle 1.1.1
+// Type definitions for Spectacle 1.2.0
 // Project: https://github.com/FormidableLabs/victory
 // Definitions by: Zachary Maybury <https://github.com/zmaybury>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -45,15 +45,18 @@ declare module "spectacle" {
 		bgDarken?:number
 	}
 
+	export type Theme = { [key: string ]: string | number }
+
 	export interface SpectacleProps {
-		theme?:{ [key: string ]: string | number }
+		theme?: Theme
 	}
 
 	export interface DeckProps {
 		transition?:transitionType[],
 		transitionDuration?:number,
 		progress?:progressType,
-		controls?:boolean
+		controls?:boolean,
+		theme?: Theme
 	}
 
 	export interface SlideProps extends BaseProps {
@@ -147,4 +150,15 @@ declare module "spectacle" {
 	export class TableItem extends React.Component<BaseProps> {}
 
 	export class Text extends React.Component<TextProps> {}
+}
+
+declare module "spectacle/lib/utils/preloader" {
+	const preloader: (obj: object) => void;
+	export default preloader;
+}
+
+declare module "spectacle/lib/themes/default" {
+	import { Theme } from "spectacle";
+	const createTheme: (...args: object[]) => Theme;
+	export default createTheme;
 }

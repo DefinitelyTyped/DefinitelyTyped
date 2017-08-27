@@ -83,6 +83,7 @@ declare module Elasticsearch {
         update(params: UpdateDocumentParams, callback: (error: any, response: any) => void): void;
         updateByQuery(params: UpdateDocumentByQueryParams): Promise<any>;
         updateByQuery(params: UpdateDocumentByQueryParams, callback: (error: any, response: any) => void): void;
+        close(): void;
     }
 
     export interface ConfigOptions {
@@ -626,7 +627,7 @@ declare module Elasticsearch {
                 _id: string;
                 _score: number;
                 _source: T;
-                _version: number;
+                _version?: number;
                 _explanation?: Explanation;
                 fields?: any;
                 highlight?: any;

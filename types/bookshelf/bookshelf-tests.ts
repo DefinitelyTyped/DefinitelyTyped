@@ -182,10 +182,10 @@ exports.down = (knex: Knex) => {
 
 {
 	class Site extends bookshelf.Model<Site> {
-	get tableName() { return 'sites'; }
-		photo(): Photo {
-		return this.morphOne(Photo, 'imageable');
-	}
+		get tableName() { return 'sites'; }
+			photo(): Photo {
+			return this.morphOne(Photo, 'imageable');
+		}
 	}
 
 	class Post extends bookshelf.Model<Post> {
@@ -867,6 +867,10 @@ model.where('favorite_color', 'red').fetch().then(() => {
 model.where({favorite_color: 'red', shoe_size: 12}).fetch().then(() => {
 	//...
 });
+// or
+model.where('favorite_color', 'in', ['red', 'green']).fetch().then(() => {
+	// ...
+});
 
 /* Lodash methods, see http://bookshelfjs.org/#Model-subsection-lodash-methods */
 
@@ -1196,6 +1200,13 @@ ships.trigger('fetched');
 /* collection.updatePivot(), see http://bookshelfjs.org/#Collection-instance-updatePivot */
 
 /* collection.where(), see http://bookshelfjs.org/#Collection-instance-where */
+
+(new Author())
+	.where('first_name', 'in', ['User', 'Resu'])
+	.fetchAll()
+	.then(() => {
+		// ...
+	})
 
 /* collection.withPivot(), see http://bookshelfjs.org/#Collection-instance-withPivot */
 

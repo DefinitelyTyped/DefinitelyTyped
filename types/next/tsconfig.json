@@ -2,8 +2,7 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6",
-            "dom"
+            "es6"
         ],
         "target": "es6",
         "jsx": "react",
@@ -20,7 +19,7 @@
     },
     "files": [
         "index.d.ts",
-        "next-tests.ts",
+        "test/next-tests.ts",
         "test/next-error-tests.tsx",
         "test/next-head-tests.tsx",
         "test/next-document-tests.tsx",

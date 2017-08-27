@@ -1,8 +1,8 @@
 // Type definitions for hapi-auth-jwt2 7.0
-// Project: http://github.com/dwyl/hapi-auth-jwt2
-// Definitions by: Warren Seymour <http://github.com/warrenseymour>
+// Project: https://github.com/dwyl/hapi-auth-jwt2
+// Definitions by: Warren Seymour <https://github.com/warrenseymour>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-import {Request, Response, PluginFunction} from 'hapi';
+import { Request, Response, PluginFunction } from 'hapi';
 
 declare namespace hapiAuthJwt2 {
     /**

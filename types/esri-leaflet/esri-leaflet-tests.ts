@@ -4,11 +4,14 @@
 // tslint:disable:only-arrow-functions
 // tslint:disable:space-before-function-paren
 
-import L = require('esri-leaflet');
-
 let latlng: L.LatLng = new L.LatLng(0, 0);
 let latlngbounds: L.LatLngBounds = new L.LatLngBounds(latlng, latlng);
 let map: L.Map = new L.Map('map');
+
+let marker: L.Marker = new L.Marker(latlng);
+let polygon: L.Polygon = new L.Polygon([latlng, latlng]);
+let polyline: L.Polyline = new L.Polyline([latlng, latlng]);
+let geojson: L.GeoJSON = new L.GeoJSON();
 
 let basemapLayer: L.esri.BasemapLayer;
 basemapLayer = L.esri.basemapLayer('Streets');
@@ -130,6 +133,7 @@ dynamicMapLayerOptions = {
     position: 'front',
     maxZoom: 1,
     minZoom: 1,
+    disableCache: true,
     dynamicLayers: [{
         id: 501,
         source: {
@@ -164,6 +168,7 @@ dynamicMapLayer = L.esri.dynamicMapLayer({
     position: 'front',
     maxZoom: 1,
     minZoom: 1,
+    disableCache: true,
     dynamicLayers: [{
         id: 501,
         source: {
@@ -198,6 +203,7 @@ dynamicMapLayer = new L.esri.DynamicMapLayer({
     position: 'front',
     maxZoom: 1,
     minZoom: 1,
+    disableCache: true,
     dynamicLayers: [{
         id: 501,
         source: {
@@ -217,7 +223,7 @@ dynamicMapLayer = new L.esri.DynamicMapLayer({
 });
 
 dynamicMapLayer.bindPopup(function (err, featureCollection, response) {
-    let count = featureCollection.features.length;
+    const count = featureCollection.features.length;
     return (count) ? count + ' features' : false;
 });
 
@@ -450,7 +456,7 @@ featureLayerService.query()
     .where("Direction = 'WEST'")
     .run(function (error, featureCollection, response) { });
 
-let feature = {
+const feature = {
     type: 'Feature',
     geometry: {
         type: 'Point',
@@ -462,7 +468,7 @@ let feature = {
 };
 featureLayerService.addFeature(feature, function (error, response) { });
 
-let feature2 = {
+const feature2 = {
     type: 'Feature',
     id: 2,
     geometry: {
@@ -525,6 +531,12 @@ query.ids(function (error, ids, response) { });
 
 query.where("zone_id='B'").bounds(function (error, latLngBounds, response) { });
 
+query.transform(15851);
+query.transform({wkid: 15851 });
+query.transform({wkt: "GEOGTRAN[\..."});
+
+query.format(false);
+
 let identifyFeaturesOptions: L.esri.IdentifyFeaturesOptions;
 let identifyFeatures: L.esri.IdentifyFeatures;
 
@@ -560,6 +572,12 @@ identifyFeatures
     .at([45.543, -122.621])
     .layers('visible:1')
     .run(function (error, featureCollection, response) { });
+
+identifyFeatures.at(marker);
+identifyFeatures.at(polygon);
+identifyFeatures.at(polyline);
+identifyFeatures.at(latlngbounds);
+identifyFeatures.at(geojson);
 
 let findOptions: L.esri.FindOptions;
 let find: L.esri.Find;

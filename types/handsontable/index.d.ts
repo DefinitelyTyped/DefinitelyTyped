@@ -1,6 +1,8 @@
 // Type definitions for Handsontable 0.31
 // Project: https://handsontable.com/
-// Definitions by: Handsoncode sp. z o.o. <http://handsoncode.net/>, Ryan Riley <https://github.com/panesofglass>
+// Definitions by: Handsoncode sp. z o.o. <http://handsoncode.net/>
+//                 Ryan Riley <https://github.com/panesofglass>
+//                 Andrew Stegmaier <https://github.com/astegmaier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped\
 
 declare namespace __Handsontable {
@@ -401,8 +403,100 @@ declare namespace Handsontable {
     }
 
     interface Hooks {
+        /**
+         * Adds a listener (globally or locally) to a specified hook name.
+         *
+         * @param key Hook name.
+         * @param callback Callback function or an array of functions.
+         * @param context (optional) The context for the hook callback to be added - a Handsontable instance or leave empty.
+         */
+        add(key: string, callback: ((...params: any[]) => any | void) | Array<(...params: any[]) => any | void>, context?: Handsontable): Object;
+
+        /**
+         * Returns a new object with empty handlers related to every registered hook name.
+         */
+        createEmptyBucket(): Object;
+
+        /**
+         * Deregisters a hook name (removes it from the list of known hook names).
+         *
+         * @param key Hook name.
+         */
+        deregister(key: string): void;
+
+        /**
+         * Destroy all listeners connected to the context. If no context is provided, the global listeners will be destroyed.
+         *
+         * @param context (optional) A Handsontable instance.
+         */
+        destroy(context?: Handsontable): void;
+
+        /**
+         * Get hook bucket based on the context of the object or if argument is undefined, get the global hook bucket.
+         *
+         * @param context (optional) A Handsontable instance.
+         */
+        getBucket(context?: Handsontable): Object;
+
+        /**
+         * Returns an array of registered hooks.
+         */
+        getRegistered(): string[];
+
+        /**
+         * Checks whether there are any registered listeners for the provided hook name.
+         *
+         * @param key Hook name.
+         * @param context (optional) A Handsontable instance.
+         */
+        has(key: string, context?: Handsontable): boolean;
+
+        /**
+         * Returns a boolean depending on if a hook by such name has been registered.
+         *
+         * @param key Hook name.
+         */
+        isRegistered(key: string): boolean;
+
+        /**
+         * Adds a listener to a specified hook. After the hook runs this listener will be automatically removed from the bucket.
+         *
+         * @param key Hook/Event name.
+         * @param callback Callback function.
+         * @param context (optional) A Handsontable instance.
+         */
+        once(key: string, callback: ((...params: any[]) => any | void) | Array<(...params: any[]) => any | void>, context?: Handsontable): void;
+
+        /**
+         * Registers a hook name (adds it to the list of the known hook names). Used by plugins.
+         *
+         * @param key The hook name.
+         */
         register(key: string): void;
-        run(instace: Core, hookName: string, key?: any, value?: any): any;
+
+        /**
+         * Removes a listener from a hook with a given name.
+         *
+         * @param key Hook/Event name.
+         * @param callback Callback function.
+         * @param context (optional) A Handsontable instance.
+         */
+        remove(key: string, callback: (...params: any[]) => any | void, context?: Handsontable): boolean;
+
+        /**
+         * Runs all local and global callbacks assigned to the hook identified by the key parameter.
+         * It returns either a return value from the last called callback or the first parameter (p1) passed to the run function.
+         *
+         * @param context Handsontable instance.
+         * @param key Hook/Event name.
+         * @param p1 (optional) Parameter to be passed as an argument to the callback function.
+         * @param p2 (optional) Parameter to be passed as an argument to the callback function.
+         * @param p3 (optional) Parameter to be passed as an argument to the callback function.
+         * @param p4 (optional) Parameter to be passed as an argument to the callback function.
+         * @param p5 (optional) Parameter to be passed as an argument to the callback function.
+         * @param p6 (optional) Parameter to be passed as an argument to the callback function.
+         */
+        run(context: Handsontable, key: string, p1?: any, p2?: any, p3?: any, p4?: any, p5?: any, p6?: any): any;
     }
 
     interface Dom {

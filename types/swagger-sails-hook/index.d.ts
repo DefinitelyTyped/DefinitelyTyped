@@ -1,6 +1,6 @@
 // Type definitions for swagger-sails-hook 0.7
 // Project: https://github.com/apigee-127/swagger-sails#readme
-// Definitions by: Michael Mrowetz <https://github.com/micmro/>
+// Definitions by: Michael Mrowetz <https://github.com/micmro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /* =================== USAGE ===================

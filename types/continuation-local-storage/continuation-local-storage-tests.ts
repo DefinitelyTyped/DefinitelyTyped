@@ -21,7 +21,7 @@ function test(topic: string, callback: (t: Test) => any) {
 test("asynchronously propagating state with local-context-domains", function (t) {
   t.plan(2);
 
-  var namespace = cls.createNamespace('namespace');
+  const namespace = cls.createNamespace('namespace');
   // t.ok(process.namespaces.namespace, "namespace has been created");
 
   namespace.run(function () {
@@ -39,7 +39,7 @@ test("minimized test case that caused #6011 patch to fail", function (t) {
   // when the flaw was in the patch, commenting out this line would fix things:
   process.nextTick(function () { console.log('!'); });
 
-  var n = cls.createNamespace("test");
+  const n = cls.createNamespace("test");
   t.ok(!n.get('state'), "state should not yet be visible");
 
   n.run(function () {
@@ -59,7 +59,7 @@ test("event emitters bound to CLS context", function (t) {
   t.test("handler registered in context, emit out of context", function (t) {
     t.plan(1);
 
-    var n  = cls.createNamespace('in')
+    const n  = cls.createNamespace('in')
       , ee = new EventEmitter()
       ;
 
@@ -78,7 +78,7 @@ test("event emitters bound to CLS context", function (t) {
   t.test("once handler registered in context", function (t) {
     t.plan(1);
 
-    var n  = cls.createNamespace('inOnce')
+    const n  = cls.createNamespace('inOnce')
       , ee = new EventEmitter()
       ;
 
@@ -97,7 +97,7 @@ test("event emitters bound to CLS context", function (t) {
   t.test("handler registered out of context, emit in context", function (t) {
     t.plan(1);
 
-    var n  = cls.createNamespace('out')
+    const n  = cls.createNamespace('out')
       , ee = new EventEmitter()
       ;
 
@@ -117,7 +117,7 @@ test("event emitters bound to CLS context", function (t) {
   t.test("once handler registered out of context", function (t) {
     t.plan(1);
 
-    var n  = cls.createNamespace('outOnce')
+    const n  = cls.createNamespace('outOnce')
       , ee = new EventEmitter()
       ;
 
@@ -137,7 +137,7 @@ test("event emitters bound to CLS context", function (t) {
   t.test("handler registered out of context, emit out of context", function (t) {
     t.plan(1);
 
-    var n  = cls.createNamespace('out')
+    const n  = cls.createNamespace('out')
       , ee = new EventEmitter()
       ;
 
@@ -155,12 +155,12 @@ test("event emitters bound to CLS context", function (t) {
   });
 
   t.test("once handler registered out of context on Readable", function (t) {
-    var Readable = require('stream').Readable;
+    const Readable = require('stream').Readable;
 
     if (Readable) {
       t.plan(12);
 
-      var n  = cls.createNamespace('outOnceReadable')
+      const n  = cls.createNamespace('outOnceReadable')
         , re = new Readable()
         ;
 
@@ -203,7 +203,7 @@ test("event emitters bound to CLS context", function (t) {
   t.test("emitter with newListener that removes handler", function (t) {
     t.plan(3);
 
-    var n  = cls.createNamespace('newListener')
+    const n  = cls.createNamespace('newListener')
       , ee = new EventEmitter()
       ;
 
@@ -239,12 +239,12 @@ test("event emitters bound to CLS context", function (t) {
   });
 
   t.test("handler registered in context on Readable", function (t) {
-    var Readable = require('stream').Readable;
+    const Readable = require('stream').Readable;
 
     if (Readable) {
       t.plan(12);
 
-      var n  = cls.createNamespace('outOnReadable')
+      const n  = cls.createNamespace('outOnReadable')
         , re = new Readable()
         ;
 
@@ -288,7 +288,7 @@ test("event emitters bound to CLS context", function (t) {
   t.test("handler added but used entirely out of context", function (t) {
     t.plan(2);
 
-    var n  = cls.createNamespace('none')
+    const n  = cls.createNamespace('none')
       , ee = new EventEmitter()
       ;
 
@@ -309,12 +309,12 @@ test("event emitters bound to CLS context", function (t) {
   t.test("handler added but no listeners registered", function (t) {
     t.plan(3);
 
-    var http = require('http')
+    const http = require('http')
       , n  = cls.createNamespace('no_listener')
       ;
 
     // only fails on Node < 0.10
-    var server = http.createServer(function (req: any, res: any) {
+    const server = http.createServer(function (req: any, res: any) {
       n.bindEmitter(req);
 
       t.doesNotThrow(function () {
@@ -342,7 +342,7 @@ test("event emitters bound to CLS context", function (t) {
   t.test("listener with parameters added but not bound to context", function (t) {
     t.plan(2);
 
-    var ee = new EventEmitter()
+    const ee = new EventEmitter()
       , n  = cls.createNamespace('param_list')
       ;
 
@@ -361,7 +361,7 @@ test("event emitters bound to CLS context", function (t) {
   t.test("listener that throws doesn't leave removeListener wrapped", function (t) {
     t.plan(4);
 
-    var ee = new EventEmitter()
+    const ee = new EventEmitter()
       , n  = cls.createNamespace('kaboom')
       ;
 
@@ -385,7 +385,7 @@ test("event emitters bound to CLS context", function (t) {
   t.test("emitter bound to multiple namespaces handles them correctly", function (t) {
     t.plan(8);
 
-    var ee = new EventEmitter()
+    const ee = new EventEmitter()
       , ns1 = cls.createNamespace('1')
       , ns2 = cls.createNamespace('2')
       ;
@@ -430,7 +430,7 @@ test("event emitters bound to CLS context", function (t) {
 
 // multiple contexts in use
 test("simple tracer built on contexts", function (t) {
-  var tracer = cls.createNamespace('tracer');
+  const tracer = cls.createNamespace('tracer');
 
   class Trace {
     harvester: any;
@@ -438,7 +438,7 @@ test("simple tracer built on contexts", function (t) {
       this.harvester = harvester;
     }
     runHandler(callback: any) {
-      var wrapped = tracer.bind(function () {
+      const wrapped = tracer.bind(function () {
         callback();
         this.harvester.emit('finished', tracer.get('transaction'));
       }.bind(this));
@@ -448,8 +448,8 @@ test("simple tracer built on contexts", function (t) {
 
   t.plan(6);
 
-  var harvester = new EventEmitter();
-  var trace = new Trace(harvester);
+  const harvester = new EventEmitter();
+  const trace = new Trace(harvester);
 
   harvester.on('finished', function (transaction: any) {
     t.ok(transaction, "transaction should have been passed in");
