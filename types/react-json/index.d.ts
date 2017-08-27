@@ -6,12 +6,15 @@
 
 import * as React from 'react';
 
-export type OnChangeHandler = (value: any) => void;
+type OnChangeHandler = (value: any) => void;
 
-export interface JsonProperties {
+interface JsonProperties {
     value: any;
     onChange?: OnChangeHandler;
 }
 
-export class Json extends React.Component<JsonProperties> {
+declare class Json extends React.Component<JsonProperties> {
 }
+
+export default Json;
+
