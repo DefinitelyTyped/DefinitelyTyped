@@ -2,6 +2,7 @@
 // Project: https://github.com/arqex/react-json
 // Definitions by: Christoph Spielmann <https://github.com/spielc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import * as React from 'react';
 
