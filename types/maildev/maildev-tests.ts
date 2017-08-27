@@ -1,6 +1,13 @@
 import MailDev = require("maildev")
 
-var options: MailDevOptions = {smtp: 1025};
+var options: MailDevOptions = {
+  silent: true,
+  disableWeb: true,
+  smtp: 1025,
+  web: 1080,
+  webUser: 'admin',
+  webPass: 'secret'
+};
 var maildev = new MailDev(options);
 
 var errorCallback = (error: Error): void => {};

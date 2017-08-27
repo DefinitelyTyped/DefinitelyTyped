@@ -1,6 +1,6 @@
 // Type definitions for hapi 16.1
 // Project: https://github.com/hapijs/hapi
-// Definitions by: Jason Swearingen <http://github.com/jasonswearingen>, AJP <https://github.com/AJamesPhillips>
+// Definitions by: Jason Swearingen <https://github.com/jasonswearingen>, AJP <https://github.com/AJamesPhillips>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -42,7 +42,7 @@ import {
 type JoiValidationObject = JoiSchema | JoiSchemaMap | (JoiSchema | JoiSchemaMap)[];
 
 import * as Catbox from 'catbox';
-import {MimosOptions} from 'mimos';
+import { MimosOptions } from 'mimos';
 import Podium = require('podium');
 import * as Shot from 'shot';
 
@@ -571,10 +571,10 @@ export interface ServerEventCriteria {
  * Related to [See docs](https://hapijs.com/api/16.1.1#servermethodname-method-options)
  */
 export interface ServerMethod {
-    /** Not possible to improve this typing due to this unresolvable issue:  https://github.com/Microsoft/TypeScript/issues/15190 */
-    (...args: (any | ServerMethodNext)[]): void;
     /** the method must return a value (result, Error, or a promise) or throw an Error. */
     (...args: any[]): any | Error | Promise<any>;
+    /** Not possible to improve this typing due to this unresolvable issue:  https://github.com/Microsoft/TypeScript/issues/15190 */
+    (...args: (any | ServerMethodNext)[]): void;
     /** When configured with caching enabled, server.methods[name].cache will be an object see ServerMethodNameCacheObject */
     cache?: ServerMethodNameCacheObject;
 }
@@ -1025,7 +1025,7 @@ export interface RoutePayloadConfigurationObject {
     /** limits the size of incoming payloads to the specified byte count. Allowing very large payloads may cause the server to run out of memory. Defaults to 1048576 (1MB). */
     maxBytes?: number;
     /** payload reception timeout in milliseconds. Sets the maximum time allowed for the client to transmit the request payload (body) before giving up and responding with a Request Timeout (408) error response. Set to false to disable. Defaults to 10000 (10 seconds). */
-    timeout?: number;
+    timeout?: number | false;
     /** the directory used for writing file uploads. Defaults to os.tmpdir(). */
     uploads?: string;
     /**

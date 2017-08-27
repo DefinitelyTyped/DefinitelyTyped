@@ -1,6 +1,6 @@
 // Type definitions for Ably Realtime and Rest client library 0.9
 // Project: https://www.ably.io/
-// Definitions by: Ably <https://github.com/ably/>
+// Definitions by: Ably <https://github.com/ably>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export namespace ablyLib {
@@ -287,7 +287,7 @@ export namespace ablyLib {
   }
 
   // Common Listeners
-  type paginatedResultCallback<T> = (error: ErrorInfo, results: PaginatedResult<T> ) => void;
+  type paginatedResultCallback<T> = (error: ErrorInfo, results: PaginatedResult<T>) => void;
   type standardCallback = (error: ErrorInfo, results: any) => void;
   type messageCallback<T> = (message: T) => void;
   type errorCallback = (error: ErrorInfo) => void;
@@ -410,7 +410,7 @@ export namespace ablyLib {
     state: ConnectionState;
     close: () => void;
     connect: () => void;
-    ping: (callback?: (error: ErrorInfo, responseTime: number ) => void ) => void;
+    ping: (callback?: (error: ErrorInfo, responseTime: number) => void) => void;
   }
 
   class Stats {

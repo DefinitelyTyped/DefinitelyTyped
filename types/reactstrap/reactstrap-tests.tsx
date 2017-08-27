@@ -3265,7 +3265,7 @@ function Example105() {
         Toggle
       </a>
 
-      <DropdownMenu right>
+      <DropdownMenu right className="asdf">
         <div className="d-block">
           Item
         </div>
@@ -3286,3 +3286,13 @@ function Example106() {
     </Nav>
   );
 }
+
+const CSSModuleExample = (props: any) => {
+  const cssModule = {
+    btn: 'hash'
+  };
+
+  return (
+    <Button color="secondary" cssModule={cssModule}>Button</Button>
+  );
+};

@@ -27,7 +27,7 @@ mongopromise.end();
 mongopromise.error(999).error([]);
 mongopromise.on('init', cb).on('init', cb);
 mongopromise.reject({}).reject('').reject(new Error('hi'));
-mongopromise.resolve(new Error('hi'), {}).resolve();
+mongopromise.resolve(new Error('hi'), 0);
 mongopromise.then(function (arg) {
   arg.toFixed();
   return 9;

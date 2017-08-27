@@ -1,5 +1,5 @@
 function test_sidebar_static() {
-    $.fn.sidebar.settings.error.method = 'method';
+    $.fn.sidebar.settings.error!.method = 'method';
     $.fn.sidebar.settings.namespace = 'namespace';
     $.fn.sidebar.settings.name = 'name';
     $.fn.sidebar.settings.silent = false;
@@ -10,22 +10,23 @@ function test_sidebar_static() {
 
 function test_sidebar() {
     const selector = '.ui.sidebar';
-    $(selector).sidebar('attach events', $(), 'toggle') === $();
-    $(selector).sidebar('show') === $();
-    $(selector).sidebar('hide') === $();
-    $(selector).sidebar('toggle') === $();
-    $(selector).sidebar('is visible') === false;
-    $(selector).sidebar('is hidden') === true;
-    $(selector).sidebar('push page') === $();
-    $(selector).sidebar('get direction') === 'top';
-    $(selector).sidebar('pull page') === $();
-    $(selector).sidebar('add body CSS') === $();
-    $(selector).sidebar('remove body CSS') === $();
-    $(selector).sidebar('get transition event') === 'transition';
-    $(selector).sidebar('destroy') === $();
-    $(selector).sidebar('setting', 'debug', undefined) === false;
-    $(selector).sidebar('setting', 'debug') === false;
-    $(selector).sidebar('setting', 'debug', true) === $();
+    $(selector).sidebar('attach events', $(), 'toggle'); // $ExpectType JQuery<HTMLElement>
+    $(selector).sidebar('show'); // $ExpectType JQuery<HTMLElement>
+    $(selector).sidebar('hide'); // $ExpectType JQuery<HTMLElement>
+    $(selector).sidebar('toggle'); // $ExpectType JQuery<HTMLElement>
+    $(selector).sidebar('is visible'); // $ExpectType boolean
+    $(selector).sidebar('is hidden'); // $ExpectType boolean
+    $(selector).sidebar('push page'); // $ExpectType JQuery<HTMLElement>
+    $(selector).sidebar('get direction'); // $ExpectType string
+    $(selector).sidebar('pull page'); // $ExpectType JQuery<HTMLElement>
+    $(selector).sidebar('add body CSS'); // $ExpectType JQuery<HTMLElement>
+    $(selector).sidebar('remove body CSS'); // $ExpectType JQuery<HTMLElement>
+    $(selector).sidebar('get transition event'); // $ExpectType string
+    $(selector).sidebar('destroy'); // $ExpectType JQuery<HTMLElement>
+    $(selector).sidebar('setting', 'debug', undefined); // $ExpectType boolean
+    $(selector).sidebar('setting', 'debug'); // $ExpectType boolean
+    $(selector).sidebar('setting', 'debug', true); // $ExpectType JQuery<HTMLElement>
+    // $ExpectType JQuery<HTMLElement>
     $(selector).sidebar('setting', {
         namespace: 'namespace',
         name: 'name',
@@ -33,7 +34,8 @@ function test_sidebar() {
         debug: true,
         performance: true,
         verbose: true
-    }) === $();
+    });
+    // $ExpectType JQuery<HTMLElement>
     $(selector).sidebar({
         context: $(),
         exclusive: false,
@@ -62,19 +64,19 @@ function test_sidebar() {
         duration: 20,
         easing: 'easeInOutQuint',
         onVisible() {
-            this === $();
+            this; // $ExpectType JQuery<HTMLElement>
         },
         onShow() {
-            this === $();
+            this; // $ExpectType JQuery<HTMLElement>
         },
         onChange() {
-            this === $();
+            this; // $ExpectType JQuery<HTMLElement>
         },
         onHide() {
-            this === $();
+            this; // $ExpectType JQuery<HTMLElement>
         },
         onHidden() {
-            this === $();
+            this; // $ExpectType JQuery<HTMLElement>
         },
         className: {
             active: 'active',
@@ -107,12 +109,16 @@ function test_sidebar() {
             overlay: 'overlay',
             notFound: 'notFound'
         }
-    }) === $();
-    $(selector).sidebar() === $();
+    });
+    $(selector).sidebar(); // $ExpectType JQuery<HTMLElement>
+
+    $(selector).sidebar('foo'); // $ExpectError
+    $(selector).sidebar({ foo: 'bar' }); // $ExpectError
 }
 
 import sidebar = require('semantic-ui-sidebar');
 
 function test_module() {
+    sidebar; // $ExpectType Sidebar
     $.fn.sidebar = sidebar;
 }

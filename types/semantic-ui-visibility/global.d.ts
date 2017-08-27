@@ -39,19 +39,60 @@ declare namespace SemanticUI {
          */
         (behavior: 'get screen size'): Visibility.ScreenSize;
         (behavior: 'destroy'): JQuery;
-        <K extends keyof VisibilitySettings>(behavior: 'setting', name: K, value?: undefined): VisibilitySettings[K];
-        <K extends keyof VisibilitySettings>(behavior: 'setting', name: K, value: VisibilitySettings[K]): JQuery;
-        (behavior: 'setting', value: VisibilitySettings.Param): JQuery;
-        (settings?: VisibilitySettings.Param): JQuery;
+        <K extends keyof VisibilitySettings>(behavior: 'setting', name: K, value?: undefined): VisibilitySettings._Impl[K];
+        <K extends keyof VisibilitySettings>(behavior: 'setting', name: K, value: VisibilitySettings._Impl[K]): JQuery;
+        (behavior: 'setting', value: VisibilitySettings): JQuery;
+        (settings?: VisibilitySettings): JQuery;
     }
 
     /**
      * @see {@link http://semantic-ui.com/behaviors/visibility.html#/settings}
      */
-    interface VisibilitySettings extends Pick<VisibilitySettings._Impl, keyof VisibilitySettings._Impl> { }
+    type VisibilitySettings = VisibilitySettings.Param;
 
     namespace VisibilitySettings {
-        type Param = VisibilitySettings | object;
+        type Param = (Pick<_Impl, 'once'> |
+            Pick<_Impl, 'continuous'> |
+            Pick<_Impl, 'type'> |
+            Pick<_Impl, 'initialCheck'> |
+            Pick<_Impl, 'context'> |
+            Pick<_Impl, 'refreshOnLoad'> |
+            Pick<_Impl, 'refreshOnResize'> |
+            Pick<_Impl, 'checkOnRefresh'> |
+            Pick<_Impl, 'zIndex'> |
+            Pick<_Impl, 'offset'> |
+            Pick<_Impl, 'includeMargin'> |
+            Pick<_Impl, 'throttle'> |
+            Pick<_Impl, 'observeChanges'> |
+            Pick<_Impl, 'transition'> |
+            Pick<_Impl, 'duration'> |
+            Pick<_Impl, 'onTopVisible'> |
+            Pick<_Impl, 'onTopPassed'> |
+            Pick<_Impl, 'onBottomVisible'> |
+            Pick<_Impl, 'onPassing'> |
+            Pick<_Impl, 'onBottomPassed'> |
+            Pick<_Impl, 'onTopVisibleReverse'> |
+            Pick<_Impl, 'onTopPassedReverse'> |
+            Pick<_Impl, 'onBottomVisibleReverse'> |
+            Pick<_Impl, 'onPassingReverse'> |
+            Pick<_Impl, 'onBottomPassedReverse'> |
+            Pick<_Impl, 'onOnScreen'> |
+            Pick<_Impl, 'onOffScreen'> |
+            Pick<_Impl, 'onLoad'> |
+            Pick<_Impl, 'onAllLoaded'> |
+            Pick<_Impl, 'onFixed'> |
+            Pick<_Impl, 'onUnfixed'> |
+            Pick<_Impl, 'onUpdate'> |
+            Pick<_Impl, 'onRefresh'> |
+            Pick<_Impl, 'className'> |
+            Pick<_Impl, 'error'> |
+            Pick<_Impl, 'namespace'> |
+            Pick<_Impl, 'name'> |
+            Pick<_Impl, 'silent'> |
+            Pick<_Impl, 'debug'> |
+            Pick<_Impl, 'performance'> |
+            Pick<_Impl, 'verbose'>) &
+            Partial<Pick<_Impl, keyof _Impl>>;
 
         interface _Impl {
             // region Functionality
@@ -337,10 +378,11 @@ declare namespace SemanticUI {
             height: number;
         }
 
-        interface ClassNameSettings extends Pick<ClassNameSettings._Impl, keyof ClassNameSettings._Impl> { }
+        type ClassNameSettings = ClassNameSettings.Param;
 
         namespace ClassNameSettings {
-            type Param = ClassNameSettings | object;
+            type Param = (Pick<_Impl, 'fixed'>) &
+                Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**
@@ -350,10 +392,11 @@ declare namespace SemanticUI {
             }
         }
 
-        interface ErrorSettings extends Pick<ErrorSettings._Impl, keyof ErrorSettings._Impl> { }
+        type ErrorSettings = ErrorSettings.Param;
 
         namespace ErrorSettings {
-            type Param = ErrorSettings | object;
+            type Param = (Pick<_Impl, 'method'>) &
+                Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**

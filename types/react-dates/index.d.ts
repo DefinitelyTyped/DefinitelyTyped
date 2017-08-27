@@ -1,4 +1,4 @@
-// Type definitions for react-dates v12.1.0
+// Type definitions for react-dates v12.1.1
 // Project: https://github.com/airbnb/react-dates
 // Definitions by: Artur Ampilogov <https://github.com/Artur-A>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -226,6 +226,7 @@ declare namespace ReactDates {
         // navigation related props
         navPrev?: string | JSX.Element,
         navNext?: string | JSX.Element,
+        hideKeyboardShortcutsPanel?: boolean;
         onPrevMonthClick?: (e: React.EventHandler<React.MouseEvent<HTMLSpanElement>>) => void,
         onNextMonthClick?: (e: React.EventHandler<React.MouseEvent<HTMLSpanElement>>) => void,
 

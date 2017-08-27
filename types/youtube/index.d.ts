@@ -1,6 +1,6 @@
 // Type definitions for YouTube
 // Project: https://developers.google.com/youtube/
-// Definitions by: Daz Wilkin <https://github.com/DazWilkin/>,
+// Definitions by: Daz Wilkin <https://github.com/DazWilkin>,
 //                 Ian Obermiller <http://ianobermiller.com>,
 //                 Josh Goldberg <https://github.com/JoshuaKGoldberg>
 //                 Eliot Fallon <https://github.com/eliotfallon213>

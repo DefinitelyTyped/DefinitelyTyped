@@ -14,7 +14,7 @@ export interface RouteConfigComponentProps<T> extends RouteComponentProps<T> {
 
 export interface RouteConfig {
     location?: Location;
-    component?: React.SFC<RouteConfigComponentProps<any> | void> | React.ComponentClass<RouteConfigComponentProps<any> | void>;
+    component?: React.ComponentType<RouteConfigComponentProps<any> | {}>;
     path?: string;
     exact?: boolean;
     strict?: boolean;

@@ -328,6 +328,18 @@ export interface Datetimepicker {
 	 * Usually you should not override those options unless you have a special need in your layout.
 	 */
 	widgetPositioning(value: WidgetPositioningOptions): void;
+
+	/**
+	 * JQuery plugin function.
+	 * @param {DatetimepickerOptions} options
+	 */
+	(options?: DatetimepickerOptions): JQuery;
+
+	/**
+	 * Default options that will be used for all instances.
+	 * To change: `$.fn.datetimepicker.defaults`
+	 */
+	defaults: DatetimepickerOptions;
 }
 
 export interface DatetimepickerOptions {
@@ -577,11 +589,11 @@ export interface UpdateEvent extends JQueryEventObject {
 	viewDate: moment.Moment;
 }
 
-export type EventName = "dp.show" | "dp.hide" | "dp.error";
+export type EventName = "dp.show" | "dp.hide" | "dp.error";
 
 declare global {
 	interface JQuery {
-	    datetimepicker(options?: DatetimepickerOptions): JQuery;
+		datetimepicker: Datetimepicker;
 
 	    data(key: "DateTimePicker"): Datetimepicker;
 

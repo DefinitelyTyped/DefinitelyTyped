@@ -1,5 +1,5 @@
 // from https://github.com/mzabriskie/moxios/blob/master/test.js
-import {equal, notEqual, deepEqual} from 'power-assert'; // compatible with 'assert';
+import { equal, notEqual, deepEqual } from 'power-assert'; // compatible with 'assert';
 import axios from 'axios';
 import * as moxios from 'moxios';
 
@@ -17,14 +17,14 @@ const USER_FRED = {
 
 describe('moxios', () => {
     it('should install', () => {
-        let defaultAdapter = axios.defaults.adapter;
+        const defaultAdapter = axios.defaults.adapter;
         moxios.install();
         notEqual(axios.defaults.adapter, defaultAdapter);
         moxios.uninstall();
     });
 
     it('should uninstall', () => {
-        let defaultAdapter = axios.defaults.adapter;
+        const defaultAdapter = axios.defaults.adapter;
         moxios.install();
         moxios.uninstall();
         equal(axios.defaults.adapter, defaultAdapter);
@@ -48,7 +48,7 @@ describe('moxios', () => {
             axios.get('/users/12345');
 
             moxios.wait(() => {
-                let request = moxios.requests.mostRecent();
+                const request = moxios.requests.mostRecent();
                 equal(moxios.requests.count(), 1);
                 done();
             });
@@ -58,12 +58,12 @@ describe('moxios', () => {
             axios.get('/users/12345').then(onFulfilled);
 
             moxios.wait(() => {
-                let request = moxios.requests.mostRecent();
+                const request = moxios.requests.mostRecent();
                 request.respondWith({
                     status: 200,
                     response: USER_FRED
                 }).then(() => {
-                    let response = onFulfilled.getCall(0).args[0];
+                    const response = onFulfilled.getCall(0).args[0];
                     equal(onFulfilled.called, true);
                     equal(response.status, 200);
                     deepEqual(response.data, USER_FRED);
@@ -76,7 +76,7 @@ describe('moxios', () => {
             axios.get('/users/12346').then(onFulfilled, onRejected);
 
             moxios.wait(() => {
-                let request = moxios.requests.mostRecent();
+                const request = moxios.requests.mostRecent();
                 request.respondWith({
                     status: 404
                 }).then(() => {
@@ -94,7 +94,7 @@ describe('moxios', () => {
                 axios.get('/users/12345').then(onFulfilled);
 
                 moxios.wait(() => {
-                    let request = moxios.requests.mostRecent();
+                    const request = moxios.requests.mostRecent();
                     request.respondWith({
                         status: 200,
                         response: USER_FRED
@@ -113,7 +113,7 @@ describe('moxios', () => {
                 axios.get('/users/12345');
 
                 moxios.wait(() => {
-                    let request = moxios.requests.mostRecent();
+                    const request = moxios.requests.mostRecent();
                     request.respondWithTimeout().catch((err: any) => {
                         equal(err.code, 'ECONNABORTED');
                         done();
@@ -131,7 +131,7 @@ describe('moxios', () => {
             axios.get('/users/12345').then(onFulfilled);
 
             moxios.wait(() => {
-                let response = onFulfilled.getCall(0).args[0];
+                const response = onFulfilled.getCall(0).args[0];
                 deepEqual(response.data, USER_FRED);
                 done();
             });
@@ -143,7 +143,7 @@ describe('moxios', () => {
             axios.get('/users/12345').catch(onRejected);
 
             moxios.wait(() => {
-                let err = onRejected.getCall(0).args[0];
+                const err = onRejected.getCall(0).args[0];
                 deepEqual(err.code, 'ECONNABORTED');
                 done();
             });
@@ -158,7 +158,7 @@ describe('moxios', () => {
             axios.get('/users/12345').then(onFulfilled);
 
             moxios.wait(() => {
-                let response = onFulfilled.getCall(0).args[0];
+                const response = onFulfilled.getCall(0).args[0];
                 deepEqual(response.data, USER_FRED);
                 done();
             });
@@ -188,7 +188,7 @@ describe('moxios', () => {
                     response: USER_FRED
                 });
 
-                let request = moxios.stubs.get('PUT', '/users/12345');
+                const request = moxios.stubs.get('PUT', '/users/12345');
 
                 notEqual(request, undefined);
             });
@@ -226,7 +226,7 @@ describe('moxios', () => {
                     response: USER_FRED
                 });
 
-                let request = moxios.stubs.get('GET', '/users/12345');
+                const request = moxios.stubs.get('GET', '/users/12345');
 
                 equal(request, undefined);
             });
@@ -242,7 +242,7 @@ describe('moxios', () => {
                 });
 
                 axios.put('/users/12346', USER_FRED);
-                let request = moxios.requests.get('TEST');
+                const request = moxios.requests.get('TEST');
 
                 equal(request, undefined);
             });
@@ -264,9 +264,9 @@ describe('moxios', () => {
                 axios.put('/users/12345', USER_FRED).then(onFulfilled);
 
                 moxios.wait(() => {
-                    let response = onFulfilled.getCall(0).args[0];
+                    const response = onFulfilled.getCall(0).args[0];
                     equal(response.status, 204);
-                    let request = moxios.requests.get('PUT', '/users/12345');
+                    const request = moxios.requests.get('PUT', '/users/12345');
                     notEqual(request, undefined);
                     done();
                 });
@@ -288,8 +288,8 @@ describe('moxios', () => {
                 moxios.wait(() => {
                     equal(onFulfilled.calledTwice, true);
 
-                    let response1 = onFulfilled.getCall(0).args[0];
-                    let response2 = onFulfilled.getCall(1).args[0];
+                    const response1 = onFulfilled.getCall(0).args[0];
+                    const response2 = onFulfilled.getCall(1).args[0];
                     equal(response1.status, 204);
                     equal(response2.status, 200);
                     equal(response2.data.firstName, 'Fred');

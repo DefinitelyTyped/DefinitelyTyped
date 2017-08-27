@@ -21,7 +21,7 @@ class Test extends React.Component {
             {
                 title: "Title", subtitle: "Subtitle", children: [
                     {title: "Child 1", subtitle: "Subtitle", children: []},
-                    {title: "Child 2", subtitle: "Subtitle", children: []}
+                    {title: "Child 2", subtitle: "Subtitle"}
                 ]
             }
         ];

@@ -3,7 +3,7 @@ import * as ReactDOM from "react-dom";
 import { SplitterSide, Splitter, SplitterContent, Page } from "react-onsenui";
 
 class AppState {
-    isOpen: boolean = false;
+    isOpen = false;
 }
 
 interface AppProps {} // tslint:disable-line no-empty-interface

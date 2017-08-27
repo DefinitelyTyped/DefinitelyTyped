@@ -13,6 +13,10 @@
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "@storybook/addon-notes": ["storybook__addon-notes"],
+            "@storybook/react": ["storybook__react"]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

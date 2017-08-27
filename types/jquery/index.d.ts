@@ -1,7 +1,7 @@
 // Type definitions for jquery 3.2
 // Project: https://jquery.com
 // Definitions by: Leonard Thieu <https://github.com/leonard-thieu>
-//                 Boris Yankov <https://github.com/borisyankov/>
+//                 Boris Yankov <https://github.com/borisyankov>
 //                 Christian Hoffmeister <https://github.com/choffmeister>
 //                 Steve Fenton <https://github.com/Steve-Fenton>
 //                 Diullei Gomes <https://github.com/Diullei>
@@ -18,7 +18,7 @@
 //                 Benjamin Jackman <https://github.com/benjaminjackman>
 //                 Poul Sorensen <https://github.com/s093294>
 //                 Josh Strobl <https://github.com/JoshStrobl>
-//                 John Reilly <https://github.com/johnnyreilly/>
+//                 John Reilly <https://github.com/johnnyreilly>
 //                 Dick van den Brink <https://github.com/DickvdBrink>
 //                 Thomas Schulz <https://github.com/King2500>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -37,2362 +37,8 @@ declare const $: JQueryStatic;
 
 // Used by JQuery.Event
 type _Event = Event;
-
-interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement> {
-    /**
-     * A string containing the jQuery version number.
-     *
-     * @see {@link https://api.jquery.com/jquery/}
-     * @since 1.0
-     */
-    jquery: string;
-    /**
-     * The number of elements in the jQuery object.
-     *
-     * @see {@link https://api.jquery.com/length/}
-     * @since 1.0
-     */
-    length: number;
-    /**
-     * Create a new jQuery object with elements added to the set of matched elements.
-     *
-     * @param selector A string representing a selector expression to find additional elements to add to the set of matched elements.
-     * @param context The point in the document at which the selector should begin matching; similar to the context
-     *                argument of the $(selector, context) method.
-     * @see {@link https://api.jquery.com/add/}
-     * @since 1.4
-     */
-    add(selector: JQuery.Selector, context: Element): this;
-    /**
-     * Create a new jQuery object with elements added to the set of matched elements.
-     *
-     * @param selector A string representing a selector expression to find additional elements to add to the set of matched elements.
-     *                 One or more elements to add to the set of matched elements.
-     *                 An HTML fragment to add to the set of matched elements.
-     *                 An existing jQuery object to add to the set of matched elements.
-     * @see {@link https://api.jquery.com/add/}
-     * @since 1.0
-     * @since 1.3.2
-     */
-    add(selector: JQuery.Selector | JQuery.TypeOrArray<Element> | JQuery.htmlString | JQuery): this;
-    /**
-     * Add the previous set of elements on the stack to the current set, optionally filtered by a selector.
-     *
-     * @param selector A string containing a selector expression to match the current set of elements against.
-     * @see {@link https://api.jquery.com/addBack/}
-     * @since 1.8
-     */
-    addBack(selector?: JQuery.Selector): this;
-    /**
-     * Adds the specified class(es) to each element in the set of matched elements.
-     *
-     * @param className One or more space-separated classes to be added to the class attribute of each matched element.
-     *                  A function returning one or more space-separated class names to be added to the existing class
-     *                  name(s). Receives the index position of the element in the set and the existing class name(s) as
-     *                  arguments. Within the function, this refers to the current element in the set.
-     * @see {@link https://api.jquery.com/addClass/}
-     * @since 1.0
-     * @since 1.4
-     */
-    addClass(className: string | ((this: TElement, index: number, currentClassName: string) => string)): this;
-    /**
-     * Insert content, specified by the parameter, after each element in the set of matched elements.
-     *
-     * @param contents One or more additional DOM elements, text nodes, arrays of elements and text nodes, HTML strings, or
-     *                 jQuery objects to insert after each element in the set of matched elements.
-     * @see {@link https://api.jquery.com/after/}
-     * @since 1.0
-     */
-    after(...contents: Array<JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node> | JQuery>): this;
-    /**
-     * Insert content, specified by the parameter, after each element in the set of matched elements.
-     *
-     * @param fn A function that returns an HTML string, DOM element(s), text node(s), or jQuery object to insert
-     *           after each element in the set of matched elements. Receives the index position of the element in the
-     *           set and the old HTML value of the element as arguments. Within the function, this refers to the
-     *           current element in the set.
-     * @see {@link https://api.jquery.com/after/}
-     * @since 1.4
-     * @since 1.10
-     */
-    after(fn: (this: TElement, index: number, html: string) => JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node> | JQuery): this;
-    /**
-     * Register a handler to be called when Ajax requests complete. This is an AjaxEvent.
-     *
-     * @param handler The function to be invoked.
-     * @see {@link https://api.jquery.com/ajaxComplete/}
-     * @since 1.0
-     */
-    ajaxComplete(handler: (this: Document, event: JQuery.Event<Document>, jqXHR: JQuery.jqXHR, ajaxOptions: JQuery.AjaxSettings) => void | false): this;
-    /**
-     * Register a handler to be called when Ajax requests complete with an error. This is an Ajax Event.
-     *
-     * @param handler The function to be invoked.
-     * @see {@link https://api.jquery.com/ajaxError/}
-     * @since 1.0
-     */
-    ajaxError(handler: (this: Document, event: JQuery.Event<Document>, jqXHR: JQuery.jqXHR, ajaxSettings: JQuery.AjaxSettings, thrownError: string) => void | false): this;
-    /**
-     * Attach a function to be executed before an Ajax request is sent. This is an Ajax Event.
-     *
-     * @param handler The function to be invoked.
-     * @see {@link https://api.jquery.com/ajaxSend/}
-     * @since 1.0
-     */
-    ajaxSend(handler: (this: Document, event: JQuery.Event<Document>, jqXHR: JQuery.jqXHR, ajaxOptions: JQuery.AjaxSettings) => void | false): this;
-    /**
-     * Register a handler to be called when the first Ajax request begins. This is an Ajax Event.
-     *
-     * @param handler The function to be invoked.
-     * @see {@link https://api.jquery.com/ajaxStart/}
-     * @since 1.0
-     */
-    ajaxStart(handler: (this: Document) => void | false): this;
-    /**
-     * Register a handler to be called when all Ajax requests have completed. This is an Ajax Event.
-     *
-     * @param handler The function to be invoked.
-     * @see {@link https://api.jquery.com/ajaxStop/}
-     * @since 1.0
-     */
-    ajaxStop(handler: (this: Document) => void | false): this;
-    /**
-     * Attach a function to be executed whenever an Ajax request completes successfully. This is an Ajax Event.
-     *
-     * @param handler The function to be invoked.
-     * @see {@link https://api.jquery.com/ajaxSuccess/}
-     * @since 1.0
-     */
-    ajaxSuccess(handler: (this: Document, event: JQuery.Event<Document>, jqXHR: JQuery.jqXHR, ajaxOptions: JQuery.AjaxSettings, data: JQuery.PlainObject) => void | false): this;
-    /**
-     * Perform a custom animation of a set of CSS properties.
-     *
-     * @param properties An object of CSS properties and values that the animation will move toward.
-     * @param duration A string or number determining how long the animation will run.
-     * @param easing A string indicating which easing function to use for the transition.
-     * @param complete A function to call once the animation is complete, called once per matched element.
-     * @see {@link https://api.jquery.com/animate/}
-     * @since 1.0
-     */
-    animate(properties: JQuery.PlainObject,
-            duration: JQuery.Duration,
-            easing: string,
-            complete?: (this: TElement) => void): this;
-    /**
-     * Perform a custom animation of a set of CSS properties.
-     *
-     * @param properties An object of CSS properties and values that the animation will move toward.
-     * @param duration_easing A string or number determining how long the animation will run.
-     *                        A string indicating which easing function to use for the transition.
-     * @param complete A function to call once the animation is complete, called once per matched element.
-     * @see {@link https://api.jquery.com/animate/}
-     * @since 1.0
-     */
-    animate(properties: JQuery.PlainObject,
-            duration_easing: JQuery.Duration | string,
-            complete?: (this: TElement) => void): this;
-    /**
-     * Perform a custom animation of a set of CSS properties.
-     *
-     * @param properties An object of CSS properties and values that the animation will move toward.
-     * @param options A map of additional options to pass to the method.
-     * @see {@link https://api.jquery.com/animate/}
-     * @since 1.0
-     */
-    animate(properties: JQuery.PlainObject,
-            options: JQuery.EffectsOptions<TElement>): this;
-    /**
-     * Perform a custom animation of a set of CSS properties.
-     *
-     * @param properties An object of CSS properties and values that the animation will move toward.
-     * @param complete A function to call once the animation is complete, called once per matched element.
-     * @see {@link https://api.jquery.com/animate/}
-     * @since 1.0
-     */
-    animate(properties: JQuery.PlainObject,
-            complete?: (this: TElement) => void): this;
-    /**
-     * Insert content, specified by the parameter, to the end of each element in the set of matched elements.
-     *
-     * @param contents One or more additional DOM elements, text nodes, arrays of elements and text nodes, HTML strings, or
-     *                 jQuery objects to insert at the end of each element in the set of matched elements.
-     * @see {@link https://api.jquery.com/append/}
-     * @since 1.0
-     */
-    append(...contents: Array<JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node> | JQuery>): this;
-    /**
-     * Insert content, specified by the parameter, to the end of each element in the set of matched elements.
-     *
-     * @param fn A function that returns an HTML string, DOM element(s), text node(s), or jQuery object to insert at
-     *           the end of each element in the set of matched elements. Receives the index position of the element
-     *           in the set and the old HTML value of the element as arguments. Within the function, this refers to
-     *           the current element in the set.
-     * @see {@link https://api.jquery.com/append/}
-     * @since 1.4
-     */
-    append(fn: (this: TElement, index: number, html: string) => JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node> | JQuery): this;
-    /**
-     * Insert every element in the set of matched elements to the end of the target.
-     *
-     * @param target A selector, element, HTML string, array of elements, or jQuery object; the matched set of elements
-     *               will be inserted at the end of the element(s) specified by this parameter.
-     * @see {@link https://api.jquery.com/appendTo/}
-     * @since 1.0
-     */
-    appendTo(target: JQuery.Selector | JQuery.htmlString | JQuery.TypeOrArray<Element> | JQuery): this;
-    /**
-     * Set one or more attributes for the set of matched elements.
-     *
-     * @param attributeName The name of the attribute to set.
-     * @param value A value to set for the attribute. If null, the specified attribute will be removed (as in .removeAttr()).
-     *              A function returning the value to set. this is the current element. Receives the index position of
-     *              the element in the set and the old attribute value as arguments.
-     * @see {@link https://api.jquery.com/attr/}
-     * @since 1.0
-     * @since 1.1
-     */
-    attr(attributeName: string,
-         value: string | number | null | ((this: TElement, index: number, attr: string) => string | number | void | undefined)): this;
-    /**
-     * Set one or more attributes for the set of matched elements.
-     *
-     * @param attributes An object of attribute-value pairs to set.
-     * @see {@link https://api.jquery.com/attr/}
-     * @since 1.0
-     */
-    attr(attributes: JQuery.PlainObject): this;
-    /**
-     * Get the value of an attribute for the first element in the set of matched elements.
-     *
-     * @param attributeName The name of the attribute to get.
-     * @see {@link https://api.jquery.com/attr/}
-     * @since 1.0
-     */
-    attr(attributeName: string): string | undefined;
-    /**
-     * Insert content, specified by the parameter, before each element in the set of matched elements.
-     *
-     * @param contents One or more additional DOM elements, text nodes, arrays of elements and text nodes, HTML strings, or
-     *                 jQuery objects to insert before each element in the set of matched elements.
-     * @see {@link https://api.jquery.com/before/}
-     * @since 1.0
-     */
-    before(...contents: Array<JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node> | JQuery>): this;
-    /**
-     * Insert content, specified by the parameter, before each element in the set of matched elements.
-     *
-     * @param fn A function that returns an HTML string, DOM element(s), text node(s), or jQuery object to insert
-     *           before each element in the set of matched elements. Receives the index position of the element in
-     *           the set and the old HTML value of the element as arguments. Within the function, this refers to the
-     *           current element in the set.
-     * @see {@link https://api.jquery.com/before/}
-     * @since 1.4
-     * @since 1.10
-     */
-    before(fn: (this: TElement, index: number, html: string) => JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node> | JQuery): this;
-    // [bind() overloads] https://github.com/jquery/api.jquery.com/issues/1048
-    /**
-     * Attach a handler to an event for the elements.
-     *
-     * @param eventType A string containing one or more DOM event types, such as "click" or "submit," or custom event names.
-     * @param eventData An object containing data that will be passed to the event handler.
-     * @param handler A function to execute each time the event is triggered.
-     * @see {@link https://api.jquery.com/bind/}
-     * @since 1.0
-     * @since 1.4.3
-     * @deprecated 3.0
-     */
-    bind<TData>(eventType: string, eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
-    /**
-     * Attach a handler to an event for the elements.
-     *
-     * @param eventType A string containing one or more DOM event types, such as "click" or "submit," or custom event names.
-     * @param handler A function to execute each time the event is triggered.
-     *                Setting the second argument to false will attach a function that prevents the default action from
-     *                occurring and stops the event from bubbling.
-     * @see {@link https://api.jquery.com/bind/}
-     * @since 1.0
-     * @since 1.4.3
-     * @deprecated 3.0
-     */
-    bind(eventType: string, handler: JQuery.EventHandler<TElement> | false | null | undefined): this;
-    /**
-     * Attach a handler to an event for the elements.
-     *
-     * @param events An object containing one or more DOM event types and functions to execute for them.
-     * @see {@link https://api.jquery.com/bind/}
-     * @since 1.4
-     * @deprecated 3.0
-     */
-    bind(events: JQuery.PlainObject<JQuery.EventHandler<TElement> | false>): this;
-    /**
-     * Bind an event handler to the "blur" JavaScript event, or trigger that event on an element.
-     *
-     * @param eventData An object containing data that will be passed to the event handler.
-     * @param handler A function to execute each time the event is triggered.
-     * @see {@link https://api.jquery.com/blur/}
-     * @since 1.4.3
-     */
-    blur<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
-    /**
-     * Bind an event handler to the "blur" JavaScript event, or trigger that event on an element.
-     *
-     * @param handler A function to execute each time the event is triggered.
-     * @see {@link https://api.jquery.com/blur/}
-     * @since 1.0
-     */
-    blur(handler?: JQuery.EventHandler<TElement> | false): this;
-    /**
-     * Bind an event handler to the "change" JavaScript event, or trigger that event on an element.
-     *
-     * @param eventData An object containing data that will be passed to the event handler.
-     * @param handler A function to execute each time the event is triggered.
-     * @see {@link https://api.jquery.com/change/}
-     * @since 1.4.3
-     */
-    change<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
-    /**
-     * Bind an event handler to the "change" JavaScript event, or trigger that event on an element.
-     *
-     * @param handler A function to execute each time the event is triggered.
-     * @see {@link https://api.jquery.com/change/}
-     * @since 1.0
-     */
-    change(handler?: JQuery.EventHandler<TElement> | false): this;
-    /**
-     * Get the children of each element in the set of matched elements, optionally filtered by a selector.
-     *
-     * @param selector A string containing a selector expression to match elements against.
-     * @see {@link https://api.jquery.com/children/}
-     * @since 1.0
-     */
-    children(selector?: JQuery.Selector): this;
-    /**
-     * Remove from the queue all items that have not yet been run.
-     *
-     * @param queueName A string containing the name of the queue. Defaults to fx, the standard effects queue.
-     * @see {@link https://api.jquery.com/clearQueue/}
-     * @since 1.4
-     */
-    clearQueue(queueName?: string): this;
-    /**
-     * Bind an event handler to the "click" JavaScript event, or trigger that event on an element.
-     *
-     * @param eventData An object containing data that will be passed to the event handler.
-     * @param handler A function to execute each time the event is triggered.
-     * @see {@link https://api.jquery.com/click/}
-     * @since 1.4.3
-     */
-    click<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
-    /**
-     * Bind an event handler to the "click" JavaScript event, or trigger that event on an element.
-     *
-     * @param handler A function to execute each time the event is triggered.
-     * @see {@link https://api.jquery.com/click/}
-     * @since 1.0
-     */
-    click(handler?: JQuery.EventHandler<TElement> | false): this;
-    /**
-     * Create a deep copy of the set of matched elements.
-     *
-     * @param withDataAndEvents A Boolean indicating whether event handlers and data should be copied along with the elements. The
-     *                          default value is false. *In jQuery 1.5.0 the default value was incorrectly true; it was changed back
-     *                          to false in 1.5.1 and up.
-     * @param deepWithDataAndEvents A Boolean indicating whether event handlers and data for all children of the cloned element should
-     *                              be copied. By default its value matches the first argument's value (which defaults to false).
-     * @see {@link https://api.jquery.com/clone/}
-     * @since 1.0
-     * @since 1.5
-     */
-    clone(withDataAndEvents?: boolean, deepWithDataAndEvents?: boolean): this;
-    /**
-     * For each element in the set, get the first element that matches the selector by testing the element
-     * itself and traversing up through its ancestors in the DOM tree.
-     *
-     * @param selector A string containing a selector expression to match elements against.
-     * @param context A DOM element within which a matching element may be found.
-     * @see {@link https://api.jquery.com/closest/}
-     * @since 1.4
-     */
-    closest(selector: JQuery.Selector, context: Element): this;
-    /**
-     * For each element in the set, get the first element that matches the selector by testing the element
-     * itself and traversing up through its ancestors in the DOM tree.
-     *
-     * @param selector A string containing a selector expression to match elements against.
-     *                 A jQuery object to match elements against.
-     *                 An element to match elements against.
-     * @see {@link https://api.jquery.com/closest/}
-     * @since 1.3
-     * @since 1.6
-     */
-    closest(selector: JQuery.Selector | Element | JQuery): this;
-    /**
-     * Get the children of each element in the set of matched elements, including text and comment nodes.
-     *
-     * @see {@link https://api.jquery.com/contents/}
-     * @since 1.2
-     */
-    contents(): JQuery<TElement | Text | Comment>;
-    /**
-     * Bind an event handler to the "contextmenu" JavaScript event, or trigger that event on an element.
-     *
-     * @param eventData An object containing data that will be passed to the event handler.
-     * @param handler A function to execute each time the event is triggered.
-     * @see {@link https://api.jquery.com/contextmenu/}
-     * @since 1.4.3
-     */
-    contextmenu<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
-    /**
-     * Bind an event handler to the "contextmenu" JavaScript event, or trigger that event on an element.
-     *
-     * @param handler A function to execute each time the event is triggered.
-     * @see {@link https://api.jquery.com/contextmenu/}
-     * @since 1.0
-     */
-    contextmenu(handler?: JQuery.EventHandler<TElement> | false): this;
-    /**
-     * Set one or more CSS properties for the set of matched elements.
-     *
-     * @param propertyName A CSS property name.
-     * @param value A value to set for the property.
-     *              A function returning the value to set. this is the current element. Receives the index position of
-     *              the element in the set and the old value as arguments.
-     * @see {@link https://api.jquery.com/css/}
-     * @since 1.0
-     * @since 1.4
-     */
-    css(propertyName: string,
-        value: string | number | ((this: TElement, index: number, value: string) => string | number | void | undefined)): this;
-    /**
-     * Set one or more CSS properties for the set of matched elements.
-     *
-     * @param properties An object of property-value pairs to set.
-     * @see {@link https://api.jquery.com/css/}
-     * @since 1.0
-     */
-    css(properties: JQuery.PlainObject<string | number | ((this: TElement, index: number, value: string) => string | number | void | undefined)>): this;
-    /**
-     * Get the computed style properties for the first element in the set of matched elements.
-     *
-     * @param propertyName A CSS property.
-     *                     An array of one or more CSS properties.
-     * @see {@link https://api.jquery.com/css/}
-     * @since 1.0
-     */
-    css(propertyName: string): string;
-    /**
-     * Get the computed style properties for the first element in the set of matched elements.
-     *
-     * @param propertyNames An array of one or more CSS properties.
-     * @see {@link https://api.jquery.com/css/}
-     * @since 1.9
-     */
-    css(propertyNames: string[]): JQuery.PlainObject<string>;
-    /**
-     * Return the value at the named data store for the first element in the jQuery collection, as set by
-     * data(name, value) or by an HTML5 data-* attribute.
-     *
-     * @param key Name of the data stored.
-     * @param undefined
-     * @see {@link https://api.jquery.com/data/}
-     * @since 1.2.3
-     */
-    data(key: string, undefined: undefined): any; // tslint:disable-line:unified-signatures
-    /**
-     * Store arbitrary data associated with the matched elements.
-     *
-     * @param key A string naming the piece of data to set.
-     * @param value The new data value; this can be any Javascript type except undefined.
-     * @see {@link https://api.jquery.com/data/}
-     * @since 1.2.3
-     */
-    data(key: string, value: any): this;
-    /**
-     * Store arbitrary data associated with the matched elements.
-     *
-     * @param obj An object of key-value pairs of data to update.
-     * @see {@link https://api.jquery.com/data/}
-     * @since 1.4.3
-     */
-    data(obj: JQuery.PlainObject): this;
-    /**
-     * Return the value at the named data store for the first element in the jQuery collection, as set by
-     * data(name, value) or by an HTML5 data-* attribute.
-     *
-     * @param key Name of the data stored.
-     * @see {@link https://api.jquery.com/data/}
-     * @since 1.2.3
-     */
-    data(key: string): any;
-    /**
-     * Return the value at the named data store for the first element in the jQuery collection, as set by
-     * data(name, value) or by an HTML5 data-* attribute.
-     *
-     * @see {@link https://api.jquery.com/data/}
-     * @since 1.4
-     */
-    data(): JQuery.PlainObject;
-    /**
-     * Bind an event handler to the "dblclick" JavaScript event, or trigger that event on an element.
-     *
-     * @param eventData An object containing data that will be passed to the event handler.
-     * @param handler A function to execute each time the event is triggered.
-     * @see {@link https://api.jquery.com/dblclick/}
-     * @since 1.4.3
-     */
-    dblclick<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
-    /**
-     * Bind an event handler to the "dblclick" JavaScript event, or trigger that event on an element.
-     *
-     * @param handler A function to execute each time the event is triggered.
-     * @see {@link https://api.jquery.com/dblclick/}
-     * @since 1.0
-     */
-    dblclick(handler?: JQuery.EventHandler<TElement> | false): this;
-    /**
-     * Set a timer to delay execution of subsequent items in the queue.
-     *
-     * @param duration An integer indicating the number of milliseconds to delay execution of the next item in the queue.
-     * @param queueName A string containing the name of the queue. Defaults to fx, the standard effects queue.
-     * @see {@link https://api.jquery.com/delay/}
-     * @since 1.4
-     */
-    delay(duration: JQuery.Duration, queueName?: string): this;
-    /**
-     * Attach a handler to one or more events for all elements that match the selector, now or in the
-     * future, based on a specific set of root elements.
-     *
-     * @param selector A selector to filter the elements that trigger the event.
-     * @param eventType A string containing one or more space-separated JavaScript event types, such as "click" or
-     *                  "keydown," or custom event names.
-     * @param eventData An object containing data that will be passed to the event handler.
-     * @param handler A function to execute each time the event is triggered.
-     * @see {@link https://api.jquery.com/delegate/}
-     * @since 1.4.2
-     * @deprecated 3.0
-     */
-    delegate<TData>(selector: JQuery.Selector, eventType: string, eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
-    /**
-     * Attach a handler to one or more events for all elements that match the selector, now or in the
-     * future, based on a specific set of root elements.
-     *
-     * @param selector A selector to filter the elements that trigger the event.
-     * @param eventType A string containing one or more space-separated JavaScript event types, such as "click" or
-     *                  "keydown," or custom event names.
-     * @param handler A function to execute each time the event is triggered.
-     * @see {@link https://api.jquery.com/delegate/}
-     * @since 1.4.2
-     * @deprecated 3.0
-     */
-    delegate(selector: JQuery.Selector, eventType: string, handler: JQuery.EventHandler<TElement> | false): this;
-    /**
-     * Attach a handler to one or more events for all elements that match the selector, now or in the
-     * future, based on a specific set of root elements.
-     *
-     * @param selector A selector to filter the elements that trigger the event.
-     * @param events A plain object of one or more event types and functions to execute for them.
-     * @see {@link https://api.jquery.com/delegate/}
-     * @since 1.4.3
-     * @deprecated 3.0
-     */
-    delegate(selector: JQuery.Selector, events: JQuery.PlainObject<JQuery.EventHandler<TElement> | false>): this;
-    /**
-     * Execute the next function on the queue for the matched elements.
-     *
-     * @param queueName A string containing the name of the queue. Defaults to fx, the standard effects queue.
-     * @see {@link https://api.jquery.com/dequeue/}
-     * @since 1.2
-     */
-    dequeue(queueName?: string): this;
-    /**
-     * Remove the set of matched elements from the DOM.
-     *
-     * @param selector A selector expression that filters the set of matched elements to be removed.
-     * @see {@link https://api.jquery.com/detach/}
-     * @since 1.4
-     */
-    detach(selector?: JQuery.Selector): this;
-    /**
-     * Iterate over a jQuery object, executing a function for each matched element.
-     *
-     * @param fn A function to execute for each matched element.
-     * @see {@link https://api.jquery.com/each/}
-     * @since 1.0
-     */
-    each(fn: (this: TElement, index: number, element: TElement) => void | false): this;
-    /**
-     * Remove all child nodes of the set of matched elements from the DOM.
-     *
-     * @see {@link https://api.jquery.com/empty/}
-     * @since 1.0
-     */
-    empty(): this;
-    /**
-     * End the most recent filtering operation in the current chain and return the set of matched elements
-     * to its previous state.
-     *
-     * @see {@link https://api.jquery.com/end/}
-     * @since 1.0
-     */
-    end(): this;
-    /**
-     * Reduce the set of matched elements to the one at the specified index.
-     *
-     * @param index An integer indicating the 0-based position of the element.
-     *              An integer indicating the position of the element, counting backwards from the last element in the set.
-     * @see {@link https://api.jquery.com/eq/}
-     * @since 1.1.2
-     * @since 1.4
-     */
-    eq(index: number): this;
-    /**
-     * Merge the contents of an object onto the jQuery prototype to provide new jQuery instance methods.
-     *
-     * @param obj An object to merge onto the jQuery prototype.
-     * @see {@link https://api.jquery.com/jQuery.fn.extend/}
-     * @since 1.0
-     */
-    extend(obj: object): this;
-    /**
-     * Display the matched elements by fading them to opaque.
-     *
-     * @param duration A string or number determining how long the animation will run.
-     * @param easing A string indicating which easing function to use for the transition.
-     * @param complete A function to call once the animation is complete, called once per matched element.
-     * @see {@link https://api.jquery.com/fadeIn/}
-     * @since 1.4.3
-     */
-    fadeIn(duration: JQuery.Duration, easing: string, complete?: (this: TElement) => void): this;
-    /**
-     * Display the matched elements by fading them to opaque.
-     *
-     * @param duration_easing A string or number determining how long the animation will run.
-     *                        A string indicating which easing function to use for the transition.
-     * @param complete A function to call once the animation is complete, called once per matched element.
-     * @see {@link https://api.jquery.com/fadeIn/}
-     * @since 1.0
-     * @since 1.4.3
-     */
-    fadeIn(duration_easing: JQuery.Duration | string, complete: (this: TElement) => void): this;
-    /**
-     * Display the matched elements by fading them to opaque.
-     *
-     * @param duration_easing_complete_options A string or number determining how long the animation will run.
-     *                                         A string indicating which easing function to use for the transition.
-     *                                         A function to call once the animation is complete, called once per matched element.
-     *                                         A map of additional options to pass to the method.
-     * @see {@link https://api.jquery.com/fadeIn/}
-     * @since 1.0
-     * @since 1.4.3
-     */
-    fadeIn(duration_easing_complete_options?: JQuery.Duration | string | ((this: TElement) => void) | JQuery.EffectsOptions<TElement>): this;
-    /**
-     * Hide the matched elements by fading them to transparent.
-     *
-     * @param duration A string or number determining how long the animation will run.
-     * @param easing A string indicating which easing function to use for the transition.
-     * @param complete A function to call once the animation is complete, called once per matched element.
-     * @see {@link https://api.jquery.com/fadeOut/}
-     * @since 1.4.3
-     */
-    fadeOut(duration: JQuery.Duration, easing: string, complete?: (this: TElement) => void): this;
-    /**
-     * Hide the matched elements by fading them to transparent.
-     *
-     * @param duration_easing A string or number determining how long the animation will run.
-     *                        A string indicating which easing function to use for the transition.
-     * @param complete A function to call once the animation is complete, called once per matched element.
-     * @see {@link https://api.jquery.com/fadeOut/}
-     * @since 1.0
-     * @since 1.4.3
-     */
-    fadeOut(duration_easing: JQuery.Duration | string, complete: (this: TElement) => void): this;
-    /**
-     * Hide the matched elements by fading them to transparent.
-     *
-     * @param duration_easing_complete_options A string or number determining how long the animation will run.
-     *                                         A string indicating which easing function to use for the transition.
-     *                                         A function to call once the animation is complete, called once per matched element.
-     *                                         A map of additional options to pass to the method.
-     * @see {@link https://api.jquery.com/fadeOut/}
-     * @since 1.0
-     * @since 1.4.3
-     */
-    fadeOut(duration_easing_complete_options?: JQuery.Duration | string | ((this: TElement) => void) | JQuery.EffectsOptions<TElement>): this;
-    /**
-     * Adjust the opacity of the matched elements.
-     *
-     * @param duration A string or number determining how long the animation will run.
-     * @param opacity A number between 0 and 1 denoting the target opacity.
-     * @param easing A string indicating which easing function to use for the transition.
-     * @param complete A function to call once the animation is complete, called once per matched element.
-     * @see {@link https://api.jquery.com/fadeTo/}
-     * @since 1.4.3
-     */
-    fadeTo(duration: JQuery.Duration, opacity: number, easing: string, complete?: (this: TElement) => void): this;
-    /**
-     * Adjust the opacity of the matched elements.
-     *
-     * @param duration A string or number determining how long the animation will run.
-     * @param opacity A number between 0 and 1 denoting the target opacity.
-     * @param complete A function to call once the animation is complete, called once per matched element.
-     * @see {@link https://api.jquery.com/fadeTo/}
-     * @since 1.0
-     */
-    fadeTo(duration: JQuery.Duration, opacity: number, complete?: (this: TElement) => void): this;
-    /**
-     * Display or hide the matched elements by animating their opacity.
-     *
-     * @param duration A string or number determining how long the animation will run.
-     * @param easing A string indicating which easing function to use for the transition.
-     * @param complete A function to call once the animation is complete, called once per matched element.
-     * @see {@link https://api.jquery.com/fadeToggle/}
-     * @since 1.4.4
-     */
-    fadeToggle(duration: JQuery.Duration, easing: string, complete?: (this: TElement) => void): this;
-    /**
-     * Display or hide the matched elements by animating their opacity.
-     *
-     * @param duration_easing A string or number determining how long the animation will run.
-     *                        A string indicating which easing function to use for the transition.
-     * @param complete A function to call once the animation is complete, called once per matched element.
-     * @see {@link https://api.jquery.com/fadeToggle/}
-     * @since 1.0
-     * @since 1.4.3
-     */
-    fadeToggle(duration_easing: JQuery.Duration | string, complete: (this: TElement) => void): this;
-    /**
-     * Display or hide the matched elements by animating their opacity.
-     *
-     * @param duration_easing_complete_options A string or number determining how long the animation will run.
-     *                                         A string indicating which easing function to use for the transition.
-     *                                         A function to call once the animation is complete, called once per matched element.
-     *                                         A map of additional options to pass to the method.
-     * @see {@link https://api.jquery.com/fadeToggle/}
-     * @since 1.0
-     * @since 1.4.3
-     */
-    fadeToggle(duration_easing_complete_options?: JQuery.Duration | string | ((this: TElement) => void) | JQuery.EffectsOptions<TElement>): this;
-    /**
-     * Reduce the set of matched elements to those that match the selector or pass the function's test.
-     *
-     * @param selector A string containing a selector expression to match the current set of elements against.
-     *                 One or more DOM elements to match the current set of elements against.
-     *                 An existing jQuery object to match the current set of elements against.
-     *                 A function used as a test for each element in the set. this is the current DOM element.
-     * @see {@link https://api.jquery.com/filter/}
-     * @since 1.0
-     * @since 1.4
-     */
-    filter(selector: JQuery.Selector | JQuery.TypeOrArray<Element> | JQuery | ((this: TElement, index: number, element: TElement) => boolean)): this;
-    /**
-     * Get the descendants of each element in the current set of matched elements, filtered by a selector,
-     * jQuery object, or element.
-     *
-     * @param selector A string containing a selector expression to match elements against.
-     *                 An element or a jQuery object to match elements against.
-     * @see {@link https://api.jquery.com/find/}
-     * @since 1.0
-     * @since 1.6
-     */
-    find(selector: JQuery.Selector | Element | JQuery): this;
-    /**
-     * Stop the currently-running animation, remove all queued animations, and complete all animations for
-     * the matched elements.
-     *
-     * @param queue The name of the queue in which to stop animations.
-     * @see {@link https://api.jquery.com/finish/}
-     * @since 1.9
-     */
-    finish(queue?: string): this;
-    /**
-     * Reduce the set of matched elements to the first in the set.
-     *
-     * @see {@link https://api.jquery.com/first/}
-     * @since 1.4
-     */
-    first(): this;
-    /**
-     * Bind an event handler to the "focus" JavaScript event, or trigger that event on an element.
-     *
-     * @param eventData An object containing data that will be passed to the event handler.
-     * @param handler A function to execute each time the event is triggered.
-     * @see {@link https://api.jquery.com/focus/}
-     * @since 1.4.3
-     */
-    focus<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
-    /**
-     * Bind an event handler to the "focus" JavaScript event, or trigger that event on an element.
-     *
-     * @param handler A function to execute each time the event is triggered.
-     * @see {@link https://api.jquery.com/focus/}
-     * @since 1.0
-     */
-    focus(handler?: JQuery.EventHandler<TElement> | false): this;
-    /**
-     * Bind an event handler to the "focusin" event.
-     *
-     * @param eventData An object containing data that will be passed to the event handler.
-     * @param handler A function to execute each time the event is triggered.
-     * @see {@link https://api.jquery.com/focusin/}
-     * @since 1.4.3
-     */
-    focusin<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
-    /**
-     * Bind an event handler to the "focusin" event.
-     *
-     * @param handler A function to execute each time the event is triggered.
-     * @see {@link https://api.jquery.com/focusin/}
-     * @since 1.4
-     */
-    focusin(handler?: JQuery.EventHandler<TElement> | false): this;
-    /**
-     * Bind an event handler to the "focusout" JavaScript event.
-     *
-     * @param eventData An object containing data that will be passed to the event handler.
-     * @param handler A function to execute each time the event is triggered.
-     * @see {@link https://api.jquery.com/focusout/}
-     * @since 1.4.3
-     */
-    focusout<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
-    /**
-     * Bind an event handler to the "focusout" JavaScript event.
-     *
-     * @param handler A function to execute each time the event is triggered.
-     * @see {@link https://api.jquery.com/focusout/}
-     * @since 1.4
-     */
-    focusout(handler?: JQuery.EventHandler<TElement> | false): this;
-    /**
-     * Retrieve one of the elements matched by the jQuery object.
-     *
-     * @param index A zero-based integer indicating which element to retrieve.
-     * @see {@link https://api.jquery.com/get/}
-     * @since 1.0
-     */
-    get(index: number): TElement;
-    /**
-     * Retrieve the elements matched by the jQuery object.
-     *
-     * @see {@link https://api.jquery.com/get/}
-     * @since 1.0
-     */
-    get(): TElement[];
-    /**
-     * Reduce the set of matched elements to those that have a descendant that matches the selector or DOM element.
-     *
-     * @param selector A string containing a selector expression to match elements against.
-     *                 A DOM element to match elements against.
-     * @see {@link https://api.jquery.com/has/}
-     * @since 1.4
-     */
-    has(selector: string | Element): this;
-    /**
-     * Determine whether any of the matched elements are assigned the given class.
-     *
-     * @param className The class name to search for.
-     * @see {@link https://api.jquery.com/hasClass/}
-     * @since 1.2
-     */
-    hasClass(className: string): boolean;
-    /**
-     * Set the CSS height of every matched element.
-     *
-     * @param value An integer representing the number of pixels, or an integer with an optional unit of measure
-     *              appended (as a string).
-     *              A function returning the height to set. Receives the index position of the element in the set and
-     *              the old height as arguments. Within the function, this refers to the current element in the set.
-     * @see {@link https://api.jquery.com/height/}
-     * @since 1.0
-     * @since 1.4.1
-     */
-    height(value: string | number | ((this: TElement, index: number, height: number) => string | number)): this;
-    /**
-     * Get the current computed height for the first element in the set of matched elements.
-     *
-     * @see {@link https://api.jquery.com/height/}
-     * @since 1.0
-     */
-    height(): number | undefined;
-    /**
-     * Hide the matched elements.
-     *
-     * @param duration A string or number determining how long the animation will run.
-     * @param easing A string indicating which easing function to use for the transition.
-     * @param complete A function to call once the animation is complete, called once per matched element.
-     * @see {@link https://api.jquery.com/hide/}
-     * @since 1.4.3
-     */
-    hide(duration: JQuery.Duration, easing: string, complete: (this: TElement) => void): this;
-    /**
-     * Hide the matched elements.
-     *
-     * @param duration A string or number determining how long the animation will run.
-     * @param easing_complete A string indicating which easing function to use for the transition.
-     *                        A function to call once the animation is complete, called once per matched element.
-     * @see {@link https://api.jquery.com/hide/}
-     * @since 1.0
-     * @since 1.4.3
-     */
-    hide(duration: JQuery.Duration, easing_complete: string | ((this: TElement) => void)): this;
-    /**
-     * Hide the matched elements.
-     *
-     * @param duration_complete_options A string or number determining how long the animation will run.
-     *                                  A function to call once the animation is complete, called once per matched element.
-     *                                  A map of additional options to pass to the method.
-     * @see {@link https://api.jquery.com/hide/}
-     * @since 1.0
-     */
-    hide(duration_complete_options?: JQuery.Duration | ((this: TElement) => void) | JQuery.EffectsOptions<TElement>): this;
-    /**
-     * Bind one or two handlers to the matched elements, to be executed when the mouse pointer enters and
-     * leaves the elements.
-     *
-     * @param handlerInOut A function to execute when the mouse pointer enters or leaves the element.
-     * @param handlerOut A function to execute when the mouse pointer leaves the element.
-     * @see {@link https://api.jquery.com/hover/}
-     * @since 1.0
-     * @since 1.4
-     */
-    hover(handlerInOut: JQuery.EventHandler<TElement> | false, handlerOut?: JQuery.EventHandler<TElement> | false): this;
-    /**
-     * Set the HTML contents of each element in the set of matched elements.
-     *
-     * @param htmlString A string of HTML to set as the content of each matched element.
-     *                   A function returning the HTML content to set. Receives the index position of the element in the set
-     *                   and the old HTML value as arguments. jQuery empties the element before calling the function; use the
-     *                   oldhtml argument to reference the previous content. Within the function, this refers to the current element in the set.
-     * @see {@link https://api.jquery.com/html/}
-     * @since 1.0
-     * @since 1.4
-     */
-    html(htmlString: JQuery.htmlString | ((this: TElement, index: number, oldhtml: JQuery.htmlString) => JQuery.htmlString)): this;
-    /**
-     * Get the HTML contents of the first element in the set of matched elements.
-     *
-     * @see {@link https://api.jquery.com/html/}
-     * @since 1.0
-     */
-    html(): string;
-    /**
-     * Search for a given element from among the matched elements.
-     *
-     * @param element The DOM element or first element within the jQuery object to look for.
-     *                A selector representing a jQuery collection in which to look for an element.
-     * @see {@link https://api.jquery.com/index/}
-     * @since 1.0
-     * @since 1.4
-     */
-    index(element?: JQuery.Selector | Element | JQuery): number;
-    /**
-     * Set the CSS inner height of each element in the set of matched elements.
-     *
-     * @param value A number representing the number of pixels, or a number along with an optional unit of measure
-     *              appended (as a string).
-     *              A function returning the inner height (including padding but not border) to set. Receives the index
-     *              position of the element in the set and the old inner height as arguments. Within the function, this
-     *              refers to the current element in the set.
-     * @see {@link https://api.jquery.com/innerHeight/}
-     * @since 1.8.0
-     */
-    innerHeight(value: string | number | ((this: TElement, index: number, height: number) => string | number)): this;
-    /**
-     * Get the current computed height for the first element in the set of matched elements, including
-     * padding but not border.
-     *
-     * @see {@link https://api.jquery.com/innerHeight/}
-     * @since 1.2.6
-     */
-    innerHeight(): number | undefined;
-    /**
-     * Set the CSS inner width of each element in the set of matched elements.
-     *
-     * @param value A number representing the number of pixels, or a number along with an optional unit of measure
-     *              appended (as a string).
-     *              A function returning the inner width (including padding but not border) to set. Receives the index
-     *              position of the element in the set and the old inner width as arguments. Within the function, this
-     *              refers to the current element in the set.
-     * @see {@link https://api.jquery.com/innerWidth/}
-     * @since 1.8.0
-     */
-    innerWidth(value: string | number | ((this: TElement, index: number, width: number) => string | number)): this;
-    /**
-     * Get the current computed inner width for the first element in the set of matched elements, including
-     * padding but not border.
-     *
-     * @see {@link https://api.jquery.com/innerWidth/}
-     * @since 1.2.6
-     */
-    innerWidth(): number | undefined;
-    /**
-     * Insert every element in the set of matched elements after the target.
-     *
-     * @param target A selector, element, array of elements, HTML string, or jQuery object; the matched set of elements
-     *               will be inserted after the element(s) specified by this parameter.
-     * @see {@link https://api.jquery.com/insertAfter/}
-     * @since 1.0
-     */
-    insertAfter(target: JQuery.Selector | JQuery.htmlString | JQuery.TypeOrArray<Element> | JQuery): this;
-    /**
-     * Insert every element in the set of matched elements before the target.
-     *
-     * @param target A selector, element, array of elements, HTML string, or jQuery object; the matched set of elements
-     *               will be inserted before the element(s) specified by this parameter.
-     * @see {@link https://api.jquery.com/insertBefore/}
-     * @since 1.0
-     */
-    insertBefore(target: JQuery.Selector | JQuery.htmlString | JQuery.TypeOrArray<Element> | JQuery): this;
-    /**
-     * Check the current matched set of elements against a selector, element, or jQuery object and return
-     * true if at least one of these elements matches the given arguments.
-     *
-     * @param selector A string containing a selector expression to match elements against.
-     *                 A function used as a test for every element in the set. It accepts two arguments, index, which is
-     *                 the element's index in the jQuery collection, and element, which is the DOM element. Within the
-     *                 function, this refers to the current DOM element.
-     *                 An existing jQuery object to match the current set of elements against.
-     *                 One or more elements to match the current set of elements against.
-     * @see {@link https://api.jquery.com/is/}
-     * @since 1.0
-     * @since 1.6
-     */
-    is(selector: JQuery.Selector | JQuery.TypeOrArray<Element> | JQuery | ((this: TElement, index: number, element: TElement) => boolean)): boolean;
-    /**
-     * Bind an event handler to the "keydown" JavaScript event, or trigger that event on an element.
-     *
-     * @param eventData An object containing data that will be passed to the event handler.
-     * @param handler A function to execute each time the event is triggered.
-     * @see {@link https://api.jquery.com/keydown/}
-     * @since 1.4.3
-     */
-    keydown<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
-    /**
-     * Bind an event handler to the "keydown" JavaScript event, or trigger that event on an element.
-     *
-     * @param handler A function to execute each time the event is triggered.
-     * @see {@link https://api.jquery.com/keydown/}
-     * @since 1.0
-     */
-    keydown(handler?: JQuery.EventHandler<TElement> | false): this;
-    /**
-     * Bind an event handler to the "keypress" JavaScript event, or trigger that event on an element.
-     *
-     * @param eventData An object containing data that will be passed to the event handler.
-     * @param handler A function to execute each time the event is triggered.
-     * @see {@link https://api.jquery.com/keypress/}
-     * @since 1.4.3
-     */
-    keypress<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
-    /**
-     * Bind an event handler to the "keypress" JavaScript event, or trigger that event on an element.
-     *
-     * @param handler A function to execute each time the event is triggered.
-     * @see {@link https://api.jquery.com/keypress/}
-     * @since 1.0
-     */
-    keypress(handler?: JQuery.EventHandler<TElement> | false): this;
-    /**
-     * Bind an event handler to the "keyup" JavaScript event, or trigger that event on an element.
-     *
-     * @param eventData An object containing data that will be passed to the event handler.
-     * @param handler A function to execute each time the event is triggered.
-     * @see {@link https://api.jquery.com/keyup/}
-     * @since 1.4.3
-     */
-    keyup<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
-    /**
-     * Bind an event handler to the "keyup" JavaScript event, or trigger that event on an element.
-     *
-     * @param handler A function to execute each time the event is triggered.
-     * @see {@link https://api.jquery.com/keyup/}
-     * @since 1.0
-     */
-    keyup(handler?: JQuery.EventHandler<TElement> | false): this;
-    /**
-     * Reduce the set of matched elements to the final one in the set.
-     *
-     * @see {@link https://api.jquery.com/last/}
-     * @since 1.4
-     */
-    last(): this;
-    /**
-     * Load data from the server and place the returned HTML into the matched element.
-     *
-     * @param url A string containing the URL to which the request is sent.
-     * @param data A plain object or string that is sent to the server with the request.
-     * @param complete A callback function that is executed when the request completes.
-     * @see {@link https://api.jquery.com/load/}
-     * @since 1.0
-     */
-    load(url: string,
-         data: string | JQuery.PlainObject,
-         complete: (this: TElement, responseText: string, textStatus: JQuery.Ajax.TextStatus, jqXHR: JQuery.jqXHR) => void): this;
-    /**
-     * Load data from the server and place the returned HTML into the matched element.
-     *
-     * @param url A string containing the URL to which the request is sent.
-     * @param complete_data A callback function that is executed when the request completes.
-     *                      A plain object or string that is sent to the server with the request.
-     * @see {@link https://api.jquery.com/load/}
-     * @since 1.0
-     */
-    load(url: string,
-         complete_data?: ((this: TElement, responseText: string, textStatus: JQuery.Ajax.TextStatus, jqXHR: JQuery.jqXHR) => void) | string | JQuery.PlainObject): this;
-    /**
-     * Pass each element in the current matched set through a function, producing a new jQuery object
-     * containing the return values.
-     *
-     * @param callback A function object that will be invoked for each element in the current set.
-     * @see {@link https://api.jquery.com/map/}
-     * @since 1.2
-     */
-    map(callback: (this: TElement, index: number, domElement: TElement) => any | any[] | null | undefined): this;
-    /**
-     * Bind an event handler to the "mousedown" JavaScript event, or trigger that event on an element.
-     *
-     * @param eventData An object containing data that will be passed to the event handler.
-     * @param handler A function to execute each time the event is triggered.
-     * @see {@link https://api.jquery.com/mousedown/}
-     * @since 1.4.3
-     */
-    mousedown<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
-    /**
-     * Bind an event handler to the "mousedown" JavaScript event, or trigger that event on an element.
-     *
-     * @param handler A function to execute each time the event is triggered.
-     * @see {@link https://api.jquery.com/mousedown/}
-     * @since 1.0
-     */
-    mousedown(handler?: JQuery.EventHandler<TElement> | false): this;
-    /**
-     * Bind an event handler to be fired when the mouse enters an element, or trigger that handler on an element.
-     *
-     * @param eventData An object containing data that will be passed to the event handler.
-     * @param handler A function to execute each time the event is triggered.
-     * @see {@link https://api.jquery.com/mouseenter/}
-     * @since 1.4.3
-     */
-    mouseenter<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
-    /**
-     * Bind an event handler to be fired when the mouse enters an element, or trigger that handler on an element.
-     *
-     * @param handler A function to execute each time the event is triggered.
-     * @see {@link https://api.jquery.com/mouseenter/}
-     * @since 1.0
-     */
-    mouseenter(handler?: JQuery.EventHandler<TElement> | false): this;
-    /**
-     * Bind an event handler to be fired when the mouse leaves an element, or trigger that handler on an element.
-     *
-     * @param eventData An object containing data that will be passed to the event handler.
-     * @param handler A function to execute each time the event is triggered.
-     * @see {@link https://api.jquery.com/mouseleave/}
-     * @since 1.4.3
-     */
-    mouseleave<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
-    /**
-     * Bind an event handler to be fired when the mouse leaves an element, or trigger that handler on an element.
-     *
-     * @param handler A function to execute each time the event is triggered.
-     * @see {@link https://api.jquery.com/mouseleave/}
-     * @since 1.0
-     */
-    mouseleave(handler?: JQuery.EventHandler<TElement> | false): this;
-    /**
-     * Bind an event handler to the "mousemove" JavaScript event, or trigger that event on an element.
-     *
-     * @param eventData An object containing data that will be passed to the event handler.
-     * @param handler A function to execute each time the event is triggered.
-     * @see {@link https://api.jquery.com/mousemove/}
-     * @since 1.4.3
-     */
-    mousemove<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
-    /**
-     * Bind an event handler to the "mousemove" JavaScript event, or trigger that event on an element.
-     *
-     * @param handler A function to execute each time the event is triggered.
-     * @see {@link https://api.jquery.com/mousemove/}
-     * @since 1.0
-     */
-    mousemove(handler?: JQuery.EventHandler<TElement> | false): this;
-    /**
-     * Bind an event handler to the "mouseout" JavaScript event, or trigger that event on an element.
-     *
-     * @param eventData An object containing data that will be passed to the event handler.
-     * @param handler A function to execute each time the event is triggered.
-     * @see {@link https://api.jquery.com/mouseout/}
-     * @since 1.4.3
-     */
-    mouseout<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
-    /**
-     * Bind an event handler to the "mouseout" JavaScript event, or trigger that event on an element.
-     *
-     * @param handler A function to execute each time the event is triggered.
-     * @see {@link https://api.jquery.com/mouseout/}
-     * @since 1.0
-     */
-    mouseout(handler?: JQuery.EventHandler<TElement> | false): this;
-    /**
-     * Bind an event handler to the "mouseover" JavaScript event, or trigger that event on an element.
-     *
-     * @param eventData An object containing data that will be passed to the event handler.
-     * @param handler A function to execute each time the event is triggered.
-     * @see {@link https://api.jquery.com/mouseover/}
-     * @since 1.4.3
-     */
-    mouseover<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
-    /**
-     * Bind an event handler to the "mouseover" JavaScript event, or trigger that event on an element.
-     *
-     * @param handler A function to execute each time the event is triggered.
-     * @see {@link https://api.jquery.com/mouseover/}
-     * @since 1.0
-     */
-    mouseover(handler?: JQuery.EventHandler<TElement> | false): this;
-    /**
-     * Bind an event handler to the "mouseup" JavaScript event, or trigger that event on an element.
-     *
-     * @param eventData An object containing data that will be passed to the event handler.
-     * @param handler A function to execute each time the event is triggered.
-     * @see {@link https://api.jquery.com/mouseup/}
-     * @since 1.4.3
-     */
-    mouseup<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
-    /**
-     * Bind an event handler to the "mouseup" JavaScript event, or trigger that event on an element.
-     *
-     * @param handler A function to execute each time the event is triggered.
-     * @see {@link https://api.jquery.com/mouseup/}
-     * @since 1.0
-     */
-    mouseup(handler?: JQuery.EventHandler<TElement> | false): this;
-    /**
-     * Get the immediately following sibling of each element in the set of matched elements. If a selector
-     * is provided, it retrieves the next sibling only if it matches that selector.
-     *
-     * @param selector A string containing a selector expression to match elements against.
-     * @see {@link https://api.jquery.com/next/}
-     * @since 1.0
-     */
-    next(selector?: JQuery.Selector): this;
-    /**
-     * Get all following siblings of each element in the set of matched elements, optionally filtered by a selector.
-     *
-     * @param selector A string containing a selector expression to match elements against.
-     * @see {@link https://api.jquery.com/nextAll/}
-     * @since 1.2
-     */
-    nextAll(selector?: string): this;
-    /**
-     * Get all following siblings of each element up to but not including the element matched by the
-     * selector, DOM node, or jQuery object passed.
-     *
-     * @param selector A string containing a selector expression to indicate where to stop matching following sibling elements.
-     *                 A DOM node or jQuery object indicating where to stop matching following sibling elements.
-     * @param filter A string containing a selector expression to match elements against.
-     * @see {@link https://api.jquery.com/nextUntil/}
-     * @since 1.4
-     * @since 1.6
-     */
-    nextUntil(selector?: JQuery.Selector | Element | JQuery, filter?: JQuery.Selector): this;
-    /**
-     * Remove elements from the set of matched elements.
-     *
-     * @param selector A string containing a selector expression, a DOM element, or an array of elements to match against the set.
-     *                 A function used as a test for each element in the set. It accepts two arguments, index, which is the
-     *                 element's index in the jQuery collection, and element, which is the DOM element. Within the
-     *                 function, this refers to the current DOM element.
-     *                 An existing jQuery object to match the current set of elements against.
-     * @see {@link https://api.jquery.com/not/}
-     * @since 1.0
-     * @since 1.4
-     */
-    not(selector: JQuery.Selector | JQuery.TypeOrArray<Element> | JQuery | ((this: TElement, index: number, element: TElement) => boolean)): this;
-    /**
-     * Remove an event handler.
-     *
-     * @param events One or more space-separated event types and optional namespaces, or just namespaces, such as
-     *               "click", "keydown.myPlugin", or ".myPlugin".
-     * @param selector A selector which should match the one originally passed to .on() when attaching event handlers.
-     * @param handler A function to execute each time the event is triggered.
-     * @see {@link https://api.jquery.com/off/}
-     * @since 1.7
-     */
-    off(events: string, selector: JQuery.Selector, handler: JQuery.EventHandler<TElement> | false): this;
-    /**
-     * Remove an event handler.
-     *
-     * @param events One or more space-separated event types and optional namespaces, or just namespaces, such as
-     *               "click", "keydown.myPlugin", or ".myPlugin".
-     * @param selector_handler A selector which should match the one originally passed to .on() when attaching event handlers.
-     *                         A function to execute each time the event is triggered.
-     * @see {@link https://api.jquery.com/off/}
-     * @since 1.7
-     */
-    off(events: string, selector_handler?: JQuery.Selector | JQuery.EventHandler<TElement> | false): this;
-    /**
-     * Remove an event handler.
-     *
-     * @param events An object where the string keys represent one or more space-separated event types and optional
-     *               namespaces, and the values represent handler functions previously attached for the event(s).
-     * @param selector A selector which should match the one originally passed to .on() when attaching event handlers.
-     * @see {@link https://api.jquery.com/off/}
-     * @since 1.7
-     */
-    off(events: JQuery.PlainObject<JQuery.EventHandler<TElement> | false>, selector?: JQuery.Selector): this;
-    /**
-     * Remove an event handler.
-     *
-     * @param event A jQuery.Event object.
-     * @see {@link https://api.jquery.com/off/}
-     * @since 1.7
-     */
-    off(event?: JQuery.Event<TElement>): this;
-    /**
-     * Set the current coordinates of every element in the set of matched elements, relative to the document.
-     *
-     * @param coordinates An object containing the properties top and left, which are numbers indicating the new top and left
-     *                    coordinates for the elements.
-     *                    A function to return the coordinates to set. Receives the index of the element in the collection as
-     *                    the first argument and the current coordinates as the second argument. The function should return an
-     *                    object with the new top and left properties.
-     * @see {@link https://api.jquery.com/offset/}
-     * @since 1.4
-     */
-    offset(coordinates: JQuery.Coordinates | ((this: TElement, index: number, coords: JQuery.Coordinates) => JQuery.Coordinates)): this;
-    /**
-     * Get the current coordinates of the first element in the set of matched elements, relative to the document.
-     *
-     * @see {@link https://api.jquery.com/offset/}
-     * @since 1.2
-     */
-    offset(): JQuery.Coordinates | undefined;
-    /**
-     * Get the closest ancestor element that is positioned.
-     *
-     * @see {@link https://api.jquery.com/offsetParent/}
-     * @since 1.2.6
-     */
-    offsetParent(): this;
-    /**
-     * Attach an event handler function for one or more events to the selected elements.
-     *
-     * @param events One or more space-separated event types and optional namespaces, such as "click" or "keydown.myPlugin".
-     * @param selector A selector string to filter the descendants of the selected elements that trigger the event. If the
-     *                 selector is null or omitted, the event is always triggered when it reaches the selected element.
-     * @param data Data to be passed to the handler in event.data when an event is triggered.
-     * @param handler A function to execute when the event is triggered.
-     * @see {@link https://api.jquery.com/on/}
-     * @since 1.7
-     */
-    on<TData>(events: string, selector: JQuery.Selector | null, data: TData, handler: JQuery.EventHandler<TElement, TData>): this;
-    /**
-     * Attach an event handler function for one or more events to the selected elements.
-     *
-     * @param events One or more space-separated event types and optional namespaces, such as "click" or "keydown.myPlugin".
-     * @param selector A selector string to filter the descendants of the selected elements that trigger the event. If the
-     *                 selector is null or omitted, the event is always triggered when it reaches the selected element.
-     * @param handler A function to execute when the event is triggered. The value false is also allowed as a shorthand
-     *                for a function that simply does return false.
-     * @see {@link https://api.jquery.com/on/}
-     * @since 1.7
-     */
-    on(events: string, selector: JQuery.Selector | null, handler: JQuery.EventHandler<TElement> | false): this;
-    /**
-     * Attach an event handler function for one or more events to the selected elements.
-     *
-     * @param events One or more space-separated event types and optional namespaces, such as "click" or "keydown.myPlugin".
-     * @param data Data to be passed to the handler in event.data when an event is triggered.
-     * @param handler A function to execute when the event is triggered.
-     * @see {@link https://api.jquery.com/on/}
-     * @since 1.7
-     */
-    on<TData>(events: string, data: TData, handler: JQuery.EventHandler<TElement, TData>): this;
-    /**
-     * Attach an event handler function for one or more events to the selected elements.
-     *
-     * @param events One or more space-separated event types and optional namespaces, such as "click" or "keydown.myPlugin".
-     * @param handler A function to execute when the event is triggered. The value false is also allowed as a shorthand
-     *                for a function that simply does return false.
-     * @see {@link https://api.jquery.com/on/}
-     * @since 1.7
-     */
-    on(events: string, handler: JQuery.EventHandler<TElement> | false): this;
-    /**
-     * Attach an event handler function for one or more events to the selected elements.
-     *
-     * @param events An object in which the string keys represent one or more space-separated event types and optional
-     *               namespaces, and the values represent a handler function to be called for the event(s).
-     * @param selector A selector string to filter the descendants of the selected elements that will call the handler. If
-     *                 the selector is null or omitted, the handler is always called when it reaches the selected element.
-     * @param data Data to be passed to the handler in event.data when an event occurs.
-     * @see {@link https://api.jquery.com/on/}
-     * @since 1.7
-     */
-    on<TData>(events: JQuery.PlainObject<JQuery.EventHandler<TElement, TData> | false>, selector: JQuery.Selector | null, data: TData): this;
-    /**
-     * Attach an event handler function for one or more events to the selected elements.
-     *
-     * @param events An object in which the string keys represent one or more space-separated event types and optional
-     *               namespaces, and the values represent a handler function to be called for the event(s).
-     * @param selector A selector string to filter the descendants of the selected elements that will call the handler. If
-     *                 the selector is null or omitted, the handler is always called when it reaches the selected element.
-     * @see {@link https://api.jquery.com/on/}
-     * @since 1.7
-     */
-    on(events: JQuery.PlainObject<JQuery.EventHandler<TElement> | false>, selector: JQuery.Selector): this; // tslint:disable-line:unified-signatures
-    /**
-     * Attach an event handler function for one or more events to the selected elements.
-     *
-     * @param events An object in which the string keys represent one or more space-separated event types and optional
-     *               namespaces, and the values represent a handler function to be called for the event(s).
-     * @param data Data to be passed to the handler in event.data when an event occurs.
-     * @see {@link https://api.jquery.com/on/}
-     * @since 1.7
-     */
-    on<TData>(events: JQuery.PlainObject<JQuery.EventHandler<TElement, TData> | false>, data: TData): this;
-    /**
-     * Attach an event handler function for one or more events to the selected elements.
-     *
-     * @param events An object in which the string keys represent one or more space-separated event types and optional
-     *               namespaces, and the values represent a handler function to be called for the event(s).
-     * @see {@link https://api.jquery.com/on/}
-     * @since 1.7
-     */
-    on(events: JQuery.PlainObject<JQuery.EventHandler<TElement> | false>): this;
-    /**
-     * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
-     *
-     * @param events One or more space-separated event types and optional namespaces, such as "click" or "keydown.myPlugin".
-     * @param selector A selector string to filter the descendants of the selected elements that trigger the event. If the
-     *                 selector is null or omitted, the event is always triggered when it reaches the selected element.
-     * @param data Data to be passed to the handler in event.data when an event is triggered.
-     * @param handler A function to execute when the event is triggered.
-     * @see {@link https://api.jquery.com/one/}
-     * @since 1.7
-     */
-    one<TData>(events: string, selector: JQuery.Selector | null, data: TData, handler: JQuery.EventHandler<TElement, TData>): this;
-    /**
-     * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
-     *
-     * @param events One or more space-separated event types and optional namespaces, such as "click" or "keydown.myPlugin".
-     * @param selector A selector string to filter the descendants of the selected elements that trigger the event. If the
-     *                 selector is null or omitted, the event is always triggered when it reaches the selected element.
-     * @param handler A function to execute when the event is triggered. The value false is also allowed as a shorthand
-     *                for a function that simply does return false.
-     * @see {@link https://api.jquery.com/one/}
-     * @since 1.7
-     */
-    one(events: string, selector: JQuery.Selector | null, handler: JQuery.EventHandler<TElement> | false): this;
-    /**
-     * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
-     *
-     * @param events One or more space-separated event types and optional namespaces, such as "click" or "keydown.myPlugin".
-     * @param data Data to be passed to the handler in event.data when an event is triggered.
-     * @param handler A function to execute when the event is triggered.
-     * @see {@link https://api.jquery.com/one/}
-     * @since 1.7
-     */
-    one<TData>(events: string, data: TData, handler: JQuery.EventHandler<TElement, TData>): this;
-    /**
-     * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
-     *
-     * @param events One or more space-separated event types and optional namespaces, such as "click" or "keydown.myPlugin".
-     * @param handler A function to execute when the event is triggered. The value false is also allowed as a shorthand
-     *                for a function that simply does return false.
-     * @see {@link https://api.jquery.com/one/}
-     * @since 1.7
-     */
-    one(events: string, handler: JQuery.EventHandler<TElement> | false): this;
-    /**
-     * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
-     *
-     * @param events An object in which the string keys represent one or more space-separated event types and optional
-     *               namespaces, and the values represent a handler function to be called for the event(s).
-     * @param selector A selector string to filter the descendants of the selected elements that will call the handler. If
-     *                 the selector is null or omitted, the handler is always called when it reaches the selected element.
-     * @param data Data to be passed to the handler in event.data when an event occurs.
-     * @see {@link https://api.jquery.com/one/}
-     * @since 1.7
-     */
-    one<TData>(events: JQuery.PlainObject<JQuery.EventHandler<TElement, TData> | false>, selector: JQuery.Selector | null, data: TData): this;
-    /**
-     * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
-     *
-     * @param events An object in which the string keys represent one or more space-separated event types and optional
-     *               namespaces, and the values represent a handler function to be called for the event(s).
-     * @param selector A selector string to filter the descendants of the selected elements that will call the handler. If
-     *                 the selector is null or omitted, the handler is always called when it reaches the selected element.
-     * @see {@link https://api.jquery.com/one/}
-     * @since 1.7
-     */
-    one(events: JQuery.PlainObject<JQuery.EventHandler<TElement> | false>, selector: JQuery.Selector): this; // tslint:disable-line:unified-signatures
-    /**
-     * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
-     *
-     * @param events An object in which the string keys represent one or more space-separated event types and optional
-     *               namespaces, and the values represent a handler function to be called for the event(s).
-     * @param data Data to be passed to the handler in event.data when an event occurs.
-     * @see {@link https://api.jquery.com/one/}
-     * @since 1.7
-     */
-    one<TData>(events: JQuery.PlainObject<JQuery.EventHandler<TElement, TData> | false>, data: TData): this;
-    /**
-     * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
-     *
-     * @param events An object in which the string keys represent one or more space-separated event types and optional
-     *               namespaces, and the values represent a handler function to be called for the event(s).
-     * @see {@link https://api.jquery.com/one/}
-     * @since 1.7
-     */
-    one(events: JQuery.PlainObject<JQuery.EventHandler<TElement> | false>): this;
-    /**
-     * Set the CSS outer height of each element in the set of matched elements.
-     *
-     * @param value A number representing the number of pixels, or a number along with an optional unit of measure
-     *              appended (as a string).
-     * @see {@link https://api.jquery.com/outerHeight/}
-     * @since 1.8.0
-     */
-    outerHeight(value: string | number | ((this: TElement, index: number, height: number) => string | number)): this;
-    /**
-     * Get the current computed outer height (including padding, border, and optionally margin) for the
-     * first element in the set of matched elements.
-     *
-     * @param includeMargin A Boolean indicating whether to include the element's margin in the calculation.
-     * @see {@link https://api.jquery.com/outerHeight/}
-     * @since 1.2.6
-     */
-    outerHeight(includeMargin?: boolean): number | undefined;
-    /**
-     * Set the CSS outer width of each element in the set of matched elements.
-     *
-     * @param value A number representing the number of pixels, or a number along with an optional unit of measure
-     *              appended (as a string).
-     *              A function returning the outer width to set. Receives the index position of the element in the set
-     *              and the old outer width as arguments. Within the function, this refers to the current element in the set.
-     * @see {@link https://api.jquery.com/outerWidth/}
-     * @since 1.8.0
-     */
-    outerWidth(value: string | number | ((this: TElement, index: number, width: number) => string | number)): this;
-    /**
-     * Get the current computed outer width (including padding, border, and optionally margin) for the
-     * first element in the set of matched elements.
-     *
-     * @param includeMargin A Boolean indicating whether to include the element's margin in the calculation.
-     * @see {@link https://api.jquery.com/outerWidth/}
-     * @since 1.2.6
-     */
-    outerWidth(includeMargin?: boolean): number | undefined;
-    /**
-     * Get the parent of each element in the current set of matched elements, optionally filtered by a selector.
-     *
-     * @param selector A string containing a selector expression to match elements against.
-     * @see {@link https://api.jquery.com/parent/}
-     * @since 1.0
-     */
-    parent(selector?: JQuery.Selector): this;
-    /**
-     * Get the ancestors of each element in the current set of matched elements, optionally filtered by a selector.
-     *
-     * @param selector A string containing a selector expression to match elements against.
-     * @see {@link https://api.jquery.com/parents/}
-     * @since 1.0
-     */
-    parents(selector?: JQuery.Selector): this;
-    /**
-     * Get the ancestors of each element in the current set of matched elements, up to but not including
-     * the element matched by the selector, DOM node, or jQuery object.
-     *
-     * @param selector A string containing a selector expression to indicate where to stop matching ancestor elements.
-     *                 A DOM node or jQuery object indicating where to stop matching ancestor elements.
-     * @param filter A string containing a selector expression to match elements against.
-     * @see {@link https://api.jquery.com/parentsUntil/}
-     * @since 1.4
-     * @since 1.6
-     */
-    parentsUntil(selector?: JQuery.Selector | Element | JQuery, filter?: JQuery.Selector): this;
-    /**
-     * Get the current coordinates of the first element in the set of matched elements, relative to the offset parent.
-     *
-     * @see {@link https://api.jquery.com/position/}
-     * @since 1.2
-     */
-    position(): JQuery.Coordinates;
-    /**
-     * Insert content, specified by the parameter, to the beginning of each element in the set of matched elements.
-     *
-     * @param contents One or more additional DOM elements, text nodes, arrays of elements and text nodes, HTML strings, or
-     *                 jQuery objects to insert at the beginning of each element in the set of matched elements.
-     * @see {@link https://api.jquery.com/prepend/}
-     * @since 1.0
-     */
-    prepend(...contents: Array<JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node> | JQuery>): this;
-    /**
-     * Insert content, specified by the parameter, to the beginning of each element in the set of matched elements.
-     *
-     * @param fn A function that returns an HTML string, DOM element(s), text node(s), or jQuery object to insert at
-     *           the beginning of each element in the set of matched elements. Receives the index position of the
-     *           element in the set and the old HTML value of the element as arguments. Within the function, this
-     *           refers to the current element in the set.
-     * @see {@link https://api.jquery.com/prepend/}
-     * @since 1.4
-     */
-    prepend(fn: (this: TElement, index: number, html: string) => JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node> | JQuery): this;
-    /**
-     * Insert every element in the set of matched elements to the beginning of the target.
-     *
-     * @param target A selector, element, HTML string, array of elements, or jQuery object; the matched set of elements
-     *               will be inserted at the beginning of the element(s) specified by this parameter.
-     * @see {@link https://api.jquery.com/prependTo/}
-     * @since 1.0
-     */
-    prependTo(target: JQuery.Selector | JQuery.htmlString | JQuery.TypeOrArray<Element> | JQuery): this;
-    /**
-     * Get the immediately preceding sibling of each element in the set of matched elements. If a selector
-     * is provided, it retrieves the previous sibling only if it matches that selector.
-     *
-     * @param selector A string containing a selector expression to match elements against.
-     * @see {@link https://api.jquery.com/prev/}
-     * @since 1.0
-     */
-    prev(selector?: JQuery.Selector): this;
-    /**
-     * Get all preceding siblings of each element in the set of matched elements, optionally filtered by a selector.
-     *
-     * @param selector A string containing a selector expression to match elements against.
-     * @see {@link https://api.jquery.com/prevAll/}
-     * @since 1.2
-     */
-    prevAll(selector?: JQuery.Selector): this;
-    /**
-     * Get all preceding siblings of each element up to but not including the element matched by the
-     * selector, DOM node, or jQuery object.
-     *
-     * @param selector A string containing a selector expression to indicate where to stop matching preceding sibling elements.
-     *                 A DOM node or jQuery object indicating where to stop matching preceding sibling elements.
-     * @param filter A string containing a selector expression to match elements against.
-     * @see {@link https://api.jquery.com/prevUntil/}
-     * @since 1.4
-     * @since 1.6
-     */
-    prevUntil(selector?: JQuery.Selector | Element | JQuery, filter?: JQuery.Selector): this;
-    /**
-     * Return a Promise object to observe when all actions of a certain type bound to the collection,
-     * queued or not, have finished.
-     *
-     * @param type The type of queue that needs to be observed.
-     * @param target Object onto which the promise methods have to be attached
-     * @see {@link https://api.jquery.com/promise/}
-     * @since 1.6
-     */
-    promise<T extends object>(type: string, target: T): T & JQuery.Promise<this>;
-    /**
-     * Return a Promise object to observe when all actions of a certain type bound to the collection,
-     * queued or not, have finished.
-     *
-     * @param target Object onto which the promise methods have to be attached
-     * @see {@link https://api.jquery.com/promise/}
-     * @since 1.6
-     */
-    promise<T extends object>(target: T): T & JQuery.Promise<this>;
-    /**
-     * Return a Promise object to observe when all actions of a certain type bound to the collection,
-     * queued or not, have finished.
-     *
-     * @param type The type of queue that needs to be observed.
-     * @see {@link https://api.jquery.com/promise/}
-     * @since 1.6
-     */
-    promise(type?: string): JQuery.Promise<this>;
-    /**
-     * Set one or more properties for the set of matched elements.
-     *
-     * @param propertyName The name of the property to set.
-     * @param value A function returning the value to set. Receives the index position of the element in the set and the
-     *              old property value as arguments. Within the function, the keyword this refers to the current element.
-     * @see {@link https://api.jquery.com/prop/}
-     * @since 1.6
-     */
-    prop(propertyName: string, value: (this: TElement, index: number, oldPropertyValue: any) => any): this;
-    /**
-     * Set one or more properties for the set of matched elements.
-     *
-     * @param propertyName The name of the property to set.
-     * @param value A value to set for the property.
-     * @see {@link https://api.jquery.com/prop/}
-     * @since 1.6
-     */
-    prop(propertyName: string, value: any): this; // tslint:disable-line:unified-signatures
-    /**
-     * Set one or more properties for the set of matched elements.
-     *
-     * @param properties An object of property-value pairs to set.
-     * @see {@link https://api.jquery.com/prop/}
-     * @since 1.6
-     */
-    prop(properties: JQuery.PlainObject): this;
-    /**
-     * Get the value of a property for the first element in the set of matched elements.
-     *
-     * @param propertyName The name of the property to get.
-     * @see {@link https://api.jquery.com/prop/}
-     * @since 1.6
-     */
-    prop(propertyName: string): any | undefined;
-    /**
-     * Add a collection of DOM elements onto the jQuery stack.
-     *
-     * @param elements An array of elements to push onto the stack and make into a new jQuery object.
-     * @param name The name of a jQuery method that generated the array of elements.
-     * @param args The arguments that were passed in to the jQuery method (for serialization).
-     * @see {@link https://api.jquery.com/pushStack/}
-     * @since 1.3
-     */
-    pushStack(elements: ArrayLike<Element>, name: string, args: any[]): this;
-    /**
-     * Add a collection of DOM elements onto the jQuery stack.
-     *
-     * @param elements An array of elements to push onto the stack and make into a new jQuery object.
-     * @see {@link https://api.jquery.com/pushStack/}
-     * @since 1.0
-     */
-    pushStack(elements: ArrayLike<Element>): this;
-    /**
-     * Manipulate the queue of functions to be executed, once for each matched element.
-     *
-     * @param queueName A string containing the name of the queue. Defaults to fx, the standard effects queue.
-     * @param newQueue The new function to add to the queue, with a function to call that will dequeue the next item.
-     *                 An array of functions to replace the current queue contents.
-     * @see {@link https://api.jquery.com/queue/}
-     * @since 1.2
-     */
-    queue(queueName: string, newQueue: JQuery.TypeOrArray<JQuery.QueueFunction<TElement>>): this;
-    /**
-     * Manipulate the queue of functions to be executed, once for each matched element.
-     *
-     * @param newQueue The new function to add to the queue, with a function to call that will dequeue the next item.
-     *                 An array of functions to replace the current queue contents.
-     * @see {@link https://api.jquery.com/queue/}
-     * @since 1.2
-     */
-    queue(newQueue: JQuery.TypeOrArray<JQuery.QueueFunction<TElement>>): this;
-    /**
-     * Show the queue of functions to be executed on the matched elements.
-     *
-     * @param queueName A string containing the name of the queue. Defaults to fx, the standard effects queue.
-     * @see {@link https://api.jquery.com/queue/}
-     * @since 1.2
-     */
-    queue(queueName?: string): JQuery.Queue<TElement>;
-    /**
-     * Specify a function to execute when the DOM is fully loaded.
-     *
-     * @param handler A function to execute after the DOM is ready.
-     * @see {@link https://api.jquery.com/ready/}
-     * @since 1.0
-     * @deprecated 3.0
-     */
-    ready(handler: ($: JQueryStatic<TElement>) => void): this;
-    /**
-     * Remove the set of matched elements from the DOM.
-     *
-     * @param selector A selector expression that filters the set of matched elements to be removed.
-     * @see {@link https://api.jquery.com/remove/}
-     * @since 1.0
-     */
-    remove(selector?: string): this;
-    /**
-     * Remove an attribute from each element in the set of matched elements.
-     *
-     * @param attributeName An attribute to remove; as of version 1.7, it can be a space-separated list of attributes.
-     * @see {@link https://api.jquery.com/removeAttr/}
-     * @since 1.0
-     */
-    removeAttr(attributeName: string): this;
-    /**
-     * Remove a single class, multiple classes, or all classes from each element in the set of matched elements.
-     *
-     * @param className One or more space-separated classes to be removed from the class attribute of each matched element.
-     *                  A function returning one or more space-separated class names to be removed. Receives the index
-     *                  position of the element in the set and the old class value as arguments.
-     * @see {@link https://api.jquery.com/removeClass/}
-     * @since 1.0
-     * @since 1.4
-     */
-    removeClass(className?: string | ((this: TElement, index: number, className: string) => string)): this;
-    /**
-     * Remove a previously-stored piece of data.
-     *
-     * @param name A string naming the piece of data to delete.
-     *             An array or space-separated string naming the pieces of data to delete.
-     * @see {@link https://api.jquery.com/removeData/}
-     * @since 1.2.3
-     * @since 1.7
-     */
-    removeData(name?: JQuery.TypeOrArray<string>): this;
-    /**
-     * Remove a property for the set of matched elements.
-     *
-     * @param propertyName The name of the property to remove.
-     * @see {@link https://api.jquery.com/removeProp/}
-     * @since 1.6
-     */
-    removeProp(propertyName: string): this;
-    /**
-     * Replace each target element with the set of matched elements.
-     *
-     * @param target A selector string, jQuery object, DOM element, or array of elements indicating which element(s) to replace.
-     * @see {@link https://api.jquery.com/replaceAll/}
-     * @since 1.2
-     */
-    replaceAll(target: JQuery.Selector | JQuery | JQuery.TypeOrArray<Element>): this;
-    /**
-     * Replace each element in the set of matched elements with the provided new content and return the set
-     * of elements that was removed.
-     *
-     * @param newContent The content to insert. May be an HTML string, DOM element, array of DOM elements, or jQuery object.
-     *                   A function that returns content with which to replace the set of matched elements.
-     * @see {@link https://api.jquery.com/replaceWith/}
-     * @since 1.2
-     * @since 1.4
-     */
-    replaceWith(newContent: JQuery.htmlString | JQuery | JQuery.TypeOrArray<Element> | ((this: TElement) => any)): this;
-    /**
-     * Bind an event handler to the "resize" JavaScript event, or trigger that event on an element.
-     *
-     * @param eventData An object containing data that will be passed to the event handler.
-     * @param handler A function to execute each time the event is triggered.
-     * @see {@link https://api.jquery.com/resize/}
-     * @since 1.4.3
-     */
-    resize<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
-    /**
-     * Bind an event handler to the "resize" JavaScript event, or trigger that event on an element.
-     *
-     * @param handler A function to execute each time the event is triggered.
-     * @see {@link https://api.jquery.com/resize/}
-     * @since 1.0
-     */
-    resize(handler?: JQuery.EventHandler<TElement> | false): this;
-    /**
-     * Bind an event handler to the "scroll" JavaScript event, or trigger that event on an element.
-     *
-     * @param eventData An object containing data that will be passed to the event handler.
-     * @param handler A function to execute each time the event is triggered.
-     * @see {@link https://api.jquery.com/scroll/}
-     * @since 1.4.3
-     */
-    scroll<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
-    /**
-     * Bind an event handler to the "scroll" JavaScript event, or trigger that event on an element.
-     *
-     * @param handler A function to execute each time the event is triggered.
-     * @see {@link https://api.jquery.com/scroll/}
-     * @since 1.0
-     */
-    scroll(handler?: JQuery.EventHandler<TElement> | false): this;
-    /**
-     * Set the current horizontal position of the scroll bar for each of the set of matched elements.
-     *
-     * @param value An integer indicating the new position to set the scroll bar to.
-     * @see {@link https://api.jquery.com/scrollLeft/}
-     * @since 1.2.6
-     */
-    scrollLeft(value: number): this;
-    /**
-     * Get the current horizontal position of the scroll bar for the first element in the set of matched elements.
-     *
-     * @see {@link https://api.jquery.com/scrollLeft/}
-     * @since 1.2.6
-     */
-    scrollLeft(): number;
-    /**
-     * Set the current vertical position of the scroll bar for each of the set of matched elements.
-     *
-     * @param value A number indicating the new position to set the scroll bar to.
-     * @see {@link https://api.jquery.com/scrollTop/}
-     * @since 1.2.6
-     */
-    scrollTop(value: number): this;
-    /**
-     * Get the current vertical position of the scroll bar for the first element in the set of matched
-     * elements or set the vertical position of the scroll bar for every matched element.
-     *
-     * @see {@link https://api.jquery.com/scrollTop/}
-     * @since 1.2.6
-     */
-    scrollTop(): number;
-    /**
-     * Bind an event handler to the "select" JavaScript event, or trigger that event on an element.
-     *
-     * @param eventData An object containing data that will be passed to the event handler.
-     * @param handler A function to execute each time the event is triggered.
-     * @see {@link https://api.jquery.com/select/}
-     * @since 1.4.3
-     */
-    select<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
-    /**
-     * Bind an event handler to the "select" JavaScript event, or trigger that event on an element.
-     *
-     * @param handler A function to execute each time the event is triggered.
-     * @see {@link https://api.jquery.com/select/}
-     * @since 1.0
-     */
-    select(handler?: JQuery.EventHandler<TElement> | false): this;
-    /**
-     * Encode a set of form elements as a string for submission.
-     *
-     * @see {@link https://api.jquery.com/serialize/}
-     * @since 1.0
-     */
-    serialize(): string;
-    /**
-     * Encode a set of form elements as an array of names and values.
-     *
-     * @see {@link https://api.jquery.com/serializeArray/}
-     * @since 1.2
-     */
-    serializeArray(): JQuery.NameValuePair[];
-    /**
-     * Display the matched elements.
-     *
-     * @param duration A string or number determining how long the animation will run.
-     * @param easing A string indicating which easing function to use for the transition.
-     * @param complete A function to call once the animation is complete, called once per matched element.
-     * @see {@link https://api.jquery.com/show/}
-     * @since 1.4.3
-     */
-    show(duration: JQuery.Duration, easing: string, complete: (this: TElement) => void): this;
-    /**
-     * Display the matched elements.
-     *
-     * @param duration A string or number determining how long the animation will run.
-     * @param easing_complete A string indicating which easing function to use for the transition.
-     *                        A function to call once the animation is complete, called once per matched element.
-     * @see {@link https://api.jquery.com/show/}
-     * @since 1.0
-     * @since 1.4.3
-     */
-    show(duration: JQuery.Duration, easing_complete: string | ((this: TElement) => void)): this;
-    /**
-     * Display the matched elements.
-     *
-     * @param duration_complete_options A string or number determining how long the animation will run.
-     *                                  A function to call once the animation is complete, called once per matched element.
-     *                                  A map of additional options to pass to the method.
-     * @see {@link https://api.jquery.com/show/}
-     * @since 1.0
-     */
-    show(duration_complete_options?: JQuery.Duration | ((this: TElement) => void) | JQuery.EffectsOptions<TElement>): this;
-    /**
-     * Get the siblings of each element in the set of matched elements, optionally filtered by a selector.
-     *
-     * @param selector A string containing a selector expression to match elements against.
-     * @see {@link https://api.jquery.com/siblings/}
-     * @since 1.0
-     */
-    siblings(selector?: JQuery.Selector): this;
-    /**
-     * Reduce the set of matched elements to a subset specified by a range of indices.
-     *
-     * @param start An integer indicating the 0-based position at which the elements begin to be selected. If negative,
-     *              it indicates an offset from the end of the set.
-     * @param end An integer indicating the 0-based position at which the elements stop being selected. If negative,
-     *            it indicates an offset from the end of the set. If omitted, the range continues until the end of the set.
-     * @see {@link https://api.jquery.com/slice/}
-     * @since 1.1.4
-     */
-    slice(start: number, end?: number): this;
-    /**
-     * Display the matched elements with a sliding motion.
-     *
-     * @param duration A string or number determining how long the animation will run.
-     * @param easing A string indicating which easing function to use for the transition.
-     * @param complete A function to call once the animation is complete, called once per matched element.
-     * @see {@link https://api.jquery.com/slideDown/}
-     * @since 1.4.3
-     */
-    slideDown(duration: JQuery.Duration, easing: string, complete?: (this: TElement) => void): this;
-    /**
-     * Display the matched elements with a sliding motion.
-     *
-     * @param duration_easing A string or number determining how long the animation will run.
-     *                        A string indicating which easing function to use for the transition.
-     * @param complete A function to call once the animation is complete, called once per matched element.
-     * @see {@link https://api.jquery.com/slideDown/}
-     * @since 1.0
-     * @since 1.4.3
-     */
-    slideDown(duration_easing: JQuery.Duration | string, complete: (this: TElement) => void): this;
-    /**
-     * Display the matched elements with a sliding motion.
-     *
-     * @param duration_easing_complete_options A string or number determining how long the animation will run.
-     *                                         A string indicating which easing function to use for the transition.
-     *                                         A function to call once the animation is complete, called once per matched element.
-     *                                         A map of additional options to pass to the method.
-     * @see {@link https://api.jquery.com/slideDown/}
-     * @since 1.0
-     * @since 1.4.3
-     */
-    slideDown(duration_easing_complete_options?: JQuery.Duration | string | ((this: TElement) => void) | JQuery.EffectsOptions<TElement>): this;
-    /**
-     * Display or hide the matched elements with a sliding motion.
-     *
-     * @param duration A string or number determining how long the animation will run.
-     * @param easing A string indicating which easing function to use for the transition.
-     * @param complete A function to call once the animation is complete, called once per matched element.
-     * @see {@link https://api.jquery.com/slideToggle/}
-     * @since 1.4.3
-     */
-    slideToggle(duration: JQuery.Duration, easing: string, complete?: (this: TElement) => void): this;
-    /**
-     * Display or hide the matched elements with a sliding motion.
-     *
-     * @param duration_easing A string or number determining how long the animation will run.
-     *                        A string indicating which easing function to use for the transition.
-     * @param complete A function to call once the animation is complete, called once per matched element.
-     * @see {@link https://api.jquery.com/slideToggle/}
-     * @since 1.0
-     * @since 1.4.3
-     */
-    slideToggle(duration_easing: JQuery.Duration | string, complete: (this: TElement) => void): this;
-    /**
-     * Display or hide the matched elements with a sliding motion.
-     *
-     * @param duration_easing_complete_options A string or number determining how long the animation will run.
-     *                                         A string indicating which easing function to use for the transition.
-     *                                         A function to call once the animation is complete, called once per matched element.
-     *                                         A map of additional options to pass to the method.
-     * @see {@link https://api.jquery.com/slideToggle/}
-     * @since 1.0
-     * @since 1.4.3
-     */
-    slideToggle(duration_easing_complete_options?: JQuery.Duration | string | ((this: TElement) => void) | JQuery.EffectsOptions<TElement>): this;
-    /**
-     * Hide the matched elements with a sliding motion.
-     *
-     * @param duration A string or number determining how long the animation will run.
-     * @param easing A string indicating which easing function to use for the transition.
-     * @param complete A function to call once the animation is complete, called once per matched element.
-     * @see {@link https://api.jquery.com/slideUp/}
-     * @since 1.4.3
-     */
-    slideUp(duration: JQuery.Duration, easing: string, complete?: (this: TElement) => void): this;
-    /**
-     * Hide the matched elements with a sliding motion.
-     *
-     * @param duration_easing A string or number determining how long the animation will run.
-     *                        A string indicating which easing function to use for the transition.
-     * @param complete A function to call once the animation is complete, called once per matched element.
-     * @see {@link https://api.jquery.com/slideUp/}
-     * @since 1.0
-     * @since 1.4.3
-     */
-    slideUp(duration_easing: JQuery.Duration | string, complete: (this: TElement) => void): this;
-    /**
-     * Hide the matched elements with a sliding motion.
-     *
-     * @param duration_easing_complete_options A string or number determining how long the animation will run.
-     *                                         A string indicating which easing function to use for the transition.
-     *                                         A function to call once the animation is complete, called once per matched element.
-     *                                         A map of additional options to pass to the method.
-     * @see {@link https://api.jquery.com/slideUp/}
-     * @since 1.0
-     * @since 1.4.3
-     */
-    slideUp(duration_easing_complete_options?: JQuery.Duration | string | ((this: TElement) => void) | JQuery.EffectsOptions<TElement>): this;
-    /**
-     * Stop the currently-running animation on the matched elements.
-     *
-     * @param queue The name of the queue in which to stop animations.
-     * @param clearQueue A Boolean indicating whether to remove queued animation as well. Defaults to false.
-     * @param jumpToEnd A Boolean indicating whether to complete the current animation immediately. Defaults to false.
-     * @see {@link https://api.jquery.com/stop/}
-     * @since 1.7
-     */
-    stop(queue: string, clearQueue?: boolean, jumpToEnd?: boolean): this;
-    /**
-     * Stop the currently-running animation on the matched elements.
-     *
-     * @param clearQueue A Boolean indicating whether to remove queued animation as well. Defaults to false.
-     * @param jumpToEnd A Boolean indicating whether to complete the current animation immediately. Defaults to false.
-     * @see {@link https://api.jquery.com/stop/}
-     * @since 1.2
-     */
-    stop(clearQueue?: boolean, jumpToEnd?: boolean): this;
-    /**
-     * Bind an event handler to the "submit" JavaScript event, or trigger that event on an element.
-     *
-     * @param eventData An object containing data that will be passed to the event handler.
-     * @param handler A function to execute each time the event is triggered.
-     * @see {@link https://api.jquery.com/submit/}
-     * @since 1.4.3
-     */
-    submit<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
-    /**
-     * Bind an event handler to the "submit" JavaScript event, or trigger that event on an element.
-     *
-     * @param handler A function to execute each time the event is triggered.
-     * @see {@link https://api.jquery.com/submit/}
-     * @since 1.0
-     */
-    submit(handler?: JQuery.EventHandler<TElement> | false): this;
-    /**
-     * Set the content of each element in the set of matched elements to the specified text.
-     *
-     * @param text The text to set as the content of each matched element. When Number or Boolean is supplied, it will
-     *             be converted to a String representation.
-     *             A function returning the text content to set. Receives the index position of the element in the set
-     *             and the old text value as arguments.
-     * @see {@link https://api.jquery.com/text/}
-     * @since 1.0
-     * @since 1.4
-     */
-    text(text: string | number | boolean | ((this: TElement, index: number, text: string) => string | number | boolean)): this;
-    /**
-     * Get the combined text contents of each element in the set of matched elements, including their descendants.
-     *
-     * @see {@link https://api.jquery.com/text/}
-     * @since 1.0
-     */
-    text(): string;
-    /**
-     * Retrieve all the elements contained in the jQuery set, as an array.
-     *
-     * @see {@link https://api.jquery.com/toArray/}
-     * @since 1.4
-     */
-    toArray(): TElement[];
-    /**
-     * Display or hide the matched elements.
-     *
-     * @param duration A string or number determining how long the animation will run.
-     * @param easing A string indicating which easing function to use for the transition.
-     * @param complete A function to call once the animation is complete, called once per matched element.
-     * @see {@link https://api.jquery.com/toggle/}
-     * @since 1.4.3
-     */
-    toggle(duration: JQuery.Duration, easing: string, complete?: (this: TElement) => void): this;
-    /**
-     * Display or hide the matched elements.
-     *
-     * @param duration A string or number determining how long the animation will run.
-     * @param complete A function to call once the animation is complete, called once per matched element.
-     * @see {@link https://api.jquery.com/toggle/}
-     * @since 1.0
-     */
-    toggle(duration: JQuery.Duration, complete: (this: TElement) => void): this;
-    /**
-     * Display or hide the matched elements.
-     *
-     * @param duration_complete_options_display A string or number determining how long the animation will run.
-     *                                          A function to call once the animation is complete, called once per matched element.
-     *                                          A map of additional options to pass to the method.
-     *                                          Use true to show the element or false to hide it.
-     * @see {@link https://api.jquery.com/toggle/}
-     * @since 1.0
-     * @since 1.3
-     */
-    toggle(duration_complete_options_display?: JQuery.Duration | ((this: TElement) => void) | JQuery.EffectsOptions<TElement> | boolean): this;
-    /**
-     * Add or remove one or more classes from each element in the set of matched elements, depending on
-     * either the class's presence or the value of the state argument.
-     *
-     * @param className One or more class names (separated by spaces) to be toggled for each element in the matched set.
-     *                  A function that returns class names to be toggled in the class attribute of each element in the
-     *                  matched set. Receives the index position of the element in the set, the old class value, and the state as arguments.
-     * @param state A Boolean (not just truthy/falsy) value to determine whether the class should be added or removed.
-     * @see {@link https://api.jquery.com/toggleClass/}
-     * @since 1.0
-     * @since 1.3
-     * @since 1.4
-     */
-    toggleClass<TState extends boolean>(className: string | ((this: TElement, index: number, className: string, state: TState) => string),
-                                        state?: TState): this;
-    /**
-     * Add or remove one or more classes from each element in the set of matched elements, depending on
-     * either the class's presence or the value of the state argument.
-     *
-     * @param state A boolean value to determine whether the class should be added or removed.
-     * @see {@link https://api.jquery.com/toggleClass/}
-     * @since 1.4
-     * @deprecated 3.0
-     */
-    toggleClass(state?: boolean): this;
-    /**
-     * Execute all handlers and behaviors attached to the matched elements for the given event type.
-     *
-     * @param eventType A string containing a JavaScript event type, such as click or submit.
-     *                  A jQuery.Event object.
-     * @param extraParameters Additional parameters to pass along to the event handler.
-     * @see {@link https://api.jquery.com/trigger/}
-     * @since 1.0
-     * @since 1.3
-     */
-    trigger(eventType: string | JQuery.Event<TElement>, extraParameters?: any[] | JQuery.PlainObject | string | number): this;
-    /**
-     * Execute all handlers attached to an element for an event.
-     *
-     * @param eventType A string containing a JavaScript event type, such as click or submit.
-     *                  A jQuery.Event object.
-     * @param extraParameters Additional parameters to pass along to the event handler.
-     * @see {@link https://api.jquery.com/triggerHandler/}
-     * @since 1.2
-     * @since 1.3
-     */
-    triggerHandler(eventType: string | JQuery.Event<TElement>, extraParameters?: any[] | JQuery.PlainObject | string | number): undefined | any;
-    /**
-     * Remove a previously-attached event handler from the elements.
-     *
-     * @param event A string containing one or more DOM event types, such as "click" or "submit," or custom event names.
-     * @param handler A function to execute each time the event is triggered.
-     * @see {@link https://api.jquery.com/unbind/}
-     * @since 1.0
-     * @since 1.4.3
-     * @deprecated 3.0
-     */
-    unbind(event: string, handler: JQuery.EventHandler<TElement> | false): this;
-    /**
-     * Remove a previously-attached event handler from the elements.
-     *
-     * @param event A string containing one or more DOM event types, such as "click" or "submit," or custom event names.
-     *              A jQuery.Event object.
-     * @see {@link https://api.jquery.com/unbind/}
-     * @since 1.0
-     * @deprecated 3.0
-     */
-    unbind(event?: string | JQuery.Event<TElement>): this;
-    /**
-     * Remove a handler from the event for all elements which match the current selector, based upon a
-     * specific set of root elements.
-     *
-     * @param selector A selector which will be used to filter the event results.
-     * @param eventType A string containing a JavaScript event type, such as "click" or "keydown"
-     * @param handler A function to execute each time the event is triggered.
-     * @see {@link https://api.jquery.com/undelegate/}
-     * @since 1.4.2
-     * @deprecated 3.0
-     */
-    undelegate(selector: JQuery.Selector, eventType: string, handler: JQuery.EventHandler<TElement> | false): this;
-    /**
-     * Remove a handler from the event for all elements which match the current selector, based upon a
-     * specific set of root elements.
-     *
-     * @param selector A selector which will be used to filter the event results.
-     * @param eventTypes A string containing a JavaScript event type, such as "click" or "keydown"
-     *                   An object of one or more event types and previously bound functions to unbind from them.
-     * @see {@link https://api.jquery.com/undelegate/}
-     * @since 1.4.2
-     * @since 1.4.3
-     * @deprecated 3.0
-     */
-    undelegate(selector: JQuery.Selector, eventTypes: string | JQuery.PlainObject<JQuery.EventHandler<TElement> | false>): this;
-    /**
-     * Remove a handler from the event for all elements which match the current selector, based upon a
-     * specific set of root elements.
-     *
-     * @param namespace A selector which will be used to filter the event results.
-     * @see {@link https://api.jquery.com/undelegate/}
-     * @since 1.4.2
-     * @since 1.6
-     * @deprecated 3.0
-     */
-    undelegate(namespace?: string): this;
-    /**
-     * Remove the parents of the set of matched elements from the DOM, leaving the matched elements in their place.
-     *
-     * @param selector A selector to check the parent element against. If an element's parent does not match the selector,
-     *                 the element won't be unwrapped.
-     * @see {@link https://api.jquery.com/unwrap/}
-     * @since 1.4
-     * @since 3.0
-     */
-    unwrap(selector?: string): this;
-    /**
-     * Set the value of each element in the set of matched elements.
-     *
-     * @param value A string of text, a number, or an array of strings corresponding to the value of each matched
-     *              element to set as selected/checked.
-     *              A function returning the value to set. this is the current element. Receives the index position of
-     *              the element in the set and the old value as arguments.
-     * @see {@link https://api.jquery.com/val/}
-     * @since 1.0
-     * @since 1.4
-     */
-    val(value: string | number | string[] | ((this: TElement, index: number, value: string) => string)): this;
-    /**
-     * Get the current value of the first element in the set of matched elements.
-     *
-     * @see {@link https://api.jquery.com/val/}
-     * @since 1.0
-     */
-    val(): string | number | string[] | undefined;
-    /**
-     * Set the CSS width of each element in the set of matched elements.
-     *
-     * @param value An integer representing the number of pixels, or an integer along with an optional unit of measure
-     *              appended (as a string).
-     *              A function returning the width to set. Receives the index position of the element in the set and the
-     *              old width as arguments. Within the function, this refers to the current element in the set.
-     * @see {@link https://api.jquery.com/width/}
-     * @since 1.0
-     * @since 1.4.1
-     */
-    width(value: string | number | ((this: TElement, index: number, value: number) => string | number)): this;
-    /**
-     * Get the current computed width for the first element in the set of matched elements.
-     *
-     * @see {@link https://api.jquery.com/width/}
-     * @since 1.0
-     */
-    width(): number | undefined;
-    /**
-     * Wrap an HTML structure around each element in the set of matched elements.
-     *
-     * @param wrappingElement A selector, element, HTML string, or jQuery object specifying the structure to wrap around the
-     *                        matched elements. When you pass a jQuery collection containing more than one element, or a selector
-     *                        matching more than one element, the first element will be used.
-     *                        A callback function returning the HTML content or jQuery object to wrap around the matched elements.
-     *                        Receives the index position of the element in the set as an argument. Within the function, this
-     *                        refers to the current element in the set.
-     * @see {@link https://api.jquery.com/wrap/}
-     * @since 1.0
-     * @since 1.4
-     */
-    wrap(wrappingElement: JQuery.Selector | JQuery.htmlString | Element | JQuery | ((this: TElement, index: number) => string | JQuery)): this;
-    /**
-     * Wrap an HTML structure around all elements in the set of matched elements.
-     *
-     * @param wrappingElement A selector, element, HTML string, or jQuery object specifying the structure to wrap around the matched elements.
-     *                        A callback function returning the HTML content or jQuery object to wrap around all the matched
-     *                        elements. Within the function, this refers to the first element in the set. Prior to jQuery 3.0, the
-     *                        callback was incorrectly called for every element in the set and received the index position of the
-     *                        element in the set as an argument.
-     * @see {@link https://api.jquery.com/wrapAll/}
-     * @since 1.2
-     * @since 1.4
-     */
-    wrapAll(wrappingElement: JQuery.Selector | JQuery.htmlString | Element | JQuery | ((this: TElement) => string | JQuery)): this;
-    /**
-     * Wrap an HTML structure around the content of each element in the set of matched elements.
-     *
-     * @param wrappingElement An HTML snippet, selector expression, jQuery object, or DOM element specifying the structure to wrap
-     *                        around the content of the matched elements.
-     *                        A callback function which generates a structure to wrap around the content of the matched elements.
-     *                        Receives the index position of the element in the set as an argument. Within the function, this
-     *                        refers to the current element in the set.
-     * @see {@link https://api.jquery.com/wrapInner/}
-     * @since 1.2
-     * @since 1.4
-     */
-    wrapInner(wrappingElement: JQuery.Selector | JQuery.htmlString | Element | JQuery | ((this: TElement, index: number) => string | JQuery | Element)): this;
-
-    [n: number]: TElement;
-}
+// Used by JQuery.Promise3 and JQuery.Promise
+type _Promise<T> = Promise<T>;
 
 interface JQueryStatic<TElement extends Node = HTMLElement> {
     /**
@@ -2943,7 +589,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.isEmptyObject/}
      * @since 1.4
      */
-    isEmptyObject(obj: any): obj is {};
+    isEmptyObject(obj: any): boolean;
     /**
      * Determine if the argument passed is a JavaScript function object.
      *
@@ -3148,6 +794,1965 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @since 2.2
      */
     post(url_settings?: string | JQuery.UrlAjaxSettings): JQuery.jqXHR;
+
+    // region proxy
+
+    // region (fn, null | undefined)
+
+    // region 0 to 7 arguments
+
+    // region 0 parameters
+
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C, D, E, F, G>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G) => TReturn,
+                             context: null | undefined,
+                             a: A, b: B, c: C, d: D, e: E, f: F, g: G): () => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C, D, E, F>(fn: (a: A, b: B, c: C, d: D, e: E, f: F) => TReturn,
+                          context: null | undefined,
+                          a: A, b: B, c: C, d: D, e: E, f: F): () => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C, D, E>(fn: (a: A, b: B, c: C, d: D, e: E) => TReturn,
+                       context: null | undefined,
+                       a: A, b: B, c: C, d: D, e: E): () => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C, D>(fn: (a: A, b: B, c: C, d: D) => TReturn,
+                    context: null | undefined,
+                    a: A, b: B, c: C, d: D): () => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C>(fn: (a: A, b: B, c: C) => TReturn,
+                 context: null | undefined,
+                 a: A, b: B, c: C): () => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B>(fn: (a: A, b: B) => TReturn,
+              context: null | undefined,
+              a: A, b: B): () => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4`
+     * @since 1.6
+     */
+    proxy<TReturn,
+        A>(fn: (a: A) => TReturn,
+           context: null | undefined,
+           a: A): () => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn>(fn: () => TReturn,
+                   context: null | undefined): () => TReturn;
+
+    // endregion
+
+    // region 1 parameters
+
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C, D, E, F, G,
+        T>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
+                t: T) => TReturn,
+           context: null | undefined,
+           a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C, D, E, F,
+        T>(fn: (a: A, b: B, c: C, d: D, e: E, f: F,
+                t: T) => TReturn,
+           context: null | undefined,
+           a: A, b: B, c: C, d: D, e: E, f: F): (t: T) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C, D, E,
+        T>(fn: (a: A, b: B, c: C, d: D, e: E,
+                t: T) => TReturn,
+           context: null | undefined,
+           a: A, b: B, c: C, d: D, e: E): (t: T) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C, D,
+        T>(fn: (a: A, b: B, c: C, d: D,
+                t: T) => TReturn,
+           context: null | undefined,
+           a: A, b: B, c: C, d: D): (t: T) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C,
+        T>(fn: (a: A, b: B, c: C,
+                t: T) => TReturn,
+           context: null | undefined,
+           a: A, b: B, c: C): (t: T) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B,
+        T>(fn: (a: A, b: B,
+                t: T) => TReturn,
+           context: null | undefined,
+           a: A, b: B): (t: T) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A,
+        T>(fn: (a: A,
+                t: T) => TReturn,
+           context: null | undefined,
+           a: A): (t: T) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        T>(fn: (t: T) => TReturn,
+           context: null | undefined): (t: T) => TReturn;
+
+    // endregion
+
+    // region 2 parameters
+
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C, D, E, F, G,
+        T, U>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
+                   t: T, u: U) => TReturn,
+              context: null | undefined,
+              a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T, u: U) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C, D, E, F,
+        T, U>(fn: (a: A, b: B, c: C, d: D, e: E, f: F,
+                   t: T, u: U) => TReturn,
+              context: null | undefined,
+              a: A, b: B, c: C, d: D, e: E, f: F): (t: T, u: U) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C, D, E,
+        T, U>(fn: (a: A, b: B, c: C, d: D, e: E,
+                   t: T, u: U) => TReturn,
+              context: null | undefined,
+              a: A, b: B, c: C, d: D, e: E): (t: T, u: U) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C, D,
+        T, U>(fn: (a: A, b: B, c: C, d: D,
+                   t: T, u: U) => TReturn,
+              context: null | undefined,
+              a: A, b: B, c: C, d: D): (t: T, u: U) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C,
+        T, U>(fn: (a: A, b: B, c: C,
+                   t: T, u: U) => TReturn,
+              context: null | undefined,
+              a: A, b: B, c: C): (t: T, u: U) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B,
+        T, U>(fn: (a: A, b: B,
+                   t: T, u: U) => TReturn,
+              context: null | undefined,
+              a: A, b: B): (t: T, u: U) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A,
+        T, U>(fn: (a: A,
+                   t: T, u: U) => TReturn,
+              context: null | undefined,
+              a: A): (t: T, u: U) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        T, U>(fn: (t: T, u: U) => TReturn,
+              context: null | undefined): (t: T, u: U) => TReturn;
+
+    // endregion
+
+    // region 3 parameters
+
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C, D, E, F, G,
+        T, U, V>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
+                      t: T, u: U, v: V) => TReturn,
+                 context: null | undefined,
+                 a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T, u: U, v: V) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C, D, E, F,
+        T, U, V>(fn: (a: A, b: B, c: C, d: D, e: E, f: F,
+                      t: T, u: U, v: V) => TReturn,
+                 context: null | undefined,
+                 a: A, b: B, c: C, d: D, e: E, f: F): (t: T, u: U, v: V) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C, D, E,
+        T, U, V>(fn: (a: A, b: B, c: C, d: D, e: E,
+                      t: T, u: U, v: V) => TReturn,
+                 context: null | undefined,
+                 a: A, b: B, c: C, d: D, e: E): (t: T, u: U, v: V) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C, D,
+        T, U, V>(fn: (a: A, b: B, c: C, d: D,
+                      t: T, u: U, v: V) => TReturn,
+                 context: null | undefined,
+                 a: A, b: B, c: C, d: D): (t: T, u: U, v: V) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C,
+        T, U, V>(fn: (a: A, b: B, c: C,
+                      t: T, u: U, v: V) => TReturn,
+                 context: null | undefined,
+                 a: A, b: B, c: C): (t: T, u: U, v: V) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B,
+        T, U, V>(fn: (a: A, b: B,
+                      t: T, u: U, v: V) => TReturn,
+                 context: null | undefined,
+                 a: A, b: B): (t: T, u: U, v: V) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A,
+        T, U, V>(fn: (a: A,
+                      t: T, u: U, v: V) => TReturn,
+                 context: null | undefined,
+                 a: A): (t: T, u: U, v: V) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        T, U, V>(fn: (t: T, u: U, v: V) => TReturn,
+                 context: null | undefined): (t: T, u: U, v: V) => TReturn;
+
+    // endregion
+
+    // region 4 parameters
+
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C, D, E, F, G,
+        T, U, V, W>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
+                         t: T, u: U, v: V, w: W) => TReturn,
+                    context: null | undefined,
+                    a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T, u: U, v: V, w: W) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C, D, E, F,
+        T, U, V, W>(fn: (a: A, b: B, c: C, d: D, e: E, f: F,
+                         t: T, u: U, v: V, w: W) => TReturn,
+                    context: null | undefined,
+                    a: A, b: B, c: C, d: D, e: E, f: F): (t: T, u: U, v: V, w: W) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C, D, E,
+        T, U, V, W>(fn: (a: A, b: B, c: C, d: D, e: E,
+                         t: T, u: U, v: V, w: W) => TReturn,
+                    context: null | undefined,
+                    a: A, b: B, c: C, d: D, e: E): (t: T, u: U, v: V, w: W) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C, D,
+        T, U, V, W>(fn: (a: A, b: B, c: C, d: D,
+                         t: T, u: U, v: V, w: W) => TReturn,
+                    context: null | undefined,
+                    a: A, b: B, c: C, d: D): (t: T, u: U, v: V, w: W) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C,
+        T, U, V, W>(fn: (a: A, b: B, c: C,
+                         t: T, u: U, v: V, w: W) => TReturn,
+                    context: null | undefined,
+                    a: A, b: B, c: C): (t: T, u: U, v: V, w: W) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B,
+        T, U, V, W>(fn: (a: A, b: B,
+                         t: T, u: U, v: V, w: W) => TReturn,
+                    context: null | undefined,
+                    a: A, b: B): (t: T, u: U, v: V, w: W) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A,
+        T, U, V, W>(fn: (a: A,
+                         t: T, u: U, v: V, w: W) => TReturn,
+                    context: null | undefined,
+                    a: A): (t: T, u: U, v: V, w: W) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        T, U, V, W>(fn: (t: T, u: U, v: V, w: W) => TReturn,
+                    context: null | undefined): (t: T, u: U, v: V, w: W) => TReturn;
+
+    // endregion
+
+    // region 5 parameters
+
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C, D, E, F, G,
+        T, U, V, W, X>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
+                            t: T, u: U, v: V, w: W, x: X) => TReturn,
+                       context: null | undefined,
+                       a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T, u: U, v: V, w: W, x: X) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C, D, E, F,
+        T, U, V, W, X>(fn: (a: A, b: B, c: C, d: D, e: E, f: F,
+                            t: T, u: U, v: V, w: W, x: X) => TReturn,
+                       context: null | undefined,
+                       a: A, b: B, c: C, d: D, e: E, f: F): (t: T, u: U, v: V, w: W, x: X) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C, D, E,
+        T, U, V, W, X>(fn: (a: A, b: B, c: C, d: D, e: E,
+                            t: T, u: U, v: V, w: W, x: X) => TReturn,
+                       context: null | undefined,
+                       a: A, b: B, c: C, d: D, e: E): (t: T, u: U, v: V, w: W, x: X) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C, D,
+        T, U, V, W, X>(fn: (a: A, b: B, c: C, d: D,
+                            t: T, u: U, v: V, w: W, x: X) => TReturn,
+                       context: null | undefined,
+                       a: A, b: B, c: C, d: D): (t: T, u: U, v: V, w: W, x: X) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C,
+        T, U, V, W, X>(fn: (a: A, b: B, c: C,
+                            t: T, u: U, v: V, w: W, x: X) => TReturn,
+                       context: null | undefined,
+                       a: A, b: B, c: C): (t: T, u: U, v: V, w: W, x: X) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B,
+        T, U, V, W, X>(fn: (a: A, b: B,
+                            t: T, u: U, v: V, w: W, x: X) => TReturn,
+                       context: null | undefined,
+                       a: A, b: B): (t: T, u: U, v: V, w: W, x: X) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A,
+        T, U, V, W, X>(fn: (a: A,
+                            t: T, u: U, v: V, w: W, x: X) => TReturn,
+                       context: null | undefined,
+                       a: A): (t: T, u: U, v: V, w: W, x: X) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        T, U, V, W, X>(fn: (t: T, u: U, v: V, w: W, x: X) => TReturn,
+                       context: null | undefined): (t: T, u: U, v: V, w: W, x: X) => TReturn;
+
+    // endregion
+
+    // region 6 parameters
+
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C, D, E, F, G,
+        T, U, V, W, X, Y>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
+                               t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+                          context: null | undefined,
+                          a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C, D, E, F,
+        T, U, V, W, X, Y>(fn: (a: A, b: B, c: C, d: D, e: E, f: F,
+                               t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+                          context: null | undefined,
+                          a: A, b: B, c: C, d: D, e: E, f: F): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C, D, E,
+        T, U, V, W, X, Y>(fn: (a: A, b: B, c: C, d: D, e: E,
+                               t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+                          context: null | undefined,
+                          a: A, b: B, c: C, d: D, e: E): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C, D,
+        T, U, V, W, X, Y>(fn: (a: A, b: B, c: C, d: D,
+                               t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+                          context: null | undefined,
+                          a: A, b: B, c: C, d: D): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C,
+        T, U, V, W, X, Y>(fn: (a: A, b: B, c: C,
+                               t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+                          context: null | undefined,
+                          a: A, b: B, c: C): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B,
+        T, U, V, W, X, Y>(fn: (a: A, b: B,
+                               t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+                          context: null | undefined,
+                          a: A, b: B): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A,
+        T, U, V, W, X, Y>(fn: (a: A,
+                               t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+                          context: null | undefined,
+                          a: A): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        T, U, V, W, X, Y>(fn: (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+                          context: null | undefined): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+
+    // endregion
+
+    // region 7+ parameters
+
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C, D, E, F, G,
+        T, U, V, W, X, Y, Z>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
+                                  t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+                             context: null | undefined,
+                             a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C, D, E, F,
+        T, U, V, W, X, Y, Z>(fn: (a: A, b: B, c: C, d: D, e: E, f: F,
+                                  t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+                             context: null | undefined,
+                             a: A, b: B, c: C, d: D, e: E, f: F): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C, D, E,
+        T, U, V, W, X, Y, Z>(fn: (a: A, b: B, c: C, d: D, e: E,
+                                  t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+                             context: null | undefined,
+                             a: A, b: B, c: C, d: D, e: E): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C, D,
+        T, U, V, W, X, Y, Z>(fn: (a: A, b: B, c: C, d: D,
+                                  t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+                             context: null | undefined,
+                             a: A, b: B, c: C, d: D): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C,
+        T, U, V, W, X, Y, Z>(fn: (a: A, b: B, c: C,
+                                  t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+                             context: null | undefined,
+                             a: A, b: B, c: C): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B,
+        T, U, V, W, X, Y, Z>(fn: (a: A, b: B,
+                                  t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+                             context: null | undefined,
+                             a: A, b: B): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A,
+        T, U, V, W, X, Y, Z>(fn: (a: A,
+                                  t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+                             context: null | undefined,
+                             a: A): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        T, U, V, W, X, Y, Z>(fn: (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+                             context: null | undefined): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+
+    // endregion
+
+    // endregion
+
+    // region 8+ arguments
+
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @param additionalArguments Any number of arguments to be passed to the function referenced in the function argument.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn>(fn: (...args: any[]) => TReturn,
+                   context: null | undefined,
+                   ...additionalArguments: any[]): (...args: any[]) => TReturn;
+
+    // endregion
+
+    // endregion
+
+    // region (fn, context)
+
+    // region 0 to 7 arguments
+
+    // region 0 parameters
+
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C, D, E, F, G>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G) => TReturn,
+                             context: TContext,
+                             a: A, b: B, c: C, d: D, e: E, f: F, g: G): (this: TContext) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C, D, E, F>(fn: (a: A, b: B, c: C, d: D, e: E, f: F) => TReturn,
+                          context: TContext,
+                          a: A, b: B, c: C, d: D, e: E, f: F): (this: TContext) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C, D, E>(fn: (a: A, b: B, c: C, d: D, e: E) => TReturn,
+                       context: TContext,
+                       a: A, b: B, c: C, d: D, e: E): (this: TContext) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C, D>(fn: (a: A, b: B, c: C, d: D) => TReturn,
+                    context: TContext,
+                    a: A, b: B, c: C, d: D): (this: TContext) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C>(fn: (a: A, b: B, c: C) => TReturn,
+                 context: TContext,
+                 a: A, b: B, c: C): (this: TContext) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B>(fn: (a: A, b: B) => TReturn,
+              context: TContext,
+              a: A, b: B): (this: TContext) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4`
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A>(fn: (a: A) => TReturn,
+           context: TContext,
+           a: A): (this: TContext) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn>(fn: () => TReturn,
+                 context: TContext): (this: TContext) => TReturn;
+
+    // endregion
+
+    // region 1 parameters
+
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C, D, E, F, G,
+        T>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
+                t: T) => TReturn,
+           context: TContext,
+           a: A, b: B, c: C, d: D, e: E, f: F, g: G): (this: TContext, t: T) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C, D, E, F,
+        T>(fn: (a: A, b: B, c: C, d: D, e: E, f: F,
+                t: T) => TReturn,
+           context: TContext,
+           a: A, b: B, c: C, d: D, e: E, f: F): (this: TContext, t: T) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C, D, E,
+        T>(fn: (a: A, b: B, c: C, d: D, e: E,
+                t: T) => TReturn,
+           context: TContext,
+           a: A, b: B, c: C, d: D, e: E): (this: TContext, t: T) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C, D,
+        T>(fn: (a: A, b: B, c: C, d: D,
+                t: T) => TReturn,
+           context: TContext,
+           a: A, b: B, c: C, d: D): (this: TContext, t: T) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C,
+        T>(fn: (a: A, b: B, c: C,
+                t: T) => TReturn,
+           context: TContext,
+           a: A, b: B, c: C): (this: TContext, t: T) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B,
+        T>(fn: (a: A, b: B,
+                t: T) => TReturn,
+           context: TContext,
+           a: A, b: B): (this: TContext, t: T) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A,
+        T>(fn: (a: A,
+                t: T) => TReturn,
+           context: TContext,
+           a: A): (this: TContext, t: T) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        T>(fn: (t: T) => TReturn,
+           context: TContext): (this: TContext, t: T) => TReturn;
+
+    // endregion
+
+    // region 2 parameters
+
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C, D, E, F, G,
+        T, U>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
+                   t: T, u: U) => TReturn,
+              context: TContext,
+              a: A, b: B, c: C, d: D, e: E, f: F, g: G): (this: TContext, t: T, u: U) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C, D, E, F,
+        T, U>(fn: (a: A, b: B, c: C, d: D, e: E, f: F,
+                   t: T, u: U) => TReturn,
+              context: TContext,
+              a: A, b: B, c: C, d: D, e: E, f: F): (this: TContext, t: T, u: U) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C, D, E,
+        T, U>(fn: (a: A, b: B, c: C, d: D, e: E,
+                   t: T, u: U) => TReturn,
+              context: TContext,
+              a: A, b: B, c: C, d: D, e: E): (this: TContext, t: T, u: U) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C, D,
+        T, U>(fn: (a: A, b: B, c: C, d: D,
+                   t: T, u: U) => TReturn,
+              context: TContext,
+              a: A, b: B, c: C, d: D): (this: TContext, t: T, u: U) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C,
+        T, U>(fn: (a: A, b: B, c: C,
+                   t: T, u: U) => TReturn,
+              context: TContext,
+              a: A, b: B, c: C): (this: TContext, t: T, u: U) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B,
+        T, U>(fn: (a: A, b: B,
+                   t: T, u: U) => TReturn,
+              context: TContext,
+              a: A, b: B): (this: TContext, t: T, u: U) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A,
+        T, U>(fn: (a: A,
+                   t: T, u: U) => TReturn,
+              context: TContext,
+              a: A): (this: TContext, t: T, u: U) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        T, U>(fn: (t: T, u: U) => TReturn,
+              context: TContext): (this: TContext, t: T, u: U) => TReturn;
+
+    // endregion
+
+    // region 3 parameters
+
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C, D, E, F, G,
+        T, U, V>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
+                      t: T, u: U, v: V) => TReturn,
+                 context: TContext,
+                 a: A, b: B, c: C, d: D, e: E, f: F, g: G): (this: TContext, t: T, u: U, v: V) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C, D, E, F,
+        T, U, V>(fn: (a: A, b: B, c: C, d: D, e: E, f: F,
+                      t: T, u: U, v: V) => TReturn,
+                 context: TContext,
+                 a: A, b: B, c: C, d: D, e: E, f: F): (this: TContext, t: T, u: U, v: V) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C, D, E,
+        T, U, V>(fn: (a: A, b: B, c: C, d: D, e: E,
+                      t: T, u: U, v: V) => TReturn,
+                 context: TContext,
+                 a: A, b: B, c: C, d: D, e: E): (this: TContext, t: T, u: U, v: V) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C, D,
+        T, U, V>(fn: (a: A, b: B, c: C, d: D,
+                      t: T, u: U, v: V) => TReturn,
+                 context: TContext,
+                 a: A, b: B, c: C, d: D): (this: TContext, t: T, u: U, v: V) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C,
+        T, U, V>(fn: (a: A, b: B, c: C,
+                      t: T, u: U, v: V) => TReturn,
+                 context: TContext,
+                 a: A, b: B, c: C): (this: TContext, t: T, u: U, v: V) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B,
+        T, U, V>(fn: (a: A, b: B,
+                      t: T, u: U, v: V) => TReturn,
+                 context: TContext,
+                 a: A, b: B): (this: TContext, t: T, u: U, v: V) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A,
+        T, U, V>(fn: (a: A,
+                      t: T, u: U, v: V) => TReturn,
+                 context: TContext,
+                 a: A): (this: TContext, t: T, u: U, v: V) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        T, U, V>(fn: (t: T, u: U, v: V) => TReturn,
+                 context: TContext): (this: TContext, t: T, u: U, v: V) => TReturn;
+
+    // endregion
+
+    // region 4 parameters
+
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C, D, E, F, G,
+        T, U, V, W>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
+                         t: T, u: U, v: V, w: W) => TReturn,
+                    context: TContext,
+                    a: A, b: B, c: C, d: D, e: E, f: F, g: G): (this: TContext, t: T, u: U, v: V, w: W) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C, D, E, F,
+        T, U, V, W>(fn: (a: A, b: B, c: C, d: D, e: E, f: F,
+                         t: T, u: U, v: V, w: W) => TReturn,
+                    context: TContext,
+                    a: A, b: B, c: C, d: D, e: E, f: F): (this: TContext, t: T, u: U, v: V, w: W) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C, D, E,
+        T, U, V, W>(fn: (a: A, b: B, c: C, d: D, e: E,
+                         t: T, u: U, v: V, w: W) => TReturn,
+                    context: TContext,
+                    a: A, b: B, c: C, d: D, e: E): (this: TContext, t: T, u: U, v: V, w: W) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C, D,
+        T, U, V, W>(fn: (a: A, b: B, c: C, d: D,
+                         t: T, u: U, v: V, w: W) => TReturn,
+                    context: TContext,
+                    a: A, b: B, c: C, d: D): (this: TContext, t: T, u: U, v: V, w: W) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C,
+        T, U, V, W>(fn: (a: A, b: B, c: C,
+                         t: T, u: U, v: V, w: W) => TReturn,
+                    context: TContext,
+                    a: A, b: B, c: C): (this: TContext, t: T, u: U, v: V, w: W) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B,
+        T, U, V, W>(fn: (a: A, b: B,
+                         t: T, u: U, v: V, w: W) => TReturn,
+                    context: TContext,
+                    a: A, b: B): (this: TContext, t: T, u: U, v: V, w: W) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A,
+        T, U, V, W>(fn: (a: A,
+                         t: T, u: U, v: V, w: W) => TReturn,
+                    context: TContext,
+                    a: A): (this: TContext, t: T, u: U, v: V, w: W) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        T, U, V, W>(fn: (t: T, u: U, v: V, w: W) => TReturn,
+                    context: TContext): (this: TContext, t: T, u: U, v: V, w: W) => TReturn;
+
+    // endregion
+
+    // region 5 parameters
+
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C, D, E, F, G,
+        T, U, V, W, X>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
+                            t: T, u: U, v: V, w: W, x: X) => TReturn,
+                       context: TContext,
+                       a: A, b: B, c: C, d: D, e: E, f: F, g: G): (this: TContext, t: T, u: U, v: V, w: W, x: X) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C, D, E, F,
+        T, U, V, W, X>(fn: (a: A, b: B, c: C, d: D, e: E, f: F,
+                            t: T, u: U, v: V, w: W, x: X) => TReturn,
+                       context: TContext,
+                       a: A, b: B, c: C, d: D, e: E, f: F): (this: TContext, t: T, u: U, v: V, w: W, x: X) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C, D, E,
+        T, U, V, W, X>(fn: (a: A, b: B, c: C, d: D, e: E,
+                            t: T, u: U, v: V, w: W, x: X) => TReturn,
+                       context: TContext,
+                       a: A, b: B, c: C, d: D, e: E): (this: TContext, t: T, u: U, v: V, w: W, x: X) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C, D,
+        T, U, V, W, X>(fn: (a: A, b: B, c: C, d: D,
+                            t: T, u: U, v: V, w: W, x: X) => TReturn,
+                       context: TContext,
+                       a: A, b: B, c: C, d: D): (this: TContext, t: T, u: U, v: V, w: W, x: X) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C,
+        T, U, V, W, X>(fn: (a: A, b: B, c: C,
+                            t: T, u: U, v: V, w: W, x: X) => TReturn,
+                       context: TContext,
+                       a: A, b: B, c: C): (this: TContext, t: T, u: U, v: V, w: W, x: X) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B,
+        T, U, V, W, X>(fn: (a: A, b: B,
+                            t: T, u: U, v: V, w: W, x: X) => TReturn,
+                       context: TContext,
+                       a: A, b: B): (this: TContext, t: T, u: U, v: V, w: W, x: X) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A,
+        T, U, V, W, X>(fn: (a: A,
+                            t: T, u: U, v: V, w: W, x: X) => TReturn,
+                       context: TContext,
+                       a: A): (this: TContext, t: T, u: U, v: V, w: W, x: X) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        T, U, V, W, X>(fn: (t: T, u: U, v: V, w: W, x: X) => TReturn,
+                       context: TContext): (this: TContext, t: T, u: U, v: V, w: W, x: X) => TReturn;
+
+    // endregion
+
+    // region 6 parameters
+
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C, D, E, F, G,
+        T, U, V, W, X, Y>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
+                               t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+                          context: TContext,
+                          a: A, b: B, c: C, d: D, e: E, f: F, g: G): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C, D, E, F,
+        T, U, V, W, X, Y>(fn: (a: A, b: B, c: C, d: D, e: E, f: F,
+                               t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+                          context: TContext,
+                          a: A, b: B, c: C, d: D, e: E, f: F): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C, D, E,
+        T, U, V, W, X, Y>(fn: (a: A, b: B, c: C, d: D, e: E,
+                               t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+                          context: TContext,
+                          a: A, b: B, c: C, d: D, e: E): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C, D,
+        T, U, V, W, X, Y>(fn: (a: A, b: B, c: C, d: D,
+                               t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+                          context: TContext,
+                          a: A, b: B, c: C, d: D): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C,
+        T, U, V, W, X, Y>(fn: (a: A, b: B, c: C,
+                               t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+                          context: TContext,
+                          a: A, b: B, c: C): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B,
+        T, U, V, W, X, Y>(fn: (a: A, b: B,
+                               t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+                          context: TContext,
+                          a: A, b: B): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A,
+        T, U, V, W, X, Y>(fn: (a: A,
+                               t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+                          context: TContext,
+                          a: A): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        T, U, V, W, X, Y>(fn: (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+                          context: TContext): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+
+    // endregion
+
+    // region 7+ parameters
+
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C, D, E, F, G,
+        T, U, V, W, X, Y, Z>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
+                                  t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+                             context: TContext,
+                             a: A, b: B, c: C, d: D, e: E, f: F, g: G): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C, D, E, F,
+        T, U, V, W, X, Y, Z>(fn: (a: A, b: B, c: C, d: D, e: E, f: F,
+                                  t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+                             context: TContext,
+                             a: A, b: B, c: C, d: D, e: E, f: F): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C, D, E,
+        T, U, V, W, X, Y, Z>(fn: (a: A, b: B, c: C, d: D, e: E,
+                                  t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+                             context: TContext,
+                             a: A, b: B, c: C, d: D, e: E): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C, D,
+        T, U, V, W, X, Y, Z>(fn: (a: A, b: B, c: C, d: D,
+                                  t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+                             context: TContext,
+                             a: A, b: B, c: C, d: D): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C,
+        T, U, V, W, X, Y, Z>(fn: (a: A, b: B, c: C,
+                                  t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+                             context: TContext,
+                             a: A, b: B, c: C): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B,
+        T, U, V, W, X, Y, Z>(fn: (a: A, b: B,
+                                  t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+                             context: TContext,
+                             a: A, b: B): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A,
+        T, U, V, W, X, Y, Z>(fn: (a: A,
+                                  t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+                             context: TContext,
+                             a: A): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        T, U, V, W, X, Y, Z>(fn: (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+                             context: TContext): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+
+    // endregion
+
+    // endregion
+
+    // region 8+ arguments
+
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -3158,7 +2763,17 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @since 1.4
      * @since 1.6
      */
-    proxy(fn: Function, context: object, ...additionalArguments: any[]): Function;
+    proxy<TContext extends object,
+        TReturn>(fn: (...args: any[]) => TReturn,
+                 context: TContext,
+                 ...additionalArguments: any[]): (this: TContext, ...args: any[]) => TReturn;
+
+    // endregion
+
+    // endregion
+
+    // region (context, name)
+
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -3169,7 +2784,14 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @since 1.4
      * @since 1.6
      */
-    proxy<T extends object>(context: T, name: keyof T, ...additionalArguments: any[]): Function;
+    proxy<TContext extends object>(context: TContext,
+                                   name: keyof TContext,
+                                   ...additionalArguments: any[]): (this: TContext, ...args: any[]) => any;
+
+    // endregion
+
+    // endregion
+
     /**
      * Manipulate the queue of functions to be executed on the matched element.
      *
@@ -3262,7 +2884,8 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      *
      * @param array The Array of DOM elements.
      * @see {@link https://api.jquery.com/jQuery.uniqueSort/}
-     * @since 1.12-2.2
+     * @since 1.12
+     * @since 2.2
      */
     uniqueSort<T extends Element>(array: T[]): T[];
     /**
@@ -3329,6 +2952,2418 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @since 1.5
      */
     when(...deferreds: any[]): JQuery.Promise<any, any, never>;
+}
+
+interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement> {
+    /**
+     * A string containing the jQuery version number.
+     *
+     * @see {@link https://api.jquery.com/jquery/}
+     * @since 1.0
+     */
+    jquery: string;
+    /**
+     * The number of elements in the jQuery object.
+     *
+     * @see {@link https://api.jquery.com/length/}
+     * @since 1.0
+     */
+    length: number;
+    /**
+     * Create a new jQuery object with elements added to the set of matched elements.
+     *
+     * @param selector A string representing a selector expression to find additional elements to add to the set of matched elements.
+     * @param context The point in the document at which the selector should begin matching; similar to the context
+     *                argument of the $(selector, context) method.
+     * @see {@link https://api.jquery.com/add/}
+     * @since 1.4
+     */
+    add(selector: JQuery.Selector, context: Element): this;
+    /**
+     * Create a new jQuery object with elements added to the set of matched elements.
+     *
+     * @param selector A string representing a selector expression to find additional elements to add to the set of matched elements.
+     *                 One or more elements to add to the set of matched elements.
+     *                 An HTML fragment to add to the set of matched elements.
+     *                 An existing jQuery object to add to the set of matched elements.
+     * @see {@link https://api.jquery.com/add/}
+     * @since 1.0
+     * @since 1.3.2
+     */
+    add(selector: JQuery.Selector | JQuery.TypeOrArray<Element> | JQuery.htmlString | JQuery): this;
+    /**
+     * Add the previous set of elements on the stack to the current set, optionally filtered by a selector.
+     *
+     * @param selector A string containing a selector expression to match the current set of elements against.
+     * @see {@link https://api.jquery.com/addBack/}
+     * @since 1.8
+     */
+    addBack(selector?: JQuery.Selector): this;
+    /**
+     * Adds the specified class(es) to each element in the set of matched elements.
+     *
+     * @param className One or more space-separated classes to be added to the class attribute of each matched element.
+     *                  A function returning one or more space-separated class names to be added to the existing class
+     *                  name(s). Receives the index position of the element in the set and the existing class name(s) as
+     *                  arguments. Within the function, this refers to the current element in the set.
+     * @see {@link https://api.jquery.com/addClass/}
+     * @since 1.0
+     * @since 1.4
+     */
+    addClass(className: string | ((this: TElement, index: number, currentClassName: string) => string)): this;
+    /**
+     * Insert content, specified by the parameter, after each element in the set of matched elements.
+     *
+     * @param contents One or more additional DOM elements, text nodes, arrays of elements and text nodes, HTML strings, or
+     *                 jQuery objects to insert after each element in the set of matched elements.
+     * @see {@link https://api.jquery.com/after/}
+     * @since 1.0
+     */
+    after(...contents: Array<JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node> | JQuery<JQuery.Node>>): this;
+    /**
+     * Insert content, specified by the parameter, after each element in the set of matched elements.
+     *
+     * @param fn A function that returns an HTML string, DOM element(s), text node(s), or jQuery object to insert
+     *           after each element in the set of matched elements. Receives the index position of the element in the
+     *           set and the old HTML value of the element as arguments. Within the function, this refers to the
+     *           current element in the set.
+     * @see {@link https://api.jquery.com/after/}
+     * @since 1.4
+     * @since 1.10
+     */
+    after(fn: (this: TElement, index: number, html: string) => JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node> | JQuery<JQuery.Node>): this;
+    /**
+     * Register a handler to be called when Ajax requests complete. This is an AjaxEvent.
+     *
+     * @param handler The function to be invoked.
+     * @see {@link https://api.jquery.com/ajaxComplete/}
+     * @since 1.0
+     */
+    ajaxComplete(handler: (this: Document, event: JQuery.Event<Document>, jqXHR: JQuery.jqXHR, ajaxOptions: JQuery.AjaxSettings) => void | false): this;
+    /**
+     * Register a handler to be called when Ajax requests complete with an error. This is an Ajax Event.
+     *
+     * @param handler The function to be invoked.
+     * @see {@link https://api.jquery.com/ajaxError/}
+     * @since 1.0
+     */
+    ajaxError(handler: (this: Document, event: JQuery.Event<Document>, jqXHR: JQuery.jqXHR, ajaxSettings: JQuery.AjaxSettings, thrownError: string) => void | false): this;
+    /**
+     * Attach a function to be executed before an Ajax request is sent. This is an Ajax Event.
+     *
+     * @param handler The function to be invoked.
+     * @see {@link https://api.jquery.com/ajaxSend/}
+     * @since 1.0
+     */
+    ajaxSend(handler: (this: Document, event: JQuery.Event<Document>, jqXHR: JQuery.jqXHR, ajaxOptions: JQuery.AjaxSettings) => void | false): this;
+    /**
+     * Register a handler to be called when the first Ajax request begins. This is an Ajax Event.
+     *
+     * @param handler The function to be invoked.
+     * @see {@link https://api.jquery.com/ajaxStart/}
+     * @since 1.0
+     */
+    ajaxStart(handler: (this: Document) => void | false): this;
+    /**
+     * Register a handler to be called when all Ajax requests have completed. This is an Ajax Event.
+     *
+     * @param handler The function to be invoked.
+     * @see {@link https://api.jquery.com/ajaxStop/}
+     * @since 1.0
+     */
+    ajaxStop(handler: (this: Document) => void | false): this;
+    /**
+     * Attach a function to be executed whenever an Ajax request completes successfully. This is an Ajax Event.
+     *
+     * @param handler The function to be invoked.
+     * @see {@link https://api.jquery.com/ajaxSuccess/}
+     * @since 1.0
+     */
+    ajaxSuccess(handler: (this: Document, event: JQuery.Event<Document>, jqXHR: JQuery.jqXHR, ajaxOptions: JQuery.AjaxSettings, data: JQuery.PlainObject) => void | false): this;
+    /**
+     * Perform a custom animation of a set of CSS properties.
+     *
+     * @param properties An object of CSS properties and values that the animation will move toward.
+     * @param duration A string or number determining how long the animation will run.
+     * @param easing A string indicating which easing function to use for the transition.
+     * @param complete A function to call once the animation is complete, called once per matched element.
+     * @see {@link https://api.jquery.com/animate/}
+     * @since 1.0
+     */
+    animate(properties: JQuery.PlainObject,
+            duration: JQuery.Duration,
+            easing: string,
+            complete?: (this: TElement) => void): this;
+    /**
+     * Perform a custom animation of a set of CSS properties.
+     *
+     * @param properties An object of CSS properties and values that the animation will move toward.
+     * @param duration_easing A string or number determining how long the animation will run.
+     *                        A string indicating which easing function to use for the transition.
+     * @param complete A function to call once the animation is complete, called once per matched element.
+     * @see {@link https://api.jquery.com/animate/}
+     * @since 1.0
+     */
+    animate(properties: JQuery.PlainObject,
+            duration_easing: JQuery.Duration | string,
+            complete?: (this: TElement) => void): this;
+    /**
+     * Perform a custom animation of a set of CSS properties.
+     *
+     * @param properties An object of CSS properties and values that the animation will move toward.
+     * @param options A map of additional options to pass to the method.
+     * @see {@link https://api.jquery.com/animate/}
+     * @since 1.0
+     */
+    animate(properties: JQuery.PlainObject,
+            options: JQuery.EffectsOptions<TElement>): this;
+    /**
+     * Perform a custom animation of a set of CSS properties.
+     *
+     * @param properties An object of CSS properties and values that the animation will move toward.
+     * @param complete A function to call once the animation is complete, called once per matched element.
+     * @see {@link https://api.jquery.com/animate/}
+     * @since 1.0
+     */
+    animate(properties: JQuery.PlainObject,
+            complete?: (this: TElement) => void): this;
+    /**
+     * Insert content, specified by the parameter, to the end of each element in the set of matched elements.
+     *
+     * @param contents One or more additional DOM elements, text nodes, arrays of elements and text nodes, HTML strings, or
+     *                 jQuery objects to insert at the end of each element in the set of matched elements.
+     * @see {@link https://api.jquery.com/append/}
+     * @since 1.0
+     */
+    append(...contents: Array<JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node> | JQuery<JQuery.Node>>): this;
+    /**
+     * Insert content, specified by the parameter, to the end of each element in the set of matched elements.
+     *
+     * @param fn A function that returns an HTML string, DOM element(s), text node(s), or jQuery object to insert at
+     *           the end of each element in the set of matched elements. Receives the index position of the element
+     *           in the set and the old HTML value of the element as arguments. Within the function, this refers to
+     *           the current element in the set.
+     * @see {@link https://api.jquery.com/append/}
+     * @since 1.4
+     */
+    append(fn: (this: TElement, index: number, html: string) => JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node> | JQuery<JQuery.Node>): this;
+    /**
+     * Insert every element in the set of matched elements to the end of the target.
+     *
+     * @param target A selector, element, HTML string, array of elements, or jQuery object; the matched set of elements
+     *               will be inserted at the end of the element(s) specified by this parameter.
+     * @see {@link https://api.jquery.com/appendTo/}
+     * @since 1.0
+     */
+    appendTo(target: JQuery.Selector | JQuery.htmlString | JQuery.TypeOrArray<Element> | JQuery): this;
+    /**
+     * Set one or more attributes for the set of matched elements.
+     *
+     * @param attributeName The name of the attribute to set.
+     * @param value A value to set for the attribute. If null, the specified attribute will be removed (as in .removeAttr()).
+     *              A function returning the value to set. this is the current element. Receives the index position of
+     *              the element in the set and the old attribute value as arguments.
+     * @see {@link https://api.jquery.com/attr/}
+     * @since 1.0
+     * @since 1.1
+     */
+    attr(attributeName: string,
+         value: string | number | null | ((this: TElement, index: number, attr: string) => string | number | void | undefined)): this;
+    /**
+     * Set one or more attributes for the set of matched elements.
+     *
+     * @param attributes An object of attribute-value pairs to set.
+     * @see {@link https://api.jquery.com/attr/}
+     * @since 1.0
+     */
+    attr(attributes: JQuery.PlainObject): this;
+    /**
+     * Get the value of an attribute for the first element in the set of matched elements.
+     *
+     * @param attributeName The name of the attribute to get.
+     * @see {@link https://api.jquery.com/attr/}
+     * @since 1.0
+     */
+    attr(attributeName: string): string | undefined;
+    /**
+     * Insert content, specified by the parameter, before each element in the set of matched elements.
+     *
+     * @param contents One or more additional DOM elements, text nodes, arrays of elements and text nodes, HTML strings, or
+     *                 jQuery objects to insert before each element in the set of matched elements.
+     * @see {@link https://api.jquery.com/before/}
+     * @since 1.0
+     */
+    before(...contents: Array<JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node> | JQuery<JQuery.Node>>): this;
+    /**
+     * Insert content, specified by the parameter, before each element in the set of matched elements.
+     *
+     * @param fn A function that returns an HTML string, DOM element(s), text node(s), or jQuery object to insert
+     *           before each element in the set of matched elements. Receives the index position of the element in
+     *           the set and the old HTML value of the element as arguments. Within the function, this refers to the
+     *           current element in the set.
+     * @see {@link https://api.jquery.com/before/}
+     * @since 1.4
+     * @since 1.10
+     */
+    before(fn: (this: TElement, index: number, html: string) => JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node> | JQuery<JQuery.Node>): this;
+    // [bind() overloads] https://github.com/jquery/api.jquery.com/issues/1048
+    /**
+     * Attach a handler to an event for the elements.
+     *
+     * @param eventType A string containing one or more DOM event types, such as "click" or "submit," or custom event names.
+     * @param eventData An object containing data that will be passed to the event handler.
+     * @param handler A function to execute each time the event is triggered.
+     * @see {@link https://api.jquery.com/bind/}
+     * @since 1.0
+     * @since 1.4.3
+     * @deprecated 3.0
+     */
+    bind<TData>(eventType: string,
+                eventData: TData,
+                handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
+    /**
+     * Attach a handler to an event for the elements.
+     *
+     * @param eventType A string containing one or more DOM event types, such as "click" or "submit," or custom event names.
+     * @param handler A function to execute each time the event is triggered.
+     *                Setting the second argument to false will attach a function that prevents the default action from
+     *                occurring and stops the event from bubbling.
+     * @see {@link https://api.jquery.com/bind/}
+     * @since 1.0
+     * @since 1.4.3
+     * @deprecated 3.0
+     */
+    bind(eventType: string,
+         handler: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false | null | undefined): this;
+    /**
+     * Attach a handler to an event for the elements.
+     *
+     * @param events An object containing one or more DOM event types and functions to execute for them.
+     * @see {@link https://api.jquery.com/bind/}
+     * @since 1.4
+     * @deprecated 3.0
+     */
+    bind(events: JQuery.PlainObject<JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false>): this;
+    /**
+     * Bind an event handler to the "blur" JavaScript event, or trigger that event on an element.
+     *
+     * @param eventData An object containing data that will be passed to the event handler.
+     * @param handler A function to execute each time the event is triggered.
+     * @see {@link https://api.jquery.com/blur/}
+     * @since 1.4.3
+     */
+    blur<TData>(eventData: TData,
+                handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
+    /**
+     * Bind an event handler to the "blur" JavaScript event, or trigger that event on an element.
+     *
+     * @param handler A function to execute each time the event is triggered.
+     * @see {@link https://api.jquery.com/blur/}
+     * @since 1.0
+     */
+    blur(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
+    /**
+     * Bind an event handler to the "change" JavaScript event, or trigger that event on an element.
+     *
+     * @param eventData An object containing data that will be passed to the event handler.
+     * @param handler A function to execute each time the event is triggered.
+     * @see {@link https://api.jquery.com/change/}
+     * @since 1.4.3
+     */
+    change<TData>(eventData: TData,
+                  handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
+    /**
+     * Bind an event handler to the "change" JavaScript event, or trigger that event on an element.
+     *
+     * @param handler A function to execute each time the event is triggered.
+     * @see {@link https://api.jquery.com/change/}
+     * @since 1.0
+     */
+    change(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
+    /**
+     * Get the children of each element in the set of matched elements, optionally filtered by a selector.
+     *
+     * @param selector A string containing a selector expression to match elements against.
+     * @see {@link https://api.jquery.com/children/}
+     * @since 1.0
+     */
+    children(selector?: JQuery.Selector): this;
+    /**
+     * Remove from the queue all items that have not yet been run.
+     *
+     * @param queueName A string containing the name of the queue. Defaults to fx, the standard effects queue.
+     * @see {@link https://api.jquery.com/clearQueue/}
+     * @since 1.4
+     */
+    clearQueue(queueName?: string): this;
+    /**
+     * Bind an event handler to the "click" JavaScript event, or trigger that event on an element.
+     *
+     * @param eventData An object containing data that will be passed to the event handler.
+     * @param handler A function to execute each time the event is triggered.
+     * @see {@link https://api.jquery.com/click/}
+     * @since 1.4.3
+     */
+    click<TData>(eventData: TData,
+                 handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
+    /**
+     * Bind an event handler to the "click" JavaScript event, or trigger that event on an element.
+     *
+     * @param handler A function to execute each time the event is triggered.
+     * @see {@link https://api.jquery.com/click/}
+     * @since 1.0
+     */
+    click(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
+    /**
+     * Create a deep copy of the set of matched elements.
+     *
+     * @param withDataAndEvents A Boolean indicating whether event handlers and data should be copied along with the elements. The
+     *                          default value is false. *In jQuery 1.5.0 the default value was incorrectly true; it was changed back
+     *                          to false in 1.5.1 and up.
+     * @param deepWithDataAndEvents A Boolean indicating whether event handlers and data for all children of the cloned element should
+     *                              be copied. By default its value matches the first argument's value (which defaults to false).
+     * @see {@link https://api.jquery.com/clone/}
+     * @since 1.0
+     * @since 1.5
+     */
+    clone(withDataAndEvents?: boolean, deepWithDataAndEvents?: boolean): this;
+    /**
+     * For each element in the set, get the first element that matches the selector by testing the element
+     * itself and traversing up through its ancestors in the DOM tree.
+     *
+     * @param selector A string containing a selector expression to match elements against.
+     * @param context A DOM element within which a matching element may be found.
+     * @see {@link https://api.jquery.com/closest/}
+     * @since 1.4
+     */
+    closest(selector: JQuery.Selector, context: Element): this;
+    /**
+     * For each element in the set, get the first element that matches the selector by testing the element
+     * itself and traversing up through its ancestors in the DOM tree.
+     *
+     * @param selector A string containing a selector expression to match elements against.
+     *                 A jQuery object to match elements against.
+     *                 An element to match elements against.
+     * @see {@link https://api.jquery.com/closest/}
+     * @since 1.3
+     * @since 1.6
+     */
+    closest(selector: JQuery.Selector | Element | JQuery): this;
+    /**
+     * Get the children of each element in the set of matched elements, including text and comment nodes.
+     *
+     * @see {@link https://api.jquery.com/contents/}
+     * @since 1.2
+     */
+    contents(): JQuery<TElement | Text | Comment>;
+    /**
+     * Bind an event handler to the "contextmenu" JavaScript event, or trigger that event on an element.
+     *
+     * @param eventData An object containing data that will be passed to the event handler.
+     * @param handler A function to execute each time the event is triggered.
+     * @see {@link https://api.jquery.com/contextmenu/}
+     * @since 1.4.3
+     */
+    contextmenu<TData>(eventData: TData,
+                       handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
+    /**
+     * Bind an event handler to the "contextmenu" JavaScript event, or trigger that event on an element.
+     *
+     * @param handler A function to execute each time the event is triggered.
+     * @see {@link https://api.jquery.com/contextmenu/}
+     * @since 1.0
+     */
+    contextmenu(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
+    /**
+     * Set one or more CSS properties for the set of matched elements.
+     *
+     * @param propertyName A CSS property name.
+     * @param value A value to set for the property.
+     *              A function returning the value to set. this is the current element. Receives the index position of
+     *              the element in the set and the old value as arguments.
+     * @see {@link https://api.jquery.com/css/}
+     * @since 1.0
+     * @since 1.4
+     */
+    css(propertyName: string,
+        value: string | number | ((this: TElement, index: number, value: string) => string | number | void | undefined)): this;
+    /**
+     * Set one or more CSS properties for the set of matched elements.
+     *
+     * @param properties An object of property-value pairs to set.
+     * @see {@link https://api.jquery.com/css/}
+     * @since 1.0
+     */
+    css(properties: JQuery.PlainObject<string | number | ((this: TElement, index: number, value: string) => string | number | void | undefined)>): this;
+    /**
+     * Get the computed style properties for the first element in the set of matched elements.
+     *
+     * @param propertyName A CSS property.
+     *                     An array of one or more CSS properties.
+     * @see {@link https://api.jquery.com/css/}
+     * @since 1.0
+     */
+    css(propertyName: string): string;
+    /**
+     * Get the computed style properties for the first element in the set of matched elements.
+     *
+     * @param propertyNames An array of one or more CSS properties.
+     * @see {@link https://api.jquery.com/css/}
+     * @since 1.9
+     */
+    css(propertyNames: string[]): JQuery.PlainObject<string>;
+    /**
+     * Return the value at the named data store for the first element in the jQuery collection, as set by
+     * data(name, value) or by an HTML5 data-* attribute.
+     *
+     * @param key Name of the data stored.
+     * @param undefined
+     * @see {@link https://api.jquery.com/data/}
+     * @since 1.2.3
+     */
+    data(key: string, undefined: undefined): any; // tslint:disable-line:unified-signatures
+    /**
+     * Store arbitrary data associated with the matched elements.
+     *
+     * @param key A string naming the piece of data to set.
+     * @param value The new data value; this can be any Javascript type except undefined.
+     * @see {@link https://api.jquery.com/data/}
+     * @since 1.2.3
+     */
+    data(key: string, value: any): this;
+    /**
+     * Store arbitrary data associated with the matched elements.
+     *
+     * @param obj An object of key-value pairs of data to update.
+     * @see {@link https://api.jquery.com/data/}
+     * @since 1.4.3
+     */
+    data(obj: JQuery.PlainObject): this;
+    /**
+     * Return the value at the named data store for the first element in the jQuery collection, as set by
+     * data(name, value) or by an HTML5 data-* attribute.
+     *
+     * @param key Name of the data stored.
+     * @see {@link https://api.jquery.com/data/}
+     * @since 1.2.3
+     */
+    data(key: string): any;
+    /**
+     * Return the value at the named data store for the first element in the jQuery collection, as set by
+     * data(name, value) or by an HTML5 data-* attribute.
+     *
+     * @see {@link https://api.jquery.com/data/}
+     * @since 1.4
+     */
+    data(): JQuery.PlainObject;
+    /**
+     * Bind an event handler to the "dblclick" JavaScript event, or trigger that event on an element.
+     *
+     * @param eventData An object containing data that will be passed to the event handler.
+     * @param handler A function to execute each time the event is triggered.
+     * @see {@link https://api.jquery.com/dblclick/}
+     * @since 1.4.3
+     */
+    dblclick<TData>(eventData: TData,
+                    handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
+    /**
+     * Bind an event handler to the "dblclick" JavaScript event, or trigger that event on an element.
+     *
+     * @param handler A function to execute each time the event is triggered.
+     * @see {@link https://api.jquery.com/dblclick/}
+     * @since 1.0
+     */
+    dblclick(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
+    /**
+     * Set a timer to delay execution of subsequent items in the queue.
+     *
+     * @param duration An integer indicating the number of milliseconds to delay execution of the next item in the queue.
+     * @param queueName A string containing the name of the queue. Defaults to fx, the standard effects queue.
+     * @see {@link https://api.jquery.com/delay/}
+     * @since 1.4
+     */
+    delay(duration: JQuery.Duration, queueName?: string): this;
+    /**
+     * Attach a handler to one or more events for all elements that match the selector, now or in the
+     * future, based on a specific set of root elements.
+     *
+     * @param selector A selector to filter the elements that trigger the event.
+     * @param eventType A string containing one or more space-separated JavaScript event types, such as "click" or
+     *                  "keydown," or custom event names.
+     * @param eventData An object containing data that will be passed to the event handler.
+     * @param handler A function to execute each time the event is triggered.
+     * @see {@link https://api.jquery.com/delegate/}
+     * @since 1.4.2
+     * @deprecated 3.0
+     */
+    delegate<TData>(selector: JQuery.Selector,
+                    eventType: string,
+                    eventData: TData,
+                    handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
+    /**
+     * Attach a handler to one or more events for all elements that match the selector, now or in the
+     * future, based on a specific set of root elements.
+     *
+     * @param selector A selector to filter the elements that trigger the event.
+     * @param eventType A string containing one or more space-separated JavaScript event types, such as "click" or
+     *                  "keydown," or custom event names.
+     * @param handler A function to execute each time the event is triggered.
+     * @see {@link https://api.jquery.com/delegate/}
+     * @since 1.4.2
+     * @deprecated 3.0
+     */
+    delegate(selector: JQuery.Selector,
+             eventType: string,
+             handler: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
+    /**
+     * Attach a handler to one or more events for all elements that match the selector, now or in the
+     * future, based on a specific set of root elements.
+     *
+     * @param selector A selector to filter the elements that trigger the event.
+     * @param events A plain object of one or more event types and functions to execute for them.
+     * @see {@link https://api.jquery.com/delegate/}
+     * @since 1.4.3
+     * @deprecated 3.0
+     */
+    delegate(selector: JQuery.Selector,
+             events: JQuery.PlainObject<JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false>): this;
+    /**
+     * Execute the next function on the queue for the matched elements.
+     *
+     * @param queueName A string containing the name of the queue. Defaults to fx, the standard effects queue.
+     * @see {@link https://api.jquery.com/dequeue/}
+     * @since 1.2
+     */
+    dequeue(queueName?: string): this;
+    /**
+     * Remove the set of matched elements from the DOM.
+     *
+     * @param selector A selector expression that filters the set of matched elements to be removed.
+     * @see {@link https://api.jquery.com/detach/}
+     * @since 1.4
+     */
+    detach(selector?: JQuery.Selector): this;
+    /**
+     * Iterate over a jQuery object, executing a function for each matched element.
+     *
+     * @param fn A function to execute for each matched element.
+     * @see {@link https://api.jquery.com/each/}
+     * @since 1.0
+     */
+    each(fn: (this: TElement, index: number, element: TElement) => void | false): this;
+    /**
+     * Remove all child nodes of the set of matched elements from the DOM.
+     *
+     * @see {@link https://api.jquery.com/empty/}
+     * @since 1.0
+     */
+    empty(): this;
+    /**
+     * End the most recent filtering operation in the current chain and return the set of matched elements
+     * to its previous state.
+     *
+     * @see {@link https://api.jquery.com/end/}
+     * @since 1.0
+     */
+    end(): this;
+    /**
+     * Reduce the set of matched elements to the one at the specified index.
+     *
+     * @param index An integer indicating the 0-based position of the element.
+     *              An integer indicating the position of the element, counting backwards from the last element in the set.
+     * @see {@link https://api.jquery.com/eq/}
+     * @since 1.1.2
+     * @since 1.4
+     */
+    eq(index: number): this;
+    /**
+     * Merge the contents of an object onto the jQuery prototype to provide new jQuery instance methods.
+     *
+     * @param obj An object to merge onto the jQuery prototype.
+     * @see {@link https://api.jquery.com/jQuery.fn.extend/}
+     * @since 1.0
+     */
+    extend(obj: object): this;
+    /**
+     * Display the matched elements by fading them to opaque.
+     *
+     * @param duration A string or number determining how long the animation will run.
+     * @param easing A string indicating which easing function to use for the transition.
+     * @param complete A function to call once the animation is complete, called once per matched element.
+     * @see {@link https://api.jquery.com/fadeIn/}
+     * @since 1.4.3
+     */
+    fadeIn(duration: JQuery.Duration, easing: string, complete?: (this: TElement) => void): this;
+    /**
+     * Display the matched elements by fading them to opaque.
+     *
+     * @param duration_easing A string or number determining how long the animation will run.
+     *                        A string indicating which easing function to use for the transition.
+     * @param complete A function to call once the animation is complete, called once per matched element.
+     * @see {@link https://api.jquery.com/fadeIn/}
+     * @since 1.0
+     * @since 1.4.3
+     */
+    fadeIn(duration_easing: JQuery.Duration | string, complete: (this: TElement) => void): this;
+    /**
+     * Display the matched elements by fading them to opaque.
+     *
+     * @param duration_easing_complete_options A string or number determining how long the animation will run.
+     *                                         A string indicating which easing function to use for the transition.
+     *                                         A function to call once the animation is complete, called once per matched element.
+     *                                         A map of additional options to pass to the method.
+     * @see {@link https://api.jquery.com/fadeIn/}
+     * @since 1.0
+     * @since 1.4.3
+     */
+    fadeIn(duration_easing_complete_options?: JQuery.Duration | string | ((this: TElement) => void) | JQuery.EffectsOptions<TElement>): this;
+    /**
+     * Hide the matched elements by fading them to transparent.
+     *
+     * @param duration A string or number determining how long the animation will run.
+     * @param easing A string indicating which easing function to use for the transition.
+     * @param complete A function to call once the animation is complete, called once per matched element.
+     * @see {@link https://api.jquery.com/fadeOut/}
+     * @since 1.4.3
+     */
+    fadeOut(duration: JQuery.Duration, easing: string, complete?: (this: TElement) => void): this;
+    /**
+     * Hide the matched elements by fading them to transparent.
+     *
+     * @param duration_easing A string or number determining how long the animation will run.
+     *                        A string indicating which easing function to use for the transition.
+     * @param complete A function to call once the animation is complete, called once per matched element.
+     * @see {@link https://api.jquery.com/fadeOut/}
+     * @since 1.0
+     * @since 1.4.3
+     */
+    fadeOut(duration_easing: JQuery.Duration | string, complete: (this: TElement) => void): this;
+    /**
+     * Hide the matched elements by fading them to transparent.
+     *
+     * @param duration_easing_complete_options A string or number determining how long the animation will run.
+     *                                         A string indicating which easing function to use for the transition.
+     *                                         A function to call once the animation is complete, called once per matched element.
+     *                                         A map of additional options to pass to the method.
+     * @see {@link https://api.jquery.com/fadeOut/}
+     * @since 1.0
+     * @since 1.4.3
+     */
+    fadeOut(duration_easing_complete_options?: JQuery.Duration | string | ((this: TElement) => void) | JQuery.EffectsOptions<TElement>): this;
+    /**
+     * Adjust the opacity of the matched elements.
+     *
+     * @param duration A string or number determining how long the animation will run.
+     * @param opacity A number between 0 and 1 denoting the target opacity.
+     * @param easing A string indicating which easing function to use for the transition.
+     * @param complete A function to call once the animation is complete, called once per matched element.
+     * @see {@link https://api.jquery.com/fadeTo/}
+     * @since 1.4.3
+     */
+    fadeTo(duration: JQuery.Duration, opacity: number, easing: string, complete?: (this: TElement) => void): this;
+    /**
+     * Adjust the opacity of the matched elements.
+     *
+     * @param duration A string or number determining how long the animation will run.
+     * @param opacity A number between 0 and 1 denoting the target opacity.
+     * @param complete A function to call once the animation is complete, called once per matched element.
+     * @see {@link https://api.jquery.com/fadeTo/}
+     * @since 1.0
+     */
+    fadeTo(duration: JQuery.Duration, opacity: number, complete?: (this: TElement) => void): this;
+    /**
+     * Display or hide the matched elements by animating their opacity.
+     *
+     * @param duration A string or number determining how long the animation will run.
+     * @param easing A string indicating which easing function to use for the transition.
+     * @param complete A function to call once the animation is complete, called once per matched element.
+     * @see {@link https://api.jquery.com/fadeToggle/}
+     * @since 1.4.4
+     */
+    fadeToggle(duration: JQuery.Duration, easing: string, complete?: (this: TElement) => void): this;
+    /**
+     * Display or hide the matched elements by animating their opacity.
+     *
+     * @param duration_easing A string or number determining how long the animation will run.
+     *                        A string indicating which easing function to use for the transition.
+     * @param complete A function to call once the animation is complete, called once per matched element.
+     * @see {@link https://api.jquery.com/fadeToggle/}
+     * @since 1.0
+     * @since 1.4.3
+     */
+    fadeToggle(duration_easing: JQuery.Duration | string, complete: (this: TElement) => void): this;
+    /**
+     * Display or hide the matched elements by animating their opacity.
+     *
+     * @param duration_easing_complete_options A string or number determining how long the animation will run.
+     *                                         A string indicating which easing function to use for the transition.
+     *                                         A function to call once the animation is complete, called once per matched element.
+     *                                         A map of additional options to pass to the method.
+     * @see {@link https://api.jquery.com/fadeToggle/}
+     * @since 1.0
+     * @since 1.4.3
+     */
+    fadeToggle(duration_easing_complete_options?: JQuery.Duration | string | ((this: TElement) => void) | JQuery.EffectsOptions<TElement>): this;
+    /**
+     * Reduce the set of matched elements to those that match the selector or pass the function's test.
+     *
+     * @param selector A string containing a selector expression to match the current set of elements against.
+     *                 One or more DOM elements to match the current set of elements against.
+     *                 An existing jQuery object to match the current set of elements against.
+     *                 A function used as a test for each element in the set. this is the current DOM element.
+     * @see {@link https://api.jquery.com/filter/}
+     * @since 1.0
+     * @since 1.4
+     */
+    filter(selector: JQuery.Selector | JQuery.TypeOrArray<Element> | JQuery | ((this: TElement, index: number, element: TElement) => boolean)): this;
+    /**
+     * Get the descendants of each element in the current set of matched elements, filtered by a selector,
+     * jQuery object, or element.
+     *
+     * @param selector A string containing a selector expression to match elements against.
+     *                 An element or a jQuery object to match elements against.
+     * @see {@link https://api.jquery.com/find/}
+     * @since 1.0
+     * @since 1.6
+     */
+    find(selector: JQuery.Selector | Element | JQuery): this;
+    /**
+     * Stop the currently-running animation, remove all queued animations, and complete all animations for
+     * the matched elements.
+     *
+     * @param queue The name of the queue in which to stop animations.
+     * @see {@link https://api.jquery.com/finish/}
+     * @since 1.9
+     */
+    finish(queue?: string): this;
+    /**
+     * Reduce the set of matched elements to the first in the set.
+     *
+     * @see {@link https://api.jquery.com/first/}
+     * @since 1.4
+     */
+    first(): this;
+    /**
+     * Bind an event handler to the "focus" JavaScript event, or trigger that event on an element.
+     *
+     * @param eventData An object containing data that will be passed to the event handler.
+     * @param handler A function to execute each time the event is triggered.
+     * @see {@link https://api.jquery.com/focus/}
+     * @since 1.4.3
+     */
+    focus<TData>(eventData: TData,
+                 handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
+    /**
+     * Bind an event handler to the "focus" JavaScript event, or trigger that event on an element.
+     *
+     * @param handler A function to execute each time the event is triggered.
+     * @see {@link https://api.jquery.com/focus/}
+     * @since 1.0
+     */
+    focus(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
+    /**
+     * Bind an event handler to the "focusin" event.
+     *
+     * @param eventData An object containing data that will be passed to the event handler.
+     * @param handler A function to execute each time the event is triggered.
+     * @see {@link https://api.jquery.com/focusin/}
+     * @since 1.4.3
+     */
+    focusin<TData>(eventData: TData,
+                   handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
+    /**
+     * Bind an event handler to the "focusin" event.
+     *
+     * @param handler A function to execute each time the event is triggered.
+     * @see {@link https://api.jquery.com/focusin/}
+     * @since 1.4
+     */
+    focusin(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
+    /**
+     * Bind an event handler to the "focusout" JavaScript event.
+     *
+     * @param eventData An object containing data that will be passed to the event handler.
+     * @param handler A function to execute each time the event is triggered.
+     * @see {@link https://api.jquery.com/focusout/}
+     * @since 1.4.3
+     */
+    focusout<TData>(eventData: TData,
+                    handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
+    /**
+     * Bind an event handler to the "focusout" JavaScript event.
+     *
+     * @param handler A function to execute each time the event is triggered.
+     * @see {@link https://api.jquery.com/focusout/}
+     * @since 1.4
+     */
+    focusout(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
+    /**
+     * Retrieve one of the elements matched by the jQuery object.
+     *
+     * @param index A zero-based integer indicating which element to retrieve.
+     * @see {@link https://api.jquery.com/get/}
+     * @since 1.0
+     */
+    get(index: number): TElement;
+    /**
+     * Retrieve the elements matched by the jQuery object.
+     *
+     * @see {@link https://api.jquery.com/get/}
+     * @since 1.0
+     */
+    get(): TElement[];
+    /**
+     * Reduce the set of matched elements to those that have a descendant that matches the selector or DOM element.
+     *
+     * @param selector A string containing a selector expression to match elements against.
+     *                 A DOM element to match elements against.
+     * @see {@link https://api.jquery.com/has/}
+     * @since 1.4
+     */
+    has(selector: string | Element): this;
+    /**
+     * Determine whether any of the matched elements are assigned the given class.
+     *
+     * @param className The class name to search for.
+     * @see {@link https://api.jquery.com/hasClass/}
+     * @since 1.2
+     */
+    hasClass(className: string): boolean;
+    /**
+     * Set the CSS height of every matched element.
+     *
+     * @param value An integer representing the number of pixels, or an integer with an optional unit of measure
+     *              appended (as a string).
+     *              A function returning the height to set. Receives the index position of the element in the set and
+     *              the old height as arguments. Within the function, this refers to the current element in the set.
+     * @see {@link https://api.jquery.com/height/}
+     * @since 1.0
+     * @since 1.4.1
+     */
+    height(value: string | number | ((this: TElement, index: number, height: number) => string | number)): this;
+    /**
+     * Get the current computed height for the first element in the set of matched elements.
+     *
+     * @see {@link https://api.jquery.com/height/}
+     * @since 1.0
+     */
+    height(): number | undefined;
+    /**
+     * Hide the matched elements.
+     *
+     * @param duration A string or number determining how long the animation will run.
+     * @param easing A string indicating which easing function to use for the transition.
+     * @param complete A function to call once the animation is complete, called once per matched element.
+     * @see {@link https://api.jquery.com/hide/}
+     * @since 1.4.3
+     */
+    hide(duration: JQuery.Duration, easing: string, complete: (this: TElement) => void): this;
+    /**
+     * Hide the matched elements.
+     *
+     * @param duration A string or number determining how long the animation will run.
+     * @param easing_complete A string indicating which easing function to use for the transition.
+     *                        A function to call once the animation is complete, called once per matched element.
+     * @see {@link https://api.jquery.com/hide/}
+     * @since 1.0
+     * @since 1.4.3
+     */
+    hide(duration: JQuery.Duration, easing_complete: string | ((this: TElement) => void)): this;
+    /**
+     * Hide the matched elements.
+     *
+     * @param duration_complete_options A string or number determining how long the animation will run.
+     *                                  A function to call once the animation is complete, called once per matched element.
+     *                                  A map of additional options to pass to the method.
+     * @see {@link https://api.jquery.com/hide/}
+     * @since 1.0
+     */
+    hide(duration_complete_options?: JQuery.Duration | ((this: TElement) => void) | JQuery.EffectsOptions<TElement>): this;
+    /**
+     * Bind one or two handlers to the matched elements, to be executed when the mouse pointer enters and
+     * leaves the elements.
+     *
+     * @param handlerInOut A function to execute when the mouse pointer enters or leaves the element.
+     * @param handlerOut A function to execute when the mouse pointer leaves the element.
+     * @see {@link https://api.jquery.com/hover/}
+     * @since 1.0
+     * @since 1.4
+     */
+    hover<T>(handlerInOut: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false,
+             handlerOut?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
+    /**
+     * Set the HTML contents of each element in the set of matched elements.
+     *
+     * @param htmlString A string of HTML to set as the content of each matched element.
+     *                   A function returning the HTML content to set. Receives the index position of the element in the set
+     *                   and the old HTML value as arguments. jQuery empties the element before calling the function; use the
+     *                   oldhtml argument to reference the previous content. Within the function, this refers to the current element in the set.
+     * @see {@link https://api.jquery.com/html/}
+     * @since 1.0
+     * @since 1.4
+     */
+    html(htmlString: JQuery.htmlString | ((this: TElement, index: number, oldhtml: JQuery.htmlString) => JQuery.htmlString)): this;
+    /**
+     * Get the HTML contents of the first element in the set of matched elements.
+     *
+     * @see {@link https://api.jquery.com/html/}
+     * @since 1.0
+     */
+    html(): string;
+    /**
+     * Search for a given element from among the matched elements.
+     *
+     * @param element The DOM element or first element within the jQuery object to look for.
+     *                A selector representing a jQuery collection in which to look for an element.
+     * @see {@link https://api.jquery.com/index/}
+     * @since 1.0
+     * @since 1.4
+     */
+    index(element?: JQuery.Selector | Element | JQuery): number;
+    /**
+     * Set the CSS inner height of each element in the set of matched elements.
+     *
+     * @param value A number representing the number of pixels, or a number along with an optional unit of measure
+     *              appended (as a string).
+     *              A function returning the inner height (including padding but not border) to set. Receives the index
+     *              position of the element in the set and the old inner height as arguments. Within the function, this
+     *              refers to the current element in the set.
+     * @see {@link https://api.jquery.com/innerHeight/}
+     * @since 1.8.0
+     */
+    innerHeight(value: string | number | ((this: TElement, index: number, height: number) => string | number)): this;
+    /**
+     * Get the current computed height for the first element in the set of matched elements, including
+     * padding but not border.
+     *
+     * @see {@link https://api.jquery.com/innerHeight/}
+     * @since 1.2.6
+     */
+    innerHeight(): number | undefined;
+    /**
+     * Set the CSS inner width of each element in the set of matched elements.
+     *
+     * @param value A number representing the number of pixels, or a number along with an optional unit of measure
+     *              appended (as a string).
+     *              A function returning the inner width (including padding but not border) to set. Receives the index
+     *              position of the element in the set and the old inner width as arguments. Within the function, this
+     *              refers to the current element in the set.
+     * @see {@link https://api.jquery.com/innerWidth/}
+     * @since 1.8.0
+     */
+    innerWidth(value: string | number | ((this: TElement, index: number, width: number) => string | number)): this;
+    /**
+     * Get the current computed inner width for the first element in the set of matched elements, including
+     * padding but not border.
+     *
+     * @see {@link https://api.jquery.com/innerWidth/}
+     * @since 1.2.6
+     */
+    innerWidth(): number | undefined;
+    /**
+     * Insert every element in the set of matched elements after the target.
+     *
+     * @param target A selector, element, array of elements, HTML string, or jQuery object; the matched set of elements
+     *               will be inserted after the element(s) specified by this parameter.
+     * @see {@link https://api.jquery.com/insertAfter/}
+     * @since 1.0
+     */
+    insertAfter(target: JQuery.Selector | JQuery.htmlString | JQuery.TypeOrArray<Element> | JQuery): this;
+    /**
+     * Insert every element in the set of matched elements before the target.
+     *
+     * @param target A selector, element, array of elements, HTML string, or jQuery object; the matched set of elements
+     *               will be inserted before the element(s) specified by this parameter.
+     * @see {@link https://api.jquery.com/insertBefore/}
+     * @since 1.0
+     */
+    insertBefore(target: JQuery.Selector | JQuery.htmlString | JQuery.TypeOrArray<Element> | JQuery): this;
+    /**
+     * Check the current matched set of elements against a selector, element, or jQuery object and return
+     * true if at least one of these elements matches the given arguments.
+     *
+     * @param selector A string containing a selector expression to match elements against.
+     *                 A function used as a test for every element in the set. It accepts two arguments, index, which is
+     *                 the element's index in the jQuery collection, and element, which is the DOM element. Within the
+     *                 function, this refers to the current DOM element.
+     *                 An existing jQuery object to match the current set of elements against.
+     *                 One or more elements to match the current set of elements against.
+     * @see {@link https://api.jquery.com/is/}
+     * @since 1.0
+     * @since 1.6
+     */
+    is(selector: JQuery.Selector | JQuery.TypeOrArray<Element> | JQuery | ((this: TElement, index: number, element: TElement) => boolean)): boolean;
+    /**
+     * Bind an event handler to the "keydown" JavaScript event, or trigger that event on an element.
+     *
+     * @param eventData An object containing data that will be passed to the event handler.
+     * @param handler A function to execute each time the event is triggered.
+     * @see {@link https://api.jquery.com/keydown/}
+     * @since 1.4.3
+     */
+    keydown<TData>(eventData: TData,
+                   handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
+    /**
+     * Bind an event handler to the "keydown" JavaScript event, or trigger that event on an element.
+     *
+     * @param handler A function to execute each time the event is triggered.
+     * @see {@link https://api.jquery.com/keydown/}
+     * @since 1.0
+     */
+    keydown(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
+    /**
+     * Bind an event handler to the "keypress" JavaScript event, or trigger that event on an element.
+     *
+     * @param eventData An object containing data that will be passed to the event handler.
+     * @param handler A function to execute each time the event is triggered.
+     * @see {@link https://api.jquery.com/keypress/}
+     * @since 1.4.3
+     */
+    keypress<TData>(eventData: TData,
+                    handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
+    /**
+     * Bind an event handler to the "keypress" JavaScript event, or trigger that event on an element.
+     *
+     * @param handler A function to execute each time the event is triggered.
+     * @see {@link https://api.jquery.com/keypress/}
+     * @since 1.0
+     */
+    keypress(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
+    /**
+     * Bind an event handler to the "keyup" JavaScript event, or trigger that event on an element.
+     *
+     * @param eventData An object containing data that will be passed to the event handler.
+     * @param handler A function to execute each time the event is triggered.
+     * @see {@link https://api.jquery.com/keyup/}
+     * @since 1.4.3
+     */
+    keyup<TData>(eventData: TData,
+                 handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
+    /**
+     * Bind an event handler to the "keyup" JavaScript event, or trigger that event on an element.
+     *
+     * @param handler A function to execute each time the event is triggered.
+     * @see {@link https://api.jquery.com/keyup/}
+     * @since 1.0
+     */
+    keyup(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
+    /**
+     * Reduce the set of matched elements to the final one in the set.
+     *
+     * @see {@link https://api.jquery.com/last/}
+     * @since 1.4
+     */
+    last(): this;
+    /**
+     * Load data from the server and place the returned HTML into the matched element.
+     *
+     * @param url A string containing the URL to which the request is sent.
+     * @param data A plain object or string that is sent to the server with the request.
+     * @param complete A callback function that is executed when the request completes.
+     * @see {@link https://api.jquery.com/load/}
+     * @since 1.0
+     */
+    load(url: string,
+         data: string | JQuery.PlainObject,
+         complete: (this: TElement, responseText: string, textStatus: JQuery.Ajax.TextStatus, jqXHR: JQuery.jqXHR) => void): this;
+    /**
+     * Load data from the server and place the returned HTML into the matched element.
+     *
+     * @param url A string containing the URL to which the request is sent.
+     * @param complete_data A callback function that is executed when the request completes.
+     *                      A plain object or string that is sent to the server with the request.
+     * @see {@link https://api.jquery.com/load/}
+     * @since 1.0
+     */
+    load(url: string,
+         complete_data?: ((this: TElement, responseText: string, textStatus: JQuery.Ajax.TextStatus, jqXHR: JQuery.jqXHR) => void) | string | JQuery.PlainObject): this;
+    /**
+     * Pass each element in the current matched set through a function, producing a new jQuery object
+     * containing the return values.
+     *
+     * @param callback A function object that will be invoked for each element in the current set.
+     * @see {@link https://api.jquery.com/map/}
+     * @since 1.2
+     */
+    map(callback: (this: TElement, index: number, domElement: TElement) => any | any[] | null | undefined): this;
+    /**
+     * Bind an event handler to the "mousedown" JavaScript event, or trigger that event on an element.
+     *
+     * @param eventData An object containing data that will be passed to the event handler.
+     * @param handler A function to execute each time the event is triggered.
+     * @see {@link https://api.jquery.com/mousedown/}
+     * @since 1.4.3
+     */
+    mousedown<TData>(eventData: TData,
+                     handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
+    /**
+     * Bind an event handler to the "mousedown" JavaScript event, or trigger that event on an element.
+     *
+     * @param handler A function to execute each time the event is triggered.
+     * @see {@link https://api.jquery.com/mousedown/}
+     * @since 1.0
+     */
+    mousedown(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
+    /**
+     * Bind an event handler to be fired when the mouse enters an element, or trigger that handler on an element.
+     *
+     * @param eventData An object containing data that will be passed to the event handler.
+     * @param handler A function to execute each time the event is triggered.
+     * @see {@link https://api.jquery.com/mouseenter/}
+     * @since 1.4.3
+     */
+    mouseenter<TData>(eventData: TData,
+                      handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
+    /**
+     * Bind an event handler to be fired when the mouse enters an element, or trigger that handler on an element.
+     *
+     * @param handler A function to execute each time the event is triggered.
+     * @see {@link https://api.jquery.com/mouseenter/}
+     * @since 1.0
+     */
+    mouseenter(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
+    /**
+     * Bind an event handler to be fired when the mouse leaves an element, or trigger that handler on an element.
+     *
+     * @param eventData An object containing data that will be passed to the event handler.
+     * @param handler A function to execute each time the event is triggered.
+     * @see {@link https://api.jquery.com/mouseleave/}
+     * @since 1.4.3
+     */
+    mouseleave<TData>(eventData: TData,
+                      handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
+    /**
+     * Bind an event handler to be fired when the mouse leaves an element, or trigger that handler on an element.
+     *
+     * @param handler A function to execute each time the event is triggered.
+     * @see {@link https://api.jquery.com/mouseleave/}
+     * @since 1.0
+     */
+    mouseleave(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
+    /**
+     * Bind an event handler to the "mousemove" JavaScript event, or trigger that event on an element.
+     *
+     * @param eventData An object containing data that will be passed to the event handler.
+     * @param handler A function to execute each time the event is triggered.
+     * @see {@link https://api.jquery.com/mousemove/}
+     * @since 1.4.3
+     */
+    mousemove<TData>(eventData: TData,
+                     handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
+    /**
+     * Bind an event handler to the "mousemove" JavaScript event, or trigger that event on an element.
+     *
+     * @param handler A function to execute each time the event is triggered.
+     * @see {@link https://api.jquery.com/mousemove/}
+     * @since 1.0
+     */
+    mousemove(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
+    /**
+     * Bind an event handler to the "mouseout" JavaScript event, or trigger that event on an element.
+     *
+     * @param eventData An object containing data that will be passed to the event handler.
+     * @param handler A function to execute each time the event is triggered.
+     * @see {@link https://api.jquery.com/mouseout/}
+     * @since 1.4.3
+     */
+    mouseout<TData>(eventData: TData,
+                    handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
+    /**
+     * Bind an event handler to the "mouseout" JavaScript event, or trigger that event on an element.
+     *
+     * @param handler A function to execute each time the event is triggered.
+     * @see {@link https://api.jquery.com/mouseout/}
+     * @since 1.0
+     */
+    mouseout(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
+    /**
+     * Bind an event handler to the "mouseover" JavaScript event, or trigger that event on an element.
+     *
+     * @param eventData An object containing data that will be passed to the event handler.
+     * @param handler A function to execute each time the event is triggered.
+     * @see {@link https://api.jquery.com/mouseover/}
+     * @since 1.4.3
+     */
+    mouseover<TData>(eventData: TData,
+                     handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
+    /**
+     * Bind an event handler to the "mouseover" JavaScript event, or trigger that event on an element.
+     *
+     * @param handler A function to execute each time the event is triggered.
+     * @see {@link https://api.jquery.com/mouseover/}
+     * @since 1.0
+     */
+    mouseover(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
+    /**
+     * Bind an event handler to the "mouseup" JavaScript event, or trigger that event on an element.
+     *
+     * @param eventData An object containing data that will be passed to the event handler.
+     * @param handler A function to execute each time the event is triggered.
+     * @see {@link https://api.jquery.com/mouseup/}
+     * @since 1.4.3
+     */
+    mouseup<TData>(eventData: TData,
+                   handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
+    /**
+     * Bind an event handler to the "mouseup" JavaScript event, or trigger that event on an element.
+     *
+     * @param handler A function to execute each time the event is triggered.
+     * @see {@link https://api.jquery.com/mouseup/}
+     * @since 1.0
+     */
+    mouseup(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
+    /**
+     * Get the immediately following sibling of each element in the set of matched elements. If a selector
+     * is provided, it retrieves the next sibling only if it matches that selector.
+     *
+     * @param selector A string containing a selector expression to match elements against.
+     * @see {@link https://api.jquery.com/next/}
+     * @since 1.0
+     */
+    next(selector?: JQuery.Selector): this;
+    /**
+     * Get all following siblings of each element in the set of matched elements, optionally filtered by a selector.
+     *
+     * @param selector A string containing a selector expression to match elements against.
+     * @see {@link https://api.jquery.com/nextAll/}
+     * @since 1.2
+     */
+    nextAll(selector?: string): this;
+    /**
+     * Get all following siblings of each element up to but not including the element matched by the
+     * selector, DOM node, or jQuery object passed.
+     *
+     * @param selector A string containing a selector expression to indicate where to stop matching following sibling elements.
+     *                 A DOM node or jQuery object indicating where to stop matching following sibling elements.
+     * @param filter A string containing a selector expression to match elements against.
+     * @see {@link https://api.jquery.com/nextUntil/}
+     * @since 1.4
+     * @since 1.6
+     */
+    nextUntil(selector?: JQuery.Selector | Element | JQuery, filter?: JQuery.Selector): this;
+    /**
+     * Remove elements from the set of matched elements.
+     *
+     * @param selector A string containing a selector expression, a DOM element, or an array of elements to match against the set.
+     *                 A function used as a test for each element in the set. It accepts two arguments, index, which is the
+     *                 element's index in the jQuery collection, and element, which is the DOM element. Within the
+     *                 function, this refers to the current DOM element.
+     *                 An existing jQuery object to match the current set of elements against.
+     * @see {@link https://api.jquery.com/not/}
+     * @since 1.0
+     * @since 1.4
+     */
+    not(selector: JQuery.Selector | JQuery.TypeOrArray<Element> | JQuery | ((this: TElement, index: number, element: TElement) => boolean)): this;
+    /**
+     * Remove an event handler.
+     *
+     * @param events One or more space-separated event types and optional namespaces, or just namespaces, such as
+     *               "click", "keydown.myPlugin", or ".myPlugin".
+     * @param selector A selector which should match the one originally passed to .on() when attaching event handlers.
+     * @param handler A function to execute each time the event is triggered.
+     * @see {@link https://api.jquery.com/off/}
+     * @since 1.7
+     */
+    off(events: string, selector: JQuery.Selector, handler: JQuery.EventHandlerBase<any, JQuery.Event<TElement, any>> | false): this;
+    /**
+     * Remove an event handler.
+     *
+     * @param events One or more space-separated event types and optional namespaces, or just namespaces, such as
+     *               "click", "keydown.myPlugin", or ".myPlugin".
+     * @param selector_handler A selector which should match the one originally passed to .on() when attaching event handlers.
+     *                         A function to execute each time the event is triggered.
+     * @see {@link https://api.jquery.com/off/}
+     * @since 1.7
+     */
+    off(events: string, selector_handler?: JQuery.Selector | JQuery.EventHandlerBase<any, JQuery.Event<TElement, any>> | false): this;
+    /**
+     * Remove an event handler.
+     *
+     * @param events An object where the string keys represent one or more space-separated event types and optional
+     *               namespaces, and the values represent handler functions previously attached for the event(s).
+     * @param selector A selector which should match the one originally passed to .on() when attaching event handlers.
+     * @see {@link https://api.jquery.com/off/}
+     * @since 1.7
+     */
+    off(events: JQuery.PlainObject<JQuery.EventHandlerBase<any, JQuery.Event<TElement, any>> | false>, selector?: JQuery.Selector): this;
+    /**
+     * Remove an event handler.
+     *
+     * @param event A jQuery.Event object.
+     * @see {@link https://api.jquery.com/off/}
+     * @since 1.7
+     */
+    off(event?: JQuery.Event<TElement>): this;
+    /**
+     * Set the current coordinates of every element in the set of matched elements, relative to the document.
+     *
+     * @param coordinates An object containing the properties top and left, which are numbers indicating the new top and left
+     *                    coordinates for the elements.
+     *                    A function to return the coordinates to set. Receives the index of the element in the collection as
+     *                    the first argument and the current coordinates as the second argument. The function should return an
+     *                    object with the new top and left properties.
+     * @see {@link https://api.jquery.com/offset/}
+     * @since 1.4
+     */
+    offset(coordinates: JQuery.Coordinates | ((this: TElement, index: number, coords: JQuery.Coordinates) => JQuery.Coordinates)): this;
+    /**
+     * Get the current coordinates of the first element in the set of matched elements, relative to the document.
+     *
+     * @see {@link https://api.jquery.com/offset/}
+     * @since 1.2
+     */
+    offset(): JQuery.Coordinates | undefined;
+    /**
+     * Get the closest ancestor element that is positioned.
+     *
+     * @see {@link https://api.jquery.com/offsetParent/}
+     * @since 1.2.6
+     */
+    offsetParent(): this;
+    /**
+     * Attach an event handler function for one or more events to the selected elements.
+     *
+     * @param events One or more space-separated event types and optional namespaces, such as "click" or "keydown.myPlugin".
+     * @param selector A selector string to filter the descendants of the selected elements that trigger the event. If the
+     *                 selector is null or omitted, the event is always triggered when it reaches the selected element.
+     * @param data Data to be passed to the handler in event.data when an event is triggered.
+     * @param handler A function to execute when the event is triggered.
+     * @see {@link https://api.jquery.com/on/}
+     * @since 1.7
+     */
+    on<TData>(events: string,
+              selector: JQuery.Selector | null,
+              data: TData,
+              handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
+    /**
+     * Attach an event handler function for one or more events to the selected elements.
+     *
+     * @param events One or more space-separated event types and optional namespaces, such as "click" or "keydown.myPlugin".
+     * @param selector A selector string to filter the descendants of the selected elements that trigger the event. If the
+     *                 selector is null or omitted, the event is always triggered when it reaches the selected element.
+     * @param handler A function to execute when the event is triggered. The value false is also allowed as a shorthand
+     *                for a function that simply does return false.
+     * @see {@link https://api.jquery.com/on/}
+     * @since 1.7
+     */
+    on(events: string,
+       selector: JQuery.Selector,
+       handler: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
+    /**
+     * Attach an event handler function for one or more events to the selected elements.
+     *
+     * @param events One or more space-separated event types and optional namespaces, such as "click" or "keydown.myPlugin".
+     * @param data Data to be passed to the handler in event.data when an event is triggered.
+     * @param handler A function to execute when the event is triggered.
+     * @see {@link https://api.jquery.com/on/}
+     * @since 1.7
+     */
+    on<TData>(events: string,
+              data: TData,
+              handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
+    /**
+     * Attach an event handler function for one or more events to the selected elements.
+     *
+     * @param events One or more space-separated event types and optional namespaces, such as "click" or "keydown.myPlugin".
+     * @param handler A function to execute when the event is triggered. The value false is also allowed as a shorthand
+     *                for a function that simply does return false.
+     * @see {@link https://api.jquery.com/on/}
+     * @since 1.7
+     */
+    on(events: string,
+       handler: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
+    /**
+     * Attach an event handler function for one or more events to the selected elements.
+     *
+     * @param events An object in which the string keys represent one or more space-separated event types and optional
+     *               namespaces, and the values represent a handler function to be called for the event(s).
+     * @param selector A selector string to filter the descendants of the selected elements that will call the handler. If
+     *                 the selector is null or omitted, the handler is always called when it reaches the selected element.
+     * @param data Data to be passed to the handler in event.data when an event occurs.
+     * @see {@link https://api.jquery.com/on/}
+     * @since 1.7
+     */
+    on<TData>(events: JQuery.PlainObject<JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>> | false>,
+              selector: JQuery.Selector | null,
+              data: TData): this;
+    /**
+     * Attach an event handler function for one or more events to the selected elements.
+     *
+     * @param events An object in which the string keys represent one or more space-separated event types and optional
+     *               namespaces, and the values represent a handler function to be called for the event(s).
+     * @param selector A selector string to filter the descendants of the selected elements that will call the handler. If
+     *                 the selector is null or omitted, the handler is always called when it reaches the selected element.
+     * @see {@link https://api.jquery.com/on/}
+     * @since 1.7
+     */
+    on(events: JQuery.PlainObject<JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false>,
+       selector: JQuery.Selector): this; // tslint:disable-line:unified-signatures
+    /**
+     * Attach an event handler function for one or more events to the selected elements.
+     *
+     * @param events An object in which the string keys represent one or more space-separated event types and optional
+     *               namespaces, and the values represent a handler function to be called for the event(s).
+     * @param data Data to be passed to the handler in event.data when an event occurs.
+     * @see {@link https://api.jquery.com/on/}
+     * @since 1.7
+     */
+    on<TData>(events: JQuery.PlainObject<JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>> | false>,
+              data: TData): this;
+    /**
+     * Attach an event handler function for one or more events to the selected elements.
+     *
+     * @param events An object in which the string keys represent one or more space-separated event types and optional
+     *               namespaces, and the values represent a handler function to be called for the event(s).
+     * @see {@link https://api.jquery.com/on/}
+     * @since 1.7
+     */
+    on(events: JQuery.PlainObject<JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false>): this;
+    /**
+     * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
+     *
+     * @param events One or more space-separated event types and optional namespaces, such as "click" or "keydown.myPlugin".
+     * @param selector A selector string to filter the descendants of the selected elements that trigger the event. If the
+     *                 selector is null or omitted, the event is always triggered when it reaches the selected element.
+     * @param data Data to be passed to the handler in event.data when an event is triggered.
+     * @param handler A function to execute when the event is triggered.
+     * @see {@link https://api.jquery.com/one/}
+     * @since 1.7
+     */
+    one<TData>(events: string,
+               selector: JQuery.Selector | null,
+               data: TData,
+               handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
+    /**
+     * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
+     *
+     * @param events One or more space-separated event types and optional namespaces, such as "click" or "keydown.myPlugin".
+     * @param selector A selector string to filter the descendants of the selected elements that trigger the event. If the
+     *                 selector is null or omitted, the event is always triggered when it reaches the selected element.
+     * @param handler A function to execute when the event is triggered. The value false is also allowed as a shorthand
+     *                for a function that simply does return false.
+     * @see {@link https://api.jquery.com/one/}
+     * @since 1.7
+     */
+    one(events: string,
+        selector: JQuery.Selector,
+        handler: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
+    /**
+     * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
+     *
+     * @param events One or more space-separated event types and optional namespaces, such as "click" or "keydown.myPlugin".
+     * @param data Data to be passed to the handler in event.data when an event is triggered.
+     * @param handler A function to execute when the event is triggered.
+     * @see {@link https://api.jquery.com/one/}
+     * @since 1.7
+     */
+    one<TData>(events: string,
+               data: TData,
+               handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
+    /**
+     * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
+     *
+     * @param events One or more space-separated event types and optional namespaces, such as "click" or "keydown.myPlugin".
+     * @param handler A function to execute when the event is triggered. The value false is also allowed as a shorthand
+     *                for a function that simply does return false.
+     * @see {@link https://api.jquery.com/one/}
+     * @since 1.7
+     */
+    one(events: string,
+        handler: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
+    /**
+     * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
+     *
+     * @param events An object in which the string keys represent one or more space-separated event types and optional
+     *               namespaces, and the values represent a handler function to be called for the event(s).
+     * @param selector A selector string to filter the descendants of the selected elements that will call the handler. If
+     *                 the selector is null or omitted, the handler is always called when it reaches the selected element.
+     * @param data Data to be passed to the handler in event.data when an event occurs.
+     * @see {@link https://api.jquery.com/one/}
+     * @since 1.7
+     */
+    one<TData>(events: JQuery.PlainObject<JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>> | false>,
+               selector: JQuery.Selector | null,
+               data: TData): this;
+    /**
+     * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
+     *
+     * @param events An object in which the string keys represent one or more space-separated event types and optional
+     *               namespaces, and the values represent a handler function to be called for the event(s).
+     * @param selector A selector string to filter the descendants of the selected elements that will call the handler. If
+     *                 the selector is null or omitted, the handler is always called when it reaches the selected element.
+     * @see {@link https://api.jquery.com/one/}
+     * @since 1.7
+     */
+    one(events: JQuery.PlainObject<JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false>,
+        selector: JQuery.Selector): this; // tslint:disable-line:unified-signatures
+    /**
+     * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
+     *
+     * @param events An object in which the string keys represent one or more space-separated event types and optional
+     *               namespaces, and the values represent a handler function to be called for the event(s).
+     * @param data Data to be passed to the handler in event.data when an event occurs.
+     * @see {@link https://api.jquery.com/one/}
+     * @since 1.7
+     */
+    one<TData>(events: JQuery.PlainObject<JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>> | false>,
+               data: TData): this;
+    /**
+     * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
+     *
+     * @param events An object in which the string keys represent one or more space-separated event types and optional
+     *               namespaces, and the values represent a handler function to be called for the event(s).
+     * @see {@link https://api.jquery.com/one/}
+     * @since 1.7
+     */
+    one(events: JQuery.PlainObject<JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false>): this;
+    /**
+     * Set the CSS outer height of each element in the set of matched elements.
+     *
+     * @param value A number representing the number of pixels, or a number along with an optional unit of measure
+     *              appended (as a string).
+     * @see {@link https://api.jquery.com/outerHeight/}
+     * @since 1.8.0
+     */
+    outerHeight(value: string | number | ((this: TElement, index: number, height: number) => string | number)): this;
+    /**
+     * Get the current computed outer height (including padding, border, and optionally margin) for the
+     * first element in the set of matched elements.
+     *
+     * @param includeMargin A Boolean indicating whether to include the element's margin in the calculation.
+     * @see {@link https://api.jquery.com/outerHeight/}
+     * @since 1.2.6
+     */
+    outerHeight(includeMargin?: boolean): number | undefined;
+    /**
+     * Set the CSS outer width of each element in the set of matched elements.
+     *
+     * @param value A number representing the number of pixels, or a number along with an optional unit of measure
+     *              appended (as a string).
+     *              A function returning the outer width to set. Receives the index position of the element in the set
+     *              and the old outer width as arguments. Within the function, this refers to the current element in the set.
+     * @see {@link https://api.jquery.com/outerWidth/}
+     * @since 1.8.0
+     */
+    outerWidth(value: string | number | ((this: TElement, index: number, width: number) => string | number)): this;
+    /**
+     * Get the current computed outer width (including padding, border, and optionally margin) for the
+     * first element in the set of matched elements.
+     *
+     * @param includeMargin A Boolean indicating whether to include the element's margin in the calculation.
+     * @see {@link https://api.jquery.com/outerWidth/}
+     * @since 1.2.6
+     */
+    outerWidth(includeMargin?: boolean): number | undefined;
+    /**
+     * Get the parent of each element in the current set of matched elements, optionally filtered by a selector.
+     *
+     * @param selector A string containing a selector expression to match elements against.
+     * @see {@link https://api.jquery.com/parent/}
+     * @since 1.0
+     */
+    parent(selector?: JQuery.Selector): this;
+    /**
+     * Get the ancestors of each element in the current set of matched elements, optionally filtered by a selector.
+     *
+     * @param selector A string containing a selector expression to match elements against.
+     * @see {@link https://api.jquery.com/parents/}
+     * @since 1.0
+     */
+    parents(selector?: JQuery.Selector): this;
+    /**
+     * Get the ancestors of each element in the current set of matched elements, up to but not including
+     * the element matched by the selector, DOM node, or jQuery object.
+     *
+     * @param selector A string containing a selector expression to indicate where to stop matching ancestor elements.
+     *                 A DOM node or jQuery object indicating where to stop matching ancestor elements.
+     * @param filter A string containing a selector expression to match elements against.
+     * @see {@link https://api.jquery.com/parentsUntil/}
+     * @since 1.4
+     * @since 1.6
+     */
+    parentsUntil(selector?: JQuery.Selector | Element | JQuery, filter?: JQuery.Selector): this;
+    /**
+     * Get the current coordinates of the first element in the set of matched elements, relative to the offset parent.
+     *
+     * @see {@link https://api.jquery.com/position/}
+     * @since 1.2
+     */
+    position(): JQuery.Coordinates;
+    /**
+     * Insert content, specified by the parameter, to the beginning of each element in the set of matched elements.
+     *
+     * @param contents One or more additional DOM elements, text nodes, arrays of elements and text nodes, HTML strings, or
+     *                 jQuery objects to insert at the beginning of each element in the set of matched elements.
+     * @see {@link https://api.jquery.com/prepend/}
+     * @since 1.0
+     */
+    prepend(...contents: Array<JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node> | JQuery<JQuery.Node>>): this;
+    /**
+     * Insert content, specified by the parameter, to the beginning of each element in the set of matched elements.
+     *
+     * @param fn A function that returns an HTML string, DOM element(s), text node(s), or jQuery object to insert at
+     *           the beginning of each element in the set of matched elements. Receives the index position of the
+     *           element in the set and the old HTML value of the element as arguments. Within the function, this
+     *           refers to the current element in the set.
+     * @see {@link https://api.jquery.com/prepend/}
+     * @since 1.4
+     */
+    prepend(fn: (this: TElement, index: number, html: string) => JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node> | JQuery<JQuery.Node>): this;
+    /**
+     * Insert every element in the set of matched elements to the beginning of the target.
+     *
+     * @param target A selector, element, HTML string, array of elements, or jQuery object; the matched set of elements
+     *               will be inserted at the beginning of the element(s) specified by this parameter.
+     * @see {@link https://api.jquery.com/prependTo/}
+     * @since 1.0
+     */
+    prependTo(target: JQuery.Selector | JQuery.htmlString | JQuery.TypeOrArray<Element> | JQuery): this;
+    /**
+     * Get the immediately preceding sibling of each element in the set of matched elements. If a selector
+     * is provided, it retrieves the previous sibling only if it matches that selector.
+     *
+     * @param selector A string containing a selector expression to match elements against.
+     * @see {@link https://api.jquery.com/prev/}
+     * @since 1.0
+     */
+    prev(selector?: JQuery.Selector): this;
+    /**
+     * Get all preceding siblings of each element in the set of matched elements, optionally filtered by a selector.
+     *
+     * @param selector A string containing a selector expression to match elements against.
+     * @see {@link https://api.jquery.com/prevAll/}
+     * @since 1.2
+     */
+    prevAll(selector?: JQuery.Selector): this;
+    /**
+     * Get all preceding siblings of each element up to but not including the element matched by the
+     * selector, DOM node, or jQuery object.
+     *
+     * @param selector A string containing a selector expression to indicate where to stop matching preceding sibling elements.
+     *                 A DOM node or jQuery object indicating where to stop matching preceding sibling elements.
+     * @param filter A string containing a selector expression to match elements against.
+     * @see {@link https://api.jquery.com/prevUntil/}
+     * @since 1.4
+     * @since 1.6
+     */
+    prevUntil(selector?: JQuery.Selector | Element | JQuery, filter?: JQuery.Selector): this;
+    /**
+     * Return a Promise object to observe when all actions of a certain type bound to the collection,
+     * queued or not, have finished.
+     *
+     * @param type The type of queue that needs to be observed.
+     * @param target Object onto which the promise methods have to be attached
+     * @see {@link https://api.jquery.com/promise/}
+     * @since 1.6
+     */
+    promise<T extends object>(type: string, target: T): T & JQuery.Promise<this>;
+    /**
+     * Return a Promise object to observe when all actions of a certain type bound to the collection,
+     * queued or not, have finished.
+     *
+     * @param target Object onto which the promise methods have to be attached
+     * @see {@link https://api.jquery.com/promise/}
+     * @since 1.6
+     */
+    promise<T extends object>(target: T): T & JQuery.Promise<this>;
+    /**
+     * Return a Promise object to observe when all actions of a certain type bound to the collection,
+     * queued or not, have finished.
+     *
+     * @param type The type of queue that needs to be observed.
+     * @see {@link https://api.jquery.com/promise/}
+     * @since 1.6
+     */
+    promise(type?: string): JQuery.Promise<this>;
+    /**
+     * Set one or more properties for the set of matched elements.
+     *
+     * @param propertyName The name of the property to set.
+     * @param value A function returning the value to set. Receives the index position of the element in the set and the
+     *              old property value as arguments. Within the function, the keyword this refers to the current element.
+     * @see {@link https://api.jquery.com/prop/}
+     * @since 1.6
+     */
+    prop(propertyName: string, value: (this: TElement, index: number, oldPropertyValue: any) => any): this;
+    /**
+     * Set one or more properties for the set of matched elements.
+     *
+     * @param propertyName The name of the property to set.
+     * @param value A value to set for the property.
+     * @see {@link https://api.jquery.com/prop/}
+     * @since 1.6
+     */
+    prop(propertyName: string, value: any): this; // tslint:disable-line:unified-signatures
+    /**
+     * Set one or more properties for the set of matched elements.
+     *
+     * @param properties An object of property-value pairs to set.
+     * @see {@link https://api.jquery.com/prop/}
+     * @since 1.6
+     */
+    prop(properties: JQuery.PlainObject): this;
+    /**
+     * Get the value of a property for the first element in the set of matched elements.
+     *
+     * @param propertyName The name of the property to get.
+     * @see {@link https://api.jquery.com/prop/}
+     * @since 1.6
+     */
+    prop(propertyName: string): any | undefined;
+    /**
+     * Add a collection of DOM elements onto the jQuery stack.
+     *
+     * @param elements An array of elements to push onto the stack and make into a new jQuery object.
+     * @param name The name of a jQuery method that generated the array of elements.
+     * @param args The arguments that were passed in to the jQuery method (for serialization).
+     * @see {@link https://api.jquery.com/pushStack/}
+     * @since 1.3
+     */
+    pushStack(elements: ArrayLike<Element>, name: string, args: any[]): this;
+    /**
+     * Add a collection of DOM elements onto the jQuery stack.
+     *
+     * @param elements An array of elements to push onto the stack and make into a new jQuery object.
+     * @see {@link https://api.jquery.com/pushStack/}
+     * @since 1.0
+     */
+    pushStack(elements: ArrayLike<Element>): this;
+    /**
+     * Manipulate the queue of functions to be executed, once for each matched element.
+     *
+     * @param queueName A string containing the name of the queue. Defaults to fx, the standard effects queue.
+     * @param newQueue The new function to add to the queue, with a function to call that will dequeue the next item.
+     *                 An array of functions to replace the current queue contents.
+     * @see {@link https://api.jquery.com/queue/}
+     * @since 1.2
+     */
+    queue(queueName: string, newQueue: JQuery.TypeOrArray<JQuery.QueueFunction<TElement>>): this;
+    /**
+     * Manipulate the queue of functions to be executed, once for each matched element.
+     *
+     * @param newQueue The new function to add to the queue, with a function to call that will dequeue the next item.
+     *                 An array of functions to replace the current queue contents.
+     * @see {@link https://api.jquery.com/queue/}
+     * @since 1.2
+     */
+    queue(newQueue: JQuery.TypeOrArray<JQuery.QueueFunction<TElement>>): this;
+    /**
+     * Show the queue of functions to be executed on the matched elements.
+     *
+     * @param queueName A string containing the name of the queue. Defaults to fx, the standard effects queue.
+     * @see {@link https://api.jquery.com/queue/}
+     * @since 1.2
+     */
+    queue(queueName?: string): JQuery.Queue<TElement>;
+    /**
+     * Specify a function to execute when the DOM is fully loaded.
+     *
+     * @param handler A function to execute after the DOM is ready.
+     * @see {@link https://api.jquery.com/ready/}
+     * @since 1.0
+     * @deprecated 3.0
+     */
+    ready(handler: ($: JQueryStatic<TElement>) => void): this;
+    /**
+     * Remove the set of matched elements from the DOM.
+     *
+     * @param selector A selector expression that filters the set of matched elements to be removed.
+     * @see {@link https://api.jquery.com/remove/}
+     * @since 1.0
+     */
+    remove(selector?: string): this;
+    /**
+     * Remove an attribute from each element in the set of matched elements.
+     *
+     * @param attributeName An attribute to remove; as of version 1.7, it can be a space-separated list of attributes.
+     * @see {@link https://api.jquery.com/removeAttr/}
+     * @since 1.0
+     */
+    removeAttr(attributeName: string): this;
+    /**
+     * Remove a single class, multiple classes, or all classes from each element in the set of matched elements.
+     *
+     * @param className One or more space-separated classes to be removed from the class attribute of each matched element.
+     *                  A function returning one or more space-separated class names to be removed. Receives the index
+     *                  position of the element in the set and the old class value as arguments.
+     * @see {@link https://api.jquery.com/removeClass/}
+     * @since 1.0
+     * @since 1.4
+     */
+    removeClass(className?: string | ((this: TElement, index: number, className: string) => string)): this;
+    /**
+     * Remove a previously-stored piece of data.
+     *
+     * @param name A string naming the piece of data to delete.
+     *             An array or space-separated string naming the pieces of data to delete.
+     * @see {@link https://api.jquery.com/removeData/}
+     * @since 1.2.3
+     * @since 1.7
+     */
+    removeData(name?: JQuery.TypeOrArray<string>): this;
+    /**
+     * Remove a property for the set of matched elements.
+     *
+     * @param propertyName The name of the property to remove.
+     * @see {@link https://api.jquery.com/removeProp/}
+     * @since 1.6
+     */
+    removeProp(propertyName: string): this;
+    /**
+     * Replace each target element with the set of matched elements.
+     *
+     * @param target A selector string, jQuery object, DOM element, or array of elements indicating which element(s) to replace.
+     * @see {@link https://api.jquery.com/replaceAll/}
+     * @since 1.2
+     */
+    replaceAll(target: JQuery.Selector | JQuery | JQuery.TypeOrArray<Element>): this;
+    /**
+     * Replace each element in the set of matched elements with the provided new content and return the set
+     * of elements that was removed.
+     *
+     * @param newContent The content to insert. May be an HTML string, DOM element, array of DOM elements, or jQuery object.
+     *                   A function that returns content with which to replace the set of matched elements.
+     * @see {@link https://api.jquery.com/replaceWith/}
+     * @since 1.2
+     * @since 1.4
+     */
+    replaceWith(newContent: JQuery.htmlString | JQuery | JQuery.TypeOrArray<Element> | ((this: TElement) => any)): this;
+    /**
+     * Bind an event handler to the "resize" JavaScript event, or trigger that event on an element.
+     *
+     * @param eventData An object containing data that will be passed to the event handler.
+     * @param handler A function to execute each time the event is triggered.
+     * @see {@link https://api.jquery.com/resize/}
+     * @since 1.4.3
+     */
+    resize<TData>(eventData: TData,
+                  handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
+    /**
+     * Bind an event handler to the "resize" JavaScript event, or trigger that event on an element.
+     *
+     * @param handler A function to execute each time the event is triggered.
+     * @see {@link https://api.jquery.com/resize/}
+     * @since 1.0
+     */
+    resize(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
+    /**
+     * Bind an event handler to the "scroll" JavaScript event, or trigger that event on an element.
+     *
+     * @param eventData An object containing data that will be passed to the event handler.
+     * @param handler A function to execute each time the event is triggered.
+     * @see {@link https://api.jquery.com/scroll/}
+     * @since 1.4.3
+     */
+    scroll<TData>(eventData: TData,
+                  handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
+    /**
+     * Bind an event handler to the "scroll" JavaScript event, or trigger that event on an element.
+     *
+     * @param handler A function to execute each time the event is triggered.
+     * @see {@link https://api.jquery.com/scroll/}
+     * @since 1.0
+     */
+    scroll(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
+    /**
+     * Set the current horizontal position of the scroll bar for each of the set of matched elements.
+     *
+     * @param value An integer indicating the new position to set the scroll bar to.
+     * @see {@link https://api.jquery.com/scrollLeft/}
+     * @since 1.2.6
+     */
+    scrollLeft(value: number): this;
+    /**
+     * Get the current horizontal position of the scroll bar for the first element in the set of matched elements.
+     *
+     * @see {@link https://api.jquery.com/scrollLeft/}
+     * @since 1.2.6
+     */
+    scrollLeft(): number | undefined;
+    /**
+     * Set the current vertical position of the scroll bar for each of the set of matched elements.
+     *
+     * @param value A number indicating the new position to set the scroll bar to.
+     * @see {@link https://api.jquery.com/scrollTop/}
+     * @since 1.2.6
+     */
+    scrollTop(value: number): this;
+    /**
+     * Get the current vertical position of the scroll bar for the first element in the set of matched
+     * elements or set the vertical position of the scroll bar for every matched element.
+     *
+     * @see {@link https://api.jquery.com/scrollTop/}
+     * @since 1.2.6
+     */
+    scrollTop(): number | undefined;
+    /**
+     * Bind an event handler to the "select" JavaScript event, or trigger that event on an element.
+     *
+     * @param eventData An object containing data that will be passed to the event handler.
+     * @param handler A function to execute each time the event is triggered.
+     * @see {@link https://api.jquery.com/select/}
+     * @since 1.4.3
+     */
+    select<TData>(eventData: TData,
+                  handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
+    /**
+     * Bind an event handler to the "select" JavaScript event, or trigger that event on an element.
+     *
+     * @param handler A function to execute each time the event is triggered.
+     * @see {@link https://api.jquery.com/select/}
+     * @since 1.0
+     */
+    select(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
+    /**
+     * Encode a set of form elements as a string for submission.
+     *
+     * @see {@link https://api.jquery.com/serialize/}
+     * @since 1.0
+     */
+    serialize(): string;
+    /**
+     * Encode a set of form elements as an array of names and values.
+     *
+     * @see {@link https://api.jquery.com/serializeArray/}
+     * @since 1.2
+     */
+    serializeArray(): JQuery.NameValuePair[];
+    /**
+     * Display the matched elements.
+     *
+     * @param duration A string or number determining how long the animation will run.
+     * @param easing A string indicating which easing function to use for the transition.
+     * @param complete A function to call once the animation is complete, called once per matched element.
+     * @see {@link https://api.jquery.com/show/}
+     * @since 1.4.3
+     */
+    show(duration: JQuery.Duration, easing: string, complete: (this: TElement) => void): this;
+    /**
+     * Display the matched elements.
+     *
+     * @param duration A string or number determining how long the animation will run.
+     * @param easing_complete A string indicating which easing function to use for the transition.
+     *                        A function to call once the animation is complete, called once per matched element.
+     * @see {@link https://api.jquery.com/show/}
+     * @since 1.0
+     * @since 1.4.3
+     */
+    show(duration: JQuery.Duration, easing_complete: string | ((this: TElement) => void)): this;
+    /**
+     * Display the matched elements.
+     *
+     * @param duration_complete_options A string or number determining how long the animation will run.
+     *                                  A function to call once the animation is complete, called once per matched element.
+     *                                  A map of additional options to pass to the method.
+     * @see {@link https://api.jquery.com/show/}
+     * @since 1.0
+     */
+    show(duration_complete_options?: JQuery.Duration | ((this: TElement) => void) | JQuery.EffectsOptions<TElement>): this;
+    /**
+     * Get the siblings of each element in the set of matched elements, optionally filtered by a selector.
+     *
+     * @param selector A string containing a selector expression to match elements against.
+     * @see {@link https://api.jquery.com/siblings/}
+     * @since 1.0
+     */
+    siblings(selector?: JQuery.Selector): this;
+    /**
+     * Reduce the set of matched elements to a subset specified by a range of indices.
+     *
+     * @param start An integer indicating the 0-based position at which the elements begin to be selected. If negative,
+     *              it indicates an offset from the end of the set.
+     * @param end An integer indicating the 0-based position at which the elements stop being selected. If negative,
+     *            it indicates an offset from the end of the set. If omitted, the range continues until the end of the set.
+     * @see {@link https://api.jquery.com/slice/}
+     * @since 1.1.4
+     */
+    slice(start: number, end?: number): this;
+    /**
+     * Display the matched elements with a sliding motion.
+     *
+     * @param duration A string or number determining how long the animation will run.
+     * @param easing A string indicating which easing function to use for the transition.
+     * @param complete A function to call once the animation is complete, called once per matched element.
+     * @see {@link https://api.jquery.com/slideDown/}
+     * @since 1.4.3
+     */
+    slideDown(duration: JQuery.Duration, easing: string, complete?: (this: TElement) => void): this;
+    /**
+     * Display the matched elements with a sliding motion.
+     *
+     * @param duration_easing A string or number determining how long the animation will run.
+     *                        A string indicating which easing function to use for the transition.
+     * @param complete A function to call once the animation is complete, called once per matched element.
+     * @see {@link https://api.jquery.com/slideDown/}
+     * @since 1.0
+     * @since 1.4.3
+     */
+    slideDown(duration_easing: JQuery.Duration | string, complete: (this: TElement) => void): this;
+    /**
+     * Display the matched elements with a sliding motion.
+     *
+     * @param duration_easing_complete_options A string or number determining how long the animation will run.
+     *                                         A string indicating which easing function to use for the transition.
+     *                                         A function to call once the animation is complete, called once per matched element.
+     *                                         A map of additional options to pass to the method.
+     * @see {@link https://api.jquery.com/slideDown/}
+     * @since 1.0
+     * @since 1.4.3
+     */
+    slideDown(duration_easing_complete_options?: JQuery.Duration | string | ((this: TElement) => void) | JQuery.EffectsOptions<TElement>): this;
+    /**
+     * Display or hide the matched elements with a sliding motion.
+     *
+     * @param duration A string or number determining how long the animation will run.
+     * @param easing A string indicating which easing function to use for the transition.
+     * @param complete A function to call once the animation is complete, called once per matched element.
+     * @see {@link https://api.jquery.com/slideToggle/}
+     * @since 1.4.3
+     */
+    slideToggle(duration: JQuery.Duration, easing: string, complete?: (this: TElement) => void): this;
+    /**
+     * Display or hide the matched elements with a sliding motion.
+     *
+     * @param duration_easing A string or number determining how long the animation will run.
+     *                        A string indicating which easing function to use for the transition.
+     * @param complete A function to call once the animation is complete, called once per matched element.
+     * @see {@link https://api.jquery.com/slideToggle/}
+     * @since 1.0
+     * @since 1.4.3
+     */
+    slideToggle(duration_easing: JQuery.Duration | string, complete: (this: TElement) => void): this;
+    /**
+     * Display or hide the matched elements with a sliding motion.
+     *
+     * @param duration_easing_complete_options A string or number determining how long the animation will run.
+     *                                         A string indicating which easing function to use for the transition.
+     *                                         A function to call once the animation is complete, called once per matched element.
+     *                                         A map of additional options to pass to the method.
+     * @see {@link https://api.jquery.com/slideToggle/}
+     * @since 1.0
+     * @since 1.4.3
+     */
+    slideToggle(duration_easing_complete_options?: JQuery.Duration | string | ((this: TElement) => void) | JQuery.EffectsOptions<TElement>): this;
+    /**
+     * Hide the matched elements with a sliding motion.
+     *
+     * @param duration A string or number determining how long the animation will run.
+     * @param easing A string indicating which easing function to use for the transition.
+     * @param complete A function to call once the animation is complete, called once per matched element.
+     * @see {@link https://api.jquery.com/slideUp/}
+     * @since 1.4.3
+     */
+    slideUp(duration: JQuery.Duration, easing: string, complete?: (this: TElement) => void): this;
+    /**
+     * Hide the matched elements with a sliding motion.
+     *
+     * @param duration_easing A string or number determining how long the animation will run.
+     *                        A string indicating which easing function to use for the transition.
+     * @param complete A function to call once the animation is complete, called once per matched element.
+     * @see {@link https://api.jquery.com/slideUp/}
+     * @since 1.0
+     * @since 1.4.3
+     */
+    slideUp(duration_easing: JQuery.Duration | string, complete: (this: TElement) => void): this;
+    /**
+     * Hide the matched elements with a sliding motion.
+     *
+     * @param duration_easing_complete_options A string or number determining how long the animation will run.
+     *                                         A string indicating which easing function to use for the transition.
+     *                                         A function to call once the animation is complete, called once per matched element.
+     *                                         A map of additional options to pass to the method.
+     * @see {@link https://api.jquery.com/slideUp/}
+     * @since 1.0
+     * @since 1.4.3
+     */
+    slideUp(duration_easing_complete_options?: JQuery.Duration | string | ((this: TElement) => void) | JQuery.EffectsOptions<TElement>): this;
+    /**
+     * Stop the currently-running animation on the matched elements.
+     *
+     * @param queue The name of the queue in which to stop animations.
+     * @param clearQueue A Boolean indicating whether to remove queued animation as well. Defaults to false.
+     * @param jumpToEnd A Boolean indicating whether to complete the current animation immediately. Defaults to false.
+     * @see {@link https://api.jquery.com/stop/}
+     * @since 1.7
+     */
+    stop(queue: string, clearQueue?: boolean, jumpToEnd?: boolean): this;
+    /**
+     * Stop the currently-running animation on the matched elements.
+     *
+     * @param clearQueue A Boolean indicating whether to remove queued animation as well. Defaults to false.
+     * @param jumpToEnd A Boolean indicating whether to complete the current animation immediately. Defaults to false.
+     * @see {@link https://api.jquery.com/stop/}
+     * @since 1.2
+     */
+    stop(clearQueue?: boolean, jumpToEnd?: boolean): this;
+    /**
+     * Bind an event handler to the "submit" JavaScript event, or trigger that event on an element.
+     *
+     * @param eventData An object containing data that will be passed to the event handler.
+     * @param handler A function to execute each time the event is triggered.
+     * @see {@link https://api.jquery.com/submit/}
+     * @since 1.4.3
+     */
+    submit<TData>(eventData: TData,
+                  handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
+    /**
+     * Bind an event handler to the "submit" JavaScript event, or trigger that event on an element.
+     *
+     * @param handler A function to execute each time the event is triggered.
+     * @see {@link https://api.jquery.com/submit/}
+     * @since 1.0
+     */
+    submit(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
+    /**
+     * Set the content of each element in the set of matched elements to the specified text.
+     *
+     * @param text The text to set as the content of each matched element. When Number or Boolean is supplied, it will
+     *             be converted to a String representation.
+     *             A function returning the text content to set. Receives the index position of the element in the set
+     *             and the old text value as arguments.
+     * @see {@link https://api.jquery.com/text/}
+     * @since 1.0
+     * @since 1.4
+     */
+    text(text: string | number | boolean | ((this: TElement, index: number, text: string) => string | number | boolean)): this;
+    /**
+     * Get the combined text contents of each element in the set of matched elements, including their descendants.
+     *
+     * @see {@link https://api.jquery.com/text/}
+     * @since 1.0
+     */
+    text(): string;
+    /**
+     * Retrieve all the elements contained in the jQuery set, as an array.
+     *
+     * @see {@link https://api.jquery.com/toArray/}
+     * @since 1.4
+     */
+    toArray(): TElement[];
+    /**
+     * Display or hide the matched elements.
+     *
+     * @param duration A string or number determining how long the animation will run.
+     * @param easing A string indicating which easing function to use for the transition.
+     * @param complete A function to call once the animation is complete, called once per matched element.
+     * @see {@link https://api.jquery.com/toggle/}
+     * @since 1.4.3
+     */
+    toggle(duration: JQuery.Duration, easing: string, complete?: (this: TElement) => void): this;
+    /**
+     * Display or hide the matched elements.
+     *
+     * @param duration A string or number determining how long the animation will run.
+     * @param complete A function to call once the animation is complete, called once per matched element.
+     * @see {@link https://api.jquery.com/toggle/}
+     * @since 1.0
+     */
+    toggle(duration: JQuery.Duration, complete: (this: TElement) => void): this;
+    /**
+     * Display or hide the matched elements.
+     *
+     * @param duration_complete_options_display A string or number determining how long the animation will run.
+     *                                          A function to call once the animation is complete, called once per matched element.
+     *                                          A map of additional options to pass to the method.
+     *                                          Use true to show the element or false to hide it.
+     * @see {@link https://api.jquery.com/toggle/}
+     * @since 1.0
+     * @since 1.3
+     */
+    toggle(duration_complete_options_display?: JQuery.Duration | ((this: TElement) => void) | JQuery.EffectsOptions<TElement> | boolean): this;
+    /**
+     * Add or remove one or more classes from each element in the set of matched elements, depending on
+     * either the class's presence or the value of the state argument.
+     *
+     * @param className One or more class names (separated by spaces) to be toggled for each element in the matched set.
+     *                  A function that returns class names to be toggled in the class attribute of each element in the
+     *                  matched set. Receives the index position of the element in the set, the old class value, and the state as arguments.
+     * @param state A Boolean (not just truthy/falsy) value to determine whether the class should be added or removed.
+     * @see {@link https://api.jquery.com/toggleClass/}
+     * @since 1.0
+     * @since 1.3
+     * @since 1.4
+     */
+    toggleClass<TState extends boolean>(className: string | ((this: TElement, index: number, className: string, state: TState) => string),
+                                        state?: TState): this;
+    /**
+     * Add or remove one or more classes from each element in the set of matched elements, depending on
+     * either the class's presence or the value of the state argument.
+     *
+     * @param state A boolean value to determine whether the class should be added or removed.
+     * @see {@link https://api.jquery.com/toggleClass/}
+     * @since 1.4
+     * @deprecated 3.0
+     */
+    toggleClass(state?: boolean): this;
+    /**
+     * Execute all handlers and behaviors attached to the matched elements for the given event type.
+     *
+     * @param eventType A string containing a JavaScript event type, such as click or submit.
+     *                  A jQuery.Event object.
+     * @param extraParameters Additional parameters to pass along to the event handler.
+     * @see {@link https://api.jquery.com/trigger/}
+     * @since 1.0
+     * @since 1.3
+     */
+    trigger(eventType: string | JQuery.Event<TElement>, extraParameters?: any[] | JQuery.PlainObject | string | number): this;
+    /**
+     * Execute all handlers attached to an element for an event.
+     *
+     * @param eventType A string containing a JavaScript event type, such as click or submit.
+     *                  A jQuery.Event object.
+     * @param extraParameters Additional parameters to pass along to the event handler.
+     * @see {@link https://api.jquery.com/triggerHandler/}
+     * @since 1.2
+     * @since 1.3
+     */
+    triggerHandler(eventType: string | JQuery.Event<TElement>, extraParameters?: any[] | JQuery.PlainObject | string | number): undefined | any;
+    /**
+     * Remove a previously-attached event handler from the elements.
+     *
+     * @param event A string containing one or more DOM event types, such as "click" or "submit," or custom event names.
+     * @param handler A function to execute each time the event is triggered.
+     * @see {@link https://api.jquery.com/unbind/}
+     * @since 1.0
+     * @since 1.4.3
+     * @deprecated 3.0
+     */
+    unbind(event: string, handler: JQuery.EventHandlerBase<any, JQuery.Event<TElement, any>> | false): this;
+    /**
+     * Remove a previously-attached event handler from the elements.
+     *
+     * @param event A string containing one or more DOM event types, such as "click" or "submit," or custom event names.
+     *              A jQuery.Event object.
+     * @see {@link https://api.jquery.com/unbind/}
+     * @since 1.0
+     * @deprecated 3.0
+     */
+    unbind(event?: string | JQuery.Event<TElement>): this;
+    /**
+     * Remove a handler from the event for all elements which match the current selector, based upon a
+     * specific set of root elements.
+     *
+     * @param selector A selector which will be used to filter the event results.
+     * @param eventType A string containing a JavaScript event type, such as "click" or "keydown"
+     * @param handler A function to execute each time the event is triggered.
+     * @see {@link https://api.jquery.com/undelegate/}
+     * @since 1.4.2
+     * @deprecated 3.0
+     */
+    undelegate(selector: JQuery.Selector, eventType: string, handler: JQuery.EventHandlerBase<any, JQuery.Event<TElement, any>> | false): this;
+    /**
+     * Remove a handler from the event for all elements which match the current selector, based upon a
+     * specific set of root elements.
+     *
+     * @param selector A selector which will be used to filter the event results.
+     * @param eventTypes A string containing a JavaScript event type, such as "click" or "keydown"
+     *                   An object of one or more event types and previously bound functions to unbind from them.
+     * @see {@link https://api.jquery.com/undelegate/}
+     * @since 1.4.2
+     * @since 1.4.3
+     * @deprecated 3.0
+     */
+    undelegate(selector: JQuery.Selector, eventTypes: string | JQuery.PlainObject<JQuery.EventHandlerBase<any, JQuery.Event<TElement, any>> | false>): this;
+    /**
+     * Remove a handler from the event for all elements which match the current selector, based upon a
+     * specific set of root elements.
+     *
+     * @param namespace A selector which will be used to filter the event results.
+     * @see {@link https://api.jquery.com/undelegate/}
+     * @since 1.4.2
+     * @since 1.6
+     * @deprecated 3.0
+     */
+    undelegate(namespace?: string): this;
+    /**
+     * Remove the parents of the set of matched elements from the DOM, leaving the matched elements in their place.
+     *
+     * @param selector A selector to check the parent element against. If an element's parent does not match the selector,
+     *                 the element won't be unwrapped.
+     * @see {@link https://api.jquery.com/unwrap/}
+     * @since 1.4
+     * @since 3.0
+     */
+    unwrap(selector?: string): this;
+    /**
+     * Set the value of each element in the set of matched elements.
+     *
+     * @param value A string of text, a number, or an array of strings corresponding to the value of each matched
+     *              element to set as selected/checked.
+     *              A function returning the value to set. this is the current element. Receives the index position of
+     *              the element in the set and the old value as arguments.
+     * @see {@link https://api.jquery.com/val/}
+     * @since 1.0
+     * @since 1.4
+     */
+    val(value: string | number | string[] | ((this: TElement, index: number, value: string) => string)): this;
+    /**
+     * Get the current value of the first element in the set of matched elements.
+     *
+     * @see {@link https://api.jquery.com/val/}
+     * @since 1.0
+     */
+    val(): string | number | string[] | undefined;
+    /**
+     * Set the CSS width of each element in the set of matched elements.
+     *
+     * @param value An integer representing the number of pixels, or an integer along with an optional unit of measure
+     *              appended (as a string).
+     *              A function returning the width to set. Receives the index position of the element in the set and the
+     *              old width as arguments. Within the function, this refers to the current element in the set.
+     * @see {@link https://api.jquery.com/width/}
+     * @since 1.0
+     * @since 1.4.1
+     */
+    width(value: string | number | ((this: TElement, index: number, value: number) => string | number)): this;
+    /**
+     * Get the current computed width for the first element in the set of matched elements.
+     *
+     * @see {@link https://api.jquery.com/width/}
+     * @since 1.0
+     */
+    width(): number | undefined;
+    /**
+     * Wrap an HTML structure around each element in the set of matched elements.
+     *
+     * @param wrappingElement A selector, element, HTML string, or jQuery object specifying the structure to wrap around the
+     *                        matched elements. When you pass a jQuery collection containing more than one element, or a selector
+     *                        matching more than one element, the first element will be used.
+     *                        A callback function returning the HTML content or jQuery object to wrap around the matched elements.
+     *                        Receives the index position of the element in the set as an argument. Within the function, this
+     *                        refers to the current element in the set.
+     * @see {@link https://api.jquery.com/wrap/}
+     * @since 1.0
+     * @since 1.4
+     */
+    wrap(wrappingElement: JQuery.Selector | JQuery.htmlString | Element | JQuery | ((this: TElement, index: number) => string | JQuery)): this;
+    /**
+     * Wrap an HTML structure around all elements in the set of matched elements.
+     *
+     * @param wrappingElement A selector, element, HTML string, or jQuery object specifying the structure to wrap around the matched elements.
+     *                        A callback function returning the HTML content or jQuery object to wrap around all the matched
+     *                        elements. Within the function, this refers to the first element in the set. Prior to jQuery 3.0, the
+     *                        callback was incorrectly called for every element in the set and received the index position of the
+     *                        element in the set as an argument.
+     * @see {@link https://api.jquery.com/wrapAll/}
+     * @since 1.2
+     * @since 1.4
+     */
+    wrapAll(wrappingElement: JQuery.Selector | JQuery.htmlString | Element | JQuery | ((this: TElement) => string | JQuery)): this;
+    /**
+     * Wrap an HTML structure around the content of each element in the set of matched elements.
+     *
+     * @param wrappingElement An HTML snippet, selector expression, jQuery object, or DOM element specifying the structure to wrap
+     *                        around the content of the matched elements.
+     *                        A callback function which generates a structure to wrap around the content of the matched elements.
+     *                        Receives the index position of the element in the set as an argument. Within the function, this
+     *                        refers to the current element in the set.
+     * @see {@link https://api.jquery.com/wrapInner/}
+     * @since 1.2
+     * @since 1.4
+     */
+    wrapInner(wrappingElement: JQuery.Selector | JQuery.htmlString | Element | JQuery | ((this: TElement, index: number) => string | JQuery | Element)): this;
+
+    [n: number]: TElement;
 }
 
 declare namespace JQuery {
@@ -4236,19 +6271,23 @@ declare namespace JQuery {
     // T = A = 1st position
     // U = B = 2nd position
     // V = C = 3rd position
+    // S = R = rest position
     //
     // The second letter indicates which whether it is a [R]esolve, Re[J]ect, or [N]otify value.
     //
     // The third letter indicates whether the value is returned in the [D]one filter, [F]ail filter, or [P]rogress filter.
+
     /**
      * This object provides a subset of the methods of the Deferred object (then, done, fail, always,
      * pipe, progress, state and promise) to prevent users from changing the state of the Deferred.
      *
      * @see {@link http://api.jquery.com/Types/#Promise}
+     * @deprecated Experimental. Avoid referncing this type directly in your code.
      */
-    interface Promise3<TR, TJ, TN,
+    interface PromiseBase<TR, TJ, TN,
         UR, UJ, UN,
-        VR, VJ, VN> {
+        VR, VJ, VN,
+        SR, SJ, SN> extends _Promise<TR>, PromiseLike<TR> {
         /**
          * Add handlers to be called when the Deferred object is either resolved or rejected.
          *
@@ -4257,8 +6296,8 @@ declare namespace JQuery {
          * @see {@link https://api.jquery.com/deferred.always/}
          * @since 1.6
          */
-        always(alwaysCallback: TypeOrArray<Deferred.Callback3<TR | TJ, UR | UJ, VR | VJ>>,
-               ...alwaysCallbacks: Array<TypeOrArray<Deferred.Callback3<TR | TJ, UR | UJ, VR | VJ>>>): this;
+        always(alwaysCallback: TypeOrArray<Deferred.CallbackBase<TR | TJ, UR | UJ, VR | VJ, SR | SJ>>,
+               ...alwaysCallbacks: Array<TypeOrArray<Deferred.CallbackBase<TR | TJ, UR | UJ, VR | VJ, SR | SJ>>>): this;
         /**
          * Add handlers to be called when the Deferred object is resolved.
          *
@@ -4267,8 +6306,8 @@ declare namespace JQuery {
          * @see {@link https://api.jquery.com/deferred.done/}
          * @since 1.5
          */
-        done(doneCallback: TypeOrArray<Deferred.Callback3<TR, UR, VR>>,
-             ...doneCallbacks: Array<TypeOrArray<Deferred.Callback3<TR, UR, VR>>>): this;
+        done(doneCallback: TypeOrArray<Deferred.CallbackBase<TR, UR, VR, SR>>,
+             ...doneCallbacks: Array<TypeOrArray<Deferred.CallbackBase<TR, UR, VR, SR>>>): this;
         /**
          * Add handlers to be called when the Deferred object is rejected.
          *
@@ -4277,8 +6316,8 @@ declare namespace JQuery {
          * @see {@link https://api.jquery.com/deferred.fail/}
          * @since 1.5
          */
-        fail(failCallback: TypeOrArray<Deferred.Callback3<TJ, UJ, VJ>>,
-             ...failCallbacks: Array<TypeOrArray<Deferred.Callback3<TJ, UJ, VJ>>>): this;
+        fail(failCallback: TypeOrArray<Deferred.CallbackBase<TJ, UJ, VJ, SJ>>,
+             ...failCallbacks: Array<TypeOrArray<Deferred.CallbackBase<TJ, UJ, VJ, SJ>>>): this;
         /**
          * Add handlers to be called when the Deferred object generates progress notifications.
          *
@@ -4288,8 +6327,8 @@ declare namespace JQuery {
          * @see {@link https://api.jquery.com/deferred.progress/}
          * @since 1.7
          */
-        progress(progressCallback: TypeOrArray<Deferred.Callback3<TN, UN, VN>>,
-                 ...progressCallbacks: Array<TypeOrArray<Deferred.Callback3<TN, UN, VN>>>): this;
+        progress(progressCallback: TypeOrArray<Deferred.CallbackBase<TN, UN, VN, SN>>,
+                 ...progressCallbacks: Array<TypeOrArray<Deferred.CallbackBase<TN, UN, VN, SN>>>): this;
         /**
          * Return a Deferred's Promise object.
          *
@@ -4313,6 +6352,8 @@ declare namespace JQuery {
          */
         state(): 'pending' | 'resolved' | 'rejected';
 
+        // region pipe
+
         /**
          * Utility method to filter and/or chain Deferreds.
          *
@@ -4327,23 +6368,30 @@ declare namespace JQuery {
         pipe<ARD = never, AJD = never, AND = never,
             BRD = never, BJD = never, BND = never,
             CRD = never, CJD = never, CND = never,
+            RRD = never, RJD = never, RND = never,
             ARF = never, AJF = never, ANF = never,
             BRF = never, BJF = never, BNF = never,
             CRF = never, CJF = never, CNF = never,
+            RRF = never, RJF = never, RNF = never,
             ARP = never, AJP = never, ANP = never,
             BRP = never, BJP = never, BNP = never,
-            CRP = never, CJP = never, CNP = never>
-            (doneFilter: (t: TR, u: UR, v: VR) => Promise3<ARD, AJD, AND,
+            CRP = never, CJP = never, CNP = never,
+            RRP = never, RJP = never, RNP = never>
+            (doneFilter: (t: TR, u: UR, v: VR, ...s: SR[]) => PromiseBase<ARD, AJD, AND,
                  BRD, BJD, BND,
-                 CRD, CJD, CND> | Thenable<ARD> | ARD,
-             failFilter: (t: TJ, u: UJ, v: VJ) => Promise3<ARF, AJF, ANF,
+                 CRD, CJD, CND,
+                 RRD, RJD, RND> | Thenable<ARD> | ARD,
+             failFilter: (t: TJ, u: UJ, v: VJ, ...s: SJ[]) => PromiseBase<ARF, AJF, ANF,
                  BRF, BJF, BNF,
-                 CRF, CJF, CNF> | Thenable<AJF> | AJF,
-             progressFilter: (t: TN, u: UN, v: VN) => Promise3<ARP, AJP, ANP,
+                 CRF, CJF, CNF,
+                 RRF, RJF, RNF> | Thenable<AJF> | AJF,
+             progressFilter: (t: TN, u: UN, v: VN, ...s: SN[]) => PromiseBase<ARP, AJP, ANP,
                  BRP, BJP, BNP,
-                 CRP, CJP, CNP> | Thenable<ANP> | ANP): Promise3<ARD | ARF | ARP, AJD | AJF | AJP, AND | ANF | ANP,
+                 CRP, CJP, CNP,
+                 RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARD | ARF | ARP, AJD | AJF | AJP, AND | ANF | ANP,
             BRD | BRF | BRP, BJD | BJF | BJP, BND | BNF | BNP,
-            CRD | CRF | CRP, CJD | CJF | CJP, CND | CNF | CNP>;
+            CRD | CRF | CRP, CJD | CJF | CJP, CND | CNF | CNP,
+            RRD | RRF | RRP, RJD | RJF | RJP, RND | RNF | RNP>;
         /**
          * Utility method to filter and/or chain Deferreds.
          *
@@ -4358,18 +6406,23 @@ declare namespace JQuery {
         pipe<ARF = never, AJF = never, ANF = never,
             BRF = never, BJF = never, BNF = never,
             CRF = never, CJF = never, CNF = never,
+            RRF = never, RJF = never, RNF = never,
             ARP = never, AJP = never, ANP = never,
             BRP = never, BJP = never, BNP = never,
-            CRP = never, CJP = never, CNP = never>
+            CRP = never, CJP = never, CNP = never,
+            RRP = never, RJP = never, RNP = never>
             (doneFilter: null,
-             failFilter: (t: TJ, u: UJ, v: VJ) => Promise3<ARF, AJF, ANF,
+             failFilter: (t: TJ, u: UJ, v: VJ, ...s: SJ[]) => PromiseBase<ARF, AJF, ANF,
                  BRF, BJF, BNF,
-                 CRF, CJF, CNF> | Thenable<AJF> | AJF,
-             progressFilter: (t: TN, u: UN, v: VN) => Promise3<ARP, AJP, ANP,
+                 CRF, CJF, CNF,
+                 RRF, RJF, RNF> | Thenable<AJF> | AJF,
+             progressFilter: (t: TN, u: UN, v: VN, ...s: SN[]) => PromiseBase<ARP, AJP, ANP,
                  BRP, BJP, BNP,
-                 CRP, CJP, CNP> | Thenable<ANP> | ANP): Promise3<ARF | ARP, AJF | AJP, ANF | ANP,
+                 CRP, CJP, CNP,
+                 RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARF | ARP, AJF | AJP, ANF | ANP,
             BRF | BRP, BJF | BJP, BNF | BNP,
-            CRF | CRP, CJF | CJP, CNF | CNP>;
+            CRF | CRP, CJF | CJP, CNF | CNP,
+            RRF | RRP, RJF | RJP, RNF | RNP>;
         /**
          * Utility method to filter and/or chain Deferreds.
          *
@@ -4384,18 +6437,47 @@ declare namespace JQuery {
         pipe<ARD = never, AJD = never, AND = never,
             BRD = never, BJD = never, BND = never,
             CRD = never, CJD = never, CND = never,
+            RRD = never, RJD = never, RND = never,
             ARP = never, AJP = never, ANP = never,
             BRP = never, BJP = never, BNP = never,
-            CRP = never, CJP = never, CNP = never>
-            (doneFilter: (t: TR, u: UR, v: VR) => Promise3<ARD, AJD, AND,
+            CRP = never, CJP = never, CNP = never,
+            RRP = never, RJP = never, RNP = never>
+            (doneFilter: (t: TR, u: UR, v: VR, ...s: SR[]) => PromiseBase<ARD, AJD, AND,
                  BRD, BJD, BND,
-                 CRD, CJD, CND> | Thenable<ARD> | ARD,
+                 CRD, CJD, CND,
+                 RRD, RJD, RND> | Thenable<ARD> | ARD,
              failFilter: null,
-             progressFilter: (t: TN, u: UN, v: VN) => Promise3<ARP, AJP, ANP,
+             progressFilter: (t: TN, u: UN, v: VN, ...s: SN[]) => PromiseBase<ARP, AJP, ANP,
                  BRP, BJP, BNP,
-                 CRP, CJP, CNP> | Thenable<ANP> | ANP): Promise3<ARD | ARP, AJD | AJP, AND | ANP,
+                 CRP, CJP, CNP,
+                 RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARD | ARP, AJD | AJP, AND | ANP,
             BRD | BRP, BJD | BJP, BND | BNP,
-            CRD | CRP, CJD | CJP, CND | CNP>;
+            CRD | CRP, CJD | CJP, CND | CNP,
+            RRD | RRP, RJD | RJP, RND | RNP>;
+        /**
+         * Utility method to filter and/or chain Deferreds.
+         *
+         * @param doneFilter An optional function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
+         * @see {@link https://api.jquery.com/deferred.pipe/}
+         * @since 1.6
+         * @since 1.7
+         * @deprecated 1.8
+         */
+        pipe<ARP = never, AJP = never, ANP = never,
+            BRP = never, BJP = never, BNP = never,
+            CRP = never, CJP = never, CNP = never,
+            RRP = never, RJP = never, RNP = never>
+            (doneFilter: null,
+             failFilter: null,
+             progressFilter?: (t: TN, u: UN, v: VN, ...s: SN[]) => PromiseBase<ARP, AJP, ANP,
+                 BRP, BJP, BNP,
+                 CRP, CJP, CNP,
+                 RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARP, AJP, ANP,
+            BRP, BJP, BNP,
+            CRP, CJP, CNP,
+            RRP, RJP, RNP>;
         /**
          * Utility method to filter and/or chain Deferreds.
          *
@@ -4410,48 +6492,29 @@ declare namespace JQuery {
         pipe<ARD = never, AJD = never, AND = never,
             BRD = never, BJD = never, BND = never,
             CRD = never, CJD = never, CND = never,
+            RRD = never, RJD = never, RND = never,
             ARF = never, AJF = never, ANF = never,
             BRF = never, BJF = never, BNF = never,
-            CRF = never, CJF = never, CNF = never>
-            (doneFilter: (t: TR, u: UR, v: VR) => Promise3<ARD, AJD, AND,
+            CRF = never, CJF = never, CNF = never,
+            RRF = never, RJF = never, RNF = never>
+            (doneFilter: (t: TR, u: UR, v: VR, ...s: SR[]) => PromiseBase<ARD, AJD, AND,
                  BRD, BJD, BND,
-                 CRD, CJD, CND> | Thenable<ARD> | ARD,
-             failFilter: (t: TJ, u: UJ, v: VJ) => Promise3<ARF, AJF, ANF,
+                 CRD, CJD, CND,
+                 RRD, RJD, RND> | Thenable<ARD> | ARD,
+             failFilter: (t: TJ, u: UJ, v: VJ, ...s: SJ[]) => PromiseBase<ARF, AJF, ANF,
                  BRF, BJF, BNF,
-                 CRF, CJF, CNF> | Thenable<AJF> | AJF,
-             progressFilter?: null): Promise3<ARD | ARF, AJD | AJF, AND | ANF,
+                 CRF, CJF, CNF,
+                 RRF, RJF, RNF> | Thenable<AJF> | AJF,
+             progressFilter?: null): PromiseBase<ARD | ARF, AJD | AJF, AND | ANF,
             BRD | BRF, BJD | BJF, BND | BNF,
-            CRD | CRF, CJD | CJF, CND | CNF>;
+            CRD | CRF, CJD | CJF, CND | CNF,
+            RRD | RRF, RJD | RJF, RND | RNF>;
         /**
          * Utility method to filter and/or chain Deferreds.
          *
          * @param doneFilter An optional function that is called when the Deferred is resolved.
          * @param failFilter An optional function that is called when the Deferred is rejected.
-         * @see {@link https://api.jquery.com/deferred.pipe/}
-         * @since 1.6
-         * @since 1.7
-         * @deprecated 1.8
-         */
-        pipe<ARD = never, AJD = never, AND = never,
-            BRD = never, BJD = never, BND = never,
-            CRD = never, CJD = never, CND = never,
-            ARF = never, AJF = never, ANF = never,
-            BRF = never, BJF = never, BNF = never,
-            CRF = never, CJF = never, CNF = never>
-            (doneFilter: (t: TR, u: UR, v: VR) => Promise3<ARD, AJD, AND,
-                 BRD, BJD, BND,
-                 CRD, CJD, CND> | Thenable<ARD> | ARD,
-             failFilter: (t: TJ, u: UJ, v: VJ) => Promise3<ARF, AJF, ANF,
-                 BRF, BJF, BNF,
-                 CRF, CJF, CNF> | Thenable<AJF> | AJF,
-             progressFilter?: null): Promise3<ARD | ARF, AJD | AJF, AND | ANF,
-            BRD | BRF, BJD | BJF, BND | BNF,
-            CRD | CRF, CJD | CJF, CND | CNF>;
-        /**
-         * Utility method to filter and/or chain Deferreds.
-         *
-         * @param doneFilter An optional function that is called when the Deferred is resolved.
-         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
          * @see {@link https://api.jquery.com/deferred.pipe/}
          * @since 1.6
          * @since 1.7
@@ -4459,18 +6522,23 @@ declare namespace JQuery {
          */
         pipe<ARF = never, AJF = never, ANF = never,
             BRF = never, BJF = never, BNF = never,
-            CRF = never, CJF = never, CNF = never>
+            CRF = never, CJF = never, CNF = never,
+            RRF = never, RJF = never, RNF = never>
             (doneFilter: null,
-             failFilter: (t: TJ, u: UJ, v: VJ) => Promise3<ARF, AJF, ANF,
+             failFilter: (t: TJ, u: UJ, v: VJ, ...s: SJ[]) => PromiseBase<ARF, AJF, ANF,
                  BRF, BJF, BNF,
-                 CRF, CJF, CNF> | Thenable<AJF> | AJF,
-             progressFilter?: null): Promise3<ARF, AJF, ANF,
+                 CRF, CJF, CNF,
+                 RRF, RJF, RNF> | Thenable<AJF> | AJF,
+             progressFilter?: null): PromiseBase<ARF, AJF, ANF,
             BRF, BJF, BNF,
-            CRF, CJF, CNF>;
+            CRF, CJF, CNF,
+            RRF, RJF, RNF>;
         /**
          * Utility method to filter and/or chain Deferreds.
          *
          * @param doneFilter An optional function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
          * @see {@link https://api.jquery.com/deferred.pipe/}
          * @since 1.6
          * @since 1.7
@@ -4478,19 +6546,26 @@ declare namespace JQuery {
          */
         pipe<ARD = never, AJD = never, AND = never,
             BRD = never, BJD = never, BND = never,
-            CRD = never, CJD = never, CND = never>
-            (doneFilter: (t: TR, u: UR, v: VR) => Promise3<ARD, AJD, AND,
+            CRD = never, CJD = never, CND = never,
+            RRD = never, RJD = never, RND = never>
+            (doneFilter: (t: TR, u: UR, v: VR, ...s: SR[]) => PromiseBase<ARD, AJD, AND,
                  BRD, BJD, BND,
-                 CRD, CJD, CND> | Thenable<ARD> | ARD,
+                 CRD, CJD, CND,
+                 RRD, RJD, RND> | Thenable<ARD> | ARD,
              failFilter?: null,
-             progressFilter?: null): Promise3<ARD, AJD, AND,
+             progressFilter?: null): PromiseBase<ARD, AJD, AND,
             BRD, BJD, BND,
-            CRD, CJD, CND>;
+            CRD, CJD, CND,
+            RRD, RJD, RND>;
+
+        // endregion
+
+        // region then
 
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
          *
-         * @param doneFilter A function that is called when the Deferred is resolved.
+         * @param doneFilter An optional function that is called when the Deferred is resolved.
          * @param failFilter An optional function that is called when the Deferred is rejected.
          * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
          * @see {@link https://api.jquery.com/deferred.then/}
@@ -4499,27 +6574,34 @@ declare namespace JQuery {
         then<ARD = never, AJD = never, AND = never,
             BRD = never, BJD = never, BND = never,
             CRD = never, CJD = never, CND = never,
+            RRD = never, RJD = never, RND = never,
             ARF = never, AJF = never, ANF = never,
             BRF = never, BJF = never, BNF = never,
             CRF = never, CJF = never, CNF = never,
+            RRF = never, RJF = never, RNF = never,
             ARP = never, AJP = never, ANP = never,
             BRP = never, BJP = never, BNP = never,
-            CRP = never, CJP = never, CNP = never>
-            (doneFilter: (t: TR, u: UR, v: VR) => Promise3<ARD, AJD, AND,
+            CRP = never, CJP = never, CNP = never,
+            RRP = never, RJP = never, RNP = never>
+            (doneFilter: (t: TR, u: UR, v: VR, ...s: SR[]) => PromiseBase<ARD, AJD, AND,
                  BRD, BJD, BND,
-                 CRD, CJD, CND> | Thenable<ARD> | ARD,
-             failFilter: (t: TJ, u: UJ, v: VJ) => Promise3<ARF, AJF, ANF,
+                 CRD, CJD, CND,
+                 RRD, RJD, RND> | Thenable<ARD> | ARD,
+             failFilter: (t: TJ, u: UJ, v: VJ, ...s: SJ[]) => PromiseBase<ARF, AJF, ANF,
                  BRF, BJF, BNF,
-                 CRF, CJF, CNF> | Thenable<ARF> | ARF,
-             progressFilter: (t: TN, u: UN, v: VN) => Promise3<ARP, AJP, ANP,
+                 CRF, CJF, CNF,
+                 RRF, RJF, RNF> | Thenable<ARF> | ARF,
+             progressFilter: (t: TN, u: UN, v: VN, ...s: SN[]) => PromiseBase<ARP, AJP, ANP,
                  BRP, BJP, BNP,
-                 CRP, CJP, CNP> | Thenable<ANP> | ANP): Promise3<ARD | ARF | ARP, AJD | AJF | AJP, AND | ANF | ANP,
+                 CRP, CJP, CNP,
+                 RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARD | ARF | ARP, AJD | AJF | AJP, AND | ANF | ANP,
             BRD | BRF | BRP, BJD | BJF | BJP, BND | BNF | BNP,
-            CRD | CRF | CRP, CJD | CJF | CJP, CND | CNF | CNP>;
+            CRD | CRF | CRP, CJD | CJF | CJP, CND | CNF | CNP,
+            RRD | RRF | RRP, RJD | RJF | RJP, RND | RNF | RNP>;
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
          *
-         * @param doneFilter A function that is called when the Deferred is resolved.
+         * @param doneFilter An optional function that is called when the Deferred is resolved.
          * @param failFilter An optional function that is called when the Deferred is rejected.
          * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
          * @see {@link https://api.jquery.com/deferred.then/}
@@ -4528,22 +6610,27 @@ declare namespace JQuery {
         then<ARF = never, AJF = never, ANF = never,
             BRF = never, BJF = never, BNF = never,
             CRF = never, CJF = never, CNF = never,
+            RRF = never, RJF = never, RNF = never,
             ARP = never, AJP = never, ANP = never,
             BRP = never, BJP = never, BNP = never,
-            CRP = never, CJP = never, CNP = never>
+            CRP = never, CJP = never, CNP = never,
+            RRP = never, RJP = never, RNP = never>
             (doneFilter: null,
-             failFilter: (t: TJ, u: UJ, v: VJ) => Promise3<ARF, AJF, ANF,
+             failFilter: (t: TJ, u: UJ, v: VJ, ...s: SJ[]) => PromiseBase<ARF, AJF, ANF,
                  BRF, BJF, BNF,
-                 CRF, CJF, CNF> | Thenable<ARF> | ARF,
-             progressFilter: (t: TN, u: UN, v: VN) => Promise3<ARP, AJP, ANP,
+                 CRF, CJF, CNF,
+                 RRF, RJF, RNF> | Thenable<ARF> | ARF,
+             progressFilter: (t: TN, u: UN, v: VN, ...s: SN[]) => PromiseBase<ARP, AJP, ANP,
                  BRP, BJP, BNP,
-                 CRP, CJP, CNP> | Thenable<ANP> | ANP): Promise3<ARF | ARP, AJF | AJP, ANF | ANP,
+                 CRP, CJP, CNP,
+                 RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARF | ARP, AJF | AJP, ANF | ANP,
             BRF | BRP, BJF | BJP, BNF | BNP,
-            CRF | CRP, CJF | CJP, CNF | CNP>;
+            CRF | CRP, CJF | CJP, CNF | CNP,
+            RRF | RRP, RJF | RJP, RNF | RNP>;
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
          *
-         * @param doneFilter A function that is called when the Deferred is resolved.
+         * @param doneFilter An optional function that is called when the Deferred is resolved.
          * @param failFilter An optional function that is called when the Deferred is rejected.
          * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
          * @see {@link https://api.jquery.com/deferred.then/}
@@ -4552,22 +6639,27 @@ declare namespace JQuery {
         then<ARD = never, AJD = never, AND = never,
             BRD = never, BJD = never, BND = never,
             CRD = never, CJD = never, CND = never,
+            RRD = never, RJD = never, RND = never,
             ARP = never, AJP = never, ANP = never,
             BRP = never, BJP = never, BNP = never,
-            CRP = never, CJP = never, CNP = never>
-            (doneFilter: (t: TR, u: UR, v: VR) => Promise3<ARD, AJD, AND,
+            CRP = never, CJP = never, CNP = never,
+            RRP = never, RJP = never, RNP = never>
+            (doneFilter: (t: TR, u: UR, v: VR, ...s: SR[]) => PromiseBase<ARD, AJD, AND,
                  BRD, BJD, BND,
-                 CRD, CJD, CND> | Thenable<ARD> | ARD,
+                 CRD, CJD, CND,
+                 RRD, RJD, RND> | Thenable<ARD> | ARD,
              failFilter: null,
-             progressFilter: (t: TN, u: UN, v: VN) => Promise3<ARP, AJP, ANP,
+             progressFilter: (t: TN, u: UN, v: VN, ...s: SN[]) => PromiseBase<ARP, AJP, ANP,
                  BRP, BJP, BNP,
-                 CRP, CJP, CNP> | Thenable<ANP> | ANP): Promise3<ARD | ARP, AJD | AJP, AND | ANP,
+                 CRP, CJP, CNP,
+                 RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARD | ARP, AJD | AJP, AND | ANP,
             BRD | BRP, BJD | BJP, BND | BNP,
-            CRD | CRP, CJD | CJP, CND | CNP>;
+            CRD | CRP, CJD | CJP, CND | CNP,
+            RRD | RRP, RJD | RJP, RND | RNP>;
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
          *
-         * @param doneFilter A function that is called when the Deferred is resolved.
+         * @param doneFilter An optional function that is called when the Deferred is resolved.
          * @param failFilter An optional function that is called when the Deferred is rejected.
          * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
          * @see {@link https://api.jquery.com/deferred.then/}
@@ -4575,72 +6667,92 @@ declare namespace JQuery {
          */
         then<ARP = never, AJP = never, ANP = never,
             BRP = never, BJP = never, BNP = never,
-            CRP = never, CJP = never, CNP = never>
+            CRP = never, CJP = never, CNP = never,
+            RRP = never, RJP = never, RNP = never>
             (doneFilter: null,
              failFilter: null,
-             progressFilter: (t: TN, u: UN, v: VN) => Promise3<ARP, AJP, ANP,
+             progressFilter?: (t: TN, u: UN, v: VN, ...s: SN[]) => PromiseBase<ARP, AJP, ANP,
                  BRP, BJP, BNP,
-                 CRP, CJP, CNP> | Thenable<ANP> | ANP): Promise3<ARP, AJP, ANP,
+                 CRP, CJP, CNP,
+                 RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARP, AJP, ANP,
             BRP, BJP, BNP,
-            CRP, CJP, CNP>;
+            CRP, CJP, CNP,
+            RRP, RJP, RNP>;
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
          *
-         * @param doneFilter A function that is called when the Deferred is resolved.
+         * @param doneFilter An optional function that is called when the Deferred is resolved.
          * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
          * @see {@link https://api.jquery.com/deferred.then/}
          * @since 1.8
          */
         then<ARD = never, AJD = never, AND = never,
             BRD = never, BJD = never, BND = never,
             CRD = never, CJD = never, CND = never,
+            RRD = never, RJD = never, RND = never,
             ARF = never, AJF = never, ANF = never,
             BRF = never, BJF = never, BNF = never,
-            CRF = never, CJF = never, CNF = never>
-            (doneFilter: (t: TR, u: UR, v: VR) => Promise3<ARD, AJD, AND,
+            CRF = never, CJF = never, CNF = never,
+            RRF = never, RJF = never, RNF = never>
+            (doneFilter: (t: TR, u: UR, v: VR, ...s: SR[]) => PromiseBase<ARD, AJD, AND,
                  BRD, BJD, BND,
-                 CRD, CJD, CND> | Thenable<ARD> | ARD,
-             failFilter: (t: TJ, u: UJ, v: VJ) => Promise3<ARF, AJF, ANF,
+                 CRD, CJD, CND,
+                 RRD, RJD, RND> | Thenable<ARD> | ARD,
+             failFilter: (t: TJ, u: UJ, v: VJ, ...s: SJ[]) => PromiseBase<ARF, AJF, ANF,
                  BRF, BJF, BNF,
-                 CRF, CJF, CNF> | Thenable<ARF> | ARF,
-             progressFilter?: null): Promise3<ARD | ARF, AJD | AJF, AND | ANF,
+                 CRF, CJF, CNF,
+                 RRF, RJF, RNF> | Thenable<ARF> | ARF,
+             progressFilter?: null): PromiseBase<ARD | ARF, AJD | AJF, AND | ANF,
             BRD | BRF, BJD | BJF, BND | BNF,
-            CRD | CRF, CJD | CJF, CND | CNF>;
+            CRD | CRF, CJD | CJF, CND | CNF,
+            RRD | RRF, RJD | RJF, RND | RNF>;
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
          *
-         * @param doneFilter A function that is called when the Deferred is resolved.
+         * @param doneFilter An optional function that is called when the Deferred is resolved.
          * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
          * @see {@link https://api.jquery.com/deferred.then/}
          * @since 1.8
          */
         then<ARF = never, AJF = never, ANF = never,
             BRF = never, BJF = never, BNF = never,
-            CRF = never, CJF = never, CNF = never>
+            CRF = never, CJF = never, CNF = never,
+            RRF = never, RJF = never, RNF = never>
             (doneFilter: null,
-             failFilter: (t: TJ, u: UJ, v: VJ) => Promise3<ARF, AJF, ANF,
+             failFilter: (t: TJ, u: UJ, v: VJ, ...s: SJ[]) => PromiseBase<ARF, AJF, ANF,
                  BRF, BJF, BNF,
-                 CRF, CJF, CNF> | Thenable<ARF> | ARF,
-             progressFilter?: null): Promise3<ARF, AJF, ANF,
+                 CRF, CJF, CNF,
+                 RRF, RJF, RNF> | Thenable<ARF> | ARF,
+             progressFilter?: null): PromiseBase<ARF, AJF, ANF,
             BRF, BJF, BNF,
-            CRF, CJF, CNF>;
+            CRF, CJF, CNF,
+            RRF, RJF, RNF>;
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
          *
-         * @param doneFilter A function that is called when the Deferred is resolved.
+         * @param doneFilter An optional function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
          * @see {@link https://api.jquery.com/deferred.then/}
          * @since 1.8
          */
         then<ARD = never, AJD = never, AND = never,
             BRD = never, BJD = never, BND = never,
-            CRD = never, CJD = never, CND = never>
-            (doneFilter: (t: TR, u: UR, v: VR) => Promise3<ARD, AJD, AND,
+            CRD = never, CJD = never, CND = never,
+            RRD = never, RJD = never, RND = never>
+            (doneFilter: (t: TR, u: UR, v: VR, ...s: SR[]) => PromiseBase<ARD, AJD, AND,
                  BRD, BJD, BND,
-                 CRD, CJD, CND> | Thenable<ARD> | ARD,
+                 CRD, CJD, CND,
+                 RRD, RJD, RND> | Thenable<ARD> | ARD,
              failFilter?: null,
-             progressFilter?: null): Promise3<ARD, AJD, AND,
+             progressFilter?: null): PromiseBase<ARD, AJD, AND,
             BRD, BJD, BND,
-            CRD, CJD, CND>;
+            CRD, CJD, CND,
+            RRD, RJD, RND>;
+
+        // endregion
 
         /**
          * Add handlers to be called when the Deferred object is rejected.
@@ -4651,12 +6763,15 @@ declare namespace JQuery {
          */
         catch<ARF = never, AJF = never, ANF = never,
             BRF = never, BJF = never, BNF = never,
-            CRF = never, CJF = never, CNF = never>
-            (failFilter: (t: TJ, u: UJ, v: VJ) => Promise3<ARF, AJF, ANF,
+            CRF = never, CJF = never, CNF = never,
+            RRF = never, RJF = never, RNF = never>
+            (failFilter?: ((t: TJ, u: UJ, v: VJ, ...s: SJ[]) => PromiseBase<ARF, AJF, ANF,
                 BRF, BJF, BNF,
-                CRF, CJF, CNF> | Thenable<ARF> | ARF): Promise3<ARF, AJF, ANF,
+                CRF, CJF, CNF,
+                RRF, RJF, RNF> | Thenable<ARF> | ARF) | undefined | null): PromiseBase<ARF, AJF, ANF,
             BRF, BJF, BNF,
-            CRF, CJF, CNF>;
+            CRF, CJF, CNF,
+            RRF, RJF, RNF>;
     }
 
     /**
@@ -4665,9 +6780,11 @@ declare namespace JQuery {
      *
      * @see {@link http://api.jquery.com/Types/#Promise}
      */
-    interface Promise2<TR, TJ, TN,
-        UR, UJ, UN> extends Promise3<TR, TJ, TN,
+    interface Promise3<TR, TJ, TN,
         UR, UJ, UN,
+        VR, VJ, VN> extends PromiseBase<TR, TJ, TN,
+        UR, UJ, UN,
+        VR, VJ, VN,
         never, never, never> { }
 
     /**
@@ -4676,282 +6793,22 @@ declare namespace JQuery {
      *
      * @see {@link http://api.jquery.com/Types/#Promise}
      */
-    interface Promise<TR, TJ = any, TN = any> {
-        /**
-         * Add handlers to be called when the Deferred object is either resolved or rejected.
-         *
-         * @param alwaysCallback A function, or array of functions, that is called when the Deferred is resolved or rejected.
-         * @param alwaysCallbacks Optional additional functions, or arrays of functions, that are called when the Deferred is resolved or rejected.
-         * @see {@link https://api.jquery.com/deferred.always/}
-         * @since 1.6
-         */
-        always(alwaysCallback: TypeOrArray<Deferred.AlwaysCallback<TR, TJ>>,
-               ...alwaysCallbacks: Array<TypeOrArray<Deferred.AlwaysCallback<TR, TJ>>>): this;
-        /**
-         * Add handlers to be called when the Deferred object is resolved.
-         *
-         * @param doneCallback A function, or array of functions, that are called when the Deferred is resolved.
-         * @param doneCallbacks Optional additional functions, or arrays of functions, that are called when the Deferred is resolved.
-         * @see {@link https://api.jquery.com/deferred.done/}
-         * @since 1.5
-         */
-        done(doneCallback: TypeOrArray<Deferred.DoneCallback<TR>>,
-             ...doneCallbacks: Array<TypeOrArray<Deferred.DoneCallback<TR>>>): this;
-        /**
-         * Add handlers to be called when the Deferred object is rejected.
-         *
-         * @param failCallback A function, or array of functions, that are called when the Deferred is rejected.
-         * @param failCallbacks Optional additional functions, or arrays of functions, that are called when the Deferred is rejected.
-         * @see {@link https://api.jquery.com/deferred.fail/}
-         * @since 1.5
-         */
-        fail(failCallback: TypeOrArray<Deferred.FailCallback<TJ>>,
-             ...failCallbacks: Array<TypeOrArray<Deferred.FailCallback<TJ>>>): this;
-        /**
-         * Add handlers to be called when the Deferred object generates progress notifications.
-         *
-         * @param progressCallback A function, or array of functions, to be called when the Deferred generates progress notifications.
-         * @param progressCallbacks Optional additional functions, or arrays of functions, to be called when the Deferred generates
-         *                          progress notifications.
-         * @see {@link https://api.jquery.com/deferred.progress/}
-         * @since 1.7
-         */
-        progress(progressCallback: TypeOrArray<Deferred.ProgressCallback<TN>>,
-                 ...progressCallbacks: Array<TypeOrArray<Deferred.ProgressCallback<TN>>>): this;
-        /**
-         * Return a Deferred's Promise object.
-         *
-         * @param target Object onto which the promise methods have to be attached
-         * @see {@link https://api.jquery.com/deferred.promise/}
-         * @since 1.5
-         */
-        promise<TTarget extends object>(target: TTarget): JQuery.Promise<TR, TJ, TN> & TTarget;
-        /**
-         * Return a Deferred's Promise object.
-         *
-         * @see {@link https://api.jquery.com/deferred.promise/}
-         * @since 1.5
-         */
-        promise(): JQuery.Promise<TR, TJ, TN>;
-        /**
-         * Determine the current state of a Deferred object.
-         *
-         * @see {@link https://api.jquery.com/deferred.state/}
-         * @since 1.7
-         */
-        state(): 'pending' | 'resolved' | 'rejected';
+    interface Promise2<TR, TJ, TN,
+        UR, UJ, UN> extends PromiseBase<TR, TJ, TN,
+        UR, UJ, UN,
+        never, never, never,
+        never, never, never> { }
 
-        /**
-         * Utility method to filter and/or chain Deferreds.
-         *
-         * @param doneFilter An optional function that is called when the Deferred is resolved.
-         * @param failFilter An optional function that is called when the Deferred is rejected.
-         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
-         * @see {@link https://api.jquery.com/deferred.pipe/}
-         * @since 1.6
-         * @since 1.7
-         * @deprecated 1.8
-         */
-        pipe<ARD = never, AJD = never, AND = never,
-            ARF = never, AJF = never, ANF = never,
-            ARP = never, AJP = never, ANP = never>
-            (doneFilter: (...t: TR[]) => Promise<ARD, AJD, AND> | Thenable<ARD> | ARD,
-             failFilter: (...t: TJ[]) => Promise<ARF, AJF, ANF> | Thenable<AJF> | AJF,
-             progressFilter: (...t: TN[]) => Promise<ARP, AJP, ANP> | Thenable<ANP> | ANP): Promise<ARD | ARF | ARP, AJD | AJF | AJP, AND | ANF | ANP>;
-        /**
-         * Utility method to filter and/or chain Deferreds.
-         *
-         * @param doneFilter An optional function that is called when the Deferred is resolved.
-         * @param failFilter An optional function that is called when the Deferred is rejected.
-         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
-         * @see {@link https://api.jquery.com/deferred.pipe/}
-         * @since 1.6
-         * @since 1.7
-         * @deprecated 1.8
-         */
-        pipe<ARF = never, AJF = never, ANF = never,
-            ARP = never, AJP = never, ANP = never>
-            (doneFilter: null,
-             failFilter: (...t: TJ[]) => Promise<ARF, AJF, ANF> | Thenable<AJF> | AJF,
-             progressFilter: (...t: TN[]) => Promise<ARP, AJP, ANP> | Thenable<ANP> | ANP): Promise<ARF | ARP, AJF | AJP, ANF | ANP>;
-        /**
-         * Utility method to filter and/or chain Deferreds.
-         *
-         * @param doneFilter An optional function that is called when the Deferred is resolved.
-         * @param failFilter An optional function that is called when the Deferred is rejected.
-         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
-         * @see {@link https://api.jquery.com/deferred.pipe/}
-         * @since 1.6
-         * @since 1.7
-         * @deprecated 1.8
-         */
-        pipe<ARD = never, AJD = never, AND = never,
-            ARP = never, AJP = never, ANP = never>
-            (doneFilter: (...t: TR[]) => Promise<ARD, AJD, AND> | Thenable<ARD> | ARD,
-             failFilter: null,
-             progressFilter: (...t: TN[]) => Promise<ARP, AJP, ANP> | Thenable<ANP> | ANP): Promise<ARD | ARP, AJD | AJP, AND | ANP>;
-        /**
-         * Utility method to filter and/or chain Deferreds.
-         *
-         * @param doneFilter An optional function that is called when the Deferred is resolved.
-         * @param failFilter An optional function that is called when the Deferred is rejected.
-         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
-         * @see {@link https://api.jquery.com/deferred.pipe/}
-         * @since 1.6
-         * @since 1.7
-         * @deprecated 1.8
-         */
-        pipe<ARF = never, AJF = never, ANF = never,
-            ARP = never, AJP = never, ANP = never>
-            (doneFilter: null,
-             failFilter: (...t: TR[]) => Promise<ARF, AJF, ANF> | Thenable<AJF> | AJF,
-             progressFilter: (...t: TN[]) => Promise<ARP, AJP, ANP> | Thenable<ANP> | ANP): Promise<ARF | ARP, AJF | AJP, ANF | ANP>;
-        /**
-         * Utility method to filter and/or chain Deferreds.
-         *
-         * @param doneFilter An optional function that is called when the Deferred is resolved.
-         * @param failFilter An optional function that is called when the Deferred is rejected.
-         * @see {@link https://api.jquery.com/deferred.pipe/}
-         * @since 1.6
-         * @since 1.7
-         * @deprecated 1.8
-         */
-        pipe<ARD = never, AJD = never, AND = never,
-            ARF = never, AJF = never, ANF = never>
-            (doneFilter: (...t: TR[]) => Promise<ARD, AJD, AND> | Thenable<ARD> | ARD,
-             failFilter: (...t: TJ[]) => Promise<ARF, AJF, ANF> | Thenable<AJF> | AJF,
-             progressFilter?: null): Promise<ARD | ARF, AJD | AJF, AND | ANF>;
-        /**
-         * Utility method to filter and/or chain Deferreds.
-         *
-         * @param doneFilter An optional function that is called when the Deferred is resolved.
-         * @param failFilter An optional function that is called when the Deferred is rejected.
-         * @see {@link https://api.jquery.com/deferred.pipe/}
-         * @since 1.6
-         * @since 1.7
-         * @deprecated 1.8
-         */
-        pipe<ARF = never, AJF = never, ANF = never>
-            (doneFilter: null,
-             failFilter: (...t: TJ[]) => Promise<ARF, AJF, ANF> | Thenable<AJF> | AJF,
-             progressFilter?: null): Promise<ARF, AJF, ANF>;
-        /**
-         * Utility method to filter and/or chain Deferreds.
-         *
-         * @param doneFilter An optional function that is called when the Deferred is resolved.
-         * @see {@link https://api.jquery.com/deferred.pipe/}
-         * @since 1.6
-         * @since 1.7
-         * @deprecated 1.8
-         */
-        pipe<ARD = never, AJD = never, AND = never>
-            (doneFilter: (...t: TR[]) => Promise<ARD, AJD, AND> | Thenable<ARD> | ARD,
-             failFilter?: null,
-             progressFilter?: null): Promise<ARD, AJD, AND>;
-
-        /**
-         * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
-         *
-         * @param doneFilter A function that is called when the Deferred is resolved.
-         * @param failFilter An optional function that is called when the Deferred is rejected.
-         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
-         * @see {@link https://api.jquery.com/deferred.then/}
-         * @since 1.8
-         */
-        then<ARD = never, AJD = never, AND = never,
-            ARF = never, AJF = never, ANF = never,
-            ARP = never, AJP = never, ANP = never>
-            (doneFilter: (...t: TR[]) => Promise<ARD, AJD, AND> | Thenable<ARD> | ARD,
-             failFilter: (...t: TJ[]) => Promise<ARF, AJF, ANF> | Thenable<ARF> | ARF,
-             progressFilter: (...t: TN[]) => Promise<ARP, AJP, ANP> | Thenable<ANP> | ANP): Promise<ARD | ARF | ARP, AJD | AJF | AJP, AND | ANF | ANP>;
-        /**
-         * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
-         *
-         * @param doneFilter A function that is called when the Deferred is resolved.
-         * @param failFilter An optional function that is called when the Deferred is rejected.
-         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
-         * @see {@link https://api.jquery.com/deferred.then/}
-         * @since 1.8
-         */
-        then<ARF = never, AJF = never, ANF = never,
-            ARP = never, AJP = never, ANP = never>
-            (doneFilter: null,
-             failFilter: (...t: TJ[]) => Promise<ARF, AJF, ANF> | Thenable<ARF> | ARF,
-             progressFilter: (...t: TN[]) => Promise<ARP, AJP, ANP> | Thenable<ANP> | ANP): Promise<ARF | ARP, AJF | AJP, ANF | ANP>;
-        /**
-         * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
-         *
-         * @param doneFilter A function that is called when the Deferred is resolved.
-         * @param failFilter An optional function that is called when the Deferred is rejected.
-         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
-         * @see {@link https://api.jquery.com/deferred.then/}
-         * @since 1.8
-         */
-        then<ARD = never, AJD = never, AND = never,
-            ARP = never, AJP = never, ANP = never>
-            (doneFilter: (...t: TR[]) => Promise<ARD, AJD, AND> | Thenable<ARD> | ARD,
-             failFilter: null,
-             progressFilter: (...t: TN[]) => Promise<ARP, AJP, ANP> | Thenable<ANP> | ANP): Promise<ARD | ARP, AJD | AJP, AND | ANP>;
-        /**
-         * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
-         *
-         * @param doneFilter A function that is called when the Deferred is resolved.
-         * @param failFilter An optional function that is called when the Deferred is rejected.
-         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
-         * @see {@link https://api.jquery.com/deferred.then/}
-         * @since 1.8
-         */
-        then<ARP = never, AJP = never, ANP = never>
-            (doneFilter: null,
-             failFilter: null,
-             progressFilter: (...t: TN[]) => Promise<ARP, AJP, ANP> | Thenable<ANP> | ANP): Promise<ARP, AJP, ANP>;
-        /**
-         * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
-         *
-         * @param doneFilter A function that is called when the Deferred is resolved.
-         * @param failFilter An optional function that is called when the Deferred is rejected.
-         * @see {@link https://api.jquery.com/deferred.then/}
-         * @since 1.8
-         */
-        then<ARD = never, AJD = never, AND = never,
-            ARF = never, AJF = never, ANF = never>
-            (doneFilter: (...t: TR[]) => Promise<ARD, AJD, AND> | Thenable<ARD> | ARD,
-             failFilter: (...t: TJ[]) => Promise<ARF, AJF, ANF> | Thenable<ARF> | ARF,
-             progressFilter?: null): Promise<ARD | ARF, AJD | AJF, AND | ANF>;
-        /**
-         * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
-         *
-         * @param doneFilter A function that is called when the Deferred is resolved.
-         * @param failFilter An optional function that is called when the Deferred is rejected.
-         * @see {@link https://api.jquery.com/deferred.then/}
-         * @since 1.8
-         */
-        then<ARF = never, AJF = never, ANF = never>
-            (doneFilter: null,
-             failFilter: (...t: TJ[]) => Promise<ARF, AJF, ANF> | Thenable<ARF> | ARF,
-             progressFilter?: null): Promise<ARF, AJF, ANF>;
-        /**
-         * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
-         *
-         * @param doneFilter A function that is called when the Deferred is resolved.
-         * @see {@link https://api.jquery.com/deferred.then/}
-         * @since 1.8
-         */
-        then<ARD = never, AJD = never, AND = never>
-            (doneFilter: (...t: TR[]) => Promise<ARD, AJD, AND> | Thenable<ARD> | ARD,
-             failFilter?: null,
-             progressFilter?: null): Promise<ARD, AJD, AND>;
-
-        /**
-         * Add handlers to be called when the Deferred object is rejected.
-         *
-         * @param failFilter A function that is called when the Deferred is rejected.
-         * @see {@link https://api.jquery.com/deferred.catch/}
-         * @since 3.0
-         */
-        catch<ARF = never, AJF = never, ANF = never>
-            (failFilter: (...t: TJ[]) => Promise<ARF, AJF, ANF> | Thenable<ARF> | ARF): Promise<ARF, AJF, ANF>;
-    }
+    /**
+     * This object provides a subset of the methods of the Deferred object (then, done, fail, always,
+     * pipe, progress, state and promise) to prevent users from changing the state of the Deferred.
+     *
+     * @see {@link http://api.jquery.com/Types/#Promise}
+     */
+    interface Promise<TR, TJ = any, TN = any> extends PromiseBase<TR, TJ, TN,
+        TR, TJ, TN,
+        TR, TJ, TN,
+        TR, TJ, TN> { }
 
     interface DeferredStatic {
         // https://jquery.com/upgrade-guide/3.0/#callback-exit
@@ -4959,7 +6816,7 @@ declare namespace JQuery {
         <TR = any, TJ = any, TN = any>(beforeStart?: (this: JQuery.Deferred<TR, TJ, TN>, deferred: JQuery.Deferred<TR, TJ, TN>) => void): JQuery.Deferred<TR, TJ, TN>;
     }
 
-    interface Deferred<TR, TJ = any, TN = any> extends JQuery.Promise<TR, TJ, TN> {
+    interface Deferred<TR, TJ = any, TN = any> {
         /**
          * Call the progressCallbacks on a Deferred object with the given args.
          *
@@ -5011,12 +6868,499 @@ declare namespace JQuery {
          * @since 1.5
          */
         resolveWith(context: object, args?: ArrayLike<TR>): this;
+
+        /**
+         * Add handlers to be called when the Deferred object is either resolved or rejected.
+         *
+         * @param alwaysCallback A function, or array of functions, that is called when the Deferred is resolved or rejected.
+         * @param alwaysCallbacks Optional additional functions, or arrays of functions, that are called when the Deferred is resolved or rejected.
+         * @see {@link https://api.jquery.com/deferred.always/}
+         * @since 1.6
+         */
+        always(alwaysCallback: TypeOrArray<Deferred.Callback<TR | TJ>>,
+               ...alwaysCallbacks: Array<TypeOrArray<Deferred.Callback<TR | TJ>>>): this;
+        /**
+         * Add handlers to be called when the Deferred object is resolved.
+         *
+         * @param doneCallback A function, or array of functions, that are called when the Deferred is resolved.
+         * @param doneCallbacks Optional additional functions, or arrays of functions, that are called when the Deferred is resolved.
+         * @see {@link https://api.jquery.com/deferred.done/}
+         * @since 1.5
+         */
+        done(doneCallback: TypeOrArray<Deferred.Callback<TR>>,
+             ...doneCallbacks: Array<TypeOrArray<Deferred.Callback<TR>>>): this;
+        /**
+         * Add handlers to be called when the Deferred object is rejected.
+         *
+         * @param failCallback A function, or array of functions, that are called when the Deferred is rejected.
+         * @param failCallbacks Optional additional functions, or arrays of functions, that are called when the Deferred is rejected.
+         * @see {@link https://api.jquery.com/deferred.fail/}
+         * @since 1.5
+         */
+        fail(failCallback: TypeOrArray<Deferred.Callback<TJ>>,
+             ...failCallbacks: Array<TypeOrArray<Deferred.Callback<TJ>>>): this;
+        /**
+         * Add handlers to be called when the Deferred object generates progress notifications.
+         *
+         * @param progressCallback A function, or array of functions, to be called when the Deferred generates progress notifications.
+         * @param progressCallbacks Optional additional functions, or arrays of functions, to be called when the Deferred generates
+         *                          progress notifications.
+         * @see {@link https://api.jquery.com/deferred.progress/}
+         * @since 1.7
+         */
+        progress(progressCallback: TypeOrArray<Deferred.Callback<TN>>,
+                 ...progressCallbacks: Array<TypeOrArray<Deferred.Callback<TN>>>): this;
+        /**
+         * Return a Deferred's Promise object.
+         *
+         * @param target Object onto which the promise methods have to be attached
+         * @see {@link https://api.jquery.com/deferred.promise/}
+         * @since 1.5
+         */
+        promise<TTarget extends object>(target: TTarget): JQuery.Promise<TR, TJ, TN> & TTarget;
+        /**
+         * Return a Deferred's Promise object.
+         *
+         * @see {@link https://api.jquery.com/deferred.promise/}
+         * @since 1.5
+         */
+        promise(): JQuery.Promise<TR, TJ, TN>;
+        /**
+         * Determine the current state of a Deferred object.
+         *
+         * @see {@link https://api.jquery.com/deferred.state/}
+         * @since 1.7
+         */
+        state(): 'pending' | 'resolved' | 'rejected';
+
+        // region pipe
+
+        /**
+         * Utility method to filter and/or chain Deferreds.
+         *
+         * @param doneFilter An optional function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
+         * @see {@link https://api.jquery.com/deferred.pipe/}
+         * @since 1.6
+         * @since 1.7
+         * @deprecated 1.8
+         */
+        pipe<ARD = never, AJD = never, AND = never,
+            BRD = never, BJD = never, BND = never,
+            CRD = never, CJD = never, CND = never,
+            RRD = never, RJD = never, RND = never,
+            ARF = never, AJF = never, ANF = never,
+            BRF = never, BJF = never, BNF = never,
+            CRF = never, CJF = never, CNF = never,
+            RRF = never, RJF = never, RNF = never,
+            ARP = never, AJP = never, ANP = never,
+            BRP = never, BJP = never, BNP = never,
+            CRP = never, CJP = never, CNP = never,
+            RRP = never, RJP = never, RNP = never>
+            (doneFilter: (...t: TR[]) => PromiseBase<ARD, AJD, AND,
+                 BRD, BJD, BND,
+                 CRD, CJD, CND,
+                 RRD, RJD, RND> | Thenable<ARD> | ARD,
+             failFilter: (...t: TJ[]) => PromiseBase<ARF, AJF, ANF,
+                 BRF, BJF, BNF,
+                 CRF, CJF, CNF,
+                 RRF, RJF, RNF> | Thenable<AJF> | AJF,
+             progressFilter: (...t: TN[]) => PromiseBase<ARP, AJP, ANP,
+                 BRP, BJP, BNP,
+                 CRP, CJP, CNP,
+                 RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARD | ARF | ARP, AJD | AJF | AJP, AND | ANF | ANP,
+            BRD | BRF | BRP, BJD | BJF | BJP, BND | BNF | BNP,
+            CRD | CRF | CRP, CJD | CJF | CJP, CND | CNF | CNP,
+            RRD | RRF | RRP, RJD | RJF | RJP, RND | RNF | RNP>;
+        /**
+         * Utility method to filter and/or chain Deferreds.
+         *
+         * @param doneFilter An optional function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
+         * @see {@link https://api.jquery.com/deferred.pipe/}
+         * @since 1.6
+         * @since 1.7
+         * @deprecated 1.8
+         */
+        pipe<ARF = never, AJF = never, ANF = never,
+            BRF = never, BJF = never, BNF = never,
+            CRF = never, CJF = never, CNF = never,
+            RRF = never, RJF = never, RNF = never,
+            ARP = never, AJP = never, ANP = never,
+            BRP = never, BJP = never, BNP = never,
+            CRP = never, CJP = never, CNP = never,
+            RRP = never, RJP = never, RNP = never>
+            (doneFilter: null,
+             failFilter: (...t: TJ[]) => PromiseBase<ARF, AJF, ANF,
+                 BRF, BJF, BNF,
+                 CRF, CJF, CNF,
+                 RRF, RJF, RNF> | Thenable<AJF> | AJF,
+             progressFilter: (...t: TN[]) => PromiseBase<ARP, AJP, ANP,
+                 BRP, BJP, BNP,
+                 CRP, CJP, CNP,
+                 RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARF | ARP, AJF | AJP, ANF | ANP,
+            BRF | BRP, BJF | BJP, BNF | BNP,
+            CRF | CRP, CJF | CJP, CNF | CNP,
+            RRF | RRP, RJF | RJP, RNF | RNP>;
+        /**
+         * Utility method to filter and/or chain Deferreds.
+         *
+         * @param doneFilter An optional function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
+         * @see {@link https://api.jquery.com/deferred.pipe/}
+         * @since 1.6
+         * @since 1.7
+         * @deprecated 1.8
+         */
+        pipe<ARD = never, AJD = never, AND = never,
+            BRD = never, BJD = never, BND = never,
+            CRD = never, CJD = never, CND = never,
+            RRD = never, RJD = never, RND = never,
+            ARP = never, AJP = never, ANP = never,
+            BRP = never, BJP = never, BNP = never,
+            CRP = never, CJP = never, CNP = never,
+            RRP = never, RJP = never, RNP = never>
+            (doneFilter: (...t: TR[]) => PromiseBase<ARD, AJD, AND,
+                 BRD, BJD, BND,
+                 CRD, CJD, CND,
+                 RRD, RJD, RND> | Thenable<ARD> | ARD,
+             failFilter: null,
+             progressFilter: (...t: TN[]) => PromiseBase<ARP, AJP, ANP,
+                 BRP, BJP, BNP,
+                 CRP, CJP, CNP,
+                 RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARD | ARP, AJD | AJP, AND | ANP,
+            BRD | BRP, BJD | BJP, BND | BNP,
+            CRD | CRP, CJD | CJP, CND | CNP,
+            RRD | RRP, RJD | RJP, RND | RNP>;
+        /**
+         * Utility method to filter and/or chain Deferreds.
+         *
+         * @param doneFilter An optional function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
+         * @see {@link https://api.jquery.com/deferred.pipe/}
+         * @since 1.6
+         * @since 1.7
+         * @deprecated 1.8
+         */
+        pipe<ARP = never, AJP = never, ANP = never,
+            BRP = never, BJP = never, BNP = never,
+            CRP = never, CJP = never, CNP = never,
+            RRP = never, RJP = never, RNP = never>
+            (doneFilter: null,
+             failFilter: null,
+             progressFilter?: (...t: TN[]) => PromiseBase<ARP, AJP, ANP,
+                 BRP, BJP, BNP,
+                 CRP, CJP, CNP,
+                 RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARP, AJP, ANP,
+            BRP, BJP, BNP,
+            CRP, CJP, CNP,
+            RRP, RJP, RNP>;
+        /**
+         * Utility method to filter and/or chain Deferreds.
+         *
+         * @param doneFilter An optional function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
+         * @see {@link https://api.jquery.com/deferred.pipe/}
+         * @since 1.6
+         * @since 1.7
+         * @deprecated 1.8
+         */
+        pipe<ARD = never, AJD = never, AND = never,
+            BRD = never, BJD = never, BND = never,
+            CRD = never, CJD = never, CND = never,
+            RRD = never, RJD = never, RND = never,
+            ARF = never, AJF = never, ANF = never,
+            BRF = never, BJF = never, BNF = never,
+            CRF = never, CJF = never, CNF = never,
+            RRF = never, RJF = never, RNF = never>
+            (doneFilter: (...t: TR[]) => PromiseBase<ARD, AJD, AND,
+                 BRD, BJD, BND,
+                 CRD, CJD, CND,
+                 RRD, RJD, RND> | Thenable<ARD> | ARD,
+             failFilter: (...t: TJ[]) => PromiseBase<ARF, AJF, ANF,
+                 BRF, BJF, BNF,
+                 CRF, CJF, CNF,
+                 RRF, RJF, RNF> | Thenable<AJF> | AJF,
+             progressFilter?: null): PromiseBase<ARD | ARF, AJD | AJF, AND | ANF,
+            BRD | BRF, BJD | BJF, BND | BNF,
+            CRD | CRF, CJD | CJF, CND | CNF,
+            RRD | RRF, RJD | RJF, RND | RNF>;
+        /**
+         * Utility method to filter and/or chain Deferreds.
+         *
+         * @param doneFilter An optional function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
+         * @see {@link https://api.jquery.com/deferred.pipe/}
+         * @since 1.6
+         * @since 1.7
+         * @deprecated 1.8
+         */
+        pipe<ARF = never, AJF = never, ANF = never,
+            BRF = never, BJF = never, BNF = never,
+            CRF = never, CJF = never, CNF = never,
+            RRF = never, RJF = never, RNF = never>
+            (doneFilter: null,
+             failFilter: (...t: TJ[]) => PromiseBase<ARF, AJF, ANF,
+                 BRF, BJF, BNF,
+                 CRF, CJF, CNF,
+                 RRF, RJF, RNF> | Thenable<AJF> | AJF,
+             progressFilter?: null): PromiseBase<ARF, AJF, ANF,
+            BRF, BJF, BNF,
+            CRF, CJF, CNF,
+            RRF, RJF, RNF>;
+        /**
+         * Utility method to filter and/or chain Deferreds.
+         *
+         * @param doneFilter An optional function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
+         * @see {@link https://api.jquery.com/deferred.pipe/}
+         * @since 1.6
+         * @since 1.7
+         * @deprecated 1.8
+         */
+        pipe<ARD = never, AJD = never, AND = never,
+            BRD = never, BJD = never, BND = never,
+            CRD = never, CJD = never, CND = never,
+            RRD = never, RJD = never, RND = never>
+            (doneFilter: (...t: TR[]) => PromiseBase<ARD, AJD, AND,
+                 BRD, BJD, BND,
+                 CRD, CJD, CND,
+                 RRD, RJD, RND> | Thenable<ARD> | ARD,
+             failFilter?: null,
+             progressFilter?: null): PromiseBase<ARD, AJD, AND,
+            BRD, BJD, BND,
+            CRD, CJD, CND,
+            RRD, RJD, RND>;
+
+        // endregion
+
+        // region then
+
+        /**
+         * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
+         *
+         * @param doneFilter A function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
+         * @see {@link https://api.jquery.com/deferred.then/}
+         * @since 1.8
+         */
+        then<ARD = never, AJD = never, AND = never,
+            BRD = never, BJD = never, BND = never,
+            CRD = never, CJD = never, CND = never,
+            RRD = never, RJD = never, RND = never,
+            ARF = never, AJF = never, ANF = never,
+            BRF = never, BJF = never, BNF = never,
+            CRF = never, CJF = never, CNF = never,
+            RRF = never, RJF = never, RNF = never,
+            ARP = never, AJP = never, ANP = never,
+            BRP = never, BJP = never, BNP = never,
+            CRP = never, CJP = never, CNP = never,
+            RRP = never, RJP = never, RNP = never>
+            (doneFilter: (...t: TR[]) => PromiseBase<ARD, AJD, AND,
+                 BRD, BJD, BND,
+                 CRD, CJD, CND,
+                 RRD, RJD, RND> | Thenable<ARD> | ARD,
+             failFilter: (...t: TJ[]) => PromiseBase<ARF, AJF, ANF,
+                 BRF, BJF, BNF,
+                 CRF, CJF, CNF,
+                 RRF, RJF, RNF> | Thenable<ARF> | ARF,
+             progressFilter: (...t: TN[]) => PromiseBase<ARP, AJP, ANP,
+                 BRP, BJP, BNP,
+                 CRP, CJP, CNP,
+                 RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARD | ARF | ARP, AJD | AJF | AJP, AND | ANF | ANP,
+            BRD | BRF | BRP, BJD | BJF | BJP, BND | BNF | BNP,
+            CRD | CRF | CRP, CJD | CJF | CJP, CND | CNF | CNP,
+            RRD | RRF | RRP, RJD | RJF | RJP, RND | RNF | RNP>;
+        /**
+         * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
+         *
+         * @param doneFilter A function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
+         * @see {@link https://api.jquery.com/deferred.then/}
+         * @since 1.8
+         */
+        then<ARF = never, AJF = never, ANF = never,
+            BRF = never, BJF = never, BNF = never,
+            CRF = never, CJF = never, CNF = never,
+            RRF = never, RJF = never, RNF = never,
+            ARP = never, AJP = never, ANP = never,
+            BRP = never, BJP = never, BNP = never,
+            CRP = never, CJP = never, CNP = never,
+            RRP = never, RJP = never, RNP = never>
+            (doneFilter: null,
+             failFilter: (...t: TJ[]) => PromiseBase<ARF, AJF, ANF,
+                 BRF, BJF, BNF,
+                 CRF, CJF, CNF,
+                 RRF, RJF, RNF> | Thenable<ARF> | ARF,
+             progressFilter: (...t: TN[]) => PromiseBase<ARP, AJP, ANP,
+                 BRP, BJP, BNP,
+                 CRP, CJP, CNP,
+                 RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARF | ARP, AJF | AJP, ANF | ANP,
+            BRF | BRP, BJF | BJP, BNF | BNP,
+            CRF | CRP, CJF | CJP, CNF | CNP,
+            RRF | RRP, RJF | RJP, RNF | RNP>;
+        /**
+         * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
+         *
+         * @param doneFilter A function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
+         * @see {@link https://api.jquery.com/deferred.then/}
+         * @since 1.8
+         */
+        then<ARD = never, AJD = never, AND = never,
+            BRD = never, BJD = never, BND = never,
+            CRD = never, CJD = never, CND = never,
+            RRD = never, RJD = never, RND = never,
+            ARP = never, AJP = never, ANP = never,
+            BRP = never, BJP = never, BNP = never,
+            CRP = never, CJP = never, CNP = never,
+            RRP = never, RJP = never, RNP = never>
+            (doneFilter: (...t: TR[]) => PromiseBase<ARD, AJD, AND,
+                 BRD, BJD, BND,
+                 CRD, CJD, CND,
+                 RRD, RJD, RND> | Thenable<ARD> | ARD,
+             failFilter: null,
+             progressFilter: (...t: TN[]) => PromiseBase<ARP, AJP, ANP,
+                 BRP, BJP, BNP,
+                 CRP, CJP, CNP,
+                 RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARD | ARP, AJD | AJP, AND | ANP,
+            BRD | BRP, BJD | BJP, BND | BNP,
+            CRD | CRP, CJD | CJP, CND | CNP,
+            RRD | RRP, RJD | RJP, RND | RNP>;
+        /**
+         * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
+         *
+         * @param doneFilter A function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
+         * @see {@link https://api.jquery.com/deferred.then/}
+         * @since 1.8
+         */
+        then<ARP = never, AJP = never, ANP = never,
+            BRP = never, BJP = never, BNP = never,
+            CRP = never, CJP = never, CNP = never,
+            RRP = never, RJP = never, RNP = never>
+            (doneFilter: null,
+             failFilter: null,
+             progressFilter?: (...t: TN[]) => PromiseBase<ARP, AJP, ANP,
+                 BRP, BJP, BNP,
+                 CRP, CJP, CNP,
+                 RRP, RJP, RNP> | Thenable<ANP> | ANP): PromiseBase<ARP, AJP, ANP,
+            BRP, BJP, BNP,
+            CRP, CJP, CNP,
+            RRP, RJP, RNP>;
+        /**
+         * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
+         *
+         * @param doneFilter An optional function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
+         * @see {@link https://api.jquery.com/deferred.then/}
+         * @since 1.8
+         */
+        then<ARD = never, AJD = never, AND = never,
+            BRD = never, BJD = never, BND = never,
+            CRD = never, CJD = never, CND = never,
+            RRD = never, RJD = never, RND = never,
+            ARF = never, AJF = never, ANF = never,
+            BRF = never, BJF = never, BNF = never,
+            CRF = never, CJF = never, CNF = never,
+            RRF = never, RJF = never, RNF = never>
+            (doneFilter: (...t: TR[]) => PromiseBase<ARD, AJD, AND,
+                 BRD, BJD, BND,
+                 CRD, CJD, CND,
+                 RRD, RJD, RND> | Thenable<ARD> | ARD,
+             failFilter: (...t: TJ[]) => PromiseBase<ARF, AJF, ANF,
+                 BRF, BJF, BNF,
+                 CRF, CJF, CNF,
+                 RRF, RJF, RNF> | Thenable<ARF> | ARF,
+             progressFilter?: null): PromiseBase<ARD | ARF, AJD | AJF, AND | ANF,
+            BRD | BRF, BJD | BJF, BND | BNF,
+            CRD | CRF, CJD | CJF, CND | CNF,
+            RRD | RRF, RJD | RJF, RND | RNF>;
+        /**
+         * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
+         *
+         * @param doneFilter An optional function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
+         * @see {@link https://api.jquery.com/deferred.then/}
+         * @since 1.8
+         */
+        then<ARF = never, AJF = never, ANF = never,
+            BRF = never, BJF = never, BNF = never,
+            CRF = never, CJF = never, CNF = never,
+            RRF = never, RJF = never, RNF = never>
+            (doneFilter: null,
+             failFilter: (...t: TJ[]) => PromiseBase<ARF, AJF, ANF,
+                 BRF, BJF, BNF,
+                 CRF, CJF, CNF,
+                 RRF, RJF, RNF> | Thenable<ARF> | ARF,
+             progressFilter?: null): PromiseBase<ARF, AJF, ANF,
+            BRF, BJF, BNF,
+            CRF, CJF, CNF,
+            RRF, RJF, RNF>;
+        /**
+         * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
+         *
+         * @param doneFilter An optional function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
+         * @see {@link https://api.jquery.com/deferred.then/}
+         * @since 1.8
+         */
+        then<ARD = never, AJD = never, AND = never,
+            BRD = never, BJD = never, BND = never,
+            CRD = never, CJD = never, CND = never,
+            RRD = never, RJD = never, RND = never>
+            (doneFilter: (...t: TR[]) => PromiseBase<ARD, AJD, AND,
+                 BRD, BJD, BND,
+                 CRD, CJD, CND,
+                 RRD, RJD, RND> | Thenable<ARD> | ARD,
+             failFilter?: null,
+             progressFilter?: null): PromiseBase<ARD, AJD, AND,
+            BRD, BJD, BND,
+            CRD, CJD, CND,
+            RRD, RJD, RND>;
+
+        // endregion
+
+        /**
+         * Add handlers to be called when the Deferred object is rejected.
+         *
+         * @param failFilter A function that is called when the Deferred is rejected.
+         * @see {@link https://api.jquery.com/deferred.catch/}
+         * @since 3.0
+         */
+        catch<ARF = never, AJF = never, ANF = never,
+            BRF = never, BJF = never, BNF = never,
+            CRF = never, CJF = never, CNF = never,
+            RRF = never, RJF = never, RNF = never>
+            (failFilter?: ((...t: TJ[]) => PromiseBase<ARF, AJF, ANF,
+                BRF, BJF, BNF,
+                CRF, CJF, CNF,
+                RRF, RJF, RNF> | Thenable<ARF> | ARF) | undefined | null): PromiseBase<ARF, AJF, ANF,
+            BRF, BJF, BNF,
+            CRF, CJF, CNF,
+            RRF, RJF, RNF>;
     }
 
     namespace Deferred {
-        interface Callback3<T, U, V> {
-            (t: T, u: U, v: V): void;
+        interface CallbackBase<T, U, V, R> {
+            (t: T, u: U, v: V, ...r: R[]): void;
         }
+
+        interface Callback3<T, U, V> extends CallbackBase<T, U, V, never> { }
 
         interface Callback<T> {
             (...args: T[]): void;
@@ -5155,6 +7499,14 @@ declare namespace JQuery {
 
     // This should be a class but doesn't work correctly under the JQuery namespace. Event should be an inner class of jQuery.
 
+    // Static members
+    interface EventStatic<TTarget = EventTarget> {
+        <T extends object>(event: string, properties?: T): JQuery.Event<TTarget> & T;
+        <T extends EventLike>(properties: T): JQuery.Event<TTarget> & T;
+        new <T extends object>(event: string, properties?: T): JQuery.Event<TTarget> & T;
+        new <T extends EventLike>(properties: T): JQuery.Event<TTarget> & T;
+    }
+
     // Instance members
     interface Event {
         /**
@@ -5213,7 +7565,6 @@ declare namespace JQuery {
          * @since 1.1.3
          */
         which: number;
-
         /**
          * Returns whether event.preventDefault() was ever called on this event object.
          *
@@ -5221,7 +7572,6 @@ declare namespace JQuery {
          * @since 1.3
          */
         isDefaultPrevented(): boolean;
-
         /**
          * Returns whether event.stopImmediatePropagation() was ever called on this event object.
          *
@@ -5229,7 +7579,6 @@ declare namespace JQuery {
          * @since 1.3
          */
         isImmediatePropagationStopped(): boolean;
-
         /**
          * Returns whether event.stopPropagation() was ever called on this event object.
          *
@@ -5237,7 +7586,6 @@ declare namespace JQuery {
          * @since 1.3
          */
         isPropagationStopped(): boolean;
-
         /**
          * If this method is called, the default action of the event will not be triggered.
          *
@@ -5245,7 +7593,6 @@ declare namespace JQuery {
          * @since 1.0
          */
         preventDefault(): void;
-
         /**
          * Keeps the rest of the handlers from being executed and prevents the event from bubbling up the DOM tree.
          *
@@ -5253,7 +7600,6 @@ declare namespace JQuery {
          * @since 1.3
          */
         stopImmediatePropagation(): void;
-
         /**
          * Prevents the event from bubbling up the DOM tree, preventing any parent handlers from being notified of the event.
          *
@@ -5307,23 +7653,17 @@ declare namespace JQuery {
         target: TTarget;
     }
 
-    // Static members
-    interface EventStatic<TTarget = EventTarget> {
-        <T extends object>(event: string, properties?: T): JQuery.Event<TTarget> & T;
-        <T extends EventLike>(properties: T): JQuery.Event<TTarget> & T;
-        new <T extends object>(event: string, properties?: T): JQuery.Event<TTarget> & T;
-        new <T extends EventLike>(properties: T): JQuery.Event<TTarget> & T;
-    }
-
     interface EventLike {
         type: string;
     }
 
     // endregion
 
-    // Extra parameters can be passed from trigger()
-    interface EventHandler<TContext, TData = null> {
-        (this: TContext, eventObject: JQuery.Event<TContext, TData>, ...args: any[]): void | false | any;
+    interface EventHandler<TCurrentTarget extends EventTarget, TData = null> extends EventHandlerBase<TCurrentTarget, JQuery.Event<TCurrentTarget, TData>> { }
+
+    interface EventHandlerBase<TContext extends object, T> {
+        // Extra parameters can be passed from trigger()
+        (this: TContext, t: T, ...args: any[]): void | false | any;
     }
 
     // Provided for convenience for use with jQuery.Event.which

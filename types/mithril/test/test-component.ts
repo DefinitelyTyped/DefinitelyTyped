@@ -1,6 +1,6 @@
 import * as m from 'mithril';
 
-import {Comp, Component} from 'mithril';
+import { Comp, Component } from 'mithril';
 
 ///////////////////////////////////////////////////////////
 // 0.
@@ -177,10 +177,11 @@ interface State {
 	count: number;
 }
 
-export default {
+// Using the Comp type will apply the State intersection type for us.
+const comp: Comp<Attrs, State> = {
 	count: 0,
 	view({attrs}) {
 		return m('span', `name: ${attrs.name}, count: ${this.count}`);
 	}
-} as Comp<Attrs, State>;
-// Using the Comp type will apply the State intersection type for us.
+};
+export default comp;

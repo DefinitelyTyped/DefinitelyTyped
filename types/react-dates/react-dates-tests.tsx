@@ -11,7 +11,7 @@ import {
         isSameDay,
         toISODateString,
         toLocalizedDateString,
-        toMomentObject} from "react-dates";
+        toMomentObject } from "react-dates";
 
 
 
@@ -47,6 +47,7 @@ class SingleDatePickerFullTest extends React.Component {
                     keepOpenOnDateSelect={true}
                     navNext="next"
                     navPrev="prev"
+                    hideKeyboardShortcutsPanel={true}
                     withPortal={false}
                     onDateChange={d => {}}
                     focused={false}

@@ -11,7 +11,7 @@ import {
     IHelmetDnsPrefetchControlConfiguration,
     IHelmetHpkpConfiguration,
     IHelmetReferrerPolicyConfiguration } from 'helmet';
-import {Middleware, Context} from 'koa';
+import { Middleware, Context } from 'koa';
 
 declare namespace koaHelmet {
     type KoaHelmetContentSecurityPolicyDirectiveFunction = (ctx: Context) => string;
