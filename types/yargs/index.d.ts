@@ -105,7 +105,7 @@ declare namespace yargs {
 
         example(command: string, description: string): Argv;
 
-        check(func: (argv: Arguments, aliases: { [alias: string]: string }) => any): Argv;
+        check(func: (argv: Arguments, aliases: { [alias: string]: string }) => any, global?: boolean): Argv;
 
         boolean(key: string): Argv;
         boolean(keys: string[]): Argv;

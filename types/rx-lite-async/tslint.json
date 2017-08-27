@@ -1,7 +1,9 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
+        // TODOs
         "max-line-length": false,
+        "no-object-literal-type-assertion": false,
         "no-single-declare-module": false
     }
 }

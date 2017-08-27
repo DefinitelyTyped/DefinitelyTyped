@@ -1,6 +1,8 @@
 {
   "extends": "dtslint/dt.json",
   "rules": {
+    // TODOs
+    "await-promise": false,
     "no-single-declare-module": false,
     "unified-signatures": false
   }

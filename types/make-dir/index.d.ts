@@ -1,7 +1,11 @@
 // Type definitions for make-dir 1.0
 // Project: https://github.com/sindresorhus/make-dir
 // Definitions by: Ika <https://github.com/ikatyang>
+//                 BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+/// <reference types="node"/>
+import * as fs from 'fs';
 
 export = makeDir;
 
@@ -33,6 +37,6 @@ declare namespace makeDir {
          *
          * Use a custom `fs` implementation. For example [`graceful-fs`](https://github.com/isaacs/node-graceful-fs).
          */
-        fs?: any;
+        fs?: typeof fs;
     }
 }

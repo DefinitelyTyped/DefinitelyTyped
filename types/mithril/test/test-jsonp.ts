@@ -1,4 +1,4 @@
-import {jsonp} from 'mithril/request';
+import { jsonp } from 'mithril/request';
 
 interface Result {
 	id: number;

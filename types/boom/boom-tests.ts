@@ -136,7 +136,8 @@ const gatewayTimeoutError = Boom.gatewayTimeout('message', {some: 'data'});
 gatewayTimeoutError.data.some;
 const gatewayTimeoutError2: Boom.BoomError = Boom.gatewayTimeout('message');
 
-// wrap and create
+// boomify, wrap, and create
+const boomifiedError = Boom.boomify(new Error('test'), { statusCode: 400, message: 'some message' })
 
 const wrappedError = Boom.wrap(new Error('test'), 400, 'some message');
 

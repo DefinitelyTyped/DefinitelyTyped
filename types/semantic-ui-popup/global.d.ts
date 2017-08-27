@@ -51,6 +51,18 @@ declare namespace SemanticUI {
          */
         (behavior: 'set position', position: string): JQuery;
         /**
+         * @since 2.2.11
+         */
+        (behavior: 'bind clickaway'): JQuery;
+        /**
+         * @since 2.2.11
+         */
+        (behavior: 'bind touch close'): JQuery;
+        /**
+         * @since 2.2.11
+         */
+        (behavior: 'bind close on scroll'): JQuery;
+        /**
          * Removes popup from the page and removes all events
          */
         (behavior: 'destroy'): JQuery;
@@ -471,7 +483,8 @@ declare namespace SemanticUI {
             type Param = (Pick<_Impl, 'loading'> |
                 Pick<_Impl, 'popup'> |
                 Pick<_Impl, 'position'> |
-                Pick<_Impl, 'visible'>) &
+                Pick<_Impl, 'visible'> |
+                Pick<_Impl, 'popupVisible'>) &
                 Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
@@ -491,6 +504,10 @@ declare namespace SemanticUI {
                  * @default 'visible'
                  */
                 visible: string;
+                /**
+                 * @since 2.2.11
+                 */
+                popupVisible: string;
             }
         }
 
