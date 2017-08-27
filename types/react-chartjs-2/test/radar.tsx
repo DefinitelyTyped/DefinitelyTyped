@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Radar} from 'react-chartjs-2';
+import { Radar } from 'react-chartjs-2';
 
 const data = {
   labels: ['Eating', 'Drinking', 'Sleeping', 'Designing', 'Coding', 'Cycling', 'Running'],

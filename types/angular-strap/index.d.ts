@@ -1,4 +1,4 @@
-// Type definitions for angular-strap v2.2.x
+// Type definitions for angular-strap v2.3.x
 // Project: http://mgcrea.github.io/angular-strap/
 // Definitions by: Sam Herrmann <https://github.com/samherrmann>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -42,12 +42,19 @@ declare namespace mgcrea.ngStrap {
             keyboard?: boolean;
             show?: boolean;
             container?: string | boolean;
+            controller?: any;
+            controllerAs?: string;
             template?: string;
             templateUrl?: string;
             contentTemplate?: string;
+            prefixClass?:  string;
             prefixEvent?: string;
             id?: string;
             scope?: ng.IScope;
+            onBeforeHide?: (modal: IModal) => void;
+            onHide?: (modal: IModal) => void;
+            onBeforeShow?: (modal: IModal) => void;
+            onShow?: (modal: IModal) => void;
         }
 
         interface IModalScope extends ng.IScope {

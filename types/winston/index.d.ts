@@ -7,7 +7,7 @@
 
 /// <reference types="node" />
 
-import {Agent} from 'http';
+import { Agent } from 'http';
 
 declare namespace winston {
     interface AbstractConfigSetLevels {
@@ -86,43 +86,43 @@ declare namespace winston {
     }
 
     interface Winston {
-        config: winston.Config;
-        transports: winston.Transports;
-        Transport: winston.TransportStatic;
-        Logger: winston.LoggerStatic;
-        Container: winston.ContainerStatic;
-        loggers: winston.ContainerInstance;
-        default: winston.LoggerInstance;
+        config: Config;
+        transports: Transports;
+        Transport: TransportStatic;
+        Logger: LoggerStatic;
+        Container: ContainerStatic;
+        loggers: ContainerInstance;
+        default: LoggerInstance;
 
-        exception: winston.Exception;
+        exception: Exception;
 
         exitOnError: boolean;
         level: string;
 
-        log: winston.LogMethod;
+        log: LogMethod;
 
-        silly: winston.LeveledLogMethod;
-        debug: winston.LeveledLogMethod;
-        verbose: winston.LeveledLogMethod;
-        info: winston.LeveledLogMethod;
-        warn: winston.LeveledLogMethod;
-        error: winston.LeveledLogMethod;
+        silly: LeveledLogMethod;
+        debug: LeveledLogMethod;
+        verbose: LeveledLogMethod;
+        info: LeveledLogMethod;
+        warn: LeveledLogMethod;
+        error: LeveledLogMethod;
 
-        query(options: winston.QueryOptions, callback?: (err: Error, results: any) => void): any;
+        query(options: QueryOptions, callback?: (err: Error, results: any) => void): any;
         query(callback: (err: Error, results: any) => void): any;
         stream(options?: any): NodeJS.ReadableStream;
-        handleExceptions(...transports: winston.TransportInstance[]): void;
-        unhandleExceptions(...transports: winston.TransportInstance[]): void;
-        add(transport: winston.TransportInstance, options?: winston.TransportOptions, created?: boolean): winston.LoggerInstance;
+        handleExceptions(...transports: TransportInstance[]): void;
+        unhandleExceptions(...transports: TransportInstance[]): void;
+        add(transport: TransportInstance, options?: TransportOptions, created?: boolean): LoggerInstance;
         clear(): void;
-        remove(transport: string | winston.TransportInstance): winston.LoggerInstance;
-        startTimer(): winston.ProfileHandler;
-        profile(id: string, msg?: string, meta?: any, callback?: (err: Error, level: string, msg: string, meta: any) => void): winston.LoggerInstance;
+        remove(transport: string | TransportInstance): LoggerInstance;
+        startTimer(): ProfileHandler;
+        profile(id: string, msg?: string, meta?: any, callback?: (err: Error, level: string, msg: string, meta: any) => void): LoggerInstance;
         addColors(target: AbstractConfigSetColors): any;
         setLevels(target: AbstractConfigSetLevels): any;
-        cli(): winston.LoggerInstance;
+        cli(): LoggerInstance;
         close(): void;
-        configure(options: winston.LoggerOptions): void;
+        configure(options: LoggerOptions): void;
     }
 
     type CLILoggingLevel = 'error' | 'warn' | 'help' | 'data' | 'info' | 'debug' | 'prompt' | 'verbose' | 'input' | 'silly';

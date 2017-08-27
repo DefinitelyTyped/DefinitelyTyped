@@ -10,14 +10,14 @@ import { GraphQLSchema } from './schema';
  * These are all of the possible kinds of types.
  */
 export type GraphQLType =
-    GraphQLScalarType |
-    GraphQLObjectType |
-    GraphQLInterfaceType |
-    GraphQLUnionType |
-    GraphQLEnumType |
-    GraphQLInputObjectType |
-    GraphQLList<any> |
-    GraphQLNonNull<any>;
+    | GraphQLScalarType
+    | GraphQLObjectType
+    | GraphQLInterfaceType
+    | GraphQLUnionType
+    | GraphQLEnumType
+    | GraphQLInputObjectType
+    | GraphQLList<any>
+    | GraphQLNonNull<any>;
 
 export function isType(type: any): type is GraphQLType;
 
@@ -27,16 +27,15 @@ export function assertType(type: any): GraphQLType;
  * These types may be used as input types for arguments and directives.
  */
 export type GraphQLInputType =
-    GraphQLScalarType |
-    GraphQLEnumType |
-    GraphQLInputObjectType |
-    GraphQLList<any> |
-    GraphQLNonNull<
-    GraphQLScalarType |
-    GraphQLEnumType |
-    GraphQLInputObjectType |
-    GraphQLList<any>
-    >;
+    | GraphQLScalarType
+    | GraphQLEnumType
+    | GraphQLInputObjectType
+    | GraphQLList<any>
+    | GraphQLNonNull<
+        | GraphQLScalarType
+        | GraphQLEnumType
+        | GraphQLInputObjectType
+        | GraphQLList<any>>;
 
 export function isInputType(type: GraphQLType): type is GraphQLInputType;
 
@@ -46,20 +45,19 @@ export function assertInputType(type: GraphQLType): GraphQLInputType;
  * These types may be used as output types as the result of fields.
  */
 export type GraphQLOutputType =
-    GraphQLScalarType |
-    GraphQLObjectType |
-    GraphQLInterfaceType |
-    GraphQLUnionType |
-    GraphQLEnumType |
-    GraphQLList<any> |
-    GraphQLNonNull<
-    GraphQLScalarType |
-    GraphQLObjectType |
-    GraphQLInterfaceType |
-    GraphQLUnionType |
-    GraphQLEnumType |
-    GraphQLList<any>
-    >;
+    | GraphQLScalarType
+    | GraphQLObjectType
+    | GraphQLInterfaceType
+    | GraphQLUnionType
+    | GraphQLEnumType
+    | GraphQLList<any>
+    | GraphQLNonNull<
+        | GraphQLScalarType
+        | GraphQLObjectType
+        | GraphQLInterfaceType
+        | GraphQLUnionType
+        | GraphQLEnumType
+        | GraphQLList<any>>;
 
 export function isOutputType(type: GraphQLType): type is GraphQLOutputType;
 
@@ -69,8 +67,8 @@ export function assertOutputType(type: GraphQLType): GraphQLOutputType;
  * These types may describe types which may be leaf values.
  */
 export type GraphQLLeafType =
-    GraphQLScalarType |
-    GraphQLEnumType;
+    | GraphQLScalarType
+    | GraphQLEnumType;
 
 export function isLeafType(type: GraphQLType): type is GraphQLLeafType;
 
@@ -80,9 +78,9 @@ export function assertLeafType(type: GraphQLType): GraphQLLeafType;
  * These types may describe the parent context of a selection set.
  */
 export type GraphQLCompositeType =
-    GraphQLObjectType |
-    GraphQLInterfaceType |
-    GraphQLUnionType;
+    | GraphQLObjectType
+    | GraphQLInterfaceType
+    | GraphQLUnionType;
 
 export function isCompositeType(type: GraphQLType): type is GraphQLCompositeType;
 
@@ -92,8 +90,8 @@ export function assertCompositeType(type: GraphQLType): GraphQLCompositeType;
  * These types may describe the parent context of a selection set.
  */
 export type GraphQLAbstractType =
-    GraphQLInterfaceType |
-    GraphQLUnionType;
+    | GraphQLInterfaceType
+    | GraphQLUnionType;
 
 export function isAbstractType(type: GraphQLType): type is GraphQLAbstractType;
 
@@ -103,13 +101,13 @@ export function assertAbstractType(type: GraphQLType): GraphQLAbstractType;
  * These types can all accept null as a value.
  */
 export type GraphQLNullableType =
-    GraphQLScalarType |
-    GraphQLObjectType |
-    GraphQLInterfaceType |
-    GraphQLUnionType |
-    GraphQLEnumType |
-    GraphQLInputObjectType |
-    GraphQLList<any>;
+    | GraphQLScalarType
+    | GraphQLObjectType
+    | GraphQLInterfaceType
+    | GraphQLUnionType
+    | GraphQLEnumType
+    | GraphQLInputObjectType
+    | GraphQLList<any>;
 
 export function getNullableType<T extends GraphQLType>(
     type: T
@@ -119,12 +117,12 @@ export function getNullableType<T extends GraphQLType>(
  * These named types do not include modifiers like List or NonNull.
  */
 export type GraphQLNamedType =
-    GraphQLScalarType |
-    GraphQLObjectType |
-    GraphQLInterfaceType |
-    GraphQLUnionType |
-    GraphQLEnumType |
-    GraphQLInputObjectType;
+    | GraphQLScalarType
+    | GraphQLObjectType
+    | GraphQLInterfaceType
+    | GraphQLUnionType
+    | GraphQLEnumType
+    | GraphQLInputObjectType;
 
 export function isNamedType(type: GraphQLType): boolean;
 
@@ -175,9 +173,9 @@ export class GraphQLScalarType {
 export interface GraphQLScalarTypeConfig<TInternal, TExternal> {
     name: string;
     description?: string;
-    serialize: (value: any) => TExternal | null | undefined;
-    parseValue?: (value: any) => TInternal | null | undefined;
-    parseLiteral?: (valueNode: ValueNode) => TInternal | null | undefined;
+    serialize(value: any): TExternal | null | undefined;
+    parseValue?(value: any): TInternal | null | undefined;
+    parseLiteral?(valueNode: ValueNode): TInternal | null | undefined;
 }
 
 /**
@@ -224,17 +222,16 @@ export class GraphQLObjectType {
 
     constructor(config: GraphQLObjectTypeConfig<any, any>);
     getFields(): GraphQLFieldMap<any, any>;
-    getInterfaces(): Array<GraphQLInterfaceType>;
+    getInterfaces(): GraphQLInterfaceType[];
     toString(): string;
 }
 
-
 export interface GraphQLObjectTypeConfig<TSource, TContext> {
     name: string;
-    interfaces?: Thunk<Array<GraphQLInterfaceType>>;
+    interfaces?: Thunk<GraphQLInterfaceType[]>;
     fields: Thunk<GraphQLFieldConfigMap<TSource, TContext>>;
     isTypeOf?: GraphQLIsTypeOfFn<TSource, TContext>;
-    description?: string
+    description?: string;
 }
 
 export type GraphQLTypeResolver<TSource, TContext> = (
@@ -258,7 +255,7 @@ export type GraphQLFieldResolver<TSource, TContext> = (
 
 export interface GraphQLResolveInfo {
     fieldName: string;
-    fieldNodes: Array<FieldNode>;
+    fieldNodes: FieldNode[];
     returnType: GraphQLOutputType;
     parentType: GraphQLCompositeType;
     path: ResponsePath;
@@ -297,7 +294,7 @@ export interface GraphQLField<TSource, TContext> {
     name: string;
     description: string;
     type: GraphQLOutputType;
-    args: Array<GraphQLArgument>;
+    args: GraphQLArgument[];
     resolve?: GraphQLFieldResolver<TSource, TContext>;
     isDeprecated?: boolean;
     deprecationReason?: string;
@@ -345,15 +342,15 @@ export class GraphQLInterfaceType {
 }
 
 export interface GraphQLInterfaceTypeConfig<TSource, TContext> {
-    name: string,
-    fields: Thunk<GraphQLFieldConfigMap<TSource, TContext>>,
+    name: string;
+    fields: Thunk<GraphQLFieldConfigMap<TSource, TContext>>;
     /**
      * Optionally provide a custom type resolver function. If one is not provided,
      * the default implementation will call `isTypeOf` on each implementing
      * Object type.
      */
-    resolveType?: GraphQLTypeResolver<TSource, TContext>,
-    description?: string
+    resolveType?: GraphQLTypeResolver<TSource, TContext>;
+    description?: string;
 }
 
 /**
@@ -386,14 +383,14 @@ export class GraphQLUnionType {
 
     constructor(config: GraphQLUnionTypeConfig<any, any>);
 
-    getTypes(): Array<GraphQLObjectType>;
+    getTypes(): GraphQLObjectType[];
 
     toString(): string;
 }
 
 export interface GraphQLUnionTypeConfig<TSource, TContext> {
-    name: string,
-    types: Thunk<Array<GraphQLObjectType>>,
+    name: string;
+    types: Thunk<GraphQLObjectType[]>;
     /**
      * Optionally provide a custom type resolver function. If one is not provided,
      * the default implementation will call `isTypeOf` on each implementing
@@ -429,7 +426,7 @@ export class GraphQLEnumType {
     description: string;
 
     constructor(config: GraphQLEnumTypeConfig);
-    getValues(): Array<GraphQLEnumValue>;
+    getValues(): GraphQLEnumValue[];
     getValue(name: string): GraphQLEnumValue;
     serialize(value: any): string;
     parseValue(value: any): any;

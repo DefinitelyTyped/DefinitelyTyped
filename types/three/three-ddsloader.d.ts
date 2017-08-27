@@ -1,6 +1,6 @@
 // https://github.com/mrdoob/three.js/blob/master/examples/js/loaders/DDSLoader.js
 
-import {CompressedPixelFormat, CompressedTextureLoader} from "./three-core";
+import { CompressedPixelFormat, CompressedTextureLoader } from "./three-core";
 
 export interface Dds {
   mipmaps: ImageData[],

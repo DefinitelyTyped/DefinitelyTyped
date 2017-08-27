@@ -80,6 +80,24 @@ fs.readFile('testfile', (err, data) => {
 });
 
 
+///////////////////////////////////////////////////
+/// Net Tests : https://nodejs.org/api/net.html ///
+///////////////////////////////////////////////////
+
+namespace net_tests {
+    {
+        /**
+         * net.Socket - events.EventEmitter
+         */
+        let _socket: net.Socket = new net.Socket({
+            fd: 1,
+            allowHalfOpen: false,
+            readable: false,
+            writable: false
+        });
+    }
+}
+
 ///////////////////////////////////////////////////////
 /// Buffer tests : https://nodejs.org/api/buffer.html
 ///////////////////////////////////////////////////////
@@ -430,3 +448,19 @@ namespace string_decoder_tests {
 
 childProcess.exec("echo test");
 childProcess.spawnSync("echo test");
+
+////////////////////////////////////////////////////
+/// zlib tests : http://nodejs.org/api/zlib.html ///
+////////////////////////////////////////////////////
+
+namespace zlib_tests {
+    {
+        const gzipped = zlib.gzipSync('test');
+        const unzipped = zlib.gunzipSync(gzipped.toString());
+    }
+
+    {
+        const deflate = zlib.deflateSync('test');
+        const inflate = zlib.inflateSync(deflate.toString());
+    }
+}

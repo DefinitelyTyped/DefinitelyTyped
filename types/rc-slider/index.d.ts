@@ -1,6 +1,6 @@
 // Type definitions for rc-slider 8.1
 // Project: https://github.com/react-component/slider
-// Definitions by: Marcinkus Mantas <https://github.com/mantasmarcinkus/>, Alexander Mattoni <https://github.com/mattoni/>
+// Definitions by: Marcinkus Mantas <https://github.com/mantasmarcinkus>, Alexander Mattoni <https://github.com/mattoni>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 

@@ -31,7 +31,9 @@ import {
     ViewStyle,
     ViewPagerAndroid,
     FlatList,
+    FlatListProperties,
     SectionList,
+    SectionListProperties,
     findNodeHandle,
     ScrollView,
     ScrollViewProps,
@@ -100,11 +102,13 @@ const stylesAlt = StyleSheet.create(
     }
 );
 
+const welcomeFontSize = StyleSheet.flatten(styles.welcome).fontSize
+
 class CustomView extends React.Component {
 
     render() {
         return (
-            <Text>Custom View</Text>
+            <Text style={[StyleSheet.absoluteFill, {...StyleSheet.absoluteFillObject}]}>Custom View</Text>
         );
     }
 
@@ -131,17 +135,17 @@ class Welcome extends React.Component {
 
         const { rootView, customView } = this.refs;
 
-        let nativeComponentHandle = findNodeHandle(rootView);
+        const nativeComponentHandle = findNodeHandle(rootView);
 
-        let customComponentHandle = findNodeHandle(customView);
+        const customComponentHandle = findNodeHandle(customView);
 
-        let fromHandle = findNodeHandle(customComponentHandle);
+        const fromHandle = findNodeHandle(customComponentHandle);
 
     }
 
     render() {
         return (
-            <View ref="rootView" style={styles.container}>
+            <View ref="rootView" style={[[styles.container], undefined, null, false]}>
                 <Text style={styles.welcome}>
                     Welcome to React Native
                 </Text>
@@ -203,29 +207,46 @@ InteractionManager.runAfterInteractions(() => {
     // ...
 }).then(() => 'done')
 
-export class FlatListTest {
+export class FlatListTest extends React.Component<FlatListProperties<number>, {}> {
+    _renderItem = (rowData: any) => {
+        return (
+            <View>
+                <Text> {rowData.item} </Text>
+            </View>
+        );
+      }
+
+    _renderSeparator= () => <View style={{height: 1, width: '100%', backgroundColor: 'gray'}} />
+
     render() {
-        <FlatList
-            data={[1, 2, 3, 4, 5]}
-            renderItem={(itemInfo: number) => <View><Text>{itemInfo}</Text></View>}
-        />
+        return (
+            <FlatList
+                data={[1, 2, 3, 4, 5]}
+                renderItem={this._renderItem}
+                ItemSeparatorComponent={this._renderSeparator}
+            />
+        );
     }
 }
 
-export class SectionListTest {
+export class SectionListTest extends React.Component<SectionListProperties<string>, {}> {
     render() {
-        var sections = [{
-            key: 's1',
-            data: ['A', 'B', 'C', 'D', 'E']
+        const sections = [{
+            title: 'Section 1',
+            data: ['A', 'B', 'C', 'D', 'E'],
         }, {
-            key: 's2',
-            data: ['A2', 'B2', 'C2', 'D2', 'E2']
+            title: 'Section 2',
+            data: ['A2', 'B2', 'C2', 'D2', 'E2'],
+            renderItem: (info: { item: string }) => <View><Text>{info.item}</Text></View>
         }];
 
-        <SectionList
-            sections={sections}
-            renderItem={(info: {item: string, index: number}) => <View><Text>{info.item}</Text></View>}
-        />
+        return (
+            <SectionList
+                sections={sections}
+                renderSectionHeader={({section}) => <View><Text>{section.title}</Text></View>}
+                renderItem={(info: { item: string }) => <View><Text>{info.item}</Text></View>}
+            />
+        );
     }
 }
 
@@ -242,6 +263,14 @@ export class CapsLockComponent extends React.Component<TextProperties> {
 
 class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListViewDataSource}> {
     render() {
+        const scrollViewStyle1 = StyleSheet.create({
+            scrollView: {
+                backgroundColor: 'red',
+            },
+        });
+        const scrollViewStyle2 = {
+            flex: 1
+        };
         return (
             <ListView dataSource={this.state.dataSource}
                 renderScrollComponent={(props) => {
@@ -249,7 +278,7 @@ class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListVi
                         throw new Error("Expected scroll to be enabled.")
                     }
 
-                    return <ScrollView {...props} />
+                    return <ScrollView {...props} style={[scrollViewStyle1.scrollView, scrollViewStyle2]}/>
                 }}
                 renderRow={({ type, data }, _, row: number) => {
                     return <Text>Filler</Text>

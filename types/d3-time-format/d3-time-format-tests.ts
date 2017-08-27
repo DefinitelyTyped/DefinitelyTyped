@@ -12,8 +12,6 @@ import * as d3TimeFormat from 'd3-time-format';
 // Preparatory Steps
 // ----------------------------------------------------------------------
 
-let num: number;
-
 let formatFn: (n: Date) => string;
 
 let parseFn: (dateString: string) => (Date | null);
@@ -38,21 +36,21 @@ parseFn = d3TimeFormat.utcParse('.%L');
 
 // iso ------------------------------------------------------------------
 
-let dateString: string = d3TimeFormat.isoFormat(new Date(2016, 6, 6));
-let date: Date = d3TimeFormat.isoParse('2016-07-08T14:06:41.386Z');
+const dateString: string = d3TimeFormat.isoFormat(new Date(2016, 6, 6));
+const date: Date = d3TimeFormat.isoParse('2016-07-08T14:06:41.386Z');
 
 // ----------------------------------------------------------------------
 // Test Locale Definition
 // ----------------------------------------------------------------------
 
-let dateTimeSpecifier: string = localeDef.dateTime;
-let dateSpecifier: string = localeDef.date;
-let timeSpecifier: string = localeDef.time;
-let periods: [string, string] = localeDef.periods;
-let days: [string, string, string, string, string, string, string] = localeDef.days;
-let shortDays: [string, string, string, string, string, string, string] = localeDef.shortDays;
-let months: [string, string, string, string, string, string, string, string, string, string, string, string] = localeDef.months;
-let shortMonths: [string, string, string, string, string, string, string, string, string, string, string, string] = localeDef.shortMonths;
+const dateTimeSpecifier: string = localeDef.dateTime;
+const dateSpecifier: string = localeDef.date;
+const timeSpecifier: string = localeDef.time;
+const periods: [string, string] = localeDef.periods;
+const days: [string, string, string, string, string, string, string] = localeDef.days;
+const shortDays: [string, string, string, string, string, string, string] = localeDef.shortDays;
+const months: [string, string, string, string, string, string, string, string, string, string, string, string] = localeDef.months;
+const shortMonths: [string, string, string, string, string, string, string, string, string, string, string, string] = localeDef.shortMonths;
 
 localeDef = {
     dateTime: '%a %b %e %X %Y',

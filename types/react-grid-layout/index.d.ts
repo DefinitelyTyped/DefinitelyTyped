@@ -1,6 +1,8 @@
 // Type definitions for react-grid-layout 0.14
 // Project: https://github.com/STRML/react-grid-layout
-// Definitions by: Andrew Birkholz <https://github.com/abirkholz>, Ali Taheri <https://github.com/alitaheri>
+// Definitions by: Andrew Birkholz <https://github.com/abirkholz>,
+//                 Ali Taheri <https://github.com/alitaheri>,
+//                 Zheyang Song <https://github.com/ZheyangSong>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -78,7 +80,7 @@ declare namespace ReactGridLayout {
     }
 
     type Layouts = {
-        [P in Breakpoints]: Layout;
+        [P in Breakpoints]?: Layout[];
     };
 
     type ItemCallback = (
@@ -250,7 +252,7 @@ declare namespace ReactGridLayout {
         /**
          * layouts is an object mapping breakpoints to layouts.
          *
-         * e.g. `{lg: Layout, md: Layout, ...}`
+         * e.g. `{lg: Layout[], md: Layout[], ...}`
          */
         layouts?: Layouts;
 

@@ -8,7 +8,7 @@
 
 import * as Mysql from 'mysql';
 import * as Promise from 'bluebird';
-import {EventEmitter} from 'events';
+import { EventEmitter } from 'events';
 
 declare var EQUAL_TO_PROPERTY_SYMBOL: string;
 declare var TABLE_RULES_PROPERTY: string;

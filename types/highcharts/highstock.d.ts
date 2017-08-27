@@ -1,6 +1,6 @@
 // Type definitions for Highstock 2.1.5
 // Project: http://www.highcharts.com/
-// Definitions by: David Deutsch <http://github.com/DavidKDeutsch>
+// Definitions by: David Deutsch <https://github.com/DavidKDeutsch>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as Highcharts from "highcharts";

@@ -1,6 +1,6 @@
 // Type definitions for bootstrap-datepicker
 // Project: https://github.com/eternicode/bootstrap-datepicker
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>
+// Definitions by: Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -36,6 +36,7 @@ interface DatepickerOptions {
     forceParse?: boolean;
     inputs?: any[];
     minViewMode?: 0|"days"|1|"months"|2|"years"|3|"decades"|4|"centuries"|"millenium";
+    maxViewMode?: 0|"days"|1|"months"|2|"years"|3|"decades"|4|"centuries"|"millenium";
     multidate?: boolean|number;
     multidateSeparator?: string;
     orientation?: "auto"|"left top"|"left bottom"|"right top"|"right bottom";

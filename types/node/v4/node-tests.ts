@@ -22,7 +22,7 @@ import * as string_decoder from "string_decoder";
 import * as dns from "dns";
 
 // Specifically test buffer module regression.
-import {Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer} from "buffer";
+import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer } from "buffer";
 
 //////////////////////////////////////////////////////////
 /// Global Tests : https://nodejs.org/api/global.html  ///
@@ -347,6 +347,12 @@ namespace util_tests {
         util.inspect(["This is nice"], false, null);
         util.inspect(["This is nice"], { colors: true, depth: 5, customInspect: false });
         util.inspect(["This is nice"], { colors: true, depth: null, customInspect: false });
+        // util.deprecate
+        const foo = () => {};
+        // $ExpectType () => void
+        util.deprecate(foo, 'foo() is deprecated, use bar() instead');
+        // $ExpectType <T extends Function>(fn: T, message: string) => T
+        util.deprecate(util.deprecate, 'deprecate() is deprecated, use bar() instead');
     }
 }
 
@@ -361,6 +367,23 @@ function stream_readable_pipe_test() {
     var w = fs.createWriteStream('file.txt.gz');
     r.pipe(z).pipe(w);
     r.close();
+}
+
+
+////////////////////////////////////////////////////
+/// zlib tests : http://nodejs.org/api/zlib.html ///
+////////////////////////////////////////////////////
+
+namespace zlib_tests {
+    {
+        const gzipped = zlib.gzipSync('test');
+        const unzipped = zlib.gunzipSync(gzipped.toString());
+    }
+
+    {
+        const deflate = zlib.deflateSync('test');
+        const inflate = zlib.inflateSync(deflate.toString());
+    }
 }
 
 ////////////////////////////////////////////////////////
@@ -467,7 +490,7 @@ namespace http_tests {
     }
 
     {
-        var request = http.request('http://0.0.0.0');
+        var request = http.request({ path: 'http://0.0.0.0' });
         request.once('error', function() { });
         request.setNoDelay(true);
         request.abort();
@@ -1001,6 +1024,18 @@ namespace net_tests {
     {
         // Make sure .listen() and .close() retuern a Server instance
         net.createServer().listen(0).close().address();
+    }
+
+    {
+        /**
+         * net.Socket - events.EventEmitter
+         */
+        let _socket: net.Socket = new net.Socket({
+            fd: 1,
+            allowHalfOpen: false,
+            readable: false,
+            writable: false
+        });
     }
 }
 
