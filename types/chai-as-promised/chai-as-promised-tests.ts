@@ -37,6 +37,7 @@ thenableNum = thenableNum.should.be.rejectedWith(TestClass);
 thenableNum = thenableNum.should.be.rejectedWith(TestClass, /message/);
 thenableNum = thenableNum.should.be.rejectedWith(TestClass, 'message');
 thenableNum = thenableNum.should.eventually.equal(3).notify(() => console.log('done'));
+thenableNum = thenableNum.should.eventually.become(3);
 thenableNum = thenableNum.should.be.fulfilled.and.notify(() => console.log('done'));
 
 // Complex examples on https://github.com/domenic/chai-as-promised#working-with-non-promisefriendly-test-runners
