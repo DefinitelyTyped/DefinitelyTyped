@@ -1,6 +1,6 @@
 // Type definitions for react-bootstrap-table v2.6.0
 // Project: https://github.com/AllenFang/react-bootstrap-table
-// Definitions by: Frank Laub <https://github.com/flaub>, Aleksander Lode <https://github.com/alelode>
+// Definitions by: Frank Laub <https://github.com/flaub>, Aleksander Lode <https://github.com/alelode>, Josué Us <https://github.com/UJosue10>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -581,6 +581,12 @@ export interface TableHeaderColumnProps extends Props<TableHeaderColumn> {
 	 * Default: 1
 	 */
 	colSpan?: number;
+
+	/**
+	 * Return the value you want to be filtered on that column.
+	 * It's useful if your column data is an object.
+	 */
+	filterValue?: Function;
 }
 export interface Editable {
     type?: string;//edit type, avaiable value is textarea, select, checkbox
