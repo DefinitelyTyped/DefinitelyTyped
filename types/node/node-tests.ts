@@ -3404,7 +3404,7 @@ namespace module_tests {
     const m1 = new Module("moduleId");
 
 ///////////////////////////////////////////////////////////
-/// HTTP/2 Tests                                        ///
+/// Inspector Tests                                     ///
 ///////////////////////////////////////////////////////////
 
 namespace inspector_tests {
