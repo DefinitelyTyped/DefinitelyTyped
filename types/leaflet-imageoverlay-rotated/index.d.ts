@@ -7,7 +7,7 @@
 
 declare namespace L {
     namespace ImageOverlay {
-        interface Rotated extends L.ImageOverlay {
+        interface Rotated extends ImageOverlay {
             reposition(
                 topleft: LatLngExpression,
                 topright: LatLngExpression,
@@ -21,6 +21,6 @@ declare namespace L {
             topleft: LatLngExpression,
             topright: LatLngExpression,
             bottomleft: LatLngExpression,
-            options?: ImageOverlayOptions): L.ImageOverlay.Rotated;
+            options?: ImageOverlayOptions): ImageOverlay.Rotated;
     }
 }
