@@ -1,6 +1,6 @@
 // Type definitions for Mapbox GL JS v0.39.1
 // Project: https://github.com/mapbox/mapbox-gl-js
-// Definitions by: Dominik Bruderer <https://github.com/dobrud>
+// Definitions by: Dominik Bruderer <https://github.com/dobrud>, Patrick Reames <https://github.com/patrickr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="geojson" />
@@ -395,12 +395,16 @@ declare namespace mapboxgl {
 		timeout?: number;
 		maximumAge?: number;
 	}
+	
+	export class FitBoundsOptions {
+		maxZoom?: number;
+	}
 
 	/**
 	 * Geolocate
 	 */
 	export class GeolocateControl extends Control {
-		constructor(options?: {positionOptions?: PositionOptions, watchPosition?: boolean});
+		constructor(options?: {positionOptions?: PositionOptions, fitBoundsOptions?: FitBoundsOptions, trackUserLocation?: boolean, showUserLocation?: boolean});
 	}
 
 	/**
