@@ -6,7 +6,7 @@
 
 /// <reference types="node" />
 
-import Highstock = require('highcharts/highstock');
+import Highstock = require('highcharts/highstock')
 
 declare global {
     namespace botvs {
@@ -933,9 +933,9 @@ declare global {
          *
          * @param {botvs.Record[]} Records
          * @param {number=14} TimePeriod
-         * @return {number[]}
+         * @return {[number[], number[]]}
          */
-        function AROON(Records: botvs.Record[], TimePeriod: number): number[];
+        function AROON(Records: botvs.Record[], TimePeriod: number): [number[], number[]];
         /**
          * Aroon (阿隆指标)
          *
@@ -944,9 +944,9 @@ declare global {
          * @param {number[]} High
          * @param {number[]} Low
          * @param {number=14} TimePeriod
-         * @return {number[]}
+         * @return {[number[], number[]]}
          */
-        function AROON(High: number[], Low: number[], TimePeriod: number): number[];
+        function AROON(High: number[], Low: number[], TimePeriod: number): [number[], number[]];
 
         /**
          * Aroon Oscillator (阿隆震荡线)
@@ -1046,7 +1046,7 @@ declare global {
          * @param {number=2} Deviationsup
          * @param {number=2} Deviationsdown
          * @param {number=0} MAType
-         * @return {number[]}
+         * @return {[number[], number[], number[]]}
          */
         function BBANDS(
             Records: botvs.Record[] | number[],
@@ -1054,7 +1054,7 @@ declare global {
             Deviationsup: number,
             Deviationsdown: number,
             MAType: number,
-        ): number[];
+        ): [number[], number[], number[]];
 
         /**
          * Balance Of Power (均势指标)
@@ -2631,9 +2631,9 @@ declare global {
          * HT_PHASOR(Records[Close]) = [Array(outInPhase),Array(outQuadrature)]
          *
          * @param {botvs.Record[]|number[]} Records
-         * @return {number[]}
+         * @return {[number[], number[]]}
          */
-        function HT_PHASOR(Records: botvs.Record[] | number[]): number[];
+        function HT_PHASOR(Records: botvs.Record[] | number[]): [number[], number[]];
 
         /**
          * Hilbert Transform - SineWave (希尔伯特变换,正弦波)
@@ -2641,9 +2641,9 @@ declare global {
          * HT_SINE(Records[Close]) = [Array(outSine),Array(outLeadSine)]
          *
          * @param {botvs.Record[]|number[]} Records
-         * @return {number[]}
+         * @return {[number[], number[]]}
          */
-        function HT_SINE(Records: botvs.Record[] | number[]): number[];
+        function HT_SINE(Records: botvs.Record[] | number[]): [number[], number[]];
 
         /**
          * Hilbert Transform - Instantaneous Trendline (希尔伯特变换,瞬时趋势)
@@ -2762,14 +2762,14 @@ declare global {
          * @param {number=12} FastPeriod
          * @param {number=26} SlowPeriod
          * @param {number=9} SignalPeriod
-         * @return {number[]}
+         * @return {[number[], number[], number[]]}
          */
         function MACD(
             Records: botvs.Record[] | number[],
             FastPeriod: number,
             SlowPeriod: number,
             SignalPeriod: number,
-        ): number[];
+        ): [number[], number[], number[]];
 
         /**
          * MACD with controllable MA type (MA型可控 MACD)
@@ -2785,7 +2785,7 @@ declare global {
          * @param {number=0} SlowMA
          * @param {number=9} SignalPeriod
          * @param {number=0} SignalMA
-         * @return {number[]}
+         * @return {[number[], number[], number[]]}
          */
         function MACDEXT(
             Records: botvs.Record[] | number[],
@@ -2795,7 +2795,7 @@ declare global {
             SlowMA: number,
             SignalPeriod: number,
             SignalMA: number,
-        ): number[];
+        ): [number[], number[], number[]];
 
         /**
          * Moving Average Convergence/Divergence Fix 12/26 (移动平均收敛/发散修复12/26)
@@ -2804,9 +2804,9 @@ declare global {
          *
          * @param {botvs.Record[]|number[]} Records
          * @param {number=9} SignalPeriod
-         * @return {number[]}
+         * @return {[number[], number[], number[]]}
          */
-        function MACDFIX(Records: botvs.Record[] | number[], SignalPeriod: number): number[];
+        function MACDFIX(Records: botvs.Record[] | number[], SignalPeriod: number): [number[], number[], number[]];
 
         /**
          * MESA Adaptive Moving Average (MESA 移动平均线)
@@ -2816,9 +2816,9 @@ declare global {
          * @param {botvs.Record[]|number[]} Records
          * @param {number=0.5} FastLimit
          * @param {number=0.05} SlowLimit
-         * @return {number[]}
+         * @return {[number[], number[]]}
          */
-        function MAMA(Records: botvs.Record[] | number[], FastLimit: number, SlowLimit: number): number[];
+        function MAMA(Records: botvs.Record[] | number[], FastLimit: number, SlowLimit: number): [number[], number[]];
 
         /**
          * Highest value over a specified period (最大值)
@@ -2948,9 +2948,9 @@ declare global {
          *
          * @param {botvs.Record[]|number[]} Records
          * @param {number=30} TimePeriod
-         * @return {number[]}
+         * @return {[number[], number[]]}
          */
-        function MINMAX(Records: botvs.Record[] | number[], TimePeriod: number): number[];
+        function MINMAX(Records: botvs.Record[] | number[], TimePeriod: number): [number[], number[]];
 
         /**
          * Indexes of lowest and highest values over a specified period (最小最大值索引)
@@ -2959,9 +2959,9 @@ declare global {
          *
          * @param {botvs.Record[]|number[]} Records
          * @param {number=30} TimePeriod
-         * @return {number[]}
+         * @return {[number[], number[]]}
          */
-        function MINMAXINDEX(Records: botvs.Record[] | number[], TimePeriod: number): number[];
+        function MINMAXINDEX(Records: botvs.Record[] | number[], TimePeriod: number): [number[], number[]];
 
         /**
          * Minus Directional Indicator (负向指标)
@@ -3332,7 +3332,7 @@ declare global {
          * @param {number=0} Slow_KMA
          * @param {number=3} Slow_DPeriod
          * @param {number=0} Slow_DMA
-         * @return {number[]}
+         * @return {[number[], number[]]}
          */
         function STOCH(
             Records: botvs.Record[],
@@ -3341,7 +3341,7 @@ declare global {
             Slow_KMA: number,
             Slow_DPeriod: number,
             Slow_DMA: number,
-        ): number[];
+        ): [number[], number[]];
         /**
          * Stochastic (STOCH指标)
          *
@@ -3357,7 +3357,7 @@ declare global {
          * @param {number=0} Slow_KMA
          * @param {number=3} Slow_DPeriod
          * @param {number=0} Slow_DMA
-         * @return {number[]}
+         * @return {[number[], number[]]}
          */
         function STOCH(
             High: number[],
@@ -3368,7 +3368,7 @@ declare global {
             Slow_KMA: number,
             Slow_DPeriod: number,
             Slow_DMA: number,
-        ): number[];
+        ): [number[], number[]];
 
         /**
          * Stochastic Fast (快速STOCH指标)
@@ -3380,14 +3380,14 @@ declare global {
          * @param {number=5} Fast_KPeriod
          * @param {number=3} Fast_DPeriod
          * @param {number=0} Fast_DMA
-         * @return {number[]}
+         * @return {[number[], number[]]}
          */
         function STOCHF(
             Records: botvs.Record[],
             Fast_KPeriod: number,
             Fast_DPeriod: number,
             Fast_DMA: number,
-        ): number[];
+        ): [number[], number[]];
         /**
          * Stochastic Fast (快速STOCH指标)
          *
@@ -3400,7 +3400,7 @@ declare global {
          * @param {number=5} Fast_KPeriod
          * @param {number=3} Fast_DPeriod
          * @param {number=0} Fast_DMA
-         * @return {number[]}
+         * @return {[number[], number[]]}
          */
         function STOCHF(
             High: number[],
@@ -3409,7 +3409,7 @@ declare global {
             Fast_KPeriod: number,
             Fast_DPeriod: number,
             Fast_DMA: number,
-        ): number[];
+        ): [number[], number[]];
 
         /**
          * Stochastic Relative Strength Index (随机强弱指数)
@@ -3422,7 +3422,7 @@ declare global {
          * @param {number=5} Fast_KPeriod
          * @param {number=3} Fast_DPeriod
          * @param {number=0} Fast_DMA
-         * @return {number[]}
+         * @return {[number[], number[]]}
          */
         function STOCHRSI(
             Records: botvs.Record[] | number[],
@@ -3430,7 +3430,7 @@ declare global {
             Fast_KPeriod: number,
             Fast_DPeriod: number,
             Fast_DMA: number,
-        ): number[];
+        ): [number[], number[]];
 
         /**
          * Summation (求和)
