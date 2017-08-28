@@ -10,7 +10,7 @@
 //                 Jordan Quagliatini <https://github.com/1M0reBug>
 //                 Simon Højberg <https://github.com/hojberg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.4
 
 declare let R: R.Static;
 
@@ -1030,9 +1030,9 @@ declare namespace R {
          * otherwise the provided function is applied to associated values using the resulting value as the new value
          * associated with the key. If a key only exists in one object, the value will be associated with the key of the resulting object.
          */
-        mergeDeepWith<T1, T2>(fn: <T3, T4>(x: T3, z: T4) => T3 & T4, a: T1, b: T2): T1 & T2;
-        mergeDeepWith<T1, T2>(fn: <T3, T4>(x: T3, z: T4) => T3 & T4, a: T1): (b: T2) => T1 & T2;
-        mergeDeepWith<T1, T2>(fn: <T3, T4>(x: T3, z: T4) => T3 & T4): (a: T1, b: T2) => T1 & T2;
+        mergeDeepWith<T1, T2>(fn: (x: any, z: any) => any, a: T1, b: T2): T1 & T2;
+        mergeDeepWith<T1, T2>(fn: (x: any, z: any) => any, a: T1): (b: T2) => T1 & T2;
+        mergeDeepWith<T1, T2>(fn: (x: any, z: any) => any): (a: T1, b: T2) => T1 & T2;
 
         /**
          * Creates a new object with the own properties of the two provided objects. If a key exists in both objects:
@@ -1041,9 +1041,9 @@ declare namespace R {
          * the new value associated with the key. If a key only exists in one object, the value will be associated with
          * the key of the resulting object.
          */
-        mergeDeepWithKey<T1, T2>(fn: <T3, T4>(k: string, x: T3, z: T4) => T3 & T4, a: T1, b: T2): T1 & T2;
-        mergeDeepWithKey<T1, T2>(fn: <T3, T4>(k: string, x: T3, z: T4) => T3 & T4, a: T1): (b: T2) => T1 & T2;
-        mergeDeepWithKey<T1, T2>(fn: <T3, T4>(k: string, x: T3, z: T4) => T3 & T4): (a: T1, b: T2) => T1 & T2;
+        mergeDeepWithKey<T1, T2>(fn: (k: string, x: any, z: any) => any, a: T1, b: T2): T1 & T2;
+        mergeDeepWithKey<T1, T2>(fn: (k: string, x: any, z: any) => any, a: T1): (b: T2) => T1 & T2;
+        mergeDeepWithKey<T1, T2>(fn: (k: string, x: any, z: any) => any): (a: T1, b: T2) => T1 & T2;
 
         /**
          * Creates a new object with the own properties of the two provided objects. If a key exists in both objects,
