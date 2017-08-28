@@ -6772,6 +6772,18 @@ declare module ol {
         ): (T);
 
         /**
+         * Get all features that intersect a pixel on the viewport.
+         * @param {ol.Pixel} pixel Pixel.
+         * @param {olx.AtPixelOptions=} opt_options Optional options.
+         * @return {?Array.<(ol.Feature|ol.render.Feature)>} The detected features or null if none were found.
+         * @api stable
+         */
+        getFeaturesAtPixel(
+            pixel: ol.Pixel,
+            opt_options?: olx.AtPixelOptions
+        ): (Array<ol.Feature|ol.render.Feature>|null);
+
+        /**
          * Detect layers that have a color value at a pixel on the viewport, and
          * execute a callback with each matching layer. Layers included in the
          * detection can be configured through `opt_layerFilter`.
