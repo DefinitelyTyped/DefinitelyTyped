@@ -1,1 +1,9 @@
-{ "extends": "dtslint/dt.json" }
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "array-type": false,
+        "interface-name": false,
+        "comment-format": false,
+        "strict-export-declare-modifiers": false
+    }
+}
