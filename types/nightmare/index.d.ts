@@ -30,6 +30,8 @@ declare class Nightmare {
     uncheck(seletor: string): Nightmare;
     select(seletor: string, option: string): Nightmare;
     upload(selector: string, path: string): Nightmare;
+    download(path:string): Nightmare;
+    download(action: Nightmare.IDownloadActions): Nightmare;  
     scrollTo(top: number, left: number): Nightmare;
     viewport(width: number, height: number): Nightmare;
     inject(type: string, file: string): Nightmare;
@@ -134,6 +136,11 @@ declare namespace Nightmare {
         cookiesFile?: string;
         phantomPath?: string;
         show?: boolean;
+        paths?: {
+            downloads?:string;
+        };
+        maxDownloadRequestWait?:number;
+        ignoreDownloads?:boolean;
     }
 
     export interface IRequest {
@@ -170,6 +177,10 @@ declare namespace Nightmare {
         file: string;
         line: number;
         function?: string;
+    }
+    export enum IDownloadActions {
+        cancel = "cancel",
+        continue = "continue"
     }
     export class Cookies {
         get(): [Nightmare.ICookie];
