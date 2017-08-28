@@ -180,6 +180,7 @@ declare namespace stripe {
             style?: string;
             unicodeRange?: string;
             weight?: string;
+            cssSrc?: string;
         }
 
         interface StyleOptions {
