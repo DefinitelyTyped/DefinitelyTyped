@@ -15,7 +15,8 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-        "jsx": "react"
+        "jsx": "react",
+        "allowSyntheticDefaultImports": true
     },
     "files": [
         "index.d.ts",

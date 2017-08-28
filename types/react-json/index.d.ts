@@ -16,4 +16,4 @@ interface JsonProperties {
 declare class Json extends React.Component<JsonProperties> {
 }
 
-export default Json;
+export = Json;
