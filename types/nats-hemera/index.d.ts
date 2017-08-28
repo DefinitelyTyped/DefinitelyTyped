@@ -69,11 +69,9 @@ declare module "nats-hemera" {
         maxEventLoopDelay?: number;
     }
 
-
     interface LoadProcessConfig {
         sampleInterval?: number;
     }
- 
 
     interface Pattern {
         topic: string;
@@ -91,7 +89,7 @@ declare module "nats-hemera" {
     }
 
     interface PluginDefinition {
-        register: () => void;
+        register: any;
         attributes: PluginDefinitionAttributes;
         options: any;
         parentPluginName: string;
@@ -100,7 +98,7 @@ declare module "nats-hemera" {
     interface AddMeta {
         schema: any;
         pattern: Pattern;
-        action: () => void;
+        action: any;
         plugin: PluginDefinition;
         use(handler: AddMetaMiddleware): AddMeta;
         end(cb: () => void): void;
@@ -135,7 +133,6 @@ declare module "nats-hemera" {
         'onServerPreHandler' |
         'onServerPreRequest' |
         'onServerPreResponse';
-        
     type ExtensionHandler = (ctx: Hemera, request: any, response: any, next?: ExtensionNextHandler) => void;
     type ExtensionNextHandler = (error: Error) => void;
     interface CB {
@@ -156,6 +153,5 @@ declare module "nats-hemera" {
         on(event: HemeraEvents, handler: () => void): any;
         removeAll(): any;
     }
-
-    export const Hemera: Hemera;
 }
+export const Hemera: Hemera;
