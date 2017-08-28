@@ -155,7 +155,7 @@ ReactDOM.render((
 	</Router>
 ), document.body);
 
-const history = createMemoryHistory("baseurl");
+const history = createMemoryHistory({ current: "baseurl" });
 const routes = (
 	<Route path="/" component={Master}>
 		<IndexRoute component={DashboardWithRouter} />
