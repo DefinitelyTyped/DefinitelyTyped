@@ -123,9 +123,9 @@ export interface NdArray<T = number> extends BaseNdArray<T> {
 	 * Converts {NdArray} to a native JavaScript {Array}
 	 *
 	 */
-	tolist(): T[];
+	tolist<LT = T>(): LT[];
 
-	valueOf(): T[];
+	valueOf<LT = T>(): LT[];
 
 	/**
 	 * Stringify the array to make it readable in the console, by a human.
@@ -491,15 +491,15 @@ export namespace images {
 		/**
 		 * @property {NdArray} digit - 28x28 grayscale image with an handwritten digit extracted from MNIST database
 		 */
-		const digit: NdArray<number>;
+		const digit: NdArray;
 		/**
 		 * @property {NdArray} five - 28x28 grayscale image with an handwritten digit extracted from MNIST database
 		 */
-		const five: NdArray<number>;
+		const five: NdArray;
 		/**
 		 * @property {NdArray} node - 300x600 COLOR image representing Node.js's logo
 		 */
-		const node: NdArray<number>;
+		const node: NdArray;
 		/**
 		 * @property {NdArray} lena - The standard, yet sometimes controversial
 		 * Lena test image was scanned from the November 1972 edition of
@@ -507,7 +507,7 @@ export namespace images {
 		 * is useful because it contains smooth, textured, shaded as well as
 		 * detail areas.
 		 */
-		const lena: NdArray<number>;
+		const lena: NdArray;
 		/**
 		 * @property {NdArray} lenna - The standard, yet sometimes
 		 * controversial Lena test image was scanned from the November 1972
@@ -515,25 +515,25 @@ export namespace images {
 		 * this image is useful because it contains smooth, textured, shaded as
 		 * well as detail areas.
 		 */
-		const lenna: NdArray<number>;
+		const lenna: NdArray;
 		/**
 		 * @property {NdArray} moon - This low-contrast image of the surface of
 		 * the moon is useful for illustrating histogram equalization and
 		 * contrast stretching.
 		 */
-		const moon: NdArray<number>;
+		const moon: NdArray;
 	}
-	function read(input: string): NdArray<Uint32Array>;
-	function save(img: NdArray<Uint32Array>, dest: string): void;
-	function resize(img: NdArray<Uint32Array>, height: number, width: number): NdArray<Uint32Array>;
-	function sat(img: NdArray<Uint32Array>): NdArray<Uint32Array>;
-	function ssat(img: NdArray<Uint32Array>): NdArray<Uint32Array>;
-	function sobel(img: NdArray<Uint32Array>): NdArray<Uint32Array>;
-	function scharr(img: NdArray<Uint32Array>): NdArray<Uint32Array>;
-	function areaSum(h0: number, w0: number, H: number, W: number, SAT: NdArray<Uint32Array>): number;
-	function areaValue(img: NdArray<Uint32Array>): number;
-	function rgb2gray(img: NdArray<Uint32Array>): NdArray<Uint32Array>;
-	function flip(img: NdArray<Uint32Array>): NdArray<Uint32Array>;
+	function read(input: string): NdArray<Uint8Array>;
+	function save<T = number>(img: NdArray<T>, dest: string): void;
+	function resize<T = number>(img: NdArray<T>, height: number, width: number): NdArray<Uint8Array>;
+	function sat<T = number>(img: NdArray<T>): NdArray<Uint32Array>;
+	function ssat<T = number>(img: NdArray<T>): NdArray<Uint32Array>;
+	function sobel<T = number>(img: NdArray<T>): NdArray<Float32Array>;
+	function scharr<T = number>(img: NdArray<T>): NdArray<Float32Array>;
+	function areaSum<T = number>(h0: number, w0: number, H: number, W: number, SAT: NdArray<T>): number;
+	function areaValue<T = number>(img: NdArray<T>): number;
+	function rgb2gray<T = number>(img: NdArray<T>): NdArray<Uint8Array>;
+	function flip<T = number, O = T>(img: NdArray<T>): NdArray<O>;
 }
 
 export function array<T = number>(arr: NjArray<T>, dtype?: BaseNdArray.DataType): NdArray<T>;

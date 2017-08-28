@@ -190,6 +190,9 @@ export class Icon extends React.Component<IconProps, any> {
     color: string,
     size?: number
   ): Promise<ImageSource>;
+  static loadFont(
+    file?: string
+  ): Promise<void>;
 }
 
 export namespace Icon {

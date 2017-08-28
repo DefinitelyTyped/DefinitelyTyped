@@ -5,6 +5,7 @@
 //                 Dominic Watson <https://github.com/intellix>
 //                 Firede <https://github.com/firede>
 //                 Kepennar <https://github.com/kepennar>
+//                 Mikhail Novikov <https://github.com/freiksenet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 

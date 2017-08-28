@@ -1,6 +1,6 @@
 // Type definitions for argparse v1.0.3
 // Project: https://github.com/nodeca/argparse
-// Definitions by: Andrew Schurman <http://github.com/arcticwaters>
+// Definitions by: Andrew Schurman <https://github.com/arcticwaters>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 

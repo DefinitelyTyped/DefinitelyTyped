@@ -105,7 +105,7 @@ export class CodeGeneratorResponse extends jspb.Message {
 export namespace CodeGeneratorResponse {
   export type AsObject = {
     error?: string,
-    fileList: Array<CodeGeneratorResponse.File.AsObject>,
+    fileList: Array<File.AsObject>,
   }
 
   export class File extends jspb.Message {

@@ -1,6 +1,6 @@
 // Type definitions for HERE Maps API for JavaScript 3.0
 // Project: https://developer.here.com/
-// Definitions by: Joshua Efiong <https://github.com/Josh-ES/>
+// Definitions by: Joshua Efiong <https://github.com/Josh-ES>
 //                 Bernd Hacker <https://github.com/denyo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
@@ -5694,7 +5694,7 @@ declare namespace H {
              * @param opt_locale {(H.ui.i18n.Localization | string)=} - the language to use (or a full localization object).
              * @returns {H.ui.UI} - the UI instance configured with the default controls
              */
-            static createDefault(map: H.Map, mapTypes: H.service.Platform.MapTypes | H.service.DefaultLayers, opt_locale?: H.ui.i18n.Localization | string): H.ui.UI;
+            static createDefault(map: H.Map, mapTypes: H.service.Platform.MapTypes | H.service.DefaultLayers, opt_locale?: H.ui.i18n.Localization | string): H.ui.UI;
 
             /**
              * This method is used to capture the element view

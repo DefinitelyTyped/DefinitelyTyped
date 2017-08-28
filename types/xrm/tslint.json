@@ -9,6 +9,7 @@
             "spaces"
         ],
         "max-line-length": [true, 250],
+        "no-unnecessary-type-assertion": false,
         "quotemark": [
             true,
             "double"
