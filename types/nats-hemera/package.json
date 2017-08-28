@@ -1,0 +1,11 @@
+{
+  "name": "nats-hemera",
+  "version": "1.0.0",
+  "description": "typing typescript nats hemera",
+  "main": "index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Vladimir Djukic",
+  "license": "ISC"
+}
