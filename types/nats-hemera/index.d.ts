@@ -1,4 +1,13 @@
+// Type definitions for natsort 1.0
+// Project: https://github.com/hemerajs/hemera
+// Definitions by: Melvin Groenhoff <https://github.com/vforv>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 declare module "nats-hemera" {
+    interface Hemera {
+        new (transport: object, config?: Config): CB;
+    }
+    
     type LogLevel =
         'fatal' |
         'error' |
@@ -66,9 +75,7 @@ declare module "nats-hemera" {
     }
 
 
-    interface Hemera {
-        (transport: object, ): CB;
-    }
+    
 
     interface Pattern {
         topic: string;
