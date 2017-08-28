@@ -33,7 +33,7 @@ const mapMarker = new ymaps.Placemark(
 	{
 		balloonContent:         "test",
 		balloonAutoPan:         true,
-		balloonLayout:          balloonLayout,
+		balloonLayout,
 		balloonPanelMaxMapArea: 0,
 		iconLayout:             "default#image",
 		iconImageHref:          "./test/icon.png",
