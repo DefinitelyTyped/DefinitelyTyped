@@ -995,6 +995,7 @@ declare namespace mapboxgl {
 		"icon-ignore-placement"?: boolean;
 		"icon-optional"?: boolean;
 		"icon-rotation-alignment"?: "map" | "viewport" | "auto";
+		"icon-pitch-alignment"?: "map"  | "viewport"| "auto";
 		"icon-size"?: number | StyleFunction;
 		"icon-text-fit"?: "none" | "both" | "width" | "height";
 		"icon-text-fit-padding"?: number[];
@@ -1068,6 +1069,7 @@ declare namespace mapboxgl {
 		"circle-translate"?: number[];
 		"circle-translate-anchor"?: "map" | "viewport";
 		"circle-pitch-scale"?: "map" | "viewport";
+		"circle-pitch-alignment"?: "map" | "viewport";
 		"circle-stroke-width"?: number | StyleFunction;
 		"circle-stroke-color"?: string | StyleFunction;
 		"circle-stroke-opacity"?: number | StyleFunction;
