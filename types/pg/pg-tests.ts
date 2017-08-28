@@ -12,11 +12,13 @@ const client = new pg.Client({
 });
 client.connect(err => {
     if (err) {
-        return console.error("Could not connect to postgres", err);
+        console.error("Could not connect to postgres", err);
+        return;
     }
     client.query("SELECT NOW() AS 'theTime'", (err, result) => {
         if (err) {
-            return console.error("Error running query", err);
+            console.error("Error running query", err);
+            return;
         }
         console.log(result.rowCount);
         console.log(result.rows[0]["theTime"]);
@@ -87,13 +89,15 @@ const pool = new pg.Pool({
 console.log(pool.totalCount);
 pool.connect((err, client, done) => {
   if (err) {
-    return console.error('error fetching client from pool', err);
+    console.error('error fetching client from pool', err);
+    return;
   }
   client.query('SELECT $1::int AS number', ['1'], (err, result) => {
     done();
 
     if (err) {
-      return console.error('error running query', err);
+      console.error('error running query', err);
+      return;
     }
     console.log(result.rows[0].number);
   });
@@ -105,7 +109,8 @@ pool.on('error', (err, client) => {
 
 pool.query('SELECT $1::text as name', ['brianc'], (err, result) => {
   if (err) {
-    return console.error('Error executing query', err.stack);
+    console.error('Error executing query', err.stack);
+    return;
   }
   console.log(result.rows[0].name);
 });
