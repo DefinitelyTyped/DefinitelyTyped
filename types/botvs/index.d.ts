@@ -6,7 +6,7 @@
 
 /// <reference types="node" />
 
-import Highstock = require('highcharts/highstock')
+import Highstock = require('highcharts/highstock');
 
 declare global {
     namespace botvs {
