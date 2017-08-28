@@ -1,8 +1,8 @@
 // Type definitions for hemera 1.0
-// TypeScript Version: 2.4
 // Project: https://github.com/hemerajs/hemera
 // Definitions by: Melvin Groenhoff <https://github.com/vforv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 declare module "nats-hemera" {
     interface Hemera {
