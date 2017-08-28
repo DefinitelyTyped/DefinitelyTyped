@@ -1,4 +1,4 @@
-// Type definitions for natsort 1.0
+// Type definitions for hemera 1.0
 // Project: https://github.com/hemerajs/hemera
 // Definitions by: Melvin Groenhoff <https://github.com/vforv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,7 +7,7 @@ declare module "nats-hemera" {
     interface Hemera {
         new (transport: object, config?: Config): CB;
     }
-    
+
     type LogLevel =
         'fatal' |
         'error' |
@@ -15,15 +15,15 @@ declare module "nats-hemera" {
         'info' |
         'debug' |
         'trace' |
-        'silent'
+        'silent';
 
     interface ErrioConfig {
         recursive?: boolean;
         inherited?: boolean;
         stack?: boolean;
         private?: boolean;
-        exclude?: Array<string>;
-        include?: Array<string>;
+        exclude?: any;
+        include?: any;
     }
 
     interface BloomrunConfig {
@@ -73,9 +73,7 @@ declare module "nats-hemera" {
     interface LoadProcessConfig {
         sampleInterval?: number;
     }
-
-
-    
+ 
 
     interface Pattern {
         topic: string;
@@ -93,7 +91,7 @@ declare module "nats-hemera" {
     }
 
     interface PluginDefinition {
-        register: Function;
+        register: () => void;
         attributes: PluginDefinitionAttributes;
         options: any;
         parentPluginName: string;
@@ -102,13 +100,13 @@ declare module "nats-hemera" {
     interface AddMeta {
         schema: any;
         pattern: Pattern;
-        action: Function;
+        action: () => void;
         plugin: PluginDefinition;
         use(handler: AddMetaMiddleware): AddMeta;
-        end(cb: Function): void;
+        end(cb: () => void): void;
     }
 
-    type AddMetaMiddleware = (request: ServerRequest, response: ServerResponse, next: Function) => void;
+    type AddMetaMiddleware = (request: ServerRequest, response: ServerResponse, next: () => void) => void;
 
     interface ServerRequest {
         payload: any;
@@ -129,20 +127,19 @@ declare module "nats-hemera" {
         'clientPostRequest' |
         'serverPreHandler' |
         'serverPreRequest' |
-        'serverPreResponse'
+        'serverPreResponse';
 
     type ExtensionType =
         'onClientPreRequest' |
         'onClientPostRequest' |
         'onServerPreHandler' |
         'onServerPreRequest' |
-        'onServerPreResponse'
+        'onServerPreResponse';
         
     type ExtensionHandler = (ctx: Hemera, request: any, response: any, next?: ExtensionNextHandler) => void;
     type ExtensionNextHandler = (error: Error) => void;
-
     interface CB {
-        ready(callback: Function): void;
+        ready(callback: () => void): void;
         act(pattern: string | Pattern, handler?: ActHandler): Promise<any>;
         add(pattern: string | Pattern, handler: AddHandler): AddMeta;
         use(params: PluginDefinition, options?: any): void;
@@ -150,15 +147,15 @@ declare module "nats-hemera" {
         decorate(prop: string, value: any): void;
         remove(topic: string, maxMessages: number): boolean;
         list(Pattern: any, options: any): any;
-        close(callback?: Function): void;
+        close(callback?: () => void): void;
         fatal(): void;
         expose(key: string, object: any): void;
         ext(type: ExtensionType, handler: ExtensionHandler): void;
         setConfig(key: string, value: any): void;
         setOption(key: string, value: any): void;
-        on(event: HemeraEvents, handler: Function): any;
+        on(event: HemeraEvents, handler: () => void): any;
         removeAll(): any;
     }
 
-    export const Hemera: Hemera
+    export const Hemera: Hemera;
 }
