@@ -4,11 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-declare module "nats-hemera" {
-    interface Hemera {
-        new (transport: object, config?: Config): CB;
-    }
+import events = require('events');
+export = Hemera;
+export as namespace Hemera;
 
+declare namespace Hemera {
     type LogLevel =
         'fatal' |
         'error' |
@@ -136,23 +136,74 @@ declare module "nats-hemera" {
         'onServerPreResponse';
     type ExtensionHandler = (ctx: Hemera, request: any, response: any, next?: ExtensionNextHandler) => void;
     type ExtensionNextHandler = (error: Error) => void;
-    interface CB {
-        ready(callback: () => void): void;
-        act(pattern: string | Pattern, handler?: ActHandler): Promise<any>;
-        add(pattern: string | Pattern, handler: AddHandler): AddMeta;
-        use(params: PluginDefinition, options?: any): void;
-        createError(name: string): any;
-        decorate(prop: string, value: any): void;
-        remove(topic: string, maxMessages: number): boolean;
-        list(Pattern: any, options: any): any;
-        close(callback?: () => void): void;
-        fatal(): void;
-        expose(key: string, object: any): void;
-        ext(type: ExtensionType, handler: ExtensionHandler): void;
-        setConfig(key: string, value: any): void;
-        setOption(key: string, value: any): void;
-        on(event: HemeraEvents, handler: () => void): any;
-        removeAll(): any;
+
+    interface CodecPipeline {
+        add(step: any): CodecPipeline;
+        reset(step: any): CodecPipeline;
+        unshift(step: any): CodecPipeline;
+        run(msg: string | Buffer, cb: any): string | Buffer;
+    }
+
+    interface Plugins {
+        [name: string]: PluginDefinition;
+    }
+    interface Request {
+        id: string;
+        type: RequestType;
+    }
+
+    type RequestType =
+        'pubsub' |
+        'request';
+
+    interface Trace {
+        traceId: string;
+        parentSpanId: string;
+        spanId: string;
+        timestamp: number;
+        service: string;
+        method: string;
+        duration: number;
     }
 }
-export const Hemera: Hemera;
+
+declare class Hemera extends events.EventEmitter {
+    constructor(transport: object, config: Hemera.Config);
+
+    ready(callback: () => void): void;
+    act(pattern: string | Hemera.Pattern, handler?: Hemera.ActHandler): Promise<any>;
+    add(pattern: string | Hemera.Pattern, handler: Hemera.AddHandler): Hemera.AddMeta;
+    use(params: Hemera.PluginDefinition, options?: any): void;
+    createError(name: string): any;
+    decorate(prop: string, value: any): void;
+    remove(topic: string, maxMessages: number): boolean;
+    list(Pattern: any, options: any): any;
+    close(callback?: () => void): void;
+    fatal(): void;
+    expose(key: string, object: any): void;
+    ext(type: Hemera.ExtensionType, handler: Hemera.ExtensionHandler): void;
+    setConfig(key: string, value: any): void;
+    setOption(key: string, value: any): void;
+    on(event: Hemera.HemeraEvents, handler: () => void): any;
+    removeAll(): any;
+
+    encoder: Hemera.CodecPipeline;
+    decoder: Hemera.CodecPipeline;
+
+    plugins: Hemera.Plugins;
+    router: any;
+    load: any;
+    exposition: any;
+    errors: any;
+    config: any;
+    topics: any;
+    transport: any;
+
+    context$: any;
+    meta$: any;
+    delegate$: any;
+    auth$: any;
+    plugin$: Hemera.PluginDefinition;
+    trace$: Hemera.Trace;
+    request$: Hemera.Request;
+}
