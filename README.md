@@ -202,7 +202,7 @@ The `master` branch is automatically published to the `@types` scope on NPM than
 This usually happens within an hour of changes being merged.
 
 #### I've submitted a pull request. How long until it is merged?
-Usually a couple of days. PRs approved by a previous author are tagged `Merge: Express` and handled first. If nothing has happened in a week, @mention @andy-ms.
+Usually a couple of days. PRs which have been approved by a previous author (`Author:Approved`) and issues which have been inactive for 5 days (`Merge:YSYL`) are prioritized.
 
 #### I'm writing a definition that depends on another definition. Should I use `<reference types="" />` or an import?
 
