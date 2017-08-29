@@ -1,6 +1,6 @@
 // Type definitions for Esprima v2.1.0
 // Project: http://esprima.org
-// Definitions by: teppeis <https://github.com/teppeis>, RReverser <https://github.com/RReverser>
+// Definitions by: teppeis <https://github.com/teppeis>, RReverser <https://github.com/RReverser>, allesklarbeidir <https://github.com/allesklarbeidir>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="estree" />
@@ -31,6 +31,7 @@ declare namespace esprima {
         tolerant?: boolean;
         source?: boolean;
         sourceType?: 'script' | 'module';
+        jsx?: boolean;
     }
 
     const Syntax: {
