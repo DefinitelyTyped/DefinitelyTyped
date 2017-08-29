@@ -371,6 +371,7 @@ declare namespace Chart {
         fill?: boolean;
         label?: string;
         lineTension?: number;
+        steppedLine?: 'before' | 'after' | boolean;
         pointBorderColor?: ChartColor | ChartColor[];
         pointBackgroundColor?: ChartColor | ChartColor[];
         pointBorderWidth?: number | number[];
