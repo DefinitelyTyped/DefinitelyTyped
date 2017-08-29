@@ -201,6 +201,9 @@ This script uses [dtslint](https://github.com/Microsoft/dtslint).
 The `master` branch is automatically published to the `@types` scope on NPM thanks to [types-publisher](https://github.com/Microsoft/types-publisher).
 This usually happens within an hour of changes being merged.
 
+#### I've submitted a pull request. How long until it is merged?
+Usually a couple of days. PRs approved by a previous author are tagged `Merge: Express` and handled first. If nothing has happened in a week, @mention @andy-ms.
+
 #### I'm writing a definition that depends on another definition. Should I use `<reference types="" />` or an import?
 
 If the module you're referencing is an external module (uses `export`), use an import.
