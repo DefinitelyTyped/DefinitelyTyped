@@ -142,6 +142,9 @@ export interface TransformOptions {
 
     /** Specify a custom name for module ids. */
     moduleId?: string;
+                           
+    /** Babylon parser options. */
+    parserOpts?: Object;
 }
 
 export interface BabelFileResult {
