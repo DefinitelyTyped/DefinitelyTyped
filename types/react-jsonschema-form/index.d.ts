@@ -22,7 +22,6 @@ declare module "react-jsonschema-form" {
         onSubmit?: (e: any) => any;
         liveValidate?: boolean;
         safeRenderCompletion?: boolean;
-        FieldTemplate?: any;
     }
 
     export interface IChangeEvent {

@@ -350,20 +350,19 @@ export function createElement<P>(
 
 export type Runnable = (appParameters: any) => void;
 
-type NodeHandle = number;
 
 // Similar to React.SyntheticEvent except for nativeEvent
 interface NativeSyntheticEvent<T> {
     bubbles: boolean
     cancelable: boolean
-    currentTarget: NodeHandle
+    currentTarget: EventTarget
     defaultPrevented: boolean
     eventPhase: number
     isTrusted: boolean
     nativeEvent: T
     preventDefault(): void
     stopPropagation(): void
-    target: NodeHandle
+    target: EventTarget
     timeStamp: Date
     type: string
 }
@@ -4387,7 +4386,7 @@ interface TouchableMixin {
      * to visually distinguish the `VisualRect` so that the user knows that
      * releasing a touch will result in a "selection" (analog to click).
      */
-    touchableHandleActivePressIn(e: GestureResponderEvent): void
+    touchableHandleActivePressIn(e: Event): void
 
     /**
      * Invoked when the item is "active" (in that it is still eligible to become
@@ -4398,14 +4397,14 @@ interface TouchableMixin {
      * event will not fire on an `touchEnd/mouseUp` event, only move events while
      * the user is depressing the mouse/touch.
      */
-    touchableHandleActivePressOut(e: GestureResponderEvent): void
+    touchableHandleActivePressOut(e: Event): void
 
     /**
      * Invoked when the item is "selected" - meaning the interaction ended by
      * letting up while the item was either in the state
      * `RESPONDER_ACTIVE_PRESS_IN` or `RESPONDER_INACTIVE_PRESS_IN`.
      */
-    touchableHandlePress(e: GestureResponderEvent): void
+    touchableHandlePress(e: Event): void
 
     /**
      * Invoked when the item is long pressed - meaning the interaction ended by
@@ -4417,7 +4416,7 @@ interface TouchableMixin {
      * to return false. As a result, `touchableHandlePress` will be called when
      * lifting up, even if `touchableHandleLongPress` has also been called.
      */
-    touchableHandleLongPress(e: GestureResponderEvent): void
+    touchableHandleLongPress(e: Event): void
 
     /**
      * Returns the amount to extend the `HitRect` into the `PressRect`. Positive
@@ -5759,9 +5758,6 @@ export interface ScrollViewStyle extends FlexStyle, TransformsStyle {
     elevation?: number
 }
 
-export interface ScrollResponderEvent extends NativeSyntheticEvent<NativeTouchEvent> {
-}
-
 
 interface ScrollResponderMixin extends SubscribableMixin {
     /**
@@ -5807,7 +5803,7 @@ interface ScrollResponderMixin extends SubscribableMixin {
      *
      * Invoke this from an `onStartShouldSetResponderCapture` event.
      */
-    scrollResponderHandleStartShouldSetResponderCapture(e: ScrollResponderEvent): boolean
+    scrollResponderHandleStartShouldSetResponderCapture(e: Event): boolean
 
     /**
      * Invoke this from an `onResponderReject` event.
@@ -5843,19 +5839,19 @@ interface ScrollResponderMixin extends SubscribableMixin {
      *
      * @param {SyntheticEvent} e Event.
      */
-    scrollResponderHandleTouchEnd(e: ScrollResponderEvent): void
+    scrollResponderHandleTouchEnd(e: Event): void
 
     /**
      * Invoke this from an `onResponderRelease` event.
      */
-    scrollResponderHandleResponderRelease(e: ScrollResponderEvent): void
+    scrollResponderHandleResponderRelease(e: Event): void
 
-    scrollResponderHandleScroll(e: ScrollResponderEvent): void
+    scrollResponderHandleScroll(e: Event): void
 
     /**
      * Invoke this from an `onResponderGrant` event.
      */
-    scrollResponderHandleResponderGrant(e: ScrollResponderEvent): void
+    scrollResponderHandleResponderGrant(e: Event): void
 
     /**
      * Unfortunately, `onScrollBeginDrag` also fires when *stopping* the scroll
@@ -5864,22 +5860,22 @@ interface ScrollResponderMixin extends SubscribableMixin {
      *
      * Invoke this from an `onScrollBeginDrag` event.
      */
-    scrollResponderHandleScrollBeginDrag(e: ScrollResponderEvent): void
+    scrollResponderHandleScrollBeginDrag(e: Event): void
 
     /**
      * Invoke this from an `onScrollEndDrag` event.
      */
-    scrollResponderHandleScrollEndDrag(e: ScrollResponderEvent): void
+    scrollResponderHandleScrollEndDrag(e: Event): void
 
     /**
      * Invoke this from an `onMomentumScrollBegin` event.
      */
-    scrollResponderHandleMomentumScrollBegin(e: ScrollResponderEvent): void
+    scrollResponderHandleMomentumScrollBegin(e: Event): void
 
     /**
      * Invoke this from an `onMomentumScrollEnd` event.
      */
-    scrollResponderHandleMomentumScrollEnd(e: ScrollResponderEvent): void
+    scrollResponderHandleMomentumScrollEnd(e: Event): void
 
     /**
      * Invoke this from an `onTouchStart` event.
@@ -5892,7 +5888,7 @@ interface ScrollResponderMixin extends SubscribableMixin {
      *
      * @param {SyntheticEvent} e Touch Start event.
      */
-    scrollResponderHandleTouchStart(e: ScrollResponderEvent): void
+    scrollResponderHandleTouchStart(e: Event): void
 
     /**
      * Invoke this from an `onTouchMove` event.
@@ -5905,7 +5901,7 @@ interface ScrollResponderMixin extends SubscribableMixin {
      *
      * @param {SyntheticEvent} e Touch Start event.
      */
-    scrollResponderHandleTouchMove(e: ScrollResponderEvent): void
+    scrollResponderHandleTouchMove(e: Event): void
 
     /**
      * A helper function for this class that lets us quickly determine if the
@@ -5969,7 +5965,7 @@ interface ScrollResponderMixin extends SubscribableMixin {
      */
     scrollResponderInputMeasureAndScrollToKeyboard(left: number, top: number, width: number, height: number): void
 
-    scrollResponderTextInputFocusError(e: ScrollResponderEvent): void
+    scrollResponderTextInputFocusError(e: Event): void
 
     /**
      * `componentWillMount` is the closest thing to a  standard "constructor" for
@@ -6007,13 +6003,13 @@ interface ScrollResponderMixin extends SubscribableMixin {
      * relevant to you. (For example, only if you receive these callbacks after
      * you had explicitly focused a node etc).
      */
-    scrollResponderKeyboardWillShow(e: ScrollResponderEvent): void
+    scrollResponderKeyboardWillShow(e: Event): void
 
-    scrollResponderKeyboardWillHide(e: ScrollResponderEvent): void
+    scrollResponderKeyboardWillHide(e: Event): void
 
-    scrollResponderKeyboardDidShow(e: ScrollResponderEvent): void
+    scrollResponderKeyboardDidShow(e: Event): void
 
-    scrollResponderKeyboardDidHide(e: ScrollResponderEvent): void
+    scrollResponderKeyboardDidHide(e: Event): void
 }
 
 export interface ScrollViewPropertiesIOS {
@@ -8194,10 +8190,6 @@ export namespace Animated {
         friction?: number;
     }
 
-    interface LoopAnimationConfig {
-        iterations?: number; // default -1 for infinite
-    }
-
     /**
      * Creates a new Animated value composed from two Animated values added
      * together.
@@ -8277,18 +8269,6 @@ export namespace Animated {
     export function stagger(
         time: number,
         animations: Array<CompositeAnimation>
-    ): CompositeAnimation
-
-    /**
-     * Loops a given animation continuously, so that each time it reaches the end,
-     * it resets and begins again from the start. Can specify number of times to
-     * loop using the key 'iterations' in the config. Will loop without blocking
-     * the UI thread if the child animation is set to 'useNativeDriver'.
-     */
-
-    export function loop(
-        animation: CompositeAnimation,
-        config?: LoopAnimationConfig,
     ): CompositeAnimation
 
     /**
@@ -8457,6 +8437,20 @@ export interface ImageStoreStatic {
 // TODO: Add proper support for fetch
 export type fetch = (url: string, options?: Object) => Promise<any>
 export const fetch: fetch;
+
+// Timers polyfill
+export type timedScheduler = (fn: string | (() => any), delay?: number) => number
+export type setTimeout = timedScheduler
+export type setInterval = timedScheduler
+export type setImmediate = (fn: () => any) => number
+export type requestAnimationFrame = (fn: (time: number) => any) => number
+
+export type schedulerCanceller = (id: number) => void
+export type clearTimeout = schedulerCanceller
+export type clearInterval = schedulerCanceller
+export type clearImmediate = schedulerCanceller
+export type cancelAnimationFrame = schedulerCanceller
+
 
 export interface TabsReducerStatic {
     JumpToAction(index: number): any;

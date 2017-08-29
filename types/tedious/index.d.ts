@@ -554,18 +554,18 @@ export declare class Connection extends events.EventEmitter {
  * Error emitted by Connection class 'error' event
  */
 export declare class ConnectionError extends Error {
-    constructor(message?: string, code?: string);
+    constructor(message?: string, code?: number);
 
     public message: string;
-    public code: string;
+    public code: number;
 }
 
 /**
  * Error emitted by Request class
  */
 export declare class RequestError extends Error {
-    constructor(message?: string, code?: string);
+    constructor(message?: string, code?: number);
 
     public message: string;
-    public code: string;
+    public code: number;
 }

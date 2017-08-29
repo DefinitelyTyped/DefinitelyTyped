@@ -19,7 +19,7 @@ export interface CharsFormatters {
 
 export interface MaskedInputProps extends React.InputHTMLAttributes<any> {
   mask: string;
-  formatCharacters?: CharsFormatters;
+  formatCharacter?: CharsFormatters;
   placeholderChar?: string;
 }
 

@@ -290,9 +290,5 @@ declare module "node-forge" {
         namespace sha256 {
             function create(): MessageDigest;
         }
-
-        namespace md5 {
-            function create(): MessageDigest;
-        }
     }
 }

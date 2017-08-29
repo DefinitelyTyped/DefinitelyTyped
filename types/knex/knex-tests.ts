@@ -127,9 +127,6 @@ var knex = Knex({
   },
   migrations: {
     tableName: 'migrations'
-  },
-  seeds: {
-    directory: 'seeds'
   }
 });
 

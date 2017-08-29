@@ -1,6 +1,6 @@
-import URLSearchParams = require("url-search-params");
+import * as URLSearchParams from "url-search-params";
 
-const params = new URLSearchParams();
+const params: URLSearchParams.URLSearchParams = new URLSearchParams();
 
 params.append("a", "1");
 

@@ -30,8 +30,6 @@ namespace angularStrapTests {
             myOtherModalOptions.scope = $scope;
             myOtherModalOptions.template = 'modal/docs/modal.demo.tpl.html';
             myOtherModalOptions.show = false;
-            myOtherModalOptions.controller = demoCtrl; 
-            myOtherModalOptions.controllerAs = "ctrl";
 
             var myOtherModal = $modal(myOtherModalOptions);
 
