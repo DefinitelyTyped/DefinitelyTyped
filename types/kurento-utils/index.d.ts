@@ -13,7 +13,7 @@ export class WebRtcPeer {
     constructor(
         mode: 'recv' | 'send' | 'sendRecv',
         options?: object,
-        callback?: (error) => void
+        callback?: (error: string | undefined) => void
     );
 
     /**
@@ -34,14 +34,20 @@ export class WebRtcPeer {
      * @param sdpAnswer Description of sdpAnswer
      * @param callback It is a function with error like parameter. It is called when the remote description has been set successfully.
      */
-    processAnswer: (sdpAnswer, callback?: (error) => void) => void;
+    processAnswer: (
+        sdpAnswer: string,
+        callback?: (error: string | undefined) => void
+    ) => void;
     /**
      * Callback function invoked when a SDP offer is received. Developers are expected to invoke this function in order to complete the SDP negotiation. This method has two parameters:
      *
      * @param sdpOffer Description of sdpOffer
      * @param callback It is a function with error and sdpAnswer like parameters. It is called when the remote description has been set successfully.
      */
-    processOffer: (sdpOffer, callback?: (error, sdp) => void) => void;
+    processOffer: (
+        sdpOffer: string,
+        callback?: (error: string | undefined, sdp: string) => void
+    ) => void;
     /**
      * This method frees the resources used by WebRtcPeer.
      */
@@ -52,7 +58,10 @@ export class WebRtcPeer {
      * @param iceCandidate Literal object with the ICE candidate description
      * @param callback It is a function with error like parameter. It is called when the ICE candidate has been added.
      */
-    addIceCandidate: (iceCandidate, callback?: () => void) => void;
+    addIceCandidate: (
+        iceCandidate: RTCIceCandidate,
+        callback?: () => void
+    ) => void;
     /**
      * Using this method the user can get peerconnection’s local session descriptor.
      */
@@ -64,29 +73,29 @@ export class WebRtcPeer {
     /**
      * Creates an offer that is a request to find a remote peer with a specific configuration.
      */
-    generateOffer: (error, sdp) => void;
+    generateOffer: (error: string | undefined, sdp: string) => void;
 
     /**
      * Create a WebRtcPeer as receive only.
      */
     static WebRtcPeerRecvonly: (
-        options,
-        callback: (error) => void
+        options: object,
+        callback: (error: string | undefined) => void
     ) => WebRtcPeer;
 
     /**
      * Create a WebRtcPeer as send only.
      */
     static WebRtcPeerSendonly: (
-        options,
-        callback: (error) => void
+        options: object,
+        callback: (error: string | undefined) => void
     ) => WebRtcPeer;
 
     /**
      * Create a WebRtcPeer as send and receive.
      */
     static WebRtcPeerSendrecv: (
-        options,
-        callback: (error) => void
+        options: object,
+        callback: (error: string | undefined) => void
     ) => WebRtcPeer;
 }
