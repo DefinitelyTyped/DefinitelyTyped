@@ -77,15 +77,44 @@ describe("react-select", () => {
     });
 
     it("Overriding default key-down behavior with onInputKeyDown", () => {
-        const keyDownHandler: ReactSelect.OnInputKeyDownHandler = event => {
-            const e: React.KeyboardEvent<HTMLDivElement> = event;
-        };
+        const keyDownHandler: ReactSelect.OnInputKeyDownHandler = (event => {
+            const divEvent = event as React.KeyboardEvent<HTMLDivElement>;
+            const inputEvent = event as React.KeyboardEvent<HTMLInputElement>;
+        });
     });
 
     it("Updating input values with onInputChange", () => {
         const cleanInput: ReactSelect.OnInputChangeHandler = inputValue => {
             return inputValue.replace(/[^0-9]/g, "");
         };
+    });
+});
+
+describe("Focus events", () => {
+    it("Passing custom onFocus", () => {
+        class Component extends React.PureComponent {
+            render() {
+                return (
+                    <ReactSelect onFocus={(e) => {
+                        const inputEvent = e as React.FocusEvent<HTMLInputElement>;
+                        const divEvent = e as React.FocusEvent<HTMLDivElement>;
+                    }} />
+                );
+            }
+        }
+    });
+
+    it("Passing custom onBlur", () => {
+        class Component extends React.PureComponent {
+            render() {
+                return (
+                    <ReactSelect onBlur={(e) => {
+                        const inputEvent = e as React.FocusEvent<HTMLInputElement>;
+                        const divEvent = e as React.FocusEvent<HTMLDivElement>;
+                    }} />
+                );
+            }
+        }
     });
 });
 
