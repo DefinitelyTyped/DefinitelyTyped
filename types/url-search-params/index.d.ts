@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare class URLSearchParams {
-    constructor(init?: any | URLSearchParams | string);
+    constructor(init?: URLSearchParams | string);
     append(name: string, value: any): void;
     delete(name: string): void;
     entries(pointer: string): Iterator<string>;
