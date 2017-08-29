@@ -10,7 +10,8 @@ import { SalesforceId } from './salesforce-id';
 
 export class SObject {
     record(options: any, callback?: (err: Error, ret: any) => void): void;
-    update(options: SObjectCreateOptions, callback?: (err: Error, ret: any) => void): void;
+    update<T>(record: Partial<T>, options?: Object, callback?: (err: Error, ret: RecordResult) => void): Promise<RecordResult>;
+    update<T>(records: Partial<T>[], options?: Object, callback?: (err: Error, ret: RecordResult[]) => void): Promise<RecordResult[]>;
     retrieve(ids: string | string[], callback?: (err: Error, ret: Record | Record[]) => void): Promise<Record | Record[]>;
     retrieve(ids: string | string[], options?: Object, callback?: (err: Error, ret: Record | Record[]) => void): Promise<Record | Record[]>;
     upsert(records: Record | Record[], extIdField: SalesforceId, options?: Object, callback?: (err: Error, ret: RecordResult) => void): Promise<RecordResult | RecordResult[]>;
