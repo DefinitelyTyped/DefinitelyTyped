@@ -839,8 +839,8 @@ namespace TestFirst {
     {
         let result: _.LoDashExplicitObjectWrapper<TResult>;
 
-        result = _(array).chain().first<_.LoDashExplicitObjectWrapper<TResult>>();
-        result = _(list).chain().first<_.LoDashExplicitObjectWrapper<TResult>>();
+        result = _(array).chain().first();
+        result = _(list).chain().first<TResult>();
     }
 }
 

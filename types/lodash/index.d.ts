@@ -1947,14 +1947,14 @@ declare namespace _ {
         /**
          * @see _.head
          */
-        first<T>(): T;
+        first(): LoDashExplicitObjectWrapper<T>;
     }
 
     interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.head
          */
-        first<T>(): T;
+        first<T>(): LoDashExplicitObjectWrapper<T>;
     }
 
     interface RecursiveArray<T> extends Array<T|RecursiveArray<T>> {}
