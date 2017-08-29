@@ -5,10 +5,10 @@
 // TypeScript Version: 2.3
 
 import * as React from "react";
-import { ReactSelectProps, Option } from "react-select";
+import { ReactSelectProps } from "react-select";
 import { ListProps } from "react-virtualized";
 
-export interface VirtualizedOptionRenderOptions<T> extends Option<T> {
+export interface VirtualizedOptionRenderOptions<T> {
     focusedOption: T;
     focusedOptionIndex: number;
     focusOption(option: T): void;
@@ -22,7 +22,14 @@ export interface VirtualizedOptionRenderOptions<T> extends Option<T> {
     valueArray: T[];
 }
 
-export interface VirtualizedSelectProps extends ReactSelectProps {
+/**
+ * Dummy interface to allow `VirtualizedSelectProps` to have an `optionRenderer` type
+ * incompatible with the one in `ReactSelectProps`.
+ */
+interface VirtualizedSelectPropsBase extends ReactSelectProps {
+    optionRenderer?: any;
+}
+export interface VirtualizedSelectProps extends VirtualizedSelectPropsBase {
     async?: boolean;
     maxHeight?: number;
     optionHeight?: number;
