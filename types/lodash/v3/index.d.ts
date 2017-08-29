@@ -13329,50 +13329,41 @@ declare module _ {
          * @param defaultValue The value returned if the resolved value is undefined.
          * @return Returns the resolved value.
          */
-        get<TObject, TResult>(
-            object: TObject,
-            path: StringRepresentable|StringRepresentable[],
-            defaultValue?: TResult
-        ): TResult;
-
-        /**
-         * @see _.get
-         */
-        get<TResult>(
+        get<TExpected, TDefault = undefined>(
             object: any,
             path: StringRepresentable|StringRepresentable[],
-            defaultValue?: TResult
-        ): TResult;
+            defaultValue?: TDefault
+        ): TExpected | TDefault;
     }
 
     interface LoDashImplicitWrapper<T> {
         /**
          * @see _.get
          */
-        get<TResult>(
+        get<TExpected, TDefault = undefined>(
             path: StringRepresentable|StringRepresentable[],
-            defaultValue?: TResult
-        ): TResult;
+            defaultValue?: TDefault
+        ): TExpected | TDefault;
     }
 
     interface LoDashImplicitArrayWrapper<T> {
         /**
          * @see _.get
          */
-        get<TResult>(
+        get<TExpected, TDefault = undefined>(
             path: StringRepresentable|StringRepresentable[],
-            defaultValue?: TResult
-        ): TResult;
+            defaultValue?: TDefault
+        ): TExpected | TDefault;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
          * @see _.get
          */
-        get<TResult>(
+        get<TExpected, TDefault = undefined>(
             path: StringRepresentable|StringRepresentable[],
-            defaultValue?: TResult
-        ): TResult;
+            defaultValue?: TDefault
+        ): TExpected | TDefault;
     }
 
     interface LoDashExplicitWrapper<T> {
@@ -14726,7 +14717,7 @@ declare module _ {
          * Splits string by separator.
          *
          * Note: This method is based on String#split.
-         * 
+         *
          * @param separator The separator pattern to split by.
          * @param limit The length to truncate results to.
          * @return Returns the new array with the terms splitted.

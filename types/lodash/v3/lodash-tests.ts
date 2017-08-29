@@ -8626,52 +8626,52 @@ namespace TestGet {
         result = _.get<string, string>('abc', ['0'], '_');
 
         result = _.get<string>('abc', '0');
-        result = _.get<string>('abc', '0', '_');
+        result = _.get<string, string>('abc', '0', '_');
         result = _.get<string>('abc', ['0']);
-        result = _.get<string>('abc', ['0'], '_');
+        result = _.get<string, string>('abc', ['0'], '_');
 
         result = _('abc').get<string>('0');
-        result = _('abc').get<string>('0', '_');
+        result = _('abc').get<string, string>('0', '_');
         result = _('abc').get<string>(['0']);
-        result = _('abc').get<string>(['0'], '_');
+        result = _('abc').get<string, string>(['0'], '_');
     }
 
     {
         let result: number;
 
-        result = _.get<number[], number>([42], '0');
-        result = _.get<number[], number>([42], '0', -1);
-        result = _.get<number[], number>([42], ['0']);
-        result = _.get<number[], number>([42], ['0'], -1);
+        result = _.get<number>([42], '0');
+        result = _.get<number, number>([42], '0', -1);
+        result = _.get<number>([42], ['0']);
+        result = _.get<number, number>([42], ['0'], -1);
 
         result = _.get<number>([42], '0');
-        result = _.get<number>([42], '0', -1);
+        result = _.get<number, number>([42], '0', -1);
         result = _.get<number>([42], ['0']);
-        result = _.get<number>([42], ['0'], -1);
+        result = _.get<number, number>([42], ['0'], -1);
 
         result = _([42]).get<number>('0');
-        result = _([42]).get<number>('0', -1);
+        result = _([42]).get<number, number>('0', -1);
         result = _([42]).get<number>(['0']);
-        result = _([42]).get<number>(['0'], -1);
+        result = _([42]).get<number, number>(['0'], -1);
     }
 
     {
         let result: boolean;
 
-        result = _.get<{a: boolean}, boolean>({a: true}, 'a');
-        result = _.get<{a: boolean}, boolean>({a: true}, 'a', false);
-        result = _.get<{a: boolean}, boolean>({a: true}, ['a']);
-        result = _.get<{a: boolean}, boolean>({a: true}, ['a'], false);
+        result = _.get<boolean>({a: true}, 'a');
+        result = _.get<boolean, boolean>({a: true}, 'a', false);
+        result = _.get<boolean>({a: true}, ['a']);
+        result = _.get<boolean, boolean>({a: true}, ['a'], false);
 
         result = _.get<boolean>({a: true}, 'a');
-        result = _.get<boolean>({a: true}, 'a', false);
+        result = _.get<boolean, boolean>({a: true}, 'a', false);
         result = _.get<boolean>({a: true}, ['a']);
-        result = _.get<boolean>({a: true}, ['a'], false);
+        result = _.get<boolean, boolean>({a: true}, ['a'], false);
 
         result = _({a: true}).get<boolean>('a');
-        result = _({a: true}).get<boolean>('a', false);
+        result = _({a: true}).get<boolean, boolean>('a', false);
         result = _({a: true}).get<boolean>(['a']);
-        result = _({a: true}).get<boolean>(['a'], false);
+        result = _({a: true}).get<boolean, boolean>(['a'], false);
     }
 
     {
