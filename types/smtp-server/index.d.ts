@@ -5,8 +5,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped 
 
 /// <reference types="node"/>
+import { EventEmitter } from 'events';
 
-export class SMTPServer extends NodeJS.EventEmitter {
+export class SMTPServer extends EventEmitter {
     constructor(options: SMTPServerOptions);
     close(callback: (err?: Error) => any): any;
     listen(...args: any[]): void;
