@@ -16,4 +16,14 @@ const expected = {
   quux: 5
 };
 
-const result = deepmerge<any>(x, y);
+const result = deepmerge(x, y);
+const anyResult = deepmerge<any>(x, y);
+
+function reverseConcat(dest: number[], src: number[]) {
+    return src.concat(dest);
+}
+
+const withOptions = deepmerge(x, y, {
+  clone: false,
+  arrayMerge: reverseConcat
+});
