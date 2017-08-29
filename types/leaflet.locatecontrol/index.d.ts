@@ -38,6 +38,6 @@ declare namespace L {
         /**
          * Creates a Leaflet.Locate control
          */
-        function locate(options?: Control.LocateOptions): L.Control;
+        function locate(options?: Control.LocateOptions): Control;
     }
 }
