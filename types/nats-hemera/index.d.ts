@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-import events = require('events');
 export = Hemera;
 export as namespace Hemera;
 
@@ -141,7 +140,7 @@ declare namespace Hemera {
         add(step: any): CodecPipeline;
         reset(step: any): CodecPipeline;
         unshift(step: any): CodecPipeline;
-        run(msg: string | Buffer, cb: any): string | Buffer;
+        run(msg: any, cb: any): any;
     }
 
     interface Plugins {
@@ -167,7 +166,7 @@ declare namespace Hemera {
     }
 }
 
-declare class Hemera extends events.EventEmitter {
+declare class Hemera {
     constructor(transport: object, config: Hemera.Config);
 
     ready(callback: () => void): void;
