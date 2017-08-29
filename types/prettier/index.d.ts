@@ -117,8 +117,8 @@ export interface ResolveConfigOptions {
 export function resolveConfig(filePath?: string, options?: ResolveConfigOptions): Promise<null | Options>;
 
 /**
- * As you repeatedly call `resolveConfig`, the file system structure will be cached for performance.
- * This function will clear the cache. Generally this is only needed for editor integrations that know that the file system has changed since the last format took place.
+ * As you repeatedly call `resolveConfig`, the file system structure will be cached for performance. This function will clear the cache.
+ * Generally this is only needed for editor integrations that know that the file system has changed since the last format took place.
  */
 export function clearConfigCache(): void;
 
