@@ -3,9 +3,9 @@
 // Definitions by: Thomas Kleinke <https://github.com/tkleinke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="leaflet" />
+import * as L from 'leaflet';
 
-declare namespace L {
+declare module 'leaflet' {
     namespace ImageOverlay {
         interface Rotated extends ImageOverlay {
             reposition(
