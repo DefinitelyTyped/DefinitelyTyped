@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import * as Tooltip from 'rc-tooltip';
+import Tooltip from 'rc-tooltip';
 
 ReactDOM.render(
     <Tooltip placement="left" trigger={['click']} overlay={<span>tooltip</span>}>
