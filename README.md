@@ -202,7 +202,12 @@ The `master` branch is automatically published to the `@types` scope on NPM than
 This usually happens within an hour of changes being merged.
 
 #### I've submitted a pull request. How long until it is merged?
-Usually a couple of days. PRs which have been approved by a previous author (`Author:Approved`) and PRs which have been inactive for 5 days (`Merge:YSYL`) are prioritized.
+
+It depends, but most pull requests will be merged within a week. PRs that have been approved by an author listed in the definition's header are usually merged more quickly; PRs for new definitions will take more time as they require more review from maintainers. Each PR is reviewed by a TypeScript or DefinitelyTyped team member before being merged, so please be patient as human factors may cause delays. Check the PR Burndown Board to see progress as maintainers work through the open PRs.
+
+#### My PR is merged; when will the @types NPM package be updated?
+
+NPM packages should update within a few hours. If it's been more than 24 hours, ping @RyanCavanaugh and @andy-ms on the PR to investigate.
 
 #### I'm writing a definition that depends on another definition. Should I use `<reference types="" />` or an import?
 
