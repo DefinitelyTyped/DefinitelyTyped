@@ -24,8 +24,15 @@ const instrumenter = createInstrumenter({
 	debug: false
 });
 
+const sourceMap = {
+	version: 1,
+	sources: ['foo', 'bar'],
+	names: ['foo', 'bar'],
+	mappings: 'foo',
+	file: 'foo'
+};
 instrumenter.instrumentSync(code, filename);
-const newCode = instrumenter.instrumentSync(code, filename, {});
+const newCode = instrumenter.instrumentSync(code, filename, sourceMap);
 code.trim();
 
 // instrument with all args
@@ -35,7 +42,7 @@ instrumenter.instrument(code, filename, (error, code) => {
 	} else {
 		code.trim();
 	}
-}, {});
+}, sourceMap);
 
 // instrument without a filename
 instrumenter.instrument(code, (error, code) => {
@@ -58,7 +65,7 @@ initialCov.gcv;
 programVisitor(babelTypes);
 programVisitor(babelTypes, filename);
 programVisitor(babelTypes, filename, { coverageVariable: 'coverage' });
-const visitor = programVisitor(babelTypes, filename, { inputSourceMap: {} });
+const visitor = programVisitor(babelTypes, filename, { inputSourceMap: sourceMap });
 
 visitor.enter(filename);
 const data = visitor.exit(filename);
