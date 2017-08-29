@@ -9126,9 +9126,12 @@ export var NativeEventEmitter: NativeEventEmitter
 export var NativeAppEventEmitter: RCTNativeAppEventEmitter
 
 /**
- * Empty interface which can be augmented by other type definitions for the NativeModules var below.
+ * Interface for NativeModules which allows to augment NativeModules with type informations.
+ * See react-native-sensor-manager for example.
  */
-interface NativeModulesStatic {}
+interface NativeModulesStatic {
+    [name: string]: any;
+}
 
 /**
  * Native Modules written in ObjectiveC/Swift/Java exposed via the RCTBridge
