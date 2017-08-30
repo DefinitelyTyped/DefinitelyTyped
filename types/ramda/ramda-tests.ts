@@ -1528,6 +1528,17 @@ class Rectangle {
 () => {
     const x: number = R.prop("x", {x: 100}); // => 100
     const a       = R.prop("x", {}); // => undefined
+    const b       = R.prop("x", {x: 100}); // => 100
+    const c       = R.prop("x", {x: 'test'}); // => 'test'
+    const d       = R.prop("x")({x: 'test'}); // => 'test'
+    const e       = R.prop<number>("x", {}); // => undefined as type number for backwards compatibility
+    const f       = R.prop("x")({}); // => undefined as type number for backwards compatibility
+    const g       = R.prop(2, [0, 2, 4, 6]); // => 4
+};
+
+() => {
+    let propFunc  = R.prop("x");
+    const a       = propFunc<number>({}); // => undefined as type number for backwards compatibility
 };
 
 () => {
