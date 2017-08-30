@@ -755,6 +755,7 @@ declare namespace R {
          * Combines two lists into a set (i.e. no duplicates) composed of those elements common to both lists.
          */
         intersection<T>(list1: T[], list2: T[]): T[];
+        intersection<T>(list1: T[]): (list2: T[]) => T[];
 
         /**
          * Combines two lists into a set (i.e. no duplicates) composed of those
