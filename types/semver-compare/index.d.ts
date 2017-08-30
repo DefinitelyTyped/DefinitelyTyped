@@ -3,8 +3,6 @@
 // Definitions by: Kovács Vince <https://github.com/vincekovacs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "semver-compare" {
-    function compare<T>(a: T, b: T): number
+declare function semverCompare<T>(a: T, b: T): number;
 
-    export default compare
-}
+export = semverCompare;

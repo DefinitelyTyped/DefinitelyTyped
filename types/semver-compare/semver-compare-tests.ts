@@ -1,4 +1,4 @@
-import cmp = require("semver-compare")
+import SemverCompare = require("semver-compare")
 
 var versions = [
     "1.2.3",
@@ -11,4 +11,4 @@ var versions = [
     "10.5.5",
     "11.3.0",
 ]
-console.log(versions.sort(cmp).join("\n"))
+console.log(versions.sort(SemverCompare).join("\n"))
