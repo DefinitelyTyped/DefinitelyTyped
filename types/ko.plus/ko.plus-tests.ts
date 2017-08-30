@@ -1,3 +1,4 @@
+
 function CommandTests() {
     // initalize command with an execute method
     var cmd1 = ko.command(() => {
@@ -122,10 +123,10 @@ function SortableTests() {
 }
 
 function BindingHandlerTests() {
-    
+
         // test binding handlers
         var bh1 = ko.bindingHandlers.command;
         var bh2 = ko.bindingHandlers.loadingWhen;
         var bh3 = ko.bindingHandlers.sortBy;
-    
+        
 }
