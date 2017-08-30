@@ -6,9 +6,9 @@
 import * as http from "http";
 
 declare module "http" {
-  interface Server {
-    destroy(callback?: () => void): void;
-  }
+    interface Server {
+        destroy(callback?: () => void): void;
+    }
 }
 
 declare function enableDestroy(server: http.Server): void;
