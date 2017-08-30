@@ -15,6 +15,7 @@ export interface ConnectionConfig {
     password?: string;
     port?: number;
     host?: string;
+    connectionString?: string;
 }
 
 export interface Defaults extends ConnectionConfig {

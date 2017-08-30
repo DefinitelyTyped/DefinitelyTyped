@@ -77,6 +77,10 @@ client.end()
   .then(() => console.log('client has disconnected'))
   .catch(err => console.error('error during disconnection', err.stack));
 
+const poolOne = new pg.Pool({
+  connectionString: 'postgresql://dbuser:secretpassword@database.server.com:3211/mydb'
+});
+
 const pool = new pg.Pool({
   host: 'localhost',
   port: 5432,
