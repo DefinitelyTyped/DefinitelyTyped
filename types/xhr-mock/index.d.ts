@@ -54,4 +54,3 @@ declare namespace mock {
 
 declare var mock: mock.XhrMock;
 export = mock;
-export as namespace mock;
