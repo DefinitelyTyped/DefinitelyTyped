@@ -31,4 +31,7 @@ transformed.sourceFinder('foo').trim();
 store.dispose();
 
 store.sourceStore.registerSource('foo', 'bar');
-store.sourceStore.getSource('foo').trim();
+const source = store.sourceStore.getSource('foo');
+if (source != null) {
+	source.trim();
+}
