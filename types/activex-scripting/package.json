@@ -1,1 +1,5 @@
-{ "dependencies": { "activex-helpers": "*"}}
+{
+  "dependencies": {
+    "activex-helpers": "*"
+  }
+}

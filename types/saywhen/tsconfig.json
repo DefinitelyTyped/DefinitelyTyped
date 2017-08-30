@@ -4,7 +4,6 @@
 		"lib": [
 			"es6"
 		],
-		"alwaysStrict": true,
 		"forceConsistentCasingInFileNames": true,
 		"noFallthroughCasesInSwitch": true,
 		"noImplicitAny": true,

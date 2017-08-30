@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Json from 'react-json';
+import Json = require('react-json');
 
 const TestObject = {
     s: "Hello, world",
