@@ -3,6 +3,7 @@
 // Definitions by: jt000 <https://github.com/jt000>,
 //                 Yuki Kokubun <https://github.com/Kuniwak>,
 //                 Leonard Thieu <https://github.com/leonard-thieu>,
+//                 Mike Lazer-Walker <https://github.com/lazerwalker>,
 //                 Matt Bishop <https://github.com/mattbishop>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -28,14 +29,14 @@ declare namespace Chai {
         become(expected: any): PromisedAssertion;
         fulfilled: PromisedAssertion;
         rejected: PromisedAssertion;
-        rejectedWith(expected: any, message?: string | RegExp): PromisedAssertion;
+        rejectedWith: PromisedThrow;
         notify(fn: Function): PromisedAssertion;
     }
 
     // Eventually does not have .then(), but PromisedAssertion have.
     interface Eventually extends PromisedLanguageChains, PromisedNumericComparison, PromisedTypeComparison {
         // From chai-as-promised
-        become(expected: PromiseLike<any>): PromisedAssertion;
+        become(expected: any): PromisedAssertion;
         fulfilled: PromisedAssertion;
         rejected: PromisedAssertion;
         rejectedWith: PromisedThrow;
