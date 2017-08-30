@@ -102,7 +102,6 @@ declare namespace gapi.auth2 {
      */
     scope?: string;
   }
-    
 
   /**
    * Definitions by: John <https://github.com/jhcao23>
@@ -113,7 +112,7 @@ declare namespace gapi.auth2 {
     scope?: string;
     prompt?: "select_account" | "consent";
     app_package_name?: string;
-  }    
+  }
 
   /**
    * Interface that represents the different configuration parameters for the gapi.auth2.init method.
