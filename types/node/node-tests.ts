@@ -2252,6 +2252,20 @@ namespace console_tests {
 ///////////////////////////////////////////////////
 
 namespace net_tests {
+
+    {
+        const connectOpts: net.NetConnectOpts = {
+            allowHalfOpen: true,
+            family: 4,
+            host: "localhost",
+            port: 443,
+            timeout: 10E3
+        };
+        const socket: net.Socket = net.createConnection(connectOpts, (): void => {
+            // nothing
+        });
+    }
+
     {
         let server = net.createServer();
         // Check methods which return server instances by chaining calls
@@ -2272,6 +2286,13 @@ namespace net_tests {
     }
 
     {
+        const constructorOpts: net.SocketConstructorOpts = {
+            fd: 1,
+            allowHalfOpen: false,
+            readable: false,
+            writable: false
+        };
+
         /**
          * net.Socket - events.EventEmitter
          *   1. close
@@ -2283,18 +2304,36 @@ namespace net_tests {
          *   7. lookup
          *   8. timeout
          */
-        let _socket: net.Socket = new net.Socket({
-            fd: 1,
-            allowHalfOpen: false,
-            readable: false,
-            writable: false
-        });
+        let _socket: net.Socket = new net.Socket(constructorOpts);
 
         let bool: boolean;
         let buffer: Buffer;
         let error: Error;
         let str: string;
         let num: number;
+
+        let ipcConnectOpts: net.IpcSocketConnectOpts = {
+            path: "/"
+        };
+        let tcpConnectOpts: net.TcpSocketConnectOpts = {
+            family: 4,
+            hints: 0,
+            host: "localhost",
+            localAddress: "10.0.0.1",
+            localPort: 1234,
+            lookup: () => {
+                // nothing
+            },
+            port: 80
+        };
+        _socket.connect(ipcConnectOpts);
+        _socket.connect(ipcConnectOpts, (): void => {});
+        _socket.connect(tcpConnectOpts);
+        _socket.connect(tcpConnectOpts, (): void => {});
+        _socket.connect(80, "localhost");
+        _socket.connect(80, "localhost", (): void => {});
+        _socket.connect(80);
+        _socket.connect(80, (): void => {});
 
         /// addListener
 
