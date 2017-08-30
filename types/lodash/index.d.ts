@@ -12475,15 +12475,6 @@ declare namespace _ {
          * @see _.get
          */
         get<TObject extends object, TKey extends keyof TObject>(
-            object: TObject | null | undefined,
-            path: TKey | [TKey],
-            defaultValue: TObject[TKey]
-        ): TObject[TKey];
-
-        /**
-         * @see _.get
-         */
-        get<TObject extends object, TKey extends keyof TObject>(
             object: TObject,
             path: TKey | [TKey]
         ): TObject[TKey];
@@ -12517,19 +12508,9 @@ declare namespace _ {
         /**
          * @see _.get
          */
-        get<TObject extends object, TKey extends keyof TObject>(
-            this: LoDashImplicitWrapper<TObject | null | undefined>,
-            path: TKey | [TKey],
-            defaultValue: TObject[TKey]
-        ): TObject[TKey];
-
-        /**
-         * @see _.get
-         */
-        get<TObject extends object, TKey extends keyof TObject>(
-            this: LoDashImplicitWrapper<TObject>,
-            path: TKey | [TKey],
-        ): TObject[TKey];
+        get<TKey extends keyof TValue>(
+            path: TKey | [TKey]
+        ): TValue[TKey];
 
         /**
          * @see _.get
@@ -12559,19 +12540,9 @@ declare namespace _ {
         /**
          * @see _.get
          */
-        get<TObject extends object, TKey extends keyof TObject>(
-            this: LoDashExplicitWrapper<TObject | null | undefined>,
-            path: TKey | [TKey],
-            defaultValue: TObject[TKey]
-        ): LoDashExplicitWrapper<TObject[TKey]>;
-
-        /**
-         * @see _.get
-         */
-        get<TObject extends object, TKey extends keyof TObject>(
-            this: LoDashExplicitWrapper<TObject>,
-            path: TKey | [TKey],
-        ): LoDashExplicitWrapper<TObject[TKey]>;
+        get<TKey extends keyof TValue>(
+            path: TKey | [TKey]
+        ): LoDashExplicitWrapper<TValue[TKey]>;
 
         /**
          * @see _.get
