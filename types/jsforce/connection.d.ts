@@ -20,7 +20,7 @@ export interface ConnectionOptions extends Partial<OAuth2Options> {
     loginUrl?: string;
     logLevel?: string;
     maxRequest?: number;
-    oauth2?: OAuth2Options;
+    oauth2?: Partial<OAuth2Options>;
     proxyUrl?: string;
     redirectUri?: string;
     refreshToken?: string;
@@ -38,12 +38,33 @@ export interface UserInfo {
 
 export type ConnectionEvent = "refresh";
 
-export class Connection {
-    constructor(params: ConnectionOptions)
-
-    accessToken: string;
+/**
+ * the methods exposed here are done so that a client can use 'declaration augmentation' to get intellisense on their own projects.
+ * for example, given a type
+ *
+ * interface Foo {
+ *  thing: string;
+ *  yes: boolean;
+ * }
+ *
+ * you can write
+ *
+ * declare module "jsforce" {
+ *  interface Connection {
+ *    sobject(type: 'Foo'): SObject<Foo>
+ *  }
+ * }
+ *
+ * to ensure that you have the correct data types for the various collection names.
+ */
+export interface Connection {
     query<T>(soql: string, callback?: (err: Error, result: QueryResult<T>) => void): QueryResult<T>;
-    sobject(resource: string): SObject;
+    sobject<T>(resource: string): SObject<T>;
+}
+
+export class Connection implements Connection {
+    constructor(params: ConnectionOptions)
+    accessToken: string;
     login(user: string, password: string, callback?: (err: Error, res: UserInfo) => void): Promise<UserInfo>;
     loginByOAuth2(user: string, password: string, callback?: (err: Error, res: UserInfo) => void): Promise<UserInfo>;
     loginBySoap(user: string, password: string, callback?: (err: Error, res: UserInfo) => void): Promise<UserInfo>;
