@@ -2375,7 +2375,6 @@ declare module "net" {
 
     export type SocketConnectOpts = TcpSocketConnectOpts | IpcSocketConnectOpts;
 
-
     export interface Socket extends stream.Duplex {
         // Extended base methods
         write(buffer: Buffer): boolean;
@@ -2385,7 +2384,7 @@ declare module "net" {
         write(str: string, encoding?: string, fd?: string): boolean;
         write(data: any, encoding?: string, callback?: Function): void;
 
-        connect(options: SocketConnectOpts,connectionListener?: Function): void;
+        connect(options: SocketConnectOpts, connectionListener?: Function): void;
         connect(port: number, host: string, connectionListener?: Function): void;
         connect(port: number, connectionListener?: Function): void;
         connect(path: string, connectionListener?: Function): void;
@@ -2568,7 +2567,6 @@ declare module "net" {
         prependOnceListener(event: "error", listener: (err: Error) => void): this;
         prependOnceListener(event: "listening", listener: () => void): this;
     }
-
 
     export interface NetConnectOpts extends TcpSocketConnectOpts, IpcSocketConnectOpts, SocketConstructorOpts {
         timeout?: number;

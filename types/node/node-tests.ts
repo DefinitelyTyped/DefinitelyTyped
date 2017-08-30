@@ -2252,7 +2252,6 @@ namespace console_tests {
 ///////////////////////////////////////////////////
 
 namespace net_tests {
-
     {
         const connectOpts: net.NetConnectOpts = {
             allowHalfOpen: true,
