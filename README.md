@@ -199,7 +199,6 @@ This script uses [dtslint](https://github.com/Microsoft/dtslint).
 #### What exactly is the relationship between this repository and the `@types` packages on NPM?
 
 The `master` branch is automatically published to the `@types` scope on NPM thanks to [types-publisher](https://github.com/Microsoft/types-publisher).
-This usually happens within an hour of changes being merged.
 
 #### I've submitted a pull request. How long until it is merged?
 
