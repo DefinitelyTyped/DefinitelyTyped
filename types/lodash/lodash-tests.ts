@@ -11195,32 +11195,37 @@ namespace TestGet {
     }
 
     {
-        let result: boolean;
+        _.get({a: true}, 'a'); // $ExpectType boolean
+        _.get({a: true}, ['a']); // $ExpectType boolean
+        _.get({a: true}, 'a', false); // $ExpectType boolean
+        _.get({a: true}, ['a'], false); // $ExpectType boolean
+        _.get({a: true}, 'a', 1); // $ExpectType boolean | 1
+        _.get({a: true}, ['a'], 1); // $ExpectType boolean | 1
 
-        result = _.get({a: true}, 'a');
-        result = _.get({a: true}, 'a', false);
-        result = _.get({a: true}, ['a']);
-        result = _.get({a: true}, ['a'], false);
-
-        result = _({a: true}).get('a');
-        result = _({a: true}).get('a', false);
-        result = _({a: true}).get(['a']);
-        result = _({a: true}).get(['a'], false);
+        _({a: true}).get('a'); // $ExpectType boolean
+        _({a: true}).get(['a']); // $ExpectType boolean
+        _({a: true}).get('a', false); // $ExpectType boolean
+        _({a: true}).get(['a'], false); // $ExpectType boolean
+        _({a: true}).get('a', 1); // $ExpectType boolean | 1
+        _({a: true}).get(['a'], 1); // $ExpectType boolean | 1
     }
 
     {
-        let obj: { a: boolean } | null | undefined = any;
-        let result: boolean | undefined;
+        const obj: { a: boolean } | null | undefined = any;
 
-        result = _.get(obj, 'a');
-        result = _.get(obj, 'a', false);
-        result = _.get(obj, ['a']);
-        result = _.get(obj, ['a'], false);
+        _.get(obj, 'a'); // $ExpectType boolean | undefined
+        _.get(obj, ['a']); // $ExpectType boolean | undefined
+        _.get(obj, 'a', false); // $ExpectType boolean
+        _.get(obj, ['a'], false); // $ExpectType boolean
+        _.get(obj, 'a', 1); // $ExpectType boolean | 1
+        _.get(obj, ['a'], 1); // $ExpectType boolean | 1
 
-        result = _(obj).get('a');
-        result = _(obj).get('a', false);
-        result = _(obj).get(['a']);
-        result = _(obj).get(['a'], false);
+        _(obj).get('a'); // $ExpectType boolean | undefined
+        _(obj).get(['a']); // $ExpectType boolean | undefined
+        _(obj).get('a', false); // $ExpectType boolean
+        _(obj).get(['a'], false); // $ExpectType boolean
+        _(obj).get('a', 1); // $ExpectType boolean | 1
+        _(obj).get(['a'], 1); // $ExpectType boolean | 1
     }
 
     {
@@ -11242,22 +11247,23 @@ namespace TestGet {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<boolean>;
-
-        result = _({a: true}).chain().get('a');
-        result = _({a: true}).chain().get('a', false);
-        result = _({a: true}).chain().get(['a']);
-        result = _({a: true}).chain().get(['a'], false);
+        _({a: true}).chain().get('a'); // $ExpectType LoDashExplicitWrapper<boolean>
+        _({a: true}).chain().get(['a']); // $ExpectType LoDashExplicitWrapper<boolean>
+        _({a: true}).chain().get('a', false); // $ExpectType LoDashExplicitWrapper<boolean>
+        _({a: true}).chain().get(['a'], false); // $ExpectType LoDashExplicitWrapper<boolean>
+        _({a: true}).chain().get('a', 1); // $ExpectType LoDashExplicitWrapper<boolean | 1>
+        _({a: true}).chain().get(['a'], 1); // $ExpectType LoDashExplicitWrapper<boolean | 1>
     }
 
     {
-        let obj: { a: boolean } | null | undefined = any;
-        let result: _.LoDashExplicitWrapper<boolean | undefined>;
+        const obj: { a: boolean } | null | undefined = any;
 
-        result = _(obj).chain().get('a');
-        result = _(obj).chain().get('a', false);
-        result = _(obj).chain().get(['a']);
-        result = _(obj).chain().get(['a'], false);
+        _(obj).chain().get('a'); // $ExpectType LoDashExplicitWrapper<boolean | undefined>
+        _(obj).chain().get(['a']); // $ExpectType LoDashExplicitWrapper<boolean | undefined>
+        _(obj).chain().get('a', false); // $ExpectType LoDashExplicitWrapper<boolean>
+        _(obj).chain().get(['a'], false); // $ExpectType LoDashExplicitWrapper<boolean>
+        _(obj).chain().get('a', 1); // $ExpectType LoDashExplicitWrapper<boolean | 1>
+        _(obj).chain().get(['a'], 1); // $ExpectType LoDashExplicitWrapper<boolean | 1>
     }
 }
 
