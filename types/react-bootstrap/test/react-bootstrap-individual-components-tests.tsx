@@ -176,7 +176,7 @@ export class ReactBootstrapIndividualComponentsTest extends React.Component {
         <ResponsiveEmbed />
         <Row />
         <SafeAnchor />
-        <SplitButton />
+        <SplitButton title="foo" />
         <SplitToggle />
         <Tab />
         <TabContainer />
