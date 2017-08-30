@@ -144,10 +144,10 @@ declare namespace Ffmpeg {
         audioFrequency(freq: number): FfmpegCommand;
         withAudioQuality(quality: number): FfmpegCommand;
         audioQuality(quality: number): FfmpegCommand;
-        withAudioFilter(filters: { filter: string, options: any }): FfmpegCommand;
-        withAudioFilters(filters: { filter: string, options: any }): FfmpegCommand;
-        audioFilter(filters: { filter: string, options: any }): FfmpegCommand;
-        audioFilters(filters: { filter: string, options: any }): FfmpegCommand;
+        withAudioFilter(filters: { filter: string, options: any } | String | String[]): FfmpegCommand;
+        withAudioFilters(filters: { filter: string, options: any } | String | String[]): FfmpegCommand;
+        audioFilter(filters: { filter: string, options: any } | String | String[]): FfmpegCommand;
+        audioFilters(filters: { filter: string, options: any } | String | String[]): FfmpegCommand;
 
         // options/video;
         withNoVideo(): FfmpegCommand;
@@ -156,10 +156,10 @@ declare namespace Ffmpeg {
         videoCodec(codec: string): FfmpegCommand;
         withVideoBitrate(bitrate: string | number): FfmpegCommand;
         videoBitrate(bitrate: string | number): FfmpegCommand;
-        withVideoFilter(filters: { filter: string, options: any }): FfmpegCommand;
-        withVideoFilters(filters: { filter: string, options: any }): FfmpegCommand;
-        videoFilter(filters: { filter: string, options: any }): FfmpegCommand;
-        videoFilters(filters: { filter: string, options: any }): FfmpegCommand;
+        withVideoFilter(filters: { filter: string, options: any } | String | String[]): FfmpegCommand;
+        withVideoFilters(filters: { filter: string, options: any } | String | String[]): FfmpegCommand;
+        videoFilter(filters: { filter: string, options: any } | String | String[]): FfmpegCommand;
+        videoFilters(filters: { filter: string, options: any } | String | String[]): FfmpegCommand;
         withOutputFps(fps: number): FfmpegCommand;
         withOutputFPS(fps: number): FfmpegCommand;
         withFpsOutput(fps: number): FfmpegCommand;
