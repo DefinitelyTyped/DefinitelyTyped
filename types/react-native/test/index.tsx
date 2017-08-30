@@ -39,7 +39,23 @@ import {
     ScrollViewProps,
     RefreshControl,
     TabBarIOS,
+    NativeModules
 } from 'react-native';
+
+declare module 'react-native' {
+    interface NativeTypedModule {
+        someFunction(): void;
+        someProperty: string;
+    }
+    interface NativeModulesStatic {
+        NativeTypedModule: NativeTypedModule
+    }
+}
+
+NativeModules.NativeUntypedModule;
+
+NativeModules.NativeTypedModule.someFunction();
+NativeModules.NativeTypedModule.someProperty = "";
 
 function testDimensions() {
   const {
