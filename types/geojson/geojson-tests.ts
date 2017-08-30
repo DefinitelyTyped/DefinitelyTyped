@@ -53,11 +53,11 @@ let featureCollection: GeoJSON.FeatureCollection =  {
 };
 
 interface Prop {
-    prop1: number,
+    prop1: number;
     prop2: {
         prop3: string,
         prop4?: boolean
-    }
+    };
 }
 
 let featureWithPolygon: GeoJSON.Feature<GeoJSON.Polygon, Prop> = {
