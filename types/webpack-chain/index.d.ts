@@ -22,7 +22,7 @@ declare namespace __Config {
 		merge(obj: { [key: string]: Value }): this;
 		entries(): { [key: string]: Value };
 		values(): Value[];
-		when(condition: boolean, trueBrancher: (obj: any) => void, falseBrancher?: (obj: any) => void): this;
+		when(condition: boolean, trueBrancher: (obj: this) => void, falseBrancher?: (obj: this) => void): this;
 	}
 
 	class ChainedMap<Parent> extends TypedChainedMap<Parent, any> {}
@@ -35,7 +35,7 @@ declare namespace __Config {
 		has(key: string): boolean;
 		merge(arr: Value[]): this;
 		values(): Value[];
-		when(condition: boolean, trueBrancher: (obj: any) => void, falseBrancher?: (obj: any) => void): this;
+		when(condition: boolean, trueBrancher: (obj: this) => void, falseBrancher?: (obj: this) => void): this;
 	}
 
 	class ChainedSet<Parent> extends TypedChainedSet<Parent, any> {}
