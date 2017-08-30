@@ -225,7 +225,7 @@ declare namespace ymaps {
 
 			destroy(): void;
 
-			getData(): object | any;
+			getData(): object | null;
 
 			getOptions(): IOptionManager | null;
 
@@ -666,13 +666,13 @@ declare namespace ymaps {
 
 			add(types: string[][] | string[] | string, callback: (event: (object | IEvent)) => void, context?: object, priority?: number): this;
 
-			getParent(): IEventManager | any;
+			getParent(): IEventManager | null;
 
 			group(): IEventGroup;
 
 			remove(types: string[][] | string[] | string, callback: (event: (object | IEvent)) => void, context?: object, priority?: number): this;
 
-			setParent(parent: IEventManager | any): this;
+			setParent(parent: IEventManager | null): this;
 
 			fire(type: string, eventobject: object | IEvent): this;
 		}
@@ -709,7 +709,7 @@ declare namespace ymaps {
 
 				events: IEventManager;
 
-				getBounds(): number[][] | any;
+				getBounds(): number[][] | null;
 
 				getType(): string;
 
@@ -743,11 +743,11 @@ declare namespace ymaps {
 
 				add(types: string[][] | string[] | string, callback: (event: (object | IEvent)) => void, context?: object, priority?: number): this;
 
-				getParent(): object | any;
+				getParent(): object | null;
 
 				group(): IEventGroup;
 
-				setParent(parent: IEventManager | any): this;
+				setParent(parent: IEventManager | null): this;
 
 				fire(type: string, eventobject: object | IEvent): this;
 			}
@@ -787,7 +787,7 @@ declare namespace ymaps {
 
 			setMap(map: Map): void;
 
-			getBounds(): number[][] | any;
+			getBounds(): number[][] | null;
 
 			getType(): string;
 
@@ -821,11 +821,11 @@ declare namespace ymaps {
 
 			add(types: string[][] | string[] | string, callback: (event: (object | IEvent)) => void, context?: object, priority?: number): this;
 
-			getParent(): object | any;
+			getParent(): object | null;
 
 			group(): IEventGroup;
 
-			setParent(parent: IEventManager | any): this;
+			setParent(parent: IEventManager | null): this;
 
 			fire(type: string, eventobject: object | IEvent): this;
 		}
@@ -836,7 +836,7 @@ declare namespace ymaps {
 			options: IOptionManager;
 			events: IEventManager;
 
-			getMap(): Map | any;
+			getMap(): Map | null;
 
 			getPixelGeometry(options?: object): IPixelGeometry;
 
@@ -1211,15 +1211,15 @@ declare namespace ymaps {
 
 			destroy(): void;
 
-			getData(): object | any;
+			getData(): object | null;
 
-			getOptions(): IOptionManager | any;
+			getOptions(): IOptionManager | null;
 
-			getOverlay(): Promise<IOverlay | any>;
+			getOverlay(): Promise<IOverlay | null>;
 
-			getOverlaySync(): IOverlay | any;
+			getOverlaySync(): IOverlay | null;
 
-			getPosition(): number[] | any;
+			getPosition(): number[] | null;
 
 			isOpen(): boolean;
 
@@ -1908,7 +1908,7 @@ declare namespace ymaps {
 
 		getOverlaySync(): IOverlay | null;
 
-		getParent(): any | IControlParent;
+		getParent(): null | IControlParent;
 
 		setParent(parent: IControlParent): this;
 
@@ -1995,11 +1995,7 @@ declare namespace ymaps {
 
 		getOverlaySync(): IOverlay | null;
 
-		getParent(): any | IControlParent;
-
-		getParent(): any | IControlParent;
-
-		setParent(parent: IControlParent): this;
+		getParent(): null | IControlParent;
 
 		setParent(parent: IControlParent): this;
 
@@ -2089,7 +2085,7 @@ declare namespace ymaps {
 
 		get(name: string): object;
 
-		getSourceEvent(): IEvent | any;
+		getSourceEvent(): IEvent | null;
 
 		isDefaultPrevented(): boolean;
 
@@ -2118,11 +2114,11 @@ declare namespace ymaps {
 		properties: data.Manager;
 		state: data.Manager;
 
-		getOverlay(): Promise<IOverlay | any>;
+		getOverlay(): Promise<IOverlay | null>;
 
-		getOverlaySync(): IOverlay | any;
+		getOverlaySync(): IOverlay | null;
 
-		getParent(): any | IControlParent;
+		getParent(): null | IControlParent;
 
 		setParent(parent: IControlParent): this;
 
