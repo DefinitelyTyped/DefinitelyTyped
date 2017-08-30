@@ -5,15 +5,15 @@ import { RecordResult } from './record-result';
 import { SObject } from './salesforce-object';
 
 // These are pulled out because according to http://jsforce.github.io/jsforce/doc/connection.js.html#line49
-//the oauth options can either be in the `oauth2` proeprty OR spread across the main connection
-interface OAuth2Options {
-    clientId: string;
-    clientSecret: string;
-    loginUrl: string;
+// the oauth options can either be in the `oauth2` proeprty OR spread across the main connection
+export interface OAuth2Options {
+    clientId?: string;
+    clientSecret?: string;
+    loginUrl?: string;
     redirectUri?: string;
 }
 
-export interface ConnectionOptions extends Partial<OAuth2Options> {
+export interface ConnectionOptions extends OAuth2Options {
     accessToken?: string;
     callOptions?: Object;
     instanceUrl?: string;
