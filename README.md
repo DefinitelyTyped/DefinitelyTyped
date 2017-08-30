@@ -203,9 +203,9 @@ This usually happens within an hour of changes being merged.
 
 #### I've submitted a pull request. How long until it is merged?
 
-It depends, but most pull requests will be merged within a week. PRs that have been approved by an author listed in the definition's header are usually merged more quickly; PRs for new definitions will take more time as they require more review from maintainers. Each PR is reviewed by a TypeScript or DefinitelyTyped team member before being merged, so please be patient as human factors may cause delays. Check the PR Burndown Board to see progress as maintainers work through the open PRs.
+It depends, but most pull requests will be merged within a week. PRs that have been approved by an author listed in the definition's header are usually merged more quickly; PRs for new definitions will take more time as they require more review from maintainers. Each PR is reviewed by a TypeScript or DefinitelyTyped team member before being merged, so please be patient as human factors may cause delays. Check the [PR Burndown Board](https://github.com/DefinitelyTyped/DefinitelyTyped/projects/3?card_filter_query=is%3Aopen) to see progress as maintainers work through the open PRs.
 
-#### My PR is merged; when will the @types NPM package be updated?
+#### My PR is merged; when will the `@types` NPM package be updated?
 
 NPM packages should update within a few hours. If it's been more than 24 hours, ping @RyanCavanaugh and @andy-ms on the PR to investigate.
 
