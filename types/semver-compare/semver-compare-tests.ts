@@ -1,6 +1,6 @@
-import SemverCompare = require("semver-compare")
+import SemverCompare = require("semver-compare");
 
-var versions = [
+const versions = [
     "1.2.3",
     "4.11.6",
     "4.2.0",
@@ -10,5 +10,5 @@ var versions = [
     "2.3.1",
     "10.5.5",
     "11.3.0",
-]
-console.log(versions.sort(SemverCompare).join("\n"))
+];
+versions.sort(SemverCompare).join("\n");
