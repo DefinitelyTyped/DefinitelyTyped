@@ -1,3 +1,5 @@
+import mock = require('xhr-mock');
+
 // replace the real XHR object with the mock XHR object
 mock.setup();
 
