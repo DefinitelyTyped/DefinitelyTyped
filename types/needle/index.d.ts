@@ -218,7 +218,7 @@ declare module "needle" {
             /**
              * Lets override the defaults for all future requests.
              */
-            defaults(options: NeedleOptions): void;
+            defaults(options: NeedleOptions): NeedleOptions;
 
             /**
              * Issues an HTTP HEAD request.
