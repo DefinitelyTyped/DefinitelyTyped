@@ -6,7 +6,7 @@ import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import Ionicon from 'react-native-vector-icons/Ionicons';
 
 const glyphMap = {
-  'custom': 58918
+  custom: 58918
 };
 
 const CustomIcon = createIconSet(glyphMap, 'FontCustom', 'FontCustom.ttf');
