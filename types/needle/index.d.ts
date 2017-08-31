@@ -82,6 +82,16 @@ declare module "needle" {
              * instead of a query string.
              */
             json?: boolean;
+            /**
+             * When sending streams, this lets manually set the Content-Length header
+             * --if the stream's bytecount is known beforehand--,
+             * preventing ECONNRESET (socket hang up) errors on some servers that misbehave
+             * when receiving payloads of unknown size.
+             * Set it to 0 and Needle will get and set the stream's length,
+             * or leave unset for the default behavior,
+             * which is no Content-Length header for stream payloads.
+             */
+            stream_length?: number;
 
             // These properties are overwritten by those in the 'headers' field
             /**
@@ -118,6 +128,15 @@ declare module "needle" {
              * Defaults to Needle/{version} (Node.js {node_version}).
              */
             user_agent?: string;
+            /**
+             * Sets the 'Content-Type' header.
+             * Unset by default, unless you're sending data
+             * in which case it's set accordingly to whatever is being sent
+             * (application/x-www-form-urlencoded, application/json or multipart/form-data).
+             * That is, of course, unless the option is passed,
+             * either here or through options.headers.
+             */
+            content_type?: string;
         }
 
         interface ResponseOptions {
