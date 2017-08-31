@@ -104,6 +104,11 @@ declare namespace Ffmpeg {
         fastSeek?: boolean;
         size?: string;
     }
+    
+    interface AudioVideoFilter {
+        filter: string;
+        options: string | string[] | Object;
+    }
 
     class FfmpegCommand extends events.EventEmitter {
         constructor(options?: FfmpegCommandOptions);
@@ -144,10 +149,10 @@ declare namespace Ffmpeg {
         audioFrequency(freq: number): FfmpegCommand;
         withAudioQuality(quality: number): FfmpegCommand;
         audioQuality(quality: number): FfmpegCommand;
-        withAudioFilter(filters: { filter: string, options: any }[] | string | Array<string>): FfmpegCommand;
-        withAudioFilters(filters: { filter: string, options: any }[] | string | Array<string>): FfmpegCommand;
-        audioFilter(filters: { filter: string, options: any }[] | string | Array<string>): FfmpegCommand;
-        audioFilters(filters: { filter: string, options: any }[] | string | Array<string>): FfmpegCommand;
+        withAudioFilter(filters: string | string[] | Array<AudioVideoFilter>): FfmpegCommand;
+        withAudioFilters(filters: string | string[] | Array<AudioVideoFilter>): FfmpegCommand;
+        audioFilter(filters: string | string[] | Array<AudioVideoFilter>): FfmpegCommand;
+        audioFilters(filters: string | string[] | Array<AudioVideoFilter>): FfmpegCommand;
 
         // options/video;
         withNoVideo(): FfmpegCommand;
@@ -156,10 +161,10 @@ declare namespace Ffmpeg {
         videoCodec(codec: string): FfmpegCommand;
         withVideoBitrate(bitrate: string | number): FfmpegCommand;
         videoBitrate(bitrate: string | number): FfmpegCommand;
-        withVideoFilter(filters: { filter: string, options: any }[] | string | Array<string>): FfmpegCommand;
-        withVideoFilters(filters: { filter: string, options: any }[] | string | Array<string>): FfmpegCommand;
-        videoFilter(filters: { filter: string, options: any }[] | string | Array<string>): FfmpegCommand;
-        videoFilters(filters: { filter: string, options: any }[] | string | Array<string>): FfmpegCommand;
+        withVideoFilter(filters: string | string[] | Array<AudioVideoFilter>): FfmpegCommand;
+        withVideoFilters(filters: string | string[] | Array<AudioVideoFilter>): FfmpegCommand;
+        videoFilter(filters: string | string[] | Array<AudioVideoFilter>): FfmpegCommand;
+        videoFilters(filters: string | string[] | Array<AudioVideoFilter>): FfmpegCommand;
         withOutputFps(fps: number): FfmpegCommand;
         withOutputFPS(fps: number): FfmpegCommand;
         withFpsOutput(fps: number): FfmpegCommand;
