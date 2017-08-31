@@ -161,10 +161,10 @@ declare namespace Ffmpeg {
         videoCodec(codec: string): FfmpegCommand;
         withVideoBitrate(bitrate: string | number): FfmpegCommand;
         videoBitrate(bitrate: string | number): FfmpegCommand;
-        withVideoFilter(filters: string | string[] | Array<AudioVideoFilter>): FfmpegCommand;
-        withVideoFilters(filters: string | string[] | Array<AudioVideoFilter>): FfmpegCommand;
-        videoFilter(filters: string | string[] | Array<AudioVideoFilter>): FfmpegCommand;
-        videoFilters(filters: string | string[] | Array<AudioVideoFilter>): FfmpegCommand;
+        withVideoFilter(filters: string | string[] | AudioVideoFilter[]): FfmpegCommand;
+        withVideoFilters(filters: string | string[] | AudioVideoFilter[]): FfmpegCommand;
+        videoFilter(filters: string | string[] | AudioVideoFilter[]): FfmpegCommand;
+        videoFilters(filters: string | string[] | AudioVideoFilter[]): FfmpegCommand;
         withOutputFps(fps: number): FfmpegCommand;
         withOutputFPS(fps: number): FfmpegCommand;
         withFpsOutput(fps: number): FfmpegCommand;
