@@ -121,6 +121,7 @@ declare namespace stripe {
             // Cannot find name 'HTMLElement'
             mount(domElement: string | any): void;
             on(event: eventTypes, handler: handler): void;
+            focus(): void;
             blur(): void;
             clear(): void;
             unmount(): void;
