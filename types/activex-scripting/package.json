@@ -1,5 +1,6 @@
 {
-  "dependencies": {
-    "activex-helpers": "*"
-  }
+    "private": true,
+    "dependencies": {
+        "activex-helpers": "*"
+    }
 }
