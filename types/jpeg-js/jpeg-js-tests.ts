@@ -1,7 +1,5 @@
-/// <reference types="node" />
-
-import fs = require("fs");
 import jpeg = require("jpeg-js");
+import fs = require("fs");
 
 const x = fs.readFileSync("hello.jpg");
 const decoded = jpeg.decode(x, true);
