@@ -107,7 +107,7 @@ declare namespace Ffmpeg {
 
     interface AudioVideoFilter {
         filter: string;
-        options: string | string[] | object;
+        options: string | string[] | {};
     }
 
     class FfmpegCommand extends events.EventEmitter {
