@@ -2,6 +2,7 @@
 // Project: http://geojson.org/
 // Definitions by: Jacob Bruun <https://github.com/cobster>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 export as namespace GeoJSON;
 
@@ -89,19 +90,19 @@ export interface GeometryCollection extends GeoJsonObject {
 /***
 * http://geojson.org/geojson-spec.html#feature-objects
 */
-export interface Feature<T extends GeometryObject> extends GeoJsonObject {
+export interface Feature<TGeom extends GeometryObject, TProp = any> extends GeoJsonObject {
     type: 'Feature';
-    geometry: T;
-    properties: {} | null;
-    id?: string;
+    geometry: TGeom;
+    properties: TProp;
+    id?: string | number;
 }
 
 /***
 * http://geojson.org/geojson-spec.html#feature-collection-objects
 */
-export interface FeatureCollection<T extends GeometryObject> extends GeoJsonObject {
+export interface FeatureCollection<TGeom extends GeometryObject = any, TProp = any> extends GeoJsonObject {
     type: 'FeatureCollection';
-    features: Array<Feature<T>>;
+    features: Array<Feature<TGeom, TProp>>;
 }
 
 /***

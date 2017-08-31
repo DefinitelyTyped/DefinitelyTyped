@@ -1,4 +1,4 @@
-let featureCollection: GeoJSON.FeatureCollection<any> =  {
+let featureCollection: GeoJSON.FeatureCollection =  {
     type: "FeatureCollection",
     features: [
         {
@@ -52,7 +52,15 @@ let featureCollection: GeoJSON.FeatureCollection<any> =  {
     }
 };
 
-let featureWithPolygon: GeoJSON.Feature<GeoJSON.Polygon> = {
+interface Prop {
+    prop1: number;
+    prop2: {
+        prop3: string,
+        prop4?: boolean
+    };
+}
+
+let featureWithPolygon: GeoJSON.Feature<GeoJSON.Polygon, Prop> = {
     type: "Feature",
     bbox: [-180.0, -90.0, 180.0, 90.0],
     geometry: {
@@ -61,7 +69,12 @@ let featureWithPolygon: GeoJSON.Feature<GeoJSON.Polygon> = {
             [[-180.0, 10.0], [20.0, 90.0], [180.0, -5.0], [-30.0, -90.0]]
         ]
     },
-    properties: null
+    properties: {
+        prop1: 10,
+        prop2: {
+            prop3: '10',
+        }
+    }
 };
 
 let point: GeoJSON.Point = {
@@ -128,7 +141,7 @@ let geometryCollection: GeoJSON.GeometryCollection = {
     ]
 };
 
-let feature: GeoJSON.Feature<GeoJSON.GeometryObject> = {
+let feature: GeoJSON.Feature<GeoJSON.GeometryObject, Prop> = {
     type: "Feature",
     geometry: lineString,
     properties: null
