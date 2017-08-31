@@ -2177,6 +2177,13 @@ namespace timers_tests {
         timeout.ref();
         timers.clearTimeout(timeout);
     }
+    async function testPromisify() {
+        const setTimeout = util.promisify(timers.setTimeout);
+        await setTimeout(100);
+
+        const setImmediate = util.promisify(timers.setImmediate);
+        await setImmediate();
+    }
 }
 
 /////////////////////////////////////////////////////////
