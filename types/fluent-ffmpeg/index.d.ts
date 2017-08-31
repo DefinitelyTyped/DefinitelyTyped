@@ -104,10 +104,10 @@ declare namespace Ffmpeg {
         fastSeek?: boolean;
         size?: string;
     }
-    
+
     interface AudioVideoFilter {
         filter: string;
-        options: string | string[] | Object;
+        options: string | string[] | object;
     }
 
     class FfmpegCommand extends events.EventEmitter {
@@ -149,10 +149,10 @@ declare namespace Ffmpeg {
         audioFrequency(freq: number): FfmpegCommand;
         withAudioQuality(quality: number): FfmpegCommand;
         audioQuality(quality: number): FfmpegCommand;
-        withAudioFilter(filters: string | string[] | Array<AudioVideoFilter>): FfmpegCommand;
-        withAudioFilters(filters: string | string[] | Array<AudioVideoFilter>): FfmpegCommand;
-        audioFilter(filters: string | string[] | Array<AudioVideoFilter>): FfmpegCommand;
-        audioFilters(filters: string | string[] | Array<AudioVideoFilter>): FfmpegCommand;
+        withAudioFilter(filters: string | string[] | AudioVideoFilter[]): FfmpegCommand;
+        withAudioFilters(filters: string | string[] | AudioVideoFilter[]): FfmpegCommand;
+        audioFilter(filters: string | string[] | AudioVideoFilter[]): FfmpegCommand;
+        audioFilters(filters: string | string[] | AudioVideoFilter[]): FfmpegCommand;
 
         // options/video;
         withNoVideo(): FfmpegCommand;
