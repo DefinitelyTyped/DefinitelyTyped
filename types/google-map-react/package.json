@@ -1,0 +1,6 @@
+{
+  "private": true,
+  "dependencies": {
+      "react": "15.0.21"
+  }
+}
