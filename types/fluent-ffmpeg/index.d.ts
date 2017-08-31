@@ -144,10 +144,10 @@ declare namespace Ffmpeg {
         audioFrequency(freq: number): FfmpegCommand;
         withAudioQuality(quality: number): FfmpegCommand;
         audioQuality(quality: number): FfmpegCommand;
-        withAudioFilter(filters: { filter: string, options: any }[] | String | String[]): FfmpegCommand;
-        withAudioFilters(filters: { filter: string, options: any }[] | String | String[]): FfmpegCommand;
-        audioFilter(filters: { filter: string, options: any }[] | String | String[]): FfmpegCommand;
-        audioFilters(filters: { filter: string, options: any }[] | String | String[]): FfmpegCommand;
+        withAudioFilter(filters: { filter: string, options: any }[] | string | Array<string>): FfmpegCommand;
+        withAudioFilters(filters: { filter: string, options: any }[] | string | Array<string>): FfmpegCommand;
+        audioFilter(filters: { filter: string, options: any }[] | string | Array<string>): FfmpegCommand;
+        audioFilters(filters: { filter: string, options: any }[] | string | Array<string>): FfmpegCommand;
 
         // options/video;
         withNoVideo(): FfmpegCommand;
@@ -156,10 +156,10 @@ declare namespace Ffmpeg {
         videoCodec(codec: string): FfmpegCommand;
         withVideoBitrate(bitrate: string | number): FfmpegCommand;
         videoBitrate(bitrate: string | number): FfmpegCommand;
-        withVideoFilter(filters: { filter: string, options: any }[] | String | String[]): FfmpegCommand;
-        withVideoFilters(filters: { filter: string, options: any }[] | String | String[]): FfmpegCommand;
-        videoFilter(filters: { filter: string, options: any }[] | String | String[]): FfmpegCommand;
-        videoFilters(filters: { filter: string, options: any }[] | String | String[]): FfmpegCommand;
+        withVideoFilter(filters: { filter: string, options: any }[] | string | Array<string>): FfmpegCommand;
+        withVideoFilters(filters: { filter: string, options: any }[] | string | Array<string>): FfmpegCommand;
+        videoFilter(filters: { filter: string, options: any }[] | string | Array<string>): FfmpegCommand;
+        videoFilters(filters: { filter: string, options: any }[] | string | Array<string>): FfmpegCommand;
         withOutputFps(fps: number): FfmpegCommand;
         withOutputFPS(fps: number): FfmpegCommand;
         withFpsOutput(fps: number): FfmpegCommand;
