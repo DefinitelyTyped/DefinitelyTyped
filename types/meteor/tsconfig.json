@@ -30,6 +30,7 @@
         "mongo.d.ts",
         "reactive-var.d.ts",
         "session.d.ts",
+        "server-render.d.ts",
         "tiny-test.d.ts",
         "tools.d.ts",
         "tracker.d.ts",
