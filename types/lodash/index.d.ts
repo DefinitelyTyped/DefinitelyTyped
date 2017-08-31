@@ -12465,44 +12465,51 @@ declare namespace _ {
          * @param defaultValue The value returned if the resolved value is undefined.
          * @return Returns the resolved value.
          */
+        // when object is empty - definitely default value will be returned
+        get<TDefault>(
+            object: null | undefined,
+            path: Many<StringRepresentable>, // ** Many<StringRepresentable> instead of any
+            defaultValue: TDefault // ** no longer optional
+        ): TDefault;
+
+        // ** same as above, but with no default value
+        get(
+            object: null | undefined,
+            path: Many<StringRepresentable>
+        ): undefined;
+
+        // when depth of object is 1 and path to value is right - or value, or default will be returned (in case value is undefined)
+        get<TObject extends object, TKey extends keyof TObject, TDefault>(
+            object: TObject,
+            path: TKey | [TKey],
+            defaultValue: TDefault // ** no longer optional
+        ): TObject[TKey] | TDefault;
+
+        // ** same as above, but with no default value
+        get<TObject extends object, TKey extends keyof TObject>(
+            object: TObject,
+            path: TKey | [TKey]
+        ): TObject[TKey];
+
+        // when object may or may not arrive
         get<TObject extends object, TKey extends keyof TObject, TDefault>(
             object: TObject | null | undefined,
             path: TKey | [TKey],
             defaultValue: TDefault
         ): TObject[TKey] | TDefault;
 
-        /**
-         * @see _.get
-         */
-        get<TObject extends object, TKey extends keyof TObject>(
-            object: TObject,
-            path: TKey | [TKey]
-        ): TObject[TKey];
-
-        /**
-         * @see _.get
-         */
+        // ** same as above, but with no default value
         get<TObject extends object, TKey extends keyof TObject>(
             object: TObject | null | undefined,
-            path: TKey | [TKey],
+            path: TKey | [TKey]
         ): TObject[TKey] | undefined;
 
-        /**
-         * @see _.get
-         */
+        // in all other cases user must validate outcome in runtime (with typeof for example, NO CASTING WITHOUT VALIDATION!!!)
         get(
             object: any,
-            path: Many<StringRepresentable>
-        ): any;
-
-        /**
-         * @see _.get
-         */
-        get<TResult>(
-            object: any,
             path: Many<StringRepresentable>,
-            defaultValue: TResult
-        ): TResult;
+            defaultValue?: any
+        ): any;
     }
 
     interface LoDashImplicitWrapper<TValue> {

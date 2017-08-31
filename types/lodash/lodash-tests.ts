@@ -11167,50 +11167,47 @@ namespace TestFunctionsIn {
 // _.get
 namespace TestGet {
     {
-        let result: string;
+        // when object is empty - defenitely default value will be returned
+        _.get(null, 'a'); // $ExpectType undefined
+        _.get(null, 'a', 1); // $ExpectType 1
+    }
+    {
+        // when depth of object is 1 and path to value is right - or value, or default will be returned (in case value is undefined)
+        const objWithFoo: { foo: number } = any;
 
-        result = _.get('abc', '0');
-        result = _.get('abc', '0', '_');
-        result = _.get('abc', ['0']);
-        result = _.get('abc', ['0'], '_');
+        _.get(objWithFoo, 'foo'); // $ExpectType number
+        _.get(objWithFoo, ['foo']); // $ExpectType number
+        _.get(objWithFoo, 'foo', false); // $ExpectType number | false
+        _.get(objWithFoo, ['foo'], false); // $ExpectType number | false
+        _.get(objWithFoo, 'foo', 1); // $ExpectType number
+        _.get(objWithFoo, ['foo'], 1); // $ExpectType number
 
-        result = _('abc').get('0');
-        result = _('abc').get('0', '_');
-        result = _('abc').get(['0']);
-        result = _('abc').get(['0'], '_');
+        _(objWithFoo).get('foo'); // $ExpectType number
+        _(objWithFoo).get(['foo']); // $ExpectType number
+        _(objWithFoo).get('foo', false); // $ExpectType number | false
+        _(objWithFoo).get(['foo'], false); // $ExpectType number | false
+        _(objWithFoo).get('foo', 1); // $ExpectType number
+        _(objWithFoo).get(['foo'], 1); // $ExpectType number
+
+        const objWithMaybeFoo: { foo?: number } = any;
+
+        _.get(objWithMaybeFoo, 'foo'); // $ExpectType number | undefined
+        _.get(objWithMaybeFoo, ['foo']); // $ExpectType number | undefined
+        _.get(objWithMaybeFoo, 'foo', false); // $ExpectType number | false | undefined
+        _.get(objWithMaybeFoo, ['foo'], false); // $ExpectType number | false | undefined
+        _.get(objWithMaybeFoo, 'foo', 1); // $ExpectType number | undefined
+        _.get(objWithMaybeFoo, ['foo'], 1); // $ExpectType number | undefined
+
+        _(objWithMaybeFoo).get('foo'); // $ExpectType number | undefined
+        _(objWithMaybeFoo).get(['foo']); // $ExpectType number | undefined
+        _(objWithMaybeFoo).get('foo', false); // $ExpectType number | false | undefined
+        _(objWithMaybeFoo).get(['foo'], false); // $ExpectType number | false | undefined
+        _(objWithMaybeFoo).get('foo', 1); // $ExpectType number | undefined
+        _(objWithMaybeFoo).get(['foo'], 1); // $ExpectType number | undefined
     }
 
     {
-        let result: number;
-
-        result = _.get([42], '0');
-        result = _.get([42], '0', -1);
-        result = _.get([42], ['0']);
-        result = _.get([42], ['0'], -1);
-
-        result = _([42]).get('0');
-        result = _([42]).get('0', -1);
-        result = _([42]).get(['0']);
-        result = _([42]).get(['0'], -1);
-    }
-
-    {
-        _.get({a: true}, 'a'); // $ExpectType boolean
-        _.get({a: true}, ['a']); // $ExpectType boolean
-        _.get({a: true}, 'a', false); // $ExpectType boolean
-        _.get({a: true}, ['a'], false); // $ExpectType boolean
-        _.get({a: true}, 'a', 1); // $ExpectType boolean | 1
-        _.get({a: true}, ['a'], 1); // $ExpectType boolean | 1
-
-        _({a: true}).get('a'); // $ExpectType boolean
-        _({a: true}).get(['a']); // $ExpectType boolean
-        _({a: true}).get('a', false); // $ExpectType boolean
-        _({a: true}).get(['a'], false); // $ExpectType boolean
-        _({a: true}).get('a', 1); // $ExpectType boolean | 1
-        _({a: true}).get(['a'], 1); // $ExpectType boolean | 1
-    }
-
-    {
+        // when object may or may not arrive
         const obj: { a: boolean } | null | undefined = any;
 
         _.get(obj, 'a'); // $ExpectType boolean | undefined
@@ -11226,6 +11223,21 @@ namespace TestGet {
         _(obj).get(['a'], false); // $ExpectType boolean
         _(obj).get('a', 1); // $ExpectType boolean | 1
         _(obj).get(['a'], 1); // $ExpectType boolean | 1
+    }
+
+    {
+        // in all other cases - any
+
+        // for arrays - any, cause type of values they contain cant be inferred like in object
+        _.get([42], '0'); // $ExpectType any
+        _.get([42], '0', -1); // $ExpectType any
+        _.get([42], ['0']); // $ExpectType any
+        _.get([42], ['0'], -1); // $ExpectType any
+
+        _.get('abc', '0'); // $ExpectType any
+        _.get('abc', '0', '_'); // $ExpectType any
+        _.get('abc', ['0']); // $ExpectType any
+        _.get('abc', ['0'], '_'); // $ExpectType any
     }
 
     {
