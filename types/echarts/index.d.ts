@@ -3,7 +3,7 @@
 // Definitions by: Xie Jingyang <https://github.com/xieisabug>, AntiMoron <https://github.com/AntiMoron>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace ECharts {
+declare namespace echarts {
     function init(dom:HTMLDivElement|HTMLCanvasElement, theme?:Object|string, opts?:{
         devicePixelRatio?: number
         renderer?: string
@@ -178,5 +178,5 @@ declare namespace ECharts {
 }
 
 declare module "echarts" {
-    export = ECharts;
+    export = echarts;
 }
