@@ -134,7 +134,7 @@ declare module 'recompose' {
 
     // withStateHandlers: https://github.com/acdlite/recompose/blob/master/docs/API.md#withstatehandlers
     type StateHandler<TState> = (...payload: any[]) => TState | undefined;
-    type StateUpdaters<TOutter, TStatem,  TUpdaters> = {
+    type StateUpdaters<TOutter, TState,  TUpdaters> = {
       [updaterName in keyof TUpdaters]: (state: TState, props: TOutter) => StateHandler<TState>;
     };
     export function withStateHandlers<TState, TUpdaters, TOutter>(
