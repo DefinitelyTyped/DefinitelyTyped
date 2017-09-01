@@ -1,6 +1,6 @@
 // Type definitions for dagre 0.7
 // Project: https://github.com/cpettitt/dagre
-// Definitions by: Qinfeng Chen <https://github.com/qinfchen>
+// Definitions by: Qinfeng Chen <https://github.com/qinfchen>, Lisa Vallfors <https://github.com/Frankrike>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export as namespace dagre;
@@ -30,8 +30,14 @@ export interface GraphLabel {
     height?: number;
     compound?: boolean;
     rankdir?: string;
+    align?: string;
     nodesep?: number;
     edgesep?: number;
+    ranksep?: number;
+    marginx?: number;
+    marginy?: number;
+    acyclicer?: string;
+    ranker?: string;
 }
 
 export function layout(graph: graphlib.Graph): void;

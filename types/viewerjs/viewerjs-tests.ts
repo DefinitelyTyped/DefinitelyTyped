@@ -1,4 +1,4 @@
-import Viewer from 'viewerjs';
+import Viewer = require('viewerjs');
 
 ////////////////
 // Static Methods

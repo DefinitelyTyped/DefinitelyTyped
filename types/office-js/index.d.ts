@@ -1802,6 +1802,11 @@ declare namespace Office {
         urls: Array<string>;
     }
     export interface Item {
+        /**
+        * You can cast item with `(Item as Office.[CAST_TYPE])` where CAST_TYPE is one of the following: ItemRead, ItemCompose, Message,
+        * MessageRead, MessageCompose, Appointment, AppointmentRead, AppointmentCompose
+        */
+        __BeSureToCastThisObject__: void;
         body: Body;
         itemType: Office.MailboxEnums.ItemType;
         notificationMessages: NotificationMessages;
@@ -1867,6 +1872,7 @@ declare namespace Office {
         setSelectedDataAsync(data: string, options?: AsyncContextOptions & CoercionTypeOptions, callback?: (result: AsyncResult) => void): void;
     }
     export interface ItemRead extends Item {
+        attachments: Array<AttachmentDetails>;
         itemClass: string;
         itemId: string;
         normalizedSubject: string;
