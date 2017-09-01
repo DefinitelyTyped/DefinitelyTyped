@@ -12465,11 +12465,19 @@ declare namespace _ {
          * @param defaultValue The value returned if the resolved value is undefined.
          * @return Returns the resolved value.
          */
-        get<TResult>(
-            object: any,
+        get<TDefault>(
+            object: null | undefined,
             path: Many<StringRepresentable>,
-            defaultValue: TResult
-        ): TResult;
+            defaultValue: TDefault
+        ): TDefault;
+
+        /**
+         * @see _.get
+         */
+        get(
+            object: null | undefined,
+            path: Many<StringRepresentable>
+        ): undefined;
 
         /**
          * @see _.get
@@ -12482,9 +12490,18 @@ declare namespace _ {
         /**
          * @see _.get
          */
-        get<TObject extends object, TKey extends keyof TObject>(
+        get<TObject extends object, TKey extends keyof TObject, TDefault>(
             object: TObject | null | undefined,
             path: TKey | [TKey],
+            defaultValue: TDefault
+        ): TObject[TKey] | TDefault;
+
+        /**
+         * @see _.get
+         */
+        get<TObject extends object, TKey extends keyof TObject>(
+            object: TObject | null | undefined,
+            path: TKey | [TKey]
         ): TObject[TKey] | undefined;
 
         /**
@@ -12492,7 +12509,8 @@ declare namespace _ {
          */
         get(
             object: any,
-            path: Many<StringRepresentable>
+            path: Many<StringRepresentable>,
+            defaultValue?: any
         ): any;
     }
 
@@ -12526,17 +12544,17 @@ declare namespace _ {
         get(
             path: Many<StringRepresentable>
         ): any;
-    }
 
-    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.get
          */
         get<TResult>(
             path: Many<StringRepresentable>,
             defaultValue: TResult
-        ): LoDashExplicitWrapper<TResult>;
+        ): TResult;
+    }
 
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.get
          */
@@ -12558,6 +12576,14 @@ declare namespace _ {
         get(
             path: Many<StringRepresentable>
         ): LoDashExplicitWrapper<any>;
+
+        /**
+         * @see _.get
+         */
+        get<TResult>(
+            path: Many<StringRepresentable>,
+            defaultValue: TResult
+        ): LoDashExplicitWrapper<TResult>;
     }
 
     //_.has
