@@ -11193,40 +11193,70 @@ namespace TestGet {
 
         _.get(objWithMaybeFoo, 'foo'); // $ExpectType number | undefined
         _.get(objWithMaybeFoo, ['foo']); // $ExpectType number | undefined
+        // TODO: wrong type, change to // $ExpectType number | false
         _.get(objWithMaybeFoo, 'foo', false); // $ExpectType number | false | undefined
+        // TODO: wrong type, change to // $ExpectType number | false
         _.get(objWithMaybeFoo, ['foo'], false); // $ExpectType number | false | undefined
+        // TODO: wrong type, change to // $ExpectType number
         _.get(objWithMaybeFoo, 'foo', 1); // $ExpectType number | undefined
+        // TODO: wrong type, change to // $ExpectType number
         _.get(objWithMaybeFoo, ['foo'], 1); // $ExpectType number | undefined
 
         _(objWithMaybeFoo).get('foo'); // $ExpectType number | undefined
         _(objWithMaybeFoo).get(['foo']); // $ExpectType number | undefined
+        // TODO: wrong type, change to // $ExpectType number | false
         _(objWithMaybeFoo).get('foo', false); // $ExpectType number | false | undefined
+        // TODO: wrong type, change to // $ExpectType number | false
         _(objWithMaybeFoo).get(['foo'], false); // $ExpectType number | false | undefined
+        // TODO: wrong type, change to // $ExpectType number
         _(objWithMaybeFoo).get('foo', 1); // $ExpectType number | undefined
+        // TODO: wrong type, change to // $ExpectType number
         _(objWithMaybeFoo).get(['foo'], 1); // $ExpectType number | undefined
-    }
 
-    {
         // when object may or may not arrive
-        const obj: { a: boolean } | null | undefined = any;
+        const maybeObjWithFoo: { foo: number } | null | undefined = any;
 
-        _.get(obj, 'a'); // $ExpectType boolean | undefined
-        _.get(obj, ['a']); // $ExpectType boolean | undefined
-        _.get(obj, 'a', false); // $ExpectType boolean
-        _.get(obj, ['a'], false); // $ExpectType boolean
-        _.get(obj, 'a', 1); // $ExpectType boolean | 1
-        _.get(obj, ['a'], 1); // $ExpectType boolean | 1
+        _.get(maybeObjWithFoo, 'foo'); // $ExpectType number | undefined
+        _.get(maybeObjWithFoo, ['foo']); // $ExpectType number | undefined
+        _.get(maybeObjWithFoo, 'foo', false); // $ExpectType number | false
+        _.get(maybeObjWithFoo, ['foo'], false); // $ExpectType number | false
+        _.get(maybeObjWithFoo, 'foo', 1); // $ExpectType number
+        _.get(maybeObjWithFoo, ['foo'], 1); // $ExpectType number
 
-        _(obj).get('a'); // $ExpectType boolean | undefined
-        _(obj).get(['a']); // $ExpectType boolean | undefined
-        _(obj).get('a', false); // $ExpectType boolean
-        _(obj).get(['a'], false); // $ExpectType boolean
-        _(obj).get('a', 1); // $ExpectType boolean | 1
-        _(obj).get(['a'], 1); // $ExpectType boolean | 1
+        _(maybeObjWithFoo).get('foo'); // $ExpectType number | undefined
+        _(maybeObjWithFoo).get(['foo']); // $ExpectType number | undefined
+        _(maybeObjWithFoo).get('foo', false); // $ExpectType number | false
+        _(maybeObjWithFoo).get(['foo'], false); // $ExpectType number | false
+        _(maybeObjWithFoo).get('foo', 1); // $ExpectType number
+        _(maybeObjWithFoo).get(['foo'], 1); // $ExpectType number
+
+        const maybeObjWithMaybeFoo: { foo?: number } | null | undefined = any;
+
+        _.get(maybeObjWithMaybeFoo, 'foo'); // $ExpectType number | undefined
+        _.get(maybeObjWithMaybeFoo, ['foo']); // $ExpectType number | undefined
+        // TODO: wrong type, change to // $ExpectType number | false
+        _.get(maybeObjWithMaybeFoo, 'foo', false); // $ExpectType number | false | undefined
+        // TODO: wrong type, change to // $ExpectType number | false
+        _.get(maybeObjWithMaybeFoo, ['foo'], false); // $ExpectType number | false | undefined
+        // TODO: wrong type, change to // $ExpectType number
+        _.get(maybeObjWithMaybeFoo, 'foo', 1); // $ExpectType number | undefined
+        // TODO: wrong type, change to // $ExpectType number
+        _.get(maybeObjWithMaybeFoo, ['foo'], 1); // $ExpectType number | undefined
+
+        _(maybeObjWithMaybeFoo).get('foo'); // $ExpectType number | undefined
+        _(maybeObjWithMaybeFoo).get(['foo']); // $ExpectType number | undefined
+        // TODO: wrong type, change to // $ExpectType number | false
+        _(maybeObjWithMaybeFoo).get('foo', false); // $ExpectType number | false | undefined
+        // TODO: wrong type, change to // $ExpectType number | false
+        _(maybeObjWithMaybeFoo).get(['foo'], false); // $ExpectType number | false | undefined
+        // TODO: wrong type, change to // $ExpectType number
+        _(maybeObjWithMaybeFoo).get('foo', 1); // $ExpectType number | undefined
+        // TODO: wrong type, change to // $ExpectType number
+        _(maybeObjWithMaybeFoo).get(['foo'], 1); // $ExpectType number | undefined
     }
 
     {
-        // in all other cases - any
+        // in all other cases user must validate outcome in runtime (with typeof for example, NO CASTING WITHOUT VALIDATION!!!)
 
         // for arrays - any, cause type of values they contain cant be inferred like in object
         _.get([42], '0'); // $ExpectType any
