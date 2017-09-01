@@ -78,12 +78,12 @@ declare module 'recompose' {
 
     // withHandlers: https://github.com/acdlite/recompose/blob/master/docs/API.md#withhandlers
     type EventHandler = Function;
-    type HandleCreators<TOutter> = {
-        [handlerName: string]: mapper<TOutter, EventHandler>;
+    type HandleCreators<TOutter, THandlers> = {
+        [handlerName in keyof THandlers]: mapper<TOutter, EventHandler>;
     };
-    type HandleCreatorsFactory<TOutter, THandlers> = (initialProps: TOutter) => HandleCreators<TOutter>;
+    type HandleCreatorsFactory<TOutter, THandlers> = (initialProps: TOutter) => HandleCreators<TOutter, THandlers>;
     export function withHandlers<TOutter, THandlers>(
-        handlerCreators: HandleCreators<TOutter> | HandleCreatorsFactory<TOutter, THandlers>
+        handlerCreators: HandleCreators<TOutter, THandlers> | HandleCreatorsFactory<TOutter, THandlers>
     ): InferableComponentEnhancerWithProps<THandlers, TOutter>;
 
     // defaultProps: https://github.com/acdlite/recompose/blob/master/docs/API.md#defaultprops
@@ -134,12 +134,12 @@ declare module 'recompose' {
 
     // withStateHandlers: https://github.com/acdlite/recompose/blob/master/docs/API.md#withstatehandlers
     type StateHandler<TState> = (...payload: any[]) => TState | undefined;
-    type StateUpdaters<TOutter, TState> = {
-      [updaterName: string]: (state: TState, props: TOutter) => StateHandler<TState>;
+    type StateUpdaters<TOutter, TStatem,  TUpdaters> = {
+      [updaterName in keyof TUpdaters]: (state: TState, props: TOutter) => StateHandler<TState>;
     };
     export function withStateHandlers<TState, TUpdaters, TOutter>(
       createProps: TState | mapper<TOutter, TState>,
-      stateUpdaters: StateUpdaters<TOutter, TState>,
+      stateUpdaters: StateUpdaters<TOutter, TState, TUpdaters>,
     ): InferableComponentEnhancerWithProps<TUpdaters & TState, TOutter>;
 
     // withReducer: https://github.com/acdlite/recompose/blob/master/docs/API.md#withReducer
