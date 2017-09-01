@@ -2,6 +2,7 @@
 // Project: https://github.com/tomas/needle
 // Definitions by: San Chen <https://github.com/bigsan>, Niklas Mollenhauer <https://github.com/nikeee>, Matanel Sindilevich <https://github.com/sindilevich>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /// <reference types="node" />
 
@@ -223,26 +224,26 @@ declare namespace core {
 
 /**
  * Calling needle() directly returns a Promise.
- * 
+ *
  * Since needle 2.0
  * @param method Designates an HTTP verb for the request.
  */
-declare function needle(method: core.NeedleReadonlyHttpVerbs, url: string, options?: core.NeedleOptions): Promise<core.NeedleResponse>
+declare function needle(method: core.NeedleReadonlyHttpVerbs, url: string, options?: core.NeedleOptions): Promise<core.NeedleResponse>;
 /**
  * Calling needle() directly returns a Promise.
- * 
+ *
  * Since needle 2.0
  * @param method Designates an HTTP verb for the request.
  * @param data May be null when issuing an HTTP DELETE request, but you need to explicity pass it.
  */
-declare function needle(method: core.NeedleHttpVerbs, url: string, data: core.BodyData, options?: core.NeedleOptions): Promise<core.NeedleResponse>
+declare function needle(method: core.NeedleHttpVerbs, url: string, data: core.BodyData, options?: core.NeedleOptions): Promise<core.NeedleResponse>;
 
 declare namespace needle {
     type BodyData = core.BodyData;
-    interface NeedleCallback extends core.NeedleCallback { }
+    type NeedleCallback = core.NeedleCallback;
     type NeedleHttpVerbs = core.NeedleHttpVerbs;
-    export interface NeedleOptions extends core.NeedleOptions { }
-    interface ReadableStream extends core.ReadableStream { }
+    export type NeedleOptions = core.NeedleOptions;
+    type ReadableStream = core.ReadableStream;
 
     /**
      * Lets override the defaults for all future requests.

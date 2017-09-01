@@ -7,13 +7,13 @@ function Usage() {
         .then((resp) => console.log(resp.body.ip_addr));
 
     // using callback
-    needle.get('http://ifconfig.me/all.json', function (error, response) {
+    needle.get('http://ifconfig.me/all.json', (error, response) => {
         if (!error)
             console.log(response.body.ip_addr); // JSON decoding magic. :)
     });
 
     // using streams
-    var out: any;
+    const out = fs.createWriteStream('file.txt');
     needle.get('https://google.com/images/logo.png').pipe(out);
 }
 
@@ -26,13 +26,13 @@ function ResponsePipeline() {
         });
 
     // using callback
-    needle.get('http://stackoverflow.com/feeds', { compressed: true }, function (err, resp) {
+    needle.get('http://stackoverflow.com/feeds', { compressed: true }, (err, resp) => {
         console.log(resp.body); // this little guy won't be a Gzipped binary blob
         // but a nice object containing all the latest entries
     });
 
     // using streams
-    var options = {
+    const options = {
         compressed: true,
         follow: 5,
         rejectUnauthorized: true
@@ -40,19 +40,19 @@ function ResponsePipeline() {
 
     // in this case, we'll ask Needle to follow redirects (disabled by default),
     // but also to verify their SSL certificates when connecting.
-    var stream = needle.get('https://backend.server.com/everything.html', options);
+    const stream = needle.get('https://backend.server.com/everything.html', options);
 
-    stream.on('readable', function () {
-        var data: any;
+    stream.on('readable', () => {
+        let data: any;
         while (data = stream.read()) {
             console.log(data.toString());
         }
     });
 
-    stream.on('end', function (err: any) {
+    stream.on('end', (err: any) => {
         // if our request had an error, our 'end' event will tell us.
         if (!err) console.log('Great success!');
-    })
+    });
 }
 
 function API_head() {
@@ -62,11 +62,10 @@ function API_head() {
         .catch((err: Error) => console.log('Shoot! Something is wrong: ' + err.message));
 
     // using callback
-    needle.head('https://my.backend.server.com', function (err, resp) {
+    needle.head('https://my.backend.server.com', (err, resp) => {
         if (err) {
             console.log('Shoot! Something is wrong: ' + err.message);
-        }
-        else {
+        } else {
             console.log('Yup, still alive.');
         }
     });
@@ -80,13 +79,13 @@ function API_get() {
         });
 
     // using callback
-    needle.get('google.com/search?q=syd+barrett', function (err, resp) {
+    needle.get('google.com/search?q=syd+barrett', (err, resp) => {
         // if no http:// is found, Needle will automagically prepend it.
     });
 }
 
 function API_post() {
-    var options = {
+    const options = {
         headers: { 'X-Custom-Header': 'Bumbaway atuna' }
     };
 
@@ -97,13 +96,13 @@ function API_post() {
         });
 
     // using callback
-    needle.post('https://my.app.com/endpoint', 'foo=bar', options, function (err, resp) {
+    needle.post('https://my.app.com/endpoint', 'foo=bar', options, (err, resp) => {
         // you can pass params as a string or as an object.
     });
 }
 
 function API_put() {
-    var nested = {
+    const nested = {
         params: {
             are: {
                 also: 'supported'
@@ -114,17 +113,17 @@ function API_put() {
     // using promises
     needle('put', 'https://api.app.com/v2', nested)
         .then((resp) => {
-            console.log('Got ' + resp.bytes + ' bytes.') // another nice treat from this handsome fella.
+            console.log(`Got ${resp.bytes} bytes.`); // another nice treat from this handsome fella.
         });
 
     // using callback
-    needle.put('https://api.app.com/v2', nested, function (err, resp) {
-        console.log('Got ' + resp.bytes + ' bytes.') // another nice treat from this handsome fella.
+    needle.put('https://api.app.com/v2', nested, (err, resp) => {
+        console.log(`Got ${resp.bytes} bytes.`); // another nice treat from this handsome fella.
     });
 }
 
 function API_delete() {
-    var options = {
+    const options = {
         username: 'fidelio',
         password: 'x'
     };
@@ -136,13 +135,13 @@ function API_delete() {
         });
 
     // using callback
-    needle.delete('https://api.app.com/messages/123', null, options, function (err, resp) {
+    needle.delete('https://api.app.com/messages/123', null, options, (err, resp) => {
         // in this case, data may be null, but you need to explicity pass it.
     });
 }
 
 function API_request() {
-    var params = {
+    const params = {
         q: 'a very smart query',
         page: 2,
     };
@@ -150,23 +149,23 @@ function API_request() {
     // using promises
     needle('get', 'forum.com/search', params)
         .then((resp) => {
-            if (resp.statusCode == 200)
+            if (resp.statusCode === 200)
                 console.log(resp.body); // here you go, mister.
         });
 
     needle('get', 'forum.com/search', params, { json: true })
         .then((resp) => {
-            if (resp.statusCode == 200) console.log('It worked!');
+            if (resp.statusCode === 200) console.log('It worked!');
         });
 
     // using callback
-    needle.request('get', 'forum.com/search', params, function (err, resp) {
-        if (!err && resp.statusCode == 200)
+    needle.request('get', 'forum.com/search', params, (err, resp) => {
+        if (!err && resp.statusCode === 200)
             console.log(resp.body); // here you go, mister.
     });
 
-    needle.request('get', 'forum.com/search', params, { json: true }, function (err, resp) {
-        if (resp.statusCode == 200) console.log('It worked!');
+    needle.request('get', 'forum.com/search', params, { json: true }, (err, resp) => {
+        if (resp.statusCode === 200) console.log('It worked!');
     });
 }
 
@@ -182,10 +181,10 @@ function HttpGetWithBasicAuth() {
         });
 
     // using callback
-    needle.get('https://api.server.com', { username: 'you', password: 'secret' }, function (err, resp) {
+    needle.get('https://api.server.com', { username: 'you', password: 'secret' }, (err, resp) => {
         // used HTTP auth
     });
-    needle.get('https://username:password@api.server.com', function (err, resp) {
+    needle.get('https://username:password@api.server.com', (err, resp) => {
         // used HTTP auth from URL
     });
 }
@@ -198,17 +197,17 @@ function DigestAuth() {
         });
 
     // using callback
-    needle.get('other.server.com', { username: 'you', password: 'secret', auth: 'digest' }, function (err, resp, body) {
+    needle.get('other.server.com', { username: 'you', password: 'secret', auth: 'digest' }, (err, resp, body) => {
         // needle prepends 'http://' to your URL, if missing
     });
 }
 
 function CustomAcceptHeaderDeflate() {
-    var options: needle.NeedleOptions = {
+    const options: needle.NeedleOptions = {
         compressed: true,
         follow: 10,
         accept: 'application/vnd.github.full+json'
-    }
+    };
 
     // using promises
     needle('get', 'api.github.com/users/tomas', options)
@@ -218,11 +217,10 @@ function CustomAcceptHeaderDeflate() {
         });
 
     // using callback
-    needle.get('api.github.com/users/tomas', options, function (err, resp, body) {
+    needle.get('api.github.com/users/tomas', options, (err, resp, body) => {
         // body will contain a JSON.parse(d) object
         // if parsing fails, you'll simply get the original body
     });
-
 }
 
 function Various() {
@@ -241,26 +239,26 @@ function Various() {
         });
 
     // using callback
-    needle.get('https://news.ycombinator.com/rss', function (err, resp, body) {
+    needle.get('https://news.ycombinator.com/rss', (err, resp, body) => {
         // if xml2js is installed, you'll get a nice object containing the nodes in the RSS
     });
-    needle.get('http://upload.server.com/tux.png', { output: '/tmp/tux.png' }, function (err, resp, body) {
+    needle.get('http://upload.server.com/tux.png', { output: '/tmp/tux.png' }, (err, resp, body) => {
         // you can dump any response to a file, not only binaries.
     });
-    needle.get('http://search.npmjs.org', { proxy: 'http://localhost:1234' }, function (err, resp, body) {
+    needle.get('http://search.npmjs.org', { proxy: 'http://localhost:1234' }, (err, resp, body) => {
         // request passed through proxy
     });
 
     // using streams
     const stream1 = needle.get('http://www.as35662.net/100.log');
-    stream1.on('readable', function () {
+    stream1.on('readable', () => {
         let chunk: any;
         while (chunk = stream1.read()) {
             console.log('got data: ', chunk);
         }
     });
     const stream2 = needle.get('http://jsonplaceholder.typicode.com/db', { parse: true });
-    stream2.on('readable', function () {
+    stream2.on('readable', () => {
         let node: any;
 
         // our stream2 will only emit a single JSON root node.
@@ -271,7 +269,7 @@ function Various() {
 }
 
 function FileUpload() {
-    var data = {
+    const data = {
         foo: 'bar',
         image: { file: '/home/tomas/linux.png', content_type: 'image/png' }
     };
@@ -287,24 +285,24 @@ function FileUpload() {
         });
 
     // using callback
-    needle.post('http://my.other.app.com', data, { multipart: true }, function (err, resp, body) {
+    needle.post('http://my.other.app.com', data, { multipart: true }, (err, resp, body) => {
         // needle will read the file and include it in the form-data as binary
     });
-    needle.put('https://api.app.com/v2', fs.createReadStream('myfile.txt'), function (err, resp, body) {
+    needle.put('https://api.app.com/v2', fs.createReadStream('myfile.txt'), (err, resp, body) => {
         // stream content is uploaded verbatim
     });
 }
 
 function Multipart() {
-    var buffer = fs.readFileSync('/path/to/package.zip');
+    const buffer = fs.readFileSync('/path/to/package.zip');
 
-    var data = {
+    const data = {
         zip_file: {
-            buffer: buffer,
+            buffer,
             filename: 'mypackage.zip',
             content_type: 'application/octet-stream'
         }
-    }
+    };
 
     // using promises
     needle('post', 'http://somewhere.com/over/the/rainbow', data, { multipart: true })
@@ -315,7 +313,7 @@ function Multipart() {
         });
 
     // using callback
-    needle.post('http://somewhere.com/over/the/rainbow', data, { multipart: true }, function (err, resp, body) {
+    needle.post('http://somewhere.com/over/the/rainbow', data, { multipart: true }, (err, resp, body) => {
         // if you see, when using buffers we need to pass the filename for the multipart body.
         // you can also pass a filename when using the file path method, in case you want to override
         // the default filename to be received on the other end.
@@ -323,13 +321,13 @@ function Multipart() {
 }
 
 function MultipartContentType() {
-    var data = {
+    const data = {
         token: 'verysecret',
         payload: {
             value: JSON.stringify({ title: 'test', version: 1 }),
             content_type: 'application/json'
         }
-    }
+    };
 
     // using promises
     needle('post', 'http://test.com/', data, { timeout: 5000, multipart: true })
@@ -339,7 +337,7 @@ function MultipartContentType() {
         });
 
     // using callback
-    needle.post('http://test.com/', data, { timeout: 5000, multipart: true }, function (err, resp, body) {
+    needle.post('http://test.com/', data, { timeout: 5000, multipart: true }, (err, resp, body) => {
         // in this case, if the request takes more than 5 seconds
         // the callback will return a [Socket closed] error
     });
