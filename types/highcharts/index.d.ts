@@ -1994,6 +1994,8 @@ declare namespace Highcharts {
         position?: string;
         top?: string;
         textOutline?: string;
+        textOverflow?: string;
+        whiteSpace?: string;
     }
 
     interface CreditsOptions {
