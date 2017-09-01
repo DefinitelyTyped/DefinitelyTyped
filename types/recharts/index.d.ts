@@ -310,6 +310,7 @@ export interface PieProps extends Partial<CSSStyleDeclaration> {
 	minAngle?: number;
 	paddingAngle?: number;
 	nameKey?: string;
+	dataKey?: string;
 	valueKey?: string;
 	legendType?: LegendType;
 	label?: boolean | any | React.ReactElement<any> | RechartsFunction;
@@ -645,13 +646,13 @@ export interface TooltipProps {
 	itemStyle?: any;
 	wrapperStyle?: any;
 	labelStyle?: any;
-	cursor?: boolean | any | React.ReactElement<any>;
+	cursor?: boolean | any | React.ReactElement<any> | React.StatelessComponent<any>;
 	viewBox: ViewBox;
 	active?: boolean;
 	coordinate?: Coordinate;
 	payload?: TooltipPayload[];
 	label?: string | number;
-	content?: React.ReactElement<any> | RechartsFunction;
+	content?: React.ReactElement<any> | React.StatelessComponent<any> | RechartsFunction;
 	formatter?: RechartsFunction;
 	labelFormatter?: RechartsFunction;
 	itemSorter?: RechartsFunction;
