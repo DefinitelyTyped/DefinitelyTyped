@@ -7,7 +7,7 @@ import * as L from 'leaflet';
 
 declare module 'leaflet' {
   namespace Control {
-    class Fullscreen extends L.Control {
+    class Fullscreen extends Control {
       constructor(options?: FullscreenOptions);
       options: FullscreenOptions;
     }
@@ -27,6 +27,6 @@ declare module 'leaflet' {
     /**
      * Creates a fullscreen control.
      */
-    function fullscreen(options?: Control.FullscreenOptions): L.Control.Fullscreen;
+    function fullscreen(options?: Control.FullscreenOptions): Control.Fullscreen;
   }
 }
