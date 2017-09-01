@@ -8,7 +8,7 @@ import { Request, CoreOptions } from "request";
 
 declare function nano(
   config: nano.Configuration | string
-): nano.ServerScope | nano.DocumentScope;
+): nano.ServerScope | nano.DocumentScope<any>;
 
 declare namespace nano {
   interface Configuration {
@@ -24,8 +24,8 @@ declare namespace nano {
   interface ServerScope {
     readonly config: ServerConfig;
     db: DatabaseScope;
-    use(db: string): DocumentScope;
-    scope(db: string): DocumentScope;
+    use<D>(db: string): DocumentScope<D>;
+    scope<D>(db: string): DocumentScope<D>;
     request: RequestFunction;
     relax: RequestFunction;
     dinosaur: RequestFunction;
@@ -41,11 +41,11 @@ declare namespace nano {
     get(name: string, callback?: Callback<any>): Request;
     destroy(name: string, callback?: Callback<any>): Request;
     list(callback?: Callback<any>): Request;
-    use(db: string): DocumentScope;
+    use<D>(db: string): DocumentScope<D>;
     compact(name: string, designname?: string, callback?: Callback<any>): Request;
-    replicate(
-      source: string | DocumentScope,
-      target: string | DocumentScope,
+    replicate<D>(
+      source: string | DocumentScope<D>,
+      target: string | DocumentScope<D>,
       options?: any,
       callback?: Callback<any>
     ): Request;
@@ -59,11 +59,11 @@ declare namespace nano {
     updates(params?: UpdatesParams, callback?: Callback<any>): Request;
   }
 
-  interface DocumentScope {
+  interface DocumentScope<D> {
     readonly config: ServerConfig;
     info(callback?: Callback<any>): Request;
     replicate(
-      target: string | DocumentScope,
+      target: string | DocumentScope<D>,
       options?: any,
       callback?: Callback<any>
     ): Request;
