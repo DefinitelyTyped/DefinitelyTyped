@@ -6,6 +6,7 @@
         // it would be particualrly strange to type these functions differently
         // @ above comment: Use a specific type such as `(x: string) => boolean` instead of just `Function`
         "ban-types": false,
-        "no-unnecessary-qualifier": false
+        "no-unnecessary-qualifier": false,
+        "no-unnecessary-generics": false
     }
 }
