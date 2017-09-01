@@ -608,6 +608,17 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   /**
    * Like calling `.then`, but the fulfillment value or rejection reason is assumed to be an array, which is flattened to the formal parameters of the handlers.
    */
+  spread<U, T extends R & any[]>(
+    fulfilledHandler: (val1: T[0], val2: T[1], val3: T[2], val4: T[3], val5: T[4]) => U | PromiseLike<U>,
+  ): Bluebird<U>;
+  spread<U, T extends R & any[]>(
+    fulfilledHandler: (val1: T[0], val2: T[1], val3: T[2], val4: T[3]) => U | PromiseLike<U>,
+  ): Bluebird<U>;
+  spread<U, T extends R & any[]>(
+    fulfilledHandler: (val1: T[0], val2: T[1], val3: T[2]) => U | PromiseLike<U>,
+  ): Bluebird<U>;
+  spread<U, T extends R & any[]>(fulfilledHandler: (val1: T[0], val2: T[1]) => U | PromiseLike<U>): Bluebird<U>;
+  spread<U, T extends R & any[]>(fulfilledHandler: (val1: T[0]) => U | PromiseLike<U>): Bluebird<U>;
   spread<U, W>(fulfilledHandler: (...values: W[]) => U | PromiseLike<U>): Bluebird<U>;
   spread<U>(fulfilledHandler: Function): Bluebird<U>;
 
@@ -856,6 +867,12 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   static join<R, A1, A2, A3>(arg1: A1 | PromiseLike<A1>, arg2: A2 | PromiseLike<A2>, arg3: A3 | PromiseLike<A3>, handler: (arg1: A1, arg2: A2, arg3: A3) => R | PromiseLike<R>): Bluebird<R>;
   static join<R, A1, A2, A3, A4>(arg1: A1 | PromiseLike<A1>, arg2: A2 | PromiseLike<A2>, arg3: A3 | PromiseLike<A3>, arg4: A4 | PromiseLike<A4>, handler: (arg1: A1, arg2: A2, arg3: A3, arg4: A4) => R | PromiseLike<R>): Bluebird<R>;
   static join<R, A1, A2, A3, A4, A5>(arg1: A1 | PromiseLike<A1>, arg2: A2 | PromiseLike<A2>, arg3: A3 | PromiseLike<A3>, arg4: A4 | PromiseLike<A4>, arg5: A5 | PromiseLike<A5>, handler: (arg1: A1, arg2: A2, arg3: A3, arg4: A4, arg5: A5) => R | PromiseLike<R>): Bluebird<R>;
+
+  static join<A1>(arg1: A1 | PromiseLike<A1>): Bluebird<[A1]>;
+  static join<A1, A2>(arg1: A1 | PromiseLike<A1>, arg2: A2 | PromiseLike<A2>): Bluebird<[A1, A2]>;
+  static join<A1, A2, A3>(arg1: A1 | PromiseLike<A1>, arg2: A2 | PromiseLike<A2>, arg3: A3 | PromiseLike<A3>): Bluebird<[A1, A2, A3]>;
+  static join<A1, A2, A3, A4>(arg1: A1 | PromiseLike<A1>, arg2: A2 | PromiseLike<A2>, arg3: A3 | PromiseLike<A3>, arg4: A4 | PromiseLike<A4>): Bluebird<[A1, A2, A3, A4]>;
+  static join<A1, A2, A3, A4, A5>(arg1: A1 | PromiseLike<A1>, arg2: A2 | PromiseLike<A2>, arg3: A3 | PromiseLike<A3>, arg4: A4 | PromiseLike<A4>, arg5: A5 | PromiseLike<A5>): Bluebird<[A1, A2, A3, A4, A5]>;
 
   // variadic array
   /** @deprecated use .all instead */
