@@ -12471,27 +12471,42 @@ declare namespace _ {
             defaultValue: TDefault
         ): TDefault;
 
+        /**
+         * @see _.get
+         */
         get(
             object: null | undefined,
             path: Many<StringRepresentable>
         ): undefined;
 
+        /**
+         * @see _.get
+         */
         get<TObject extends object, TKey extends keyof TObject>(
             object: TObject,
             path: TKey | [TKey]
         ): TObject[TKey];
 
+        /**
+         * @see _.get
+         */
         get<TObject extends object, TKey extends keyof TObject, TDefault>(
             object: TObject | null | undefined,
             path: TKey | [TKey],
             defaultValue: TDefault
         ): TObject[TKey] | TDefault;
 
+        /**
+         * @see _.get
+         */
         get<TObject extends object, TKey extends keyof TObject>(
             object: TObject | null | undefined,
             path: TKey | [TKey]
         ): TObject[TKey] | undefined;
 
+        /**
+         * @see _.get
+         */
         get(
             object: any,
             path: Many<StringRepresentable>,
@@ -12503,11 +12518,10 @@ declare namespace _ {
         /**
          * @see _.get
          */
-        get<TObject extends object, TKey extends keyof TObject, TDefault>(
-            this: LoDashImplicitWrapper<TObject | null | undefined>,
-            path: TKey | [TKey],
-            defaultValue: TDefault
-        ): TObject[TKey] | TDefault;
+        get<TResult>(
+            path: Many<StringRepresentable>,
+            defaultValue: TResult
+        ): TResult;
 
         /**
          * @see _.get
@@ -12541,15 +12555,6 @@ declare namespace _ {
     }
 
     interface LoDashExplicitWrapper<TValue> {
-        /**
-         * @see _.get
-         */
-        get<TObject extends object, TKey extends keyof TObject, TDefault>(
-            this: LoDashExplicitWrapper<TObject | null | undefined>,
-            path: TKey | [TKey],
-            defaultValue: TDefault
-        ): LoDashExplicitWrapper<TObject[TKey] | TDefault>;
-
         /**
          * @see _.get
          */

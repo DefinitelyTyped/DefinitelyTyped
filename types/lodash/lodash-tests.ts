@@ -11293,8 +11293,8 @@ namespace TestGet {
         _({a: true}).chain().get(['a']); // $ExpectType LoDashExplicitWrapper<boolean>
         _({a: true}).chain().get('a', false); // $ExpectType LoDashExplicitWrapper<boolean>
         _({a: true}).chain().get(['a'], false); // $ExpectType LoDashExplicitWrapper<boolean>
-        _({a: true}).chain().get('a', 1); // $ExpectType LoDashExplicitWrapper<boolean | 1>
-        _({a: true}).chain().get(['a'], 1); // $ExpectType LoDashExplicitWrapper<boolean | 1>
+        _({a: true}).chain().get<number | boolean>('a', 1); // $ExpectType LoDashExplicitWrapper<number | boolean>
+        _({a: true}).chain().get<number | boolean>(['a'], 1); // $ExpectType LoDashExplicitWrapper<number | boolean>
     }
 
     {
@@ -11304,8 +11304,8 @@ namespace TestGet {
         _(obj).chain().get(['a']); // $ExpectType LoDashExplicitWrapper<boolean | undefined>
         _(obj).chain().get('a', false); // $ExpectType LoDashExplicitWrapper<boolean>
         _(obj).chain().get(['a'], false); // $ExpectType LoDashExplicitWrapper<boolean>
-        _(obj).chain().get('a', 1); // $ExpectType LoDashExplicitWrapper<boolean | 1>
-        _(obj).chain().get(['a'], 1); // $ExpectType LoDashExplicitWrapper<boolean | 1>
+        _(obj).chain().get<number | boolean>('a', 1); // $ExpectType LoDashExplicitWrapper<number | boolean>
+        _(obj).chain().get<number | boolean>(['a'], 1); // $ExpectType LoDashExplicitWrapper<number | boolean>
     }
 }
 
