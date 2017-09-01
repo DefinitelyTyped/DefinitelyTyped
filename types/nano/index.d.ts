@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { EventEmitter } from "events";
-import { Request, CoreOptions } from "request";
+import { CoreOptions, Request } from "request";
 
 declare function nano(
   config: nano.Configuration | string
