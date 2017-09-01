@@ -4,7 +4,7 @@ import * as CarouselItem from './CarouselItem';
 import * as CarouselCaption from './CarouselCaption';
 
 declare namespace Carousel {
-    export interface CarouselProps extends Omit<React.HTMLProps<Carousel>, 'wrap'> {
+    export type CarouselProps = Omit<React.HTMLProps<Carousel>, 'wrap'> & {
         activeIndex?: number;
         bsSize?: Sizes;
         bsStyle?: string;
@@ -21,7 +21,7 @@ declare namespace Carousel {
         prevIcon?: React.ReactNode;
         slide?: boolean;
         wrap?: boolean;
-    }
+    };
 }
 declare class Carousel extends React.Component<Carousel.CarouselProps> {
     public static Caption: typeof CarouselCaption;
