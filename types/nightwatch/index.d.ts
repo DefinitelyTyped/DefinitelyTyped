@@ -2257,7 +2257,6 @@ interface NightwatchAPI {
 
 interface NightwatchBrowser extends NightwatchAPI, NightwatchCustomPageObjects { }
 
-
 /**
  * Performs an assertion
  *
@@ -2301,10 +2300,10 @@ type NightwatchAssert = (passed: boolean, receivedValue?: any, expectedValue?: a
 interface NightwatchAssertion {
     expected: (() => void) | boolean;
     message: string;
-    pass: (...args: any[]) => any;
-    value: (...args: any[]) => any;
-    command: (...args: any[]) => any;
-    failure?: (...args: any[]) => any;
+    pass(...args: any[]): any;
+    value(...args: any[]): any;
+    command(...args: any[]): any;
+    failure?(...args: any[]): any;
     api?: NightwatchAPI;
 }
 
