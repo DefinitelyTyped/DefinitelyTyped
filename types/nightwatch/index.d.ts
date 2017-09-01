@@ -353,23 +353,23 @@ interface NightwatchTestSettingGeneric {
 }
 
 interface NightwatchTestSettingScreenshots extends NightwatchTestSettingGeneric {
-  /**
-   * Selenium generates screenshots when command errors occur. With on_failure set to true, also generates screenshots for failing or erroring tests. These are saved on the disk.
-   * Since v0.7.5 you can disable screenshots for command errors by setting "on_error" to false.
-   * Example:
-   * "screenshots" : {
-   *      "enabled" : true,
-   *      "on_failure" : true,
-   *      "on_error" : false,
-   *      "path" : ""
-   * }
-   */
-  screenshots: NightwatchScreenshotOptions;
+    /**
+     * Selenium generates screenshots when command errors occur. With on_failure set to true, also generates screenshots for failing or erroring tests. These are saved on the disk.
+     * Since v0.7.5 you can disable screenshots for command errors by setting "on_error" to false.
+     * Example:
+     * "screenshots" : {
+     *      "enabled" : true,
+     *      "on_failure" : true,
+     *      "on_error" : false,
+     *      "path" : ""
+     * }
+     */
+    screenshots: NightwatchScreenshotOptions;
 }
 
 interface NightwatchTestOptions extends NightwatchTestSettingGeneric {
-  screenshots: boolean;
-  screenshotsPath: string;
+    screenshots: boolean;
+    screenshotsPath: string;
 }
 
 interface NightwatchTestSuite {
@@ -379,7 +379,7 @@ interface NightwatchTestSuite {
     results: any;
 }
 
-interface NightwatchAssertionError {
+interface NightwatchAssertionsError {
     name: string;
     message: string;
     showDiff: boolean;
@@ -402,7 +402,7 @@ interface NightwatchLanguageChains {
 }
 
 interface NightwatchTestSettings {
-  [key: string]: NightwatchTestSettingScreenshots;
+    [key: string]: NightwatchTestSettingScreenshots;
 }
 
 interface Expect extends NightwatchLanguageChains, NightwatchBrowser {
@@ -496,7 +496,7 @@ interface Expect extends NightwatchLanguageChains, NightwatchBrowser {
     visible: this;
 }
 
-interface NightwatchAssertion extends NightwatchBrowser {
+interface NightwatchAssertions extends NightwatchBrowser {
     /**
      * Checks if the given attribute of an element contains the expected value.
      * @param selector: The selector (CSS / Xpath) used to locate the element.
@@ -646,12 +646,13 @@ interface NightwatchAssertion extends NightwatchBrowser {
      */
     visible(cssSelector: string, msg?: string): this;
 
-    NightwatchAssertionError: NightwatchAssertionError;
+    NightwatchAssertionsError: NightwatchAssertionsError;
 }
 
 interface NightwatchTypedCallbackResult<T> {
     status: number;
     value: T;
+    state: Error | string;
 }
 
 // tslint:disable-next-line:no-empty-interface
@@ -798,12 +799,12 @@ interface NightwatchKeys {
     "COMMAND": string;
 }
 
-interface NightwatchClient {
-    assert: NightwatchAssertion;
+interface NightwatchAPI {
+    assert: NightwatchAssertions;
 
     expect: Expect;
 
-    verify: NightwatchAssertion;
+    verify: NightwatchAssertions;
 
     /**
      * Clear a textarea or a text input element's value. Uses elementIdValue protocol command.
@@ -1517,7 +1518,7 @@ interface NightwatchClient {
      * @param selector: The selector (CSS / Xpath) used to locate the element.
      * @param time: The number of milliseconds to wait. The runner performs repeated checks every 500 ms.
      * @param abortOnFailure: By the default if the element is not found the test will fail. Set this to false if you wish for the test to continue even if the assertion fails.
-     * To set this globally you can define a property `abortOnNightwatchAssertionFailure` in your globals.
+     * To set this globally you can define a property `abortOnNightwatchAssertionsFailure` in your globals.
      * @param callback: Optional callback function to be called when the command finishes.
      * @param message: Optional message to be shown in the output; the message supports two placeholders: %s for current selector and %d for the time
      * (e.g. Element %s was not in the page for %d ms).
@@ -1540,7 +1541,7 @@ interface NightwatchClient {
      * @param selector: The selector (CSS / Xpath) used to locate the element.
      * @param time: The number of milliseconds to wait. The runner performs repeated checks every 500 ms.
      * @param abortOnFailure: By the default if the element is not found the test will fail. Set this to false if you wish for the test to continue even if the assertion fails.
-     * To set this globally you can define a property `abortOnNightwatchAssertionFailure` in your globals.
+     * To set this globally you can define a property `abortOnNightwatchAssertionsFailure` in your globals.
      * @param callback: Optional callback function to be called when the command finishes.
      * @param message: Optional message to be shown in the output; the message supports two placeholders: %s for current selector and %d for the time
      * (e.g. Element %s was not in the page for %d ms).
@@ -1574,7 +1575,7 @@ interface NightwatchClient {
      * @param selector: The selector (CSS / Xpath) used to locate the element.
      * @param time: The number of milliseconds to wait. The runner performs repeated checks every 500 ms.
      * @param abortOnFailure: By the default if the element is not found the test will fail. Set this to false if you wish for the test to continue even if the assertion fails.
-     * To set this globally you can define a property `abortOnNightwatchAssertionFailure` in your globals.
+     * To set this globally you can define a property `abortOnNightwatchAssertionsFailure` in your globals.
      * @param callback: Optional callback function to be called when the command finishes.
      * @param message: Optional message to be shown in the output; the message supports two placeholders: %s for current selector and %d for the time
      * (e.g. Element %s was not in the page for %d ms).
@@ -1607,7 +1608,7 @@ interface NightwatchClient {
      * ```
      * @param selector: The selector (CSS / Xpath) used to locate the element.
      * @param time: The number of milliseconds to wait. The runner performs repeated checks every 500 ms.
-     * @param abortOnFailure: By the default if the element is not found the test will fail. Set this to false if you wish for the test to continue even if the assertion fails. To set this globally you can define a property `abortOnNightwatchAssertionFailure` in your globals.
+     * @param abortOnFailure: By the default if the element is not found the test will fail. Set this to false if you wish for the test to continue even if the assertion fails. To set this globally you can define a property `abortOnNightwatchAssertionsFailure` in your globals.
      * @param callback: Optional callback function to be called when the command finishes.
      * @param message: Optional message to be shown in the output; the message supports two placeholders: %s for current selector and %d for the time (e.g. Element %s was not in the page for %d ms).
      * @returns {}
@@ -1983,10 +1984,10 @@ interface NightwatchClient {
     /**
      * Take a screenshot of the current page.
      * @param log_screenshot_data: Whether or not the screenshot data should appear in the logs when running with --verbose
-     * @param callback: Optional callback function to be called when the command finishes.
+     * @param callback: Optional callback function to be called with the resultant value (Base64 PNG) when the command finishes.
      * @returns {}
      */
-    screenshot(log_screenshot_data: boolean, callback?: () => void): this;
+    screenshot(log_screenshot_data: boolean, callback?: (screenshotEncoded: string) => void): this;
 
     /**
      * Get info about, delete or create a new session. Defaults to the current session.
@@ -2254,12 +2255,67 @@ interface NightwatchClient {
     launch_url: string;
 }
 
-interface NightwatchBrowser extends NightwatchClient, NightwatchCustomPageObjects { }
+interface NightwatchBrowser extends NightwatchAPI, NightwatchCustomPageObjects { }
 
-type NightwatchTest = (arg1: NightwatchBrowser) => void;
+
+/**
+ * Performs an assertion
+ *
+ * @param passed
+ * @param receivedValue
+ * @param expectedValue
+ * @param message
+ * @param abortOnFailure
+ * @param originalStackTrace
+ */
+type NightwatchTest = (browser: NightwatchBrowser) => void;
 
 interface NightwatchTests {
     [key: string]: NightwatchTest;
+}
+
+/**
+ * Performs an assertion
+ *
+ * @param passed
+ * @param receivedValue
+ * @param expectedValue
+ * @param message
+ * @param abortOnFailure
+ * @param originalStackTrace
+ */
+type NightwatchAssert = (passed: boolean, receivedValue?: any, expectedValue?: any, message?: string, abortOnFailure?: boolean, originalStackTrace?: string) => void;
+
+/**
+ * Abstract assertion class that will subclass all defined assertions
+ *
+ * All assertions must implement the following api:
+ *
+ * - @param {boolean|function} expected
+ * - @param {string} message
+ * - @param {function} pass
+ * - @param {function} value
+ * - @param {function} command
+ * - @param {function} - Optional failure
+ */
+interface NightwatchAssertion {
+    expected: (() => void) | boolean;
+    message: string;
+    pass: (...args: any[]) => any;
+    value: (...args: any[]) => any;
+    command: (...args: any[]) => any;
+    failure?: (...args: any[]) => any;
+    api?: NightwatchAPI;
+}
+
+interface NightwatchClient {
+    api: NightwatchAPI;
+    assertion: NightwatchAssert;
+}
+
+interface Nightwatch {
+    api: NightwatchAPI;
+    client: NightwatchClient;
 }
 
 /* tslint:enable:max-line-length */
