@@ -12465,6 +12465,31 @@ declare namespace _ {
          * @param defaultValue The value returned if the resolved value is undefined.
          * @return Returns the resolved value.
          */
+        get<TObject extends object, TKey extends keyof TObject>(
+            object: TObject,
+            path: TKey | [TKey]
+        ): TObject[TKey];
+
+        /**
+         * @see _.get
+         */
+        get<TObject extends object, TKey extends keyof TObject>(
+            object: TObject | null | undefined,
+            path: TKey | [TKey]
+        ): TObject[TKey] | undefined;
+
+        /**
+         * @see _.get
+         */
+        get<TObject extends object, TKey extends keyof TObject, TDefault>(
+            object: TObject | null | undefined,
+            path: TKey | [TKey],
+            defaultValue: TDefault
+        ): TObject[TKey] | TDefault;
+
+        /**
+         * @see _.get
+         */
         get<TDefault>(
             object: null | undefined,
             path: Many<StringRepresentable>,
@@ -12482,31 +12507,6 @@ declare namespace _ {
         /**
          * @see _.get
          */
-        get<TObject extends object, TKey extends keyof TObject>(
-            object: TObject,
-            path: TKey | [TKey]
-        ): TObject[TKey];
-
-        /**
-         * @see _.get
-         */
-        get<TObject extends object, TKey extends keyof TObject, TDefault>(
-            object: TObject | null | undefined,
-            path: TKey | [TKey],
-            defaultValue: TDefault
-        ): TObject[TKey] | TDefault;
-
-        /**
-         * @see _.get
-         */
-        get<TObject extends object, TKey extends keyof TObject>(
-            object: TObject | null | undefined,
-            path: TKey | [TKey]
-        ): TObject[TKey] | undefined;
-
-        /**
-         * @see _.get
-         */
         get(
             object: any,
             path: Many<StringRepresentable>,
@@ -12515,14 +12515,6 @@ declare namespace _ {
     }
 
     interface LoDashImplicitWrapper<TValue> {
-        /**
-         * @see _.get
-         */
-        get<TResult>(
-            path: Many<StringRepresentable>,
-            defaultValue: TResult
-        ): TResult;
-
         /**
          * @see _.get
          */
@@ -12541,17 +12533,36 @@ declare namespace _ {
         /**
          * @see _.get
          */
+        get<TObject extends object, TKey extends keyof TObject, TDefault>(
+            this: LoDashImplicitWrapper<TObject | null | undefined>,
+            path: TKey | [TKey],
+            defaultValue: TDefault
+        ): TObject[TKey] | TDefault;
+
+        /**
+         * @see _.get
+         */
+        get<TDefault>(
+            this: LoDashImplicitWrapper<null | undefined>,
+            path: Many<StringRepresentable>,
+            defaultValue: TDefault
+        ): TDefault;
+
+        /**
+         * @see _.get
+         */
         get(
+            this: LoDashImplicitWrapper<null | undefined>,
             path: Many<StringRepresentable>
-        ): any;
+        ): undefined;
 
         /**
          * @see _.get
          */
         get<TResult>(
             path: Many<StringRepresentable>,
-            defaultValue: TResult
-        ): TResult;
+            defaultValue?: any
+        ): any;
     }
 
     interface LoDashExplicitWrapper<TValue> {
@@ -12573,17 +12584,36 @@ declare namespace _ {
         /**
          * @see _.get
          */
-        get(
-            path: Many<StringRepresentable>
-        ): LoDashExplicitWrapper<any>;
+        get<TObject extends object, TKey extends keyof TObject, TDefault>(
+            this: LoDashExplicitWrapper<TObject | null | undefined>,
+            path: TKey | [TKey],
+            defaultValue: TDefault
+        ): LoDashExplicitWrapper<TObject[TKey] | TDefault>;
 
         /**
          * @see _.get
          */
-        get<TResult>(
+        get<TDefault>(
+            this: LoDashExplicitWrapper<null | undefined>,
             path: Many<StringRepresentable>,
-            defaultValue: TResult
-        ): LoDashExplicitWrapper<TResult>;
+            defaultValue: TDefault
+        ): LoDashExplicitWrapper<TDefault>;
+
+        /**
+         * @see _.get
+         */
+        get(
+            this: LoDashExplicitWrapper<null | undefined>,
+            path: Many<StringRepresentable>
+        ): LoDashExplicitWrapper<undefined>;
+
+        /**
+         * @see _.get
+         */
+        get(
+            path: Many<StringRepresentable>,
+            defaultValue?: any
+        ): LoDashExplicitWrapper<any>;
     }
 
     //_.has

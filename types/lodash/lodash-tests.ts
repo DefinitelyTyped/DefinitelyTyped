@@ -11170,6 +11170,8 @@ namespace TestGet {
         // when object is empty - defenitely default value will be returned
         _.get(null, 'a'); // $ExpectType undefined
         _.get(null, 'a', 1); // $ExpectType 1
+        _.get(undefined, 'a'); // $ExpectType undefined
+        _.get(undefined, 'a', 1); // $ExpectType 1
     }
     {
         // when depth of object is 1 and path to value is right - or value, or default will be returned (in case value is undefined)
@@ -11193,24 +11195,20 @@ namespace TestGet {
 
         _.get(objWithMaybeFoo, 'foo'); // $ExpectType number | undefined
         _.get(objWithMaybeFoo, ['foo']); // $ExpectType number | undefined
-        // TODO: wrong type, change to // $ExpectType number | false
+        // TODO: ideally we want $ExpectType number | false (but we probably need subtraction types in order to do that)
         _.get(objWithMaybeFoo, 'foo', false); // $ExpectType number | false | undefined
-        // TODO: wrong type, change to // $ExpectType number | false
         _.get(objWithMaybeFoo, ['foo'], false); // $ExpectType number | false | undefined
-        // TODO: wrong type, change to // $ExpectType number
+        // TODO: ideally we want $ExpectType number
         _.get(objWithMaybeFoo, 'foo', 1); // $ExpectType number | undefined
-        // TODO: wrong type, change to // $ExpectType number
         _.get(objWithMaybeFoo, ['foo'], 1); // $ExpectType number | undefined
 
         _(objWithMaybeFoo).get('foo'); // $ExpectType number | undefined
         _(objWithMaybeFoo).get(['foo']); // $ExpectType number | undefined
-        // TODO: wrong type, change to // $ExpectType number | false
+        // TODO: ideally we want $ExpectType number | false
         _(objWithMaybeFoo).get('foo', false); // $ExpectType number | false | undefined
-        // TODO: wrong type, change to // $ExpectType number | false
         _(objWithMaybeFoo).get(['foo'], false); // $ExpectType number | false | undefined
-        // TODO: wrong type, change to // $ExpectType number
+        // TODO: ideally we want $ExpectType number
         _(objWithMaybeFoo).get('foo', 1); // $ExpectType number | undefined
-        // TODO: wrong type, change to // $ExpectType number
         _(objWithMaybeFoo).get(['foo'], 1); // $ExpectType number | undefined
 
         // when object may or may not arrive
@@ -11234,29 +11232,25 @@ namespace TestGet {
 
         _.get(maybeObjWithMaybeFoo, 'foo'); // $ExpectType number | undefined
         _.get(maybeObjWithMaybeFoo, ['foo']); // $ExpectType number | undefined
-        // TODO: wrong type, change to // $ExpectType number | false
+        // TODO: ideally we want // $ExpectType number | false
         _.get(maybeObjWithMaybeFoo, 'foo', false); // $ExpectType number | false | undefined
-        // TODO: wrong type, change to // $ExpectType number | false
         _.get(maybeObjWithMaybeFoo, ['foo'], false); // $ExpectType number | false | undefined
-        // TODO: wrong type, change to // $ExpectType number
+        // TODO: ideally we want $ExpectType number
         _.get(maybeObjWithMaybeFoo, 'foo', 1); // $ExpectType number | undefined
-        // TODO: wrong type, change to // $ExpectType number
         _.get(maybeObjWithMaybeFoo, ['foo'], 1); // $ExpectType number | undefined
 
         _(maybeObjWithMaybeFoo).get('foo'); // $ExpectType number | undefined
         _(maybeObjWithMaybeFoo).get(['foo']); // $ExpectType number | undefined
-        // TODO: wrong type, change to // $ExpectType number | false
+        // TODO: ideally we want $ExpectType number | false
         _(maybeObjWithMaybeFoo).get('foo', false); // $ExpectType number | false | undefined
-        // TODO: wrong type, change to // $ExpectType number | false
         _(maybeObjWithMaybeFoo).get(['foo'], false); // $ExpectType number | false | undefined
-        // TODO: wrong type, change to // $ExpectType number
+        // TODO: ideally we want $ExpectType number
         _(maybeObjWithMaybeFoo).get('foo', 1); // $ExpectType number | undefined
-        // TODO: wrong type, change to // $ExpectType number
         _(maybeObjWithMaybeFoo).get(['foo'], 1); // $ExpectType number | undefined
     }
 
     {
-        // in all other cases user must validate outcome in runtime (with typeof for example, NO CASTING WITHOUT VALIDATION!!!)
+        // in all other cases user must validate outcome in runtime
 
         // for arrays - any, cause type of values they contain cant be inferred like in object
         _.get([42], '0'); // $ExpectType any
@@ -11268,6 +11262,8 @@ namespace TestGet {
         _.get('abc', '0', '_'); // $ExpectType any
         _.get('abc', ['0']); // $ExpectType any
         _.get('abc', ['0'], '_'); // $ExpectType any
+        _.get({ a: { b: 'foo' } }, ['a', 'b']); // $ExpectType any
+        _.get({ a: { b: 'foo' } }, ['a', 'b'], 1); // $ExpectType any
     }
 
     {
@@ -11293,8 +11289,8 @@ namespace TestGet {
         _({a: true}).chain().get(['a']); // $ExpectType LoDashExplicitWrapper<boolean>
         _({a: true}).chain().get('a', false); // $ExpectType LoDashExplicitWrapper<boolean>
         _({a: true}).chain().get(['a'], false); // $ExpectType LoDashExplicitWrapper<boolean>
-        _({a: true}).chain().get<number | boolean>('a', 1); // $ExpectType LoDashExplicitWrapper<number | boolean>
-        _({a: true}).chain().get<number | boolean>(['a'], 1); // $ExpectType LoDashExplicitWrapper<number | boolean>
+        _({a: true}).chain().get('a', 1); // $ExpectType LoDashExplicitWrapper<number | boolean>
+        _({a: true}).chain().get(['a'], 1); // $ExpectType LoDashExplicitWrapper<number | boolean>
     }
 
     {
@@ -11304,8 +11300,8 @@ namespace TestGet {
         _(obj).chain().get(['a']); // $ExpectType LoDashExplicitWrapper<boolean | undefined>
         _(obj).chain().get('a', false); // $ExpectType LoDashExplicitWrapper<boolean>
         _(obj).chain().get(['a'], false); // $ExpectType LoDashExplicitWrapper<boolean>
-        _(obj).chain().get<number | boolean>('a', 1); // $ExpectType LoDashExplicitWrapper<number | boolean>
-        _(obj).chain().get<number | boolean>(['a'], 1); // $ExpectType LoDashExplicitWrapper<number | boolean>
+        _(obj).chain().get('a', 1); // $ExpectType LoDashExplicitWrapper<number | boolean>
+        _(obj).chain().get(['a'], 1); // $ExpectType LoDashExplicitWrapper<number | boolean>
     }
 }
 
