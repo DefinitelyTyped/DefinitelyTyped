@@ -1,6 +1,7 @@
-// Type definitions for argparse v1.0.3
+// Type definitions for argparse v1.0
 // Project: https://github.com/nodeca/argparse
 // Definitions by: Andrew Schurman <https://github.com/arcticwaters>
+//                 Tomasz Łaziuk <https://github.com/tlaziuk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
@@ -19,7 +20,15 @@ export declare class ArgumentParser extends ArgumentGroup {
     error(err: string | Error): void;
 }
 
-interface Namespace { }
+declare class Namespace {
+    constructor(options: object);
+    get<K extends keyof this, D extends any>(key: K, defaultValue?: D): this[K] | D;
+    isset<K extends keyof this>(key: K): boolean;
+    set<K extends keyof this, V extends this[K]>(key: K, value: V): this;
+    set<K extends string, V extends any>(key: K, value: V): this & Record<K, V>;
+    set<K extends object>(obj: K): this & K;
+    unset<K extends keyof this, D extends any>(key: K, defaultValue?: D): this[K] | D;
+}
 
 declare class SubParser {
     addParser(name: string, options?: SubArgumentParserOptions): ArgumentParser;
