@@ -1,6 +1,7 @@
 // Type definitions for nano 6.2
 // Project: https://github.com/apache/couchdb-nano
 // Definitions by: Tim Jacobi <https://github.com/timjacobi>
+//                 Kovács Vince <https://github.com/vincekovacs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { EventEmitter } from "events";
