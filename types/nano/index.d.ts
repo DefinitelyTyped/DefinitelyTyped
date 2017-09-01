@@ -19,7 +19,7 @@ declare namespace nano {
     request?(params: any): void;
   }
 
-  type Callback = (error: any, result: any, headers?: any) => void;
+  type Callback<R> = (error: any, response: R, headers?: any) => void;
 
   interface ServerScope {
     readonly config: ServerConfig;
@@ -29,77 +29,77 @@ declare namespace nano {
     request: RequestFunction;
     relax: RequestFunction;
     dinosaur: RequestFunction;
-    auth(username: string, userpass: string, callback?: Callback): Request;
-    session(callback?: Callback): Request;
-    updates(params?: UpdatesParams, callback?: Callback): Request;
-    followUpdates(params?: any, callback?: Callback): EventEmitter;
-    uuids(num: number, callback: Callback): Request;
+    auth(username: string, userpass: string, callback?: Callback<any>): Request;
+    session(callback?: Callback<any>): Request;
+    updates(params?: UpdatesParams, callback?: Callback<any>): Request;
+    followUpdates(params?: any, callback?: Callback<any>): EventEmitter;
+    uuids(num: number, callback: Callback<any>): Request;
   }
 
   interface DatabaseScope {
-    create(name: string, callback?: Callback): Request;
-    get(name: string, callback?: Callback): Request;
-    destroy(name: string, callback?: Callback): Request;
-    list(callback?: Callback): Request;
+    create(name: string, callback?: Callback<any>): Request;
+    get(name: string, callback?: Callback<any>): Request;
+    destroy(name: string, callback?: Callback<any>): Request;
+    list(callback?: Callback<any>): Request;
     use(db: string): DocumentScope;
-    compact(name: string, designname?: string, callback?: Callback): Request;
+    compact(name: string, designname?: string, callback?: Callback<any>): Request;
     replicate(
       source: string | DocumentScope,
       target: string | DocumentScope,
       options?: any,
-      callback?: Callback
+      callback?: Callback<any>
     ): Request;
-    changes(name: string, params?: any, callback?: Callback): Request;
+    changes(name: string, params?: any, callback?: Callback<any>): Request;
     follow(
       source: string,
       params?: DatabaseScopeFollowUpdatesParams,
-      callback?: Callback
+      callback?: Callback<any>
     ): EventEmitter;
-    followUpdates(params?: any, callback?: Callback): EventEmitter;
-    updates(params?: UpdatesParams, callback?: Callback): Request;
+    followUpdates(params?: any, callback?: Callback<any>): EventEmitter;
+    updates(params?: UpdatesParams, callback?: Callback<any>): Request;
   }
 
   interface DocumentScope {
     readonly config: ServerConfig;
-    info(callback?: Callback): Request;
+    info(callback?: Callback<any>): Request;
     replicate(
       target: string | DocumentScope,
       options?: any,
-      callback?: Callback
+      callback?: Callback<any>
     ): Request;
-    compact(callback?: Callback): Request;
-    changes(params?: any, callback?: Callback): Request;
+    compact(callback?: Callback<any>): Request;
+    changes(params?: any, callback?: Callback<any>): Request;
     follow(
       params?: DocumentScopeFollowUpdatesParams,
-      callback?: Callback
+      callback?: Callback<any>
     ): EventEmitter;
-    auth(username: string, userpass: string, callback?: Callback): Request;
-    session(callback?: Callback): Request;
-    insert(document: any, params?: any, callback?: Callback): Request;
-    get(docname: string, params?: any, callback?: Callback): Request;
-    head(docname: string, callback: Callback): Request;
+    auth(username: string, userpass: string, callback?: Callback<any>): Request;
+    session(callback?: Callback<any>): Request;
+    insert(document: any, params?: any, callback?: Callback<any>): Request;
+    get(docname: string, params?: any, callback?: Callback<any>): Request;
+    head(docname: string, callback: Callback<any>): Request;
     copy(
       src_document: string,
       dst_document: string,
       options: any,
-      callback?: Callback
+      callback?: Callback<any>
     ): Request;
-    destroy(docname: string, rev: string, callback?: Callback): Request;
+    destroy(docname: string, rev: string, callback?: Callback<any>): Request;
     bulk(
       docs: BulkModifyDocsWrapper,
       params?: any,
-      callback?: Callback
+      callback?: Callback<any>
     ): Request;
-    list(params?: any, callback?: Callback): Request;
+    list(params?: any, callback?: Callback<any>): Request;
     fetch(
       docnames: BulkFetchDocsWrapper,
       params?: any,
-      callback?: Callback
+      callback?: Callback<any>
     ): Request;
     fetchRevs(
       docnames: BulkFetchDocsWrapper,
       params?: any,
-      callback?: Callback
+      callback?: Callback<any>
     ): Request;
     multipart: Multipart;
     attachment: Attachment;
@@ -108,46 +108,46 @@ declare namespace nano {
       showname: string,
       doc_id: string,
       params?: any,
-      callback?: Callback
+      callback?: Callback<any>
     ): Request;
     atomic(
       designname: string,
       updatename: string,
       docname: string,
       body?: any,
-      callback?: Callback
+      callback?: Callback<any>
     ): Request;
     updateWithHandler(
       designname: string,
       updatename: string,
       docname: string,
       body?: any,
-      callback?: Callback
+      callback?: Callback<any>
     ): Request;
     search(
       designname: string,
       searchname: string,
       params?: any,
-      callback?: Callback
+      callback?: Callback<any>
     ): Request;
     spatial(
       ddoc: string,
       viewname: string,
       params?: any,
-      callback?: Callback
+      callback?: Callback<any>
     ): Request;
     view(
       designname: string,
       viewname: string,
       params?: any,
-      callback?: Callback
+      callback?: Callback<any>
     ): Request;
     viewWithList(
       designname: string,
       viewname: string,
       listname: string,
       params?: any,
-      callback?: Callback
+      callback?: Callback<any>
     ): Request;
     server: ServerScope;
   }
@@ -157,9 +157,9 @@ declare namespace nano {
       doc: any,
       attachments: any[],
       params: string | any,
-      callback?: Callback
+      callback?: Callback<any>
     ): Request;
-    get(docname: string, params?: string | any, callback?: Callback): Request;
+    get(docname: string, params?: string | any, callback?: Callback<any>): Request;
   }
 
   interface Attachment {
@@ -169,19 +169,19 @@ declare namespace nano {
       att: any,
       contenttype: string,
       params?: any,
-      callback?: Callback
+      callback?: Callback<any>
     ): Request;
     get(
       docname: string,
       attname: string,
       params?: any,
-      callback?: Callback
+      callback?: Callback<any>
     ): Request;
     destroy(
       docname: string,
       attname: string,
       params?: any,
-      callback?: Callback
+      callback?: Callback<any>
     ): Request;
   }
 
@@ -192,7 +192,7 @@ declare namespace nano {
 
   type RequestFunction = (
     options?: RequestOptions | string,
-    callback?: Callback
+    callback?: Callback<any>
   ) => void;
 
   interface RequestOptions {
