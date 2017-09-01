@@ -1,6 +1,8 @@
-// Type definitions for redux-actions 1.2
+// Type definitions for redux-actions 2.2
 // Project: https://github.com/acdlite/redux-actions
-// Definitions by: Jack Hsu <https://github.com/jaysoo>, Alex Gorbatchev <https://github.com/alexgorbatchev>
+// Definitions by: Jack Hsu <https://github.com/jaysoo>,
+//                 Alex Gorbatchev <https://github.com/alexgorbatchev>,
+//                 Alec Hill <https://github.com/alechill>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export as namespace ReduxActions;
@@ -25,7 +27,7 @@ export interface ReducerMap<State, Payload> {
 }
 
 export interface ReducerMapMeta<State, Payload, Meta> {
-    [actionType: string]: Reducer<State, Payload> | ReducerNextThrow<State, Payload>;
+    [actionType: string]: ReducerMeta<State, Payload, Meta> | ReducerNextThrowMeta<State, Payload, Meta>;
 }
 
 export interface ReducerNextThrow<State, Payload> {
@@ -93,9 +95,33 @@ export function createAction<Payload>(
 
 export function createAction<Payload, Meta>(
     actionType: string,
-    payloadCreator: (...args: any[]) => Payload,
-    metaCreator: (...args: any[]) => Meta
-): (...args: any[]) => ActionMeta<Payload, Meta>;
+    payloadCreator: ActionFunctionAny<Payload>,
+    metaCreator: ActionFunctionAny<Meta>
+): ActionFunctionAny<ActionMeta<Payload, Meta>>;
+
+export function createAction<Payload, Meta, Arg1>(
+    actionType: string,
+    payloadCreator: ActionFunction1<Arg1, Payload>,
+    metaCreator: ActionFunction1<Arg1, Meta>
+): ActionFunction1<Arg1, ActionMeta<Payload, Meta>>;
+
+export function createAction<Payload, Meta, Arg1, Arg2>(
+    actionType: string,
+    payloadCreator: ActionFunction2<Arg1, Arg2, Payload>,
+    metaCreator: ActionFunction2<Arg1, Arg2, Meta>
+): ActionFunction2<Arg1, Arg2, ActionMeta<Payload, Meta>>;
+
+export function createAction<Payload, Meta, Arg1, Arg2, Arg3>(
+    actionType: string,
+    payloadCreator: ActionFunction3<Arg1, Arg2, Arg3, Payload>,
+    metaCreator: ActionFunction3<Arg1, Arg2, Arg3, Meta>
+): ActionFunction3<Arg1, Arg2, Arg3, ActionMeta<Payload, Meta>>;
+
+export function createAction<Payload, Meta, Arg1, Arg2, Arg3, Arg4>(
+    actionType: string,
+    payloadCreator: ActionFunction4<Arg1, Arg2, Arg3, Arg4, Payload>,
+    metaCreator: ActionFunction4<Arg1, Arg2, Arg3, Arg4, Meta>
+): ActionFunction4<Arg1, Arg2, Arg3, Arg4, ActionMeta<Payload, Meta>>;
 
 export function handleAction<State, Payload>(
     actionType: string | ActionFunctions<Payload>,
@@ -118,6 +144,11 @@ export function handleActions<State, Payload>(
     reducerMap: ReducerMap<State, Payload>,
     initialState: State
 ): Reducer<State, Payload>;
+
+export function handleActions<State, Payload, Meta>(
+    reducerMap: ReducerMapMeta<State, Payload, Meta>,
+    initialState: State
+): ReducerMeta<State, Payload, Meta>;
 
 export function combineActions(...actionTypes: Array<ActionFunctions<any> | string>): string;
 
