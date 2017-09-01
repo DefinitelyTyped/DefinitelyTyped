@@ -24,28 +24,7 @@ prettier.resolveConfig('path/to/somewhere').then(options => {
     }
 });
 
-prettier.resolveConfig('path/to/somewhere', undefined).then(options => {
-    if (options !== null) {
-        const formatted = prettier.format('hello world', options);
-    }
-});
-
-prettier.resolveConfig('path/to/somewhere', {}).then(options => {
-    if (options !== null) {
-        const formatted = prettier.format('hello world', options);
-    }
-});
-
-prettier.resolveConfig('path/to/somewhere', { sync: false }).then(options => {
-    if (options !== null) {
-        const formatted = prettier.format('hello world', options);
-    }
-});
-
-// $ExpectType Options | Promise<Options | null> | null
-prettier.resolveConfig('path/to/somewhere', { sync: true as boolean });
-
-const options = prettier.resolveConfig('path/to/somewhere', { sync: true });
+const options = prettier.resolveConfig.sync('path/to/somewhere');
 if (options !== null) {
     const formatted = prettier.format('hello world', options);
 }

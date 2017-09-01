@@ -102,10 +102,6 @@ export interface ResolveConfigOptions {
      * If set to `false`, all caching will be bypassed.
      */
     useCache?: boolean;
-    /**
-     * If set to `true`, result will be returned directly.
-     */
-    sync?: boolean;
 }
 
 /**
@@ -118,9 +114,10 @@ export interface ResolveConfigOptions {
  *
  * The promise will be rejected if there was an error parsing the configuration file.
  */
-export function resolveConfig(filePath: string | undefined, options: ResolveConfigOptions & { sync: true }): null | Options;
-export function resolveConfig(filePath?: string, options?: ResolveConfigOptions & { sync?: false }): Promise<null | Options>;
-export function resolveConfig(filePath?: string, options?: ResolveConfigOptions): null | Options | Promise<null | Options>;
+export function resolveConfig(filePath?: string, options?: ResolveConfigOptions): Promise<null | Options>;
+export namespace resolveConfig {
+    function sync(filePath?: string, options?: ResolveConfigOptions): null | Options;
+}
 
 /**
  * As you repeatedly call `resolveConfig`, the file system structure will be cached for performance. This function will clear the cache.
