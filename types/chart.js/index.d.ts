@@ -4,6 +4,7 @@
 //                 Fabien Lavocat <https://github.com/FabienLavocat>
 //                 KentarouTakeda <https://github.com/KentarouTakeda>
 //                 Larry Bahr <https://github.com/larrybahr>
+//                 Daniel Luz <https://github.com/mernen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -190,7 +191,9 @@ declare namespace Chart {
         position?: PositionType;
         fullWidth?: boolean;
         onClick?(event: MouseEvent, legendItem: ChartLegendItem): void;
+        onHover?(event: MouseEvent, legendItem: ChartLegendItem): void;
         labels?: ChartLegendLabelOptions;
+        reverse?: boolean;
     }
 
     interface ChartLegendLabelOptions {
@@ -332,6 +335,7 @@ declare namespace Chart {
 
     interface TickOptions {
         autoSkip?: boolean;
+        autoSkipPadding?: boolean;
         callback?(value: any, index: any, values: any): string|number;
         display?: boolean;
         fontColor?: ChartColor;
@@ -394,10 +398,15 @@ declare namespace Chart {
         borderDash?: number[];
         borderDashOffset?: number;
         borderJoinStyle?: string;
+        borderSkipped?: PositionType;
         data?: number[] | ChartPoint[];
-        fill?: boolean;
+        fill?: boolean | number | string;
+        hoverBackgroundColor?: string | string[];
+        hoverBorderColor?: string | string[];
+        hoverBorderWidth?: number | number[];
         label?: string;
         lineTension?: number;
+        steppedLine?: 'before' | 'after' | boolean;
         pointBorderColor?: ChartColor | ChartColor[];
         pointBackgroundColor?: ChartColor | ChartColor[];
         pointBorderWidth?: number | number[];
@@ -413,6 +422,7 @@ declare namespace Chart {
         type?: string;
         hidden?: boolean;
         hideInLegendAndTooltip?: boolean;
+        showLine?: boolean;
         stack?: string;
         spanGaps?: boolean;
     }
