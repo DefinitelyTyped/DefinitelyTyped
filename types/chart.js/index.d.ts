@@ -7,12 +7,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-/// <reference types="jquery" />
-
 declare class Chart {
     static readonly Chart: typeof Chart;
     constructor(
-        context: string | JQuery | CanvasRenderingContext2D | HTMLCanvasElement | string[] | CanvasRenderingContext2D[] | HTMLCanvasElement[],
+        context: string | CanvasRenderingContext2D | HTMLCanvasElement | ArrayLike<CanvasRenderingContext2D | HTMLCanvasElement>,
         options: Chart.ChartConfiguration
     );
     config: Chart.ChartConfiguration;
