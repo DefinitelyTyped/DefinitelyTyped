@@ -1,26 +1,24 @@
-// Type definitions for argparse v1.0
+// Type definitions for argparse 1.0
 // Project: https://github.com/nodeca/argparse
 // Definitions by: Andrew Schurman <https://github.com/arcticwaters>
 //                 Tomasz Łaziuk <https://github.com/tlaziuk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-export declare class ArgumentParser extends ArgumentGroup {
+export class ArgumentParser extends ArgumentGroup {
     constructor(options?: ArgumentParserOptions);
-
     addSubparsers(options?: SubparserOptions): SubParser;
-    parseArgs(args?: string[], ns?: Namespace | Object): any;
+    parseArgs(args?: string[], ns?: Namespace | object): any;
     printUsage(): void;
     printHelp(): void;
     formatUsage(): string;
     formatHelp(): string;
-    parseKnownArgs(args?: string[], ns?: Namespace | Object): any[];
+    parseKnownArgs(args?: string[], ns?: Namespace | object): any[];
     convertArgLineToArg(argLine: string): string[];
     exit(status: number, message: string): void;
     error(err: string | Error): void;
 }
 
-declare class Namespace {
+export class Namespace {
     constructor(options: object);
     get<K extends keyof this, D extends any>(key: K, defaultValue?: D): this[K] | D;
     isset<K extends keyof this>(key: K): boolean;
@@ -30,11 +28,11 @@ declare class Namespace {
     unset<K extends keyof this, D extends any>(key: K, defaultValue?: D): this[K] | D;
 }
 
-declare class SubParser {
+export class SubParser {
     addParser(name: string, options?: SubArgumentParserOptions): ArgumentParser;
 }
 
-declare class ArgumentGroup {
+export class ArgumentGroup {
     addArgument(args: string[], options?: ArgumentOptions): void;
     addArgumentGroup(options?: ArgumentGroupOptions): ArgumentGroup;
     addMutuallyExclusiveGroup(options?: { required: boolean }): ArgumentGroup;
@@ -42,7 +40,7 @@ declare class ArgumentGroup {
     getDefault(dest: string): any;
 }
 
-interface SubparserOptions {
+export interface SubparserOptions {
     title?: string;
     description?: string;
     prog?: string;
@@ -53,12 +51,12 @@ interface SubparserOptions {
     metavar?: string;
 }
 
-interface SubArgumentParserOptions extends ArgumentParserOptions {
+export interface SubArgumentParserOptions extends ArgumentParserOptions {
     aliases?: string[];
     help?: string;
 }
 
-interface ArgumentParserOptions {
+export interface ArgumentParserOptions {
     description?: string;
     epilog?: string;
     addHelp?: boolean;
@@ -71,19 +69,19 @@ interface ArgumentParserOptions {
     version?: string;
 }
 
-interface ArgumentGroupOptions {
+export interface ArgumentGroupOptions {
     prefixChars?: string;
     argumentDefault?: any;
     title?: string;
     description?: string;
 }
 
-export declare class HelpFormatter { }
-export declare class ArgumentDefaultsHelpFormatter { }
-export declare class RawDescriptionHelpFormatter { }
-export declare class RawTextHelpFormatter { }
+export class HelpFormatter { }
+export class ArgumentDefaultsHelpFormatter { }
+export class RawDescriptionHelpFormatter { }
+export class RawTextHelpFormatter { }
 
-interface ArgumentOptions {
+export interface ArgumentOptions {
     action?: string;
     optionStrings?: string[];
     dest?: string;
