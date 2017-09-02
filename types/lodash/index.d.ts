@@ -8,7 +8,7 @@
 //                 Junyoung Clare Jang <https://github.com/ailrun>,
 //                 e-cloud <https://github.com/e-cloud>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.4
 
 /**
 ### 4.0.0 Changelog (https://github.com/lodash/lodash/wiki/Changelog)
@@ -7197,7 +7197,7 @@ declare namespace _ {
          * // => [1, 1, 2, 2]
          */
         flatMapDeep<T>(
-            collection: List<Many<T>> | Dictionary<Many<T>> | NumericDictionary<Many<T>> | null | undefined
+            collection: List<ListOfRecursiveArraysOrValues<T>> | Dictionary<ListOfRecursiveArraysOrValues<T>> | NumericDictionary<ListOfRecursiveArraysOrValues<T>> | null | undefined
         ): T[];
 
         /**
@@ -7205,7 +7205,7 @@ declare namespace _ {
          */
         flatMapDeep<T, TResult>(
             collection: List<T> | null | undefined,
-            iteratee: ListIterator<T, Many<TResult>> | string
+            iteratee: ListIterator<T, ListOfRecursiveArraysOrValues<TResult>> | string
         ): TResult[];
 
         /**
@@ -7213,7 +7213,7 @@ declare namespace _ {
          */
         flatMapDeep<T, TResult>(
             collection: Dictionary<T> | null | undefined,
-            iteratee: DictionaryIterator<T, Many<TResult>> | string
+            iteratee: DictionaryIterator<T, ListOfRecursiveArraysOrValues<TResult>> | string
         ): TResult[];
 
         /**
@@ -7221,7 +7221,7 @@ declare namespace _ {
          */
         flatMapDeep<T, TResult>(
             collection: NumericDictionary<T> | null | undefined,
-            iteratee: NumericDictionaryIterator<T, Many<TResult>> | string
+            iteratee: NumericDictionaryIterator<T, ListOfRecursiveArraysOrValues<TResult>> | string
         ): TResult[];
 
         /**
@@ -7229,7 +7229,7 @@ declare namespace _ {
          */
         flatMapDeep<TResult>(
             collection: object | null | undefined,
-            iteratee?: ObjectIterator<any, Many<TResult>> | string
+            iteratee?: ObjectIterator<any, ListOfRecursiveArraysOrValues<TResult>> | string
         ): TResult[];
 
         /**
@@ -7246,7 +7246,7 @@ declare namespace _ {
          * @see _.flatMapDeep
          */
         flatMapDeep<TResult>(
-            iteratee: StringIterator<Many<TResult>>
+            iteratee: StringIterator<ListOfRecursiveArraysOrValues<TResult>>
         ): LoDashImplicitArrayWrapper<TResult>;
 
         /**
@@ -7260,7 +7260,7 @@ declare namespace _ {
          * @see _.flatMapDeep
          */
         flatMapDeep<TResult>(
-            iteratee: ListIterator<T, Many<TResult>>|string
+            iteratee: ListIterator<T, ListOfRecursiveArraysOrValues<TResult>>|string
         ): LoDashImplicitArrayWrapper<TResult>;
 
         /**
@@ -7281,14 +7281,14 @@ declare namespace _ {
          * @see _.flatMapDeep
          */
         flatMapDeep<T, TResult>(
-            iteratee: ListIterator<T, Many<TResult>>|DictionaryIterator<T, Many<TResult>>|NumericDictionaryIterator<T, Many<TResult>>
+            iteratee: ListIterator<T, ListOfRecursiveArraysOrValues<TResult>>|DictionaryIterator<T, ListOfRecursiveArraysOrValues<TResult>>|NumericDictionaryIterator<T, ListOfRecursiveArraysOrValues<TResult>>
         ): LoDashImplicitArrayWrapper<TResult>;
 
         /**
          * @see _.flatMapDeep
          */
         flatMapDeep<TResult>(
-            iteratee: ObjectIterator<any, Many<TResult>>|string
+            iteratee: ObjectIterator<any, ListOfRecursiveArraysOrValues<TResult>>|string
         ): LoDashImplicitArrayWrapper<TResult>;
 
         /**
@@ -7309,7 +7309,7 @@ declare namespace _ {
          * @see _.flatMapDeep
          */
         flatMapDeep<TResult>(
-            iteratee: StringIterator<Many<TResult>>
+            iteratee: StringIterator<ListOfRecursiveArraysOrValues<TResult>>
         ): LoDashExplicitArrayWrapper<TResult>;
 
         /**
@@ -7323,7 +7323,7 @@ declare namespace _ {
          * @see _.flatMapDeep
          */
         flatMapDeep<TResult>(
-            iteratee: ListIterator<T, Many<TResult>>|string
+            iteratee: ListIterator<T, ListOfRecursiveArraysOrValues<TResult>>|string
         ): LoDashExplicitArrayWrapper<TResult>;
 
         /**
@@ -7344,14 +7344,14 @@ declare namespace _ {
          * @see _.flatMapDeep
          */
         flatMapDeep<T, TResult>(
-            iteratee: ListIterator<T, Many<TResult>>|DictionaryIterator<T, Many<TResult>>|NumericDictionaryIterator<T, Many<TResult>>
+            iteratee: ListIterator<T, ListOfRecursiveArraysOrValues<TResult>>|DictionaryIterator<T, ListOfRecursiveArraysOrValues<TResult>>|NumericDictionaryIterator<T, ListOfRecursiveArraysOrValues<TResult>>
         ): LoDashExplicitArrayWrapper<TResult>;
 
         /**
          * @see _.flatMapDeep
          */
         flatMapDeep<TResult>(
-            iteratee: ObjectIterator<any, Many<TResult>>|string
+            iteratee: ObjectIterator<any, ListOfRecursiveArraysOrValues<TResult>>|string
         ): LoDashExplicitArrayWrapper<TResult>;
 
         /**
@@ -7391,7 +7391,7 @@ declare namespace _ {
          * // => [[1, 1], [2, 2]]
          */
         flatMapDepth<T>(
-            collection: List<Many<T>> | Dictionary<Many<T>> | NumericDictionary<Many<T>> | null | undefined,
+            collection: List<ListOfRecursiveArraysOrValues<T>> | Dictionary<ListOfRecursiveArraysOrValues<T>> | NumericDictionary<ListOfRecursiveArraysOrValues<T>> | null | undefined,
             depth?: number
         ): T[];
 
@@ -7400,7 +7400,7 @@ declare namespace _ {
          */
         flatMapDepth<T, TResult>(
             collection: List<T> | null | undefined,
-            iteratee: ListIterator<T, Many<TResult>> | string,
+            iteratee: ListIterator<T, ListOfRecursiveArraysOrValues<TResult>> | string,
             depth?: number
         ): TResult[];
 
@@ -7409,7 +7409,7 @@ declare namespace _ {
          */
         flatMapDepth<T, TResult>(
             collection: Dictionary<T> | null | undefined,
-            iteratee: DictionaryIterator<T, Many<TResult>> | string,
+            iteratee: DictionaryIterator<T, ListOfRecursiveArraysOrValues<TResult>> | string,
             depth?: number
         ): TResult[];
 
@@ -7418,7 +7418,7 @@ declare namespace _ {
          */
         flatMapDepth<T, TResult>(
             collection: NumericDictionary<T> | null | undefined,
-            iteratee: NumericDictionaryIterator<T, Many<TResult>> | string,
+            iteratee: NumericDictionaryIterator<T, ListOfRecursiveArraysOrValues<TResult>> | string,
             depth?: number
         ): TResult[];
 
@@ -7427,7 +7427,7 @@ declare namespace _ {
          */
         flatMapDepth<TResult>(
             collection: object | null | undefined,
-            iteratee?: ObjectIterator<any, Many<TResult>> | string,
+            iteratee?: ObjectIterator<any, ListOfRecursiveArraysOrValues<TResult>> | string,
             depth?: number
         ): TResult[];
 
@@ -7446,7 +7446,7 @@ declare namespace _ {
          * @see _.flatMapDepth
          */
         flatMapDepth<TResult>(
-            iteratee: StringIterator<Many<TResult>>,
+            iteratee: StringIterator<ListOfRecursiveArraysOrValues<TResult>>,
             depth?: number
         ): LoDashImplicitArrayWrapper<TResult>;
 
@@ -7461,7 +7461,7 @@ declare namespace _ {
          * @see _.flatMapDepth
          */
         flatMapDepth<TResult>(
-            iteratee: ListIterator<T, Many<TResult>>|string,
+            iteratee: ListIterator<T, ListOfRecursiveArraysOrValues<TResult>>|string,
             depth?: number
         ): LoDashImplicitArrayWrapper<TResult>;
 
@@ -7484,7 +7484,7 @@ declare namespace _ {
          * @see _.flatMapDepth
          */
         flatMapDepth<T, TResult>(
-            iteratee: ListIterator<T, Many<TResult>>|DictionaryIterator<T, Many<TResult>>|NumericDictionaryIterator<T, Many<TResult>>,
+            iteratee: ListIterator<T, ListOfRecursiveArraysOrValues<TResult>>|DictionaryIterator<T, ListOfRecursiveArraysOrValues<TResult>>|NumericDictionaryIterator<T, ListOfRecursiveArraysOrValues<TResult>>,
             depth?: number
         ): LoDashImplicitArrayWrapper<TResult>;
 
@@ -7492,7 +7492,7 @@ declare namespace _ {
          * @see _.flatMapDepth
          */
         flatMapDepth<TResult>(
-            iteratee: ObjectIterator<any, Many<TResult>>|string,
+            iteratee: ObjectIterator<any, ListOfRecursiveArraysOrValues<TResult>>|string,
             depth?: number
         ): LoDashImplicitArrayWrapper<TResult>;
 
@@ -7515,7 +7515,7 @@ declare namespace _ {
          * @see _.flatMapDepth
          */
         flatMapDepth<TResult>(
-            iteratee: StringIterator<Many<TResult>>,
+            iteratee: StringIterator<ListOfRecursiveArraysOrValues<TResult>>,
             depth?: number
         ): LoDashExplicitArrayWrapper<TResult>;
 
@@ -7530,7 +7530,7 @@ declare namespace _ {
          * @see _.flatMapDepth
          */
         flatMapDepth<TResult>(
-            iteratee: ListIterator<T, Many<TResult>>|string,
+            iteratee: ListIterator<T, ListOfRecursiveArraysOrValues<TResult>>|string,
             depth?: number
         ): LoDashExplicitArrayWrapper<TResult>;
 
@@ -7553,7 +7553,7 @@ declare namespace _ {
          * @see _.flatMapDepth
          */
         flatMapDepth<T, TResult>(
-            iteratee: ListIterator<T, Many<TResult>>|DictionaryIterator<T, Many<TResult>>|NumericDictionaryIterator<T, Many<TResult>>,
+            iteratee: ListIterator<T, ListOfRecursiveArraysOrValues<TResult>>|DictionaryIterator<T, ListOfRecursiveArraysOrValues<TResult>>|NumericDictionaryIterator<T, ListOfRecursiveArraysOrValues<TResult>>,
             depth?: number
         ): LoDashExplicitArrayWrapper<TResult>;
 
@@ -7561,7 +7561,7 @@ declare namespace _ {
          * @see _.flatMapDepth
          */
         flatMapDepth<TResult>(
-            iteratee: ObjectIterator<any, Many<TResult>>|string,
+            iteratee: ObjectIterator<any, ListOfRecursiveArraysOrValues<TResult>>|string,
             depth?: number
         ): LoDashExplicitArrayWrapper<TResult>;
 
