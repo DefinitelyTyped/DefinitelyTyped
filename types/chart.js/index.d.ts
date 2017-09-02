@@ -81,6 +81,8 @@ declare namespace Chart {
 
     type ScaleType = 'category' | 'linear' | 'logarithmic' | 'time' | 'radialLinear';
 
+    type PointStyle = 'circle' | 'cross' | 'crossRot' | 'dash' | 'line' | 'rect' | 'rectRounded' | 'rectRot' | 'star' | 'triangle';
+
     type PositionType = 'left' | 'right' | 'top' | 'bottom';
 
     interface ChartArea {
@@ -173,7 +175,7 @@ declare namespace Chart {
 
     interface ChartTitleOptions {
         display?: boolean;
-        position?: string;
+        position?: PositionType;
         fullWdith?: boolean;
         fontSize?: number;
         fontFamily?: string;
@@ -185,9 +187,9 @@ declare namespace Chart {
 
     interface ChartLegendOptions {
         display?: boolean;
-        position?: string;
+        position?: PositionType;
         fullWidth?: boolean;
-        onClick?(event: any, legendItem: any): void;
+        onClick?(event: MouseEvent, legendItem: ChartLegendItem): void;
         labels?: ChartLegendLabelOptions;
     }
 
@@ -291,7 +293,7 @@ declare namespace Chart {
 
     interface ChartPointOptions {
         radius?: number;
-        pointStyle?: string;
+        pointStyle?: PointStyle;
         backgroundColor?: ChartColor;
         borderWidth?: number;
         borderColor?: ChartColor;
@@ -384,7 +386,7 @@ declare namespace Chart {
     type ChartColor = string | CanvasGradient | CanvasPattern | string[];
 
     interface ChartDataSets {
-        cubicInterpolationMode?: string;
+        cubicInterpolationMode?: 'default' | 'monotone';
         backgroundColor?: ChartColor | ChartColor[];
         borderWidth?: number;
         borderColor?: ChartColor;
@@ -405,14 +407,14 @@ declare namespace Chart {
         pointHoverBackgroundColor?: ChartColor | ChartColor[];
         pointHoverBorderColor?: ChartColor | ChartColor[];
         pointHoverBorderWidth?: number | number[];
-        pointStyle?: string | string[] | HTMLImageElement | HTMLImageElement[];
+        pointStyle?: PointStyle | HTMLImageElement | Array<PointStyle | HTMLImageElement>;
         xAxisID?: string;
         yAxisID?: string;
         type?: string;
         hidden?: boolean;
         hideInLegendAndTooltip?: boolean;
         stack?: string;
-        spanGaps?: string;
+        spanGaps?: boolean;
     }
 
     interface ChartScales {
