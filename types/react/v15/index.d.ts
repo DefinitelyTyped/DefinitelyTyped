@@ -3143,7 +3143,6 @@ declare namespace React {
         unicodeRange?: number | string;
         unitsPerEm?: number | string;
         vAlphabetic?: number | string;
-        values?: string;
         vectorEffect?: number | string;
         version?: string;
         vertAdvY?: number | string;
