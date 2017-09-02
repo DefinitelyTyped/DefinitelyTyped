@@ -27,7 +27,6 @@ class VideoTest extends React.Component {
     }): void => {
         console.log(data.currentTime, data.playableDuration);
     }
-
 }
 
 const styles = StyleSheet.create({
