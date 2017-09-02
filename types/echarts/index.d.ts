@@ -26,7 +26,7 @@ declare namespace echarts {
 
     function registerTheme(themeName:string, theme:Object):void;
 
-    class ECharts {
+    interface ECharts {
         group:string;
 
         setOption(option:EChartOption, notMerge?:boolean, notRefreshImmediately?:boolean):void
