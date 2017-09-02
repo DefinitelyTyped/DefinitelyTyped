@@ -89,7 +89,8 @@ export interface ArgumentOptions {
     nargs?: string | number;
     constant?: any;
     defaultValue?: any;
-    type?: string | Function;
+    // type may be a string (primitive) or a Function (constructor)
+    type?: string | Function; // tslint:disable-line:ban-types
     choices?: string | string[];
     required?: boolean;
     help?: string;
