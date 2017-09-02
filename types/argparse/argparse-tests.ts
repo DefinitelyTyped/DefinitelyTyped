@@ -250,15 +250,11 @@ console.log(args.accumulate(args.integers));
 const formatterExample = new ArgumentParser({
     prog: 'PROG',
     formatterClass: RawDescriptionHelpFormatter,
-    description: 'Keep the formatting\n' +
-    '    exactly as it is written\n' +
-    '\n' +
-    'here\n'
+    description: `Keep the formatting\nexactly as it is written\n\nhere\n`,
 });
 
 formatterExample.addArgument(['--foo'], {
-    help: '  foo help should not\n' +
-    '    retain this odd formatting'
+    help: `foo help should not\nretain this odd formatting`,
 });
 
 formatterExample.addArgument(['spam'], {
@@ -267,9 +263,7 @@ formatterExample.addArgument(['spam'], {
 
 const group = formatterExample.addArgumentGroup({
     title: 'title',
-    description: '    This text\n' +
-    '  should be indented\n' +
-    '    exactly like it is here\n'
+    description: `This text\nshould be indented\nexactly like it is here\n`,
 });
 
 group.addArgument(['--bar'], {
