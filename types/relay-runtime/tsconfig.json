@@ -1,0 +1,26 @@
+{
+    "files": [
+        "index.d.ts",
+        "relay-runtime-tests.tsx"
+    ],
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "jsx": "react",
+        "experimentalDecorators": true,
+        "forceConsistentCasingInFileNames": true,
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    }
+}
