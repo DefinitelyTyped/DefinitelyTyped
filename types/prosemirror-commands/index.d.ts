@@ -1,4 +1,4 @@
-// Type definitions for prosemirror-commands 0.21
+// Type definitions for prosemirror-commands 0.22
 // Project: https://github.com/ProseMirror/prosemirror-commands
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 //                 David Hahn <https://github.com/davidka>
