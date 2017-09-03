@@ -221,7 +221,7 @@ declare namespace Xrm
         };
 
         Panel:{
-            LoadPanel(url:string,title:string):void;
+            loadPanel(url:string,title:string):void;
         };
 
         Mobile:{
@@ -548,7 +548,7 @@ declare namespace Xrm
          * @return successCallback: id: String. GUID of the record that was created.logicalName: String. Logical name of the entity.
          * @return errorCallback :errorCode: Number. The error code. message: String. An error message describing the issue. debugMessage: String. An internal error message that might contain additional details about the issue.
          */
-        retrieveRecord(entityType:string,id:string,options:string):Async.XrmPromise;
+        retrieveRecord(entityType:string,id:string,options?:string):Async.XrmPromise;
         /**
          * Retrieves a collection of entity records in Dynamics 365 mobile clients while working in the offline mode.
          * @param entityType he entity type in Dynamics 365 for which you want to create a record.
@@ -557,7 +557,7 @@ declare namespace Xrm
          * @return successCallback: A function to call when records are retrieved. A dictionary containing key : value pairs of data retrieved will be passed to identify the retrieved records.
          * @return errorCallback :errorCode: Number. The error code. message: String. An error message describing the issue. debugMessage: String. An internal error message that might contain additional details about the issue.
          */
-        retrieveMultipleRecords(entityType:string,options:string,maxPageSize:number):Async.XrmPromise;
+        retrieveMultipleRecords(entityType:string,options?:string,maxPageSize?:number):Async.XrmPromise;
         /**
          * Updates an entity record in Dynamics 365 mobile clients while working in the offline mode.
          * @param entityType he entity type in Dynamics 365 for which you want to create a record.
@@ -595,7 +595,7 @@ declare namespace Xrm
          * @param   {number}    errorCode   The error code.
          * @param   {string}    message     The message.
          */
-        export type ErrorCallbackDelegate = ( errorCode: number, message: string ) => void;
+        export type ErrorCallbackDelegate = ( errorCode: number, message: string,debugMessage?:string ) => void;
 
         /**
          * Interface for Xrm.Page.data promises.
@@ -715,6 +715,7 @@ declare namespace Xrm
      *
      * @see {@link http://msdn.microsoft.com/en-us/library/gg328255.aspx|Documentation} for details.
      */
+    
     export module Page
     {
         /**
@@ -952,8 +953,15 @@ declare namespace Xrm
              * @remarks Used to pass values between handlers of an event.
              */
             setSharedVariable<T>( key: string, value: T ): void;
-        }
 
+            getFormContext():Xrm.Page.FormContext;
+
+            
+        }
+        export interface FormContext{
+            data:Data;
+            ui:Ui;
+        }
         /**
          * Interface for a context-sensitive handler.
          */
@@ -1607,14 +1615,14 @@ declare namespace Xrm
                  *
                  * @param   {function}  callbackFunction    (Optional) a function to call when the operation is complete.
                  */
-                getProcessInstances(callbackFunction?: ProcessCallbackDelegate ): Instance;
+                getProcessInstances(callbackFunction?: ProcessInstanceCallbackDelegate ): Instance;
 
                 /**
                  * Sets a process instance as the active instance.
                  *
                  * @param   {function}  callbackFunction    (Optional) a function to call when the operation is complete.
                  */
-                setProcessInstances(processId: string, callbackFunction?: ProcessCallbackDelegate ): void;
+                setProcessInstances(processId: string, callbackFunction?: ProcessInstanceCallbackDelegate ): void;
 
                 /**
                  * Returns a Stage object representing the active stage.
@@ -1741,6 +1749,7 @@ declare namespace Xrm
                 movePrevious( callbackFunction?: ProcessCallbackDelegate ): void;
             }
 
+            export type ProcessInstanceCallbackDelegate =(activeInstances:ProcessDictionary)=>void;
             /**
              * Called when process change methods have completed.
              *
@@ -2448,6 +2457,10 @@ declare namespace Xrm
                  * @param   {boolean}   visible true to show, false to hide.
                  */
                 setVisible( visible: boolean ): void;
+
+                getDisplayState():ui.DisplayState;
+
+                getVisible():boolean;
             }
             /**
             * The quickForms collection provides access to all the quick view controls on a form. 
@@ -2679,7 +2692,7 @@ declare namespace Xrm
                  *
                  * @return  The current view.
                  */
-                getCurrentView(): ViewSelectorItem;
+                getCurrentView(): Xrm.Page.LookupValue;
 
                 /**
                  * Use this method to determine whether the view selector is visible.
@@ -2691,24 +2704,12 @@ declare namespace Xrm
                 /**
                  * Use this method to set the current view.
                  *
-                 * @param   {ViewSelectorItem}  viewSelectorItem    The view selector item.
+                 * @param   {LookupValue}  viewSelectorItem    The view selector item.
                  */
-                setCurrentView( viewSelectorItem: ViewSelectorItem ): void;
+                setCurrentView( viewSelectorItem: Xrm.Page.LookupValue ): void;
             }
 
-            /**
-             * Interface for a view selector item.  This object contains data that identifies a view. Use this as a parameter to
-             * the ViewSelector.setCurrentView method.
-             */
-            export interface ViewSelectorItem
-            {
-                /**
-                 * Returns a LookupValue that references this view.
-                 *
-                 * @return  The entity reference.
-                 */
-                getEntityReference(): LookupValue;
-            }
+            
         }
 
         /**
