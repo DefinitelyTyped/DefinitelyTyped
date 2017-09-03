@@ -1,5 +1,3 @@
-/// <reference path="./relay-base.d.ts" />
-
 declare namespace __Relay.Common {
     /**
      * SOURCE:
