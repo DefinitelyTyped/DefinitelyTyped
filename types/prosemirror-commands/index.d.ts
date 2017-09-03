@@ -12,6 +12,7 @@ import { EditorView } from 'prosemirror-view';
 export function deleteSelection(state: EditorState, dispatch?: (tr: Transaction) => void): boolean;
 export function joinBackward(state: EditorState, dispatch?: (tr: Transaction) => void, view?: EditorView): boolean;
 export function selectNodeBackward(state: EditorState, dispatch?: (tr: Transaction) => void, view?: EditorView): boolean;
+export function selectNodeForward(state: EditorState, dispatch?: (tr: Transaction) => void, view?: EditorView): boolean;
 export function joinForward(state: EditorState, dispatch?: (tr: Transaction) => void, view?: EditorView): boolean;
 export function joinUp(state: EditorState, dispatch?: (tr: Transaction) => void): boolean;
 export function joinDown(state: EditorState, dispatch?: (tr: Transaction) => void): boolean;
