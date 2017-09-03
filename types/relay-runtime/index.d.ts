@@ -1,4 +1,4 @@
-// Type definitions for react-relay 1.3.0
+// Type definitions for relay-runtime 1.3.0
 // Project: https://github.com/facebook/relay
 // Definitions by: Matt Martin <https://github.com/voxmatt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
