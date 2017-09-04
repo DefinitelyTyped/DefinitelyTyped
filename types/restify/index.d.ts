@@ -919,15 +919,6 @@ export interface Response extends http.ServerResponse {
      */
     toString(): string;
 
-    /**
-     * pass through to native response.writeHead().
-     * @public
-     * @function writeHead
-     * @emits    header
-     * @returns  {undefined}
-     */
-    writeHead(): void;
-
     /** redirect is sugar method for redirecting.
      * res.redirect(301, 'www.foo.com', next);
      * `next` is mandatory, to complete the response and trigger audit logger.
