@@ -109,6 +109,7 @@ declare namespace libphonenumber {
         getNumberType(phoneNumber: PhoneNumber): PhoneNumberType;
         getRegionCodeForCountryCode(countryCallingCode: number): string;
         getRegionCodeForNumber(phoneNumber: PhoneNumber): string | undefined;
+        getSupportedRegions():string [];
         isAlphaNumber(number: string): boolean;
         isLeadingZeroPossible(countryCallingCode: number): boolean;
         isNANPACountry(regionCode?: string): boolean;
