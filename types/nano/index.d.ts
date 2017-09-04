@@ -63,7 +63,7 @@ declare namespace nano {
       source: string | DocumentScope<D>,
       target: string | DocumentScope<D>,
       callback?: Callback<DatabaseReplicateResponse>
-    ): Request
+    ): Request;
     // http://docs.couchdb.org/en/latest/api/server/common.html#post--_replicate
     replicate<D>(
       source: string | DocumentScope<D>,
@@ -92,7 +92,7 @@ declare namespace nano {
     replicate<D>(
       target: string | DocumentScope<D>,
       callback?: Callback<DatabaseReplicateResponse>
-    ): Request
+    ): Request;
     // http://docs.couchdb.org/en/latest/api/server/common.html#post--_replicate
     replicate(
       target: string | DocumentScope<D>,
@@ -266,9 +266,9 @@ declare namespace nano {
     // http://docs.couchdb.org/en/latest/api/document/common.html#creating-multiple-attachments
     insert(doc: D, attachments: any[], callback?: Callback<DocumentInsertResponse>): Request;
     // http://docs.couchdb.org/en/latest/api/document/common.html#creating-multiple-attachments
-    insert(doc: D, attachments: any[], params: string | any, callback?: Callback<DocumentInsertResponse>): Request;
+    insert(doc: D, attachments: any[], params: any, callback?: Callback<DocumentInsertResponse>): Request;
     get(docname: string, callback?: Callback<any>): Request;
-    get(docname: string, params: string | any, callback?: Callback<any>): Request;
+    get(docname: string, params: any, callback?: Callback<any>): Request;
   }
 
   interface Attachment {
