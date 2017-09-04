@@ -66,8 +66,8 @@ db.replicate("a", "b", (error: any) => {});
 /*
  * Document Scope
  */
-interface SomeDocument{
-  name: string
+interface SomeDocument {
+  name: string;
 }
 
 const mydb: nano.DocumentScope<SomeDocument> = instance.use("mydb");
