@@ -10,7 +10,7 @@ export { t as types };
 export type Node = t.Node;
 export import template = require('babel-template');
 export const version: string;
-import traverse, { Visitor, NodePath } from "babel-traverse";
+import traverse, { Visitor } from "babel-traverse";
 export { traverse, Visitor };
 import { BabylonOptions } from "babylon";
 export { BabylonOptions };
