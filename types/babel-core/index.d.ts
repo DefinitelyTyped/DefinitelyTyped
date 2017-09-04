@@ -10,10 +10,12 @@ export { t as types };
 export type Node = t.Node;
 export import template = require('babel-template');
 export const version: string;
-import traverse, { Visitor } from "babel-traverse";
+import traverse, { Visitor, NodePath } from "babel-traverse";
 export { traverse, Visitor };
 import { BabylonOptions } from "babylon";
+export { BabylonOptions };
 import { GeneratorOptions } from "babel-generator";
+export { GeneratorOptions };
 
 // A babel plugin is a simple function which must return an object matching
 // the following interface. Babel will throw if it finds unknown properties.
@@ -40,7 +42,6 @@ export function transformFileSync(filename: string, opts?: TransformOptions): Ba
 export function transformFromAst(ast: Node, code?: string, opts?: TransformOptions): BabelFileResult;
 
 export interface TransformOptions {
-
     /** Include the AST in the returned object. Default: `true`. */
     ast?: boolean;
 
@@ -164,8 +165,7 @@ export interface TransformOptions {
     /** An optional callback that can be used to wrap visitor methods.
      *  NOTE: This is useful for things like introspection, and not really needed for implementing anything.
      */
-    wrapPluginVisitorMethod?(pluginAlias: string, visitorType: string, callback: Function): Function;
-
+    wrapPluginVisitorMethod?(pluginAlias: string, visitorType: string, callback: (path: any, state: any) => void): (path: any, state: any) => void ;
 }
 
 export interface BabelFileResult {
