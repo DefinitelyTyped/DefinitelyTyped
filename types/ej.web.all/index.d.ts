@@ -2,6 +2,7 @@
 // Project: http://help.syncfusion.com/js/typescript
 // Definitions by: Syncfusion <https://github.com/syncfusion/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="jquery" />
 
@@ -69977,7 +69978,7 @@ interface JQueryPromise<T> {
      */
     cancel?: boolean;
 }
-interface JQueryDeferred<T> extends JQueryPromise<T> {
+interface JQueryDeferred<T> {
     /**
      * Returns the cancel option value.
      */
