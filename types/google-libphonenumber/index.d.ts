@@ -132,7 +132,7 @@ declare namespace libphonenumber {
         parse(number?: string, region?: string): PhoneNumber;
         parseAndKeepRawInput(number: string, regionCode?: string): PhoneNumber;
         truncateTooLongNumber(number: PhoneNumber): boolean;
-        isNumberMatch(firstNumber: string, secondNumber: string): PhoneNumberUtil.MatchType;
+        isNumberMatch(firstNumber: string | PhoneNumber, secondNumber: string | PhoneNumber): PhoneNumberUtil.MatchType;
     }
 
     export class AsYouTypeFormatter {
