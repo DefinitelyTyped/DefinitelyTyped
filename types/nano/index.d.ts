@@ -272,9 +272,8 @@ declare namespace nano {
   }
 
   interface Attachment {
-    insert(docname: string, attname: string, att: null, contenttype: string): NodeJS.WritableStream;
+    insert(docname: string, attname: string, att: null, contenttype: string, params?: any): NodeJS.WritableStream;
     insert(docname: string, attname: string, att: any, contenttype: string, callback?: Callback<any>): Request;
-    insert(docname: string, attname: string, att: null, contenttype: string, params: any): NodeJS.WritableStream;
     insert(
       docname: string,
       attname: string,
