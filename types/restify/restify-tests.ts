@@ -95,7 +95,10 @@ function send(req: restify.Request, res: restify.Response, next: restify.Next) {
     res.id === 'test';
 
     res.send('hello ' + req.params.name);
-    res.writeHead();
+    res.writeHead(200);
+    res.writeHead(200, {
+        "Content-Type": "application/json"
+    });
     return next();
 }
 
