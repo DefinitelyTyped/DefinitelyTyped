@@ -12,9 +12,17 @@ import passport = require('passport');
 import express = require('express');
 
 interface Profile extends passport.Profile {
+    id: string;
+    displayName: string;
     gender?: string;
+    ageRange?: {
+        min: number;
+        max?: number;
+    }
     profileUrl?: string;
     username?: string;
+    birthday: string;
+
 
     _raw: string;
     _json: any;
