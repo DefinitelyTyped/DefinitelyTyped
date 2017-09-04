@@ -100,6 +100,14 @@ declare namespace libphonenumber {
             TOO_SHORT,
             TOO_LONG
         }
+
+        export enum MatchType {
+            EXACT_MATCH,
+            NO_MATCH,
+            NOT_A_NUMBER,
+            NSN_MATCH,
+            SHORT_NSN_MATCH
+        }
     }
 
     export class PhoneNumberUtil {
@@ -124,6 +132,7 @@ declare namespace libphonenumber {
         parse(number?: string, region?: string): PhoneNumber;
         parseAndKeepRawInput(number: string, regionCode?: string): PhoneNumber;
         truncateTooLongNumber(number: PhoneNumber): boolean;
+        isNumberMatch(firstNumber: string, secondNumber: string): PhoneNumberUtil.MatchType;
     }
 
     export class AsYouTypeFormatter {
