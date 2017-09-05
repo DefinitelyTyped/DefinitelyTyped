@@ -658,11 +658,12 @@ declare namespace Dockerode {
     socketPath?: string;
     host?: string;
     port?: number | string;
-    ca?: string;
-    cert?: string;
-    key?: string;
+    ca?: Buffer;
+    cert?: Buffer;
+    key?: Buffer;
     protocol?: "https" | "http";
     timeout?: number;
+    version?: string;
     Promise?: typeof Promise;
   }
 
