@@ -1,8 +1,0 @@
-{
-  "extends": "../tslint.json",
-  "rules": {
-    // this package augments Rx with namespace level functions
-    // it would be particualrly strange to type these functions differently 
-    "forbidden-types": false
-  }
-}

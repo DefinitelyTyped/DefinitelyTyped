@@ -1,4 +1,4 @@
-# DefinitelyTyped [![Build Status](https://travis-ci.org/DefinitelyTyped/DefinitelyTyped.png?branch=master)](https://travis-ci.org/DefinitelyTyped/DefinitelyTyped)
+# DefinitelyTyped [![Build Status](https://travis-ci.org/DefinitelyTyped/DefinitelyTyped.svg?branch=master)](https://travis-ci.org/DefinitelyTyped/DefinitelyTyped)
 
 [![Join the chat at https://gitter.im/borisyankov/DefinitelyTyped](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/borisyankov/DefinitelyTyped?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
@@ -71,7 +71,9 @@ Add to your `tsconfig.json`:
 Create `types/foo/index.d.ts` containing declarations for the module "foo".
 You should now be able import from `"foo"` in your code and it will route to the new type definition.
 Then build *and* run the code to make sure your type definition actually corresponds to what happens at runtime.
-Once you've tested your definitions with real code, make a PR contributing the definition by copying `types/foo` to `DefinitelyTyped/foo` and adding a `tsconfig.json` and `foo-tests.ts`.
+Once you've tested your definitions with real code, make a [PR](#make-a-pull-request)
+then follow the instructions to [edit an existing package](#edit-an-existing-package) or
+[create a new package](#create-a-new-package).
 
 
 ### Make a pull request
@@ -83,11 +85,18 @@ First, [fork](https://guides.github.com/activities/forking/) this repository, in
 
 #### Edit an existing package
 
-* `cd my-package-to-edit`
+* `cd types/my-package-to-edit`
 * Make changes. Remember to edit tests.
 * You may also want to add yourself to "Definitions by" section of the package header.
   - Do this by adding your name to the end of the line, as in `// Definitions by: Alice <https://github.com/alice>, Bob <https://github.com/bob>`.
-* `npm install -g typescript@2.0` and run `tsc`.
+  - Or if there are more people, it can be multiline
+  ```typescript
+  // Definitions by: Alice <https://github.com/alice>
+  //                 Bob <https://github.com/bob>
+  //                 Steve <https://github.com/steve>
+  //                 John <https://github.com/john>
+  ```
+* If there is a `tslint.json`, run `npm run lint package-name`. Otherwise, run `tsc` in the package directory.
 
 When you make a PR to edit an existing package, `dt-bot` should @-mention previous authors.
 If it doesn't, you can do so yourself in the comment associated with the PR.
@@ -110,19 +119,21 @@ Your package should have this structure:
 | tsconfig.json | This allows you to run `tsc` within the package. |
 | tslint.json | Enables linting. |
 
-Generate these by running `npm run new-package -- new-package-name`.
+Generate these by running `npm install -g dts-gen` and `dts-gen --dt --name my-package-name --template module`.
+See all options at [dts-gen](https://github.com/Microsoft/dts-gen).
 
 You may edit the `tsconfig.json` to add new files, to add `"target": "es6"` (needed for async functions), to add to `"lib"`, or to add the `"jsx"` compiler option.
 
 DefinitelyTyped members routinely monitor for new PRs, though keep in mind that the number of other PRs may slow things down.
 
-For a good example package, see [base64-js](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/base64-js).
+For a good example package, see [base64-js](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/base64-js).
 
 
 #### Common mistakes
 
 * First, follow advice from the [handbook](http://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html).
 * Formatting: Either use all tabs, or always use 4 spaces.
+* `function sum(nums: number[]): number`: Use `ReadonlyArray` if a function does not write to its parameters.
 * `interface Foo { new(): Foo; }`:
     This defines a type of objects that are new-able. You probably want `declare class Foo { constructor(); }`.
 * `const Class: { new(): IClass; }`:
@@ -133,6 +144,10 @@ For a good example package, see [base64-js](https://github.com/DefinitelyTyped/D
     Example where a type parameter is acceptable: `function id<T>(value: T): T;`.
     Example where it is not acceptable: `function parseJson<T>(json: string): T;`.
     Exception: `new Map<string, number>()` is OK.
+* Using the types `Function` and `Object` is almost never a good idea. In 99% of cases it's possible to specify a more specific type. Examples are `(x: number) => number` for [functions](http://www.typescriptlang.org/docs/handbook/functions.html#function-types) and `{ x: number, y: number }` for objects. If there is no certainty at all about the type, [`any`](http://www.typescriptlang.org/docs/handbook/basic-types.html#any) is the right choice, not `Object`. If the only known fact about the type is that it's some object, use the type [`object`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#object-type), not `Object` or `{ [key: string]: any }`.
+* `var foo: string | any`: 
+    When `any` is used in a union type, the resulting type is still `any`. So while the `string` portion of this type annotation may _look_ useful, it in fact offers no additional typechecking over simply using `any`.
+    Depending on the intention, acceptable alternatives could be `any`, `string`, or `string | object`.
 
 
 #### Removing a package
@@ -152,23 +167,35 @@ If a package was never on DefinitelyTyped, it does not need to be added to `notN
 
 #### Lint
 
-To lint a package, just add a `tslint.json` to that package containing `{ "extends": "../tslint.json" }`. All new packages must be linted.
+To lint a package, just add a `tslint.json` to that package containing `{ "extends": "dtslint/dt.json" }`. All new packages must be linted.
 If a `tslint.json` turns rules off, this is because that hasn't been fixed yet. For example:
 
-```json
+```js
 {
-    "extends": "../tslint.json",
+    "extends": "dtslint/dt.json",
     "rules": {
         // This package uses the Function type, and it will take effort to fix.
-        "forbidden-types": false
+        "ban-types": false
     }
 }
 ```
 
-(To indicate that a lint rule truly does not apply, use `// tslint:disable:rule-name` or better, `//tslint:disable-next-line:rule-name`.)
+(To indicate that a lint rule truly does not apply, use `// tslint:disable rule-name` or better, `//tslint:disable-next-line rule-name`.)
 
-Only `.d.ts` files are linted.
-Test the linter by running `npm run lint -- package-name`. Do not use a globally installed tslint.
+To assert that an expression is of a given type, use `$ExpectType`. To assert that an expression causes a compile error, use `$ExpectError`.
+
+```js
+// $ExpectType void
+f(1);
+
+// $ExpectError
+f("one");
+```
+
+For more details, see [dtslint](https://github.com/Microsoft/dtslint#write-tests) readme.
+
+Test by running `npm run lint package-name` where `package-name` is the name of your package.
+This script uses [dtslint](https://github.com/Microsoft/dtslint).
 
 
 ## FAQ
@@ -176,22 +203,24 @@ Test the linter by running `npm run lint -- package-name`. Do not use a globally
 #### What exactly is the relationship between this repository and the `@types` packages on NPM?
 
 The `master` branch is automatically published to the `@types` scope on NPM thanks to [types-publisher](https://github.com/Microsoft/types-publisher).
-This usually happens within an hour of changes being merged.
+
+#### I've submitted a pull request. How long until it is merged?
+
+It depends, but most pull requests will be merged within a week. PRs that have been approved by an author listed in the definition's header are usually merged more quickly; PRs for new definitions will take more time as they require more review from maintainers. Each PR is reviewed by a TypeScript or DefinitelyTyped team member before being merged, so please be patient as human factors may cause delays. Check the [PR Burndown Board](https://github.com/DefinitelyTyped/DefinitelyTyped/projects/3?card_filter_query=is%3Aopen) to see progress as maintainers work through the open PRs.
+
+#### My PR is merged; when will the `@types` NPM package be updated?
+
+NPM packages should update within a few hours. If it's been more than 24 hours, ping @RyanCavanaugh and @andy-ms on the PR to investigate.
 
 #### I'm writing a definition that depends on another definition. Should I use `<reference types="" />` or an import?
 
 If the module you're referencing is an external module (uses `export`), use an import.
 If the module you're referencing is an ambient module (uses `declare module`, or just declares globals), use `<reference types="" />`.
 
-#### What do I do about older versions of typings?
-
-Currently we don't support this, though it is [planned](https://github.com/Microsoft/types-publisher/issues/3).
-If you're adding a new major version of a library, you can copy `index.d.ts` to `foo-v2.3.d.ts` and edit `index.d.ts` to be the new version.
-
 #### I notice some packages having a `package.json` here.
 
 Usually you won't need this. When publishing a package we will normally automatically create a `package.json` for it.
-A `package.json` may be included for the sake of specifying dependencies. Here's an [example](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/pikaday/package.json).
+A `package.json` may be included for the sake of specifying dependencies. Here's an [example](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/pikaday/package.json).
 We do not allow other fields, such as `"description"`, to be defined manually.
 Also, if you need to reference an older version of typings, you must do that by adding `"dependencies": { "@types/foo": "x.y.z" }` to the package.json.
 
@@ -213,7 +242,7 @@ If default imports work in your environment, consider turning on the [`--allowSy
 Do not change the type definition if it is accurate.
 For an NPM package, `export =` is accurate if `node -p 'require("foo")'` is the export, and `export default` is accurate if `node -p 'require("foo").default'` is the export.
 
-#### I want to use features from TypeScript 2.1.
+#### I want to use features from TypeScript 2.1 or above.
 
 Then you will have to add a comment to the last line of your definition header (after `// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped`): `// TypeScript Version: 2.1`.
 
@@ -231,7 +260,7 @@ Before making your change, please create a new subfolder with the current versio
 1. Update the relative paths in `tsconfig.json` as well as `tslint.json`.
 2. Add path mapping rules to ensure that tests are running against the intended version.
 
-For example [history v2 `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/history/v2/tsconfig.json) looks like:
+For example [history v2 `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/history/v2/tsconfig.json) looks like:
 
 ```json
 {
@@ -250,10 +279,30 @@ For example [history v2 `tsconfig.json`](https://github.com/DefinitelyTyped/Defi
 ```
 
 Please note that unless upgrading something backwards-compatible like `node`, all packages depending of the updated package need a path mapping to it, as well as packages depending on *those*.
-For example, `react-router` depends on `history@2`, so [react-router `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/react-router/tsconfig.json) has a path mapping to `"history": [ "history/v2" ]`;
-transitively `react-router-bootstrap` (which depends on `react-router`) also adds a path mapping in its [tsconfig.json](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/react-router-bootstrap/tsconfig.json).
+For example, `react-router` depends on `history@2`, so [react-router `tsconfig.json`](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react-router/tsconfig.json) has a path mapping to `"history": [ "history/v2" ]`;
+transitively `react-router-bootstrap` (which depends on `react-router`) also adds a path mapping in its [tsconfig.json](https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react-router-bootstrap/tsconfig.json).
 
 Also, `/// <reference types=".." />` will not work with path mapping, so dependencies must use `import`.
+
+#### What about scoped packages?
+
+Types for a scoped package `@foo/bar` should go in `types/foo__bar`. Note the double underscore.
+
+When `dts-gen` is used to scaffold a scoped package, the `paths` property has to be manually adapted in the generated
+`tsconfig.json` to correctly reference the scoped package:
+
+```json
+{
+    "paths":{
+      "@foo/bar": ["foo__bar"]
+    }
+}
+``` 
+
+
+#### The file history in GitHub looks incomplete.
+
+GitHub doesn't [support](http://stackoverflow.com/questions/5646174/how-to-make-github-follow-directory-history-after-renames) file history for renamed files. Use [`git log --follow`](https://www.git-scm.com/docs/git-log) instead.
 
 
 ## License

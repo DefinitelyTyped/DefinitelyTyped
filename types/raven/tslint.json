@@ -1,0 +1,8 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        // TODOs
+        "export-just-namespace": false,
+        "no-any-union": false
+    }
+}

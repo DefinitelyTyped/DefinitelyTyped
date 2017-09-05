@@ -1,0 +1,10 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        // TODOs
+        "jsdoc-format": false,
+        "no-any-union": false,
+        "no-unnecessary-generics": false,
+        "prefer-method-signature": false
+    }
+}

@@ -1,5 +1,0 @@
-{
-  "dependencies": {
-    "@types/selenium-webdriver": "~2.44.28"
-  }
-}
