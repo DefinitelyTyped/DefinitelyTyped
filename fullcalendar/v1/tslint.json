@@ -1,7 +1,0 @@
-{
-    "extends": "../../tslint.json",
-    "rules": {
-        "forbidden-types": false,
-        "unified-signatures": false
-    }
-}
