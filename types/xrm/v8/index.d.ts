@@ -1,6 +1,6 @@
-// Type definitions for Microsoft Dynamics xRM API v7.1
+// Type definitions for Microsoft Dynamics xRM API v8.2
 // Project: http://www.microsoft.com/en-us/download/details.aspx?id=44567
-// Definitions by: David Berry <https://github.com/6ix4our/>, Matt Ngan <https://github.com/mattngan/>, Markus Mauch <https://github.com/markusmauch/>, Daryl LaBar <https://github.com/daryllabar>
+// Definitions by: David Berry <https://github.com/6ix4our/>, Matt Ngan <https://github.com/mattngan/>, Markus Mauch <https://github.com/markusmauch/>, Daryl LaBar <https://github.com/daryllabar>, Erduran KORKUT<https://github.com/erdurankorkut/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var Xrm: Xrm.XrmStatic;

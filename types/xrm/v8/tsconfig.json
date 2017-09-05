@@ -24,6 +24,6 @@
     },
     "files": [
         "index.d.ts",
-        "xrm-tests8.ts"
+        "xrm-tests.ts"
     ]
 }
