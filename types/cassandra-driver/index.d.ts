@@ -1,4 +1,4 @@
-// Type definitions for nodejs-driver v0.8.2
+// Type definitions for cassandra-driver v3.2.2
 // Project: https://github.com/datastax/nodejs-driver
 // Definitions by: Marc Fisher <https://github.com/Svjard>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -378,6 +378,7 @@ export namespace types {
     values(): Array<{ [key: string]: any; }>;
     keys(): Array<string>;
     forEach(callback: Callback): void;
+    [key: string]: any;
   }
 
   interface TimeUuidStatic {
@@ -506,10 +507,17 @@ export interface Client extends events.EventEmitter {
   metadata: metadata.Metadata;
 
   batch(queries: Array<string> | Array<{ query: string, params?: any }>, options: QueryOptions, callback: ResultCallback): void;
+  batch(queries: Array<string> | Array<{ query: string, params?: any }>, callback: ResultCallback): void;
+  batch(queries: Array<string> | Array<{ query: string, params?: any }>, options?: QueryOptions): Promise<types.ResultSet>;
+
   connect(callback: Callback): void;
   eachRow(query: string, params?: any, options?: QueryOptions, rowCallback?: Callback, callback?: Callback): void;
-  execute(query: string, params?: any, callback?: ResultCallback): void;
-  execute(query: string, params?: any, options?: QueryOptions, callback?: ResultCallback): void;
+
+  execute(query: string, params: any, options: QueryOptions, callback: ResultCallback): void;
+  execute(query: string, params: any, callback: ResultCallback): void;
+  execute(query: string, callback: ResultCallback): void;
+  execute(query: string, params?: any, options?: QueryOptions): Promise<types.ResultSet>;
+
   getReplicas(keyspace: string, token: Buffer): Array<any>; // TODO: Should this be a more explicit return?
   shutdown(callback?: Callback): void;
   stream(query: string, params?: any, options?: QueryOptions, callback?: Callback): NodeJS.ReadableStream;
