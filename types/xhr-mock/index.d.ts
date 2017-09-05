@@ -43,12 +43,12 @@ declare namespace mock {
         setup(): this;
         teardown(): this;
         reset(): this;
-        mock(method: string, url: string, fn: mock.MockFunction): this;
-        get(url: string, fn: mock.MockFunction): this;
-        post(url: string, fn: mock.MockFunction): this;
-        put(url: string, fn: mock.MockFunction): this;
-        patch(url: string, fn: mock.MockFunction): this;
-        delete(url: string, fn: mock.MockFunction): this;
+        mock(method: string, url: string, fn: MockFunction): this;
+        get(url: string, fn: MockFunction): this;
+        post(url: string, fn: MockFunction): this;
+        put(url: string, fn: MockFunction): this;
+        patch(url: string, fn: MockFunction): this;
+        delete(url: string, fn: MockFunction): this;
     }
 }
 
