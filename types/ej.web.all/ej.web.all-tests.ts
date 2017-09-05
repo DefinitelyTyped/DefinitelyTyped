@@ -1,4 +1,7 @@
+/* tslint:disable */
 
+
+ 
 module AccordionComponent {
     $(function () {
         var sample = new ej.Accordion($("#basicAccordion"), {
@@ -2620,7 +2623,8 @@ module ScrollerComponent {
         });
         $(window).bind('resize', function () {
             scrollerSample.refresh();
-        });    });
+        });
+    });
 }
 
 
