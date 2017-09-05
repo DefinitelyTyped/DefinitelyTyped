@@ -656,7 +656,7 @@ interface NightwatchTypedCallbackResult<T> {
 }
 
 // tslint:disable-next-line:no-empty-interface
-interface NightwatchCallbackResult extends NightwatchTypedCallbackResult<string> {
+interface NightwatchCallbackResult extends NightwatchTypedCallbackResult<any> {
 }
 
 interface NightwatchLogEntry {
