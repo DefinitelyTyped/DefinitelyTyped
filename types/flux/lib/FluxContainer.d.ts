@@ -37,8 +37,10 @@ export interface RealOptions {
 
 export type ComponentConstructor<TProps> = React.ComponentClass<TProps> | React.StatelessComponent<TProps>;
 
+export type StoresList = Array<FluxStore<any>>;
+
 export interface ComponentStatic<TProps, TState, TContext> {
-    getStores(maybeProps?: TProps, maybeContext?: TContext): Array<FluxStore<any>>;
+    getStores(maybeProps?: TProps, maybeContext?: TContext): StoresList;
     calculateState(prevState: TState, maybeProps?: TProps, maybeContext?: TContext): TState;
 }
 

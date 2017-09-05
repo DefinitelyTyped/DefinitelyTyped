@@ -6,7 +6,7 @@
 //   Simon Gellis <https://github.com/SupernaviX>,
 //   Ben Dixon <https://github.com/bendxn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import * as chrome from './chrome';
 import * as edge from './edge';
@@ -811,21 +811,23 @@ export namespace promise {
     constructor(opt_msg?: string);
   }
 
-  interface IThenable<T> {
+  interface IThenable<T> extends PromiseLike<T> {
     /**
      * Registers listeners for when this instance is resolved.
      *
-     * @param {?(function(T): (R|IThenable<R>))=} opt_callback The
-     *     function to call if this promise is successfully resolved. The function
+     * @param onfulfilled
+     *     The function to call if this promise is successfully resolved. The function
      *     should expect a single argument: the promise's resolved value.
-     * @param {?(function(*): (R|IThenable<R>))=} opt_errback
+     * @param onrejected
      *     The function to call if this promise is rejected. The function should
      *     expect a single argument: the rejection reason.
-     * @return {!ManagedPromise<R>} A new promise which will be
-     *     resolved with the result of the invoked callback.
+     * @return A new promise which will be resolved with the result
+     *     of the invoked callback.
      * @template R
      */
-    then<R>(opt_callback?: (value: T) => R | IThenable<R>, opt_errback?: (error: any) => any): Promise<R>;
+    then<TResult1 = T, TResult2 = never>(
+      onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null,
+      onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): PromiseLike<TResult1 | TResult2>;
 
     /**
      * Registers a listener for when this promise is rejected. This is synonymous
@@ -850,7 +852,7 @@ export namespace promise {
      *     resolved with the result of the invoked callback.
      * @template R
      */
-    catch<R>(errback: Function): Promise<R>;
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
   }
 
   /**
@@ -864,17 +866,19 @@ export namespace promise {
     /**
      * Registers listeners for when this instance is resolved.
      *
-     * @param {?(function(T): (R|IThenable<R>))=} opt_callback The
-     *     function to call if this promise is successfully resolved. The function
+     * @param onfulfilled
+     *     The function to call if this promise is successfully resolved. The function
      *     should expect a single argument: the promise's resolved value.
-     * @param {?(function(*): (R|IThenable<R>))=} opt_errback
+     * @param onrejected
      *     The function to call if this promise is rejected. The function should
      *     expect a single argument: the rejection reason.
-     * @return {!ManagedPromise<R>} A new promise which will be
-     *     resolved with the result of the invoked callback.
+     * @return A new promise which will be resolved with the result
+     *     of the invoked callback.
      * @template R
      */
-    then<R>(opt_callback?: (value: T) => R | IThenable<R>, opt_errback?: (error: any) => R | IThenable<R>): Promise<R>;
+    then<TResult1 = T, TResult2 = never>(
+      onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null,
+      onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
 
     /**
      * Registers a listener for when this promise is rejected. This is synonymous
@@ -978,7 +982,7 @@ export namespace promise {
    * @template T
    * @see http://promises-aplus.github.io/promises-spec/
    */
-  class Promise<T> implements IThenable<T> {
+  class Promise<T> implements IThenable<T>, PromiseLike<T> {
     /**
      * @param {function(
      *           function((T|IThenable<T>|Thenable)=),
@@ -1011,17 +1015,18 @@ export namespace promise {
     /**
      * Registers listeners for when this instance is resolved.
      *
-     * @param {?(function(T): (R|IThenable<R>))=} opt_callback The
-     *     function to call if this promise is successfully resolved. The function
+     * @param onfulfilled
+     *     The function to call if this promise is successfully resolved. The function
      *     should expect a single argument: the promise's resolved value.
-     * @param {?(function(*): (R|IThenable<R>))=} opt_errback
+     * @param onrejected
      *     The function to call if this promise is rejected. The function should
      *     expect a single argument: the rejection reason.
-     * @return {!Thenable<R>} A new promise which will be resolved with the result
+     * @return A new promise which will be resolved with the result
      *     of the invoked callback.
-     * @template R
      */
-    then<R>(opt_callback?: (value: T) => IThenable<R> | R, opt_errback?: (error: any) => any): Promise<R>;
+    then<TResult1 = T, TResult2 = never>(
+      onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null,
+      onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Promise<TResult1 | TResult2>;
 
     /**
      * Registers a listener for when this promise is rejected. This is synonymous
@@ -1039,14 +1044,12 @@ export namespace promise {
      *       console.error(ex);
      *     });
      *
-     * @param {function(*): (R|IThenable<R>)} errback The
-     *     function to call if this promise is rejected. The function should
+     * @param onrejected
+     *     The function to call if this promise is rejected. The function should
      *     expect a single argument: the rejection reason.
-     * @return {!ManagedPromise<R>} A new promise which will be
-     *     resolved with the result of the invoked callback.
-     * @template R
+     * @return A new promise which will be resolved with the result of the invoked callback.
      */
-    catch<R>(errback: (err: any) => R | IThenable<R>): Promise<R>;
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): Promise<T | TResult>;
   }
 
   /**

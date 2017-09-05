@@ -1,6 +1,6 @@
-// Type definitions for Mongoose 4.7.0
+// Type definitions for Mongoose 4.7.1
 // Project: http://mongoosejs.com/
-// Definitions by: simonxca <https://github.com/simonxca/>, horiuchi <https://github.com/horiuchi/>, sindrenm <https://github.com/sindrenm>
+// Definitions by: simonxca <https://github.com/simonxca>, horiuchi <https://github.com/horiuchi>, sindrenm <https://github.com/sindrenm>, lukasz-zak <https://github.com/lukasz-zak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -388,6 +388,9 @@ declare module "mongoose" {
 
     /** sets the underlying driver's promise library (see http://mongodb.github.io/node-mongodb-native/2.1/api/MongoClient.html) */
     promiseLibrary?: any;
+
+    /** See http://mongoosejs.com/docs/connections.html#use-mongo-client **/
+    useMongoClient?: boolean;
   }
 
   interface ConnectionOptions extends
@@ -693,7 +696,7 @@ declare module "mongoose" {
     /** defaults to true */
     bufferCommands?: boolean;
     /** defaults to false */
-    capped?: boolean;
+    capped?: boolean | number | { size?: number; max?: number; autoIndexId?: boolean; };
     /** no default */
     collection?: string;
     /** defaults to "__t" */

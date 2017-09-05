@@ -6,7 +6,6 @@
     "compilerOptions": {
         "module": "commonjs",
         "noImplicitAny": true,
-        "noImplicitReturns": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "target": "es6",

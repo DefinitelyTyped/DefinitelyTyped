@@ -1,4 +1,4 @@
-// Type definitions for OpenLayers v4.1.0
+// Type definitions for OpenLayers v4.3.0
 // Project: http://openlayers.org/
 // Definitions by: Olivier Sechet <https://github.com/osechet>, Guilhem Brouat <https://github.com/ganlhi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -3970,7 +3970,7 @@ declare module ol {
              * @template T,S
              * @api
              */
-            forEachSegment<T, S>(callback: (() => T), opt_this?: S): (T | boolean);
+            forEachSegment<T, S>(callback: ((this: S, start: ol.Coordinate, end: ol.Coordinate) => T), opt_this?: S): (T | boolean);
 
             /**
              * Returns the coordinate at `m` using linear interpolation, or `null` if no
@@ -6759,12 +6759,7 @@ declare module ol {
          *     the {@link ol.layer.Layer layer} of the feature and will be null for
          *     unmanaged layers. To stop detection, callback functions can return a
          *     truthy value.
-         * @param {(function(this: U, ol.layer.Layer): boolean)=} opt_layerFilter Layer
-         *     filter function. The filter function will receive one argument, the
-         *     {@link ol.layer.Layer layer-candidate} and it should return a boolean
-         *     value. Only layers which are visible and for which this function returns
-         *     `true` will be tested for features. By default, all visible layers will
-         *     be tested.
+         * @param {olx.AtPixelOptions=} opt_options Optional options.
          * @return {T|undefined} Callback result, i.e. the return value of last
          * callback execution, or the first truthy callback return value.
          * @template T
@@ -6773,8 +6768,20 @@ declare module ol {
         forEachFeatureAtPixel<T>(
             pixel: ol.Pixel,
             callback: ((feature: (ol.Feature | ol.render.Feature), layer: ol.layer.Layer) => T),
-            opt_layerFilter?: ((layer: ol.layer.Layer) => boolean)
+            opt_options?: olx.AtPixelOptions
         ): (T);
+
+        /**
+         * Get all features that intersect a pixel on the viewport.
+         * @param {ol.Pixel} pixel Pixel.
+         * @param {olx.AtPixelOptions=} opt_options Optional options.
+         * @return {?Array.<(ol.Feature|ol.render.Feature)>} The detected features or null if none were found.
+         * @api stable
+         */
+        getFeaturesAtPixel(
+            pixel: ol.Pixel,
+            opt_options?: olx.AtPixelOptions
+        ): (Array<ol.Feature|ol.render.Feature>|null);
 
         /**
          * Detect layers that have a color value at a pixel on the viewport, and
@@ -6805,18 +6812,13 @@ declare module ol {
          * Detect if features intersect a pixel on the viewport. Layers included in the
          * detection can be configured through `opt_layerFilter`.
          * @param {ol.Pixel} pixel Pixel.
-         * @param {(function(this: U, ol.layer.Layer): boolean)=} opt_layerFilter Layer
-         *     filter function. The filter function will receive one argument, the
-         *     {@link ol.layer.Layer layer-candidate} and it should return a boolean
-         *     value. Only layers which are visible and for which this function returns
-         *     `true` will be tested for features. By default, all visible layers will
-         *     be tested.
+         * @param {olx.AtPixelOptions=} opt_options Optional options.
          * @return {boolean} Is there a feature at the given pixel?
          * @api
          */
         hasFeatureAtPixel(
             pixel: ol.Pixel,
-            opt_layerFilter?: ((layer: ol.layer.Layer) => boolean)
+            opt_options?: olx.AtPixelOptions
         ): boolean;
 
         /**
@@ -10583,6 +10585,13 @@ declare module ol {
             constructor(opt_options?: olx.style.StyleOptions);
 
             /**
+             * Clones the style.
+             * @return {ol.style.Style} The cloned style.
+             * @api
+             */
+            clone(): ol.style.Style;
+            
+            /**
              * Get the geometry to be rendered.
              * @return {string|ol.geom.Geometry|ol.StyleGeometryFunction}
              * Feature property or geometry or function that returns the geometry that will
@@ -13572,7 +13581,7 @@ declare module olx {
             rotation?: number;
             size?: ol.Size;
             imgSize?: ol.Size;
-            src: string;
+            src?: string;
         }
 
 

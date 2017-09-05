@@ -1,7 +1,7 @@
 
 // near copy of each of the tests from https://github.com/nodeca/argparse/tree/master/examples
 
-import {ArgumentParser, RawDescriptionHelpFormatter} from 'argparse';
+import { ArgumentParser, RawDescriptionHelpFormatter } from 'argparse';
 var args: any;
 
 var simpleExample = new ArgumentParser({

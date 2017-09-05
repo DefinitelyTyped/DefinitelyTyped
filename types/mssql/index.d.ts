@@ -1,6 +1,6 @@
-// Type definitions for mssql 4.0.2
+// Type definitions for mssql 4.0.5
 // Project: https://www.npmjs.com/package/mssql
-// Definitions by: COLSA Corporation <http://www.colsa.com/>, Ben Farr <https://github.com/jaminfarr>, Vitor Buzinaro <https://github.com/buzinas>, Matt Richardson <https://github.com/mrrichar/>, Jørgen Elgaard Larsen <https://github.com/elhaard/>, Peter Keuter <https://github.com/pkeuter/>
+// Definitions by: COLSA Corporation <http://www.colsa.com/>, Ben Farr <https://github.com/jaminfarr>, Vitor Buzinaro <https://github.com/buzinas>, Matt Richardson <https://github.com/mrrichar>, Jørgen Elgaard Larsen <https://github.com/elhaard>, Peter Keuter <https://github.com/pkeuter>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -126,6 +126,7 @@ export interface IProcedureResult<T> extends IResult<T> {
 }
 export interface IRecordSet<T> extends Array<T> {
     columns: IColumnMetadata;
+    toTable(): Table;
 }
 
 type IIsolationLevel = number;
@@ -148,11 +149,20 @@ export interface IOptions {
     trustedConnection?: boolean;
 }
 
-
 export interface IPool {
-    min: number;
-    max: number;
-    idleTimeoutMillis: number;
+    min?: number;
+    max?: number;
+    idleTimeoutMillis?: number;
+    maxWaitingClients?: number;
+    testOnBorrow?: boolean;
+    acquireTimeoutMillis?: number;
+    fifo?: boolean;
+    priorityRange?: number;
+    autostart?: boolean;
+    evictionRunIntervalMillis?: number;
+    numTestsPerRun?: number;
+    softIdleTimeoutMillis?: number;
+    Promise?: any;
 }
 
 export declare var pool: IPool;
@@ -205,13 +215,13 @@ export interface IColumn extends ISqlType {
     primary: boolean;
 }
 
-declare class columns {
+declare class columns extends Array {
     public add(name: string, type: (() => ISqlType) | ISqlType, options?: IColumnOptions): number;
 }
 
-type IRow = (string | number | boolean | Date | Buffer)[];
+type IRow = (string | number | boolean | Date | Buffer | undefined)[];
 
-declare class rows {
+declare class rows extends Array {
     public add(...row: IRow): number;
 }
 

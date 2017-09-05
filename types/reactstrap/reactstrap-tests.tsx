@@ -3265,7 +3265,7 @@ function Example105() {
         Toggle
       </a>
 
-      <DropdownMenu right>
+      <DropdownMenu right className="asdf">
         <div className="d-block">
           Item
         </div>
@@ -3285,4 +3285,22 @@ function Example106() {
       </NavLink>
     </Nav>
   );
+}
+
+const CSSModuleExample = (props: any) => {
+  const cssModule = {
+    btn: 'hash'
+  };
+
+  return (
+    <Button color="secondary" cssModule={cssModule}>Button</Button>
+  );
+};
+
+class Example107 extends React.Component {
+  private input: HTMLInputElement;
+
+  render() {
+    return <Input type="file" getRef={(input) => { this.input = input; }} />;
+  }
 }

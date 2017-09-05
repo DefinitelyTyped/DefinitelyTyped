@@ -1,4 +1,4 @@
-# DefinitelyTyped [![Build Status](https://travis-ci.org/DefinitelyTyped/DefinitelyTyped.png?branch=master)](https://travis-ci.org/DefinitelyTyped/DefinitelyTyped)
+# DefinitelyTyped [![Build Status](https://travis-ci.org/DefinitelyTyped/DefinitelyTyped.svg?branch=master)](https://travis-ci.org/DefinitelyTyped/DefinitelyTyped)
 
 [![Join the chat at https://gitter.im/borisyankov/DefinitelyTyped](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/borisyankov/DefinitelyTyped?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
@@ -96,7 +96,7 @@ First, [fork](https://guides.github.com/activities/forking/) this repository, in
   //                 Steve <https://github.com/steve>
   //                 John <https://github.com/john>
   ```
-* `npm install -g typescript@2.0` and run `tsc`.
+* If there is a `tslint.json`, run `npm run lint package-name`. Otherwise, run `tsc` in the package directory.
 
 When you make a PR to edit an existing package, `dt-bot` should @-mention previous authors.
 If it doesn't, you can do so yourself in the comment associated with the PR.
@@ -133,6 +133,7 @@ For a good example package, see [base64-js](https://github.com/DefinitelyTyped/D
 
 * First, follow advice from the [handbook](http://www.typescriptlang.org/docs/handbook/declaration-files/do-s-and-don-ts.html).
 * Formatting: Either use all tabs, or always use 4 spaces.
+* `function sum(nums: number[]): number`: Use `ReadonlyArray` if a function does not write to its parameters.
 * `interface Foo { new(): Foo; }`:
     This defines a type of objects that are new-able. You probably want `declare class Foo { constructor(); }`.
 * `const Class: { new(): IClass; }`:
@@ -143,6 +144,10 @@ For a good example package, see [base64-js](https://github.com/DefinitelyTyped/D
     Example where a type parameter is acceptable: `function id<T>(value: T): T;`.
     Example where it is not acceptable: `function parseJson<T>(json: string): T;`.
     Exception: `new Map<string, number>()` is OK.
+* Using the types `Function` and `Object` is almost never a good idea. In 99% of cases it's possible to specify a more specific type. Examples are `(x: number) => number` for [functions](http://www.typescriptlang.org/docs/handbook/functions.html#function-types) and `{ x: number, y: number }` for objects. If there is no certainty at all about the type, [`any`](http://www.typescriptlang.org/docs/handbook/basic-types.html#any) is the right choice, not `Object`. If the only known fact about the type is that it's some object, use the type [`object`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#object-type), not `Object` or `{ [key: string]: any }`.
+* `var foo: string | any`: 
+    When `any` is used in a union type, the resulting type is still `any`. So while the `string` portion of this type annotation may _look_ useful, it in fact offers no additional typechecking over simply using `any`.
+    Depending on the intention, acceptable alternatives could be `any`, `string`, or `string | object`.
 
 
 #### Removing a package
@@ -177,6 +182,18 @@ If a `tslint.json` turns rules off, this is because that hasn't been fixed yet. 
 
 (To indicate that a lint rule truly does not apply, use `// tslint:disable rule-name` or better, `//tslint:disable-next-line rule-name`.)
 
+To assert that an expression is of a given type, use `$ExpectType`. To assert that an expression causes a compile error, use `$ExpectError`.
+
+```js
+// $ExpectType void
+f(1);
+
+// $ExpectError
+f("one");
+```
+
+For more details, see [dtslint](https://github.com/Microsoft/dtslint#write-tests) readme.
+
 Test by running `npm run lint package-name` where `package-name` is the name of your package.
 This script uses [dtslint](https://github.com/Microsoft/dtslint).
 
@@ -186,7 +203,14 @@ This script uses [dtslint](https://github.com/Microsoft/dtslint).
 #### What exactly is the relationship between this repository and the `@types` packages on NPM?
 
 The `master` branch is automatically published to the `@types` scope on NPM thanks to [types-publisher](https://github.com/Microsoft/types-publisher).
-This usually happens within an hour of changes being merged.
+
+#### I've submitted a pull request. How long until it is merged?
+
+It depends, but most pull requests will be merged within a week. PRs that have been approved by an author listed in the definition's header are usually merged more quickly; PRs for new definitions will take more time as they require more review from maintainers. Each PR is reviewed by a TypeScript or DefinitelyTyped team member before being merged, so please be patient as human factors may cause delays. Check the [PR Burndown Board](https://github.com/DefinitelyTyped/DefinitelyTyped/projects/3?card_filter_query=is%3Aopen) to see progress as maintainers work through the open PRs.
+
+#### My PR is merged; when will the `@types` NPM package be updated?
+
+NPM packages should update within a few hours. If it's been more than 24 hours, ping @RyanCavanaugh and @andy-ms on the PR to investigate.
 
 #### I'm writing a definition that depends on another definition. Should I use `<reference types="" />` or an import?
 
@@ -263,6 +287,17 @@ Also, `/// <reference types=".." />` will not work with path mapping, so depende
 #### What about scoped packages?
 
 Types for a scoped package `@foo/bar` should go in `types/foo__bar`. Note the double underscore.
+
+When `dts-gen` is used to scaffold a scoped package, the `paths` property has to be manually adapted in the generated
+`tsconfig.json` to correctly reference the scoped package:
+
+```json
+{
+    "paths":{
+      "@foo/bar": ["foo__bar"]
+    }
+}
+``` 
 
 
 #### The file history in GitHub looks incomplete.

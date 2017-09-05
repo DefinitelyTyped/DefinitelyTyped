@@ -1,6 +1,6 @@
 // Type definitions for react-native-fs 2.0
 // Project: https://github.com/johanneslumpe/react-native-fs
-// Definitions by: Paulo Cesar <https://github.com/pocesar/>
+// Definitions by: Paulo Cesar <https://github.com/pocesar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 

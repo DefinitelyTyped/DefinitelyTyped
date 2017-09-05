@@ -13,6 +13,7 @@ md.use(MarkdownItContainer, 'spoiler', {
 
 		if (tokens[index].nesting === 1) {
 			return (
+				// tslint:disable-next-line prefer-template
 				'<div class="markdown__spoiler">\n' +
 				'<div class="markdown__spoiler-title" onclick="' + onClick + '">\n' +
 				md.utils.escapeHtml(match && match[1] || '') + '\n' +

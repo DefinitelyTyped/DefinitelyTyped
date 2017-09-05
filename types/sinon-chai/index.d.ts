@@ -1,6 +1,6 @@
 // Type definitions for sinon-chai 2.7.0
 // Project: https://github.com/domenic/sinon-chai
-// Definitions by: Kazi Manzur Rashid <https://github.com/kazimanzurrashid/>, Jed Mao <https://github.com/jedmao/>
+// Definitions by: Kazi Manzur Rashid <https://github.com/kazimanzurrashid>, Jed Mao <https://github.com/jedmao>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 

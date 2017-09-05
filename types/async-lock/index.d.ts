@@ -1,6 +1,6 @@
 // Type definitions for async-lock
 // Project: https://github.com/rain1017/async-lock
-// Definitions by: Elisée MAURER <https://github.com/elisee/>
+// Definitions by: Elisée MAURER <https://github.com/elisee>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 

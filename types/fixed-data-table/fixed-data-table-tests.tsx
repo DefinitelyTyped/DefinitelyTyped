@@ -1,5 +1,5 @@
 import * as React from "react";
-import {Table, Cell, Column, CellProps} from "fixed-data-table";
+import { Table, Cell, Column, CellProps } from "fixed-data-table";
 
 // create your Table
 class MyTable1 extends React.Component {

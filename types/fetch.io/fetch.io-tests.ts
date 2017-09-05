@@ -24,6 +24,10 @@ request
   .json();
 
 request
+  .patch('')
+  .json();
+
+request
   .config('key', 'value')
   .json();
 

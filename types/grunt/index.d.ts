@@ -1,12 +1,12 @@
 // Type definitions for Grunt 0.4.x
 // Project: http://gruntjs.com
-// Definitions by: Jeff May <https://github.com/jeffmay/>, Basarat Ali Syed <https://github.com/basarat/>
+// Definitions by: Jeff May <https://github.com/jeffmay>, Basarat Ali Syed <https://github.com/basarat>
 // Definitions: https://github.com/jeffmay/DefinitelyTyped
 
 /// <reference types="node" />
 
 /**
- * {@link http://github.com/marak/colors.js/}
+ * {@link https://github.com/marak/colors.js/}
  */
 interface String {
     yellow: string;
@@ -34,7 +34,7 @@ declare namespace node {
 }
 
 /**
- * {@link http://github.com/isaacs/minimatch}
+ * {@link https://github.com/isaacs/minimatch}
  */
 declare namespace minimatch {
 
@@ -203,7 +203,7 @@ declare namespace grunt {
 
     namespace event {
         /**
-         * {@link http://github.com/hij1nx/EventEmitter2}
+         * {@link https://github.com/hij1nx/EventEmitter2}
          */
         interface EventModule {
 
@@ -1053,7 +1053,7 @@ declare namespace grunt {
 
             /**
              * Format a date using the dateformat library.
-             * {@link http://github.com/felixge/node-dateformat}
+             * {@link https://github.com/felixge/node-dateformat}
              *
              * @note if you don't include the mask argument, dateFormat.masks.default is used
              */
@@ -1063,7 +1063,7 @@ declare namespace grunt {
 
             /**
              * Format today's date using the dateformat library using the current date and time.
-             * {@link http://github.com/felixge/node-dateformat}
+             * {@link https://github.com/felixge/node-dateformat}
              *
              * @note if you don't include the mask argument, dateFormat.masks.default is used
              */
@@ -1219,7 +1219,7 @@ declare namespace grunt {
         }
 
         /**
-         * {@link http://github.com/snbartell/node-spawn}
+         * {@link https://github.com/snbartell/node-spawn}
          */
         interface ISpawnedChild {
             /**
