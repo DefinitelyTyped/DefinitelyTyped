@@ -531,9 +531,10 @@ declare module "react-data-grid-addons" {
     global {
         interface Window {
             ReactDataGridPlugins: {
-                Editors: typeof Editors
-                Formatters: typeof Formatters
-                Toolbar: typeof Toolbar
+                Editors: typeof Editors,
+                Filters: typeof Filters,
+                Formatters: typeof Formatters,
+                Toolbar: typeof Toolbar,
                 Menu: typeof Menu,
                 Data: typeof Data,
                 DraggableHeader: typeof DraggableHeader
