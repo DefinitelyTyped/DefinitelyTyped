@@ -421,7 +421,7 @@ declare module "inspector" {
              */
             userGesture?: boolean;
             /**
-             * Whether execution should <code>await</code> for resulting value and return once awaited promise is resolved.
+             * Whether execution should wait for promise to be resolved. If the result of evaluation is not a Promise, it's considered to be an error.
              */
             awaitPromise?: boolean;
         }
@@ -473,7 +473,7 @@ declare module "inspector" {
              */
             userGesture?: boolean;
             /**
-             * Whether execution should <code>await</code> for resulting value and return once awaited promise is resolved.
+             * Whether execution should wait for promise to be resolved. If the result of evaluation is not a Promise, it's considered to be an error.
              */
             awaitPromise?: boolean;
         }
@@ -566,16 +566,9 @@ declare module "inspector" {
              */
             generatePreview?: boolean;
             /**
-             * Whether execution should <code>await</code> for resulting value and return once awaited promise is resolved.
+             * Whether execution should wait for promise to be resolved. If the result of evaluation is not a Promise, it's considered to be an error.
              */
             awaitPromise?: boolean;
-        }
-
-        export interface QueryObjectsParameterType {
-            /**
-             * Identifier of the constructor to return objects for.
-             */
-            constructorObjectId: Runtime.RemoteObjectId;
         }
 
         export interface EvaluateReturnType {
@@ -648,13 +641,6 @@ declare module "inspector" {
             exceptionDetails?: Runtime.ExceptionDetails;
         }
 
-        export interface QueryObjectsReturnType {
-            /**
-             * Array with objects.
-             */
-            objects: Runtime.RemoteObject;
-        }
-
         export interface ExecutionContextCreatedEventDataType {
             /**
              * A newly created execution context.
@@ -709,11 +695,6 @@ declare module "inspector" {
              * Stack trace captured when the call was made.
              */
             stackTrace?: Runtime.StackTrace;
-            /**
-             * Console context descriptor for calls on non-default console context (not console.*): 'anonymous#unique-logger-id' for call on unnamed context, 'name#unique-logger-id' for call on named context.
-             * @experimental
-             */
-            context?: string;
         }
 
         export interface InspectRequestedEventDataType {
@@ -1458,10 +1439,6 @@ declare module "inspector" {
              * Source ranges inside the function with coverage data.
              */
             ranges: Profiler.CoverageRange[];
-            /**
-             * Whether coverage data for this function has block granularity.
-             */
-            isBlockCoverage: boolean;
         }
 
         /**
@@ -1495,10 +1472,6 @@ declare module "inspector" {
              * Collect accurate call counts beyond simple 'covered' or 'not covered'.
              */
             callCount?: boolean;
-            /**
-             * Collect block-based coverage.
-             */
-            detailed?: boolean;
         }
 
         export interface StopReturnType {
@@ -1772,12 +1745,6 @@ declare module "inspector" {
          */
         post(method: "Runtime.runScript", params?: Runtime.RunScriptParameterType, callback?: (err: Error, params: Runtime.RunScriptReturnType) => void): void;
         post(method: "Runtime.runScript", callback?: (err: Error, params: Runtime.RunScriptReturnType) => void): void;
-
-        /**
-         * @experimental
-         */
-        post(method: "Runtime.queryObjects", params?: Runtime.QueryObjectsParameterType, callback?: (err: Error, params: Runtime.QueryObjectsReturnType) => void): void;
-        post(method: "Runtime.queryObjects", callback?: (err: Error, params: Runtime.QueryObjectsReturnType) => void): void;
         /**
          * Enables debugger for the given page. Clients should not assume that the debugging has been enabled until the result for this command is received.
          */
