@@ -24,6 +24,7 @@ export interface Margin {
 
 export interface AreaProps extends Partial<CSSStyleDeclaration> {
 	type?: 'basis' | 'basisClosed' | 'basisOpen' | 'linear' | 'linearClosed' | 'natural' | 'monotoneX' | 'monotoneY' | 'monotone' | 'step' | 'stepBefore' | 'stepAfter' | RechartsFunction;
+	dataKey?: string | number;
 	xAxisId?: string | number;
 	yAxisId?: string | number;
 	legendType?: LegendType;
@@ -645,13 +646,13 @@ export interface TooltipProps {
 	itemStyle?: any;
 	wrapperStyle?: any;
 	labelStyle?: any;
-	cursor?: boolean | any | React.ReactElement<any>;
+	cursor?: boolean | any | React.ReactElement<any> | React.StatelessComponent<any>;
 	viewBox: ViewBox;
 	active?: boolean;
 	coordinate?: Coordinate;
 	payload?: TooltipPayload[];
 	label?: string | number;
-	content?: React.ReactElement<any> | RechartsFunction;
+	content?: React.ReactElement<any> | React.StatelessComponent<any> | RechartsFunction;
 	formatter?: RechartsFunction;
 	labelFormatter?: RechartsFunction;
 	itemSorter?: RechartsFunction;
