@@ -55,7 +55,7 @@ declare namespace nano {
     // http://docs.couchdb.org/en/latest/api/server/common.html#get--_all_dbs
     list(callback?: Callback<string[]>): Request;
     use<D>(db: string): DocumentScope<D>;
-    compact(name: string, callback?: Callback<any>): Request;
+    compact(name: string, callback?: Callback<OkResponse>): Request;
     // http://docs.couchdb.org/en/latest/api/database/compact.html#post--db-_compact
     compact(name: string, designname: string, callback?: Callback<OkResponse>): Request;
     // http://docs.couchdb.org/en/latest/api/server/common.html#post--_replicate
