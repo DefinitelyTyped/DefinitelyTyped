@@ -18,9 +18,8 @@
                 "xrm/v8"
             ]
         },
-        "noEmitOnError": true,
-        "forceConsistentCasingInFileNames": true,
-        "outDir": "build/v8/"
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
