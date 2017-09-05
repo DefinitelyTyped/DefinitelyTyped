@@ -10,7 +10,7 @@ export { t as types };
 export type Node = t.Node;
 export import template = require('babel-template');
 export const version: string;
-import traverse, { Visitor } from "babel-traverse";
+import traverse, { Visitor, NodePath } from "babel-traverse";
 export { traverse, Visitor };
 import { BabylonOptions } from "babylon";
 export { BabylonOptions };
@@ -165,7 +165,7 @@ export interface TransformOptions {
     /** An optional callback that can be used to wrap visitor methods.
      *  NOTE: This is useful for things like introspection, and not really needed for implementing anything.
      */
-    wrapPluginVisitorMethod?(pluginAlias: string, visitorType: string, callback: (path: any, state: any) => void): (path: any, state: any) => void ;
+    wrapPluginVisitorMethod?(pluginAlias: string, visitorType: 'enter' | 'exit', callback: (path: NodePath, state: any) => void): (path: NodePath, state: any) => void ;
 }
 
 export interface BabelFileResult {
