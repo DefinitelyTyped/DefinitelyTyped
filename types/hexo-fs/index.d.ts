@@ -301,10 +301,9 @@ export function read<TBuffer extends Buffer | Uint8Array>(
 export { readSync };
 
 // readdir
-export function readdir(
-    path: PathLike,
-    options?: { encoding: BufferEncoding; } | 'ascii' | 'utf8' | 'utf16le' | 'ucs2' | 'base64' | 'latin1' | 'binary' | 'hex'
-): Promise<string[]>; // promisify
+export function readdir(path: PathLike, options?: { encoding: BufferEncoding | null } | BufferEncoding | null): Promise<string[]>; // promisify
+export function readdir(path: PathLike, options: "buffer" | { encoding: "buffer" }): Promise<Buffer[]>; // promisify
+export function readdir(path: PathLike, options?: { encoding?: string | null } | string | null): Promise<Array<string | Buffer>>; // promisify
 export { readdirSync };
 
 // readFile
