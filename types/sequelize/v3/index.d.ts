@@ -3221,6 +3221,11 @@ declare namespace sequelize {
          * Apply DISTINCT(col) for FindAndCount(all)
          */
         distinct?: boolean;
+
+        /**
+         * Prevents a subquery on the main table when using include
+         */
+        subQuery?: boolean;
     }
 
     /**
