@@ -25,6 +25,7 @@ namespace express_tests {
 
 
     app.get('/', function(req, res) {
+    res.append('Set-Cookie', 'foo=bar; Path=/; HttpOnly');
     res.send('hello world');
     });
 
