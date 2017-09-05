@@ -1,10 +1,8 @@
-// Type definitions for ej.web.all 15.3.29
+﻿// Type definitions for ej.web.all 15.3.29
 // Project: http://help.syncfusion.com/js/typescript
 // Definitions by: Syncfusion <https://github.com/syncfusion/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
-
-/// <reference types="jquery" />
 
 /*!
 *  filename: ej.web.all.d.ts
