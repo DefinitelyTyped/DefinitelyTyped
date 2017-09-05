@@ -783,7 +783,7 @@ declare namespace Highland {
 		 * // after 100ms => 1, 2, 3, 4
 		 * // after 200ms => 1, 2, 3, 4, 5
 		 */
-		ratelimit<U>(num: number, ms: number): Stream<U>;
+		ratelimit<R>(num: number, ms: number): Stream<R>;
 
 		/**
 		 * Boils down a Stream to a single value. The memo is the initial state
