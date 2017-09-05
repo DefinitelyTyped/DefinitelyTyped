@@ -231,7 +231,7 @@ barStream = fooStream.map((x: Foo) => {
 
 barStream = fooStream.pluck<Bar>(str);
 
-barStream = fooStream.ratelimit(3, 1000);
+fooStream = fooStream.ratelimit(3, 1000);
 
 barStream = fooStream.reduce(bar, (memo: Bar, x: Foo) => {
 	return memo;
