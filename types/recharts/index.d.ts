@@ -24,7 +24,6 @@ export interface Margin {
 
 export interface AreaProps extends Partial<CSSStyleDeclaration> {
 	type?: 'basis' | 'basisClosed' | 'basisOpen' | 'linear' | 'linearClosed' | 'natural' | 'monotoneX' | 'monotoneY' | 'monotone' | 'step' | 'stepBefore' | 'stepAfter' | RechartsFunction;
-	dataKey?: string | number;
 	xAxisId?: string | number;
 	yAxisId?: string | number;
 	legendType?: LegendType;
@@ -51,7 +50,7 @@ export interface AreaProps extends Partial<CSSStyleDeclaration> {
 	onMouseEnter?: RechartsFunction;
 	onMouseLeave?: RechartsFunction;
 }
-export class Area extends React.Component<AreaProps> {}
+export class Area extends React.Component<AreaProps> { }
 
 export interface AreaChartProps {
 	layout?: LayoutType;
@@ -67,7 +66,7 @@ export interface AreaChartProps {
 	onMouseMove?: RechartsFunction;
 	onMouseLeave?: RechartsFunction;
 }
-export class AreaChart extends React.Component<AreaChartProps> {}
+export class AreaChart extends React.Component<AreaChartProps> { }
 
 export interface BarProps extends Partial<CSSStyleDeclaration> {
 	layout?: LayoutType;
@@ -96,7 +95,7 @@ export interface BarProps extends Partial<CSSStyleDeclaration> {
 	onMouseEnter?: RechartsFunction;
 	onMouseLeave?: RechartsFunction;
 }
-export class Bar extends React.Component<BarProps> {}
+export class Bar extends React.Component<BarProps> { }
 
 export interface BarChartProps {
 	layout?: LayoutType;
@@ -115,7 +114,7 @@ export interface BarChartProps {
 	onMouseMove?: RechartsFunction;
 	onMouseLeave?: RechartsFunction;
 }
-export class BarChart extends React.Component<BarChartProps> {}
+export class BarChart extends React.Component<BarChartProps> { }
 
 export interface BrushProps {
 	dataKey: number | string;
@@ -130,7 +129,7 @@ export interface BrushProps {
 	tickFormatter?: RechartsFunction;
 	onChange?: RechartsFunction;
 }
-export class Brush extends React.Component<BrushProps> {}
+export class Brush extends React.Component<BrushProps> { }
 
 export interface CartesianAxisProps {
 	x?: number;
@@ -148,7 +147,7 @@ export interface CartesianAxisProps {
 	label?: string | number | React.ReactElement<any> | RechartsFunction;
 	mirror?: boolean;
 }
-export class CartesianAxis extends React.Component<CartesianAxisProps> {}
+export class CartesianAxis extends React.Component<CartesianAxisProps> { }
 
 export interface CartesianGridProps extends Partial<CSSStyleDeclaration> {
 	x?: number;
@@ -158,13 +157,13 @@ export interface CartesianGridProps extends Partial<CSSStyleDeclaration> {
 	horizontalPoints?: any[];
 	verticalPoints?: any[];
 }
-export class CartesianGrid extends React.Component<CartesianGridProps> {}
+export class CartesianGrid extends React.Component<CartesianGridProps> { }
 
 export interface CellProps {
 	fill?: string;
 	stroke?: string;
 }
-export class Cell extends React.Component<CellProps> {}
+export class Cell extends React.Component<CellProps> { }
 
 export interface ComposedChartProps {
 	layout?: LayoutType;
@@ -181,7 +180,7 @@ export interface ComposedChartProps {
 	onMouseMove?: RechartsFunction;
 	onMouseLeave?: RechartsFunction;
 }
-export class ComposedChart extends React.Component<ComposedChartProps> {}
+export class ComposedChart extends React.Component<ComposedChartProps> { }
 
 export interface CrossProps {
 	x?: number;
@@ -191,7 +190,7 @@ export interface CrossProps {
 	width?: number;
 	height?: number;
 }
-export class Cross extends React.Component<CrossProps> {}
+export class Cross extends React.Component<CrossProps> { }
 
 export interface CurveProps extends Partial<CSSStyleDeclaration> {
 	type?: 'basis' | 'basisClosed' | 'basisOpen' | 'linear' | 'linearClosed' | 'natural' | 'monotoneX' | 'monotoneY' | 'monotone' | 'step' | 'stepBefore' | 'stepAfter' | RechartsFunction;
@@ -208,7 +207,7 @@ export interface CurveProps extends Partial<CSSStyleDeclaration> {
 	onMouseEnter?: RechartsFunction;
 	onMouseLeave?: RechartsFunction;
 }
-export class Curve extends React.Component<CurveProps> {}
+export class Curve extends React.Component<CurveProps> { }
 
 export interface DotProps {
 	cx: number;
@@ -223,7 +222,7 @@ export interface DotProps {
 	onMouseMove?: RechartsFunction;
 	onMouseLeave?: RechartsFunction;
 }
-export class Dot extends React.Component<DotProps> {}
+export class Dot extends React.Component<DotProps> { }
 
 export interface ErrorBarProps extends Partial<CSSStyleDeclaration> {
 	dataKey?: string | number;
@@ -231,7 +230,7 @@ export interface ErrorBarProps extends Partial<CSSStyleDeclaration> {
 	stroke?: string;
 	direction?: string;
 }
-export class ErrorBar extends React.Component<ErrorBarProps> {}
+export class ErrorBar extends React.Component<ErrorBarProps> { }
 
 export interface LegendProps {
 	width?: number;
@@ -256,7 +255,7 @@ export interface LegendProps {
 	onMouseEnter?: RechartsFunction;
 	onMouseLeave?: RechartsFunction;
 }
-export class Legend extends React.Component<LegendProps> {}
+export class Legend extends React.Component<LegendProps> { }
 
 export interface LineProps extends Partial<CSSStyleDeclaration> {
 	type?: 'basis' | 'basisClosed' | 'basisOpen' | 'linear' | 'linearClosed' | 'natural' | 'monotoneX' | 'monotoneY' | 'monotone' | 'step' | 'stepBefore' | 'stepAfter' | RechartsFunction;
@@ -284,7 +283,7 @@ export interface LineProps extends Partial<CSSStyleDeclaration> {
 	onMouseEnter?: RechartsFunction;
 	onMouseLeave?: RechartsFunction;
 }
-export class Line extends React.Component<LineProps> {}
+export class Line extends React.Component<LineProps> { }
 
 export interface LineChartProps {
 	layout?: LayoutType;
@@ -298,7 +297,7 @@ export interface LineChartProps {
 	onMouseMove?: RechartsFunction;
 	onMouseLeave?: RechartsFunction;
 }
-export class LineChart extends React.Component<LineChartProps> {}
+export class LineChart extends React.Component<LineChartProps> { }
 
 export interface PieProps extends Partial<CSSStyleDeclaration> {
 	cx?: Percentage | number;
@@ -330,7 +329,7 @@ export interface PieProps extends Partial<CSSStyleDeclaration> {
 	onMouseEnter?: RechartsFunction;
 	onMouseLeave?: RechartsFunction;
 }
-export class Pie extends React.Component<PieProps> {}
+export class Pie extends React.Component<PieProps> { }
 
 export interface PieChartProps {
 	width: number;
@@ -340,7 +339,7 @@ export interface PieChartProps {
 	onMouseEnter?: RechartsFunction;
 	onMouseLeave?: RechartsFunction;
 }
-export class PieChart extends React.Component<PieChartProps> {}
+export class PieChart extends React.Component<PieChartProps> { }
 
 export interface PolarAngleAxisProps {
 	dataKey: string | number;
@@ -363,7 +362,7 @@ export interface PolarAngleAxisProps {
 	onMouseEnter?: RechartsFunction;
 	onMouseLeave?: RechartsFunction;
 }
-export class PolarAngleAxis extends React.Component<PolarAngleAxisProps> {}
+export class PolarAngleAxis extends React.Component<PolarAngleAxisProps> { }
 
 export interface PolarGridProps extends Partial<CSSStyleDeclaration> {
 	cx: number;
@@ -374,7 +373,7 @@ export interface PolarGridProps extends Partial<CSSStyleDeclaration> {
 	polarRadius: any[];
 	gridType?: 'polygon' | 'circle';
 }
-export class PolarGrid extends React.Component<PolarGridProps> {}
+export class PolarGrid extends React.Component<PolarGridProps> { }
 
 export interface PolarRadiusAxisProps {
 	angle?: number;
@@ -397,7 +396,7 @@ export interface PolarRadiusAxisProps {
 	onMouseEnter?: RechartsFunction;
 	onMouseLeave?: RechartsFunction;
 }
-export class PolarRadiusAxis extends React.Component<PolarRadiusAxisProps> {}
+export class PolarRadiusAxis extends React.Component<PolarRadiusAxisProps> { }
 
 export interface PolygonProps {
 	points: any[];
@@ -410,7 +409,7 @@ export interface PolygonProps {
 	onMouseEnter?: RechartsFunction;
 	onMouseLeave?: RechartsFunction;
 }
-export class Polygon extends React.Component<PolygonProps> {}
+export class Polygon extends React.Component<PolygonProps> { }
 
 export interface RadarProps extends Partial<CSSStyleDeclaration> {
 	dataKey: string | number;
@@ -423,7 +422,7 @@ export interface RadarProps extends Partial<CSSStyleDeclaration> {
 	animationBegin?: number;
 	animationEasing?: AnimationEasingType;
 }
-export class Radar extends React.Component<RadarProps> {}
+export class Radar extends React.Component<RadarProps> { }
 
 export interface RadarChartProps {
 	width: number;
@@ -439,7 +438,7 @@ export interface RadarChartProps {
 	onMouseLeave?: RechartsFunction;
 	onClick?: RechartsFunction;
 }
-export class RadarChart extends React.Component<RadarChartProps> {}
+export class RadarChart extends React.Component<RadarChartProps> { }
 
 export interface RadialBarProps extends Partial<CSSStyleDeclaration> {
 	cx?: number;
@@ -464,7 +463,7 @@ export interface RadialBarProps extends Partial<CSSStyleDeclaration> {
 	onMouseEnter?: RechartsFunction;
 	onMouseLeave?: RechartsFunction;
 }
-export class RadialBar extends React.Component<RadialBarProps> {}
+export class RadialBar extends React.Component<RadialBarProps> { }
 
 export interface RadialBarChartProps {
 	width?: number;
@@ -482,7 +481,7 @@ export interface RadialBarChartProps {
 	onMouseLeave?: RechartsFunction;
 	onClick?: RechartsFunction;
 }
-export class RadialBarChart extends React.Component<RadialBarChartProps> {}
+export class RadialBarChart extends React.Component<RadialBarChartProps> { }
 
 export interface RectangleProps extends Partial<CSSStyleDeclaration> {
 	x?: number;
@@ -497,7 +496,7 @@ export interface RectangleProps extends Partial<CSSStyleDeclaration> {
 	onMouseEnter?: RechartsFunction;
 	onMouseLeave?: RechartsFunction;
 }
-export class Rectangle extends React.Component<RectangleProps> {}
+export class Rectangle extends React.Component<RectangleProps> { }
 
 export interface ReferenceAreaProps {
 	xAxisId?: string | number;
@@ -513,7 +512,7 @@ export interface ReferenceAreaProps {
 	label?: string | number | React.ReactElement<any> | RechartsFunction;
 	isFront?: boolean;
 }
-export class ReferenceArea extends React.Component<ReferenceAreaProps> {}
+export class ReferenceArea extends React.Component<ReferenceAreaProps> { }
 
 export interface ReferenceDotProps {
 	xAxisId?: string | number;
@@ -534,7 +533,7 @@ export interface ReferenceDotProps {
 	onMouseMove?: RechartsFunction;
 	onMouseLeave?: RechartsFunction;
 }
-export class ReferenceDot extends React.Component<ReferenceDotProps> {}
+export class ReferenceDot extends React.Component<ReferenceDotProps> { }
 
 export interface ReferenceLineProps {
 	xAxisId?: string | number;
@@ -548,7 +547,7 @@ export interface ReferenceLineProps {
 	label?: string | number | React.ReactElement<any> | RechartsFunction;
 	isFront?: boolean;
 }
-export class ReferenceLine extends React.Component<ReferenceLineProps> {}
+export class ReferenceLine extends React.Component<ReferenceLineProps> { }
 
 export interface ResponsiveContainerProps {
 	aspect?: number;
@@ -558,7 +557,7 @@ export interface ResponsiveContainerProps {
 	minHeight?: number;
 	debounce?: number;
 }
-export class ResponsiveContainer extends React.Component<ResponsiveContainerProps> {}
+export class ResponsiveContainer extends React.Component<ResponsiveContainerProps> { }
 
 export interface ScatterProps extends Partial<CSSStyleDeclaration> {
 	legendType?: LegendType;
@@ -581,7 +580,7 @@ export interface ScatterProps extends Partial<CSSStyleDeclaration> {
 	onMouseEnter?: RechartsFunction;
 	onMouseLeave?: RechartsFunction;
 }
-export class Scatter extends React.Component<ScatterProps> {}
+export class Scatter extends React.Component<ScatterProps> { }
 
 export interface ScatterChartProps {
 	width: number;
@@ -596,7 +595,7 @@ export interface ScatterChartProps {
 	onMouseEnter?: RechartsFunction;
 	onMouseLeave?: RechartsFunction;
 }
-export class ScatterChart extends React.Component<ScatterChartProps> {}
+export class ScatterChart extends React.Component<ScatterChartProps> { }
 
 export interface SectorProps {
 	cx?: number;
@@ -615,7 +614,7 @@ export interface SectorProps {
 	onMouseEnter?: RechartsFunction;
 	onMouseLeave?: RechartsFunction;
 }
-export class Sector extends React.Component<SectorProps> {}
+export class Sector extends React.Component<SectorProps> { }
 
 export interface TextProps extends Partial<CSSStyleDeclaration> {
 	scaleToFit?: boolean;
@@ -623,7 +622,7 @@ export interface TextProps extends Partial<CSSStyleDeclaration> {
 	textAnchor?: 'start' | 'middle' | 'end' | 'inherit';
 	verticalAnchor?: 'start' | 'middle' | 'end';
 }
-export class Text extends React.Component<TextProps> {}
+export class Text extends React.Component<TextProps> { }
 
 export interface ViewBox {
 	x: number;
@@ -646,13 +645,13 @@ export interface TooltipProps {
 	itemStyle?: any;
 	wrapperStyle?: any;
 	labelStyle?: any;
-	cursor?: boolean | any | React.ReactElement<any> | React.StatelessComponent<any>;
+	cursor?: boolean | any | React.ReactElement<any>;
 	viewBox: ViewBox;
 	active?: boolean;
 	coordinate?: Coordinate;
 	payload?: TooltipPayload[];
 	label?: string | number;
-	content?: React.ReactElement<any> | React.StatelessComponent<any> | RechartsFunction;
+	content?: React.ReactElement<any> | RechartsFunction;
 	formatter?: RechartsFunction;
 	labelFormatter?: RechartsFunction;
 	itemSorter?: RechartsFunction;
@@ -660,7 +659,7 @@ export interface TooltipProps {
 	animationBegin?: number;
 	animationEasing?: AnimationEasingType;
 }
-export class Tooltip extends React.Component<TooltipProps> {}
+export class Tooltip extends React.Component<TooltipProps> { }
 
 export interface TreemapProps {
 	width: number;
@@ -671,7 +670,7 @@ export interface TreemapProps {
 	animationBegin?: number;
 	animationEasing?: AnimationEasingType;
 }
-export class Treemap extends React.Component<TreemapProps> {}
+export class Treemap extends React.Component<TreemapProps> { }
 
 export interface XPadding {
 	left: number;
@@ -713,7 +712,7 @@ export interface XAxisProps {
 	onMouseEnter?: RechartsFunction;
 	onMouseLeave?: RechartsFunction;
 }
-export class XAxis extends React.Component<XAxisProps> {}
+export class XAxis extends React.Component<XAxisProps> { }
 
 export interface YPadding {
 	top: number;
@@ -755,7 +754,7 @@ export interface YAxisProps {
 	onMouseEnter?: RechartsFunction;
 	onMouseLeave?: RechartsFunction;
 }
-export class YAxis extends React.Component<YAxisProps> {}
+export class YAxis extends React.Component<YAxisProps> { }
 
 export interface ZAxisProps {
 	dataKey: string | number;
@@ -765,4 +764,4 @@ export interface ZAxisProps {
 	name?: string | number;
 	scale?: ScaleType | RechartsFunction;
 }
-export class ZAxis extends React.Component<ZAxisProps> {}
+export class ZAxis extends React.Component<ZAxisProps> { }
