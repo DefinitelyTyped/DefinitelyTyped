@@ -1,4 +1,4 @@
-// Type definitions for dockerode 2.4
+// Type definitions for dockerode 2.5
 // Project: https://github.com/apocas/dockerode
 // Definitions by: Carl Winkler <https://github.com/seikho>
 //                 Nicolas Laplante <https://github.com/nlaplante>
