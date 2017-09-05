@@ -419,7 +419,7 @@ declare namespace React {
     }
 
     interface ComponentSpec<P, S> extends Mixin<P, S> {
-        render(): ReactElement<any> | ReactElement<any>[] | null;
+        render(): ReactElement<any> | Array<ReactElement<any>> | null;
 
         [propertyName: string]: any;
     }
