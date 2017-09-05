@@ -10,6 +10,29 @@ const EXAMPLE_OPTIONS: ReactSelect.Options = [
     { value: "two", label: "Two" }
 ];
 
+interface CustomValueType {
+    prop1: string;
+    prop2: number;
+}
+
+/*
+ * This JSX/TSX generic component workaround is needed because of this issue:
+ * https://github.com/Microsoft/TypeScript/issues/3960
+ * If https://github.com/Microsoft/TypeScript/issues/6395 ever lands, this
+ * workaround may become redundant.
+ */
+type CustomValueReactSelect = new (props: ReactSelect.ReactSelectProps<CustomValueType>) => ReactSelect<CustomValueType>;
+const CustomValueReactSelect = ReactSelect as CustomValueReactSelect;
+
+const EXAMPLE_CUSTOM_OPTIONS: ReactSelect.Options<CustomValueType> = [
+    { value: { prop1: "OneProp1", prop2: 1 }, label: "One" },
+    { value: { prop1: "TwoProp2", prop2: 2 }, label: "Two" }
+];
+
+const EXAMPLE_CUSTOM_VALUE: ReactSelect.Option<CustomValueType> = {
+  value: { prop1: "ThreeProp1", prop2: 3 }, label: "Three"
+};
+
 describe("react-select", () => {
     it("options", () => {
         const optionsString: ReactSelect.Options<string> = [
@@ -47,6 +70,34 @@ describe("react-select", () => {
         };
 
         const getAsyncOptions: ReactSelect.LoadOptionsAsyncHandler = async input => {
+            const result = await dummyRequest();
+
+            return {
+                options: result,
+                complete: false
+            };
+        };
+    });
+
+    it("Custom value async options", () => {
+        const getAsyncLegacyOptions: ReactSelect.LoadOptionsLegacyHandler<CustomValueType> = (input, callback) => {
+            setTimeout(() => {
+                callback(null, {
+                    options: [
+                        { value: { prop1: "One", prop2: 4 }, label: "Two" }
+                    ],
+                    complete: false
+                });
+            });
+        };
+
+        const dummyRequest = async () => {
+            return new Promise<ReactSelect.Options<CustomValueType>>(resolve => {
+                resolve(EXAMPLE_CUSTOM_OPTIONS);
+            });
+        };
+
+        const getAsyncOptions: ReactSelect.LoadOptionsAsyncHandler<CustomValueType> = async input => {
             const result = await dummyRequest();
 
             return {
@@ -135,6 +186,22 @@ describe("Examples", () => {
         }
     });
 
+    it("Custom value onChange", () => {
+        class Component extends React.Component {
+            private onSelectChange: ReactSelect.OnChangeSingleHandler<CustomValueType> = (option) => {
+                const optionValue: CustomValueType = option.value;
+            }
+
+            render() {
+                return <CustomValueReactSelect
+                    name="select"
+                    value={EXAMPLE_CUSTOM_VALUE}
+                    options={EXAMPLE_CUSTOM_OPTIONS}
+                />;
+            }
+        }
+    });
+
     it("Menu renderer example", () => {
         class Component extends React.Component {
             private onSelectChange: ReactSelect.OnChangeSingleHandler<string> = option => {
@@ -154,6 +221,32 @@ describe("Examples", () => {
                     name="select"
                     value="one"
                     options={EXAMPLE_OPTIONS}
+                    menuRenderer={this.menuRenderer}
+                />;
+            }
+        }
+    });
+
+    it("Menu renderer with custom value type example", () => {
+        class Component extends React.Component {
+            private menuRenderer: ReactSelect.MenuRendererHandler<CustomValueType> = props => {
+                const options = props.options.map(option => {
+                    return (
+                        <div className="option" data-value1={option.value.prop1}
+                             data-value2={option.value.prop2}
+                             onClick={() => props.selectValue(option)}>
+                            {option.label}
+                        </div>);
+                });
+
+                return <div className="menu">{options}</div>;
+            }
+
+            render() {
+                return <CustomValueReactSelect
+                    name="select"
+                    value={EXAMPLE_CUSTOM_VALUE}
+                    options={EXAMPLE_CUSTOM_OPTIONS}
                     menuRenderer={this.menuRenderer}
                 />;
             }
@@ -198,6 +291,24 @@ describe("Examples", () => {
             menuRenderer={props => null}
             optionRenderer={props => null}
             valueRenderer={props => null}
+        />;
+    });
+
+    it("Option render with custom value option", () => {
+        const optionRenderer = (option: ReactSelect.Option<CustomValueType>): ReactSelect.HandlerRendererResult =>
+          null;
+
+        <CustomValueReactSelect
+            optionRenderer={optionRenderer}
+        />;
+    });
+
+    it("Value render with custom value option", () => {
+        const valueRenderer = (option: ReactSelect.Option<CustomValueType>): ReactSelect.HandlerRendererResult =>
+          null;
+
+        <CustomValueReactSelect
+            valueRenderer={valueRenderer}
         />;
     });
 
