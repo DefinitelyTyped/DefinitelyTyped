@@ -1,8 +1,3 @@
-/// <reference types="jquery" />
-/// <reference types="ej.web.all" />
-
-
- 
 
 module AccordionComponent {
     $(function () {
@@ -2625,8 +2620,7 @@ module ScrollerComponent {
         });
         $(window).bind('resize', function () {
             scrollerSample.refresh();
-        });
-    });
+        });    });
 }
 
 
