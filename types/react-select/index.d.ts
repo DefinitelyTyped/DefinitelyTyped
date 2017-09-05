@@ -40,7 +40,7 @@ declare namespace ReactSelectClass {
     type OnBlurHandler = React.FocusEventHandler<HTMLDivElement | HTMLInputElement>;
     type OptionRendererHandler<TValue = OptionValues> = (option: Option<TValue>) => HandlerRendererResult;
     type ValueRendererHandler<TValue = OptionValues> = (option: Option<TValue>) => HandlerRendererResult;
-    type OnValueClickHandler = (value: string, event: React.MouseEvent<HTMLAnchorElement>) => void;
+    type OnValueClickHandler<TValue = OptionValues> = (option: Option<TValue>, event: React.MouseEvent<HTMLAnchorElement>) => void;
     type IsOptionUniqueHandler<TValue = OptionValues> = (arg: { option: Option<TValue>, options: Options<TValue>, labelKey: string, valueKey: string }) => boolean;
     type IsValidNewOptionHandler = (arg: { label: string }) => boolean;
     type NewOptionCreatorHandler<TValue = OptionValues> = (arg: { label: string, labelKey: string, valueKey: string }) => Option<TValue>;
@@ -421,7 +421,7 @@ declare namespace ReactSelectClass {
         /**
          * onClick handler for value labels: function (value, event) {}
          */
-        onValueClick?: OnValueClickHandler;
+        onValueClick?: OnValueClickHandler<TValue>;
 
         /**
          *  pass the value to onChange as a simple value (legacy pre 1.0 mode), defaults to false
