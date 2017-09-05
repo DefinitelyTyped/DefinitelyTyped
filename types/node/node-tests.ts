@@ -2320,19 +2320,19 @@ namespace net_tests {
             host: "localhost",
             localAddress: "10.0.0.1",
             localPort: 1234,
-            lookup: () => {
+            lookup: (_hostname: string, _options: dns.LookupOneOptions, _callback: (err: NodeJS.ErrnoException, address: string, family: number) => void): void => {
                 // nothing
             },
             port: 80
         };
-        _socket.connect(ipcConnectOpts);
-        _socket.connect(ipcConnectOpts, (): void => {});
-        _socket.connect(tcpConnectOpts);
-        _socket.connect(tcpConnectOpts, (): void => {});
-        _socket.connect(80, "localhost");
-        _socket.connect(80, "localhost", (): void => {});
-        _socket.connect(80);
-        _socket.connect(80, (): void => {});
+        _socket = _socket.connect(ipcConnectOpts);
+        _socket = _socket.connect(ipcConnectOpts, (): void => {});
+        _socket = _socket.connect(tcpConnectOpts);
+        _socket = _socket.connect(tcpConnectOpts, (): void => {});
+        _socket = _socket.connect(80, "localhost");
+        _socket = _socket.connect(80, "localhost", (): void => {});
+        _socket = _socket.connect(80);
+        _socket = _socket.connect(80, (): void => {});
 
         /// addListener
 

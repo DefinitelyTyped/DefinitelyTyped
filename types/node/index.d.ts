@@ -2351,6 +2351,7 @@ declare module "dns" {
 declare module "net" {
     import * as stream from "stream";
     import * as events from "events";
+    import * as dns from "dns";
 
     export interface SocketConstructorOpts {
         fd?: number;
@@ -2366,11 +2367,11 @@ declare module "net" {
         localPort?: number;
         hints?: number;
         family?: number;
-        lookup?: Function;
+        lookup?: (hostname: string, options: dns.LookupOneOptions, callback: (err: NodeJS.ErrnoException, address: string, family: number) => void) => void;
     }
 
     export interface IpcSocketConnectOpts {
-        path?: string;
+        path: string;
     }
 
     export type SocketConnectOpts = TcpSocketConnectOpts | IpcSocketConnectOpts;
@@ -2384,10 +2385,10 @@ declare module "net" {
         write(str: string, encoding?: string, fd?: string): boolean;
         write(data: any, encoding?: string, callback?: Function): void;
 
-        connect(options: SocketConnectOpts, connectionListener?: Function): void;
-        connect(port: number, host: string, connectionListener?: Function): void;
-        connect(port: number, connectionListener?: Function): void;
-        connect(path: string, connectionListener?: Function): void;
+        connect(options: SocketConnectOpts, connectionListener?: Function): this;
+        connect(port: number, host: string, connectionListener?: Function): this;
+        connect(port: number, connectionListener?: Function): this;
+        connect(path: string, connectionListener?: Function): this;
         bufferSize: number;
         setEncoding(encoding?: string): this;
         destroy(err?: any): void;
@@ -2568,9 +2569,15 @@ declare module "net" {
         prependOnceListener(event: "listening", listener: () => void): this;
     }
 
-    export interface NetConnectOpts extends TcpSocketConnectOpts, IpcSocketConnectOpts, SocketConstructorOpts {
+    export interface TcpNetConnectOpts extends TcpSocketConnectOpts, SocketConstructorOpts {
         timeout?: number;
     }
+
+    export interface IpcNetConnectOpts extends IpcSocketConnectOpts, SocketConstructorOpts {
+        timeout?: number;
+    }
+
+    export type NetConnectOpts = TcpNetConnectOpts | IpcNetConnectOpts;
 
     export function createServer(connectionListener?: (socket: Socket) => void): Server;
     export function createServer(options?: { allowHalfOpen?: boolean, pauseOnConnect?: boolean }, connectionListener?: (socket: Socket) => void): Server;
