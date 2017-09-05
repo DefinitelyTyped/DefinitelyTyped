@@ -1,6 +1,9 @@
-// Type definitions for FullCalendar 2.7
+// Type definitions for FullCalendar 3.5
 // Project: http://fullcalendar.io/
-// Definitions by: Neil Stalker <https://github.com/nestalk>, Marcelo Camargo <https://github.com/hasellcamargo>, Patrick Niemann <https://github.com/panic175>
+// Definitions by: Neil Stalker <https://github.com/nestalk>,
+//                 Marcelo Camargo <https://github.com/hasellcamargo>,
+//                 Patrick Niemann <https://github.com/panic175>
+//                 Hadrien Milano <https://github.com/hmil>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -36,7 +39,7 @@ export interface Header {
 
 export interface CustomButtonDefinition {
     text: string;
-    click: (element: JQuery) => void;
+    click(element: JQuery): void;
     icon?: string;
     themeIcon?: string;
     bootstrapGlyphicon?: string;
@@ -86,11 +89,11 @@ export interface CellInfo {
      * jQuery element for the day cell
      */
     dayEl: JQuery;
-    
+
     /**
      * jQuery element for the "more" link
      */
-    moreEl: JQuery; 
+    moreEl: JQuery;
 
     /**
      * array of all event "segment" objects for the given day
@@ -109,7 +112,6 @@ export interface TimeRange {
 }
 
 export interface DropInfo {
-    
     start: moment.Moment;
 
     /**
@@ -123,7 +125,7 @@ export interface DropInfo {
     resourceId?: string;
 }
 
-export interface Options extends 
+export interface Options extends
         GeneralDisplayOptions,
         TimezoneOptions,
         ViewsOptions,
@@ -137,7 +139,6 @@ export interface Options extends
         EventRenderingOptions,
         EventDraggingResizingOptions,
         DroppingExternalElementsOptions {
-
     // scheduler options
     resourceAreaWidth?: number;
     schedulerLicenseKey?: string;
@@ -146,15 +147,13 @@ export interface Options extends
     displayEventTime?: any;
 }
 
-
-/** 
- * General display - https://fullcalendar.io/docs/display/ 
+/**
+ * General display - https://fullcalendar.io/docs/display/
  */
 export interface GeneralDisplayOptions {
-
     /**
      * Defines the buttons and title at the top of the calendar.
-     * 
+     *
      * default:
      *  {
      *      left:   'title',
@@ -163,10 +162,10 @@ export interface GeneralDisplayOptions {
      *  }
      */
     header?: boolean | Header;
-    
+
     /**
      * Renders a set of controls at the bottom of the calendar.
-     * 
+     *
      * default: false
      */
     footer?: boolean | Header;
@@ -178,7 +177,7 @@ export interface GeneralDisplayOptions {
 
     /**
      * Determines which icons are displayed in buttons of the header.
-     * 
+     *
      * default:
      *  {
      *      prev: 'left-single-arrow',
@@ -192,7 +191,7 @@ export interface GeneralDisplayOptions {
 
     /**
      * Renders the calendar with a given theme system.
-     * 
+     *
      * default: 'standard'
      */
     themeSystem?: 'standard' | 'bootstrap3' | 'jquery-ui';
@@ -209,112 +208,112 @@ export interface GeneralDisplayOptions {
 
     /**
      * The day that each week begins.
-     * 
+     *
      * 0 = Sunday
-     * 
+     *
      * default: set by the current `locale`
      */
     firstDay?: number;
 
     /**
      * Displays the calendar in right-to-left mode.
-     * 
+     *
      * default: false
      */
     isRTL?: boolean;
 
     /**
      * Whether to include Saturday/Sunday columns in any of the calendar views.
-     * 
+     *
      * default: true
      */
     weekends?: boolean;
 
     /**
      * Exclude certain days-of-the-week from being displayed.
-     * 
+     *
      * default: []
      */
     hiddenDays?: number[];
 
     /**
      * Determines the number of weeks displayed in a month view.
-     * 
+     *
      * default: true
      */
     fixedWeekCount?: boolean;
 
     /**
      * Determines if week numbers should be displayed on the calendar.
-     * 
+     *
      * default: false
      */
     weekNumbers?: boolean;
 
     /**
      * Determines the styling for week numbers in month view and the basic views.
-     * 
+     *
      * default: false
      */
     weekNumbersWithinDays?: boolean;
 
     /**
      * The method for calculating week numbers that are displayed with the weekNumbers setting.
-     * 
+     *
      * default: 'local'
      */
-    weekNumberCalculation?: 'local' | 'ISO' | { (m: moment.Moment): number };
+    weekNumberCalculation?: 'local' | 'ISO' | ((m: moment.Moment) => number);
 
     /**
      * Emphasizes certain time slots on the calendar. By default, Monday-Friday, 9am-5pm.
-     * 
+     *
      * default: false
      */
     businessHours?: boolean | BusinessHours | BusinessHours[];
 
     /**
      * In month view, whether dates in the previous or next month should be rendered at all.
-     * 
+     *
      * default: true
      */
     showNonCurrentDates?: boolean;
 
     /**
      * Will make the entire calendar (including header) a pixel height.
-     * 
+     *
      * default: undefined
      */
-    height?: number | 'auto' | 'parent' | { (): number };
+    height?: number | 'auto' | 'parent' | (() => number);
 
     /**
      * Will make the calendar's content area a pixel height.
      */
-    contentHeight?: number | 'auto' | { (): number };
+    contentHeight?: number | 'auto' | (() => number);
 
     /**
      * Determines the width-to-height aspect ratio of the calendar.
-     * 
+     *
      * default: 1.35
      */
     aspectRatio?: number;
 
     /**
      * Whether to automatically resize the calendar when the browser window resizes.
-     * 
+     *
      * default: true
      */
     handleWindowResize?: boolean;
 
     /**
      * Time, in milliseconds, the calendar will wait to adjust its size after a window resize event occurs.
-     * 
+     *
      * default: 100
      */
     windowResizeDelay?: number;
 
     /**
      * Limits the number of events displayed on a day.
-     * 
+     *
      * default: false
      */
     eventLimit?: boolean | number;
@@ -322,7 +321,7 @@ export interface GeneralDisplayOptions {
     /**
      * Determines the action taken when the user clicks on a "more" link created by the eventLimit option.
      */
-    eventLimitClick?: 'popover' | 'week' | 'day' | string | {(cellinfo: CellInfo, jsevent: Event): void };
+    eventLimitClick?: 'popover' | 'week' | 'day' | string | ((cellinfo: CellInfo, jsevent: Event) => void);
 
     /**
      * Triggered when a new date-range is rendered, or when the view type switches.
@@ -339,20 +338,19 @@ export interface GeneralDisplayOptions {
      */
     dayRender?(date: moment.Moment, cell: JQuery): void;
 
-
     /**
      * Triggered after the calendar's dimensions have been changed due to the browser window being resized.
      */
     windowResize?(view: ViewObject): void;
 }
 
-/** 
- * Timezone - https://fullcalendar.io/docs/timezone/ 
+/**
+ * Timezone - https://fullcalendar.io/docs/timezone/
  */
 export interface TimezoneOptions {
     /**
      * Determines the timezone in which dates throughout the API are parsed and rendered.
-     * 
+     *
      * default: false
      */
     timezone?: string | boolean;
@@ -367,10 +365,9 @@ export interface TimezoneOptions {
  * Views - https://fullcalendar.io/docs/views/
  */
 export interface ViewsOptions {
-
     /**
      * The initial view when the calendar loads.
-     * 
+     *
      * default: 'month'
      */
     defaultView?: string;
@@ -384,28 +381,28 @@ export interface ViewsOptions {
 export interface AgendaOptions {
     /**
      * Determines if the "all-day" slot is displayed at the top of the calendar.
-     * 
+     *
      * default: true
      */
     allDaySlot?: boolean;
 
     /**
      * The text titling the "all-day" slot at the top of the calendar.
-     * 
+     *
      * default: 'all-day'
      */
     allDayText?: string;
 
     /**
      * The frequency for displaying time slots.
-     * 
+     *
      * default: '00:30:00'
      */
     slotDuration?: moment.Duration;
 
     /**
      * Determines the time-text that will be displayed on the vertical axis of the agenda views.
-     * 
+     *
      * default: 'h(:mm)a'
      */
     slotLabelFormat?: string;
@@ -422,28 +419,28 @@ export interface AgendaOptions {
 
     /**
      * Determines how far down the scroll pane is initially scrolled down.
-     * 
+     *
      * default: '06:00:00' (6am)
      */
     scrollTime?: moment.Duration;
 
     /**
      * Determines the starting time that will be displayed, even when the scrollbars have been scrolled all the way up.
-     * 
+     *
      * default: "00:00:00"
      */
     minTime?: moment.Duration;
 
     /**
      * Determines the end time (exclusively) that will be displayed, even when the scrollbars have been scrolled all the way down.
-     * 
+     *
      * default: "24:00:00"
      */
     maxTime?: moment.Duration;
 
     /**
      * Determines if timed events in agenda view should visually overlap.
-     * 
+     *
      * default: true
      */
     slotEventOverlap?: boolean;
@@ -453,7 +450,6 @@ export interface AgendaOptions {
  * List View - https://fullcalendar.io/docs/list_view/
  */
 export interface ListViewOptions {
-
     /**
      * A date formatting string that affects the text on the left side of the day headings in list view.
      */
@@ -466,7 +462,7 @@ export interface ListViewOptions {
 
     /**
      * The text that is displayed in the middle of list view, alerting the user that there are no events within the given range.
-     * 
+     *
      * default: "No events to display"
      */
     noEventsMessage?: string;
@@ -483,7 +479,7 @@ export interface CurrentDateOptions {
 
     /**
      * Whether or not to display a marker indicating the current time.
-     * 
+     *
      * default: false
      */
     nowIndicator?: boolean;
@@ -491,7 +487,7 @@ export interface CurrentDateOptions {
     /**
      * Sets the exact date range that is visible in a view.
      */
-    visibleRange?: { (currentDate: moment.Moment): TimeRange } | TimeRange;
+    visibleRange?: ((currentDate: moment.Moment) => TimeRange) | TimeRange;
 
     /**
      * Limits which dates the user can navigate to and where events can go.
@@ -525,7 +521,7 @@ export interface CurrentDateOptions {
 export interface TextTimeCustomizationOptions {
     /**
      * Customize the language and localization options for the calendar.
-     * 
+     *
      * default 'en'
      */
     locale?: string;
@@ -572,7 +568,7 @@ export interface TextTimeCustomizationOptions {
 
     /**
      * The heading text for week numbers.
-     * 
+     *
      * default: 'W'
      */
     weekNumberTitle?: string;
@@ -589,10 +585,10 @@ export interface TextTimeCustomizationOptions {
 
     /**
      * Determines the text of the link created by eventLimit setting.
-     * 
+     *
      * default: "more"
      */
-    eventLimitText?: string | { (nEvents: number): string };
+    eventLimitText?: string | ((nEvents: number) => string);
 
     /**
      * Determines the date format of title of the popover created by the eventLimitClick option.
@@ -606,7 +602,7 @@ export interface TextTimeCustomizationOptions {
 export interface ClickingAndHoveringOptions {
     /**
      * Determines if day names and week names are clickable.
-     * 
+     *
      * default: false
      */
     navLinks?: boolean;
@@ -614,12 +610,12 @@ export interface ClickingAndHoveringOptions {
     /**
      * Determines what happens upon a day heading nav-link click.
      */
-    navLinkDayClick?: string | { (date: any, jsEvent: Event): void};
+    navLinkDayClick?: string | ((date: any, jsEvent: Event) => void);
 
     /**
      * Determines what happens upon a week-number nav-link click.
      */
-    navLinkWeekClick?: string | { (weekStart: any, jsEvent: Event): void};
+    navLinkWeekClick?: string | ((weekStart: any, jsEvent: Event) => void);
 
     /**
      * Triggered when the user clicks on a day.
@@ -656,10 +652,9 @@ export interface SelectionOptions {
     unselect?(view: ViewObject, jsEvent: Event): void;
 }
 
-
-/** 
+/**
  * Event Data - https://fullcalendar.io/docs/event_data/
- * 
+ *
  * TODO: update interface to v3
  */
 export interface EventDataOptions {
@@ -671,7 +666,7 @@ export interface EventDataOptions {
      * - (start: moment.Moment, end: moment.Moment, timezone: string | boolean, callback: {(events: EventObject[]) => void;}) => void;
      */
     events?: any;
-    
+
     /**
      * An array, each element being one of the following types:
      *
@@ -694,7 +689,6 @@ export interface EventDataOptions {
  * Event Rendering - https://fullcalendar.io/docs/event_rendering/
  */
 export interface EventRenderingOptions {
-
     /**
      * Sets the background and border colors for all events on the calendar.
      */
@@ -717,21 +711,21 @@ export interface EventRenderingOptions {
 
     /**
      * When an event's end time spans into another day, the minimum time it must be in order for it to render as if it were on that day.
-     * 
+     *
      * default: "09:00:00" (9am)
      */
     nextDayThreshold?: moment.Duration;
 
     /**
      * Determines the vertical ordering events that have the same dates / times.
-     * 
+     *
      * default 'title'
      */
-    eventOrder?: string | {(a: EventObject, b: EventObject): number} | (string | {(a: EventObject, b: EventObject):number})[];
+    eventOrder?: string | Array<((a: EventObject, b: EventObject) => number) | (string | ((a: EventObject, b: EventObject) => number))>;
 
     /**
      * The amount of milliseconds to wait after an operation, before rendering events.
-     * 
+     *
      * default: null
      */
     eventRenderWait?: number | null;
@@ -763,49 +757,49 @@ export interface EventRenderingOptions {
 export interface EventDraggingResizingOptions {
     /**
      * Determines whether the events on the calendar can be modified.
-     * 
+     *
      * default: false
      */
     editable?: boolean;
 
     /**
      * Allow events' start times to be editable through dragging.
-     * 
+     *
      * default: true
      */
     eventStartEditable?: boolean;
 
     /**
      * Allow events' durations to be editable through resizing.
-     * 
+     *
      * default: true
      */
     eventDurationEditable?: boolean;
 
     /**
      * Time it takes for an event to revert to its original position after an unsuccessful drag.
-     * 
+     *
      * default: 500
      */
     dragRevertDuration?: number; // integer, milliseconds
 
     /**
      * The opacity of an event while it is being dragged.
-     * 
+     *
      * default: .75
      */
     dragOpacity?: number;
 
     /**
      * Whether to automatically move scroll containers during event drag-and-drop or while selecting.
-     * 
+     *
      * default: true
      */
     dragScroll?: boolean;
 
     /**
      * Determines if events on the calendar, when dragged and resized, are allowed to overlap each other.
-     * 
+     *
      * default: true
      */
     eventOverlap?: boolean | ((stillEvent: EventObject, movingEvent: EventObject) => boolean);
@@ -822,14 +816,14 @@ export interface EventDraggingResizingOptions {
 
     /**
      * For touch devices, the amount of time the user most hold down before an event becomes draggable or a date becomes selectable.
-     * 
+     *
      * default: 1000
      */
     longPressDelay?: number;
 
     /**
      * For touch devices, the amount of time the user most hold down before an event becomes draggable.
-     * 
+     *
      * default: 1000
      */
     eventLongPressDelay?: number;
@@ -871,7 +865,7 @@ export interface EventDraggingResizingOptions {
 export interface DroppingExternalElementsOptions {
     /**
      * Determines if jQuery UI draggables can be dropped onto the calendar.
-     * 
+     *
      * default: false
      */
     droppable?: boolean;
@@ -976,7 +970,6 @@ export interface ViewSpecificOptions {
 }
 
 declare global {
-
     // TODO: check compatibility with v3 and update if necessary
     interface JQuery {
         /**
