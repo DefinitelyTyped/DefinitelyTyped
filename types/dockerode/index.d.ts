@@ -655,13 +655,18 @@ declare namespace Dockerode {
     };
   }
 
+  interface KeyObject {
+    pem: string | Buffer;
+    passphrase?: string;
+  }
+
   interface DockerOptions {
     socketPath?: string;
     host?: string;
     port?: number | string;
     ca?: string | string[] | Buffer | Buffer[];
     cert?: string | string[] | Buffer | Buffer[];
-    key?: string | string[] | Buffer | Buffer[];
+    key?: string | string[] | Buffer | Buffer[] | KeyObject[];
     protocol?: "https" | "http";
     timeout?: number;
     version?: string;
