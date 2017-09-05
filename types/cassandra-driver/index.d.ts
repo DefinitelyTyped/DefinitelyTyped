@@ -1,4 +1,5 @@
 // Type definitions for cassandra-driver v3.2.2
+// TypeScript Version: 2.2
 // Project: https://github.com/datastax/nodejs-driver
 // Definitions by: Marc Fisher <https://github.com/Svjard>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
