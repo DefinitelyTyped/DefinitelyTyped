@@ -1,10 +1,7 @@
 // Type definitions for hexo-fs 0.2
-// Project: https://github.com/hexojs/hexo-fs
-// Definitions by: Sega Yuu <https://github.com/segayuu>
+// Project: http://hexo.io/
+// Definitions by: segayuu <https://github.com/segayuu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
-
-/// <reference types="node" />
 
 import Promise = require('bluebird');
 import {
