@@ -659,9 +659,9 @@ declare namespace Dockerode {
     socketPath?: string;
     host?: string;
     port?: number | string;
-    ca?: Buffer;
-    cert?: Buffer;
-    key?: Buffer;
+    ca?: string | string[] | Buffer | Buffer[];
+    cert?: string | string[] | Buffer | Buffer[];
+    key?: string | string[] | Buffer | Buffer[];
     protocol?: "https" | "http";
     timeout?: number;
     version?: string;
