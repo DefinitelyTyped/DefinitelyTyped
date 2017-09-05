@@ -68,7 +68,7 @@ import {
     unwatchFile,
     // write,
     writeSync
-    } from 'graceful-fs';
+} from 'graceful-fs';
 
 export interface DirectoryOptions {
     ignoreHidden?: boolean;
@@ -91,8 +91,27 @@ export let access: ((path: PathLike, mode?: number) => Promise<void>) | undefine
 export let accessSync: ((path: PathLike, mode?: number) => void) | undefined; // promisify
 
 // appendFile
+/**
+ * Appends data to a file.
+ * @param path
+ * @param data
+ * @param callback
+ */
 export function appendFile(path: string, data: any, callback?: (err: any) => void): Promise<void>;
+/**
+ * Appends data to a file.
+ * @param path
+ * @param data
+ * @param options
+ * @param callback
+ */
 export function appendFile(path: string, data: any, options: string | AppendFileOptions, callback?: (err: any) => void): Promise<void>;
+/**
+ * Synchronous version of fs.appendFile.
+ * @param path
+ * @param data
+ * @param options
+ */
 export function appendFileSync(path: string, data: any, options?: string | AppendFileOptions): void;
 
 // chmod
@@ -112,14 +131,37 @@ export function close(fd: number): Promise<void>; // promisify
 export { closeSync };
 
 // copy
+/**
+ * Copies a directory from src to dest. It returns an array of copied files.
+ * @param src
+ * @param dest
+ * @param callback
+ */
 export function copyDir(src: string, dest: string, callback?: (err: any, value?: string[]) => void): Promise<string[]>;
+/**
+ * Copies a directory from src to dest. It returns an array of copied files.
+ * @param dest
+ * @param options
+ * @param callback
+ */
 export function copyDir(src: string, dest: string, options?: DirectoryOptions, callback?: (err: any, value?: string[]) => void): Promise<string[]>;
+/**
+ * Copies a file from src to dest.
+ * @param src
+ * @param dest
+ * @param callback
+ */
 export function copyFile(src: PathLike, dest: string, callback?: (err: any) => void): Promise<void>;
 
 // createStream
 export { createReadStream, createWriteStream };
 
 // emptyDir
+/**
+ * Deletes all files in a directory. It returns an array of deleted files.
+ * @param path
+ * @param callback
+ */
 export function emptyDir(path: string, callback?: (err: any, value?: string | string[]) => void): Promise<string | string[]>;
 export function emptyDir(
     path: string,
@@ -129,11 +171,31 @@ export function emptyDir(
 export function emptyDirSync(path: string, options?: DirectoryOptions & { exclude?: string[] }, parent?: string): string | string[];
 
 // ensurePath
+/**
+ * Ensures the given path is available to use or appends a number to the path.
+ * @param path
+ * @param callback
+ */
 export function ensurePath(path: string, callback?: (err: any, value?: string) => void): Promise<string>;
+/**
+ * Synchronous version of `fs.ensurePath`.
+ * @param path
+ */
 export function ensurePathSync(path: string): string;
 
 // ensureWriteStream
+/**
+ * Creates the parent directories if they does not exist and returns a writable stream.
+ * @param path
+ * @param callback
+ */
 export function ensureWriteStream(path: string, callback?: (err: any, value?: WriteStream) => void): Promise<WriteStream>;
+/**
+ * Creates the parent directories if they does not exist and returns a writable stream.
+ * @param path
+ * @param options
+ * @param callback
+ */
 export function ensureWriteStream(
     path: string,
     options?: string | {
@@ -146,6 +208,11 @@ export function ensureWriteStream(
     },
     callback?: (err: any, value?: WriteStream) => void
 ): Promise<WriteStream>;
+/**
+ * Synchronous version of fs.ensureWriteStream.
+ * @param path
+ * @param options
+ */
 export function ensureWriteStreamSync(path: string, options?: string | {
     flags?: string;
     defaultEncoding?: string;
@@ -156,7 +223,16 @@ export function ensureWriteStreamSync(path: string, options?: string | {
 }): WriteStream;
 
 // exists
+/**
+ * Test whether or not the given `path` exists by checking with the file system.
+ * @param path checking if exists.
+ * @param callback
+ */
 export function exists(path: PathLike, callback?: (exist: boolean) => void): Promise<boolean>;
+/**
+ * Synchronous version of `fs.exists`.
+ * @param path
+ */
 export function existsSync(path: PathLike): boolean;
 
 // fsync
@@ -168,8 +244,25 @@ export function link(existingPath: PathLike, newPath: PathLike): Promise<void>; 
 export { linkSync };
 
 // listDir
+/**
+ * Lists files in a directory.
+ * @param path
+ * @param callback
+ */
 export function listDir(path: string, callback?: (err: any, value?: string[]) => void): Promise<string[]>;
+/**
+ * Lists files in a directory.
+ * @param path
+ * @param options
+ * @param callback
+ */
 export function listDir(path: string, options?: DirectoryOptions, callback?: (err: any, value?: string[]) => void): Promise<string[]>;
+/**
+ * Synchronous version of `fs.listDir`.
+ * @param path
+ * @param options
+ * @param parent
+ */
 export function listDirSync(path: string, options?: DirectoryOptions, parent?: string): string | string[];
 
 // mkdir
@@ -177,7 +270,16 @@ export function mkdir(path: PathLike, mode?: string | number): Promise<void>; //
 export { mkdirSync };
 
 // mkdirs
+/**
+ * Creates a directory and its parent directories if they does not exist.
+ * @param path
+ * @param callback
+ */
 export function mkdirs(path: PathLike, callback?: (err: any) => void): Promise<void>;
+/**
+ * Synchronous version of `fs.mkdirs`.
+ * @param path
+ */
 export function mkdirsSync(path: string): void;
 
 // open
@@ -206,12 +308,28 @@ export function readdir(
 export { readdirSync };
 
 // readFile
+/**
+ * Reads the entire contents of a file.
+ * @param path
+ * @param callback
+ */
 export function readFile(path: PathLike | number, callback?: (err: any, value?: string) => void): Promise<string>;
+/**
+ * Reads the entire contents of a file.
+ * @param path
+ * @param options
+ * @param callback
+ */
 export function readFile(
     path: PathLike | number,
     options?: { encoding?: string; flag?: string; escape?: boolean; },
     callback?: (err: any, value?: string) => void
 ): Promise<string>;
+/**
+ * Synchronous version of `fs.readFile`.
+ * @param path
+ * @param options
+ */
 export function readFileSync(path: PathLike | number, options?: { encoding?: string; flag?: string; escape?: boolean; }): string;
 
 // readlink
@@ -256,6 +374,14 @@ export { utimesSync, futimesSync };
 
 // watch
 import { FSWatcher, WatchOptions } from 'chokidar';
+/**
+ * Watches changes of a file or a directory.
+ *
+ * See Chokidar API for more info.
+ * @param path
+ * @param options
+ * @param callback
+ */
 export function watch(path: string | string[], options?: WatchOptions, callback?: (err: any, value?: FSWatcher) => void): Promise<FSWatcher>;
 export { watchFile, unwatchFile };
 
@@ -276,13 +402,32 @@ export function write(
 export { writeSync };
 
 // writeFile
+/**
+ * Writes data to a file.
+ * @param path
+ * @param data
+ * @param callback
+ */
 export function writeFile(path: string, data: any, callback?: (err: any) => void): Promise<void>;
+/**
+ * Writes data to a file.
+ * @param path
+ * @param data
+ * @param options
+ * @param callback
+ */
 export function writeFile(
     path: string,
     data: any,
     options?: string | { encoding?: string | null; mode?: string | number; flag?: string },
     callback?: (err: any) => void
 ): Promise<void>;
+/**
+ * Synchronous version of `fs.writeFile`.
+ * @param path
+ * @param data
+ * @param options
+ */
 export function writeFileSync(path: string, data: any, options?: string | { encoding?: string | null; mode?: string | number; flag?: string }): void;
 
 // Static classes
