@@ -836,6 +836,7 @@ export class BufferGeometry extends EventDispatcher {
 
     getIndex(): BufferAttribute;
     setIndex( index: BufferAttribute ): void;
+	setIndex( index: any[] ): void;
 
     addAttribute(name: string, attribute: BufferAttribute|InterleavedBufferAttribute): BufferGeometry;
 
@@ -4714,7 +4715,9 @@ export class LineSegments extends Line {
 
 export class Mesh extends Object3D {
     constructor(geometry?: Geometry, material?: Material);
+    constructor(geometry?: Geometry, material?: Material[]);
     constructor(geometry?: BufferGeometry, material?: Material);
+    constructor(geometry?: BufferGeometry, material?: Material[]);
 
     geometry: Geometry|BufferGeometry;
     material: Material;
