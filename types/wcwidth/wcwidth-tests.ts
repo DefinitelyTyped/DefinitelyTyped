@@ -1,4 +1,4 @@
-import * as wcwidth from 'wcwidth';
+import wcwidth = require('wcwidth');
 
 const length1 = wcwidth('한');   // => 2
 

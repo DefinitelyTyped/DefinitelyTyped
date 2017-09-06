@@ -5,6 +5,4 @@
 
 declare function wcwidth(input: string): number;
 
-declare namespace wcwidth {}
-
 export = wcwidth;
