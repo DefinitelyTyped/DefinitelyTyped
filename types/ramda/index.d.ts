@@ -842,7 +842,7 @@ declare namespace R {
          * Returns a list containing the names of all the enumerable own
          * properties of the supplied object.
          */
-        keys<T>(x: T): Array<keyof T>;
+        keys<T>(x: T): string[];
 
         /**
          * Returns a list containing the names of all the
@@ -1736,7 +1736,7 @@ declare namespace R {
          * Note that the order of the output array is not guaranteed to be
          * consistent across different JS platforms.
          */
-        toPairs<T>(obj: T): Array<[keyof T, T[keyof T]]>;
+        toPairs<F, S>(obj: { [k: string]: S } | { [k: number]: S } | any): Array<[F, S]>;
 
         /**
          * Converts an object into an array of key, value arrays.
@@ -1916,7 +1916,7 @@ declare namespace R {
          * Note that the order of the output array is not guaranteed across
          * different JS platforms.
          */
-        values<T>(obj: T): T[keyof T];
+        values<T>(obj: { [index: string]: T } | any): T[];
 
         /**
          * Returns a list of all the properties, including prototype properties, of the supplied
