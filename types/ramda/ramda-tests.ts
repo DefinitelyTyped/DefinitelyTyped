@@ -1557,7 +1557,7 @@ class Rectangle {
 };
 
 () => {
-    const a = R.toPairs({a: 1, b: 2, c: 3}); // => [['a', 1], ['b', 2], ['c', 3]]
+    const a = R.toPairs<string, number>({a: 1, b: 2, c: 3}); // => [['a', 1], ['b', 2], ['c', 3]]
 };
 
 () => {
