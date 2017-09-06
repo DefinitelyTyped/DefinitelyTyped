@@ -3,6 +3,7 @@
     "rules": {
         // TODO
         "no-object-literal-type-assertion": false,
+        "no-any-union": false,
         "no-unnecessary-generics": false
     }
 }
