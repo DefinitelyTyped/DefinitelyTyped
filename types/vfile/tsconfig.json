@@ -1,7 +1,6 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "target": "es2017",
         "lib": [
             "es6"
         ],
@@ -18,6 +17,7 @@
     },
     "files": [
         "index.d.ts",
+
         "vfile-tests.ts"
     ]
 }

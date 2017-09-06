@@ -1,5 +1,17 @@
 import vfile = require("vfile");
-import { Point, Position } from "vfile";
+import * as Unist from 'unist';
+
+vfile();
+vfile('string');
+vfile(Buffer.from('string'));
+vfile(vfile());
+vfile({ stem: 'readme', extname: '.md' });
+vfile({ custom: 'data' });
+try {
+    vfile({ extname: '.md' });
+} catch (e) {
+    console.log('Error: set extname without path');
+}
 
 const file = vfile({
     path: '~/example.txt',
@@ -7,7 +19,7 @@ const file = vfile({
     custom: 'Custom tango',
     data: {
         custom: 12345
-    }
+    },
 });
 
 file.path; // => '~/example.txt'
@@ -30,16 +42,16 @@ const custom: string = file.custom; // 'Custom tango'
 const dataCustom: number = file.data.custom; // 12345
 
 // message method accept any Stringifiable Position(e.g. point, position, node with position)
-const startPoint: Point = {
+const startPoint: Unist.Point = {
     line: 1,
     column: 1,
 };
-const position: Position = {
+const position: Unist.Position = {
     start: startPoint,
     end: {
         line: 2,
         column: 2,
-    }
+    },
 };
 // Accept Point
 file.message('test', startPoint);
@@ -47,10 +59,11 @@ file.message('test', startPoint);
 file.message('test', position);
 // Accept Node with extra value
 file.message('test', {
-    position
+    type: 'ramdom node',
+    position,
 });
 // But, it must reject any malformed position
-file.message({ start: 'invalid point' }); // $ExpectError
+file.message('test', { start: 'invalid point' }); // $ExpectError
 
 // Typings of original properties must be kept
 const fileWithWrongParams = vfile({ path: 1234 }); // $ExpectError
