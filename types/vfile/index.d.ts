@@ -18,6 +18,10 @@ declare namespace vfile {
         end: Point;
     }
 
+    interface Node {
+        position: Position;
+    }
+
     interface VFileParamsBase<D> {
         data?: D;
         contents?: Contents;
@@ -43,11 +47,11 @@ declare namespace vfile {
         fatal?: boolean | null;
     }
 
-    type Message = <P extends Position>(reason: string, position?: Point | P, ruleId?: string) => VFileError;
+    type Message = <N extends Node>(reason: string, position?: Point | Position | N, ruleId?: string) => VFileError;
 
-    type Fail = <P extends Position>(reason: string, position?: Point | P, ruleId?: string) => never;
+    type Fail = <N extends Node>(reason: string, position?: Point | Position | N, ruleId?: string) => never;
 
-    type Info = <P extends Position>(reason: string, position?: Point | P, ruleId?: string) => void;
+    type Info = <N extends Node>(reason: string, position?: Point | Position | N, ruleId?: string) => void;
 
     type ToString = (encoding?: BufferEncoding) => string;
 
