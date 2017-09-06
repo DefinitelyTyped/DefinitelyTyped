@@ -488,6 +488,7 @@ declare namespace Dockerode {
     CpusetCpus: string;
     CpusetMems: string;
     Devices?: any;
+    DiskQuota: number;
     KernelMemory: number;
     Memory: number;
     MemoryReservation: number;
