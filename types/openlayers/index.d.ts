@@ -1,4 +1,4 @@
-// Type definitions for OpenLayers v4.1.0
+// Type definitions for OpenLayers v4.3.0
 // Project: http://openlayers.org/
 // Definitions by: Olivier Sechet <https://github.com/osechet>, Guilhem Brouat <https://github.com/ganlhi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -6772,6 +6772,18 @@ declare module ol {
         ): (T);
 
         /**
+         * Get all features that intersect a pixel on the viewport.
+         * @param {ol.Pixel} pixel Pixel.
+         * @param {olx.AtPixelOptions=} opt_options Optional options.
+         * @return {?Array.<(ol.Feature|ol.render.Feature)>} The detected features or null if none were found.
+         * @api stable
+         */
+        getFeaturesAtPixel(
+            pixel: ol.Pixel,
+            opt_options?: olx.AtPixelOptions
+        ): (Array<ol.Feature|ol.render.Feature>|null);
+
+        /**
          * Detect layers that have a color value at a pixel on the viewport, and
          * execute a callback with each matching layer. Layers included in the
          * detection can be configured through `opt_layerFilter`.
@@ -12566,11 +12578,15 @@ declare module olx {
 
 
         /**
-         * @typedef {{duration: (number|undefined),
+         * @typedef {{constrainResolution: (boolean|undefined),
+         *     duration: (number|undefined),
+         *     timeout: (number|undefined),
          *     useAnchor: (boolean|undefined)}}
          */
         interface MouseWheelZoomOptions {
+            constrainResolution?: boolean;
             duration?: number;
+            timeout?: number;
             useAnchor?: boolean;
         }
 
@@ -12586,9 +12602,11 @@ declare module olx {
 
 
         /**
-         * @typedef {{duration: (number|undefined)}}
+         * @typedef {{constrainResolution: (boolean|undefined)
+         *     duration: (number|undefined)}}
          */
         interface PinchZoomOptions {
+            constrainResolution?: boolean;
             duration?: number;
         }
 

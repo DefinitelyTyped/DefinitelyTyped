@@ -3,9 +3,9 @@
 // Definitions by: André Wallat <https://github.com/awallat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="leaflet" />
+import * as L from 'leaflet';
 
-declare namespace L {
+declare module 'leaflet' {
   function areaSelect(box: AreaSelectOptions): AreaSelect;
 
   interface AreaSelectOptions {

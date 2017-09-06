@@ -67,66 +67,66 @@ export type InferableComponentEnhancer<TInjectedProps> =
  */
 export declare function connect(): InferableComponentEnhancer<DispatchProp<any>>;
 
-export declare function connect<TStateProps, no_dispatch, TOwnProps>(
+export declare function connect<TStateProps = {}, no_dispatch = {}, TOwnProps = {}>(
     mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps>
 ): InferableComponentEnhancerWithProps<TStateProps & DispatchProp<any>, TOwnProps>;
 
-export declare function connect<no_state, TDispatchProps, TOwnProps>(
+export declare function connect<no_state = {}, TDispatchProps = {}, TOwnProps = {}>(
     mapStateToProps: null | undefined,
     mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>
 ): InferableComponentEnhancerWithProps<TDispatchProps, TOwnProps>;
 
-export declare function connect<TStateProps, TDispatchProps, TOwnProps>(
+export declare function connect<TStateProps = {}, TDispatchProps = {}, TOwnProps = {}>(
     mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps>,
     mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>
 ): InferableComponentEnhancerWithProps<TStateProps & TDispatchProps, TOwnProps>;
 
-export declare function connect<TStateProps, no_dispatch, TOwnProps, TMergedProps>(
+export declare function connect<TStateProps = {}, no_dispatch = {}, TOwnProps = {}, TMergedProps = {}>(
     mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps>,
     mapDispatchToProps: null | undefined,
     mergeProps: MergeProps<TStateProps, undefined, TOwnProps, TMergedProps>,
 ): InferableComponentEnhancerWithProps<TMergedProps, TOwnProps>;
 
-export declare function connect<no_state, TDispatchProps, TOwnProps, TMergedProps>(
+export declare function connect<no_state = {}, TDispatchProps = {}, TOwnProps = {}, TMergedProps = {}>(
     mapStateToProps: null | undefined,
     mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
     mergeProps: MergeProps<undefined, TDispatchProps, TOwnProps, TMergedProps>,
 ): InferableComponentEnhancerWithProps<TMergedProps, TOwnProps>;
 
-export declare function connect<no_state, no_dispatch, TOwnProps, TMergedProps>(
+export declare function connect<no_state = {}, no_dispatch = {}, TOwnProps = {}, TMergedProps = {}>(
     mapStateToProps: null | undefined,
     mapDispatchToProps: null | undefined,
     mergeProps: MergeProps<undefined, undefined, TOwnProps, TMergedProps>,
 ): InferableComponentEnhancerWithProps<TMergedProps, TOwnProps>;
 
-export declare function connect<TStateProps, TDispatchProps, TOwnProps, TMergedProps>(
+export declare function connect<TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, TMergedProps = {}>(
     mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps>,
     mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
     mergeProps: MergeProps<TStateProps, TDispatchProps, TOwnProps, TMergedProps>,
 ): InferableComponentEnhancerWithProps<TMergedProps, TOwnProps>;
 
-export declare function connect<TStateProps, no_dispatch, TOwnProps>(
+export declare function connect<TStateProps = {}, no_dispatch = {}, TOwnProps = {}>(
     mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps>,
     mapDispatchToProps: null | undefined,
     mergeProps: null | undefined,
     options: Options<TStateProps, TOwnProps>
 ): InferableComponentEnhancerWithProps<DispatchProp<any> & TStateProps, TOwnProps>;
 
-export declare function connect<no_state, TDispatchProps, TOwnProps>(
+export declare function connect<no_state = {}, TDispatchProps = {}, TOwnProps = {}>(
     mapStateToProps: null | undefined,
     mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
     mergeProps: null | undefined,
     options: Options<no_state, TOwnProps>
 ): InferableComponentEnhancerWithProps<TDispatchProps, TOwnProps>;
 
-export declare function connect<TStateProps, TDispatchProps, TOwnProps>(
+export declare function connect<TStateProps = {}, TDispatchProps = {}, TOwnProps = {}>(
     mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps>,
     mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
     mergeProps: null | undefined,
     options: Options<TStateProps, TOwnProps>
 ): InferableComponentEnhancerWithProps<TStateProps & TDispatchProps, TOwnProps>;
 
-export declare function connect<TStateProps, TDispatchProps, TOwnProps, TMergedProps>(
+export declare function connect<TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, TMergedProps = {}>(
     mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps>,
     mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
     mergeProps: MergeProps<TStateProps, TDispatchProps, TOwnProps, TMergedProps>,

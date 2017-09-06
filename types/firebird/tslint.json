@@ -2,6 +2,7 @@
     "extends": "dtslint/dt.json",
     "rules": {
         // TODO
-        "no-boolean-literal-compare": false
+        "no-boolean-literal-compare": false,
+        "no-unnecessary-generics": false
     }
 }

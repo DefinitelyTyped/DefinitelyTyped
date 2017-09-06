@@ -7,6 +7,7 @@
 //                 Mark Vujevits <https://github.com/vujevits>
 //                 Mike Deverell <https://github.com/devrelm>
 //                 MartynasZilinskas <https://github.com/MartynasZilinskas>
+//                 Onat Yigit Mercan <https://github.com/onatm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -16,47 +17,48 @@ export = ReactSelectClass;
 
 declare namespace ReactSelectClass {
     // Other components
-    class Creatable extends React.Component<ReactCreatableSelectProps> { }
-    class Async extends React.Component<ReactAsyncSelectProps> { }
-    class AsyncCreatable extends React.Component<ReactAsyncSelectProps & ReactCreatableSelectProps> { }
+    class Creatable<TValue = OptionValues> extends React.Component<ReactCreatableSelectProps<TValue>> { }
+    class Async<TValue = OptionValues> extends React.Component<ReactAsyncSelectProps<TValue>> { }
+    class AsyncCreatable<TValue = OptionValues> extends React.Component<ReactAsyncSelectProps<TValue> & ReactCreatableSelectProps<TValue>> { }
 
     type HandlerRendererResult = JSX.Element | null | false;
 
     // Handlers
-    type FocusOptionHandler = (option: Option) => void;
-    type SelectValueHandler = (option: Option) => void;
+    type FocusOptionHandler<TValue = OptionValues> = (option: Option<TValue>) => void;
+    type SelectValueHandler<TValue = OptionValues> = (option: Option<TValue>) => void;
     type ArrowRendererHandler = (props: ArrowRendererProps) => HandlerRendererResult;
-    type FilterOptionHandler = (option: Option, filter: string) => Option;
-    type FilterOptionsHandler = (options: Options, filter: string, currentValues: Options) => Options;
+    type FilterOptionHandler<TValue = OptionValues> = (option: Option<TValue>, filter: string) => Option<TValue>;
+    type FilterOptionsHandler<TValue = OptionValues> = (options: Options<TValue>, filter: string, currentValues: Options<TValue>) => Options<TValue>;
     type InputRendererHandler = (props: { [key: string]: any }) => HandlerRendererResult;
-    type MenuRendererHandler = (props: MenuRendererProps) => HandlerRendererResult;
+    type MenuRendererHandler<TValue = OptionValues> = (props: MenuRendererProps<TValue>) => HandlerRendererResult;
     type OnCloseHandler = () => void;
     type OnInputChangeHandler = (inputValue: string) => void;
-    type OnInputKeyDownHandler = React.KeyboardEventHandler<HTMLDivElement>;
+    type OnInputKeyDownHandler = React.KeyboardEventHandler<HTMLDivElement | HTMLInputElement>;
     type OnMenuScrollToBottomHandler = () => void;
     type OnOpenHandler = () => void;
-    type OnFocusHandler = React.FocusEventHandler<HTMLDivElement>;
-    type OnBlurHandler = React.FocusEventHandler<HTMLDivElement>;
-    type OptionRendererHandler = (option: Option) => HandlerRendererResult;
-    type ValueRendererHandler = (option: Option) => HandlerRendererResult;
+    type OnFocusHandler = React.FocusEventHandler<HTMLDivElement | HTMLInputElement>;
+    type OnBlurHandler = React.FocusEventHandler<HTMLDivElement | HTMLInputElement>;
+    type OptionRendererHandler<TValue = OptionValues> = (option: Option<TValue>) => HandlerRendererResult;
+    type ValueRendererHandler<TValue = OptionValues> = (option: Option<TValue>) => HandlerRendererResult;
     type OnValueClickHandler = (value: string, event: React.MouseEvent<HTMLAnchorElement>) => void;
-    type IsOptionUniqueHandler = (arg: { option: Option, options: Options, labelKey: string, valueKey: string }) => boolean;
+    type IsOptionUniqueHandler<TValue = OptionValues> = (arg: { option: Option<TValue>, options: Options<TValue>, labelKey: string, valueKey: string }) => boolean;
     type IsValidNewOptionHandler = (arg: { label: string }) => boolean;
-    type NewOptionCreatorHandler = (arg: { label: string, labelKey: string, valueKey: string }) => Option;
+    type NewOptionCreatorHandler<TValue = OptionValues> = (arg: { label: string, labelKey: string, valueKey: string }) => Option<TValue>;
     type PromptTextCreatorHandler = (filterText: string) => string;
     type ShouldKeyDownEventCreateNewOptionHandler = (arg: { keyCode: number }) => boolean;
 
-    type OnChangeSingleHandler<TValue = OptionValues> = OnChangeHandler<Option<TValue>>;
-    type OnChangeMultipleHandler<TValue = OptionValues> = OnChangeHandler<Options<TValue>>;
-    type OnChangeHandler<TOption = Option | Options> = (newValue: TOption | null) => void;
+    type OnChangeSingleHandler<TValue = OptionValues> = OnChangeHandler<TValue, Option<TValue>>;
+    type OnChangeMultipleHandler<TValue = OptionValues> = OnChangeHandler<TValue, Options<TValue>>;
+    type OnChangeHandler<TValue = OptionValues, TOption = Option<TValue> | Options<TValue>> = (newValue: TOption | null) => void;
+    type OnNewOptionClickHandler<TValue = OptionValues> = (option: Option<TValue>) => void;
 
-    type LoadOptionsHandler = LoadOptionsAsyncHandler | LoadOptionsLegacyHandler;
-    type LoadOptionsAsyncHandler = (input: string) => Promise<AutocompleteResult>;
-    type LoadOptionsLegacyHandler = (input: string, callback: (err: any, result: AutocompleteResult) => void) => void;
+    type LoadOptionsHandler<TValue = OptionValues> = LoadOptionsAsyncHandler<TValue> | LoadOptionsLegacyHandler<TValue>;
+    type LoadOptionsAsyncHandler<TValue = OptionValues> = (input: string) => Promise<AutocompleteResult<TValue>>;
+    type LoadOptionsLegacyHandler<TValue = OptionValues> = (input: string, callback: (err: any, result: AutocompleteResult<TValue>) => void) => void;
 
-    interface AutocompleteResult {
+    interface AutocompleteResult<TValue = OptionValues> {
         /** The search-results to be displayed  */
-        options: Options;
+        options: Options<TValue>;
         /**
          * Should be set to true, if and only if a longer query with the same prefix
          * would return a subset of the results
@@ -82,21 +84,26 @@ declare namespace ReactSelectClass {
          * @default false
          */
         disabled?: boolean;
+        /**
+         * In the event that a custom menuRenderer is provided, Option should be able
+         * to accept arbitrary key-value pairs. See react-virtualized-select.
+         */
+        [property: string]: any;
     }
 
     type OptionValues = string | number | boolean;
 
-    interface MenuRendererProps {
+    interface MenuRendererProps<TValue = OptionValues> {
         /**
          * The currently focused option; should be visible in the menu by default.
          * default {}
          */
-        focusedOption: Option;
+        focusedOption: Option<TValue>;
 
         /**
          * Callback to focus a new option; receives the option as a parameter.
          */
-        focusOption: FocusOptionHandler;
+        focusOption: FocusOptionHandler<TValue>;
 
         /**
          * Option labels are accessible with this string key.
@@ -106,17 +113,17 @@ declare namespace ReactSelectClass {
         /**
          * Ordered array of options to render.
          */
-        options: Options;
+        options: Options<TValue>;
 
         /**
          * Callback to select a new option; receives the option as a parameter.
          */
-        selectValue: SelectValueHandler;
+        selectValue: SelectValueHandler<TValue>;
 
         /**
          * Array of currently selected options.
          */
-        valueArray: Options;
+        valueArray: Options<TValue>;
     }
 
     interface ArrowRendererProps {
@@ -126,7 +133,7 @@ declare namespace ReactSelectClass {
         onMouseDown: React.MouseEventHandler<any>;
     }
 
-    interface ReactSelectProps extends React.Props<ReactSelectClass> {
+    interface ReactSelectProps<TValue = OptionValues> extends React.Props<ReactSelectClass<TValue>> {
         /**
          * text to display when `allowCreate` is true.
          * @default 'Add "{label}"?'
@@ -199,11 +206,11 @@ declare namespace ReactSelectClass {
         /**
          * method to filter a single option
          */
-        filterOption?: FilterOptionHandler;
+        filterOption?: FilterOptionHandler<TValue>;
         /**
          * method to filter the options array
          */
-        filterOptions?: FilterOptionsHandler;
+        filterOptions?: FilterOptionsHandler<TValue>;
         /**
          * whether to strip diacritics when filtering
          * @default true
@@ -266,7 +273,7 @@ declare namespace ReactSelectClass {
         /**
          * renders a custom menu with options
          */
-        menuRenderer?: MenuRendererHandler;
+        menuRenderer?: MenuRendererHandler<TValue>;
         /**
          * optional style to apply to the menu
          */
@@ -297,7 +304,7 @@ declare namespace ReactSelectClass {
         /**
          * onChange handler: function (newValue) {}
          */
-        onChange?: OnChangeHandler;
+        onChange?: OnChangeHandler<TValue>;
         /**
          * fires when the menu is closed
          */
@@ -343,12 +350,12 @@ declare namespace ReactSelectClass {
         /**
          * function which returns a custom way to render the options in the menu
          */
-        optionRenderer?: OptionRendererHandler;
+        optionRenderer?: OptionRendererHandler<TValue>;
         /**
          * array of Select options
          * @default false
          */
-        options?: Options;
+        options?: Options<TValue>;
         /**
          * field placeholder, displayed when there's no value
          * @default "Select..."
@@ -380,7 +387,7 @@ declare namespace ReactSelectClass {
         /**
          * initial field value
          */
-        value?: Option | Options | string | string[] | number | number[] | boolean;
+        value?: Option<TValue> | Options<TValue> | string | string[] | number | number[] | boolean;
         /**
          * the option property to use for the value
          * @default "value"
@@ -390,7 +397,7 @@ declare namespace ReactSelectClass {
          * function which returns a custom way to render the value selected
          * @default false
          */
-        valueRenderer?: ValueRendererHandler;
+        valueRenderer?: ValueRendererHandler<TValue>;
         /**
          *  optional style to apply to the control
          */
@@ -422,12 +429,12 @@ declare namespace ReactSelectClass {
         simpleValue?: boolean;
     }
 
-    interface ReactCreatableSelectProps extends ReactSelectProps {
+    interface ReactCreatableSelectProps<TValue = OptionValues> extends ReactSelectProps<TValue> {
         /**
          * Searches for any matching option within the set of options. This function prevents
          * duplicate options from being created.
          */
-        isOptionUnique?: IsOptionUniqueHandler;
+        isOptionUnique?: IsOptionUniqueHandler<TValue>;
 
         /**
          * Determines if the current input text represents a valid option.
@@ -437,7 +444,7 @@ declare namespace ReactSelectClass {
         /**
          * factory to create new options
          */
-        newOptionCreator?: NewOptionCreatorHandler;
+        newOptionCreator?: NewOptionCreatorHandler<TValue>;
 
         /**
          * Creates prompt/placeholder for option text.
@@ -448,9 +455,14 @@ declare namespace ReactSelectClass {
          * Decides if a keyDown event (eg its 'keyCode') should result in the creation of a new option.
          */
         shouldKeyDownEventCreateNewOption?: ShouldKeyDownEventCreateNewOptionHandler;
+
+        /**
+         * new option click handler: function (option) {}
+         */
+        onNewOptionClick?: OnNewOptionClickHandler<TValue>;
     }
 
-    interface ReactAsyncSelectProps extends ReactSelectProps {
+    interface ReactAsyncSelectProps<TValue = OptionValues> extends ReactSelectProps<TValue> {
         /**
          * Whether to auto-load the default async options set.
          */
@@ -479,7 +491,7 @@ declare namespace ReactSelectClass {
         /**
          *  function to call to load options asynchronously
          */
-        loadOptions: LoadOptionsHandler;
+        loadOptions: LoadOptionsHandler<TValue>;
 
         /**
          *  replaces the placeholder while options are loading
@@ -512,6 +524,6 @@ declare namespace ReactSelectClass {
     }
 }
 
-declare class ReactSelectClass extends React.Component<ReactSelectClass.ReactSelectProps> {
+declare class ReactSelectClass<TValue = ReactSelectClass.OptionValues> extends React.Component<ReactSelectClass.ReactSelectProps<TValue>> {
     focus(): void;
 }
