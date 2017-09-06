@@ -61,6 +61,7 @@ file.message('test', position);
 file.message('test', {
     type: 'ramdom node',
     position,
+    extraValue: 'extra tango',
 });
 // But, it must reject any malformed position
 file.message('test', { start: 'invalid point' }); // $ExpectError
