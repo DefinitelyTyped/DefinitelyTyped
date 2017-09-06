@@ -5,10 +5,10 @@ interface EJSONableCustomType {
     typeName(): string;
 }
 interface EJSONable {
-    [key: string]: number | string | boolean | Object | number[] | string[] | Object[] | Date | Uint8Array | EJSONableCustomType;
+    [key: string]: number | string | boolean | Object | number[] | string[] | Object[] | Date | Uint8Array | EJSONableCustomType | undefined | null;
 }
 interface JSONable {
-    [key: string]: number | string | boolean | Object | number[] | string[] | Object[];
+    [key: string]: number | string | boolean | Object | number[] | string[] | Object[] | undefined | null;
 }
 interface EJSON extends EJSONable { }
 
@@ -44,10 +44,10 @@ declare module "meteor/ejson" {
         typeName(): string;
     }
     interface EJSONable {
-        [key: string]: number | string | boolean | Object | number[] | string[] | Object[] | Date | Uint8Array | EJSONableCustomType;
+        [key: string]: number | string | boolean | Object | number[] | string[] | Object[] | Date | Uint8Array | EJSONableCustomType | undefined | null;
     }
     interface JSONable {
-        [key: string]: number | string | boolean | Object | number[] | string[] | Object[];
+        [key: string]: number | string | boolean | Object | number[] | string[] | Object[] | undefined | null;
     }
     interface EJSON extends EJSONable { }
 
