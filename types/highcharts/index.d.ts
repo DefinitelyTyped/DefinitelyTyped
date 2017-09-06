@@ -4,6 +4,7 @@
 //                 Dan Lewi Harkestad <https://github.com/baltie>
 //                 Albert Ozimek <https://github.com/AlbertOzimek>
 //                 Juliën Hanssens <https://github.com/hanssens>
+//                 Jeremy Attali <https://github.com/jtheoof>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -5369,6 +5370,11 @@ declare namespace Highcharts {
          * @since 2.1
          */
         stack?: any;
+        /**
+         * Set the initial visibility of the series.
+         * @default true
+         */
+        visible?: boolean;
         /**
          * When using dual or multiple x axes, this number defines which xAxis the particular series is connected to. It
          * refers to either the axis id or the index of the axis in the xAxis array, with 0 being the first.
