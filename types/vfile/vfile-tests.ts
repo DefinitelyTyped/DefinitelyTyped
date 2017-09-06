@@ -24,6 +24,9 @@ file.message('`braavo` is misspelt; did you mean `bravo`?', {line: 1, column: 8}
 
 console.log(file.messages);
 
-// Keep typings of custom data
+// Typings of the custom data can be resolved from the parameters above
 const custom: string = file.custom; // 'Custom tango'
 const dataCustom: number = file.data.custom; // 12345
+
+// Original properties must be kept
+const fileWithWrongParams = vfile({ path: 1234 }); // $ExpectError
