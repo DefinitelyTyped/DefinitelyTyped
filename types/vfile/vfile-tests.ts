@@ -28,5 +28,5 @@ console.log(file.messages);
 const custom: string = file.custom; // 'Custom tango'
 const dataCustom: number = file.data.custom; // 12345
 
-// Original properties must be kept
+// Typings of original properties must be kept
 const fileWithWrongParams = vfile({ path: 1234 }); // $ExpectError
