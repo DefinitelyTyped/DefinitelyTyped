@@ -53,7 +53,7 @@ declare namespace vfile {
 
     type Message = (reason: string, position?: StringifiablePosition, ruleId?: string) => VFileError;
 
-    type Fail = (reason?: string, position?: StringifiablePosition, ruleId?: string) => void;
+    type Fail = (reason?: string, position?: StringifiablePosition, ruleId?: string) => never;
 
     type Info = (reason?: string, position?: StringifiablePosition, ruleId?: string) => void;
 
