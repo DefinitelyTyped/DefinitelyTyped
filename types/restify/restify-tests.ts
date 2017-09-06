@@ -1,6 +1,7 @@
 import * as restify from "restify";
 import * as url from "url";
 import * as Logger from "bunyan";
+import * as http from "http";
 
 let server = new restify.Server();
 
@@ -116,6 +117,8 @@ server.name = "";
 server.versions = [""];
 server.acceptable = ["test"];
 server.url = "";
+server.server = new http.Server();
+server.router = new restify.Router({});
 
 server.address().port;
 server.address().family;
