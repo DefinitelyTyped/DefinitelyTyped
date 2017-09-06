@@ -57,9 +57,9 @@ export interface QueryResult {
 }
 
 export interface Notification {
-    processId: number,
-    channel: string,
-    payload?: string
+    processId: number;
+    channel: string;
+    payload?: string;
 }
 
 export interface ResultBuilder extends QueryResult {
@@ -118,6 +118,7 @@ export class Client extends events.EventEmitter {
     on(event: "drain", listener: () => void): this;
     on(event: "error", listener: (err: Error) => void): this;
     on(event: "notification" | "notice", listener: (message: Notification) => void): this;
+    // tslint:disable-next-line unified-signatures
     on(event: "end", listener: () => void): this;
 }
 
