@@ -28,6 +28,7 @@ import * as v8 from "v8";
 import * as dns from "dns";
 import * as async_hooks from "async_hooks";
 import * as http2 from "http2";
+import Module = require("module");
 
 // Specifically test buffer module regression.
 import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer } from "buffer";
@@ -2532,6 +2533,11 @@ namespace repl_tests {
 
         _server = _server.prependOnceListener("exit", () => { });
         _server = _server.prependOnceListener("reset", () => { });
+
+        _server.outputStream.write("test");
+        let line = _server.inputStream.read();
+
+        throw new repl.Recoverable(new Error("test"));
     }
 }
 
@@ -3379,4 +3385,17 @@ namespace http2_tests {
         str = constants.HTTP2_METHOD_UPDATEREDIRECTREF;
         str = constants.HTTP2_METHOD_VERSION_CONTROL;
     }
+}
+
+////////////////////////////////////////////////////
+/// module tests : http://nodejs.org/api/modules.html
+////////////////////////////////////////////////////
+
+namespace module_tests {
+    require.extensions[".ts"] = () => "";
+
+    Module.runMain();
+    Module.wrap("some code");
+
+    const m1 = new Module("moduleId");
 }
