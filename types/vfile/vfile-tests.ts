@@ -42,7 +42,7 @@ const position: Position = {
     }
 };
 // Accept Point
-file.message('test', position);
+file.message('test', startPoint);
 // Accept Position
 file.message('test', position);
 // Accept Node with extra value
