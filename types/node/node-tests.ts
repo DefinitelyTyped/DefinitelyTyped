@@ -28,11 +28,8 @@ import * as v8 from "v8";
 import * as dns from "dns";
 import * as async_hooks from "async_hooks";
 import * as http2 from "http2";
-<<<<<<< HEAD
-import Module = require("module");
-=======
 import * as inspector from "inspector";
->>>>>>> Add tests and various updates
+import Module = require("module");
 
 // Specifically test buffer module regression.
 import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer } from "buffer";
@@ -3391,18 +3388,6 @@ namespace http2_tests {
     }
 }
 
-////////////////////////////////////////////////////
-/// module tests : http://nodejs.org/api/modules.html
-////////////////////////////////////////////////////
-
-namespace module_tests {
-    require.extensions[".ts"] = () => "";
-
-    Module.runMain();
-    Module.wrap("some code");
-
-    const m1 = new Module("moduleId");
-
 ///////////////////////////////////////////////////////////
 /// Inspector Tests                                     ///
 ///////////////////////////////////////////////////////////
@@ -3443,4 +3428,17 @@ namespace inspector_tests {
         });
         session.on('Debugger.resumed', () => {});
     }
+}
+
+////////////////////////////////////////////////////
+/// module tests : http://nodejs.org/api/modules.html
+////////////////////////////////////////////////////
+
+namespace module_tests {
+    require.extensions[".ts"] = () => "";
+
+    Module.runMain();
+    Module.wrap("some code");
+
+    const m1 = new Module("moduleId");
 }
