@@ -1,4 +1,4 @@
-// Type definitions for ej.web.all 15.3.29
+// Type definitions for ej.web.all 15.3
 // Project: http://help.syncfusion.com/js/typescript
 // Definitions by: Syncfusion <https://github.com/syncfusion/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -1923,7 +1923,7 @@ declare namespace ej {
             /** The data source contains the list of data for the suggestions list. It can be a string array or JSON array or service URL that returns JSON.
              * @Default {null}
              */
-            dataSource?: any;
+            dataSource?: any|any[];
 
             /** The time delay (in milliseconds) after which the suggestion popup will be shown.
              * @Default {200}
@@ -2978,7 +2978,7 @@ declare namespace ej {
          * @param {number} The index value to add the given items at the specified index. If index is not specified, the given items will be added at the end of the list.
          * @returns {void}
          */
-        addItem(listItem: any, index: number): void;
+        addItem(listItem: any|string, index: number): void;
 
         /** Checks all the list items in the ListBox widget. It is dependent on showCheckbox property.
          * @returns {void}
@@ -8271,7 +8271,7 @@ declare namespace ej {
          * @param {any|any[]}  this parameter should have field attributes with respect to mapped field attributes and it's corresponding values to fields
          * @returns {void}
          */
-        addItem(data: any): void;
+        addItem(data: any|any[]): void;
 
         /** This method is used to select all the items in the DropDownList.
          * @returns {void}
@@ -8314,7 +8314,7 @@ declare namespace ej {
          * @param {string|number|any}  Return the whole object of data based on given value
          * @returns {any[]}
          */
-        getItemDataByValue(value: any): any[];
+        getItemDataByValue(value: string|number|any): any[];
 
         /** This method is used to retrieve the items that are bound with the DropDownList.
          * @returns {any}
@@ -10076,7 +10076,7 @@ declare namespace ej {
          * @param {string} optionalThis is an optional parameter. You must pass the group list title here if grouping is enabled in the ListView
          * @returns {void}
          */
-        addItem(item: any, index: number, groupid: string): void;
+        addItem(item: string|any, index: number, groupid: string): void;
 
         /** To check all the items.
          * @returns {void}
@@ -11109,27 +11109,27 @@ declare namespace ej {
          * @param {string|any} Selector of target node or Object of target node.
          * @returns {void}
          */
-        insert(item: any, target: any): void;
+        insert(item: any, target: string|any): void;
 
         /** Insert the menu item after the target node.
          * @param {any} Information about Menu item.
          * @param {string|any} Selector of target node or Object of target node.
          * @returns {void}
          */
-        insertAfter(item: any, target: any): void;
+        insertAfter(item: any, target: string|any): void;
 
         /** Insert the menu item before the target node.
          * @param {any} Information about Menu item.
          * @param {string|any} Selector of target node or Object of target node.
          * @returns {void}
          */
-        insertBefore(item: any, target: any): void;
+        insertBefore(item: any, target: string|any): void;
 
         /** Remove Menu item.
          * @param {any|any[]} Selector of target node or Object of target node.
          * @returns {void}
          */
-        remove(target: any): void;
+        remove(target: any|any[]): void;
 
         /** To show the Menu control.
          * @param {number} x co-ordinate position of context menu.
@@ -19662,14 +19662,14 @@ declare namespace ej {
          * @param {string|any} ID of TreeView node/object of TreeView node
          * @returns {void}
          */
-        addNode(newNodeText: any, target: any): void;
+        addNode(newNodeText: string|any, target: string|any): void;
 
         /** To add a collection of nodes in TreeView. If target tree node is specified, then the given nodes are added as child of target tree node, otherwise nodes are added in TreeView.
          * @param {any|any[]} New node details in JSON object
          * @param {string|any} ID of TreeView node/object of TreeView node
          * @returns {void}
          */
-        addNodes(collection: any, target: any): void;
+        addNodes(collection: any|any[], target: string|any): void;
 
         /** To check all the nodes in TreeView.
          * @returns {void}
@@ -19680,7 +19680,7 @@ declare namespace ej {
          * @param {string|any|any[]} ID of TreeView node/object of TreeView node/collection of ID/object of TreeView nodes
          * @returns {void}
          */
-        checkNode(element: any): void;
+        checkNode(element: string|any|any[]): void;
 
         /** This method is used to collapse all nodes in TreeView control. If you want to collapse all nodes up to the specific level in TreeView control then we need to pass levelUntil as
          * argument to this method.
@@ -19694,25 +19694,25 @@ declare namespace ej {
          * @param {string|any|any[]} ID of TreeView node|object of TreeView node/collection of ID/object of TreeView nodes
          * @returns {void}
          */
-        collapseNode(element: any): void;
+        collapseNode(element: string|any|any[]): void;
 
         /** To disable the node in the TreeView.
          * @param {string|any|any[]} ID of TreeView node/object of TreeView node/collection of ID/object of TreeView nodes
          * @returns {void}
          */
-        disableNode(element: any): void;
+        disableNode(element: string|any|any[]): void;
 
         /** To enable the node in the TreeView.
          * @param {string|any|any[]} ID of TreeView node/object of TreeView node/collection of ID/object of TreeView nodes
          * @returns {void}
          */
-        enableNode(element: any): void;
+        enableNode(element: string|any|any[]): void;
 
         /** To ensure that the TreeView node is visible in the TreeView. This method is useful if we need select a TreeView node dynamically.
          * @param {string|any} ID of TreeView node/object of TreeView node
          * @returns {boolean}
          */
-        ensureVisible(element: any): boolean;
+        ensureVisible(element: string|any): boolean;
 
         /** This method is used to expand all nodes in TreeView control. If you want to expand all nodes up to the specific level in TreeView control then we need to pass levelUntil as
          * argument to this method.
@@ -19726,7 +19726,7 @@ declare namespace ej {
          * @param {string|any|any[]} ID of TreeView node/object of TreeView node/collection of ID/object of TreeView nodes
          * @returns {void}
          */
-        expandNode(element: any): void;
+        expandNode(element: string|any|any[]): void;
 
         /** To get currently checked nodes in TreeView.
          * @returns {any}
@@ -19744,7 +19744,7 @@ declare namespace ej {
          * @param {boolean} Weather include nested child nodes of TreeView node
          * @returns {any[]}
          */
-        getChildren(element: any, includeNestedChild?: boolean): any[];
+        getChildren(element: string|any, includeNestedChild?: boolean): any[];
 
         /** To get number of nodes in TreeView.
          * @returns {number}
@@ -19771,19 +19771,19 @@ declare namespace ej {
          * @param {string|any} ID of TreeView node/object of TreeView node
          * @returns {any}
          */
-        getNode(element: any): any;
+        getNode(element: string|any): any;
 
         /** To get current index position of TreeView node.
          * @param {string|any} ID of TreeView node/object of TreeView node
          * @returns {number}
          */
-        getNodeIndex(element: any): number;
+        getNodeIndex(element: string|any): number;
 
         /** To get immediate parent TreeView node of particular TreeView node.
          * @param {string|any} ID of TreeView node/object of TreeView node
          * @returns {any}
          */
-        getParent(element: any): any;
+        getParent(element: string|any): any;
 
         /** To get the currently selected node in TreeView.
          * @returns {any}
@@ -19809,7 +19809,7 @@ declare namespace ej {
          * @param {string|any} ID of TreeView node/object of TreeView node
          * @returns {string}
          */
-        getText(element: any): string;
+        getText(element: string|any): string;
 
         /** To get the updated datasource of TreeView after performing some operation like drag and drop, node editing, adding and removing node.
          * @param {string|number} ID of TreeView node
@@ -19826,7 +19826,7 @@ declare namespace ej {
          * @param {string|any} ID of TreeView node/object of TreeView node
          * @returns {boolean}
          */
-        hasChildNode(element: any): boolean;
+        hasChildNode(element: string|any): boolean;
 
         /** To show nodes in TreeView.
          * @returns {void}
@@ -19837,63 +19837,63 @@ declare namespace ej {
          * @param {string|any|any[]} ID of TreeView node/object of TreeView node/collection of ID/object of TreeView nodes
          * @returns {void}
          */
-        hideNode(element: any): void;
+        hideNode(element: string|any|any[]): void;
 
         /** To add a Node or collection of nodes after the particular TreeView node.
          * @param {string|any} New node text or JSON object
          * @param {string|any} ID of TreeView node/object of TreeView node
          * @returns {void}
          */
-        insertAfter(newNodeText: any, target: any): void;
+        insertAfter(newNodeText: string|any, target: string|any): void;
 
         /** To add a Node or collection of nodes before the particular TreeView node.
          * @param {string|any} New node text or JSON object
          * @param {string|any} ID of TreeView node/object of TreeView node
          * @returns {void}
          */
-        insertBefore(newNodeText: any, target: any): void;
+        insertBefore(newNodeText: string|any, target: string|any): void;
 
         /** To check the given TreeView node is checked or unchecked.
          * @param {string|any} ID of TreeView node/object of TreeView node
          * @returns {boolean}
          */
-        isNodeChecked(element: any): boolean;
+        isNodeChecked(element: string|any): boolean;
 
         /** To check whether the child nodes are loaded of the given TreeView node.
          * @param {string|any} ID of TreeView node/object of TreeView node
          * @returns {boolean}
          */
-        isChildLoaded(element: any): boolean;
+        isChildLoaded(element: string|any): boolean;
 
         /** To check the given TreeView node is disabled or enabled.
          * @param {string|any} ID of TreeView node/object of TreeView node
          * @returns {boolean}
          */
-        isDisabled(element: any): boolean;
+        isDisabled(element: string|any): boolean;
 
         /** To check the given node is exist in TreeView.
          * @param {string|any} ID of TreeView node/object of TreeView node
          * @returns {boolean}
          */
-        isExist(element: any): boolean;
+        isExist(element: string|any): boolean;
 
         /** To get the expand status of the given TreeView node.
          * @param {string|any} ID of TreeView node/object of TreeView node
          * @returns {boolean}
          */
-        isExpanded(element: any): boolean;
+        isExpanded(element: string|any): boolean;
 
         /** To get the select status of the given TreeView node.
          * @param {string|any} ID of TreeView node/object of TreeView node
          * @returns {boolean}
          */
-        isSelected(element: any): boolean;
+        isSelected(element: string|any): boolean;
 
         /** To get the visibility status of the given TreeView node.
          * @param {string|any} ID of TreeView node/object of TreeView node
          * @returns {boolean}
          */
-        isVisible(element: any): boolean;
+        isVisible(element: string|any): boolean;
 
         /** To load the TreeView nodes from the particular URL. If target tree node is specified, then the given nodes are added as child of target tree node, otherwise nodes are added in
          * TreeView.
@@ -19901,7 +19901,7 @@ declare namespace ej {
          * @param {string|any} ID of TreeView node/object of TreeView node
          * @returns {void}
          */
-        loadData(URL: string, target: any): void;
+        loadData(URL: string, target: string|any): void;
 
         /** To move the TreeView node with in same TreeView. The new position of given TreeView node will be based on destination node and index position.
          * @param {string|any} ID of TreeView node/object of TreeView node
@@ -19909,7 +19909,7 @@ declare namespace ej {
          * @param {number} New index position of given source node
          * @returns {void}
          */
-        moveNode(sourceNode: any, destinationNode: any, index: number): void;
+        moveNode(sourceNode: string|any, destinationNode: string|any, index: number): void;
 
         /** To refresh the TreeView
          * @returns {void}
@@ -19925,7 +19925,7 @@ declare namespace ej {
          * @param {string|any|any[]} ID of TreeView node/object of TreeView node/collection of ID/object of TreeView nodes
          * @returns {void}
          */
-        removeNode(element: any): void;
+        removeNode(element: string|any|any[]): void;
 
         /** To select all the TreeView nodes when enable allowMultiSelection property.
          * @returns {void}
@@ -19936,7 +19936,7 @@ declare namespace ej {
          * @param {string|any|any[]} ID of TreeView node/object of TreeView node/ collection of ID/object of TreeView nodes
          * @returns {void}
          */
-        selectNode(element: any): void;
+        selectNode(element: string|any|any[]): void;
 
         /** To show nodes in TreeView.
          * @returns {void}
@@ -19947,7 +19947,7 @@ declare namespace ej {
          * @param {string|any|any[]} ID of TreeView node/object of TreeView node/collection of ID/object of TreeView nodes
          * @returns {void}
          */
-        showNode(element: any): void;
+        showNode(element: string|any|any[]): void;
 
         /** To uncheck all the nodes in TreeView.
          * @returns {void}
@@ -19958,7 +19958,7 @@ declare namespace ej {
          * @param {string|any|any[]} ID of TreeView node/object of TreeView node/collection of ID/object of TreeView nodes
          * @returns {void}
          */
-        uncheckNode(element: any): void;
+        uncheckNode(element: string|any|any[]): void;
 
         /** To unselect all the TreeView nodes when enable allowMultiSelection property.
          * @returns {void}
@@ -19969,14 +19969,14 @@ declare namespace ej {
          * @param {string|any|any[]} ID of TreeView node/object of TreeView node/ collection of ID/object of TreeView nodes
          * @returns {void}
          */
-        unselectNode(element: any): void;
+        unselectNode(element: string|any|any[]): void;
 
         /** To edit or update the text of the TreeView node.
          * @param {string|any} ID of TreeView node/object of TreeView node
          * @param {string} New text
          * @returns {void}
          */
-        updateText(target: any, newText: string): void;
+        updateText(target: string|any, newText: string): void;
     }
     export namespace TreeView {
 
@@ -20271,7 +20271,7 @@ declare namespace ej {
 
             /** returns the given new node data
              */
-            data?: any;
+            data?: string|any;
 
             /** returns the parent element, the given new nodes to be appended to the given parent element
              */
@@ -32038,7 +32038,7 @@ declare namespace ej {
          * @param {string|any} GUID value of an appointment element or an appointment object
          * @returns {void}
          */
-        deleteAppointment(data: any): void;
+        deleteAppointment(data: string|any): void;
 
         /** Destroys the Schedule widget. All the events bound using this._on are unbound automatically and the control is moved to pre-init state.
          * @returns {void}
@@ -32101,7 +32101,7 @@ declare namespace ej {
          * @param {boolean} Defines the ignoreCase value for performing the search operation.
          * @returns {any[]}
          */
-        searchAppointments(searchString: any, field: string, operator: ej.FilterOperators|string, ignoreCase: boolean): any[];
+        searchAppointments(searchString: any|string, field: string, operator: ej.FilterOperators|string, ignoreCase: boolean): any[];
 
         /** Refreshes the entire Schedule control.
          * @returns {void}
@@ -33307,7 +33307,7 @@ declare namespace ej {
             /** The dataSource option accepts either JSON object collection or DataManager (ej.DataManager) instance that contains Schedule appointments.
              * @Default {[]}
              */
-            dataSource?: any;
+            dataSource?: any|any[];
 
             /** It holds either the ej.Query() object or simply the query string that retrieves the specified records from the table.
              * @Default {null}
@@ -33416,7 +33416,7 @@ declare namespace ej {
 
             /** The dataSource option accepts either the JSON object collection or DataManager [ej.DataManager] instance that contains the categorize data.
              */
-            dataSource?: any;
+            dataSource?: any[]|any;
 
             /** Binds id field name in the dataSource to id of category data.
              * @Default {id}
@@ -33498,7 +33498,7 @@ declare namespace ej {
             /** The dataSource option can accept the JSON object collection that contains the priority related data.
              * @Default {{% highlight js%}[{ text: None, value: none },{ text: High, value: high },{ text: Medium, value: medium },{ text: Low, value: low }]{% endhighlight %}}
              */
-            dataSource?: any;
+            dataSource?: any|any[];
 
             /** Binds text field name in the dataSource to prioritySettings text. These text gets listed out in priority field of the appointment window.
              * @Default {text}
@@ -33547,7 +33547,7 @@ declare namespace ej {
             /** The dataSource option accepts either JSON object collection or DataManager (ejDataManager) instance that contains the resources related data.
              * @Default {[]}
              */
-            dataSource?: any;
+            dataSource?: any|any[];
 
             /** Binds text field name in the dataSource to resourceSettings text. These text gets listed out in resources field of the appointment window.
              * @Default {null}
@@ -33717,7 +33717,7 @@ declare namespace ej {
             /** The dataSource option accepts either JSON object collection or DataManager (ej.DataManager) instance that contains Schedule block intervals.
              * @Default {[]}
              */
-            dataSource?: any;
+            dataSource?: any|any[];
 
             /** It holds either the ej.Query() object or simply the query string that retrieves the specified records from the table.
              * @Default {null}
@@ -40561,7 +40561,7 @@ declare namespace ej {
          * @param {any[]|any} Pass the row index and height of the rows.
          * @returns {void}
          */
-        setHeightToRows(heightColl: any): void;
+        setHeightToRows(heightColl: any[]|any): void;
 
         /** This method is used to set the hyperlink in selected cells of the current sheet.
          * @param {string|any[]} If range is specified, it will set the hyperlink in range of the cells.
@@ -40586,7 +40586,7 @@ declare namespace ej {
          * @param {any[]|any} Pass the column index and width of the columns.
          * @returns {void}
          */
-        setWidthToColumns(widthColl: any): void;
+        setWidthToColumns(widthColl: any[]|any): void;
 
         /** This method is used to rename the active sheet.
          * @param {string} Pass the sheet name that you want to change the current active sheet name.
@@ -40975,7 +40975,7 @@ declare namespace ej {
              * @param {any|any[]} Pass the destination range to drop the dragged cells.
              * @returns {void}
              */
-            moveRangeTo(sourceRange: any, destinationRange: any): void;
+            moveRangeTo(sourceRange: any|any[], destinationRange: any|any[]): void;
         }
 
         export interface XLDragFill {
@@ -41028,7 +41028,7 @@ declare namespace ej {
              * @param {number} Optional. Pass the index of the sheet.
              * @returns {any|string|any[]}
              */
-            getPropertyValue(rowIdx: number, colIdx: number, prop: string, sheetIdx: number): any;
+            getPropertyValue(rowIdx: number, colIdx: number, prop: string, sheetIdx: number): any|string|any[];
 
             /** This method is used to get the property value in specified cell in Spreadsheet.
              * @param {HTMLElement} Pass the cell element to get property value.
@@ -41038,7 +41038,7 @@ declare namespace ej {
              * @param {number} Pass the index of sheet.
              * @returns {any|string|any[]}
              */
-            getPropertyValueByElem(elem: HTMLElement, property: string, sheetIdx: number): any;
+            getPropertyValueByElem(elem: HTMLElement, property: string, sheetIdx: number): any|string|any[];
 
             /** This method is used to save the edited cell value in the Spreadsheet.
              * @returns {void}
@@ -42056,7 +42056,7 @@ declare namespace ej {
 
             /** Returns the applied cell format object.
              */
-            selectedCell?: any;
+            selectedCell?: any[]|any;
 
             /** Returns the sheet index.
              */
