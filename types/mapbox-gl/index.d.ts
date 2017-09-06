@@ -396,11 +396,15 @@ declare namespace mapboxgl {
 		maximumAge?: number;
 	}
 
+	export class FitBoundsOption {
+		maxZoom?: number;
+	}
+
 	/**
 	 * Geolocate
 	 */
 	export class GeolocateControl extends Control {
-		constructor(options?: {positionOptions?: PositionOptions, watchPosition?: boolean});
+		constructor(options?: {positionOptions?: PositionOptions, fitBoundsOptions?: FitBoundsOption, trackUserLocation?: boolean, showUserLocation?: boolean });
 	}
 
 	/**
