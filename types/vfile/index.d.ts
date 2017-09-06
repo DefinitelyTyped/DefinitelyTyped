@@ -40,11 +40,11 @@ declare namespace vfile {
         fatal?: boolean | null;
     }
 
-    type Message = (reason: string, position?: Position, ruleId?: string) => VFileError;
+    type Message = (reason: string, position?: Point | Position, ruleId?: string) => VFileError;
 
-    type Fail = (reason?: string, position?: Position, ruleId?: string) => void;
+    type Fail = (reason?: string, position?: Point | Position, ruleId?: string) => void;
 
-    type Info = (reason?: string, position?: Position, ruleId?: string) => void;
+    type Info = (reason?: string, position?: Point | Position, ruleId?: string) => void;
 
     type ToString = (encoding?: BufferEncoding) => string;
 
