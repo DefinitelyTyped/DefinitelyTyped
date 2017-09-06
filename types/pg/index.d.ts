@@ -135,3 +135,7 @@ export class Events extends events.EventEmitter {
 export const types: typeof pgTypes;
 
 export const defaults: Defaults & ClientConfig;
+
+import * as Pg from 'pg';
+
+export const native: typeof Pg | null;
