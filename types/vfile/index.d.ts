@@ -24,7 +24,8 @@ declare namespace vfile {
         position?: Position;
     }
 
-    interface VFileParams {
+    interface VFileParamsBase<D> {
+        data?: D;
         contents?: Contents;
         path?: string;
         basename?: string;
@@ -33,6 +34,8 @@ declare namespace vfile {
         dirname?: string;
         cwd?: string;
     }
+
+    type VFileParams<C, D> = VFileParamsBase<D> & C;
 
     interface VFileError {
         ruleId: string | null;
@@ -56,13 +59,13 @@ declare namespace vfile {
 
     type ToString = (encoding?: BufferEncoding) => string;
 
-    interface VFile {
-        (input?: Contents | VFile | VFileParams): VFile;
+    interface VFileBase<C, D> {
+        <C>(input?: Contents | VFile<C, D> | VFileParams<C, D>): VFile<C, D>;
         message: Message;
         fail: Fail;
         info: Info;
         history: string[];
-        data: {};
+        data: D;
         messages: VFileError[];
         contents: Contents;
         path?: string;
@@ -73,8 +76,10 @@ declare namespace vfile {
         cwd: string;
         toString: ToString;
     }
+
+    type VFile<C, D> = VFileBase<C, D> & C;
 }
 
-declare const vfile: vfile.VFile;
+declare const vfile: vfile.VFile<{}, {}>;
 
 export = vfile;
