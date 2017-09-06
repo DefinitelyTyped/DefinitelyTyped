@@ -1,11 +1,11 @@
 import * as schema from "./devtools-protocol-schema";
 import { createListeners } from "./event-emitter";
-import { cap, createDocs, flattenArgs, hasElements, isObjectReference, resolveReference } from "./utils";
+import { capitalize, createDocs, flattenArgs, hasElements, isObjectReference, resolveReference } from "./utils";
 
-const INDENT = "        ";
+const INDENT = "    ";
 
 // Converts DevTools type to TS type
-const createTypeString = (type: schema.Field | schema.ObjectReference, domain?: string) => {
+const createTypeString = (type: schema.Field, domain?: string): string => {
     return isObjectReference(type) ? resolveReference(type.$ref, domain) :
         type.type === "any"                    ? "any" :
         type.type === "integer"            ? "number" :
@@ -30,7 +30,7 @@ const createFieldsForInterface = (fields: schema.Parameter[] | null, domain: str
 };
 
 // Create an interface or type definition (the latter if the given type isn't an object)
-const createTypeDefinition = (type, domain): string[] => {
+const createTypeDefinition = (type: schema.Type, domain: string): string[] => {
     return [
         ...createDocs(type),
         ...(type.type === "object" ? [
@@ -45,8 +45,8 @@ const createTypeDefinition = (type, domain): string[] => {
 // Helper for for createPostFunctions -- returns the type of a callback
 const createCallbackString = (commandName: string, returns: schema.Parameter[], domain: string): string => {
     return hasElements(returns) ?
-        `(err: Error, params: ${domain}.${cap(commandName)}ReturnType) => void` :
-        `(err: Error) => void`;
+        `(err: Error | null, params: ${domain}.${capitalize(commandName)}ReturnType) => void` :
+        `(err: Error | null) => void`;
 };
 
 // Create declarations for overloads of Session#post
@@ -58,7 +58,7 @@ const createPostFunctions = (command: schema.Command, domain: string): string[] 
         result.push([
             `${fnName}(`,
             `method: "${domain}.${command.name}", `,
-            `params?: ${domain}.${cap(command.name)}ParameterType, `,
+            `params?: ${domain}.${capitalize(command.name)}ParameterType, `,
             `callback?: ${callbackStr}`,
             "): void;",
         ].join(""));
@@ -78,8 +78,6 @@ const createPostFunctions = (command: schema.Command, domain: string): string[] 
  * @param protocol The parsed contents of the JSON file from which the DevTools Protocol docs are generated.
  */
 export const generateSubstituteArgs = (protocol: schema.Schema): { [propName: string]: string[] } => {
-    const referenceMain = ['/// <reference path="./index.d.ts" />'];
-
     const interfaceDefinitions: string[] = protocol.domains
         .map(item => {
             const typePool = (item.types || []).concat([
@@ -87,7 +85,7 @@ export const generateSubstituteArgs = (protocol: schema.Schema): { [propName: st
                     let result: schema.Type = null;
                     if (hasElements(command.parameters)) {
                         result = {
-                            id: `${cap(command.name)}ParameterType`,
+                            id: `${capitalize(command.name)}ParameterType`,
                             type: "object",
                             properties: command.parameters,
                         };
@@ -98,7 +96,7 @@ export const generateSubstituteArgs = (protocol: schema.Schema): { [propName: st
                     let result: schema.Type = null;
                     if (hasElements(command.returns)) {
                         result = {
-                            id: `${cap(command.name)}ReturnType`,
+                            id: `${capitalize(command.name)}ReturnType`,
                             type: "object",
                             properties: command.returns,
                         };
@@ -109,7 +107,7 @@ export const generateSubstituteArgs = (protocol: schema.Schema): { [propName: st
                     let result: schema.Type = null;
                     if (hasElements(event.parameters)) {
                         result = {
-                            id: `${cap(event.name)}EventDataType`,
+                            id: `${capitalize(event.name)}EventDataType`,
                             type: "object",
                             properties: event.parameters,
                         };
@@ -144,7 +142,7 @@ export const generateSubstituteArgs = (protocol: schema.Schema): { [propName: st
                     name: `${item.domain}.${event.name}`,
                     args: hasElements(event.parameters) ? [{
                         name: "message",
-                        type: `InspectorNotification<${item.domain}.${cap(event.name)}EventDataType>`,
+                        type: `InspectorNotification<${item.domain}.${capitalize(event.name)}EventDataType>`,
                     }] : [],
                 }));
         })
@@ -159,7 +157,6 @@ export const generateSubstituteArgs = (protocol: schema.Schema): { [propName: st
         }]));
 
     return {
-        referenceMain,
         interfaceDefinitions,
         postOverloads,
         eventOverloads,

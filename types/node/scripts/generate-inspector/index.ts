@@ -29,8 +29,8 @@ function writeProtocolToFile(json: string) {
 }
 
 https.get(PROTOCOL_URL, res => {
-    const frames = [];
-    res.on("data", data => {
+    const frames: Buffer[] = [];
+    res.on("data", (data: Buffer) => {
         frames.push(data);
     });
     res.on("end", () => {

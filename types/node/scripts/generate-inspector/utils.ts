@@ -1,15 +1,15 @@
 // Utility functions
 
-import { Documentable, ObjectReference } from "./devtools-protocol-schema";
+import { Documentable, Field, ObjectReference } from "./devtools-protocol-schema";
 
 /**
  * Returns a function suitable for Array#reduce that flattens an array of
  * arrays.
  * @param inBetween A value to insert between groups of flattened values
  */
-export const flattenArgs = (inBetween?) => {
+export function flattenArgs<T = string>(inBetween?: T) {
     if (inBetween != null) {
-        return (acc, next) => {
+        return (acc: T[], next: T[]) => {
             if (acc.length > 0) {
                 return acc.concat([inBetween], next);
             } else {
@@ -17,9 +17,9 @@ export const flattenArgs = (inBetween?) => {
             }
         };
     } else {
-        return (acc, next) => acc.concat(next);
+        return (acc: T[], next: T[]) => acc.concat(next);
     }
-};
+}
 
 /**
  * Returns whether an array exists and has elements.
@@ -31,13 +31,13 @@ export const hasElements = (a: any[]): boolean => a && a.length > 0;
  * Returns the capitalized form of a given string.
  * @param s The string to capitalize
  */
-export const cap = (s: string): string => s.charAt(0).toUpperCase() + s.slice(1);
+export const capitalize = (s: string): string => s.charAt(0).toUpperCase() + s.slice(1);
 
 /**
  * Returns whether a given object is an ObjectReference.
  * @param t An object whose type should be checked
  */
-export function isObjectReference(t): t is ObjectReference {
+export function isObjectReference(t: Field): t is ObjectReference {
     return "$ref" in t;
 }
 

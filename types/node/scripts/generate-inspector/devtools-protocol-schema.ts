@@ -1,7 +1,5 @@
-// This file describes the known structure of the JSON data files that back the
-// Chrome DevTools Protocol Docs, as in the below link.
-// https://github.com/ChromeDevTools/devtools-protocol/tree/master/json
-// This file is up-to-date as of r496688.
+// This file reflects the known structure of the JSON data file that describes the v8 inspector protocol.
+// https://github.com/nodejs/node/blob/master/deps/v8/src/inspector/js_protocol.json
 
 export interface Documentable {
     description?: string;
