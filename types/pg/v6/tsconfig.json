@@ -4,14 +4,16 @@
         "lib": [
             "es6"
         ],
-        "target": "es6",
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": true,
-        "baseUrl": "../",
+        "strictNullChecks": false,
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
+        "paths": {
+            "pg": [ "pg/v6" ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
