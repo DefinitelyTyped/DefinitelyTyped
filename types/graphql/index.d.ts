@@ -29,6 +29,7 @@ export {
     defaultFieldResolver,
     responsePathAsArray,
     getDirectiveValues,
+    ExecutionArgs,
     ExecutionResult,
 } from './execution';
 
