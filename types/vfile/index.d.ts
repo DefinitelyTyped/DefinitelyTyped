@@ -8,14 +8,14 @@
 declare namespace vfile {
     type Contents = string | Buffer;
 
-    interface Position {
+    interface Point {
         line: number;
         column: number;
     }
 
-    interface Location {
-        start: Position;
-        end: Position;
+    interface Position {
+        start: Point;
+        end: Point;
     }
 
     interface VFileParams {
@@ -29,15 +29,15 @@ declare namespace vfile {
     }
 
     interface VFileError {
-        ruleId: string;
+        ruleId: string | null;
         name: string;
         file: string;
         reason: string;
-        line: number;
-        column: number;
-        location: Location;
-        source: string;
-        fatal: boolean;
+        line: number | null;
+        column: number | null;
+        location: Position;
+        source: string | null;
+        fatal?: boolean | null;
     }
 
     type Message = (reason: string, position?: Position, ruleId?: string) => VFileError;
@@ -56,12 +56,12 @@ declare namespace vfile {
         history: string[];
         data: {};
         messages: VFileError[];
-        contents: string;
-        path: string;
-        dirname: string;
-        basename: string;
-        stem: string;
-        extname: string;
+        contents: Contents;
+        path?: string;
+        dirname?: string;
+        basename?: string;
+        stem?: string;
+        extname?: string;
         cwd: string;
         toString: ToString;
     }
