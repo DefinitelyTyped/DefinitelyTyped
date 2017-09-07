@@ -105,7 +105,7 @@ declare namespace vfile {
         /**
          * @param options If `options` is `string` or `Buffer`, treats it as `{contents: options}`. If `options` is a `VFile`, returns it. All other options are set on the newly created `vfile`.
          */
-        (input?: Contents): VFile<{}>;
+        (input?: Contents): VFile<C>;
         <C>(input?: VFile<C> | VFileParams<C>): VFile<C>;
         message: Message;
         fail: Fail;
