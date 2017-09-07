@@ -14,6 +14,5 @@ declare namespace Picturefill {
 
 declare function picturefill(arg?: Picturefill.EvaluateArg): void;
 
-declare module 'picturefill' {
-  export = picturefill;
-}
+export = picturefill;
+export as namespace picturefill;
