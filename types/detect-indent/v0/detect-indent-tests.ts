@@ -1,6 +1,6 @@
 import di = require('detect-indent');
 
-let str: string = '';
+let str = '';
 
 str = di(str);
 str = di(str, str);

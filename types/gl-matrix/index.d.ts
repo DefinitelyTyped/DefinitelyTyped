@@ -2,6 +2,7 @@
 // Project: https://github.com/toji/gl-matrix
 // Definitions by: Mattijs Kneppers <https://github.com/mattijskneppers>, based on definitions by Tat <https://github.com/tatchx>
 //                 Nikolay Babanov <https://github.com/nbabanov>
+//                 Austin Martin <https://github.com/auzmartist>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module 'gl-matrix' {
@@ -2488,6 +2489,17 @@ declare module 'gl-matrix' {
          * @return {vec3} out
          */
         public static getTranslation(out: vec3, mat: mat4): vec3;
+
+        /**
+         * Returns the scaling factor component of a transformation matrix. 
+         * If a matrix is built with fromRotationTranslationScale with a 
+         * normalized Quaternion parameter, the returned vector will be 
+         * the same as the scaling vector originally supplied.
+         * @param {vec3} out Vector to receive scaling factor component
+         * @param {mat4} mat Matrix to be decomposed (input)
+         * @return {vec3} out
+         */
+        public static getScaling(out: vec3, mat: mat4): vec3;
 
         /**
          * Returns a quaternion representing the rotational component

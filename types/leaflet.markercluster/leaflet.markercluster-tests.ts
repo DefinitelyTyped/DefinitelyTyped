@@ -1,4 +1,5 @@
-import L = require("leaflet.markercluster");
+import * as L from 'leaflet';
+import 'leaflet.markercluster';
 
 const polylineOptions: L.PolylineOptions = {};
 const icon: L.Icon = L.icon({ iconUrl: 'foo' });

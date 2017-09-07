@@ -5527,7 +5527,7 @@ namespace TestSome {
         result = _.some<SampleObject>(list, {a: 42});
 
         result = _.some<SampleObject>(dictionary);
-        result = _.some<SampleObject>(numericDictionary, dictionaryIterator);
+        result = _.some<SampleObject>(numericDictionary, numericDictionaryIterator);
         result = _.some<SampleObject>(dictionary, (value, key, collection) => {
             value.a--;
             key.substr(0);
@@ -6539,7 +6539,7 @@ namespace TestOnce {
     }
 }
 
-const greetPartial = (greeting: string, name: string) => greeting + ' ' + name;
+const greetPartial = (greeting: string, name: string) => `${greeting} ${name}`;
 const hi = _.partial(greetPartial, 'hi');
 hi('moe');
 

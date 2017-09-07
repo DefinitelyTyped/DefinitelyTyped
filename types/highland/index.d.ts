@@ -1,7 +1,7 @@
 // Type definitions for Highland 2.10.5
 // Project: http://highlandjs.org/
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds/>
-//                 Hugo Wood <https://github.com/hgwood/>
+// Definitions by: Bart van der Schoor <https://github.com/Bartvds>
+//                 Hugo Wood <https://github.com/hgwood>
 //                 William Yu <https://github.com/iwllyu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 

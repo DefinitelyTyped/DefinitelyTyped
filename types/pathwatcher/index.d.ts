@@ -1,6 +1,6 @@
 // Type definitions for pathwatcher
 // Project: https://github.com/atom/node-pathwatcher
-// Definitions by: vvakame <https://github.com/vvakame/>
+// Definitions by: vvakame <https://github.com/vvakame>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />

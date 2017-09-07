@@ -3,6 +3,7 @@
     "rules": {
         // TODOs
         "no-boolean-literal-compare": false,
-        "no-empty-interface": false
+        "no-empty-interface": false,
+        "no-void-expression": false
     }
 }

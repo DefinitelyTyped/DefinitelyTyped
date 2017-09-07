@@ -5,11 +5,6 @@
 
 export as namespace Prism;
 
-/**
- * @deprecated Use the Prism namespace directly directly
- */
-export as namespace PrismJS;
-
 export const util: Util;
 export const languages: Languages;
 export const plugins: any;

@@ -134,10 +134,12 @@ ReduxActions.handleAction(act3, (state, action) => {
     return { hello: action.payload.s };
 }, {hello: 'greetings'});
 
-ReduxActions.handleAction(ReduxActions.combineActions(act1, act3, act2), (state, action) => {}, 0);
+ReduxActions.handleAction(ReduxActions.combineActions(act1, act3, act2), (state, action) => state + 1, 0);
 
 ReduxActions.handleActions({
-    [ReduxActions.combineActions(act1, act3, act2)](state, action) {}
+    [ReduxActions.combineActions(act1, act3, act2)](state, action) {
+        return state + 1;
+    }
 }, 0);
 
 /* can't do this until it lands in 2.2, HKTs
