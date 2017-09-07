@@ -9,12 +9,12 @@ declare function UpdateNotifier(settings?: UpdateNotifier.Settings): UpdateNotif
 
 declare namespace UpdateNotifier {
     class UpdateNotifier {
-        constructor(settings?: UpdateNotifier.Settings);
+        constructor(settings?: Settings);
 
-        update: UpdateNotifier.UpdateInfo;
+        update: UpdateInfo;
         check(): void;
         checkNpm(): void;
-        notify(customMessage?: UpdateNotifier.NotifyOptions): void;
+        notify(customMessage?: NotifyOptions): void;
     }
 
     interface Settings {

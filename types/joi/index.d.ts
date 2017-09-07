@@ -551,6 +551,11 @@ export interface StringSchema extends AnySchema {
      * Requires the string value to be a valid GUID.
      */
     guid(options?: GuidOptions): this;
+    
+    /**
+     * Alias for `guid` -- Requires the string value to be a valid GUID
+     */
+    uuid(options?: GuidOptions): this;
 
     /**
      * Requires the string value to be a valid hexadecimal string.

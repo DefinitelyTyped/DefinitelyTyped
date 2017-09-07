@@ -2,10 +2,11 @@
 // Project: https://github.com/Leaflet/Leaflet.draw
 // Definitions by: Matt Guest <https://github.com/matt-guest>, Ryan Blace <https://github.com/reblace>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
-/// <reference types="leaflet" />
+import * as L from 'leaflet';
 
-declare namespace L {
+declare module 'leaflet' {
 	interface MapOptions {
 		drawControl?: boolean;
 	}

@@ -1,6 +1,6 @@
 // Type definitions for electron-packager 8.7
 // Project: https://github.com/electron-userland/electron-packager
-// Definitions by: Maxime LUCE <https://github.com/SomaticIT/>
+// Definitions by: Maxime LUCE <https://github.com/SomaticIT>
 //                 Juan Jimenez-Anca <https://github.com/cortopy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 

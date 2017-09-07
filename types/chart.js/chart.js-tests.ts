@@ -6,7 +6,7 @@ import { Chart, ChartData } from 'chart.js';
 
 const chart: Chart = new Chart(new CanvasRenderingContext2D(), {
     type: 'bar',
-    data: <ChartData> {
+    data: {
         labels: ['group 1'],
         datasets: [
             {

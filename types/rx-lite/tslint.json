@@ -2,6 +2,7 @@
     "extends": "dtslint/dt.json",
     "rules": {
         // TODOs
+        "dt-header": false,
         "unified-signatures": false,
         "no-empty-interface": false,
         "ban-types": false,
@@ -9,6 +10,7 @@
         "array-type": false,
         "max-line-length": false,
         "no-mergeable-namespace": false,
-        "no-single-declare-module": false
+        "no-single-declare-module": false,
+        "no-unnecessary-generics": false
     }
 }

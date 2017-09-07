@@ -798,8 +798,8 @@ declare namespace Draft {
                 "undo"
             )
 
-            interface BlockMapBuilder {
-                createFromArray(blocks: Array<ContentBlock>): BlockMap;
+            class BlockMapBuilder {
+                static createFromArray(blocks: Array<ContentBlock>): BlockMap;
             }
 
             const DefaultDraftBlockRenderMap: Immutable.Map<any, any>;

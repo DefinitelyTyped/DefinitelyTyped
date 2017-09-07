@@ -1,7 +1,7 @@
 // Type definitions for Recharts 0.22
 // Project: http://recharts.org/
-// Definitions by: Maarten Mulders <https://github.com/mthmulders/>
-//                 Raphael Mueller <https://github.com/rapmue/>
+// Definitions by: Maarten Mulders <https://github.com/mthmulders>
+//                 Raphael Mueller <https://github.com/rapmue>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 

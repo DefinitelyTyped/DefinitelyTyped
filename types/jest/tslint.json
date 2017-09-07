@@ -1,7 +1,10 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
-        // TODO
-        "no-mergeable-namespace": false
+        // TODOs
+        "dt-header": false,
+        "no-mergeable-namespace": false,
+        "no-void-expression": false,
+        "no-unnecessary-generics": false
     }
 }

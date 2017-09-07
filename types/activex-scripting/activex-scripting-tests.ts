@@ -40,9 +40,9 @@ function showFileAttributes(file: Scripting.File) {
 function showFreeSpace(drvPath: string) {
     const fso = new ActiveXObject('Scripting.FileSystemObject');
     const d = fso.GetDrive(fso.GetDriveName(drvPath));
-    let s = 'Drive ' + drvPath + ' - ';
+    let s = `Drive ${drvPath} - `;
     s += d.VolumeName + '<br>';
-    s += 'Free Space: ' + d.FreeSpace / 1024 + ' Kbytes';
+    s += `Free Space: ${d.FreeSpace / 1024} Kbytes`;
     return (s);
 }
 

@@ -59,10 +59,9 @@ function MainController($resource: ng.resource.IResourceService): void {
     });
 }
 
-import IHttpPromiseCallbackArg = angular.IHttpPromiseCallbackArg;
+import IHttpResponse = angular.IHttpResponse;
 
 interface IMyData {}
-interface IMyHttpPromiseCallbackArg extends IHttpPromiseCallbackArg<IMyData> {}
 interface IMyResource extends angular.resource.IResource<IMyResource> {}
 interface IMyResourceClass extends angular.resource.IResourceClass<IMyResource> {}
 
@@ -87,7 +86,7 @@ angular.injector(['ng']).invoke(function ($cacheFactory: angular.ICacheFactorySe
     actionDescriptor.withCredentials = true;
     actionDescriptor.responseType = 'response type';
     actionDescriptor.interceptor = {
-        response() { return {} as IMyHttpPromiseCallbackArg; },
+        response() { return {} as IHttpResponse<IMyData>; },
         responseError() {}
     };
     actionDescriptor.cancellable = true;
