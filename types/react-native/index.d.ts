@@ -651,6 +651,14 @@ type GeolocationReturnType = {
     timestamp: number
 }
 
+type GeolocationError = {
+    code: number;
+    message: string;
+    PERMISSION_DENIED: number;
+    POSITION_UNAVAILABLE: number;
+    TIMEOUT: number;
+}
+
 interface PerpectiveTransform {
     perspective: number;
 }
@@ -8379,13 +8387,13 @@ export interface GeolocationStatic {
      * On Android, this can return almost immediately if the location is cached or
      * request an update, which might take a while.
      */
-    getCurrentPosition(geo_success: (position: GeolocationReturnType) => void, geo_error?: (error: Error) => void, geo_options?: GetCurrentPositionOptions): void
+    getCurrentPosition(geo_success: (position: GeolocationReturnType) => void, geo_error?: (error: GeolocationError) => void, geo_options?: GetCurrentPositionOptions): void
 
     /**
      * Invokes the success callback whenever the location changes.  Supported
      * options: timeout (ms), maximumAge (ms), enableHighAccuracy (bool), distanceFilter(m)
      */
-    watchPosition(success: (position: GeolocationReturnType) => void, error?: (error: Error) => void, options?: WatchPositionOptions): number
+    watchPosition(success: (position: GeolocationReturnType) => void, error?: (error: GeolocationError) => void, options?: WatchPositionOptions): number
 
     clearWatch(watchID: number): void
 
