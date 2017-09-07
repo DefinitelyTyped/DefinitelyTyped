@@ -11,7 +11,7 @@
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-// USING: these definitions are meant to be used with the TSC compiler target set to ES6
+// USING: these definitions are meant to be used with the TSC compiler target set to at least ES2015.
 //
 // USAGE EXAMPLES: check the RNTSExplorer project at https://github.com/bgrieder/RNTSExplorer
 //
@@ -9229,6 +9229,48 @@ export var PointPropType: React.Requireable<any>
 
 declare global {
     function require(name: string): any;
+
+    function clearInterval(handle: number): void
+    function setInterval(handler: (...args: any[]) => void, timeout: number): number
+    function setInterval(handler: Function, timeout?: number, ...args: any[]): number
+
+    function clearTimeout(handle: number): void
+    function setTimeout(handler: (...args: any[]) => void, timeout: number): number
+    function setTimeout(handler: Function, timeout?: number, ...args: any[]): number
+
+    function clearImmediate(handle: number): void;
+    function setImmediate(handler: (...args: any[]) => void): number
+    function setImmediate(handler: Function, ...args: any[]): number
+
+    function requestAnimationFrame(callback: (time: number) => void): number
+    function cancelAnimationFrame(handle: number): void
+
+    /**
+     * Console polyfill
+     * @see https://facebook.github.io/react-native/docs/javascript-environment.html#polyfills
+     */
+    interface Console {
+        error(message?: any, ...optionalParams: any[]): void
+        info(message?: any, ...optionalParams: any[]): void
+        log(message?: any, ...optionalParams: any[]): void
+        warn(message?: any, ...optionalParams: any[]): void
+        trace(message?: any, ...optionalParams: any[]): void
+        debug(message?: any, ...optionalParams: any[]): void
+        table(...data: any[]): void;
+    }
+
+    var console: Console
+
+    /**
+     * Navigator object for accessing location API
+     * @see https://facebook.github.io/react-native/docs/javascript-environment.html#polyfills
+     */
+    interface Navigator {
+        readonly product: string;
+        readonly geolocation: Geolocation;
+    }
+
+    var navigator: Navigator;
 
     /**
      * This contains the non-native `XMLHttpRequest` object, which you can use if you want to route network requests
