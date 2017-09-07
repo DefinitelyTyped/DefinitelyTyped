@@ -9,6 +9,7 @@
 //                 Vítor Castro <https://github.com/teves-castro>
 //                 Jordan Quagliatini <https://github.com/1M0reBug>
 //                 Simon Højberg <https://github.com/hojberg>
+//                 Charles-Philippe Clermont <https://github.com/charlespwd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -61,6 +62,11 @@ declare namespace R {
     interface Lens {
         <T, U>(obj: T): U;
         set<T, U>(str: string, obj: T): U;
+    }
+
+    interface Filter<T> {
+      (list: T[]): T[];
+      (obj: Dictionary<T>): Dictionary<T>;
     }
 
     type Evolver<T> =
@@ -583,8 +589,9 @@ declare namespace R {
         /**
          * Returns a new list containing only those items that match a given predicate function. The predicate function is passed one argument: (value).
          */
-        filter<T>(fn: (value: T) => boolean): (list: T[]) => T[];
+        filter<T>(fn: (value: T) => boolean): Filter<T>;
         filter<T>(fn: (value: T) => boolean, list: T[]): T[];
+        filter<T>(fn: (value: T) => boolean, obj: Dictionary<T>): Dictionary<T>;
 
         /**
          * Returns the first element of the list which matches the predicate, or `undefined` if no
@@ -1526,8 +1533,9 @@ declare namespace R {
          * Similar to `filter`, except that it keeps only values for which the given predicate
          * function returns falsy.
          */
+        reject<T>(fn: (value: T) => boolean): Filter<T>;
         reject<T>(fn: (value: T) => boolean, list: T[]): T[];
-        reject<T>(fn: (value: T) => boolean): (list: T[]) => T[];
+        reject<T>(fn: (value: T) => boolean, obj: Dictionary<T>): Dictionary<T>;
 
         /**
          * Removes the sub-list of `list` starting at index `start` and containing `count` elements.
