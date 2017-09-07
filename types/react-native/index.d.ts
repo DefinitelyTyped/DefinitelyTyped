@@ -642,11 +642,11 @@ type GeolocationReturnType = {
     coords: {
         latitude: number
         longitude: number
-        altitude?: number
-        accuracy?: number
-        altitudeAccuracy?: number
-        heading?: number
-        speed?: number
+        altitude: number | null
+        accuracy: number
+        altitudeAccuracy: number | null
+        heading: number | null
+        speed: number | null
     }
     timestamp: number
 }
@@ -8373,23 +8373,25 @@ export interface I18nManagerStatic {
 }
 
 export interface GeolocationStatic {
-    /*
-        * Invokes the success callback once with the latest location info.  Supported
-        * options: timeout (ms), maximumAge (ms), enableHighAccuracy (bool)
-        * On Android, this can return almost immediately if the location is cached or
-        * request an update, which might take a while.
-        */
+    /**
+     * Invokes the success callback once with the latest location info.  Supported
+     * options: timeout (ms), maximumAge (ms), enableHighAccuracy (bool)
+     * On Android, this can return almost immediately if the location is cached or
+     * request an update, which might take a while.
+     */
     getCurrentPosition(geo_success: (position: GeolocationReturnType) => void, geo_error?: (error: Error) => void, geo_options?: GetCurrentPositionOptions): void
 
-    /*
-        * Invokes the success callback whenever the location changes.  Supported
-        * options: timeout (ms), maximumAge (ms), enableHighAccuracy (bool), distanceFilter(m)
-        */
-    watchPosition(success: (position: Geolocation) => void, error?: (error: Error) => void, options?: WatchPositionOptions): void
+    /**
+     * Invokes the success callback whenever the location changes.  Supported
+     * options: timeout (ms), maximumAge (ms), enableHighAccuracy (bool), distanceFilter(m)
+     */
+    watchPosition(success: (position: GeolocationReturnType) => void, error?: (error: Error) => void, options?: WatchPositionOptions): number
 
     clearWatch(watchID: number): void
 
     stopObserving(): void
+
+    requestAuthorization(): void;
 }
 
 export interface OpenCameraDialogOptions {
