@@ -197,9 +197,9 @@ interface Request extends http.IncomingMessage, Express.Request {
         *
         * @param name
         */
-    get(name: string): string | undefined;
+    get(name: string): string | string[] | undefined;
 
-    header(name: string): string | undefined;
+    header(name: string): string | string[] | undefined;
 
     /**
         * Check if the given `type(s)` is acceptable, returning
