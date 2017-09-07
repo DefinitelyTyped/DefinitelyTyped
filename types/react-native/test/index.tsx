@@ -39,7 +39,24 @@ import {
     ScrollViewProps,
     RefreshControl,
     TabBarIOS,
+    NativeModules,
+    MaskedView,
 } from 'react-native';
+
+declare module 'react-native' {
+    interface NativeTypedModule {
+        someFunction(): void;
+        someProperty: string;
+    }
+    interface NativeModulesStatic {
+        NativeTypedModule: NativeTypedModule
+    }
+}
+
+NativeModules.NativeUntypedModule;
+
+NativeModules.NativeTypedModule.someFunction();
+NativeModules.NativeTypedModule.someProperty = "";
 
 function testDimensions() {
   const {
@@ -135,11 +152,11 @@ class Welcome extends React.Component {
 
         const { rootView, customView } = this.refs;
 
-        let nativeComponentHandle = findNodeHandle(rootView);
+        const nativeComponentHandle = findNodeHandle(rootView);
 
-        let customComponentHandle = findNodeHandle(customView);
+        const customComponentHandle = findNodeHandle(customView);
 
-        let fromHandle = findNodeHandle(customComponentHandle);
+        const fromHandle = findNodeHandle(customComponentHandle);
 
     }
 
@@ -208,11 +225,22 @@ InteractionManager.runAfterInteractions(() => {
 }).then(() => 'done')
 
 export class FlatListTest extends React.Component<FlatListProperties<number>, {}> {
+    _renderItem = (rowData: any) => {
+        return (
+            <View>
+                <Text> {rowData.item} </Text>
+            </View>
+        );
+      }
+
+    _renderSeparator= () => <View style={{height: 1, width: '100%', backgroundColor: 'gray'}} />
+
     render() {
         return (
             <FlatList
                 data={[1, 2, 3, 4, 5]}
-                renderItem={(info: { item: number }) => <View><Text>{info.item}</Text></View>}
+                renderItem={this._renderItem}
+                ItemSeparatorComponent={this._renderSeparator}
             />
         );
     }
@@ -220,7 +248,7 @@ export class FlatListTest extends React.Component<FlatListProperties<number>, {}
 
 export class SectionListTest extends React.Component<SectionListProperties<string>, {}> {
     render() {
-        var sections = [{
+        const sections = [{
             title: 'Section 1',
             data: ['A', 'B', 'C', 'D', 'E'],
         }, {
@@ -325,5 +353,19 @@ class AlertTest extends React.Component {
         return (
             <Button title='Press me' onPress={this.showAlert}/>
         );
+    }
+}
+
+class MaskedViewTest extends React.Component {
+    render() {
+        return (
+            <MaskedView
+                maskElement={
+                    <View />
+                }
+            >
+                <View />
+            </MaskedView>
+        )
     }
 }

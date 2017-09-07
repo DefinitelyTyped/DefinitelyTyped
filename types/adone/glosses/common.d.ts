@@ -1,3 +1,6 @@
+/**
+ * predicates
+ */
 export namespace is {
     function _null(obj: any): boolean;
     export { _null as null };

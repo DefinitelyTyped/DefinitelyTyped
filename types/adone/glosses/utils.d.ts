@@ -1,3 +1,6 @@
+/**
+ * various utility functions
+ */
 export namespace util {
     function arrify<T>(val: T[]): T[];
     function arrify<T>(val: T): [T];
@@ -184,6 +187,14 @@ export namespace util {
     }
     function jsesc(argument: any, options?: I.JSEscOptions): string;
 
+    namespace I {
+        type PossibleTypes = "object" | "class" | "null" | "global" | "Array" | "RegExp" | "Date"
+            | "Promise" | "Set" | "Map" | "WeakSet" | "DataView" | "Map Iterator" | "Set Iterator"
+            | "Array Iterator" | "String Iterator" | "Object" | "function" | "boolean" | "number"
+            | "undefined" | "string" | "symbol";
+    }
+
+    function typeOf(obj: any): I.PossibleTypes;
     function typeOf(obj: any): string;
 
     namespace memcpy {
@@ -394,7 +405,7 @@ export namespace util {
         interface FakeClock {
             timers: Timers;
             createClock(now?: number, loopLimit?: number): Clock;
-            install(now: number | Date | InstallOptions): InstalledClock;
+            install(now?: number | Date | InstallOptions): InstalledClock;
         }
     }
 

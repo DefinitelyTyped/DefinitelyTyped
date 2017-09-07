@@ -1,6 +1,6 @@
 // Type definitions for Mongoose 4.7.1
 // Project: http://mongoosejs.com/
-// Definitions by: simonxca <https://github.com/simonxca/>, horiuchi <https://github.com/horiuchi/>, sindrenm <https://github.com/sindrenm>, lukasz-zak <https://github.com/lukasz-zak>
+// Definitions by: simonxca <https://github.com/simonxca>, horiuchi <https://github.com/horiuchi>, sindrenm <https://github.com/sindrenm>, lukasz-zak <https://github.com/lukasz-zak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -696,7 +696,7 @@ declare module "mongoose" {
     /** defaults to true */
     bufferCommands?: boolean;
     /** defaults to false */
-    capped?: boolean;
+    capped?: boolean | number | { size?: number; max?: number; autoIndexId?: boolean; };
     /** no default */
     collection?: string;
     /** defaults to "__t" */

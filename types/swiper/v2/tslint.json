@@ -1,7 +1,9 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
+        // TODOs
         "no-single-declare-module": false,
+        "prefer-template": false,
         "dt-header": false
     }
 }

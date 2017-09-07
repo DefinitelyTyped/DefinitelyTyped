@@ -9,28 +9,32 @@ import express = require('express');
 declare global {
     namespace Express {
         interface Request {
-            files?: FileArray;
+            files?: fileUpload.FileArray;
         }
     }
 }
 
-export class FileArray {
-    [index: string]: UploadedFile | UploadedFile[]
-}
+export = fileUpload;
 
-export interface UploadedFile {
-    name: string;
-    encoding: string;
-    mimetype: string;
-    data: Buffer;
-    mv(path: string, callback: (err: any) => {}): void;
-}
+declare function fileUpload(options?: fileUpload.Options): express.RequestHandler;
 
-export interface Options {
-    debug?: boolean;
-    safeFileNames?: boolean;
-    preserveExtension?: boolean | string | number;
-    [property: string]: any;
-}
+declare namespace fileUpload {
+    class FileArray {
+        [index: string]: UploadedFile | UploadedFile[]
+    }
 
-export function fileUpload(options?: Options): express.RequestHandler;
+    interface UploadedFile {
+        name: string;
+        encoding: string;
+        mimetype: string;
+        data: Buffer;
+        mv(path: string, callback: (err: any) => void): void;
+    }
+
+    interface Options {
+        debug?: boolean;
+        safeFileNames?: boolean;
+        preserveExtension?: boolean | string | number;
+        [property: string]: any;
+    }
+}

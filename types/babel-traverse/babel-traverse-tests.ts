@@ -29,7 +29,7 @@ const ast = babylon.parse(code);
 
 traverse(ast, {
     enter(path) {
-        let node = path.node;
+        const node = path.node;
         if (t.isIdentifier(node) && node.name === "n") {
             node.name = "x";
         }
@@ -85,10 +85,10 @@ const v1: Visitor = {
             // ...
         }
 
-        let id1 = path.scope.generateUidIdentifier("uid");
+        const id1 = path.scope.generateUidIdentifier("uid");
         id1.type;
         id1.name;
-        let id2 = path.scope.generateUidIdentifier("uid");
+        const id2 = path.scope.generateUidIdentifier("uid");
         id2.type;
         id2.name;
 

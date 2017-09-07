@@ -11,13 +11,13 @@ import { ascending } from 'd3-array';
 
 // Preparatory steps --------------------------------------------------------------
 
-let keyValueObj = {
+const keyValueObj = {
     a: 'test',
     b: 123,
     c: [true, true, false]
 };
 
-let keyValueObj2 = {
+const keyValueObj2 = {
     a: 'test',
     b: 'same',
     c: 'type'
@@ -29,7 +29,6 @@ let stringKVArray: Array<{ key: string, value: string }>;
 let anyKVArray: Array<{ key: string, value: any }>;
 
 let num: number;
-let str: string;
 let booleanFlag: boolean;
 
 // ---------------------------------------------------------------------
@@ -137,9 +136,9 @@ testObjKVArray = testObjMap.entries();
 // each() --------------------------------------------------------------
 
 testObjMap.each((value, key, map) => {
-    let v: TestObject = value;
-    let k: string = key;
-    let m: d3Collection.Map<TestObject> = map;
+    const v: TestObject = value;
+    const k: string = key;
+    const m: d3Collection.Map<TestObject> = map;
     console.log(v.val);
 });
 
@@ -169,9 +168,9 @@ basicSet = d3Collection.set(['foo', 'bar', 42]); // last element is coerced
 
 // from array without accessor
 basicSet = d3Collection.set(testObjArray, (value, index, array) => {
-    let v: TestObject = value;
-    let i: number = index;
-    let a: TestObject[] = array;
+    const v: TestObject = value;
+    const i: number = index;
+    const a: TestObject[] = array;
     return v.name;
 });
 
@@ -208,9 +207,9 @@ stringArray = basicSet.values();
 // each() --------------------------------------------------------------
 
 basicSet.each((value, valueRepeat, set) => {
-    let v: string = value;
-    let vr: string = valueRepeat;
-    let s: d3Collection.Set = set;
+    const v: string = value;
+    const vr: string = valueRepeat;
+    const s: d3Collection.Set = set;
     console.log(v);
 });
 
@@ -233,7 +232,7 @@ interface Yield {
     site: string;
 }
 
-let raw: Yield[] = [
+const raw: Yield[] = [
     { yield: 27.00, variety: 'Manchuria', year: 1931, site: 'University Farm' },
     { yield: 48.87, variety: 'Manchuria', year: 1931, site: 'Waseca' },
     { yield: 27.43, variety: 'Manchuria', year: 1931, site: 'Morris' },
@@ -279,8 +278,8 @@ nestL1Rollup = nestL1Rollup
 
 nestL2 = nestL2
     .sortValues((a, b) => {
-        let val1: Yield = a; // data type Yield
-        let val2: Yield = b; // data type Yield
+        const val1: Yield = a; // data type Yield
+        const val2: Yield = b; // data type Yield
         return a.yield - b.yield;
     });
 
@@ -288,7 +287,7 @@ nestL2 = nestL2
 
 nestL1Rollup = nestL1Rollup
     .rollup(values => {
-        let vs: Yield[] = values; // correct data array type
+        const vs: Yield[] = values; // correct data array type
         return vs.length;
     });
 

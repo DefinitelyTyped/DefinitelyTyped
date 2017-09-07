@@ -1,3 +1,6 @@
+/**
+ * math related things
+ */
 export namespace math {
     namespace I {
         interface LowHighBits {
