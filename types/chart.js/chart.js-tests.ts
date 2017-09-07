@@ -4,9 +4,9 @@ import { Chart, ChartData } from 'chart.js';
 // import chartjs = require('chart.js');
 // => chartjs.Chart
 
-let chart: Chart = new Chart(new CanvasRenderingContext2D(), {
+const chart: Chart = new Chart(new CanvasRenderingContext2D(), {
     type: 'bar',
-    data: <ChartData> {
+    data: {
         labels: ['group 1'],
         datasets: [
             {

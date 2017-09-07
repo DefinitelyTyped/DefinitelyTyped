@@ -8,7 +8,7 @@ interface State {
 const rootReducer: Reducer<State> = () => ({});
 
 const asyncNotify: BatchFunction = (() => {
-    let notifying: boolean = false;
+    let notifying = false;
 
     return (notify: NotifyFunction) => {
         if (notifying) {
@@ -25,6 +25,5 @@ const asyncNotify: BatchFunction = (() => {
 
 const store: Store<State> = createStore(
     rootReducer,
-    undefined,
     batchedSubscribe(asyncNotify)
 );

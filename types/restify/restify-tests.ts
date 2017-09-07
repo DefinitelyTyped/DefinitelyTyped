@@ -1,6 +1,7 @@
 import * as restify from "restify";
 import * as url from "url";
 import * as Logger from "bunyan";
+import * as http from "http";
 
 let server = new restify.Server();
 
@@ -34,16 +35,17 @@ function send(req: restify.Request, res: restify.Response, next: restify.Next) {
     req.trailer('key', 'val');
     req.trailer('key') === 'val';
 
-    req.accepts('test') === true;
-    req.accepts(['test']) === true;
-    req.acceptsEncoding('test') === true;
-    req.acceptsEncoding(['test']) === true;
-    req.is('test') === true;
-    req.isChunked() === true;
-    req.isKeepAlive() === true;
-    req.isSecure() === true;
-    req.isUpgradeRequest() === true;
-    req.isUpload() === true;
+    let b: boolean;
+    b = req.accepts('test');
+    b = req.accepts(['test']);
+    b = req.acceptsEncoding('test');
+    b = req.acceptsEncoding(['test']);
+    b = req.is('test');
+    b = req.isChunked();
+    b = req.isKeepAlive();
+    b = req.isSecure();
+    b = req.isUpgradeRequest();
+    b = req.isUpload();
     req.userAgent() === 'test';
     req.startHandlerTimer('test');
     req.endHandlerTimer('test');
@@ -115,6 +117,8 @@ server.name = "";
 server.versions = [""];
 server.acceptable = ["test"];
 server.url = "";
+server.server = new http.Server();
+server.router = new restify.Router({});
 
 server.address().port;
 server.address().family;

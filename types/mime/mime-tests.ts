@@ -2,7 +2,7 @@ import * as mime from "mime";
 
 let str: string;
 const obj: {} = {};
-const fallback: string = '';
+const fallback = '';
 
 str = mime.lookup(str, fallback);
 str = mime.extension(str);

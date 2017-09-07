@@ -1,5 +1,5 @@
 import * as React from "react";
-import Measure, {ContentRect, withContentRect} from "react-measure";
+import Measure, { ContentRect, withContentRect } from "react-measure";
 
 class Test extends React.Component {
     render() {

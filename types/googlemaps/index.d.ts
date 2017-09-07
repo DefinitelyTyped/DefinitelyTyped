@@ -361,6 +361,8 @@ declare namespace google.maps {
         TOP_RIGHT
     }
 
+    type DrawingMode = 'Point' | 'LineString' | 'Polygon';
+
     /***** Data *****/
     export class Data extends MVCObject {
         constructor(options?: Data.DataOptions);
@@ -369,8 +371,8 @@ declare namespace google.maps {
         contains(feature: Data.Feature): boolean;
         forEach(callback: (feature: Data.Feature) => void): void;
         getControlPosition(): ControlPosition;
-        getControls(): string[];
-        getDrawingMode(): string;
+        getControls(): DrawingMode[];
+        getDrawingMode(): DrawingMode | null;
         getFeatureById(id: number|string): Data.Feature;
         getMap(): Map;
         getStyle(): Data.StylingFunction|Data.StyleOptions;
@@ -379,8 +381,8 @@ declare namespace google.maps {
         remove(feature: Data.Feature): void;
         revertStyle(feature?: Data.Feature): void;
         setControlPosition(controlPosition: ControlPosition): void;
-        setControls(controls: string[]): void;
-        setDrawingMode(drawingMode: string): void;
+        setControls(controls: DrawingMode[] | null): void;
+        setDrawingMode(drawingMode: DrawingMode | null): void;
         setMap(map: Map | null): void;
         setStyle(style: Data.StylingFunction|Data.StyleOptions): void;
         toGeoJson(callback: (feature: Object) => void): void;
@@ -439,6 +441,7 @@ declare namespace google.maps {
 
         export class Geometry {
             getType(): string;
+            forEachLatLng(callback: (latLng: LatLng) => void): void;
         }
 
         export class Point extends Data.Geometry {
@@ -1314,8 +1317,8 @@ declare namespace google.maps {
     export interface TransitOptions {
         arrivalTime?: Date;
         departureTime?: Date;
-        modes: TransitMode[];
-        routingPreference: TransitRoutePreference;
+        modes?: TransitMode[];
+        routingPreference?: TransitRoutePreference;
     }
 
     export enum TransitMode {
@@ -1336,7 +1339,7 @@ declare namespace google.maps {
 
     export interface DrivingOptions {
         departureTime: Date;
-        trafficModel: TrafficModel
+        trafficModel?: TrafficModel
     }
 
     export enum TrafficModel
@@ -2515,7 +2518,7 @@ declare namespace google.maps {
         }
 
         export interface ComponentRestrictions {
-            country: string;
+            country: string|string[];
         }
 
         export interface PlaceAspectRating {

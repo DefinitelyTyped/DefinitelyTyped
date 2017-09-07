@@ -4,6 +4,6 @@ import { AuthWrapperConfig, InjectedAuthProps } from "redux-auth-wrapper/authWra
 
 export type ConnectedAuthWrapperConfig<OwnProps = {}, State = {}> = AuthWrapperConfig & AuthBaseConfig<OwnProps, State>;
 
-export function connectedAuthWrapper<OwnProps = {}, State = {}>(
+export default function connectedAuthWrapper<OwnProps = {}, State = {}>(
     config: ConnectedAuthWrapperConfig<OwnProps, State>
 ): AuthWrapperDecorator<OwnProps & InjectedAuthProps>;

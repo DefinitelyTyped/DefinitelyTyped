@@ -783,7 +783,7 @@ declare namespace webpack {
             /**
              * An object containing `content` and `name`.
              */
-            manifest: { content: string, name: string };
+            manifest: { content: string, name: string } | string;
 
             /**
              * The name where the DLL is exposed.
@@ -919,7 +919,7 @@ declare namespace webpack {
     }
 
     class WatchIgnorePlugin extends Plugin {
-        constructor(paths: RegExp[]);
+        constructor(paths: Array<string | RegExp>);
     }
 
     namespace optimize {
