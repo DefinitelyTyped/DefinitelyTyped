@@ -27,6 +27,7 @@ import {
   Animated,
   TextStyle,
   ViewStyle,
+  StyleProp,
 } from 'react-native';
 
 // @todo when we split types into common, native and web,
@@ -45,7 +46,7 @@ export interface HeaderProps extends NavigationSceneRendererProps {
   getScreenDetails: (navigationScene: NavigationScene) => NavigationScreenDetails<
     NavigationStackScreenOptions
   >;
-  style: ViewStyle;
+  style: StyleProp<ViewStyle>;
 }
 
 /**
@@ -252,7 +253,7 @@ export interface NavigationUriAction extends NavigationUriActionPayload {
 export interface NavigationStackViewConfig {
   mode?: 'card' | 'modal';
   headerMode?: HeaderMode;
-  cardStyle?: ViewStyle;
+  cardStyle?: StyleProp<ViewStyle>;
   transitionConfig?: () => TransitionConfig;
   onTransitionStart?: () => void;
   onTransitionEnd?: () => void;
@@ -261,15 +262,15 @@ export interface NavigationStackViewConfig {
 export type NavigationStackScreenOptions = NavigationScreenOptions & {
   header?: (React.ReactElement<any> | ((headerProps: HeaderProps) => React.ReactElement<any>)) | null;
   headerTitle?: string | React.ReactElement<any>;
-  headerTitleStyle?: TextStyle;
+  headerTitleStyle?: StyleProp<TextStyle>;
   headerTintColor?: string;
   headerLeft?: React.ReactElement<any>;
   headerBackTitle?: string | null;
   headerTruncatedBackTitle?: string;
-  headerBackTitleStyle?: TextStyle;
+  headerBackTitleStyle?: StyleProp<TextStyle>;
   headerPressColorAndroid?: string;
   headerRight?: React.ReactElement<any>;
-  headerStyle?: ViewStyle;
+  headerStyle?: StyleProp<ViewStyle>;
   gesturesEnabled?: boolean;
 };
 
@@ -508,7 +509,7 @@ interface NavigationContainerProps {
     nextNavigationState: NavigationState,
     action: NavigationAction,
   ) => void;
-  style?: ViewStyle;
+  style?: StyleProp<ViewStyle>;
 }
 
 export interface NavigationContainer extends React.ComponentClass<
@@ -542,7 +543,7 @@ export interface DrawerViewConfig {
   drawerPosition: 'left' | 'right';
   contentComponent: (props: any) => React.ReactElement<any> | React.ComponentClass<any>;
   contentOptions?: any;
-  style?: ViewStyle;
+  style?: StyleProp<ViewStyle>;
 }
 export interface DrawerNavigatorConfig extends NavigationTabRouterConfig, DrawerViewConfig {
   containerConfig?: any;
@@ -551,8 +552,8 @@ export interface DrawerNavigatorConfig extends NavigationTabRouterConfig, Drawer
     activeBackgroundColor?: string,
     inactiveTintColor?: string,
     inactiveBackgroundColor?: string,
-    style?: ViewStyle,
-    labelStyle?: TextStyle,
+    style?: StyleProp<ViewStyle>,
+    labelStyle?: StyleProp<TextStyle>,
   };
 }
 
@@ -575,8 +576,8 @@ export interface TabViewConfig {
     inactiveTintColor?: string,
     inactiveBackgroundColor?: string,
     showLabel?: boolean,
-    style?: ViewStyle,
-    labelStyle?: TextStyle,
+    style?: StyleProp<ViewStyle>,
+    labelStyle?: StyleProp<TextStyle>,
 
     // Top
     showIcon?: boolean,
@@ -584,8 +585,8 @@ export interface TabViewConfig {
     pressColor?: string,
     pressOpacity?: number,
     scrollEnabled?: boolean,
-    tabStyle?: ViewStyle,
-    indicatorStyle?: ViewStyle
+    tabStyle?: StyleProp<ViewStyle>,
+    indicatorStyle?: StyleProp<ViewStyle>,
   };
   swipeEnabled?: boolean;
   animationEnabled?: boolean;
@@ -631,7 +632,7 @@ interface TransitionerProps {
     transitionProps: NavigationTransitionProps,
     prevTransitionProps?: NavigationTransitionProps
   ) => any;
-  style?: ViewStyle;
+  style?: StyleProp<ViewStyle>;
 }
 
 interface TransitionerState {
@@ -724,7 +725,7 @@ export interface HeaderBackButtonProps {
   onPress?: () => void;
   pressColorAndroid?: string;
   title?: string;
-  titleStyle?: TextStyle;
+  titleStyle?: StyleProp<TextStyle>;
   tintColor?: string;
   truncatedTitle?: string;
   width?: number;
