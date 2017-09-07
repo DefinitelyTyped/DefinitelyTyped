@@ -1,6 +1,5 @@
-import * as nano from "nano";
 import * as fs from "fs";
-import * as path from "path";
+import * as nano from "nano";
 
 /*
  * Instantiate with configuration object
@@ -67,10 +66,15 @@ db.replicate("a", "b", (error: any) => {});
 /*
  * Document Scope
  */
-const mydb: nano.DocumentScope = instance.use("mydb");
+interface SomeDocument {
+  name: string;
+}
 
-mydb.insert({ foo: "baz" }, null, (err, response) => {});
-mydb.insert({ foo: "baz" }, "foobar", (error, foo) => {});
+const mydb: nano.DocumentScope<SomeDocument> = instance.use("mydb");
+
+mydb.insert({ name: "baz" }, null, (err, response) => {});
+mydb.insert({ name: "baz" }, "foobar", (error, foo) => {});
+mydb.insert({ name: "baz" }, { new_edits: true }, (error, foo) => {});
 mydb.get("foobaz", { revs_info: true }, (error, foobaz) => {});
 mydb.head("foobaz", (error, body, headers) => {});
 mydb.copy(
@@ -129,7 +133,7 @@ mydb.attachment.get("new_string", "att", (error: any, helloWorld: any) => {});
 /*
  * Multipart
  */
-mydb.multipart.insert({ foo: "baz" }, [{}], "foobaz", (error, foo) => {});
+mydb.multipart.insert({ name: "baz" }, [{}], "foobaz", (error, foo) => {});
 mydb.multipart.get("foobaz", (error: any, foobaz: any, headers: any) => {});
 
 /*

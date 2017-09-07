@@ -5,7 +5,6 @@
         "lib": [
             "es6", "dom"
         ],
-        "strict": true,
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,

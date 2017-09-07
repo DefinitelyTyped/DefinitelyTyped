@@ -56,7 +56,7 @@ export interface CommonWrapper<P = {}, S = {}> {
      * Returns whether or not the current wrapper has a node anywhere in it's render tree that looks like the one passed in.
      * @param node
      */
-    contains(node: ReactElement<any>): boolean;
+    contains(node: ReactElement<any> | string): boolean;
 
     /**
      * Returns whether or not a given react element exists in the shallow render tree.
