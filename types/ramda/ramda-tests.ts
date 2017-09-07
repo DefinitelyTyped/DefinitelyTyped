@@ -9,6 +9,7 @@ function shout(x: number): string {
 }
 
 class F {
+    [k: string]: string;
     x = "X";
     y = "Y";
 }
