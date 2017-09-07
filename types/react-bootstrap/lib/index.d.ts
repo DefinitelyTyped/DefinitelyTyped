@@ -166,10 +166,15 @@ import Tabs = require('./Tabs');
 import { TabsProps } from './Tabs';
 import Thumbnail = require('./Thumbnail');
 import { ThumbnailProps } from './Thumbnail';
+import ToggleButton = require('./ToggleButton');
+import { ToggleButtonProps } from './ToggleButton';
+import ToggleButtonGroup = require('./ToggleButtonGroup');
+import { ToggleButtonGroupProps } from './ToggleButtonGroup';
 import Tooltip = require('./Tooltip');
 import { TooltipProps } from './Tooltip';
 import Well = require('./Well');
 import { WellProps } from './Well';
+
 import * as utils from './utils';
 
 export {
@@ -341,6 +346,10 @@ export {
     TabsProps,
     Thumbnail,
     ThumbnailProps,
+    ToggleButton,
+    ToggleButtonProps,
+    ToggleButtonGroup,
+    ToggleButtonGroupProps,
     Tooltip,
     TooltipProps,
     Well,

@@ -12578,11 +12578,15 @@ declare module olx {
 
 
         /**
-         * @typedef {{duration: (number|undefined),
+         * @typedef {{constrainResolution: (boolean|undefined),
+         *     duration: (number|undefined),
+         *     timeout: (number|undefined),
          *     useAnchor: (boolean|undefined)}}
          */
         interface MouseWheelZoomOptions {
+            constrainResolution?: boolean;
             duration?: number;
+            timeout?: number;
             useAnchor?: boolean;
         }
 
@@ -12598,9 +12602,11 @@ declare module olx {
 
 
         /**
-         * @typedef {{duration: (number|undefined)}}
+         * @typedef {{constrainResolution: (boolean|undefined)
+         *     duration: (number|undefined)}}
          */
         interface PinchZoomOptions {
+            constrainResolution?: boolean;
             duration?: number;
         }
 

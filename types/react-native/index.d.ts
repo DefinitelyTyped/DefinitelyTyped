@@ -1,4 +1,4 @@
-// Type definitions for react-native 0.47
+// Type definitions for react-native 0.48
 // Project: https://github.com/facebook/react-native
 // Definitions by: Eloy Durán <https://github.com/alloy>
 //                 Fedor Nezhivoi <https://github.com/gyzerok>
@@ -4326,6 +4326,16 @@ export interface MapViewStatic extends NativeMethodsMixin, React.ComponentClass<
         GREEN: string,
         PURPLE: string
     }
+}
+
+interface MaskedViewProperties extends ViewProperties {
+    maskElement: React.ReactElement<any>,
+}
+
+/**
+ * @see https://facebook.github.io/react-native/docs/maskedviewios.html
+ */
+export interface MaskedViewStatic extends NativeMethodsMixin, React.ComponentClass<MaskedViewProperties> {
 }
 
 export interface ModalProperties {
@@ -8892,6 +8902,9 @@ export type ListView = ListViewStatic
 
 export var MapView: MapViewStatic
 export type MapView = MapViewStatic
+
+export var MaskedView: MaskedViewStatic
+export type MaskedView = MaskedViewStatic
 
 export var Modal: ModalStatic
 export type Modal = ModalStatic

@@ -69,4 +69,4 @@ declare namespace Qty {
     type UnitSource = Qty | string;
 }
 
-export default Qty;
+export = Qty;
