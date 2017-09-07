@@ -766,6 +766,26 @@ declare namespace Highland {
 		pluck<U>(prop: string): Stream<U>;
 
 		/**
+		 * Limits number of values through the stream to a maximum of number of values
+		 * per window. Errors are not limited but allowed to pass through as soon as
+		 * they are read from the source.
+		 *
+		 * @id ratelimit
+		 * @section Transforms
+		 * @name Stream.ratelimit(num, ms)
+		 * @param {Number} num - the number of operations to perform per window
+		 * @param {Number} ms - the window of time to limit the operations in (in ms)
+		 * @api public
+		 *
+		 * _([1, 2, 3, 4, 5]).ratelimit(2, 100);
+		 *
+		 * // after 0ms => 1, 2
+		 * // after 100ms => 1, 2, 3, 4
+		 * // after 200ms => 1, 2, 3, 4, 5
+		 */
+		ratelimit(num: number, ms: number): Stream<R>;
+
+		/**
 		 * Boils down a Stream to a single value. The memo is the initial state
 		 * of the reduction, and each successive step of it should be returned by
 		 * the iterator function. The iterator is passed two arguments:
