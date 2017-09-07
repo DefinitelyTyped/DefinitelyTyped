@@ -590,9 +590,9 @@ Promise.props(Promise.props({ num: 1, str: Promise.resolve('a') })).then(val => 
 
 var propsMapValue: Map<number, string>;
 Promise.resolve(new Map<number, string>()).props().then(val => { propsMapValue = val });
-Promise.resolve(new Map<number, Promise.Thenable<string>>()).props().then(val => { propsMapValue = val });
+Promise.resolve(new Map<number, PromiseLike<string>>()).props().then(val => { propsMapValue = val });
 Promise.props(new Map<number, string>()).then(val => { propsMapValue = val });
-Promise.props(new Map<number, Promise.Thenable<string>>()).then(val => { propsMapValue = val });
+Promise.props(new Map<number, PromiseLike<string>>()).then(val => { propsMapValue = val });
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
