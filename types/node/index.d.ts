@@ -5612,7 +5612,7 @@ declare module "constants" {
 }
 
 declare module "module" {
-    class Module implements NodeModule {
+    class Module {
         static runMain(): void;
         static wrap(code: string): string;
 
