@@ -575,7 +575,7 @@ declare namespace Highcharts {
          * categories: ['Apples', 'Bananas', 'Oranges']
          * @default null
          */
-        categories?: string[];
+        categories?: any[];
         /**
          * The highest allowed value for automatically computed axis extremes.
          * @since 4.0
@@ -1994,6 +1994,8 @@ declare namespace Highcharts {
         position?: string;
         top?: string;
         textOutline?: string;
+        textOverflow?: string;
+        whiteSpace?: string;
     }
 
     interface CreditsOptions {
