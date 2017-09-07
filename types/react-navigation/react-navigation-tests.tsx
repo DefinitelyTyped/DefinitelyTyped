@@ -153,7 +153,7 @@ const tabNavigatorScreenOptions: NavigationTabScreenOptions = {
 const tabNavigatorConfig: TabNavigatorConfig = {
     lazy: true,
     tabBarComponent: TabBarTop,
-    tabBarOptions: tabNavigatorScreenOptions,
+    tabBarOptions: { activeBackgroundColor: "blue" },
 };
 
 const BasicTabNavigator = TabNavigator(
