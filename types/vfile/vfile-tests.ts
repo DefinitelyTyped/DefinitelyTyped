@@ -1,6 +1,7 @@
 import vfile = require("vfile");
 import * as Unist from 'unist';
 
+// Instantiation
 vfile();
 vfile('string');
 vfile(Buffer.from('string'));
@@ -13,7 +14,7 @@ try {
     console.log('Error: set extname without path');
 }
 
-const file = vfile({
+const file = vfile<{custom: string, data: {custom: number}}>({
     path: '~/example.txt',
     contents: 'Alpha *braavo* charlie.',
     custom: 'Custom tango',
