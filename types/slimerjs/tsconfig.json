@@ -9,7 +9,7 @@
         "strictNullChecks": false,
         "baseUrl": "../",
         "typeRoots": [
-            "./"
+            "../"
         ],
         "types": [],
         "noEmit": true,

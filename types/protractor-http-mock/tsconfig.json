@@ -8,6 +8,9 @@
         "noImplicitThis": true,
         "strictNullChecks": false,
         "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
         "types": [],
         "paths": {
             "selenium-webdriver": ["selenium-webdriver/v2"]

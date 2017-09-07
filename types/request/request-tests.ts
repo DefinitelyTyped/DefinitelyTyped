@@ -120,6 +120,7 @@ var options: request.Options = {
 	pool: value,
 	timeout: num,
 	proxy: value,
+	tunnel: bool,
 	strictSSL: bool,
 	rejectUnauthorized: false
 };

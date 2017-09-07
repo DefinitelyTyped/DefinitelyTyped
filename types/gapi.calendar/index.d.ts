@@ -334,7 +334,7 @@ declare namespace gapi.client.calendar {
     start: {
       date?: date;
       dateTime?: datetime;
-      timeZone: string;
+      timeZone?: string;
     };
 
     // Optional Properties

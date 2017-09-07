@@ -1,8 +1,6 @@
-
 /// <reference types="jquery" />
 
 import Nightmare = require("nightmare");
-
 
 new Nightmare()
   .goto('http://yahoo.com')
@@ -165,6 +163,25 @@ new Nightmare()
 new Nightmare()
   .goto('http://yahoo.com')
   .screenshot('test/test.png')
+  .run(done);
+
+new Nightmare()
+  .goto('http://yahoo.com')
+  .screenshot((err, buffer) => {
+    console.log(Buffer.isBuffer(buffer));
+  })
+  .run(done);
+
+new Nightmare()
+  .goto('http://yahoo.com')
+  .screenshot('test/test.png', { x: 10, y: 5, width: 10, height: 10})
+  .run(done);
+
+new Nightmare()
+  .goto('http://yahoo.com')
+  .screenshot({ x: 10, y: 5, width: 10, height: 10}, (err, buffer) => {
+    console.log(Buffer.isBuffer(buffer));
+  })
   .run(done);
 
 new Nightmare()

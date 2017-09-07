@@ -311,4 +311,4 @@ export class ListItem extends Component<{
     onClick?: React.MouseEventHandler<any>,
 }, any> {}
 
-export class Card extends Component<{}> { }
+export class Card extends Component { }

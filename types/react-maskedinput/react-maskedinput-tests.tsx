@@ -6,7 +6,7 @@ class Test extends React.Component {
         return (
             <MaskedInput mask="111"
                          placeholderChar="X"
-                         formatCharacter={
+                         formatCharacters={
                             {
                                 a: {
                                     validate: (char: string) => char,

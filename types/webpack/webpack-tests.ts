@@ -99,7 +99,7 @@ configuration = {
 configuration =  {
     entry: { a: "./a", b: "./b" },
     output: { filename: "[name].js" },
-    plugins: [ new webpack.optimize.CommonsChunkPlugin("init.js") ]
+    plugins: [ new webpack.optimize.CommonsChunkPlugin({ name: "init.js" }) ]
 };
 
 //
@@ -141,7 +141,7 @@ configuration = {
         filename: "[name].entry.chunk.js"
     },
     plugins: [
-        new CommonsChunkPlugin("commons.chunk.js")
+        new CommonsChunkPlugin({ name: "commons.chunk.js" })
     ]
 };
 

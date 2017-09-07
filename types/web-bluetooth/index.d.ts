@@ -1,6 +1,6 @@
 // Type definitions for Web Bluetooth
 // Project: https://webbluetoothcg.github.io/web-bluetooth/
-// Definitions by: Uri Shaked <https://github.com/urish/>
+// Definitions by: Uri Shaked <https://github.com/urish>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 type BluetoothServiceUUID = number | string;
