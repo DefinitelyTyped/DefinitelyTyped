@@ -3,7 +3,7 @@
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 //                 BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.2
 
 export = createHttpError;
 
@@ -26,7 +26,7 @@ declare namespace createHttpError {
 
     type NamedConstructors = {
         [code: string]: HttpErrorConstructor;
-        HttpError: new (msg?: string) => never;
+        HttpError: HttpErrorConstructor;
     } & Record<'BadRequest' |
         'Unauthorized' |
         'PaymentRequired' |

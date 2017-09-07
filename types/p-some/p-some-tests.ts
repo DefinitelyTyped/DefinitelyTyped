@@ -28,7 +28,7 @@ pSome(new Set([
         return false;
     }
 }).then(first => {
-    let str: string[] = first;
+    const str: string[] = first;
 });
 
 throw new pSome.AggregateError([]);

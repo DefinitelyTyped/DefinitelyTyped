@@ -32,7 +32,8 @@ const server = http.createServer((req, res) => {
             .set("samesite", "same", {sameSite: false});
 
         res.writeHead(302, { Location: "/" });
-        return res.end("Now let's check.");
+        res.end("Now let's check.");
+        return;
     }
 
     unsigned = cookies.get("unsigned");
@@ -41,13 +42,19 @@ const server = http.createServer((req, res) => {
 
     res.writeHead(200, { "Content-Type": "text/plain" });
     res.end(
-        "unsigned expected: foo\n\n" +
-        "unsigned actual: " + unsigned + "\n\n" +
-        "signed expected: bar\n\n" +
-        "signed actual: " + signed + "\n\n" +
-        "tampered expected: undefined\n\n" +
-        "tampered: " + tampered + "\n\n"
-    );
+        `unsigned expected: foo
+
+unsigned actual: ${unsigned}
+
+signed expected: bar
+
+signed actual: ${signed}
+
+tampered expected: undefined
+
+tampered: ${tampered}
+
+`);
 });
 
 const eApp = express();

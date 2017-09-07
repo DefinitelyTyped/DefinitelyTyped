@@ -1,7 +1,6 @@
 // Type definitions for react-redux 5.0.5
 // Project: https://github.com/rackt/react-redux
 // Definitions by: Qubo <https://github.com/tkqubo>,
-//                 Sean Kelley <https://github.com/seansfkelley>,
 //                 Thomas Hasner <https://github.com/thasner>,
 //                 Kenzie Togami <https://github.com/kenzierocks>,
 //                 Curits Layne <https://github.com/clayne11>
@@ -68,66 +67,66 @@ export type InferableComponentEnhancer<TInjectedProps> =
  */
 export declare function connect(): InferableComponentEnhancer<DispatchProp<any>>;
 
-export declare function connect<TStateProps, no_dispatch, TOwnProps>(
+export declare function connect<TStateProps = {}, no_dispatch = {}, TOwnProps = {}>(
     mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps>
 ): InferableComponentEnhancerWithProps<TStateProps & DispatchProp<any>, TOwnProps>;
 
-export declare function connect<no_state, TDispatchProps, TOwnProps>(
+export declare function connect<no_state = {}, TDispatchProps = {}, TOwnProps = {}>(
     mapStateToProps: null | undefined,
     mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>
 ): InferableComponentEnhancerWithProps<TDispatchProps, TOwnProps>;
 
-export declare function connect<TStateProps, TDispatchProps, TOwnProps>(
+export declare function connect<TStateProps = {}, TDispatchProps = {}, TOwnProps = {}>(
     mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps>,
     mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>
 ): InferableComponentEnhancerWithProps<TStateProps & TDispatchProps, TOwnProps>;
 
-export declare function connect<TStateProps, no_dispatch, TOwnProps, TMergedProps>(
+export declare function connect<TStateProps = {}, no_dispatch = {}, TOwnProps = {}, TMergedProps = {}>(
     mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps>,
     mapDispatchToProps: null | undefined,
     mergeProps: MergeProps<TStateProps, undefined, TOwnProps, TMergedProps>,
 ): InferableComponentEnhancerWithProps<TMergedProps, TOwnProps>;
 
-export declare function connect<no_state, TDispatchProps, TOwnProps, TMergedProps>(
+export declare function connect<no_state = {}, TDispatchProps = {}, TOwnProps = {}, TMergedProps = {}>(
     mapStateToProps: null | undefined,
     mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
     mergeProps: MergeProps<undefined, TDispatchProps, TOwnProps, TMergedProps>,
 ): InferableComponentEnhancerWithProps<TMergedProps, TOwnProps>;
 
-export declare function connect<no_state, no_dispatch, TOwnProps, TMergedProps>(
+export declare function connect<no_state = {}, no_dispatch = {}, TOwnProps = {}, TMergedProps = {}>(
     mapStateToProps: null | undefined,
     mapDispatchToProps: null | undefined,
     mergeProps: MergeProps<undefined, undefined, TOwnProps, TMergedProps>,
 ): InferableComponentEnhancerWithProps<TMergedProps, TOwnProps>;
 
-export declare function connect<TStateProps, TDispatchProps, TOwnProps, TMergedProps>(
+export declare function connect<TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, TMergedProps = {}>(
     mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps>,
     mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
     mergeProps: MergeProps<TStateProps, TDispatchProps, TOwnProps, TMergedProps>,
 ): InferableComponentEnhancerWithProps<TMergedProps, TOwnProps>;
 
-export declare function connect<TStateProps, no_dispatch, TOwnProps>(
+export declare function connect<TStateProps = {}, no_dispatch = {}, TOwnProps = {}>(
     mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps>,
     mapDispatchToProps: null | undefined,
     mergeProps: null | undefined,
     options: Options<TStateProps, TOwnProps>
 ): InferableComponentEnhancerWithProps<DispatchProp<any> & TStateProps, TOwnProps>;
 
-export declare function connect<no_state, TDispatchProps, TOwnProps>(
+export declare function connect<no_state = {}, TDispatchProps = {}, TOwnProps = {}>(
     mapStateToProps: null | undefined,
     mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
     mergeProps: null | undefined,
     options: Options<no_state, TOwnProps>
 ): InferableComponentEnhancerWithProps<TDispatchProps, TOwnProps>;
 
-export declare function connect<TStateProps, TDispatchProps, TOwnProps>(
+export declare function connect<TStateProps = {}, TDispatchProps = {}, TOwnProps = {}>(
     mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps>,
     mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
     mergeProps: null | undefined,
     options: Options<TStateProps, TOwnProps>
 ): InferableComponentEnhancerWithProps<TStateProps & TDispatchProps, TOwnProps>;
 
-export declare function connect<TStateProps, TDispatchProps, TOwnProps, TMergedProps>(
+export declare function connect<TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, TMergedProps = {}>(
     mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps>,
     mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
     mergeProps: MergeProps<TStateProps, TDispatchProps, TOwnProps, TMergedProps>,
@@ -148,12 +147,8 @@ interface MapDispatchToPropsFunction<TDispatchProps, TOwnProps> {
     (dispatch: Dispatch<any>, ownProps: TOwnProps): TDispatchProps;
 }
 
-interface MapDispatchToPropsObject {
-    [name: string]: ActionCreator<any>;
-}
-
 type MapDispatchToProps<TDispatchProps, TOwnProps> =
-    MapDispatchToPropsFunction<TDispatchProps, TOwnProps> | MapDispatchToPropsObject;
+    MapDispatchToPropsFunction<TDispatchProps, TOwnProps> | TDispatchProps;
 
 interface MapDispatchToPropsFactory<TDispatchProps, TOwnProps> {
     (dispatch: Dispatch<any>, ownProps: TOwnProps): MapDispatchToProps<TDispatchProps, TOwnProps>;
@@ -180,13 +175,13 @@ interface Options<TStateProps = {}, TOwnProps = {}, TMergedProps = {}> extends C
      * @default strictEqual
      */
     areStatesEqual?: (nextState: any, prevState: any) => boolean;
-    
+
     /**
      * When pure, compares incoming props to its previous value.
      * @default shallowEqual
      */
     areOwnPropsEqual?: (nextOwnProps: TOwnProps, prevOwnProps: TOwnProps) => boolean;
-    
+
     /**
      * When pure, compares the result of mapStateToProps to its previous value.
      * @default shallowEqual
