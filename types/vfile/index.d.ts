@@ -14,6 +14,7 @@ declare namespace vfile {
 
     interface NodeWithPosition extends Unist.Node {
         position: Unist.Position;
+        [key: string]: any;
     }
 
     interface VFileParamsBase<D> {
@@ -76,7 +77,7 @@ declare namespace vfile {
      * @param position Place at which the message occurred in `vfile`.
      * @param ruleId Category of message.
      */
-    type Message = <N extends NodeWithPosition>(reason: string, position?: Unist.Point | Unist.Position | N, ruleId?: string) => VFileMessage;
+    type Message = (reason: string, position?: Unist.Point | Unist.Position | NodeWithPosition, ruleId?: string) => VFileMessage;
     /**
      * Associates a fatal message with the file, then immediately throws it.
      * Note: fatal errors mean a file is no longer processable.
@@ -85,7 +86,7 @@ declare namespace vfile {
      * @param position Place at which the message occurred in `vfile`.
      * @param ruleId Category of message.
      */
-    type Fail = <N extends NodeWithPosition>(reason: string, position?: Unist.Point | Unist.Position | N, ruleId?: string) => never;
+    type Fail = (reason: string, position?: Unist.Point | Unist.Position | NodeWithPosition, ruleId?: string) => never;
     /**
      * Associates an informational message with the file, where `fatal` is set to `null`.
      * Calls `message()` internally.
@@ -93,7 +94,7 @@ declare namespace vfile {
      * @param position Place at which the message occurred in `vfile`.
      * @param ruleId Category of message.
      */
-    type Info = <N extends NodeWithPosition>(reason: string, position?: Unist.Point | Unist.Position | N, ruleId?: string) => void;
+    type Info = (reason: string, position?: Unist.Point | Unist.Position | NodeWithPosition, ruleId?: string) => void;
 
     /**
      * Convert contents of `vfile` to string.
