@@ -165,7 +165,7 @@ function renderBasicTabNavigator(): JSX.Element {
     return (
         <BasicTabNavigator
             ref={(ref: any) => { }}
-            style={viewStyle}
+            style={[viewStyle, undefined]} // Test that we are using StyleProp
         />
     );
 }
