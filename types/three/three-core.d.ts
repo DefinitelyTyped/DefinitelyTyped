@@ -1608,14 +1608,14 @@ export class Object3D extends EventDispatcher {
     /**
      * Calls before rendering object
      */
-    onBeforeRender: (renderer: THREE.WebGLRenderer, scene: THREE.Scene, camera: THREE.Camera, geometry: THREE.Geometry | THREE.BufferGeometry,
-                     material: THREE.Material, group: THREE.Group) => void;
+    onBeforeRender: (renderer: WebGLRenderer, scene: Scene, camera: Camera, geometry: Geometry | BufferGeometry,
+                     material: Material, group: Group) => void;
 
     /**
      * Calls after rendering object
      */
-    onAfterRender: (renderer: THREE.WebGLRenderer, scene: THREE.Scene, camera: THREE.Camera, geometry: THREE.Geometry | THREE.BufferGeometry,
-                    material: THREE.Material, group: THREE.Group) => void;
+    onAfterRender: (renderer: WebGLRenderer, scene: Scene, camera: Camera, geometry: Geometry | BufferGeometry,
+                    material: Material, group: Group) => void;
 
     /**
      *
@@ -4814,17 +4814,17 @@ export const LinePieces: number;
 export class LineSegments extends Line {
     constructor(
         geometry?: Geometry | BufferGeometry,
-        material?: LineDashedMaterial | LineBasicMaterial | ShaderMaterial,
+        material?: LineDashedMaterial | LineBasicMaterial | ShaderMaterial | (LineDashedMaterial | LineBasicMaterial | ShaderMaterial)[],
         mode?: number
     );
 }
 
 export class Mesh extends Object3D {
-    constructor(geometry?: Geometry, material?: Material);
-    constructor(geometry?: BufferGeometry, material?: Material);
+    constructor(geometry?: Geometry, material?: Material | Material []);
+    constructor(geometry?: BufferGeometry, material?: Material | Material []);
 
     geometry: Geometry|BufferGeometry;
-    material: Material;
+    material: Material | Material[];
     drawMode: TrianglesDrawModes;
 
     setDrawMode(drawMode: TrianglesDrawModes): void;
