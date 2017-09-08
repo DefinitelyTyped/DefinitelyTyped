@@ -1,4 +1,4 @@
-// Type definitions for signalr-no-jquery v0.1.8
+// Type definitions for signalr-no-jquery 0.1.8
 // Project: https://github.com/DVLP/signalr-no-jquery/
 // Definitions by: Martin Gjoshevski <https://github.com/gjoshevski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,14 +8,14 @@ export function hubConnection(url?: string, options?: Options): Connection;
 
 export function signalR(url?: string, qs?: any, logging?: any): any;
 
-interface Connection {
+export interface Connection {
     id: string;
     proxies: { [hubName: string]: any };
-    transport: { 
-        name: string, 
-        supportsKeepAlive: () => boolean 
+    transport: {
+        name: string,
+        supportsKeepAlive: () => boolean
     };
-    
+
    /**
     * Creates a new proxy object for the given hub connection that can be used to invoke
     * methods on server hubs and handle client method invocation requests from the server.
@@ -27,7 +27,7 @@ interface Connection {
     start(options?: any, callback?: any): any;
 }
 
-interface Proxy {
+export interface Proxy {
     state: any;
     connection: Connection;
     hubName: string;
@@ -55,7 +55,7 @@ interface Proxy {
     invoke(methodName: string, ...args: any[]): Promise<any>;
 }
 
-interface Options {
+export interface Options {
     qs?: string;
     logging?: boolean;
     useDefaultPath?: boolean;
