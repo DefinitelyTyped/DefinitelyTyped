@@ -154,7 +154,7 @@ declare module "rethinkdb" {
         tableDrop(name: string): Operation<DropResult>;
         tableList(): Operation<string[]>;
         table(name: string, options?: GetTableOptions): Table;
-        wait(WaitOptions?): WaitResult;
+        wait(waitOptions?: WaitOptions): WaitResult;
     }
 
     interface TableOptions {
@@ -245,7 +245,7 @@ declare module "rethinkdb" {
         get(key: string): Sequence; // primary key
         getAll(key: string, index?: Index): Sequence; // without index defaults to primary key
         getAll(...keys: string[]): Sequence;
-        wait(WaitOptions?): WaitResult;
+        wait(WaitOptions?: WaitOptions): WaitResult;
     }
 
     interface Sequence extends Operation<Cursor>, Writeable {
