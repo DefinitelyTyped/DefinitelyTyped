@@ -25,7 +25,11 @@ result.tokens.forEach((token) => {
 });
 
 new ScopeSelector("source.file");
-str = selector.getPrefix("test");
-str = selector.getPrefix(["test", "test"]);
+let prefix = selector.getPrefix("test");
+if (prefix) {
+	prefix.charAt;
+}
+prefix = selector.getPrefix(["test", "test"]);
+
 str = selector.toCssSelector();
 str = selector.toCssSyntaxSelector();

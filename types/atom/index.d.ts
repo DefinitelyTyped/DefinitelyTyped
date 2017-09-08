@@ -184,6 +184,22 @@ declare namespace AtomCore {
 			stderr?(data: string): void;
 			exit?(code: number): void;
 		}
+
+		interface NotificationOptions {
+			buttons?: Array<{
+				className?: string;
+				onDidClick?: Function;
+				text?: string;
+			}>;
+			description?: string;
+			detail?: string;
+			dismissable?: boolean;
+			icon?: string;
+		}
+
+		interface ErrorNotificationOptions extends NotificationOptions {
+			stack?: string;
+		}
 	}
 
 	/** Data structures that are used within classes. */
@@ -246,10 +262,10 @@ declare namespace AtomCore {
 		}
 
 		interface Invisibles {
-			tab: string|false;
-			cr: string|false;
-			eol: string|false;
-			space: string|false;
+			tab?: string|false;
+			cr?: string|false;
+			eol?: string|false;
+			space?: string|false;
 		}
 	}
 
@@ -424,7 +440,7 @@ declare namespace AtomCore {
 			message: string,
 			detailedMessage?: string,
 			buttons?: string[]
-		}): number;
+		}): void;
 
 		/** A flexible way to open a dialog akin to an alert dialog.
 		 *  Returns the chosen button index number if the buttons option was an array.
@@ -432,7 +448,7 @@ declare namespace AtomCore {
 		confirm(options: {
 			message: string,
 			detailedMessage?: string,
-			buttons?: object
+			buttons?: { [key: string]: () => void },
 		}): number;
 
 		// Managing the Dev Tools
@@ -1268,18 +1284,10 @@ declare namespace AtomCore {
 
 	/** The static side to the Notification class. */
 	interface NotificationStatic {
-		new (type: string, message: string, options?: {
-			buttons?: {
-				className?: string,
-				onDidClick?: Function,
-				text?: string,
-			},
-			description?: string,
-			detail?: string,
-			dismissable?: boolean,
-			icon?: string,
-			stack?: string,
-		}): Notification;
+		new (type: "warning"|"info"|"success", message: string, options?:
+			Params.NotificationOptions): Notification;
+		new (type: "fatal"|"error", message: string, options?: Params.ErrorNotificationOptions):
+			Notification;
 	}
 
 	/** A notification to the user containing a message and type. */
@@ -1324,11 +1332,11 @@ declare namespace AtomCore {
 		// Adding Notifications
 		/** Add a success notification. */
 		addSuccess(message: string, options?: {
-			buttons?: {
+			buttons?: Array<{
 				className?: string,
 				onDidClick?: Function,
 				text?: string,
-			},
+			}>,
 			description?: string,
 			detail?: string,
 			dismissable?: boolean,
@@ -1337,11 +1345,11 @@ declare namespace AtomCore {
 
 		/** Add an informational notification. */
 		addInfo(message: string, options?: {
-			buttons?: {
+			buttons?: Array<{
 				className?: string,
 				onDidClick?: Function,
 				text?: string,
-			},
+			}>,
 			description?: string,
 			detail?: string,
 			dismissable?: boolean,
@@ -1350,11 +1358,11 @@ declare namespace AtomCore {
 
 		/** Add a warning notification. */
 		addWarning(message: string, options?: {
-			buttons?: {
+			buttons?: Array<{
 				className?: string,
 				onDidClick?: Function,
 				text?: string,
-			},
+			}>,
 			description?: string,
 			detail?: string,
 			dismissable?: boolean,
@@ -1363,11 +1371,11 @@ declare namespace AtomCore {
 
 		/** Add an error notification. */
 		addError(message: string, options?: {
-			buttons?: {
+			buttons?: Array<{
 				className?: string,
 				onDidClick?: Function,
 				text?: string,
-			},
+			}>,
 			description?: string,
 			detail?: string,
 			dismissable?: boolean,
@@ -1377,11 +1385,11 @@ declare namespace AtomCore {
 
 		/** Add a fatal error notification. */
 		addFatalError(message: string, options?: {
-			buttons?: {
+			buttons?: Array<{
 				className?: string,
 				onDidClick?: Function,
 				text?: string,
-			},
+			}>,
 			description?: string,
 			detail?: string,
 			dismissable?: boolean,
@@ -1459,10 +1467,10 @@ declare namespace AtomCore {
 
 		// Enabling and Disabling Packages
 		/** Enable the package with the given name. */
-		enablePackage(name: string): Package|null;
+		enablePackage(name: string): Package|undefined;
 
 		/** Disable the package with the given name. */
-		disablePackage(name: string): Package|null;
+		disablePackage(name: string): Package|undefined;
 
 		/** Is the package with the given name disabled? */
 		isPackageDisabled(name: string): boolean;
@@ -1584,7 +1592,7 @@ declare namespace AtomCore {
 		getActiveItem(): object;
 
 		/** Return the item at the given index. */
-		itemAtIndex(index: number): object|null;
+		itemAtIndex(index: number): object|undefined;
 
 		/** Makes the next item active. */
 		activateNextItem(): void;

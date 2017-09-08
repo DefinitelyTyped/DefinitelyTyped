@@ -41,7 +41,6 @@ declare let panels: AtomCore.Panel[];
 declare let project: AtomCore.Project;
 declare let repository: AtomCore.GitRepository;
 declare let repositories: AtomCore.GitRepository[];
-declare let repositoryPromise: Promise<AtomCore.GitRepository>;
 declare let gutter: AtomCore.Gutter;
 declare let gutters: AtomCore.Gutter[];
 declare let historyPaths: AtomCore.HistoryProject[];
@@ -200,7 +199,65 @@ sub = atom.workspace.observeTextEditors((editor) => {
 atom.textEditors.add(editor);
 
 // Atom API Testing ===========================================================
-//// AtomEnvironment -- See above.
+//// AtomEnvironment ==========================================================
+// Event Subscription
+sub = atom.onDidBeep(() => {});
+sub = atom.onWillThrowError(event => event.message);
+sub = atom.onDidThrowError(event => event.line);
+sub = atom.whenShellEnvironmentLoaded(() => {});
+
+// Atom Details
+bool = atom.inDevMode();
+bool = atom.inSafeMode();
+bool = atom.inSpecMode();
+str = atom.getVersion();
+bool = atom.isReleasedVersion();
+num = atom.getWindowLoadTime();
+obj = atom.getLoadSettings();
+
+// Managing The Atom Window
+declare let dim: { width: number, height: number };
+declare let v2: { x: number, y: number };
+
+// atom.open(params);
+atom.close();
+dim = atom.getSize();
+atom.setSize(42, 42);
+v2 = atom.getPosition();
+atom.setPosition(42, 42);
+
+atom.pickFolder((paths) => {
+	if (paths) {
+		paths.length;
+	}
+});
+
+atom.getCurrentWindow();
+atom.center();
+atom.focus();
+atom.show();
+atom.hide();
+atom.reload();
+atom.restartApplication();
+bool = atom.isMaximized();
+bool = atom.isFullScreen();
+atom.setFullScreen(true);
+atom.toggleFullScreen();
+
+// Messaging the User
+atom.beep();
+
+atom.confirm({ message: "Test" });
+atom.confirm({ message: "Test", buttons: [ "a", "b" ], detailedMessage: "Test" });
+num = atom.confirm({ message: "Test", detailedMessage: "Test", buttons: {
+	Test: () => { atom.beep(); },
+}});
+
+// Managing the Dev Tools
+atom.openDevTools();
+atom.toggleDevTools();
+atom.executeJavaScriptInDevTools("Test");
+
 //// BufferedNodeProcess ======================================================
 const nodeProcess = new BufferedNodeProcess({
 	command: "File.path",
@@ -633,6 +690,13 @@ bool = dock.activatePreviousPane();
 //// File -- See 'pathwatcher' testing.
 //// GitRepository ============================================================
 // Construction and Destruction
+repository = new GitRepository("Test");
+repository = new GitRepository("Test", {});
+repository = new GitRepository("Test", { refreshOnWindowFocus: true });
+repository = new GitRepository("Test", { config: atom.config });
+repository = new GitRepository("Test", { project: atom.project });
+repository = new GitRepository("Test", { refreshOnWindowFocus: false, config: atom.config,
+	project: atom.project });
 repository.destroy();
 bool = repository.isDestroyed();
 
@@ -667,8 +731,15 @@ str = repository.getConfigValue("username", "test.path");
 str = repository.getOriginURL();
 str = repository.getOriginURL("test.path");
 
-str = repository.getUpstreamBranch();
-str = repository.getUpstreamBranch("test.path");
+let upstreamBranch = repository.getUpstreamBranch();
+if (upstreamBranch) {
+	str = upstreamBranch;
+}
+
+upstreamBranch = repository.getUpstreamBranch("test.path");
+if (upstreamBranch) {
+	str = upstreamBranch;
+}
 
 declare var gitReferences: { heads: string[], remotes: string[], tags: string[] };
 gitReferences = repository.getReferences();
@@ -683,7 +754,12 @@ bool = repository.isPathNew("file.path");
 bool = repository.isPathIgnored("file.path");
 num = repository.getDirectoryStatus("file.path");
 num = repository.getPathStatus("file.path");
-num = repository.getCachedPathStatus("file.path");
+
+const cachedPathStatus = repository.getCachedPathStatus("file.path");
+if (cachedPathStatus) {
+	num = cachedPathStatus;
+}
+
 bool = repository.isStatusModified(42);
 bool = repository.isStatusNew(42);
 
@@ -740,6 +816,18 @@ sub = atom.menu.add([
 atom.menu.update();
 
 //// Notification =============================================================
+notification = new Notification("fatal", "Test");
+notification = new Notification("success", "Test", {});
+notification = new Notification("info", "Test", {
+	buttons: [
+		{ className: "Test", text: "Test", onDidClick: () => {}},
+	],
+	description: "Test",
+	detail: "Test",
+	dismissable: false,
+	icon: "Test",
+});
+
 // Event Subscription
 sub = notification.onDidDismiss(notification => notification.dismissed);
 sub = notification.onDidDisplay(notification => notification.timestamp);
@@ -763,11 +851,11 @@ atom.notifications.addSuccess("Test", {
 	detail: "Details",
 	dismissable: true,
 	icon: "Icon",
-	buttons: {
+	buttons: [{
 		text: "Button",
 		onDidClick: () => {},
 		className: "test-class",
-	},
+	}],
 });
 
 atom.notifications.addInfo("Test");
@@ -797,7 +885,11 @@ pack.onDidDeactivate(() => {});
 bool = pack.isCompatible();
 declare let exitInfo: Promise<{ code: number, stderr: string, stdout: string }>;
 exitInfo = pack.rebuild();
-str = pack.getBuildFailureOutput();
+
+const buildFailureOutput = pack.getBuildFailureOutput();
+if (buildFailureOutput) {
+	str = buildFailureOutput;
+}
 
 //// PackageManager ===========================================================\
 // Event Subscription
@@ -813,23 +905,45 @@ str = atom.packages.getApmPath();
 strs = atom.packages.getPackageDirPaths();
 
 // General package data
-str = atom.packages.resolvePackagePath("Test");
+const packagePath = atom.packages.resolvePackagePath("Test");
+if (packagePath) {
+	str = packagePath;
+}
+
 bool = atom.packages.isBundledPackage("Test");
 
 // Enabling and disabling packages
-pack = atom.packages.enablePackage("Test");
-pack = atom.packages.disablePackage("Test");
+let potentialPack = atom.packages.enablePackage("Test");
+if (potentialPack) {
+	pack = potentialPack;
+}
+
+potentialPack = atom.packages.disablePackage("Test");
+if (potentialPack) {
+	pack = potentialPack;
+}
+
 bool = atom.packages.isPackageDisabled("Test");
 
 // Accessing active packages
 packs = atom.packages.getActivePackages();
-pack = atom.packages.getActivePackage("Test");
+
+potentialPack = atom.packages.getActivePackage("Test");
+if (potentialPack) {
+	pack = potentialPack;
+}
+
 bool = atom.packages.isPackageActive("Test");
 bool = atom.packages.hasActivatedInitialPackages();
 
 // Accessing loaded packages
 packs = atom.packages.getLoadedPackages();
-pack = atom.packages.getLoadedPackage("Test");
+
+potentialPack = atom.packages.getLoadedPackage("Test");
+if (potentialPack) {
+	pack = potentialPack;
+}
+
 bool = atom.packages.isPackageLoaded("Test");
 bool = atom.packages.hasLoadedInitialPackages();
 
@@ -862,7 +976,12 @@ sub = pane.onWillDestroyItem(event => event.index && event.item);
 // Items
 objs = pane.getItems();
 obj = pane.getActiveItem();
-obj = pane.itemAtIndex(42);
+
+let potentialItem = pane.itemAtIndex(42);
+if (potentialItem) {
+	obj = potentialItem;
+}
+
 pane.activateNextItem();
 pane.activatePreviousItem();
 pane.moveItemRight();
@@ -896,7 +1015,12 @@ pane.saveActiveItemAs(() => {});
 pane.saveItem(obj, () => {});
 pane.saveItemAs(obj, () => {});
 pane.saveItems();
-obj = pane.itemForURI("https://test");
+
+potentialItem = pane.itemForURI("https://test");
+if (potentialItem) {
+	obj = potentialItem;
+}
+
 bool = pane.activateItemForURI("https://test");
 
 // Lifecycle
@@ -954,7 +1078,13 @@ sub = project.observeBuffers(buffer => buffer.file);
 
 // Accessing the git repository
 repositories = project.getRepositories();
-repositoryPromise = project.repositoryForDirectory(dir);
+
+const promisedRepo = project.repositoryForDirectory(dir);
+promisedRepo.then((repo) => {
+	if (repo) {
+		repository = repo;
+	}
+});
 
 // Managing Paths
 strs = project.getPaths();
@@ -962,7 +1092,13 @@ project.setPaths(["a", "b"]);
 project.addPath("Test");
 project.removePath("Test");
 dirs = project.getDirectories();
-const [projectPath, relativePath]: [string, string] = project.relativizePath("Test");
+
+const [projectPath, relativePath] = project.relativizePath("Test");
+if (projectPath) {
+	str = projectPath;
+}
+str = relativePath;
+
 bool = project.contains("Test");
 
 //// Range -- See 'text-buffer' testing.
@@ -1133,6 +1269,20 @@ task.cancel();
 
 //// TextBuffer -- See 'text-buffer' testing.
 //// TextEditor ===============================================================
+editor = new TextEditor();
+editor = new TextEditor({
+	autoHeight: true, autoWidth: false, buffer, displayLayer: displayMarkerLayer,
+	editorWidthInChars: 42, grammar, initialColumn: 42, initialLine: 42,
+	initialScrollLeftColumn: 42, initialScrollTopRow: 42, invisibles: { cr: "~"},
+	largeFileMode: false, lineNumberGutterVisible: false, mini: false,
+	placeholderText: "Test", preferredLineLength: 42, scrollPastEnd: false,
+	scrollSensitivity: 42, selectionsMarkerLayer: displayMarkerLayer,
+	showCursorOnSelection: true, showIndentGuide: true, showInvisibles: true,
+	showLineNumbers: true, softTabs: false, softWrapAtPreferredLineLength: true,
+	softWrapped: false, suppressCursorCreation: true, tabLength: 42,
+	assert: obj, decorationManager: obj, tokenizedBuffer: obj,
+});
+
 // Event Subscription
 sub = editor.onDidChangeTitle(title => title.charAt);
 sub = editor.onDidChangePath(path => path.match);
@@ -1182,7 +1332,12 @@ buffer = editor.getBuffer();
 // File Details
 str = editor.getTitle();
 str = editor.getLongTitle();
-str = editor.getPath();
+
+const filePath = editor.getPath();
+if (filePath) {
+	str = filePath;
+}
+
 bool = editor.isModified();
 bool = editor.isEmpty();
 str = editor.getEncoding();
@@ -1398,7 +1553,11 @@ displayMarkerLayer = editor.addMarkerLayer({ maintainHistory: true });
 displayMarkerLayer = editor.addMarkerLayer({ persistent: true });
 displayMarkerLayer = editor.addMarkerLayer({ maintainHistory: true, persistent: true });
 
-displayMarkerLayer = editor.getMarkerLayer(42);
+const potentialMarkerLayer = editor.getMarkerLayer(42);
+if (potentialMarkerLayer) {
+	displayMarkerLayer = potentialMarkerLayer;
+}
+
 displayMarkerLayer = editor.getDefaultMarkerLayer();
 displayMarker = editor.getMarker(42);
 displayMarkers = editor.getMarkers();
@@ -1413,8 +1572,15 @@ editor.setCursorBufferPosition(pos, {});
 editor.setCursorBufferPosition(pos, { autoscroll: true });
 editor.setCursorBufferPosition([0, 0], { autoscroll: true });
 
-cursor = editor.getCursorAtScreenPosition(pos);
-cursor = editor.getCursorAtScreenPosition([0, 0]);
+let potentialCursor = editor.getCursorAtScreenPosition(pos);
+if (potentialCursor) {
+	cursor = potentialCursor;
+}
+
+potentialCursor = editor.getCursorAtScreenPosition([0, 0]);
+if (potentialCursor) {
+	cursor = potentialCursor;
+}
 
 pos = editor.getCursorScreenPosition();
 posArr = editor.getCursorScreenPositions();
@@ -1578,7 +1744,12 @@ editor.selectToNextWordBoundary();
 editor.selectToBeginningOfNextWord();
 editor.selectToBeginningOfNextParagraph();
 editor.selectToBeginningOfPreviousParagraph();
-range = editor.selectMarker(displayMarker);
+
+const potentialRange = editor.selectMarker(displayMarker);
+if (potentialRange) {
+	range = potentialRange;
+}
+
 selection = editor.getLastSelection();
 selections = editor.getSelections();
 selections = editor.getSelectionsOrderedByBufferPosition();
@@ -1615,7 +1786,12 @@ editor.setSoftTabs(true);
 bool = editor.toggleSoftTabs();
 num = editor.getTabLength();
 editor.setTabLength(42);
-bool = editor.usesSoftTabs();
+
+const potentialBool = editor.usesSoftTabs();
+if (potentialBool) {
+	bool = potentialBool;
+}
+
 str = editor.getTabText();
 
 // Soft Wrap Behavior
@@ -1690,7 +1866,11 @@ editor.addGutter({ name: "Test", visible: true });
 editor.addGutter({ name: "Test", priority: 42, visible: true });
 
 gutters = editor.getGutters();
-gutter = editor.gutterWithName("test-gutter");
+
+const potentialGutter = editor.gutterWithName("test-gutter");
+if (potentialGutter) {
+	gutter = potentialGutter;
+}
 
 editor.scrollToCursorPosition();
 editor.scrollToCursorPosition({});
@@ -1719,12 +1899,26 @@ editor.setPlaceholderText("Test");
 sub = atom.themes.onDidChangeActiveThemes(() => {});
 
 // Accessing Loaded Themes
-strs = atom.themes.getLoadedThemeNames();
-packs = atom.themes.getLoadedThemes();
+let potentialStrs = atom.themes.getLoadedThemeNames();
+if (potentialStrs) {
+	strs = potentialStrs;
+}
+
+let potentialPacks = atom.themes.getLoadedThemes();
+if (potentialPacks) {
+	packs = potentialPacks;
+}
 
 // Accessing Active Themes
-strs = atom.themes.getActiveThemeNames();
-packs = atom.themes.getActiveThemes();
+potentialStrs = atom.themes.getActiveThemeNames();
+if (potentialStrs) {
+	strs = potentialStrs;
+}
+
+potentialPacks = atom.themes.getActiveThemes();
+if (potentialPacks) {
+	packs = potentialPacks;
+}
 
 // Managing Enabled Themes
 strs = atom.themes.getEnabledThemeNames();
@@ -1754,9 +1948,21 @@ sub = atom.workspace.observeTextEditors(editor => editor.addGutter);
 sub = atom.workspace.observePaneItems((item) => {});
 sub = atom.workspace.onDidChangeActivePaneItem((item) => {});
 sub = atom.workspace.onDidStopChangingActivePaneItem((item) => {});
-sub = atom.workspace.onDidChangeActiveTextEditor(editor => editor.alive);
+
+sub = atom.workspace.onDidChangeActiveTextEditor(editor => {
+	if (editor) {
+		editor.alive;
+	}
+});
+
 sub = atom.workspace.observeActivePaneItem((item) => {});
-sub = atom.workspace.observeActiveTextEditor(editor => editor.decorateMarker);
+
+sub = atom.workspace.observeActiveTextEditor(editor => {
+	if (editor) {
+		editor.decorateMarker;
+	}
+});
+
 sub = atom.workspace.onDidOpen(event => event.index && event.item && event.pane &&
 	event.uri);
 sub = atom.workspace.onDidAddPane(event => event.pane);
@@ -1810,7 +2016,11 @@ atom.workspace.buildTextEditor(obj);
 objs = atom.workspace.getPaneItems();
 obj = atom.workspace.getActivePaneItem();
 editors = atom.workspace.getTextEditors();
-editor = atom.workspace.getActiveTextEditor();
+
+let potentialEditor = atom.workspace.getActiveTextEditor();
+if (potentialEditor) {
+	editor = potentialEditor;
+}
 
 // Panes
 paneContainer = atom.workspace.getActivePaneContainer();
@@ -1818,10 +2028,26 @@ panes = atom.workspace.getPanes();
 pane = atom.workspace.getActivePane();
 bool = atom.workspace.activateNextPane();
 bool = atom.workspace.activatePreviousPane();
-paneContainer = atom.workspace.paneContainerForURI("https://test");
-paneContainer = atom.workspace.paneContainerForItem(obj);
-pane = atom.workspace.paneForURI("https://test");
-pane = atom.workspace.paneForItem(obj);
+
+let potentialPaneContainer = atom.workspace.paneContainerForURI("https://test");
+if (potentialPaneContainer) {
+	paneContainer = potentialPaneContainer;
+}
+
+potentialPaneContainer = atom.workspace.paneContainerForItem(obj);
+if (potentialPaneContainer) {
+	paneContainer = potentialPaneContainer;
+}
+
+let potentialPane = atom.workspace.paneForURI("https://test");
+if (potentialPane) {
+	pane = potentialPane;
+}
+
+potentialPane = atom.workspace.paneForItem(obj);
+if (potentialPane) {
+	pane = potentialPane;
+}
 
 // Pane Locations
 workspaceCenter = atom.workspace.getCenter();
@@ -1865,7 +2091,10 @@ panels = atom.workspace.getModalPanels();
 panel = atom.workspace.addModalPanel({ item: element });
 panel = atom.workspace.addModalPanel({ item: element, priority: 100, visible: true });
 
-panel = atom.workspace.panelForItem(obj);
+const potentialPanel = atom.workspace.panelForItem(obj);
+if (potentialPanel) {
+	panel = potentialPanel;
+}
 
 // Searching and Replacing
 atom.workspace.scan(/r/, () => {});
@@ -1886,7 +2115,11 @@ sub = workspaceCenter.observeActivePaneItem(item => {});
 objs = workspaceCenter.getPaneItems();
 obj = workspaceCenter.getActivePaneItem();
 editors = workspaceCenter.getTextEditors();
-editor = workspaceCenter.getActiveTextEditor();
+
+potentialEditor = workspaceCenter.getActiveTextEditor();
+if (potentialEditor) {
+	editor = potentialEditor;
+}
 
 // Panes
 panes = workspaceCenter.getPanes();

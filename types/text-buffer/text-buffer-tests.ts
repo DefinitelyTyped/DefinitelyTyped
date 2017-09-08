@@ -202,7 +202,12 @@ const stoppedChangingDelay = buffer.getStoppedChangingDelay();
 // File Details
 bool = buffer.isModified();
 bool = buffer.isInConflict();
-str = buffer.getPath();
+
+const path = buffer.getPath();
+if (path) {
+	path.substr;
+}
+
 buffer.setPath("Test.file");
 buffer.setEncoding("utf8");
 str = buffer.getEncoding();
@@ -220,12 +225,29 @@ str = buffer.getTextInRange([[0, 0], point]);
 
 strArr = buffer.getLines();
 str = buffer.getLastLine();
-str = buffer.lineForRow(42);
-str = buffer.lineEndingForRow(42);
+
+const rowText = buffer.lineForRow(42);
+if (rowText) {
+	str = rowText;
+}
+
+const lineEnding = buffer.lineEndingForRow(42);
+if (lineEnding) {
+	str = lineEnding;
+}
+
 num = buffer.lineLengthForRow(42);
 bool = buffer.isRowBlank(42);
-num = buffer.previousNonBlankRow(42);
-num = buffer.nextNonBlankRow(42);
+
+const prevRow = buffer.previousNonBlankRow(42);
+if (prevRow) {
+	num = prevRow;
+}
+
+const nextRow = buffer.nextNonBlankRow(42);
+if (nextRow) {
+	num = nextRow;
+}
 
 // Mutating Text
 range = buffer.setText("Test");
@@ -268,7 +290,11 @@ buffer.addMarkerLayer({ maintainHistory: true });
 buffer.addMarkerLayer({ persistent: true });
 buffer.addMarkerLayer({ maintainHistory: true, persistent: true });
 
-markerLayer = buffer.getMarkerLayer("Test");
+const testMarkerLayer = buffer.getMarkerLayer("Test");
+if (testMarkerLayer) {
+	markerLayer = testMarkerLayer;
+}
+
 markerLayer = buffer.getDefaultMarkerLayer();
 
 marker = buffer.markRange(range);
