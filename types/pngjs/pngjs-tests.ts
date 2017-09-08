@@ -26,10 +26,10 @@ const pngs = [
 
 const png = pngs[0];
 
-if (png.readable === true) {
+if (png.readable) {
 	console.log('readable');
 }
-if (png.writable === true) {
+if (png.writable) {
 	console.log('writable');
 }
 png.width === 1;
