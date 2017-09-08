@@ -23,6 +23,8 @@
 
 /// <reference types="react" />
 
+/// <reference path="globals.d.ts" />
+
 export type MeasureOnSuccessCallback = (
         x: number,
         y: number,
