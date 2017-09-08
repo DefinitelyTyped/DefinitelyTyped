@@ -83,6 +83,7 @@ declare var __dirname: string;
 declare function setTimeout(callback: (...args: any[]) => void, ms: number, ...args: any[]): NodeJS.Timer;
 declare namespace setTimeout {
     export function __promisify__(ms: number): Promise<void>;
+    export function __promisify__<T>(ms: number, value: T): Promise<T>;
 }
 declare function clearTimeout(timeoutId: NodeJS.Timer): void;
 declare function setInterval(callback: (...args: any[]) => void, ms: number, ...args: any[]): NodeJS.Timer;
@@ -90,6 +91,7 @@ declare function clearInterval(intervalId: NodeJS.Timer): void;
 declare function setImmediate(callback: (...args: any[]) => void, ...args: any[]): any;
 declare namespace setImmediate {
     export function __promisify__(): Promise<void>;
+    export function __promisify__<T>(value: T): Promise<T>;
 }
 declare function clearImmediate(immediateId: any): void;
 
@@ -5674,6 +5676,7 @@ declare module "timers" {
     export function setTimeout(callback: (...args: any[]) => void, ms: number, ...args: any[]): NodeJS.Timer;
     export namespace setTimeout {
         export function __promisify__(ms: number): Promise<void>;
+        export function __promisify__<T>(ms: number, value: T): Promise<T>;
     }
     export function clearTimeout(timeoutId: NodeJS.Timer): void;
     export function setInterval(callback: (...args: any[]) => void, ms: number, ...args: any[]): NodeJS.Timer;
@@ -5681,6 +5684,7 @@ declare module "timers" {
     export function setImmediate(callback: (...args: any[]) => void, ...args: any[]): any;
     export namespace setImmediate {
         export function __promisify__(): Promise<void>;
+        export function __promisify__<T>(value: T): Promise<T>;
     }
     export function clearImmediate(immediateId: any): void;
 }

@@ -2179,10 +2179,12 @@ namespace timers_tests {
     }
     async function testPromisify() {
         const setTimeout = util.promisify(timers.setTimeout);
-        await setTimeout(100);
+        let v: void = await setTimeout(100); // tslint:disable-line no-void-expression void-return
+        let s: string = await setTimeout(100, "");
 
         const setImmediate = util.promisify(timers.setImmediate);
-        await setImmediate();
+        v = await setImmediate(); // tslint:disable-line no-void-expression
+        s = await setImmediate("");
     }
 }
 
