@@ -2516,7 +2516,7 @@ function test_NumericSymbolMagnitude() {
         }]
     });
 
-    chart.update(<Highcharts.ChartOptions> {
+    chart.update({
         lang: {
             numericSymbols: ['万', '億'],
             numericSymbolMagnitude: 10000

@@ -1,4 +1,4 @@
-// Type definitions for react-native 0.47
+// Type definitions for react-native 0.48
 // Project: https://github.com/facebook/react-native
 // Definitions by: Eloy Durán <https://github.com/alloy>
 //                 Fedor Nezhivoi <https://github.com/gyzerok>
@@ -350,19 +350,20 @@ export function createElement<P>(
 
 export type Runnable = (appParameters: any) => void;
 
+type NodeHandle = number;
 
 // Similar to React.SyntheticEvent except for nativeEvent
 interface NativeSyntheticEvent<T> {
     bubbles: boolean
     cancelable: boolean
-    currentTarget: EventTarget
+    currentTarget: NodeHandle
     defaultPrevented: boolean
     eventPhase: number
     isTrusted: boolean
     nativeEvent: T
     preventDefault(): void
     stopPropagation(): void
-    target: EventTarget
+    target: NodeHandle
     timeStamp: Date
     type: string
 }
@@ -4327,6 +4328,16 @@ export interface MapViewStatic extends NativeMethodsMixin, React.ComponentClass<
     }
 }
 
+interface MaskedViewProperties extends ViewProperties {
+    maskElement: React.ReactElement<any>,
+}
+
+/**
+ * @see https://facebook.github.io/react-native/docs/maskedviewios.html
+ */
+export interface MaskedViewStatic extends NativeMethodsMixin, React.ComponentClass<MaskedViewProperties> {
+}
+
 export interface ModalProperties {
 
     // Only `animated` is documented. The JS code says `animated` is
@@ -4386,7 +4397,7 @@ interface TouchableMixin {
      * to visually distinguish the `VisualRect` so that the user knows that
      * releasing a touch will result in a "selection" (analog to click).
      */
-    touchableHandleActivePressIn(e: Event): void
+    touchableHandleActivePressIn(e: GestureResponderEvent): void
 
     /**
      * Invoked when the item is "active" (in that it is still eligible to become
@@ -4397,14 +4408,14 @@ interface TouchableMixin {
      * event will not fire on an `touchEnd/mouseUp` event, only move events while
      * the user is depressing the mouse/touch.
      */
-    touchableHandleActivePressOut(e: Event): void
+    touchableHandleActivePressOut(e: GestureResponderEvent): void
 
     /**
      * Invoked when the item is "selected" - meaning the interaction ended by
      * letting up while the item was either in the state
      * `RESPONDER_ACTIVE_PRESS_IN` or `RESPONDER_INACTIVE_PRESS_IN`.
      */
-    touchableHandlePress(e: Event): void
+    touchableHandlePress(e: GestureResponderEvent): void
 
     /**
      * Invoked when the item is long pressed - meaning the interaction ended by
@@ -4416,7 +4427,7 @@ interface TouchableMixin {
      * to return false. As a result, `touchableHandlePress` will be called when
      * lifting up, even if `touchableHandleLongPress` has also been called.
      */
-    touchableHandleLongPress(e: Event): void
+    touchableHandleLongPress(e: GestureResponderEvent): void
 
     /**
      * Returns the amount to extend the `HitRect` into the `PressRect`. Positive
@@ -5758,6 +5769,9 @@ export interface ScrollViewStyle extends FlexStyle, TransformsStyle {
     elevation?: number
 }
 
+export interface ScrollResponderEvent extends NativeSyntheticEvent<NativeTouchEvent> {
+}
+
 
 interface ScrollResponderMixin extends SubscribableMixin {
     /**
@@ -5803,7 +5817,7 @@ interface ScrollResponderMixin extends SubscribableMixin {
      *
      * Invoke this from an `onStartShouldSetResponderCapture` event.
      */
-    scrollResponderHandleStartShouldSetResponderCapture(e: Event): boolean
+    scrollResponderHandleStartShouldSetResponderCapture(e: ScrollResponderEvent): boolean
 
     /**
      * Invoke this from an `onResponderReject` event.
@@ -5839,19 +5853,19 @@ interface ScrollResponderMixin extends SubscribableMixin {
      *
      * @param {SyntheticEvent} e Event.
      */
-    scrollResponderHandleTouchEnd(e: Event): void
+    scrollResponderHandleTouchEnd(e: ScrollResponderEvent): void
 
     /**
      * Invoke this from an `onResponderRelease` event.
      */
-    scrollResponderHandleResponderRelease(e: Event): void
+    scrollResponderHandleResponderRelease(e: ScrollResponderEvent): void
 
-    scrollResponderHandleScroll(e: Event): void
+    scrollResponderHandleScroll(e: ScrollResponderEvent): void
 
     /**
      * Invoke this from an `onResponderGrant` event.
      */
-    scrollResponderHandleResponderGrant(e: Event): void
+    scrollResponderHandleResponderGrant(e: ScrollResponderEvent): void
 
     /**
      * Unfortunately, `onScrollBeginDrag` also fires when *stopping* the scroll
@@ -5860,22 +5874,22 @@ interface ScrollResponderMixin extends SubscribableMixin {
      *
      * Invoke this from an `onScrollBeginDrag` event.
      */
-    scrollResponderHandleScrollBeginDrag(e: Event): void
+    scrollResponderHandleScrollBeginDrag(e: ScrollResponderEvent): void
 
     /**
      * Invoke this from an `onScrollEndDrag` event.
      */
-    scrollResponderHandleScrollEndDrag(e: Event): void
+    scrollResponderHandleScrollEndDrag(e: ScrollResponderEvent): void
 
     /**
      * Invoke this from an `onMomentumScrollBegin` event.
      */
-    scrollResponderHandleMomentumScrollBegin(e: Event): void
+    scrollResponderHandleMomentumScrollBegin(e: ScrollResponderEvent): void
 
     /**
      * Invoke this from an `onMomentumScrollEnd` event.
      */
-    scrollResponderHandleMomentumScrollEnd(e: Event): void
+    scrollResponderHandleMomentumScrollEnd(e: ScrollResponderEvent): void
 
     /**
      * Invoke this from an `onTouchStart` event.
@@ -5888,7 +5902,7 @@ interface ScrollResponderMixin extends SubscribableMixin {
      *
      * @param {SyntheticEvent} e Touch Start event.
      */
-    scrollResponderHandleTouchStart(e: Event): void
+    scrollResponderHandleTouchStart(e: ScrollResponderEvent): void
 
     /**
      * Invoke this from an `onTouchMove` event.
@@ -5901,7 +5915,7 @@ interface ScrollResponderMixin extends SubscribableMixin {
      *
      * @param {SyntheticEvent} e Touch Start event.
      */
-    scrollResponderHandleTouchMove(e: Event): void
+    scrollResponderHandleTouchMove(e: ScrollResponderEvent): void
 
     /**
      * A helper function for this class that lets us quickly determine if the
@@ -5965,7 +5979,7 @@ interface ScrollResponderMixin extends SubscribableMixin {
      */
     scrollResponderInputMeasureAndScrollToKeyboard(left: number, top: number, width: number, height: number): void
 
-    scrollResponderTextInputFocusError(e: Event): void
+    scrollResponderTextInputFocusError(e: ScrollResponderEvent): void
 
     /**
      * `componentWillMount` is the closest thing to a  standard "constructor" for
@@ -6003,13 +6017,13 @@ interface ScrollResponderMixin extends SubscribableMixin {
      * relevant to you. (For example, only if you receive these callbacks after
      * you had explicitly focused a node etc).
      */
-    scrollResponderKeyboardWillShow(e: Event): void
+    scrollResponderKeyboardWillShow(e: ScrollResponderEvent): void
 
-    scrollResponderKeyboardWillHide(e: Event): void
+    scrollResponderKeyboardWillHide(e: ScrollResponderEvent): void
 
-    scrollResponderKeyboardDidShow(e: Event): void
+    scrollResponderKeyboardDidShow(e: ScrollResponderEvent): void
 
-    scrollResponderKeyboardDidHide(e: Event): void
+    scrollResponderKeyboardDidHide(e: ScrollResponderEvent): void
 }
 
 export interface ScrollViewPropertiesIOS {
@@ -8190,6 +8204,10 @@ export namespace Animated {
         friction?: number;
     }
 
+    interface LoopAnimationConfig {
+        iterations?: number; // default -1 for infinite
+    }
+
     /**
      * Creates a new Animated value composed from two Animated values added
      * together.
@@ -8269,6 +8287,18 @@ export namespace Animated {
     export function stagger(
         time: number,
         animations: Array<CompositeAnimation>
+    ): CompositeAnimation
+
+    /**
+     * Loops a given animation continuously, so that each time it reaches the end,
+     * it resets and begins again from the start. Can specify number of times to
+     * loop using the key 'iterations' in the config. Will loop without blocking
+     * the UI thread if the child animation is set to 'useNativeDriver'.
+     */
+
+    export function loop(
+        animation: CompositeAnimation,
+        config?: LoopAnimationConfig,
     ): CompositeAnimation
 
     /**
@@ -8437,20 +8467,6 @@ export interface ImageStoreStatic {
 // TODO: Add proper support for fetch
 export type fetch = (url: string, options?: Object) => Promise<any>
 export const fetch: fetch;
-
-// Timers polyfill
-export type timedScheduler = (fn: string | (() => any), delay?: number) => number
-export type setTimeout = timedScheduler
-export type setInterval = timedScheduler
-export type setImmediate = (fn: () => any) => number
-export type requestAnimationFrame = (fn: (time: number) => any) => number
-
-export type schedulerCanceller = (id: number) => void
-export type clearTimeout = schedulerCanceller
-export type clearInterval = schedulerCanceller
-export type clearImmediate = schedulerCanceller
-export type cancelAnimationFrame = schedulerCanceller
-
 
 export interface TabsReducerStatic {
     JumpToAction(index: number): any;
@@ -8887,6 +8903,9 @@ export type ListView = ListViewStatic
 export var MapView: MapViewStatic
 export type MapView = MapViewStatic
 
+export var MaskedView: MaskedViewStatic
+export type MaskedView = MaskedViewStatic
+
 export var Modal: ModalStatic
 export type Modal = ModalStatic
 
@@ -9120,9 +9139,12 @@ export var NativeEventEmitter: NativeEventEmitter
 export var NativeAppEventEmitter: RCTNativeAppEventEmitter
 
 /**
- * Empty interface which can be augmented by other type definitions for the NativeModules var below.
+ * Interface for NativeModules which allows to augment NativeModules with type informations.
+ * See react-native-sensor-manager for example.
  */
-interface NativeModulesStatic {}
+interface NativeModulesStatic {
+    [name: string]: any;
+}
 
 /**
  * Native Modules written in ObjectiveC/Swift/Java exposed via the RCTBridge
@@ -9181,31 +9203,6 @@ export interface ErrorUtils {
     getGlobalHandler: () => ErrorHandlerCallback;
 }
 
-export interface GlobalStatic {
-
-    /**
-     * Accepts a function as its only argument and calls that function before the next repaint.
-     * It is an essential building block for animations that underlies all of the JavaScript-based animation APIs.
-     * In general, you shouldn't need to call this yourself - the animation API's will manage frame updates for you.
-     * @see https://facebook.github.io/react-native/docs/animations.html#requestanimationframe
-     */
-    requestAnimationFrame(fn: () => void): void;
-
-    /**
-     * This contains the non-native `XMLHttpRequest` object, which you can use if you want to route network requests
-     * through DevTools (to trace them):
-     *
-     *   global.XMLHttpRequest = global.originalXMLHttpRequest;
-     *
-     * @see https://github.com/facebook/react-native/issues/934
-     */
-    originalXMLHttpRequest: Object;
-    XMLHttpRequest: Object;
-
-    __BUNDLE_START_TIME__: number;
-    ErrorUtils: ErrorUtils;
-}
-
 //
 // Add-Ons
 //
@@ -9231,8 +9228,20 @@ export var EdgeInsetsPropType: React.Requireable<any>
 export var PointPropType: React.Requireable<any>
 
 declare global {
-    const global: GlobalStatic;
     function require(name: string): any;
+
+    /**
+     * This contains the non-native `XMLHttpRequest` object, which you can use if you want to route network requests
+     * through DevTools (to trace them):
+     *
+     *   global.XMLHttpRequest = global.originalXMLHttpRequest;
+     *
+     * @see https://github.com/facebook/react-native/issues/934
+     */
+    var originalXMLHttpRequest: Object;
+
+    var __BUNDLE_START_TIME__: number;
+    var ErrorUtils: ErrorUtils;
 
     /**
      * This variable is set to true when react-native is running in Dev mode

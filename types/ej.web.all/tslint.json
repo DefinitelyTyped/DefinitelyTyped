@@ -4,9 +4,9 @@
     // All are TODOs
     "comment-format": false,
     "no-consecutive-blank-lines": false,
-    "no-irregular-whitespace": false,
     "no-mergeable-namespace": false,
     "no-padding": false,
+    "no-any-union": false,
     "no-unnecessary-qualifier": false,
     "strict-export-declare-modifiers": false
   }

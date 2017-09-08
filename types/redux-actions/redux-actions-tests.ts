@@ -89,26 +89,100 @@ const typedActionHandler = ReduxActions.handleAction<TypedState, TypedPayload>(
     {value: 1}
 );
 
-typedState = typedActionHandler({ value: 0 }, typedIncrementAction());
+const actionNoArgs = typedIncrementAction();
+actionNoArgs.payload.increase = 1;
 
-const typedIncrementByActionWithMeta: (value: number) => ReduxActions.ActionMeta<TypedPayload, MetaType> =
-    ReduxActions.createAction<TypedPayload, MetaType>(
-    'INCREMENT_BY',
-        amount => ({ increase: amount }),
-        amount => ({ remote: true })
+typedState = typedActionHandler({ value: 0 }, actionNoArgs);
+
+const typedIncrementAction1TypedArg: (value: number) =>
+    ReduxActions.Action<TypedPayload> = ReduxActions.createAction<TypedPayload, number>(
+        'INCREMENT',
+        amount => ({ increase: amount })
     );
 
-const typedActionHandlerWithReduceMap = ReduxActions.handleAction<TypedState, TypedPayload>(
+const actionFrom1Arg = typedIncrementAction1TypedArg(10);
+actionFrom1Arg.payload.increase === 10;
+
+const typedIncrementAction2TypedArgs: (numericAmount: number, stringAmount: string) =>
+ReduxActions.Action<TypedPayload> = ReduxActions.createAction<TypedPayload, number, string>(
+    'INCREMENT',
+    (numericAmount, stringAmount) => ({ increase: numericAmount + parseInt(stringAmount, 10) })
+);
+
+const actionFrom2Args = typedIncrementAction2TypedArgs(10, '100');
+actionFrom1Arg.payload.increase === 110;
+
+const typedActionHandlerReducerMap = ReduxActions.handleActions<TypedState, TypedPayload>(
+    {
+        INCREMENT: (state: TypedState, action: ReduxActions.Action<TypedPayload>) => ({ value: state.value + 1 })
+    },
+    {value: 1}
+);
+
+typedState = typedActionHandlerReducerMap({ value: 0 }, actionFrom1Arg);
+
+const typedIncrementByActionWithMetaAnyArgs: (...args: any[]) => ReduxActions.ActionMeta<TypedPayload, MetaType> =
+    ReduxActions.createAction<TypedPayload, MetaType>(
+        'INCREMENT_BY',
+        amount => ({ increase: amount }),
+        (_, remote) => ({ remote })
+    );
+
+const actionMetaFromAnyArgs = typedIncrementByActionWithMetaAnyArgs(10, true, 'nic', 'cage');
+actionMetaFromAnyArgs.payload.increase === 10;
+actionMetaFromAnyArgs.meta.remote;
+
+const typedActionHandlerWithMeta = ReduxActions.handleAction<TypedState, TypedPayload, MetaType>(
     'INCREMENT_BY', {
-        next(state: TypedState, action: ReduxActions.Action<TypedPayload>) {
-            return { value: state.value + action.payload.increase };
+        next(state: TypedState, action: ReduxActions.ActionMeta<TypedPayload, MetaType>) {
+            return action.meta.remote ? state : { value: state.value + action.payload.increase };
         },
         throw(state: TypedState) { return state; }
     },
     {value: 1}
 );
 
-typedState = typedActionHandlerWithReduceMap({ value: 0 }, typedIncrementByActionWithMeta(10));
+typedState = typedActionHandlerWithMeta({ value: 0 }, typedIncrementByActionWithMetaAnyArgs(10));
+
+const typedActionHandlerReducerMetaMap = ReduxActions.handleActions<TypedState, TypedPayload, MetaType>(
+    {
+        INCREMENT_BY: {
+            next(state: TypedState, action: ReduxActions.ActionMeta<TypedPayload, MetaType>) {
+                return action.meta.remote ? state : { value: state.value + action.payload.increase };
+            },
+            throw(state: TypedState) { return state; }
+        }
+    },
+    {value: 1}
+);
+
+typedState = typedActionHandlerReducerMetaMap({ value: 0 }, actionMetaFromAnyArgs);
+
+const typedActionWithMeta1TypedArg: (value: number) => ReduxActions.ActionMeta<TypedPayload, MetaType> =
+    ReduxActions.createAction<TypedPayload, MetaType, number>(
+        'INCREMENT_BY',
+        amount => ({ increase: amount }),
+        amount => ({ remote: true })
+    );
+
+const actionMetaFrom1Arg = typedActionWithMeta1TypedArg(10);
+actionMetaFrom1Arg.payload.increase === 10;
+actionMetaFrom1Arg.meta.remote;
+
+typedState = typedActionHandlerReducerMetaMap({ value: 0 }, actionMetaFrom1Arg);
+
+const typedActionWithMeta2TypedArgs: (value: number, remote: boolean) => ReduxActions.ActionMeta<TypedPayload, MetaType> =
+    ReduxActions.createAction<TypedPayload, MetaType, number, boolean>(
+        'INCREMENT_BY',
+        (amount, remote)  => ({ increase: amount }),
+        (amount, remote) => ({ remote })
+    );
+
+const actionMetaFrom2Args = typedActionWithMeta2TypedArgs(10, true);
+actionMetaFrom2Args.payload.increase === 10;
+actionMetaFrom2Args.meta.remote;
+
+typedState = typedActionHandlerReducerMetaMap({ value: 0 }, actionMetaFrom2Args);
 
 const act0 = ReduxActions.createAction('ACTION0');
 act0().payload === null;
@@ -134,10 +208,12 @@ ReduxActions.handleAction(act3, (state, action) => {
     return { hello: action.payload.s };
 }, {hello: 'greetings'});
 
-ReduxActions.handleAction(ReduxActions.combineActions(act1, act3, act2), (state, action) => {}, 0);
+ReduxActions.handleAction(ReduxActions.combineActions(act1, act3, act2), (state, action) => state + 1, 0);
 
 ReduxActions.handleActions({
-    [ReduxActions.combineActions(act1, act3, act2)](state, action) {}
+    [ReduxActions.combineActions(act1, act3, act2)](state, action) {
+        return state + 1;
+    }
 }, 0);
 
 /* can't do this until it lands in 2.2, HKTs

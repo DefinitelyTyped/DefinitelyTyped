@@ -104,7 +104,11 @@ function testBasics() {
     db.post(model, null, (error, response) => {
     });
 
-    db.get(id).then((result) => model = result);
+    db.get(id).then((result) => {
+        model = result;
+        isString(result._id);
+        isString(result._rev);
+    });
     db.get(id, null, (error, result) => {
     });
 

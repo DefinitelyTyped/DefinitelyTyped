@@ -295,12 +295,6 @@
             "asOfVersion": "0.2.29"
         },
         {
-            "libraryName": "jquery.pjax.falsandtru",
-            "typingsPackageName": "jquery.pjax.falsandtru",
-            "sourceRepoURL": "https://github.com/falsandtru/pjax-api",
-            "asOfVersion": "2.0.0"
-        },
-        {
             "libraryName": "JSNLog",
             "typingsPackageName": "jsnlog",
             "sourceRepoURL": "https://github.com/mperdeck/jsnlog.js",
@@ -563,6 +557,12 @@
             "typingsPackageName": "route-recognizer",
             "sourceRepoURL": "https://github.com/tildeio/route-recognizer",
             "asOfVersion": "0.3.0"
+        },
+        {
+            "libraryName": "router5",
+            "typingsPackageName": "router5",
+            "sourceRepoURL": "https://github.com/router5/router5",
+            "asOfVersion": "5.0.0"
         },
         {
             "libraryName": "samchon",
