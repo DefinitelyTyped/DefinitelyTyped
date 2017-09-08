@@ -2367,12 +2367,12 @@ export class Material extends EventDispatcher {
      * Blending destination. It's one of the blending mode constants defined in Three.js. Default is {@link OneMinusSrcAlphaFactor}.
      */
     blendDst: BlendingDstFactor;
-    
+
     /**
      * The tranparency of the .blendDst. Default is null.
      */
     blendDstAlpha: number;
-    
+
     /**
      * Blending equation to use when applying blending. It's one of the constants defined in Three.js. Default is {@link AddEquation}.
      */
@@ -2382,17 +2382,17 @@ export class Material extends EventDispatcher {
      * The tranparency of the .blendEquation. Default is null.
      */
     blendEquationAlpha: number;
-    
+
     /**
      * Which blending to use when displaying objects with this material. Default is {@link NormalBlending}.
      */
     blending: Blending;
-    
+
     /**
      * Blending source. It's one of the blending mode constants defined in Three.js. Default is {@link SrcAlphaFactor}.
      */
     blendSrc: BlendingSrcFactor | BlendingDstFactor;
-    
+
     /**
      * The tranparency of the .blendSrc. Default is null.
      */
@@ -2407,7 +2407,7 @@ export class Material extends EventDispatcher {
      * User-defined clipping planes specified as THREE.Plane objects in world space. These planes apply to the objects this material is attached to. Points in space whose signed distance to the plane is negative are clipped (not rendered). See the WebGL / clipping /intersection example. Default is null.
      */
     clippingPlanes: any;
-    
+
     /**
      * Defines whether to clip shadows according to the clipping planes specified on this material. Default is false.
      */
@@ -2422,7 +2422,7 @@ export class Material extends EventDispatcher {
      * Which depth function to use. Default is {@link LessEqualDepth}. See the depth mode constants for all possible values.
      */
     depthFunc: DepthModes;
-    
+
     /**
      * Whether to have depth test enabled when rendering this material. Default is true.
      */
@@ -2459,7 +2459,7 @@ export class Material extends EventDispatcher {
      * Material name. Default is an empty string.
      */
     name: string;
-    
+
     /**
      * Specifies that the material needs to be updated, WebGL wise. Set it to true if you made changes that need to be reflected in WebGL.
      * This property is automatically set to true when instancing a new material.
@@ -2480,7 +2480,7 @@ export class Material extends EventDispatcher {
      * Whether to use polygon offset. Default is false. This corresponds to the POLYGON_OFFSET_FILL WebGL feature.
      */
     polygonOffset: boolean;
-    
+
     /**
      * Sets the polygon offset factor. Default is 0.
      */
@@ -2518,8 +2518,8 @@ export class Material extends EventDispatcher {
     side: Side;
 
     /**
-     * Defines whether this material is transparent. This has an effect on rendering as transparent objects need special treatment and are rendered after non-transparent objects. 
-     * When set to true, the extent to which the material is transparent is controlled by setting it's .opacity property. 
+     * Defines whether this material is transparent. This has an effect on rendering as transparent objects need special treatment and are rendered after non-transparent objects.
+     * When set to true, the extent to which the material is transparent is controlled by setting it's .opacity property.
      * Default is false.
      */
     transparent: boolean;
@@ -2548,7 +2548,7 @@ export class Material extends EventDispatcher {
      * An object that can be used to store custom data about the Material. It should not hold references to functions as these will not be cloned.
      */
     userData: any;
-    
+
     /**
      * Return a new material with the same parameters as this material.
      */
@@ -2581,7 +2581,7 @@ export class Material extends EventDispatcher {
      * Call .dispatchEvent ( { type: 'update' }) on the material.
      */
     update(): void;
-    
+
     /**
      * @deprecated
      */
@@ -5226,7 +5226,7 @@ export interface RenderItem
     geometry: THREE.Geometry | THREE.BufferGeometry,
     material: THREE.Material,
     program: THREE.WebGLProgram,
-    renderOrder: any,
+    renderOrder: number,
     z: number,
     group: THREE.Group
 }
@@ -5244,7 +5244,7 @@ export class WebGLRenderList
 export class WebGLRenderLists{
     dispose(): void;
     /**
-    * 
+    *
     * returns {<String> : <WebGLRenderList>}
     */
     get(scene: Scene, camera: Camera): WebGLRenderList;
