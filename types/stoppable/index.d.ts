@@ -3,8 +3,9 @@
 // Definitions by: Eric Byers <https://github.com/EricByers>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as http from 'http';
+/// <reference types="node" />
+import { Server } from 'http';
 
-declare function stoppable(server: http.Server, grace?: number): http.Server;
+declare function stoppable(server: Server, grace?: number): http.Server;
 
 export = stoppable;
