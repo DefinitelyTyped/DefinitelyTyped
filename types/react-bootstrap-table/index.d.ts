@@ -81,6 +81,10 @@ export interface RemoteObjSpec {
 
 export interface BootstrapTableProps extends Props<BootstrapTable> {
 	/**
+    Set version='4' to use bootstrap@4, else bootstrap@3 is used.
+    */
+    version?: string;
+	/**
 	Use data to specify the data that you want to display on table.
 	*/
 	data: any[];
