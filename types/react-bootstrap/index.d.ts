@@ -119,6 +119,8 @@ export {
   TabPane,
   Tabs,
   Thumbnail,
+  ToggleButton,
+  ToggleButtonGroup,
   Tooltip,
   Well,
   utils,
