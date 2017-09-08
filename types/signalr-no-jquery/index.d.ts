@@ -9,6 +9,7 @@ export function hubConnection(url?:string, options?: Options):Connection;
 export function signalR(url?: string, qs?: any, logging?: any): any;
 
 interface Connection {
+    id: string;
     proxies: { [hubName: string]: any };
     transport: { name: string, supportsKeepAlive: () => boolean };
     /**
@@ -19,7 +20,7 @@ interface Connection {
     */
     createHubProxy(hubName: string): Proxy;
 
-    start(options:any, callback:any):any
+    start(options?:any, callback?:any):any
 }
 
 interface Proxy {
