@@ -139,7 +139,7 @@ export interface SyncOptions {
      * value will enable the dialog with the default strings, and passing an object to this parameter allows enabling the dialog as well as
      * overriding one or more of the default strings.
      */
-    updateDialog?: UpdateDialog;
+    updateDialog?: boolean | UpdateDialog;
 }
 
 export interface UpdateDialog {

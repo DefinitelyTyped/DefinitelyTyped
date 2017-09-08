@@ -273,3 +273,14 @@ function testWithObservableConfig() {
   let mapPropsStreamMost = mapPropsStreamWithConfig(mostConfig)
   mapPropsStreamMost = mapPropsStream
 }
+
+function testOnlyUpdateForKeys() {
+    interface Props {
+        foo: number;
+        bar: string;
+    }
+    const component: React.StatelessComponent<Props> = (props) => <div>{props.foo} {props.bar}</div>
+    onlyUpdateForKeys<Props>(['foo'])(component)
+    // This should be a compile error
+    // onlyUpdateForKeys<Props>(['fo'])(component)
+}

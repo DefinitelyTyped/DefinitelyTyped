@@ -20,6 +20,7 @@ const onFulfilled = (item: WebMidi.MIDIAccess) => {
     for (const op of outputs) {
         this._outputs.push(op);
         op.send([ 0x90, 0x45, 0x7f ]);
+        op.send(new Uint8Array([ 0x90, 0x45, 0x7f ]));
     }
 
     for (const input of this._inputs) {

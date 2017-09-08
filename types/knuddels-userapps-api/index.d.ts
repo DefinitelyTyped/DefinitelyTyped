@@ -540,6 +540,10 @@ declare class BotUser extends User {
 	transferKnuddel(
 		receivingUserOrAccount: User | KnuddelAccount,
 		knuddelAmount: KnuddelAmount,
+		displayReasonText: string): void;
+	transferKnuddel(
+		receivingUserOrAccount: User | KnuddelAccount,
+		knuddelAmount: KnuddelAmount,
 		parameters?: {
 			displayReasonText?: string;
 			transferDisplayType?: KnuddelTransferDisplayType;

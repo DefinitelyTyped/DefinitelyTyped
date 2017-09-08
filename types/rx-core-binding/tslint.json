@@ -5,6 +5,7 @@
         "dt-header": false,
         "no-empty-interface": false,
         "interface-name": false,
-        "no-single-declare-module": false
+        "no-single-declare-module": false,
+        "no-unnecessary-generics": false
     }
 }

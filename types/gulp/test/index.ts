@@ -65,26 +65,12 @@ const test: gulp.TaskFunction = (done) => {
 
 gulp.task(test);
 
-gulp.task('clean', (done) => {
-    del(['.build/'], done);
-});
+gulp.task('clean', () => del(['.build/']));
 
 gulp.task('somename', () => {
     return gulp.src('client/**/*.js')
         .pipe(minify())
         .pipe(gulp.dest('build'));
-});
-
-gulp.task('clean', () => {
-    return new Promise((resolve, reject) => {
-        del(['.build/'], (err: any) => {
-            if (err) {
-                reject(err);
-            } else {
-                resolve();
-            }
-        });
-    });
 });
 
 gulp.task('clean', () => {

@@ -117,6 +117,17 @@ declare module "rethinkdb" {
         ssl?: TLSConnectionOptions;
     }
 
+    type waitFor = 'ready_for_outdated_reads' | 'ready_for_reads' | 'ready_for_writes';
+
+    interface WaitOptions {
+        waitFor?: waitFor;
+        timeout?: number;
+    }
+
+    interface WaitResult {
+        ready: number;
+    }
+
     interface NoReplyWait {
         noreplyWait: boolean;
     }
@@ -143,6 +154,7 @@ declare module "rethinkdb" {
         tableDrop(name: string): Operation<DropResult>;
         tableList(): Operation<string[]>;
         table(name: string, options?: GetTableOptions): Table;
+        wait(WaitOptions?): WaitResult;
     }
 
     interface TableOptions {
@@ -233,6 +245,7 @@ declare module "rethinkdb" {
         get(key: string): Sequence; // primary key
         getAll(key: string, index?: Index): Sequence; // without index defaults to primary key
         getAll(...keys: string[]): Sequence;
+        wait(WaitOptions?): WaitResult;
     }
 
     interface Sequence extends Operation<Cursor>, Writeable {

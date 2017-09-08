@@ -210,7 +210,7 @@ declare module 'angular' {
 declare global {
     interface Array<T> {
         /** The promise of the original server interaction that created this collection. */
-        $promise: IPromise<T[]>;
+        $promise: angular.IPromise<T[]>;
         $resolved: boolean;
     }
 }
