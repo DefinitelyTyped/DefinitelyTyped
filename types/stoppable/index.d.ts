@@ -3,5 +3,6 @@
 // Definitions by: Eric Byers <https://github.com/EricByers>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export const stoppable: (server:http.Server, grace?:number) => http.Server;
+declare function stoppable(server:http.Server, grace?:number) => http.Server;
 
+export = stoppable;
