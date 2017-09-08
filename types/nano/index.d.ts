@@ -1,4 +1,4 @@
-// Type definitions for nano 6.2
+// Type definitions for nano 6.4
 // Project: https://github.com/apache/couchdb-nano
 // Definitions by: Tim Jacobi <https://github.com/timjacobi>
 //                 Kovács Vince <https://github.com/vincekovacs>
