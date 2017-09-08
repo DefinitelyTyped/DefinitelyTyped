@@ -3,6 +3,8 @@
 // Definitions by: Eric Byers <https://github.com/EricByers>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function stoppable(server:http.Server, grace?:number): http.Server;
+import * as http from 'http';
+
+declare function stoppable(server: http.Server, grace?: number): http.Server;
 
 export = stoppable;
