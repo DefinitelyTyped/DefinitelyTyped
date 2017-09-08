@@ -9240,21 +9240,6 @@ export var PointPropType: React.Requireable<any>
 declare global {
     function require(name: string): any;
 
-    function clearInterval(handle: number): void
-    function setInterval(handler: (...args: any[]) => void, timeout: number): number
-    function setInterval(handler: Function, timeout?: number, ...args: any[]): number
-
-    function clearTimeout(handle: number): void
-    function setTimeout(handler: (...args: any[]) => void, timeout: number): number
-    function setTimeout(handler: Function, timeout?: number, ...args: any[]): number
-
-    function clearImmediate(handle: number): void;
-    function setImmediate(handler: (...args: any[]) => void): number
-    function setImmediate(handler: Function, ...args: any[]): number
-
-    function requestAnimationFrame(callback: (time: number) => void): number
-    function cancelAnimationFrame(handle: number): void
-
     /**
      * Console polyfill
      * @see https://facebook.github.io/react-native/docs/javascript-environment.html#polyfills
