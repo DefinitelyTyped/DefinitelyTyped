@@ -5219,12 +5219,24 @@ export class WebGLRenderer implements Renderer {
 
 export interface RenderTarget {} // not defined in the code, used in LightShadow and WebGRenderer classes
 
+export interface RenderItem
+{
+    id: number
+    object: THREE.Object3D,
+    geometry: THREE.Geometry | THREE.BufferGeometry,
+    material: THREE.Material,
+    program: THREE.WebGLProgram,
+    renderOrder: any,
+    z: number,
+    group: THREE.Group
+}
+
 export class WebGLRenderList
 {
-    opaque: Array<Object3D>;
+    opaque: Array<RenderItem>;
     transparent: Array<any>;
     init(): void;
-    push(object, geometry, material, z, group): void;
+    push(object:Object3D, geometry:Geometry|BufferGeometry, material:Material, z:number, group:Group): void;
 
     sort(): void;
 }
