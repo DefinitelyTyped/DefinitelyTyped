@@ -83,6 +83,8 @@ import * as TabPane from './TabPane';
 import * as Tabs from './Tabs';
 import * as Thumbnail from './Thumbnail';
 import * as Tooltip from './Tooltip';
+import * as ToggleButton from './ToggleButton'
+import * as ToggleButtonGroup from './ToggleButtonGroup'
 import * as Well from './Well';
 
 import * as utils from './utils';
@@ -173,6 +175,8 @@ export {
   Tabs,
   Thumbnail,
   Tooltip,
+  ToggleButton,
+  ToggleButtonGroup,
   Well,
   utils,
 }

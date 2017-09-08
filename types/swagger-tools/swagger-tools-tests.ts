@@ -34,6 +34,27 @@ swaggerTools.initializeMiddleware(swaggerDoc20, middleware => {
     // Route validated requests to appropriate controller
     app.use(middleware.swaggerRouter(options));
 
+    // Test passing in the handlers directly
+    app.use(middleware.swaggerRouter({
+        controllers: {
+            foo_bar: (req, res, next) => {
+                console.log(req.swagger.apiPath);
+                console.log(req.swagger.operation);
+                console.log(req.swagger.operationParameters);
+                console.log(req.swagger.operationPath);
+                console.log(req.swagger.path);
+                console.log(req.swagger.security);
+                console.log(req.swagger.swaggerObject);
+
+                console.log(req.swagger.params.location.value);
+                console.log(req.swagger.params.unit.value);
+
+                res.setHeader('Content-Type', 'application/json');
+                res.end([ 'foo', 0 ]);
+            },
+        }
+    }));
+
     // Serve the Swagger documents and Swagger UI
     app.use(middleware.swaggerUi(swaggerUiOptions));
     app.use(middleware.swaggerUi());
@@ -65,6 +86,27 @@ swaggerTools.initializeMiddleware(apiDoc12, apiDeclarations, middleware => {
 
     // Route validated requests to appropriate controller
     app.use(middleware.swaggerRouter(options));
+
+    // Test passing in the handlers directly
+    app.use(middleware.swaggerRouter({
+        controllers: {
+            foo_bar: (req, res, next) => {
+                console.log(req.swagger.api);
+                console.log(req.swagger.apiDeclaration);
+                console.log(req.swagger.apiIndex);
+                console.log(req.swagger.operation);
+                console.log(req.swagger.operationPath);
+                console.log(req.swagger.resourceIndex);
+                console.log(req.swagger.resourceListing);
+
+                console.log(req.swagger.params.location.value);
+                console.log(req.swagger.params.unit.value);
+
+                res.setHeader('Content-Type', 'application/json');
+                res.end([ 'foo', 0 ]);
+            },
+        }
+    }));
 
     // Serve the Swagger documents and Swagger UI
     app.use(middleware.swaggerUi({

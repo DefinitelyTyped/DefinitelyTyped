@@ -205,7 +205,7 @@ declare namespace autobahn {
 
     type DeferFactory = () => When.Promise<any>;
 
-    type OnChallengeHandler = (session: Session, method: string, extra: any) => When.Promise<string>;
+    type OnChallengeHandler = (session: Session, method: string, extra: any) => string;
 
     interface IConnectionOptions {
         use_es6_promises?: boolean;
