@@ -282,6 +282,7 @@ declare namespace nano {
       params: any,
       callback?: Callback<any>
     ): Request;
+    get(docname: string, attname: string): NodeJS.ReadableStream;
     get(docname: string, attname: string, callback?: Callback<any>): Request;
     get(
       docname: string,
