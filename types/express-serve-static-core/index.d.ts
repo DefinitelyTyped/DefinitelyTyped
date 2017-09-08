@@ -716,6 +716,12 @@ interface Response extends http.ServerResponse, Express.Response {
     format(obj: any): Response;
 
     /**
+        * Appends the specified value to the HTTP response header field.
+        * Note: calling res.set() after res.append() will reset the previously-set header value.
+        */
+    append(key: string, value: string | string[]): Response;
+
+    /**
         * Set _Content-Disposition_ header to _attachment_ with optional `filename`.
         *
         * @param filename

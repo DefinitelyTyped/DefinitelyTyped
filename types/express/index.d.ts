@@ -11,11 +11,9 @@
 
  =============================================== */
 
-/// <reference types="express-serve-static-core" />
-/// <reference types="serve-static" />
-
 import * as serveStatic from "serve-static";
 import * as core from "express-serve-static-core";
+// tslint:disable:no-empty-interface
 
 /**
  * Creates an Express application. The express() function is a top-level function exported by the express module.
@@ -23,13 +21,12 @@ import * as core from "express-serve-static-core";
 declare function e(): core.Express;
 
 declare namespace e {
-
     /**
      * This is the only built-in middleware function in Express. It serves static files and is based on serve-static.
      */
-    var static: typeof serveStatic;
+    const static: typeof serveStatic;
 
-    export function Router(options?: RouterOptions): core.Router;
+    function Router(options?: RouterOptions): core.Router;
 
     interface RouterOptions {
         /**
@@ -58,16 +55,15 @@ declare namespace e {
     interface ErrorRequestHandler extends core.ErrorRequestHandler { }
     interface Express extends core.Express { }
     interface Handler extends core.Handler { }
-    interface IRoute extends core.IRoute { }
-    interface IRouter<T> extends core.IRouter { }
-    interface IRouterHandler<T> extends core.IRouterHandler<T> { }    
-    interface IRouterMatcher<T> extends core.IRouterMatcher<T> { }
+    interface Route extends core.IRoute { }
+    interface RouterHandler<T> extends core.IRouterHandler<T> { }
+    interface RouterMatcher<T> extends core.IRouterMatcher<T> { }
     interface MediaType extends core.MediaType { }
     interface NextFunction extends core.NextFunction { }
     interface Request extends core.Request { }
     interface RequestHandler extends core.RequestHandler { }
     interface RequestParamHandler extends core.RequestParamHandler { }
-    export interface Response extends core.Response { }
+    interface Response extends core.Response { }
     interface Router extends core.Router { }
     interface Send extends core.Send { }
 }
