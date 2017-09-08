@@ -6,6 +6,6 @@
 /// <reference types="node" />
 import { Server } from 'http';
 
-declare function stoppable(server: Server, grace?: number): http.Server;
+declare function stoppable(server: Server, grace?: number): Server;
 
 export = stoppable;

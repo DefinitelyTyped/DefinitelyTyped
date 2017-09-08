@@ -1,4 +1,4 @@
-/// <reference types="node" />
+import * as http from 'http';
 import stoppable = require('stoppable');
 
 const server: http.Server = stoppable(http.createServer());
