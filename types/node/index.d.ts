@@ -4227,7 +4227,7 @@ declare module "fs" {
      */
     export function createWriteStream(path: PathLike, options?: string | {
         flags?: string;
-        defaultEncoding?: string;
+        encoding?: string;
         fd?: number;
         mode?: number;
         autoClose?: boolean;
