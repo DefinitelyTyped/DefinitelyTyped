@@ -11,7 +11,11 @@ export function signalR(url?: string, qs?: any, logging?: any): any;
 interface Connection {
     id: string;
     proxies: { [hubName: string]: any };
-    transport: { name: string, supportsKeepAlive: () => boolean };
+    transport: { 
+        name: string, 
+        supportsKeepAlive: () => boolean 
+    };
+    
    /**
     * Creates a new proxy object for the given hub connection that can be used to invoke
     * methods on server hubs and handle client method invocation requests from the server.
