@@ -26,8 +26,12 @@ const pngs = [
 
 const png = pngs[0];
 
-png.readable === true;
-png.writable === true;
+if (png.readable === true) {
+	console.log('readable');
+}
+if (png.writable === true) {
+	console.log('writable');
+}
 png.width === 1;
 png.height === 1;
 png.gamma === 1;
