@@ -23,9 +23,9 @@ declare namespace StatusBar {
 		prependLeft(view:View):any;
 		appendRight(view:View):any;
 		prependRight(view:View):any;
-		getActiveBuffer():TextBuffer.ITextBuffer;
+		getActiveBuffer():TextBuffer.TextBuffer;
 		getActiveItem():any;
-		storeActiveBuffer():TextBuffer.ITextBuffer;
+		storeActiveBuffer():TextBuffer.TextBuffer;
 		subscribeToBuffer(event:string, callback:Function):any;
 		subscribeAllToBuffer():any[];
 		unsubscribeAllFromBuffer():any[];
