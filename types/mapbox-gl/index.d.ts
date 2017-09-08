@@ -1,6 +1,6 @@
 // Type definitions for Mapbox GL JS v0.39.1
 // Project: https://github.com/mapbox/mapbox-gl-js
-// Definitions by: Dominik Bruderer <https://github.com/dobrud>
+// Definitions by: Dominik Bruderer <https://github.com/dobrud>, Patrick Reames <https://github.com/patrickr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="geojson" />
@@ -395,8 +395,8 @@ declare namespace mapboxgl {
 		timeout?: number;
 		maximumAge?: number;
 	}
-
-	export class FitBoundsOption {
+	
+	export class FitBoundsOptions {
 		maxZoom?: number;
 	}
 
@@ -404,7 +404,7 @@ declare namespace mapboxgl {
 	 * Geolocate
 	 */
 	export class GeolocateControl extends Control {
-		constructor(options?: {positionOptions?: PositionOptions, fitBoundsOptions?: FitBoundsOption, trackUserLocation?: boolean, showUserLocation?: boolean });
+		constructor(options?: {positionOptions?: PositionOptions, fitBoundsOptions?: FitBoundsOptions, trackUserLocation?: boolean, showUserLocation?: boolean});
 	}
 
 	/**
@@ -995,6 +995,7 @@ declare namespace mapboxgl {
 		"icon-ignore-placement"?: boolean;
 		"icon-optional"?: boolean;
 		"icon-rotation-alignment"?: "map" | "viewport" | "auto";
+		"icon-pitch-alignment"?: "map"  | "viewport"| "auto";
 		"icon-size"?: number | StyleFunction;
 		"icon-text-fit"?: "none" | "both" | "width" | "height";
 		"icon-text-fit-padding"?: number[];
@@ -1068,6 +1069,7 @@ declare namespace mapboxgl {
 		"circle-translate"?: number[];
 		"circle-translate-anchor"?: "map" | "viewport";
 		"circle-pitch-scale"?: "map" | "viewport";
+		"circle-pitch-alignment"?: "map" | "viewport";
 		"circle-stroke-width"?: number | StyleFunction;
 		"circle-stroke-color"?: string | StyleFunction;
 		"circle-stroke-opacity"?: number | StyleFunction;

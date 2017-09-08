@@ -23,6 +23,9 @@
 *                                               *
 ************************************************/
 
+/** inspector module types */
+/// <reference path="./inspector.d.ts" />
+
 // This needs to be global to avoid TS2403 in case lib.dom.d.ts is present in the same build
 interface Console {
     Console: NodeJS.ConsoleConstructor;
@@ -93,8 +96,15 @@ interface NodeRequireFunction {
 interface NodeRequire extends NodeRequireFunction {
     resolve(id: string): string;
     cache: any;
-    extensions: any;
+    extensions: NodeExtensions;
     main: NodeModule | undefined;
+}
+
+interface NodeExtensions {
+  '.js': (m: NodeModule, filename: string) => any;
+  '.json': (m: NodeModule, filename: string) => any;
+  '.node': (m: NodeModule, filename: string) => any;
+  [ext: string]: (m: NodeModule, filename: string) => any;
 }
 
 declare var require: NodeRequire;
@@ -1632,6 +1642,9 @@ declare module "repl" {
 
     export interface REPLServer extends readline.ReadLine {
         context: any;
+        inputStream: NodeJS.ReadableStream;
+        outputStream: NodeJS.WritableStream;
+
         defineCommand(keyword: string, cmd: Function | { help: string, action: Function }): void;
         displayPrompt(preserveCursor?: boolean): void;
 
@@ -1667,6 +1680,12 @@ declare module "repl" {
     }
 
     export function start(options?: string | ReplOptions): REPLServer;
+
+    export class Recoverable extends SyntaxError {
+        err: Error;
+
+        constructor(err: Error);
+    }
 }
 
 declare module "readline" {
@@ -5590,6 +5609,26 @@ declare module "constants" {
     export var defaultCipherList: string;
     export var ENGINE_METHOD_RSA: number;
     export var ALPN_ENABLED: number;
+}
+
+declare module "module" {
+    class Module implements NodeModule {
+        static runMain(): void;
+        static wrap(code: string): string;
+
+        exports: any;
+        require: NodeRequireFunction;
+        id: string;
+        filename: string;
+        loaded: boolean;
+        parent: NodeModule | null;
+        children: NodeModule[];
+        paths: string[];
+
+        constructor(id: string, parent?: Module);
+    }
+
+    export = Module;
 }
 
 declare module "process" {
