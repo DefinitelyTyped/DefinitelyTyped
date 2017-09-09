@@ -15,16 +15,37 @@ morgan('tiny')
 morgan(':remote-addr :method :url')
 
 morgan('combined', {
-    buffer: true,
-    immediate: true,
-    skip: function (req, res) { return res.statusCode < 400 },
-    stream: {
-    	write: (str: string) => {
-        	console.log(str);
-    	}
+  buffer: true,
+  immediate: true,
+  skip: function (req, res) { return res.statusCode < 400 },
+  stream: {
+    write: (str: string) => {
+      console.log(str);
     }
+  }
 });
 
+// a custom format function
+morgan((tokens, req, res) => {
+  return [
+    tokens.method(req, res),
+    tokens.url(req, res),
+    tokens.status(req, res),
+    tokens.res(req, res, 'content-length'), '-',
+    tokens['response-time'](req, res), 'ms'
+  ].join(' ');
+});
+// a custom format function with options
+morgan((_tokens, _req, _res) => "", {
+  buffer: true,
+  immediate: true,
+  skip: function (req, res) { return res.statusCode < 400 },
+  stream: {
+    write: (str: string) => {
+      console.log(str);
+    }
+  }
+});
 
 // test interface definition for morgan
 
@@ -46,7 +67,7 @@ interface IExtendedFormatFn extends morgan.FormatFn {
 
 
 var developmentExtendedFormatLine : IExtendedFormatFn = function(tokens, req, res):string {
-    
+
   // get the status code if response written
   var status = res.statusCode
     ? res.statusCode
