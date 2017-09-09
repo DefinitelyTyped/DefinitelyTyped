@@ -61,4 +61,4 @@ export interface Options {
     useDefaultPath?: boolean;
 }
 
-export declare type SupportsKeepAliveHandler = () => boolean;
+export type SupportsKeepAliveHandler = () => boolean;
