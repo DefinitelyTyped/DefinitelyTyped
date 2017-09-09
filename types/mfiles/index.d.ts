@@ -2322,12 +2322,12 @@ interface IShellFrame {
 
 interface IShellFrameEvent extends IEvents {
 	OnActiveListingChanged?(oldListing: null | IShellListing, newListing: IShellListing): void;
-	OnNewBottomPane?(bottomPane: IShellPaneContainer): (undefined | IShellPaneContainerEvents);
-	OnNewCommands?(commands: ICommands): (undefined | ICommandsEvents);
-	OnNewRightPane?(rightPane: IShellPaneContainer): (undefined | IShellPaneContainerEvents);
-	OnNewSearchPane?(searchPane: ISearchPane): (undefined | ISearchPaneEvents);
-	OnNewShellListing?(shellListing: IShellListing): (undefined | IShellListingEvents);
-	OnNewTaskPane?(taskPane: ITaskPane): (undefined | ITaskPaneEvents);
+	OnNewBottomPane?(bottomPane: IShellPaneContainer): void | IShellPaneContainerEvents;
+	OnNewCommands?(commands: ICommands): void | ICommandsEvents;
+	OnNewRightPane?(rightPane: IShellPaneContainer): void | IShellPaneContainerEvents;
+	OnNewSearchPane?(searchPane: ISearchPane): void | ISearchPaneEvents;
+	OnNewShellListing?(shellListing: IShellListing): void | IShellListingEvents;
+	OnNewTaskPane?(taskPane: ITaskPane): void | ITaskPaneEvents;
 	OnShowMainMenu?(): void;
 	OnStarted?(): void;
 	OnStop?(): void;
@@ -2335,12 +2335,12 @@ interface IShellFrameEvent extends IEvents {
 
 interface IShellFrameEvents extends IEvents {
 	OnActiveListingChanged?(oldListing: null | IShellListing, newListing: IShellListing): void;
-	OnNewBottomPane?(bottomPane: IShellPaneContainer): (undefined | IShellPaneContainerEvents);
-	OnNewCommands?(commands: ICommands): (undefined | ICommandsEvents);
-	OnNewRightPane?(rightPane: IShellPaneContainer): (undefined | IShellPaneContainerEvents);
-	OnNewSearchPane?(searchPane: ISearchPane): (undefined | ISearchPaneEvents);
-	OnNewShellListing?(shellListing: IShellListing): (undefined | IShellListingEvents);
-	OnNewTaskPane?(taskPane: ITaskPane): (undefined | ITaskPaneEvents);
+	OnNewBottomPane?(bottomPane: IShellPaneContainer): void | IShellPaneContainerEvents;
+	OnNewCommands?(commands: ICommands): void | ICommandsEvents;
+	OnNewRightPane?(rightPane: IShellPaneContainer): void | IShellPaneContainerEvents;
+	OnNewSearchPane?(searchPane: ISearchPane): void | ISearchPaneEvents;
+	OnNewShellListing?(shellListing: IShellListing): void | IShellListingEvents;
+	OnNewTaskPane?(taskPane: ITaskPane): void | ITaskPaneEvents;
 	OnShowMainMenu?(): void;
 	OnStarted?(): void;
 	OnStop?(): void;
@@ -2474,10 +2474,10 @@ interface IShellUI {
 }
 
 interface IShellUIEvents extends IEvents {
-	OnNewCommonDialogShellFrame?(shellFrame: IShellFrame): (undefined | IShellFrameEvents);
-	OnNewEmbeddedShellFrame?(shellFrame: IShellFrame): (undefined | IShellFrameEvents);
-	OnNewNormalShellFrame?(shellFrame: IShellFrame): (undefined | IShellFrameEvents);
-	OnNewShellFrame?(shellFrame: IShellFrame): (undefined | IShellFrameEvents);
+	OnNewCommonDialogShellFrame?(shellFrame: IShellFrame): void | IShellFrameEvents;
+	OnNewEmbeddedShellFrame?(shellFrame: IShellFrame): void | IShellFrameEvents;
+	OnNewNormalShellFrame?(shellFrame: IShellFrame): void | IShellFrameEvents;
+	OnNewShellFrame?(shellFrame: IShellFrame): void | IShellFrameEvents;
 	OnStarted?(): void;
 	OnStop?(): void;
 }
@@ -3126,7 +3126,7 @@ interface IVaultCore {
 }
 
 interface IVaultCoreEvents extends IEvents {
-	OnNewVaultEntry?(vaultEntry: IVaultEntry): (undefined | IVaultEntryEvents);
+	OnNewVaultEntry?(vaultEntry: IVaultEntry): void | IVaultEntryEvents;
 	OnStarted?(): void;
 	OnStop?(): void;
 }
@@ -3198,22 +3198,22 @@ interface IVaultEntry {
 }
 
 interface IVaultEntryEvents extends IEvents {
-	OnAddObjectFile?(objVer: IObjVer, sourceObjectFile: ISourceObjectFile): (null | boolean | { OnSuccess?(objectVersion: IObjectVersion, objectFile: IObjectFile): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; });
-	OnAddObjectsToFavorites?(objIDs: IObjIDs): (null | boolean | { OnSuccess?(): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; });
-	OnAddObjectToFavorites?(objID: IObjID): (null | boolean | { OnSuccess?(): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; });
-	OnChangeVaultLanguage?(languageID: number): (null | boolean | { OnSuccess?(): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; });
-	OnCheckInObject?(objVer: IObjVer, propertyValues: IPropertyValues): (null | boolean | { OnSuccess?(objectVersion: IObjectVersion): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; });
-	OnCheckInObjects?(objVers: IObjVers, propertyValues: IPropertyValues): (null | boolean | { OnSuccess?(objectVersions: IObjectVersions): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; });
-	OnCheckOutObject?(objID: IObjID): (null | boolean | { OnSuccess?(objectVersion: IObjectVersion): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; });
-	OnCheckOutObjects?(objIDs: IObjIDs): (null | boolean | { OnSuccess?(objectVersions: IObjectVersions): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; });
-	OnCreateObject?(objectType: number, propertyValues: IPropertyValues, sourceObjectFiles: ISourceObjectFiles, accessControlList: IAccessControlList, checkInRequested: boolean, singleFileRequested: boolean): (null | boolean | { OnSuccess?(objectVersion: IObjectVersion): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; });
-	OnDestroyObject?(objID: IObjID): (null | boolean | { OnSuccess?(): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; });
-	OnDestroyObjects?(objIDs: IObjIDs): (null | boolean | { OnSuccess?(): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; });
-	OnDestroyObjectVersion?(objVer: IObjVer): (null | boolean | { OnSuccess?(): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; });
-	OnDestroyObjectVersions?(objVers: IObjVers): (null | boolean | { OnSuccess?(): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; });
+	OnAddObjectFile?(objVer: IObjVer, sourceObjectFile: ISourceObjectFile): null | boolean | { OnSuccess?(objectVersion: IObjectVersion, objectFile: IObjectFile): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
+	OnAddObjectsToFavorites?(objIDs: IObjIDs): null | boolean | { OnSuccess?(): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
+	OnAddObjectToFavorites?(objID: IObjID): null | boolean | { OnSuccess?(): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
+	OnChangeVaultLanguage?(languageID: number): null | boolean | { OnSuccess?(): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
+	OnCheckInObject?(objVer: IObjVer, propertyValues: IPropertyValues): null | boolean | { OnSuccess?(objectVersion: IObjectVersion): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
+	OnCheckInObjects?(objVers: IObjVers, propertyValues: IPropertyValues): null | boolean | { OnSuccess?(objectVersions: IObjectVersions): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
+	OnCheckOutObject?(objID: IObjID): null | boolean | { OnSuccess?(objectVersion: IObjectVersion): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
+	OnCheckOutObjects?(objIDs: IObjIDs): null | boolean | { OnSuccess?(objectVersions: IObjectVersions): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
+	OnCreateObject?(objectType: number, propertyValues: IPropertyValues, sourceObjectFiles: ISourceObjectFiles, accessControlList: IAccessControlList, checkInRequested: boolean, singleFileRequested: boolean): null | boolean | { OnSuccess?(objectVersion: IObjectVersion): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
+	OnDestroyObject?(objID: IObjID): null | boolean | { OnSuccess?(): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
+	OnDestroyObjects?(objIDs: IObjIDs): null | boolean | { OnSuccess?(): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
+	OnDestroyObjectVersion?(objVer: IObjVer): null | boolean | { OnSuccess?(): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
+	OnDestroyObjectVersions?(objVers: IObjVers): null | boolean | { OnSuccess?(): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
 	OnLoggedIn?(): void;
-	OnLogOut?(): (null | boolean | { OnSuccess?(): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; });
-	OnModifyObjectVersionLabels?(objVer: IObjVer, clearFromOtherVersions: boolean, append: boolean, labelIDs: IIDs, singleLabelRequired: boolean): (null | boolean | { OnSuccess?(): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; });
+	OnLogOut?(): null | boolean | { OnSuccess?(): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
+	OnModifyObjectVersionLabels?(objVer: IObjVer, clearFromOtherVersions: boolean, append: boolean, labelIDs: IIDs, singleLabelRequired: boolean): null | boolean | { OnSuccess?(): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
 	OnNotification?(id: string, data1: any, data2: any): any;
 	OnObjectAddedToFavorites?(objID: IObjID): void;
 	OnObjectCheckedIn?(objectVersion: IObjectVersion): void;
@@ -3244,29 +3244,29 @@ interface IVaultEntryEvents extends IEvents {
 	OnObjectVersionsDestroyed?(objVers: IObjVers): void;
 	OnPropertiesOfObjectVersionSet?(objectVersion: IObjectVersion): void;
 	OnPropertiesOfObjectVersionsSet?(objectVersions: IObjectVersions): void;
-	OnRemoveObject?(objID: IObjID): (null | boolean | { OnSuccess?(objectVersion: IObjectVersion): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; });
-	OnRemoveObjectFile?(objVer: IObjVer, fileVer: IFileVer): (null | boolean | { OnSuccess?(objectVersion: IObjectVersion): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; });
-	OnRemoveObjectFromFavorites?(objID: IObjID): (null | boolean | { OnSuccess?(): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; });
-	OnRemoveObjectOfflineAvailability?(objID: IObjID): (null | boolean | { OnSuccess?(): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; });
-	OnRemoveObjects?(objIDs: IObjIDs): (null | boolean | { OnSuccess?(objectVersions: IObjectVersions): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; });
-	OnRemoveObjectsFromFavorites?(objIDs: IObjIDs): (null | boolean | { OnSuccess?(): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; });
-	OnRenameObjectFile?(objVer: IObjVer, fileVer: IFileVer, newName: null | ITypedValue, newExtension: null | ITypedValue): (null | boolean | { OnSuccess?(objectVersion: IObjectVersion, objectFile: IObjectFile): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; });
-	OnRollBackObjectVersion?(objVer: IObjVer): (null | boolean | { OnSuccess?(objectVersion: IObjectVersion): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; });
-	OnSetObjectLevelProperty?(objID: IObjID, propertyValue: IPropertyValue): (null | boolean | { OnSuccess?(): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; });
-	OnSetObjectOfflineAvailability?(objID: IObjID): (null | boolean | { OnSuccess?(): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; });
-	OnSetObjectVersionPermissions?(objVer: IObjVer, changeAllVersions: boolean, accessControlList: IAccessControlList): (null | boolean | { OnSuccess?(objectVersion: IObjectVersion): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; });
-	OnSetPropertiesOfObjectVersion?(setPropertiesParams: ISetPropertiesParams, singlePropertyUpdate: boolean, singlePropertyRemove: boolean): (null | boolean | { OnSuccess?(objectVersion: IObjectVersion): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; });
-	OnSetPropertiesOfObjectVersions?(setPropertiesParamsOfMultipleObjects: ISetPropertiesParamsOfMultipleObjects, singlePropertyUpdate: boolean, singlePropertyRemove: boolean): (null | boolean | { OnSuccess?(objectVersions: IObjectVersions): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; });
+	OnRemoveObject?(objID: IObjID): null | boolean | { OnSuccess?(objectVersion: IObjectVersion): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
+	OnRemoveObjectFile?(objVer: IObjVer, fileVer: IFileVer): null | boolean | { OnSuccess?(objectVersion: IObjectVersion): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
+	OnRemoveObjectFromFavorites?(objID: IObjID): null | boolean | { OnSuccess?(): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
+	OnRemoveObjectOfflineAvailability?(objID: IObjID): null | boolean | { OnSuccess?(): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
+	OnRemoveObjects?(objIDs: IObjIDs): null | boolean | { OnSuccess?(objectVersions: IObjectVersions): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
+	OnRemoveObjectsFromFavorites?(objIDs: IObjIDs): null | boolean | { OnSuccess?(): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
+	OnRenameObjectFile?(objVer: IObjVer, fileVer: IFileVer, newName: null | ITypedValue, newExtension: null | ITypedValue): null | boolean | { OnSuccess?(objectVersion: IObjectVersion, objectFile: IObjectFile): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
+	OnRollBackObjectVersion?(objVer: IObjVer): null | boolean | { OnSuccess?(objectVersion: IObjectVersion): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
+	OnSetObjectLevelProperty?(objID: IObjID, propertyValue: IPropertyValue): null | boolean | { OnSuccess?(): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
+	OnSetObjectOfflineAvailability?(objID: IObjID): null | boolean | { OnSuccess?(): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
+	OnSetObjectVersionPermissions?(objVer: IObjVer, changeAllVersions: boolean, accessControlList: IAccessControlList): null | boolean | { OnSuccess?(objectVersion: IObjectVersion): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
+	OnSetPropertiesOfObjectVersion?(setPropertiesParams: ISetPropertiesParams, singlePropertyUpdate: boolean, singlePropertyRemove: boolean): null | boolean | { OnSuccess?(objectVersion: IObjectVersion): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
+	OnSetPropertiesOfObjectVersions?(setPropertiesParamsOfMultipleObjects: ISetPropertiesParamsOfMultipleObjects, singlePropertyUpdate: boolean, singlePropertyRemove: boolean): null | boolean | { OnSuccess?(objectVersions: IObjectVersions): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
 	OnStarted?(): void;
 	OnStop?(): void;
 	OnSwitchedToOfflineMode?(): void;
 	OnSwitchedToOnlineMode?(): void;
-	OnSwitchToOfflineMode?(): (null | boolean | { OnSuccess?(): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; });
-	OnSwitchToOnlineMode?(): (null | boolean | { OnSuccess?(): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; });
-	OnUndeleteObject?(objID: IObjID): (null | boolean | { OnSuccess?(objectVersion: IObjectVersion): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; });
-	OnUndeleteObjects?(objIDs: IObjIDs): (null | boolean | { OnSuccess?(objectVersions: IObjectVersions): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; });
-	OnUndoObjectCheckout?(objVer: IObjVer): (null | boolean | { OnSuccess?(objectVersion: IObjectVersion): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; });
-	OnUndoObjectCheckouts?(objVers: IObjVers): (null | boolean | { OnSuccess?(objectVersions: IObjectVersions): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; });
+	OnSwitchToOfflineMode?(): null | boolean | { OnSuccess?(): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
+	OnSwitchToOnlineMode?(): null | boolean | { OnSuccess?(): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
+	OnUndeleteObject?(objID: IObjID): null | boolean | { OnSuccess?(objectVersion: IObjectVersion): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
+	OnUndeleteObjects?(objIDs: IObjIDs): null | boolean | { OnSuccess?(objectVersions: IObjectVersions): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
+	OnUndoObjectCheckout?(objVer: IObjVer): null | boolean | { OnSuccess?(objectVersion: IObjectVersion): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
+	OnUndoObjectCheckouts?(objVers: IObjVers): null | boolean | { OnSuccess?(objectVersions: IObjectVersions): void; OnError?(errorCode: number, errorMessage: string, errorStack: string): void; Finally?(): void; };
 	OnVaultLanguageChanged?(languageID: number): void;
 }
 
@@ -3946,7 +3946,7 @@ interface IVaultUI {
 }
 
 interface IVaultUIEvents extends IEvents {
-	OnNewVaultEntry?(vaultEntry: IVaultEntry): (undefined | IVaultEntryEvents);
+	OnNewVaultEntry?(vaultEntry: IVaultEntry): void | IVaultEntryEvents;
 	OnStarted?(): void;
 	OnStop?(): void;
 }
