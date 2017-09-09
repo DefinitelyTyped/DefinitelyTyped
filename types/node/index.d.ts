@@ -672,7 +672,7 @@ declare namespace NodeJS {
         unref(): void;
     }
 
-    class Module implements NodeModule {
+    class Module {
         static runMain(): void;
         static wrap(code: string): string;
 
@@ -683,8 +683,8 @@ declare namespace NodeJS {
         id: string;
         filename: string;
         loaded: boolean;
-        parent: NodeModule | null;
-        children: NodeModule[];
+        parent: Module | null;
+        children: Module[];
         paths: string[];
 
         constructor(id: string, parent?: Module);
