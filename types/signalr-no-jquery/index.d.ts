@@ -13,7 +13,7 @@ export interface Connection {
     proxies: { [hubName: string]: any };
     transport: {
         name: string,
-        supportsKeepAlive?: () => boolean
+        supportsKeepAlive:SupportsKeepAliveHandler
     };
 
    /**
@@ -60,3 +60,5 @@ export interface Options {
     logging?: boolean;
     useDefaultPath?: boolean;
 }
+
+declare type SupportsKeepAliveHandler =  () => boolean;
