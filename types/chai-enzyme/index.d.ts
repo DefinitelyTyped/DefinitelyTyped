@@ -26,6 +26,12 @@ declare namespace Chai {
          * @param code
          */
         (selector: EnzymeSelector): Assertion;
+
+        /**
+         * Assert that the given wrapper has the supplied text:
+         * @param str
+         */
+        text(str?: string): Assertion;
     }
     interface Assertion {
         /**

@@ -1,4 +1,4 @@
-// Type definitions for nano 6.2
+// Type definitions for nano 6.4
 // Project: https://github.com/apache/couchdb-nano
 // Definitions by: Tim Jacobi <https://github.com/timjacobi>
 //                 Kovács Vince <https://github.com/vincekovacs>
@@ -282,6 +282,7 @@ declare namespace nano {
       params: any,
       callback?: Callback<any>
     ): Request;
+    get(docname: string, attname: string): NodeJS.ReadableStream;
     get(docname: string, attname: string, callback?: Callback<any>): Request;
     get(
       docname: string,
