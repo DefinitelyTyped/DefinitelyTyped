@@ -134,7 +134,7 @@ declare namespace AtomCore {
 			label: string;
 
 			/** An array of sub menus. */
-			submenu?: MenuOptions[];
+			submenu?: ReadonlyArray<MenuOptions>;
 
 			/** The command to trigger when the item is clicked. */
 			command?: string;
@@ -155,7 +155,7 @@ declare namespace AtomCore {
 			enabled?: boolean;
 
 			/** An array of additional items. */
-			submenu?: ContextMenuOptions[];
+			submenu?: ReadonlyArray<ContextMenuOptions>;
 
 			/** If you want to create a separator, provide an item with type: 'separator'
 			 *  and no other keys.
@@ -178,7 +178,7 @@ declare namespace AtomCore {
 
 		interface ProcessOptions {
 			command: string;
-			args?: any[];
+			args?: ReadonlyArray<any>;
 			options?: object;
 			stdout?(data: string): void;
 			stderr?(data: string): void;
@@ -372,7 +372,7 @@ declare namespace AtomCore {
 		// Managing the Atom Window
 		/** Open a new Atom window using the given options. */
 		open(params: {
-			pathsToOpen: string[],
+			pathsToOpen: ReadonlyArray<string>,
 			newWindow: boolean,
 			devMode: boolean,
 			safeMode: boolean,
@@ -439,7 +439,7 @@ declare namespace AtomCore {
 		confirm(options: {
 			message: string,
 			detailedMessage?: string,
-			buttons?: string[]
+			buttons?: ReadonlyArray<string>,
 		}): void;
 
 		/** A flexible way to open a dialog akin to an alert dialog.
@@ -583,7 +583,7 @@ declare namespace AtomCore {
 		get(keyPath: string, options: {
 			sources?: string[],
 			excludeSources?: string[],
-			scope?: string[]
+			scope?: string[],
 		}): any;
 
 		/** Sets the value for a configuration setting.
@@ -644,7 +644,7 @@ declare namespace AtomCore {
 	interface ContextMenuManager {
 		/** Add context menu items scoped by CSS selectors. */
 		add(itemsBySelector: {
-			[key: string]: Params.ContextMenuOptions[]
+			[key: string]: ReadonlyArray<Params.ContextMenuOptions>
 		}): EventKit.Disposable;
 	}
 
@@ -1261,7 +1261,7 @@ declare namespace AtomCore {
 	/** Provides a registry for menu items that you'd like to appear in the application menu. */
 	interface MenuManager {
 		/** Adds the given items to the application menu. */
-		add(items: Params.MenuOptions[]): EventKit.Disposable;
+		add(items: ReadonlyArray<Params.MenuOptions>): EventKit.Disposable;
 
 		/** Refreshes the currently visible menu. */
 		update(): void;
@@ -3026,28 +3026,30 @@ declare namespace AtomCore {
 		/** Set the selected ranges in buffer coordinates. If there are multiple selections,
 		 *  they are replaced by new selections with the given ranges.
 		 */
-		setSelectedBufferRanges(bufferRanges: TextBuffer.RangeLike[], options?:
+		setSelectedBufferRanges(bufferRanges: ReadonlyArray<TextBuffer.RangeLike>, options?:
 			{ reversed?: boolean, preserveFolds?: boolean}): void;
 		/** Set the selected ranges in buffer coordinates. If there are multiple selections,
 		 *  they are replaced by new selections with the given ranges.
 		 */
-		setSelectedBufferRanges(bufferRanges: Array<[TextBuffer.PointLike, TextBuffer.PointLike]>,
-			options?: { reversed?: boolean, preserveFolds?: boolean}): void;
+		setSelectedBufferRanges(bufferRanges: ReadonlyArray<[TextBuffer.PointLike,
+			TextBuffer.PointLike]>, options?: { reversed?: boolean, preserveFolds?: boolean}):
+			void;
 		/** Set the selected ranges in buffer coordinates. If there are multiple selections,
 		 *  they are replaced by new selections with the given ranges.
 		 */
-		setSelectedBufferRanges(bufferRanges: Array<[TextBuffer.PointLike, [number, number]]>,
-			options?: { reversed?: boolean, preserveFolds?: boolean}): void;
+		setSelectedBufferRanges(bufferRanges: ReadonlyArray<[TextBuffer.PointLike,
+			[number, number]]>, options?: { reversed?: boolean, preserveFolds?: boolean}): void;
 		/** Set the selected ranges in buffer coordinates. If there are multiple selections,
 		 *  they are replaced by new selections with the given ranges.
 		 */
-		setSelectedBufferRanges(bufferRanges: Array<[[number, number], TextBuffer.PointLike]>,
-			options?: { reversed?: boolean, preserveFolds?: boolean}): void;
+		setSelectedBufferRanges(bufferRanges: ReadonlyArray<[[number, number],
+			TextBuffer.PointLike]>, options?: { reversed?: boolean, preserveFolds?: boolean}):
+			void;
 		/** Set the selected ranges in buffer coordinates. If there are multiple selections,
 		 *  they are replaced by new selections with the given ranges.
 		 */
-		setSelectedBufferRanges(bufferRanges: Array<[[number, number], [number, number]]>,
-			options?: { reversed?: boolean, preserveFolds?: boolean}): void;
+		setSelectedBufferRanges(bufferRanges: ReadonlyArray<[[number, number], [number,
+			number]]>, options?: { reversed?: boolean, preserveFolds?: boolean}): void;
 
 		/** Get the Range of the most recently added selection in screen coordinates. */
 		getSelectedScreenRange(): TextBuffer.Range;
@@ -3086,27 +3088,27 @@ declare namespace AtomCore {
 		/** Set the selected ranges in screen coordinates. If there are multiple selections,
 		 *  they are replaced by new selections with the given ranges.
 		 */
-		setSelectedScreenRanges(screenRanges: TextBuffer.RangeLike[], options?:
+		setSelectedScreenRanges(screenRanges: ReadonlyArray<TextBuffer.RangeLike>, options?:
 			{ reversed?: boolean }): void;
 		/** Set the selected ranges in screen coordinates. If there are multiple selections,
 		 *  they are replaced by new selections with the given ranges.
 		 */
-		setSelectedScreenRanges(screenRanges: Array<[TextBuffer.PointLike, TextBuffer.PointLike]>,
-			options?: { reversed?: boolean }): void;
+		setSelectedScreenRanges(screenRanges: ReadonlyArray<[TextBuffer.PointLike,
+			TextBuffer.PointLike]>, options?: { reversed?: boolean }): void;
 		/** Set the selected ranges in screen coordinates. If there are multiple selections,
 		 *  they are replaced by new selections with the given ranges.
 		 */
-		setSelectedScreenRanges(screenRanges: Array<[TextBuffer.PointLike, [number, number]]>,
-			options?: { reversed?: boolean }): void;
+		setSelectedScreenRanges(screenRanges: ReadonlyArray<[TextBuffer.PointLike,
+			[number, number]]>, options?: { reversed?: boolean }): void;
 		/** Set the selected ranges in screen coordinates. If there are multiple selections,
 		 *  they are replaced by new selections with the given ranges.
 		 */
-		setSelectedScreenRanges(screenRanges: Array<[[number, number], TextBuffer.PointLike]>,
-			options?: { reversed?: boolean }): void;
+		setSelectedScreenRanges(screenRanges: ReadonlyArray<[[number, number],
+			TextBuffer.PointLike]>, options?: { reversed?: boolean }): void;
 		/** Set the selected ranges in screen coordinates. If there are multiple selections,
 		 *  they are replaced by new selections with the given ranges.
 		 */
-		setSelectedScreenRanges(screenRanges: Array<[[number, number], [number, number]]>,
+		setSelectedScreenRanges(screenRanges: ReadonlyArray<[[number, number], [number, number]]>,
 			options?: { reversed?: boolean }): void;
 
 		/** Add a selection for the given range in buffer coordinates. */
@@ -3950,12 +3952,12 @@ declare namespace AtomCore {
 		scan(regex: RegExp, iterator: Function): Promise<{ cancel(): void }>;
 		/** Performs a search across all files in the workspace. */
 		scan(regex: RegExp, options: {
-			paths?: string[],
+			paths?: ReadonlyArray<string>,
 			onPathsSearched?(pathsSearched: number): void
 		}, iterator: Function): Promise<{ cancel(): void }>;
 
 		/** Performs a replace across all the specified files in the project. */
-		replace(regex: RegExp, replacementText: string, filePaths: string[],
+		replace(regex: RegExp, replacementText: string, filePaths: ReadonlyArray<string>,
 			iterator: Function): Promise<undefined>;
 	}
 

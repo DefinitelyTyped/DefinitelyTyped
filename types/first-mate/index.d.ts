@@ -12,7 +12,7 @@ declare namespace FirstMate {
 	namespace Params {
 		interface GrammarOptions {
 			name?: string;
-			fileTypes?: string[];
+			fileTypes?: ReadonlyArray<string>;
 			scopeName?: string;
 			foldingStopMarker?: string;
 			maxTokensPerLine?: number;
@@ -20,7 +20,7 @@ declare namespace FirstMate {
 
 			injections?: any;
 			injectionSelector?: any;
-			patterns?: object[];
+			patterns?: ReadonlyArray<object>;
 			repository?: object;
 			firstLineMatch?: any;
 		}
@@ -203,13 +203,13 @@ declare namespace FirstMate {
 		 * @param scopes A single scope or an array of them to be compared against.
 		 * @return A boolean indicating whether or not this ScopeSelector matched.
 		 */
-		matches(scopes: string|string[]): boolean;
+		matches(scopes: string|ReadonlyArray<string>): boolean;
 
 		/** Gets the prefix of this scope selector.
 		 * @param scopes The scopes to match a prefix against.
 		 * @return The matching prefix, if there is one.
 		 */
-		getPrefix(scopes: string|string[]): string|undefined;
+		getPrefix(scopes: string|ReadonlyArray<string>): string|undefined;
 
 		/** Convert this TextMate scope selector to a CSS selector.
 		 * @return A string with the CSSSelector representation of this ScopeSelector.
