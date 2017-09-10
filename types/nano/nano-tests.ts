@@ -127,8 +127,15 @@ mydb.attachment.insert(
   "text/plain",
   (error: any, att: any) => {}
 );
+const attInsert: NodeJS.WritableStream = mydb.attachment.insert(
+  "new",
+  "att",
+  null,
+  "text/plain"
+);
 mydb.attachment.destroy("new", "att", { rev: "123" }, (err, response) => {});
 mydb.attachment.get("new_string", "att", (error: any, helloWorld: any) => {});
+const attGet: NodeJS.ReadableStream = mydb.attachment.get("new_string", "att");
 
 /*
  * Multipart

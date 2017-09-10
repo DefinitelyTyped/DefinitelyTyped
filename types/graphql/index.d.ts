@@ -7,6 +7,7 @@
 //                 Kepennar <https://github.com/kepennar>
 //                 Mikhail Novikov <https://github.com/freiksenet>
 //                 Ivan Goncharov <https://github.com/IvanGoncharov>
+//                 Hagai Cohen <https://github.com/DxCx>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 

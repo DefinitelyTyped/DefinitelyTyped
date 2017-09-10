@@ -153,7 +153,7 @@ const tabNavigatorScreenOptions: NavigationTabScreenOptions = {
 const tabNavigatorConfig: TabNavigatorConfig = {
     lazy: true,
     tabBarComponent: TabBarTop,
-    tabBarOptions: tabNavigatorScreenOptions,
+    tabBarOptions: { activeBackgroundColor: "blue" },
 };
 
 const BasicTabNavigator = TabNavigator(
@@ -165,7 +165,7 @@ function renderBasicTabNavigator(): JSX.Element {
     return (
         <BasicTabNavigator
             ref={(ref: any) => { }}
-            style={viewStyle}
+            style={[viewStyle, undefined]} // Test that we are using StyleProp
         />
     );
 }

@@ -459,6 +459,12 @@ declare namespace AdazzleReactDataGridPlugins {
         export class SimpleTextEditor extends React.Component<any> { }
         export class CheckboxEditor extends React.Component<any> { }
     }
+    export namespace Filters {
+        export class NumericFilter extends React.Component<any> { }
+        export class AutoCompleteFilter extends React.Component<any> { }
+        export class MultiSelectFilter extends React.Component<any> { }
+        export class SingleSelectFilter extends React.Component<any> { }
+    }
     export namespace Formatters {
         export class ImageFormatter extends React.Component<any> { }
         export class DropDownFormatter extends React.Component<any> { }
@@ -503,6 +509,7 @@ declare module "react-data-grid" {
 declare module "react-data-grid-addons" {
     import Plugins = AdazzleReactDataGridPlugins;
     import Editors = Plugins.Editors;
+    import Filters = Plugins.Filters;
     import Formatters = Plugins.Formatters;
     import Toolbar = Plugins.Toolbar;
     import Menu = Plugins.Menu;
@@ -512,6 +519,7 @@ declare module "react-data-grid-addons" {
     // ES6 named exports
     export {
         Editors,
+        Filters,
         Formatters,
         Toolbar,
         Menu,
@@ -523,9 +531,10 @@ declare module "react-data-grid-addons" {
     global {
         interface Window {
             ReactDataGridPlugins: {
-                Editors: typeof Editors
-                Formatters: typeof Formatters
-                Toolbar: typeof Toolbar
+                Editors: typeof Editors,
+                Filters: typeof Filters,
+                Formatters: typeof Formatters,
+                Toolbar: typeof Toolbar,
                 Menu: typeof Menu,
                 Data: typeof Data,
                 DraggableHeader: typeof DraggableHeader
