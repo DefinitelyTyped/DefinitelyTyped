@@ -27,6 +27,7 @@ declare namespace __Relay.Common {
     type ConcreteFragmentDefinition = Object;
     type ConcreteOperationDefinition = Object;
 
+
     /**
      * FIXME: RelayContainer used to be typed with ReactClass<any>, but
      * ReactClass is broken and allows for access to any property. For example
@@ -83,6 +84,31 @@ declare namespace __Relay.Common {
         column: number,
       }>,
     };
+    /**
+     * A function that executes a GraphQL operation with request/response semantics.
+     *
+     * May return an Observable or Promise of a raw server response.
+     */
+    export function FetchFunction(
+        operation: ConcreteBatch,
+        variables: Variables,
+        cacheConfig: CacheConfig,
+        uploadables?: Common.UploadableMap,
+    ): Runtime.ObservableFromValue<QueryPayload>;
+
+    /**
+     * A function that executes a GraphQL subscription operation, returning one or
+     * more raw server responses over time.
+     *
+     * May return an Observable, otherwise must call the callbacks found in the
+     * fourth parameter.
+     */
+    export type SubscribeFunction = (
+        operation: ConcreteBatch,
+        variables: Variables,
+        cacheConfig: CacheConfig,
+        observer: LegacyObserver<QueryPayload>,
+    ) => Runtime.RelayObservable<QueryPayload> | Disposable;
 
 
     // ~~~~~~~~~~~~~~~~~~~~~
@@ -166,10 +192,11 @@ declare namespace __Relay.Common {
       // handler.
       handleKey: string,
     };
-
-    export type Handler = {
-      update: (store: RecordSourceProxy, fieldPayload: HandleFieldPayload) => void,
+    interface IHandler {
+        update: (store: RecordSourceProxy, fieldPayload: HandleFieldPayload): void;
+        [functionName: string]: Function;
     };
+    export const Handler: IHandler;
 
 
     // ~~~~~~~~~~~~~~~~~~~~~
@@ -685,14 +712,14 @@ declare namespace __Relay.Runtime {
     // ~~~~~~~~~~~~~~~~~~~~~
     // RelayDefaultHandlerProvider
     // ~~~~~~~~~~~~~~~~~~~~~
-    type HandlerProvider = (name: string) => Common.Handler | void;
+    export function HandlerProvider(name: string): Common.Handler | void;
 
     // ~~~~~~~~~~~~~~~~~~~~~
     // RelayModernEnvironment
     // ~~~~~~~~~~~~~~~~~~~~~
     type EnvironmentConfig = {
       configName?: string,
-      handlerProvider?: HandlerProvider,
+      handlerProvider?: typeof HandlerProvider,
       network: Network,
       store: Store,
     };
@@ -743,12 +770,12 @@ declare namespace __Relay.Runtime {
     // ~~~~~~~~~~~~~~~~~~~~~
     // Network
     // ~~~~~~~~~~~~~~~~~~~~~
-    interface Network {
-      /**
-       * Creates an implementation of the `Network` interface defined in
-       * `RelayNetworkTypes` given `fetch` and `subscribe` functions.
-       */
-      create: (fetchFn: any, subscribeFn: any) => RelayNetwork;
+    class Network {
+        /**
+         * Creates an implementation of the `Network` interface defined in
+         * `RelayNetworkTypes` given `fetch` and `subscribe` functions.
+         */
+        static create(fetchFn: typeof Common.FetchFunction, subscribeFn?: Common.SubscribeFunction): RelayNetwork;
     }
 
     // ~~~~~~~~~~~~~~~~~~~~~
@@ -898,7 +925,7 @@ declare namespace __Relay.Runtime {
     interface Subscribable<T> {
       subscribe(observer: Observer<T>): Subscription,
     }
-    export type ObservableFromValue<T> = RelayObservable<T> | Promise<T> | T;
+    type ObservableFromValue<T> = RelayObservable<T> | Promise<T> | T;
     class RelayObservable<T> implements Subscribable<T> {
       _source: Source<T>;
 
@@ -1034,10 +1061,10 @@ declare namespace __Relay.Runtime {
       optimisticResponse?: Object,
       updater?: Common.SelectorStoreUpdater | void,
     };
-    type commitRelayModernMutation = <T>(
+    function commitRelayModernMutation<T>(
       environment: Environment,
       config: MutationConfig<T>,
-    ) => Common.Disposable;
+    ): Common.Disposable;
 
     // ~~~~~~~~~~~~~~~~~~~~~
     // applyRelayModernOptimisticMutation
@@ -1103,4 +1130,6 @@ declare namespace __Relay.Runtime {
     export import Observable = __Relay.Runtime.RelayObservable;
     // note RecordSourceInspector is only available in dev environment
     export import RecordSourceInspector = __Relay.Runtime.RelayRecordSourceInspector;
+    export import ConnectionHandler = __Relay.Common.Handler;
+    export import ViewerHandler = __Relay.Common.Handler;
   }
