@@ -125,7 +125,7 @@
         objCellText.insertString(objCellCursor, strText, false);
     }
 
-    function createStruct<K extends keyof LibreOffice.StructNameMap>(strTypeName: K) {
+    function createStruct<K extends keyof LibreOffice.StructNameMap>(strTypeName: K): LibreOffice.StructNameMap[K] {
         const classSize = coreReflection.forName(strTypeName);
         const aStruct: [LibreOffice.StructNameMap[K]] = [] as any;
         classSize.createObject(aStruct);
