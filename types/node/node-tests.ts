@@ -28,6 +28,8 @@ import * as v8 from "v8";
 import * as dns from "dns";
 import * as async_hooks from "async_hooks";
 import * as http2 from "http2";
+import * as inspector from "inspector";
+import Module = require("module");
 
 // Specifically test buffer module regression.
 import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer } from "buffer";
@@ -2175,6 +2177,15 @@ namespace timers_tests {
         timeout.ref();
         timers.clearTimeout(timeout);
     }
+    async function testPromisify() {
+        const setTimeout = util.promisify(timers.setTimeout);
+        let v: void = await setTimeout(100); // tslint:disable-line no-void-expression void-return
+        let s: string = await setTimeout(100, "");
+
+        const setImmediate = util.promisify(timers.setImmediate);
+        v = await setImmediate(); // tslint:disable-line no-void-expression
+        s = await setImmediate("");
+    }
 }
 
 /////////////////////////////////////////////////////////
@@ -2532,6 +2543,11 @@ namespace repl_tests {
 
         _server = _server.prependOnceListener("exit", () => { });
         _server = _server.prependOnceListener("reset", () => { });
+
+        _server.outputStream.write("test");
+        let line = _server.inputStream.read();
+
+        throw new repl.Recoverable(new Error("test"));
     }
 }
 
@@ -3379,4 +3395,59 @@ namespace http2_tests {
         str = constants.HTTP2_METHOD_UPDATEREDIRECTREF;
         str = constants.HTTP2_METHOD_VERSION_CONTROL;
     }
+}
+
+///////////////////////////////////////////////////////////
+/// Inspector Tests                                     ///
+///////////////////////////////////////////////////////////
+
+namespace inspector_tests {
+    {
+        inspector.open();
+        inspector.open(0);
+        inspector.open(0, 'localhost');
+        inspector.open(0, 'localhost', true);
+        inspector.close();
+        const inspectorUrl: string = inspector.url();
+
+        const session = new inspector.Session();
+        session.connect();
+        session.disconnect();
+
+        // Unknown post method
+        session.post('A.b', { key: 'value' }, (err: Error, params: object) => {});
+        session.post('A.b', (err: Error, params: object) => {});
+        session.post('A.b');
+        // Known post method
+        const parameter: inspector.Runtime.EvaluateParameterType = { expression: '2 + 2' };
+        session.post('Runtime.evaluate', parameter,
+            (err: Error, params: inspector.Runtime.EvaluateReturnType) => {});
+        session.post('Runtime.evaluate', (err: Error, params: inspector.Runtime.EvaluateReturnType) => {
+            const exceptionDetails: inspector.Runtime.ExceptionDetails = params.exceptionDetails;
+            const resultClassName: string = params.result.className;
+        });
+        session.post('Runtime.evaluate');
+
+        // General event
+        session.on('inspectorNotification', (message: inspector.InspectorNotification<object>) => {});
+        // Known events
+        session.on('Debugger.paused', (message: inspector.InspectorNotification<inspector.Debugger.PausedEventDataType>) => {
+            const method: string = message.method;
+            const pauseReason: string = message.params.reason;
+        });
+        session.on('Debugger.resumed', () => {});
+    }
+}
+
+////////////////////////////////////////////////////
+/// module tests : http://nodejs.org/api/modules.html
+////////////////////////////////////////////////////
+
+namespace module_tests {
+    require.extensions[".ts"] = () => "";
+
+    Module.runMain();
+    Module.wrap("some code");
+
+    const m1 = new Module("moduleId");
 }

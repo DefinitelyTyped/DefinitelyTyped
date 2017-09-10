@@ -23,6 +23,9 @@
 *                                               *
 ************************************************/
 
+/** inspector module types */
+/// <reference path="./inspector.d.ts" />
+
 // This needs to be global to avoid TS2403 in case lib.dom.d.ts is present in the same build
 interface Console {
     Console: NodeJS.ConsoleConstructor;
@@ -78,10 +81,18 @@ declare var __filename: string;
 declare var __dirname: string;
 
 declare function setTimeout(callback: (...args: any[]) => void, ms: number, ...args: any[]): NodeJS.Timer;
+declare namespace setTimeout {
+    export function __promisify__(ms: number): Promise<void>;
+    export function __promisify__<T>(ms: number, value: T): Promise<T>;
+}
 declare function clearTimeout(timeoutId: NodeJS.Timer): void;
 declare function setInterval(callback: (...args: any[]) => void, ms: number, ...args: any[]): NodeJS.Timer;
 declare function clearInterval(intervalId: NodeJS.Timer): void;
 declare function setImmediate(callback: (...args: any[]) => void, ...args: any[]): any;
+declare namespace setImmediate {
+    export function __promisify__(): Promise<void>;
+    export function __promisify__<T>(value: T): Promise<T>;
+}
 declare function clearImmediate(immediateId: any): void;
 
 // TODO: change to `type NodeRequireFunction = (id: string) => any;` in next mayor version.
@@ -93,8 +104,15 @@ interface NodeRequireFunction {
 interface NodeRequire extends NodeRequireFunction {
     resolve(id: string): string;
     cache: any;
-    extensions: any;
+    extensions: NodeExtensions;
     main: NodeModule | undefined;
+}
+
+interface NodeExtensions {
+  '.js': (m: NodeModule, filename: string) => any;
+  '.json': (m: NodeModule, filename: string) => any;
+  '.node': (m: NodeModule, filename: string) => any;
+  [ext: string]: (m: NodeModule, filename: string) => any;
 }
 
 declare var require: NodeRequire;
@@ -1632,6 +1650,9 @@ declare module "repl" {
 
     export interface REPLServer extends readline.ReadLine {
         context: any;
+        inputStream: NodeJS.ReadableStream;
+        outputStream: NodeJS.WritableStream;
+
         defineCommand(keyword: string, cmd: Function | { help: string, action: Function }): void;
         displayPrompt(preserveCursor?: boolean): void;
 
@@ -1667,6 +1688,12 @@ declare module "repl" {
     }
 
     export function start(options?: string | ReplOptions): REPLServer;
+
+    export class Recoverable extends SyntaxError {
+        err: Error;
+
+        constructor(err: Error);
+    }
 }
 
 declare module "readline" {
@@ -4208,7 +4235,7 @@ declare module "fs" {
      */
     export function createWriteStream(path: PathLike, options?: string | {
         flags?: string;
-        defaultEncoding?: string;
+        encoding?: string;
         fd?: number;
         mode?: number;
         autoClose?: boolean;
@@ -5592,6 +5619,26 @@ declare module "constants" {
     export var ALPN_ENABLED: number;
 }
 
+declare module "module" {
+    class Module implements NodeModule {
+        static runMain(): void;
+        static wrap(code: string): string;
+
+        exports: any;
+        require: NodeRequireFunction;
+        id: string;
+        filename: string;
+        loaded: boolean;
+        parent: NodeModule | null;
+        children: NodeModule[];
+        paths: string[];
+
+        constructor(id: string, parent?: Module);
+    }
+
+    export = Module;
+}
+
 declare module "process" {
     export = process;
 }
@@ -5627,10 +5674,18 @@ declare module "v8" {
 
 declare module "timers" {
     export function setTimeout(callback: (...args: any[]) => void, ms: number, ...args: any[]): NodeJS.Timer;
+    export namespace setTimeout {
+        export function __promisify__(ms: number): Promise<void>;
+        export function __promisify__<T>(ms: number, value: T): Promise<T>;
+    }
     export function clearTimeout(timeoutId: NodeJS.Timer): void;
     export function setInterval(callback: (...args: any[]) => void, ms: number, ...args: any[]): NodeJS.Timer;
     export function clearInterval(intervalId: NodeJS.Timer): void;
     export function setImmediate(callback: (...args: any[]) => void, ...args: any[]): any;
+    export namespace setImmediate {
+        export function __promisify__(): Promise<void>;
+        export function __promisify__<T>(value: T): Promise<T>;
+    }
     export function clearImmediate(immediateId: any): void;
 }
 

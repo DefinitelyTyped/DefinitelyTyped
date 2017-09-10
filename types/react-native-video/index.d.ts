@@ -1,6 +1,7 @@
-// Type definitions for react-native-video 1.0
+// Type definitions for react-native-video 2.0
 // Project: https://github.com/react-native-community/react-native-video
 // Definitions by: HuHuanming <https://github.com/huhuanming>
+//                 abrahambotros <https://github.com/abrahambotros>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -48,7 +49,10 @@ export interface VideoProperties extends ViewProperties {
     onLoad?(): void;
     onBuffer?(): void;
     onError?(): void;
-    onProgress?(): void;
+    onProgress?(data: {
+        currentTime: number,
+        playableDuration: number,
+    }): void;
     onSeek?(): void;
     onEnd?(): void;
     onFullscreenPlayerWillPresent?(): void;
