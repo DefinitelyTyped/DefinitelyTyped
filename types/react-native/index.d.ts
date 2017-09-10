@@ -6559,7 +6559,7 @@ export type ShareContent = {
 
 export type ShareOptions = {
     dialogTitle?: string
-    excludeActivityTypes?: Array<string>
+    excludedActivityTypes?: Array<string>
     tintColor?: string
 }
 
