@@ -18,8 +18,8 @@ declare namespace __Relay.Modern {
     // ~~~~~~~~~~~~~~~~~~~~~
     type ConcreteFragment = any;
     type ConcreteBatch = any;
-    type ConcreteFragmentDefinition = Object;
-    type ConcreteOperationDefinition = Object;
+    type ConcreteFragmentDefinition = object;
+    type ConcreteOperationDefinition = object;
     type ReactBaseComponent<T> = React.ComponentClass<T> | React.StatelessComponent<T>;
 
     // ~~~~~~~~~~~~~~~~~~~~~
@@ -122,10 +122,10 @@ declare namespace __Relay.Modern {
     ): Common.Variables;
     type ConnectionConfig = {
       direction?: 'backward' | 'forward',
-      getConnectionFromProps?: (props: Object) => ConnectionData | void,
+      getConnectionFromProps?: (props: object) => ConnectionData | void,
       getFragmentVariables?: typeof FragmentVariablesGetter,
       getVariables: (
-        props: Object,
+        props: {[propName: string]: any },
         paginationInfo: {count: number, cursor: string | void},
         fragmentVariables: Common.Variables,
       ) => Common.Variables,
@@ -225,8 +225,8 @@ declare namespace __Relay.Compat {
     // ~~~~~~~~~~~~~~~~~~~~~
     type ConcreteFragment = any;
     type ConcreteBatch = any;
-    type ConcreteFragmentDefinition = Object;
-    type ConcreteOperationDefinition = Object;
+    type ConcreteFragmentDefinition = object;
+    type ConcreteOperationDefinition = object;
 
 
     // ~~~~~~~~~~~~~~~~~~~~~

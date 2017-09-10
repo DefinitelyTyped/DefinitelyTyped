@@ -24,8 +24,8 @@ declare namespace __Relay.Common {
     type RelayQueryRequest = any;
     type ConcreteFragment = any;
     type ConcreteBatch = any;
-    type ConcreteFragmentDefinition = Object;
-    type ConcreteOperationDefinition = Object;
+    type ConcreteFragmentDefinition = object;
+    type ConcreteOperationDefinition = object;
 
 
     /**
@@ -622,7 +622,7 @@ declare namespace __Relay.Common {
       preventAutoRollback: () => void,
     ) => void;
     export type RelayMutationTransactionCommitSuccessCallback = (response: {
-      [key: string]: Object,
+      [key: string]: any,
     }) => void;
     export type NetworkLayer = {
       sendMutation(request: RelayMutationRequest): Promise<any> | void,
@@ -693,9 +693,9 @@ declare namespace __Relay.Runtime {
     type RelayDebugger = any;
     type OptimisticUpdate = any;
     type OperationSelector = Common.COperationSelector<any, any>;
-    type Selector = Common.CSelector<Object>;
+    type Selector = Common.CSelector<any>;
     type PayloadData = any;
-    type Snapshot = Common.CSnapshot<Object>;
+    type Snapshot = Common.CSnapshot<any>;
     type RelayResponsePayload = any;
     type MutableRecordSource = RecordSource;
 
@@ -704,7 +704,7 @@ declare namespace __Relay.Runtime {
      * a GraphQL operation.
      */
     type ExecuteFunction = (
-      operation: Object,
+      operation: object,
       variables: Common.Variables,
       cacheConfig: Common.CacheConfig,
       uploadables?: Common.UploadableMap | void,
@@ -737,7 +737,7 @@ declare namespace __Relay.Runtime {
       applyMutation(config: {
         operation: OperationSelector,
         optimisticUpdater?: Common.SelectorStoreUpdater,
-        optimisticResponse?: Object,
+        optimisticResponse?: object,
       }): Common.Disposable;
       check(readSelector: Selector): boolean;
       commitPayload(
@@ -759,7 +759,7 @@ declare namespace __Relay.Runtime {
       executeMutation(config: {
         operation: OperationSelector,
         optimisticUpdater?: Common.SelectorStoreUpdater | void,
-        optimisticResponse?: Object | void,
+        optimisticResponse?: object | void,
         updater?: Common.SelectorStoreUpdater | void,
         uploadables?: Common.UploadableMap | void,
       }): RelayObservable<RelayResponsePayload>;
@@ -1062,7 +1062,7 @@ declare namespace __Relay.Runtime {
       onCompleted?: (response: T, errors: Array<Common.PayloadError> | void) => void,
       onError?: (error?: Error) => void,
       optimisticUpdater?: Common.SelectorStoreUpdater | void,
-      optimisticResponse?: Object,
+      optimisticResponse?: object,
       updater?: Common.SelectorStoreUpdater | void,
     };
     function commitRelayModernMutation<T>(
@@ -1079,7 +1079,7 @@ declare namespace __Relay.Runtime {
       mutation: Common.GraphQLTaggedNode,
       variables: Common.Variables,
       optimisticUpdater?: Common.SelectorStoreUpdater,
-      optimisticResponse?: Object,
+      optimisticResponse?: object,
     };
 
     // ~~~~~~~~~~~~~~~~~~~~~
@@ -1117,7 +1117,7 @@ declare namespace __Relay.Runtime {
       variables: Common.Variables,
       onCompleted?: () => void,
       onError?: (error: Error) => void,
-      onNext?: (response: Object | void) => void,
+      onNext?: (response: object | void) => void,
       updater?: (store: Common.RecordSourceSelectorProxy) => void,
     };
     export function requestRelaySubscription(
