@@ -8,8 +8,6 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
-        "noImplicitReturns": true,
-        "strict": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"

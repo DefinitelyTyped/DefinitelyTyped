@@ -17,7 +17,9 @@
     },
     "files": [
         "history3/redirect.d.ts",
+        "history3/locationHelper.d.ts",
         "history4/redirect.d.ts",
+        "history4/locationHelper.d.ts",
         "authWrapper.d.ts",
         "connectedAuthWrapper.d.ts",
         "index.d.ts",

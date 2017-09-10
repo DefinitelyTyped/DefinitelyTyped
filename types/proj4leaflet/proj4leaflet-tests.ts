@@ -1,4 +1,8 @@
-import * as proj4 from "proj4";
+import * as L from 'leaflet';
+import 'proj4leaflet';
+
+import * as proj4 from 'proj4';
+
 import LatLngBoundsExpression = L.LatLngBoundsExpression;
 
 const crs = new L.Proj.CRS('EPSG:2400',

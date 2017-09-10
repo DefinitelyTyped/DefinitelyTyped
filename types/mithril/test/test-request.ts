@@ -46,6 +46,7 @@ request<Result>('/id', {
 request<Result>('/item', {
 	config: xhr => {
 		xhr.setRequestHeader('accept', '*');
+		return xhr;
 	},
 	headers: {"Content-Type": "application/json"},
 	background: true,

@@ -2,6 +2,7 @@
   "extends": "dtslint/dt.json",
   "rules": {
     "ban-types": false,
+    "dt-header": false,
     "no-single-declare-module": false,
     "no-var": false
   }

@@ -15,12 +15,12 @@ const Component = (props: {}) => {
     ];
 
     return (
-        <LineChart width={500} height={300} data={ data }>
+        <LineChart width={500} height={300} data={data}>
             <XAxis dataKey="name"/>
-            <YAxis />
-            <CartesianGrid />
-            <Line type="monotone" dataKey="uv" points={ [] } />
-            <Line type="monotone" dataKey="pv" points={ [] } />
+            <YAxis/>
+            <CartesianGrid stroke="#eee" strokeDasharray="5 5"/>
+            <Line type="monotone" dataKey="uv" stroke="#8884d8" />
+            <Line type="monotone" dataKey="pv" stroke="#82ca9d" />
         </LineChart>
     );
 };

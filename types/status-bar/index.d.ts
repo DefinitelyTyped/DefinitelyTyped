@@ -1,6 +1,6 @@
 // Type definitions for status-bar
 // Project: https://github.com/atom/status-bar
-// Definitions by: vvakame <https://github.com/vvakame/>
+// Definitions by: vvakame <https://github.com/vvakame>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 

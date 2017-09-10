@@ -6,14 +6,18 @@ class Test extends React.Component {
         return (
             <MaskedInput mask="111"
                          placeholderChar="X"
-                         formatCharacter={
+                         formatCharacters={
                             {
                                 a: {
                                     validate: (char: string) => char,
                                     transform: (char: string) => char
                                 }
                             }
-                         } />
+                         }
+                         name="react-maskedinput-test"
+                         placeholder="XXX"
+                         disabled={false}
+                />
         );
     }
 }

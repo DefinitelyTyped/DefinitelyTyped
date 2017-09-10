@@ -10,10 +10,7 @@ export {
     connectedRouterRedirect,
     ConnectedRouterRedirectConfig,
     InjectedAuthReduxProps,
-    InjectedAuthRouterProps,
-    locationHelperBuilder,
-    LocationHelper,
-    LocationHelperConfig
+    InjectedAuthRouterProps
 } from "redux-auth-wrapper/history3/redirect";
 
 export interface ConnectedReduxRedirectConfig<OwnProps = {}, State = {}> extends ConnectedRouterRedirectConfig<OwnProps, State> {

@@ -153,8 +153,8 @@ declare namespace lf {
     interface Database {
       name(): string;
       pragma(): DatabasePragma;
-      tables(): schema.Table[];
-      table(tableName: string): schema.Table;
+      tables(): Table[];
+      table(tableName: string): Table;
       version(): number;
     }
 
@@ -195,12 +195,12 @@ declare namespace lf {
     type RawForeignKeySpec = {
       local: string
       ref: string
-      action?: lf.ConstraintAction
-      timing?: lf.ConstraintTiming
+      action?: ConstraintAction
+      timing?: ConstraintTiming
     };
 
     interface TableBuilder {
-      addColumn(name: string, type: lf.Type): TableBuilder;
+      addColumn(name: string, type: Type): TableBuilder;
       addForeignKey(name: string, spec: RawForeignKeySpec): TableBuilder;
       addIndex(
           name: string, columns: string[]|IndexedColumn[],
