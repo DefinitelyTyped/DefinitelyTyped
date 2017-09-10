@@ -2,7 +2,7 @@
 // Project: https://github.com/facebook/relay
 // Definitions by: Matt Martin <https://github.com/voxmatt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.5
+// TypeScript Version: 2.4
 
 declare namespace __Relay.Common {
     /**
