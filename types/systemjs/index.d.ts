@@ -111,6 +111,12 @@ declare namespace SystemJSLoader {
          * Use with the SystemJS Builder. (https://github.com/systemjs/builder#ignore-resources)
          */
         build?: boolean;
+
+        /**
+         * A truthy value enables sending credentials to the server on every request. Additionally, a string value adds
+         * an "Authorization" header with that value to all requests.
+         */
+        authorization?: string | boolean;
     }
 
     interface PackageConfig {

@@ -1,5 +1,5 @@
 // common
-import { vec2, mat2, mat3, mat4, vec3, vec4, mat2d, quat } from "gl-matrix";
+import { glMatrix, vec2, mat2, mat3, mat4, vec3, vec4, mat2d, quat } from "gl-matrix";
 
 var outVal: number;
 var outBool: boolean;
@@ -294,8 +294,9 @@ outMat4 = mat4.fromXRotation(outMat4, Math.PI);
 outMat4 = mat4.fromYRotation(outMat4, Math.PI);
 outMat4 = mat4.fromZRotation(outMat4, Math.PI);
 outMat4 = mat4.fromRotationTranslation(outMat4, quatA, vec3A);
-outVec3 = mat4.getTranslation(outVec3, mat4A)
-outQuat = mat4.getRotation(outQuat, mat4A)
+outVec3 = mat4.getTranslation(outVec3, mat4A);
+outVec3 = mat4.getScaling(outVec3, mat4A);
+outQuat = mat4.getRotation(outQuat, mat4A);
 outMat4 = mat4.fromRotationTranslationScale(outMat4, quatA, vec3A, vec3B);
 outMat4 = mat4.fromRotationTranslationScaleOrigin(outMat4, quatA, vec3A, vec3B, vec3A);
 outMat4 = mat4.fromQuat(outMat4, quatB);
@@ -349,7 +350,18 @@ outQuat = quat.calculateW(outQuat, quatA);
 outBool = quat.exactEquals(quatA, quatB);
 outBool = quat.equals(quatA, quatB);
 
+// glMatrix
+outVal = glMatrix.RANDOM();
+outVal = glMatrix.EPSILON;
+outBool = glMatrix.ENABLE_SIMD;
+outBool = glMatrix.SIMD_AVAILABLE;
+outBool = glMatrix.USE_SIMD;
+outBool = glMatrix.equals(1, 1);
+outBool = glMatrix.equals(1, -1);
+outVal = glMatrix.toRadian(10);
+
 // common
+import _glMatrix = require('gl-matrix/src/gl-matrix/common');
 import _vec2 = require('gl-matrix/src/gl-matrix/vec2');
 import _vec3 = require('gl-matrix/src/gl-matrix/vec3');
 import _vec4 = require('gl-matrix/src/gl-matrix/vec4');
@@ -643,8 +655,9 @@ outMat4 = _mat4.fromXRotation(outMat4, Math.PI);
 outMat4 = _mat4.fromYRotation(outMat4, Math.PI);
 outMat4 = _mat4.fromZRotation(outMat4, Math.PI);
 outMat4 = _mat4.fromRotationTranslation(outMat4, quatA, vec3A);
-outVec3 = _mat4.getTranslation(outVec3, mat4A)
-outQuat = _mat4.getRotation(outQuat, mat4A)
+outVec3 = _mat4.getTranslation(outVec3, mat4A);
+outVec3 = _mat4.getScaling(outVec3, mat4A);
+outQuat = _mat4.getRotation(outQuat, mat4A);
 outMat4 = _mat4.fromRotationTranslationScale(outMat4, quatA, vec3A, vec3B);
 outMat4 = _mat4.fromRotationTranslationScaleOrigin(outMat4, quatA, vec3A, vec3B, vec3A);
 outMat4 = _mat4.fromQuat(outMat4, quatB);
@@ -697,3 +710,13 @@ outQuat = _quat.fromMat3(outQuat, mat3A);
 outQuat = _quat.calculateW(outQuat, quatA);
 outBool = _quat.exactEquals(quatA, quatB);
 outBool = _quat.equals(quatA, quatB);
+
+// glMatrix common
+outVal = _glMatrix.RANDOM();
+outVal = _glMatrix.EPSILON;
+outBool = _glMatrix.ENABLE_SIMD;
+outBool = _glMatrix.SIMD_AVAILABLE;
+outBool = _glMatrix.USE_SIMD;
+outBool = _glMatrix.equals(1, 1);
+outBool = _glMatrix.equals(1, -1);
+outVal = _glMatrix.toRadian(10);

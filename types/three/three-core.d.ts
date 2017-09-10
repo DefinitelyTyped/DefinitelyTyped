@@ -1608,14 +1608,14 @@ export class Object3D extends EventDispatcher {
     /**
      * Calls before rendering object
      */
-    onBeforeRender: (renderer: THREE.WebGLRenderer, scene: THREE.Scene, camera: THREE.Camera, geometry: THREE.Geometry | THREE.BufferGeometry,
-                     material: THREE.Material, group: THREE.Group) => void;
+    onBeforeRender: (renderer: WebGLRenderer, scene: Scene, camera: Camera, geometry: Geometry | BufferGeometry,
+                     material: Material, group: Group) => void;
 
     /**
      * Calls after rendering object
      */
-    onAfterRender: (renderer: THREE.WebGLRenderer, scene: THREE.Scene, camera: THREE.Camera, geometry: THREE.Geometry | THREE.BufferGeometry,
-                    material: THREE.Material, group: THREE.Group) => void;
+    onAfterRender: (renderer: WebGLRenderer, scene: Scene, camera: Camera, geometry: Geometry | BufferGeometry,
+                    material: Material, group: Group) => void;
 
     /**
      *
@@ -2317,36 +2317,39 @@ export namespace Cache {
 export let MaterialIdCount: number;
 
 export interface MaterialParameters {
-    name?: string;
-    side?: Side;
-    opacity?: number;
-    transparent?: boolean;
+    alphaTest?: number;
+    blendDst?: BlendingDstFactor;
+    blendDstAlpha?: number;
+    blendEquation?: BlendingEquation;
+    blendEquationAlpha?: number;
     blending?: Blending;
     blendSrc?: BlendingSrcFactor | BlendingDstFactor;
-    blendDst?: BlendingDstFactor;
-    blendEquation?: BlendingEquation;
     blendSrcAlpha?: number;
-    blendDstAlpha?: number;
-    blendEquationAlpha?: number;
+    clipIntersection?: boolean;
+    clippingPlanes?: Plane[];
+    clipShadows?: boolean;
+    colorWrite?: boolean;
     depthFunc?: DepthModes;
     depthTest?: boolean;
     depthWrite?: boolean;
-    colorWrite?: boolean;
-    precision?: number;
+    fog?: boolean;
+    lights?: boolean;
+    name?: string;
+    opacity?: number;
+    overdraw?: number;
     polygonOffset?: boolean;
     polygonOffsetFactor?: number;
     polygonOffsetUnits?: number;
-    alphaTest?: number;
+    precision?: 'highp' | 'mediump' | 'lowp' | null;
     premultipliedAlpha?: boolean;
-    overdraw?: number;
-    visible?: boolean;
-    fog?: boolean;
-    lights?: boolean;
-    shading?: Shading;
+    dithering?: boolean;
+    flatShading?: boolean;
+    side?: Side;
+    transparent?: boolean;
     vertexColors?: Colors;
-    clippingPlanes?: Plane[];
-    clipIntersection?: boolean;
-    clipShadows?: boolean;
+    visible?: boolean;
+
+    shading?: Shading;
 }
 
 /**
@@ -2356,62 +2359,70 @@ export class Material extends EventDispatcher {
     constructor();
 
     /**
-     * Unique number of this material instance.
+     * Sets the alpha value to be used when running an alpha test. Default is 0.
      */
-    id: number;
-
-    uuid: string;
-
-    /**
-     * Material name. Default is an empty string.
-     */
-    name: string;
-
-    type: string;
-
-    /**
-     * Defines which of the face sides will be rendered - front, back or both.
-     * Default is THREE.FrontSide. Other options are THREE.BackSide and THREE.DoubleSide.
-     */
-    side: Side;
-
-    /**
-     * Opacity. Default is 1.
-     */
-    opacity: number;
-
-    /**
-     * Defines whether this material is transparent. This has an effect on rendering, as transparent objects need an special treatment, and are rendered after the opaque (i.e. non transparent) objects. For a working example of this behaviour, check the {@link WebGLRenderer} code.
-     * Default is false.
-     */
-    transparent: boolean;
-
-    /**
-     * Which blending to use when displaying objects with this material. Default is {@link NormalBlending}.
-     */
-    blending: Blending;
-
-    /**
-     * Blending source. It's one of the blending mode constants defined in Three.js. Default is {@link SrcAlphaFactor}.
-     */
-    blendSrc: BlendingSrcFactor | BlendingDstFactor;
+    alphaTest: number;
 
     /**
      * Blending destination. It's one of the blending mode constants defined in Three.js. Default is {@link OneMinusSrcAlphaFactor}.
      */
     blendDst: BlendingDstFactor;
-
+    
     /**
-     * Blending equation to use when applying blending. It's one of the constants defined in Three.js. Default is AddEquation.
+     * The tranparency of the .blendDst. Default is null.
+     */
+    blendDstAlpha: number;
+    
+    /**
+     * Blending equation to use when applying blending. It's one of the constants defined in Three.js. Default is {@link AddEquation}.
      */
     blendEquation: BlendingEquation;
 
-    blendSrcAlpha: number;
-    blendDstAlpha: number;
+    /**
+     * The tranparency of the .blendEquation. Default is null.
+     */
     blendEquationAlpha: number;
+    
+    /**
+     * Which blending to use when displaying objects with this material. Default is {@link NormalBlending}.
+     */
+    blending: Blending;
+    
+    /**
+     * Blending source. It's one of the blending mode constants defined in Three.js. Default is {@link SrcAlphaFactor}.
+     */
+    blendSrc: BlendingSrcFactor | BlendingDstFactor;
+    
+    /**
+     * The tranparency of the .blendSrc. Default is null.
+     */
+    blendSrcAlpha: number;
 
+    /**
+     * Changes the behavior of clipping planes so that only their intersection is clipped, rather than their union. Default is false.
+     */
+    clipIntersection: boolean;
+
+    /**
+     * User-defined clipping planes specified as THREE.Plane objects in world space. These planes apply to the objects this material is attached to. Points in space whose signed distance to the plane is negative are clipped (not rendered). See the WebGL / clipping /intersection example. Default is null.
+     */
+    clippingPlanes: any;
+    
+    /**
+     * Defines whether to clip shadows according to the clipping planes specified on this material. Default is false.
+     */
+    clipShadows: boolean;
+
+    /**
+     * Whether to render the material's color. This can be used in conjunction with a mesh's .renderOrder property to create invisible objects that occlude other objects. Default is true.
+     */
+    colorWrite: boolean;
+
+    /**
+     * Which depth function to use. Default is {@link LessEqualDepth}. See the depth mode constants for all possible values.
+     */
     depthFunc: DepthModes;
-
+    
     /**
      * Whether to have depth test enabled when rendering this material. Default is true.
      */
@@ -2423,18 +2434,53 @@ export class Material extends EventDispatcher {
      */
     depthWrite: boolean;
 
-    clippingPlanes: any;
-    clipShadows: boolean;
+    /**
+     * Whether the material is affected by fog. Default is true.
+     */
+    fog: boolean;
 
-    colorWrite: boolean;
+    /**
+     * Unique number of this material instance.
+     */
+    id: number;
 
-    precision: any;
+    /**
+     * Used to check whether this or derived classes are materials. Default is true.
+     * You should not change this, as it used internally for optimisation.
+     */
+    isMaterial: boolean;
+
+    /**
+     * Whether the material is affected by lights. Default is true.
+     */
+    lights: boolean;
+
+    /**
+     * Material name. Default is an empty string.
+     */
+    name: string;
+    
+    /**
+     * Specifies that the material needs to be updated, WebGL wise. Set it to true if you made changes that need to be reflected in WebGL.
+     * This property is automatically set to true when instancing a new material.
+     */
+    needsUpdate: boolean;
+
+    /**
+     * Opacity. Default is 1.
+     */
+    opacity: number;
+
+    /**
+     * Enables/disables overdraw. If greater than zero, polygons are drawn slightly bigger in order to fix antialiasing gaps when using the CanvasRenderer. Default is 0.
+     */
+    overdraw: number;
 
     /**
      * Whether to use polygon offset. Default is false. This corresponds to the POLYGON_OFFSET_FILL WebGL feature.
      */
     polygonOffset: boolean;
-
+    
     /**
      * Sets the polygon offset factor. Default is 0.
      */
@@ -2446,16 +2492,52 @@ export class Material extends EventDispatcher {
     polygonOffsetUnits: number;
 
     /**
-     * Sets the alpha value to be used when running an alpha test. Default is 0.
+     * Override the renderer's default precision for this material. Can be "highp", "mediump" or "lowp". Defaults is null.
      */
-    alphaTest: number;
+    precision: 'highp' | 'mediump' | 'lowp' | null;
 
+    /**
+     * Whether to premultiply the alpha (transparency) value. See WebGL / Materials / Transparency for an example of the difference. Default is false.
+     */
     premultipliedAlpha: boolean;
 
     /**
-     * Enables/disables overdraw. If greater than zero, polygons are drawn slightly bigger in order to fix antialiasing gaps when using the CanvasRenderer. Default is 0.
+     * Whether to apply dithering to the color to remove the appearance of banding. Default is false.
      */
-    overdraw: number;
+    dithering: boolean;
+
+    /**
+     * Define whether the material is rendered with flat shading. Default is false.
+     */
+    flatShading: boolean;
+
+    /**
+     * Defines which of the face sides will be rendered - front, back or both.
+     * Default is THREE.FrontSide. Other options are THREE.BackSide and THREE.DoubleSide.
+     */
+    side: Side;
+
+    /**
+     * Defines whether this material is transparent. This has an effect on rendering as transparent objects need special treatment and are rendered after non-transparent objects. 
+     * When set to true, the extent to which the material is transparent is controlled by setting it's .opacity property. 
+     * Default is false.
+     */
+    transparent: boolean;
+
+    /**
+     * Value is the string 'Material'. This shouldn't be changed, and can be used to find all objects of this type in a scene.
+     */
+    type: string;
+
+    /**
+     * UUID of this material instance. This gets automatically assigned, so this shouldn't be edited.
+     */
+    uuid: string;
+
+    /**
+     * Defines whether vertex coloring is used. Default is THREE.NoColors. Other options are THREE.VertexColors and THREE.FaceColors.
+     */
+    vertexColors: Colors;
 
     /**
      * Defines whether this material is visible. Default is true.
@@ -2463,27 +2545,52 @@ export class Material extends EventDispatcher {
     visible: boolean;
 
     /**
-     * Specifies that the material needs to be updated, WebGL wise. Set it to true if you made changes that need to be reflected in WebGL.
-     * This property is automatically set to true when instancing a new material.
+     * An object that can be used to store custom data about the Material. It should not hold references to functions as these will not be cloned.
      */
-    needsUpdate: boolean;
-
-    fog: boolean;
-    lights: boolean;
-    shading: Shading;
-    vertexColors: Colors;
-
-    setValues(parameters: MaterialParameters): void;
-    toJSON(meta?: any): any;
+    userData: any;
+    
+    /**
+     * Return a new material with the same parameters as this material.
+     */
     clone(): this;
-    copy(source: this): this;
-    update(): void;
+
+    /**
+     * Copy the parameters from the passed material into this material.
+     * @param material
+     */
+    copy(material: this): this;
+
+    /**
+     * This disposes the material. Textures of a material don't get disposed. These needs to be disposed by {@link Texture}.
+     */
     dispose(): void;
 
+    /**
+     * Sets the properties based on the values.
+     * @param values A container with parameters.
+     */
+    setValues(values: MaterialParameters): void;
+
+    /**
+     * Convert the material to three.js JSON format.
+     * @param meta Object containing metadata such as textures or images for the material.
+     */
+    toJSON(meta?: any): any;
+
+    /**
+     * Call .dispatchEvent ( { type: 'update' }) on the material.
+     */
+    update(): void;
+    
     /**
      * @deprecated
      */
     warpRGB: Color;
+
+    /**
+     * @deprecated Removed, use .flatShading instead.
+     */
+    shading: Shading;
 }
 
 export interface LineBasicMaterialParameters extends MaterialParameters {
@@ -4707,17 +4814,17 @@ export const LinePieces: number;
 export class LineSegments extends Line {
     constructor(
         geometry?: Geometry | BufferGeometry,
-        material?: LineDashedMaterial | LineBasicMaterial | ShaderMaterial,
+        material?: LineDashedMaterial | LineBasicMaterial | ShaderMaterial | (LineDashedMaterial | LineBasicMaterial | ShaderMaterial)[],
         mode?: number
     );
 }
 
 export class Mesh extends Object3D {
-    constructor(geometry?: Geometry, material?: Material);
-    constructor(geometry?: BufferGeometry, material?: Material);
+    constructor(geometry?: Geometry, material?: Material | Material []);
+    constructor(geometry?: BufferGeometry, material?: Material | Material []);
 
     geometry: Geometry|BufferGeometry;
-    material: Material;
+    material: Material | Material[];
     drawMode: TrianglesDrawModes;
 
     setDrawMode(drawMode: TrianglesDrawModes): void;
