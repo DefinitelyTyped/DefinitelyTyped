@@ -23,6 +23,14 @@ declare namespace __Relay.Modern {
     type ReactBaseComponent<T> = React.ComponentClass<T> | React.StatelessComponent<T>;
 
     // ~~~~~~~~~~~~~~~~~~~~~
+    // RelayProp
+    // ~~~~~~~~~~~~~~~~~~~~~
+    // note: refetch and pagination containers augment this
+    export type RelayProp = {
+        environment: Runtime.Environment,
+    };
+
+    // ~~~~~~~~~~~~~~~~~~~~~
     // RelayQL
     // ~~~~~~~~~~~~~~~~~~~~~
     export function RelayQL(
@@ -46,14 +54,18 @@ declare namespace __Relay.Modern {
      * Runtime function to correspond to the `graphql` tagged template function.
      * All calls to this function should be transformed by the plugin.
     */
-    function graphql(strings: Array<string> | TemplateStringsArray): GraphQLTaggedNode;
+    interface IGraphql {
+        (strings: Array<string> | TemplateStringsArray): GraphQLTaggedNode;
+        experimental: (strings: Array<string> | TemplateStringsArray) => GraphQLTaggedNode;
+    }
+    export const graphql: IGraphql;
 
     // ~~~~~~~~~~~~~~~~~~~~~
     // ReactRelayQueryRenderer
     // ~~~~~~~~~~~~~~~~~~~~~
     type QueryRendererProps = {
       cacheConfig?: __Relay.Common.CacheConfig | void,
-      environment: __Relay.Runtime.Environment | any,
+      environment: __Relay.Runtime.Environment,
       query: GraphQLTaggedNode,
       render: (readyState: ReadyState) => React.ReactElement<any> | void,
       variables: Common.Variables,
@@ -61,7 +73,7 @@ declare namespace __Relay.Modern {
     };
     export type ReadyState = {
       error: Error | void,
-      props: Object | void,
+      props: { [propName: string]: any } | void,
       retry: (() => void) | void,
     };
     type QueryRendererState = {
@@ -90,6 +102,20 @@ declare namespace __Relay.Modern {
       edges?: any[],
       pageInfo?: PageInfo | void,
     };
+    export type RelayPaginationProp = RelayProp & {
+        hasMore: () => boolean,
+        isLoading: () => boolean,
+        loadMore: (
+            pageSize: number,
+            callback: (error?: Error) => void,
+            options?: RefetchOptions,
+        ) => Common.Disposable | void,
+        refetchConnection: (
+            totalCount: number,
+            callback: (error?: Error | void) => void,
+            refetchVariables?: Common.Variables | void,
+        ) => Common.Disposable | void,
+    };
     export function FragmentVariablesGetter(
       prevVars: Common.Variables,
       totalCount: number,
@@ -114,11 +140,26 @@ declare namespace __Relay.Modern {
     // ~~~~~~~~~~~~~~~~~~~~~
     // createFragmentContainer
     // ~~~~~~~~~~~~~~~~~~~~~
+    export type RefetchOptions = {
+      force?: boolean,
+      rerunParamExperimental?: Common.RerunParam,
+    };
+    export type RelayRefetchProp = RelayProp & {
+      refetch: (
+        refetchVariables: Common.Variables | ((fragmentVariables: Common.Variables) => Common.Variables),
+        renderVariables: Common.Variables | void,
+        callback?: (error: Error | void) => void,
+        options?: RefetchOptions,
+      ) => Common.Disposable,
+    };
     export function createRefetchContainer<T>(
       Component: ReactBaseComponent<T>,
       fragmentSpec: GraphQLTaggedNode | GeneratedNodeMap,
       taggedNode: GraphQLTaggedNode,
     ): ReactBaseComponent<T>;
+
+
+
 }
 
 
@@ -251,6 +292,11 @@ declare module 'react-relay' {
     export import commitMutation = __Relay.Runtime.commitRelayModernMutation;
     export import fetchQuery = __Relay.Runtime.fetchRelayModernQuery;
     export import requestSubscription = __Relay.Runtime.requestRelaySubscription;
+
+    // exported for convenience — not exports in the original module
+    export import RelayProp = __Relay.Modern.RelayProp;
+    export import RelayPaginationProp = __Relay.Modern.RelayPaginationProp;
+    export import RelayRefetchProp = __Relay.Modern.RelayRefetchProp;
 }
 
 declare module 'react-relay/compat' {

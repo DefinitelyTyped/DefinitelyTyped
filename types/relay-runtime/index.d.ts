@@ -193,9 +193,9 @@ declare namespace __Relay.Common {
       handleKey: string,
     };
     interface IHandler {
-        update: (store: RecordSourceProxy, fieldPayload: HandleFieldPayload): void;
+        update: (store: RecordSourceProxy, fieldPayload: HandleFieldPayload) => void;
         [functionName: string]: Function;
-    };
+    }
     export const Handler: IHandler;
 
 
@@ -566,48 +566,52 @@ declare namespace __Relay.Common {
       import: string,
       max_runs: number,
     };
-
-    export type RelayMutationConfig =
-    | {
+    interface FIELDS_CHANGE {
         type: 'FIELDS_CHANGE',
         fieldIDs: {[fieldName: string]: DataID | Array<DataID>},
-      }
-    | {
+    }
+    interface RANGE_ADD {
         type: 'RANGE_ADD',
         parentName?: string,
         parentID?: string,
         connectionInfo?: Array<{
-          key: string,
-          filters?: Variables,
-          rangeBehavior: string,
+            key: string,
+            filters?: Variables,
+            rangeBehavior: string,
         }>,
         connectionName?: string,
         edgeName: string,
         rangeBehaviors?: RangeBehaviors,
-      }
-    | {
+    }
+    interface NODE_DELETE {
         type: 'NODE_DELETE',
         parentName?: string,
         parentID?: string,
         connectionName?: string,
         deletedIDFieldName: string,
-      }
-    | {
+    }
+    interface RANGE_DELETE {
         type: 'RANGE_DELETE',
         parentName?: string,
         parentID?: string,
         connectionKeys?: Array<{
-          key: string,
-          filters?: Variables,
+            key: string,
+            filters?: Variables,
         }>,
         connectionName?: string,
         deletedIDFieldName: string | Array<string>,
         pathToConnection: Array<string>,
-      }
-    | {
+    }
+    interface REQUIRED_CHILDREN {
         type: 'REQUIRED_CHILDREN',
         children: Array<RelayConcreteNode>,
-      };
+    }
+    export type RelayMutationConfig =
+        FIELDS_CHANGE |
+        RANGE_ADD |
+        NODE_DELETE |
+        RANGE_DELETE |
+        REQUIRED_CHILDREN;
 
     export type RelayMutationTransactionCommitCallbacks = {
       onFailure?: RelayMutationTransactionCommitFailureCallback,
@@ -712,7 +716,7 @@ declare namespace __Relay.Runtime {
     // ~~~~~~~~~~~~~~~~~~~~~
     // RelayDefaultHandlerProvider
     // ~~~~~~~~~~~~~~~~~~~~~
-    export function HandlerProvider(name: string): Common.Handler | void;
+    export function HandlerProvider(name: string): typeof Common.Handler | void;
 
     // ~~~~~~~~~~~~~~~~~~~~~
     // RelayModernEnvironment
@@ -1116,10 +1120,10 @@ declare namespace __Relay.Runtime {
       onNext?: (response: Object | void) => void,
       updater?: (store: Common.RecordSourceSelectorProxy) => void,
     };
-    type requestRelaySubscription = (
+    export function requestRelaySubscription(
       environment: Environment,
       config: GraphQLSubscriptionConfig,
-    ) => Common.Disposable;
+    ): Common.Disposable;
   }
 
   declare module 'relay-runtime' {
