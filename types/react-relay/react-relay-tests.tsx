@@ -6,6 +6,13 @@ import {
     Store,
     ConnectionHandler,
 } from 'relay-runtime';
+
+
+
+
+////////////////////////////
+//  RELAY MODERN TESTS
+///////////////////////////
 import {
     graphql,
     commitMutation,
@@ -19,18 +26,18 @@ import {
 } from "react-relay";
 
 
-////////////////////////////
-//  ENVIRONMENT
-///////////////////////////
+// ~~~~~~~~~~~~~~~~~~~~~
+// Modern Environment
+// ~~~~~~~~~~~~~~~~~~~~~
 let network: __Relay.Runtime.RelayNetwork;
 const source = new RecordSource();
 const store = new Store(source);
 const modernEnvironment = new Environment({ network, store });
 
 
-////////////////////////////
-//  QUERY RENDERER
-///////////////////////////
+// ~~~~~~~~~~~~~~~~~~~~~
+// Modern QueryRenderer
+// ~~~~~~~~~~~~~~~~~~~~~
 const MyQueryRenderer = (props: { name: string}) => (
   <QueryRenderer
     environment={ modernEnvironment }
@@ -55,9 +62,9 @@ const MyQueryRenderer = (props: { name: string}) => (
   />
 );
 
-////////////////////////////
-//  FRAGMENT CONTAINER
-///////////////////////////
+// ~~~~~~~~~~~~~~~~~~~~~
+// Modern FragmentContainer
+// ~~~~~~~~~~~~~~~~~~~~~
 const MyFragmentContainer = createFragmentContainer(
     class TodoListView extends React.Component {
         render() {
@@ -75,9 +82,9 @@ const MyFragmentContainer = createFragmentContainer(
 );
 
 
-////////////////////////////
-//  REFETCH CONTAINER
-///////////////////////////
+// ~~~~~~~~~~~~~~~~~~~~~
+// Modern RefetchContainer
+// ~~~~~~~~~~~~~~~~~~~~~
 interface IStory { id: string }
 interface IFeedStoriesProps {
     relay: RelayRefetchProp;
@@ -140,9 +147,9 @@ const FeedRefetchContainer = createRefetchContainer(
 
 
 
-////////////////////////////
-//  PAGINATION CONTAINER
-///////////////////////////
+// ~~~~~~~~~~~~~~~~~~~~~
+// Modern PaginationContainer
+// ~~~~~~~~~~~~~~~~~~~~~
 interface IFeedProps {
     user: { feed: { edges: { node: IStory}[]}}
     relay: RelayPaginationProp;
@@ -230,10 +237,9 @@ const FeedPaginationContainer = createPaginationContainer(
 );
 
 
-////////////////////////////
-//  MUTATIONS
-///////////////////////////
-
+// ~~~~~~~~~~~~~~~~~~~~~
+// Modern Mutations
+// ~~~~~~~~~~~~~~~~~~~~~
 const mutation = graphql`
 mutation MarkReadNotificationMutation(
     $input: MarkReadNotificationData!
@@ -300,11 +306,9 @@ function markNotificationAsRead(source: string, storyID: string) {
 }
 
 
-
-////////////////////////////
-//  SUBSCRIPTIONS
-///////////////////////////
-
+// ~~~~~~~~~~~~~~~~~~~~~
+// Modern Subscriptions
+// ~~~~~~~~~~~~~~~~~~~~~
 const subscription = graphql`
     subscription MarkReadNotificationSubscription(
         $storyID: ID!
@@ -316,11 +320,9 @@ const subscription = graphql`
     }
     }
 `;
-
 const variables = {
     storyID: '123',
 };
-
 requestSubscription(
     modernEnvironment, // see Environment docs
     {
@@ -348,3 +350,102 @@ requestSubscription(
         },
     }
 );
+
+
+
+
+////////////////////////////
+//  RELAY-CLASSIC TESTS
+///////////////////////////
+
+import * as Relay from "react-relay/classic";
+
+interface Props {
+    text: string
+    userId: string
+}
+
+interface Response {
+}
+
+export default class AddTweetMutation extends Relay.Mutation<Props, Response> {
+
+    getMutation () {
+        return Relay.QL`mutation{addTweet}`
+    }
+
+    getFatQuery () {
+        return Relay.QL`
+            fragment on AddTweetPayload {
+                tweetEdge
+                user
+            }
+        `
+    }
+
+    getConfigs () {
+        return [{
+            type: "RANGE_ADD",
+            parentName: "user",
+            parentID: this.props.userId,
+            connectionName: "tweets",
+            edgeName: "tweetEdge",
+            rangeBehaviors: {
+                "": "append",
+            },
+        }]
+    }
+
+    getVariables () {
+        return this.props
+    }
+}
+
+interface ArtworkProps {
+    artwork: {
+        title: string
+    },
+    relay: Relay.RelayProp,
+}
+
+class Artwork extends React.Component<ArtworkProps> {
+    render() {
+        return (
+            <a href={`/artworks/${this.props.relay.variables.artworkID}`}>
+                {this.props.artwork.title}
+            </a>
+        )
+    }
+}
+
+const ArtworkContainer = Relay.createContainer(Artwork, {
+    fragments: {
+        artwork: () => Relay.QL`
+            fragment on Artwork {
+                title
+            }
+        `
+    }
+})
+
+class StubbedArtwork extends React.Component {
+    render() {
+        const props = {
+            artwork: { title: "CHAMPAGNE FORMICA FLAG" },
+            relay: {
+                route: {
+                    name: "champagne"
+                },
+                variables: {
+                    artworkID: "champagne-formica-flag",
+                },
+                setVariables: () => {},
+                forceFetch: () => {},
+                hasOptimisticUpdate: () => false,
+                getPendingTransactions: (): Relay.RelayMutationTransaction[] => undefined,
+                commitUpdate: () => {},
+            }
+        }
+        return <ArtworkContainer {...props} />
+    }
+}
