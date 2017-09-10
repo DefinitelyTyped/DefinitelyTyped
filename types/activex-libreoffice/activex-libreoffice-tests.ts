@@ -4,23 +4,23 @@
     // This is a JScript example
     // The service manager is always the starting point
     // If there is no office running then an office is started up
-    let serviceManager = new ActiveXObject('com.sun.star.ServiceManager');
+    const serviceManager = new ActiveXObject('com.sun.star.ServiceManager');
 
     // Create the CoreReflection service that is later used to create structs
-    let coreReflection = serviceManager.createInstance("com.sun.star.reflection.CoreReflection");
+    const coreReflection = serviceManager.createInstance("com.sun.star.reflection.CoreReflection");
 
     // Create the Desktop
-    let desktop = serviceManager.defaultContext.getByName('/singleton/com.sun.star.frame.theDesktop');
+    const desktop = serviceManager.defaultContext.getByName('/singleton/com.sun.star.frame.theDesktop');
 
     // Open a new empty writer document
-    let args: any[] = [];
-    let document = desktop.loadComponentFromURL("private:factory/swriter", "_blank", 0, args); // as com.sun.star.text.TextDocument;
+    const args: any[] = [];
+    const document = desktop.loadComponentFromURL("private:factory/swriter", "_blank", 0, args); // as com.sun.star.text.TextDocument;
 
     // Create a text object
-    let text = document.Text;
+    const text = document.Text;
 
     // Create a cursor object
-    let cursor = (text.createTextCursor() as any) as com.sun.star.text.TextCursor;
+    const cursor = (text.createTextCursor() as any) as com.sun.star.text.TextCursor;
 
     // Inserting some Text
     text.insertString(cursor, "The first line in the newly created text document.\n", false);
@@ -29,15 +29,15 @@
     text.insertString(cursor, "Now we're in the second line", false);
 
     // Create instance of a text table with 4 columns and 4 rows
-    let table = document.createInstance("com.sun.star.text.TextTable");
+    const table = document.createInstance("com.sun.star.text.TextTable");
     table.initialize(4, 4);
 
     // Insert the table
     text.insertTextContent(cursor, table, false);
 
     // Get first row
-    let rows = table.Rows;
-    let row = rows.getByIndex(0) as com.sun.star.table.TableRow;
+    const rows = table.Rows;
+    const row = rows.getByIndex(0) as com.sun.star.table.TableRow;
 
     // Set the table background color
     ((table as any) as com.sun.star.beans.XPropertySet).setPropertyValue("BackTransparent", false);
@@ -83,10 +83,10 @@
     text.insertControlCharacter(cursor, 0, false);
 
     // Create a TextFrame.
-    let textFrame = document.createInstance("com.sun.star.text.TextFrame");
+    const textFrame = document.createInstance("com.sun.star.text.TextFrame");
 
     // Create a Size struct.
-    let size = createStruct("com.sun.star.awt.Size"); // helper function, see below
+    const size = createStruct("com.sun.star.awt.Size"); // helper function, see below
     size.Width = 15000;
     size.Height = 400;
     textFrame.setSize(size);
@@ -98,10 +98,10 @@
     text.insertTextContent(cursor, textFrame, false);
 
     // Get the text object of the frame
-    let objFrameText = textFrame.Text;
+    const objFrameText = textFrame.Text;
 
     // Create a cursor object
-    let objFrameTextCursor = objFrameText.createTextCursor();
+    const objFrameTextCursor = objFrameText.createTextCursor();
 
     // Inserting some Text
     objFrameText.insertString(objFrameTextCursor, "The first line in the newly created text frame.", false);
@@ -119,53 +119,53 @@
     text.insertString(cursor, " That's all for now !!", false);
 
     function insertIntoCell(strCellName: string, strText: string, objTable: com.sun.star.text.TextTable) {
-        let objCellText = objTable.getCellByName(strCellName) as com.sun.star.table.Cell;
-        let objCellCursor = (objCellText.createTextCursor() as any) as com.sun.star.text.TextCursor;
+        const objCellText = objTable.getCellByName(strCellName) as com.sun.star.table.Cell;
+        const objCellCursor = (objCellText.createTextCursor() as any) as com.sun.star.text.TextCursor;
         objCellCursor.setPropertyValue("CharColor", 16777215);
         objCellText.insertString(objCellCursor, strText, false);
     }
 
-    function createStruct(strTypeName: string) {
-        let classSize = coreReflection.forName(strTypeName);
-        let aStruct: any;
+    function createStruct<K extends keyof LibreOffice.StructNameMap>(strTypeName: K) {
+        const classSize = coreReflection.forName(strTypeName);
+        const aStruct: [LibreOffice.StructNameMap[K]] = [] as any;
         classSize.createObject(aStruct);
-        return aStruct;
+        return aStruct[0];
     }
 })();
 
 (() => {
    // This shows some specific features of the Automation bridge
 
-    let serviceManager = new ActiveXObject('com.sun.star.ServiceManager');
+    const serviceManager = new ActiveXObject('com.sun.star.ServiceManager');
 
     // singleton access
-    let desktop = serviceManager.defaultContext.getByName('/singleton/com.sun.star.frame.theDesktop');
+    const desktop = serviceManager.defaultContext.getByName('/singleton/com.sun.star.frame.theDesktop');
 
     // defaultContext property implements XNameAccess
     // sequence is returned as a safearray
-    let elementNames = new VBArray(serviceManager.defaultContext.getElementNames()).toArray().join('\n');
+    const elementNames = new VBArray(serviceManager.defaultContext.getElementNames()).toArray().join('\n');
     WScript.Echo(elementNames);
 
     // get/set methods exposed as properties -- getText => Text, getViewData/setViewData => ViewData
-    let document = desktop.loadComponentFromURL("private:factory/swriter", "_blank", 0, []);
-    let viewData = document.ViewData;
+    const document = desktop.loadComponentFromURL("private:factory/swriter", "_blank", 0, []);
+    const viewData = document.ViewData;
     WScript.Echo(viewData.Count);
-    let text = document.Text;
+    const text = document.Text;
     WScript.Echo(text);
 })();
 
 (() => {
     // Forces use of tuple type for out parameters
     // Instantiating via reflection
-    let serviceManager = new ActiveXObject('com.sun.star.ServiceManager');
-    let coreReflection = serviceManager.defaultContext.getByName('/singleton/com.sun.star.reflection.theCoreReflection');
-    let classInfo = coreReflection.forName('com.sun.star.accessibility.Accessible');
-    let accessible: [com.sun.star.accessibility.XAccessible] = [] as any;
+    const serviceManager = new ActiveXObject('com.sun.star.ServiceManager');
+    const coreReflection = serviceManager.defaultContext.getByName('/singleton/com.sun.star.reflection.theCoreReflection');
+    const classInfo = coreReflection.forName('com.sun.star.accessibility.Accessible');
+    const accessible: [com.sun.star.accessibility.XAccessible] = [] as any;
     classInfo.createObject(accessible);
     accessible[0].acquire();
 
     // Get a struct via Bridge_GetStruct
-    let size = serviceManager.Bridge_GetStruct('com.sun.star.awt.Size');
+    const size = serviceManager.Bridge_GetStruct('com.sun.star.awt.Size');
     size.Height = 110;
     size.Width = 120;
 })();
