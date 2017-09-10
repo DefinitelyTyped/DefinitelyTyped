@@ -25,10 +25,10 @@ declare namespace __Relay.Modern {
     // ~~~~~~~~~~~~~~~~~~~~~
     // RelayQL
     // ~~~~~~~~~~~~~~~~~~~~~
-    type RelayQL = (
+    export function RelayQL(
       strings: Array<string>,
       ...substitutions: Array<any>
-    ) => Common.RelayConcreteNode;
+    ): Common.RelayConcreteNode;
 
     // ~~~~~~~~~~~~~~~~~~~~~
     // RelayModernGraphQLTag
@@ -38,7 +38,7 @@ declare namespace __Relay.Modern {
     | (() => ConcreteFragment | ConcreteBatch)
     | {
         modern: () => ConcreteFragment | ConcreteBatch,
-        classic: (relayQL: RelayQL) =>
+        classic: (relayQL: typeof RelayQL) =>
           | ConcreteFragmentDefinition
           | ConcreteOperationDefinition,
       };
@@ -46,7 +46,7 @@ declare namespace __Relay.Modern {
      * Runtime function to correspond to the `graphql` tagged template function.
      * All calls to this function should be transformed by the plugin.
     */
-    function graphql(strings: Array<string>): GraphQLTaggedNode;
+    function graphql(strings: Array<string> | TemplateStringsArray): GraphQLTaggedNode;
 
     // ~~~~~~~~~~~~~~~~~~~~~
     // ReactRelayQueryRenderer
@@ -72,7 +72,7 @@ declare namespace __Relay.Modern {
     // ~~~~~~~~~~~~~~~~~~~~~
     // createFragmentContainer
     // ~~~~~~~~~~~~~~~~~~~~~
-    function createFragmentContainer<T>(
+    export function createFragmentContainer<T>(
       Component: ReactBaseComponent<T>,
       fragmentSpec: GraphQLTaggedNode | GeneratedNodeMap,
     ): ReactBaseComponent<T>;
@@ -90,14 +90,14 @@ declare namespace __Relay.Modern {
       edges?: any[],
       pageInfo?: PageInfo | void,
     };
-    type FragmentVariablesGetter = (
+    export function FragmentVariablesGetter(
       prevVars: Common.Variables,
       totalCount: number,
-    ) => Common.Variables;
+    ): Common.Variables;
     type ConnectionConfig = {
       direction?: 'backward' | 'forward',
       getConnectionFromProps?: (props: Object) => ConnectionData | void,
-      getFragmentVariables?: FragmentVariablesGetter,
+      getFragmentVariables?: typeof FragmentVariablesGetter,
       getVariables: (
         props: Object,
         paginationInfo: {count: number, cursor: string | void},
@@ -105,7 +105,7 @@ declare namespace __Relay.Modern {
       ) => Common.Variables,
       query: GraphQLTaggedNode,
     };
-    function createPaginationContainer<T>(
+    export function createPaginationContainer<T>(
       Component: ReactBaseComponent<T>,
       fragmentSpec: GraphQLTaggedNode | GeneratedNodeMap,
       connectionConfig: ConnectionConfig,
@@ -114,7 +114,7 @@ declare namespace __Relay.Modern {
     // ~~~~~~~~~~~~~~~~~~~~~
     // createFragmentContainer
     // ~~~~~~~~~~~~~~~~~~~~~
-    function createRefetchContainer<T>(
+    export function createRefetchContainer<T>(
       Component: ReactBaseComponent<T>,
       fragmentSpec: GraphQLTaggedNode | GeneratedNodeMap,
       taggedNode: GraphQLTaggedNode,
@@ -191,30 +191,30 @@ declare namespace __Relay.Compat {
     // ~~~~~~~~~~~~~~~~~~~~~
     // Util
     // ~~~~~~~~~~~~~~~~~~~~~
-    type getFragment = (q: string, v?: Common.Variables) => string;
+    export function getFragment(q: string, v?: Common.Variables): string;
     interface ComponentWithFragment<T> extends React.ComponentClass<T> {
-      getFragment: getFragment;
+      getFragment: typeof getFragment;
     }
     interface StatelessWithFragment<T> extends React.StatelessComponent<T> {
-      getFragment: getFragment;
+      getFragment: typeof getFragment;
     }
     type ReactFragmentComponent<T> = ComponentWithFragment<T> | StatelessWithFragment<T>;
     type ReactBaseComponent<T> = React.ComponentClass<T> | React.StatelessComponent<T>;
-    type RelayClassicEnvironment = Classic.RelayEnvironmentInterface;
+    export type RelayClassicEnvironment = Classic.RelayEnvironmentInterface;
 
     // ~~~~~~~~~~~~~~~~~~~~~
     // RelayCompatTypes
     // ~~~~~~~~~~~~~~~~~~~~~
-    type CompatEnvironment = Runtime.Environment | RelayClassicEnvironment;
+    export type CompatEnvironment = Runtime.Environment | RelayClassicEnvironment;
 
     // ~~~~~~~~~~~~~~~~~~~~~
     // RelayCompatMutations
     // ~~~~~~~~~~~~~~~~~~~~~
-    function commitUpdate<T>(
+    export function commitUpdate<T>(
       environment: CompatEnvironment,
       config: Runtime.MutationConfig<T>,
     ): Common.Disposable;
-    function applyUpdate(
+    export function applyUpdate(
       environment: CompatEnvironment,
       config: Runtime.OptimisticMutationConfig,
     ): Common.Disposable;
@@ -223,7 +223,7 @@ declare namespace __Relay.Compat {
     // RelayCompatContainer
     // ~~~~~~~~~~~~~~~~~~~~~
     export type GeneratedNodeMap = {[key: string]: Modern.GraphQLTaggedNode};
-    function createContainer<T>(
+    export function createContainer<T>(
       Component: ReactBaseComponent<T>,
       fragmentSpec: Modern.GraphQLTaggedNode | GeneratedNodeMap,
     ): ReactFragmentComponent<T>;
@@ -232,7 +232,7 @@ declare namespace __Relay.Compat {
     // injectDefaultVariablesProvider
     // ~~~~~~~~~~~~~~~~~~~~~
     type VariablesProvider = () => Common.Variables;
-    function injectDefaultVariablesProvider(variablesProvider: VariablesProvider): void;
+    export function injectDefaultVariablesProvider(variablesProvider: VariablesProvider): void;
 }
 
 
@@ -339,10 +339,10 @@ declare module "react-relay/classic" {
         supports(...options: string[]): boolean
     }
 
-    function createContainer<T>(component: React.ComponentClass<T> | React.StatelessComponent<T>, params?: CreateContainerOpts): RelayContainerClass<T>
-    function injectNetworkLayer(networkLayer: RelayNetworkLayer): any
-    function isContainer(component: React.ComponentClass<any>): boolean
-    function QL(...args: any[]): string
+    export function createContainer<T>(component: React.ComponentClass<T> | React.StatelessComponent<T>, params?: CreateContainerOpts): RelayContainerClass<T>
+    export function injectNetworkLayer(networkLayer: RelayNetworkLayer): any
+    export function isContainer(component: React.ComponentClass<any>): boolean
+    export function QL(...args: any[]): string
 
     class Route {
         constructor(params?: RelayVariables)
