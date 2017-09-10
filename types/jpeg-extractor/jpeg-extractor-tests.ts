@@ -1,4 +1,4 @@
-import * as je from 'jpeg-extract';
+import * as je from 'jpeg-extractor';
 
 const j: je.jpeg_extractor = new je.jpeg_extractor();
 

@@ -17,6 +17,6 @@
     },
     "files": [
         "index.d.ts",
-        "jpeg-extract-tests.ts"
+        "jpeg-extractor-tests.ts"
     ]
 }
