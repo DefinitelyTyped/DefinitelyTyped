@@ -6,41 +6,41 @@ let str: string;
 let strArr: string[];
 let bool: boolean;
 let num: number;
-let src: string;
-let dest: string;
-let file: string;
-let filename: string;
-let dir: string;
-let path: string;
-let data: any;
-let object: any;
+declare const src: string;
+declare const dest: string;
+declare const file: string;
+declare const filename: string;
+declare const dir: string;
+declare const path: string;
+declare const data: any;
+declare const object: any;
 let buffer: NodeBuffer;
-let modeNum: number;
-let modeStr: string;
-let encoding: string;
-let type: string;
-let flags: string;
-let srcpath: string;
-let dstpath: string;
-let oldPath: string;
-let newPath: string;
-let cache: string;
-let offset: number;
-let length: number;
-let position: number;
-let cacheBool: boolean;
-let cacheStr: string;
-let fd: number;
-let len: number;
-let uid: number;
-let gid: number;
-let atime: number;
-let mtime: number;
-let statsCallback: (err: Error, stats: fs.Stats) => void;
-let errorCallback: (err: Error) => void;
-let openOpts: fs.OpenOptions;
+declare const modeNum: number;
+declare const modeStr: string;
+declare const encoding: string;
+declare const type: string;
+declare const flags: string;
+declare const srcpath: string;
+declare const dstpath: string;
+declare const oldPath: string;
+declare const newPath: string;
+declare const cache: string;
+declare const offset: number;
+declare const length: number;
+declare const position: number;
+declare const cacheBool: boolean;
+declare const cacheStr: string;
+declare const fd: number;
+declare const len: number;
+declare const uid: number;
+declare const gid: number;
+declare const atime: number;
+declare const mtime: number;
+declare const statsCallback: (err: Error, stats: fs.Stats) => void;
+declare const errorCallback: (err: Error) => void;
+declare const openOpts: fs.OpenOptions;
 let watcher: fs.FSWatcher;
-let readStreeam: stream.Readable;
+let readStream: stream.Readable;
 let writeStream: stream.Writable;
 let isDirectory: boolean;
 
@@ -198,8 +198,8 @@ fs.exists(path, (exists: boolean) => {
 });
 bool = fs.existsSync(path);
 
-readStreeam = fs.createReadStream(path);
-readStreeam = fs.createReadStream(path, {
+readStream = fs.createReadStream(path);
+readStream = fs.createReadStream(path, {
 	flags: str,
 	encoding: str,
 	fd: num,
@@ -211,8 +211,7 @@ writeStream = fs.createWriteStream(path, {
 	encoding: str
 });
 
-let isDirectoryCallback = (err: Error, isDirectory: boolean) => {
-};
+function isDirectoryCallback(err: Error, isDirectory: boolean) {}
 fs.isDirectory(path, isDirectoryCallback);
 fs.isDirectory(path);
 isDirectory = fs.isDirectorySync(path);

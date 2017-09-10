@@ -104,6 +104,11 @@ declare module lockr {
          * Empties localStorage.
          */
         flush(): void;
+
+        /**
+         * Returns all keys without (if set) prefix
+         */
+        keys(): Array<string>;
     }
 }
 

@@ -1,9 +1,10 @@
+import * as L from 'leaflet';
+import 'leaflet.fullscreen';
 
-
-var map: L.Map;
+const map: L.Map = L.map('map-container');
 
 // Defaults
-var icon: L.Control.Fullscreen = L.control.fullscreen({
+const icon: L.Control.Fullscreen = L.control.fullscreen({
   position: 'topleft',
   title: 'Full Screen',
   titleCancel: 'Exit Full Screen',
@@ -13,9 +14,7 @@ var icon: L.Control.Fullscreen = L.control.fullscreen({
 
 icon.addTo(map);
 
-
 // My Usage
-
 L.control.fullscreen({
   position: 'topleft',
   content: '<i class="fa fa-arrows-alt"></i>',

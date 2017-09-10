@@ -116,7 +116,7 @@ declare namespace Mithril {
 		/** Whether to send cookies to 3rd party domains. */
 		withCredentials?: boolean;
 		/** Exposes the underlying XMLHttpRequest object for low-level configuration. */
-		config?(xhr: XMLHttpRequest): any;
+		config?(xhr: XMLHttpRequest): XMLHttpRequest | void;
 		/** Headers to append to the request before sending it. */
 		headers?: { [key: string]: string };
 		/** A constructor to be applied to each object in the response. */

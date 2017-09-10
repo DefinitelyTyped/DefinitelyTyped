@@ -148,7 +148,7 @@ function makeApiCall() {
   }).then((resp) => {
     const p = document.createElement('p');
     const name = resp.result.names[0].givenName;
-    p.appendChild(document.createTextNode('Hello, ' + name + '!'));
+    p.appendChild(document.createTextNode(`Hello, ${name}!`));
     document.getElementById('content').appendChild(p);
   });
 }

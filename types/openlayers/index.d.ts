@@ -1,4 +1,4 @@
-// Type definitions for OpenLayers v4.1.0
+// Type definitions for OpenLayers v4.3.0
 // Project: http://openlayers.org/
 // Definitions by: Olivier Sechet <https://github.com/osechet>, Guilhem Brouat <https://github.com/ganlhi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -3970,7 +3970,7 @@ declare module ol {
              * @template T,S
              * @api
              */
-            forEachSegment<T, S>(callback: (() => T), opt_this?: S): (T | boolean);
+            forEachSegment<T, S>(callback: ((this: S, start: ol.Coordinate, end: ol.Coordinate) => T), opt_this?: S): (T | boolean);
 
             /**
              * Returns the coordinate at `m` using linear interpolation, or `null` if no
@@ -6770,6 +6770,18 @@ declare module ol {
             callback: ((feature: (ol.Feature | ol.render.Feature), layer: ol.layer.Layer) => T),
             opt_options?: olx.AtPixelOptions
         ): (T);
+
+        /**
+         * Get all features that intersect a pixel on the viewport.
+         * @param {ol.Pixel} pixel Pixel.
+         * @param {olx.AtPixelOptions=} opt_options Optional options.
+         * @return {?Array.<(ol.Feature|ol.render.Feature)>} The detected features or null if none were found.
+         * @api stable
+         */
+        getFeaturesAtPixel(
+            pixel: ol.Pixel,
+            opt_options?: olx.AtPixelOptions
+        ): (Array<ol.Feature|ol.render.Feature>|null);
 
         /**
          * Detect layers that have a color value at a pixel on the viewport, and
@@ -12566,11 +12578,15 @@ declare module olx {
 
 
         /**
-         * @typedef {{duration: (number|undefined),
+         * @typedef {{constrainResolution: (boolean|undefined),
+         *     duration: (number|undefined),
+         *     timeout: (number|undefined),
          *     useAnchor: (boolean|undefined)}}
          */
         interface MouseWheelZoomOptions {
+            constrainResolution?: boolean;
             duration?: number;
+            timeout?: number;
             useAnchor?: boolean;
         }
 
@@ -12586,9 +12602,11 @@ declare module olx {
 
 
         /**
-         * @typedef {{duration: (number|undefined)}}
+         * @typedef {{constrainResolution: (boolean|undefined)
+         *     duration: (number|undefined)}}
          */
         interface PinchZoomOptions {
+            constrainResolution?: boolean;
             duration?: number;
         }
 

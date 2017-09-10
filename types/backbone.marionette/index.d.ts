@@ -1,131 +1,199 @@
-// Type definitions for Marionette
+// Type definitions for Marionette 3.3
 // Project: https://github.com/marionettejs/
 // Definitions by: Zeeshan Hamid <https://github.com/zhamid>, Natan Vivo <https://github.com/nvivo>, Sven Tschui <https://github.com/sventschui>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 import * as Backbone from 'backbone';
+import * as JQuery from 'jquery';
 import * as Radio from 'backbone.radio';
 
 export as namespace Marionette;
 export = Marionette;
 
-// declarations for Backbone.BabySitter and Backbone.Wreqr, different projects but included in MarionetteJS
-declare module 'backbone' {
-    // Backbone.BabySitter
-    class ChildViewContainer<TView extends View<Backbone.Model>> {
+// These mixins mirror Marionette source and ensure that Marionette classes that
+// extend these mixins have the correct methods attached.
+interface CommonMixin {
+    normalizeMethods: any;
+    mergeOptions: any;
+    getOption: any;
+    bindEvents: any;
+    unbindEvents: any;
+}
 
-        constructor(initialViews?: any[]);
+interface RadioMixinOptions {
+    /**
+     * Defines the Radio channel that will be used for the requests and/or
+     * events.
+     */
+    channelName?: string;
 
-        add(view: TView, customIndex?: number): void;
-        findByModel<TModel extends Backbone.Model>(model: TModel): TView;
-        findByModelCid(modelCid: string): TView;
-        findByCustom(index: number): TView;
-        findByIndex(index: number): TView;
-        findByCid(cid: string): TView;
-        remove(view: TView): void;
+    /**
+     * Defines an events hash with the events to be listened and its respective
+     * handlers.
+     */
+    radioEvents?: any;
 
-        //mixins from Collection (copied from Backbone's Collection declaration)
+    /**
+     * Defines an events hash with the requests to be replied and its respective
+     * handlers
+     */
+    radioRequests?: any;
+}
 
-        all(iterator: (element: TView, index: number) => boolean, context?: any): boolean;
-        any(iterator: (element: TView, index: number) => boolean, context?: any): boolean;
-        contains(value: any): boolean;
-        detect(iterator: (item: any) => boolean, context?: any): any;
-        each(iterator: (element: TView, index: number, list?: any) => void, context?: any): any;
-        every(iterator: (element: TView, index: number) => boolean, context?: any): boolean;
-        filter(iterator: (element: TView, index: number) => boolean, context?: any): TView[];
-        find(iterator: (element: TView, index: number) => boolean, context?: any): TView;
-        first(): TView;
-        forEach(iterator: (element: TView, index: number, list?: any) => void, context?: any): void;
-        include(value: any): boolean;
-        initial(): TView;
-        initial(n: number): TView[];
-        invoke(methodName: string, args?: any[]): any;
-        isEmpty(object: any): boolean;
-        last(): TView;
-        last(n: number): TView[];
-        lastIndexOf(element: TView, fromIndex?: number): number;
-        map<U>(iterator: (element: TView, index: number, context?: any) => U, context?: any): U[];
-        pluck(attribute: string): any[];
-        reject(iterator: (element: TView, index: number) => boolean, context?: any): TView[];
-        rest(): TView;
-        rest(n: number): TView[];
-        select(iterator: any, context?: any): any[];
-        some(iterator: (element: TView, index: number) => boolean, context?: any): boolean;
-        toArray(): any[];
-        without(...values: any[]): TView[];
-    }
+interface RadioMixin {
+    getChannel: any;
+    bindEvents: any;
+    unbindEvents: any;
+    bindRequests: any;
+    unbindRequests: any;
+}
 
-    // Backbone.Wreqr
-    namespace Wreqr {
+interface DomMixin {
+    createBuffer: any;
+    appendChildren: any;
+    beforeEl: any;
+    replaceEl: any;
+    detachContents: any;
+    setInnerContent: any;
+    detachEl: any;
+    removeEl: any;
+    findEls: any;
+}
 
-        namespace radio {
+interface ViewMixinOptions {
+    /**
+     * Behavior objects to assign to this View.
+     */
+    behaviors?: Marionette.Behavior[];
 
-            function channel(channelName: string): Channel;
+    /**
+     * Customize the event prefix for events that are forwarded through the
+     * collection view.
+     */
+    childViewEventPrefix?: string | false;
 
-        }
+    /**
+     * Use the childViewEvents attribute to map child events to methods on the
+     * parent view.
+     */
+    childViewEvents?: Marionette.EventsHash;
 
-        class Channel {
+    /**
+     * A childViewTriggers hash or method permits proxying of child view events
+     * without manually setting bindings. The values of the hash should be a
+     * string of the event to trigger on the parent.
+     */
+    childViewTriggers?: Marionette.EventsHash;
 
-            constructor(channelName: string);
+    /**
+     * Bind to events that occur on attached collections.
+     */
+    collectionEvents?: Marionette.EventsHash;
 
-            vent: Backbone.Wreqr.EventAggregator;
-            reqres: Backbone.Wreqr.RequestResponse;
-            commands: Backbone.Wreqr.Commands;
-            channelName: string;
+    /**
+     * Bind to events that occur on attached models.
+     */
+    modelEvents?: Marionette.EventsHash;
 
-            reset(): Channel;
-            connectEvents(hash: string, context: any): Channel;
-            connectCommands(hash: string, context: any): Channel;
-            connectRequests(hash: string, context: any): Channel;
+    /**
+     * The view triggers attribute binds DOM events to Marionette View events
+     * that can be responded to at the view or parent level.
+     */
+    triggers?: Marionette.EventsHash;
 
-        }
+    /**
+     * Name parts of your template to be used
+     * throughout the view with the ui attribute.
+     */
+    ui?: any;
+}
 
-        class Handlers extends Backbone.Events {
+interface ViewMixin extends DomMixin, CommonMixin {
+    supportsRenderLifecycle: any;
+    supportsDestroyLifecycle: any;
+    isDestroyed: any;
+    isRendered: any;
+    isAttached: any;
+    delegateEvents: any;
+    getTriggers: any;
+    delegateEntityEvents: any;
+    undelegateEntityEvents: any;
+    destroy: any;
+    bindUIElements: any;
+    unbindUIElements: any;
+    childViewEventPrefix: any;
+    triggerMethod: any;
+}
 
-            constructor(options?: any);
+interface RegionsMixin {
+    regionClass: any;
+    addRegion: any;
+    addRegions: any;
+    removeRegion: any;
+    removeRegions: any;
+    emptyRegions: any;
+    hasRegion: any;
+    getRegion: any;
+    getRegions: any;
+    showChildView: any;
+    detachChildView: any;
+    getChildView: any;
+}
 
-            options: any;
+declare class Container<TView> {
+    /**
+     * Find a view by it's cid.
+     */
+    findByCid(cid: string): TView;
 
-            setHandler(name: string, handler: any, context?: any): void;
-            hasHandler(name: string): boolean;
-            getHandler(name: string): Function;
-            removeHandler(name: string): void;
-            removeAllHandlers(): void;
-        }
+    /**
+     * Find a view by model.
+     */
+    findByModel<TModel extends Backbone.Model>(model: TModel): TView;
 
-        class CommandStorage {
+    /**
+     * Find a view by model cid.
+     */
+    findByModelCid(modelCid: string): TView;
 
-            constructor(options?: any);
+    /**
+     * Find by custom key.
+     */
+    findByCustom(key: string): TView;
 
-            getCommands(commandName: string): Commands;
-            addCommand(commandName: string, args: any): void;
-            clearCommands(commandName: string): void;
-        }
+    /**
+     * Find by numeric index (unstable).
+     */
+    findByIndex(index: number): TView;
 
-        class Commands extends Handlers {
+    /**
+     * Find a view by it's cid.
+     */
+    add(view: TView, customIndex?: number): void;
 
-            constructor(options?: any);
-
-            storageType: CommandStorage;
-            execute(name: string, ...args: any[]): void;
-        }
-
-        class RequestResponse extends Handlers {
-
-            constructor(options?: any);
-
-            request(...args: any[]): any;
-        }
-
-        class EventAggregator extends Backbone.Events {
-
-            constructor(options?: any);
-        }
-    }
+    /**
+     * Find a view by it's cid.
+     */
+    remove(view: TView): void;
 }
 
 declare namespace Marionette {
+    /**
+     * Alias of Backbones extend function.
+     */
+    function extend(properties: any, classProperties?: any): any;
+
+    /**
+     * Determines whether the passed-in node is a child of the document or not.
+     */
+    function isNodeAttached(el: HTMLElement): boolean;
+
+    /**
+     * A handy function to pluck certain options and attach them directly to an
+     * instance.
+     */
+    function mergeOptions(target: any, options: any, keys: any): void;
 
     /**
      * Retrieve an object's attribute either directly from the object, or
@@ -139,7 +207,7 @@ declare namespace Marionette {
      * to both the event and the method, with the exception of the event name not
      * being passed to the corresponding method.
      */
-    function triggerMethod(name: string, ...args: any[]): any;
+    function triggerMethod(target: any, name: string, ...args: any[]): any;
 
     /**
      * Invoke triggerMethod on a specific context.
@@ -148,48 +216,124 @@ declare namespace Marionette {
     function triggerMethodOn(ctx: any, name: string, ...args: any[]): any;
 
     /**
-     * Monitor a view's state, and after it has been rendered and shown in the DOM,
-     * trigger a "dom:refresh" event every time it is re-rendered.
-     */
-    function MonitorDOMRefresh(view: Backbone.View<Backbone.Model>): void;
-
-    /**
      * This method is used to bind a backbone "entity" (collection/model) to methods on a target object.
      * @param target An object that must have a listenTo method from the EventBinder object.
      * @param entity The entity (Backbone.Model or Backbone.Collection) to bind the events from.
      * @param bindings a hash of { "event:name": "eventHandler" } configuration. Multiple handlers can be separated by a space. A function can be supplied instead of a string handler name.
      */
-    function bindEntityEvents(target: any, entity: any, bindings: any): void;
+    function bindEvents(target: any, entity: any, bindings: any): void;
 
     /**
-     * This method can be used to unbind callbacks from entities' (collection/model) events. It's the opposite of bindEntityEvents
+     * This method can be used to unbind callbacks from entities' (collection/model) events. It's the opposite of bindEvents
      * @param target An object that must have a listenTo method from the EventBinder object.
      * @param entity The entity (Backbone.Model or Backbone.Collection) to bind the events from.
      * @param bindings a hash of { "event:name": "eventHandler" } configuration. Multiple handlers can be separated by a space. A function can be supplied instead of a string handler name.
      */
-    function unbindEntityEvents(target: any, entity: any, bindings: any): void;
+    function unbindEvents(target: any, entity: any, bindings: any): void;
 
-    class Callbacks {
-        add(callback: Function, contextOverride: any): void;
-        run(options: any, context: any): void;
-        reset(): void;
+    /**
+     * This method is used to bind a radio requests to methods on a target
+     * object.
+     */
+    function bindRequests(target: any, channel: Radio.Channel, bindings: any): void;
+
+    /**
+     * This method is used to unbind a radio requests to methods on a target
+     * object.
+     */
+    function unbindRequests(target: any, channel: Radio.Channel, bindings: any): void;
+
+    /**
+     * Receives a hash of event names and functions and/or function names, and
+     * returns the same hash with the function names replaced with the function
+     * references themselves.
+     */
+    function normalizeMethods<T>(target: any, hash: any): T;
+
+    /**
+     * Allows you to run multiple instances of Marionette in the same
+     * application.
+     */
+    function noConflict(): void;
+
+    /**
+     * Overrides Backbone.EventsHash as JQueryEventObject is deprecated and
+     * doesn't allow you to set the event target
+     */
+    interface EventsHash extends Backbone.EventsHash {
+        [selector: string]: string | ((eventObject: JQuery.Event) => void);
+    }
+
+    interface ObjectOptions extends RadioMixinOptions {
+        /**
+         * Initialize is called immediately after the Object has been instantiated,
+         * and is invoked with the same arguments that the constructor received.
+         */
+        initialize?(options?: ObjectOptions): void;
+
+        [index: string]: any;
     }
 
     /**
      * A base class which other classes can extend from. Object incorporates many
      * backbone conventions and utilities like initialize and Backbone.Events.
      */
-    class Object extends Backbone.Events {
+    class Object extends Backbone.Events implements CommonMixin, RadioMixin {
+        constructor(options?: ObjectOptions);
 
         /**
-         * Defines the Radio channel that will be used for the requests and/or events
+         * Receives a hash of event names and functions and/or function names,
+         * and returns the same hash with the function names replaced with the
+         * function references themselves.
          */
-        channelName: string;
+        normalizeMethods<T>(hash: any): T;
+
+        /**
+         * A handy function to pluck certain options and attach them directly
+         * to an instance.
+         */
+        mergeOptions(options: any, keys: any): void;
+
+        /**
+         * Retrieve an object's attribute either directly from the object, or from
+         * the object's this.options, with this.options taking precedence.
+         * @param optionName the name of the option to retrieve.
+         */
+        getOption(optionName: string): any;
+
+        /**
+         * This method is used to bind a backbone "entity" (collection/model) to
+         * methods on a target object.
+         */
+        bindEvents(entity: any, bindings: any): void;
+
+        /**
+         * This method can be used to unbind callbacks from entities'
+         * (collection/model) events.
+         */
+        unbindEvents(entity: any, bindings: any): void;
 
         /**
          * Returns a Radio.Channel instance using 'channelName'
          */
         getChannel(): Backbone.Radio.Channel;
+
+        /**
+         * This method is used to bind a radio requests to methods on a target
+         * object.
+         */
+        bindRequests(channel: Radio.Channel, bindings: any): void;
+
+        /**
+         * This method is used to unbind a radio requests to methods on a target
+         * object.
+         */
+        unbindRequests(channel: Radio.Channel, bindings: any): void;
+
+        /**
+         * Defines the Radio channel that will be used for the requests and/or events
+         */
+        channelName: string;
 
         /**
          * Defines an events hash with the events to be listened and its respective handlers
@@ -202,17 +346,15 @@ declare namespace Marionette {
         radioRequests: any;
 
         /**
+         * Check if this Oject has been destroyed.
+         */
+        isDestroyed(): boolean;
+
+        /**
          * Initialize is called immediately after the Object has been instantiated,
          * and is invoked with the same arguments that the constructor received.
          */
-        initialize(options?: any): void;
-
-        /**
-         * Retrieve an object's attribute either directly from the object, or from
-         * the object's this.options, with this.options taking precedence.
-         * @param optionName the name of the option to retrieve.
-         */
-        getOption(optionName: string): any;
+        initialize(options?: ObjectOptions): void;
 
         /**
          * Objects have a destroy method that unbind the events that are directly
@@ -223,436 +365,92 @@ declare namespace Marionette {
          * onBeforeDestroy.
          */
         destroy(...args: any[]): void;
-    }
-
-    /**
-     * A Controller is an object used in the Marionette Router. Controllers are
-     * where you store your Router's callbacks.
-     */
-    class Controller extends Backbone.Events {
-        /**
-         * @param options Options that should be stored in this options. Can be retreived via
-         * getOption.
-         */
-        constructor(options?: any);
 
         /**
-         * Handles unbinding all of the events that are directly attached to the
-         * controller instance, as well as those that are bound using the
-         * EventBinder from the controller.
-         *
-         * Invoking the destroy method will trigger the "before:destroy" and
-         * "destroy" events and the corresponding onBeforeDestory and onDestroy
-         * method calls. These calls will be passed any arguments destroy was
-         * invoked with.
+         * Trigger an event and a corresponding method on the target object.
+         * All arguments that are passed to the triggerMethod call are passed
+         * along to both the event and the method, with the exception of the
+         * event name not being passed to the corresponding method.
          */
-        destroy(...args: any[]): void;
-
-        /**
-         * Retrieve an object's attribute either directly from the object, or from
-         * the object's this.options, with this.options taking precedence.
-         * @param optionName the name of the option to retrieve.
-         */
-        getOption(optionName: string): any;
-
         triggerMethod(name: string, ...args: any[]): any;
-    }
-
-    interface RegionConstructionOptions {
-        /**
-         * Specifies the element for the region to manage. This may be
-         * a selector string, a raw DOM node reference or a jQuery wrapped
-         * DOM node.
-         */
-        el?: any;
-    }
-
-    interface RegionShowOptions {
-        /**
-         * If you replace the current view with a new view by calling show, by
-         * default it will automatically destroy the previous view. You can
-         * prevent this behavior by setting this option to true.
-         */
-        preventDestroy?: boolean;
-
-        /**
-         * If you re-call show with the same view, by default nothing will happen
-         * because the view is already in the region. You can force the view to be
-         * re-shown by setting this option to true.
-         */
-        forceShow?: boolean;
-
-        /**
-         * Regions that are attached to the document when you execute show are
-         * special in that the views that they show will also become attached
-         * to the document. These regions fire a pair of triggerMethods on all
-         * of the views that are about to be attached � even the nested ones.
-         * This can cause a performance issue if you're rendering hundreds or
-         * thousands of views at once.
-         * If you think these events might be causing some lag in your app, you
-         * can selectively turn them off with the triggerBeforeAttach
-         * and triggerAttach properties.
-         */
-        triggerBeforeAttach?: boolean;
-
-        /**
-         * Regions that are attached to the document when you execute show are
-         * special in that the views that they show will also become attached
-         * to the document. These regions fire a pair of triggerMethods on all
-         * of the views that are about to be attached � even the nested ones.
-         * This can cause a performance issue if you're rendering hundreds or
-         * thousands of views at once.
-         * If you think these events might be causing some lag in your app, you
-         * can selectively turn them off with the triggerBeforeAttach
-         * and triggerAttach properties.
-         */
-        triggerAttach?: boolean;
-    }
-
-    interface RegionEmptyOptions {
-        /**
-         * If you would like to prevent the view currently shown in the region
-         * from being destroyed you can set this option to true to prevent the
-         * default destroy behavior.
-         */
-        preventDestroy?: boolean;
-    }
-
-    /**
-     * Regions provide consistent methods to manage, show and destroy views in
-     * your applications and layouts. They use a jQuery selector to show your
-     * views in the correct place.
-     */
-    class Region extends Marionette.Object {
-
-        /**
-         * Build an instance of a region by passing in a configuration object and
-         * a default region class to use if none is specified in the config.
-         * The config object should either be a string as a jQuery DOM selector,
-         * a Region class directly, or an object literal that specifies a selector,
-         * a custom regionClass, and any options to be supplied to the region
-         */
-        static buildRegion(regionConfig: any, defaultRegionType: any): Region;
-
-        /**
-         * You can specify an el for the region to manage at the time the region
-         * is instantiated.
-         */
-        constructor(options?: RegionConstructionOptions);
-
-        /**
-         * Contains the element that this region should manage.
-         */
-        el: any;
-
-        /**
-         * Renders and displays the specified view in this region.
-         * @param view the view to display.
-         */
-        show<TModel extends Backbone.Model>(view: Backbone.View<TModel>, options?: RegionShowOptions): void;
-
-        /**
-         * Attaches an existing view to a region, without rendering or showing the view,
-         * and without replacing the HTML content of the region.
-         */
-        attachView<TModel extends Backbone.Model>(view: Backbone.View<TModel>, options?: RegionShowOptions): any;
-
-        /**
-         * Override this method to change how the new view is
-         * appended to the `$el` that the region is managing
-         */
-        attachHtml<TModel extends Backbone.Model>(view: Backbone.View<TModel>): void;
-
-        /**
-         * A region can be reset at any time. This destroys any existing view
-         * being displayed, and deletes the cached el. The next time the region
-         * shows a view, the region's el is queried from the DOM.
-         */
-        reset(): any;
-
-        /**
-         * If you wish to check whether a region has a view, you can use the hasView function. This will return a boolean value depending whether or not the region is showing a view.
-         */
-        hasView(): boolean;
-
-        /**
-         * Empties the current view from the region.
-         */
-        empty(options?: RegionEmptyOptions): any;
-
-        /**
-         * @returns view that this region has.
-         */
-        currentView: Backbone.View<Backbone.Model>;
-    }
-
-    interface RegionDefaults {
-        /**
-         * A selector string indicating which element to assign the region two.
-         */
-        selector?: string;
-
-        /**
-         * A selector string, a jQuery object, or an HTML node indicating which element
-         * the region should use.
-         */
-        el?: any;
-
-        /**
-         * A custom region class.
-         */
-        regionClass?: any;
-
-        /**
-         * Ordinarily regions enforce the presence of a backing DOM element. In
-         * some instances it may be desirable to allow regions to be instantiated
-         * and used without an element, such as when regions defined by a parent
-         * LayoutView class are used by only some of its subclasses. In these
-         * instances, the region can be defined with this option set to true,
-         * suppressing the missing element error and causing show calls to the
-         * region to be treated as no-ops.
-         */
-        allowMissingEl?: boolean;
-    }
-
-    /**
-     * Region managers provide a consistent way to manage a number of Marionette.Region
-     * objects within an application. The RegionManager is intended to be used by
-     * other objects, to facilitate the addition, storage, retrieval, and removal of
-     * regions from that object.
-     */
-    class RegionManager extends Controller {
-
-        /**
-         * Constructor.
-         * @param options May contain an optional `regions` option. These regions
-         * are passed directly into addRegions for this instance.
-         */
-        constructor(options?: any);
-
-        /**
-         * Adds one or more regions to this RegionManager instance.
-         * @param regionDefinitions a function returning an object literal with the region definitions. The function will
-         * be called with the RegionManager instance context and all the arguments passed to addRegions.
-         * @param defaults Specifies default options that will be applied to every region added.
-         * @returns an object literal with all the created regions.
-         */
-        addRegions(regionDefinitions: Function, defaults?: RegionDefaults): any;
-
-        /**
-         * Adds one or more regions to this RegionManager instance.
-         * @param regionDefinitions an object literal containing region names as keys and region
-         * definitions as values.
-         * @param defaults Specifies default options that will be applied to every region added.
-         * @returns an object literal with all the created regions.
-         */
-        addRegions(regionDefinitions: { [regionName: string]: any }, defaults?: RegionDefaults): any;
-
-        /**
-         * Adds a region to this RegionManager.
-         * @param name the region name.
-         * @param definition the region definition. This may be a selector, object literal
-         * with various region creation options or an instance of a region object.
-         */
-        addRegion(name: string, definition: any): Region;
-
-        /**
-         * Gets the region with the specified name from this RegionManager.
-         */
-        get(name: string): Region;
-
-        /**
-         * Removes the region with the specified name from this RegionManager.
-         */
-        removeRegion(name: string): void;
-
-        /**
-         * Removes all regions from the RegionManager.
-         */
-        removeRegions(): void;
-
-        /**
-         * Empties all regions from the RegionManager instance.
-         */
-        emptyRegions(): void;
-
-        /**
-         * Destroys the RegionManager instance entierly which both destroys and
-         * removes all regions from the RegionManager instance.
-         */
-        destroy(): void;
-
-        //mixins from Collection (copied from Backbone's Collection declaration)
-
-        /**
-         * Returns true if all of the values in the list pass the predicate truth test.
-         * @alias every
-         */
-        all(iterator: (element: Region, index: number) => boolean, context?: any): boolean;
-
-        /**
-         * Returns true if any of the values in the list pass the predicate truth test. Short-circuits and stops traversing the list if a true element is found.
-         */
-        any(iterator: (element: Region, index: number) => boolean, context?: any): boolean;
-
-        /**
-         * Returns true if the value is present in the list.
-         * @alias include
-         */
-        contains(value: any): boolean;
-
-        /**
-         * Looks through each value in the list, returning the first one that passes a truth test (predicate), or undefined if no value passes the test.The function returns as soon as it finds an acceptable element, and doesn't traverse the entire list.
-         * @alias find
-         */
-        detect(iterator: (item: any) => boolean, context?: any): any;
-
-        /**
-         * Iterates over the regions in this instance, yielding each in turn to an
-         * iterator function. The iterator is bound to the context object, if one
-         * is passed.
-         * @alias forEach
-         */
-        each(iterator: (element: Region, index: number, list?: any) => void, context?: any): void;
-
-        /**
-         * Returns true if all of the values in the list pass the predicate truth test.
-         * @alias all
-         */
-        every(iterator: (element: Region, index: number) => boolean, context?: any): boolean;
-
-        /**
-         * Looks through each Region in the collection, returning an array of all
-         * the values that pass a truth test (predicate).
-         * @alias select
-         */
-        filter(iterator: (element: Region, index: number) => boolean, context?: any): Region[];
-
-        /**
-         * Looks through each Region in this instance, returning the first one that passes a truth test (predicate), or undefined if no value passes the test.The function returns as soon as it finds an acceptable element, and doesn't traverse the entire list.
-         * @alias detect
-         */
-        find(iterator: (element: Region, index: number) => boolean, context?: any): Region;
-
-        /**
-         * Returns the first Region of this RegionManager.
-         */
-        first(): Region;
-
-        /**
-         * Returns the first n Regions of this RegionManager.
-         */
-        first(n: number): Region[];
-
-        /**
-         * Iterates over the regions in this instance, yielding each in turn to an
-         * iterator function. The iterator is bound to the context object, if one
-         * is passed.
-         * @alias each
-         */
-        forEach(iterator: (element: Region, index: number, list?: any) => void, context?: any): void;
-
-        /**
-         * Returns true if the value is present in the list.
-         * @alias contains
-         */
-        include(value: any): boolean;
-
-        /**
-         * Returns everything but the last n Regions of this instance.
-         * @param n if specified determines the number of regions to exclude,
-         * otherwise only the last element is excluded.
-         */
-        initial(n: number): Region[];
-
-        /**
-         * Calls the method named by methodName on each value in the collection. Any extra
-         * arguments passed to invoke will be forwarded on to the method invocation.
-         */
-        invoke(methodName: string, args?: any[]): any;
-
-        /**
-         * Returns true if the RegionManager contains no regions.
-         */
-        isEmpty(object: any): boolean;
-
-        /**
-         * Returns the last element of a collection.
-         */
-        last(): Region;
-
-        /**
-         * Returns the last n elements of the collection.
-         */
-        last(n: number): Region[];
-
-        /**
-         * Returns the index of the last occurrence of element in the collection, or -1 if
-         * element is not present.
-         * @param fromIndex if specified starts the search at the given index.
-         */
-        lastIndexOf(element: Region, fromIndex?: number): number;
-
-        /**
-         * Produces a new array of values by mapping each value in the collection through a
-         * transformation function (iterator).
-         * @alias collect
-         */
-        map(iterator: (element: Region, index: number, context?: any) => any[], context?: any): any[];
-
-        /**
-         * Pluck an attribute from each model in the collection. Equivalent to
-         * calling map and returning a single attribute from the iterator.
-         */
-        pluck(attribute: string): any[];
-
-        /**
-         * Returns the values in the collection without the elements that the truth test
-         * (predicate) passes. The opposite of filter.
-         */
-        reject(iterator: (element: Region, index: number) => boolean, context?: any): Region[];
-
-        /**
-         * Returns the rest of the elements of the collection.
-         * Pass an index to return the values of the array from that index onward. If not
-         * specified the first item in the collection is dropped.
-         * @alias tail, drop
-         */
-        rest(n: number): Region[];
-
-        /**
-         * Looks through each value in the collection, returning an array of all
-         * the values that pass a truth test (predicate).
-         * @alias filter
-         */
-        select(iterator: any, context?: any): Region[];
-
-        /**
-         * Returns true if any of the values in the list pass the predicate truth test. Short-circuits and stops traversing the list if a true element is found.
-         * @alias any
-         */
-        some(iterator: (element: Region, index: number) => boolean, context?: any): boolean;
-
-        /**
-         * Creates an array containing the regions in this instance.
-         */
-        toArray(): Region[];
-
-        /**
-         * Returns an array of all the regions in the RegionManager except the ones specified.
-         */
-        without(...values: any[]): Region[];
     }
 
     /**
      * The TemplateCache provides a cache for retrieving templates from script blocks
      * in your HTML. This will improve the speed of subsequent calls to get a template.
      */
-    class TemplateCache {
+    class TemplateCache implements DomMixin {
         /**
-         * To use the TemplateCache, call the get method on TemplateCache directly. Internally, instances of the TemplateCache class will be created and stored but you do not have to manually create these instances yourself. get will return a compiled template function.
+         * Returns a new HTML DOM node instance. The resulting node can be
+         * passed into the other DOM functions.
          */
-        static get(templateId: string): any;
+        createBuffer(): DocumentFragment;
+
+        /**
+         * Takes the DOM node el and appends the rendered children to the end of
+         * the element's contents.
+         * @param el is a jQuery argument: https://api.jquery.com/jQuery/
+         * @param children is jQuery.append argument: http://api.jquery.com/append/
+         */
+        appendChildren(el: any, children: any): void;
+
+        /**
+         * Add sibling to the DOM immediately before the DOM node el. The
+         * sibling will be at the same level as el.
+         * @param el is a jQuery argument: https://api.jquery.com/jQuery/
+         * @param sibling is jQuery.before argument: http://api.jquery.com/before/
+         */
+        beforeEl(el: any, sibling: any): void;
+
+        /**
+         * Remove oldEl from the DOM and put newEl in its place.
+         */
+        replaceEl(newEl: HTMLElement, oldEL: HTMLElement): void;
+
+        /**
+         * Remove the inner contents of el from the DOM while leaving el itself
+         * in the DOM.
+         * @param el is a jQuery argument: https://api.jquery.com/jQuery/
+         */
+        detachContents(el: any): void;
+
+        /**
+         * Replace the contents of el with the HTML string of html. Unlike other
+         * DOM functions, this takes a literal string for its second argument.
+         * @param el is a jQuery argument: https://api.jquery.com/jQuery/
+         * @param html is a jQuery.html argument: https://api.jquery.com/html/
+         */
+        setInnerContent(el: any, html: string): void;
+
+        /**
+         * Detach el from the DOM.
+         * @param el is a jQuery argument: https://api.jquery.com/jQuery/
+         */
+        detachEl(el: any): void;
+
+        /**
+         * Remove el from the DOM.
+         * @param el is a jQuery argument: https://api.jquery.com/jQuery/
+         */
+        removeEl(el: any): void;
+
+        /**
+         * Lookup the selector string within the DOM node for context. The
+         * optional context argument will come in as a DOM Node reference to run
+         * the selector search. If context hasn't been set, then findEls should
+         * search the entire document for the selector.
+         * @param selector is a jQuery argument: https://api.jquery.com/jQuery/
+         * @param context is a jQuery argument: https://api.jquery.com/jQuery/
+         */
+        findEls(selector: any, context: any): void;
+
+        /**
+         * To use the TemplateCache, call the get method on TemplateCache
+         * directly. Internally, instances of the TemplateCache class will be
+         * created and stored but you do not have to manually create these
+         * instances yourself. get will return a compiled template function.
+         */
+        static get(templateId: string, options?: any): any;
 
         /**
          * You can clear one or more, or all items from the cache using the clear
@@ -663,26 +461,237 @@ declare namespace Marionette {
         static clear(...templateId: string[]): void;
 
         /**
+         * Initial method to load the template. (undocumented)
+         */
+        load(options?: any): any;
+
+        /**
          * The default template retrieval is to select the template contents from the
          * DOM using jQuery. If you wish to change the way this works, you can
          * override this method on the TemplateCache object.
+         * Note that the options argument seems to be unused in the source.
          */
-        loadTemplate(templateId: string): any;
+        loadTemplate(templateId: string, options?: any): any;
 
         /**
-         * he default template compilation passes the results from loadTemplate to
+         * The default template compilation passes the results from loadTemplate to
          * the compileTemplate function, which returns an underscore.js compiled
          * template function. When overriding compileTemplate remember that it
          * must return a function which takes an object of parameters and values
          * and returns a formatted HTML string.
          */
-        compileTemplate(rawTemplate: any): any;
+        compileTemplate(rawTemplate: any, options?: any): any;
+    }
+
+    interface RegionConstructionOptions {
+        /**
+         * Specifies the element for the region to manage. This may be
+         * a selector string, a raw DOM node reference or a jQuery wrapped
+         * DOM node.
+         */
+        el?: any;
+
+        /**
+         * Prevents error on missing element. (undocumented)
+         */
+        allowMissingEl?: boolean;
+
+        /**
+         * Element to use as context when finding el via jQuery. Defaults to the
+         * the document. (undocumented)
+         */
+        parentEl?: string;
+
+        /**
+         * Overwrite the parent el of the region with the rendered contents of
+         * the inner View.
+         */
+        replaceElement?: string;
+    }
+
+    interface RegionViewOptions {
+        /**
+         * DEPRECATED: If you replace the current view with a new view by calling show, by
+         * default it will automatically destroy the previous view. You can
+         * prevent this behavior by setting this option to true.
+         */
+        preventDestroy?: boolean;
     }
 
     /**
-     * The Renderer object was extracted from the ItemView rendering process, in
-     * order to create a consistent and re-usable method of rendering a template
-     * with or without data.
+     * Regions provide consistent methods to manage, show and destroy views in
+     * your applications and layouts. They use a jQuery selector to show your
+     * views in the correct place.
+     */
+    class Region extends Object implements DomMixin {
+        /**
+         * Returns a new HTML DOM node instance. The resulting node can be
+         * passed into the other DOM functions.
+         */
+        createBuffer(): DocumentFragment;
+
+        /**
+         * Takes the DOM node el and appends the rendered children to the end of
+         * the element's contents.
+         * @param el is a jQuery argument: https://api.jquery.com/jQuery/
+         * @param children is jQuery.append argument: http://api.jquery.com/append/
+         */
+        appendChildren(el: any, children: any): void;
+
+        /**
+         * Add sibling to the DOM immediately before the DOM node el. The
+         * sibling will be at the same level as el.
+         * @param el is a jQuery argument: https://api.jquery.com/jQuery/
+         * @param sibling is jQuery.before argument: http://api.jquery.com/before/
+         */
+        beforeEl(el: any, sibling: any): void;
+
+        /**
+         * Remove oldEl from the DOM and put newEl in its place.
+         */
+        replaceEl(newEl: HTMLElement, oldEL: HTMLElement): void;
+
+        /**
+         * Remove the inner contents of el from the DOM while leaving el itself
+         * in the DOM.
+         * @param el is a jQuery argument: https://api.jquery.com/jQuery/
+         */
+        detachContents(el: any): void;
+
+        /**
+         * Replace the contents of el with the HTML string of html. Unlike other
+         * DOM functions, this takes a literal string for its second argument.
+         * @param el is a jQuery argument: https://api.jquery.com/jQuery/
+         * @param html is a jQuery.html argument: https://api.jquery.com/html/
+         */
+        setInnerContent(el: any, html: string): void;
+
+        /**
+         * Detach el from the DOM.
+         * @param el is a jQuery argument: https://api.jquery.com/jQuery/
+         */
+        detachEl(el: any): void;
+
+        /**
+         * Remove el from the DOM.
+         * @param el is a jQuery argument: https://api.jquery.com/jQuery/
+         */
+        removeEl(el: any): void;
+
+        /**
+         * Lookup the selector string within the DOM node for context. The
+         * optional context argument will come in as a DOM Node reference to run
+         * the selector search. If context hasn't been set, then findEls should
+         * search the entire document for the selector.
+         * @param selector is a jQuery argument: https://api.jquery.com/jQuery/
+         * @param context is a jQuery argument: https://api.jquery.com/jQuery/
+         */
+        findEls(selector: any, context: any): void;
+
+        /**
+         * You can specify an el for the region to manage at the time the region
+         * is instantiated.
+         */
+        constructor(options?: RegionConstructionOptions);
+
+        /**
+         * Defaults to 'mnr' (undocumented)
+         */
+        cidPrefix: string;
+
+        /**
+         * Overwrite the parent el of the region with the rendered contents of
+         * the inner View.
+         */
+        replaceElement: boolean;
+
+        /**
+         * Contains the element that this region should manage.
+         */
+        el: any;
+
+        /**
+         * Renders and displays the specified view in this region.
+         * @param view the view to display.
+         */
+        show<TModel extends Backbone.Model>(view: Backbone.View<TModel>, options?: RegionViewOptions): void;
+
+        /**
+         * Override this method to change how the region finds the DOM element
+         * that it manages. Return a jQuery selector object scoped to a provided
+         * parent el or the document if none exists. (undocumented)
+         */
+        getEl(): any;
+
+        /**
+         * Check to see if the region’s el was replaced. (undocumented)
+         */
+        isReplaced(): boolean;
+
+        /**
+         * Check to see if a view is being swapped by another.
+         */
+        isSwappingView(): boolean;
+
+        /**
+         * Override this method to change how the new view is appended to the
+         * `$el` that the region is managing
+         */
+        attachHtml<TModel extends Backbone.Model>(view: Backbone.View<TModel>): void;
+
+        /**
+         * Destroy the current view, clean up any event handlers and remove it
+         * from the DOM. When a region is emptied empty events are triggered.
+         */
+        empty(options?: RegionViewOptions): any;
+
+        /**
+         * Destroys the view taking into consideration if is a View descendant
+         * or vanilla Backbone view.
+         */
+        destroyView<TModel extends Backbone.Model>(view: Backbone.View<TModel>): Backbone.View<TModel>;
+
+        /**
+         * Override the region's removeView method to change how and when the
+         * view is destroyed / removed from the DOM.
+         */
+        removeView<TModel extends Backbone.Model>(view: Backbone.View<TModel>): void;
+
+        /**
+         * Empties the Region without destroying the view, returns the detached
+         * view.
+         */
+        detachView<TModel extends Backbone.Model>(): Backbone.View<TModel>;
+
+        /**
+         * Override this method to change how the region detaches current
+         * content.
+         */
+        detachHtml(): void;
+
+        /**
+         * If you wish to check whether a region has a view, you can use the
+         * hasView function. This will return a boolean value depending whether
+         * or not the region is showing a view.
+         */
+        hasView(): boolean;
+
+        /**
+         * A region can be reset at any time. This destroys any existing view
+         * being displayed, and deletes the cached el. The next time the region
+         * shows a view, the region's el is queried from the DOM.
+         */
+        reset(): any;
+
+        /**
+         * @returns view that this region has.
+         */
+        currentView: Backbone.View<Backbone.Model>;
+    }
+
+    /**
+     * Render a template with data by passing in the template selector and the
+     * data to render. This is the default renderer that is used by Marionette.
      */
     class Renderer {
         /**
@@ -699,257 +708,495 @@ declare namespace Marionette {
         static render(template: any, data: any): string;
     }
 
+    interface ViewOptions<TModel extends Backbone.Model> extends Backbone.ViewOptions<TModel>, ViewMixinOptions {
+        /**
+         * The events attribute binds DOM events to actions to perform on the
+         * view. It takes DOM event key and a mapping to the handler.
+         */
+        events?: EventsHash;
+
+        /**
+         * If you've created a custom region class, you can use it to define
+         * your region.
+         */
+        regionClass?: any;
+
+        /**
+         * Add regions to this View.
+         */
+        regions?: any;
+
+        /**
+         * Set the template of this View.
+         */
+        template?: any;
+
+        /**
+         * The templateContext attribute can be used to add extra information to
+         * your templates
+         */
+        templateContext?: any;
+    }
+
     /**
-     * This base view provides some common and core functionality for other views
-     * to take advantage of.
-     * Note: The Marionette.View class is not intended to be used directly. It
-     * exists as a base view for other view classes to be extended from, and to
-     * provide a common location for behaviors that are shared across all views.
+     * A View is a view that represents an item to be displayed with a template.
+     * This is typically a Backbone.Model, Backbone.Collection, or nothing at
+     * all. Views are also used to build up your application hierarchy - you can
+     * easily nest multiple views through the regions attribute.
      */
-    class View<TModel extends Backbone.Model> extends Backbone.View<TModel> {
+    class View<TModel extends Backbone.Model> extends Backbone.View<TModel> implements ViewMixin, RegionsMixin {
+        constructor(options?: ViewOptions<TModel>);
 
-        constructor(options?: Backbone.ViewOptions<TModel>);
+        events(): EventsHash;
 
         /**
-         * Defines behaviors attached to this view.
+         * Returns a new HTML DOM node instance. The resulting node can be
+         * passed into the other DOM functions.
          */
-        behaviors: any;
+        createBuffer(): DocumentFragment;
 
         /**
-         * Defines `triggers` to forward DOM events to view
-         * events. `triggers: {"click .foo": "do:foo"}`
+         * Takes the DOM node el and appends the rendered children to the end of
+         * the element's contents.
+         * @param el is a jQuery argument: https://api.jquery.com/jQuery/
+         * @param children is jQuery.append argument: http://api.jquery.com/append/
          */
-        triggers:{[key:string]:any};
+        appendChildren(el: any, children: any): void;
 
         /**
-         * A configuration hash for models. The left side is the event on
-         * the model, and the right side is the name of the
-         * method on the view or a function to handle the event. This property
-         * can also be a function that returns the hash described above.
+         * Add sibling to the DOM immediately before the DOM node el. The
+         * sibling will be at the same level as el.
+         * @param el is a jQuery argument: https://api.jquery.com/jQuery/
+         * @param sibling is jQuery.before argument: http://api.jquery.com/before/
          */
-        modelEvents: any;
+        beforeEl(el: any, sibling: any): void;
 
         /**
-         * A configuration hash for collections. The left side is the event on
-         * the collection, and the right side is the name of the
-         * method on the view or a function to handle the event. This property
-         * can also be a function that returns the hash described above.
+         * Remove oldEl from the DOM and put newEl in its place.
          */
-        collectionEvents: any;
+        replaceEl(newEl: HTMLElement, oldEL: HTMLElement): void;
 
         /**
-         * In several cases you need to access ui elements inside the view to
-         * retrieve their data or manipulate them. For example you have a certain
-         * div element you need to show/hide based on some state, or other ui
-         * element that you wish to set a css class to it. Instead of having
-         * jQuery selectors hanging around in the view's code you can define a
-         * ui hash that contains a mapping between the ui element's name and its
-         * jQuery selector. Afterwards you can simply access it via
-         * this.ui.elementName.
+         * Remove the inner contents of el from the DOM while leaving el itself
+         * in the DOM.
+         * @param el is a jQuery argument: https://api.jquery.com/jQuery/
          */
-        ui: any;
+        detachContents(el: any): void;
 
         /**
-         * There may be some cases where you need to change the template that is
-         * used for a view, based on some simple logic such as the value of a
-         * specific attribute in the view's model. To do this, you can provide a
-         * getTemplate function on your views and use this to return the template
-         * that you need.
+         * Replace the contents of el with the HTML string of html. Unlike other
+         * DOM functions, this takes a literal string for its second argument.
+         * @param el is a jQuery argument: https://api.jquery.com/jQuery/
+         * @param html is a jQuery.html argument: https://api.jquery.com/html/
          */
-        getTemplate(): any;
-
+        setInnerContent(el: any, html: string): void;
 
         /**
-         * Retrieve an object's attribute either directly from the object, or
-         * from the object's this.options, with this.options taking precedence.
+         * Detach el from the DOM.
+         * @param el is a jQuery argument: https://api.jquery.com/jQuery/
          */
-        getOption<T>(optionName:string): T;
-
-        mixinTemplateHelpers(target?: any): any;
-        configureTriggers(): any;
+        detachEl(el: any): void;
 
         /**
-         * View implements a destroy method, which is called by the region managers automatically. As part of the implementation.
+         * Remove el from the DOM.
+         * @param el is a jQuery argument: https://api.jquery.com/jQuery/
+         */
+        removeEl(el: any): void;
+
+        /**
+         * Lookup the selector string within the DOM node for context. The
+         * optional context argument will come in as a DOM Node reference to run
+         * the selector search. If context hasn't been set, then findEls should
+         * search the entire document for the selector.
+         * @param selector is a jQuery argument: https://api.jquery.com/jQuery/
+         * @param context is a jQuery argument: https://api.jquery.com/jQuery/
+         */
+        findEls(selector: any, context: any): void;
+
+        /**
+         * Receives a hash of event names and functions and/or function names,
+         * and returns the same hash with the function names replaced with the
+         * function references themselves.
+         */
+        normalizeMethods<T>(hash: any): T;
+
+        /**
+         * A handy function to pluck certain options and attach them directly
+         * to an instance.
+         */
+        mergeOptions(options: any, keys: any): void;
+
+        /**
+         * Retrieve an object's attribute either directly from the object, or from
+         * the object's this.options, with this.options taking precedence.
+         * @param optionName the name of the option to retrieve.
+         */
+        getOption(optionName: string): any;
+
+        /**
+         * This method is used to bind a backbone "entity" (collection/model) to
+         * methods on a target object.
+         */
+        bindEvents(entity: any, bindings: any): void;
+
+        /**
+         * This method can be used to unbind callbacks from entities'
+         * (collection/model) events.
+         */
+        unbindEvents(entity: any, bindings: any): void;
+
+        /**
+         * Internal property. (undocumented)
+         */
+        supportsRenderLifecycle: boolean;
+
+        /**
+         * Internal property. (undocumented)
+         */
+        supportsDestroyLifecycle: boolean;
+
+        /**
+         * Check if this View has been destroyed.
+         */
+        isDestroyed(): boolean;
+
+        /**
+         * Check if this View has been rendered.
+         */
+        isRendered(): boolean;
+
+        /**
+         * Check if this View is attached to the DOM.
+         */
+        isAttached(): boolean;
+
+        /**
+         * Overrides Backbone.View.delegateEvents. By default Marionette uses
+         * this to add handlers for events and triggers. (undocumented)
+         */
+        delegateEvents(eventsArg: any): View<TModel>;
+
+        /**
+         * Get the triggers that are currently attached to this view.
+         * (undocumented)
+         */
+        getTriggers(): EventsHash;
+
+        /**
+         * Delegate entity events. (undocumented)
+         */
+        delegateEntityEvents(): View<TModel>;
+
+        /**
+         * Undelegate entity events. (undocumented)
+         */
+        undelegateEntityEvents(): View<TModel>;
+
+        /**
+         * Manually destroy a view by calling the destroy method. The method
+         * unbinds the UI elements, removes the view and its children from the
+         * DOM and unbinds the listeners. It also triggers lifecycle events.
          */
         destroy(...args: any[]): View<TModel>;
 
         /**
-         * In several cases you need to access ui elements inside the view to
-         * retrieve their data or manipulate them. For example you have a certain
-         * div element you need to show/hide based on some state, or other ui
-         * element that you wish to set a css class to it. Instead of having jQuery
-         * selectors hanging around in the view's code you can define a ui hash
-         * that contains a mapping between the ui element's name and its jQuery
-         * selector. Afterwards you can simply access it via this.ui.elementName.
-         * This functionality is provided via the bindUIElements method.
-         * Since View doesn't implement the render method, then if you directly
-         * extend from View you will need to invoke this method from your render
-         * method. In ItemView and CompositeView this is already taken care of.
+         * Bind UI elements to this view. By default this is called in the
+         * render method. (undocumented)
          */
         bindUIElements(): any;
 
+        /**
+         * Bind UI elements from this view. (undocumented)
+         */
         unbindUIElements(): any;
 
+        /**
+         * Customize the event prefix for events that are forwarded through the
+         * collection view.
+         */
+        childViewEventPrefix: string | false;
+
+        /**
+         * Trigger an event and a corresponding method on the target object.
+         * All arguments that are passed to the triggerMethod call are passed
+         * along to both the event and the method, with the exception of the
+         * event name not being passed to the corresponding method.
+         */
         triggerMethod(name: string, ...args: any[]): any;
 
         /**
-         * Item views will serialize a model or collection, by default, by calling
-         * .toJSON on either the model or collection. If both a model and
-         * collection are attached to an item view, the model will be used as the
-         * data source. The results of the data serialization will be passed to
-         * the template that is rendered.
-         *
-         * If you need custom serialization for your data, you can provide a serializeData
-         * method on your view. It must return a valid JSON object, as if you had
-         * called .toJSON on a model or collection.
-         */
-        serializeData(): any;
-
-        /**
-         * Renders the view. It is unwise to override the render method of any
-         * Marionette view. Instead, you should use the onBeforeRender and
-         * onRender callbacks to layer in additional functionality to the
-         * rendering of your view.
-         */
-        render(): any;
-
-        /**
-         * Triggered before an ItemView is rendered.
-         */
-        onBeforeRender(): void;
-
-        /**
-         * Triggered after the view has been rendered. You can implement this in
-         * your view to provide custom code for dealing with the view's el after
-         * it has been rendered.
-         */
-        onRender(): void;
-
-        /**
-         * Triggered just after the view has been destroyed.
-         */
-        onDestroy(): void;
-
-        /**
-         * When destroying a view, an onBeforeDestroy method will be called, if
-         * it has been provided, just before the view destroys. It will be passed
-         * any arguments that destroy was invoked with.
-         */
-        onBeforeDestroy(...args: any[]): void;
-
-        /**
-         * Called anytime that showing the view in a Region causes it to be
-         * attached to the document.
-         */
-        onAttach(): void;
-
-        /**
-         * Triggered right before the view is attached to the document.
-         */
-        onBeforeAttach(): void;
-
-        /**
-         * Triggered after the view has been rendered, has been shown in the DOM via a Marionette.Region, and has been re-rendered.
-         * This event / callback is useful for DOM-dependent UI plugins such as jQueryUI or KendoUI.
-         */
-        onDomRefresh(): void;
-
-        /**
-         * Internal properties extended in Marionette.View.
-         */
-        isDestroyed(): boolean;
-        isRendered(): boolean;
-        isAttached(): boolean;
-        delegateEntityEvents(): View<TModel>;
-        supportsRenderLifecycle: boolean;
-        supportsDestroyLifecycle: boolean;
-
-        /**
-         * If you have the need to replace the Region with a region class of your
-         * own implementation, you can specify an alternate class to use with this
-         * property.
+         * Define the region class used for this View.
          */
         regionClass: any;
 
         /**
-         * Regions hash or a method returning the regions hash that maps
-         * regions/selectors to methods on your View.
-         **/
-        regions(): any;
-
-        /** Adds a region to the layout view. */
-        addRegion(name: string, definition: any): Region;
+         * Add a region to this View.
+         */
+        addRegion(regionName: string, element: any): any;
 
         /**
-         * Add multiple regions as a {name: definition, name2: def2} object literal.
+         * Add multiple regions to this View.
          */
         addRegions(regions: any): any;
 
-        /** Returns a region from the layout view */
-        getRegion(name: string): Region;
+        /**
+         * Remove a region from this View.
+         */
+        removeRegion(regionName: string): any;
 
         /**
-         * Removes the region with the specified name.
-         * @param name the name of the region to remove.
+         * Remove all regions from this View.
          */
-        removeRegion(name: string): Region;
-
-        /** Enable easy overriding of the default `RegionManager`
-         * for customized region interactions and business specific
-         * view logic for better control over single regions.
-         */
-        getRegionManager(): RegionManager;
+        removeRegions(): any;
 
         /**
-         * Show a view into the region specified by `regionName`.
+         * Empty all regions from this View.
          */
-        showChildView(regionName: string, view: any, options?: RegionShowOptions): void;
+        emptyRegions(): any;
 
         /**
-         * Get the current view that is shown in the region specified by
-         * `regionName`.
+         * Check if this View has a particular region.
          */
-        getChildView(regionName: string): Backbone.View<TModel>;
+        hasRegion(regionName: string): any;
 
         /**
-         * Returns all regions from the layout view. The results contains an
-         * Object hash that has `string`s as keys and `Region`s as values.
+         * Return a region from this View.
          */
-        getRegions(): {[key: string]: Region};
+        getRegion(regionName: string): Region;
 
         /**
-         * You can customize the event prefix for events that are forwarded through
-         * the layout view with this property.
+         * Returns all regions from this View.
          */
-        childViewEventPrefix: string;
+        getRegions(): any;
+
+        /**
+         * Show a view inside a region.
+         */
+        showChildView(regionName: string, view: any, options?: RegionViewOptions): void;
+
+        /**
+         * Detach a view from a region.
+         */
+        detachChildView<TModel extends Backbone.Model>(regionName: string): Backbone.View<TModel>;
+
+        /**
+         * Get the view from a region.
+         */
+        getChildView<TModel extends Backbone.Model>(regionName: string): Backbone.View<TModel>;
+
+        /**
+         * The results of this method ared passed to this View's template. By
+         * default Marionette will attempt to pass either an attached model or
+         * collection which has been converted to JSON.
+         */
+        serializeData(): any;
+
+        /**
+         * Method used by this.serializeData to serialize this View's model
+         * data.
+         */
+        serializeModel(): any;
+
+        /**
+         * Method used by this.serializeData to serialize this View's collection
+         * data.
+         */
+        serializeCollection(): any;
+
+        /**
+         * Rebind this View to a new element. Overriding Backbone.View’s
+         * setElement to handle if an element was previously defined.
+         * (undocumented)
+         */
+        setElement(element: any): View<TModel>;
+
+        /**
+         * Renders the view. Given a template this method will build your HTML
+         * from that template, mixing in model information and any extra
+         * template context.
+         */
+        render(): View<TModel>;
+
+        /**
+         * Used to determine which template to use. Override this method to add
+         * logic for using multiple templates.
+         */
+        getTemplate(): any;
+
+        /**
+         * Mix in template context methods. Looks for a templateContext
+         * attribute, which can either be an object literal, or a function that
+         * returns an object literal. All methods and attributes from this
+         * object are copies to the object passed in. (undocumented)
+         */
+        mixinTemplateContext(...args: any[]): any;
+
+        /**
+         * Used to attached the rendered template to this View's element.
+         */
+        attachElContent(html: string): View<TModel>;
+
+        /**
+         * Used to set the renderer for this View. The rendere function is
+         * passed the template and the data and is expected to return an html
+         * string. By default this is set to use Renderer.
+         */
+        setRenderer(renderer: (template: any, data: any) => string): void;
+
+        /**
+         * Event that is triggered before this View is rendered.
+         */
+        onBeforeRender(view: View<TModel>): void;
+
+        /**
+         * Event that is triggered after this View is rendered.
+         */
+        onRender(view: View<TModel>): void;
+
+        /**
+         * Event that is triggered before this View is added to the DOM.
+         */
+        onBeforeAttach(view: View<TModel>): void;
+
+        /**
+         * Event that is triggered after this View's element has been added to
+         * the DOM.
+         */
+        onAttach(view: View<TModel>): void;
+
+        /**
+         * Event that is triggered after this View's content has been added to
+         * the DOM. Is also triggered every time this.render() is called.
+         */
+        onDomRefresh(view: View<TModel>): void;
+
+        /**
+         * Event that is triggered before this View is destroyed.
+         */
+        onBeforeDestroy(view: View<TModel>, ...args: any[]): void;
+
+        /**
+         * Event that is triggered before this View's element is removed from
+         * the DOM.
+         */
+        onBeforeDetach(view: View<TModel>): void;
+
+        /**
+         * Event that is triggered before this View's content is removed from
+         * the DOM.
+         */
+        onDomRemove(view: View<TModel>): void;
+
+        /**
+         * Event that is triggered after this View's element has been removed
+         * from the DOM.
+         */
+        onDetach(view: View<TModel>): void;
+
+        /**
+         * Event that is triggered after this View is destroyed.
+         */
+        onDestroy(view: View<TModel>, ...args: any[]): void;
+
+        /**
+         * Event that is triggered before a Region is added.
+         */
+        onBeforeAddRegion(regionName: string, region: Region): void;
+
+        /**
+         * Event that is triggered after a Region has been added.
+         */
+        onAddRegion(regionName: string, region: Region): void;
+
+        /**
+         * Event that is triggered before a Region is removed.
+         */
+        onBeforeRemoveRegion(regionName: string, region: Region): void;
+
+        /**
+         * Event that is triggered after a Region has been removed.
+         */
+        onRemoveRegion(regionName: string, region: Region): void;
+
+        /**
+         * Behavior objects to assign to this View.
+         */
+        behaviors: Behavior[] | { [index: string]: typeof Behavior; } | Array<{
+            behaviorClass: typeof Behavior;
+            [index: string]: any;
+        }>;
+
+        /**
+         * Bind to events that occur on attached models.
+         */
+        modelEvents: EventsHash;
+
+        /**
+         * The view triggers attribute binds DOM events to Marionette View events
+         * that can be responded to at the view or parent level.
+         */
+        triggers: EventsHash;
+
+        /**
+         * Name parts of your template to be used
+         * throughout the view with the ui attribute.
+         */
+        ui: any;
     }
 
-
-    interface CollectionViewOptions<TModel extends Backbone.Model> extends Backbone.ViewOptions<TModel> {
+    interface CollectionViewOptions<
+        TModel extends Backbone.Model,
+        TCollection extends Backbone.Collection<TModel> = Backbone.Collection<TModel>
+    > extends Backbone.ViewOptions<TModel>, ViewMixinOptions {
+        /**
+         * Specify a child view to use.
+         */
+        childView?: (() => typeof Backbone.View) | typeof Backbone.View;
 
         /**
-         * By default the CollectionView will maintain a sorted collection's order
-         * in the DOM. This behavior can be disabled by specifying {sort: false}
-         * on initialize.
+         * Define options to pass to the childView constructor.
+         */
+        childViewOptions?: (() => ViewOptions<TModel>) | ViewOptions<TModel>;
+
+        /**
+         * The events attribute binds DOM events to actions to perform on the
+         * view. It takes DOM event key and a mapping to the handler.
+         */
+        events?: EventsHash;
+
+        /**
+         * Prevent some of the underlying collection's models from being
+         * rendered as child views.
+         */
+        filter?(child?: TModel, index?: number, collection?: TCollection): boolean;
+
+        /**
+         * Specify a view to use if the collection has no children.
+         */
+        emptyView?: (() => typeof Backbone.View) | typeof Backbone.View;
+
+        /**
+         * Define options to pass to the emptyView constructor.
+         */
+        emptyViewOptions?: (() => ViewOptions<TModel>) | ViewOptions<TModel>;
+
+        /**
+         * If true when you sort your collection there will be no re-rendering,
+         * only the DOM nodes will be reordered.
+         */
+        reorderOnSort?: boolean;
+
+        /**
+         * If false the collection view will not maintain a sorted collection's
+         * order in the DOM.
          */
         sort?: boolean;
 
         /**
-         * This option is useful when you have performance issues when you
-         * resort your CollectionView. Without this option, your CollectionView
-         * will be completely re-rendered, which can be costly if you have a
-         * large number of elements or if your ChildViews are complex. If this
-         * option is activated, when you sort your Collection, there will be no
-         * re-rendering, only the DOM nodes will be reordered. This can be a
-         * problem if your ChildViews use their collection's index in their
-         * rendering. In this case, you cannot use this option as you need to
-         * re-render each ChildView.
-         *
-         * If you combine this option with a filter that changes the views that
-         * are to be displayed, reorderOnSort will be bypassed to render new
-         * children and remove those that are rejected by the filter.
+         * Render your collection view's children with a different sort order
+         * than the underlying Backbone collection.
          */
-        reorderOnSort?: boolean;
+        viewComparator?: string | ((element: TModel) => number | string) | ((compare: TModel, to?: TModel) => number); // Mirrors Backbone.Collection.comparator
     }
 
     /**
@@ -960,174 +1207,177 @@ declare namespace Marionette {
      * DOM. This behavior can be disabled by specifying {sort: false} on
      * initialize.
      */
-    class CollectionView<TModel extends Backbone.Model, TView extends View<Backbone.Model>> extends View<TModel> {
-        constructor(options?: CollectionViewOptions<TModel>);
+    class CollectionView<TModel extends Backbone.Model, TView extends View<TModel>, TCollection extends Backbone.Collection<TModel> = Backbone.Collection<TModel>> extends View<TModel> {
+        constructor(options?: CollectionViewOptions<TModel, TCollection>);
 
         /**
-         * Specify a childView in your collection view definition. This must be a
-         * Backbone view object definition, not an instance. It can be any
-         * Backbone.View or be derived from Marionette.ItemView
+         * Specify a child view to use.
          */
-        childView: new (...args:any[]) => TView;
+        childView: (() => { new(...args: any[]): TView }) | { new(...args: any[]): TView };
 
         /**
-         * There may be scenarios where you need to pass data from your parent
-         * collection view in to each of the childView instances. To do this,
-         * provide a childViewOptions definition on your collection view as an
-         * object literal. This will be passed to the constructor of your childView
-         * as part of the options.
-         *
-         * You can also specify the childViewOptions as a function, if you need to
-         * calculate the values to return at runtime. The model will be passed
-         * into the function should you need access to it when calculating
-         * childViewOptions. The function must return an object, and the attributes of
-         * the object will be copied to the childView instance's options.
+         * Define options to pass to the childView constructor.
          */
-        childViewOptions: any;
+        childViewOptions: ((model: TModel, index: number) => ViewOptions<TModel>) | ViewOptions<TModel>;
 
         /**
-         * You can customize the event prefix for events that are forwarded through
-         * the collection view. To do this, set the childViewEventPrefix on the
-         * collection view.
+         * Prevent some of the underlying collection's models from being
+         * rendered as child views.
          */
-        childViewEventPrefix: string;
+        filter: (child?: TModel, index?: number, collection?: TCollection) => boolean;
 
         /**
-         * You can specify a childViewEvents hash or method which allows you to
-         * capture all bubbling childViewEvents without having to manually set bindings.
-         * The keys of the hash can either be a function or a string that is the
-         * name of a method on the collection view.
+         * Modify the CollectionView's filter attribute, and renders the new
+         * ChildViews in a efficient way, instead of rendering the whole DOM
+         * structure again.
          */
-        childViewEvents: any;
+        setFilter: (filter: (child?: TModel, index?: number, collection?: TCollection) => boolean, options: { preventRender: boolean }) => void;
 
         /**
-         * When a collection has no children, and you need to render a view other than
-         * the list of childViews, you can specify an emptyView attribute on your collection
-         * view.
+         * Remove a filter from the CollectionView.
          */
-        emptyView: any;
+        removeFilter: (options: { preventRender: boolean }) => void;
 
         /**
-         * Similar to childView and childViewOptions, there is an emptyViewOptions
-         * property that will be passed to the emptyView constructor. It can be
-         * provided as an object literal or as a function. If emptyViewOptions
-         * aren't provided the CollectionView will default to passing the
-         * childViewOptions to the emptyView.
+         * Specify a view to use if the collection has no children.
          */
-        emptyViewOptions: any;
+        emptyView: (() => { new(...args: any[]): Backbone.View<TModel> }) | { new(...args: any[]): Backbone.View<TModel> };
 
         /**
-         * The CollectionView uses Backbone.BabySitter to store and manage its
-         * child views. This allows you to easily access the views within the
-         * collection view, iterate them, find them by a given indexer such as the
-         * view's model or collection, and more.
+         * Define options to pass to the emptyView constructor.
          */
-        children: Backbone.ChildViewContainer<TView>;
+        emptyViewOptions: ((model: TModel, index: number) => ViewOptions<TModel>) | ViewOptions<TModel>;
 
         /**
-         * The render method of the collection view is responsible for rendering the
-         * entire collection. It loops through each of the children in the collection
-         * and renders them individually as an childView.
-         */
-        render(): CollectionView<TModel, TView>;
-
-        /**
-         * The addChild method is responsible for rendering the childViews and
-         * adding them to the HTML for the collectionView instance. It is also
-         * responsible for triggering the events per ChildView. In most cases you
-         * should not override this method.
-         */
-        addChild(item: any, ChildView: TView, index: Number): void;
-
-        /** Render the child view */
-        renderChildView(view: TView, index: Number): void;
-
-        /**
-         * When a custom view instance needs to be created for the childView that
-         * represents a child, override the buildChildView method. This method
-         * takes three parameters and returns a view instance to be used as the
-         * child view.
-         */
-        buildChildView(child: any, ItemViewType: any, itemViewOptions: any): TView;
-
-        /**
-         * Remove the child view and destroy it. This function also updates the indices of
-         * later views in the collection in order to keep the children in sync with the collection.
-         */
-        removeChildView(view: TView): TView;
-
-        /**
-         * Determines if the view is empty. If you want to control when the empty
-         * view is rendered, you can override isEmpty.
+         * Method used to determine when emptyView is rendered.
          */
         isEmpty(): boolean;
 
         /**
-         * If empty, show the empty view
+         * The render method of the collection view is responsible for rendering
+         * the entire collection. It loops through each of the children in the
+         * collection and renders them individually as an childView.
          */
-        checkEmpty(): void;
+        render(): CollectionView<TModel, TView, TCollection>;
 
         /**
-         * Destroy the child views that this collection view
-         * is holding on to, if any. This returns destroyed children.
+         * This method is used move the HTML from the element buffer into the
+         * collection view's el.
          */
-        destroyChildren(): Backbone.ChildViewContainer<TView>;
+        attachHtml(collectionView: CollectionView<TModel, TView, TCollection>, childView: TView, index: number): void;
 
         /**
-         * By default the CollectionView will maintain the order of its collection
-         * in the DOM. However on occasions the view may need to re-render to make
-         * this possible, for example if you were to change the comparator on the
-         * collection. By default CollectionView will call render when this happens,
-         * but there are cases where this may not be suitable. For instance when
-         * sorting the children in a CompositeView, you want to only render the
-         * internal collection.
+         * When overriding attachHtml it may be necessary to also override how
+         * the buffer is attached.
          */
-        resortView(): void;
+        attachBuffer(collectionView: CollectionView<TModel, TView, TCollection>, buffer: DocumentFragment): void;
 
         /**
-         * By default the collection view will append the HTML of each ChildView
-         * into the element buffer, and then call jQuery's .append once at the end
-         * to move the HTML into the collection view's el.
-         * You can override this by specifying an attachHtml method in your view
-         * definition.
-         * @param collectionView the instance of the collection view that will receive the HTML.
-         * @param childView the current child view instance.
-         * @param index he index of the model that this childView instance represents,
-         * in the collection that the model came from. This is useful for sorting
-         * a collection and displaying the sorted list in the correct order on the
-         * screen.
+         * Customize the event prefix for events that are forwarded through the
+         * collection view.
          */
-        attachHtml(collectionView: CollectionView<TModel, TView>, childView: TView, index: number): void;
-
-        /** Serialize a collection by serializing each of its models. */
-        serializeCollection(): any;
+        childViewEventPrefix: string | false;
 
         /**
-         * Reorder DOM after sorting. When your element's rendering
-         * do not use their index, you can pass reorderOnSort: true
-         * to only reorder the DOM after a sort instead of rendering
-         * all the collectionView
+         * Use the childViewEvents attribute to map child events to methods on the
+         * parent view.
+         */
+        childViewEvents: EventsHash;
+
+        /**
+         * A childViewTriggers hash or method permits proxying of child view events
+         * without manually setting bindings. The values of the hash should be a
+         * string of the event to trigger on the parent.
+         */
+        childViewTriggers: EventsHash;
+
+        /**
+         * Bind to events that occur on attached collections.
+         */
+        collectionEvents: EventsHash;
+
+        /**
+         * Bind to events that occur on attached models.
+         */
+        modelEvents: EventsHash;
+
+        /**
+         * The view triggers attribute binds DOM events to Marionette View events
+         * that can be responded to at the view or parent level.
+         */
+        triggers: EventsHash;
+
+        /**
+         * If true when you sort your collection there will be no re-rendering,
+         * only the DOM nodes will be reordered.
+         */
+        reorderOnSort: boolean;
+
+        /**
+         * If reorderOnSort is set to true, this function will be used instead
+         * of re-rendering all children.
          */
         reorder(): void;
 
         /**
-         * Render and show the emptyView. Similar to addChild method
-         * but "add:child" events are not fired, and the event from
-         * emptyView are not forwarded
+         * By default the CollectionView will maintain the order of its
+         * collection in the DOM. However on occasions the view may need to
+         * re-render to make this possible, for example if you were to change
+         * the comparator on the collection. The CollectionView will re-render
+         * its children or reorder them depending on reorderOnSort.
          */
-        addEmptyView(child: TModel, EmptyView: new (...args: any[]) => any): void;
+        resortView(): void;
 
         /**
-         * Handle cleanup and other destroying needs for the collection of views
+         * Render your collection view's children with a different sort order
+         * than the underlying Backbone collection.
          */
-        destroy(): CollectionView<TModel, TView>;
+        viewComparator: string | ((element: TModel) => number | string) | ((compare: TModel, to?: TModel) => number); // Mirrors Backbone.Collection.comparator
 
         /**
-         * Set up the child view event forwarding. Uses a "childview:"
-         * prefix in front of all forwarded events.
-         * @param view it might be ChildView or EmptyView.
+         * Override this method to determine which viewComparator to use.
          */
-        proxyChildEvents(view: any): void;
+        getViewComparator: () => (string | ((element: TModel) => number | string) | ((compare: TModel, to?: TModel) => number)); // Mirrors Backbone.Collection.comparator
+
+        /**
+         * Behavior objects to assign to this View.
+         */
+        behaviors: Behavior[] | { [index: string]: typeof Behavior; } | Array<{
+            behaviorClass: typeof Behavior;
+            [index: string]: any;
+        }>;
+
+        /**
+         * Name parts of your template to be used throughout the view with the
+         * ui attribute.
+         */
+        ui: any;
+
+        /**
+         * The CollectionView can store and manage its child views. This allows
+         * you to easily access the views within the collection view, iterate
+         * them, find them by a given indexer such as the view's model or
+         * collection, and more.
+         */
+        children: Container<TView>;
+
+        /**
+         * The buildChildView is responsible for taking the ChildView class and
+         * instantiating it with the appropriate data.
+         */
+        buildChildView(child: TModel, childViewClass: { new(...args: any[]): TView }, childViewOptions: ViewOptions<TModel>): void;
+
+        /**
+         * The addChildView method can be used to add a view that is independent
+         * of your Backbone.Collection.
+         */
+        addChildView(childView: TView, index: number): void;
+
+        /**
+         * The removeChildView method is useful if you need to remove a view
+         * from the CollectionView without affecting the view's collection.
+         */
+        removeChildView(childView: TView): void;
 
         /**
          * Called just prior to rendering the collection view.
@@ -1167,151 +1417,137 @@ declare namespace Marionette {
          * instance has been deleted or removed from the collection.
          */
         onRemoveChild(childView: TView): void;
+
+        /**
+         * Automatically destroys this Collection's children and cleans up
+         * listeners.
+         */
+        destroy(...args: any[]): CollectionView<TModel, TView, TCollection>;
     }
 
-    interface AppRouterOptions extends Backbone.RouterOptions {
+    interface AppRoutes {
+        [index: string]: string;
+    }
+
+    interface AppRouterOptions {
         /**
-         * The appRoutes.
+         * Define the app routes and the method names on the controller that
+         * will be called when accessing the routes.
          */
-        appRoutes?: any;
+        appRoutes?: AppRoutes;
 
         /**
-         * The controller to associate with this router.
+         * Define the app routes and the method names on the router that will be
+         * called when accessing the routes.
+         */
+        routes?: AppRoutes;
+
+        /**
+         * An object that contains the methods specified in appRoutes.
          */
         controller?: any;
     }
 
     /**
-     * Reduce the boilerplate code of handling route events and then calling a
-     * single method on another object. Have your routers configured to call
-     * the method on your object, directly.
+     * The Marionette AppRouter is typically used to set up your app when the
+     * user loads a specific endpoint directly.
      */
     class AppRouter extends Backbone.Router {
-
-        /**
-         * Configure an AppRouter with appRoutes. The route definition
-         * is passed on to Backbone's standard routing handlers. This means
-         * that you define routes like you normally would. However, instead of
-         * providing a callback method that exists on the router, you provide a
-         * callback method that exists on the controller, which you specify for
-         * the router instance (see below.)
-         */
         constructor(options?: AppRouterOptions);
 
         /**
-         * You can specify a controller with the multiple routes at runtime with
-         * this method. However, In this case the current controller of AppRouter
-         * will not change.
-         */
-        processAppRoutes(controller: any, appRoutes: any): void;
-
-        /**
-         * Adds an app route at runtime to this instance. It works the same as the
-         * built-in router.route() call from Backbone's Router, but has all the
-         * same semantics and behavior of the appRoutes configuration.
+         * Add an app route at runtime.
          */
         appRoute(route: string, methodName: string): void;
+
+        /**
+         * Specify a controller with the multiple routes at runtime. This will
+         * preserve the existing controller as well.
+         */
+        processAppRoutes(controller: any, appRoutes: AppRoutes): void;
+
+        /**
+         * An object that contains the methods specified in appRoutes.
+         */
+        controller: any;
+
+        /**
+         * Fires whenever the user navigates to a new route in your application
+         * that matches a route.
+         */
+        onRoute(name: string, path: string, args: any[]): void;
+    }
+
+    interface ApplicationOptions extends ObjectOptions {
+        /**
+         * Root entry point for the View tree of your Application.
+         */
+        region: string;
     }
 
     /**
-     * The Backbone.Marionette.Application object is the hub of your composite
-     * application. It organizes, initializes and coordinates the various pieces
-     * of your app. It also provides a starting point for you to call into from
-     * your HTML script block, or directly from your JavaScript files if you
-     * prefer to go that route. The Application is meant to be instantiated
-     * directly, although you can extend it to add your own functionality.
+     * The Application is used to model your Marionette application under a
+     * single entry point. The application provides:
+     * - An obvious entry point to your app
+     * - A clear hook for global events e.g. the AppRouter
+     * - An interface to let you inject variables from the wider context into
+     *   your app
      */
-    class Application extends Backbone.Events {
-
-        constructor(options?: any);
-
-        /**
-         * The Event Aggregator is available through this property. It is
-         * convenient for passively sharing information between pieces of your
-         * application as events occur.
-         * Note! To access this application channel from other objects within your
-         * app you are encouraged to get a handle of the systems through the
-         * Wreqr API instead of the Application instance itself.
-         */
-        vent: Backbone.Wreqr.EventAggregator;
+    class Application extends Object {
+        constructor(options?: ApplicationOptions);
 
         /**
-         * Commands are used to make any component tell another component to
-         * perform an action without a direct reference to it.
+         * Root entry point for the View tree of your Application.
          */
-        commands: Backbone.Wreqr.Commands;
-
-        /**
-         * Request Response is a means for any component to request information
-         * from another component without being tightly coupled.
-         */
-        reqres: Backbone.Wreqr.RequestResponse;
-
-        submodules: any;
-
-        /** Command execution, facilitated by Backbone.Wreqr.Commands */
-        execute(...args: any[]): void;
-
-        /** Request/response, facilitated by Backbone.Wreqr.RequestResponse */
-        request(...args: any[]): any;
-
-        /** Deprecated! Initializers, you should use events to manage start-up logic. */
-        addInitializer(initializer: any): void;
-
-        /**
-         * Once you have your application configured, you can kick everything off
-         * by calling this method.
-         * @param options This parameter will be passed to each of your initializer functions, as well as the initialize events. This allows you to provide extra configuration for various parts of your app throughout the initialization sequence.
-         */
-        start(options?: any): void;
-
-        /** Root region of the application*/
         region: string;
 
-        /** Get the root region */
+        /**
+         * Called immediately after the Application has been instantiated, and
+         * is invoked with the same arguments that the constructor received.
+         */
+        initialize(options: ApplicationOptions): void;
+
+        /**
+         * Fired just before the application is started.
+         */
+        onBeforeStart(options: ApplicationOptions): void;
+
+        /**
+         * Fired as part of the application startup.
+         */
+        onStart(options: ApplicationOptions): void;
+
+        /**
+         * Once you have your application configured, you can kick everything
+         * off by calling this method.
+         */
+        start(options?: any): void;
+
+        /**
+         * Return the attached region object for the Application.
+         */
         getRegion(): Region;
 
-        /** Show a view in the root region */
-        showView(view: Backbone.View<Backbone.Model>): void;
-
-        /** Get the view from the root region*/
-        getView(): any;
-
-        module(moduleNames: any, moduleDefinition: any): Module;
+        /**
+         * Display View in the region attached to the Application. This runs the
+         * View lifecycle.
+         */
+        showView(view: View<any>): void;
 
         /**
-         * Called just before the Application starts and before the initializers are executed.
+         * Return the view currently being displayed in the Application's
+         * attached region. If the Application is not currently displaying a
+         * view, this method returns undefined.
          */
-        onBeforeStart(options?: any): void;
-
-        /**
-         * Called after the Application has started and after the initializers have been executed.
-         */
-        onStart(options?: any): void;
-    }
-
-    // modules mapped for convenience, but you should probably use TypeScript modules instead
-    class Module extends Backbone.Events {
-
-        constructor(moduleName: string, app: Application);
-
-        submodules: any;
-        triggerMethod(name: string, ...args: any[]): any;
-
-        addInitializer(callback: any): void;
-        addFinalizer(callback: any): void;
-        start(options?: any): void;
-        addDefinition(moduleDefinition: any, customArgs: any): any;
+        getView(): View<any>;
     }
 
     /**
-     * A Behavior is an isolated set of DOM / user interactions that can be mixed
-     * into any View or another Behavior. Behaviors allow you to blackbox View
-     * specific interactions into portable logical chunks, keeping your views
-     * simple and your code DRY.
+     * A Behavior provides a clean separation of concerns to your view logic,
+     * allowing you to share common user-facing operations between your views.
      */
-    class Behavior extends Marionette.Object {
-        constructor(options?: any, view?: any);
+    class Behavior extends Object {
+        constructor(options?: any);
 
         options: any;
 
@@ -1327,23 +1563,26 @@ declare namespace Marionette {
         /**
          * Any triggers you define on the Behavior will be triggered in response to the appropriate event on the view.
          */
-        triggers: any;
+        triggers: EventsHash;
 
         /**
          * modelEvents will respond to the view's model events.
          */
-        modelEvents: any;
+        modelEvents: EventsHash;
 
         /**
          * collectionEvents will respond to the view's collection events.
          */
-        collectionEvents: any;
+        collectionEvents: EventsHash;
 
         /**
          * The behaviors key allows a behavior to group multiple behaviors
          * together.
          */
-        behaviors: any;
+        behaviors: Behavior[] | { [index: string]: typeof Behavior; } | Array<{
+            behaviorClass: typeof Behavior;
+            [index: string]: any;
+        }>;
 
         /**
          * defaults can be a hash or function to define the default options for
@@ -1363,8 +1602,10 @@ declare namespace Marionette {
          */
         $el: JQuery;
 
-        /** A reference to the view instance that the behavior is on. */
-        view: any;
+        /**
+         * The View that this behavior is attached to.
+         */
+        view: View<any>;
 
         /**
          * $ is a direct proxy of the views $ lookup method.
@@ -1373,10 +1614,7 @@ declare namespace Marionette {
     }
 
     /**
-     * Marionette.Behaviors' is a utility class that takes care of glueing your
-     * behavior instances to their given View. The most important part of this
-     * class is that you MUST override the class level behaviorsLookup method or
-     * set the option behaviorClass for things to work properly.
+     * DEPRECATED
      */
     class Behaviors {
         /**

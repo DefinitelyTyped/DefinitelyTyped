@@ -99,7 +99,7 @@ configuration = {
 configuration =  {
     entry: { a: "./a", b: "./b" },
     output: { filename: "[name].js" },
-    plugins: [ new webpack.optimize.CommonsChunkPlugin("init.js") ]
+    plugins: [ new webpack.optimize.CommonsChunkPlugin({ name: "init.js" }) ]
 };
 
 //
@@ -141,7 +141,7 @@ configuration = {
         filename: "[name].entry.chunk.js"
     },
     plugins: [
-        new CommonsChunkPlugin("commons.chunk.js")
+        new CommonsChunkPlugin({ name: "commons.chunk.js" })
     ]
 };
 
@@ -424,6 +424,12 @@ plugin = new webpack.LoaderOptionsPlugin({
 plugin = new webpack.EnvironmentPlugin(['a', 'b']);
 plugin = new webpack.EnvironmentPlugin({a: true, b: 'c'});
 plugin = new webpack.ProgressPlugin((percent: number, message: string) => {});
+plugin = new webpack.HashedModuleIdsPlugin();
+plugin = new webpack.HashedModuleIdsPlugin({
+    hashFunction: 'sha256',
+    hashDigest: 'hex',
+    hashDigestLength: 20
+});
 
 //
 // http://webpack.github.io/docs/node.js-api.html
@@ -605,7 +611,7 @@ function loader(this: webpack.loader.LoaderContext, source: string, sourcemap: s
 
     this.resolve('context', 'request', ( err: Error, result: string) => {});
 
-    this.emitError('wraning');
+    this.emitError('warning');
 
     this.callback(null, source);
 }

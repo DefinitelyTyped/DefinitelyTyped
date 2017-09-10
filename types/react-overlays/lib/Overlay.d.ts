@@ -29,5 +29,5 @@ interface OverlayProps extends TransitionCallbacks, PortalProps, PositionProps {
    * A `react-transition-group@2.0.0` `<Transition/>` component
    * used to animate the overlay as it changes visibility.
    */
-  transition: Element;
+  transition?: Element;
 }

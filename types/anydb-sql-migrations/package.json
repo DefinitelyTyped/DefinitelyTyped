@@ -1,5 +1,6 @@
 {
-  "dependencies": {
-    "anydb-sql": "^0.6.53"
-  }
+    "private": true,
+    "dependencies": {
+        "anydb-sql": "^0.6.53"
+    }
 }

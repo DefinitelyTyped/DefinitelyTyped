@@ -1,12 +1,15 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
+        // TODOs
         "align": false,
         "ban-types": false,
         "callable-types": false,
         "interface-name": [false],
         "jsdoc-format": false,
         "no-empty-interface": false,
+        "no-inferrable-types": false,
+        "prefer-const": false,
         "semicolon": false,
         "unified-signatures": false
     }

@@ -190,10 +190,14 @@ export class Icon extends React.Component<IconProps, any> {
     color: string,
     size?: number
   ): Promise<ImageSource>;
+  static loadFont(
+    file?: string
+  ): Promise<void>;
 }
 
 export namespace Icon {
   class ToolbarAndroid extends React.Component<ToolbarAndroidProps, any> {}
+  class TabBarItem extends React.Component<TabBarItemProperties, any> {}
   class TabBarItemIOS extends React.Component<TabBarItemIOSProps, any> {}
   class Button extends React.Component<IconButtonProps, any> {}
 }
