@@ -29,7 +29,7 @@ import {
 // ~~~~~~~~~~~~~~~~~~~~~
 // Modern Environment
 // ~~~~~~~~~~~~~~~~~~~~~
-let network: __Relay.Runtime.RelayNetwork;
+const network = {} as __Relay.Runtime.RelayNetwork;
 const source = new RecordSource();
 const store = new Store(source);
 const modernEnvironment = new Environment({ network, store });
@@ -113,7 +113,7 @@ class FeedStories extends React.Component<IFeedStoriesProps, {}> {
       const refetchVariables = (fragmentVariables: {count: number }) => ({
         count: fragmentVariables.count + 10,
       });
-      this.props.relay.refetch(refetchVariables, null);
+      this.props.relay.refetch(refetchVariables);
     }
   }
 
@@ -442,7 +442,7 @@ class StubbedArtwork extends React.Component {
                 setVariables: () => {},
                 forceFetch: () => {},
                 hasOptimisticUpdate: () => false,
-                getPendingTransactions: (): Relay.RelayMutationTransaction[] => undefined,
+                getPendingTransactions: (): any => undefined,
                 commitUpdate: () => {},
             }
         }

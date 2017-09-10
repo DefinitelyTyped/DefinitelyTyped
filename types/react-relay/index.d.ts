@@ -146,7 +146,7 @@ declare namespace __Relay.Modern {
     export type RelayRefetchProp = RelayProp & {
       refetch: (
         refetchVariables: Common.Variables | ((fragmentVariables: Common.Variables) => Common.Variables),
-        renderVariables: Common.Variables | void,
+        renderVariables?: Common.Variables,
         callback?: (error: Error | void) => void,
         options?: RefetchOptions,
       ) => Common.Disposable,
