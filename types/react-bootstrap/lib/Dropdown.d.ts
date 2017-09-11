@@ -24,5 +24,6 @@ declare namespace Dropdown {
     open?: boolean;
     pullRight?: boolean;
     role?: string;
+    title?: any; // TODO: Add more specific type; Mark as non-optional
   }
 }

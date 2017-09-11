@@ -12,11 +12,13 @@ declare class Tab extends React.Component<TabProps> {
 declare namespace Tab { }
 export = Tab
 
-interface TabProps extends TransitionCallbacks, React.HTMLProps<Tab> {
+interface TabBaseProps extends TransitionCallbacks {
   animation?: boolean;
   'aria-labelledby'?: string;
   bsClass?: string;
   eventKey?: any; // TODO: Add more specific type
   unmountOnExit?: boolean;
   tabClassName?: string;
+  title?: any; // TODO: Add more specific type; Mark as non-optional
 }
+type TabProps = TabBaseProps & React.HTMLProps<Tab>;
