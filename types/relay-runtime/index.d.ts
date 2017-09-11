@@ -6,7 +6,6 @@
 
 declare namespace __Relay {
     namespace Common {
-
         /**
          * SOURCE:
          * Relay 1.3.0
@@ -37,7 +36,7 @@ declare namespace __Relay {
          * lot of errors in Relay code since methods like getFragment() are used often
          * but have no definition in Relay's types. Suppressing for now.
          */
-        export type RelayContainer = any;
+        type RelayContainer = any;
 
         // ~~~~~~~~~~~~~~~~~~~~~
         // RelayQL
@@ -64,12 +63,12 @@ declare namespace __Relay {
         // ~~~~~~~~~~~~~~~~~~~~~
         // General Usage
         // ~~~~~~~~~~~~~~~~~~~~~
-        export type DataID = string;
-        export interface Variables {
+        type DataID = string;
+        interface Variables {
             [name: string]: any;
         }
-        export type Uploadable = File | Blob;
-        export interface UploadableMap {
+        type Uploadable = File | Blob;
+        interface UploadableMap {
             [key: string]: Uploadable;
         }
 
@@ -79,12 +78,12 @@ declare namespace __Relay {
         // File: https://github.com/facebook/relay/blob/master/packages/relay-runtime/network/RelayNetworkTypes.js
         // ~~~~~~~~~~~~~~~~~~~~~
 
-        export interface LegacyObserver<T> {
-            onCompleted?: (() => void) | void;
-            onError?: ((error: Error) => void) | void;
-            onNext?: ((data: T) => void) | void;
+        interface LegacyObserver<T> {
+            onCompleted?(): void;
+            onError?(error: Error): void;
+            onNext?(data: T): void;
         }
-        export interface PayloadError {
+        interface PayloadError {
             message: string;
             locations?: Array<{
                 line: number,
@@ -96,7 +95,7 @@ declare namespace __Relay {
          *
          * May return an Observable or Promise of a raw server response.
          */
-        export function FetchFunction(
+        function FetchFunction(
             operation: ConcreteBatch,
             variables: Variables,
             cacheConfig: CacheConfig,
@@ -110,7 +109,7 @@ declare namespace __Relay {
          * May return an Observable, otherwise must call the callbacks found in the
          * fourth parameter.
          */
-        export type SubscribeFunction = (
+        type SubscribeFunction = (
             operation: ConcreteBatch,
             variables: Variables,
             cacheConfig: CacheConfig,
@@ -126,14 +125,14 @@ declare namespace __Relay {
          * A function that receives a proxy over the store and may trigger side-effects
          * (indirectly) by calling `set*` methods on the store or its record proxies.
          */
-        export type StoreUpdater = (store: RecordSourceProxy) => void;
+        type StoreUpdater = (store: RecordSourceProxy) => void;
 
         /**
          * Similar to StoreUpdater, but accepts a proxy tied to a specific selector in
          * order to easily access the root fields of a query/mutation as well as a
          * second argument of the response object of the mutation.
          */
-        export type SelectorStoreUpdater = (
+        type SelectorStoreUpdater = (
             store: RecordSourceSelectorProxy,
             // Actually RelayCombinedEnvironmentTypes#SelectorData, but mixed is
             // inconvenient to access deeply in product code.
@@ -144,7 +143,7 @@ declare namespace __Relay {
          * Extends the RecordSourceProxy interface with methods for accessing the root
          * fields of a Selector.
          */
-        export interface RecordSourceSelectorProxy {
+        interface RecordSourceSelectorProxy {
             create(dataID: DataID, typeName: string): RecordProxy;
             delete(dataID: DataID): void;
             get(dataID: DataID): RecordProxy | void;
@@ -153,7 +152,7 @@ declare namespace __Relay {
             getPluralRootField(fieldName: string): RecordProxy[] | void;
         }
 
-        export interface RecordProxy {
+        interface RecordProxy {
             copyFieldsFrom(source: RecordProxy): void;
             getDataID(): DataID;
             getLinkedRecord(name: string, args?: Variables | void): RecordProxy | void;
@@ -178,14 +177,14 @@ declare namespace __Relay {
             setValue(value: any, name: string, args?: Variables | void): RecordProxy;
         }
 
-        export interface RecordSourceProxy {
+        interface RecordSourceProxy {
             create(dataID: DataID, typeName: string): RecordProxy;
             delete(dataID: DataID): void;
             get(dataID: DataID): Array<RecordProxy | void> | void;
             getRoot(): RecordProxy;
         }
 
-        export interface HandleFieldPayload {
+        interface HandleFieldPayload {
             // The arguments that were fetched.
             args: Variables;
             // The __id of the record containing the source/handle field.
@@ -202,7 +201,7 @@ declare namespace __Relay {
             update(store: RecordSourceProxy, fieldPayload: HandleFieldPayload): void;
             [functionName: string]: (...args: any[]) => any;
         }
-        export const Handler: HandlerInterface;
+        const Handler: HandlerInterface;
 
         // ~~~~~~~~~~~~~~~~~~~~~
         // RelayCombinedEnvironmentTypes
@@ -217,7 +216,7 @@ declare namespace __Relay {
          * - `poll`: causes a query to live update by polling at the specified interval
          *   in milliseconds. (This value will be passed to setTimeout.)
          */
-        export interface CacheConfig {
+        interface CacheConfig {
             force?: boolean | void;
             poll?: number | void;
         }
@@ -227,30 +226,30 @@ declare namespace __Relay {
          * use-case is as a return value for subscriptions, where calling `dispose()`
          * would cancel the subscription.
          */
-        export interface Disposable {
+        interface Disposable {
             dispose(): void;
         }
 
         /**
          * Arbitrary data e.g. received by a container as props.
          */
-        export interface Props { [key: string]: any; }
+        interface Props { [key: string]: any; }
 
         /*
          * An individual cached graph object.
          */
-        export interface Record { [key: string]: any; }
+        interface Record { [key: string]: any; }
 
         /**
          * A collection of records keyed by id.
          */
-        export interface RecordMap { [dataID: string]: Record | void; }
+        interface RecordMap { [dataID: string]: Record | void; }
 
         /**
          * A selector defines the starting point for a traversal into the graph for the
          * purposes of targeting a subgraph.
          */
-        export interface CSelector<TNode> {
+        interface CSelector<TNode> {
             dataID: DataID;
             node: TNode;
             variables: Variables;
@@ -259,7 +258,7 @@ declare namespace __Relay {
         /**
          * A representation of a selector and its results at a particular point in time.
          */
-        export type CSnapshot<TNode> = CSelector<TNode> & {
+        type CSnapshot<TNode> = CSelector<TNode> & {
             data: SelectorData | void,
             seenRecords: RecordMap,
         };
@@ -267,13 +266,13 @@ declare namespace __Relay {
         /**
          * The results of a selector given a store/RecordSource.
          */
-        export interface SelectorData { [key: string]: any; }
+        interface SelectorData { [key: string]: any; }
 
         /**
          * The results of reading the results of a FragmentMap given some input
          * `Props`.
          */
-        export interface FragmentSpecResults { [key: string]: any; }
+        interface FragmentSpecResults { [key: string]: any; }
 
         /**
          * A utility for resolving and subscribing to the results of a fragment spec
@@ -286,7 +285,7 @@ declare namespace __Relay {
          * - Creates resolvers for any props that became non-null.
          * - Updates resolvers with the latest props.
          */
-        export interface FragmentSpecResolver {
+        interface FragmentSpecResolver {
             /**
              * Stop watching for changes to the results of the fragments.
              */
@@ -310,7 +309,7 @@ declare namespace __Relay {
             setVariables(variables: Variables): void;
         }
 
-        export interface CFragmentMap<TFragment> { [key: string]: TFragment; }
+        interface CFragmentMap<TFragment> { [key: string]: TFragment; }
 
         /**
          * An operation selector describes a specific instance of a GraphQL operation
@@ -321,7 +320,7 @@ declare namespace __Relay {
          * - `fragment`: a selector intended for use in reading or subscribing to
          *   the results of the the operation.
          */
-        export interface COperationSelector<TNode, TOperation> {
+        interface COperationSelector<TNode, TOperation> {
             fragment: CSelector<TNode>;
             node: TOperation;
             root: CSelector<TNode>;
@@ -332,7 +331,7 @@ declare namespace __Relay {
          * The public API of Relay core. Represents an encapsulated environment with its
          * own in-memory cache.
          */
-        export interface CEnvironment<
+        interface CEnvironment<
             TEnvironment,
             TFragment,
             TGraphQLTaggedNode,
@@ -408,7 +407,7 @@ declare namespace __Relay {
             >;
         }
 
-        export interface CUnstableEnvironmentCore<
+        interface CUnstableEnvironmentCore<
             TEnvironment,
             TFragment,
             TGraphQLTaggedNode,
@@ -551,7 +550,7 @@ declare namespace __Relay {
          * The type of the `relay` property set on React context by the React/Relay
          * integration layer (e.g. QueryRenderer, FragmentContainer, etc).
          */
-        export interface CRelayContext<TEnvironment> {
+        interface CRelayContext<TEnvironment> {
             environment: TEnvironment;
             variables: Variables;
         }
@@ -564,7 +563,7 @@ declare namespace __Relay {
          * https://github.com/facebook/relay/blob/fa9f48ea209ee2402d433b59a84d1cbc046574e2/packages/react-relay/classic/tools/RelayTypes.js
          */
         // ~~~~~~~~~~~~~~~~~~~~~
-        export interface RerunParam {
+        interface RerunParam {
             param: string;
             import: string;
             max_runs: number;
@@ -609,35 +608,35 @@ declare namespace __Relay {
             type: 'REQUIRED_CHILDREN';
             children: RelayConcreteNode[];
         }
-        export type RelayMutationConfig =
+        type RelayMutationConfig =
             FIELDS_CHANGE |
             RANGE_ADD |
             NODE_DELETE |
             RANGE_DELETE |
             REQUIRED_CHILDREN;
 
-        export interface RelayMutationTransactionCommitCallbacks {
+        interface RelayMutationTransactionCommitCallbacks {
             onFailure?: RelayMutationTransactionCommitFailureCallback;
             onSuccess?: RelayMutationTransactionCommitSuccessCallback;
         }
-        export type RelayMutationTransactionCommitFailureCallback = (
+        type RelayMutationTransactionCommitFailureCallback = (
             transaction: RelayMutationTransaction,
             preventAutoRollback: () => void,
         ) => void;
-        export type RelayMutationTransactionCommitSuccessCallback = (response: {
+        type RelayMutationTransactionCommitSuccessCallback = (response: {
             [key: string]: any,
         }) => void;
-        export interface NetworkLayer {
+        interface NetworkLayer {
             sendMutation(request: RelayMutationRequest): Promise<any> | void;
             sendQueries(requests: RelayQueryRequest[]): Promise<any> | void;
             supports(...options: string[]): boolean;
         }
-        export interface QueryResult {
+        interface QueryResult {
             error?: Error | void;
             ref_params?: { [name: string]: any } | void;
             response: QueryPayload;
         }
-        export interface ReadyState {
+        interface ReadyState {
             aborted: boolean;
             done: boolean;
             error: Error | void;
@@ -657,12 +656,12 @@ declare namespace __Relay {
             | 'NETWORK_QUERY_START'
             | 'STORE_FOUND_ALL'
             | 'STORE_FOUND_REQUIRED';
-        export type ReadyStateChangeCallback = (readyState: ReadyState) => void;
-        export interface ReadyStateEvent {
+        type ReadyStateChangeCallback = (readyState: ReadyState) => void;
+        interface ReadyStateEvent {
             type: RelayContainerLoadingEventType | RelayContainerErrorEventType;
             error?: Error;
         }
-        export interface Abortable {
+        interface Abortable {
             abort(): void;
         }
 
@@ -674,15 +673,15 @@ declare namespace __Relay {
          * https://github.com/facebook/relay/blob/master/packages/react-relay/classic/tools/RelayInternalTypes.js
          */
         // ~~~~~~~~~~~~~~~~~~~~~
-        export interface QueryPayload { [key: string]: any; }
-        export interface RelayQuerySet { [queryName: string]: any; }
+        interface QueryPayload { [key: string]: any; }
+        interface RelayQuerySet { [queryName: string]: any; }
         type RangeBehaviorsFunction = (connectionArgs: {
             [argName: string]: any,
         }) => 'APPEND' | 'IGNORE' | 'PREPEND' | 'REFETCH' | 'REMOVE';
         interface RangeBehaviorsObject {
             [key: string]: 'APPEND' | 'IGNORE' | 'PREPEND' | 'REFETCH' | 'REMOVE';
         }
-        export type RangeBehaviors = RangeBehaviorsFunction | RangeBehaviorsObject;
+        type RangeBehaviors = RangeBehaviorsFunction | RangeBehaviorsObject;
     }
 
     namespace Runtime {
@@ -715,7 +714,7 @@ declare namespace __Relay {
         // ~~~~~~~~~~~~~~~~~~~~~
         // RelayDefaultHandlerProvider
         // ~~~~~~~~~~~~~~~~~~~~~
-        export function HandlerProvider(name: string): typeof Common.Handler | void;
+        function HandlerProvider(name: string): typeof Common.Handler | void;
 
         // ~~~~~~~~~~~~~~~~~~~~~
         // RelayModernEnvironment
@@ -1107,7 +1106,7 @@ declare namespace __Relay {
         // requestRelaySubscription
         // ~~~~~~~~~~~~~~~~~~~~~
         // exposed through RelayModern, not Runtime directly
-        export interface GraphQLSubscriptionConfig {
+        interface GraphQLSubscriptionConfig {
             configs?: Common.RelayMutationConfig[];
             subscription: Common.GraphQLTaggedNode;
             variables: Common.Variables;
@@ -1116,7 +1115,7 @@ declare namespace __Relay {
             onNext?(response: object | void): void;
             updater?(store: Common.RecordSourceSelectorProxy): void;
         }
-        export function requestRelaySubscription(
+        function requestRelaySubscription(
             environment: Environment,
             config: GraphQLSubscriptionConfig,
         ): Common.Disposable;
