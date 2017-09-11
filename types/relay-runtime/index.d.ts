@@ -4,6 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
+// note: __Relay namespace is used so react-relay can access and inter-op
 declare namespace __Relay {
     namespace Common {
         /**
@@ -1061,9 +1062,9 @@ declare namespace __Relay {
             optimisticResponse?: object;
             updater?: Common.SelectorStoreUpdater | void;
         }
-        function commitRelayModernMutation<T>(
+        function commitRelayModernMutation(
             environment: Environment,
-            config: MutationConfig<T>,
+            config: MutationConfig<any>,
         ): Common.Disposable;
 
         // ~~~~~~~~~~~~~~~~~~~~~
@@ -1122,14 +1123,12 @@ declare namespace __Relay {
     }
 }
 
-declare module 'relay-runtime' {
-    export import Environment = __Relay.Runtime.Environment;
-    export import Network = __Relay.Runtime.Network;
-    export import RecordSource = __Relay.Runtime.RecordSource;
-    export import Store = __Relay.Runtime.Store;
-    export import Observable = __Relay.Runtime.RelayObservable;
-    // note RecordSourceInspector is only available in dev environment
-    export import RecordSourceInspector = __Relay.Runtime.RelayRecordSourceInspector;
-    export import ConnectionHandler = __Relay.Common.Handler;
-    export import ViewerHandler = __Relay.Common.Handler;
-}
+export import Environment = __Relay.Runtime.Environment;
+export import Network = __Relay.Runtime.Network;
+export import RecordSource = __Relay.Runtime.RecordSource;
+export import Store = __Relay.Runtime.Store;
+export import Observable = __Relay.Runtime.RelayObservable;
+// note RecordSourceInspector is only available in dev environment
+export import RecordSourceInspector = __Relay.Runtime.RelayRecordSourceInspector;
+export import ConnectionHandler = __Relay.Common.Handler;
+export import ViewerHandler = __Relay.Common.Handler;
