@@ -1123,12 +1123,14 @@ declare namespace __Relay {
     }
 }
 
-export import Environment = __Relay.Runtime.Environment;
-export import Network = __Relay.Runtime.Network;
-export import RecordSource = __Relay.Runtime.RecordSource;
-export import Store = __Relay.Runtime.Store;
-export import Observable = __Relay.Runtime.RelayObservable;
-// note RecordSourceInspector is only available in dev environment
-export import RecordSourceInspector = __Relay.Runtime.RelayRecordSourceInspector;
-export import ConnectionHandler = __Relay.Common.Handler;
-export import ViewerHandler = __Relay.Common.Handler;
+declare module 'relay-runtime' {
+    export import Environment = __Relay.Runtime.Environment;
+    export import Network = __Relay.Runtime.Network;
+    export import RecordSource = __Relay.Runtime.RecordSource;
+    export import Store = __Relay.Runtime.Store;
+    export import Observable = __Relay.Runtime.RelayObservable;
+    // note RecordSourceInspector is only available in dev environment
+    export import RecordSourceInspector = __Relay.Runtime.RelayRecordSourceInspector;
+    export import ConnectionHandler = __Relay.Common.Handler;
+    export import ViewerHandler = __Relay.Common.Handler;
+}
