@@ -7,9 +7,6 @@ import {
     ConnectionHandler,
 } from 'relay-runtime';
 
-
-
-
 ////////////////////////////
 //  RELAY MODERN TESTS
 ///////////////////////////
@@ -25,15 +22,16 @@ import {
     RelayRefetchProp
 } from "react-relay";
 
-
 // ~~~~~~~~~~~~~~~~~~~~~
 // Modern Environment
 // ~~~~~~~~~~~~~~~~~~~~~
-const network = {} as __Relay.Runtime.RelayNetwork;
+function fetchQuery(operation: any, variables: any, cacheConfig: {}) {
+    return fetch('/graphql');
+}
+const network = Network.create(fetchQuery);
 const source = new RecordSource();
 const store = new Store(source);
 const modernEnvironment = new Environment({ network, store });
-
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // Modern QueryRenderer
@@ -81,19 +79,18 @@ const MyFragmentContainer = createFragmentContainer(
     }
 );
 
-
 // ~~~~~~~~~~~~~~~~~~~~~
 // Modern RefetchContainer
 // ~~~~~~~~~~~~~~~~~~~~~
-interface IStory { id: string }
-interface IFeedStoriesProps {
+interface StoryInterface { id: string; }
+interface FeedStoriesProps {
     relay: RelayRefetchProp;
     feed: {
-        stories: { edges: { node: IStory }[] }
-    }
+        stories: { edges: Array<{ node: StoryInterface }> }
+    };
 }
-class Story extends React.Component<{ story: IStory }, {}> {}
-class FeedStories extends React.Component<IFeedStoriesProps, {}> {
+class Story extends React.Component<{ story: StoryInterface }, {}> {}
+class FeedStories extends React.Component<FeedStoriesProps, {}> {
     render() {
       return (
         <div>
@@ -145,16 +142,14 @@ const FeedRefetchContainer = createRefetchContainer(
     `,
   );
 
-
-
 // ~~~~~~~~~~~~~~~~~~~~~
 // Modern PaginationContainer
 // ~~~~~~~~~~~~~~~~~~~~~
-interface IFeedProps {
-    user: { feed: { edges: { node: IStory}[]}}
+interface FeedProps {
+    user: { feed: { edges: Array<{ node: StoryInterface}>}};
     relay: RelayPaginationProp;
 }
-class Feed extends React.Component<IFeedProps, {}> {
+class Feed extends React.Component<FeedProps, {}> {
     render() {
         return (<div>
             {this.props.user.feed.edges.map(
@@ -236,7 +231,6 @@ const FeedPaginationContainer = createPaginationContainer(
     }
 );
 
-
 // ~~~~~~~~~~~~~~~~~~~~~
 // Modern Mutations
 // ~~~~~~~~~~~~~~~~~~~~~
@@ -298,13 +292,12 @@ function markNotificationAsRead(source: string, storyID: string) {
             optimisticResponse,
             variables,
             onCompleted: (response, errors) => {
-                console.log('Response received from server.')
+                console.log('Response received from server.');
             },
             onError: err => console.error(err),
         },
     );
 }
-
 
 // ~~~~~~~~~~~~~~~~~~~~~
 // Modern Subscriptions
@@ -351,9 +344,6 @@ requestSubscription(
     }
 );
 
-
-
-
 ////////////////////////////
 //  RELAY-CLASSIC TESTS
 ///////////////////////////
@@ -361,29 +351,25 @@ requestSubscription(
 import * as Relay from "react-relay/classic";
 
 interface Props {
-    text: string
-    userId: string
+    text: string;
+    userId: string;
 }
 
-interface Response {
-}
-
-export default class AddTweetMutation extends Relay.Mutation<Props, Response> {
-
-    getMutation () {
-        return Relay.QL`mutation{addTweet}`
+export default class AddTweetMutation extends Relay.Mutation<Props, {}> {
+    getMutation() {
+        return Relay.QL`mutation{addTweet}`;
     }
 
-    getFatQuery () {
+    getFatQuery() {
         return Relay.QL`
             fragment on AddTweetPayload {
                 tweetEdge
                 user
             }
-        `
+        `;
     }
 
-    getConfigs () {
+    getConfigs() {
         return [{
             type: "RANGE_ADD",
             parentName: "user",
@@ -393,19 +379,19 @@ export default class AddTweetMutation extends Relay.Mutation<Props, Response> {
             rangeBehaviors: {
                 "": "append",
             },
-        }]
+        }];
     }
 
-    getVariables () {
-        return this.props
+    getVariables() {
+        return this.props;
     }
 }
 
 interface ArtworkProps {
     artwork: {
         title: string
-    },
-    relay: Relay.RelayProp,
+    };
+    relay: Relay.RelayProp;
 }
 
 class Artwork extends React.Component<ArtworkProps> {
@@ -414,7 +400,7 @@ class Artwork extends React.Component<ArtworkProps> {
             <a href={`/artworks/${this.props.relay.variables.artworkID}`}>
                 {this.props.artwork.title}
             </a>
-        )
+        );
     }
 }
 
@@ -426,7 +412,7 @@ const ArtworkContainer = Relay.createContainer(Artwork, {
             }
         `
     }
-})
+});
 
 class StubbedArtwork extends React.Component {
     render() {
@@ -445,7 +431,7 @@ class StubbedArtwork extends React.Component {
                 getPendingTransactions: (): any => undefined,
                 commitUpdate: () => {},
             }
-        }
-        return <ArtworkContainer {...props} />
+        };
+        return <ArtworkContainer {...props} />;
     }
 }
