@@ -37,7 +37,7 @@ interface AdvancedComponentDecorator<TProps, TOwnProps> {
 export interface InferableComponentEnhancerWithProps<TInjectedProps, TNeedsProps> {
     <P extends TInjectedProps>(
         component: Component<P>
-    ): ComponentClass<Omit<P, keyof TInjectedProps> & TNeedsProps>
+    ): ComponentClass<Omit<P, keyof TInjectedProps> & TNeedsProps> & {WrappedComponent: Component<P>}
 }
 
 // Injects props and removes them from the prop requirements.
