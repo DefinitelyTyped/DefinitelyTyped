@@ -1,280 +1,273 @@
-// Type definitions for react-relay 1.3.0
+// Type definitions for react-relay 1.3
 // Project: https://github.com/facebook/relay
 // Definitions by: Johannes Schickling <https://github.com/graphcool>, Matt Martin <https://github.com/voxmatt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-/// <reference types="react" />
 /// <reference types="relay-runtime" />
 
-////////////////////////////
-//  RELAY MODERN TYPES
-///////////////////////////
+declare namespace __Relay {
 
-declare namespace __Relay.Modern {
-    // ~~~~~~~~~~~~~~~~~~~~~
-    // Maybe Fix
-    // ~~~~~~~~~~~~~~~~~~~~~
-    type ConcreteFragment = any;
-    type ConcreteBatch = any;
-    type ConcreteFragmentDefinition = object;
-    type ConcreteOperationDefinition = object;
-    type ReactBaseComponent<T> = React.ComponentClass<T> | React.StatelessComponent<T>;
+    ////////////////////////////
+    //  RELAY MODERN TYPES
+    ///////////////////////////
+    namespace Modern {
+        // ~~~~~~~~~~~~~~~~~~~~~
+        // Maybe Fix
+        // ~~~~~~~~~~~~~~~~~~~~~
+        type ConcreteFragment = any;
+        type ConcreteBatch = any;
+        type ConcreteFragmentDefinition = object;
+        type ConcreteOperationDefinition = object;
+        type ReactBaseComponent<T> = React.ComponentClass<T> | React.StatelessComponent<T>;
 
-    // ~~~~~~~~~~~~~~~~~~~~~
-    // RelayProp
-    // ~~~~~~~~~~~~~~~~~~~~~
-    // note: refetch and pagination containers augment this
-    export type RelayProp = {
-        environment: Runtime.Environment,
-    };
+        // ~~~~~~~~~~~~~~~~~~~~~
+        // RelayProp
+        // ~~~~~~~~~~~~~~~~~~~~~
+        // note: refetch and pagination containers augment this
+        export interface RelayProp {
+            environment: Runtime.Environment;
+        }
 
-    // ~~~~~~~~~~~~~~~~~~~~~
-    // RelayQL
-    // ~~~~~~~~~~~~~~~~~~~~~
-    export function RelayQL(
-      strings: Array<string>,
-      ...substitutions: Array<any>
-    ): Common.RelayConcreteNode;
+        // ~~~~~~~~~~~~~~~~~~~~~
+        // RelayQL
+        // ~~~~~~~~~~~~~~~~~~~~~
+        export function RelayQL(
+            strings: string[],
+            ...substitutions: any[]
+        ): Common.RelayConcreteNode;
 
-    // ~~~~~~~~~~~~~~~~~~~~~
-    // RelayModernGraphQLTag
-    // ~~~~~~~~~~~~~~~~~~~~~
-    type GeneratedNodeMap = {[key: string]: GraphQLTaggedNode};
-    type GraphQLTaggedNode =
-    | (() => ConcreteFragment | ConcreteBatch)
-    | {
-        modern: () => ConcreteFragment | ConcreteBatch,
-        classic: (relayQL: typeof RelayQL) =>
-          | ConcreteFragmentDefinition
-          | ConcreteOperationDefinition,
-      };
-    /**
-     * Runtime function to correspond to the `graphql` tagged template function.
-     * All calls to this function should be transformed by the plugin.
-    */
-    interface IGraphql {
-        (strings: Array<string> | TemplateStringsArray): GraphQLTaggedNode;
-        experimental: (strings: Array<string> | TemplateStringsArray) => GraphQLTaggedNode;
-    }
-    export const graphql: IGraphql;
+        // ~~~~~~~~~~~~~~~~~~~~~
+        // RelayModernGraphQLTag
+        // ~~~~~~~~~~~~~~~~~~~~~
+        interface GeneratedNodeMap { [key: string]: GraphQLTaggedNode; }
+        type GraphQLTaggedNode =
+            (() => ConcreteFragment | ConcreteBatch)
+            | {
+                modern(): ConcreteFragment | ConcreteBatch,
+                classic(relayQL: typeof RelayQL):
+                    | ConcreteFragmentDefinition
+                    | ConcreteOperationDefinition,
+            };
+        /**
+         * Runtime function to correspond to the `graphql` tagged template function.
+         * All calls to this function should be transformed by the plugin.
+         */
+        interface GraphqlInterface {
+            (strings: string[] | TemplateStringsArray): GraphQLTaggedNode;
+            experimental(strings: string[] | TemplateStringsArray): GraphQLTaggedNode;
+        }
+        export const graphql: GraphqlInterface;
 
-    // ~~~~~~~~~~~~~~~~~~~~~
-    // ReactRelayQueryRenderer
-    // ~~~~~~~~~~~~~~~~~~~~~
-    type QueryRendererProps = {
-      cacheConfig?: __Relay.Common.CacheConfig | void,
-      environment: __Relay.Runtime.Environment,
-      query: GraphQLTaggedNode,
-      render: (readyState: ReadyState) => React.ReactElement<any> | void,
-      variables: Common.Variables,
-      rerunParamExperimental?: Common.RerunParam,
-    };
-    export type ReadyState = {
-      error: Error | void,
-      props: { [propName: string]: any } | void,
-      retry: (() => void) | void,
-    };
-    type QueryRendererState = {
-      readyState: ReadyState,
-    };
-    class ReactRelayQueryRenderer extends React.Component<QueryRendererProps, QueryRendererState> {}
+        // ~~~~~~~~~~~~~~~~~~~~~
+        // ReactRelayQueryRenderer
+        // ~~~~~~~~~~~~~~~~~~~~~
+        interface QueryRendererProps {
+            cacheConfig?: Common.CacheConfig | void;
+            environment: Runtime.Environment;
+            query: GraphQLTaggedNode;
+            render(readyState: ReadyState): React.ReactElement<any> | void;
+            variables: Common.Variables;
+            rerunParamExperimental?: Common.RerunParam;
+        }
+        export interface ReadyState {
+            error: Error | void;
+            props: { [propName: string]: any } | void;
+            retry: (() => void) | void;
+        }
+        interface QueryRendererState {
+            readyState: ReadyState;
+        }
+        class ReactRelayQueryRenderer extends React.Component<QueryRendererProps, QueryRendererState> { }
 
-    // ~~~~~~~~~~~~~~~~~~~~~
-    // createFragmentContainer
-    // ~~~~~~~~~~~~~~~~~~~~~
-    export function createFragmentContainer<T>(
-      Component: ReactBaseComponent<T>,
-      fragmentSpec: GraphQLTaggedNode | GeneratedNodeMap,
-    ): ReactBaseComponent<T>;
+        // ~~~~~~~~~~~~~~~~~~~~~
+        // createFragmentContainer
+        // ~~~~~~~~~~~~~~~~~~~~~
+        export function createFragmentContainer<T>(
+            Component: ReactBaseComponent<T>,
+            fragmentSpec: GraphQLTaggedNode | GeneratedNodeMap,
+        ): ReactBaseComponent<T>;
 
-    // ~~~~~~~~~~~~~~~~~~~~~
-    // createPaginationContainer
-    // ~~~~~~~~~~~~~~~~~~~~~
-    type PageInfo = {
-      endCursor: string | void,
-      hasNextPage: boolean,
-      hasPreviousPage: boolean,
-      startCursor: string | void,
-    };
-    type ConnectionData = {
-      edges?: any[],
-      pageInfo?: PageInfo | void,
-    };
-    export type RelayPaginationProp = RelayProp & {
-        hasMore: () => boolean,
-        isLoading: () => boolean,
-        loadMore: (
-            pageSize: number,
-            callback: (error?: Error) => void,
-            options?: RefetchOptions,
-        ) => Common.Disposable | void,
-        refetchConnection: (
+        // ~~~~~~~~~~~~~~~~~~~~~
+        // createPaginationContainer
+        // ~~~~~~~~~~~~~~~~~~~~~
+        interface PageInfo {
+            endCursor: string | void;
+            hasNextPage: boolean;
+            hasPreviousPage: boolean;
+            startCursor: string | void;
+        }
+        interface ConnectionData {
+            edges?: any[];
+            pageInfo?: PageInfo | void;
+        }
+        export type RelayPaginationProp = RelayProp & {
+            hasMore(): boolean,
+            isLoading(): boolean,
+            loadMore(
+                pageSize: number,
+                callback: (error?: Error) => void,
+                options?: RefetchOptions,
+            ): Common.Disposable | void,
+            refetchConnection(
+                totalCount: number,
+                callback: (error?: Error | void) => void,
+                refetchVariables?: Common.Variables | void,
+            ): Common.Disposable | void,
+        };
+        export function FragmentVariablesGetter(
+            prevVars: Common.Variables,
             totalCount: number,
-            callback: (error?: Error | void) => void,
-            refetchVariables?: Common.Variables | void,
-        ) => Common.Disposable | void,
-    };
-    export function FragmentVariablesGetter(
-      prevVars: Common.Variables,
-      totalCount: number,
-    ): Common.Variables;
-    type ConnectionConfig = {
-      direction?: 'backward' | 'forward',
-      getConnectionFromProps?: (props: object) => ConnectionData | void,
-      getFragmentVariables?: typeof FragmentVariablesGetter,
-      getVariables: (
-        props: {[propName: string]: any },
-        paginationInfo: {count: number, cursor: string | void},
-        fragmentVariables: Common.Variables,
-      ) => Common.Variables,
-      query: GraphQLTaggedNode,
-    };
-    export function createPaginationContainer<T>(
-      Component: ReactBaseComponent<T>,
-      fragmentSpec: GraphQLTaggedNode | GeneratedNodeMap,
-      connectionConfig: ConnectionConfig,
-    ): ReactBaseComponent<T>;
+        ): Common.Variables;
+        interface ConnectionConfig {
+            direction?: 'backward' | 'forward';
+            getConnectionFromProps?(props: object): ConnectionData | void;
+            getFragmentVariables?: typeof FragmentVariablesGetter;
+            getVariables(
+                props: { [propName: string]: any },
+                paginationInfo: { count: number, cursor: string | void },
+                fragmentVariables: Common.Variables,
+            ): Common.Variables;
+            query: GraphQLTaggedNode;
+        }
+        export function createPaginationContainer<T>(
+            Component: ReactBaseComponent<T>,
+            fragmentSpec: GraphQLTaggedNode | GeneratedNodeMap,
+            connectionConfig: ConnectionConfig,
+        ): ReactBaseComponent<T>;
 
-    // ~~~~~~~~~~~~~~~~~~~~~
-    // createFragmentContainer
-    // ~~~~~~~~~~~~~~~~~~~~~
-    export type RefetchOptions = {
-      force?: boolean,
-      rerunParamExperimental?: Common.RerunParam,
-    };
-    export type RelayRefetchProp = RelayProp & {
-      refetch: (
-        refetchVariables: Common.Variables | ((fragmentVariables: Common.Variables) => Common.Variables),
-        renderVariables?: Common.Variables,
-        callback?: (error: Error | void) => void,
-        options?: RefetchOptions,
-      ) => Common.Disposable,
-    };
-    export function createRefetchContainer<T>(
-      Component: ReactBaseComponent<T>,
-      fragmentSpec: GraphQLTaggedNode | GeneratedNodeMap,
-      taggedNode: GraphQLTaggedNode,
-    ): ReactBaseComponent<T>;
+        // ~~~~~~~~~~~~~~~~~~~~~
+        // createFragmentContainer
+        // ~~~~~~~~~~~~~~~~~~~~~
+        export interface RefetchOptions {
+            force?: boolean;
+            rerunParamExperimental?: Common.RerunParam;
+        }
+        export type RelayRefetchProp = RelayProp & {
+            refetch(
+                refetchVariables: Common.Variables | ((fragmentVariables: Common.Variables) => Common.Variables),
+                renderVariables?: Common.Variables,
+                callback?: (error: Error | void) => void,
+                options?: RefetchOptions,
+            ): Common.Disposable,
+        };
+        export function createRefetchContainer<T>(
+            Component: ReactBaseComponent<T>,
+            fragmentSpec: GraphQLTaggedNode | GeneratedNodeMap,
+            taggedNode: GraphQLTaggedNode,
+        ): ReactBaseComponent<T>;
+    }
 
+    ////////////////////////////
+    //  RELAY CLASSIC TYPES
+    ///////////////////////////
+    // note: the namespace here is really for use inside of
+    // relay-compat; the module declaration below
+    // uses the old, pre-existing types
+    namespace Classic {
+        // ~~~~~~~~~~~~~~~~~~~~~
+        // Maybe Fix
+        // ~~~~~~~~~~~~~~~~~~~~~
+        type StoreReaderData = any;
+        type StoreReaderOptions = any;
+        type RelayStoreData = any;
+        interface RelayQuery { Fragment: any; Node: any; Root: any; }
 
+        // ~~~~~~~~~~~~~~~~~~~~~
+        // Environment
+        // ~~~~~~~~~~~~~~~~~~~~~
+        interface FragmentResolver {
+            dispose(): void;
+            resolve(
+                fragment: RelayQuery["Fragment"],
+                dataIDs: Common.DataID | Common.DataID[],
+            ): (StoreReaderData | StoreReaderData[]) | void;
+        }
+        interface RelayEnvironmentInterface {
+            forceFetch(
+                querySet: Common.RelayQuerySet,
+                onReadyStateChange: Common.ReadyStateChangeCallback,
+            ): Common.Abortable;
+            getFragmentResolver(
+                fragment: RelayQuery["Fragment"],
+                onNext: () => void,
+            ): FragmentResolver;
+            getStoreData(): RelayStoreData;
+            primeCache(
+                querySet: Common.RelayQuerySet,
+                onReadyStateChange: Common.ReadyStateChangeCallback,
+            ): Common.Abortable;
+            read(
+                node: RelayQuery["Node"],
+                dataID: Common.DataID,
+                options?: StoreReaderOptions,
+            ): StoreReaderData | void;
+            readQuery(
+                root: RelayQuery["Root"],
+                options?: StoreReaderOptions,
+            ): StoreReaderData[] | void;
+        }
+    }
 
+    ////////////////////////////
+    //  RELAY COMPAT TYPES
+    ///////////////////////////
+    namespace Compat {
+        // ~~~~~~~~~~~~~~~~~~~~~
+        // Maybe Fix
+        // ~~~~~~~~~~~~~~~~~~~~~
+        type ConcreteFragment = any;
+        type ConcreteBatch = any;
+        type ConcreteFragmentDefinition = object;
+        type ConcreteOperationDefinition = object;
+
+        // ~~~~~~~~~~~~~~~~~~~~~
+        // Util
+        // ~~~~~~~~~~~~~~~~~~~~~
+        export function getFragment(q: string, v?: Common.Variables): string;
+        interface ComponentWithFragment<T> extends React.ComponentClass<T> {
+            getFragment: typeof getFragment;
+        }
+        interface StatelessWithFragment<T> extends React.StatelessComponent<T> {
+            getFragment: typeof getFragment;
+        }
+        type ReactFragmentComponent<T> = ComponentWithFragment<T> | StatelessWithFragment<T>;
+        type ReactBaseComponent<T> = React.ComponentClass<T> | React.StatelessComponent<T>;
+        export type RelayClassicEnvironment = Classic.RelayEnvironmentInterface;
+
+        // ~~~~~~~~~~~~~~~~~~~~~
+        // RelayCompatTypes
+        // ~~~~~~~~~~~~~~~~~~~~~
+        export type CompatEnvironment = Runtime.Environment | RelayClassicEnvironment;
+
+        // ~~~~~~~~~~~~~~~~~~~~~
+        // RelayCompatMutations
+        // ~~~~~~~~~~~~~~~~~~~~~
+        export function commitUpdate<T>(
+            environment: CompatEnvironment,
+            config: Runtime.MutationConfig<T>,
+        ): Common.Disposable;
+        export function applyUpdate(
+            environment: CompatEnvironment,
+            config: Runtime.OptimisticMutationConfig,
+        ): Common.Disposable;
+
+        // ~~~~~~~~~~~~~~~~~~~~~
+        // RelayCompatContainer
+        // ~~~~~~~~~~~~~~~~~~~~~
+        export interface GeneratedNodeMap { [key: string]: Modern.GraphQLTaggedNode; }
+        export function createContainer<T>(
+            Component: ReactBaseComponent<T>,
+            fragmentSpec: Modern.GraphQLTaggedNode | GeneratedNodeMap,
+        ): ReactFragmentComponent<T>;
+
+        // ~~~~~~~~~~~~~~~~~~~~~
+        // injectDefaultVariablesProvider
+        // ~~~~~~~~~~~~~~~~~~~~~
+        type VariablesProvider = () => Common.Variables;
+        export function injectDefaultVariablesProvider(variablesProvider: VariablesProvider): void;
+    }
 }
-
-
-
-////////////////////////////
-//  RELAY CLASSIC TYPES
-///////////////////////////
-// note: the namespace here is really for use inside of
-// relay-compat; the module declaration below
-// uses the old, pre-existing types
-declare namespace __Relay.Classic {
-    // ~~~~~~~~~~~~~~~~~~~~~
-    // Maybe Fix
-    // ~~~~~~~~~~~~~~~~~~~~~
-    type StoreReaderData = any;
-    type StoreReaderOptions = any;
-    type RelayStoreData = any;
-    type RelayQuery = { Fragment: any; Node: any; Root: any;};
-
-    // ~~~~~~~~~~~~~~~~~~~~~
-    // Environment
-    // ~~~~~~~~~~~~~~~~~~~~~
-    type FragmentResolver = {
-      dispose(): void,
-      resolve(
-        fragment: RelayQuery["Fragment"],
-        dataIDs: Common.DataID | Array<Common.DataID>,
-      ): (StoreReaderData | Array<StoreReaderData>) | void,
-    };
-    interface RelayEnvironmentInterface {
-      forceFetch(
-        querySet: Common.RelayQuerySet,
-        onReadyStateChange: Common.ReadyStateChangeCallback,
-      ): Common.Abortable,
-      getFragmentResolver(
-        fragment: RelayQuery["Fragment"],
-        onNext: () => void,
-      ): FragmentResolver,
-      getStoreData(): RelayStoreData,
-      primeCache(
-        querySet: Common.RelayQuerySet,
-        onReadyStateChange: Common.ReadyStateChangeCallback,
-      ): Common.Abortable,
-      read(
-        node: RelayQuery["Node"],
-        dataID: Common.DataID,
-        options?: StoreReaderOptions,
-      ): StoreReaderData | void,
-      readQuery(
-        root: RelayQuery["Root"],
-        options?: StoreReaderOptions,
-      ): Array<StoreReaderData> | void,
-    }
-  }
-
-////////////////////////////
-//  RELAY COMPAT TYPES
-///////////////////////////
-
-declare namespace __Relay.Compat {
-    // ~~~~~~~~~~~~~~~~~~~~~
-    // Maybe Fix
-    // ~~~~~~~~~~~~~~~~~~~~~
-    type ConcreteFragment = any;
-    type ConcreteBatch = any;
-    type ConcreteFragmentDefinition = object;
-    type ConcreteOperationDefinition = object;
-
-
-    // ~~~~~~~~~~~~~~~~~~~~~
-    // Util
-    // ~~~~~~~~~~~~~~~~~~~~~
-    export function getFragment(q: string, v?: Common.Variables): string;
-    interface ComponentWithFragment<T> extends React.ComponentClass<T> {
-      getFragment: typeof getFragment;
-    }
-    interface StatelessWithFragment<T> extends React.StatelessComponent<T> {
-      getFragment: typeof getFragment;
-    }
-    type ReactFragmentComponent<T> = ComponentWithFragment<T> | StatelessWithFragment<T>;
-    type ReactBaseComponent<T> = React.ComponentClass<T> | React.StatelessComponent<T>;
-    export type RelayClassicEnvironment = Classic.RelayEnvironmentInterface;
-
-    // ~~~~~~~~~~~~~~~~~~~~~
-    // RelayCompatTypes
-    // ~~~~~~~~~~~~~~~~~~~~~
-    export type CompatEnvironment = Runtime.Environment | RelayClassicEnvironment;
-
-    // ~~~~~~~~~~~~~~~~~~~~~
-    // RelayCompatMutations
-    // ~~~~~~~~~~~~~~~~~~~~~
-    export function commitUpdate<T>(
-      environment: CompatEnvironment,
-      config: Runtime.MutationConfig<T>,
-    ): Common.Disposable;
-    export function applyUpdate(
-      environment: CompatEnvironment,
-      config: Runtime.OptimisticMutationConfig,
-    ): Common.Disposable;
-
-    // ~~~~~~~~~~~~~~~~~~~~~
-    // RelayCompatContainer
-    // ~~~~~~~~~~~~~~~~~~~~~
-    export type GeneratedNodeMap = {[key: string]: Modern.GraphQLTaggedNode};
-    export function createContainer<T>(
-      Component: ReactBaseComponent<T>,
-      fragmentSpec: Modern.GraphQLTaggedNode | GeneratedNodeMap,
-    ): ReactFragmentComponent<T>;
-
-    // ~~~~~~~~~~~~~~~~~~~~~
-    // injectDefaultVariablesProvider
-    // ~~~~~~~~~~~~~~~~~~~~~
-    type VariablesProvider = () => Common.Variables;
-    export function injectDefaultVariablesProvider(variablesProvider: VariablesProvider): void;
-}
-
 
 ////////////////////////////
 //  MODULES
@@ -308,8 +301,7 @@ declare module 'react-relay/compat' {
     export import QueryRenderer = __Relay.Modern.ReactRelayQueryRenderer;
     export import graphql = __Relay.Modern.graphql;
     export import fetchQuery = __Relay.Runtime.fetchRelayModernQuery;
-  }
-
+}
 
 declare module "react-relay/classic" {
     import * as React from "react";
@@ -341,21 +333,22 @@ declare module "react-relay/classic" {
     }
 
     type RelayMutationStatus =
-      'UNCOMMITTED' | // Transaction hasn't yet been sent to the server. Transaction can be committed or rolled back.
-      'COMMIT_QUEUED' | // Transaction was committed but another transaction with the same collision key is pending, so the transaction has been queued to send to the server.
-      'COLLISION_COMMIT_FAILED' | //Transaction was queued for commit but another transaction with the same collision key failed. All transactions in the collision queue, including this one, have been failed. Transaction can be recommitted or rolled back.
-      'COMMITTING' | // Transaction is waiting for the server to respond.
-      'COMMIT_FAILED';
+        'UNCOMMITTED' | // Transaction hasn't yet been sent to the server. Transaction can be committed or rolled back.
+        'COMMIT_QUEUED' | // Transaction was committed but another transaction with the same collision key is pending, so the transaction has been queued to send to the server.
+        'COLLISION_COMMIT_FAILED' | // Transaction was queued for commit but another transaction with the same collision key failed. All transactions in the collision queue,
+        // including this one, have been failed. Transaction can be recommitted or rolled back.
+        'COMMITTING' | // Transaction is waiting for the server to respond.
+        'COMMIT_FAILED';
 
     class RelayMutationTransaction {
-      applyOptimistic(): RelayMutationTransaction;
-      commit(): RelayMutationTransaction | null;
-      recommit(): void;
-      rollback(): void;
-      getError(): Error;
-      getStatus(): RelayMutationStatus;
-      getHash(): string;
-      getID(): ClientMutationID;
+        applyOptimistic(): RelayMutationTransaction;
+        commit(): RelayMutationTransaction | null;
+        recommit(): void;
+        rollback(): void;
+        getError(): Error;
+        getStatus(): RelayMutationStatus;
+        getHash(): string;
+        getID(): ClientMutationID;
     }
 
     interface RelayMutationRequest {
@@ -398,7 +391,7 @@ declare module "react-relay/classic" {
      * S is typically dynamic as it depends on the data the app is currently using, but it's possible to always
      * return some data in the payload using REQUIRED_CHILDREN which is where specifying S is the most useful.
      */
-    class Mutation<T,S> {
+    class Mutation<T, S> {
         props: T
 
         constructor(props: T)
@@ -416,19 +409,19 @@ declare module "react-relay/classic" {
     }
 
     interface Store {
-        commitUpdate(mutation: Mutation<any,any>, callbacks?: StoreUpdateCallbacks<any>): any
+        commitUpdate(mutation: Mutation<any, any>, callbacks?: StoreUpdateCallbacks<any>): any
     }
 
-    var Store: Store
+    const Store: Store
 
-    class RootContainer extends React.Component<RootContainerProps,any> {}
+    class RootContainer extends React.Component<RootContainerProps, any> { }
 
-    interface RootContainerProps extends React.Props<RootContainer>{
+    interface RootContainerProps extends React.Props<RootContainer> {
         Component: RelayContainerClass<any>
         route: Route
         renderLoading?(): JSX.Element
         renderFetched?(data: any): JSX.Element
-        renderFailure?(error: Error, retry: Function): JSX.Element
+        renderFailure?(error: Error, retry: (...args: any[]) => any): JSX.Element
     }
 
     type ReadyStateEvent =
@@ -443,16 +436,14 @@ declare module "react-relay/classic" {
         'STORE_FOUND_ALL' |
         'STORE_FOUND_REQUIRED';
 
-    interface OnReadyStateChange {
-        (readyState: {
-              ready: boolean,
-              done: boolean,
-              stale: boolean,
-              error?: Error,
-              events: Array<ReadyStateEvent>,
-              aborted: boolean
-        }): void
-    }
+    type OnReadyStateChange = (readyState: {
+        ready: boolean,
+        done: boolean,
+        stale: boolean,
+        error?: Error,
+        events: ReadyStateEvent[],
+        aborted: boolean
+    }) => void
 
     interface RelayProp {
         readonly route: { name: string; }; // incomplete, also has params and queries
@@ -462,6 +453,6 @@ declare module "react-relay/classic" {
         forceFetch(variables: any, onReadyStateChange?: OnReadyStateChange): void;
         hasOptimisticUpdate(record: any): boolean;
         getPendingTransactions(record: any): RelayMutationTransaction[];
-        commitUpdate: (mutation: Mutation<any,any>, callbacks?: StoreUpdateCallbacks<any>) => any;
+        commitUpdate(mutation: Mutation<any, any>, callbacks?: StoreUpdateCallbacks<any>): any;
     }
 }
