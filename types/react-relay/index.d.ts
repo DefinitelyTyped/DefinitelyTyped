@@ -26,7 +26,7 @@ declare namespace __Relay {
         // ~~~~~~~~~~~~~~~~~~~~~
         // note: refetch and pagination containers augment this
         export interface RelayProp {
-            environment: __Relay.Runtime.Environment;
+            environment: Runtime.Environment;
         }
 
         // ~~~~~~~~~~~~~~~~~~~~~
@@ -310,26 +310,26 @@ declare module "react-relay/classic" {
 
     /** Fragments are a hash of functions */
     interface Fragments {
-        [query: string]: ((variables?: RelayVariables) => string)
+        [query: string]: ((variables?: RelayVariables) => string);
     }
 
     interface CreateContainerOpts {
-        initialVariables?: any
-        fragments: Fragments
-        prepareVariables?(prevVariables: RelayVariables): RelayVariables
+        initialVariables?: any;
+        fragments: Fragments;
+        prepareVariables?(prevVariables: RelayVariables): RelayVariables;
     }
 
     interface RelayVariables {
-        [name: string]: any
+        [name: string]: any;
     }
 
     /** add static getFragment method to the component constructor */
     interface RelayContainerClass<T> extends React.ComponentClass<T> {
-        getFragment: ((q: string, v?: RelayVariables) => string)
+        getFragment: ((q: string, v?: RelayVariables) => string);
     }
 
     interface RelayQueryRequestResolve {
-        response: any
+        response: any;
     }
 
     type RelayMutationStatus =
@@ -352,35 +352,34 @@ declare module "react-relay/classic" {
     }
 
     interface RelayMutationRequest {
-        getQueryString(): string
-        getVariables(): RelayVariables
-        resolve(result: RelayQueryRequestResolve): any
-        reject(errors: any): any
+        getQueryString(): string;
+        getVariables(): RelayVariables;
+        resolve(result: RelayQueryRequestResolve): any;
+        reject(errors: any): any;
     }
 
     interface RelayQueryRequest {
-        resolve(result: RelayQueryRequestResolve): any
-        reject(errors: any): any
-
-        getQueryString(): string
-        getVariables(): RelayVariables
-        getID(): string
-        getDebugName(): string
+        resolve(result: RelayQueryRequestResolve): any;
+        reject(errors: any): any;
+        getQueryString(): string;
+        getVariables(): RelayVariables;
+        getID(): string;
+        getDebugName(): string;
     }
 
     interface RelayNetworkLayer {
-        supports(...options: string[]): boolean
+        supports(...options: string[]): boolean;
     }
 
     class DefaultNetworkLayer implements RelayNetworkLayer {
-        constructor(host: string, options?: any)
-        supports(...options: string[]): boolean
+        constructor(host: string, options?: any);
+        supports(...options: string[]): boolean;
     }
 
-    export function createContainer<T>(component: React.ComponentClass<T> | React.StatelessComponent<T>, params?: CreateContainerOpts): RelayContainerClass<T>
-    export function injectNetworkLayer(networkLayer: RelayNetworkLayer): any
-    export function isContainer(component: React.ComponentClass<any>): boolean
-    export function QL(...args: any[]): string
+    export function createContainer<T>(component: React.ComponentClass<T> | React.StatelessComponent<T>, params?: CreateContainerOpts): RelayContainerClass<T>;
+    export function injectNetworkLayer(networkLayer: RelayNetworkLayer): any;
+    export function isContainer(component: React.ComponentClass<any>): boolean;
+    export function QL(...args: any[]): string;
 
     class Route {
         constructor(params?: RelayVariables)
@@ -392,36 +391,36 @@ declare module "react-relay/classic" {
      * return some data in the payload using REQUIRED_CHILDREN which is where specifying S is the most useful.
      */
     class Mutation<T, S> {
-        props: T
+        props: T;
 
-        constructor(props: T)
-        static getFragment(q: string): string
+        constructor(props: T);
+        static getFragment(q: string): string;
     }
 
     interface Transaction {
-        getError(): Error
-        Status(): number
+        getError(): Error;
+        Status(): number;
     }
 
     interface StoreUpdateCallbacks<T> {
-        onFailure?(transaction: Transaction): any
-        onSuccess?(response: T): any
+        onFailure?(transaction: Transaction): any;
+        onSuccess?(response: T): any;
     }
 
     interface Store {
-        commitUpdate(mutation: Mutation<any, any>, callbacks?: StoreUpdateCallbacks<any>): any
+        commitUpdate(mutation: Mutation<any, any>, callbacks?: StoreUpdateCallbacks<any>): any;
     }
 
-    const Store: Store
+    const Store: Store;
 
     class RootContainer extends React.Component<RootContainerProps, any> { }
 
     interface RootContainerProps extends React.Props<RootContainer> {
-        Component: RelayContainerClass<any>
-        route: Route
-        renderLoading?(): JSX.Element
-        renderFetched?(data: any): JSX.Element
-        renderFailure?(error: Error, retry: (...args: any[]) => any): JSX.Element
+        Component: RelayContainerClass<any>;
+        route: Route;
+        renderLoading?(): JSX.Element;
+        renderFetched?(data: any): JSX.Element;
+        renderFailure?(error: Error, retry: (...args: any[]) => any): JSX.Element;
     }
 
     type ReadyStateEvent =
@@ -443,7 +442,7 @@ declare module "react-relay/classic" {
         error?: Error,
         events: ReadyStateEvent[],
         aborted: boolean
-    }) => void
+    }) => void;
 
     interface RelayProp {
         readonly route: { name: string; }; // incomplete, also has params and queries
