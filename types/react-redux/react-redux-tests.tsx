@@ -62,7 +62,7 @@ connect<ICounterStateProps, ICounterDispatchProps>(
     () => mapDispatchToProps
 )(Counter);
 // with higher order functions using parameters
-connect<ICounterStateProps, ICounterDispatchProps>(
+connect<ICounterStateProps, ICounterDispatchProps, {}>(
     (initialState: CounterState, ownProps) => mapStateToProps,
     (dispatch: Dispatch<CounterState>, ownProps) => mapDispatchToProps
 )(Counter);
