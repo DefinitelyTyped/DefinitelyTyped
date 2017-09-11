@@ -755,7 +755,8 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   static promisify<T, A1, A2, A3>(func: (arg1: A1, arg2: A2, arg3: A3, callback: (err: any, result?: T) => void) => void, options?: Bluebird.PromisifyOptions): (arg1: A1, arg2: A2, arg3: A3) => Bluebird<T>;
   static promisify<T, A1, A2, A3, A4>(func: (arg1: A1, arg2: A2, arg3: A3, arg4: A4, callback: (err: any, result?: T) => void) => void, options?: Bluebird.PromisifyOptions): (arg1: A1, arg2: A2, arg3: A3, arg4: A4) => Bluebird<T>;
   static promisify<T, A1, A2, A3, A4, A5>(func: (arg1: A1, arg2: A2, arg3: A3, arg4: A4, arg5: A5, callback: (err: any, result?: T) => void) => void, options?: Bluebird.PromisifyOptions): (arg1: A1, arg2: A2, arg3: A3, arg4: A4, arg5: A5) => Bluebird<T>;
-  static promisify(nodeFunction: Function, options?: Bluebird.PromisifyOptions): Function;
+  static promisify<A1, A2, A3, A4, A5>(nodeFunction: (arg1: A1, arg2: A2, arg3: A3, arg4: A4, arg5: A5, ...args: any[]) => void, options?: Bluebird.PromisifyOptions): (arg1: A1, arg2: A2, arg3: A3, arg4: A4, arg5: A5, ...args: any[]) => Bluebird<any>;
+
 
   /**
    * Promisifies the entire object by going through the object's properties and creating an async equivalent of each function on the object and its prototype chain. The promisified method name will be the original method name postfixed with `Async`. Returns the input object.
