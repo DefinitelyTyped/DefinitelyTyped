@@ -4,13 +4,13 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-import { NextHandleFunction } from 'connect';
+import { Plugin } from 'webpack';
 
 export = FriendlyErrorsWebpackPlugin;
 
-declare function FriendlyErrorsWebpackPlugin(
-	options?: FriendlyErrorsWebpackPlugin.Options
-): NextHandleFunction;
+declare class FriendlyErrorsWebpackPlugin extends Plugin {
+	constructor(options?: FriendlyErrorsWebpackPlugin.Options);
+}
 
 declare namespace FriendlyErrorsWebpackPlugin {
 	enum Severity {
