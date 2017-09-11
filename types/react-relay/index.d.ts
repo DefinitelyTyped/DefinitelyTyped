@@ -271,7 +271,7 @@ declare namespace __Relay {
 ////////////////////////////
 //  MODULES
 ///////////////////////////
-
+// tslint:disable strict-export-declare-modifiers
 declare module 'react-relay' {
     export import QueryRenderer = __Relay.Modern.ReactRelayQueryRenderer;
     export import createFragmentContainer = __Relay.Modern.createFragmentContainer;
@@ -301,6 +301,7 @@ declare module 'react-relay/compat' {
     export import graphql = __Relay.Modern.graphql;
     export import fetchQuery = __Relay.Runtime.fetchRelayModernQuery;
 }
+// tslint:enable strict-export-declare-modifiers
 
 declare module "react-relay/classic" {
     import * as React from "react";
