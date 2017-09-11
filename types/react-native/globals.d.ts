@@ -1,6 +1,7 @@
 /*
  * This file is necessary to declare global functions that might also be included by `--lib dom`.
  * Due to a TypeScript bug, these cannot be placed inside a `declare global` block in index.d.ts.
+ * https://github.com/Microsoft/TypeScript/issues/16430
  */
 
 //
