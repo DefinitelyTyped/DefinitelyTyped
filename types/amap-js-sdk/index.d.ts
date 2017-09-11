@@ -7,7 +7,19 @@ declare namespace AMap {
     type EventCallback = (...args: any[]) => void;
     type GenericEventCallback<T> = (res: T) => void;
 
-    const plugin: (pluginNames: string[], ready?: () => void) => void;
+    /**
+     * 加载插件
+     * @param pluginNames
+     * @param ready
+     */
+    function plugin(pluginNames: string[], ready?: () => void): void;
+
+    /**
+     * 加载服务
+     * @param serviceName
+     * @param ready
+     */
+    function service(serviceName: string, ready?: () => void): void;
 
     namespace event {
         /**
@@ -1041,5 +1053,162 @@ declare namespace AMap {
          * @param callback 当请求成功时ErrorStatus为null，当请求不成功时ErrorStatus为Obj
          */
         getForecast(district: string, callback: (errorStatus: any, result: WeatherForecastResult) => void): void;
+    }
+
+
+    interface Tip {
+        name: string,
+        district: string,
+        adcode: string
+    }
+
+    interface AutocompleteResult {
+        info: string,
+        count: number,
+        tips: Tip[]
+    }
+
+    class Autocomplete {
+        constructor(opts: {
+            type?: string,
+            city?: string,
+            datatype?: string,
+            citylimit?: boolean,
+            input?: string
+        });
+
+        search(keyword:string, callback: (status: string, result: string | AutocompleteResult) => void): void;
+    }
+
+    interface SelectChangeEvent {
+        type: string,
+        id: string,
+        marker: Marker,
+        listElement: HTMLLIElement,
+        data: Poi
+    }
+
+    interface PoiList {
+        pois: Poi[],
+        pageIndex: number,
+        pageSize: number,
+        count: number
+    }
+
+    interface CityInfo {
+        name: string,
+        citycode: string,
+        adcode: string,
+        count: number
+    }
+
+    interface SearchResult {
+        info: string,
+        poiList: PoiList,
+        keywordList: string[],
+        cityList: CityInfo[]
+    }
+
+    interface Photo {
+        title: string,
+        url: string
+    }
+
+    interface Content {
+        id: string,
+        name: string
+    }
+
+    interface Discount {
+        title: string,
+        detail: string,
+        start_time: string,
+        end_time: string,
+        sold_num: string,
+        photos: Photo[],
+        url: string,
+        provider: string
+    }
+
+    interface Groupbuy {
+        title: string,
+        type_code: string,
+        type: string,
+        detail: string,
+        stime: string,
+        etime: string,
+        count: number,
+        sold_num: number,
+        original_price: number,
+        groupbuy_price: number,
+        discount: number,
+        ticket_address: string,
+        ticket_tel: string,
+        photos: Photo[],
+        url: string,
+        provider: string
+    }
+
+    class PlaceSearch {
+        constructor(opts: {
+            city?: string,
+            citylimit?: boolean,
+            children?: number,
+            type?: string,
+            lang?: string,
+            pageSize?: number,
+            pageIndex?: number,
+            extensions?: string,
+            map?: Map,
+            panel?: string|HTMLElement,
+            showCover?: boolean,
+            renderStyle?: string,
+            autoFitView?: boolean
+        });
+
+        search(keyword: string, callback: (status: string, result: string | SearchResult) => void): void;
+        searchNearBy(keyword: string, center: LngLat, radius: number, callback: (status: string,result: string|SearchResult) => void): void;
+        searchInBounds(keyword: string, bounds: Bounds|Polygon, callback: (status: string, result: string|SearchResult) => void): void;
+        getDetails(POIID: string, callback: (status: string, result: string|SearchResult) => void): void;
+        setType(type: string): void;
+        setCityLimit(p: boolean): void;
+        setPageIndex(pageIndex: number): void;
+        setPageSize(setPageSize: number): void;
+        setCity(city: string): void;
+        setLang(lang: string): string;
+        getLang(): string;
+        clear(): void;
+        poiOnAMAP(obj: Object): void;
+        detailOnAMAP(obj: object): void;
+    }
+
+    interface DistrictSearchOptions {
+        level: string,
+        showbiz?: boolean,
+        extensions?: string,
+        subdistrict?: number
+    }
+
+    interface DistrictSearchResult {
+        info: string,
+        districtList: District[]
+    }
+
+    interface District {
+        name: string,
+        center: LngLat,
+        citycode: string,
+        adcode: string,
+        level: string,
+        boundaries: LngLat[],
+        districtList: District[]
+    }
+
+    class DistrictSearch {
+        constructor(opts: DistrictSearchOptions);
+
+        search(keywords: string, callback?: (status: string,result: string| DistrictSearchResult) => void, opts?: DistrictSearchOptions): void;
+        setLevel(level: string): void;
+        setSubdistrict(district: number): void;
     }
 }
