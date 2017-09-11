@@ -26,7 +26,7 @@ declare namespace __Relay {
         // ~~~~~~~~~~~~~~~~~~~~~
         // note: refetch and pagination containers augment this
         export interface RelayProp {
-            environment: Runtime.Environment;
+            environment: __Relay.Runtime.Environment;
         }
 
         // ~~~~~~~~~~~~~~~~~~~~~
