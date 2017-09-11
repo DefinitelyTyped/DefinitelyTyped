@@ -13,11 +13,6 @@ declare namespace __Relay {
          * https://github.com/facebook/relay/blob/b85a1d69bb72be4ace67179f55c2a54a8d761c8b/packages/react-relay/classic/environment/RelayCombinedEnvironmentTypes.js
          */
         // ~~~~~~~~~~~~~~~~~~~~~
-        // Util
-        // ~~~~~~~~~~~~~~~~~~~~~
-        type Maybe<T> = T | void;
-
-        // ~~~~~~~~~~~~~~~~~~~~~
         // Maybe Fix
         // ~~~~~~~~~~~~~~~~~~~~~
         type RelayConcreteNode = any;
@@ -164,18 +159,18 @@ declare namespace __Relay {
                 args?: Variables | void,
             ): RecordProxy;
             getType(): string;
-            getValue(name: string, args?: Variables | void): any;
+            getValue(name: string, args?: Variables): any;
             setLinkedRecord(
                 record: RecordProxy,
                 name: string,
                 args?: Variables | void,
             ): RecordProxy;
             setLinkedRecords(
-                records: Array<RecordProxy | void> | void,
+                records: Array<RecordProxy | void> | undefined | null,
                 name: string,
-                args?: Variables | void,
+                args?: Variables,
             ): RecordProxy;
-            setValue(value: any, name: string, args?: Variables | void): RecordProxy;
+            setValue(value: any, name: string, args?: Variables): RecordProxy;
         }
 
         interface RecordSourceProxy {
@@ -377,9 +372,9 @@ declare namespace __Relay {
              */
             sendQuery(config: {
                 cacheConfig?: CacheConfig | void,
-                onCompleted?: Maybe<() => void>,
-                onError?: Maybe<(error: Error) => void>,
-                onNext?: Maybe<(payload: TPayload) => void>,
+                onCompleted?: () => void,
+                onError?: (error: Error) => void,
+                onNext?: (payload: TPayload) => void,
                 operation: COperationSelector<TNode, TOperation>,
             }): Disposable;
 
@@ -392,10 +387,10 @@ declare namespace __Relay {
              * subscription open indefinitely such that `onCompleted` is not called.
              */
             streamQuery(config: {
-                cacheConfig?: Maybe<CacheConfig>,
-                onCompleted?: Maybe<() => void>,
-                onError?: Maybe<(error: Error) => void>,
-                onNext?: Maybe<(payload: TPayload) => void>,
+                cacheConfig?: CacheConfig,
+                onCompleted?: () => void,
+                onError?: (error: Error) => void,
+                onNext?: (payload: TPayload) => void,
                 operation: COperationSelector<TNode, TOperation>,
             }): Disposable;
 
@@ -518,7 +513,7 @@ declare namespace __Relay {
                 operationVariables: Variables,
                 fragments: CFragmentMap<TFragment>,
                 props: Props,
-            ): { [key: string]: Maybe<(CSelector<TNode> | Array<CSelector<TNode>>)> };
+            ): { [key: string]: CSelector<TNode> | Array<CSelector<TNode>> | null | undefined };
 
             /**
              * Given a mapping of keys -> results and a mapping of keys -> fragments,
@@ -530,7 +525,7 @@ declare namespace __Relay {
             getDataIDsFromObject(
                 fragments: CFragmentMap<TFragment>,
                 props: Props,
-            ): { [key: string]: Maybe<(DataID | DataID[])> };
+            ): { [key: string]: DataID | DataID[] | null | undefined };
 
             /**
              * Given a mapping of keys -> results and a mapping of keys -> fragments,
@@ -1124,6 +1119,7 @@ declare namespace __Relay {
 }
 
 declare module 'relay-runtime' {
+    // tslint:disable strict-export-declare-modifiers
     export import Environment = __Relay.Runtime.Environment;
     export import Network = __Relay.Runtime.Network;
     export import RecordSource = __Relay.Runtime.RecordSource;
