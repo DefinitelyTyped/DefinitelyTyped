@@ -3,6 +3,8 @@ import {
     Network,
     RecordSource,
     Store,
+    ConnectionHandler,
+    ViewerHandler,
 } from 'relay-runtime';
 
 const source = new RecordSource();
@@ -20,15 +22,11 @@ function fetchQuery(
 ) {
     return fetch('/graphql', {
         method: 'POST',
-        headers: {
-        // Add authentication and other headers here
-        'content-type': 'application/json'
-        },
         body: JSON.stringify({
-        query: operation.text, // GraphQL text from input
-        variables,
+            query: operation.text, // GraphQL text from input
+            variables,
         }),
-    }).then(response => {
+    }).then((response: any) => {
         return response.json();
     });
 }
@@ -48,11 +46,6 @@ const environment = new Environment({
 // ~~~~~~~~~~~~~~~~~~~~~
 // Handler Provider
 // ~~~~~~~~~~~~~~~~~~~~~
-
-import {
-    ConnectionHandler,
-    ViewerHandler,
-} from 'relay-runtime';
 
 function handlerProvider(handle: any) {
     switch (handle) {
