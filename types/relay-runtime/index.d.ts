@@ -151,22 +151,22 @@ declare namespace __Relay {
         interface RecordProxy {
             copyFieldsFrom(source: RecordProxy): void;
             getDataID(): DataID;
-            getLinkedRecord(name: string, args?: Variables | void): RecordProxy | void;
-            getLinkedRecords(name: string, args?: Variables | void): Array<RecordProxy | void> | void;
+            getLinkedRecord(name: string, args?: Variables): RecordProxy | void;
+            getLinkedRecords(name: string, args?: Variables): Array<RecordProxy | null> | void;
             getOrCreateLinkedRecord(
                 name: string,
                 typeName: string,
-                args?: Variables | void,
+                args?: Variables,
             ): RecordProxy;
             getType(): string;
             getValue(name: string, args?: Variables): any;
             setLinkedRecord(
                 record: RecordProxy,
                 name: string,
-                args?: Variables | void,
+                args?: Variables,
             ): RecordProxy;
             setLinkedRecords(
-                records: Array<RecordProxy | void> | undefined | null,
+                records: Array<RecordProxy | null> | undefined | null,
                 name: string,
                 args?: Variables,
             ): RecordProxy;
@@ -176,7 +176,7 @@ declare namespace __Relay {
         interface RecordSourceProxy {
             create(dataID: DataID, typeName: string): RecordProxy;
             delete(dataID: DataID): void;
-            get(dataID: DataID): Array<RecordProxy | void> | void;
+            get(dataID: DataID): Array<RecordProxy | null> | void;
             getRoot(): RecordProxy;
         }
 
@@ -213,8 +213,8 @@ declare namespace __Relay {
          *   in milliseconds. (This value will be passed to setTimeout.)
          */
         interface CacheConfig {
-            force?: boolean | void;
-            poll?: number | void;
+            force?: boolean;
+            poll?: number;
         }
 
         /**
@@ -239,7 +239,7 @@ declare namespace __Relay {
         /**
          * A collection of records keyed by id.
          */
-        interface RecordMap { [dataID: string]: Record | void; }
+        interface RecordMap { [dataID: string]: Record | null | undefined; }
 
         /**
          * A selector defines the starting point for a traversal into the graph for the
@@ -371,10 +371,10 @@ declare namespace __Relay {
              * after receving the first `onNext` result.
              */
             sendQuery(config: {
-                cacheConfig?: CacheConfig | void,
+                cacheConfig?: CacheConfig,
                 onCompleted?: () => void,
-                onError?: (error: Error) => void,
-                onNext?: (payload: TPayload) => void,
+                onError?(error: Error): void,
+                onNext?(payload: TPayload): void,
                 operation: COperationSelector<TNode, TOperation>,
             }): Disposable;
 
@@ -389,8 +389,8 @@ declare namespace __Relay {
             streamQuery(config: {
                 cacheConfig?: CacheConfig,
                 onCompleted?: () => void,
-                onError?: (error: Error) => void,
-                onNext?: (payload: TPayload) => void,
+                onError?(error: Error): void,
+                onNext?(payload: TPayload): void,
                 operation: COperationSelector<TNode, TOperation>,
             }): Disposable;
 
@@ -628,14 +628,14 @@ declare namespace __Relay {
             supports(...options: string[]): boolean;
         }
         interface QueryResult {
-            error?: Error | void;
-            ref_params?: { [name: string]: any } | void;
+            error?: Error;
+            ref_params?: { [name: string]: any };
             response: QueryPayload;
         }
         interface ReadyState {
             aborted: boolean;
             done: boolean;
-            error: Error | void;
+            error: Error | null;
             events: ReadyStateEvent[];
             ready: boolean;
             stale: boolean;
@@ -701,7 +701,7 @@ declare namespace __Relay {
             operation: object,
             variables: Common.Variables,
             cacheConfig: Common.CacheConfig,
-            uploadables?: Common.UploadableMap | void,
+            uploadables?: Common.UploadableMap,
         ) => Promise<any>;
         interface RelayNetwork {
             execute: ExecuteFunction;
@@ -747,15 +747,15 @@ declare namespace __Relay {
             retain(selector: Selector): Common.Disposable;
             execute(config: {
                 operation: OperationSelector,
-                cacheConfig?: Common.CacheConfig | void,
-                updater?: Common.SelectorStoreUpdater | void,
+                cacheConfig?: Common.CacheConfig,
+                updater?: Common.SelectorStoreUpdater,
             }): RelayObservable<RelayResponsePayload>;
             executeMutation(config: {
                 operation: OperationSelector,
-                optimisticUpdater?: Common.SelectorStoreUpdater | void,
-                optimisticResponse?: object | void,
-                updater?: Common.SelectorStoreUpdater | void,
-                uploadables?: Common.UploadableMap | void,
+                optimisticUpdater?: Common.SelectorStoreUpdater,
+                optimisticResponse?: object,
+                updater?: Common.SelectorStoreUpdater,
+                uploadables?: Common.UploadableMap,
             }): RelayObservable<RelayResponsePayload>;
         }
 
@@ -763,7 +763,7 @@ declare namespace __Relay {
         // RelayInMemoryRecordSource
         // ~~~~~~~~~~~~~~~~~~~~~
         interface Record { [key: string]: any; }
-        interface RecordMap { [dataID: string]: Record | void; }
+        interface RecordMap { [dataID: string]: Record | null | undefined; }
 
         // ~~~~~~~~~~~~~~~~~~~~~
         // Network
@@ -789,7 +789,7 @@ declare namespace __Relay {
             has(dataID: Common.DataID): boolean;
             load(
                 dataID: Common.DataID,
-                callback: (error: Error | void, record: Record | void) => void,
+                callback: (error: Error | null, record: Record | null) => void,
             ): void;
             remove(dataID: Common.DataID): void;
             set(dataID: Common.DataID, record: Record): void;
@@ -823,9 +823,9 @@ declare namespace __Relay {
          */
         class RecordSummary {
             id: Common.DataID;
-            type: string | void;
+            type: string | null | undefined;
             static createFromRecord(id: Common.DataID, record: any): RecordSummary;
-            constructor(id: Common.DataID, type: string | void);
+            constructor(id: Common.DataID, type: string | null | undefined);
             toString(): string;
         }
         /**
@@ -860,21 +860,21 @@ declare namespace __Relay {
              * Returns the value of a scalar field. May throw if the given field is
              * present but not actually scalar.
              */
-            getValue(name: string, args?: Common.Variables | void): any;
+            getValue(name: string, args?: Common.Variables): any;
 
             /**
              * Returns an inspector for the given scalar "linked" field (a field whose
              * value is another Record instead of a scalar). May throw if the field is
              * present but not a scalar linked record.
              */
-            getLinkedRecord(name: string, args?: Common.Variables | void): RecordInspector | void;
+            getLinkedRecord(name: string, args?: Common.Variables): RecordInspector | void;
 
             /**
              * Returns an array of inspectors for the given plural "linked" field (a field
              * whose value is an array of Records instead of a scalar). May throw if the
              * field is  present but not a plural linked record.
              */
-            getLinkedRecords(name: string, args?: Common.Variables | void): RecordInspector[] | void;
+            getLinkedRecords(name: string, args?: Common.Variables): RecordInspector[] | void;
         }
 
         class RelayRecordSourceInspector {
@@ -912,11 +912,11 @@ declare namespace __Relay {
             readonly closed: boolean;
         }
         interface Observer<T> {
-            start?: ((subscription: Subscription) => any) | void;
-            next?: ((nextThing: T) => any) | void;
-            error?: ((error: Error) => any) | void;
-            complete?: (() => any) | void;
-            unsubscribe?: ((subscription: Subscription) => any) | void;
+            start?: (subscription: Subscription) => any;
+            next?: (nextThing: T) => any;
+            error?: (error: Error) => any;
+            complete?: () => any;
+            unsubscribe?: (subscription: Subscription) => any;
         }
         type Source<T> = <T>() => any;
         interface Subscribable<T> {
@@ -1030,7 +1030,7 @@ declare namespace __Relay {
              * Returns a Promise which resolves when this Observable yields a first value
              * or when it completes with no value.
              */
-            toPromise(): Promise<T | void>;
+            toPromise(): Promise<T | null | undefined>;
         }
 
         // ~~~~~~~~~~~~~~~~~~~~~
@@ -1051,11 +1051,11 @@ declare namespace __Relay {
             mutation: Common.GraphQLTaggedNode;
             variables: Common.Variables;
             uploadables?: Common.UploadableMap;
-            onCompleted?(response: T, errors: Common.PayloadError[] | void): void;
+            onCompleted?(response: T, errors: Common.PayloadError[] | null | undefined): void;
             onError?(error?: Error): void;
             optimisticUpdater?: Common.SelectorStoreUpdater | void;
             optimisticResponse?: object;
-            updater?: Common.SelectorStoreUpdater | void;
+            updater?: Common.SelectorStoreUpdater;
         }
         function commitRelayModernMutation(
             environment: Environment,
@@ -1095,7 +1095,7 @@ declare namespace __Relay {
             environment: any, // FIXME - $FlowFixMe in facebook source code
             taggedNode: Common.GraphQLTaggedNode,
             variables: Common.Variables,
-            cacheConfig?: Common.CacheConfig | void,
+            cacheConfig?: Common.CacheConfig,
         ): Promise<any>; // FIXME - $FlowFixMe in facebook source code
 
         // ~~~~~~~~~~~~~~~~~~~~~
@@ -1108,7 +1108,7 @@ declare namespace __Relay {
             variables: Common.Variables;
             onCompleted?(): void;
             onError?(error: Error): void;
-            onNext?(response: object | void): void;
+            onNext?(response: object | null | undefined): void;
             updater?(store: Common.RecordSourceSelectorProxy): void;
         }
         function requestRelaySubscription(
@@ -1118,8 +1118,8 @@ declare namespace __Relay {
     }
 }
 
+// tslint:disable no-single-declare-module strict-export-declare-modifiers
 declare module 'relay-runtime' {
-    // tslint:disable strict-export-declare-modifiers
     export import Environment = __Relay.Runtime.Environment;
     export import Network = __Relay.Runtime.Network;
     export import RecordSource = __Relay.Runtime.RecordSource;
