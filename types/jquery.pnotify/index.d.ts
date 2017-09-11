@@ -30,7 +30,6 @@ interface PNotifyLabel {
     stick?: string;
 }
 
-
 interface PNotifyconfirmButton {
     text?: string;
     addClass?: string;
@@ -192,9 +191,10 @@ interface PNotifyOptions {
      */
     icon?: any;
     /**
-     * The animation to use when displaying and hiding the notice. "none", "show", "fade", and "slide" are built in to jQuery. Others require jQuery UI. Use an object with effect_in and effect_out to use different effects.
+     * The animation to use when displaying and hiding the notice. "none", "show", "fade", and "slide" are built in to jQuery.
+     * Others require jQuery UI. Use an object with effect_in and effect_out to use different effects.
      */
-    animation?: any;
+    animation?: boolean | string;
     /**
      * Speed at which the notice animates in and out. "slow", "def" or "normal", "fast" or number of milliseconds.
      */
@@ -323,8 +323,22 @@ interface PNotify {
 
 interface PNotifyConstructor {
     new (options?: PNotifyOptions): PNotify;
-
+    
+    /**
+     * Remove all notices.
+     */
     removeAll(): void;
+
+    /**
+     * Remove all the notices in a stack.
+     * @param stack 
+     */
+    removeStack(stack: PNotifyStack): void;
+    
+    /**
+     * Reposition the notices, optionally animating their movement.
+     */
+    positionAll(animate: string): void
 }
 
 declare var PNotify: PNotifyConstructor;
