@@ -1,4 +1,4 @@
-// Type definitions for react-redux 5.0.5
+// Type definitions for react-redux 5.0.8
 // Project: https://github.com/rackt/react-redux
 // Definitions by: Qubo <https://github.com/tkqubo>,
 //                 Thomas Hasner <https://github.com/thasner>,
