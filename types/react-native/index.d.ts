@@ -626,18 +626,12 @@ export interface ShadowPropTypesIOSStatic {
     shadowRadius: number
 }
 
-type GetCurrentPositionOptions = {
-    timeout: number
-    maximumAge: number
-    enableHighAccuracy: boolean
-    distanceFilter: number
-}
-
-type WatchPositionOptions = {
-    timeout: number
-    maximumAge: number
-    enableHighAccuracy: boolean
-    distanceFilter: number
+type GeoOptions = {
+    timeout?: number,
+    maximumAge?: number,
+    enableHighAccuracy?: boolean,
+    distanceFilter?: number,
+    useSignificantChanges?: boolean,
 }
 
 type GeolocationReturnType = {
@@ -8389,13 +8383,13 @@ export interface GeolocationStatic {
      * On Android, this can return almost immediately if the location is cached or
      * request an update, which might take a while.
      */
-    getCurrentPosition(geo_success: (position: GeolocationReturnType) => void, geo_error?: (error: GeolocationError) => void, geo_options?: GetCurrentPositionOptions): void
+    getCurrentPosition(geo_success: (position: GeolocationReturnType) => void, geo_error?: (error: GeolocationError) => void, geo_options?: GeoOptions): void
 
     /**
      * Invokes the success callback whenever the location changes.  Supported
      * options: timeout (ms), maximumAge (ms), enableHighAccuracy (bool), distanceFilter(m)
      */
-    watchPosition(success: (position: GeolocationReturnType) => void, error?: (error: GeolocationError) => void, options?: WatchPositionOptions): number
+    watchPosition(success: (position: GeolocationReturnType) => void, error?: (error: GeolocationError) => void, options?: GeoOptions): number
 
     clearWatch(watchID: number): void
 
