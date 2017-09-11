@@ -1,10 +1,10 @@
 import * as React from 'react';
 
-declare class Glyphicon extends React.Component<GlyphiconProps> { }
-declare namespace Glyphicon { }
-export = Glyphicon
-
-interface GlyphiconProps extends React.HTMLProps<Glyphicon> {
-  // Required
-  glyph: string;
+declare namespace Glyphicon {
+    export interface GlyphiconProps extends React.HTMLProps<Glyphicon> {
+        // Required
+        glyph: string;
+    }
 }
+declare class Glyphicon extends React.Component<Glyphicon.GlyphiconProps> { }
+export = Glyphicon;
