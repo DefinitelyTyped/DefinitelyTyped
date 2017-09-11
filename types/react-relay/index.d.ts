@@ -7,7 +7,6 @@
 /// <reference types="relay-runtime" />
 
 declare namespace __Relay {
-
     ////////////////////////////
     //  RELAY MODERN TYPES
     ///////////////////////////
@@ -25,14 +24,14 @@ declare namespace __Relay {
         // RelayProp
         // ~~~~~~~~~~~~~~~~~~~~~
         // note: refetch and pagination containers augment this
-        export interface RelayProp {
+        interface RelayProp {
             environment: Runtime.Environment;
         }
 
         // ~~~~~~~~~~~~~~~~~~~~~
         // RelayQL
         // ~~~~~~~~~~~~~~~~~~~~~
-        export function RelayQL(
+        function RelayQL(
             strings: string[],
             ...substitutions: any[]
         ): Common.RelayConcreteNode;
@@ -57,23 +56,23 @@ declare namespace __Relay {
             (strings: string[] | TemplateStringsArray): GraphQLTaggedNode;
             experimental(strings: string[] | TemplateStringsArray): GraphQLTaggedNode;
         }
-        export const graphql: GraphqlInterface;
+        const graphql: GraphqlInterface;
 
         // ~~~~~~~~~~~~~~~~~~~~~
         // ReactRelayQueryRenderer
         // ~~~~~~~~~~~~~~~~~~~~~
         interface QueryRendererProps {
-            cacheConfig?: Common.CacheConfig | void;
+            cacheConfig?: Common.CacheConfig;
             environment: Runtime.Environment;
             query: GraphQLTaggedNode;
-            render(readyState: ReadyState): React.ReactElement<any> | void;
+            render(readyState: ReadyState): React.ReactElement<any> | undefined | null;
             variables: Common.Variables;
             rerunParamExperimental?: Common.RerunParam;
         }
-        export interface ReadyState {
-            error: Error | void;
-            props: { [propName: string]: any } | void;
-            retry: (() => void) | void;
+        interface ReadyState {
+            error: Error | undefined | null;
+            props: { [propName: string]: any } | undefined | null;
+            retry?(): void;
         }
         interface QueryRendererState {
             readyState: ReadyState;
@@ -83,7 +82,7 @@ declare namespace __Relay {
         // ~~~~~~~~~~~~~~~~~~~~~
         // createFragmentContainer
         // ~~~~~~~~~~~~~~~~~~~~~
-        export function createFragmentContainer<T>(
+        function createFragmentContainer<T>(
             Component: ReactBaseComponent<T>,
             fragmentSpec: GraphQLTaggedNode | GeneratedNodeMap,
         ): ReactBaseComponent<T>;
@@ -92,45 +91,45 @@ declare namespace __Relay {
         // createPaginationContainer
         // ~~~~~~~~~~~~~~~~~~~~~
         interface PageInfo {
-            endCursor: string | void;
+            endCursor: string | undefined | null;
             hasNextPage: boolean;
             hasPreviousPage: boolean;
-            startCursor: string | void;
+            startCursor: string | undefined | null;
         }
         interface ConnectionData {
             edges?: any[];
-            pageInfo?: PageInfo | void;
+            pageInfo?: PageInfo;
         }
-        export type RelayPaginationProp = RelayProp & {
+        type RelayPaginationProp = RelayProp & {
             hasMore(): boolean,
             isLoading(): boolean,
             loadMore(
                 pageSize: number,
                 callback: (error?: Error) => void,
                 options?: RefetchOptions,
-            ): Common.Disposable | void,
+            ): Common.Disposable | undefined | null,
             refetchConnection(
                 totalCount: number,
-                callback: (error?: Error | void) => void,
-                refetchVariables?: Common.Variables | void,
-            ): Common.Disposable | void,
+                callback: (error?: Error) => void,
+                refetchVariables?: Common.Variables,
+            ): Common.Disposable | undefined | null,
         };
-        export function FragmentVariablesGetter(
+        function FragmentVariablesGetter(
             prevVars: Common.Variables,
             totalCount: number,
         ): Common.Variables;
         interface ConnectionConfig {
             direction?: 'backward' | 'forward';
-            getConnectionFromProps?(props: object): ConnectionData | void;
+            getConnectionFromProps?(props: object): ConnectionData | undefined | null;
             getFragmentVariables?: typeof FragmentVariablesGetter;
             getVariables(
                 props: { [propName: string]: any },
-                paginationInfo: { count: number, cursor: string | void },
+                paginationInfo: { count: number, cursor?: string },
                 fragmentVariables: Common.Variables,
             ): Common.Variables;
             query: GraphQLTaggedNode;
         }
-        export function createPaginationContainer<T>(
+        function createPaginationContainer<T>(
             Component: ReactBaseComponent<T>,
             fragmentSpec: GraphQLTaggedNode | GeneratedNodeMap,
             connectionConfig: ConnectionConfig,
@@ -139,19 +138,19 @@ declare namespace __Relay {
         // ~~~~~~~~~~~~~~~~~~~~~
         // createFragmentContainer
         // ~~~~~~~~~~~~~~~~~~~~~
-        export interface RefetchOptions {
+        interface RefetchOptions {
             force?: boolean;
             rerunParamExperimental?: Common.RerunParam;
         }
-        export type RelayRefetchProp = RelayProp & {
+        type RelayRefetchProp = RelayProp & {
             refetch(
                 refetchVariables: Common.Variables | ((fragmentVariables: Common.Variables) => Common.Variables),
                 renderVariables?: Common.Variables,
-                callback?: (error: Error | void) => void,
+                callback?: (error?: Error) => void,
                 options?: RefetchOptions,
             ): Common.Disposable,
         };
-        export function createRefetchContainer<T>(
+        function createRefetchContainer<T>(
             Component: ReactBaseComponent<T>,
             fragmentSpec: GraphQLTaggedNode | GeneratedNodeMap,
             taggedNode: GraphQLTaggedNode,
@@ -181,7 +180,7 @@ declare namespace __Relay {
             resolve(
                 fragment: RelayQuery["Fragment"],
                 dataIDs: Common.DataID | Common.DataID[],
-            ): (StoreReaderData | StoreReaderData[]) | void;
+            ): StoreReaderData | StoreReaderData[] | undefined | null;
         }
         interface RelayEnvironmentInterface {
             forceFetch(
@@ -224,7 +223,7 @@ declare namespace __Relay {
         // ~~~~~~~~~~~~~~~~~~~~~
         // Util
         // ~~~~~~~~~~~~~~~~~~~~~
-        export function getFragment(q: string, v?: Common.Variables): string;
+        function getFragment(q: string, v?: Common.Variables): string;
         interface ComponentWithFragment<T> extends React.ComponentClass<T> {
             getFragment: typeof getFragment;
         }
@@ -233,21 +232,21 @@ declare namespace __Relay {
         }
         type ReactFragmentComponent<T> = ComponentWithFragment<T> | StatelessWithFragment<T>;
         type ReactBaseComponent<T> = React.ComponentClass<T> | React.StatelessComponent<T>;
-        export type RelayClassicEnvironment = Classic.RelayEnvironmentInterface;
+        type RelayClassicEnvironment = Classic.RelayEnvironmentInterface;
 
         // ~~~~~~~~~~~~~~~~~~~~~
         // RelayCompatTypes
         // ~~~~~~~~~~~~~~~~~~~~~
-        export type CompatEnvironment = Runtime.Environment | RelayClassicEnvironment;
+        type CompatEnvironment = Runtime.Environment | RelayClassicEnvironment;
 
         // ~~~~~~~~~~~~~~~~~~~~~
         // RelayCompatMutations
         // ~~~~~~~~~~~~~~~~~~~~~
-        export function commitUpdate<T>(
+        function commitUpdate(
             environment: CompatEnvironment,
-            config: Runtime.MutationConfig<T>,
+            config: Runtime.MutationConfig<any>,
         ): Common.Disposable;
-        export function applyUpdate(
+        function applyUpdate(
             environment: CompatEnvironment,
             config: Runtime.OptimisticMutationConfig,
         ): Common.Disposable;
@@ -255,8 +254,8 @@ declare namespace __Relay {
         // ~~~~~~~~~~~~~~~~~~~~~
         // RelayCompatContainer
         // ~~~~~~~~~~~~~~~~~~~~~
-        export interface GeneratedNodeMap { [key: string]: Modern.GraphQLTaggedNode; }
-        export function createContainer<T>(
+        interface GeneratedNodeMap { [key: string]: Modern.GraphQLTaggedNode; }
+        function createContainer<T>(
             Component: ReactBaseComponent<T>,
             fragmentSpec: Modern.GraphQLTaggedNode | GeneratedNodeMap,
         ): ReactFragmentComponent<T>;
@@ -265,7 +264,7 @@ declare namespace __Relay {
         // injectDefaultVariablesProvider
         // ~~~~~~~~~~~~~~~~~~~~~
         type VariablesProvider = () => Common.Variables;
-        export function injectDefaultVariablesProvider(variablesProvider: VariablesProvider): void;
+        function injectDefaultVariablesProvider(variablesProvider: VariablesProvider): void;
     }
 }
 
@@ -376,10 +375,10 @@ declare module "react-relay/classic" {
         supports(...options: string[]): boolean;
     }
 
-    export function createContainer<T>(component: React.ComponentClass<T> | React.StatelessComponent<T>, params?: CreateContainerOpts): RelayContainerClass<T>;
-    export function injectNetworkLayer(networkLayer: RelayNetworkLayer): any;
-    export function isContainer(component: React.ComponentClass<any>): boolean;
-    export function QL(...args: any[]): string;
+    function createContainer<T>(component: React.ComponentClass<T> | React.StatelessComponent<T>, params?: CreateContainerOpts): RelayContainerClass<T>;
+    function injectNetworkLayer(networkLayer: RelayNetworkLayer): any;
+    function isContainer(component: React.ComponentClass<any>): boolean;
+    function QL(...args: any[]): string;
 
     class Route {
         constructor(params?: RelayVariables)
@@ -447,7 +446,7 @@ declare module "react-relay/classic" {
     interface RelayProp {
         readonly route: { name: string; }; // incomplete, also has params and queries
         readonly variables: any;
-        readonly pendingVariables?: any | null;
+        readonly pendingVariables?: any;
         setVariables(variables: any, onReadyStateChange?: OnReadyStateChange): void;
         forceFetch(variables: any, onReadyStateChange?: OnReadyStateChange): void;
         hasOptimisticUpdate(record: any): boolean;

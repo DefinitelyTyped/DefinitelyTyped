@@ -89,8 +89,8 @@ interface FeedStoriesProps {
         stories: { edges: Array<{ node: StoryInterface }> }
     };
 }
-class Story extends React.Component<{ story: StoryInterface }, {}> {}
-class FeedStories extends React.Component<FeedStoriesProps, {}> {
+class Story extends React.Component<{ story: StoryInterface }> {}
+class FeedStories extends React.Component<FeedStoriesProps> {
     render() {
       return (
         <div>
@@ -149,7 +149,7 @@ interface FeedProps {
     user: { feed: { edges: Array<{ node: StoryInterface}>}};
     relay: RelayPaginationProp;
 }
-class Feed extends React.Component<FeedProps, {}> {
+class Feed extends React.Component<FeedProps> {
     render() {
         return (<div>
             {this.props.user.feed.edges.map(
