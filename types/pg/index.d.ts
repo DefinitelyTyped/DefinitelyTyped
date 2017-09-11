@@ -106,8 +106,8 @@ export declare class Client extends events.EventEmitter {
     resumeDrain(): void;
 
     on(event: "drain", listener: () => void): this;
-    on(event: "error", listener: (err: Error) => void): this;
-    on(event: "notification" | "notice", listener: (message: any) => void): this;
+    on(event: "error" | "notice", listener: (err: Error) => void): this;
+    on(event: "notification", listener: (message: { channel: string; payload: string }) => void): this;
     on(event: "end", listener: () => void): this;
 }
 

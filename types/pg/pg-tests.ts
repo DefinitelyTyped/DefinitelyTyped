@@ -42,6 +42,12 @@ client.connect(err => {
     });
     return null;
 });
+client.on('notification', (message) => {
+    console.log({
+        payload: message.payload,
+        channel: message.channel
+    });
+})
 client.on('end', () => console.log("Client was disconnected."));
 
 // client pooling
