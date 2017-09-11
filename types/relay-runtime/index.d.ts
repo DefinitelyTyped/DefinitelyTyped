@@ -255,7 +255,7 @@ declare namespace __Relay {
          * A representation of a selector and its results at a particular point in time.
          */
         type CSnapshot<TNode> = CSelector<TNode> & {
-            data: SelectorData | void,
+            data: SelectorData | null | undefined,
             seenRecords: RecordMap,
         };
 
@@ -372,7 +372,7 @@ declare namespace __Relay {
              */
             sendQuery(config: {
                 cacheConfig?: CacheConfig,
-                onCompleted?: () => void,
+                onCompleted?(): void,
                 onError?(error: Error): void,
                 onNext?(payload: TPayload): void,
                 operation: COperationSelector<TNode, TOperation>,
@@ -388,7 +388,7 @@ declare namespace __Relay {
              */
             streamQuery(config: {
                 cacheConfig?: CacheConfig,
-                onCompleted?: () => void,
+                onCompleted?(): void,
                 onError?(error: Error): void,
                 onNext?(payload: TPayload): void,
                 operation: COperationSelector<TNode, TOperation>,
@@ -912,11 +912,11 @@ declare namespace __Relay {
             readonly closed: boolean;
         }
         interface Observer<T> {
-            start?: (subscription: Subscription) => any;
-            next?: (nextThing: T) => any;
-            error?: (error: Error) => any;
-            complete?: () => any;
-            unsubscribe?: (subscription: Subscription) => any;
+            start?(subscription: Subscription): any;
+            next?(nextThing: T): any;
+            error?(error: Error): any;
+            complete?(): any;
+            unsubscribe?(subscription: Subscription): any;
         }
         type Source<T> = <T>() => any;
         interface Subscribable<T> {
@@ -1053,7 +1053,7 @@ declare namespace __Relay {
             uploadables?: Common.UploadableMap;
             onCompleted?(response: T, errors: Common.PayloadError[] | null | undefined): void;
             onError?(error?: Error): void;
-            optimisticUpdater?: Common.SelectorStoreUpdater | void;
+            optimisticUpdater?: Common.SelectorStoreUpdater;
             optimisticResponse?: object;
             updater?: Common.SelectorStoreUpdater;
         }
