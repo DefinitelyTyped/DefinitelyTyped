@@ -41,23 +41,21 @@ export interface ReducerNextThrowMeta<State, Payload, Meta> {
     throw?(state: State, action: ActionMeta<Payload, Meta>): State;
 }
 
-export type ActionFunctions<Payload> =
-    ActionFunction<any, any, any, any, Action<Payload>> |
-    ActionFunctionAny<Action<Payload>>;
+export type ActionFunctions<Payload> = ActionFunctionAny<Action<Payload>>;
 
 export type Reducer<State, Payload> = (state: State, action: Action<Payload>) => State;
 
 export type ReducerMeta<State, Payload, Meta> = (state: State, action: ActionMeta<Payload, Meta>) => State;
 
 /** argument inferring borrowed from lodash definitions */
-export type ActionFunction<R, T1 = any, T2 = any, T3 = any, T4 = any> = (t1?: T1, t2?: T2, t3?: T3, t4?: T4) => R;
+export type ActionFunction<R, T1 = undefined, T2 = undefined, T3 = undefined, T4 = undefined> = (t1?: T1, t2?: T2, t3?: T3, t4?: T4) => R;
 export type ActionFunctionAny<R> = (...args: any[]) => R;
 
 export function createAction(
     actionType: string
 ): ActionFunction<Action<void>>;
 
-export function createAction<Payload, Arg1 = any, Arg2 = any, Arg3 = any, Arg4 = any>(
+export function createAction<Payload, Arg1 = undefined, Arg2 = undefined, Arg3 = undefined, Arg4 = undefined>(
     actionType: string,
     payloadCreator: ActionFunction<Payload, Arg1, Arg2, Arg3, Arg4>
 ): ActionFunction<Action<Payload>, Arg1, Arg2, Arg3, Arg4>;
@@ -102,7 +100,7 @@ export function handleActions<State, Meta>(
 
 export function combineActions(...actionTypes: Array<ActionFunctions<any> | string>): string;
 
-export interface ActionMap<Payload, Meta = any> {
+export interface ActionMap<Payload, Meta = undefined> {
     [actionType: string]:
     ActionMap<Payload, Meta> |
     ActionFunctionAny<Payload> |
