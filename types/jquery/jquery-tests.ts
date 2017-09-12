@@ -1988,21 +1988,21 @@ function JQueryStatic() {
                 }
 
                 runTask1() {
-                    let dfd = $.Deferred<One>();
+                    const dfd = $.Deferred<One>();
                     console.log('Task 1');
                     setTimeout(() => { dfd.resolve({ result: 1 }); }, Math.floor(400 + Math.random() * 2000));
                     return dfd.promise();
                 }
 
                 runTask2() {
-                    let dfd = $.Deferred<Two>();
+                    const dfd = $.Deferred<Two>();
                     console.log('Task 2');
                     setTimeout(() => { dfd.resolve({ Result: 2 }); }, Math.floor(400 + Math.random() * 2000));
                     return dfd.promise();
                 }
 
                 runTask3() {
-                    let dfd = $.Deferred<Three>();
+                    const dfd = $.Deferred<Three>();
                     console.log('Task 3');
                     setTimeout(() => { dfd.resolve({ TheResult: 3 }); }, Math.floor(400 + Math.random() * 2000));
                     return dfd.promise();
@@ -6179,7 +6179,7 @@ function JQuery() {
     }
 }
 
-function AjaxSettings() {
+function JQuery_AjaxSettings() {
     $.ajax({
         accepts: {
             mycustomtype: 'application/x-some-custom-type'
@@ -6345,7 +6345,7 @@ function AjaxSettings() {
     });
 }
 
-function Callbacks() {
+function JQuery_Callbacks() {
     function add() {
         const callbacks = $.Callbacks();
 
@@ -6425,7 +6425,7 @@ function Callbacks() {
     }
 }
 
-function EffectsOptions() {
+function JQuery_EffectsOptions() {
     $('p').show({
         always(animation, jumpToEnd) {
             // $ExpectType HTMLElement
@@ -6489,7 +6489,7 @@ function EffectsOptions() {
     });
 }
 
-function _Event() {
+function JQuery_Event() {
     function call_signature() {
         // $ExpectType Event<HTMLElement, null> & Coordinates
         $.Event('keydown', $('p').offset());
@@ -6511,7 +6511,9 @@ function _Event() {
     }
 }
 
-function jqXHR() {
+function JQuery_jqXHR() {
+    const p: JQuery.jqXHR = {} as any;
+
     function always() {
         // $ExpectType jqXHR<any>
         $.ajax('/echo/json').always((data_jqXHR, textStatus, jqXHR_errorThrown) => {
@@ -6753,19 +6755,31 @@ function jqXHR() {
     }
 
     function _catch() {
-        // $ExpectType Promise3<void, never, never, never, never, never, never, never, never>
-        $.ajax('/echo').catch((jqXHR, textStatus, errorThrown) => {
-            // $ExpectType jqXHR<any>
-            jqXHR;
-            // $ExpectType ErrorTextStatus
-            textStatus;
-            // $ExpectType string
-            errorThrown;
-        });
+        {
+            const a = $.ajax('/echo').catch((jqXHR, textStatus, errorThrown) => {
+                // $ExpectType jqXHR<any>
+                jqXHR;
+                // $ExpectType ErrorTextStatus
+                textStatus;
+                // $ExpectType string
+                errorThrown;
+            });
+            // $ExpectType PromiseBase<void, never, never, never, never, never, never, never, never, never, never, never>
+            a;
+            const b: JQuery.Promise3<void, never, never, never, never, never, never, never, never> = a;
+        }
+    }
+
+    function compatibleWithPromise(): Promise<any> {
+        return p;
+    }
+
+    function compatibleWithJQueryPromise(): JQuery.Promise<any> {
+        return p;
     }
 }
 
-function Promise3() {
+function JQuery_Promise3() {
     interface I1 { kind: 'I1'; }
     interface I2 { kind: 'I2'; }
     interface I3 { kind: 'I3'; }
@@ -7131,20 +7145,39 @@ function Promise3() {
     }
 
     function _catch() {
-        // $ExpectType Promise3<number, never, never, never, never, never, never, never, never>
-        $.ajax('/echo/json').catch(() => {
-            return 1;
-        });
+        {
+            const a = $.ajax('/echo/json').catch(() => {
+                return 1;
+            });
+            // $ExpectType PromiseBase<number, never, never, never, never, never, never, never, never, never, never, never>
+            a;
+            const b: JQuery.Promise3<number, never, never, never, never, never, never, never, never> = a;
+        }
+        {
+            const a = $.ajax('/echo/json').catch(() => {
+                return t1;
+            });
+            // $ExpectType PromiseBase<I1, never, never, never, never, never, never, never, never, never, never, never>
+            a;
+            const b: JQuery.Promise3<I1, never, never, never, never, never, never, never, never> = a;
+        }
+        {
+            const a = $.ajax('/echo/json').catch(() => {
+                return $.ajax('/echo/json');
+            });
+            // $ExpectType PromiseBase<any, jqXHR<any>, never, SuccessTextStatus, ErrorTextStatus, never, jqXHR<any>, string, never, never, never, never>
+            a;
+            const b: JQuery.Promise3<any, JQuery.jqXHR<any>, never, JQuery.Ajax.SuccessTextStatus, JQuery.Ajax.ErrorTextStatus, never, JQuery.jqXHR<any>, string, never> = a;
+        }
 
-        // $ExpectType Promise3<I1, never, never, never, never, never, never, never, never>
-        $.ajax('/echo/json').catch(() => {
-            return t1;
-        });
+        // $ExpectType PromiseBase<never, never, never, never, never, never, never, never, never, never, never, never>
+        $.ajax('/echo/json').catch(undefined);
 
-        // $ExpectType Promise3<any, jqXHR<any>, never, SuccessTextStatus, ErrorTextStatus, never, jqXHR<any>, string, never>
-        $.ajax('/echo/json').catch(() => {
-            return $.ajax('/echo/json');
-        });
+        // $ExpectType PromiseBase<never, never, never, never, never, never, never, never, never, never, never, never>
+        $.ajax('/echo/json').catch(null);
+
+        // $ExpectType PromiseBase<never, never, never, never, never, never, never, never, never, never, never, never>
+        $.ajax('/echo/json').catch();
     }
 
     // As argument to PromiseLike parameter
@@ -7157,9 +7190,17 @@ function Promise3() {
     async function testAsync(p: JQuery.Promise3<string, {}, {}, {}, {}, {}, {}, {}, {}>): Promise<string> {
         return await p;
     }
+
+    function compatibleWithPromise(): Promise<any> {
+        return p;
+    }
+
+    function compatibleWithJQueryPromise(): JQuery.Promise<any> {
+        return p;
+    }
 }
 
-function Promise2(p: JQuery.Promise2<string, Error, number, JQuery, string, boolean>) {
+function JQuery_Promise2(p: JQuery.Promise2<string, Error, number, JQuery, string, boolean>) {
     function then() {
         p.then((a, b) => {
             a; // $ExpectType string
@@ -7292,9 +7333,17 @@ function Promise2(p: JQuery.Promise2<string, Error, number, JQuery, string, bool
     async function testAsync(p: JQuery.Promise2<string, {}, {}, {}, {}, {}>): Promise<string> {
         return await p;
     }
+
+    function compatibleWithPromise(): Promise<any> {
+        return p;
+    }
+
+    function compatibleWithJQueryPromise(): JQuery.Promise<any> {
+        return p;
+    }
 }
 
-function _Promise(p: JQuery.Promise<string, Error, number>) {
+function JQuery_Promise(p: JQuery.Promise<string, Error, number>) {
     function then() {
         p.then((a) => {
             a; // $ExpectType string
@@ -7403,5 +7452,25 @@ function _Promise(p: JQuery.Promise<string, Error, number>) {
 
     async function testAsync(p: JQuery.Promise<string, Error, number>): Promise<string> {
         return await p;
+    }
+
+    function compatibleWithPromise(): Promise<any> {
+        return p;
+    }
+}
+
+function JQuery_Deferred() {
+    interface I1 { kind: 'I1'; }
+    interface I2 { kind: 'I2'; }
+    interface I3 { kind: 'I3'; }
+
+    const d1 = $.Deferred<I1, I2, I3>();
+
+    function promise() {
+        const target: I1 = {} as any;
+
+        d1.promise(target); // $ExpectType Promise<I1, I2, I3> & I1
+
+        d1.promise(); // $ExpectType Promise<I1, I2, I3>
     }
 }

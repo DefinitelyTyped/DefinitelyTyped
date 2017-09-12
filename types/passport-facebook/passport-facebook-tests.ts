@@ -1,4 +1,4 @@
-
+/* tslint:disable */
 /**
  * Created by jcabresos on 4/19/2014.
  */

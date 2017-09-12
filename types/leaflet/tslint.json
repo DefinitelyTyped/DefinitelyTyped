@@ -1,6 +1,8 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
+        // TODOs
+        "no-object-literal-type-assertion": false,
         "no-single-declare-module": false
     }
 }

@@ -1,6 +1,6 @@
 // Type definitions for howler.js v2.0.0
 // Project: https://github.com/goldfire/howler.js
-// Definitions by: Pedro Casaubon <https://github.com/xperiments/>, Todd Dukart <https://github.com/tdukart/>
+// Definitions by: Pedro Casaubon <https://github.com/xperiments>, Todd Dukart <https://github.com/tdukart>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface HowlerGlobal {

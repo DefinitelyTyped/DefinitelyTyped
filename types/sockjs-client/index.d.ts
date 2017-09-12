@@ -1,7 +1,7 @@
 // Type definitions for sockjs-client 1.0
 // Project: https://github.com/sockjs/sockjs-client
 // Definitions by: Emil Ivanov <https://github.com/vladev>
-//                 Alexander Rusakov <https://github.com/arusakov/>
+//                 Alexander Rusakov <https://github.com/arusakov>
 //                 BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 

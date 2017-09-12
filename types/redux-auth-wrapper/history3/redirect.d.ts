@@ -41,15 +41,3 @@ export interface CreateOnEnterConfig<State> extends AuthConfig {
 
 export function createOnEnter<State = {}>(config: CreateOnEnterConfig<State>):
     (store: Store<any>, nextState: State, redirect: (location: LocationDescriptorObject) => void) => void;
-
-export interface LocationHelperConfig<Props> {
-    redirectQueryParamName?: string;
-    locationSelector?(props: Props): LocationDescriptorObject;
-}
-
-export interface LocationHelper<Props> {
-    getRedirectQueryParam(props: Props): string;
-    createRedirectLoc(props: Props, redirectPath: string): LocationDescriptorObject;
-}
-
-export function locationHelperBuilder<Props = {}>(config: LocationHelperConfig<Props>): LocationHelper<Props>;

@@ -717,6 +717,17 @@ const select: ol.interaction.Select = new ol.interaction.Select({
     layers: (layer: ol.layer.Layer) => true,
 });
 
+let pinchZoom: ol.interaction.PinchZoom = new ol.interaction.PinchZoom({
+    constrainResolution: booleanValue,
+    duration: numberValue
+});
+
+let mouseWheelZoom: ol.interaction.MouseWheelZoom = new ol.interaction.MouseWheelZoom({
+    constrainResolution: booleanValue,
+    duration: numberValue,
+    timeout: numberValue,
+    useAnchor: booleanValue
+});
 //
 // ol.style.RegularShape
 //

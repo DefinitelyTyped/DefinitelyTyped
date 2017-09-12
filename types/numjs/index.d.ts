@@ -491,15 +491,15 @@ export namespace images {
 		/**
 		 * @property {NdArray} digit - 28x28 grayscale image with an handwritten digit extracted from MNIST database
 		 */
-		const digit: NdArray<number>;
+		const digit: NdArray;
 		/**
 		 * @property {NdArray} five - 28x28 grayscale image with an handwritten digit extracted from MNIST database
 		 */
-		const five: NdArray<number>;
+		const five: NdArray;
 		/**
 		 * @property {NdArray} node - 300x600 COLOR image representing Node.js's logo
 		 */
-		const node: NdArray<number>;
+		const node: NdArray;
 		/**
 		 * @property {NdArray} lena - The standard, yet sometimes controversial
 		 * Lena test image was scanned from the November 1972 edition of
@@ -507,7 +507,7 @@ export namespace images {
 		 * is useful because it contains smooth, textured, shaded as well as
 		 * detail areas.
 		 */
-		const lena: NdArray<number>;
+		const lena: NdArray;
 		/**
 		 * @property {NdArray} lenna - The standard, yet sometimes
 		 * controversial Lena test image was scanned from the November 1972
@@ -515,13 +515,13 @@ export namespace images {
 		 * this image is useful because it contains smooth, textured, shaded as
 		 * well as detail areas.
 		 */
-		const lenna: NdArray<number>;
+		const lenna: NdArray;
 		/**
 		 * @property {NdArray} moon - This low-contrast image of the surface of
 		 * the moon is useful for illustrating histogram equalization and
 		 * contrast stretching.
 		 */
-		const moon: NdArray<number>;
+		const moon: NdArray;
 	}
 	function read(input: string): NdArray<Uint8Array>;
 	function save<T = number>(img: NdArray<T>, dest: string): void;

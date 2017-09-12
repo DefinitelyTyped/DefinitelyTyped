@@ -1,7 +1,8 @@
 // Type definitions for kue 0.11.x
 // Project: https://github.com/Automattic/kue
-// Definitions by: Nicholas Penree <http://github.com/drudge>
-//                 Amiram Korach <http://github.com/amiram>
+// Definitions by: Nicholas Penree <https://github.com/drudge>
+//                 Amiram Korach <https://github.com/amiram>
+//                 Christian D. <https://github.com/pc-jedi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -31,6 +32,7 @@ export declare class Queue extends events.EventEmitter {
     watchStuckJobs(ms: number): void;
     setting(name: string, fn: Function): Queue;
     process(type: string, n?: number | ProcessCallback, fn?: ProcessCallback): void;
+    shutdown(timeout: number, fn: Function): Queue;
     shutdown(timeout: number, type: string, fn: Function): Queue;
     types(fn: Function): Queue;
     state(string: string, fn: Function): Queue;
