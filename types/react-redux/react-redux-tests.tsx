@@ -569,3 +569,25 @@ namespace TestDispatchToPropsAsObject {
     const Header = connect(mapStateToProps, dispatchToProps)(HeaderComponent);
     <Header />
 }
+
+namespace TestWrappedComponent {
+    type InnerProps = {
+        name: string,
+    };
+    const Inner: React.StatelessComponent<InnerProps> = (props) => {
+        return <h1>{props.name}</h1>;
+    }
+
+    const mapStateToProps = (state: any) => {
+        return {
+            name: "Connected",
+        };
+    };
+    const Connected = connect(mapStateToProps)(Inner);
+
+    // `Inner` and `Connected.WrappedComponent` require explicit `name` prop
+    const TestInner = (props: any) => <Inner name="Inner" />;
+    const TestWrapped = (props: any) => <Connected.WrappedComponent name="Wrapped" />;
+    // `Connected` does not require explicit `name` prop
+    const TestConnected = (props: any) => <Connected />;
+}
