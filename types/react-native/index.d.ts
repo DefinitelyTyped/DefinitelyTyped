@@ -6,7 +6,6 @@
 //                 Kyle Roach <https://github.com/iRoachie>
 //                 Tim Wang <https://github.com/timwangdev>
 //                 Kamal Mahyuddin <https://github.com/kamal>
-//                 Ryan Thomas <https://github.com/RyanThomas73>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
