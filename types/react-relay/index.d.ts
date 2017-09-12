@@ -423,6 +423,26 @@ declare module "react-relay/classic" {
         renderFailure?(error: Error, retry: (...args: any[]) => any): JSX.Element;
     }
 
+    class Renderer extends React.Component<RendererProps, any> { }
+
+    interface RendererProps {
+        Container: RelayContainerClass<any>; // Relay container that defines fragments and the view to render.
+        forceFetch?: boolean; // Whether to send a server request regardless of data available on the client.
+        queryConfig: Route; // `QueryConfig` or `Relay.Route` that defines the query roots.
+        environment: Store;  // An instance of `Relay.Environment` or any object that implements the `RelayEnvironment` interface.
+        render?: RenderCallback; //  Called to render when data requirements are being fulfilled.
+        onReadyStateChange?: OnReadyStateChange;
+    }
+
+    interface RenderStateConfig {
+        props?: { [propName: string]: any };
+        done: boolean;
+        error?: Error;
+        retry?(): void;
+        stale: boolean;
+    }
+    type RenderCallback = (renderState: RenderStateConfig) => any;
+
     type ReadyStateEvent =
         'ABORT' |
         'CACHE_RESTORED_REQUIRED' |
