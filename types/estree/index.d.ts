@@ -41,6 +41,11 @@ export interface Comment {
   value: string;
 }
 
+export interface Token {
+    type: string;
+    value: string;
+}
+
 interface SourceLocation {
   source?: string | null;
   start: Position;
@@ -59,6 +64,7 @@ export interface Program extends BaseNode {
   sourceType: "script" | "module";
   body: Array<Statement | ModuleDeclaration>;
   comments?: Array<Comment>;
+  tokens?: Array<Token>;
 }
 
 interface BaseFunction extends BaseNode {
