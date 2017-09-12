@@ -6,6 +6,7 @@
 //                 Kyle Roach <https://github.com/iRoachie>
 //                 Tim Wang <https://github.com/timwangdev>
 //                 Kamal Mahyuddin <https://github.com/kamal>
+//                 Ryan Thomas <https://github.com/RyanThomas73>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -892,13 +893,13 @@ export interface TextProperties extends TextPropertiesIOS, TextPropertiesAndroid
      * This function is called on press.
      * Text intrinsically supports press handling with a default highlight state (which can be disabled with suppressHighlighting).
      */
-    onPress?: () => void
+    onPress?: (event: GestureResponderEvent) => void
 
     /**
      * This function is called on long press.
      * e.g., `onLongPress={this.increaseSize}>``
      */
-    onLongPress?: () => void
+    onLongPress?: (event: GestureResponderEvent) => void
 
     /**
      * @see https://facebook.github.io/react-native/docs/text.html#style
@@ -4548,17 +4549,17 @@ export interface TouchableWithoutFeedbackProperties extends TouchableWithoutFeed
      */
     onLayout?: (event: LayoutChangeEvent) => void
 
-    onLongPress?: () => void;
+    onLongPress?: (event: GestureResponderEvent) => void;
 
     /**
      * Called when the touch is released,
      * but not if cancelled (e.g. by a scroll that steals the responder lock).
      */
-    onPress?: () => void;
+    onPress?: (event: GestureResponderEvent) => void;
 
-    onPressIn?: () => void;
+    onPressIn?: (event: GestureResponderEvent) => void;
 
-    onPressOut?: () => void;
+    onPressOut?: (event: GestureResponderEvent) => void;
 
     /**
      * //FIXME: not in doc but available in examples
