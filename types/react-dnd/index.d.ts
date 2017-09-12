@@ -51,6 +51,10 @@ declare module __ReactDnd {
     export function DragDropContext<P>(
         backend: Backend
     ): <P>(componentClass: React.ComponentClass<P> | React.StatelessComponent<P>) => ContextComponentClass<P>;
+    
+    export function DragDropContextProvider<P>(
+        props: { backend: Backend }
+    ): React.ReactElement<P>;
 
     export function DragLayer<P>(
         collect: DragLayerCollector,
