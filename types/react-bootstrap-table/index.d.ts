@@ -87,7 +87,7 @@ export interface BootstrapTableProps extends Props<BootstrapTable> {
 	/**
 	If set, data is remote (use also fetchInfo)
 	*/
-	remote?: (remobeObj: RemoteObjSpec) => RemoteObjSpec | boolean,	// Updated to support ^3.0.0
+	remote?: boolean | (remobeObj: RemoteObjSpec) => RemoteObjSpec,	// Updated to support ^3.0.0
 	/**
 	Use keyField to tell table which column is unique. This is same as isKey in <TableHeaderColumn>
 	Tips: You need choose one configuration to set key field: keyField or isKey in <TableHeaderColumn>
