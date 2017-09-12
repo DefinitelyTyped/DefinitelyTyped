@@ -1,6 +1,12 @@
 // Type definitions for Sequelize 4.0.0
 // Project: http://sequelizejs.com
-// Definitions by: samuelneff <https://github.com/samuelneff>, Peter Harris <https://github.com/codeanimal>, Ivan Drinchev <https://github.com/drinchev>, Brendan Abolivier <https://github.com/babolivier>
+// Definitions by: samuelneff <https://github.com/samuelneff>
+//                 Peter Harris <https://github.com/codeanimal>
+//                 Ivan Drinchev <https://github.com/drinchev>
+//                 Brendan Abolivier <https://github.com/babolivier>
+//                 Patsakol Tangjitcharoenchai <https://github.com/kukoo1>
+//                 Sebastien Bramille <https://github.com/oktapodia>
+//                 Nick Mueller <https://github.com/morpheusxaut>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -4171,7 +4177,7 @@ declare namespace sequelize {
         /**
          * Adds a new index to a table
          */
-        addIndex(tableName: string | Object, attributes: string[], options?: QueryOptions,
+        addIndex(tableName: string | Object, attributes: string[], options?: DefineIndexOptions,
             rawTablename?: string): Promise<void>;
 
         /**
@@ -4433,7 +4439,7 @@ declare namespace sequelize {
          *
          * PostgreSQL only
          */
-        deferrable?: Deferrable;
+        deferrable?: DeferrableInitiallyDeferred | DeferrableInitiallyImmediate | DeferrableNot | DeferrableSetDeferred | DeferrableSetImmediate;
 
     }
 
@@ -4613,7 +4619,7 @@ declare namespace sequelize {
         /**
          * Set of flags that control when a query is automatically retried.
          */
-        retry?: { match?: string[], max?: number };
+        retry?: RetryOptions;
 
         /**
          * If false do not prepend the query with the search_path (Postgres only)
@@ -4765,7 +4771,7 @@ declare namespace sequelize {
         /**
          * only allow uuids
          */
-        isUUID?: number | { msg: string, args: number };
+        isUUID?: 3|4|5|"3"|"4"|"5"|"all" | { msg: string, args: number };
 
         /**
          * only allow date strings
@@ -4821,6 +4827,38 @@ declare namespace sequelize {
 
     }
 
+    interface DefineIndexOptions {
+        /**
+         * The index type
+         */
+        indicesType?: 'UNIQUE' | 'FULLTEXT' | 'SPATIAL';
+
+        /**
+         * The name of the index. Default is __
+         */
+        indexName?: string;
+
+        /**
+         * For FULLTEXT columns set your parser
+         */
+        parser?: string;
+
+        /**
+         * Set a type for the index, e.g. BTREE. See the documentation of the used dialect
+         */
+        indexType?: string;
+
+        /**
+         * A function that receives the sql query, e.g. console.log
+         */
+        logging?: Function;
+
+        /**
+         * A hash of attributes to limit your index(Filtered Indexes - MSSQL & PostgreSQL only)
+         */
+        where?: AnyWhereOptions;
+    }
+
     /**
      * Interface for indexes property in DefineOptions
      *
@@ -4864,7 +4902,7 @@ declare namespace sequelize {
          * (field name), `length` (create a prefix index of length chars), `order` (the direction the column
          * should be sorted in), `collate` (the collation (sort order) for the column)
          */
-        fields?: Array<string | { attribute: string, length: number, order: string, collate: string }>;
+        fields?: Array<string | fn | { attribute: string, length: number, order: string, collate: string }>;
 
         /**
          * Method the index should use, for example 'gin' index.
@@ -5171,12 +5209,22 @@ declare namespace sequelize {
          * The maximum time, in milliseconds, that a connection can be idle before being released.
          */
         idle?: number;
+                     
+        /**
+         * The maximum time, in milliseconds, that pool will try to get connection before throwing error
+         */
+        acquire?: number;
 
         /**
          * A function that validates a connection. Called with client. The default function checks that client is an
          * object, and that its state is not disconnected.
          */
-        validateConnection?: (client?: any) => boolean;
+        validate?: (client?: any) => boolean;
+                     
+        /*
+         * The time interval, in milliseconds, for evicting stale connections
+         */
+        evict?: number;
 
     }
 
@@ -5202,6 +5250,25 @@ declare namespace sequelize {
             password?: string;
             database?: string;
         };
+
+    }
+
+    /**
+     * Interface for retry Options in the sequelize constructor and QueryOptions
+     *
+     * @see Options, QueryOptions
+     */
+    interface RetryOptions {
+
+        /**
+         * Only retry a query if the error matches one of these strings.
+         */
+        match?: string[];
+
+        /**
+         * How many times a failing query is automatically retried. Set to 0 to disable retrying on SQL_BUSY error.
+         */
+        max?: number
 
     }
 
@@ -5253,6 +5320,21 @@ declare namespace sequelize {
          * Defaults to 'tcp'
          */
         protocol?: string;
+
+        /**
+         * The username which is used to authenticate against the database.
+         */
+        username?: string;
+
+        /**
+         * The password which is used to authenticate against the database.
+         */
+        password?: string;
+
+        /**
+         * The name of the database
+         */
+        database?: string;
 
         /**
          * Default options for model definitions. See sequelize.define for options
@@ -5316,6 +5398,19 @@ declare namespace sequelize {
          * Defaults to false
          */
         replication?: ReplicationOptions;
+
+        /**
+         * Set of flags that control when a query is automatically retried.
+         */
+        retry?: RetryOptions;
+
+        /**
+         * Run built in type validators on insert and update,
+         * e.g. validate that arguments passed to integer fields are integer-like.
+         *
+         * Defaults to false
+         */
+        typeValidation?: boolean;
 
         /**
          * Connection pool options
@@ -5542,6 +5637,15 @@ declare namespace sequelize {
         new (uri: string, options?: Options): Sequelize;
 
         /**
+         * Instantiate sequelize with an options object which containing username, password, database
+         * @name Sequelize
+         * @constructor
+         *
+         * @param options An object with options. See above for possible options
+         */
+        new (options: Options): Sequelize;
+
+        /**
          * Provide access to continuation-local-storage (http://docs.sequelizejs.com/en/latest/api/sequelize/#transactionoptions-promise)
          */
         cls: any;
@@ -5576,6 +5680,11 @@ declare namespace sequelize {
          * Defined models.
          */
         models: ModelsHashInterface;
+
+        /**
+         * Defined options.
+         */
+        options: Options;
 
         /**
          * Returns the specified dialect.

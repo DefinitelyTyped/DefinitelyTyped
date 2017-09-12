@@ -1,6 +1,6 @@
 // Type definitions for node-fluent-ffmpeg 2.1
 // Project: https://github.com/fluent-ffmpeg/node-fluent-ffmpeg
-// Definitions by: KIM Jaesuck a.k.a. gim tcaesvk <http://github.com/tcaesvk/>, DingWeizhe <https://github.com/DingWeizhe>
+// Definitions by: KIM Jaesuck a.k.a. gim tcaesvk <https://github.com/tcaesvk>, DingWeizhe <https://github.com/DingWeizhe>
 // Definitions: https://github.com/DefinitelyType/DefinitelyTyped
 
 /// <reference types="node" />
@@ -105,6 +105,11 @@ declare namespace Ffmpeg {
         size?: string;
     }
 
+    interface AudioVideoFilter {
+        filter: string;
+        options: string | string[] | {};
+    }
+
     class FfmpegCommand extends events.EventEmitter {
         constructor(options?: FfmpegCommandOptions);
         constructor(input?: string | stream.Readable, options?: FfmpegCommandOptions);
@@ -144,10 +149,10 @@ declare namespace Ffmpeg {
         audioFrequency(freq: number): FfmpegCommand;
         withAudioQuality(quality: number): FfmpegCommand;
         audioQuality(quality: number): FfmpegCommand;
-        withAudioFilter(filters: { filter: string, options: any }): FfmpegCommand;
-        withAudioFilters(filters: { filter: string, options: any }): FfmpegCommand;
-        audioFilter(filters: { filter: string, options: any }): FfmpegCommand;
-        audioFilters(filters: { filter: string, options: any }): FfmpegCommand;
+        withAudioFilter(filters: string | string[] | AudioVideoFilter[]): FfmpegCommand;
+        withAudioFilters(filters: string | string[] | AudioVideoFilter[]): FfmpegCommand;
+        audioFilter(filters: string | string[] | AudioVideoFilter[]): FfmpegCommand;
+        audioFilters(filters: string | string[] | AudioVideoFilter[]): FfmpegCommand;
 
         // options/video;
         withNoVideo(): FfmpegCommand;
@@ -156,10 +161,10 @@ declare namespace Ffmpeg {
         videoCodec(codec: string): FfmpegCommand;
         withVideoBitrate(bitrate: string | number): FfmpegCommand;
         videoBitrate(bitrate: string | number): FfmpegCommand;
-        withVideoFilter(filters: { filter: string, options: any }): FfmpegCommand;
-        withVideoFilters(filters: { filter: string, options: any }): FfmpegCommand;
-        videoFilter(filters: { filter: string, options: any }): FfmpegCommand;
-        videoFilters(filters: { filter: string, options: any }): FfmpegCommand;
+        withVideoFilter(filters: string | string[] | AudioVideoFilter[]): FfmpegCommand;
+        withVideoFilters(filters: string | string[] | AudioVideoFilter[]): FfmpegCommand;
+        videoFilter(filters: string | string[] | AudioVideoFilter[]): FfmpegCommand;
+        videoFilters(filters: string | string[] | AudioVideoFilter[]): FfmpegCommand;
         withOutputFps(fps: number): FfmpegCommand;
         withOutputFPS(fps: number): FfmpegCommand;
         withFpsOutput(fps: number): FfmpegCommand;

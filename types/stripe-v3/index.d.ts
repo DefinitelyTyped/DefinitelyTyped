@@ -1,8 +1,8 @@
 // Type definitions for stripe-v3 3.0
 // Project: https://stripe.com/
 // Definitions by: Andy Hawkins <https://github.com/a904guy/,http://a904guy.com>
-//                 Eric J. Smith <https://github.com/ejsmith/>
-//                 Amrit Kahlon <https://github.com/amritk/>
+//                 Eric J. Smith <https://github.com/ejsmith>
+//                 Amrit Kahlon <https://github.com/amritk>
 //                 Adam Cmiel <https://github.com/adamcmiel>
 //                 Justin Leider <https://github.com/jleider>
 //                 Kamil Gałuszka <https://github.com/galuszkak>
@@ -110,7 +110,7 @@ declare namespace stripe {
     // Container for all elements related types
     namespace elements {
         interface ElementsCreateOptions {
-            fonts?: elements.Font[];
+            fonts?: Font[];
             locale?: string;
         }
 
@@ -121,6 +121,7 @@ declare namespace stripe {
             // Cannot find name 'HTMLElement'
             mount(domElement: string | any): void;
             on(event: eventTypes, handler: handler): void;
+            focus(): void;
             blur(): void;
             clear(): void;
             unmount(): void;
@@ -136,7 +137,7 @@ declare namespace stripe {
         }
 
         interface ElementOptions {
-            fonts?: elements.Font[];
+            fonts?: Font[];
             locale?: string;
         }
 
@@ -180,6 +181,7 @@ declare namespace stripe {
             style?: string;
             unicodeRange?: string;
             weight?: string;
+            cssSrc?: string;
         }
 
         interface StyleOptions {

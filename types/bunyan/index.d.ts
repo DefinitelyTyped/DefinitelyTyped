@@ -2,6 +2,7 @@
 // Project: https://github.com/trentm/node-bunyan
 // Definitions by: Alex Mikhalev <https://github.com/amikhalev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /// <reference types="node" />
 
@@ -210,7 +211,11 @@ declare namespace Logger {
     const ERROR: number;
     const FATAL: number;
 
-    type LogLevel = 'trace' | 'debug' | 'info' | 'warn' | 'error' | 'fatal' | number;
+    type LogLevelString = 'trace' | 'debug' | 'info' | 'warn' | 'error' | 'fatal';
+    type LogLevel = LogLevelString | number;
+
+    const levelFromName: { [name in LogLevelString]: number };
+    const nameFromLevel: { [level: number]: string };
 
     const stdSerializers: StdSerializers;
 
@@ -228,6 +233,7 @@ declare namespace Logger {
         closeOnExit?: boolean;
         period?: string;
         count?: number;
+        name?: string;
     }
 
     interface LoggerOptions {

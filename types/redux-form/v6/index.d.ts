@@ -12,6 +12,12 @@ import {
 
 export type FieldValue = any;
 
+export type FieldState = {
+    active?: boolean;
+    touched?: boolean;
+    visited?: boolean;
+}
+
 export type FieldType = "Field" | "FieldArray";
 
 export interface DataShape {
@@ -25,6 +31,10 @@ export type FormErrors<FormData extends DataShape> = {
 export type FormWarnings<FormData extends DataShape> = {
     [P in keyof FormData]?: ReactElement<any> | string | { _warning?: string };
 };
+
+export type FormMeta<FormData extends DataShape> = {
+    [P in keyof FormData]?: FieldState;
+}
 
 /**
  * A component class or stateless function component.

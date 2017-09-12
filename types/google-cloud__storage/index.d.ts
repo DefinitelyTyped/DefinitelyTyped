@@ -1,6 +1,7 @@
 // Type definitions for @google-cloud/storage 1.1
 // Project: https://github.com/GoogleCloudPlatform/google-cloud-node/tree/master/packages/storage
 // Definitions by: Brian Love <https://github.com/blove>
+//                 Nathan Brooker Perry <https://github.com/nbperry>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -15,25 +16,26 @@ declare namespace Storage {
      */
     class Bucket {
         constructor(storage: Storage, name: string);
-        acl: Storage.Acl;
-        combine(sources: string[] | File[], destination: string[] | File[]): Promise<[File, Storage.ApiResponse]>;
-        create(config?: BucketConfig): Promise<[Bucket, Storage.ApiResponse]>;
-        createChannel(id: string, config: ChannelConfig): Promise<[Channel, Storage.ApiResponse]>;
-        delete(): Promise<[Storage.ApiResponse]>;
+        acl: Acl;
+        combine(sources: string[] | File[], destination: string[] | File[]): Promise<[File, ApiResponse]>;
+        create(config?: BucketConfig): Promise<[Bucket, ApiResponse]>;
+        createChannel(id: string, config: ChannelConfig): Promise<[Channel, ApiResponse]>;
+        delete(): Promise<[ApiResponse]>;
         deleteFiles(query?: BucketQuery): Promise<void>;
         exists(): Promise<[boolean]>;
         file(name: string, options?: BucketFileOptions): File;
-        get(options?: BucketGetOptions): Promise<[Bucket, Storage.ApiResponse]>;
+        get(options?: BucketGetOptions): Promise<[Bucket, ApiResponse]>;
         getFiles(query?: BucketQuery): Promise<[File[]]>;
         getFilesStream(query?: BucketQuery): ReadStream;
-        getMetadata(): Promise<[BucketMetadata, Storage.ApiResponse]>;
+        getMetadata(): Promise<[BucketMetadata, ApiResponse]>;
         id: string;
+        iam: Iam;
         makePrivate(options?: BucketPrivacyOptions): Promise<[File[]]>;
         makePublic(options?: BucketPrivacyOptions): Promise<[File[]]>;
         metadata: BucketMetadata;
         name: string;
-        setMetadata(metadata?: BucketMetadata): Promise<[Storage.ApiResponse]>;
-        upload(localPath: string, options?: Storage.UploadOptions): Promise<[File]>;
+        setMetadata(metadata?: BucketMetadata): Promise<[ApiResponse]>;
+        upload(localPath: string, options?: UploadOptions): Promise<[File]>;
     }
 
     /**
@@ -119,6 +121,7 @@ declare namespace Storage {
         acl: Acl;
         copy(destination: string | Bucket | File): Promise<[File, ApiResponse]>;
         createReadStream(options?: ReadStreamOptions): ReadStream;
+        createResumableUpload(options?: ResumableUploadOptions): Promise<[string]>;
         createWriteStream(options?: WriteStreamOptions): WriteStream;
         delete(): Promise<[ApiResponse]>;
         download(options?: DownloadOptions): Promise<[Buffer]>;
@@ -138,10 +141,18 @@ declare namespace Storage {
     }
 
     /**
+     * User-defined metadata.
+     */
+    interface CustomFileMetadata {
+        [key: string]: boolean | number | string | null;
+    }
+
+    /**
      * File metadata.
      */
     interface FileMetadata {
         contentType?: string;
+        metadata?: CustomFileMetadata;
     }
 
     /**
@@ -188,6 +199,17 @@ declare namespace Storage {
         promptSaveAs?: string;
         responseDisposition?: string;
         responseType?: string;
+    }
+
+    /**
+     * Options when obtaining a resumable upload URI.
+     */
+    interface ResumableUploadOptions {
+        metadata?: FileMetadata;
+        origin?: string;
+        predefinedAcl?: string;
+        private?: boolean;
+        public?: boolean;
     }
 
     /**
@@ -328,7 +350,7 @@ declare namespace Storage {
      */
     class Channel {
         constructor(storage: Storage, id: string, resourceId: string);
-        stop(): Promise<[Storage.ApiResponse]>;
+        stop(): Promise<[ApiResponse]>;
     }
 
     /**
@@ -336,6 +358,27 @@ declare namespace Storage {
      */
     interface ChannelConfig {
         address: string;
+    }
+
+    /**
+     * This class allows you to get Identity Access Management information.
+     */
+    class Iam {
+        getPolicy(): Promise<IamPolicy>;
+        setPolicy(policy: IamPolicy): Promise<[IamPolicy, ApiResponse]>;
+        testPermissions(permission: string | string[]): Promise<[{[key: string]: boolean}, ApiResponse]>;
+    }
+
+    /**
+     * IAM policy
+     */
+    interface IamPolicy {
+        bindings: IamBinding[];
+    }
+
+    interface IamBinding {
+        role: string;
+        members: string[];
     }
 }
 

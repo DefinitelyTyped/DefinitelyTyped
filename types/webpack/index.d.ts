@@ -5,6 +5,7 @@
 //                 Boris Cherny <https://github.com/bcherny>
 //                 Tommy Troy Lin <https://github.com/tommytroylin>
 //                 Mohsen Azimi <https://github.com/mohsen1>
+//                 Jonathan Creamer <https://github.com/jcreamer898>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -782,7 +783,7 @@ declare namespace webpack {
             /**
              * An object containing `content` and `name`.
              */
-            manifest: { content: string, name: string };
+            manifest: { content: string, name: string } | string;
 
             /**
              * The name where the DLL is exposed.
@@ -830,6 +831,14 @@ declare namespace webpack {
 
     class ExtendedAPIPlugin extends Plugin {
         constructor();
+    }
+
+    class HashedModuleIdsPlugin extends Plugin {
+        constructor(options?: {
+            hashFunction?: string,
+            hashDigest?: string,
+            hashDigestLength?: number
+        });
     }
 
     class HotModuleReplacementPlugin extends Plugin {
@@ -910,7 +919,7 @@ declare namespace webpack {
     }
 
     class WatchIgnorePlugin extends Plugin {
-        constructor(paths: RegExp[]);
+        constructor(paths: Array<string | RegExp>);
     }
 
     namespace optimize {

@@ -1,6 +1,6 @@
 // Type definitions for AutobahnJS v0.9.7
 // Project: http://autobahn.ws/js/
-// Definitions by: Elad Zelingher <https://github.com/darkl/>, Andy Hawkins <https://github.com/a904guy/,http://a904guy.com/,http://www.bmbsqd.com>, Wladimir Totino <https://github.com/valepu>
+// Definitions by: Elad Zelingher <https://github.com/darkl>, Andy Hawkins <https://github.com/a904guy/,http://a904guy.com/,http://www.bmbsqd.com>, Wladimir Totino <https://github.com/valepu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="when" />
@@ -205,7 +205,7 @@ declare namespace autobahn {
 
     type DeferFactory = () => When.Promise<any>;
 
-    type OnChallengeHandler = (session: Session, method: string, extra: any) => When.Promise<string>;
+    type OnChallengeHandler = (session: Session, method: string, extra: any) => string;
 
     interface IConnectionOptions {
         use_es6_promises?: boolean;
