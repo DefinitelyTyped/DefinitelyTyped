@@ -3921,7 +3921,7 @@ export interface VirtualizedListProperties<ItemT> extends ScrollViewProperties {
 
     onEndReachedThreshold?: number | null
 
-    onLayout?: () => void
+    onLayout?: (event: LayoutChangeEvent) => void;
 
     /**
      * If provided, a standard RefreshControl will be added for "Pull to Refresh" functionality. Make
