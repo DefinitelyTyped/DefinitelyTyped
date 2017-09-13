@@ -1037,7 +1037,7 @@ declare namespace l {
              * Model.remoteMethod('myMethod');
              * ``
              * @param {string} name The name of the method.
-             * @param {any} options The remoting options.
+             * @param {RemoteMethodOptions} options The remoting options.
              * See [Remote methods - Options](docs.strongloop.com/display/LB/Remote+methods#Remotemethods-Options)
              */
             static remoteMethod(name: string, options: RemoteMethodOptions): void;
