@@ -626,18 +626,12 @@ export interface ShadowPropTypesIOSStatic {
     shadowRadius: number
 }
 
-type GetCurrentPositionOptions = {
-    timeout: number
-    maximumAge: number
-    enableHighAccuracy: boolean
-    distanceFilter: number
-}
-
-type WatchPositionOptions = {
-    timeout: number
-    maximumAge: number
-    enableHighAccuracy: boolean
-    distanceFilter: number
+type GeoOptions = {
+    timeout?: number,
+    maximumAge?: number,
+    enableHighAccuracy?: boolean,
+    distanceFilter?: number,
+    useSignificantChanges?: boolean,
 }
 
 type GeolocationReturnType = {
@@ -892,13 +886,13 @@ export interface TextProperties extends TextPropertiesIOS, TextPropertiesAndroid
      * This function is called on press.
      * Text intrinsically supports press handling with a default highlight state (which can be disabled with suppressHighlighting).
      */
-    onPress?: () => void
+    onPress?: (event: GestureResponderEvent) => void
 
     /**
      * This function is called on long press.
      * e.g., `onLongPress={this.increaseSize}>``
      */
-    onLongPress?: () => void
+    onLongPress?: (event: GestureResponderEvent) => void
 
     /**
      * @see https://facebook.github.io/react-native/docs/text.html#style
@@ -3927,7 +3921,7 @@ export interface VirtualizedListProperties<ItemT> extends ScrollViewProperties {
 
     onEndReachedThreshold?: number | null
 
-    onLayout?: () => void
+    onLayout?: (event: LayoutChangeEvent) => void;
 
     /**
      * If provided, a standard RefreshControl will be added for "Pull to Refresh" functionality. Make
@@ -4548,17 +4542,17 @@ export interface TouchableWithoutFeedbackProperties extends TouchableWithoutFeed
      */
     onLayout?: (event: LayoutChangeEvent) => void
 
-    onLongPress?: () => void;
+    onLongPress?: (event: GestureResponderEvent) => void;
 
     /**
      * Called when the touch is released,
      * but not if cancelled (e.g. by a scroll that steals the responder lock).
      */
-    onPress?: () => void;
+    onPress?: (event: GestureResponderEvent) => void;
 
-    onPressIn?: () => void;
+    onPressIn?: (event: GestureResponderEvent) => void;
 
-    onPressOut?: () => void;
+    onPressOut?: (event: GestureResponderEvent) => void;
 
     /**
      * //FIXME: not in doc but available in examples
@@ -8389,13 +8383,13 @@ export interface GeolocationStatic {
      * On Android, this can return almost immediately if the location is cached or
      * request an update, which might take a while.
      */
-    getCurrentPosition(geo_success: (position: GeolocationReturnType) => void, geo_error?: (error: GeolocationError) => void, geo_options?: GetCurrentPositionOptions): void
+    getCurrentPosition(geo_success: (position: GeolocationReturnType) => void, geo_error?: (error: GeolocationError) => void, geo_options?: GeoOptions): void
 
     /**
      * Invokes the success callback whenever the location changes.  Supported
      * options: timeout (ms), maximumAge (ms), enableHighAccuracy (bool), distanceFilter(m)
      */
-    watchPosition(success: (position: GeolocationReturnType) => void, error?: (error: GeolocationError) => void, options?: WatchPositionOptions): number
+    watchPosition(success: (position: GeolocationReturnType) => void, error?: (error: GeolocationError) => void, options?: GeoOptions): number
 
     clearWatch(watchID: number): void
 

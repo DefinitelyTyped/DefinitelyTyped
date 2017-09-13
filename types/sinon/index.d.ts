@@ -363,6 +363,7 @@ declare namespace Sinon {
         alwaysThrew(spy: SinonSpy): void;
         alwaysThrew(spy: SinonSpy, exception: string): void;
         alwaysThrew(spy: SinonSpy, exception: any): void;
+        match(actual: any, expected: any): void;
         expose(obj: any, options?: SinonExposeOptions): void;
     }
 
