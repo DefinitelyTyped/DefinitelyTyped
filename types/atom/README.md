@@ -39,3 +39,4 @@ let completionProvider: Atom.Service.Autocomplete.Provider;
 
 The currently supported services are:
 - [Autocomplete](https://github.com/atom/autocomplete-plus)
+- [Status Bar](https://github.com/atom/status-bar)

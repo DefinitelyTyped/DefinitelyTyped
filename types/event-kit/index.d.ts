@@ -1,7 +1,6 @@
 // Type definitions for event-kit 2.x
 // Project: https://github.com/atom/event-kit
-// Definitions by: Vadim Macagon <https://github.com/enlight>
-//                 GlenCFL <https://github.com/GlenCFL>
+// Definitions by: GlenCFL <https://github.com/GlenCFL>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 

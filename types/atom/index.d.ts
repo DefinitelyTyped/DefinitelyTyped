@@ -1,7 +1,6 @@
 // Type definitions for Atom 1.19
 // Project: https://github.com/atom/atom
-// Definitions by: vvakame <https://github.com/vvakame>
-//                 GlenCFL <https://github.com/GlenCFL>
+// Definitions by: GlenCFL <https://github.com/GlenCFL>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -3222,8 +3221,8 @@ declare namespace AtomCore {
 
 		/** Expand selections to the end of their containing word.
 		 *  Operates on all selections. Moves the cursor to the end of the containing word
-			* while preserving the selection's tail position.
-			*/
+		 *  while preserving the selection's tail position.
+		 */
 		selectToEndOfWord(): void;
 
 		/** For each cursor, select the containing line.

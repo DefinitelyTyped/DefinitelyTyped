@@ -1,7 +1,6 @@
 // Type definitions for pathwatcher 7.x
 // Project: https://github.com/atom/node-pathwatcher
-// Definitions by: vvakame <https://github.com/vvakame>
-//                 GlenCFL <https://github.com/GlenCFL>
+// Definitions by: GlenCFL <https://github.com/GlenCFL>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 

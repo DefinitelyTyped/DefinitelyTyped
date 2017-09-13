@@ -1,7 +1,6 @@
 // Type definitions for first-mate 7.x
 // Project: https://github.com/atom/first-mate/
-// Definitions by: Vadim Macagon <https://github.com/enlight>
-//                 GlenCFL <https://github.com/GlenCFL>
+// Definitions by: GlenCFL <https://github.com/GlenCFL>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -80,24 +79,24 @@ declare namespace FirstMate {
 
 		// Tokenizing
 		/** Tokenize all lines in the given text.
-		 * @param text A string containing one or more lines.
-		 * @return An array of token arrays for each line tokenized.
+		 *  @param text A string containing one or more lines.
+		 *  @return An array of token arrays for each line tokenized.
 		 */
 		tokenizeLines(text: string, compatibilityMode?: boolean): Structures.GrammarToken[][];
 
 		/** Tokenizes the line of text.
-		 * @param line A string of text to tokenize.
-		 * @return An object representing the result of the tokenize.
+		 *  @param line A string of text to tokenize.
+		 *  @return An object representing the result of the tokenize.
 		 */
 		tokenizeLine(line: string): Structures.TokenizeLineResult;
 		/** Tokenizes the line of text.
-		 * @param line A string of text to tokenize.
-		 * @param ruleStack An optional array of rules previously returned from this
-		 * method. This should be null when tokenizing the first line in the file.
-		 * @param firstLine A optional boolean denoting whether this is the first line
-		 * in the file which defaults to `false`. This should be `true`
-		 * @param compatibilityMode `true` by default.
-		 * @return An object representing the result of the tokenize.
+		 *  @param line A string of text to tokenize.
+		 *  @param ruleStack An optional array of rules previously returned from this
+		 *  method. This should be null when tokenizing the first line in the file.
+		 *  @param firstLine A optional boolean denoting whether this is the first line
+		 *  in the file which defaults to `false`. This should be `true`
+		 *  @param compatibilityMode `true` by default.
+		 *  @return An object representing the result of the tokenize.
 		 */
 		tokenizeLine(line: string, ruleStack: Structures.GrammarRule[], firstLine?:
 			boolean, compatibilityMode?: boolean): Structures.TokenizeLineResult;
@@ -115,80 +114,80 @@ declare namespace FirstMate {
 
 		// Event Subscription
 		/** Invoke the given callback when a grammar is added to the registry.
-		 * @param callback The callback to be invoked whenever a grammar is added.
-		 * @return A Disposable on which `.dispose()` can be called to unsubscribe.
+		 *  @param callback The callback to be invoked whenever a grammar is added.
+		 *  @return A Disposable on which `.dispose()` can be called to unsubscribe.
 		 */
 		onDidAddGrammar(callback: (grammar: Grammar) => void): EventKit.Disposable;
 
 		/** Invoke the given callback when a grammar is updated due to a grammar it
 		 *  depends on being added or removed from the registry.
-		 * @param callback The callback to be invoked whenever a grammar is updated.
-		 * @return A Disposable on which `.dispose()` can be called to unsubscribe.
+		 *  @param callback The callback to be invoked whenever a grammar is updated.
+		 *  @return A Disposable on which `.dispose()` can be called to unsubscribe.
 		 */
 		onDidUpdateGrammar(callback: (grammar: Grammar) => void): EventKit.Disposable;
 
 		// Managing Grammars
 		/** Get all the grammars in this registry.
-		 * @return A non-empty array of Grammar instances.
+		 *  @return A non-empty array of Grammar instances.
 		 */
 		getGrammars(): Grammar[];
 
 		/** Get a grammar with the given scope name.
-		 * @param scopeName A string such as `source.js`.
-		 * @return A Grammar or undefined.
+		 *  @param scopeName A string such as `source.js`.
+		 *  @return A Grammar or undefined.
 		 */
 		grammarForScopeName(scopeName: string): Grammar|undefined;
 
 		/** Add a grammar to this registry.
 		 *  A 'grammar-added' event is emitted after the grammar is added.
-		 * @param grammar The Grammar to add. This should be a value previously returned
-		 * from ::readGrammar or ::readGrammarSync.
-		 * @return Returns a Disposable on which `.dispose()` can be called to remove
-		 * the grammar.
+		 *  @param grammar The Grammar to add. This should be a value previously returned
+		 *  from ::readGrammar or ::readGrammarSync.
+		 *  @return Returns a Disposable on which `.dispose()` can be called to remove
+		 *  the grammar.
 		 */
 		addGrammar(grammar: Grammar): EventKit.Disposable;
 
 		/** Remove the given grammar from this registry.
-		 * @param grammar The grammar to remove. This should be a grammar previously
-		 * added to the registry from ::addGrammar.
+		 *  @param grammar The grammar to remove. This should be a grammar previously
+		 *  added to the registry from ::addGrammar.
 		 */
 		removeGrammar(grammar: Grammar): void;
 
 		/** Remove the grammar with the given scope name.
-		 * @param scopeName A string such as `source.js`.
-		 * @return Returns the removed Grammar or undefined.
+		 *  @param scopeName A string such as `source.js`.
+		 *  @return Returns the removed Grammar or undefined.
 		 */
 		removeGrammarForScopeName(scopeName: string): Grammar|undefined;
 
 		/** Read a grammar synchronously but don't add it to the registry.
-		 * @param grammarPath The absolute file path to a grammar.
-		 * @return The newly loaded Grammar.
+		 *  @param grammarPath The absolute file path to a grammar.
+		 *  @return The newly loaded Grammar.
 		 */
 		readGrammarSync(grammarPath: string): Grammar;
 
 		/** Read a grammar asynchronously but don't add it to the registry.
-		 * @param grammarPath The absolute file path to the grammar.
-		 * @param callback The function to be invoked once the Grammar has been read in.
+		 *  @param grammarPath The absolute file path to the grammar.
+		 *  @param callback The function to be invoked once the Grammar has been read in.
 		 */
 		readGrammar(grammarPath: string, callback: (error: Error, grammar: Grammar) => void): void;
 
 		/** Read a grammar synchronously and add it to this registry.
-		 * @param grammarPath The absolute file path to the grammar.
-		 * @return The newly loaded Grammar.
+		 *  @param grammarPath The absolute file path to the grammar.
+		 *  @return The newly loaded Grammar.
 		 */
 		loadGrammarSync(grammarPath: string): Grammar;
 
 		/** Read a grammar asynchronously and add it to the registry.
-		 * @param grammarPath The absolute file path to the grammar.
-		 * @param callback The function to be invoked once the Grammar has been read in
-		 * and added to the registry.
+		 *  @param grammarPath The absolute file path to the grammar.
+		 *  @param callback The function to be invoked once the Grammar has been read in
+		 *  and added to the registry.
 		 */
 		loadGrammar(grammarPath: string, callback: (error: Error, grammar: Grammar) => void): void;
 
 		/** Convert compact tags representation into convenient, space-inefficient tokens.
-		 * @param lineText The text of the tokenized line.
-		 * @param tags The tags returned from a call to Grammar::tokenizeLine().
-		 * @return An array of Token instances decoded from the given tags.
+		 *  @param lineText The text of the tokenized line.
+		 *  @param tags The tags returned from a call to Grammar::tokenizeLine().
+		 *  @return An array of Token instances decoded from the given tags.
 		 */
 		decodeTokens(lineText: string, tags: Array<number|string>): Structures.GrammarToken[];
 	}
@@ -196,34 +195,34 @@ declare namespace FirstMate {
 	/** The static side to the ScopeSelector class. */
 	interface ScopeSelctorStatic {
 		/** Create a new scope selector.
-		 * @param source The string to parse as a scope selector.
-		 * @return A newly constructed ScopeSelector.
+		 *  @param source The string to parse as a scope selector.
+		 *  @return A newly constructed ScopeSelector.
 		 */
 		new (source: string): ScopeSelector;
 	}
 
 	interface ScopeSelector {
 		/** Check if this scope selector matches the scopes.
-		 * @param scopes A single scope or an array of them to be compared against.
-		 * @return A boolean indicating whether or not this ScopeSelector matched.
+		 *  @param scopes A single scope or an array of them to be compared against.
+		 *  @return A boolean indicating whether or not this ScopeSelector matched.
 		 */
 		matches(scopes: string|ReadonlyArray<string>): boolean;
 
 		/** Gets the prefix of this scope selector.
-		 * @param scopes The scopes to match a prefix against.
-		 * @return The matching prefix, if there is one.
+		 *  @param scopes The scopes to match a prefix against.
+		 *  @return The matching prefix, if there is one.
 		 */
 		getPrefix(scopes: string|ReadonlyArray<string>): string|undefined;
 
 		/** Convert this TextMate scope selector to a CSS selector.
-		 * @return A string with the CSSSelector representation of this ScopeSelector.
+		 *  @return A string with the CSSSelector representation of this ScopeSelector.
 		 */
 		toCssSelector(): string;
 
 		/** Convert this TextMate scope selector to a CSS selector, prefixing scopes
 		 *  with `syntax--`.
-		 * @return A string with the syntax-specific CSSSelector representation of this
-		 * ScopeSelector.
+		 *  @return A string with the syntax-specific CSSSelector representation of this
+		 *  ScopeSelector.
 		 */
 		toCssSyntaxSelector(): string;
 	}
