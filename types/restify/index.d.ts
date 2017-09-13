@@ -305,6 +305,12 @@ export interface Server extends http.Server {
 
     /** Once listen() is called, this will be filled in with where the server is running. */
     url: string;
+
+    /** Node server instance */
+    server: http.Server;
+
+    /** Router instance */
+    router: Router;
 }
 
 export interface RouterOptions {
@@ -912,15 +918,6 @@ export interface Response extends http.ServerResponse {
      * @returns  {String}
      */
     toString(): string;
-
-    /**
-     * pass through to native response.writeHead().
-     * @public
-     * @function writeHead
-     * @emits    header
-     * @returns  {undefined}
-     */
-    writeHead(): void;
 
     /** redirect is sugar method for redirecting.
      * res.redirect(301, 'www.foo.com', next);

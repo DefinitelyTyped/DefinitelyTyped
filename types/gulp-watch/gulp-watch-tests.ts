@@ -26,14 +26,10 @@ gulp.task('build', () => {
         .pipe(watch(files, { base: '..' }));
 });
 
-gulp.task('build', () => {
-    var files = [
-        'app/**/*.ts',
-        'lib/**/*.ts',
-        'components/**/*.ts',
-    ];
-
-    gulp.src(files, { cwd: '..' })
-        .pipe(watch(files, { base: '..' }));
+gulp.task('use_file', () => {
+    watch("foo", file => {
+        const s: string = file.relative;
+        const e: "add" | "change" | "unlink" = file.event;
+    });
 });
 

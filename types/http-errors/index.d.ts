@@ -1,97 +1,112 @@
-// Type definitions for http-errors v1.5.0
+// Type definitions for http-errors 1.6
 // Project: https://github.com/jshttp/http-errors
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
+//                 BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
-declare module 'http-errors' {
-    namespace createHttpError {
+export = createHttpError;
 
-        // See https://github.com/jshttp/http-errors/blob/1.3.1/index.js#L42
-        interface HttpError extends Error {
-            status: number;
-            statusCode: number;
-            expose: boolean;
-            headers?: {
-                [key: string]: string
-            };
-        }
+declare const createHttpError: createHttpError.CreateHttpError & createHttpError.NamedConstructors;
 
-        type HttpErrorConstructor = new(msg?: string) => HttpError;
-
-        interface CreateHttpError {
-            // See https://github.com/Microsoft/TypeScript/issues/227#issuecomment-50092674
-            [code: string]: new (msg?: string) => HttpError;
-
-            (...args: Array<Error | string | number | Object>): HttpError;
-            
-            HttpError: HttpErrorConstructor;
-
-            Continue: HttpErrorConstructor;
-            SwitchingProtocols: HttpErrorConstructor;
-            Processing: HttpErrorConstructor;
-            OK: HttpErrorConstructor;
-            Created: HttpErrorConstructor;
-            Accepted: HttpErrorConstructor;
-            NonAuthoritativeInformation: HttpErrorConstructor;
-            NoContent: HttpErrorConstructor;
-            ResetContent: HttpErrorConstructor;
-            PartialContent: HttpErrorConstructor;
-            MultiStatus: HttpErrorConstructor;
-            AlreadyReported: HttpErrorConstructor;
-            IMUsed: HttpErrorConstructor;
-            MultipleChoices: HttpErrorConstructor;
-            MovedPermanently: HttpErrorConstructor;
-            Found: HttpErrorConstructor;
-            SeeOther: HttpErrorConstructor;
-            NotModified: HttpErrorConstructor;
-            UseProxy: HttpErrorConstructor;
-            Unused: HttpErrorConstructor;
-            TemporaryRedirect: HttpErrorConstructor;
-            PermanentRedirect: HttpErrorConstructor;
-            BadRequest: HttpErrorConstructor;
-            Unauthorized: HttpErrorConstructor;
-            PaymentRequired: HttpErrorConstructor;
-            Forbidden: HttpErrorConstructor;
-            NotFound: HttpErrorConstructor;
-            MethodNotAllowed: HttpErrorConstructor;
-            NotAcceptable: HttpErrorConstructor;
-            ProxyAuthenticationRequired: HttpErrorConstructor;
-            RequestTimeout: HttpErrorConstructor;
-            Conflict: HttpErrorConstructor;
-            Gone: HttpErrorConstructor;
-            LengthRequired: HttpErrorConstructor;
-            PreconditionFailed: HttpErrorConstructor;
-            PayloadTooLarge: HttpErrorConstructor;
-            URITooLong: HttpErrorConstructor;
-            UnsupportedMediaType: HttpErrorConstructor;
-            RangeNotSatisfiable: HttpErrorConstructor;
-            ExpectationFailed: HttpErrorConstructor;
-            ImATeapot: HttpErrorConstructor;
-            MisdirectedRequest: HttpErrorConstructor;
-            UnprocessableEntity: HttpErrorConstructor;
-            Locked: HttpErrorConstructor;
-            FailedDependency: HttpErrorConstructor;
-            UnorderedCollection: HttpErrorConstructor;
-            UpgradeRequired: HttpErrorConstructor;
-            PreconditionRequired: HttpErrorConstructor;
-            TooManyRequests: HttpErrorConstructor;
-            RequestHeaderFieldsTooLarge: HttpErrorConstructor;
-            UnavailableForLegalReasons: HttpErrorConstructor;
-            InternalServerError: HttpErrorConstructor;
-            NotImplemented: HttpErrorConstructor;
-            BadGateway: HttpErrorConstructor;
-            ServiceUnavailable: HttpErrorConstructor;
-            GatewayTimeout: HttpErrorConstructor;
-            HTTPVersionNotSupported: HttpErrorConstructor;
-            VariantAlsoNegotiates: HttpErrorConstructor;
-            InsufficientStorage: HttpErrorConstructor;
-            LoopDetected: HttpErrorConstructor;
-            BandwidthLimitExceeded: HttpErrorConstructor;
-            NotExtended: HttpErrorConstructor;
-            NetworkAuthenticationRequired: HttpErrorConstructor;
-        }
+declare namespace createHttpError {
+    interface HttpError extends Error {
+        status: number;
+        statusCode: number;
+        expose: boolean;
+        headers?: {
+            [key: string]: string;
+        };
+        [key: string]: any;
     }
 
-    var createHttpError: createHttpError.CreateHttpError;
-    export = createHttpError;
+    type HttpErrorConstructor = new (msg?: string) => HttpError;
+
+    type CreateHttpError = (...args: Array<Error | string | number | { [key: string]: any }>) => HttpError;
+
+    type NamedConstructors = {
+        [code: string]: HttpErrorConstructor;
+        HttpError: HttpErrorConstructor;
+    } & Record<'BadRequest' |
+        'Unauthorized' |
+        'PaymentRequired' |
+        'Forbidden' |
+        'NotFound' |
+        'MethodNotAllowed' |
+        'NotAcceptable' |
+        'ProxyAuthenticationRequired' |
+        'RequestTimeout' |
+        'Conflict' |
+        'Gone' |
+        'LengthRequired' |
+        'PreconditionFailed' |
+        'PayloadTooLarge' |
+        'URITooLong' |
+        'UnsupportedMediaType' |
+        'RangeNotSatisfiable' |
+        'ExpectationFailed' |
+        'ImATeapot' |
+        'MisdirectedRequest' |
+        'UnprocessableEntity' |
+        'Locked' |
+        'FailedDependency' |
+        'UnorderedCollection' |
+        'UpgradeRequired' |
+        'PreconditionRequired' |
+        'TooManyRequests' |
+        'RequestHeaderFieldsTooLarge' |
+        'UnavailableForLegalReasons' |
+        'InternalServerError' |
+        'NotImplemented' |
+        'BadGateway' |
+        'ServiceUnavailable' |
+        'GatewayTimeout' |
+        'HTTPVersionNotSupported' |
+        'VariantAlsoNegotiates' |
+        'InsufficientStorage' |
+        'LoopDetected' |
+        'BandwidthLimitExceeded' |
+        'NotExtended' |
+        'NetworkAuthenticationRequire' |
+        '400' |
+        '401' |
+        '402' |
+        '403' |
+        '404' |
+        '405' |
+        '406' |
+        '407' |
+        '408' |
+        '409' |
+        '410' |
+        '411' |
+        '412' |
+        '413' |
+        '414' |
+        '415' |
+        '416' |
+        '417' |
+        '418' |
+        '421' |
+        '422' |
+        '423' |
+        '424' |
+        '425' |
+        '426' |
+        '428' |
+        '429' |
+        '431' |
+        '451' |
+        '500' |
+        '501' |
+        '502' |
+        '503' |
+        '504' |
+        '505' |
+        '506' |
+        '507' |
+        '508' |
+        '509' |
+        '510' |
+        '511', HttpErrorConstructor>;
 }

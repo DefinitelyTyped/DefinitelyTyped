@@ -715,6 +715,8 @@ declare namespace Draft {
                 createEntity(type: DraftEntityType, mutability: DraftEntityMutability, data?: Object): ContentState;
                 getEntity(key: string): EntityInstance;
                 getLastCreatedEntityKey(): string;
+                mergeEntityData(key: string, toMerge: { [key: string]: any }): ContentState;
+
 
                 getBlockMap(): BlockMap;
                 getSelectionBefore(): SelectionState;
@@ -796,8 +798,8 @@ declare namespace Draft {
                 "undo"
             )
 
-            interface BlockMapBuilder {
-                createFromArray(blocks: Array<ContentBlock>): BlockMap;
+            class BlockMapBuilder {
+                static createFromArray(blocks: Array<ContentBlock>): BlockMap;
             }
 
             const DefaultDraftBlockRenderMap: Immutable.Map<any, any>;

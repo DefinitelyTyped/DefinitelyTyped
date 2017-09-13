@@ -2,9 +2,9 @@
 // Project: https://github.com/hapijs/joi
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>, Laurence Dougal Myers <https://github.com/laurence-myers>, Christopher Glantschnig <https://github.com/cglantschnig>, David Broder-Rodgers <https://github.com/DavidBR-SW>, Gael Magnan de Bornier <https://github.com/GaelMagnan>, Rytis Alekna <https://github.com/ralekna>, Pavel Ivanov <https://github.com/schfkt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 // TODO express type of Schema in a type-parameter (.default, .valid, .example etc)
-
 
 
 export interface ValidationOptions {
@@ -337,6 +337,25 @@ export interface AnySchema<T extends AnySchema<Schema>> {
      * option has been set to `false`).
      */
     error?(err: Error | ValidationErrorFunction): T;
+
+    /**
+     * Creates a joi error object.
+     * Used in conjunction with custom rules.
+     * @param ruleName - the rule name to create the error for.
+     * @param context - must contain `v` eg. the value that was validated, all other properties
+     *  are available in the `language` templates.
+     * @param state - should the context passed into the `validate` function in a
+     *  custom rule
+     * @param options - should the context passed into the `validate` function in a
+     *  custom rule
+     */
+    createError(ruleName: string, context: {
+        v: any;
+        [key: string]: any;
+    }, state: State, options: ValidationOptions): Err;
+}
+
+export interface State {
 }
 
 export interface BooleanSchema extends AnySchema<BooleanSchema> {
@@ -500,6 +519,11 @@ export interface StringSchema extends AnySchema<StringSchema> {
      * Requires the string value to be a valid GUID.
      */
     guid(options?: GuidOptions): StringSchema;
+    
+    /**
+     * Alias for `guid` -- Requires the string value to be a valid GUID
+     */
+    uuid(options?: GuidOptions): StringSchema;
 
     /**
      * Requires the string value to be a valid hexadecimal string.
@@ -825,18 +849,24 @@ export interface Terms {
 export interface Rules {
     name: string;
     params?: ObjectSchema | { [key: string]: Schema };
-    setup?: Function;
-    validate?: Function;
+    setup?: (this: AnySchema<AnySchema<Schema>>, description: { [key: string]: any }) => AnySchema<AnySchema<Schema>> | void;
+    validate?: (this: AnySchema<AnySchema<Schema>>, params: { [key: string]: any }, value: any, state: State, options: ValidationOptions) => Err | undefined;
     description?: string | Function;
 }
 
 export interface Extension {
     name: string;
     base?: Schema;
-    pre?: Function;
-    language?: {};
-    describe?: Function;
+    pre?: (this: AnySchema<AnySchema<Schema>>, params: { [key: string]: any }, value: any, state: State, options: ValidationOptions) => Err | void;
+    language?: {
+        [key: string]: string;
+    },
+    describe?: (this: AnySchema<AnySchema<Schema>>, description: any) => any;
     rules?: Rules[];
+}
+
+export interface Err {
+    toString(): string;
 }
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---

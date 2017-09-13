@@ -46,7 +46,7 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
    * Promises/A+ `.then()`. Returns a new promise chained from this promise. The new promise will be rejected or resolved dedefer on the passed `fulfilledHandler`, `rejectedHandler` and the state of this promise.
    */
   // Based on PromiseLike.then, but returns a Bluebird instance.
-  then<U>(onFulfill?: (value: R) => U | Bluebird.Thenable<U>, onReject?: (error: any) => U | Bluebird.Thenable<U>): Bluebird<U>; // For simpler signature help.
+  then<U>(onFulfill?: (value: R) => U | PromiseLike<U>, onReject?: (error: any) => U | PromiseLike<U>): Bluebird<U>; // For simpler signature help.
   then<TResult1 = R, TResult2 = never>(onfulfilled?: ((value: R) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Bluebird<TResult1 | TResult2>;
 
   /**
@@ -620,7 +620,7 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   /**
    * Same as calling `Promise.props(thisPromise)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
    */
-  props<K, V>(this: PromiseLike<Map<K, Bluebird.Thenable<V> | V>>): Bluebird<Map<K, V>>;
+  props<K, V>(this: PromiseLike<Map<K, PromiseLike<V> | V>>): Bluebird<Map<K, V>>;
   props<T>(this: PromiseLike<Bluebird.ResolvableProps<T>>): Bluebird<T>;
 
   /**
@@ -749,12 +749,12 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
    *
    * If you pass a `receiver`, the `nodeFunction` will be called as a method on the `receiver`.
    */
-  static promisify<T>(func: (callback: (err: any, result: T) => void) => void, options?: Bluebird.PromisifyOptions): () => Bluebird<T>;
-  static promisify<T, A1>(func: (arg1: A1, callback: (err: any, result: T) => void) => void, options?: Bluebird.PromisifyOptions): (arg1: A1) => Bluebird<T>;
-  static promisify<T, A1, A2>(func: (arg1: A1, arg2: A2, callback: (err: any, result: T) => void) => void, options?: Bluebird.PromisifyOptions): (arg1: A1, arg2: A2) => Bluebird<T>;
-  static promisify<T, A1, A2, A3>(func: (arg1: A1, arg2: A2, arg3: A3, callback: (err: any, result: T) => void) => void, options?: Bluebird.PromisifyOptions): (arg1: A1, arg2: A2, arg3: A3) => Bluebird<T>;
-  static promisify<T, A1, A2, A3, A4>(func: (arg1: A1, arg2: A2, arg3: A3, arg4: A4, callback: (err: any, result: T) => void) => void, options?: Bluebird.PromisifyOptions): (arg1: A1, arg2: A2, arg3: A3, arg4: A4) => Bluebird<T>;
-  static promisify<T, A1, A2, A3, A4, A5>(func: (arg1: A1, arg2: A2, arg3: A3, arg4: A4, arg5: A5, callback: (err: any, result: T) => void) => void, options?: Bluebird.PromisifyOptions): (arg1: A1, arg2: A2, arg3: A3, arg4: A4, arg5: A5) => Bluebird<T>;
+  static promisify<T>(func: (callback: (err: any, result?: T) => void) => void, options?: Bluebird.PromisifyOptions): () => Bluebird<T>;
+  static promisify<T, A1>(func: (arg1: A1, callback: (err: any, result?: T) => void) => void, options?: Bluebird.PromisifyOptions): (arg1: A1) => Bluebird<T>;
+  static promisify<T, A1, A2>(func: (arg1: A1, arg2: A2, callback: (err: any, result?: T) => void) => void, options?: Bluebird.PromisifyOptions): (arg1: A1, arg2: A2) => Bluebird<T>;
+  static promisify<T, A1, A2, A3>(func: (arg1: A1, arg2: A2, arg3: A3, callback: (err: any, result?: T) => void) => void, options?: Bluebird.PromisifyOptions): (arg1: A1, arg2: A2, arg3: A3) => Bluebird<T>;
+  static promisify<T, A1, A2, A3, A4>(func: (arg1: A1, arg2: A2, arg3: A3, arg4: A4, callback: (err: any, result?: T) => void) => void, options?: Bluebird.PromisifyOptions): (arg1: A1, arg2: A2, arg3: A3, arg4: A4) => Bluebird<T>;
+  static promisify<T, A1, A2, A3, A4, A5>(func: (arg1: A1, arg2: A2, arg3: A3, arg4: A4, arg5: A5, callback: (err: any, result?: T) => void) => void, options?: Bluebird.PromisifyOptions): (arg1: A1, arg2: A2, arg3: A3, arg4: A4, arg5: A5) => Bluebird<T>;
   static promisify(nodeFunction: Function, options?: Bluebird.PromisifyOptions): Function;
 
   /**

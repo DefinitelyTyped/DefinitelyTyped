@@ -51,7 +51,7 @@ export interface Options extends AgendaOptions, EventDraggingResizingOptions, Dr
     weekNumbers?: boolean;
     weekNumberCalculation?: any; // String/Function
     businessHours?: boolean | BusinessHours | BusinessHours[];
-    height?: number | 'auto' | 'parent';
+    height?: number | 'auto' | 'parent';
     contentHeight?: number;
     aspectRatio?: number;
     handleWindowResize?: boolean;

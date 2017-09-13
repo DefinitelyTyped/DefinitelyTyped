@@ -59,7 +59,7 @@ let dictOfAny: Dict<any>;
 //          es6.object.to-string, es6.function.name and es6.function.has-instance.
 // #############################################################################################
 
-point = Object.assign(point, point);
+point = Object.assign(point, point); // tslint:disable-line prefer-object-spread
 b = Object.is(point, point);
 Object.setPrototypeOf(point, point);
 s = f.name;
