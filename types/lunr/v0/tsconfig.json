@@ -5,12 +5,15 @@
             "es6"
         ],
         "noImplicitAny": true,
-        "noImplicitThis": true,
-        "strictNullChecks": true,
-        "baseUrl": "../",
+        "noImplicitThis": false,
+        "strictNullChecks": false,
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
+        "paths": {
+            "lunr": ["lunr/v0"]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
