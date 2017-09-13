@@ -2125,7 +2125,7 @@ declare module "url" {
         unicode?: boolean;
     }
 
-    export class URLSearchParams implements Iterable<[string, string]> {
+    export class URLSearchParams {
         constructor(init?: URLSearchParams | string | { [key: string]: string | string[] | undefined } | Iterable<[string, string]>);
         append(name: string, value: string): void;
         delete(name: string): void;
