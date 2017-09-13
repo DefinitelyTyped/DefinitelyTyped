@@ -191,10 +191,10 @@ interface PNotifyOptions {
      */
     icon?: any;
     /**
-     * The animation to use when displaying and hiding the notice. "none", "show", "fade", and "slide" are built in to jQuery.
-     * Others require jQuery UI. Use an object with effect_in and effect_out to use different effects.
-     */
-    animation?: boolean | string;
+     * The animation to use when displaying and hiding the notice. "none" and "fade" are supported through CSS. 
+     * Others are supported through the Animate module and Animate.css.
+     */ 
+    animation?: string;
     /**
      * Speed at which the notice animates in and out. "slow", "def" or "normal", "fast" or number of milliseconds.
      */
@@ -338,7 +338,7 @@ interface PNotifyConstructor {
     /**
      * Reposition the notices, optionally animating their movement.
      */
-    positionAll(animate: string): void
+    positionAll(animate?: string): void
 }
 
 declare var PNotify: PNotifyConstructor;
