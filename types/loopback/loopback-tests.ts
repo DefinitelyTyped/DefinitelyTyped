@@ -34,7 +34,14 @@ class Server {
                 }
                 console.dir(instance.name);
             });
-            model.remoteMethod('fakeReturn', {});
+            model.remoteMethod('getStuff', {
+                description: "Get some stuff",
+                accepts: [
+                    {arg: 'aParam', type: "String", required: true, description: "A parameter to process"}
+                ],
+                http: {verb: "get", path: "/get-stuff"},
+                returns: {arg: "res", type: "Object"},
+            });
         };
     }
 }
