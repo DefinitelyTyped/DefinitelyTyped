@@ -27,7 +27,7 @@ declare namespace ReactSelectClass {
     type FocusOptionHandler<TValue = OptionValues> = (option: Option<TValue>) => void;
     type SelectValueHandler<TValue = OptionValues> = (option: Option<TValue>) => void;
     type ArrowRendererHandler = (props: ArrowRendererProps) => HandlerRendererResult;
-    type FilterOptionHandler<TValue = OptionValues> = (option: Option<TValue>, filter: string) => Option<TValue>;
+    type FilterOptionHandler<TValue = OptionValues> = (option: Option<TValue>, filter: string) => boolean;
     type FilterOptionsHandler<TValue = OptionValues> = (options: Options<TValue>, filter: string, currentValues: Options<TValue>) => Options<TValue>;
     type InputRendererHandler = (props: { [key: string]: any }) => HandlerRendererResult;
     type MenuRendererHandler<TValue = OptionValues> = (props: MenuRendererProps<TValue>) => HandlerRendererResult;
