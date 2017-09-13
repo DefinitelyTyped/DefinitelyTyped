@@ -768,18 +768,19 @@ declare namespace l {
 
       /**
        * @interface
-       * @property {Array<l.RemoteMethodArgument>} accepts Defines arguments that the remote method accepts
+       * @property {RemoteMethodArgument[]} accepts Defines arguments that the remote method accepts
        * @property {string|string[]} description Text description of the method
-       * @property {l.RemoteHttpOptions} http The HTTP options for the remote method
+       * @property {RemoteHttpOptions} http The HTTP options for the remote method
        * @property {boolean} isStatic Whether the method is static (eg. `MyModel.myMethod`)
        * @property {string | string[]} notes Additional notes, used by API documentation generators like Swagger.
-       * @property {l.RemoteMethodArgument} returns Describes the remote method's callback arguments
+       * @property {RemoteMethodArgument} returns Describes the remote method's callback arguments
       */
       interface RemoteMethodOptions {
             /**
              * Defines arguments that the remote method accepts. These arguments map to the static method you define. For the example above, you can see the function signature:
              Person.greet(name, age, callback)...
-             `name` is the first argument, `age` is the second argument and callback is automatically provided by LoopBack (do not specify it in your `accepts` array). For more info, see Argument descriptions.
+             `name` is the first argument, `age` is the second argument and callback is automatically provided by LoopBack (do not specify it in your `accepts` array).
+             For more info, see Argument descriptions.
              Default if not provided is the empty array, [].
              {  ...
                accepts: [
@@ -787,7 +788,7 @@ declare namespace l {
                   {arg: 'age', type: 'number'},...],
                ... }
              */
-            accepts?: Array<l.RemoteMethodArgument>;
+            accepts?: RemoteMethodArgument[];
 
             /**
              * Text description of the method, used by API documentation generators such as Swagger.
@@ -798,7 +799,7 @@ declare namespace l {
             /**
              *
              */
-            http?: l.RemoteHttpOptions;
+            http?: RemoteHttpOptions;
 
             /**
              *
@@ -812,7 +813,7 @@ declare namespace l {
              Additional notes, used by API documentation generators like Swagger.
              You can put long strings in an array if needed (see note below).
              */
-            notes? : string | string[];
+            notes?: string | string[];
 
             /**
              * Describes the remote method's callback arguments; See Argument descriptions. The err argument is assumed; do not specify.
@@ -821,7 +822,7 @@ declare namespace l {
              * returns: {arg: 'greeting', type: 'string'}`
              * ```
              */
-            returns?: l.RemoteMethodArgument;
+            returns?: RemoteMethodArgument;
       }
 
       /**
@@ -830,7 +831,7 @@ declare namespace l {
        * @property {string | string[]} description A text description of the argument.
        * @property {any} http http	Object or Function	For input arguments: a function or an object describing mapping from HTTP request to the argument value.
        * @property {boolean} required	True if argument is required; false otherwise.
-       * @property {boolean} root For callback arguments: set this property to true if your function has a single callback argument to use as the root object returned to remote caller. Otherwise the root object returned is a map (argument-name to argument-value).
+       * @property {boolean} root For callback arguments: set this property to true if your function has a single callback argument. Otherwise the root object returned is an object
        * @property {"any" | "Array" | "Boolean" | "Buffer" | "Date" | "GeoPoint" | "null" | "Number" | "Object" | "String"} type
        * @property {string} default Default value that will be used to populate loopback-explorer input fields and swagger documentation
        */
@@ -859,7 +860,7 @@ declare namespace l {
              * * status sets the res.statusCode to the provided value
              * * header sets the http.header or arg named header to the value
              */
-            http?: l.RemoteHttpOptions;
+            http?: RemoteHttpOptions;
 
             /**
              * 	True if argument is required; false otherwise.
@@ -867,7 +868,8 @@ declare namespace l {
             required?:	boolean;
 
             /**
-             * 	For callback arguments: set this property to true if your function has a single callback argument to use as the root object returned to remote caller. Otherwise the root object returned is a map (argument-name to argument-value).
+             * 	For callback arguments: set this property to true if your function has a single callback argument to use as the root object returned to remote caller.
+             *    Otherwise the root object returned is a map (argument-name to argument-value).
              */
             root?:	boolean;
 
@@ -877,11 +879,11 @@ declare namespace l {
             type: "any" | "Array" | "Boolean" | "Buffer" | "Date" | "GeoPoint" | "null" | "Number" | "Object" | "String";
 
             /**
-             *	Default value that will be used to populate loopback-explorer input fields and swagger documentation. Note: This value will not be passed into remote methods function if argument is not present.
+             *	Default value that will be used to populate loopback-explorer input fields and swagger documentation.
+             *    Note: This value will not be passed into remote methods function if argument is not present.
              */
             default?:	string;
       }
-
 
       /**
        * The base class for **all models**
