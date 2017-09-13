@@ -28,12 +28,13 @@ class Server {
                 console.dir(data.name);
             }
 
-            model.findOne<TestModel>({}, (err, instance) => {
+            model.findOne<TestModel>({}, (err: Error, instance: TestModel) => {
                 if (err) {
                     console.dir(err);
                 }
                 console.dir(instance.name);
             });
+            model.remoteMethod('fakeReturn', {});
         };
     }
 }
