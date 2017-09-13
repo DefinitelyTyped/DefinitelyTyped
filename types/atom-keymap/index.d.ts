@@ -8,8 +8,9 @@
 /// <reference types="event-kit" />
 
 declare namespace AtomKeymap {
-	namespace CallbackArgs {
-		interface CompleteMatchEvent {
+	/** Objects that appear as parameters to callbacks. */
+	namespace Events {
+		interface FullKeybindingMatch {
 			/** The string of keystrokes that matched the binding. */
 			keystrokes: string;
 
@@ -20,7 +21,7 @@ declare namespace AtomKeymap {
 			keyboardEventTarget: Element;
 		}
 
-		interface PartialMatchEvent {
+		interface PartialKeybindingMatch {
 			/** The string of keystrokes that matched the binding. */
 			keystrokes: string;
 
@@ -31,7 +32,7 @@ declare namespace AtomKeymap {
 			keyboardEventTarget: Element;
 		}
 
-		interface FailedMatchEvent {
+		interface FailedKeybindingMatch {
 			/** The string of keystrokes that failed to match the binding. */
 			keystrokes: string;
 
@@ -39,7 +40,7 @@ declare namespace AtomKeymap {
 			keyboardEventTarget: Element;
 		}
 
-		interface FailedFileReadEvent {
+		interface FailedKeymapFileRead {
 			/** The error message. */
 			message: string;
 
@@ -47,12 +48,12 @@ declare namespace AtomKeymap {
 			stack: string;
 		}
 
-		interface KeymapLoadEvent {
+		interface KeymapLoaded {
 			/** The path of the keymap file. */
 			path: string;
 		}
 
-		interface ResolveEvent {
+		interface AddedKeystrokeResolver {
 			/** The currently resolved keystroke string. If your function returns a falsy
 			 *  value, this is how Atom will resolve your keystroke.
 			 */
@@ -74,8 +75,9 @@ declare namespace AtomKeymap {
 		}
 	}
 
-	namespace Params {
-		interface BuildKeyEventOptions {
+	/** Objects that appear as parameters to functions. */
+	namespace Options {
+		interface BuildKeyEvent {
 			ctrl?: boolean;
 			alt?: boolean;
 			shift?: boolean;
@@ -125,10 +127,10 @@ declare namespace AtomKeymap {
 	/** The static side to the KeymapManager class. */
 	interface KeymapManagerStatic {
 		/** Create a keydown DOM event. */
-		buildKeydownEvent(key: string, options?: Params.BuildKeyEventOptions): void;
+		buildKeydownEvent(key: string, options?: Options.BuildKeyEvent): void;
 
 		/** Create a keyup DOM event. */
-		buildKeyupEvent(key: string, options?: Params.BuildKeyEventOptions): void;
+		buildKeyupEvent(key: string, options?: Options.BuildKeyEvent): void;
 
 		/** Create a new KeymapManager. */
 		new (options?: { defaultTarget?: HTMLElement }): KeymapManager;
@@ -151,27 +153,27 @@ declare namespace AtomKeymap {
 
 		// Event Subscription
 		/** Invoke the given callback when one or more keystrokes completely match a key binding. */
-		onDidMatchBinding(callback: (event: CallbackArgs.CompleteMatchEvent) => void):
+		onDidMatchBinding(callback: (event: Events.FullKeybindingMatch) => void):
 			EventKit.Disposable;
 
 		/** Invoke the given callback when one or more keystrokes partially match a binding. */
-		onDidPartiallyMatchBindings(callback: (event: CallbackArgs.PartialMatchEvent) =>
+		onDidPartiallyMatchBindings(callback: (event: Events.PartialKeybindingMatch) =>
 			void): EventKit.Disposable;
 
 		/** Invoke the given callback when one or more keystrokes fail to match any bindings. */
-		onDidFailToMatchBinding(callback: (event: CallbackArgs.FailedMatchEvent) =>
+		onDidFailToMatchBinding(callback: (event: Events.FailedKeybindingMatch) =>
 			void): EventKit.Disposable;
 
 		/** Invoke the given callback when a keymap file is reloaded. */
-		onDidReloadKeymap(callback: (event: CallbackArgs.KeymapLoadEvent) => void):
+		onDidReloadKeymap(callback: (event: Events.KeymapLoaded) => void):
 			EventKit.Disposable;
 
 		/** Invoke the given callback when a keymap file is unloaded. */
-		onDidUnloadKeymap(callback: (event: CallbackArgs.KeymapLoadEvent) => void):
+		onDidUnloadKeymap(callback: (event: Events.KeymapLoaded) => void):
 			EventKit.Disposable;
 
 		/** Invoke the given callback when a keymap file not able to be loaded. */
-		onDidFailToReadFile(callback: (error: CallbackArgs.FailedFileReadEvent) => void):
+		onDidFailToReadFile(callback: (error: Events.FailedKeymapFileRead) => void):
 			EventKit.Disposable;
 
 		// Adding and Removing Bindings
@@ -210,7 +212,7 @@ declare namespace AtomKeymap {
 		keystrokeForKeyboardEvent(event: KeyboardEvent): string;
 
 		/** Customize translation of raw keyboard events to keystroke strings. */
-		addKeystrokeResolver(resolver: (event: CallbackArgs.ResolveEvent) => string):
+		addKeystrokeResolver(resolver: (event: Events.AddedKeystrokeResolver) => string):
 			EventKit.Disposable;
 
 		/** Get the number of milliseconds allowed before pending states caused by

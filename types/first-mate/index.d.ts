@@ -9,8 +9,9 @@
 
 /** TextMate helpers. */
 declare namespace FirstMate {
-	namespace Params {
-		interface GrammarOptions {
+	/** Objects that appear as parameters to functions. */
+	namespace Options {
+		interface Grammar {
 			name?: string;
 			fileTypes?: ReadonlyArray<string>;
 			scopeName?: string;
@@ -26,41 +27,44 @@ declare namespace FirstMate {
 		}
 	}
 
-	interface Token {
-		value: string;
-		scopes: string[];
+	/** Data structures that are used within classes. */
+	namespace Structures {
+		interface GrammarToken {
+			value: string;
+			scopes: string[];
+		}
+
+		/** Result returned by `Grammar.tokenizeLine`. */
+		interface TokenizeLineResult {
+			/** The string of text that was tokenized. */
+			line: string;
+
+			/** An array of integer scope ids and strings. Positive ids indicate the
+			 *  beginning of a scope, and negative tags indicate the end. To resolve ids
+			 *  to scope names, call {GrammarRegistry::scopeForId} with the absolute
+			 *  value of the id.
+			 */
+			tags: Array<number|string>;
+
+			/** This is a dynamic property. Invoking it will incur additional overhead,
+			 *  but will automatically translate the `tags` into token objects with `value`
+			 *  and `scopes` properties.
+			 */
+			tokens: GrammarToken[];
+
+			/** An array of rules representing the tokenized state at the end of the line.
+			 *  These should be passed back into this method when tokenizing the next line
+			 *  in the file.
+			 */
+			ruleStack: GrammarRule[];
+		}
+
+		interface GrammarRule {}
 	}
-
-	/** Result returned by `Grammar.tokenizeLine`. */
-	interface TokenizeLineResult {
-		/** The string of text that was tokenized. */
-		line: string;
-
-		/** An array of integer scope ids and strings. Positive ids indicate the
-		 *  beginning of a scope, and negative tags indicate the end. To resolve ids
-		 *  to scope names, call {GrammarRegistry::scopeForId} with the absolute
-		 *  value of the id.
-		 */
-		tags: Array<number|string>;
-
-		/** This is a dynamic property. Invoking it will incur additional overhead,
-		 *  but will automatically translate the `tags` into token objects with `value`
-		 *  and `scopes` properties.
-		 */
-		tokens: Token[];
-
-		/** An array of rules representing the tokenized state at the end of the line.
-		 *  These should be passed back into this method when tokenizing the next line
-		 *  in the file.
-		 */
-		ruleStack: Rule[];
-	}
-
-	interface Rule {}
 
 	/** The static side to the Grammar class. */
 	interface GrammarStatic {
-		new (registry: GrammarRegistry, options?: Params.GrammarOptions): Grammar;
+		new (registry: GrammarRegistry, options?: Options.Grammar): Grammar;
 	}
 
 	/** Grammar that tokenizes lines of text. */
@@ -79,13 +83,13 @@ declare namespace FirstMate {
 		 * @param text A string containing one or more lines.
 		 * @return An array of token arrays for each line tokenized.
 		 */
-		tokenizeLines(text: string, compatibilityMode?: boolean): Token[][];
+		tokenizeLines(text: string, compatibilityMode?: boolean): Structures.GrammarToken[][];
 
 		/** Tokenizes the line of text.
 		 * @param line A string of text to tokenize.
 		 * @return An object representing the result of the tokenize.
 		 */
-		tokenizeLine(line: string): TokenizeLineResult;
+		tokenizeLine(line: string): Structures.TokenizeLineResult;
 		/** Tokenizes the line of text.
 		 * @param line A string of text to tokenize.
 		 * @param ruleStack An optional array of rules previously returned from this
@@ -95,8 +99,8 @@ declare namespace FirstMate {
 		 * @param compatibilityMode `true` by default.
 		 * @return An object representing the result of the tokenize.
 		 */
-		tokenizeLine(line: string, ruleStack: Rule[], firstLine?: boolean, compatibilityMode?:
-			boolean): TokenizeLineResult;
+		tokenizeLine(line: string, ruleStack: Structures.GrammarRule[], firstLine?:
+			boolean, compatibilityMode?: boolean): Structures.TokenizeLineResult;
 	}
 
 	/** The static side to the GrammarRegistry class. */
@@ -186,7 +190,7 @@ declare namespace FirstMate {
 		 * @param tags The tags returned from a call to Grammar::tokenizeLine().
 		 * @return An array of Token instances decoded from the given tags.
 		 */
-		decodeTokens(lineText: string, tags: Array<number|string>): Token[];
+		decodeTokens(lineText: string, tags: Array<number|string>): Structures.GrammarToken[];
 	}
 
 	/** The static side to the ScopeSelector class. */

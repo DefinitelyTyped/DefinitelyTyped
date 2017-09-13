@@ -11,10 +11,11 @@
 /// <reference types="first-mate" />
 /// <reference types="text-buffer" />
 
+/** The core classes for the Atom Text Editor. */
 declare namespace AtomCore {
 	/** Objects that appear as parameters to callbacks. */
-	namespace CallbackArgs {
-		interface AtomThrowEvent {
+	namespace Events {
+		interface ExceptionThrown {
 			originalError: Error;
 			message: string;
 			url: string;
@@ -22,11 +23,11 @@ declare namespace AtomCore {
 			column: number;
 		}
 
-		interface AtomPreventableThrowEvent extends AtomThrowEvent {
+		interface PreventableExceptionThrown extends ExceptionThrown {
 			preventDefault(): void;
 		}
 
-		interface SelectionChangeEvent {
+		interface SelectionChanged {
 			oldBufferRange: TextBuffer.Range;
 			oldScreenRange: TextBuffer.Range;
 			newBufferRange: TextBuffer.Range;
@@ -34,13 +35,17 @@ declare namespace AtomCore {
 			selection: Selection;
 		}
 
-		interface DockPaneItemEvent {
+		interface PaneItemObserved {
 			item: object;
 			pane: Pane;
 			index: number;
 		}
 
-		interface EditorChange {
+		interface PaneItemOpened extends PaneItemObserved {
+			uri: string;
+		}
+
+		interface EditorChanged {
 			/** A Point representing where the change started. */
 			start: TextBuffer.Point;
 
@@ -51,28 +56,18 @@ declare namespace AtomCore {
 			newExtent: TextBuffer.Point;
 		}
 
-		interface StyleElementEvent extends HTMLStyleElement {
+		interface StyleElementObserved extends HTMLStyleElement {
 			sourcePath: string;
 			context: string;
 		}
 
-		interface PaneItemEvent {
-			item: object;
-			pane: Pane;
-			index: number;
-		}
-
-		interface PaneItemOpenEvent extends PaneItemEvent {
-			uri: string;
-		}
-
-		interface NewTextEditorEvent {
+		interface TextEditorObserved {
 			textEditor: TextEditor;
 			pane: Pane;
 			index: number;
 		}
 
-		interface RepoStatusChangeEvent {
+		interface RepoStatusChanged {
 			path: string;
 
 			/** This value can be passed to ::isStatusModified or ::isStatusNew to get more
@@ -81,7 +76,7 @@ declare namespace AtomCore {
 			pathStatus: number;
 		}
 
-		interface PaneItemListEvent {
+		interface PaneListItemShifted {
 			/** The pane item that was added or removed. */
 			item: object;
 
@@ -89,7 +84,7 @@ declare namespace AtomCore {
 			index: number;
 		}
 
-		interface PaneItemMoveEvent {
+		interface PaneItemMoved {
 			/** The removed pane item. */
 			item: object;
 
@@ -100,7 +95,7 @@ declare namespace AtomCore {
 			newIndex: number;
 		}
 
-		interface CursorChangeEvent {
+		interface CursorPositionChanged {
 			oldBufferPosition: TextBuffer.Point;
 			oldScreenPosition: TextBuffer.Point;
 			newBufferPosition: TextBuffer.Point;
@@ -109,7 +104,7 @@ declare namespace AtomCore {
 			Cursor:	Cursor;
 		}
 
-		interface DecorationChangeEvent {
+		interface DecorationPropsChanged {
 			/** Object the old parameters the decoration used to have. */
 			oldProperties: Structures.DecorationProps;
 
@@ -119,7 +114,7 @@ declare namespace AtomCore {
 	}
 
 	/** Objects that appear as parameters to functions. */
-	namespace Params {
+	namespace Options {
 		interface TextInsertion {
 			select?: boolean;
 			autoIndent?: boolean;
@@ -129,18 +124,18 @@ declare namespace AtomCore {
 			undo?: "skip";
 		}
 
-		interface MenuOptions {
+		interface Menu {
 			/** The menu itme's label. */
 			label: string;
 
 			/** An array of sub menus. */
-			submenu?: ReadonlyArray<MenuOptions>;
+			submenu?: ReadonlyArray<Menu>;
 
 			/** The command to trigger when the item is clicked. */
 			command?: string;
 		}
 
-		interface ContextMenuOptions {
+		interface ContextMenu {
 			/** The menu item's label. */
 			label?: string;
 
@@ -155,7 +150,7 @@ declare namespace AtomCore {
 			enabled?: boolean;
 
 			/** An array of additional items. */
-			submenu?: ReadonlyArray<ContextMenuOptions>;
+			submenu?: ReadonlyArray<ContextMenu>;
 
 			/** If you want to create a separator, provide an item with type: 'separator'
 			 *  and no other keys.
@@ -176,7 +171,7 @@ declare namespace AtomCore {
 			shouldDisplay?(event: Event): void;
 		}
 
-		interface ProcessOptions {
+		interface Process {
 			command: string;
 			args?: ReadonlyArray<any>;
 			options?: object;
@@ -185,7 +180,7 @@ declare namespace AtomCore {
 			exit?(code: number): void;
 		}
 
-		interface NotificationOptions {
+		interface Notification {
 			buttons?: Array<{
 				className?: string;
 				onDidClick?: Function;
@@ -197,7 +192,7 @@ declare namespace AtomCore {
 			icon?: string;
 		}
 
-		interface ErrorNotificationOptions extends NotificationOptions {
+		interface ErrorNotification extends Notification {
 			stack?: string;
 		}
 	}
@@ -335,11 +330,11 @@ declare namespace AtomCore {
 		/** Invoke the given callback when there is an unhandled error, but before
 		 *  the devtools pop open.
 		 */
-		onWillThrowError(callback: (event: CallbackArgs.AtomPreventableThrowEvent) =>
+		onWillThrowError(callback: (event: Events.PreventableExceptionThrown) =>
 			void): EventKit.Disposable;
 
 		/** Invoke the given callback whenever there is an unhandled error. */
-		onDidThrowError(callback: (event: CallbackArgs.AtomThrowEvent) => void):
+		onDidThrowError(callback: (event: Events.ExceptionThrown) => void):
 			EventKit.Disposable;
 
 		/** Invoke the given callback as soon as the shell environment is loaded (or
@@ -464,7 +459,7 @@ declare namespace AtomCore {
 
 	/** The static side to the BufferedProcess class. */
 	interface BufferedProcessStatic {
-		new (options: Params.ProcessOptions): BufferedProcess;
+		new (options: Options.Process): BufferedProcess;
 	}
 
 	/** A wrapper which provides standard error/output line buffering for
@@ -491,7 +486,7 @@ declare namespace AtomCore {
 	/** The static side to the BufferedNodeProcess class. */
 	interface BufferedNodeProcessStatic {
 		/** Runs the given Node script by spawning a new child process. */
-		new (options: Params.ProcessOptions): BufferedNodeProcess;
+		new (options: Options.Process): BufferedNodeProcess;
 	}
 
 	/** Like BufferedProcess, but accepts a Node script as the command to run.
@@ -644,7 +639,7 @@ declare namespace AtomCore {
 	interface ContextMenuManager {
 		/** Add context menu items scoped by CSS selectors. */
 		add(itemsBySelector: {
-			[key: string]: ReadonlyArray<Params.ContextMenuOptions>
+			[key: string]: ReadonlyArray<Options.ContextMenu>
 		}): EventKit.Disposable;
 	}
 
@@ -679,7 +674,7 @@ declare namespace AtomCore {
 	interface Cursor {
 		// Event Subscription
 		/** Calls your callback when the cursor has been moved. */
-		onDidChangePosition(callback: (event: CallbackArgs.CursorChangeEvent) => void):
+		onDidChangePosition(callback: (event: Events.CursorPositionChanged) => void):
 			EventKit.Disposable;
 
 		/** Calls your callback when the cursor is destroyed. */
@@ -917,7 +912,7 @@ declare namespace AtomCore {
 
 		// Event Subscription
 		/** When the Decoration is updated via Decoration::setProperties. */
-		onDidChangeProperties(callback: (event: CallbackArgs.DecorationChangeEvent) => void):
+		onDidChangeProperties(callback: (event: Events.DecorationPropsChanged) => void):
 			EventKit.Disposable;
 
 		/** Invoke the given callback when the Decoration is destroyed. */
@@ -1011,17 +1006,17 @@ declare namespace AtomCore {
 		observeActivePane(callback: (pane: Pane) => void): EventKit.Disposable;
 
 		/** Invoke the given callback when a pane item is added to the dock. */
-		onDidAddPaneItem(callback: (event: CallbackArgs.DockPaneItemEvent) => void):
+		onDidAddPaneItem(callback: (event: Events.PaneItemObserved) => void):
 			EventKit.Disposable;
 
 		/** Invoke the given callback when a pane item is about to be destroyed, before the user is
 		 *  prompted to save it.
 		 */
-		onWillDestroyPaneItem(callback: (event: CallbackArgs.DockPaneItemEvent) => void):
+		onWillDestroyPaneItem(callback: (event: Events.PaneItemObserved) => void):
 			EventKit.Disposable;
 
 		/** Invoke the given callback when a pane item is destroyed. */
-		onDidDestroyPaneItem(callback: (event: CallbackArgs.DockPaneItemEvent) => void):
+		onDidDestroyPaneItem(callback: (event: Events.PaneItemObserved) => void):
 			EventKit.Disposable;
 
 		// Pane Items
@@ -1072,7 +1067,7 @@ declare namespace AtomCore {
 		/** Invoke the given callback when a specific file's status has changed. When
 		 *  a file is updated, reloaded, etc, and the status changes, this will be fired.
 		 */
-		onDidChangeStatus(callback: (event: CallbackArgs.RepoStatusChangeEvent) => void):
+		onDidChangeStatus(callback: (event: Events.RepoStatusChanged) => void):
 			EventKit.Disposable;
 
 		/** Invoke the given callback when a multiple files' statuses have changed. */
@@ -1261,7 +1256,7 @@ declare namespace AtomCore {
 	/** Provides a registry for menu items that you'd like to appear in the application menu. */
 	interface MenuManager {
 		/** Adds the given items to the application menu. */
-		add(items: ReadonlyArray<Params.MenuOptions>): EventKit.Disposable;
+		add(items: ReadonlyArray<Options.Menu>): EventKit.Disposable;
 
 		/** Refreshes the currently visible menu. */
 		update(): void;
@@ -1285,8 +1280,8 @@ declare namespace AtomCore {
 	/** The static side to the Notification class. */
 	interface NotificationStatic {
 		new (type: "warning"|"info"|"success", message: string, options?:
-			Params.NotificationOptions): Notification;
-		new (type: "fatal"|"error", message: string, options?: Params.ErrorNotificationOptions):
+			Options.Notification): Notification;
+		new (type: "fatal"|"error", message: string, options?: Options.ErrorNotification):
 			Notification;
 	}
 
@@ -1539,19 +1534,19 @@ declare namespace AtomCore {
 		observeActive(callback: (active: boolean) => void): EventKit.Disposable;
 
 		/** Invoke the given callback when an item is added to the pane. */
-		onDidAddItem(callback: (event: CallbackArgs.PaneItemListEvent) => void):
+		onDidAddItem(callback: (event: Events.PaneListItemShifted) => void):
 			EventKit.Disposable;
 
 		/** Invoke the given callback when an item is removed from the pane. */
-		onDidRemoveItem(callback: (event: CallbackArgs.PaneItemListEvent) => void):
+		onDidRemoveItem(callback: (event: Events.PaneListItemShifted) => void):
 			EventKit.Disposable;
 
 		/** Invoke the given callback before an item is removed from the pane. */
-		onWillRemoveItem(callback: (event: CallbackArgs.PaneItemListEvent) => void):
+		onWillRemoveItem(callback: (event: Events.PaneListItemShifted) => void):
 			EventKit.Disposable;
 
 		/** Invoke the given callback when an item is moved within the pane. */
-		onDidMoveItem(callback: (event: CallbackArgs.PaneItemMoveEvent) => void):
+		onDidMoveItem(callback: (event: Events.PaneItemMoved) => void):
 			EventKit.Disposable;
 
 		/** Invoke the given callback with all current and future items. */
@@ -1581,7 +1576,7 @@ declare namespace AtomCore {
 		observeActiveItem(callback: (activeItem: object) => void): EventKit.Disposable;
 
 		/** Invoke the given callback before items are destroyed. */
-		onWillDestroyItem(callback: (event: CallbackArgs.PaneItemListEvent) => void):
+		onWillDestroyItem(callback: (event: Events.PaneListItemShifted) => void):
 			EventKit.Disposable;
 
 		// Items
@@ -1796,7 +1791,7 @@ declare namespace AtomCore {
 	interface Selection {
 		// Event Subscription
 		/** Calls your callback when the selection was moved. */
-		onDidChangeRange(callback: (event: CallbackArgs.SelectionChangeEvent) => void):
+		onDidChangeRange(callback: (event: Events.SelectionChanged) => void):
 			EventKit.Disposable;
 
 		/** Calls your callback when the selection was destroyed. */
@@ -1980,7 +1975,7 @@ declare namespace AtomCore {
 
 		// Modifying the selected text
 		/** Replaces text at the current selection. */
-		insertText(text: string, options?: Params.TextInsertion): void;
+		insertText(text: string, options?: Options.TextInsertion): void;
 
 		/** Removes the first character before the selection if the selection is empty
 		 *  otherwise it deletes the selection.
@@ -2107,11 +2102,11 @@ declare namespace AtomCore {
 	interface StyleManager {
 		// Event Subscription
 		/** Invoke callback for all current and future style elements. */
-		observeStyleElements(callback: (styleElement: CallbackArgs.StyleElementEvent) =>
+		observeStyleElements(callback: (styleElement: Events.StyleElementObserved) =>
 			void): EventKit.Disposable;
 
 		/** Invoke callback when a style element is added. */
-		onDidAddStyleElement(callback: (styleElement: CallbackArgs.StyleElementEvent) =>
+		onDidAddStyleElement(callback: (styleElement: Events.StyleElementObserved) =>
 			void): EventKit.Disposable;
 
 		/** Invoke callback when a style element is removed. */
@@ -2119,7 +2114,7 @@ declare namespace AtomCore {
 			EventKit.Disposable;
 
 		/** Invoke callback when an existing style element is updated. */
-		onDidUpdateStyleElement(callback: (styleElement: CallbackArgs.StyleElementEvent) =>
+		onDidUpdateStyleElement(callback: (styleElement: Events.StyleElementObserved) =>
 			void): EventKit.Disposable;
 
 		// Reading Style Elements
@@ -2228,24 +2223,24 @@ declare namespace AtomCore {
 		/** Invoke the given callback synchronously when the content of the buffer
 		 *  changes.
 		 */
-		onDidChange(callback: (event: CallbackArgs.EditorChange[]) => void):
+		onDidChange(callback: (event: Events.EditorChanged[]) => void):
 			EventKit.Disposable;
 
 		/** Invoke callback when the buffer's contents change. It is emit
 		 *  asynchronously 300ms after the last buffer change. This is a good place
 		 *  to handle changes to the buffer without compromising typing performance.
 		 */
-		onDidStopChanging(callback: (event: TextBuffer.CallbackArgs.TextChangeEvent) => void):
+		onDidStopChanging(callback: (event: TextBuffer.Events.BufferStoppedChanging) => void):
 			EventKit.Disposable;
 
 		/** Calls your callback when a Cursor is moved. If there are multiple cursors,
 		 *  your callback will be called for each cursor.
 		 */
-		onDidChangeCursorPosition(callback: (event: CallbackArgs.CursorChangeEvent) => void):
+		onDidChangeCursorPosition(callback: (event: Events.CursorPositionChanged) => void):
 			EventKit.Disposable;
 
 		/** Calls your callback when a selection's screen range changes. */
-		onDidChangeSelectionRange(callback: (event: CallbackArgs.SelectionChangeEvent) => void):
+		onDidChangeSelectionRange(callback: (event: Events.SelectionChanged) => void):
 			EventKit.Disposable;
 
 		/** Invoke the given callback after the buffer is saved to disk. */
@@ -2830,7 +2825,7 @@ declare namespace AtomCore {
 		 *  are several special properties that will be compared with the range of the markers
 		 *  rather than their properties.
 		 */
-		findMarkers(properties: TextBuffer.Params.FindMarkerProps): TextBuffer.DisplayMarker[];
+		findMarkers(properties: TextBuffer.Options.FindMarker): TextBuffer.DisplayMarker[];
 
 		/** Create a marker layer to group related markers. */
 		addMarkerLayer(options?: { maintainHistory?: boolean, persistent?: boolean }):
@@ -3307,7 +3302,7 @@ declare namespace AtomCore {
 		 *
 		 *  ::scan functions as the replace method as well via the replace.
 		 */
-		scan(regex: RegExp, options: TextBuffer.Params.ScanContext, iterator: (match: object,
+		scan(regex: RegExp, options: TextBuffer.Options.ScanContext, iterator: (match: object,
 			matchText: string, range: TextBuffer.Range, stop: Function, replace: Function) => void): void;
 		/** Scan regular expression matches in the entire buffer, calling the given
 		 *  iterator function on each match.
@@ -3492,7 +3487,7 @@ declare namespace AtomCore {
 		 *  each selection will be replaced with the content of the corresponding clipboard
 		 *  selection text.
 		 */
-		pasteText(options?: Params.TextInsertion): void;
+		pasteText(options?: Options.TextInsertion): void;
 
 		/** For each selection, if the selection is empty, cut all characters of the
 		 *  containing screen line following the cursor. Otherwise cut the selected text.
@@ -3743,7 +3738,7 @@ declare namespace AtomCore {
 		 *  observers will be notified for items that are already present in the workspace
 		 *  when they are reopened.
 		 */
-		onDidOpen(callback: (event: CallbackArgs.PaneItemOpenEvent) => void): EventKit.Disposable;
+		onDidOpen(callback: (event: Events.PaneItemOpened) => void): EventKit.Disposable;
 
 		/** Invoke the given callback when a pane is added to the workspace. */
 		onDidAddPane(callback: (event: { pane: Pane }) => void): EventKit.Disposable;
@@ -3766,21 +3761,21 @@ declare namespace AtomCore {
 		observeActivePane(callback: (pane: Pane) => void): EventKit.Disposable;
 
 		/** Invoke the given callback when a pane item is added to the workspace. */
-		onDidAddPaneItem(callback: (event: CallbackArgs.PaneItemEvent) => void):
+		onDidAddPaneItem(callback: (event: Events.PaneItemObserved) => void):
 			EventKit.Disposable;
 
 		/** Invoke the given callback when a pane item is about to be destroyed,
 		 *  before the user is prompted to save it.
 		 */
-		onWillDestroyPaneItem(callback: (event: CallbackArgs.PaneItemEvent) => void):
+		onWillDestroyPaneItem(callback: (event: Events.PaneItemObserved) => void):
 			EventKit.Disposable;
 
 		/** Invoke the given callback when a pane item is destroyed. */
-		onDidDestroyPaneItem(callback: (event: CallbackArgs.PaneItemEvent) => void):
+		onDidDestroyPaneItem(callback: (event: Events.PaneItemObserved) => void):
 			EventKit.Disposable;
 
 		/** Invoke the given callback when a text editor is added to the workspace. */
-		onDidAddTextEditor(callback: (event: CallbackArgs.NewTextEditorEvent) => void):
+		onDidAddTextEditor(callback: (event: Events.TextEditorObserved) => void):
 			EventKit.Disposable;
 
 		// Opening
@@ -4005,21 +4000,21 @@ declare namespace AtomCore {
 		observeActivePane(callback: (pane: Pane) => void): EventKit.Disposable;
 
 		/** Invoke the given callback when a pane item is added to the workspace center. */
-		onDidAddPaneItem(callback: (event: CallbackArgs.DockPaneItemEvent) => void):
+		onDidAddPaneItem(callback: (event: Events.PaneItemObserved) => void):
 			EventKit.Disposable;
 
 		/** Invoke the given callback when a pane item is about to be destroyed, before the user
 		 *  is prompted to save it.
 		 */
-		onWillDestroyPaneItem(callback: (event: CallbackArgs.DockPaneItemEvent) => void):
+		onWillDestroyPaneItem(callback: (event: Events.PaneItemObserved) => void):
 			EventKit.Disposable;
 
 		/** Invoke the given callback when a pane item is destroyed. */
-		onDidDestroyPaneItem(callback: (event: CallbackArgs.DockPaneItemEvent) => void):
+		onDidDestroyPaneItem(callback: (event: Events.PaneItemObserved) => void):
 			EventKit.Disposable;
 
 		/** Invoke the given callback when a text editor is added to the workspace center. */
-		onDidAddTextEditor(callback: (event: CallbackArgs.NewTextEditorEvent) => void):
+		onDidAddTextEditor(callback: (event: Events.TextEditorObserved) => void):
 			EventKit.Disposable;
 
 		// Pane Items
@@ -4060,6 +4055,329 @@ declare namespace AtomCore {
 		/** Destroy (close) the active pane. */
 		destroyActivePane(): void;
 	}
+}
+
+/** An amalgamation of all types used within the public Atom API. */
+declare namespace Atom {
+	/** Objects that appear as parameters to callbacks. */
+	namespace Events {
+		// Atom Keymap ============================================================
+		type FullKeybindingMatch = AtomKeymap.Events.FullKeybindingMatch;
+		type PartialKeybindingMatch = AtomKeymap.Events.PartialKeybindingMatch;
+		type FailedKeybindingMatch = AtomKeymap.Events.FailedKeybindingMatch;
+		type FailedKeymapFileRead = AtomKeymap.Events.FailedKeymapFileRead;
+		type KeymapLoaded = AtomKeymap.Events.KeymapLoaded;
+		type AddedKeystrokeResolver = AtomKeymap.Events.AddedKeystrokeResolver;
+
+		// Path Watcher ===========================================================
+		type PathWatchErrorThrown = PathWatcher.Events.PathWatchErrorThrown;
+		type WatchedFilePathChanged = PathWatcher.Events.WatchedFilePathChanged;
+
+		// Text Buffer ============================================================
+		type BufferWatchError = TextBuffer.Events.BufferWatchError;
+		type FileSaved = TextBuffer.Events.FileSaved;
+		type MarkerChanged = TextBuffer.Events.MarkerChanged;
+		type BufferChanging = TextBuffer.Events.BufferChanging;
+		type BufferChanged = TextBuffer.Events.BufferChanged;
+		type BufferStoppedChanging = TextBuffer.Events.BufferStoppedChanging;
+		type DisplayMarkerChanged = TextBuffer.Events.DisplayMarkerChanged;
+
+		// Core ===================================================================
+		type ExceptionThrown = AtomCore.Events.ExceptionThrown;
+		type PreventableExceptionThrown = AtomCore.Events.PreventableExceptionThrown;
+		type SelectionChanged = AtomCore.Events.SelectionChanged;
+		type PaneItemObserved = AtomCore.Events.PaneItemObserved;
+		type PaneItemOpened = AtomCore.Events.PaneItemOpened;
+		type EditorChanged = AtomCore.Events.EditorChanged;
+		type StyleElementObserved = AtomCore.Events.StyleElementObserved;
+		type TextEditorObserved = AtomCore.Events.TextEditorObserved;
+		type RepoStatusChanged = AtomCore.Events.RepoStatusChanged;
+		type PaneListItemShifted = AtomCore.Events.PaneListItemShifted;
+		type PaneItemMoved = AtomCore.Events.PaneItemMoved;
+		type CursorPositionChanged = AtomCore.Events.CursorPositionChanged;
+		type DecorationPropsChanged = AtomCore.Events.DecorationPropsChanged;
+	}
+
+	/** Objects that appear as parameters to functions. */
+	namespace Options {
+		// Atom Keymap ============================================================
+		type BuildKeyEvent = AtomKeymap.Options.BuildKeyEvent;
+
+		// First Mate =============================================================
+		type Grammar = FirstMate.Options.Grammar;
+
+		// Text Buffer ============================================================
+		type BufferLoad = TextBuffer.Options.BufferLoad;
+		type FindMarker = TextBuffer.Options.FindMarker;
+		type ScanContext = TextBuffer.Options.ScanContext;
+
+		// Core ===================================================================
+		type TextInsertion = AtomCore.Options.TextInsertion;
+		type Menu = AtomCore.Options.Menu;
+		type ContextMenu = AtomCore.Options.ContextMenu;
+		type Process = AtomCore.Options.Process;
+		type Notification = AtomCore.Options.Notification;
+		type ErrorNotification = AtomCore.Options.ErrorNotification;
+	}
+
+	/** Data structures that are used within classes. */
+	namespace Structures {
+		// First Mate =============================================================
+		type GrammarToken = FirstMate.Structures.GrammarToken;
+		type TokenizeLineResult = FirstMate.Structures.TokenizeLineResult;
+		type GrammarRule = FirstMate.Structures.GrammarRule;
+
+		// Text Buffer ============================================================
+		type TextChange = TextBuffer.Structures.TextChange;
+
+		// Core ===================================================================
+		type View = AtomCore.Structures.View;
+		type SharedDecorationProps = AtomCore.Structures.SharedDecorationProps;
+		type DecorationProps = AtomCore.Structures.DecorationProps;
+		type DecorationLayerProps = AtomCore.Structures.DecorationLayerProps;
+		type Invisibles = AtomCore.Structures.Invisibles;
+	}
+
+	// Atom Keymap ==============================================================
+	/** This custom subclass of CustomEvent exists to provide the ::abortKeyBinding
+	 *  method, as well as versions of the ::stopPropagation methods that record the
+	 *  intent to stop propagation so event bubbling can be properly simulated for
+	 *  detached elements.
+	 */
+	type CommandEvent = AtomKeymap.CommandEvent;
+
+	type KeyBinding = AtomKeymap.KeyBinding;
+
+	/** Allows commands to be associated with keystrokes in a context-sensitive way.
+	 *  In Atom, you can access a global instance of this object via `atom.keymaps`.
+	 */
+	type KeymapManager = AtomKeymap.KeymapManager;
+
+	// Event Kit ================================================================
+	/** An object that aggregates multiple Disposable instances together into a
+	 *  single disposable, so they can all be disposed as a group.
+	 */
+	type CompositeDisposable = EventKit.CompositeDisposable;
+
+	type DisposableLike = EventKit.DisposableLike;
+
+	/** A handle to a resource that can be disposed. */
+	type Disposable = EventKit.Disposable;
+
+	/** Utility class to be used when implementing event-based APIs that allows
+	 *  for handlers registered via ::on to be invoked with calls to ::emit.
+	 */
+	type Emitter = EventKit.Emitter;
+
+	// First Mate ===============================================================
+	/** Grammar that tokenizes lines of text. */
+	type Grammar = FirstMate.Grammar;
+
+	/** Instance side of GrammarRegistry class. */
+	type GrammarRegistry = FirstMate.GrammarRegistry;
+
+	type ScopeSelector = FirstMate.ScopeSelector;
+
+	// Path Watcher =============================================================
+	/** Represents a directory on disk that can be watched for changes. */
+	type Directory = PathWatcher.Directory;
+
+	/** Represents an individual file that can be watched, read from, and written to. */
+	type File = PathWatcher.File;
+
+	type PathWatcher = PathWatcher.PathWatcher;
+
+	// Text Buffer ==============================================================
+	/** The interface that should be implemented for all "point-compatible" objects. */
+	/** Represents a buffer annotation that remains logically stationary even as the
+	 *  buffer changes. This is used to represent cursors, folds, snippet targets,
+	 *  misspelled words, and anything else that needs to track a logical location
+	 *  in the buffer over time.
+	 */
+	type DisplayMarker = TextBuffer.DisplayMarker;
+
+	/** Experimental: A container for a related set of markers at the DisplayLayer level.
+	 *  Wraps an underlying MarkerLayer on the TextBuffer.
+	 *
+	 *  This API is experimental and subject to change on any release.
+	 */
+	type DisplayMarkerLayer = TextBuffer.DisplayMarkerLayer;
+
+	/** Represents a buffer annotation that remains logically stationary even as
+	 *  the buffer changes.
+	 */
+	type Marker = TextBuffer.Marker;
+
+	/** Experimental: A container for a related set of markers. */
+	type MarkerLayer = TextBuffer.MarkerLayer;
+
+	/** The interface that should be implemented for all "point-compatible" objects. */
+	type PointLike = TextBuffer.PointLike;
+
+	/** Represents a point in a buffer in row/column coordinates. */
+	type Point = TextBuffer.Point;
+
+	/** The interface that should be implemented for all "range-compatible" objects. */
+	type RangeLike = TextBuffer.RangeLike;
+
+	/** Represents a region in a buffer in row/column coordinates. */
+	type Range = TextBuffer.Range;
+
+	/** A mutable text container with undo/redo support and the ability to
+	 *  annotate logical regions in the text.
+	 */
+	type TextBuffer = TextBuffer.TextBuffer;
+
+	// Atom =====================================================================
+	/** Atom global for dealing with packages, themes, menus, and the window.
+	 *  An instance of this class is always available as the atom global.
+	 */
+	type AtomEnvironment = AtomCore.AtomEnvironment;
+
+	/** A wrapper which provides standard error/output line buffering for
+	 *  Node's ChildProcess.
+	 */
+	type BufferedProcess = AtomCore.BufferedProcess;
+
+	/** Like BufferedProcess, but accepts a Node script as the command to run.
+	 *  This is necessary on Windows since it doesn't support shebang #! lines.
+	 */
+	type BufferedNodeProcess = AtomCore.BufferedNodeProcess;
+
+	/** Represents the clipboard used for copying and pasting in Atom. */
+	type Clipboard = AtomCore.Clipboard;
+
+	/** A simple color class returned from Config::get when the value at the key path is
+	 *  of type 'color'.
+	 */
+	type Color = AtomCore.Color;
+
+	/** Used to access all of Atom's configuration details. */
+	type Config = AtomCore.Config;
+
+	/** Provides a registry for commands that you'd like to appear in the context menu. */
+	type ContextMenuManager = AtomCore.ContextMenuManager;
+
+	/** Associates listener functions with commands in a context-sensitive way
+	 *  using CSS selectors.
+	 */
+	type CommandRegistry = AtomCore.CommandRegistry;
+
+	/** The Cursor class represents the little blinking line identifying where text
+	 *  can be inserted.
+	 */
+	type Cursor = AtomCore.Cursor;
+
+	/** Represents a decoration that follows a DisplayMarker. A decoration is basically
+	 *  a visual representation of a marker. It allows you to add CSS classes to line
+	 *  numbers in the gutter, lines, and add selection-line regions around marked ranges
+	 *  of text.
+	 */
+	type Decoration = AtomCore.Decoration;
+
+	type Deserializer = AtomCore.Deserializer;
+
+	/** Manages the deserializers used for serialized state. */
+	type DeserializerManager = AtomCore.DeserializerManager;
+
+	/** A container at the edges of the editor window capable of holding items. */
+	type Dock = AtomCore.Dock;
+
+	/** Represents the underlying git operations performed by Atom. */
+	type GitRepository = AtomCore.GitRepository;
+
+	/** Represents a gutter within a TextEditor. */
+	type Gutter = AtomCore.Gutter;
+
+	/** History manager for remembering which projects have been opened.
+	 *  An instance of this class is always available as the atom.history global.
+	 *  The project history is used to enable the 'Reopen Project' menu.
+	 */
+	type HistoryManager = AtomCore.HistoryManager;
+
+	type HistoryProject = AtomCore.HistoryProject;
+
+	/** Represents a decoration that applies to every marker on a given layer. Created via
+	 *  TextEditor::decorateMarkerLayer.
+	 */
+	type LayerDecoration = AtomCore.LayerDecoration;
+
+	/** Provides a registry for menu items that you'd like to appear in the application menu. */
+	type MenuManager = AtomCore.MenuManager;
+
+	type Model = AtomCore.Model;
+
+	/** A notification to the user containing a message and type. */
+	type Notification = AtomCore.Notification;
+
+	/** A notification manager used to create Notifications to be shown to the user. */
+	type NotificationManager = AtomCore.NotificationManager;
+
+	/** Loads and activates a package's main module and resources such as stylesheets,
+	 *  keymaps, grammar, editor properties, and menus.
+	 */
+	type Package = AtomCore.Package;
+
+	/** Package manager for coordinating the lifecycle of Atom packages. */
+	type PackageManager = AtomCore.PackageManager;
+
+	/** A container for presenting content in the center of the workspace. */
+	type Pane = AtomCore.Pane;
+
+	/** A container representing a panel on the edges of the editor window. You
+	 *  should not create a Panel directly, instead use Workspace::addTopPanel and
+	 *  friends to add panels.
+	 */
+	type Panel = AtomCore.Panel;
+
+	/** Represents a project that's opened in Atom. */
+	type Project = AtomCore.Project;
+
+	/** Wraps an Array of Strings. The Array describes a path from the root of the
+	 *  syntax tree to a token including all scope names for the entire path.
+	 */
+	type ScopeDescriptor = AtomCore.ScopeDescriptor;
+
+	/** Represents a selection in the TextEditor. */
+	type Selection = AtomCore.Selection;
+
+	/** A singleton instance of this class available via atom.styles, which you can
+	 *  use to globally query and observe the set of active style sheets.
+	 */
+	type StyleManager = AtomCore.StyleManager;
+
+	/** Run a node script in a separate process. */
+	type Task = AtomCore.Task;
+
+	/** This class represents all essential editing state for a single TextBuffer,
+	 *  including cursor and selection positions, folds, and soft wraps.
+	 */
+	type TextEditor = AtomCore.TextEditor;
+
+	/** Experimental: This global registry tracks registered TextEditors. */
+	type TextEditorRegistry = AtomCore.TextEditorRegistry;
+
+	/** Handles loading and activating available themes. */
+	type ThemeManager = AtomCore.ThemeManager;
+
+	type Tooltip = AtomCore.Tooltip;
+
+	/** Associates tooltips with HTML elements or selectors. */
+	type TooltipManager = AtomCore.TooltipManager;
+
+	/** ViewRegistry handles the association between model and view types in Atom.
+	 *  We call this association a View Provider. As in, for a given model, this class
+	 *  can provide a view via ::getView, as long as the model/view association was
+	 *  registered via ::addViewProvider.
+	 */
+	type ViewRegistry = AtomCore.ViewRegistry;
+
+	/** Represents the state of the user interface for the entire window. */
+	type Workspace = AtomCore.Workspace;
+
+	// https://github.com/atom/atom/blob/master/src/workspace-center.js
+	/** The central container for the editor window capable of holding items. */
+	type WorkspaceCenter = AtomCore.WorkspaceCenter;
 }
 
 declare var atom: AtomCore.AtomEnvironment;

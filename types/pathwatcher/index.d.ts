@@ -9,11 +9,9 @@
 /// <reference types="event-kit" />
 
 declare namespace PathWatcher {
-	/** Objects that appear as parameters to callbacks, broken off for easy
-	 *  callback definition (both here and in user code).
-	 */
-	namespace CallbackArgs {
-		interface BufferWatchError {
+	/** Objects that appear as parameters to callbacks. */
+	namespace Events {
+		interface PathWatchErrorThrown {
 			/** The error object. */
 			error: Error;
 
@@ -23,7 +21,7 @@ declare namespace PathWatcher {
 			handle(): void;
 		}
 
-		interface PathWatcherChange {
+		interface WatchedFilePathChanged {
 			event: string;
 			newFilePath: string;
 		}
@@ -62,7 +60,7 @@ declare namespace PathWatcher {
 		 *  your callback has been invoked, the file will have unsubscribed from the
 		 *  file watches.
 		 */
-		onWillThrowWatchError(callback: (errorObject: CallbackArgs.BufferWatchError) =>
+		onWillThrowWatchError(callback: (errorObject: Events.PathWatchErrorThrown) =>
 			void): EventKit.Disposable;
 
 		// File Metadata
@@ -222,7 +220,7 @@ declare namespace PathWatcher {
 	}
 
 	interface PathWatcher {
-		onDidChange(callback: (change: CallbackArgs.PathWatcherChange) => void): EventKit.Disposable;
+		onDidChange(callback: (change: Events.WatchedFilePathChanged) => void): EventKit.Disposable;
 
 		close(): void;
 	}

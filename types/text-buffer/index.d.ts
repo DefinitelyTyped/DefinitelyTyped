@@ -9,10 +9,8 @@
 /// <reference types="pathwatcher" />
 
 declare namespace TextBuffer {
-	/** Complex objects that appear as parameters to callbacks, broken off for easy
-	 *  callback definition (both here and in user code).
-	 */
-	namespace CallbackArgs {
+	/** Objects that appear as parameters to callbacks. */
+	namespace Events {
 		interface BufferWatchError {
 			/** The error object. */
 			error: Error;
@@ -23,12 +21,12 @@ declare namespace TextBuffer {
 			handle(): void;
 		}
 
-		interface FileSaveEvent {
+		interface FileSaved {
 			/** The path to which the buffer was saved. */
 			path: string;
 		}
 
-		interface MarkerChangeEvent {
+		interface MarkerChanged {
 			/** Point representing the former head position. */
 			oldHeadPosition: Point;
 
@@ -60,12 +58,12 @@ declare namespace TextBuffer {
 			textChanged: boolean;
 		}
 
-		interface BufferWillChangeEvent {
+		interface BufferChanging {
 			/** Range of the old text. */
 			oldRange: Range;
 		}
 
-		interface BufferChangeEvent {
+		interface BufferChanged {
 			/** Range of the old text. */
 			oldRange: Range;
 
@@ -79,21 +77,11 @@ declare namespace TextBuffer {
 			newText: string;
 		}
 
-		interface TextChange {
-			newExtent: Point;
-			oldExtent: Point;
-			newRange: Range;
-			oldRange: Range;
-			newText: string;
-			oldText: string;
-			start: Point;
+		interface BufferStoppedChanging {
+			changes: Structures.TextChange[];
 		}
 
-		interface TextChangeEvent {
-			changes: TextChange[];
-		}
-
-		interface DisplayMarkerChangeEvent {
+		interface DisplayMarkerChanged {
 			/** Point representing the former head buffer position. */
 			oldHeadBufferPosition: Point;
 
@@ -143,11 +131,9 @@ declare namespace TextBuffer {
 		}
 	}
 
-	/** Complex objects that appear as parameters to functions, broken off for easy
-	 *  function definition (both here and in user code).
-	 */
-	namespace Params {
-		interface LoadOptions {
+	/** Objects that appear as parameters to functions. */
+	namespace Options {
+		interface BufferLoad {
 			/** The file's encoding. */
 			encoding?: string;
 
@@ -157,7 +143,7 @@ declare namespace TextBuffer {
 			shouldDestroyOnFileDelete?(): boolean;
 		}
 
-		interface FindMarkerProps {
+		interface FindMarker {
 			/** Only include markers starting at this Point in buffer coordinates. */
 			startBufferPosition?: PointLike|[number, number];
 
@@ -227,6 +213,19 @@ declare namespace TextBuffer {
 
 			/** The number of lines after the matched line to include in the results object. */
 			trailingContextLineCount?: number;
+		}
+	}
+
+	/** Data structures that are used within classes. */
+	namespace Structures {
+		interface TextChange {
+			newExtent: Point;
+			oldExtent: Point;
+			newRange: Range;
+			oldRange: Range;
+			newText: string;
+			oldText: string;
+			start: Point;
 		}
 	}
 
@@ -596,7 +595,7 @@ declare namespace TextBuffer {
 		onDidDestroy(callback: () => void): EventKit.Disposable;
 
 		/** Invoke the given callback when the state of the marker changes. */
-		onDidChange(callback: (event: CallbackArgs.MarkerChangeEvent) => void):
+		onDidChange(callback: (event: Events.MarkerChanged) => void):
 			EventKit.Disposable;
 
 		// Marker Details
@@ -831,12 +830,12 @@ declare namespace TextBuffer {
 		}): TextBuffer;
 
 		/** Create a new buffer backed by the given file path. */
-		load(source: string, params?: Params.LoadOptions): Promise<TextBuffer>;
+		load(source: string, params?: Options.BufferLoad): Promise<TextBuffer>;
 
 		/** Create a new buffer backed by the given file path. For better performance,
 		 *  use TextBuffer.load instead.
 		 */
-		loadSync(filePath: string, params?: Params.LoadOptions): TextBuffer;
+		loadSync(filePath: string, params?: Options.BufferLoad): TextBuffer;
 
 		/** Restore a TextBuffer based on an earlier state created using the TextBuffer::serialize
 		 *  method.
@@ -887,25 +886,25 @@ declare namespace TextBuffer {
 		/** Invoke the given callback synchronously before the content of the buffer
 		 *  changes.
 		 */
-		onWillChange(callback: (event: CallbackArgs.BufferWillChangeEvent) => void):
+		onWillChange(callback: (event: Events.BufferChanging) => void):
 			EventKit.Disposable;
 
 		/** Invoke the given callback synchronously when the content of the buffer
 		 *  changes. You should probably not be using this in packages.
 		 */
-		onDidChange(callback: (event: CallbackArgs.BufferChangeEvent) => void):
+		onDidChange(callback: (event: Events.BufferChanged) => void):
 			EventKit.Disposable;
 
 		/** Invoke the given callback synchronously when a transaction finishes with
 		 *  a list of all the changes in the transaction.
 		 */
-		onDidChangeText(callback: (event: CallbackArgs.TextChangeEvent) => void):
+		onDidChangeText(callback: (event: Events.BufferStoppedChanging) => void):
 			EventKit.Disposable;
 
 		/** Invoke the given callback asynchronously following one or more changes after
 		 *  ::getStoppedChangingDelay milliseconds elapse without an additional change.
 		 */
-		onDidStopChanging(callback: (event: CallbackArgs.TextChangeEvent) => void):
+		onDidStopChanging(callback: (event: Events.BufferStoppedChanging) => void):
 			EventKit.Disposable;
 
 		/** Invoke the given callback when the in-memory contents of the buffer become
@@ -936,7 +935,7 @@ declare namespace TextBuffer {
 		onWillSave(callback: () => void): EventKit.Disposable;
 
 		/** Invoke the given callback after the buffer is saved to disk. */
-		onDidSave(callback: (event: CallbackArgs.FileSaveEvent) => void):
+		onDidSave(callback: (event: Events.FileSaved) => void):
 			EventKit.Disposable;
 
 		/** Invoke the given callback after the file backing the buffer is deleted. */
@@ -956,7 +955,7 @@ declare namespace TextBuffer {
 		onDidDestroy(callback: () => void): EventKit.Disposable;
 
 		/** Invoke the given callback when there is an error in watching the file. */
-		onWillThrowWatchError(callback: (errorObject: CallbackArgs.BufferWatchError) =>
+		onWillThrowWatchError(callback: (errorObject: Events.BufferWatchError) =>
 			void): EventKit.Disposable;
 
 		/** Get the number of milliseconds that will elapse without a change before
@@ -1258,7 +1257,7 @@ declare namespace TextBuffer {
 		/** Scan regular expression matches in the entire buffer, calling the given
 		 *  iterator function on each match.
 		 */
-		scan(regex: RegExp, options: Params.ScanContext, iterator: (match: object, matchText:
+		scan(regex: RegExp, options: Options.ScanContext, iterator: (match: object, matchText:
 			string, range: Range, stop: Function, replace: Function, leadingContextLines: string[],
 			trailingContextLines: string[]) => void): void;
 
@@ -1271,7 +1270,7 @@ declare namespace TextBuffer {
 		/** Scan regular expression matches in the entire buffer in reverse order,
 		 *  calling the given iterator function on each match.
 		 */
-		backwardsScan(regex: RegExp, options: Params.ScanContext, iterator: (match: object,
+		backwardsScan(regex: RegExp, options: Options.ScanContext, iterator: (match: object,
 			matchText: string, range: Range, stop: Function, replace: Function, leadingContextLines:
 			string[], trailingContextLines: string[]) => void): void;
 
@@ -1311,34 +1310,34 @@ declare namespace TextBuffer {
 		/** Scan regular expression matches in a given range , calling the given
 		 *  iterator function on each match.
 		 */
-		scanInRange(regex: RegExp, range: RangeLike, options: Params.ScanContext,
+		scanInRange(regex: RegExp, range: RangeLike, options: Options.ScanContext,
 			iterator: (match: object, matchText: string, range: Range, stop: Function,
 			replace: Function, leadingContextLines: string[], trailingContextLines:
 			string[]) => void): void;
 		/** Scan regular expression matches in a given range , calling the given
 		 *  iterator function on each match.
 		 */
-		scanInRange(regex: RegExp, range: [PointLike, PointLike], options: Params.ScanContext,
+		scanInRange(regex: RegExp, range: [PointLike, PointLike], options: Options.ScanContext,
 			iterator: (match: object, matchText: string, range: Range, stop: Function, replace: Function,
 			leadingContextLines: string[], trailingContextLines: string[]) => void): void;
 		/** Scan regular expression matches in a given range , calling the given
 		 *  iterator function on each match.
 		 */
 		scanInRange(regex: RegExp, range: [[number, number], [number, number]],
-			options: Params.ScanContext, iterator: (match: object, matchText: string, range: Range,
+			options: Options.ScanContext, iterator: (match: object, matchText: string, range: Range,
 			stop: Function, replace: Function, leadingContextLines: string[], trailingContextLines:
 			string[]) => void): void;
 		/** Scan regular expression matches in a given range , calling the given
 		 *  iterator function on each match.
 		 */
-		scanInRange(regex: RegExp, range: [PointLike, [number, number]], options: Params.ScanContext,
+		scanInRange(regex: RegExp, range: [PointLike, [number, number]], options: Options.ScanContext,
 			iterator: (match: object, matchText: string, range: Range, stop: Function,
 			replace: Function, leadingContextLines: string[], trailingContextLines:
 			string[]) => void): void;
 		/** Scan regular expression matches in a given range , calling the given
 		 *  iterator function on each match.
 		 */
-		scanInRange(regex: RegExp, range: [[number, number], PointLike], options: Params.ScanContext,
+		scanInRange(regex: RegExp, range: [[number, number], PointLike], options: Options.ScanContext,
 			iterator: (match: object, matchText: string, range: Range, stop: Function,
 			replace: Function, leadingContextLines: string[], trailingContextLines:
 			string[]) => void): void;
@@ -1376,35 +1375,35 @@ declare namespace TextBuffer {
 		/** Scan regular expression matches in a given range in reverse order,
 		 *  calling the given iterator function on each match.
 		 */
-		backwardsScanInRange(regex: RegExp, range: RangeLike, options: Params.ScanContext,
+		backwardsScanInRange(regex: RegExp, range: RangeLike, options: Options.ScanContext,
 			iterator: (match: object, matchText: string, range: Range, stop: Function,
 			replace: Function, leadingContextLines: string[], trailingContextLines:
 			string[]) => void): void;
 		/** Scan regular expression matches in a given range in reverse order,
 		 *  calling the given iterator function on each match.
 		 */
-		backwardsScanInRange(regex: RegExp, range: [PointLike, PointLike], options: Params.ScanContext,
+		backwardsScanInRange(regex: RegExp, range: [PointLike, PointLike], options: Options.ScanContext,
 			iterator: (match: object, matchText: string, range: Range, stop: Function, replace:
 			Function, leadingContextLines: string[], trailingContextLines: string[]) => void): void;
 		/** Scan regular expression matches in a given range in reverse order,
 		 *  calling the given iterator function on each match.
 		 */
 		backwardsScanInRange(regex: RegExp, range: [[number, number], [number, number]], options:
-			Params.ScanContext, iterator: (match: object, matchText: string, range: Range,
+			Options.ScanContext, iterator: (match: object, matchText: string, range: Range,
 			stop: Function, replace: Function, leadingContextLines: string[],
 			trailingContextLines: string[]) => void): void;
 		/** Scan regular expression matches in a given range in reverse order,
 		 *  calling the given iterator function on each match.
 		 */
 		backwardsScanInRange(regex: RegExp, range: [PointLike, [number, number]], options:
-			Params.ScanContext, iterator: (match: object, matchText: string, range: Range,
+			Options.ScanContext, iterator: (match: object, matchText: string, range: Range,
 			stop: Function, replace: Function, leadingContextLines: string[], trailingContextLines:
 			string[]) => void): void;
 		/** Scan regular expression matches in a given range in reverse order,
 		 *  calling the given iterator function on each match.
 		 */
 		backwardsScanInRange(regex: RegExp, range: [[number, number], PointLike], options:
-			Params.ScanContext, iterator: (match: object, matchText: string, range: Range,
+			Options.ScanContext, iterator: (match: object, matchText: string, range: Range,
 			stop: Function, replace: Function, leadingContextLines: string[],
 			trailingContextLines: string[]) => void): void;
 
@@ -1493,7 +1492,7 @@ declare namespace TextBuffer {
 
 		// Event Subscription
 		/** Invoke the given callback when the state of the marker changes. */
-		onDidChange(callback: (event: CallbackArgs.DisplayMarkerChangeEvent) => void):
+		onDidChange(callback: (event: Events.DisplayMarkerChanged) => void):
 			EventKit.Disposable;
 
 		/** Invoke the given callback when the marker is destroyed. */
@@ -1531,7 +1530,7 @@ declare namespace TextBuffer {
 		setProperties(properties: object): void;
 
 		/** Returns whether this marker matches the given parameters. */
-		matchesProperties(attributes: Params.FindMarkerProps): boolean;
+		matchesProperties(attributes: Options.FindMarker): boolean;
 
 		// Comparing to other markers
 		/** Compares this marker to another based on their ranges. */
@@ -1768,7 +1767,7 @@ declare namespace TextBuffer {
 		 *  there are several special properties that will be compared with the range of the
 		 *  markers rather than their properties.
 		 */
-		findMarkers(properties: Params.FindMarkerProps): DisplayMarker[];
+		findMarkers(properties: Options.FindMarker): DisplayMarker[];
 	}
 }
 
