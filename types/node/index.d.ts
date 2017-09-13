@@ -2125,8 +2125,8 @@ declare module "url" {
         unicode?: boolean;
     }
 
-    export class URLSearchParams {
-        constructor(init?: URLSearchParams | string | { [key: string]: string | string[] | undefined } | Iterable<[string, string]>);
+    export class URLSearchParams implements Iterable<[string, string]> {
+        constructor(init?: URLSearchParams | string | { [key: string]: string | string[] | undefined } | Iterable<[string, string]> | Array<[string, string]>);
         append(name: string, value: string): void;
         delete(name: string): void;
         entries(): IterableIterator<[string, string]>;
@@ -2139,7 +2139,7 @@ declare module "url" {
         sort(): void;
         toString(): string;
         values(): IterableIterator<string>;
-        [Symbol.iterator](): IterableIterator<[string,string]>;
+        [Symbol.iterator](): IterableIterator<[string, string]>;
     }
 
     export class URL {
