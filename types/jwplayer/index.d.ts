@@ -212,7 +212,12 @@ interface SeekParam extends CallbackParam {
 interface TimeParam extends CallbackParam {
     duration: number;
     position: number;
-    viewable: number;
+    viewable: 0 | 1;
+}
+
+interface FirstFrameParam extends CallbackParam {
+    loadTime: number;
+    viewable: 0 | 1;
 }
 
 interface EventCallback<T extends CallbackParam> {
@@ -250,6 +255,7 @@ interface JWPlayer {
 	on(event: 'adComplete', callback: EventCallback<AdProgressParam>): void;
 	on(event: 'adSkipped', callback: EventCallback<AdProgressParam>): void;
 	on(event: 'adError', callback: EventCallback<AdErrorParam>): void;
+	on(event: 'adBlock', callback: () => void): void;
 	on(event: 'adRequest', callback: EventCallback<AdRequestParam>): void;
 	on(event: 'adStarted', callback: EventCallback<AdStartedParam>): void;
 	on(event: 'adImpression', callback: EventCallback<AdImpressionParam>): void;
@@ -260,6 +266,8 @@ interface JWPlayer {
 	on(event: 'audioTracks', callback: EventCallback<AudioTracksParam>): void;
 	on(event: 'audioTrackChanged', callback: EventCallback<AudioTrackChangedParam>): void;
 	on(event: 'beforeComplete', callback: () => void): void;
+	on(event: 'complete', callback: () => void): void;
+	on(event: 'firstFrame', callback: EventCallback<FirstFrameParam>): void;
 	on(event: 'beforePlay', callback: () => void): void;
 	on(event: 'buffer', callback: EventCallback<BufferParam>): void;
 	on(event: 'bufferChange', callback: EventCallback<BufferChangeParam>): void;
