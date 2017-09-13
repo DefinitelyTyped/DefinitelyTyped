@@ -56,7 +56,7 @@ bot.on(['/start', 'audio', 'sticker'], msg => {
 });
 
 bot.mod('text', (data) => {
-    let msg = data.message;
+    const msg = data.message;
     msg.text = `📢 ${ msg.text }`;
     return data;
 });
@@ -70,13 +70,13 @@ bot.plug({
     }
 });
 
-bot.keyboard('this', {});
+bot.keyboard([[]], {});
 
 bot.button('this', 'test');
 
-bot.inlineKeyboard('string');
+bot.inlineKeyboard([[]]);
 
-bot.inlineQueryKeyboard('string');
+bot.inlineQueryKeyboard([[]]);
 
 bot.inlineButton('string', {});
 

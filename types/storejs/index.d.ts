@@ -1,6 +1,6 @@
 // Type definitions for store.js 2.0
 // Project: https://github.com/marcuswestin/store.js/
-// Definitions by: Vincent Bortone <https://github.com/vbortone/>
+// Definitions by: Vincent Bortone <https://github.com/vbortone>
 //                 harry0000 <https://github.com/harry0000>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 

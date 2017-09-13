@@ -16,13 +16,21 @@ export type Formatter = (value: any, name: string) => any;
 export type Parser = (value: any, name: string) => any;
 export type Validator = (value: any, allValues?: any, props?: any) => any;
 
+interface EventHandler<Event> {
+    (event: Event): void;
+}
+
+interface EventOrValueHandler<Event> extends EventHandler<Event> {
+    (value: any): void;
+}
+
 interface CommonFieldProps {
     name: string;
     onBlur: EventOrValueHandler<FocusEvent<any>>;
     onChange: EventOrValueHandler<ChangeEvent<any>>;
-    onDragStart: EventOrValueHandler<DragEvent<any>>;
-    onDrop: EventOrValueHandler<DragEvent<any>>;
-    onFocus: EventOrValueHandler<FocusEvent<any>>;
+    onDragStart: EventHandler<DragEvent<any>>;
+    onDrop: EventHandler<DragEvent<any>>;
+    onFocus: EventHandler<FocusEvent<any>>;
 }
 
 interface BaseFieldProps<P = {}> extends Partial<CommonFieldProps> {
@@ -58,11 +66,6 @@ export class Field<P = GenericFieldHTMLAttributes> extends Component<BaseFieldPr
 interface WrappedFieldProps {
     input: WrappedFieldInputProps;
     meta: WrappedFieldMetaProps;
-}
-
-interface EventOrValueHandler<Event> {
-    (event: Event): void;
-    (value: any, newValue: any, previousValue: any): void;
 }
 
 interface WrappedFieldInputProps extends CommonFieldProps {

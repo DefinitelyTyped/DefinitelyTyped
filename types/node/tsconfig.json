@@ -17,7 +17,6 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "isolatedModules": true
+        "forceConsistentCasingInFileNames": true
     }
 }

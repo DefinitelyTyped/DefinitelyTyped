@@ -1,6 +1,6 @@
 // Type definitions for bezier-easing
 // Project: https://github.com/gre/bezier-easing
-// Definitions by: brian ridley <https://github.com/ptlis/>
+// Definitions by: brian ridley <https://github.com/ptlis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare interface Easing {

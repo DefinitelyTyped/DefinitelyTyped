@@ -51,7 +51,7 @@ interface StartScreenNavigationParams {
 }
 
 interface StartScreenProps extends NavigationScreenProps<StartScreenNavigationParams> { }
-class StartScreen extends React.Component<StartScreenProps, {}> {
+class StartScreen extends React.Component<StartScreenProps> {
     render() {
         // Implicit type checks.
         const navigationStateParams: StartScreenNavigationParams = this.props.navigation.state.params;
@@ -85,7 +85,7 @@ interface NextScreenNavigationParams {
     name: string,
 }
 interface NextScreenProps extends NavigationScreenProps<NextScreenNavigationParams> { }
-class NextScreen extends React.Component<NextScreenProps, {}> {
+class NextScreen extends React.Component<NextScreenProps> {
     render() {
         // Implicit type checks.
         const navigationStateParams: NextScreenNavigationParams = this.props.navigation.state.params;
@@ -153,7 +153,7 @@ const tabNavigatorScreenOptions: NavigationTabScreenOptions = {
 const tabNavigatorConfig: TabNavigatorConfig = {
     lazy: true,
     tabBarComponent: TabBarTop,
-    tabBarOptions: tabNavigatorScreenOptions,
+    tabBarOptions: { activeBackgroundColor: "blue" },
 };
 
 const BasicTabNavigator = TabNavigator(
@@ -165,7 +165,7 @@ function renderBasicTabNavigator(): JSX.Element {
     return (
         <BasicTabNavigator
             ref={(ref: any) => { }}
-            style={viewStyle}
+            style={[viewStyle, undefined]} // Test that we are using StyleProp
         />
     );
 }
@@ -236,7 +236,7 @@ class CustomTransitioner extends React.Component<CustomTransitionerProps, null> 
  * Header
  */
 function renderHeaderBackButton(schema: string): JSX.Element {
-    switch ( schema ) {
+    switch (schema) {
         case 'compact':
             return (
                 <HeaderBackButton />

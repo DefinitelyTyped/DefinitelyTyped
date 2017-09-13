@@ -5,11 +5,6 @@
 
 export as namespace Prism;
 
-/**
- * @deprecated Use the Prism namespace directly directly
- */
-export as namespace PrismJS;
-
 export const util: Util;
 export const languages: Languages;
 export const plugins: any;
@@ -142,10 +137,14 @@ export interface LanguageDefinition {
     rest?: Token[];
 }
 
-export interface Languages {
+export type Languages
+    = LanguageMap
+    & LanguageMapProtocol;
+export interface LanguageMap {
     /** Get a defined language's definition */
     [key: string]: LanguageDefinition;
-
+}
+export interface LanguageMapProtocol {
     /**
      * Extend a language definition
      * @param id The language definition to extend
@@ -162,17 +161,18 @@ export interface Languages {
      * @param insert Object with the key/value pairs to insert
      * @param root The object that contains `inside`. If equal to Prism.languages, it can be omitted.
      */
-    insertBefore(inside: string, before: string, insert: LanguageDefinition, root: LanguageDefinition): any;
+    insertBefore(inside: string, before: string, insert: LanguageDefinition, root: LanguageDefinition): LanguageDefinition;
 }
 
 export type HookCallback = (env: Environment) => void;
-export type AvailableHooks = "before-highlightall"
-                    | "before-sanity-check"
-                    | "before-highlight"
-                    | "before-insert"
-                    | "after-highlight"
-                    | "complete"
-                    | "wrap";
+export type AvailableHooks
+    = "before-highlightall"
+    | "before-sanity-check"
+    | "before-highlight"
+    | "before-insert"
+    | "after-highlight"
+    | "complete"
+    | "wrap";
 
 export interface Hooks {
     all: Array<Array<(env: Environment) => void>>;

@@ -10,6 +10,6 @@ export interface AuthWrapperConfig extends AuthConfig {
     FailureComponent?: ReactType;
 }
 
-export function authWrapper<OwnProps = {}>(
+export default function authWrapper<OwnProps = {}>(
     config: AuthWrapperConfig
 ): AuthWrapperDecorator<OwnProps & InjectedAuthProps>;
