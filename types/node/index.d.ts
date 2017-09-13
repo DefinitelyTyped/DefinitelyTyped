@@ -66,6 +66,10 @@ interface IteratorResult<T> { }
 interface SymbolConstructor {
     readonly iterator: symbol;
 }
+
+// Forward-declare SharedArrayBuffer (available starting es2017)
+interface SharedArrayBuffer {}
+
 declare var Symbol: SymbolConstructor;
 
 /************************************************
