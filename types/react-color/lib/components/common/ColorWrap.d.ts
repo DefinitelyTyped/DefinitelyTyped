@@ -1,13 +1,13 @@
 import { ComponentClass, StatelessComponent } from "react";
 import { HSLColor, RGBColor, ColorChangeHandler, Color, ColorResult } from "react-color";
 
-export type CustomColorChangeHandler = (color: Color | ColorResult) => void;
+export type ColorWrapChangeHandler = (color: Color | ColorResult) => void;
 
 export interface InjectedColorProps {
     hex?: string;
     hsl?: HSLColor;
     rgb?: RGBColor;
-    onChange?: CustomColorChangeHandler;
+    onChange?: ColorWrapChangeHandler;
 }
 
 export interface ExportedColorProps {
