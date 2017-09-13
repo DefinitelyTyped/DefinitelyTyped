@@ -2,7 +2,7 @@ import esprima = require('esprima');
 import * as ESTree from 'estree';
 
 let token: esprima.Token;
-let program: ESTree.Program;
+let program: esprima.Program;
 let string: string;
 
 // esprima
