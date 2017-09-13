@@ -20,7 +20,7 @@ declare module 'moment' {
          *      persian: default dialect(امرداد، آدینه، ...)
          *      persian-modern: modern dialect(مرداد، جمعه، ...)
          */
-        dialect?: string;
+        dialect?: 'persian' | 'persian-modern';
     }
 
     /**
