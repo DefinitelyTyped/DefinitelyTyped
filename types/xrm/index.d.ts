@@ -893,7 +893,12 @@ declare namespace Xrm {
         /**
          * Status for Xrm.Page.Stage.getStatus().
          */
-        type Status = "active" | "inactive";
+        type StageStatus = "active" | "inactive";
+
+        /**
+         * Status for Xrm.Page.Process.getStatus().
+         */
+        type ProcessStatus = "active" | "aborted" | "finished";
 
         /**
          * Submit Mode for Xrm.Page.Attribute.getSubmitMode() and Xrm.Page.Attribute.setSubmitMode().
@@ -1022,7 +1027,7 @@ declare namespace Xrm {
              *
              * @remarks  This method will return either "active" or "inactive".
              */
-            getStatus(): Status;
+            getStatus(): StageStatus;
 
             /**
              * Returns a collection of steps in the stage.
@@ -1152,6 +1157,12 @@ declare namespace Xrm {
          * @param   {EventContext}  context The context.
          */
         type ContextSensitiveHandler = (context: EventContext) => void;
+
+        /**
+         * Type for a process status change handler.
+         * @param   {ProcessStatus}  status The process status.
+         */
+        type ProcessStatusChangeHandler = (status: ProcessStatus) => void;
 
         /**
          * Interface for UI elements with labels.
@@ -2008,6 +2019,21 @@ declare namespace Xrm {
                 setActiveProcess(processId: string, callbackFunction?: ProcessCallbackDelegate): void;
 
                 /**
+                 * Returns all process instances for the entity record that the calling user has access to.
+                 *
+                 * @param   {function}  callbackFunction    (Optional) a function to call when the operation is complete.
+                 */
+                getProcessInstances(callbackFunction: GetProcessInstancesDelegate): void;
+
+                /**
+                 * Sets a process instance as the active instance
+                 *
+                 * @param   {string}    processInstanceId           The Id of the process instance to make the active instance.
+                 * @param   {function}  callbackFunction    (Optional) a function to call when the operation is complete.
+                 */
+                setActiveProcessInstance(processInstanceId: string, callbackFunction: SetProcessInstanceDelegate): void;
+
+                /**
                  * Returns a Stage object representing the active stage.
                  *
                  * @return  current active stage.
@@ -2070,6 +2096,19 @@ declare namespace Xrm {
                 addOnStageChange(handler: ContextSensitiveHandler): void;
 
                 /**
+                 * Use this to add a function as an event handler for the OnProcessStatusChange event so that it will be called when the
+                 * business process flow status changes.
+                 * @param   {ProcessStatusChangeHandler}   handler The function will be added to the bottom of the event
+                 *                                              handler pipeline. The execution context is automatically
+                 *                                              set to be the first parameter passed to the event handler.
+                 *
+                 *                                              Use a reference to a named function rather than an
+                 *                                              anonymous function if you may later want to remove the
+                 *                                              event handler.
+                 */
+                addOnProcessStatusChange(handler: ProcessStatusChangeHandler): void;
+
+                /**
                  * Use this to add a function as an event handler for the OnStageSelected event so that it will be called
                  * when a business process flow stage is selected.
                  *
@@ -2082,6 +2121,14 @@ declare namespace Xrm {
                  *                                              event handler.
                  */
                 addOnStageSelected(handler: ContextSensitiveHandler): void;
+
+                /**
+                 * Use this to remove a function as an event handler for the OnProcessStatusChange event.
+                 *
+                 * @param   {ProcessStatusChangeHandler}   handler If an anonymous function is set using the addOnProcessStatusChange method it
+                 *                                              cannot be removed using this method.
+                 */
+                removeOnProcessStatusChange(handler: ProcessStatusChangeHandler): void;
 
                 /**
                  * Use this to remove a function as an event handler for the OnStageChange event.
@@ -2114,7 +2161,61 @@ declare namespace Xrm {
                  *                                                          complete.
                  */
                 movePrevious(callbackFunction?: ProcessCallbackDelegate): void;
+
+                /**
+                 * Use this method to get the unique identifier of the process instance
+                 *
+                 * @return  The unique identifier of the process instance
+                 */
+                getInstanceId(): string;
+
+                /**
+                 * Use this method to get the name of the process instance
+                 *
+                 * @return  The name of the process instance
+                 */
+                getInstanceName(): string;
+
+                /**
+                 * Use this method to get the current status of the process instance
+                 *
+                 * @return  The current status of the process
+                 */
+                getStatus(): ProcessStatus;
+
+                /**
+                 * Use this method to set the current status of the process instance
+                 *
+                 * @param   {ProcessStatus}  status         The new status for the process
+                 * @param   {function}  callbackFunction    (Optional) a function to call when the operation is complete.
+                 */
+                setStatus(status: ProcessStatus, callbackFunction: ProcessSetStatusDelegate): void;
             }
+
+            /**
+             * Called when method to get active processes is complete
+             *
+             * @param       {string}    status  The result of the get active processes operation.
+             *
+             * @remarks     Returns object with the following key-value pairs:
+             *                          CreatedOn
+             *                          ProcessDefinitionID
+             *                          ProcessDefinitionName
+             *                          ProcessInstanceID
+             *                          ProcessInstanceName
+             *                          StatusCodeName
+             */
+            type GetProcessInstancesDelegate = (object: ProcessDictionary) => void;
+
+            /**
+             * Called when method to set active process is complete
+             *
+             * @param       {string}    status  The result of the set active process operation.
+             *
+             * @remarks     Values returned are: success        (The operation succeeded.)
+             *                                   invalid        (The processInstanceId isn’t valid or the process isn’t enabled.)
+             */
+            type SetProcessInstanceDelegate = (status: string) => void;
 
             /**
              * Called when process change methods have completed.
@@ -2129,6 +2230,17 @@ declare namespace Xrm {
              *                                   unreachable    (The stage exists on a different path.)
              */
             type ProcessCallbackDelegate = (status: string) => void;
+
+            /**
+             * Called when process set status method has completed.
+             *
+             * @param       {ProcessStatus}    status  The new status of the process instance
+             *
+             * @remarks     Values returned are: active
+             *                                   aborted
+             *                                   finished
+             */
+            type ProcessSetStatusDelegate = (status: ProcessStatus) => void;
 
             /**
              * Represents a key-value pair, where the key is the Process Flow's ID, and the value is the name thereof.
