@@ -936,6 +936,11 @@ declare namespace Xrm {
         type AttributeType = "boolean" | "datetime" | "decimal" | "double" | "integer" | "lookup" | "memo" | "money" | "optionset" | "string";
 
         /**
+         * Direction types for a process stage change event
+         */
+        type StageChangeDirection = "next" | "previous";
+
+        /**
          * Attribute formats for Xrm.Page.Attribute.getFormat().
          */
         type AttributeFormat = DateAttributeFormat | IntegerAttributeFormat | OptionSetAttributeFormat | StringAttributeFormat;
@@ -1075,15 +1080,6 @@ declare namespace Xrm {
             getDepth(): number;
 
             /**
-             * Gets save-event arguments.
-             *
-             * @return  The event arguments.
-             *
-             * @remarks Returns null for all but the "save" event.
-             */
-            getEventArgs(): SaveEventArguments;
-
-            /**
              * Gets a reference to the object for which event occurred.
              *
              * @return  The event source.
@@ -1112,6 +1108,43 @@ declare namespace Xrm {
              * @remarks Used to pass values between handlers of an event.
              */
             setSharedVariable<T>(key: string, value: T): void;
+        }
+
+        /**
+         * Interface for a save event context
+         */
+        interface SaveEventContext extends EventContext {
+            /**
+             * Gets save-event arguments.
+             *
+             * @return  The event arguments.
+             *
+             * @remarks Returns null for all but the "save" event.
+             */
+            getEventArgs(): SaveEventArguments;
+        }
+
+        /**
+         * Interface for a process stage change event context
+         */
+        interface StageChangeEventContext extends EventContext {
+            /**
+             * Gets process stage change event arguments.
+             *
+             * @return  The event arguments.
+             *
+             */
+            getEventArgs(): StageChangeEventArguments;
+        }
+
+        interface StageSelectedEventContext extends EventContext {
+            /**
+             * Gets process stage selected event arguments.
+             *
+             * @return  The event arguments.
+             *
+             */
+            getEventArgs(): StageSelectedEventArguments;
         }
 
         /**
@@ -1914,6 +1947,41 @@ declare namespace Xrm {
              * @remarks All remaining "on save" handlers will continue execution.
              */
             preventDefault(): void;
+        }
+
+        /**
+         * Interface for process stage change event arguments.
+         */
+        interface StageChangeEventArguments {
+            /**
+             * Gets the direction of the stage change.
+             *
+             * @return  The direction.
+             *
+             * @remarks Values returned are: "next" or "previous"
+             */
+            getDirection(): Xrm.Page.StageChangeDirection;
+
+            /**
+             * Gets the destionation stage object
+             *
+             * @return  The stage object
+             * 
+             * @remarks For switching between entities, returns the previous stage object
+             */
+            getStage(): Xrm.Page.Stage;
+        }
+
+        /**
+         * Interface for process stage selected event arguments.
+         */
+        interface StageSelectedEventArguments {
+            /**
+             * Gets the selected stage object
+             *              
+             * @return  The stage object
+             */
+            getStage(): Xrm.Page.Stage;
         }
 
         /**
