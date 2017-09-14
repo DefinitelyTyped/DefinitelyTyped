@@ -1960,16 +1960,16 @@ declare namespace Xrm {
              *
              * @remarks Values returned are: "next" or "previous"
              */
-            getDirection(): Xrm.Page.StageChangeDirection;
+            getDirection(): StageChangeDirection;
 
             /**
              * Gets the destionation stage object
              *
              * @return  The stage object
-             * 
+             *
              * @remarks For switching between entities, returns the previous stage object
              */
-            getStage(): Xrm.Page.Stage;
+            getStage(): Stage;
         }
 
         /**
@@ -1978,10 +1978,10 @@ declare namespace Xrm {
         interface StageSelectedEventArguments {
             /**
              * Gets the selected stage object
-             *              
+             *
              * @return  The stage object
              */
-            getStage(): Xrm.Page.Stage;
+            getStage(): Stage;
         }
 
         /**
