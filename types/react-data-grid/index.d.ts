@@ -430,7 +430,12 @@ declare namespace AdazzleReactDataGrid {
      * Excel-like grid component built with React, with editors, keyboard navigation, copy & paste, and the like
      * http://adazzle.github.io/react-data-grid/
      */
-    export class ReactDataGrid extends React.Component<GridProps> { }
+    export class ReactDataGrid extends React.Component<GridProps> { 
+        /**
+         * Opens the editor for the cell (idx) in the given row (rowIdx). If the column is not editable then nothing will happen.
+         */
+        openCellEditor(rowIdx: number, idx: number): void;
+    }
     export namespace ReactDataGrid {
         // Useful types
         export import Column = AdazzleReactDataGrid.Column;
