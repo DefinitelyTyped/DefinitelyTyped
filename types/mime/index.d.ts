@@ -7,15 +7,10 @@
 
 export as namespace mime;
 
-export function getType(path: string): string;
-export function getExtension(mime: string): string;
-export function define(mimes: { [key: string]: string[] }, force?: boolean): void;
+export interface TypeMap { [key: string]: string[]; }
 
-export interface Charsets {
-    getType(path: string): string;
-    getExtension(mime: string): string;
-    define(mimes: { [key: string]: string[] }, force?: boolean): void;
-}
+export function getType(path: string): string | null;
+export function getExtension(mime: string): string | null;
+export function define(mimes: TypeMap, force?: boolean): void;
 
-export const charsets: Charsets;
 export const default_type: string;
