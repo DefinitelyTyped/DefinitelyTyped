@@ -57,7 +57,7 @@ interface ICounterDispatchProps {
     onIncrement: () => void
 }
 // with higher order functions
-connect<ICounterStateProps, ICounterDispatchProps, {}>(
+connect<ICounterStateProps, ICounterDispatchProps>(
     () => mapStateToProps,
     () => mapDispatchToProps
 )(Counter);
@@ -67,11 +67,11 @@ connect<ICounterStateProps, ICounterDispatchProps, {}>(
     (dispatch: Dispatch<CounterState>, ownProps) => mapDispatchToProps
 )(Counter);
 // only first argument
-connect<ICounterStateProps, {}, {}>(
+connect<ICounterStateProps>(
     () => mapStateToProps
 )(Counter);
 // wrap only one argument
-connect<ICounterStateProps, ICounterDispatchProps, {}>(
+connect<ICounterStateProps, ICounterDispatchProps>(
     mapStateToProps,
     () => mapDispatchToProps
 )(Counter);
