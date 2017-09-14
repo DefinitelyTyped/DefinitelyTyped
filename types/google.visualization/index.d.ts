@@ -410,7 +410,7 @@ declare namespace google {
         }
 
         export interface ChartArea {
-            backgroundColor: string | { stroke: string; strokeWidth?: number };
+            backgroundColor?: string | { stroke: string; strokeWidth?: number };
             top?: number | string;
             left?: number | string;
             right?: number | string;
