@@ -1,4 +1,4 @@
-// Type definitions for mime 1.3
+// Type definitions for mime 2.0
 // Project: https://github.com/broofa/node-mime
 // Definitions by: Jeff Goddard <https://github.com/jedigo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,13 +7,14 @@
 
 export as namespace mime;
 
-export function lookup(path: string, fallback?: string): string;
-export function extension(mime: string): string;
-export function load(filepath: string): void;
-export function define(mimes: { [key: string]: any }): void;
+export function getType(path: string): string;
+export function getExtension(mime: string): string;
+export function define(mimes: { [key: string]: string[] }, force?: boolean): void;
 
 export interface Charsets {
-    lookup(mime: string): string;
+    getType(path: string): string;
+    getExtension(mime: string): string;
+    define(mimes: { [key: string]: string[] }, force?: boolean): void;
 }
 
 export const charsets: Charsets;
