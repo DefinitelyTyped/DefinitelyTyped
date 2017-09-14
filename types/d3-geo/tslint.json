@@ -1,0 +1,13 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        // TODO
+        "no-this-assignment": false,
+        "unified-signatures": false,
+        "max-line-length": [
+            false,
+            200
+        ],
+        "no-unnecessary-generics": false
+    }
+}
