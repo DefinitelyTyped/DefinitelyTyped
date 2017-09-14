@@ -197,6 +197,11 @@ class UrlLocatorTestService implements IUrlLocatorTestService {
         this.$state.get(this.$state.current);
         this.$state.get(this.$state.current, "yourState");
         this.$state.get(this.$state.current, this.$state.current);
+
+        // make sure get() accepts a discriminated union type as well
+        let myState: string | ng.ui.IState;
+        this.$state.get(myState);
+
         this.$state.reload();
 
         // http://angular-ui.github.io/ui-router/site/#/api/ui.router.state.$state#properties
