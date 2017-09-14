@@ -5,6 +5,7 @@
 //                 Shantanu Bhadoria <https://github.com/shantanubhadoria>
 //                 Luke Libraro <https://github.com/lukel99>
 //                 Dan Chao <https://github.com/bioball>
+//                 Michal Lower <https://github.com/keton>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -22,6 +23,14 @@ export declare function on(event: "stateChange", listener: (state: string) => vo
 export declare function on(event: "scanStart", listener: () => void): events.EventEmitter;
 export declare function on(event: "scanStop", listener: () => void): events.EventEmitter;
 export declare function on(event: "discover", listener: (peripheral: Peripheral) => void): events.EventEmitter;
+
+export declare function removeListener(event: string, listener: Function): events.EventEmitter;
+export declare function removeListener(event: "stateChange", listener: (state: string) => void): events.EventEmitter;
+export declare function removeListener(event: "scanStart", listener: () => void): events.EventEmitter;
+export declare function removeListener(event: "scanStop", listener: () => void): events.EventEmitter;
+export declare function removeListener(event: "discover", listener: (peripheral: Peripheral) => void): events.EventEmitter;
+
+export declare var state:string;
 
 export declare class Peripheral extends events.EventEmitter {
     id:            string;
