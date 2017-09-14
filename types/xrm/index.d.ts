@@ -938,7 +938,7 @@ declare namespace Xrm {
         /**
          * Direction types for a process stage change event
          */
-        type StageChangeDirection = "next" | "previous";
+        type StageChangeDirection = "Next" | "Previous";
 
         /**
          * Attribute formats for Xrm.Page.Attribute.getFormat().
