@@ -1,6 +1,7 @@
 // Type definitions for angular-strap v2.3.x
 // Project: http://mgcrea.github.io/angular-strap/
 // Definitions by: Sam Herrmann <https://github.com/samherrmann>
+//                 Matthias Kannwischer <https://github.com/mkannwischer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -44,17 +45,18 @@ declare namespace mgcrea.ngStrap {
             container?: string | boolean;
             controller?: any;
             controllerAs?: string;
+            resolve?: any;
+            locals?: any;
             template?: string;
             templateUrl?: string;
             contentTemplate?: string;
-            prefixClass?:  string;
             prefixEvent?: string;
             id?: string;
             scope?: ng.IScope;
-            onBeforeHide?: (modal: IModal) => void;
-            onHide?: (modal: IModal) => void;
-            onBeforeShow?: (modal: IModal) => void;
             onShow?: (modal: IModal) => void;
+            onBeforeShow?: (modal: IModal) => void;
+            onHide?: (modal: IModal) => void;
+            onBeforeHide?: (modal: IModal) => void;
         }
 
         interface IModalScope extends ng.IScope {
@@ -97,9 +99,16 @@ declare namespace mgcrea.ngStrap {
             keyboard?: boolean;
             show?: boolean;
             container?: string | boolean;
+            controller?: any;
+            controllerAs?: string;
             template?: string;
+            templateUrl?: string;
             contentTemplate?: string;
             scope?: ng.IScope;
+            onShow?: (aside: IAside) => void;
+            onBeforeShow?: (aside: IAside) => void;
+            onHide?: (aside: IAside) => void;
+            onBeforeHide?: (aside: IAside) => void;
         }
 
         interface IAsideScope extends ng.IScope {
@@ -139,12 +148,18 @@ declare namespace mgcrea.ngStrap {
             title?: string;
             content?: string;
             type?: string;
-            keyboard?: boolean;
             show?: boolean;
             container?: string | boolean;
+            controller?: any;
+            controllerAs?: string;
             template?: string;
+            templateUrl?: string;
             duration?: number | boolean;
             dismissable?: boolean;
+            onShow?: (alert: IAlert) => void;
+            onBeforeShow?: (alert: IAlert) => void;
+            onHide?: (alert: IAlert) => void;
+            onBeforeHide?: (alert: IAlert) => void;
         }
 
         interface IAlertScope extends ng.IScope {
@@ -183,13 +198,18 @@ declare namespace mgcrea.ngStrap {
             trigger?: string;
             title?: string;
             html?: boolean;
-            delay?: number | { show: number; hide: number};
+            delay?: number | { show: number; hide: number };
             container?: string | boolean;
             target?: string | ng.IAugmentedJQuery | boolean;
             template?: string;
-            contentTemplate?: string;
+            templateUrl?: string;
+            titleTemplate?: string;
             prefixEvent?: string;
             id?: string;
+            onShow?: (tooltip: ITooltip) => void;
+            onBeforeShow?: (tooltip: ITooltip) => void;
+            onHide?: (tooltip: ITooltip) => void;
+            onBeforeHide?: (tooltip: ITooltip) => void;
             viewport?: string | { selector: string; padding: string | number };
         }
 
@@ -235,9 +255,14 @@ declare namespace mgcrea.ngStrap {
             container?: string | boolean;
             target?: string | ng.IAugmentedJQuery | boolean;
             template?: string;
+            templateUrl?: string;
             contentTemplate?: string;
             autoClose?: boolean;
             id?: string;
+            onShow?: (popover: IPopover) => void;
+            onBeforeShow?: (popover: IPopover) => void;
+            onHide?: (popover: IPopover) => void;
+            onBeforeHide?: (popover: IPopover) => void;
             viewport?: string | { selector: string; padding: string | number };
         }
 
@@ -286,6 +311,12 @@ declare namespace mgcrea.ngStrap {
             comparator?: string;
             id?: string;
             watchOptions?: boolean;
+            trimValue?: boolean;
+            onShow?: (typeahead: ITypeahead) => void;
+            onBeforeShow?: (typeahead: ITypeahead) => void;
+            onHide?: (typeahead: ITypeahead) => void;
+            onBeforeHide?: (typeahead: ITypeahead) => void;
+            onSelect?: (typeahead: ITypeahead) => void;
         }
     }
 
@@ -329,6 +360,10 @@ declare namespace mgcrea.ngStrap {
             delay?: number | { show: number; hide: number };
             container?: string | boolean;
             template?: string;
+            onShow?: (datepicker: IDatepicker) => void;
+            onBeforeShow?: (datepicker: IDatepicker) => void;
+            onHide?: (datepicker: IDatepicker) => void;
+            onBeforeHide?: (datepicker: IDatepicker) => void;
             dateFormat?: string;
             modelDateFormat?: string;
             dateType?: string;
@@ -376,6 +411,10 @@ declare namespace mgcrea.ngStrap {
             delay?: number | { show: number; hide: number; };
             container?: string | boolean;
             template?: string;
+            onShow?: (timepicker: ITimepicker) => void;
+            onBeforeShow?: (timepicker: ITimepicker) => void;
+            onHide?: (timepicker: ITimepicker) => void;
+            onBeforeHide?: (timepicker: ITimepicker) => void;
             timeFormat?: string;
             modelTimeFormat?: string;
             timeType?: string;
@@ -427,23 +466,28 @@ declare namespace mgcrea.ngStrap {
         }
 
         interface ISelectOptions {
-          animation?: string;
-          placement?: string;
-          trigger?: string;
-          html?: boolean;
-          delay?: number | { show: number; hide: number; };
-          container?: string | boolean;
-          template?: string;
-          multiple?: boolean;
-          allNoneButtons?: boolean;
-          allText?: string;
-          noneText?: string;
-          maxLength?: number;
-          maxLengthHtml?: string;
-          sort?: boolean;
-          placeholder?: string;
-          iconCheckmark?: string;
-          id?: string;
+            animation?: string;
+            placement?: string;
+            trigger?: string;
+            html?: boolean;
+            delay?: number | { show: number; hide: number; };
+            container?: string | boolean;
+            template?: string;
+            toggle?: boolean;
+            onShow?: (select: ISelect) => void;
+            onBeforeShow?: (select: ISelect) => void;
+            onHide?: (select: ISelect) => void;
+            onBeforeHide?: (select: ISelect) => void;
+            multiple?: boolean;
+            allNoneButtons?: boolean;
+            allText?: string;
+            noneText?: string;
+            maxLength?: number;
+            maxLengthHtml?: string;
+            sort?: boolean;
+            placeholder?: string;
+            iconCheckmark?: string;
+            id?: string;
         }
     }
 
@@ -515,13 +559,18 @@ declare namespace mgcrea.ngStrap {
         }
 
         interface IDropdownOptions {
-          animation?: string;
-          placement?: string;
-          trigger?: string;
-          html?: boolean;
-          delay?: number | { show: number; hide: number; };
-          container?: string | boolean;
-          template?: string;
+            animation?: string;
+            placement?: string;
+            trigger?: string;
+            html?: boolean;
+            delay?: number | { show: number; hide: number; };
+            container?: string | boolean;
+            template?: string;
+            templateUrl?: string;
+            onShow?: (dropdown: IDropdown) => void;
+            onBeforeShow?: (dropdown: IDropdown) => void;
+            onHide?: (dropdown: IDropdown) => void;
+            onBeforeHide?: (dropdown: IDropdown) => void;
         }
     }
 
@@ -567,7 +616,7 @@ declare namespace mgcrea.ngStrap {
             checkOffsets: () => void;
             trackElement: (target: any, source: any) => void;
             untrackElement: (target: any, source: any) => void;
-            activate: (index: number)  => void;
+            activate: (index: number) => void;
         }
 
         interface IScrollspyOptions {
