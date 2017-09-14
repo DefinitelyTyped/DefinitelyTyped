@@ -13,5 +13,6 @@ blobUtil.blobToBase64String(testBlob); // $ExpectType Promise<string>
 blobUtil.blobToBinaryString(testBlob); // $ExpectType Promise<string>
 blobUtil.canvasToBlob(new HTMLCanvasElement()); // $ExpectType Promise<Blob>
 blobUtil.dataURLToBlob('data:abcd'); // $ExpectType Promise<Blob>
+blobUtil.blobToDataURL(testBlob); // $ExpectType Promise<string>
 blobUtil.imgSrcToDataURL('test.jpg'); // $ExpectType Promise<string>
 blobUtil.revokeObjectURL('blob:example'); // $ExpectType void
