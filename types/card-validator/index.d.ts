@@ -1,9 +1,9 @@
-// Type definitions for card-validator 4.1.0
+// Type definitions for card-validator 4.1
 // Project: https://github.com/braintree/card-validator
 // Definitions by: Gregory Moore <https://github.com/ChanceM>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-interface Card {
+export interface Card {
     niceType: string;
     type: string;
     pattern: string;
@@ -13,25 +13,25 @@ interface Card {
     code: {name: string, size: number};
 }
 
-interface valid {
+export interface valid {
     isPotentiallyValid: boolean;
     isValid: boolean;
 }
 
-interface validNumber extends valid {
+export interface validNumber extends valid {
     card: Card | null;
 }
 
-interface validExpirationDate extends valid {
+export interface validExpirationDate extends valid {
     month: string | null;
     year: string | null;
 }
 
-interface validExpirationMonth extends valid {
+export interface validExpirationMonth extends valid {
     isValidForThisYear: boolean;
 }
 
-interface validExpirationYear extends valid {
+export interface validExpirationYear extends valid {
     isCurrentYear: boolean;
 }
 
