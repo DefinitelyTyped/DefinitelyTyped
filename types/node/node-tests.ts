@@ -1599,6 +1599,14 @@ namespace readline_tests {
     }
 
     {
+        let stream: NodeJS.ReadableStream;
+        let readLineInterface: readline.ReadLine;
+
+        readline.emitKeypressEvents(stream);
+        readline.emitKeypressEvents(stream, readLineInterface);
+    }
+
+    {
         let stream: NodeJS.WritableStream;
         let dx: number | string;
         let dy: number | string;
