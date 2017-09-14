@@ -9,6 +9,7 @@
 //                 Vítor Castro <https://github.com/teves-castro>
 //                 Jordan Quagliatini <https://github.com/1M0reBug>
 //                 Simon Højberg <https://github.com/hojberg>
+//                 Charles-Philippe Clermont <https://github.com/charlespwd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -61,6 +62,11 @@ declare namespace R {
     interface Lens {
         <T, U>(obj: T): U;
         set<T, U>(str: string, obj: T): U;
+    }
+
+    interface Filter<T> {
+      (list: T[]): T[];
+      (obj: Dictionary<T>): Dictionary<T>;
     }
 
     type Evolver<T> =
@@ -189,8 +195,8 @@ declare namespace R {
          * A function that returns the first argument if it's falsy otherwise the second argument. Note that this is
          * NOT short-circuited, meaning that if expressions are passed they are both evaluated.
          */
-        and<T extends { and?: ((...a: any[]) => any); } | number | boolean | string>(fn1: T, val2: boolean | any): boolean;
-        and<T extends { and?: ((...a: any[]) => any); } | number | boolean | string>(fn1: T): (val2: boolean | any) => boolean;
+        and<T extends { and?: ((...a: any[]) => any); } | number | boolean | string>(fn1: T, val2: any): boolean;
+        and<T extends { and?: ((...a: any[]) => any); } | number | boolean | string>(fn1: T): (val2: any) => boolean;
 
         /**
          * Returns true if at least one of elements of the list match the predicate, false otherwise.
@@ -583,8 +589,9 @@ declare namespace R {
         /**
          * Returns a new list containing only those items that match a given predicate function. The predicate function is passed one argument: (value).
          */
-        filter<T>(fn: (value: T) => boolean): (list: T[]) => T[];
+        filter<T>(fn: (value: T) => boolean): Filter<T>;
         filter<T>(fn: (value: T) => boolean, list: T[]): T[];
+        filter<T>(fn: (value: T) => boolean, obj: Dictionary<T>): Dictionary<T>;
 
         /**
          * Returns the first element of the list which matches the predicate, or `undefined` if no
@@ -787,7 +794,7 @@ declare namespace R {
         /**
          * Returns a new object with the keys of the given object as values, and the values of the given object as keys.
          */
-        invertObj(obj: any | { [index: number]: string }): { [index: string]: string };
+        invertObj(obj: { [index: string]: string } | { [index: number]: string }): { [index: string]: string };
 
         /**
          * Turns a named method of an object (or object prototype) into a function that can be
@@ -1220,9 +1227,9 @@ declare namespace R {
          * If the given, non-null object has a value at the given path, returns the value at that path.
          * Otherwise returns the provided default value.
          */
-        pathOr<T>(d: T, p: Path, obj: any): T | any;
-        pathOr<T>(d: T, p: Path): (obj: any) => T | any;
-        pathOr<T>(d: T): CurriedFunction2<Path, any, T | any>;
+        pathOr<T>(d: T, p: Path, obj: any): any;
+        pathOr<T>(d: T, p: Path): (obj: any) => any;
+        pathOr<T>(d: T): CurriedFunction2<Path, any, any>;
 
         /**
          * Returns true if the specified object property at given path satisfies the given predicate; false otherwise.
@@ -1526,8 +1533,9 @@ declare namespace R {
          * Similar to `filter`, except that it keeps only values for which the given predicate
          * function returns falsy.
          */
+        reject<T>(fn: (value: T) => boolean): Filter<T>;
         reject<T>(fn: (value: T) => boolean, list: T[]): T[];
-        reject<T>(fn: (value: T) => boolean): (list: T[]) => T[];
+        reject<T>(fn: (value: T) => boolean, obj: Dictionary<T>): Dictionary<T>;
 
         /**
          * Removes the sub-list of `list` starting at index `start` and containing `count` elements.
@@ -1737,7 +1745,7 @@ declare namespace R {
          * Note that the order of the output array is not guaranteed to be
          * consistent across different JS platforms.
          */
-        toPairs<F, S>(obj: { [k: string]: S } | { [k: number]: S } | any): Array<[F, S]>;
+        toPairs<F, S>(obj: { [k: string]: S } | { [k: number]: S }): Array<[F, S]>;
 
         /**
          * Converts an object into an array of key, value arrays.
@@ -1745,7 +1753,7 @@ declare namespace R {
          * Note that the order of the output array is not guaranteed to be
          * consistent across different JS platforms.
          */
-        toPairsIn<F, S>(obj: { [k: string]: S } | { [k: number]: S } | any): Array<[F, S]>;
+        toPairsIn<F, S>(obj: { [k: string]: S } | { [k: number]: S }): Array<[F, S]>;
 
         /**
          * Returns the string representation of the given value. eval'ing the output should
