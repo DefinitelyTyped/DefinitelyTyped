@@ -8,6 +8,7 @@
 //                 Mike Deverell <https://github.com/devrelm>
 //                 MartynasZilinskas <https://github.com/MartynasZilinskas>
 //                 Onat Yigit Mercan <https://github.com/onatm>
+//                 Ian Johnson <https://github.com/ninjaferret>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -188,6 +189,11 @@ declare namespace ReactSelectClass {
          * @default true
          */
         clearable?: boolean;
+        /**
+         * whether backspace removes an item if there is no text input
+         * @default true
+         */
+        deleteRemoves?: boolean;
         /**
          * delimiter to use to join multiple values
          * @default ","
