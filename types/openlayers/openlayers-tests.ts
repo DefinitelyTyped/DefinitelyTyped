@@ -376,7 +376,7 @@ feature = feature.clone();
 geometry = feature.getGeometry();
 stringValue = feature.getGeometryName();
 let featureGetId: string | number = feature.getId();
-let featureGetStyle: ol.style.Style | Array<ol.style.Style> | ol.FeatureStyleFunction = feature.getStyle();
+let featureGetStyle: ol.style.Style | Array<ol.style.Style> | ol.FeatureStyleFunction | ol.StyleFunction = feature.getStyle();
 featureStyleFunction = feature.getStyleFunction();
 voidValue = feature.setGeometry(geometry);
 voidValue = feature.setGeometryName(stringValue);
@@ -385,6 +385,7 @@ voidValue = feature.setId(numberValue);
 voidValue = feature.setStyle(style);
 voidValue = feature.setStyle(styleArray);
 voidValue = feature.setStyle(featureStyleFunction);
+voidValue = feature.setStyle(styleFunction);
 voidValue = feature.setProperties(object);
 
 //
