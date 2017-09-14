@@ -15,7 +15,7 @@ export interface LazyLoadProps {
     children?: JSX.Element;
     throttle?: number | boolean;
     debounce?: number | boolean;
-    placeholder?: Node;
+    placeholder?: any;
     unmountIfInvisible?: boolean;
 }
 
