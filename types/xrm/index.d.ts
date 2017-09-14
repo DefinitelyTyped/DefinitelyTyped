@@ -1963,7 +1963,7 @@ declare namespace Xrm {
             getDirection(): StageChangeDirection;
 
             /**
-             * Gets the destionation stage object
+             * Gets the destination stage object
              *
              * @return  The stage object
              *
