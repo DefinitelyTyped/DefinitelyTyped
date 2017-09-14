@@ -16,6 +16,12 @@ interface Event { }
 interface Document { }
 // tslint:enable no-empty-interface
 
+// see more details in https://github.com/DefinitelyTyped/DefinitelyTyped/issues/16587
+// tslint:disable no-empty-interface
+interface Map<v, k> { }
+interface Set<T> { }
+// tslint:enable no-empty-interface
+
 declare namespace Sinon {
     interface SinonSpyCallApi {
         // Properties
