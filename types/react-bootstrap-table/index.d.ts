@@ -160,6 +160,11 @@ export interface BootstrapTableProps extends Props<BootstrapTable> {
 	*/
 	searchPlaceholder?: string;
 	/**
+	Enable strict search, default is false.
+	More info here: https://github.com/AllenFang/react-bootstrap-table/issues/1199
+	*/
+	strictSearch?: boolean;
+	/**
 	Enable multi search by multiColumnSearch, default is false.
 	If you want to use multi search, you must enable search at first.
 	Tips: Use space to delimited search text. EX: 3 4, which means match all 3 or 4 datas in table.
