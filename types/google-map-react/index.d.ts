@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as React from 'react';
+/// <reference types="react" />
 
 export type BootstrapURLKeys = ({ key: string; } | { client: string; v: string; }) & { language?: string };
 
@@ -100,7 +100,7 @@ export interface Props {
   yesIWantToUseGoogleMapApiInternals?: boolean;
 }
 
-export default class GoogleMapReact extends React.Component<Props> {}
+export default class GoogleMapReact extends React.Component<Props, {}> {}
 
 export interface ChildComponentProps extends Coords {
   $hover?: boolean;
