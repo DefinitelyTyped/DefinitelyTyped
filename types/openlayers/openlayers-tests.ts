@@ -590,6 +590,7 @@ voidValue = popup.setElement(popupElement);
 voidValue = popup.setMap(popupMap);
 voidValue = popup.setOffset(popupOffset);
 voidValue = popup.setPosition(coordinate);
+voidValue = popup.setPosition(undefined);
 voidValue = popup.setPositioning(popupPositioning);
 
 
