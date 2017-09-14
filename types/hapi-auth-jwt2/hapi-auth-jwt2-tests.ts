@@ -21,11 +21,7 @@ const users: Users = {
 };
 
 function validate(decoded: User, request: Hapi.Request, callback: hapiAuthJwt2.ValidateCallback) {
-  if (!users[decoded.id]) {
-    return callback(null, false);
-  }
-
-  return callback(null, true);
+  callback(null, !!users[decoded.id]);
 }
 
 server.register(hapiAuthJwt2, err => {

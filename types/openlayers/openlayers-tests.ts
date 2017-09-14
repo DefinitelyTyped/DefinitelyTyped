@@ -376,7 +376,7 @@ feature = feature.clone();
 geometry = feature.getGeometry();
 stringValue = feature.getGeometryName();
 let featureGetId: string | number = feature.getId();
-let featureGetStyle: ol.style.Style | Array<ol.style.Style> | ol.FeatureStyleFunction = feature.getStyle();
+let featureGetStyle: ol.style.Style | Array<ol.style.Style> | ol.FeatureStyleFunction | ol.StyleFunction = feature.getStyle();
 featureStyleFunction = feature.getStyleFunction();
 voidValue = feature.setGeometry(geometry);
 voidValue = feature.setGeometryName(stringValue);
@@ -385,6 +385,7 @@ voidValue = feature.setId(numberValue);
 voidValue = feature.setStyle(style);
 voidValue = feature.setStyle(styleArray);
 voidValue = feature.setStyle(featureStyleFunction);
+voidValue = feature.setStyle(styleFunction);
 voidValue = feature.setProperties(object);
 
 //
@@ -590,6 +591,7 @@ voidValue = popup.setElement(popupElement);
 voidValue = popup.setMap(popupMap);
 voidValue = popup.setOffset(popupOffset);
 voidValue = popup.setPosition(coordinate);
+voidValue = popup.setPosition(undefined);
 voidValue = popup.setPositioning(popupPositioning);
 
 
@@ -717,6 +719,17 @@ const select: ol.interaction.Select = new ol.interaction.Select({
     layers: (layer: ol.layer.Layer) => true,
 });
 
+let pinchZoom: ol.interaction.PinchZoom = new ol.interaction.PinchZoom({
+    constrainResolution: booleanValue,
+    duration: numberValue
+});
+
+let mouseWheelZoom: ol.interaction.MouseWheelZoom = new ol.interaction.MouseWheelZoom({
+    constrainResolution: booleanValue,
+    duration: numberValue,
+    timeout: numberValue,
+    useAnchor: booleanValue
+});
 //
 // ol.style.RegularShape
 //

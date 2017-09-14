@@ -1,12 +1,17 @@
 // Type definitions for validator.js v6.2
 // Project: https://github.com/chriso/validator.js
-// Definitions by: tgfjt <https://github.com/tgfjt>, Ilya Mochalov <https://github.com/chrootsu>, Ayman Nedjmeddine <https://github.com/IOAyman>, Louy Alakkad <https://github.com/louy>, Kacper Polak <https://github.com/kacepe>
+// Definitions by: tgfjt <https://github.com/tgfjt>
+//                 Ilya Mochalov <https://github.com/chrootsu>
+//                 Ayman Nedjmeddine <https://github.com/IOAyman>
+//                 Louy Alakkad <https://github.com/louy>
+//                 Kacper Polak <https://github.com/kacepe>
+//                 Bonggyun Lee <https://github.com/deptno>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace ValidatorJS {
   type AlphaLocale = "ar" | "ar-AE" | "ar-BH" | "ar-DZ" | "ar-EG" | "ar-IQ" | "ar-JO" | "ar-KW" | "ar-LB" | "ar-LY" | "ar-MA" | "ar-QA" | "ar-QM" | "ar-SA" | "ar-SD" | "ar-SY" | "ar-TN" | "ar-YE" | "cs-CZ" | "de-DE" | "en-AU" | "en-GB" | "en-HK" | "en-IN" | "en-NZ" | "en-US" | "en-ZA" | "en-ZM" | "es-ES" | "fr-FR" | "hu-HU" | "nl-NL" | "pl-PL" | "pt-BR" | "pt-PT" | "ru-RU" | "sr-RS" | "sr-RS@latin" | "tr-TR";
   type AlphanumericLocale = "ar" | "ar-AE" | "ar-BH" | "ar-DZ" | "ar-EG" | "ar-IQ" | "ar-JO" | "ar-KW" | "ar-LB" | "ar-LY" | "ar-MA" | "ar-QA" | "ar-QM" | "ar-SA" | "ar-SD" | "ar-SY" | "ar-TN" | "ar-YE" | "cs-CZ" | "de-DE" | "en-AU" | "en-GB" | "en-HK" | "en-IN" | "en-NZ" | "en-US" | "en-ZA" | "en-ZM" | "es-ES" | "fr-FR" | "fr-BE" | "hu-HU" | "nl-BE" | "nl-NL" | "pl-PL" | "pt-BR" | "pt-PT" | "ru-RU" | "sr-RS" | "sr-RS@latin" | "tr-TR";
-  type MobilePhoneLocale = "ar-DZ" | "ar-SA" | "ar-SY" | "cs-CZ" | "de-DE" | "da-DK" | "el-GR" | "en-AU" | "en-GB" | "en-HK" | "en-IN" | "en-NZ" | "en-US" | "en-CA" | "en-ZA" | "en-ZM" | "es-ES" | "fi-FI" | "fr-FR" | "hu-HU" | "it-IT" | "ja-JP" | "ms-MY" | "nb-NO" | "nn-NO" | "pl-PL" | "pt-PT" | "ru-RU" | "sr-RS" | "tr-TR" | "vi-VN" | "zh-CN" | "zh-TW"
+  type MobilePhoneLocale = "ar-DZ" | "ar-SA" | "ar-SY" | "cs-CZ" | "de-DE" | "da-DK" | "el-GR" | "en-AU" | "en-GB" | "en-HK" | "en-IN" | "en-NZ" | "en-US" | "en-CA" | "en-ZA" | "en-ZM" | "es-ES" | "fi-FI" | "fr-FR" | "hu-HU" | "it-IT" | "ja-JP" | "ko-KR" | "ms-MY" | "nb-NO" | "nn-NO" | "pl-PL" | "pt-PT" | "ru-RU" | "sr-RS" | "tr-TR" | "vi-VN" | "zh-CN" | "zh-TW" | "any";
 
   interface ValidatorStatic {
 
@@ -156,7 +161,7 @@ declare namespace ValidatorJS {
     isURL(str: string, options?: IsURLOptions): boolean;
 
     // check if the string is a UUID. Must be one of ['3', '4', '5', 'all'], default is all.
-    isUUID(str: string, version?: string | number): boolean;
+    isUUID(str: string, version?: 3|4|5|"3"|"4"|"5"|"all"): boolean;
 
     // check if the string is uppercase.
     isUppercase(str: string): boolean;
@@ -218,7 +223,7 @@ declare namespace ValidatorJS {
     whitelist(input: string, chars: string): string;
 
     toString(input: any | any[]): string;
-    
+
     version: string;
 
     // **************

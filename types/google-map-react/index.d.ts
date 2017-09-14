@@ -1,4 +1,4 @@
-// Type definitions for google-map-react 0.22
+// Type definitions for google-map-react 0.23
 // Project: https://github.com/istarkov/google-map-react
 // Definitions by: Honza Brecka <https://github.com/honzabrecka>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -15,6 +15,7 @@ export interface Options {
   mapTypeControl?: boolean;
   minZoomOverride?: boolean;
   minZoom?: number;
+  maxZoom?: number;
   gestureHandling?: string;
 }
 

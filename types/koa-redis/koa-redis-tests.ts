@@ -1,5 +1,5 @@
 import * as Koa from "koa";
-import {MemoryStore, Session} from "koa-generic-session";
+import { MemoryStore, Session } from "koa-generic-session";
 import session = require("koa-generic-session");
 import redisStore = require("koa-redis");
 

@@ -1,7 +1,7 @@
 // Type definitions for Highland 2.10.5
 // Project: http://highlandjs.org/
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds/>
-//                 Hugo Wood <https://github.com/hgwood/>
+// Definitions by: Bart van der Schoor <https://github.com/Bartvds>
+//                 Hugo Wood <https://github.com/hgwood>
 //                 William Yu <https://github.com/iwllyu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -18,7 +18,7 @@
  * Highland: the high-level streams library
  *
  * Highland may be freely distributed under the Apache 2.0 license.
- * http://github.com/caolan/highland
+ * https://github.com/caolan/highland
  * Copyright (c) Caolan McMahon
  *
  */
@@ -764,6 +764,26 @@ declare namespace Highland {
 		 * @api public
 		 */
 		pluck<U>(prop: string): Stream<U>;
+
+		/**
+		 * Limits number of values through the stream to a maximum of number of values
+		 * per window. Errors are not limited but allowed to pass through as soon as
+		 * they are read from the source.
+		 *
+		 * @id ratelimit
+		 * @section Transforms
+		 * @name Stream.ratelimit(num, ms)
+		 * @param {Number} num - the number of operations to perform per window
+		 * @param {Number} ms - the window of time to limit the operations in (in ms)
+		 * @api public
+		 *
+		 * _([1, 2, 3, 4, 5]).ratelimit(2, 100);
+		 *
+		 * // after 0ms => 1, 2
+		 * // after 100ms => 1, 2, 3, 4
+		 * // after 200ms => 1, 2, 3, 4, 5
+		 */
+		ratelimit(num: number, ms: number): Stream<R>;
 
 		/**
 		 * Boils down a Stream to a single value. The memo is the initial state

@@ -5,7 +5,7 @@ import {
   TextProperties,
   TouchableHighlightProperties,
   TouchableNativeFeedbackProperties,
-  TabBarIOSProperties,
+  TabBarItemProperties,
   ToolbarAndroidProperties
 } from 'react-native';
 
@@ -90,51 +90,6 @@ export interface IconButtonProps extends IconProps, TouchableHighlightProperties
 
 export type ImageSource = any;
 
-export interface TabBarIOSProps extends TabBarIOSProperties {
-  /**
-   * Name of the default icon (similar to TabBarIOS.Item icon)
-   *
-   * @type {string}
-   * @memberof TabBarIOSProps
-   */
-  iconName: string;
-
-  /**
-   * Name of the selected icon (similar to TabBarIOS.Item selectedIcon).
-   *
-   * @default iconName
-   * @type {string}
-   * @memberof TabBarIOSProps
-   */
-  selectedIconName: string;
-
-  /**
-   * Size of the icon.
-   *
-   * @default 30
-   * @type {number}
-   * @memberof TabBarIOSProps
-   */
-  iconSize: number;
-
-  /**
-   * Color of the icon
-   *
-   * @type {string}
-   * @memberof TabBarIOSProps
-   */
-  iconColor: string;
-
-  /**
-   * Color of the selected icon.
-   *
-   * @default iconColor
-   * @type {string}
-   * @memberof TabBarIOSProps
-   */
-  selectedIconColor: string;
-}
-
 export interface ToolbarAndroidProps extends ToolbarAndroidProperties {
   /**
    * Name of the navigation logo icon
@@ -182,16 +137,67 @@ export interface ToolbarAndroidProps extends ToolbarAndroidProperties {
   iconColor: string;
 }
 
+export interface TabBarItemIOSProps extends TabBarItemProperties {
+  /**
+   * Name of the default icon (similar to TabBarIOS.Item icon)
+   *
+   * @type {string}
+   * @memberof TabBarIOSItemProps
+   */
+  iconName: string;
+
+  /**
+   * Name of the selected icon (similar to TabBarIOS.Item selectedIcon)
+   *
+   * Defaults to iconName
+   *
+   * @type {string}
+   * @memberof TabBarIOSItemProps
+   */
+  selectedIconName?: string;
+
+  /**
+   * Size of the icon
+   *
+   * @default 30
+   * @type {number}
+   * @memberof TabBarIOSItemProps
+   */
+  iconSize?: number;
+
+  /**
+   * Color of the icon
+   *
+   * @type {string}
+   * @memberof TabBarIOSItemProps
+   */
+  iconColor?: string;
+
+  /**
+   * Color of the selected icon.
+   *
+   * Defaults to iconColor
+   *
+   * @type {string}
+   * @memberof TabBarIOSItemProps
+   */
+  selectedIconColor?: string;
+}
+
 export class Icon extends React.Component<IconProps, any> {
   static getImageSource(
     name: string,
     color: string,
     size?: number
   ): Promise<ImageSource>;
+  static loadFont(
+    file?: string
+  ): Promise<void>;
 }
 
 export namespace Icon {
   class ToolbarAndroid extends React.Component<ToolbarAndroidProps, any> {}
-  class TabBarIOS extends React.Component<TabBarIOSProps, any> {}
+  class TabBarItem extends React.Component<TabBarItemProperties, any> {}
+  class TabBarItemIOS extends React.Component<TabBarItemIOSProps, any> {}
   class Button extends React.Component<IconButtonProps, any> {}
 }

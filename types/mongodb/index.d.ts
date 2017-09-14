@@ -2,6 +2,8 @@
 // Project: https://github.com/mongodb/node-mongodb-native/tree/2.2
 // Definitions by: Federico Caselli <https://github.com/CaselIT>
 //                 Alan Marcell <https://github.com/alanmarcell>
+//                 Gady Piazza <https://github.com/kikar>
+//                 Jason Dreyzehner <https://github.com/bitjson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -14,7 +16,11 @@ import { ObjectID } from 'bson';
 import { EventEmitter } from 'events';
 import { Readable, Writable } from "stream";
 
-export { Binary, Double, Long, Decimal128, MaxKey, MinKey, ObjectID, Timestamp } from 'bson';
+export function connect(uri: string, callback: MongoCallback<Db>): void;
+export function connect(uri: string, options?: MongoClientOptions): Promise<Db>;
+export function connect(uri: string, options: MongoClientOptions, callback: MongoCallback<Db>): void;
+
+export { Binary, Double, Long, Decimal128, MaxKey, MinKey, ObjectID, ObjectId, Timestamp } from 'bson';
 
 // Class documentation : http://mongodb.github.io/node-mongodb-native/2.1/api/MongoClient.html
 export class MongoClient {
@@ -462,7 +468,7 @@ export interface Collection<TSchema = Default> {
     bulkWrite(operations: Object[], callback: MongoCallback<BulkWriteOpResultObject>): void;
     bulkWrite(operations: Object[], options?: CollectionBluckWriteOptions): Promise<BulkWriteOpResultObject>;
     bulkWrite(operations: Object[], options: CollectionBluckWriteOptions, callback: MongoCallback<BulkWriteOpResultObject>): void;
-    //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#count
+    //http://mongodb.github.io/node-mongodb-native/2.2/api/Collection.html#count
     count(query: Object, callback: MongoCallback<number>): void;
     count(query: Object, options?: MongoCountPreferences): Promise<number>;
     count(query: Object, options: MongoCountPreferences, callback: MongoCallback<number>): void;
@@ -619,7 +625,6 @@ export interface Collection<TSchema = Default> {
 }
 
 // Documentation: http://docs.mongodb.org/manual/reference/command/collStats/
-//TODO complete this
 export interface CollStats {
     // Namespace.
     ns: string;
@@ -639,19 +644,160 @@ export interface CollStats {
     lastExtentSize: number;
     // Padding can speed up updates if documents grow.
     paddingFactor: number;
-    userFlags: number;
+    // A number that indicates the user-set flags on the collection. userFlags only appears when using the mmapv1 storage engine.
+    userFlags?: number;
     // Total index size in bytes.
     totalIndexSize: number;
     // Size of specific indexes in bytes.
     indexSizes: {
         _id_: number;
-        username: number;
+        [index: string]: number;
     };
+    // `true` if the collection is capped.
     capped: boolean;
-    maxSize: boolean;
-    wiredTiger: any;
-    indexDetails: any;
+    // The maximum number of documents that may be present in a capped collection.
+    max: number;
+    // The maximum size of a capped collection.
+    maxSize: number;
+    wiredTiger?: WiredTigerData;
+    indexDetails?: any;
     ok: number;
+}
+
+export interface WiredTigerData {
+    LSM: {
+        'bloom filter false positives': number,
+        'bloom filter hits': number;
+        'bloom filter misses': number;
+        'bloom filter pages evicted from cache': number;
+        'bloom filter pages read into cache': number;
+        'bloom filters in the LSM tree': number;
+        'chunks in the LSM tree': number;
+        'highest merge generation in the LSM tree': number;
+        'queries that could have benefited from a Bloom filter that did not exist': number;
+        'sleep for LSM checkpoint throttle': number;
+        'sleep for LSM merge throttle': number;
+        'total size of bloom filters': number;
+    };
+    'block-manager': {
+        'allocations requiring file extension': number;
+        'blocks allocated': number;
+        'blocks freed': number;
+        'checkpoint size': number;
+        'file allocation unit size': number;
+        'file bytes available for reuse': number;
+        'file magic number': number;
+        'file major version number': number;
+        'file size in bytes': number;
+        'minor version number': number;
+    };
+    btree: {
+        'btree checkpoint generation': number;
+        'column-store fixed-size leaf pages': number;
+        'column-store internal pages': number;
+        'column-store variable-size RLE encoded values': number;
+        'column-store variable-size deleted values': number;
+        'column-store variable-size leaf pages': number;
+        'fixed-record size': number;
+        'maximum internal page key size': number;
+        'maximum internal page size': number;
+        'maximum leaf page key size': number;
+        'maximum leaf page size': number;
+        'maximum leaf page value size': number;
+        'maximum tree depth': number;
+        'number of key/value pairs': number;
+        'overflow pages': number;
+        'pages rewritten by compaction': number;
+        'row-store internal pages': number;
+        'row-store leaf pages': number;
+    };
+    cache: {
+        'bytes currently in the cache': number;
+        'bytes read into cache': number;
+        'bytes written from cache': number;
+        'checkpoint blocked page eviction': number;
+        'data source pages selected for eviction unable to be evicted': number;
+        'hazard pointer blocked page eviction': number;
+        'in-memory page passed criteria to be split': number;
+        'in-memory page splits': number;
+        'internal pages evicted': number;
+        'internal pages split during eviction': number;
+        'leaf pages split during eviction': number;
+        'modified pages evicted': number;
+        'overflow pages read into cache': number;
+        'overflow values cached in memory': number;
+        'page split during eviction deepened the tree': number;
+        'page written requiring lookaside records': number;
+        'pages read into cache': number;
+        'pages read into cache requiring lookaside entries': number;
+        'pages requested from the cache': number;
+        'pages written from cache': number;
+        'pages written requiring in-memory restoration': number;
+        'tracked dirty bytes in the cache': number;
+        'unmodified pages evicted': number;
+    };
+    cache_walk: {
+        'Average difference between current eviction generation when the page was last considered': number;
+        'Average on-disk page image size seen': number;
+        'Clean pages currently in cache': number;
+        'Current eviction generation': number;
+        'Dirty pages currently in cache': number;
+        'Entries in the root page': number;
+        'Internal pages currently in cache': number;
+        'Leaf pages currently in cache': number;
+        'Maximum difference between current eviction generation when the page was last considered': number;
+        'Maximum page size seen': number;
+        'Minimum on-disk page image size seen': number;
+        'On-disk page image sizes smaller than a single allocation unit': number;
+        'Pages created in memory and never written': number;
+        'Pages currently queued for eviction': number;
+        'Pages that could not be queued for eviction': number;
+        'Refs skipped during cache traversal': number;
+        'Size of the root page': number;
+        'Total number of pages currently in cache': number;
+    };
+    compression: {
+        'compressed pages read': number;
+        'compressed pages written': number;
+        'page written failed to compress': number;
+        'page written was too small to compress': number;
+        'raw compression call failed, additional data available': number;
+        'raw compression call failed, no additional data available': number;
+        'raw compression call succeeded': number;
+    };
+    cursor: {
+        'bulk-loaded cursor-insert calls': number;
+        'create calls': number;
+        'cursor-insert key and value bytes inserted': number;
+        'cursor-remove key bytes removed': number;
+        'cursor-update value bytes updated': number;
+        'insert calls': number;
+        'next calls': number;
+        'prev calls': number;
+        'remove calls': number;
+        'reset calls': number;
+        'restarted searches': number;
+        'search calls': number;
+        'search near calls': number;
+        'truncate calls': number;
+        'update calls': number;
+    };
+    reconciliation: {
+        'dictionary matches': number;
+        'fast-path pages deleted': number;
+        'internal page key bytes discarded using suffix compression': number;
+        'internal page multi-block writes': number;
+        'internal-page overflow keys': number;
+        'leaf page key bytes discarded using prefix compression': number;
+        'leaf page multi-block writes': number;
+        'leaf-page overflow keys': number;
+        'maximum blocks required for a page': number;
+        'overflow values written': number;
+        'page checksum matches': number;
+        'page reconciliation calls': number;
+        'page reconciliation calls for eviction': number;
+        'pages deleted': number;
+    };
 }
 
 //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#aggregate
@@ -672,7 +818,7 @@ export interface CollectionAggregationOptions {
     bypassDocumentValidation?: boolean;
 }
 
-//http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#insertMany
+//http://mongodb.github.io/node-mongodb-native/2.2/api/Collection.html#insertMany
 export interface CollectionInsertManyOptions {
     // The write concern.
     w?: number | string;
@@ -684,6 +830,10 @@ export interface CollectionInsertManyOptions {
     serializeFunctions?: boolean;
     //Force server to assign _id values instead of driver.
     forceServerObjectId?: boolean;
+    // Allow driver to bypass schema validation in MongoDB 3.2 or higher.
+    bypassDocumentValidation?: boolean;
+    // If true, when an insert fails, don't execute the remaining writes. If false, continue with remaining inserts when one fails.
+    ordered?: boolean;
 }
 
 //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#bulkWrite
@@ -1016,10 +1166,12 @@ export class Cursor<T = Default> extends Readable {
     close(callback: MongoCallback<CursorResult>): void;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#comment
     comment(value: string): Cursor<T>;
-    // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#count
+    // http://mongodb.github.io/node-mongodb-native/2.2/api/Cursor.html#count
+    count(callback: MongoCallback<number>): void;
     count(applySkipLimit: boolean, callback: MongoCallback<number>): void;
-    count(applySkipLimit: boolean, options?: CursorCommentOptions): Promise<number>;
+    count(options: CursorCommentOptions, callback: MongoCallback<number>): void;
     count(applySkipLimit: boolean, options: CursorCommentOptions, callback: MongoCallback<number>): void;
+    count(applySkipLimit?: boolean, options?: CursorCommentOptions): Promise<number>;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#explain
     explain(): Promise<CursorResult>;
     explain(callback: MongoCallback<CursorResult>): void;

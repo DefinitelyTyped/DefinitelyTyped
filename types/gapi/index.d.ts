@@ -35,10 +35,20 @@ interface GoogleApiOAuth2TokenObject {
  */
 declare namespace gapi {
 
+    type LoadCallback = (...args: any[]) => void;
+    type LoadConfig = {
+      callback: LoadCallback,
+      onerror?: Function,
+      timeout?: number,
+      ontimeout?: Function,
+    };
+    type CallbackOrConfig = LoadConfig | LoadCallback;
+
     /**
      * Pragmatically initialize gapi class member.
+     * Reference: https://developers.google.com/api-client-library/javascript/reference/referencedocs#gapiloadlibraries-callbackorconfig
      */
-    export function load(apiName: string, callback: () => void): void;
+    export function load(apiName: string, callback: CallbackOrConfig): void;
 
 }
 
@@ -149,7 +159,7 @@ declare namespace gapi.client {
          * The scopes to request, as a space-delimited string.
          */
         scope?: string,
-                          
+
         hosted_domain?: string;
     }): Promise<void>;
 
@@ -178,6 +188,13 @@ declare namespace gapi.client {
          * If supplied, the request is executed immediately and no gapi.client.HttpRequest object is returned
          */
         callback?: () => any;
+    }
+
+    interface TokenObject {
+        /**
+         * The access token to use in requests.
+         */
+        access_token: string;
     }
 
     /**
@@ -213,6 +230,13 @@ declare namespace gapi.client {
      * @param apiKey The API key to set
      */
     export function setApiKey(apiKey: string): void;
+    /**
+     * Sets the authentication token to use in requests.
+     * @param token The token to set.
+     *
+     * Reference: https://developers.google.com/api-client-library/javascript/reference/referencedocs#gapiclientsettokentokenobject
+     */
+    export function setToken(token: TokenObject|null): void;
 
     interface HttpRequestFulfilled<T> {
         result: T;

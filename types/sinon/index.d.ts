@@ -96,8 +96,8 @@ declare namespace Sinon {
 
     interface SinonSpyStatic {
         (): SinonSpy;
-        (func: any): SinonSpy;
-        (obj: any, method: string): SinonSpy;
+        (func: Function): SinonSpy;
+        <T>(obj: T, method: keyof T): SinonSpy;
     }
 
     interface SinonStatic {
@@ -153,8 +153,8 @@ declare namespace Sinon {
     interface SinonStubStatic {
         (): SinonStub;
         (obj: any): SinonStub;
-        (obj: any, method: string): SinonStub;
-        (obj: any, method: string, func: any): SinonStub;
+        <T>(obj: T, method: keyof T): SinonStub;
+        <T>(obj: T, method: keyof T, func: Function): SinonStub;
     }
 
     interface SinonStatic {
@@ -363,6 +363,7 @@ declare namespace Sinon {
         alwaysThrew(spy: SinonSpy): void;
         alwaysThrew(spy: SinonSpy, exception: string): void;
         alwaysThrew(spy: SinonSpy, exception: any): void;
+        match(actual: any, expected: any): void;
         expose(obj: any, options?: SinonExposeOptions): void;
     }
 

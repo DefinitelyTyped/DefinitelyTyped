@@ -1,6 +1,6 @@
 // Type definitions for dagre 0.7
 // Project: https://github.com/cpettitt/dagre
-// Definitions by: Qinfeng Chen <https://github.com/qinfchen>
+// Definitions by: Qinfeng Chen <https://github.com/qinfchen>, Lisa Vallfors <https://github.com/Frankrike>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export as namespace dagre;
@@ -11,11 +11,33 @@ export namespace graphlib {
         edge(id: any): any;
         nodes(): string[];
         node(id: any): any;
-        setDefaultEdgeLabel(callback: () => void): Graph;
-        setEdge(sourceId: string, targetId: string, options?: { [key: string]: any }): Graph;
-        setGraph(options: { [key: string]: any }): Graph;
+        setDefaultEdgeLabel(callback: string|(() => string|void)): Graph;
+        setDefaultNodeLabel(callback: string|(() => string|void)): Graph;
+        setEdge(sourceId: string, targetId: string, options?: { [key: string]: any }, value?: string): Graph;
+        setEdge(params: {v: string, w: string, name?: string}, value?: string): Graph;
+        setGraph(label: GraphLabel): Graph;
         setNode(id: string, node: { [key: string]: any }): Graph;
+        graph(): GraphLabel;
+
+        constructor(opt?: {directed?: boolean, multigraph?: boolean, compound?: boolean});
+        setParent(name: string, parentName: string): void;
+        hasNode(name: string): boolean;
     }
+}
+
+export interface GraphLabel {
+    width?: number;
+    height?: number;
+    compound?: boolean;
+    rankdir?: string;
+    align?: string;
+    nodesep?: number;
+    edgesep?: number;
+    ranksep?: number;
+    marginx?: number;
+    marginy?: number;
+    acyclicer?: string;
+    ranker?: string;
 }
 
 export function layout(graph: graphlib.Graph): void;
@@ -23,4 +45,5 @@ export function layout(graph: graphlib.Graph): void;
 export interface Edge {
     v: string;
     w: string;
+    name?: string;
 }

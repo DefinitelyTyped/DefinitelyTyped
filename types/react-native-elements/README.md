@@ -4,7 +4,7 @@
 List will update as typings are added
 
 - [x] Buttons
-- [ ] Badge
+- [x] Badge
 - [ ] Social Icons / Social Icon Buttons
 - [ ] Icons
 - [ ] Side Menu

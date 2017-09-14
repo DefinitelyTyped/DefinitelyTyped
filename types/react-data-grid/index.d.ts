@@ -1,6 +1,6 @@
 // Type definitions for react-data-grid 2.0
 // Project: https://github.com/adazzle/react-data-grid.git
-// Definitions by: Simon Gellis <https://github.com/SupernaviX>, Kieran Peat <https://github.com/KieranPeat>, Martin Novak <https://github.com/martinnov92/>
+// Definitions by: Simon Gellis <https://github.com/SupernaviX>, Kieran Peat <https://github.com/KieranPeat>, Martin Novak <https://github.com/martinnov92>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -251,7 +251,7 @@ declare namespace AdazzleReactDataGrid {
          * The editor for this column. Several editors are available in "react-data-grid/addons".
          * @default A simple text editor
          */
-        editor?: React.ReactElement<any>
+        editor?: React.ReactElement<any> | React.ComponentClass<any> | React.StatelessComponent<any>
         /**
          * A custom read-only formatter for this column. An image formatter is available in "react-data-grid/addons".
          */
@@ -277,6 +277,11 @@ declare namespace AdazzleReactDataGrid {
          * A class name to be applied to the cells in the column
          */
         cellClass?: string;
+        /**
+         * Whether this column can be dragged (re-arranged).
+         * @default false
+         */
+        draggable?: boolean;
     }
 
     interface ColumnEventCallback {
@@ -459,6 +464,12 @@ declare namespace AdazzleReactDataGridPlugins {
         export class SimpleTextEditor extends React.Component<any> { }
         export class CheckboxEditor extends React.Component<any> { }
     }
+    export namespace Filters {
+        export class NumericFilter extends React.Component<any> { }
+        export class AutoCompleteFilter extends React.Component<any> { }
+        export class MultiSelectFilter extends React.Component<any> { }
+        export class SingleSelectFilter extends React.Component<any> { }
+    }
     export namespace Formatters {
         export class ImageFormatter extends React.Component<any> { }
         export class DropDownFormatter extends React.Component<any> { }
@@ -503,6 +514,7 @@ declare module "react-data-grid" {
 declare module "react-data-grid-addons" {
     import Plugins = AdazzleReactDataGridPlugins;
     import Editors = Plugins.Editors;
+    import Filters = Plugins.Filters;
     import Formatters = Plugins.Formatters;
     import Toolbar = Plugins.Toolbar;
     import Menu = Plugins.Menu;
@@ -512,6 +524,7 @@ declare module "react-data-grid-addons" {
     // ES6 named exports
     export {
         Editors,
+        Filters,
         Formatters,
         Toolbar,
         Menu,
@@ -523,9 +536,10 @@ declare module "react-data-grid-addons" {
     global {
         interface Window {
             ReactDataGridPlugins: {
-                Editors: typeof Editors
-                Formatters: typeof Formatters
-                Toolbar: typeof Toolbar
+                Editors: typeof Editors,
+                Filters: typeof Filters,
+                Formatters: typeof Formatters,
+                Toolbar: typeof Toolbar,
                 Menu: typeof Menu,
                 Data: typeof Data,
                 DraggableHeader: typeof DraggableHeader

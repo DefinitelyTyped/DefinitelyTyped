@@ -54,7 +54,7 @@ export interface ActionObject {
 
 export interface Router extends express.Router {
     action(actionName: string): express.RequestHandler | ActionObject;
-    wrapAsync(fn: () => any): express.RequestHandler;
+    wrapAsync(fn: (req?: express.Request, resp?: express.Response, next?: express.NextFunction) => any): express.RequestHandler;
 }
 
 export namespace yog {

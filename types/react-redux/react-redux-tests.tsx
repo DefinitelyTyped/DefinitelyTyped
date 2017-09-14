@@ -1,7 +1,7 @@
 import { Component, ReactElement } from 'react';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { Store, Dispatch, bindActionCreators } from 'redux';
+import { Store, Dispatch, ActionCreator, bindActionCreators } from 'redux';
 import { connect, Provider, DispatchProp, MapStateToProps } from 'react-redux';
 import objectAssign = require('object-assign');
 
@@ -63,8 +63,8 @@ connect<ICounterStateProps, ICounterDispatchProps, {}>(
 )(Counter);
 // with higher order functions using parameters
 connect<ICounterStateProps, ICounterDispatchProps, {}>(
-    (initialState: CounterState, ownProps: {}) => mapStateToProps,
-    (dispatch: Dispatch<CounterState>, ownProps: {}) => mapDispatchToProps
+    (initialState: CounterState, ownProps) => mapStateToProps,
+    (dispatch: Dispatch<CounterState>, ownProps) => mapDispatchToProps
 )(Counter);
 // only first argument
 connect<ICounterStateProps, {}, {}>(
@@ -294,12 +294,14 @@ class NonComponent {}
 //connect()(NonComponent);
 
 // stateless functions
-interface HelloMessageProps { name: string; }
-function HelloMessage(props: HelloMessageProps) {
+interface HelloMessageProps {
+    dispatch: Dispatch<any>
+    name: string;
+ }
+const HelloMessage: React.StatelessComponent<HelloMessageProps> = (props) => {
     return <div>Hello {props.name}</div>;
 }
 let ConnectedHelloMessage = connect()(HelloMessage);
-ReactDOM.render(<HelloMessage name="Sebastian" />, document.getElementById('content'));
 ReactDOM.render(<ConnectedHelloMessage name="Sebastian" />, document.getElementById('content'));
 
 // stateless functions that uses mapStateToProps and mapDispatchToProps
@@ -493,4 +495,99 @@ namespace Issue15463 {
     })(SpinnerClass);
 
     <Spinner />
+}
+
+namespace RemoveInjectedAndPassOnRest {
+    interface TProps {
+        showGlobalSpinner: boolean;
+        foo: string;
+    }
+    class SpinnerClass extends React.Component<TProps & DispatchProp<any>, {}> {
+        render() {
+            return (<div />);
+        }
+    }
+
+    export const Spinner = connect((state: any) => {
+        return { showGlobalSpinner: true };
+    })(SpinnerClass);
+
+    <Spinner foo='bar' />
+}
+
+namespace TestControlledComponentWithoutDispatchProp {
+
+    interface MyState {
+        count: number;
+    }
+
+    interface MyProps {
+        label: string;
+        // `dispatch` is optional, but setting it to anything
+        // other than Dispatch<T> will cause an error
+        //
+        // dispatch: Dispatch<any>; // OK
+        // dispatch: number; // ERROR
+    }
+
+    function mapStateToProps(state: MyState) {
+        return {
+            label: `The count is ${state.count}`,
+        }
+    }
+
+    class MyComponent extends React.Component<MyProps> {
+        render() {
+            return <span>{this.props.label}</span>;
+        }
+    }
+
+    const MyFuncComponent = (props: MyProps) => (
+        <span>{props.label}</span>
+    );
+
+    const MyControlledComponent = connect(mapStateToProps)(MyComponent);
+    const MyControlledFuncComponent = connect(mapStateToProps)(MyFuncComponent);
+}
+
+namespace TestDispatchToPropsAsObject {
+    const onClick: ActionCreator<{}> = null;
+    const mapStateToProps = (state: any) => {
+        return {
+            title: state.app.title as string,
+        };
+    };
+    const dispatchToProps = {
+        onClick,
+    };
+
+    type Props = { title: string; } & typeof dispatchToProps;
+    const HeaderComponent: React.StatelessComponent<Props> = (props) => {
+        return <h1>{props.title}</h1>;
+    }
+
+    const Header = connect(mapStateToProps, dispatchToProps)(HeaderComponent);
+    <Header />
+}
+
+namespace TestWrappedComponent {
+    type InnerProps = {
+        name: string,
+    };
+    const Inner: React.StatelessComponent<InnerProps> = (props) => {
+        return <h1>{props.name}</h1>;
+    }
+
+    const mapStateToProps = (state: any) => {
+        return {
+            name: "Connected",
+        };
+    };
+    const Connected = connect(mapStateToProps)(Inner);
+
+    // `Inner` and `Connected.WrappedComponent` require explicit `name` prop
+    const TestInner = (props: any) => <Inner name="Inner" />;
+    const TestWrapped = (props: any) => <Connected.WrappedComponent name="Wrapped" />;
+    // `Connected` does not require explicit `name` prop
+    const TestConnected = (props: any) => <Connected />;
 }

@@ -200,6 +200,54 @@ export interface ButtonProperties {
 /**
  * Button component
  *
- * @desc https://react-native-training.github.io/react-native-elements/API/buttons/
+ * @see https://react-native-training.github.io/react-native-elements/API/buttons/
  */
 export class Button extends React.Component<ButtonProperties, any> {}
+
+export interface BadgeProperties {
+    /**
+     * Text value to be displayed by badge
+     *
+     * @default null
+     */
+    value?: string | number;
+
+    /**
+     * Style for the outer badge component
+     */
+    containerStyle?: ViewStyle;
+
+    /**
+     * Style for the outer-most badge component
+     */
+    wrapperStyle?: ViewStyle;
+
+    /**
+     * Style for the text in the badge
+     */
+    textStyle?: TextStyle;
+
+    /**
+     * Override the default badge contents, mutually exclusive with 'value' property
+     */
+    children?: JSX.Element;
+
+    /**
+     * Custom component to replace the badge outer component
+     *
+     * @default View, if onPress then TouchableOpacity
+     */
+    component?: React.ComponentClass;
+
+    /**
+     * Function called when pressed on the badge
+     */
+    onPress?(): void;
+}
+
+/**
+ * Badge component
+ *
+ * @see https://react-native-training.github.io/react-native-elements/API/badge/
+ */
+export class Badge extends React.Component<BadgeProperties, any> {}

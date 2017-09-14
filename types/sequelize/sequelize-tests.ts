@@ -629,6 +629,7 @@ new s.HostNotFoundError( new Error( 'original connection error message' ) );
 new s.HostNotReachableError( new Error( 'original connection error message' ) );
 new s.InvalidConnectionError( new Error( 'original connection error message' ) );
 new s.ConnectionTimedOutError( new Error( 'original connection error message' ) );
+new s.EmptyResultError();
 
 const uniqueConstraintError: Sequelize.ValidationError = new s.UniqueConstraintError({});
 
@@ -914,6 +915,7 @@ User.findAll( { attributes: [s.cast(s.fn('count', Sequelize.col('*')), 'INTEGER'
 User.findAll( { attributes: [[s.cast(s.fn('count', Sequelize.col('*')), 'INTEGER'), 'count']] });
 User.findAll( { where : s.fn('count', [0, 10]) } );
 User.findAll( { subQuery: false, include : [User], order : [[User, User, 'numYears', 'c']] } );
+User.findAll( { rejectOnEmpty: true });
 
 
 User.findById( 'a string' );
@@ -1089,6 +1091,7 @@ queryInterface.createTable( 'table', { name : { type : Sequelize.STRING } }, { s
 queryInterface.addIndex( { schema : 'a', tableName : 'c' }, ['d', 'e'], { logging : function() {} }, 'schema_table' );
 queryInterface.showIndex( { schema : 'schema', tableName : 'table' }, { logging : function() {} } );
 queryInterface.addIndex( 'Group', ['from'] );
+queryInterface.addIndex( 'Group', ['from'], { indexName: 'group_from' } );
 queryInterface.describeTable( '_Users', { logging : function() {} } );
 queryInterface.createTable( 's', { table_id : { type : Sequelize.INTEGER, primaryKey : true, autoIncrement : true } } );
 /* NOTE https://github.com/DefinitelyTyped/DefinitelyTyped/pull/5590
@@ -1190,6 +1193,16 @@ new Sequelize( 'sequelize', null, null, {
             password : 'lol'
         }
     }
+} );
+new Sequelize( {
+    database: 'db',
+    username: 'user',
+    password: 'pass',
+    retry: {
+        match: ['failed'],
+        max: 3
+    },
+    typeValidation: true
 } );
 
 s.model( 'Project' );
@@ -1570,7 +1583,20 @@ s.define( 'test', {
     underscored : true,
     freezeTableName : true
 } );
-
+s.define( 'testBooeanVersionOption', {
+    version : {
+        type : Sequelize.INTEGER,
+    }
+}, {
+    version: true
+} );
+s.define( 'testStringVersionOption', {
+    nameOfOptimisticLockColumn : {
+        type : Sequelize.INTEGER,
+    }
+}, {
+    version: "nameOfOptimisticLockColumn"
+} );
 s.define( 'User', {
     deletedAt : {
         type : Sequelize.DATE,
@@ -1600,6 +1626,40 @@ s.define( 'TriggerTest', {
     timestamps : false,
     underscored : true,
     hasTrigger : true
+} );
+
+s.define('DefineOptionsIndexesTest', {
+    id: {
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+        validate: {
+            min: 1
+        }
+    },
+    email: {
+        allowNull: false,
+        type: Sequelize.STRING(255),
+        set: function (val) {
+            if (typeof val === "string") {
+                val = val.toLowerCase();
+            } else {
+                throw new Error("email must be a string");
+            }
+            this.setDataValue("email", val);
+        }
+    }
+}, {
+        timestamps: false,
+        indexes: [
+            {
+                name: "DefineOptionsIndexesTest_lower_email",
+                unique: true,
+                fields: [
+                    Sequelize.fn("LOWER", Sequelize.col("email"))
+                ]
+            }
+        ]
 } );
 
 //

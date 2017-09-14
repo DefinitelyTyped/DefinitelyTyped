@@ -78,7 +78,7 @@ declare module "victory" {
      * VictoryAnimation animates prop changes for any React component.
      * Just use a child function inside VictoryAnimation that accepts an object of tweened values and returns a component to render.
      */
-    export class VictoryAnimation extends React.Component<VictoryAnimationProps> {}
+    export class VictoryAnimation extends React.Component<VictoryAnimationProps, any> {}
 
     /**
      * Text anchor type
@@ -172,7 +172,7 @@ declare module "victory" {
     /**
      * VictoryLabel is a text component that provides several enhancements over SVG’s <text> element.
      */
-    export class VictoryLabel extends React.Component<VictoryLabelProps> {}
+    export class VictoryLabel extends React.Component<VictoryLabelProps, any> {}
 
     export interface VictoryContainerProps {
         /**
@@ -224,7 +224,7 @@ declare module "victory" {
          */
         desc?: string;
     }
-    export class VictoryContainer extends React.Component<VictoryContainerProps> {}
+    export class VictoryContainer extends React.Component<VictoryContainerProps, any> {}
 
     // Note: Many SVG attributes are missed in CSSProperties interface
     export interface VictoryThemeDefinition {
@@ -358,10 +358,8 @@ declare module "victory" {
     /**
      * Data domain type
      */
-    type DomainPropType = [number, number] | {
-        x: [number, number];
-        y: [number, number];
-    };
+    type DomainTuple = [number, number] | [Date, Date];
+    type DomainPropType = DomainTuple | { x?: DomainTuple; y: DomainTuple; } | { x: DomainTuple; y?: DomainTuple; };
     /**
      * Domain padding
      */
@@ -666,7 +664,7 @@ declare module "victory" {
      * Draw area charts with React. VictoryArea is a composable component, so it doesn't include axes.
      * Add VictoryArea as a child of VictoryChart for a complete chart.
      */
-    export class VictoryArea extends React.Component<VictoryAreaProps> {}
+    export class VictoryArea extends React.Component<VictoryAreaProps, any> {}
 
     export interface VictoryAxisProps extends VictoryCommonProps {
         /**
@@ -850,7 +848,7 @@ declare module "victory" {
      * Styles and data can be customized by passing in your own values as properties to the component.
      * Data changes are animated with VictoryAnimation.
      */
-    export class VictoryAxis extends React.Component<VictoryAxisProps> {}
+    export class VictoryAxis extends React.Component<VictoryAxisProps, any> {}
 
     export interface VictoryBarProps extends VictoryCommonProps, VictoryDatableProps, VictoryMultiLabeableProps {
         /**
@@ -921,7 +919,7 @@ declare module "victory" {
      * Draw SVG bar charts with React. VictoryBar is a composable component, so it doesn't include axes
      * Check out VictoryChart for complete bar charts and more.
      */
-    export class VictoryBar extends React.Component<VictoryBarProps> {}
+    export class VictoryBar extends React.Component<VictoryBarProps, any> {}
 
     export interface VictoryChartProps extends VictoryCommonProps {
         /**
@@ -1007,7 +1005,7 @@ declare module "victory" {
      * - VictoryScatter
      * - VictoryBar
      */
-    export class VictoryChart extends React.Component<VictoryChartProps> {}
+    export class VictoryChart extends React.Component<VictoryChartProps, any> {}
 
     export interface VictoryGroupProps extends VictoryCommonProps, VictoryMultiLabeableProps {
         /**
@@ -1104,7 +1102,7 @@ declare module "victory" {
          */
         style?: VictoryStyleInterface;
     }
-    export class VictoryGroup extends React.Component<VictoryGroupProps> {}
+    export class VictoryGroup extends React.Component<VictoryGroupProps, any> {}
 
     export interface VictoryLineProps extends VictoryCommonProps, VictoryDatableProps, VictorySingleLabableProps {
         /**
@@ -1182,7 +1180,7 @@ declare module "victory" {
      * VictoryLine creates a line based on data. VictoryLine is a composable component, so it does not include an axis.
      * Check out VictoryChart for easy to use line charts and more.
      */
-    export class VictoryLine extends React.Component<VictoryLineProps> {}
+    export class VictoryLine extends React.Component<VictoryLineProps, any> {}
 
     export interface VictoryLegendProps extends VictoryCommonProps, VictoryDatableProps, VictorySingleLabableProps {
         /**
@@ -1415,7 +1413,7 @@ declare module "victory" {
      * VictoryScatter creates a scatter of points from data. VictoryScatter is a composable component, so it does not include an axis.
      * Check out VictoryChart for easy to use scatter plots and more.
      */
-    export class VictoryScatter extends React.Component<VictoryScatterProps> {}
+    export class VictoryScatter extends React.Component<VictoryScatterProps, any> {}
 
     export interface VictoryStackProps extends VictoryCommonProps, VictoryMultiLabeableProps {
         /**
@@ -1517,7 +1515,7 @@ declare module "victory" {
          */
         xOffset?: number;
     }
-    export class VictoryStack extends React.Component<VictoryStackProps> {}
+    export class VictoryStack extends React.Component<VictoryStackProps, any> {}
 
     export interface VictoryPieProps extends VictoryCommonProps, VictoryMultiLabeableProps {
         /**
@@ -1661,5 +1659,5 @@ declare module "victory" {
      * Styles and data can be customized by passing in your own values as properties to the component.
      * Data changes are animated with VictoryAnimation.
      */
-    export class VictoryPie extends React.Component<VictoryPieProps> {}
+    export class VictoryPie extends React.Component<VictoryPieProps, any> {}
 }

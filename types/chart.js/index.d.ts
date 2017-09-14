@@ -1,16 +1,17 @@
-// Type definitions for Chart.js 2.4
+// Type definitions for Chart.js 2.6
 // Project: https://github.com/nnnick/Chart.js
 // Definitions by: Alberto Nuti <https://github.com/anuti>
 //                 Fabien Lavocat <https://github.com/FabienLavocat>
+//                 KentarouTakeda <https://github.com/KentarouTakeda>
+//                 Larry Bahr <https://github.com/larrybahr>
+//                 Daniel Luz <https://github.com/mernen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
-
-/// <reference types="jquery" />
 
 declare class Chart {
     static readonly Chart: typeof Chart;
     constructor(
-        context: string | JQuery | CanvasRenderingContext2D | HTMLCanvasElement | string[] | CanvasRenderingContext2D[] | HTMLCanvasElement[],
+        context: string | CanvasRenderingContext2D | HTMLCanvasElement | ArrayLike<CanvasRenderingContext2D | HTMLCanvasElement>,
         options: Chart.ChartConfiguration
     );
     config: Chart.ChartConfiguration;
@@ -26,6 +27,9 @@ declare class Chart {
     getElementAtEvent: (e: any) => {};
     getElementsAtEvent: (e: any) => Array<{}>;
     getDatasetAtEvent: (e: any) => Array<{}>;
+    ctx: CanvasRenderingContext2D|null;
+    canvas: HTMLCanvasElement|null;
+    chartArea: Chart.ChartArea;
     static pluginService: PluginServiceStatic;
 
     static defaults: {
@@ -78,7 +82,16 @@ declare namespace Chart {
 
     type ScaleType = 'category' | 'linear' | 'logarithmic' | 'time' | 'radialLinear';
 
+    type PointStyle = 'circle' | 'cross' | 'crossRot' | 'dash' | 'line' | 'rect' | 'rectRounded' | 'rectRot' | 'star' | 'triangle';
+
     type PositionType = 'left' | 'right' | 'top' | 'bottom';
+
+    interface ChartArea {
+        top: number;
+        right: number;
+        bottom: number;
+        left: number;
+    }
 
     interface ChartLegendItem {
         text?: string;
@@ -130,7 +143,7 @@ declare namespace Chart {
     }
 
     interface ChartData {
-        labels?: string[];
+        labels?: Array<string | string[]>;
         datasets?: ChartDataSets[];
     }
 
@@ -147,7 +160,11 @@ declare namespace Chart {
         animation?: ChartAnimationOptions;
         elements?: ChartElementsOptions;
         scales?: ChartScales;
+        showLines?: boolean;
+        spanGaps?: boolean;
         cutoutPercentage?: number;
+        circumference?: number;
+        rotation?: number;
     }
 
     interface ChartFontOptions {
@@ -159,7 +176,7 @@ declare namespace Chart {
 
     interface ChartTitleOptions {
         display?: boolean;
-        position?: string;
+        position?: PositionType;
         fullWdith?: boolean;
         fontSize?: number;
         fontFamily?: string;
@@ -171,10 +188,12 @@ declare namespace Chart {
 
     interface ChartLegendOptions {
         display?: boolean;
-        position?: string;
+        position?: PositionType;
         fullWidth?: boolean;
-        onClick?(event: any, legendItem: any): void;
+        onClick?(event: MouseEvent, legendItem: ChartLegendItem): void;
+        onHover?(event: MouseEvent, legendItem: ChartLegendItem): void;
         labels?: ChartLegendLabelOptions;
+        reverse?: boolean;
     }
 
     interface ChartLegendLabelOptions {
@@ -191,6 +210,7 @@ declare namespace Chart {
         enabled?: boolean;
         custom?(a: any): void;
         mode?: string;
+        intersect?: boolean;
         backgroundColor?: ChartColor;
         titleFontFamily?: string;
         titleFontSize?: number;
@@ -215,11 +235,19 @@ declare namespace Chart {
         cornerRadius?: number;
         multiKeyBackground?: string;
         callbacks?: ChartTooltipCallback;
+        filter?(item: ChartTooltipItem): boolean;
+        itemSort?(itemA: ChartTooltipItem, itemB: ChartTooltipItem): number;
+        position?: "average"|"nearest";
+        caretPadding?: number;
+        displayColors?: boolean;
+        borderColor?: ChartColor;
+        borderWidth?: number;
     }
 
     interface ChartHoverOptions {
         mode?: string;
         animationDuration?: number;
+        intersect?: boolean;
         onHover?(active: any): void;
     }
 
@@ -268,7 +296,7 @@ declare namespace Chart {
 
     interface ChartPointOptions {
         radius?: number;
-        pointStyle?: string;
+        pointStyle?: PointStyle;
         backgroundColor?: ChartColor;
         borderWidth?: number;
         borderColor?: ChartColor;
@@ -307,7 +335,8 @@ declare namespace Chart {
 
     interface TickOptions {
         autoSkip?: boolean;
-        callback?(value: any, index: any, values: any): string;
+        autoSkipPadding?: boolean;
+        callback?(value: any, index: any, values: any): string|number;
         display?: boolean;
         fontColor?: ChartColor;
         fontFamily?: string;
@@ -361,6 +390,7 @@ declare namespace Chart {
     type ChartColor = string | CanvasGradient | CanvasPattern | string[];
 
     interface ChartDataSets {
+        cubicInterpolationMode?: 'default' | 'monotone';
         backgroundColor?: ChartColor | ChartColor[];
         borderWidth?: number;
         borderColor?: ChartColor;
@@ -368,10 +398,15 @@ declare namespace Chart {
         borderDash?: number[];
         borderDashOffset?: number;
         borderJoinStyle?: string;
+        borderSkipped?: PositionType;
         data?: number[] | ChartPoint[];
-        fill?: boolean;
+        fill?: boolean | number | string;
+        hoverBackgroundColor?: string | string[];
+        hoverBorderColor?: string | string[];
+        hoverBorderWidth?: number | number[];
         label?: string;
         lineTension?: number;
+        steppedLine?: 'before' | 'after' | boolean;
         pointBorderColor?: ChartColor | ChartColor[];
         pointBackgroundColor?: ChartColor | ChartColor[];
         pointBorderWidth?: number | number[];
@@ -381,13 +416,15 @@ declare namespace Chart {
         pointHoverBackgroundColor?: ChartColor | ChartColor[];
         pointHoverBorderColor?: ChartColor | ChartColor[];
         pointHoverBorderWidth?: number | number[];
-        pointStyle?: string | string[] | HTMLImageElement | HTMLImageElement[];
+        pointStyle?: PointStyle | HTMLImageElement | Array<PointStyle | HTMLImageElement>;
         xAxisID?: string;
         yAxisID?: string;
         type?: string;
         hidden?: boolean;
         hideInLegendAndTooltip?: boolean;
+        showLine?: boolean;
         stack?: string;
+        spanGaps?: boolean;
     }
 
     interface ChartScales {

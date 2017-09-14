@@ -1,6 +1,6 @@
 // Type definitions for HERE Maps API for JavaScript 3.0
 // Project: https://developer.here.com/
-// Definitions by: Joshua Efiong <https://github.com/Josh-ES/>
+// Definitions by: Joshua Efiong <https://github.com/Josh-ES>
 //                 Bernd Hacker <https://github.com/denyo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
@@ -2938,7 +2938,7 @@ declare namespace H {
                  * @param provider {H.map.provider.ObjectProvider} - the ObjectProvider which provides the map objects to this object layer.
                  * @param opt_options {H.map.layer.ObjectLayer.Options=} - The options for this layer
                  */
-                constructor(provider: H.map.provider.ObjectProvider, opt_options?: H.map.layer.ObjectLayer.Options);
+                constructor(provider: H.map.provider.ObjectProvider | H.clustering.Provider, opt_options?: H.map.layer.ObjectLayer.Options);
 
                 /**
                  * This method returns current ObjectLayer's data provider
@@ -4018,6 +4018,17 @@ declare namespace H {
         }
 
         /**
+         * This property specifies collection of pre-configured HERE layers
+         */
+        interface DefaultLayers {
+            normal: H.service.MapType;
+            satellite: H.service.MapType;
+            terrain: H.service.MapType;
+            incidents: H.map.layer.MarkerTileLayer;
+            venues: H.map.layer.TileLayer;
+        }
+
+        /**
          * This class encapsulates Enterprise Routing REST API as a service stub. An instance of this class can be retrieved by calling the factory method on a platform instance.
          * H.service.Platform#getEnterpriseRoutingService.
          */
@@ -4473,17 +4484,19 @@ declare namespace H {
             /**
              * This method creates a pre-configured set of HERE tile layers for convenient use with the map.
              * @param opt_tileSize {(H.service.Platform.DefaultLayersOptions | number)=} - When a number – optional tile size to be queried from the HERE Map Tile API, default is 256.
-             * If theparameter is an object, then it represents options and all remaining below parameters should be omitted.
+             * If this parameter is a number, it indicates the tile size to be queried from the HERE Map Tile API (the default value is 256); if this parameter is an object, it represents
+             * configuration options for the layer and all the remaining parameters (below) should be omitted
              * @param opt_ppi {number=} - optional 'ppi' parameter to use when querying tiles, default is not specified
              * @param opt_lang {string=} - optional primary language parameter, default is not specified
              * @param opt_secondaryLang {string=} - optional secondary language parameter, default is not specified
              * @param opt_style {string=} - optional 'style' parameter to use when querying map tiles, default is not specified
              * @param opt_pois {(string | boolean)=} - indicates if pois are displayed on the map. Pass true to indicate that all pois should be visible. Alternatively you can specify mask for the
              * POI Categories as described at the Map Tile API documentation POI Categories chapter.
-             * @returns {Object<string, H.service.MapType>} - a set of tile layers ready to use
+             * @returns {H.service.DefaultLayers} - a set of tile layers ready to use
              */
-            createDefaultLayers(opt_tileSize?: (H.service.Platform.DefaultLayersOptions | number), opt_ppi?: number, opt_lang?: string, opt_secondaryLang?: string, opt_style?: string,
-                                opt_pois?: (string | boolean)): H.service.Platform.MapTypes;
+            createDefaultLayers(opt_tileSize?: (H.service.Platform.DefaultLayersOptions | number), opt_ppi?: number,
+                                opt_lang?: string, opt_secondaryLang?: string, opt_style?: string,
+                                opt_pois?: (string | boolean)): H.service.DefaultLayers;
 
             /**
              * This method returns an instance of H.service.RoutingService to query the Routing API.
@@ -5681,7 +5694,7 @@ declare namespace H {
              * @param opt_locale {(H.ui.i18n.Localization | string)=} - the language to use (or a full localization object).
              * @returns {H.ui.UI} - the UI instance configured with the default controls
              */
-            static createDefault(map: H.Map, mapTypes: H.service.Platform.MapTypes, opt_locale?: H.ui.i18n.Localization | string): UI;
+            static createDefault(map: H.Map, mapTypes: H.service.Platform.MapTypes | H.service.DefaultLayers, opt_locale?: H.ui.i18n.Localization | string): H.ui.UI;
 
             /**
              * This method is used to capture the element view

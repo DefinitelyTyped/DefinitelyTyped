@@ -7,6 +7,7 @@
 /// <reference types="node" />
 
 import events = require("events");
+import stream = require ("stream");
 import Promise = require("bluebird");
 
 type Callback = Function;
@@ -67,6 +68,7 @@ declare namespace Knex {
         // Withs
         with: With;
         withRaw: WithRaw;
+        withSchema: WithSchema;
         withWrapped: WithWrapped;
 
         // Wheres
@@ -220,6 +222,10 @@ declare namespace Knex {
         (alias: string, sql: string, bindings?: Value[] | Object): QueryBuilder;
     }
 
+    interface WithSchema {
+        (schema: string): QueryBuilder
+    }
+
     interface WithWrapped {
         (alias: string, callback: (queryBuilder: QueryBuilder) => any): QueryBuilder;
     }
@@ -345,9 +351,10 @@ declare namespace Knex {
     interface ChainableInterface extends Promise<any> {
         toQuery(): string;
         options(options: any): QueryBuilder;
-        stream(options?: any, callback?: (builder: QueryBuilder) => any): QueryBuilder;
-        stream(callback?: (builder: QueryBuilder) => any): QueryBuilder;
-        pipe(writable: any): QueryBuilder;
+        stream(callback: (readable: stream.PassThrough) => any): Promise<any>;
+        stream(options?: { [key: string]: any }): stream.PassThrough;
+        stream(options: { [key: string]: any }, callback: (readable: stream.PassThrough) => any): Promise<any>;
+        pipe(writable: any): stream.PassThrough;
         exec(callback: Function): QueryBuilder;
     }
 
@@ -409,6 +416,7 @@ declare namespace Knex {
         dropUnique(columnNames: (string | Raw)[], indexName?: string): TableBuilder;
         dropPrimary(constraintName?: string): TableBuilder;
         dropIndex(columnNames: (string | Raw)[], indexName?: string): TableBuilder;
+        dropTimestamps(): ColumnBuilder;
     }
 
     interface CreateTableBuilder extends TableBuilder {
@@ -438,6 +446,7 @@ declare namespace Knex {
         notNullable(): ColumnBuilder;
         nullable(): ColumnBuilder;
         comment(value: string): ColumnBuilder;
+        alter(): ColumnBuilder;
     }
 
     interface ForeignConstraintBuilder {
@@ -483,6 +492,7 @@ declare namespace Knex {
             MySqlConnectionConfig | MsSqlConnectionConfig | Sqlite3ConnectionConfig | SocketConnectionConfig;
         pool?: PoolConfig;
         migrations?: MigratorConfig;
+        seeds?: SeedsConfig;
         acquireConnectionTimeout?: number;
         useNullAsDefault?: boolean;
         searchPath?: string;
@@ -613,6 +623,10 @@ declare namespace Knex {
         extension?: string;
         tableName?: string;
         disableTransactions?: boolean;
+    }
+
+    interface SeedsConfig {
+        directory?: string;
     }
 
     interface Migrator {

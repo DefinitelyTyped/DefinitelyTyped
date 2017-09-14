@@ -112,7 +112,7 @@ places.request(
     },
     (response) => {
         console.log(response);
-        let items = response.results.items;
+        const items = response.results.items;
         places.follow(
             items[0].href,
             (resp) => {
@@ -160,3 +160,16 @@ enterprieseRouter.calculateIsoline(
         console.log(error);
     }
 );
+
+// Create a clustering provider
+const clusteredDataProvider = new H.clustering.Provider([], {
+clusteringOptions: {
+  // Maximum radius of the neighborhood
+  eps: 64,
+  // minimum weight of points required to form a cluster
+  minWeight: 3
+}
+});
+
+// Create a layer that will consume objects from our clustering provider
+const layer = new H.map.layer.ObjectLayer(clusteredDataProvider);

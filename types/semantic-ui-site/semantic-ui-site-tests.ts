@@ -16,10 +16,11 @@ function test_site_static() {
 
 function test_site() {
     const selector = '.ui.site';
-    $(selector).site('destroy') === $();
-    $(selector).site('setting', 'debug', undefined) === false;
-    $(selector).site('setting', 'debug') === false;
-    $(selector).site('setting', 'debug', true) === $();
+    $(selector).site('destroy'); // $ExpectType JQuery<HTMLElement>
+    $(selector).site('setting', 'debug', undefined); // $ExpectType boolean
+    $(selector).site('setting', 'debug'); // $ExpectType boolean
+    $(selector).site('setting', 'debug', true); // $ExpectType JQuery<HTMLElement>
+    // $ExpectType JQuery<HTMLElement>
     $(selector).site('setting', {
         namespace: 'namespace',
         name: 'name',
@@ -27,7 +28,8 @@ function test_site() {
         debug: true,
         performance: true,
         verbose: true
-    }) === $();
+    });
+    // $ExpectType JQuery<HTMLElement>
     $(selector).site({
         modules: [
             'module1',
@@ -41,12 +43,16 @@ function test_site() {
             section: {},
             utilities: {}
         }
-    }) === $();
-    $(selector).site() === $();
+    });
+    $(selector).site(); // $ExpectType JQuery<HTMLElement>
+
+    $(selector).site('foo'); // $ExpectError
+    $(selector).site({ foo: 'bar' }); // $ExpectError
 }
 
 import site = require('semantic-ui-site');
 
 function test_module() {
+    site; // $ExpectType Site
     $.fn.site = site;
 }

@@ -1,5 +1,5 @@
 import * as autosni from "auto-sni";
-let a = autosni({
+const a = autosni({
 	agreeTos: true,
 	email: '',
 	domains: ['']

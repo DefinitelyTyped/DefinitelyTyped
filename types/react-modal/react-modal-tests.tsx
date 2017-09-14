@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as ReactModal from 'react-modal';
+import ReactModal from 'react-modal';
 
 class ExampleOfUsingReactModal extends React.Component {
   render() {
@@ -29,13 +29,32 @@ class ExampleOfUsingReactModal extends React.Component {
         padding: '20px'
       }
     };
+    const customClasses = {
+      afterOpen: 'afterOpen',
+      base: 'base',
+      beforeClose: 'beforeClose'
+    };
+    const customOverlayClasses = {
+      afterOpen: 'afterOpen',
+      base: 'base',
+      beforeClose: 'beforeClose'
+    };
+    const customAriaVariables = {
+      labelledby: 'labelledby',
+      describedby: 'describedby'
+    };
     return (
       <ReactModal
         isOpen={true}
         onAfterOpen={onAfterOpenFn}
         onRequestClose={onRequestCloseFn}
+        contentLabel="demo label"
         closeTimeoutMS={1000}
         style={customStyle}
+        className={customClasses}
+        overlayClassName={customOverlayClasses}
+        bodyOpenClassName={'bodyOpenClassName'}
+        aria={customAriaVariables}
         >
         <h1>Modal Content</h1>
         <p>Etc.</p>

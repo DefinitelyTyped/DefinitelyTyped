@@ -1,7 +1,7 @@
 import * as SparkPost from "sparkpost";
 
-let key = "YOURAPIKEY";
-let client = new SparkPost(key);
+const key = "YOURAPIKEY";
+const client = new SparkPost(key);
 
 // Callback
 client.get({

@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { View, StyleSheet } from 'react-native';
-import { Button, Text } from 'react-native-elements';
+import { View, StyleSheet, TouchableNativeFeedback } from 'react-native';
+import { Button, Text, Badge } from 'react-native-elements';
 
 class TextTest extends React.Component<any, any> {
   render() {
@@ -10,6 +10,27 @@ class TextTest extends React.Component<any, any> {
         <Text h2>Heading 2</Text>
         <Text h3>Heading 3</Text>
         <Text h4>Heading 4</Text>
+      </View>
+    );
+  }
+}
+
+class BadgeTest extends React.Component<any, any> {
+  render() {
+    return (
+      <View>
+        <Badge
+          value={3}
+          textStyle={{ color: 'orange' }}
+        />
+
+        <Badge containerStyle={{ backgroundColor: 'violet'}}>
+          <Text>User 1</Text>
+        </Badge>
+
+        <Badge onPress={() => console.log('pressed')} value="5" />
+
+        <Badge component={TouchableNativeFeedback} value={10} />
       </View>
     );
   }

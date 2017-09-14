@@ -6,8 +6,8 @@
 
 /// <reference types="node" />
 
-import {EventEmitter} from 'events';
-import {Buffer} from 'buffer';
+import { EventEmitter } from 'events';
+import { Buffer } from 'buffer';
 
 declare namespace Libpq {
     interface NotifyMsg {
