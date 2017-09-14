@@ -255,25 +255,7 @@ declare module 'leaflet' {
 			const DELETESTOP: string;
 		}
 
-		class Feature {
-			initialize(): void;
-			/**
-			 * Enables this handler.
-			 */
-			enable(): void;
-			/**
-			 * Add's event listeners to this handler
-			 */
-			addHooks(): void;
-			/**
-			 * Removes event listeners from this handler
-			 */
-			removeHooks(): void;
-			/**
-			 * Sets new options to this handler
-			 */
-			setOptions(options: DrawOptions.EditHandlerOptions): void;
-		}
+		class Feature extends Handler { }
 
 		class SimpleShape extends Feature { }
 
