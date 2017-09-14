@@ -4,9 +4,6 @@ let str: string;
 const obj: {} = {};
 const fallback = '';
 
-str = mime.lookup(str, fallback);
-str = mime.extension(str);
-mime.load(str);
+str = mime.getType(str, fallback);
+str = mime.getExtension(str);
 mime.define(obj);
-
-str = mime.charsets.lookup(str);
