@@ -88,7 +88,7 @@ First, [fork](https://guides.github.com/activities/forking/) this repository, in
 * `cd types/my-package-to-edit`
 * Make changes. Remember to edit tests.
 * You may also want to add yourself to "Definitions by" section of the package header.
-  - This will cause you to be notified (via your GitHub username) whenever someone makes a pull request of issue about the package.
+  - This will cause you to be notified (via your GitHub username) whenever someone makes a pull request or issue about the package.
   - Do this by adding your name to the end of the line, as in `// Definitions by: Alice <https://github.com/alice>, Bob <https://github.com/bob>`.
   - Or if there are more people, it can be multiline
   ```typescript
