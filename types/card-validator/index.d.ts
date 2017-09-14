@@ -1,4 +1,4 @@
-// Type definitions for card-validator
+// Type definitions for card-validator 4.1.0
 // Project: https://github.com/braintree/card-validator
 // Definitions by: Gregory Moore <https://github.com/ChanceM>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -10,7 +10,7 @@ interface Card {
     isAmex: boolean;
     gaps: number[];
     lengths: number[];
-    code: {name: string, size: number}
+    code: {name: string, size: number};
 }
 
 interface valid {
@@ -35,10 +35,9 @@ interface validExpirationYear extends valid {
     isCurrentYear: boolean;
 }
 
-
-export declare function number(value: string): validNumber;
-export declare function expirationDate(value: string | {month: string, year: string}): validExpirationDate;
-export declare function expirationMonth(value: string): validExpirationMonth;
-export declare function expirationYear(value: string): validExpirationYear;
-export declare function cvv(value: string, maxLength?: number): valid;
-export declare function postalCode(value: string, options?: {minLength?: number}): valid;
+export function number(value: string): validNumber;
+export function expirationDate(value: string | {month: string, year: string}): validExpirationDate;
+export function expirationMonth(value: string): validExpirationMonth;
+export function expirationYear(value: string): validExpirationYear;
+export function cvv(value: string, maxLength?: number): valid;
+export function postalCode(value: string, options?: {minLength?: number}): valid;
