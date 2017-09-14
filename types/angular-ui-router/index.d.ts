@@ -1,6 +1,8 @@
-// Type definitions for Angular JS (ui.router module) 1.1.5
+// Type definitions for Angular JS (ui.router module) 1.1.38
 // Project: https://github.com/angular-ui/ui-router
-// Definitions by: Michel Salib <https://github.com/michelsalib>, Ivan Matiishyn <https://github.com/matiishyn>
+// Definitions by: Michel Salib <https://github.com/michelsalib>
+//                 Ivan Matiishyn <https://github.com/matiishyn>
+//                 Mike Haas <https://github.com/mikehaas763>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -272,10 +274,7 @@ declare module 'angular' {
             is(state: IState, params?: {}): boolean;
             href(state: IState, params?: {}, options?: IHrefOptions): string;
             href(state: string, params?: {}, options?: IHrefOptions): string;
-            get(state: string, context?: string): IState;
-            get(state: IState, context?: string): IState;
-            get(state: string, context?: IState): IState;
-            get(state: IState, context?: IState): IState;
+            get(state: string | IState, context?: string | IState): IState;
             get(): IState[];
             /** A reference to the state's config object. However you passed it in. Useful for accessing custom data. */
             current: IState;
