@@ -1,25 +1,20 @@
-// Type definitions for angular-strap v2.3.x
+// Type definitions for angular-strap 2.3
 // Project: http://mgcrea.github.io/angular-strap/
 // Definitions by: Sam Herrmann <https://github.com/samherrmann>
 //                 Matthias Kannwischer <https://github.com/mkannwischer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-
 /// <reference types="angular" />
 
 declare namespace mgcrea.ngStrap {
-
     ///////////////////////////////////////////////////////////////////////////
     // Modal
     // see http://mgcrea.github.io/angular-strap/#/modals
     ///////////////////////////////////////////////////////////////////////////
 
     namespace modal {
-
-        interface IModalService {
-            (config?: IModalOptions): IModal;
-        }
+        type IModalService = (config?: IModalOptions) => IModal;
 
         interface IModalProvider {
             defaults: IModalOptions;
@@ -27,9 +22,9 @@ declare namespace mgcrea.ngStrap {
 
         interface IModal {
             $promise: ng.IPromise<void>;
-            show: () => void;
-            hide: () => void;
-            toggle: () => void;
+            show(): void;
+            hide(): void;
+            toggle(): void;
         }
 
         interface IModalOptions {
@@ -53,19 +48,18 @@ declare namespace mgcrea.ngStrap {
             prefixEvent?: string;
             id?: string;
             scope?: ng.IScope;
-            onShow?: (modal: IModal) => void;
-            onBeforeShow?: (modal: IModal) => void;
-            onHide?: (modal: IModal) => void;
-            onBeforeHide?: (modal: IModal) => void;
+            onShow?(modal: IModal): void;
+            onBeforeShow?(modal: IModal): void;
+            onHide?(modal: IModal): void;
+            onBeforeHide?(modal: IModal): void;
         }
 
         interface IModalScope extends ng.IScope {
-            $show: () => void;
-            $hide: () => void;
-            $toggle: () => void;
+            $show(): void;
+            $hide(): void;
+            $toggle(): void;
         }
     }
-
 
     ///////////////////////////////////////////////////////////////////////////
     // Aside
@@ -73,10 +67,7 @@ declare namespace mgcrea.ngStrap {
     ///////////////////////////////////////////////////////////////////////////
 
     namespace aside {
-
-        interface IAsideService {
-            (config?: IAsideOptions): IAside;
-        }
+        type IAsideService = (config?: IAsideOptions) => IAside;
 
         interface IAsideProvider {
             defaults: IAsideOptions;
@@ -84,9 +75,9 @@ declare namespace mgcrea.ngStrap {
 
         interface IAside {
             $promise: ng.IPromise<void>;
-            show: () => void;
-            hide: () => void;
-            toggle: () => void;
+            show(): void;
+            hide(): void;
+            toggle(): void;
         }
 
         interface IAsideOptions {
@@ -105,20 +96,18 @@ declare namespace mgcrea.ngStrap {
             templateUrl?: string;
             contentTemplate?: string;
             scope?: ng.IScope;
-            onShow?: (aside: IAside) => void;
-            onBeforeShow?: (aside: IAside) => void;
-            onHide?: (aside: IAside) => void;
-            onBeforeHide?: (aside: IAside) => void;
+            onShow?(aside: IAside): void;
+            onBeforeShow?(aside: IAside): void;
+            onHide?(aside: IAside): void;
+            onBeforeHide?(aside: IAside): void;
         }
 
         interface IAsideScope extends ng.IScope {
-            $show: () => void;
-            $hide: () => void;
-            $toggle: () => void;
+            $show(): void;
+            $hide(): void;
+            $toggle(): void;
         }
     }
-
-
 
     ///////////////////////////////////////////////////////////////////////////
     // Alert
@@ -126,10 +115,7 @@ declare namespace mgcrea.ngStrap {
     ///////////////////////////////////////////////////////////////////////////
 
     namespace alert {
-
-        interface IAlertService {
-            (config?: IAlertOptions): IAlert;
-        }
+        type IAlertService = (config?: IAlertOptions) => IAlert;
 
         interface IAlertProvider {
             defaults: IAlertOptions;
@@ -137,9 +123,9 @@ declare namespace mgcrea.ngStrap {
 
         interface IAlert {
             $promise: ng.IPromise<void>;
-            show: () => void;
-            hide: () => void;
-            toggle: () => void;
+            show(): void;
+            hide(): void;
+            toggle(): void;
         }
 
         interface IAlertOptions {
@@ -156,19 +142,18 @@ declare namespace mgcrea.ngStrap {
             templateUrl?: string;
             duration?: number | boolean;
             dismissable?: boolean;
-            onShow?: (alert: IAlert) => void;
-            onBeforeShow?: (alert: IAlert) => void;
-            onHide?: (alert: IAlert) => void;
-            onBeforeHide?: (alert: IAlert) => void;
+            onShow?(alert: IAlert): void;
+            onBeforeShow?(alert: IAlert): void;
+            onHide?(alert: IAlert): void;
+            onBeforeHide?(alert: IAlert): void;
         }
 
         interface IAlertScope extends ng.IScope {
-            $show: () => void;
-            $hide: () => void;
-            $toggle: () => void;
+            $show(): void;
+            $hide(): void;
+            $toggle(): void;
         }
     }
-
 
     ///////////////////////////////////////////////////////////////////////////
     // Tooltip
@@ -176,10 +161,7 @@ declare namespace mgcrea.ngStrap {
     ///////////////////////////////////////////////////////////////////////////
 
     namespace tooltip {
-
-        interface ITooltipService {
-            (element: ng.IAugmentedJQuery, config?: ITooltipOptions): ITooltip;
-        }
+        type ITooltipService = (element: ng.IAugmentedJQuery, config?: ITooltipOptions) => ITooltip;
 
         interface ITooltipProvider {
             defaults: ITooltipOptions;
@@ -187,9 +169,9 @@ declare namespace mgcrea.ngStrap {
 
         interface ITooltip {
             $promise: ng.IPromise<void>;
-            show: () => void;
-            hide: () => void;
-            toggle: () => void;
+            show(): void;
+            hide(): void;
+            toggle(): void;
         }
 
         interface ITooltipOptions {
@@ -198,7 +180,7 @@ declare namespace mgcrea.ngStrap {
             trigger?: string;
             title?: string;
             html?: boolean;
-            delay?: number | { show: number; hide: number };
+            delay?: number | { show: number; hide: number};
             container?: string | boolean;
             target?: string | ng.IAugmentedJQuery | boolean;
             template?: string;
@@ -206,21 +188,20 @@ declare namespace mgcrea.ngStrap {
             titleTemplate?: string;
             prefixEvent?: string;
             id?: string;
-            onShow?: (tooltip: ITooltip) => void;
-            onBeforeShow?: (tooltip: ITooltip) => void;
-            onHide?: (tooltip: ITooltip) => void;
-            onBeforeHide?: (tooltip: ITooltip) => void;
+            onShow?(tooltip: ITooltip): void;
+            onBeforeShow?(tooltip: ITooltip): void;
+            onHide?(tooltip: ITooltip): void;
+            onBeforeHide?(tooltip: ITooltip): void;
             viewport?: string | { selector: string; padding: string | number };
         }
 
         interface ITooltipScope extends ng.IScope {
-            $show: () => void;
-            $hide: () => void;
-            $toggle: () => void;
-            $setEnabled: (isEnabled: boolean) => void;
+            $show(): void;
+            $hide(): void;
+            $toggle(): void;
+            $setEnabled(isEnabled: boolean): void;
         }
     }
-
 
     ///////////////////////////////////////////////////////////////////////////
     // Popover
@@ -228,10 +209,7 @@ declare namespace mgcrea.ngStrap {
     ///////////////////////////////////////////////////////////////////////////
 
     namespace popover {
-
-        interface IPopoverService {
-            (element: ng.IAugmentedJQuery, config?: IPopoverOptions): IPopover;
-        }
+        type IPopoverService = (element: ng.IAugmentedJQuery, config?: IPopoverOptions) => IPopover;
 
         interface IPopoverProvider {
             defaults: IPopoverOptions;
@@ -239,9 +217,9 @@ declare namespace mgcrea.ngStrap {
 
         interface IPopover {
             $promise: ng.IPromise<void>;
-            show: () => void;
-            hide: () => void;
-            toggle: () => void;
+            show(): void;
+            hide(): void;
+            toggle(): void;
         }
 
         interface IPopoverOptions {
@@ -259,21 +237,19 @@ declare namespace mgcrea.ngStrap {
             contentTemplate?: string;
             autoClose?: boolean;
             id?: string;
-            onShow?: (popover: IPopover) => void;
-            onBeforeShow?: (popover: IPopover) => void;
-            onHide?: (popover: IPopover) => void;
-            onBeforeHide?: (popover: IPopover) => void;
+            onShow?(popover: IPopover): void;
+            onBeforeShow?(popover: IPopover): void;
+            onHide?(popover: IPopover): void;
+            onBeforeHide?(popover: IPopover): void;
             viewport?: string | { selector: string; padding: string | number };
         }
 
         interface IPopoverScope extends ng.IScope {
-            $show: () => void;
-            $hide: () => void;
-            $toggle: () => void;
+            $show(): void;
+            $hide(): void;
+            $toggle(): void;
         }
     }
-
-
 
     ///////////////////////////////////////////////////////////////////////////
     // Typeahead
@@ -281,10 +257,7 @@ declare namespace mgcrea.ngStrap {
     ///////////////////////////////////////////////////////////////////////////
 
     namespace typeahead {
-
-        interface ITypeaheadService {
-            (element: ng.IAugmentedJQuery, controller: any, config?: ITypeaheadOptions): ITypeahead;
-        }
+        type ITypeaheadService = (element: ng.IAugmentedJQuery, controller: any, config?: ITypeaheadOptions) => ITypeahead;
 
         interface ITypeaheadProvider {
             defaults: ITypeaheadOptions;
@@ -292,9 +265,9 @@ declare namespace mgcrea.ngStrap {
 
         interface ITypeahead {
             $promise: ng.IPromise<void>;
-            show: () => void;
-            hide: () => void;
-            toggle: () => void;
+            show(): void;
+            hide(): void;
+            toggle(): void;
         }
 
         interface ITypeaheadOptions {
@@ -312,14 +285,13 @@ declare namespace mgcrea.ngStrap {
             id?: string;
             watchOptions?: boolean;
             trimValue?: boolean;
-            onShow?: (typeahead: ITypeahead) => void;
-            onBeforeShow?: (typeahead: ITypeahead) => void;
-            onHide?: (typeahead: ITypeahead) => void;
-            onBeforeHide?: (typeahead: ITypeahead) => void;
-            onSelect?: (typeahead: ITypeahead) => void;
+            onShow?(typeahead: ITypeahead): void;
+            onBeforeShow?(typeahead: ITypeahead): void;
+            onHide?(typeahead: ITypeahead): void;
+            onBeforeHide?(typeahead: ITypeahead): void;
+            onSelect?(typeahead: ITypeahead): void;
         }
     }
-
 
     ///////////////////////////////////////////////////////////////////////////
     // Datepicker
@@ -327,24 +299,21 @@ declare namespace mgcrea.ngStrap {
     ///////////////////////////////////////////////////////////////////////////
 
     namespace datepicker {
-
-        interface IDatepickerService {
-            (element: ng.IAugmentedJQuery, controller: any, config?: IDatepickerOptions): IDatepicker;
-        }
+        type IDatepickerService = (element: ng.IAugmentedJQuery, controller: any, config?: IDatepickerOptions) => IDatepicker;
 
         interface IDatepickerProvider {
             defaults: IDatepickerOptions;
         }
 
         interface IDatepicker {
-            update: (date: Date) => void;
-            updateDisabledDates: (dateRanges: IDatepickerDateRange[]) => void;
-            select: (dateConstructorArg: string | number | number[], keep: boolean) => void;
-            setMode: (mode: any) => void;
-            int: () => void;
-            destroy: () => void;
-            show: () => void;
-            hide: () => void;
+            update(date: Date): void;
+            updateDisabledDates(dateRanges: IDatepickerDateRange[]): void;
+            select(dateConstructorArg: string | number | number[], keep: boolean): void;
+            setMode(mode: any): void;
+            int(): void;
+            destroy(): void;
+            show(): void;
+            hide(): void;
         }
 
         interface IDatepickerDateRange {
@@ -360,10 +329,10 @@ declare namespace mgcrea.ngStrap {
             delay?: number | { show: number; hide: number };
             container?: string | boolean;
             template?: string;
-            onShow?: (datepicker: IDatepicker) => void;
-            onBeforeShow?: (datepicker: IDatepicker) => void;
-            onHide?: (datepicker: IDatepicker) => void;
-            onBeforeHide?: (datepicker: IDatepicker) => void;
+            onShow?(datepicker: IDatepicker): void;
+            onBeforeShow?(datepicker: IDatepicker): void;
+            onHide?(datepicker: IDatepicker): void;
+            onBeforeHide?(datepicker: IDatepicker): void;
             dateFormat?: string;
             modelDateFormat?: string;
             dateType?: string;
@@ -383,24 +352,19 @@ declare namespace mgcrea.ngStrap {
         }
     }
 
-
     ///////////////////////////////////////////////////////////////////////////
     // Timepicker
     // see http://mgcrea.github.io/angular-strap/#/timepickers
     ///////////////////////////////////////////////////////////////////////////
 
     namespace timepicker {
-
-        interface ITimepickerService {
-            (element: ng.IAugmentedJQuery, controller: any, config?: ITimepickerOptions): ITimepicker;
-        }
+        type ITimepickerService = (element: ng.IAugmentedJQuery, controller: any, config?: ITimepickerOptions) => ITimepicker;
 
         interface ITimepickerProvider {
             defaults: ITimepickerOptions;
         }
 
         interface ITimepicker {
-
         }
 
         interface ITimepickerOptions {
@@ -411,10 +375,10 @@ declare namespace mgcrea.ngStrap {
             delay?: number | { show: number; hide: number; };
             container?: string | boolean;
             template?: string;
-            onShow?: (timepicker: ITimepicker) => void;
-            onBeforeShow?: (timepicker: ITimepicker) => void;
-            onHide?: (timepicker: ITimepicker) => void;
-            onBeforeHide?: (timepicker: ITimepicker) => void;
+            onShow?(timepicker: ITimepicker): void;
+            onBeforeShow?(timepicker: ITimepicker): void;
+            onHide?(timepicker: ITimepicker): void;
+            onBeforeHide?(timepicker: ITimepicker): void;
             timeFormat?: string;
             modelTimeFormat?: string;
             timeType?: string;
@@ -433,7 +397,6 @@ declare namespace mgcrea.ngStrap {
         }
     }
 
-
     ///////////////////////////////////////////////////////////////////////////
     // Button
     // see http://mgcrea.github.io/angular-strap/#/buttons
@@ -441,53 +404,49 @@ declare namespace mgcrea.ngStrap {
 
     // No definitions for this module
 
-
     ///////////////////////////////////////////////////////////////////////////
     // Select
     // see http://mgcrea.github.io/angular-strap/#/selects
     ///////////////////////////////////////////////////////////////////////////
 
     namespace select {
-
-        interface ISelectService {
-            (element: ng.IAugmentedJQuery, controller: any, config: ISelectOptions): ISelect;
-        }
+        type ISelectService = (element: ng.IAugmentedJQuery, controller: any, config: ISelectOptions) => ISelect;
 
         interface ISelectProvider {
             defaults: ISelectOptions;
         }
 
         interface ISelect {
-            update: (matches: any) => void;
-            active: (index: number) => number;
-            select: (index: number) => void;
-            show: () => void;
-            hide: () => void;
+            update(matches: any): void;
+            active(index: number): number;
+            select(index: number): void;
+            show(): void;
+            hide(): void;
         }
 
         interface ISelectOptions {
-            animation?: string;
-            placement?: string;
-            trigger?: string;
-            html?: boolean;
-            delay?: number | { show: number; hide: number; };
-            container?: string | boolean;
-            template?: string;
-            toggle?: boolean;
-            onShow?: (select: ISelect) => void;
-            onBeforeShow?: (select: ISelect) => void;
-            onHide?: (select: ISelect) => void;
-            onBeforeHide?: (select: ISelect) => void;
-            multiple?: boolean;
-            allNoneButtons?: boolean;
-            allText?: string;
-            noneText?: string;
-            maxLength?: number;
-            maxLengthHtml?: string;
-            sort?: boolean;
-            placeholder?: string;
-            iconCheckmark?: string;
-            id?: string;
+          animation?: string;
+          placement?: string;
+          trigger?: string;
+          html?: boolean;
+          delay?: number | { show: number; hide: number; };
+          container?: string | boolean;
+          template?: string;
+          toggle?: boolean;
+          onShow?(select: ISelect): void;
+          onBeforeShow?(select: ISelect): void;
+          onHide?(select: ISelect): void;
+          onBeforeHide?(select: ISelect): void;
+          multiple?: boolean;
+          allNoneButtons?: boolean;
+          allText?: string;
+          noneText?: string;
+          maxLength?: number;
+          maxLengthHtml?: string;
+          sort?: boolean;
+          placeholder?: string;
+          iconCheckmark?: string;
+          id?: string;
         }
     }
 
@@ -497,7 +456,6 @@ declare namespace mgcrea.ngStrap {
     ///////////////////////////////////////////////////////////////////////////
 
     namespace tab {
-
         interface ITabProvider {
             defaults: ITabOptions;
         }
@@ -515,14 +473,12 @@ declare namespace mgcrea.ngStrap {
         }
     }
 
-
     ///////////////////////////////////////////////////////////////////////////
     // Collapses
     // see http://mgcrea.github.io/angular-strap/#/collapses
     ///////////////////////////////////////////////////////////////////////////
 
     namespace collapse {
-
         interface ICollapseProvider {
             defaults: ICollapseOptions;
         }
@@ -536,44 +492,39 @@ declare namespace mgcrea.ngStrap {
         }
     }
 
-
     ///////////////////////////////////////////////////////////////////////////
     // Dropdowsn
     // see http://mgcrea.github.io/angular-strap/#/dropdowns
     ///////////////////////////////////////////////////////////////////////////
 
     namespace dropdown {
-
         interface IDropdownProvider {
             defaults: IDropdownOptions;
         }
 
-        interface IDropdownService {
-            (element: ng.IAugmentedJQuery, config: IDropdownOptions): IDropdown;
-        }
+        type IDropdownService = (element: ng.IAugmentedJQuery, config: IDropdownOptions) => IDropdown;
 
         interface IDropdown {
-            show: () => void;
-            hide: () => void;
-            destroy: () => void;
+            show(): void;
+            hide(): void;
+            destroy(): void;
         }
 
         interface IDropdownOptions {
-            animation?: string;
-            placement?: string;
-            trigger?: string;
-            html?: boolean;
-            delay?: number | { show: number; hide: number; };
-            container?: string | boolean;
-            template?: string;
-            templateUrl?: string;
-            onShow?: (dropdown: IDropdown) => void;
-            onBeforeShow?: (dropdown: IDropdown) => void;
-            onHide?: (dropdown: IDropdown) => void;
-            onBeforeHide?: (dropdown: IDropdown) => void;
+          animation?: string;
+          placement?: string;
+          trigger?: string;
+          html?: boolean;
+          delay?: number | { show: number; hide: number; };
+          container?: string | boolean;
+          template?: string;
+          templateUrl?: string;
+          onShow?(dropdown: IDropdown): void;
+          onBeforeShow?(dropdown: IDropdown): void;
+          onHide?(dropdown: IDropdown): void;
+          onBeforeHide?(dropdown: IDropdown): void;
         }
     }
-
 
     ///////////////////////////////////////////////////////////////////////////
     // Navbar
@@ -581,7 +532,6 @@ declare namespace mgcrea.ngStrap {
     ///////////////////////////////////////////////////////////////////////////
 
     namespace navbar {
-
         interface INavbarProvider {
             defaults: INavbarOptions;
         }
@@ -596,27 +546,23 @@ declare namespace mgcrea.ngStrap {
         }
     }
 
-
     ///////////////////////////////////////////////////////////////////////////
     // Scrollspy
     // see http://mgcrea.github.io/angular-strap/#/scrollspy
     ///////////////////////////////////////////////////////////////////////////
 
     namespace scrollspy {
-
         interface IScrollspyProvider {
             defaults: IScrollspyOptions;
         }
 
-        interface IScrollspyService {
-            (element: ng.IAugmentedJQuery, options: IScrollspyOptions): IScrollspy;
-        }
+        type IScrollspyService = (element: ng.IAugmentedJQuery, options: IScrollspyOptions) => IScrollspy;
 
         interface IScrollspy {
-            checkOffsets: () => void;
-            trackElement: (target: any, source: any) => void;
-            untrackElement: (target: any, source: any) => void;
-            activate: (index: number) => void;
+            checkOffsets(): void;
+            trackElement(target: any, source: any): void;
+            untrackElement(target: any, source: any): void;
+            activate(index: number): void;
         }
 
         interface IScrollspyOptions {
@@ -625,27 +571,23 @@ declare namespace mgcrea.ngStrap {
         }
     }
 
-
     ///////////////////////////////////////////////////////////////////////////
     // Affix
     // see http://mgcrea.github.io/angular-strap/#/affix
     ///////////////////////////////////////////////////////////////////////////
 
     namespace affix {
-
         interface IAffixProvider {
             defaults: IAffixOptions;
         }
 
-        interface IAffixService {
-            (element: ng.IAugmentedJQuery, options: IAffixOptions): IAffix;
-        }
+        type IAffixService = (element: ng.IAugmentedJQuery, options: IAffixOptions) => IAffix;
 
         interface IAffix {
-            init: () => void;
-            destroy: () => void;
-            checkPositionWithEventLoop: () => void;
-            checkPosition: () => void;
+            init(): void;
+            destroy(): void;
+            checkPositionWithEventLoop(): void;
+            checkPosition(): void;
         }
 
         interface IAffixOptions {
