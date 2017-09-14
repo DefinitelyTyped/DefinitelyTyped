@@ -1,16 +1,15 @@
-// Type definitions for loglevel 1.4
+// Type definitions for loglevel 1.5
 // Project: https://github.com/pimterry/loglevel
 // Definitions by: Stefan Profanter <https://github.com/Pro>
 //                 Florian Wagner <https://github.com/flqw>
 //                 Gabor Szmetanko <https://github.com/szmeti>
 //                 Christian Rackerseder <https://github.com/screendriver>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 declare var log: Logger;
-
-declare module "loglevel" {
-  export = log;
-}
+export as namespace log;
+export = log;
 
 /**
  * Log levels
@@ -29,13 +28,9 @@ interface LogLevel {
  */
 type LogLevelNumbers = LogLevel[keyof LogLevel];
 
-interface LoggingMethod {
-    (...message: any[]): void;
-}
+type LoggingMethod = (...message: any[]) => void;
 
-interface MethodFactory {
-    (methodName: string, level: LogLevel, loggerName: string): LoggingMethod;
-}
+type MethodFactory = (methodName: string, level: LogLevelNumbers, loggerName: string) => LoggingMethod;
 
 interface Logger {
     /**
@@ -44,9 +39,9 @@ interface Logger {
     readonly levels: LogLevel;
 
     /**
-     * Plugin API entry point. This will be called for each enabled method each time the level is set 
-     * (including initially), and should return a MethodFactory to be used for the given log method, at the given level, 
-     * for a logger with the given name. If you'd like to retain all the reliability and features of loglevel, it's 
+     * Plugin API entry point. This will be called for each enabled method each time the level is set
+     * (including initially), and should return a MethodFactory to be used for the given log method, at the given level,
+     * for a logger with the given name. If you'd like to retain all the reliability and features of loglevel, it's
      * recommended that this wraps the initially provided value of log.methodFactory
      */
     methodFactory: MethodFactory;
@@ -91,35 +86,14 @@ interface Logger {
      * This disables all logging below the given level, so that after a log.setLevel("warn") call log.warn("something")
      * or log.error("something") will output messages, but log.info("something") will not.
      *
-     * @param level 0=trace to 5=silent
-     * @param persist Where possible the log level will be persisted. LocalStorage will be used if available, falling
-     *     back to cookies if not. If neither is available in the current environment (i.e. in Node), or if you pass
-     *     false as the optional 'persist' second argument, persistence will be skipped.
-     */
-    setLevel(level: LogLevelNumbers, persist?: boolean): void;
-
-    /**
-     * This disables all logging below the given level, so that after a log.setLevel("warn") call log.warn("something")
-     * or log.error("something") will output messages, but log.info("something") will not.
-     *
-     * @param level as the value from the log.levels property.
-     * @param persist Where possible the log level will be persisted. LocalStorage will be used if available, falling
-     *     back to cookies if not. If neither is available in the current environment (i.e. in Node), or if you pass
-     *     false as the optional 'persist' second argument, persistence will be skipped.
-     */
-    setLevel(level: LogLevelNumbers, persist?: boolean): void;
-
-    /**
-     * This disables all logging below the given level, so that after a log.setLevel("warn") call log.warn("something")
-     * or log.error("something") will output messages, but log.info("something") will not.
-     *
-     * @param level as a string, like 'error' (case-insensitive)
+     * @param level as a string, like 'error' (case-insensitive) or as a number from 0 to 5 (or as log.levels. values)
      * @param persist Where possible the log level will be persisted. LocalStorage will be used if available, falling
      *     back to cookies if not. If neither is available in the current environment (i.e. in Node), or if you pass
      *     false as the optional 'persist' second argument, persistence will be skipped.
      */
     setLevel(
         level:
+            LogLevelNumbers
             | 'trace'
             | 'debug'
             | 'info'
@@ -174,7 +148,7 @@ interface Logger {
      * circumstances.
      * @param name The name of the produced logger
      */
-    getLogger(name: String): Logger;
+    getLogger(name: string): Logger;
 
     /**
      * This enables all log messages, and is equivalent to log.setLevel("trace").

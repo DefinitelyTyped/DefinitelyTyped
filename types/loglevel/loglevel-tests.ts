@@ -1,4 +1,4 @@
-import * as moduleLog from 'loglevel'
+import * as moduleLog from 'loglevel';
 
 moduleLog.trace('Trace message');
 moduleLog.debug('Debug message');
@@ -23,14 +23,14 @@ moduleLog.enableAll();
 moduleLog.disableAll(true);
 moduleLog.disableAll();
 
-let logLevel = moduleLog.getLevel();
+const logLevel = moduleLog.getLevel();
 
-let testLogger = moduleLog.getLogger('TestLogger');
+const testLogger = moduleLog.getLogger('TestLogger');
 
 testLogger.setLevel(logLevel);
 testLogger.warn('logging test');
 
-let logging = moduleLog.noConflict();
+const logging = moduleLog.noConflict();
 
 logging.error("still pretty easy");
 
@@ -41,40 +41,3 @@ logging.error("still pretty easy");
 // };
 
 // ----------- global tests ----------
-
-log.trace("Trace message");
-log.debug("Debug message");
-log.info("Info message");
-log.warn("Warn message");
-log.error("Error message");
-log.debug(["Hello", "world", 42]);
-
-log.setLevel(0);
-log.setLevel(0, false);
-
-log.setLevel("error");
-log.setLevel("error", false);
-
-log.setLevel(log.levels.WARN);
-log.setLevel(log.levels.WARN, false);
-
-log.enableAll(false);
-log.enableAll();
-log.disableAll(true);
-log.disableAll();
-
-logLevel = log.getLevel();
-
-testLogger = log.getLogger("TestLogger");
-
-testLogger.setLevel(logLevel);
-testLogger.warn("logging test");
-
-logging = log.noConflict();
-
-logging.error("still pretty easy");
-
-log.methodFactory = function(methodName: string, level: LogLevel, loggerName :string) {
-    return function(...messages: any[]) {
-    };
-};
