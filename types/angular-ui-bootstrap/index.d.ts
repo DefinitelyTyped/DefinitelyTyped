@@ -321,6 +321,11 @@ declare module 'angular' {
 
         interface IModalService {
             /**
+             * @returns {IPromise}
+             */
+            getPromiseChain(): IPromise<any>;
+
+            /**
              * @param {IModalSettings} options
              * @returns {IModalInstanceService}
              */
@@ -389,7 +394,7 @@ declare module 'angular' {
             /**
              * inline template representing the modal's content
              */
-            template?: string;
+            template?: string | (() => string);
 
             /**
              * a scope instance to be used for the modal's content (actually the $modal service is going to create a child scope of a provided scope).
