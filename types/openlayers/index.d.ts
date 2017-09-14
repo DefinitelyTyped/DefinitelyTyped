@@ -1,6 +1,8 @@
 // Type definitions for OpenLayers v4.3.0
 // Project: http://openlayers.org/
-// Definitions by: Olivier Sechet <https://github.com/osechet>, Guilhem Brouat <https://github.com/ganlhi>
+// Definitions by: Olivier Sechet <https://github.com/osechet>
+//                 Guilhem Brouat <https://github.com/ganlhi>
+//                 Bin Wang <https://github.com/wb14123>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Definitions partially generated using tsd-jsdoc (https://github.com/englercj/tsd-jsdoc)
 
@@ -7597,7 +7599,7 @@ declare module ol {
          * @observable
          * @api stable
          */
-        setPosition(position: (ol.Coordinate)): void;
+        setPosition(position: (ol.Coordinate | undefined)): void;
 
         /**
          * Set the positioning for this overlay.
