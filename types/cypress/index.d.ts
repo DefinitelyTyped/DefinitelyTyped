@@ -375,6 +375,12 @@ declare namespace Cypress {
      */
     title(options?: Loggable): Chainable;
 
+     /**
+     * @description Trigger an event on a DOM element.
+     * @see https://docs.cypress.io/api/commands/trigger.html
+     */
+    trigger(eventName: string, position?: PositionType, x?:number, y?:number, options?: TriggerOptions): Chainable;
+
     /**
      * @see https://on.cypress.io/api/type
      */
@@ -539,6 +545,16 @@ declare namespace Cypress {
     onBeforeLoad?(args: any[]): void;
     onLoad?(args: any[]): void;
   }
+
+  interface TriggerOptions {
+    log?: boolean;
+    force?: boolean;
+    bubbles?: boolean;
+    cancable?: boolean;
+    timeout?: number;
+  }
+
+  type PositionType = "topLeft" | "top" | "topRight" | "left" | "center" | "right" | "bottomLeft" | "bottom" | "bottomRight";
 }
 
 declare const cy: Cypress.Chainable;
