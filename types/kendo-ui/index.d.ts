@@ -7025,7 +7025,7 @@ declare namespace kendo.ui {
         name?: string;
         autoHide?: boolean;
         animation?: boolean|TooltipAnimation;
-        content?: TooltipContent;
+        content?: string | TooltipContent | ((e: any) => string);
         callout?: boolean;
         filter?: string;
         iframe?: boolean;
