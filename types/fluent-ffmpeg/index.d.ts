@@ -90,7 +90,7 @@ declare namespace Ffmpeg {
     type FormatsCallback = (err: Error, formats: Formats) => void;
 
     interface FfprobeData {
-        stream: any[];
+        streams: any[];
         format: any;
         chapters: any[];
     }
