@@ -1,6 +1,6 @@
 // Type definitions for ssh2-sftp-client v1.1.0
 // Project: https://www.npmjs.com/package/ssh2-sftp-client
-// Definitions by: igrayson <https://github.com/igrayson>
+// Definitions by: igrayson <https://github.com/igrayson>, Ascari Andrea <https://github.com/ascariandrea>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="ssh2"/>
