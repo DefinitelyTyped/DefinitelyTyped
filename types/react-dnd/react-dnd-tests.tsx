@@ -10,17 +10,18 @@ import DragSource = ReactDnd.DragSource;
 import DropTarget = ReactDnd.DropTarget;
 import DragLayer = ReactDnd.DragLayer;
 import DragDropContext = ReactDnd.DragDropContext;
+import DragDropContextProvider = ReactDnd.DragDropContextProvider;
 import HTML5Backend, { getEmptyImage, NativeTypes } from "react-dnd-html5-backend";
 declare class TestBackend {
-	setup(): void;
-	teardown(): void;
-	connectDragSource(): void;
-	connectDropTarget(): void;
-	simulateBeginDrag(sourceIds: __ReactDnd.Identifier[], options?: {}): void;
-	simulatePublishDragSource(): void;
-	simulateHover(targetIds: __ReactDnd.Identifier[], options?: {}): void;
-	simulateDrop(): void;
-	simulateEndDrag(): void;
+    setup(): void;
+    teardown(): void;
+    connectDragSource(): void;
+    connectDropTarget(): void;
+    simulateBeginDrag(sourceIds: __ReactDnd.Identifier[], options?: {}): void;
+    simulatePublishDragSource(): void;
+    simulateHover(targetIds: __ReactDnd.Identifier[], options?: {}): void;
+    simulateDrop(): void;
+    simulateEndDrag(): void;
 }
 
 // Game Component
@@ -307,3 +308,17 @@ Board.createWithHTMLBackend({
 Board.createWithTestBackend({
     knightPosition: [0, 0]
 });
+
+
+// DragAndDropContextProvider
+// ----------------------------------------------------------------------
+
+export default class YourApp {
+  render() {
+    return (
+      <DragDropContextProvider backend={HTML5Backend}>
+      /* ... */
+      </DragDropContextProvider>
+    );
+  };
+}
