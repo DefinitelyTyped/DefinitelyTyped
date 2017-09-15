@@ -5,7 +5,7 @@
 
 import * as nodemailer from 'nodemailer';
 
-declare namespace mailgunTransport {
+export namespace mailgunTransport {
     export interface Options {
         auth: AuthOptions;
     }
@@ -15,6 +15,6 @@ declare namespace mailgunTransport {
     }
 }
 
-declare function mailgunTransport(options: mailgunTransport.Options): nodemailer.Transport;
+export function mailgunTransport(options: mailgunTransport.Options): nodemailer.Transport;
 
-export = mailgunTransport;
+// export = mailgunTransport;
