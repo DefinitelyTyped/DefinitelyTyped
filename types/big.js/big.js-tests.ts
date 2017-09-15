@@ -8,10 +8,11 @@
   Tests include code from http://mikemcl.github.io/big.js/
 
   Minor changes have been made such as adding variable definitions where required.
-  
+
 */
 
-import BigJS = BigJsLibrary.BigJS;
+import { Big, RoundingMode } from 'big.js';
+
 function constructorTests() {
     var x = new Big(9)                       // '9'
     var y = new Big(x)                       // '9'
@@ -25,7 +26,7 @@ function constructorTests() {
 function staticPropertiesTests() {
     Big.DP = 40;
     Big.RM = 3;
-    Big.RM = BigJsLibrary.RoundingMode.RoundAwayFromZero;
+    Big.RM = RoundingMode.RoundUp;
 }
 
 function absTests() {
@@ -199,39 +200,6 @@ function toJSONTests() {
     JSON.parse(str, function (k, v) { return k === '' ? v : new Big(v) }) // Returns an array of three Big numbers.
 }
 
-function propertiesTest1() {
-    var x = new Big(0.123)                 // '0.123'
-    x.toExponential()                  // '1.23e-1'
-    x.c                                // '1,2,3'
-    x.e                                // -1
-    x.s                                // 1
-
-    var y = new Number(-123.4567000e+2)    // '-12345.67'
-    y.toExponential()                  // '-1.234567e+4'
-    var z = new Big('-123.4567000e+2')     // '-12345.67'
-    z.toExponential()                  // '-1.234567e+4'
-    z.c                                // '1,2,3,4,5,6,7'
-    z.e                                // 4
-    z.s                                // -1
-}
-
-function propertiesTest2() {
-    var x = new Big('1234.000')    // '1234'
-    x.toExponential()          // '1.234e+3'
-    x.c                        // '1,2,3,4'
-    x.e                        // 3
-
-    x.e = -5
-    x                          // '0.00001234'
-}
-
-function propertiesTest3() {
-    var y = new Big(-0)            // '0'
-    y.c                        // '0'    [0].toString()
-    y.e                        // 0
-    y.s                        // -1
-}
-
 // see http://mikemcl.github.io/big.js/#faq
 // "How can I simultaneously use different decimal places and/or rounding mode settings for different Big numbers?"
 function testMultipleConstructors() {
@@ -248,7 +216,7 @@ function testMultipleConstructors() {
 	x.div(3)     // 1.667
 	y.div(3)     // 1.6666666667
 }
-function multipleTypesAccepted(n: number | BigJS | string) {
+function multipleTypesAccepted(n: number | Big | string) {
   var y = Big(n)
     .minus(n)
     .mod(n)
