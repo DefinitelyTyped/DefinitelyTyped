@@ -714,6 +714,13 @@ export interface XPadding {
 	left: number;
 	right: number;
 }
+export interface XLabel {
+	value: string;
+	position?: string;
+	offset?: number;
+	stroke?: string;
+	fontSize?: number;
+}
 export interface XAxisProps {
 	hide?: boolean;
 	dataKey?: string | number;
@@ -737,7 +744,7 @@ export interface XAxisProps {
 	tick?: boolean | any | React.ReactElement<any>;
 	mirror?: boolean;
 	reversed?: boolean;
-	label?: string | number | React.ReactElement<any>;
+	label?: string | number | React.ReactElement<any> | XLabel;
 	scale?: ScaleType | RechartsFunction;
 	unit?: string | number;
 	name?: string | number;
@@ -756,6 +763,13 @@ export class XAxis extends React.Component<XAxisProps> { }
 export interface YPadding {
 	top: number;
 	bottom: number;
+}
+export interface YLabel {
+	value: string;
+	position?: string;
+	offset?: number;
+	stroke?: string;
+	fontSize?: number;
 }
 export interface YAxisProps {
 	hide?: boolean;
@@ -780,7 +794,7 @@ export interface YAxisProps {
 	tick?: boolean | any | React.ReactElement<any>;
 	mirror?: boolean;
 	reversed?: boolean;
-	label?: string | number | React.ReactElement<any>;
+	label?: string | number | React.ReactElement<any> | YLabel;
 	scale?: ScaleType | RechartsFunction;
 	unit?: string | number;
 	name?: string | number;
