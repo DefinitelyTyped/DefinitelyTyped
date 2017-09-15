@@ -3015,7 +3015,7 @@ declare namespace MSHTML {
         public cancelBubble: boolean;
         public clientX: number;
         public clientY: number;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public readonly contentOverflow: boolean;
         public ctrlKey: boolean;
         public ctrlLeft: boolean;
@@ -3082,7 +3082,7 @@ declare namespace MSHTML {
     class CPlugins {
         private 'MSHTML.CPlugins_typekey': CPlugins;
         private constructor();
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public readonly length: number;
 
         /** @param boolean [reload=false] */
@@ -3232,7 +3232,7 @@ declare namespace MSHTML {
     class DOMChildrenCollection {
         private 'MSHTML.DOMChildrenCollection_typekey': DOMChildrenCollection;
         private constructor();
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public ie9_item(index: number): any;
         public item(index: number): any;
         public readonly length: number;
@@ -4076,7 +4076,7 @@ declare namespace MSHTML {
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public compareDocumentPosition(otherNode: IHTMLDOMNode): number;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public coords: string;
@@ -4449,7 +4449,7 @@ declare namespace MSHTML {
         public readonly clientWidth: number;
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public coords: string;
@@ -4721,7 +4721,7 @@ declare namespace MSHTML {
         private 'MSHTML.HTMLAreasCollection_typekey': HTMLAreasCollection;
         private constructor();
         public add(element: IHTMLElement, before?: any): void;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public ie8_item(index: number): IHTMLElement2;
         public readonly ie8_length: number;
         public ie8_namedItem(name: string): IHTMLElement2;
@@ -4738,7 +4738,7 @@ declare namespace MSHTML {
     class HTMLAttributeCollection {
         private 'MSHTML.HTMLAttributeCollection_typekey': HTMLAttributeCollection;
         private constructor();
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public getNamedItem(bstrName: string): IHTMLDOMAttribute;
         public getNamedItemNS(pvarNS: any, bstrName: string): IHTMLDOMAttribute2;
         public ie8_getNamedItem(bstrName: string): IHTMLDOMAttribute;
@@ -4817,7 +4817,7 @@ declare namespace MSHTML {
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public compareDocumentPosition(otherNode: IHTMLDOMNode): number;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public controls: boolean;
@@ -5178,7 +5178,7 @@ declare namespace MSHTML {
         public readonly clientWidth: number;
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public createControlRange(): any;
@@ -5488,7 +5488,7 @@ declare namespace MSHTML {
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public color: any;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public createControlRange(): any;
@@ -5797,7 +5797,7 @@ declare namespace MSHTML {
         public readonly clientWidth: number;
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public createControlRange(): any;
@@ -6108,7 +6108,7 @@ declare namespace MSHTML {
         public readonly clientWidth: number;
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public createControlRange(): any;
@@ -6421,7 +6421,7 @@ declare namespace MSHTML {
         public readonly clientWidth: number;
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public createControlRange(): any;
@@ -6748,7 +6748,7 @@ declare namespace MSHTML {
         public readonly clientWidth: number;
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public createControlRange(): any;
@@ -7055,7 +7055,7 @@ declare namespace MSHTML {
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public compareDocumentPosition(otherNode: IHTMLDOMNode): number;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public createControlRange(): any;
@@ -7387,7 +7387,7 @@ declare namespace MSHTML {
         public readonly clientWidth: number;
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public createControlRange(): any;
@@ -7699,7 +7699,7 @@ declare namespace MSHTML {
         public readonly clientWidth: number;
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public createControlRange(): any;
@@ -8472,7 +8472,7 @@ declare namespace MSHTML {
         public columns: string;
         public columnSpan: string;
         public columnWidth: any;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public readonly cursor: string;
         public readonly direction: string;
         public readonly display: string;
@@ -8779,7 +8779,7 @@ declare namespace MSHTML {
         public readonly clientWidth: number;
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public createControlRange(): any;
@@ -9037,7 +9037,7 @@ declare namespace MSHTML {
         private 'MSHTML.HTMLDefaults_typekey': HTMLDefaults;
         private constructor();
         public canHaveHTML: boolean;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contentEditable: string;
         public frozen: boolean;
         public isMultiLine: boolean;
@@ -9119,7 +9119,7 @@ declare namespace MSHTML {
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public compareDocumentPosition(otherNode: IHTMLDOMNode): number;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public createControlRange(): any;
@@ -9447,7 +9447,7 @@ declare namespace MSHTML {
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public compareDocumentPosition(otherNode: IHTMLDOMNode): number;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public createControlRange(): any;
@@ -9782,7 +9782,7 @@ declare namespace MSHTML {
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public compact: boolean;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public createControlRange(): any;
@@ -10059,7 +10059,7 @@ declare namespace MSHTML {
         public compareDocumentPosition(otherNode: IHTMLDOMNode): number;
         public readonly compatible: IHTMLDocumentCompatibleInfoCollection;
         public readonly compatMode: string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public cookie: string;
         public createAttribute(bstrAttrName: string): IHTMLDOMAttribute;
         public createAttributeNS(pvarNS: any, bstrAttrName: string): IHTMLDOMAttribute;
@@ -10311,13 +10311,13 @@ declare namespace MSHTML {
     class HTMLDocumentCompatibleInfo {
         private 'MSHTML.HTMLDocumentCompatibleInfo_typekey': HTMLDocumentCompatibleInfo;
         private constructor();
-        public readonly constructor: any;
+        public readonly 'constructor': any;
     }
 
     class HTMLDocumentCompatibleInfoCollection {
         private 'MSHTML.HTMLDocumentCompatibleInfoCollection_typekey': HTMLDocumentCompatibleInfoCollection;
         private constructor();
-        public readonly constructor: any;
+        public readonly 'constructor': any;
     }
 
     class HTMLDOMAttribute {
@@ -10328,7 +10328,7 @@ declare namespace MSHTML {
         public readonly childNodes: any;
         public cloneNode(fDeep: boolean): IHTMLDOMAttribute;
         public compareDocumentPosition(otherNode: IHTMLDOMNode): number;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public readonly expando: boolean;
         public readonly firstChild: IHTMLDOMNode;
         public hasAttributes(): boolean;
@@ -10380,7 +10380,7 @@ declare namespace MSHTML {
     class HTMLDOMImplementation {
         private 'MSHTML.HTMLDOMImplementation_typekey': HTMLDOMImplementation;
         private constructor();
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public createDocument(pvarNS: any, pvarTagName: any, pDocumentType: IDOMDocumentType): IHTMLDocument7;
         public createDocumentType(bstrQualifiedName: string, pvarPublicId: any, pvarSystemId: any): IDOMDocumentType;
         public createHTMLDocument(bstrTitle: string): IHTMLDocument7;
@@ -10429,7 +10429,7 @@ declare namespace MSHTML {
         public readonly childNodes: any;
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public compareDocumentPosition(otherNode: IHTMLDOMNode): number;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public data: string;
         public deleteData(offset: number, Count: number): void;
         public dispatchEvent(evt: IDOMEvent): boolean;
@@ -10542,7 +10542,7 @@ declare namespace MSHTML {
         public readonly clientWidth: number;
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public createControlRange(): any;
@@ -10799,7 +10799,7 @@ declare namespace MSHTML {
     class HTMLElementCollection {
         private 'MSHTML.HTMLElementCollection_typekey': HTMLElementCollection;
         private constructor();
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public ie8_item(index: number): IHTMLElement2;
         public readonly ie8_length: number;
         public ie8_namedItem(name: string): IHTMLElement2;
@@ -10864,7 +10864,7 @@ declare namespace MSHTML {
         public readonly clientWidth: number;
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public createControlRange(): any;
@@ -11182,7 +11182,7 @@ declare namespace MSHTML {
         public readonly clientWidth: number;
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public createControlRange(): any;
@@ -11490,7 +11490,7 @@ declare namespace MSHTML {
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public color: any;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public createControlRange(): any;
@@ -11813,7 +11813,7 @@ declare namespace MSHTML {
         public readonly clientWidth: number;
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public createControlRange(): any;
@@ -12134,7 +12134,7 @@ declare namespace MSHTML {
         public readonly clientWidth: number;
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public readonly contentWindow: IHTMLWindow2;
@@ -12454,7 +12454,7 @@ declare namespace MSHTML {
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public compareDocumentPosition(otherNode: IHTMLDOMNode): number;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public readonly contentDocument: any;
         public contentEditable: string;
@@ -12799,7 +12799,7 @@ declare namespace MSHTML {
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public cols: string;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public createControlRange(): any;
@@ -13118,7 +13118,7 @@ declare namespace MSHTML {
         public readonly clientWidth: number;
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public createControlRange(): any;
@@ -13426,7 +13426,7 @@ declare namespace MSHTML {
         public readonly clientWidth: number;
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public createControlRange(): any;
@@ -13736,7 +13736,7 @@ declare namespace MSHTML {
         public readonly clientWidth: number;
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public createControlRange(): any;
@@ -13993,7 +13993,7 @@ declare namespace MSHTML {
         private 'MSHTML.HTMLHistory_typekey': HTMLHistory;
         private constructor();
         public back(pvargdistance?: any): void;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public forward(pvargdistance?: any): void;
         public go(pvargdistance?: any): void;
         public readonly length: number;
@@ -14054,7 +14054,7 @@ declare namespace MSHTML {
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public color: any;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public createControlRange(): any;
@@ -14363,7 +14363,7 @@ declare namespace MSHTML {
         public readonly clientWidth: number;
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public createControlRange(): any;
@@ -14674,7 +14674,7 @@ declare namespace MSHTML {
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public compareDocumentPosition(otherNode: IHTMLDOMNode): number;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public readonly contentDocument: any;
         public contentEditable: string;
@@ -15029,7 +15029,7 @@ declare namespace MSHTML {
         public compareDocumentPosition(otherNode: IHTMLDOMNode): number;
         public readonly complete: boolean;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public createControlRange(): any;
@@ -15478,7 +15478,7 @@ declare namespace MSHTML {
         public compareDocumentPosition(otherNode: IHTMLDOMNode): number;
         public readonly complete: boolean;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public createControlRange(): any;
@@ -16134,7 +16134,7 @@ declare namespace MSHTML {
         public readonly clientWidth: number;
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public createControlRange(): any;
@@ -16443,7 +16443,7 @@ declare namespace MSHTML {
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public compareDocumentPosition(otherNode: IHTMLDOMNode): number;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public createControlRange(): any;
@@ -16772,7 +16772,7 @@ declare namespace MSHTML {
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public compareDocumentPosition(otherNode: IHTMLDOMNode): number;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public createControlRange(): any;
@@ -17098,7 +17098,7 @@ declare namespace MSHTML {
         public readonly clientWidth: number;
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public createControlRange(): any;
@@ -17407,7 +17407,7 @@ declare namespace MSHTML {
         public readonly clientWidth: number;
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public createControlRange(): any;
@@ -17724,7 +17724,7 @@ declare namespace MSHTML {
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public compact: boolean;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public createControlRange(): any;
@@ -17981,7 +17981,7 @@ declare namespace MSHTML {
         private 'MSHTML.HTMLLocation_typekey': HTMLLocation;
         private constructor();
         public assign(bstr: string): void;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public hash: string;
         public host: string;
         public hostname: string;
@@ -18051,7 +18051,7 @@ declare namespace MSHTML {
         public readonly clientWidth: number;
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public createControlRange(): any;
@@ -18361,7 +18361,7 @@ declare namespace MSHTML {
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public compareDocumentPosition(otherNode: IHTMLDOMNode): number;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public createControlRange(): any;
@@ -18705,7 +18705,7 @@ declare namespace MSHTML {
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public compareDocumentPosition(otherNode: IHTMLDOMNode): number;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public controls: boolean;
@@ -19067,7 +19067,7 @@ declare namespace MSHTML {
         public readonly clientWidth: number;
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public content: string;
         public contentEditable: string;
@@ -19355,7 +19355,7 @@ declare namespace MSHTML {
         private 'MSHTML.HTMLNamespace_typekey': HTMLNamespace;
         private constructor();
         public attachEvent(event: string, pdisp: any): boolean;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public detachEvent(event: string, pdisp: any): void;
         public doImport(bstrImplementationUrl: string): void;
         public readonly name: string;
@@ -19369,7 +19369,7 @@ declare namespace MSHTML {
         private 'MSHTML.HTMLNamespaceCollection_typekey': HTMLNamespaceCollection;
         private constructor();
         public add(bstrNamespace: string, bstrUrn: string, implementationUrl?: any): any;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public item(index: any): any;
         public readonly length: number;
     }
@@ -19383,7 +19383,7 @@ declare namespace MSHTML {
         public readonly appVersion: string;
         public readonly browserLanguage: string;
         public readonly connectionSpeed: number;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public readonly cookieEnabled: boolean;
         public readonly cpuClass: string;
         public readonly geolocation: IWebGeolocation;
@@ -19455,7 +19455,7 @@ declare namespace MSHTML {
         public readonly clientWidth: number;
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public createControlRange(): any;
@@ -19762,7 +19762,7 @@ declare namespace MSHTML {
         public readonly clientWidth: number;
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public createControlRange(): any;
@@ -20079,7 +20079,7 @@ declare namespace MSHTML {
         public codeType: string;
         public compareDocumentPosition(otherNode: IHTMLDOMNode): number;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public readonly contentDocument: any;
         public contentEditable: string;
@@ -20424,7 +20424,7 @@ declare namespace MSHTML {
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public compact: boolean;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public createControlRange(): any;
@@ -20826,7 +20826,7 @@ declare namespace MSHTML {
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public compareDocumentPosition(otherNode: IHTMLDOMNode): number;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public createControlRange(): any;
@@ -21167,7 +21167,7 @@ declare namespace MSHTML {
         public readonly clientWidth: number;
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public createControlRange(): any;
@@ -21473,7 +21473,7 @@ declare namespace MSHTML {
         public readonly clientWidth: number;
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public createControlRange(): any;
@@ -21831,7 +21831,7 @@ declare namespace MSHTML {
         public readonly clientWidth: number;
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public createControlRange(): any;
@@ -22089,7 +22089,7 @@ declare namespace MSHTML {
     class HTMLPopup {
         private 'MSHTML.HTMLPopup_typekey': HTMLPopup;
         private constructor();
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public readonly document: IHTMLDocument;
         public Hide(): void;
         public readonly isOpen: boolean;
@@ -22150,7 +22150,7 @@ declare namespace MSHTML {
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public compareDocumentPosition(otherNode: IHTMLDOMNode): number;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public createControlRange(): any;
@@ -22495,7 +22495,7 @@ declare namespace MSHTML {
         public cols: number;
         public compareDocumentPosition(otherNode: IHTMLDOMNode): number;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public createControlRange(): any;
@@ -22852,7 +22852,7 @@ declare namespace MSHTML {
         public columns: string;
         public columnSpan: string;
         public columnWidth: any;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public content: string;
         public counterIncrement: string;
         public counterReset: string;
@@ -23136,7 +23136,7 @@ declare namespace MSHTML {
         public readonly availWidth: number;
         public bufferDepth: number;
         public readonly colorDepth: number;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public readonly deviceXDPI: number;
         public readonly deviceYDPI: number;
         public readonly fontSmoothingEnabled: boolean;
@@ -23204,7 +23204,7 @@ declare namespace MSHTML {
         public readonly clientWidth: number;
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public createControlRange(): any;
@@ -23520,7 +23520,7 @@ declare namespace MSHTML {
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public compareDocumentPosition(otherNode: IHTMLDOMNode): number;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public createControlRange(): any;
@@ -23864,7 +23864,7 @@ declare namespace MSHTML {
         public readonly clientWidth: number;
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public createControlRange(): any;
@@ -24171,7 +24171,7 @@ declare namespace MSHTML {
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public compareDocumentPosition(otherNode: IHTMLDOMNode): number;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public createControlRange(): any;
@@ -24500,7 +24500,7 @@ declare namespace MSHTML {
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public compareDocumentPosition(otherNode: IHTMLDOMNode): number;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public createControlRange(): any;
@@ -24827,7 +24827,7 @@ declare namespace MSHTML {
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public compareDocumentPosition(otherNode: IHTMLDOMNode): number;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public createControlRange(): any;
@@ -25103,7 +25103,7 @@ declare namespace MSHTML {
         private 'MSHTML.HTMLStorage_typekey': HTMLStorage;
         private constructor();
         public clear(): void;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public getItem(bstrKey: string): any;
         public ie9_setItem(bstrKey: string, bstrValue: string): void;
         public key(lIndex: number): string;
@@ -25187,7 +25187,7 @@ declare namespace MSHTML {
         public columns: string;
         public columnSpan: string;
         public columnWidth: any;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public content: string;
         public counterIncrement: string;
         public counterReset: string;
@@ -25531,7 +25531,7 @@ declare namespace MSHTML {
         public readonly clientWidth: number;
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public createControlRange(): any;
@@ -25818,7 +25818,7 @@ declare namespace MSHTML {
 
         /** @param number [lIndex=-1] */
         public addRule(bstrSelector: string, bstrStyle: string, lIndex?: number): number;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public readonly cssRules: IHTMLStyleSheetRulesCollection;
         public cssText: string;
 
@@ -25855,7 +25855,7 @@ declare namespace MSHTML {
     class HTMLStyleSheetPage {
         private 'MSHTML.HTMLStyleSheetPage_typekey': HTMLStyleSheetPage;
         private constructor();
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public cssText: string;
         public readonly parentRule: IHTMLCSSRule;
         public readonly parentStyleSheet: IHTMLStyleSheet;
@@ -25869,7 +25869,7 @@ declare namespace MSHTML {
     class HTMLStyleSheetPagesCollection {
         private 'MSHTML.HTMLStyleSheetPagesCollection_typekey': HTMLStyleSheetPagesCollection;
         private constructor();
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public item(index: number): IHTMLStyleSheetPage;
         public readonly length: number;
     }
@@ -25877,7 +25877,7 @@ declare namespace MSHTML {
     class HTMLStyleSheetRule {
         private 'MSHTML.HTMLStyleSheetRule_typekey': HTMLStyleSheetRule;
         private constructor();
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public cssText: string;
         public ie9_selectorText: string;
         public msGetSpecificity(index: number): number;
@@ -25902,7 +25902,7 @@ declare namespace MSHTML {
     class HTMLStyleSheetRulesCollection {
         private 'MSHTML.HTMLStyleSheetRulesCollection_typekey': HTMLStyleSheetRulesCollection;
         private constructor();
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public ie9_item(index: number): IHTMLCSSRule;
         public readonly ie9_length: number;
         public item(index: number): IHTMLStyleSheetRule;
@@ -25912,7 +25912,7 @@ declare namespace MSHTML {
     class HTMLStyleSheetsCollection {
         private 'MSHTML.HTMLStyleSheetsCollection_typekey': HTMLStyleSheetsCollection;
         private constructor();
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public ie9_item(index: number): any;
         public item(pvarIndex: any): any;
         public readonly length: number;
@@ -25984,7 +25984,7 @@ declare namespace MSHTML {
         public cols: number;
         public compareDocumentPosition(otherNode: IHTMLDOMNode): number;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public createCaption(): IHTMLTableCaption;
@@ -26353,7 +26353,7 @@ declare namespace MSHTML {
         public readonly clientWidth: number;
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public createControlRange(): any;
@@ -26672,7 +26672,7 @@ declare namespace MSHTML {
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public colSpan: number;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public createControlRange(): any;
@@ -26990,7 +26990,7 @@ declare namespace MSHTML {
         public readonly clientWidth: number;
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public createControlRange(): any;
@@ -27309,7 +27309,7 @@ declare namespace MSHTML {
         public readonly clientWidth: number;
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public createControlRange(): any;
@@ -27637,7 +27637,7 @@ declare namespace MSHTML {
         public readonly clientWidth: number;
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public createControlRange(): any;
@@ -27967,7 +27967,7 @@ declare namespace MSHTML {
         public cols: number;
         public compareDocumentPosition(otherNode: IHTMLDOMNode): number;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public createControlRange(): any;
@@ -28306,7 +28306,7 @@ declare namespace MSHTML {
         public readonly clientWidth: number;
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public createControlRange(): any;
@@ -28622,7 +28622,7 @@ declare namespace MSHTML {
         public readonly clientWidth: number;
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public createControlRange(): any;
@@ -28930,7 +28930,7 @@ declare namespace MSHTML {
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public compact: boolean;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public createControlRange(): any;
@@ -29237,7 +29237,7 @@ declare namespace MSHTML {
         public readonly clientWidth: number;
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public createControlRange(): any;
@@ -29493,7 +29493,7 @@ declare namespace MSHTML {
     class HTMLUrnCollection {
         private 'MSHTML.HTMLUrnCollection_typekey': HTMLUrnCollection;
         private constructor();
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public item(index: number): string;
         public readonly length: number;
     }
@@ -29556,7 +29556,7 @@ declare namespace MSHTML {
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public compareDocumentPosition(otherNode: IHTMLDOMNode): number;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public controls: boolean;
@@ -30259,7 +30259,7 @@ declare namespace MSHTML {
 
         /** @param string [message=''] */
         public confirm(message?: string): boolean;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public createPopup(varArgIn?: any): any;
         public defaultStatus: string;
         public detachEvent(event: string, pdisp: any): void;
@@ -30445,7 +30445,7 @@ declare namespace MSHTML {
 
         /** @param string [message=''] */
         public confirm(message?: string): boolean;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public createPopup(varArgIn?: any): any;
         public defaultStatus: string;
         public detachEvent(event: string, pdisp: any): void;
@@ -30666,7 +30666,7 @@ declare namespace MSHTML {
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public compareDocumentPosition(otherNode: IHTMLDOMNode): number;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public createControlRange(): any;
@@ -31000,7 +31000,7 @@ declare namespace MSHTML {
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public compareDocumentPosition(otherNode: IHTMLDOMNode): number;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public createControlRange(): any;
@@ -31293,7 +31293,7 @@ declare namespace MSHTML {
         private constructor();
         public abort(): void;
         public addEventListener(type: string, listener: any, useCapture: boolean): void;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public dispatchEvent(evt: IDOMEvent): boolean;
         public getAllResponseHeaders(): string;
         public getResponseHeader(bstrHeader: string): string;
@@ -33379,7 +33379,7 @@ declare namespace MSHTML {
         public compareDocumentPosition(otherNode: IHTMLDOMNode): number;
         public readonly compatible: IHTMLDocumentCompatibleInfoCollection;
         public readonly compatMode: string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public cookie: string;
         public createAttribute(bstrAttrName: string): IHTMLDOMAttribute;
         public createAttributeNS(pvarNS: any, bstrAttrName: string): IHTMLDOMAttribute;
@@ -33696,7 +33696,7 @@ declare namespace MSHTML {
         public readonly clientWidth: number;
         public cloneNode(fDeep: boolean): IHTMLDOMNode;
         public componentFromPoint(x: number, y: number): string;
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public contains(pChild: IHTMLElement): boolean;
         public contentEditable: string;
         public createControlRange(): any;
@@ -34007,7 +34007,7 @@ declare namespace MSHTML {
     class StaticNodeList {
         private 'MSHTML.StaticNodeList_typekey': StaticNodeList;
         private constructor();
-        public readonly constructor: any;
+        public readonly 'constructor': any;
         public item(index: number): any;
         public readonly length: number;
     }
@@ -35483,7 +35483,7 @@ declare namespace MSHTML {
     class XDomainRequest {
         private 'MSHTML.XDomainRequest_typekey': XDomainRequest;
         private constructor();
-        public readonly constructor: any;
+        public readonly 'constructor': any;
     }
 
     class XDomainRequestFactory {

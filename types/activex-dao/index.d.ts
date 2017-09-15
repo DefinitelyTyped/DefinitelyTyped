@@ -874,6 +874,7 @@ interface ActiveXObject {
 
 interface ActiveXObjectNameMap {
     'DAO.DBEngine': DAO.DBEngine;
+    'DAO.DBEngine.120': DAO.DBEngine;
     'DAO.Field': DAO.Field;
     'DAO.Group': DAO.Group;
     'DAO.Index': DAO.Index;

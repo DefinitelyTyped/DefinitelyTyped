@@ -19,6 +19,7 @@ conn.Open();
 
 // create a Command to access the data
 let cmd = new ActiveXObject('ADODB.Command');
+cmd.ActiveConnection = conn;
 cmd.CommandText = 'SELECT DISTINCT LastName, CityName FROM [Sheet1$]';
 // get a Recordset
 let rs = cmd.Execute();
@@ -26,3 +27,31 @@ let rs = cmd.Execute();
 let s = rs.GetString(ADODB.StringFormatEnum.adClipString, -1, '\t', '\n', '(NULL)');
 rs.Close();
 WScript.Echo(s);
+
+// create a disconnected recordset -- https://support.microsoft.com/en-us/help/184397/how-to-create-ado-disconnected-recordsets-in-vba-c-java
+(() => {
+    conn = new ActiveXObject('ADODB.Connection');
+    conn.Open(); // pass connection details here
+
+    rs = new ActiveXObject('ADODB.Recordset');
+    rs.CursorLocation = ADODB.CursorLocationEnum.adUseClient;
+    rs.Open('SELECT * FROM Table1', conn, ADODB.CursorTypeEnum.adOpenForwardOnly, ADODB.LockTypeEnum.adLockBatchOptimistic);
+    rs.ActiveConnection = null;
+
+    let v = rs.Fields.Item(0).Value;
+    conn.Close();
+})();
+
+// helper function
+const toSafeArray = <T>(...items: T[]) => {
+    let dict = new ActiveXObject('Scripting.Dictionary');
+    items.forEach((x, index) => dict.Add(index, x));
+    return dict.Items() as SafeArray<T>;
+};
+
+// update with SafeArray
+(() => {
+    let fields = toSafeArray('firstname', 'lastname');
+    let values = toSafeArray('Plony', 'Almony');
+    rs.Update(fields, values);
+})();

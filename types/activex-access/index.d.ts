@@ -4086,7 +4086,8 @@ declare namespace Access {
         public readonly Application: Application;
         public readonly Count: number;
         public IsMemberSafe(dispid: number): boolean;
-        public Item(Index: any): any;
+        public Item<T>(index: number | string): T;
+        public Item(Index: number | string): Control;
         public readonly Parent: any;
     }
 
@@ -4337,7 +4338,8 @@ declare namespace Access {
          * @param Access.AcObjectType [ObjectType=-1]
          * @param Access.AcCloseSave [Save=0]
          */
-        public Close(ObjectType?: AcObjectType, ObjectName?: any, Save?: AcCloseSave): void;
+        public Close(ObjectType: AcObjectType, ObjectName: any, Save?: AcCloseSave): void;
+        public Close(): void;
         public CloseDatabase(): void;
         public CopyDatabaseFile(DatabaseFileName: any, OverwriteExistingFile?: any, DisconnectAllUsers?: any): void;
 
@@ -4380,7 +4382,7 @@ declare namespace Access {
          * @param Access.AcFormOpenDataMode [DataMode=-1]
          * @param Access.AcWindowMode [WindowMode=0]
          */
-        public OpenForm(FormName: any, View?: AcFormView, FilterName?: any, WhereCondition?: any, DataMode?: AcFormOpenDataMode, WindowMode?: AcWindowMode, OpenArgs?: any): void;
+        public OpenForm(FormName: any, View?: AcFormView, FilterName?: string, WhereCondition?: string, DataMode?: AcFormOpenDataMode, WindowMode?: AcWindowMode, OpenArgs?: string): void;
 
         /**
          * @param Access.AcView [View=0]
@@ -4399,7 +4401,7 @@ declare namespace Access {
          * @param Access.AcView [View=0]
          * @param Access.AcWindowMode [WindowMode=0]
          */
-        public OpenReport(ReportName: any, View?: AcView, FilterName?: any, WhereCondition?: any, WindowMode?: AcWindowMode, OpenArgs?: any): void;
+        public OpenReport(ReportName: any, View?: AcView, FilterName?: string, WhereCondition?: string, WindowMode?: AcWindowMode, OpenArgs?: string): void;
 
         /** @param Access.AcView [View=0] */
         public OpenReportOld0(ReportName: any, View?: AcView, FilterName?: any, WhereCondition?: any): void;
@@ -5404,7 +5406,7 @@ declare namespace Access {
         public readonly Application: Application;
         public readonly Count: number;
         public IsMemberSafe(dispid: number): boolean;
-        public Item(Index: any): Form;
+        public Item(Index: number | string): Form;
         public readonly Parent: any;
     }
 

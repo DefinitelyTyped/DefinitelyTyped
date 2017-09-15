@@ -1,4 +1,4 @@
-// Type definitions for Microsoft ActiveX Data Objects 6.1
+// Type definitions for Microsoft ActiveX Data Objects 6.0 Library - ADODB 6.1
 // Project: https://msdn.microsoft.com/en-us/library/jj249010.aspx
 // Definitions by: Zev Spitz <https://github.com/zspitz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -9,19 +9,19 @@ declare namespace ADODB {
         adPriorityBelowNormal = 2,
         adPriorityHighest = 5,
         adPriorityLowest = 1,
-        adPriorityNormal = 3
+        adPriorityNormal = 3,
     }
 
     const enum ADCPROP_AUTORECALC_ENUM {
         adRecalcAlways = 1,
-        adRecalcUpFront = 0
+        adRecalcUpFront = 0,
     }
 
     const enum ADCPROP_UPDATECRITERIA_ENUM {
         adCriteriaAllCols = 1,
         adCriteriaKey = 0,
         adCriteriaTimeStamp = 3,
-        adCriteriaUpdCols = 2
+        adCriteriaUpdCols = 2,
     }
 
     const enum ADCPROP_UPDATERESYNC_ENUM {
@@ -30,20 +30,20 @@ declare namespace ADODB {
         adResyncConflicts = 2,
         adResyncInserts = 8,
         adResyncNone = 0,
-        adResyncUpdates = 4
+        adResyncUpdates = 4,
     }
 
     const enum AffectEnum {
         adAffectAll = 3,
         adAffectAllChapters = 4,
         adAffectCurrent = 1,
-        adAffectGroup = 2
+        adAffectGroup = 2,
     }
 
     const enum BookmarkEnum {
         adBookmarkCurrent = 0,
         adBookmarkFirst = 1,
-        adBookmarkLast = 2
+        adBookmarkLast = 2,
     }
 
     const enum CommandTypeEnum {
@@ -53,7 +53,7 @@ declare namespace ADODB {
         adCmdTableDirect = 512,
         adCmdText = 1,
         adCmdUnknown = 8,
-        adCmdUnspecified = -1
+        adCmdUnspecified = -1,
     }
 
     const enum CompareEnum {
@@ -61,7 +61,7 @@ declare namespace ADODB {
         adCompareGreaterThan = 2,
         adCompareLessThan = 0,
         adCompareNotComparable = 4,
-        adCompareNotEqual = 3
+        adCompareNotEqual = 3,
     }
 
     const enum ConnectModeEnum {
@@ -73,33 +73,33 @@ declare namespace ADODB {
         adModeShareDenyWrite = 8,
         adModeShareExclusive = 12,
         adModeUnknown = 0,
-        adModeWrite = 2
+        adModeWrite = 2,
     }
 
     const enum ConnectOptionEnum {
         adAsyncConnect = 16,
-        adConnectUnspecified = -1
+        adConnectUnspecified = -1,
     }
 
     const enum ConnectPromptEnum {
         adPromptAlways = 1,
         adPromptComplete = 2,
         adPromptCompleteRequired = 3,
-        adPromptNever = 4
+        adPromptNever = 4,
     }
 
     const enum CopyRecordOptionsEnum {
         adCopyAllowEmulation = 4,
         adCopyNonRecursive = 2,
         adCopyOverWrite = 1,
-        adCopyUnspecified = -1
+        adCopyUnspecified = -1,
     }
 
     const enum CursorLocationEnum {
         adUseClient = 3,
         adUseClientBatch = 3,
         adUseNone = 1,
-        adUseServer = 2
+        adUseServer = 2,
     }
 
     const enum CursorOptionEnum {
@@ -115,7 +115,7 @@ declare namespace ADODB {
         adResync = 131072,
         adSeek = 4194304,
         adUpdate = 16809984,
-        adUpdateBatch = 65536
+        adUpdateBatch = 65536,
     }
 
     const enum CursorTypeEnum {
@@ -123,7 +123,7 @@ declare namespace ADODB {
         adOpenForwardOnly = 0,
         adOpenKeyset = 1,
         adOpenStatic = 3,
-        adOpenUnspecified = -1
+        adOpenUnspecified = -1,
     }
 
     const enum DataTypeEnum {
@@ -166,14 +166,14 @@ declare namespace ADODB {
         adVariant = 12,
         adVarNumeric = 139,
         adVarWChar = 202,
-        adWChar = 130
+        adWChar = 130,
     }
 
     const enum EditModeEnum {
         adEditAdd = 2,
         adEditDelete = 4,
         adEditInProgress = 1,
-        adEditNone = 0
+        adEditNone = 0,
     }
 
     const enum ErrorValueEnum {
@@ -240,7 +240,7 @@ declare namespace ADODB {
         adErrVolumeNotFound = 3733,
         adErrWriteFile = 3004,
         adwrnSecurityDialog = 3717,
-        adwrnSecurityDialogHeader = 3718
+        adwrnSecurityDialogHeader = 3718,
     }
 
     const enum EventReasonEnum {
@@ -258,7 +258,7 @@ declare namespace ADODB {
         adRsnUndoAddNew = 5,
         adRsnUndoDelete = 6,
         adRsnUndoUpdate = 4,
-        adRsnUpdate = 3
+        adRsnUpdate = 3,
     }
 
     const enum EventStatusEnum {
@@ -266,7 +266,7 @@ declare namespace ADODB {
         adStatusCantDeny = 3,
         adStatusErrorsOccurred = 2,
         adStatusOK = 1,
-        adStatusUnwantedEvent = 5
+        adStatusUnwantedEvent = 5,
     }
 
     const enum ExecuteOptionEnum {
@@ -276,7 +276,7 @@ declare namespace ADODB {
         adExecuteNoRecords = 128,
         adExecuteRecord = 2048,
         adExecuteStream = 1024,
-        adOptionUnspecified = -1
+        adOptionUnspecified = -1,
     }
 
     const enum FieldAttributeEnum {
@@ -296,12 +296,12 @@ declare namespace ADODB {
         adFldRowVersion = 512,
         adFldUnknownUpdatable = 8,
         adFldUnspecified = -1,
-        adFldUpdatable = 4
+        adFldUpdatable = 4,
     }
 
     const enum FieldEnum {
         adDefaultStream = -1,
-        adRecordURL = -2
+        adRecordURL = -2,
     }
 
     const enum FieldStatusEnum {
@@ -334,7 +334,7 @@ declare namespace ADODB {
         adFieldSignMismatch = 5,
         adFieldTruncated = 4,
         adFieldUnavailable = 8,
-        adFieldVolumeNotFound = 21
+        adFieldVolumeNotFound = 21,
     }
 
     const enum FilterGroupEnum {
@@ -343,11 +343,11 @@ declare namespace ADODB {
         adFilterFetchedRecords = 3,
         adFilterNone = 0,
         adFilterPendingRecords = 1,
-        adFilterPredicate = 4
+        adFilterPredicate = 4,
     }
 
     const enum GetRowsOptionEnum {
-        adGetRowsRest = -1
+        adGetRowsRest = -1,
     }
 
     const enum IsolationLevelEnum {
@@ -359,13 +359,13 @@ declare namespace ADODB {
         adXactReadUncommitted = 256,
         adXactRepeatableRead = 65536,
         adXactSerializable = 1048576,
-        adXactUnspecified = -1
+        adXactUnspecified = -1,
     }
 
     const enum LineSeparatorEnum {
         adCR = 13,
         adCRLF = -1,
-        adLF = 10
+        adLF = 10,
     }
 
     const enum LockTypeEnum {
@@ -373,19 +373,19 @@ declare namespace ADODB {
         adLockOptimistic = 3,
         adLockPessimistic = 2,
         adLockReadOnly = 1,
-        adLockUnspecified = -1
+        adLockUnspecified = -1,
     }
 
     const enum MarshalOptionsEnum {
         adMarshalAll = 0,
-        adMarshalModifiedOnly = 1
+        adMarshalModifiedOnly = 1,
     }
 
     const enum MoveRecordOptionsEnum {
         adMoveAllowEmulation = 4,
         adMoveDontUpdateLinks = 2,
         adMoveOverWrite = 1,
-        adMoveUnspecified = -1
+        adMoveUnspecified = -1,
     }
 
     const enum ObjectStateEnum {
@@ -393,13 +393,13 @@ declare namespace ADODB {
         adStateConnecting = 2,
         adStateExecuting = 4,
         adStateFetching = 8,
-        adStateOpen = 1
+        adStateOpen = 1,
     }
 
     const enum ParameterAttributesEnum {
         adParamLong = 128,
         adParamNullable = 64,
-        adParamSigned = 16
+        adParamSigned = 16,
     }
 
     const enum ParameterDirectionEnum {
@@ -407,24 +407,24 @@ declare namespace ADODB {
         adParamInputOutput = 3,
         adParamOutput = 2,
         adParamReturnValue = 4,
-        adParamUnknown = 0
+        adParamUnknown = 0,
     }
 
     const enum PersistFormatEnum {
         adPersistADTG = 0,
-        adPersistXML = 1
+        adPersistXML = 1,
     }
 
     const enum PositionEnum {
         adPosBOF = -2,
         adPosEOF = -3,
-        adPosUnknown = -1
+        adPosUnknown = -1,
     }
 
     const enum PositionEnum_Param {
         adPosBOF = -2,
         adPosEOF = -3,
-        adPosUnknown = -1
+        adPosUnknown = -1,
     }
 
     const enum PropertyAttributesEnum {
@@ -432,7 +432,7 @@ declare namespace ADODB {
         adPropOptional = 2,
         adPropRead = 512,
         adPropRequired = 1,
-        adPropWrite = 1024
+        adPropWrite = 1024,
     }
 
     const enum RecordCreateOptionsEnum {
@@ -441,7 +441,7 @@ declare namespace ADODB {
         adCreateOverwrite = 67108864,
         adCreateStructDoc = -2147483648,
         adFailIfNotExists = -1,
-        adOpenIfExists = 33554432
+        adOpenIfExists = 33554432,
     }
 
     const enum RecordOpenOptionsEnum {
@@ -451,7 +451,7 @@ declare namespace ADODB {
         adOpenExecuteCommand = 65536,
         adOpenOutput = 8388608,
         adOpenRecordUnspecified = -1,
-        adOpenSource = 8388608
+        adOpenSource = 8388608,
     }
 
     const enum RecordStatusEnum {
@@ -472,23 +472,23 @@ declare namespace ADODB {
         adRecPendingChanges = 128,
         adRecPermissionDenied = 65536,
         adRecSchemaViolation = 131072,
-        adRecUnmodified = 8
+        adRecUnmodified = 8,
     }
 
     const enum RecordTypeEnum {
         adCollectionRecord = 1,
         adSimpleRecord = 0,
-        adStructDoc = 2
+        adStructDoc = 2,
     }
 
     const enum ResyncEnum {
         adResyncAllValues = 2,
-        adResyncUnderlyingValues = 1
+        adResyncUnderlyingValues = 1,
     }
 
     const enum SaveOptionsEnum {
         adSaveCreateNotExist = 1,
-        adSaveCreateOverWrite = 2
+        adSaveCreateOverWrite = 2,
     }
 
     const enum SchemaEnum {
@@ -537,17 +537,17 @@ declare namespace ADODB {
         adSchemaUsagePrivileges = 15,
         adSchemaViewColumnUsage = 24,
         adSchemaViews = 23,
-        adSchemaViewTableUsage = 25
+        adSchemaViewTableUsage = 25,
     }
 
     const enum SearchDirection {
         adSearchBackward = -1,
-        adSearchForward = 1
+        adSearchForward = 1,
     }
 
     const enum SearchDirectionEnum {
         adSearchBackward = -1,
-        adSearchForward = 1
+        adSearchForward = 1,
     }
 
     const enum SeekEnum {
@@ -556,50 +556,52 @@ declare namespace ADODB {
         adSeekBefore = 32,
         adSeekBeforeEQ = 16,
         adSeekFirstEQ = 1,
-        adSeekLastEQ = 2
+        adSeekLastEQ = 2,
     }
 
     const enum StreamOpenOptionsEnum {
         adOpenStreamAsync = 1,
         adOpenStreamFromRecord = 4,
-        adOpenStreamUnspecified = -1
+        adOpenStreamUnspecified = -1,
     }
 
     const enum StreamReadEnum {
         adReadAll = -1,
-        adReadLine = -2
+        adReadLine = -2,
     }
 
     const enum StreamTypeEnum {
         adTypeBinary = 1,
-        adTypeText = 2
+        adTypeText = 2,
     }
 
     const enum StreamWriteEnum {
         adWriteChar = 0,
         adWriteLine = 1,
         stWriteChar = 0,
-        stWriteLine = 1
+        stWriteLine = 1,
     }
 
     const enum StringFormatEnum {
-        adClipString = 2
+        adClipString = 2,
     }
 
     const enum XactAttributeEnum {
         adXactAbortRetaining = 262144,
         adXactAsyncPhaseOne = 524288,
         adXactCommitRetaining = 131072,
-        adXactSyncPhaseOne = 1048576
+        adXactSyncPhaseOne = 1048576,
     }
 
-    interface Command {
-        ActiveConnection: Connection;
-        Cancel(): void;
-        CommandStream: any;
-        CommandText: string;
-        CommandTimeout: number;
-        CommandType: CommandTypeEnum;
+    class Command {
+        private 'ADODB.Command_typekey': Command;
+        private constructor();
+        public ActiveConnection: Connection;
+        public Cancel(): void;
+        public CommandStream: any;
+        public CommandText: string;
+        public CommandTimeout: number;
+        public CommandType: CommandTypeEnum;
 
         /**
          * @param string [Name='']
@@ -607,36 +609,38 @@ declare namespace ADODB {
          * @param ADODB.ParameterDirectionEnum [Direction=1]
          * @param number [Size=0]
          */
-        CreateParameter(Name?: string, Type?: DataTypeEnum, Direction?: ParameterDirectionEnum, Size?: number, Value?: any): Parameter;
-        Dialect: string;
+        public CreateParameter(Name?: string, Type?: DataTypeEnum, Direction?: ParameterDirectionEnum, Size?: number, Value?: any): Parameter;
+        public Dialect: string;
 
         /** @param number [Options=-1] */
-        Execute(RecordsAffected?: any, Parameters?: any, Options?: number): Recordset;
-        Name: string;
-        NamedParameters: boolean;
-        readonly Parameters: Parameters;
-        Prepared: boolean;
-        readonly Properties: Properties;
-        readonly State: number;
+        public Execute(RecordsAffected?: number, Parameters?: SafeArray<any>, Options?: number): Recordset;
+        public Name: string;
+        public NamedParameters: boolean;
+        public readonly Parameters: Parameters;
+        public Prepared: boolean;
+        public readonly Properties: Properties;
+        public readonly State: number;
     }
 
-    interface Connection {
-        Attributes: number;
-        BeginTrans(): number;
-        Cancel(): void;
-        Close(): void;
-        CommandTimeout: number;
-        CommitTrans(): void;
-        ConnectionString: string;
-        ConnectionTimeout: number;
-        CursorLocation: CursorLocationEnum;
-        DefaultDatabase: string;
-        readonly Errors: Errors;
+    class Connection {
+        private 'ADODB.Connection_typekey': Connection;
+        private constructor();
+        public Attributes: number;
+        public BeginTrans(): number;
+        public Cancel(): void;
+        public Close(): void;
+        public CommandTimeout: number;
+        public CommitTrans(): void;
+        public ConnectionString: string;
+        public ConnectionTimeout: number;
+        public CursorLocation: CursorLocationEnum;
+        public DefaultDatabase: string;
+        public readonly Errors: Errors;
 
         /** @param number [Options=-1] */
-        Execute(CommandText: string, RecordsAffected: any, Options?: number): Recordset;
-        IsolationLevel: IsolationLevelEnum;
-        Mode: ConnectModeEnum;
+        public Execute(CommandText: string, RecordsAffected: any, Options?: number): Recordset;
+        public IsolationLevel: IsolationLevelEnum;
+        public Mode: ConnectModeEnum;
 
         /**
          * @param string [ConnectionString='']
@@ -644,111 +648,130 @@ declare namespace ADODB {
          * @param string [Password='']
          * @param number [Options=-1]
          */
-        Open(ConnectionString?: string, UserID?: string, Password?: string, Options?: number): void;
-        OpenSchema(Schema: SchemaEnum, Restrictions?: any, SchemaID?: any): Recordset;
-        readonly Properties: Properties;
-        Provider: string;
-        RollbackTrans(): void;
-        readonly State: number;
-        readonly Version: string;
+        public Open(ConnectionString?: string, UserID?: string, Password?: string, Options?: number): void;
+        public OpenSchema(Schema: SchemaEnum, Restrictions?: any, SchemaID?: any): Recordset;
+        public readonly Properties: Properties;
+        public Provider: string;
+        public RollbackTrans(): void;
+        public readonly State: number;
+        public readonly Version: string;
     }
 
-    interface Error {
-        readonly Description: string;
-        readonly HelpContext: number;
-        readonly HelpFile: string;
-        readonly NativeError: number;
-        readonly Number: number;
-        readonly Source: string;
-        readonly SQLState: string;
+    class Error {
+        private 'ADODB.Error_typekey': Error;
+        private constructor();
+        public readonly Description: string;
+        public readonly HelpContext: number;
+        public readonly HelpFile: string;
+        public readonly NativeError: number;
+        public readonly Number: number;
+        public readonly Source: string;
+        public readonly SQLState: string;
     }
 
-    interface Errors {
-        Clear(): void;
-        readonly Count: number;
-        Item(Index: any): Error;
-        Refresh(): void;
+    class Errors {
+        private 'ADODB.Errors_typekey': Errors;
+        private constructor();
+        public Clear(): void;
+        public readonly Count: number;
+        public Item(Index: any): Error;
+        public Refresh(): void;
     }
 
-    interface Field {
-        readonly ActualSize: number;
-        AppendChunk(Data: any): void;
-        Attributes: number;
-        DataFormat: any;
-        DefinedSize: number;
-        GetChunk(Length: number): any;
-        readonly Name: string;
-        NumericScale: number;
-        readonly OriginalValue: any;
-        Precision: number;
-        readonly Properties: Properties;
-        readonly Status: number;
-        Type: DataTypeEnum;
-        readonly UnderlyingValue: any;
-        Value: any;
+    class Field {
+        private 'ADODB.Field_typekey': Field;
+        private constructor();
+        public readonly ActualSize: number;
+        public AppendChunk(Data: any): void;
+        public Attributes: number;
+        public DataFormat: any;
+        public DefinedSize: number;
+        public GetChunk(Length: number): any;
+        public readonly Name: string;
+        public NumericScale: number;
+        public readonly OriginalValue: any;
+        public Precision: number;
+        public readonly Properties: Properties;
+        public readonly Status: number;
+        public Type: DataTypeEnum;
+        public readonly UnderlyingValue: any;
+        public Value: any;
     }
 
-    interface Fields {
+    class Fields {
+        private 'ADODB.Fields_typekey': Fields;
+        private constructor();
+
         /**
          * @param number [DefinedSize=0]
          * @param ADODB.FieldAttributeEnum [Attrib=-1]
          */
-        _Append(Name: string, Type: DataTypeEnum, DefinedSize?: number, Attrib?: FieldAttributeEnum): void;
+        public _Append(Name: string, Type: DataTypeEnum, DefinedSize?: number, Attrib?: FieldAttributeEnum): void;
 
         /**
          * @param number [DefinedSize=0]
          * @param ADODB.FieldAttributeEnum [Attrib=-1]
          */
-        Append(Name: string, Type: DataTypeEnum, DefinedSize?: number, Attrib?: FieldAttributeEnum, FieldValue?: any): void;
-        CancelUpdate(): void;
-        readonly Count: number;
-        Delete(Index: any): void;
-        Item(Index: any): Field;
-        Refresh(): void;
+        public Append(Name: string, Type: DataTypeEnum, DefinedSize?: number, Attrib?: FieldAttributeEnum, FieldValue?: any): void;
+        public CancelUpdate(): void;
+        public readonly Count: number;
+        public Delete(Index: any): void;
+        public Item(Index: any): Field;
+        public Refresh(): void;
 
         /** @param ADODB.ResyncEnum [ResyncValues=2] */
-        Resync(ResyncValues?: ResyncEnum): void;
-        Update(): void;
+        public Resync(ResyncValues?: ResyncEnum): void;
+        public Update(): void;
     }
 
-    interface Parameter {
-        AppendChunk(Val: any): void;
-        Attributes: number;
-        Direction: ParameterDirectionEnum;
-        Name: string;
-        NumericScale: number;
-        Precision: number;
-        readonly Properties: Properties;
-        Size: number;
-        Type: DataTypeEnum;
-        Value: any;
+    class Parameter {
+        private 'ADODB.Parameter_typekey': Parameter;
+        private constructor();
+        public AppendChunk(Val: any): void;
+        public Attributes: number;
+        public Direction: ParameterDirectionEnum;
+        public Name: string;
+        public NumericScale: number;
+        public Precision: number;
+        public readonly Properties: Properties;
+        public Size: number;
+        public Type: DataTypeEnum;
+        public Value: any;
     }
 
-    interface Parameters {
-        Append(Object: any): void;
-        readonly Count: number;
-        Delete(Index: any): void;
-        Item(Index: any): Parameter;
-        Refresh(): void;
+    class Parameters {
+        private 'ADODB.Parameters_typekey': Parameters;
+        private constructor();
+        public Append(Object: any): void;
+        public readonly Count: number;
+        public Delete(Index: any): void;
+        public Item(Index: any): Parameter;
+        public Refresh(): void;
     }
 
-    interface Properties {
-        readonly Count: number;
-        Item(Index: any): Property;
-        Refresh(): void;
+    class Properties {
+        private 'ADODB.Properties_typekey': Properties;
+        private constructor();
+        public readonly Count: number;
+        public Item(Index: any): Property;
+        public Refresh(): void;
     }
 
-    interface Property {
-        Attributes: number;
-        readonly Name: string;
-        readonly Type: DataTypeEnum;
-        Value: any;
+    class Property {
+        private 'ADODB.Property_typekey': Property;
+        private constructor();
+        public Attributes: number;
+        public readonly Name: string;
+        public readonly Type: DataTypeEnum;
+        public Value: any;
     }
 
-    interface Record {
-        ActiveConnection: any;
-        Cancel(): void;
-        Close(): void;
+    class Record {
+        private 'ADODB.Record_typekey': Record;
+        private constructor();
+        public ActiveConnection: any;
+        public Cancel(): void;
+        public Close(): void;
 
         /**
          * @param string [Source='']
@@ -758,16 +781,16 @@ declare namespace ADODB {
          * @param ADODB.CopyRecordOptionsEnum [Options=-1]
          * @param boolean [Async=false]
          */
-        CopyRecord(Source?: string, Destination?: string, UserName?: string, Password?: string, Options?: CopyRecordOptionsEnum, Async?: boolean): string;
+        public CopyRecord(Source?: string, Destination?: string, UserName?: string, Password?: string, Options?: CopyRecordOptionsEnum, Async?: boolean): string;
 
         /**
          * @param string [Source='']
          * @param boolean [Async=false]
          */
-        DeleteRecord(Source?: string, Async?: boolean): void;
-        readonly Fields: Fields;
-        GetChildren(): Recordset;
-        Mode: ConnectModeEnum;
+        public DeleteRecord(Source?: string, Async?: boolean): void;
+        public readonly Fields: Fields;
+        public GetChildren(): Recordset;
+        public Mode: ConnectModeEnum;
 
         /**
          * @param string [Source='']
@@ -777,7 +800,7 @@ declare namespace ADODB {
          * @param ADODB.MoveRecordOptionsEnum [Options=-1]
          * @param boolean [Async=false]
          */
-        MoveRecord(Source?: string, Destination?: string, UserName?: string, Password?: string, Options?: MoveRecordOptionsEnum, Async?: boolean): string;
+        public MoveRecord(Source?: string, Destination?: string, UserName?: string, Password?: string, Options?: MoveRecordOptionsEnum, Async?: boolean): string;
 
         /**
          * @param ADODB.ConnectModeEnum [Mode=0]
@@ -786,64 +809,66 @@ declare namespace ADODB {
          * @param string [UserName='']
          * @param string [Password='']
          */
-        Open(Source: any, ActiveConnection: any, Mode?: ConnectModeEnum, CreateOptions?: RecordCreateOptionsEnum, Options?: RecordOpenOptionsEnum, UserName?: string, Password?: string): void;
-        readonly ParentURL: string;
-        readonly Properties: Properties;
-        readonly RecordType: RecordTypeEnum;
-        Source: any;
-        readonly State: ObjectStateEnum;
+        public Open(Source: any, ActiveConnection: any, Mode?: ConnectModeEnum, CreateOptions?: RecordCreateOptionsEnum, Options?: RecordOpenOptionsEnum, UserName?: string, Password?: string): void;
+        public readonly ParentURL: string;
+        public readonly Properties: Properties;
+        public readonly RecordType: RecordTypeEnum;
+        public Source: any;
+        public readonly State: ObjectStateEnum;
     }
 
-    interface Recordset {
-        _xClone(): Recordset;
+    class Recordset {
+        private 'ADODB.Recordset_typekey': Recordset;
+        private constructor();
+        public _xClone(): Recordset;
 
         /** @param ADODB.AffectEnum [AffectRecords=3] */
-        _xResync(AffectRecords?: AffectEnum): void;
+        public _xResync(AffectRecords?: AffectEnum): void;
 
         /**
          * @param string [FileName='']
          * @param ADODB.PersistFormatEnum [PersistFormat=0]
          */
-        _xSave(FileName?: string, PersistFormat?: PersistFormatEnum): void;
-        AbsolutePage: PositionEnum;
-        AbsolutePosition: PositionEnum;
-        readonly ActiveCommand: any;
-        ActiveConnection: any;
-        AddNew(FieldList?: any, Values?: any): void;
-        readonly BOF: boolean;
-        Bookmark: any;
-        CacheSize: number;
-        Cancel(): void;
+        public _xSave(FileName?: string, PersistFormat?: PersistFormatEnum): void;
+        public AbsolutePage: PositionEnum;
+        public AbsolutePosition: PositionEnum;
+        public readonly ActiveCommand: any;
+        public ActiveConnection: any;
+        public AddNew(FieldList?: any, Values?: any): void;
+        public readonly BOF: boolean;
+        public Bookmark: any;
+        public CacheSize: number;
+        public Cancel(): void;
 
         /** @param ADODB.AffectEnum [AffectRecords=3] */
-        CancelBatch(AffectRecords?: AffectEnum): void;
-        CancelUpdate(): void;
+        public CancelBatch(AffectRecords?: AffectEnum): void;
+        public CancelUpdate(): void;
 
         /** @param ADODB.LockTypeEnum [LockType=-1] */
-        Clone(LockType?: LockTypeEnum): Recordset;
-        Close(): void;
-        Collect(Index: any): any;
-        CompareBookmarks(Bookmark1: any, Bookmark2: any): CompareEnum;
-        CursorLocation: CursorLocationEnum;
-        CursorType: CursorTypeEnum;
-        DataMember: string;
-        DataSource: any;
+        public Clone(LockType?: LockTypeEnum): Recordset;
+        public Close(): void;
+        public Collect(Index: any): any;
+        public CompareBookmarks(Bookmark1: any, Bookmark2: any): CompareEnum;
+        public CursorLocation: CursorLocationEnum;
+        public CursorType: CursorTypeEnum;
+        public DataMember: string;
+        public DataSource: any;
 
         /** @param ADODB.AffectEnum [AffectRecords=1] */
-        Delete(AffectRecords?: AffectEnum): void;
-        readonly EditMode: EditModeEnum;
-        readonly EOF: boolean;
-        readonly Fields: Fields;
-        Filter: any;
+        public Delete(AffectRecords?: AffectEnum): void;
+        public readonly EditMode: EditModeEnum;
+        public readonly EOF: boolean;
+        public readonly Fields: Fields;
+        public Filter: any;
 
         /**
          * @param number [SkipRecords=0]
          * @param ADODB.SearchDirectionEnum [SearchDirection=1]
          */
-        Find(Criteria: string, SkipRecords?: number, SearchDirection?: SearchDirectionEnum, Start?: any): void;
+        public Find(Criteria: string, SkipRecords?: number, SearchDirection?: SearchDirectionEnum, Start?: any): void;
 
         /** @param number [Rows=-1] */
-        GetRows(Rows?: number, Start?: any, Fields?: any): any;
+        public GetRows(Rows?: number, Start?: any, Fields?: any): any;
 
         /**
          * @param ADODB.StringFormatEnum [StringFormat=2]
@@ -852,67 +877,69 @@ declare namespace ADODB {
          * @param string [RowDelimeter='']
          * @param string [NullExpr='']
          */
-        GetString(StringFormat?: StringFormatEnum, NumRows?: number, ColumnDelimeter?: string, RowDelimeter?: string, NullExpr?: string): string;
-        Index: string;
-        LockType: LockTypeEnum;
-        MarshalOptions: MarshalOptionsEnum;
-        MaxRecords: number;
-        Move(NumRecords: number, Start?: any): void;
-        MoveFirst(): void;
-        MoveLast(): void;
-        MoveNext(): void;
-        MovePrevious(): void;
-        NextRecordset(RecordsAffected?: any): Recordset;
+        public GetString(StringFormat?: StringFormatEnum, NumRows?: number, ColumnDelimeter?: string, RowDelimeter?: string, NullExpr?: string): string;
+        public Index: string;
+        public LockType: LockTypeEnum;
+        public MarshalOptions: MarshalOptionsEnum;
+        public MaxRecords: number;
+        public Move(NumRecords: number, Start?: any): void;
+        public MoveFirst(): void;
+        public MoveLast(): void;
+        public MoveNext(): void;
+        public MovePrevious(): void;
+        public NextRecordset(RecordsAffected?: any): Recordset;
 
         /**
          * @param ADODB.CursorTypeEnum [CursorType=-1]
          * @param ADODB.LockTypeEnum [LockType=-1]
          * @param number [Options=-1]
          */
-        Open(Source: any, ActiveConnection: any, CursorType?: CursorTypeEnum, LockType?: LockTypeEnum, Options?: number): void;
-        readonly PageCount: number;
-        PageSize: number;
-        readonly Properties: Properties;
-        readonly RecordCount: number;
+        public Open(Source: any, ActiveConnection: any, CursorType?: CursorTypeEnum, LockType?: LockTypeEnum, Options?: number): void;
+        public readonly PageCount: number;
+        public PageSize: number;
+        public readonly Properties: Properties;
+        public readonly RecordCount: number;
 
         /** @param number [Options=-1] */
-        Requery(Options?: number): void;
+        public Requery(Options?: number): void;
 
         /**
          * @param ADODB.AffectEnum [AffectRecords=3]
          * @param ADODB.ResyncEnum [ResyncValues=2]
          */
-        Resync(AffectRecords?: AffectEnum, ResyncValues?: ResyncEnum): void;
+        public Resync(AffectRecords?: AffectEnum, ResyncValues?: ResyncEnum): void;
 
         /** @param ADODB.PersistFormatEnum [PersistFormat=0] */
-        Save(Destination: any, PersistFormat?: PersistFormatEnum): void;
+        public Save(Destination: any, PersistFormat?: PersistFormatEnum): void;
 
         /** @param ADODB.SeekEnum [SeekOption=1] */
-        Seek(KeyValues: any, SeekOption?: SeekEnum): void;
-        Sort: string;
-        Source: any;
-        readonly State: number;
-        readonly Status: number;
-        StayInSync: boolean;
-        Supports(CursorOptions: CursorOptionEnum): boolean;
-        Update(Fields?: any, Values?: any): void;
+        public Seek(KeyValues: any, SeekOption?: SeekEnum): void;
+        public Sort: string;
+        public Source: any;
+        public readonly State: number;
+        public readonly Status: number;
+        public StayInSync: boolean;
+        public Supports(CursorOptions: CursorOptionEnum): boolean;
+        public Update(Fields?: string | SafeArray<string | number>, Values?: any | SafeArray<any>): void;
 
         /** @param ADODB.AffectEnum [AffectRecords=3] */
-        UpdateBatch(AffectRecords?: AffectEnum): void;
+        public UpdateBatch(AffectRecords?: AffectEnum): void;
     }
 
-    interface Stream {
-        Cancel(): void;
-        Charset: string;
-        Close(): void;
+    class Stream {
+        private 'ADODB.Stream_typekey': Stream;
+        private constructor();
+        public Cancel(): void;
+        public Charset: string;
+        public Close(): void;
 
         /** @param number [CharNumber=-1] */
-        CopyTo(DestStream: Stream, CharNumber?: number): void;
-        readonly EOS: boolean;
-        Flush(): void;
-        LineSeparator: LineSeparatorEnum;
-        LoadFromFile(FileName: string): void;
-        Mode: ConnectModeEnum;
+        public CopyTo(DestStream: Stream, CharNumber?: number): void;
+        public readonly EOS: boolean;
+        public Flush(): void;
+        public LineSeparator: LineSeparatorEnum;
+        public LoadFromFile(FileName: string): void;
+        public Mode: ConnectModeEnum;
 
         /**
          * @param ADODB.ConnectModeEnum [Mode=0]
@@ -920,88 +947,139 @@ declare namespace ADODB {
          * @param string [UserName='']
          * @param string [Password='']
          */
-        Open(Source: any, Mode?: ConnectModeEnum, Options?: StreamOpenOptionsEnum, UserName?: string, Password?: string): void;
-        Position: number;
+        public Open(Source: any, Mode?: ConnectModeEnum, Options?: StreamOpenOptionsEnum, UserName?: string, Password?: string): void;
+        public Position: number;
 
         /** @param number [NumBytes=-1] */
-        Read(NumBytes?: number): any;
+        public Read(NumBytes?: number): any;
 
         /** @param number [NumChars=-1] */
-        ReadText(NumChars?: number): string;
+        public ReadText(NumChars?: number): string;
 
         /** @param ADODB.SaveOptionsEnum [Options=1] */
-        SaveToFile(FileName: string, Options?: SaveOptionsEnum): void;
-        SetEOS(): void;
-        readonly Size: number;
-        SkipLine(): void;
-        readonly State: ObjectStateEnum;
-        Type: StreamTypeEnum;
-        Write(Buffer: any): void;
+        public SaveToFile(FileName: string, Options?: SaveOptionsEnum): void;
+        public SetEOS(): void;
+        public readonly Size: number;
+        public SkipLine(): void;
+        public readonly State: ObjectStateEnum;
+        public Type: StreamTypeEnum;
+        public Write(Buffer: any): void;
 
         /** @param ADODB.StreamWriteEnum [Options=0] */
-        WriteText(Data: string, Options?: StreamWriteEnum): void;
+        public WriteText(Data: string, Options?: StreamWriteEnum): void;
+    }
+
+    namespace EventHelperTypes {
+        type Connection_ExecuteComplete_ArgNames = ['RecordsAffected', 'pError', 'adStatus', 'pCommand', 'pRecordset', 'pConnection'];
+
+        type Connection_WillConnect_ArgNames = ['ConnectionString', 'UserID', 'Password', 'Options', 'adStatus', 'pConnection'];
+
+        type Connection_WillExecute_ArgNames = ['Source', 'CursorType', 'LockType', 'Options', 'adStatus', 'pCommand', 'pRecordset', 'pConnection'];
+
+        interface Connection_ExecuteComplete_Parameter {
+            adStatus: EventStatusEnum;
+            readonly pCommand: Command;
+            readonly pConnection: Connection;
+            readonly pError: Error;
+            readonly pRecordset: Recordset;
+            readonly RecordsAffected: number;
+        }
+
+        interface Connection_WillConnect_Parameter {
+            adStatus: EventStatusEnum;
+            ConnectionString: string;
+            Options: number;
+            Password: string;
+            readonly pConnection: Connection;
+            UserID: string;
+        }
+
+        interface Connection_WillExecute_Parameter {
+            adStatus: EventStatusEnum;
+            CursorType: CursorTypeEnum;
+            LockType: LockTypeEnum;
+            Options: number;
+            readonly pCommand: Command;
+            readonly pConnection: Connection;
+            readonly pRecordset: Recordset;
+            Source: string;
+        }
     }
 }
 
 interface ActiveXObject {
-    on(obj: ADODB.Connection, event: 'BeginTransComplete', argNames: ['TransactionLevel', 'pError', 'adStatus', 'pConnection'], handler: (
-        this: ADODB.Connection, parameter: {
-        TransactionLevel: number, pError: ADODB.Error, adStatus: ADODB.EventStatusEnum, pConnection: ADODB.Connection}) => void): void;
-    on(obj: ADODB.Connection, event: 'Disconnect', argNames: ['adStatus', 'pConnection'], handler: (
-        this: ADODB.Connection, parameter: {
-        adStatus: ADODB.EventStatusEnum, pConnection: ADODB.Connection}) => void): void;
-    on(obj: ADODB.Connection, event: 'ExecuteComplete', argNames: ['RecordsAffected', 'pError', 'adStatus', 'pCommand', 'pRecordset', 'pConnection'], handler: (
-        this: ADODB.Connection, parameter: {
-        RecordsAffected: number, pError: ADODB.Error, adStatus: ADODB.EventStatusEnum, pCommand: ADODB.Command, pRecordset: ADODB.Recordset, pConnection: ADODB.Connection}) => void): void;
-    on(obj: ADODB.Connection, event: 'InfoMessage' | 'CommitTransComplete' | 'RollbackTransComplete' | 'ConnectComplete', argNames: ['pError', 'adStatus', 'pConnection'], handler: (
-        this: ADODB.Connection, parameter: {
-        pError: ADODB.Error, adStatus: ADODB.EventStatusEnum, pConnection: ADODB.Connection}) => void): void;
-    on(obj: ADODB.Connection, event: 'WillConnect', argNames: ['ConnectionString', 'UserID', 'Password', 'Options', 'adStatus', 'pConnection'], handler: (
-        this: ADODB.Connection, parameter: {
-        ConnectionString: string, UserID: string, Password: string, Options: number, adStatus: ADODB.EventStatusEnum, pConnection: ADODB.Connection}) => void): void;
-    on(obj: ADODB.Connection, event: 'WillExecute', argNames: ['Source', 'CursorType', 'LockType', 'Options', 'adStatus', 'pCommand', 'pRecordset', 'pConnection'], handler: (
-        this: ADODB.Connection, parameter: {
-        Source: string, CursorType: ADODB.CursorTypeEnum, LockType: ADODB.LockTypeEnum, Options: number, adStatus: ADODB.EventStatusEnum, pCommand: ADODB.Command,
-        pRecordset: ADODB.Recordset, pConnection: ADODB.Connection}) => void): void;
-    on(obj: ADODB.Recordset, event: 'EndOfRecordset', argNames: ['fMoreData', 'adStatus', 'pRecordset'], handler: (
-        this: ADODB.Recordset, parameter: {
-        fMoreData: boolean, adStatus: ADODB.EventStatusEnum, pRecordset: ADODB.Recordset}) => void): void;
-    on(obj: ADODB.Recordset, event: 'FetchComplete', argNames: ['pError', 'adStatus', 'pRecordset'], handler: (
-        this: ADODB.Recordset, parameter: {
-        pError: ADODB.Error, adStatus: ADODB.EventStatusEnum, pRecordset: ADODB.Recordset}) => void): void;
-    on(obj: ADODB.Recordset, event: 'FetchProgress', argNames: ['Progress', 'MaxProgress', 'adStatus', 'pRecordset'], handler: (
-        this: ADODB.Recordset, parameter: {
-        Progress: number, MaxProgress: number, adStatus: ADODB.EventStatusEnum, pRecordset: ADODB.Recordset}) => void): void;
-    on(obj: ADODB.Recordset, event: 'FieldChangeComplete', argNames: ['cFields', 'Fields', 'pError', 'adStatus', 'pRecordset'], handler: (
-        this: ADODB.Recordset, parameter: {
-        cFields: number, Fields: any, pError: ADODB.Error, adStatus: ADODB.EventStatusEnum, pRecordset: ADODB.Recordset}) => void): void;
-    on(obj: ADODB.Recordset, event: 'RecordChangeComplete', argNames: ['adReason', 'cRecords', 'pError', 'adStatus', 'pRecordset'], handler: (
-        this: ADODB.Recordset, parameter: {
-        adReason: ADODB.EventReasonEnum, cRecords: number, pError: ADODB.Error, adStatus: ADODB.EventStatusEnum, pRecordset: ADODB.Recordset}) => void): void;
-    on(obj: ADODB.Recordset, event: 'RecordsetChangeComplete' | 'MoveComplete', argNames: ['adReason', 'pError', 'adStatus', 'pRecordset'], handler: (
-        this: ADODB.Recordset, parameter: {
-        adReason: ADODB.EventReasonEnum, pError: ADODB.Error, adStatus: ADODB.EventStatusEnum, pRecordset: ADODB.Recordset}) => void): void;
-    on(obj: ADODB.Recordset, event: 'WillChangeField', argNames: ['cFields', 'Fields', 'adStatus', 'pRecordset'], handler: (
-        this: ADODB.Recordset, parameter: {
-        cFields: number, Fields: any, adStatus: ADODB.EventStatusEnum, pRecordset: ADODB.Recordset}) => void): void;
-    on(obj: ADODB.Recordset, event: 'WillChangeRecord', argNames: ['adReason', 'cRecords', 'adStatus', 'pRecordset'], handler: (
-        this: ADODB.Recordset, parameter: {
-        adReason: ADODB.EventReasonEnum, cRecords: number, adStatus: ADODB.EventStatusEnum, pRecordset: ADODB.Recordset}) => void): void;
-    on(obj: ADODB.Recordset, event: 'WillChangeRecordset' | 'WillMove', argNames: ['adReason', 'adStatus', 'pRecordset'], handler: (
-        this: ADODB.Recordset, parameter: {
-        adReason: ADODB.EventReasonEnum, adStatus: ADODB.EventStatusEnum, pRecordset: ADODB.Recordset}) => void): void;
+    on(
+        obj: ADODB.Connection, event: 'BeginTransComplete', argNames: ['TransactionLevel', 'pError', 'adStatus', 'pConnection'], handler: (
+            this: ADODB.Connection, parameter: {
+                readonly TransactionLevel: number, readonly pError: ADODB.Error, adStatus: ADODB.EventStatusEnum, readonly pConnection: ADODB.Connection}) => void): void;
+    on(
+        obj: ADODB.Connection, event: 'CommitTransComplete' | 'ConnectComplete' | 'InfoMessage' | 'RollbackTransComplete', argNames: ['pError', 'adStatus', 'pConnection'],
+        handler: (this: ADODB.Connection, parameter: {readonly pError: ADODB.Error, adStatus: ADODB.EventStatusEnum, readonly pConnection: ADODB.Connection}) => void): void;
+    on(
+        obj: ADODB.Connection, event: 'Disconnect', argNames: ['adStatus', 'pConnection'], handler: (
+            this: ADODB.Connection, parameter: {adStatus: ADODB.EventStatusEnum, readonly pConnection: ADODB.Connection}) => void): void;
+    on(
+        obj: ADODB.Connection, event: 'ExecuteComplete', argNames: ADODB.EventHelperTypes.Connection_ExecuteComplete_ArgNames, handler: (
+            this: ADODB.Connection, parameter: ADODB.EventHelperTypes.Connection_ExecuteComplete_Parameter) => void): void;
+    on(
+        obj: ADODB.Connection, event: 'WillConnect', argNames: ADODB.EventHelperTypes.Connection_WillConnect_ArgNames, handler: (
+            this: ADODB.Connection, parameter: ADODB.EventHelperTypes.Connection_WillConnect_Parameter) => void): void;
+    on(
+        obj: ADODB.Connection, event: 'WillExecute', argNames: ADODB.EventHelperTypes.Connection_WillExecute_ArgNames, handler: (
+            this: ADODB.Connection, parameter: ADODB.EventHelperTypes.Connection_WillExecute_Parameter) => void): void;
+    on(
+        obj: ADODB.Recordset, event: 'EndOfRecordset', argNames: ['fMoreData', 'adStatus', 'pRecordset'], handler: (
+            this: ADODB.Recordset, parameter: {fMoreData: boolean, adStatus: ADODB.EventStatusEnum, readonly pRecordset: ADODB.Recordset}) => void): void;
+    on(
+        obj: ADODB.Recordset, event: 'FetchComplete', argNames: ['pError', 'adStatus', 'pRecordset'], handler: (
+            this: ADODB.Recordset, parameter: {readonly pError: ADODB.Error, adStatus: ADODB.EventStatusEnum, readonly pRecordset: ADODB.Recordset}) => void): void;
+    on(
+        obj: ADODB.Recordset, event: 'FetchProgress', argNames: ['Progress', 'MaxProgress', 'adStatus', 'pRecordset'], handler: (
+            this: ADODB.Recordset, parameter: {readonly Progress: number, readonly MaxProgress: number, adStatus: ADODB.EventStatusEnum, readonly pRecordset: ADODB.Recordset}) => void): void;
+    on(
+        obj: ADODB.Recordset, event: 'FieldChangeComplete', argNames: ['cFields', 'Fields', 'pError', 'adStatus', 'pRecordset'], handler: (
+            this: ADODB.Recordset, parameter: {
+                readonly cFields: number, readonly Fields: any, readonly pError: ADODB.Error, adStatus: ADODB.EventStatusEnum, readonly pRecordset: ADODB.Recordset}) => void): void;
+    on(
+        obj: ADODB.Recordset, event: 'MoveComplete' | 'RecordsetChangeComplete', argNames: ['adReason', 'pError', 'adStatus', 'pRecordset'],
+        handler: (
+            this: ADODB.Recordset, parameter: {
+                readonly adReason: ADODB.EventReasonEnum, readonly pError: ADODB.Error, adStatus: ADODB.EventStatusEnum, readonly pRecordset: ADODB.Recordset}) => void): void;
+    on(
+        obj: ADODB.Recordset, event: 'RecordChangeComplete', argNames: ['adReason', 'cRecords', 'pError', 'adStatus', 'pRecordset'], handler: (
+            this: ADODB.Recordset, parameter: {
+                readonly adReason: ADODB.EventReasonEnum, readonly cRecords: number, readonly pError: ADODB.Error,
+                adStatus: ADODB.EventStatusEnum, readonly pRecordset: ADODB.Recordset}) => void): void;
+    on(
+        obj: ADODB.Recordset, event: 'WillChangeField', argNames: ['cFields', 'Fields', 'adStatus', 'pRecordset'], handler: (
+            this: ADODB.Recordset, parameter: {readonly cFields: number, readonly Fields: any, adStatus: ADODB.EventStatusEnum, readonly pRecordset: ADODB.Recordset}) => void): void;
+    on(
+        obj: ADODB.Recordset, event: 'WillChangeRecord', argNames: ['adReason', 'cRecords', 'adStatus', 'pRecordset'], handler: (
+            this: ADODB.Recordset, parameter: {
+                readonly adReason: ADODB.EventReasonEnum, readonly cRecords: number, adStatus: ADODB.EventStatusEnum, readonly pRecordset: ADODB.Recordset}) => void): void;
+    on(
+        obj: ADODB.Recordset, event: 'WillChangeRecordset' | 'WillMove', argNames: ['adReason', 'adStatus', 'pRecordset'], handler: (
+            this: ADODB.Recordset, parameter: {readonly adReason: ADODB.EventReasonEnum, adStatus: ADODB.EventStatusEnum, readonly pRecordset: ADODB.Recordset}) => void): void;
     set(obj: ADODB.Recordset, propertyName: 'Collect', parameterTypes: [any], newValue: any): void;
-    new(progid: 'ADODB.Command'): ADODB.Command;
-    new(progid: 'ADODB.Connection'): ADODB.Connection;
-    new(progid: 'ADODB.Parameter'): ADODB.Parameter;
-    new(progid: 'ADODB.Record'): ADODB.Record;
-    new(progid: 'ADODB.Recordset'): ADODB.Recordset;
-    new(progid: 'ADODB.Stream'): ADODB.Stream;
+    new<K extends keyof ActiveXObjectNameMap = any>(progid: K): ActiveXObjectNameMap[K];
+}
+
+interface ActiveXObjectNameMap {
+    'ADODB.Command': ADODB.Command;
+    'ADODB.Connection': ADODB.Connection;
+    'ADODB.Parameter': ADODB.Parameter;
+    'ADODB.Record': ADODB.Record;
+    'ADODB.Recordset': ADODB.Recordset;
+    'ADODB.Stream': ADODB.Stream;
 }
 
 interface EnumeratorConstructor {
-    new(col: ADODB.Errors): ADODB.Error;
-    new(col: ADODB.Fields): ADODB.Field;
-    new(col: ADODB.Parameters): ADODB.Parameter;
-    new(col: ADODB.Properties): ADODB.Property;
+    new(col: ADODB.Errors): Enumerator<ADODB.Error>;
+    new(col: ADODB.Fields): Enumerator<ADODB.Field>;
+    new(col: ADODB.Parameters): Enumerator<ADODB.Parameter>;
+    new(col: ADODB.Properties): Enumerator<ADODB.Property>;
+}
+
+interface SafeArray<T = any> {
+    _brand: SafeArray<T>;
 }

@@ -1,19 +1,3 @@
-/*
-Dim dbsNorthwind As DAO.Database
-Dim rstShippers As DAO.Recordset
-
-   Set dbsNorthwind = CurrentDb
-   Set rstShippers = dbsNorthwind.OpenRecordset("Shippers")
-
-   rstShippers.AddNew
-   rstShippers!CompanyName = "Global Parcel Service"
-      .
-      . ' Set remaining fields.
-      .
-
-   rstShippers.Update
-*/
-
 let engine = new ActiveXObject('DAO.DBEngine.120');
 let dbsNorthwind = engine.OpenDatabase('c:\\path\\to\\northwind.mdb');
 
