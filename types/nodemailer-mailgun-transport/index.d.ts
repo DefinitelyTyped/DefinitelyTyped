@@ -6,10 +6,10 @@
 import * as nodemailer from 'nodemailer';
 
 declare namespace mailgunTransport {
-    interface Options {
+    export interface Options {
         auth: AuthOptions;
     }
-    interface AuthOptions {
+    export interface AuthOptions {
         api_key: string;
         domain?: string;
     }
