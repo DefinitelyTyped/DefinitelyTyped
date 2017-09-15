@@ -1,5 +1,4 @@
 
-
 var app = angular.module('testModule', ['angular-loading-bar']);
 
 class TestController {
