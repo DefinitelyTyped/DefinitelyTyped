@@ -1,6 +1,6 @@
 import mocha = require('mocha');
 import chai = require('chai');
-const should = chai.should(); // eslint-disable-line
+const should = chai.should();
 import rewire = require('rewire');
 import sinon = require('sinon');
 import logger = require('hexo-log');
