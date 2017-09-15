@@ -376,11 +376,11 @@ declare namespace Cypress {
      */
     title(options?: Loggable): Chainable;
 
-     /**
+    /**
      * @description Trigger an event on a DOM element.
      * @see https://docs.cypress.io/api/commands/trigger.html
      */
-    trigger(eventName: string, position?: PositionType, x?:number, y?:number, options?: TriggerOptions): Chainable;
+    trigger(eventName: string, position?: PositionType, x?: number, y?: number, options?: TriggerOptions): Chainable;
 
     /**
      * @see https://on.cypress.io/api/type
