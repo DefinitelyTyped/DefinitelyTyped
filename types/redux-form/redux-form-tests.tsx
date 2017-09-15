@@ -103,11 +103,11 @@ const MyField: StatelessComponent<MyFieldProps> = ({
     input.onChange("value");
     input.onChange({} as React.SyntheticEvent<HTMLDivElement>);
 
-    input.onDragStart({} as React.DragEvent<HTMLDivElement>);
+    input.onDragStart({} as React.DragEvent<HTMLDivElement>, "newValue", "previousValue");
 
-    input.onDrop({} as React.DragEvent<HTMLDivElement>);
+    input.onDrop({} as React.DragEvent<HTMLDivElement>, "newValue", "previousValue");
 
-    input.onFocus({} as React.FocusEvent<HTMLDivElement>);
+    input.onFocus({} as React.FocusEvent<HTMLDivElement>, "newValue", "previousValue");
     return null;
 };
 const FieldCustom = Field as new () => GenericField<MyFieldCustomProps>;
