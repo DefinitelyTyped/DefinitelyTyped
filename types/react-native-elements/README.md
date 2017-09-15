@@ -16,12 +16,12 @@ List will update as typings are added
 - [ ] Badge
 - [ ] Tab Bar Component
 - [x] HTML style headings
-- [ ] Card component
+- [x] Card component
 - [ ] Pricing Component
 - [ ] Grid Component
 - [ ] Slider Component
 - [ ] Tile Component
-- [ ] Avatar Component
+- [x] Avatar Component
 - [ ] Rating Component
 - [ ] SwipeDeck Component
 - [ ] Header Component

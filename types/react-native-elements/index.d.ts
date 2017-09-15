@@ -5,7 +5,18 @@
 // TypeScript Version: 2.3
 
 import * as React from 'react';
-import { ViewStyle, TextStyle } from 'react-native';
+import { ViewStyle, TextStyle, ImageStyle, ImageURISource } from 'react-native';
+
+export interface Icon {
+    name?: string;
+    color?: string;
+    size?: number;
+    type?: 'material' | 'material-community' | 'simple-line-icon' | 'zocial' | 'font-awesome' | 'octicon' | 'ionicon' | 'foundation' | 'evilicon' | 'entypo';
+}
+
+export interface AvatarIcon extends Icon {
+    iconStyle?: TextStyle;
+}
 
 export interface TextProps {
     /**
@@ -42,15 +53,125 @@ export interface TextProps {
 /**
  * HTML Style Headings
  *
- * @desc https://react-native-training.github.io/react-native-elements/API/HTML_style_headings/
+ * @see https://react-native-training.github.io/react-native-elements/API/HTML_style_headings/
  */
 export class Text extends React.Component<TextProps, any> {}
 
-export interface ButtonIcon {
-    name?: string;
-    color?: string;
-    size?: number;
-    type?: 'material' | 'material-community' | 'simple-line-icon' | 'zocial' | 'font-awesome' | 'octicon' | 'ionicon' | 'foundation' | 'evilicon' | 'entypo';
+export interface AvatarProps {
+    /**
+     * Component for enclosing element (eg: TouchableHighlight, View, etc)
+     *
+     * @default TouchableOpacity
+     */
+    component?: React.ComponentClass;
+
+    /**
+     * Width for the Avatar
+     *
+     * @default 34
+     */
+    width?: number;
+
+    /**
+     * Height for the Avatar
+     *
+     * @default 34
+     */
+    height?: number;
+
+    /**
+     * Callback function when pressing component
+     */
+    onPress?(): void;
+
+    /**
+     * Callback function when long pressing component
+     */
+    onLongPress?(): void;
+
+    /**
+     * Styling for outer container
+     */
+    containerStyle?: ViewStyle;
+
+    /**
+     * Image source
+     */
+    source?: ImageURISource;
+
+    /**
+     * Style for avatar image
+     */
+    avatarStyle?: ImageStyle;
+
+    /**
+     * Determines the shape of avatar
+     *
+     * @default false
+     */
+    rounded?: boolean;
+
+    /**
+     * Renders title in the avatar
+     */
+    title?: string;
+
+    /**
+     * Style for the title
+     */
+    titleStyle?: TextStyle;
+
+    /**
+     * Style for the view outside image or icon
+     */
+    overlayContainerStyle?: ViewStyle;
+
+    /**
+     * Opacity when pressed
+     *
+     * @default 0.2
+     */
+    activeOpacity?: number;
+
+    /**
+     * Icon for the avatar
+     */
+    icon?: AvatarIcon;
+
+    /**
+     * extra styling for icon component (optional)
+     */
+    iconStyle?: TextStyle;
+
+    /**
+     * Small sized icon
+     */
+    small?: boolean;
+
+    /**
+     * Medium sized icon
+     */
+    medium?: boolean;
+
+    /**
+     * Large sized icon
+     */
+    large?: boolean;
+
+    /**
+     * Extra-large sized icon
+     */
+    xlarge?: boolean;
+}
+
+/**
+ * Avatar Component
+ *
+ * @see https://react-native-training.github.io/react-native-elements/API/avatar/
+ */
+export class Avatar extends React.Component<AvatarProps, any> {}
+
+export interface ButtonIcon extends Icon {
     buttonStyle?: TextStyle;
 }
 
@@ -251,3 +372,89 @@ export interface BadgeProperties {
  * @see https://react-native-training.github.io/react-native-elements/API/badge/
  */
 export class Badge extends React.Component<BadgeProperties, any> {}
+
+export interface CardProps {
+    /**
+     * Flex direction (row or column)
+     *
+     * @default 'column'
+     */
+    flexDirection?: 'column' | 'row';
+
+    /**
+     * Outer container style
+     */
+    containerStyle?: ViewStyle;
+
+    /**
+     * Inner container style
+     */
+    wrapperStyle?: ViewStyle;
+
+    /**
+     * Card title
+     */
+    title?: string;
+
+    /**
+     * Additional title styling (if title provided)
+     */
+    titleStyle?: TextStyle;
+
+    /**
+     * Title rendered over the image
+     * (only works if image prop is present)
+     */
+    featuredTitle?: string;
+
+    /**
+     * Styling for featured title
+     */
+    featuredTitleStyle?: TextStyle;
+
+    /**
+     * Subtitle rendered over the image
+     * (only works if image prop is present)
+     */
+    featuredSubtitle?: string;
+
+    /**
+     * Styling for featured subtitle
+     */
+    featuredSubtitleStyle?: TextStyle;
+
+    /**
+     * Additional divider styling
+     * (if title provided)
+     */
+    dividerStyle?: ViewStyle;
+
+    /**
+     * Specify different font family
+     *
+     * @default System font bold (iOS), Sans Serif Bold (android)
+     */
+    fontFamily?: string;
+
+    /**
+     * Specify image styling if image is provided
+     */
+    imageStyle?: ImageStyle;
+
+    /**
+     * Specify styling for view surrounding image
+     */
+    imageWrapperStyle?: ViewStyle;
+
+    /**
+     * Add an image as the heading with the image prop
+     */
+    image?: ImageURISource;
+}
+
+/**
+ * Card component
+ *
+ * @see https://react-native-training.github.io/react-native-elements/API/card/
+ */
+export class Card extends React.Component<CardProps, any> {}
