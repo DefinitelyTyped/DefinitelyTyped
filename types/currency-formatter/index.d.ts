@@ -1,4 +1,4 @@
-// Type definitions for currency-formatter 1.0
+// Type definitions for currency-formatter 1.3.0
 // Project: https://github.com/smirzaei/currency-formatter#readme
 // Definitions by: Mohamed Hegazy <https://github.com/mhegazy>
 //                 David Paz <https://github.com/davidmpaz>
