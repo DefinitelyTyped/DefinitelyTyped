@@ -1,4 +1,4 @@
-// Type definitions for blob-util 1.2
+// Type definitions for blob-util 1.3
 // Project: https://github.com/nolanlawson/blob-util#readme
 // Definitions by: Max Battcher <https://github.com/WorldMaker>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -12,6 +12,7 @@ export function binaryStringToBlob(binary: string, type?: string): Promise<Blob>
 export function blobToBase64String(blob: Blob): Promise<string>;
 export function base64StringToBlob(base64: string, type?: string): Promise<Blob>;
 export function dataURLToBlob(dataURL: string): Promise<Blob>;
+export function blobToDataURL(blob: Blob): Promise<string>;
 export function imgSrcToDataURL(src: string, type?: string, crossOrigin?: string): Promise<string>;
 export function canvasToBlob(canvas: HTMLCanvasElement, type?: string): Promise<Blob>;
 export function imgSrcToBlob(src: string, type?: string, crossOrigin?: string): Promise<Blob>;

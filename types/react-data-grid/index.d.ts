@@ -251,7 +251,7 @@ declare namespace AdazzleReactDataGrid {
          * The editor for this column. Several editors are available in "react-data-grid/addons".
          * @default A simple text editor
          */
-        editor?: React.ReactElement<any>
+        editor?: React.ReactElement<any> | React.ComponentClass<any> | React.StatelessComponent<any>
         /**
          * A custom read-only formatter for this column. An image formatter is available in "react-data-grid/addons".
          */
@@ -277,6 +277,11 @@ declare namespace AdazzleReactDataGrid {
          * A class name to be applied to the cells in the column
          */
         cellClass?: string;
+        /**
+         * Whether this column can be dragged (re-arranged).
+         * @default false
+         */
+        draggable?: boolean;
     }
 
     interface ColumnEventCallback {
