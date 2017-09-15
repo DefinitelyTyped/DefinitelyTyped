@@ -3737,14 +3737,14 @@ interface ActiveXObject {
     on(obj: MSForms.ToggleButton2, event: 'Change' | 'Click', handler: (this: MSForms.ToggleButton2, parameter: {}) => void): void;
     on(obj: MSForms.UserForm, event: 'Click' | 'Layout', handler: (this: MSForms.UserForm, parameter: {}) => void): void;
     on(obj: MSForms.UserForm2, event: 'Click' | 'Layout', handler: (this: MSForms.UserForm2, parameter: {}) => void): void;
-    set(obj: MSForms.ComboBox | MSForms.ComboBox2 | MSForms.ListBox | MSForms.ListBox2, propertyName: 'Column' | 'List', parameterTypes: [any, any], newValue: any): void;
+    set(obj: MSForms.ComboBox | MSForms.ComboBox2 | MSForms.ListBox | MSForms.ListBox2, propertyName: 'Column' | 'List', parameterTypes: [number | undefined, number] | [number] | Array<never>,
+        newValue: any): void;
     set(obj: MSForms.ListBox | MSForms.ListBox2, propertyName: 'Selected', parameterTypes: [any], newValue: boolean): void;
     new<K extends keyof ActiveXObjectNameMap = any>(progid: K): ActiveXObjectNameMap[K];
 }
 
 interface ActiveXObjectNameMap {
     'Forms.Image': MSForms.Image;
-    'Forms.Image': MSForms.Image2;
 }
 
 interface EnumeratorConstructor {

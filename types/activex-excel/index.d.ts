@@ -3074,7 +3074,7 @@ declare namespace Excel {
         public readonly ActiveMenuBar: MenuBar;
         public ActivePrinter: string;
         public readonly ActiveProtectedViewWindow: ProtectedViewWindow;
-        public readonly ActiveSheet: any;
+        public readonly ActiveSheet: Worksheet | Chart | DialogSheet;
         public readonly ActiveWindow: Window;
         public readonly ActiveWorkbook: Workbook;
         public AddChartAutoFormat(Chart: any, Name: string, Description?: any): void;
@@ -3238,9 +3238,9 @@ declare namespace Excel {
         public Interactive: boolean;
         public International(Index?: any): any;
         public Intersect(
-            Arg1: Range, Arg2: Range, Arg3?: any, Arg4?: any, Arg5?: any, Arg6?: any, Arg7?: any, Arg8?: any, Arg9?: any, Arg10?: any, Arg11?: any, Arg12?: any,
-            Arg13?: any, Arg14?: any, Arg15?: any, Arg16?: any, Arg17?: any, Arg18?: any, Arg19?: any, Arg20?: any, Arg21?: any, Arg22?: any, Arg23?: any, Arg24?: any,
-            Arg25?: any, Arg26?: any, Arg27?: any, Arg28?: any, Arg29?: any, Arg30?: any): Range;
+            Arg1: Range, Arg2: Range, Arg3?: Range, Arg4?: Range, Arg5?: Range, Arg6?: Range, Arg7?: Range, Arg8?: Range, Arg9?: Range, Arg10?: Range, Arg11?: Range, Arg12?: Range,
+            Arg13?: Range, Arg14?: Range, Arg15?: Range, Arg16?: Range, Arg17?: Range, Arg18?: Range, Arg19?: Range, Arg20?: Range, Arg21?: Range, Arg22?: Range, Arg23?: Range, Arg24?: Range,
+            Arg25?: Range, Arg26?: Range, Arg27?: Range, Arg28?: Range, Arg29?: Range, Arg30?: Range): Range;
         public readonly IsSandboxed: boolean;
         public Iteration: boolean;
         public readonly LanguageSettings: Office.LanguageSettings;
@@ -3301,7 +3301,7 @@ declare namespace Excel {
         public readonly ProtectedViewWindows: ProtectedViewWindows;
         public Quit(): void;
         public readonly Quitting: boolean;
-        public Range(Cell1: any, Cell2?: any): Range;
+        public Range(Cell1: string | Range, Cell2?: string | Range): Range;
         public readonly Ready: boolean;
         public readonly RecentFiles: RecentFiles;
         public RecordMacro(BasicCode?: any, XlmCode?: any): void;
@@ -3451,7 +3451,7 @@ declare namespace Excel {
         public Color: any;
         public ColorIndex: any;
         public readonly Creator: XlCreator;
-        public LineStyle: any;
+        public LineStyle: XlLineStyle | Constants.xlGray25 | Constants.xlGray50 | Constants.xlGray75 | Constants.xlAutomatic;
         public readonly Parent: any;
         public ThemeColor: any;
         public TintAndShade: any;
@@ -4900,7 +4900,7 @@ declare namespace Excel {
         private constructor();
         public readonly Application: Application;
         public Color: any;
-        public ColorIndex: any;
+        public ColorIndex: number | XlColorIndex;
         public readonly Creator: XlCreator;
         public readonly Gradient: any;
         public InvertIfNegative: any;
@@ -6443,11 +6443,12 @@ declare namespace Excel {
         public AddIndent: any;
 
         /** @param Excel.XlReferenceStyle [ReferenceStyle=1] */
-        public Address(RowAbsolute: any, ColumnAbsolute: any, ReferenceStyle?: XlReferenceStyle, External?: any, RelativeTo?: any): string;
+        public Address(RowAbsolute?: boolean, ColumnAbsolute?: boolean, ReferenceStyle?: XlReferenceStyle, External?: boolean, RelativeTo?: Excel.Range): string;
 
         /** @param Excel.XlReferenceStyle [ReferenceStyle=1] */
         public AddressLocal(RowAbsolute: any, ColumnAbsolute: any, ReferenceStyle?: XlReferenceStyle, External?: any, RelativeTo?: any): string;
-        public AdvancedFilter(Action: XlFilterAction, CriteriaRange?: any, CopyToRange?: any, Unique?: any): any;
+        public AdvancedFilter(Action: XlFilterAction.xlFilterCopy, CriteriaRange?: Range, CopyToRange?: Range, Unique?: boolean): any;
+        public AdvancedFilter(Action: XlFilterAction, CriteriaRange?: Range, CopyToRange?: undefined, Unique?: boolean): any;
         public AllocateChanges(): void;
         public readonly AllowEdit: boolean;
         public readonly Application: Application;
@@ -6544,7 +6545,8 @@ declare namespace Excel {
         public FillUp(): any;
 
         /** @param Excel.XlSearchDirection [SearchDirection=1] */
-        public Find(What: any, After: any, LookIn: any, LookAt: any, SearchOrder: any, SearchDirection?: XlSearchDirection, MatchCase?: any, MatchByte?: any, SearchFormat?: any): Range;
+        public Find(What: any, After?: any, LookIn?: Excel.XlFindLookIn, LookAt?: Excel.XlLookAt, SearchOrder?: Excel.XlSearchOrder, SearchDirection?: XlSearchDirection, MatchCase?: boolean,
+                    MatchByte?: boolean, SearchFormat?: any): Range;
         public FindNext(After?: any): Range;
         public FindPrevious(After?: any): Range;
         public readonly Font: Font;
@@ -6570,7 +6572,8 @@ declare namespace Excel {
         public Insert(Shift?: any, CopyOrigin?: any): any;
         public InsertIndent(InsertAmount: number): void;
         public readonly Interior: Interior;
-        public Item(RowIndex: any, ColumnIndex?: any): any;
+        public Item(RowIndex: number, ColumnIndex?: number): Range;
+        public Item(Address: string): Range;
         public Justify(): any;
         public readonly Left: any;
         public readonly ListHeaderRows: number;
@@ -6588,7 +6591,7 @@ declare namespace Excel {
         public NoteText(Text?: any, Start?: any, Length?: any): string;
         public NumberFormat: any;
         public NumberFormatLocal: any;
-        public Offset(RowOffset?: any, ColumnOffset?: any): Range;
+        public Offset(RowOffset?: number, ColumnOffset?: number): Range;
         public Orientation: any;
         public OutlineLevel: any;
         public PageBreak: number;
@@ -6697,7 +6700,7 @@ declare namespace Excel {
         public UseStandardHeight: any;
         public UseStandardWidth: any;
         public readonly Validation: Validation;
-        public Value(RangeValueDataType?: any): any;
+        public Value(RangeValueDataType?: XlRangeValueDataType): any;
         public Value2: any;
         public VerticalAlignment: any;
         public readonly Width: any;
@@ -7044,8 +7047,8 @@ declare namespace Excel {
         public AddFormControl(Type: XlFormControl, Left: number, Top: number, Width: number, Height: number): Shape;
         public AddLabel(Orientation: Office.MsoTextOrientation, Left: number, Top: number, Width: number, Height: number): Shape;
         public AddLine(BeginX: number, BeginY: number, EndX: number, EndY: number): Shape;
-        public AddOLEObject(
-            ClassType?: any, Filename?: any, Link?: any, DisplayAsIcon?: any, IconFileName?: any, IconIndex?: any, IconLabel?: any, Left?: any, Top?: any, Width?: any, Height?: any): Shape;
+        public AddOLEObject(ClassType?: any, Filename?: any, Link?: any, DisplayAsIcon?: any, IconFileName?: any, IconIndex?: any, IconLabel?: any, Left?: any, Top?: any, Width?: any,
+                            Height?: any): Shape;
         public AddPicture(Filename: string, LinkToFile: Office.MsoTriState, SaveWithDocument: Office.MsoTriState, Left: number, Top: number, Width: number, Height: number): Shape;
         public AddPolyline(SafeArrayOfPoints: any): Shape;
         public AddShape(Type: Office.MsoAutoShapeType, Left: number, Top: number, Width: number, Height: number): Shape;
@@ -7080,12 +7083,13 @@ declare namespace Excel {
         /** @param Excel.XlFillWith [Type=-4104] */
         public FillAcrossSheets(Range: Range, Type?: XlFillWith): void;
         public readonly HPageBreaks: HPageBreaks;
-        public Item(Index: any): any;
+        public Item(Index: string | number): Worksheet | Chart | DialogSheet;
+        public Item(Indexes: SafeArray<string | number>): Sheets;
         public Move(Before?: any, After?: any): void;
         public readonly Parent: any;
         public PrintOut(From?: any, To?: any, Copies?: any, Preview?: any, ActivePrinter?: any, PrintToFile?: any, Collate?: any, PrToFileName?: any, IgnorePrintAreas?: any): void;
         public PrintPreview(EnableChanges?: any): void;
-        public Select(Replace?: any): void;
+        public Select(Replace?: boolean): void;
         public Visible: any;
         public readonly VPageBreaks: VPageBreaks;
     }
@@ -8149,8 +8153,8 @@ declare namespace Excel {
 
         /** @param Excel.XlSaveAsAccessMode [AccessMode=1] */
         public _SaveAs(
-            Filename: any, FileFormat: any, Password: any, WriteResPassword: any, ReadOnlyRecommended: any, CreateBackup: any, AccessMode?: XlSaveAsAccessMode,
-            ConflictResolution?: any, AddToMru?: any, TextCodepage?: any, TextVisualLayout?: any): void;
+            Filename: string, FileFormat?: Excel.XlFileFormat, Password?: string, WriteResPassword?: string, ReadOnlyRecommended?: boolean, CreateBackup?: boolean, AccessMode?: XlSaveAsAccessMode,
+            ConflictResolution?: Excel.XlSaveConflictResolution, AddToMru?: boolean, TextCodepage?: any, TextVisualLayout?: any): void;
         public AcceptAllChanges(When?: any, Who?: any, Where?: any): void;
         public AcceptLabelsInFormulas: boolean;
         public AccuracyVersion: number;
@@ -8303,8 +8307,8 @@ declare namespace Excel {
 
         /** @param Excel.XlSaveAsAccessMode [AccessMode=1] */
         public SaveAs(
-            Filename: any, FileFormat: any, Password: any, WriteResPassword: any, ReadOnlyRecommended: any, CreateBackup: any, AccessMode?: XlSaveAsAccessMode,
-            ConflictResolution?: any, AddToMru?: any, TextCodepage?: any, TextVisualLayout?: any, Local?: any): void;
+            Filename: string, FileFormat?: Excel.XlFileFormat, Password?: string, WriteResPassword?: string, ReadOnlyRecommended?: boolean, CreateBackup?: boolean, AccessMode?: XlSaveAsAccessMode,
+            ConflictResolution?: Excel.XlSaveConflictResolution, AddToMru?: boolean, TextCodepage?: any, TextVisualLayout?: any): void;
         public SaveAsXMLData(Filename: string, Map: XmlMap): void;
         public SaveCopyAs(Filename?: any): void;
         public Saved: boolean;
@@ -8402,7 +8406,7 @@ declare namespace Excel {
         public Close(): void;
         public readonly Count: number;
         public readonly Creator: XlCreator;
-        public Item(Index: any): Workbook;
+        public Item(Index: number | string): Workbook;
         public Open(
             Filename: string, UpdateLinks?: any, ReadOnly?: any, Format?: any, Password?: any, WriteResPassword?: any, IgnoreReadOnlyRecommended?: any, Origin?: any,
             Delimiter?: any, Editable?: any, Notify?: any, Converter?: any, AddToMru?: any, Local?: any, CorruptLoad?: any): Workbook;
@@ -8520,7 +8524,7 @@ declare namespace Excel {
         public readonly ProtectionMode: boolean;
         public readonly ProtectScenarios: boolean;
         public readonly QueryTables: QueryTables;
-        public Range(Cell1: any, Cell2?: any): Range;
+        public Range(Cell1: string | Range, Cell2?: string | Range): Range;
         public Rectangles(Index?: any): any;
         public ResetAllPageBreaks(): void;
         public readonly Rows: Range;
@@ -8641,7 +8645,7 @@ declare namespace Excel {
             Arg14?: any, Arg15?: any, Arg16?: any, Arg17?: any, Arg18?: any, Arg19?: any, Arg20?: any, Arg21?: any, Arg22?: any, Arg23?: any, Arg24?: any, Arg25?: any,
             Arg26?: any, Arg27?: any, Arg28?: any, Arg29?: any, Arg30?: any): number;
         public CountBlank(Arg1: Range): number;
-        public CountIf(Arg1: Range, Arg2: any): number;
+        public CountIf(Arg1: Range, Arg2: string | number): number;
         public CountIfs(
             Arg1: Range, Arg2: any, Arg3?: any, Arg4?: any, Arg5?: any, Arg6?: any, Arg7?: any, Arg8?: any, Arg9?: any, Arg10?: any, Arg11?: any, Arg12?: any, Arg13?: any,
             Arg14?: any, Arg15?: any, Arg16?: any, Arg17?: any, Arg18?: any, Arg19?: any, Arg20?: any, Arg21?: any, Arg22?: any, Arg23?: any, Arg24?: any, Arg25?: any,
@@ -9457,6 +9461,8 @@ interface ActiveXObject {
     on(obj: Excel.Worksheet, event: 'Activate' | 'AddRef' | 'Calculate' | 'Deactivate' | 'Release', handler: (this: Excel.Worksheet, parameter: {}) => void): void;
     set(obj: Excel.Chart, propertyName: 'HasAxis', parameterTypes: [any, any], newValue: any): void;
     set(obj: Excel.Workbook, propertyName: 'Colors', parameterTypes: [any], newValue: any): void;
+    set(obj: Excel.Range, propertyName: 'Value', parameterTypes: [Excel.XlRangeValueDataType], newValue: any): void;
+    set(obj: Excel.Range, propertyName: 'Value', newValue: any): void; // because Value is defined on the type as a method, not a property
     new<K extends keyof ActiveXObjectNameMap = any>(progid: K): ActiveXObjectNameMap[K];
 }
 
@@ -9486,7 +9492,7 @@ interface EnumeratorConstructor {
     new(col: Excel.Filters): Enumerator<Excel.Filter>;
     new(
         col: Excel.FormatConditions | Excel.IconSets | Excel.MenuItems | Excel.Modules | Excel.Phonetics | Excel.PivotFields | Excel.Range | Excel.ServerViewableItems |
-        Excel.Sheets | Excel.SheetViews | Excel.UsedObjects): Enumerator<any>;
+        Excel.SheetViews | Excel.UsedObjects): Enumerator<any>;
     new(col: Excel.GroupShapes | Excel.ShapeRange | Excel.Shapes): Enumerator<Excel.Shape>;
     new(col: Excel.HPageBreaks): Enumerator<Excel.HPageBreak>;
     new(col: Excel.Hyperlinks): Enumerator<Excel.Hyperlink>;
@@ -9511,6 +9517,7 @@ interface EnumeratorConstructor {
     new(col: Excel.PublishObjects): Enumerator<Excel.PublishObject>;
     new(col: Excel.QueryTables): Enumerator<Excel.QueryTable>;
     new(col: Excel.RecentFiles): Enumerator<Excel.RecentFile>;
+    new(col: Excel.Sheets): Enumerator<Excel.Worksheet | Excel.Chart | Excel.DialogSheet>;
     new(col: Excel.ShapeNodes): Enumerator<Excel.ShapeNode>;
     new(col: Excel.SlicerCacheLevels): Enumerator<Excel.SlicerCacheLevel>;
     new(col: Excel.SlicerCaches): Enumerator<Excel.SlicerCache>;
