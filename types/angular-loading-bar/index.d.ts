@@ -7,40 +7,38 @@
 
 /// <reference types="angular" />
 
-import * as angular from 'angular';
-
 declare module 'angular' {
-	export namespace loadingBar {
+    export namespace loadingBar {
 
-		interface ILoadingBarProvider {
-			/**
-			* Turn the spinner on or off
-			*/
-			includeSpinner?: boolean;
+        interface ILoadingBarProvider {
+            /**
+             * Turn the spinner on or off
+             */
+            includeSpinner?: boolean;
 
-			/**
-			* Turn the loading bar on or off
-			*/
-			includeBar?: boolean;
+            /**
+             * Turn the loading bar on or off
+             */
+            includeBar?: boolean;
 
-			/**
-			* HTML template
-			*/
-			spinnerTemplate?: string;
+            /**
+             * HTML template
+             */
+            spinnerTemplate?: string;
 
             /**
              * Loading bar template
              */
             loadingBarTemplate?: string;
 
-			/**
-			* Latency Threshold
-			*/
-			latencyThreshold?: number;
-			/**
-			 * HTML element selector of parent
-			 */
-			parentSelector?: string;
+            /**
+             * Latency Threshold
+             */
+            latencyThreshold?: number;
+            /**
+             * HTML element selector of parent
+             */
+            parentSelector?: string;
 
             /**
              * Starting size
@@ -51,14 +49,14 @@ declare module 'angular' {
              * Give illusion that there's always progress
              */
             autoIncrement?: boolean;
-		}
-	}
+        }
+    }
 
-	interface IRequestShortcutConfig {
-		/**
-		 * Indicates that the loading bar should be hidden.
-		 */
-		ignoreLoadingBar?: boolean;
-	}
+    interface IRequestShortcutConfig {
+        /**
+         * Indicates that the loading bar should be hidden.
+         */
+        ignoreLoadingBar?: boolean;
+    }
 
 }
