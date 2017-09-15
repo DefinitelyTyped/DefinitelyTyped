@@ -1,9 +1,10 @@
 // Type definitions for vue-scrollto 2.7
 // Project: https://github.com/rigor789/vue-scrollto#readme
-// Definitions by: My Self <https://github.com/me>
+// Definitions by: Kovács Vince <https://github.com/vincekovacs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import {PluginFunction} from "vue"
+import * as Vue from 'vue';
+import { PluginFunction } from "vue";
 
 declare namespace VueScrollTo {
     export interface Options {
@@ -33,15 +34,15 @@ declare namespace VueScrollTo {
 }
 
 declare class VueScrollTo {
-    static install: PluginFunction<never>
+    static install: PluginFunction<never>;
 
     scrollTo(element: string | HTMLElement, options?: VueScrollTo.Options): void;
 }
 
 declare module "vue/types/vue" {
     interface Vue {
-        $scrollTo: typeof VueScrollTo.prototype.scrollTo
+        $scrollTo: typeof VueScrollTo.prototype.scrollTo;
     }
 }
 
-export = VueScrollTo
+export = VueScrollTo;
