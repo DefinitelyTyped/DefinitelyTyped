@@ -1,4 +1,4 @@
-// Type definitions for ssh2-sftp-client v1.0.5
+// Type definitions for ssh2-sftp-client v1.1.0
 // Project: https://www.npmjs.com/package/ssh2-sftp-client
 // Definitions by: igrayson <https://github.com/igrayson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -29,10 +29,8 @@ declare module "ssh2-sftp-client" {
       new():Client;
       connect(options:ssh2.ConnectConfig):Promise<void>;
       list(remoteFilePath:string):Promise<Array<FileInfo>>;
-      get(remoteFilePath:string, useCompression?:boolean):Promise<NodeJS.ReadableStream>;
-      put(localFilePath:string, remoteFilePath:string, useCompression?:boolean):Promise<void>;
-      put(buffer:Buffer, remoteFilePath:string, useCompression?:boolean):Promise<void>;
-      put(stream:NodeJS.ReadableStream, remoteFilePath:string, useCompression?:boolean):Promise<void>;
+      get(remoteFilePath:string, useCompression?:boolean, encoding?: string):Promise<NodeJS.ReadableStream>;
+      put(input:string|Buffer|NodeJS.ReadableStream, remoteFilePath:string, useCompression?:boolean, encoding?:string):Promise<void>;
       mkdir(remoteFilePath:string, recursive?:boolean):Promise<void>;
       delete(remoteFilePath:string):Promise<void>;
       rename(remoteSourcePath:string, remoteDestPath:string):Promise<void>;
