@@ -2476,19 +2476,22 @@ declare namespace google.maps {
         }
 
         export interface OpeningHours {
-            open_now: boolean,
-            periods: OpeningPeriod[],
-            weekday_text: string[]
+            open_now: boolean;
+            periods: OpeningPeriod[];
+            weekday_text: string[];
         }
 
         export interface OpeningPeriod {
-            open: OpeningHoursTime,
-            close?: OpeningHoursTime
+            open: OpeningHoursTime;
+            close?: OpeningHoursTime;
         }
 
         export interface OpeningHoursTime {
-            day: number,
-            time: string
+            day: number;
+            hours: number;
+            minutes: number;
+            nextDate: number;
+            time: string;
         }
 
         export interface PredictionTerm {
@@ -2549,12 +2552,13 @@ declare namespace google.maps {
 
         export interface PlaceResult {
             address_components: GeocoderAddressComponent[];
-            aspects: PlaceAspectRating[];  /* Deprecated. Will be removed May 2, 2017 */
+            adr_address: string;
             formatted_address: string;
             formatted_phone_number: string;
             geometry: PlaceGeometry;
             html_attributions: string[];
             icon: string;
+            id: string;
             international_phone_number: string;
             name: string;
             opening_hours: OpeningHours;
@@ -2566,6 +2570,7 @@ declare namespace google.maps {
             reviews: PlaceReview[];
             types: string[];
             url: string;
+            utc_offset: number;
             vicinity: string;
             website: string;
         }
