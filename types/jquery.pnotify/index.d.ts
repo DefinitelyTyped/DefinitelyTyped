@@ -338,7 +338,7 @@ interface PNotifyConstructor {
     /**
      * Reposition the notices, optionally animating their movement.
      */
-    positionAll(animate?: string): void
+    positionAll(animate?: boolean): void
 }
 
 declare var PNotify: PNotifyConstructor;
