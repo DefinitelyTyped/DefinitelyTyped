@@ -1,7 +1,11 @@
 // Type definitions for JSZip
 // Project: http://stuk.github.com/jszip/
-// Definitions by: mzeiher <https://github.com/mzeiher>
+// Definitions by: mzeiher <https://github.com/mzeiher>, forabi <https://github.com/forabi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
+
+
+/// <reference types="node" />
 
 interface JSZip {
     files: {[key: string]: JSZipObject};
@@ -26,11 +30,11 @@ interface JSZip {
      * Add a file to the archive
      *
      * @param path Relative path to file
-     * @param content Content of the file
+     * @param data Content of the file
      * @param options Optional information about the file
      * @return JSZip object
      */
-    file(path: string, data: any, options?: JSZipFileOptions): JSZip;
+    file<T extends InputType>(path: string, data: InputByType[T] | Promise<InputByType[T]>, options?: JSZipFileOptions): JSZip;
 
     /**
      * Return an new JSZip instance with the given folder as root
@@ -72,26 +76,22 @@ interface JSZip {
     remove(path: string): JSZip;
 
     /**
-     * @deprecated since version 3.0
-     * @see {@link generateAsync}
-     * http://stuk.github.io/jszip/documentation/upgrade_guide.html
+     * Generates a new archive asynchronously
+     *
+     * @param options Optional options for the generator
+     * @param onUpdate The optional function called on each internal update with the metadata.
+     * @return The serialized archive
      */
-    generate(options?: JSZipGeneratorOptions): any;
+    generateAsync<T extends OutputType>(options?: JSZipGeneratorOptions<T>, onUpdate?: OnUpdateCallback): Promise<OutputByType[T]>;
 
     /**
      * Generates a new archive asynchronously
      *
      * @param options Optional options for the generator
-     * @return The serialized archive
+     * @param onUpdate The optional function called on each internal update with the metadata.
+     * @return A Node.js `ReadableStream`
      */
-    generateAsync(options?: JSZipGeneratorOptions, onUpdate?: Function): Promise<any>;
-
-    /**
-     * @deprecated since version 3.0
-     * @see {@link loadAsync}
-     * http://stuk.github.io/jszip/documentation/upgrade_guide.html
-     */
-    load(): void;
+    generateNodeStream(options?: JSZipGeneratorOptions<'nodebuffer'>, onUpdate?: OnUpdateCallback): NodeJS.ReadStream;
 
     /**
      * Deserialize zip file asynchronously
@@ -100,44 +100,65 @@ interface JSZip {
      * @param options Options for deserializing
      * @return Returns promise
      */
-    loadAsync(data: any, options?: JSZipLoadOptions): Promise<JSZip>;
+    loadAsync(data: InputFileFormat, options?: JSZipLoadOptions): Promise<JSZip>;
 }
 
-type Serialization = ("string" | "text" | "base64" | "binarystring" | "uint8array" |
-                      "arraybuffer" | "blob" | "nodebuffer");
+type Compression = 'STORE' | 'DEFLATE';
+
+type ReadFileFormat = 'base64' | 'string' | 'text' | 'binarystring' | 'array' | 'unit8array' | 'arraybuffer' | 'blob' | 'nodebuffer';
+
+type InputByType = {
+    base64: string;
+    string: string;
+    text: string;
+    binarystring: string;
+    array: Array<number>;
+    unit8array: Uint8Array;
+    arraybuffer: ArrayBuffer;
+    blob: Blob;
+}
+
+type InputType = keyof InputByType;
+
+type InputFileFormat = string | ArrayBuffer | Uint8Array | Buffer | Blob | NodeJS.ReadableStream;
+
+type OutputByType = {
+    base64: string;
+    text: string;
+    binarystring: string;
+    array: Array<number>;
+    unit8array: Uint8Array;
+    arraybuffer: ArrayBuffer;
+    blob: Blob;
+    nodebuffer: Buffer;
+}
+type OutputType = keyof OutputByType;
+
+type Metadata = {
+    percent: number;
+    currentFile: string;
+};
+
+type OnUpdateCallback = (metadata: Metadata) => void;
 
 interface JSZipObject {
     name: string;
     dir: boolean;
     date: Date;
     comment: string;
+    /** The UNIX permissions of the file, if any. */
+    unixPermissions: number | string | null;
+    /** The UNIX permissions of the file, if any. */
+    dosPermissions: number | null;
     options: JSZipObjectOptions;
 
     /**
      * Prepare the content in the asked type.
      * @param {String} type the type of the result.
-     * @param {Function} onUpdate a function to call on each internal update.
+     * @param {OnUpdateCallback} onUpdate a function to call on each internal update.
      * @return Promise the promise of the result.
      */
-    async(type: Serialization, onUpdate?: Function): Promise<any>;
-
-    /**
-     * @deprecated since version 3.0
-     */
-    asText(): void;
-    /**
-     * @deprecated since version 3.0
-     */
-    asBinary(): void;
-    /**
-     * @deprecated since version 3.0
-     */
-    asArrayBuffer(): void;
-    /**
-     * @deprecated since version 3.0
-     */
-    asUint8Array(): void;
-    //asNodeBuffer(): void;
+    async<T extends OutputType>(type: T, onUpdate?: OnUpdateCallback): Promise<OutputByType[T]>;
 }
 
 interface JSZipFileOptions {
@@ -149,37 +170,38 @@ interface JSZipFileOptions {
     optimizedBinaryString?: boolean;
     createFolders?: boolean;
     dir?: boolean;
+
+    /** 6 bits number. The DOS permissions of the file, if any. */
+    dosPermissions?: number | null;
+    /**
+     * 16 bits number. The UNIX permissions of the file, if any.
+     * Also accepts a `string` representing the octal value: `"644"`, `"755"`, etc.
+     */
+    unixPermissions?: number | string | null;
 }
 
 interface JSZipObjectOptions {
-    /** deprecated */
-    base64: boolean;
-    /** deprecated */
-    binary: boolean;
-    /** deprecated */
-    dir: boolean;
-    /** deprecated */
-    date: Date;
-    compression: string;
+    compression: Compression;
 }
 
-interface JSZipGeneratorOptions {
-    /** deprecated */
-    base64?: boolean;
-    /** DEFLATE or STORE */
-    compression?: string;
-    /** base64 (default), string, uint8array, arraybuffer, blob */
-    type?: string;
+interface JSZipGeneratorOptions<T extends OutputType = OutputType> {
+    compression?: Compression;
+    compressionOptions?: null | {
+        level: number;
+    }
+    type?: T;
     comment?: string;
     /**
      * mime-type for the generated file.
      * Useful when you need to generate a file with a different extension, ie: “.ods”.
+     * @default 'application/zip'
      */
     mimeType?: string;
-    /** streaming uses less memory */
+    encodeFileName?: (filename: string) => string;
+    /** Stream the files and create file descriptors */
     streamFiles?: boolean;
     /** DOS (default) or UNIX */
-    platform?: string;
+    platform?: 'DOS' | 'UNIX';
 }
 
 interface JSZipLoadOptions {
@@ -208,7 +230,7 @@ declare var JSZip: {
      * @param data Serialized zip archive
      * @param options Description of the serialized zip archive
      */
-    (data: any, options?: JSZipLoadOptions): JSZip;
+    (data: InputFileFormat, options?: JSZipLoadOptions): JSZip;
 
     /**
      * Create JSZip instance
@@ -221,10 +243,14 @@ declare var JSZip: {
      * @param data Serialized zip archive
      * @param options Description of the serialized zip archive
      */
-    new (data: any, options?: JSZipLoadOptions): JSZip;
+    new (data: InputFileFormat, options?: JSZipLoadOptions): JSZip;
 
     prototype: JSZip;
     support: JSZipSupport;
+    external: {
+        Promise: PromiseConstructorLike;
+    };
+    version: string;
 }
 
 declare module "jszip" {

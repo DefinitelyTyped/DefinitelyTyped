@@ -14,7 +14,7 @@ function createTestZip(): JSZip {
 	return zip
 }
 
-function filterWithFileAsync(zip: JSZip, as: Serialization,
+function filterWithFileAsync(zip: JSZip, as: OutputType,
                              cb: (relativePath: string, file: JSZipObject, value: any) => boolean)
   : Promise<JSZipObject[]> {
 	var promises: Promise<any>[] = [];
@@ -123,6 +123,7 @@ function testJSZipRemove() {
 	}
 	}).catch((e: any) => log(SEVERITY.ERROR, e));
 }
+
 
 function log(severity:number, message: any) {
 	var log = "";
