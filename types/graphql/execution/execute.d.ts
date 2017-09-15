@@ -36,6 +36,16 @@ export interface ExecutionResult {
     errors?: GraphQLError[];
 }
 
+export type ExecutionArgs = {
+  schema: GraphQLSchema,
+  document: DocumentNode,
+  rootValue?: any,
+  contextValue?: any,
+  variableValues?: {[key: string]: any},
+  operationName?: string,
+  fieldResolver?: GraphQLFieldResolver<any, any>
+};
+
 /**
  * Implements the "Evaluating requests" section of the GraphQL specification.
  *
@@ -43,7 +53,10 @@ export interface ExecutionResult {
  *
  * If the arguments to this function do not result in a legal execution context,
  * a GraphQLError will be thrown immediately explaining the invalid input.
+ *
+ * Accepts either an object with named arguments, or individual arguments.
  */
+export function execute(args: ExecutionArgs): Promise<ExecutionResult>;
 export function execute(
     schema: GraphQLSchema,
     document: DocumentNode,

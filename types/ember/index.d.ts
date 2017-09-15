@@ -10,7 +10,7 @@
 
 // Capitalization is intentional: this makes it much easier to re-export RSVP on
 // the Ember namespace.
-import Rsvp from 'rsvp';
+import Rsvp = require('rsvp');
 
 declare namespace EmberStates {
     interface Transition {

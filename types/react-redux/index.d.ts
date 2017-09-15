@@ -1,10 +1,11 @@
-// Type definitions for react-redux 5.0.5
+// Type definitions for react-redux 5.0.8
 // Project: https://github.com/rackt/react-redux
 // Definitions by: Qubo <https://github.com/tkqubo>,
 //                 Thomas Hasner <https://github.com/thasner>,
 //                 Kenzie Togami <https://github.com/kenzierocks>,
 //                 Curits Layne <https://github.com/clayne11>
 //                 Frank Tan <https://github.com/tansongyang>
+//                 Nicholas Boll <https://github.com/nicholasboll>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -37,7 +38,7 @@ interface AdvancedComponentDecorator<TProps, TOwnProps> {
 export interface InferableComponentEnhancerWithProps<TInjectedProps, TNeedsProps> {
     <P extends TInjectedProps>(
         component: Component<P>
-    ): ComponentClass<Omit<P, keyof TInjectedProps> & TNeedsProps>
+    ): ComponentClass<Omit<P, keyof TInjectedProps> & TNeedsProps> & {WrappedComponent: Component<P>}
 }
 
 // Injects props and removes them from the prop requirements.
@@ -141,7 +142,7 @@ interface MapStateToPropsFactory<TStateProps, TOwnProps> {
     (initialState: any, ownProps: TOwnProps): MapStateToProps<TStateProps, TOwnProps>;
 }
 
-type MapStateToPropsParam<TStateProps, TOwnProps> = MapStateToProps<TStateProps, TOwnProps> | MapStateToPropsFactory<TStateProps, TOwnProps>;
+type MapStateToPropsParam<TStateProps, TOwnProps> = MapStateToPropsFactory<TStateProps, TOwnProps> | MapStateToProps<TStateProps, TOwnProps> | null | undefined;
 
 interface MapDispatchToPropsFunction<TDispatchProps, TOwnProps> {
     (dispatch: Dispatch<any>, ownProps: TOwnProps): TDispatchProps;
@@ -154,7 +155,7 @@ interface MapDispatchToPropsFactory<TDispatchProps, TOwnProps> {
     (dispatch: Dispatch<any>, ownProps: TOwnProps): MapDispatchToProps<TDispatchProps, TOwnProps>;
 }
 
-type MapDispatchToPropsParam<TDispatchProps, TOwnProps> = MapDispatchToProps<TDispatchProps, TOwnProps> | MapDispatchToPropsFactory<TDispatchProps, TOwnProps>;
+type MapDispatchToPropsParam<TDispatchProps, TOwnProps> = MapDispatchToPropsFactory<TDispatchProps, TOwnProps> | MapDispatchToProps<TDispatchProps, TOwnProps>;
 
 interface MergeProps<TStateProps, TDispatchProps, TOwnProps, TMergedProps> {
     (stateProps: TStateProps, dispatchProps: TDispatchProps, ownProps: TOwnProps): TMergedProps;
