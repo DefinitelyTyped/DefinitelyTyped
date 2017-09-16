@@ -44,7 +44,7 @@ interface OutputByType {
     nodebuffer: Buffer;
 }
 
-type InputFileFormat = string | ArrayBuffer | Uint8Array | Buffer | Blob | NodeJS.ReadableStream;
+type InputFileFormat = InputByType[keyof InputByType] | NodeJS.ReadableStream;
 
 declare namespace JSZip {
     type InputType = keyof InputByType;
@@ -69,6 +69,7 @@ declare namespace JSZip {
          * @return Promise the promise of the result.
          */
         async<T extends OutputType>(type: T, onUpdate?: OnUpdateCallback): Promise<OutputByType[T]>;
+        nodeStream(type?: 'nodestream', onUpdate?: OnUpdateCallback): NodeJS.ReadableStream;
     }
 
     interface JSZipFileOptions {
@@ -163,7 +164,7 @@ interface JSZip {
     file<T extends JSZip.InputType>(path: string, data: null, options?: JSZip.JSZipFileOptions & { dir: true }): this;
 
     /**
-     * Return an new JSZip instance with the given folder as root
+     * Returns an new JSZip instance with the given folder as root
      *
      * @param name Name of the folder
      * @return New JSZip object with the given folder as root or null
@@ -186,7 +187,7 @@ interface JSZip {
     forEach(callback: (relativePath: string, file: JSZip.JSZipObject) => void): void;
 
     /**
-     * Get all files wchich match the given filter function
+     * Get all files which match the given filter function
      *
      * @param predicate Filter function
      * @return Array of matched elements

@@ -37,7 +37,7 @@ function filterWithFileAsync(zip: JSZip, as: JSZip.OutputType,
 
 function testJSZip() {
 	const zip = createTestZip();
-	zip.generateAsync({compression: "DEFLATE", type: "base64"}).then((serializedZip: any) => {
+	zip.generateAsync({compression: "DEFLATE", type: "base64"}).then((serializedZip) => {
 		const newJszip = new JSZip();
 		return newJszip.loadAsync(serializedZip, {base64: true/*, checkCRC32: true*/});
 	}).then((newJszip: JSZip) => {
