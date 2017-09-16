@@ -1,52 +1,52 @@
+// Type definitions for express-brute-redis 0.0
 // Project: https://github.com/AdamPflug/express-brute-redis
 // Definitions by: Scott Harwell <https://github.com/scottharwell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4.2
 
-import redis = require("redis");
+import { ClientOpts } from "redis";
 
 /**
  * @summary Redis store for Express Brute
  * @class
  */
-declare class ExpressBruteRedis {
+declare class express_brute_redis {
     /**
      * Default options for the Redis client
      */
-    public static defaults: redis.ClientOpts;
+    static defaults: ClientOpts;
 
     /**
      * @summary constructor
      * @param options Options to configure the Redis client.
      */
-    constructor(options?: redis.ClientOpts, ...args: any[]);
+    constructor(options?: ClientOpts, ...args: any[]);
 
     /**
      * @summary Sets a key in Redis storage.
-     * @param key 
-     * @param value 
-     * @param lifetime 
-     * @param callback 
+     * @param key
+     * @param value
+     * @param lifetime
+     * @param callback
      */
-    public set(key: string, value: string, lifetime?: number, callback?: SetCallback): void;
+    set(key: string, value: string, lifetime?: number, callback?: SetCallback): void;
 
     /**
      * @summary Gets a key in Redis storage.
-     * @param key 
-     * @param callback 
+     * @param key
+     * @param callback
      */
-    public get(key: string, callback?: GetCallback): void;
+    get(key: string, callback?: GetCallback): void;
 
     /**
      * @summary Resets a key in Redis storage.
-     * @param key 
-     * @param callback 
+     * @param key
+     * @param callback
      */
-    public reset(key: string, callback?: ResetCallback, ...args: any[]): void;
+    reset(key: string, callback?: ResetCallback, ...args: any[]): void;
 }
 
-declare interface SetCallback { (sender?: ExpressBruteRedis): void }
-declare interface GetCallback { (err?: Error, data?: any): void }
-declare interface ResetCallback { (err?: Error, data?: any): void }
+type SetCallback = (sender?: express_brute_redis) => void;
+type GetCallback = (err?: Error, data?: any) => void;
+type ResetCallback = (err?: Error, data?: any) => void;
 
-export = ExpressBruteRedis;
+export = express_brute_redis;
