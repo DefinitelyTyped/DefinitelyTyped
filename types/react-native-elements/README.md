@@ -6,22 +6,22 @@ List will update as typings are added
 - [x] Buttons
 - [x] Badge
 - [ ] Social Icons / Social Icon Buttons
-- [ ] Icons
-- [ ] Side Menu
-- [ ] Form Elements
+- [x] Icons
+- [ ] ~~Side Menu~~ DEPRECATED
+- [x] Form Elements
 - [ ] Search Bar
-- [ ] ButtonGroup
-- [ ] Checkboxes
-- [ ] List Element
-- [ ] Badge
-- [ ] Tab Bar Component
+- [x] ButtonGroup
+- [x] CheckBoxes
+- [x] List Element
+- [ ] ~~Tab Bar Component~~ DEPRECATED
 - [x] HTML style headings
 - [x] Card component
-- [ ] Pricing Component
-- [ ] Grid Component
+- [x] Pricing Component
+- [x] ~~Grid Component~~ DEPRECATED
 - [ ] Slider Component
 - [ ] Tile Component
 - [x] Avatar Component
 - [ ] Rating Component
 - [ ] SwipeDeck Component
-- [ ] Header Component
+- [x] Header Component
+- [x] Divider
