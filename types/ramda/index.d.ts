@@ -804,9 +804,7 @@ declare namespace R {
          * The returned function is curried and accepts `len + 1` parameters (or `method.length + 1`
          * when `len` is not specified), and the final parameter is the target object.
          */
-        // invoker(name: string, obj: any, len?: number): (...a: any[]) => any;
-        // invoker(name: string): (obj: any, len?: number) => (...a: any[]) => any;
-        invoker(len: number, name: string): (...a: any[], obj: any) => any;
+        invoker(len: number, name: string): (...a: any[]) => any;
 
         /**
          * See if an object (`val`) is an instance of the supplied constructor.
