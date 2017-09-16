@@ -8,7 +8,7 @@ var num: number = 0;
 var str: string = '';
 var bool: boolean = false;
 var exp: RegExp = null;
-var obj: Object = null;
+var obj: object = null;
 var date: Date = null;
 var err: Error = null;
 var func: Function = null;
@@ -18,15 +18,16 @@ var numArr: number[] = [];
 var strArr: string[] = [];
 var boolArr: boolean[] = [];
 var expArr: RegExp[] = [];
-var objArr: Object[] = [];
+var objArr: object[] = [];
 var errArr: Error[] = [];
 var funcArr: Function[] = [];
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
 var schema: Joi.Schema = null;
+var schemaLike: Joi.SchemaLike = null;
 
-var anySchema: Joi.AnySchema<Joi.Schema> = null;
+var anySchema: Joi.AnySchema = null;
 var numSchema: Joi.NumberSchema = null;
 var strSchema: Joi.StringSchema = null;
 var arrSchema: Joi.ArraySchema = null;
@@ -40,6 +41,7 @@ var altSchema: Joi.AlternativesSchema = null;
 var schemaArr: Joi.Schema[] = [];
 
 var ref: Joi.Reference = null;
+var description: Joi.Description = null;
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
@@ -53,10 +55,25 @@ validOpts = { stripUnknown: bool };
 validOpts = { stripUnknown: { arrays: bool } };
 validOpts = { stripUnknown: { objects: bool } };
 validOpts = { stripUnknown: { arrays: bool, objects: bool } };
-validOpts = { language: bool };
-validOpts = { presence: str };
+validOpts = { presence: 'optional' || 'required' || 'forbidden' };
 validOpts = { context: obj };
 validOpts = { noDefaults: bool };
+validOpts = {
+    language: {
+        root: str,
+        key: str,
+        messages: { wrapArrays: bool },
+        string: { base: str },
+        number: { base: str },
+        object: {
+            base: false,
+            children: { childRule: str }
+        },
+        customType: {
+            customRule: str
+        }
+    }
+};
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
@@ -96,11 +113,12 @@ uriOpts = { scheme: expArr };
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
-var whenOpts: Joi.WhenOptions<any> = null;
+var whenOpts: Joi.WhenOptions = null;
 
 whenOpts = { is: x };
 whenOpts = { is: schema, then: schema };
 whenOpts = { is: schema, otherwise: schema };
+whenOpts = { is: schemaLike, then: schemaLike, otherwise: schemaLike };
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
@@ -146,8 +164,6 @@ schema = dateSchema;
 schema = funcSchema;
 schema = objSchema;
 
-schema = ref;
-
 anySchema = anySchema;
 anySchema = numSchema;
 anySchema = strSchema;
@@ -179,8 +195,20 @@ schemaMap = {
         { b1: strSchema },
         { b2: anySchema }
     ],
-    c: arrSchema
+    c: arrSchema,
+    d: schemaLike
 };
+schemaMap = {
+    a: 1,
+    b: {
+        b1: '1',
+        b2: 2
+    },
+    c: [
+        { c1: true },
+        { c2: null }
+    ]
+}
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
@@ -256,9 +284,9 @@ arrSchema = arrSchema.sparse(bool);
 arrSchema = arrSchema.single();
 arrSchema = arrSchema.single(bool);
 arrSchema = arrSchema.ordered(anySchema);
-arrSchema = arrSchema.ordered(anySchema, numSchema, strSchema, arrSchema, boolSchema, binSchema, dateSchema, funcSchema, objSchema);
+arrSchema = arrSchema.ordered(anySchema, numSchema, strSchema, arrSchema, boolSchema, binSchema, dateSchema, funcSchema, objSchema, schemaLike);
 arrSchema = arrSchema.ordered(schemaMap);
-arrSchema = arrSchema.ordered([schemaMap, schemaMap]);
+arrSchema = arrSchema.ordered([schemaMap, schemaMap, schemaLike]);
 arrSchema = arrSchema.min(num);
 arrSchema = arrSchema.max(num);
 arrSchema = arrSchema.length(num);
@@ -268,11 +296,11 @@ arrSchema = arrSchema.unique('customer.id');
 
 
 arrSchema = arrSchema.items(numSchema);
-arrSchema = arrSchema.items(numSchema, strSchema);
-arrSchema = arrSchema.items([numSchema, strSchema]);
+arrSchema = arrSchema.items(numSchema, strSchema, schemaLike);
+arrSchema = arrSchema.items([numSchema, strSchema, schemaLike]);
 arrSchema = arrSchema.items(schemaMap);
-arrSchema = arrSchema.items(schemaMap, schemaMap);
-arrSchema = arrSchema.items([schemaMap, schemaMap]);
+arrSchema = arrSchema.items(schemaMap, schemaMap, schemaLike);
+arrSchema = arrSchema.items([schemaMap, schemaMap, schemaLike]);
 
 // - - - - - - - -
 
@@ -609,6 +637,7 @@ objSchema = objSchema.max(num);
 objSchema = objSchema.length(num);
 
 objSchema = objSchema.pattern(exp, schema);
+objSchema = objSchema.pattern(exp, schemaLike);
 
 objSchema = objSchema.and(str);
 objSchema = objSchema.and(str, str);
@@ -843,8 +872,8 @@ namespace validate_tests {
         });
         let returnValue: Joi.ValidationResult<typeof value>;
 
-        returnValue = Joi.validate(value);
-        value = Joi.validate(value, (err, value) => value);
+        returnValue = schema.validate(value);
+        value = schema.validate(value, (err, value) => value);
 
         returnValue = Joi.validate(value, schema);
         returnValue = Joi.validate(value, obj);
@@ -872,17 +901,22 @@ schema = Joi.compile(schemaMap);
 Joi.assert(obj, schema);
 Joi.assert(obj, schema, str);
 Joi.assert(obj, schema, err);
+Joi.assert(obj, schemaLike);
 
 Joi.attempt(obj, schema);
 Joi.attempt(obj, schema, str);
 Joi.attempt(obj, schema, err);
+Joi.attempt(obj, schemaLike);
 
 ref = Joi.ref(str, refOpts);
 ref = Joi.ref(str);
 
 Joi.isRef(ref);
 
-schema = Joi.reach(schema, '');
+description = Joi.describe(schema);
+description = schema.describe();
+
+schema = Joi.reach(objSchema, '');
 
 const Joi2 = Joi.extend({ name: '', base: schema });
 
@@ -892,9 +926,11 @@ const Joi3 = Joi.extend({
     language: {
         asd: 'must be exactly asd(f)',
     },
-    pre (value, state, options) {
+    pre(value, state, options) {
+        return value;
     },
-    describe (description) {
+    describe(description) {
+        return description;
     },
     rules: [
         {
@@ -902,10 +938,10 @@ const Joi3 = Joi.extend({
             params: {
                 allowF: Joi.boolean().default(false),
             },
-            setup (params) {
+            setup(params) {
                 const fIsAllowed = params.allowF;
             },
-            validate (params, value, state, options) {
+            validate(params, value, state, options) {
                 if (value === 'asd' || params.allowF && value === 'asdf') {
                     return value;
                 }
@@ -914,56 +950,3 @@ const Joi3 = Joi.extend({
         },
     ],
 });
-
-// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
-
-schema = Joi.allow(x, x);
-schema = Joi.allow([x, x, x]);
-schema = Joi.valid(x);
-schema = Joi.valid(x, x);
-schema = Joi.valid([x, x, x]);
-schema = Joi.only(x);
-schema = Joi.only(x, x);
-schema = Joi.only([x, x, x]);
-schema = Joi.equal(x);
-schema = Joi.equal(x, x);
-schema = Joi.equal([x, x, x]);
-schema = Joi.invalid(x);
-schema = Joi.invalid(x, x);
-schema = Joi.invalid([x, x, x]);
-schema = Joi.disallow(x);
-schema = Joi.disallow(x, x);
-schema = Joi.disallow([x, x, x]);
-schema = Joi.not(x);
-schema = Joi.not(x, x);
-schema = Joi.not([x, x, x]);
-
-schema = Joi.required();
-schema = Joi.optional();
-schema = Joi.forbidden();
-schema = Joi.strip();
-
-schema = Joi.description(str);
-schema = Joi.notes(str);
-schema = Joi.notes(strArr);
-schema = Joi.tags(str);
-schema = Joi.tags(strArr);
-
-schema = Joi.meta(obj);
-schema = Joi.example(obj);
-schema = Joi.unit(str);
-
-schema = Joi.options(validOpts);
-schema = Joi.strict();
-schema = Joi.strict(bool);
-schema = Joi.concat(x);
-
-schema = Joi.when(str, whenOpts);
-schema = Joi.when(ref, whenOpts);
-
-schema = Joi.label(str);
-schema = Joi.raw();
-schema = Joi.raw(bool);
-schema = Joi.empty();
-schema = Joi.empty(str);
-schema = Joi.empty(anySchema);
