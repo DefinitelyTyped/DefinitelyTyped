@@ -259,3 +259,16 @@ var spellcheck = new natural.Spellcheck(corpus);
 spellcheck.isCorrect('cat'); // false
 spellcheck.getCorrections('soemthing', 1); // ['something']
 spellcheck.getCorrections('soemthing', 2); // ['something', 'soothing']
+
+// POS Tagger
+
+var rulesFilename = 'fileName';
+var lexiconFilename = 'fileName';
+var defaultCategory = 'N';
+
+var lexicon = new natural.Lexicon(lexiconFilename, defaultCategory);
+var rules = new natural.RuleSet(rulesFilename);
+var tagger = new natural.BrillPOSTagger(lexicon, rules);
+
+var sentence = ["I", "see", "the", "man", "with", "the", "telescope"];
+tagger.tag(sentence);

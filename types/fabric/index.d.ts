@@ -1,6 +1,6 @@
 // Type definitions for FabricJS 1.5
 // Project: http://fabricjs.com/
-// Definitions by: Oliver Klemencic <https://github.com/oklemencic/>, Joseph Livecchi <https://github.com/joewashear007/>, Michael Randolph <https://github.com/mrand01/>
+// Definitions by: Oliver Klemencic <https://github.com/oklemencic>, Joseph Livecchi <https://github.com/joewashear007>, Michael Randolph <https://github.com/mrand01>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export as namespace fabric;
@@ -1866,7 +1866,7 @@ export class Image {
 	 * @param {Function} [callback] Callback is invoked when image has been loaded (and all filters have been applied)
 	 * @param {Object} [options] Options object
 	 */
-	setSrc(src: string, callback: Function, options: IImageOptions): Image;
+	setSrc(src: string, callback?: Function, options?: IImageOptions): Image;
 
 	/**
 	 * Creates an instance of fabric.Image from an URL string
@@ -3086,7 +3086,7 @@ interface ITextOptions extends IObjectOptions {
 	textBackgroundColor?: string;
 
 	path?: string;
-	useNative?: Boolean;
+	useNative?: boolean;
 	text?: string;
 }
 export interface Text extends ITextOptions {}

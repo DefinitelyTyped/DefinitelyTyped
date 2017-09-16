@@ -1,8 +1,8 @@
 import * as React from "react";
-import {Table, Cell, Column, CellProps} from "fixed-data-table";
+import { Table, Cell, Column, CellProps } from "fixed-data-table";
 
 // create your Table
-class MyTable1 extends React.Component<{}, {}> {
+class MyTable1 extends React.Component {
     render(): React.ReactElement<any> {
         return (
             <Table
@@ -17,7 +17,7 @@ class MyTable1 extends React.Component<{}, {}> {
 }
 
 // create your Columns
-class MyTable2 extends React.Component<{}, {}> {
+class MyTable2 extends React.Component {
     render(): React.ReactElement<any> {
         return (
             <Table
@@ -88,25 +88,33 @@ interface MyCellProps extends CellProps {
     myData: RowData[];
 }
 
-class MyTextCell extends React.Component<MyCellProps, {}> {
+class MyTextCell extends React.Component<MyCellProps> {
     render(): React.ReactElement<any> {
         const {rowIndex, field, myData} = this.props;
 
         return (
-                <Cell {...this.props} className="text-cell">
+                <Cell height={this.props.height}
+                      width={this.props.height}
+                      columnKey={this.props.columnKey}
+                      rowIndex={this.props.rowIndex}
+                      className="text-cell">
                     {myData[rowIndex][field]}
                 </Cell>
             );
     }
 }
 
-class MyLinkCell extends React.Component<MyCellProps, {}> {
+class MyLinkCell extends React.Component<MyCellProps> {
     render(): React.ReactElement<any> {
         const {rowIndex, field, myData} = this.props;
         const link: string = myData[rowIndex][field];
 
         return (
-            <Cell {...this.props} className="link-cell">
+            <Cell width={this.props.width}
+                  height={this.props.height}
+                  rowIndex={this.props.rowIndex}
+                  columnKey={this.props.columnKey}
+                  className="link-cell">
                 <a href={link}>{link}</a>
             </Cell>
         );
@@ -160,7 +168,7 @@ class MyTable4 extends React.Component<{}, MyTable4State> {
 }
 
 // Listen for events
-class MyTable5 extends React.Component<{}, {}> {
+class MyTable5 extends React.Component {
     render(): React.ReactElement<any> {
         return (
             <Table

@@ -142,7 +142,7 @@ export function stat(path: string | Buffer): Promise<fs.Stats>;
  * `lstat()` is identical to `stat()`, except that if path is a symbolic link, then the link itself
  * is stat-ed, not the file that it refers to.
  */
-export function lstat(path: string | Buffer, callback?: (err: NodeJS.ErrnoException, stats: fs.Stats) => any): void;
+export function lstat(path: string | Buffer, callback: (err: NodeJS.ErrnoException, stats: fs.Stats) => any): void;
 
 /**
  * Asynchronous `lstat(2)`.

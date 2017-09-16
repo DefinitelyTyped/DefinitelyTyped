@@ -1,7 +1,7 @@
 import { redraw, render } from "mithril";
 
 declare namespace RedrawService {
-	export interface Static {
+	interface Static {
 		render: typeof render;
 		redraw: typeof redraw;
 	}

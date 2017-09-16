@@ -2,6 +2,7 @@
 // Project: https://github.com/bgrins/spectrum/
 // Definitions by: Mordechai Zuber <https://github.com/M-Zuber>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="jquery"/>
 /// <reference types="tinycolor2"/>

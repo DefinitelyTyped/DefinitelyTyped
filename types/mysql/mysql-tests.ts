@@ -17,7 +17,7 @@ connection.query('SELECT 1 + 1 AS solution', function (err, rows, fields) {
     console.log('The solution is: ', rows[0].solution);
 });
 
-connection.end();
+connection.end(function (err) {});
 
 connection = mysql.createConnection({
     host: 'example.org',
@@ -147,6 +147,11 @@ connection.connect(function (err) {
     if (err) throw err;
     console.log('connected as id ' + connection.threadId);
 });
+
+connection.ping(function (err) {
+    if (err) throw err;
+    console.log('Ping was successful');
+})
 
 /// Pools
 

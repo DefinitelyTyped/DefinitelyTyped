@@ -3,9 +3,9 @@
 // Definitions by: Hugues Stefanski <https://github.com/Ledragon>, Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="geojson" />
-
 // Last module patch version validated against: 1.6.1
+
+import * as GeoJSON from 'geojson';
 
 // ----------------------------------------------------------------------
 // Shared Interfaces and Types
@@ -926,7 +926,8 @@ export interface GeoPath<This, DatumObject extends GeoPermissibleObjects> {
      *
      * Any additional arguments are passed along to the pointRadius accessor.
      *
-     * If the rendering context is null, the function returns an SVG Path string, otherwise the function renders to the current context.
+     * IMPORTANT: If the rendering context of the geoPath generator is null,
+     * then the geoPath is returned as an SVG path data string.
      *
      * Separate path elements are typically slower than a single path element. However, distinct path elements are useful for styling and interation (e.g., click or mouseover).
      * Canvas rendering (see path.context) is typically faster than SVG, but requires more effort to implement styling and interaction.
@@ -935,7 +936,36 @@ export interface GeoPath<This, DatumObject extends GeoPermissibleObjects> {
      *
      * @param object An object to be rendered.
      */
-    (this: This, object: DatumObject, ...args: any[]): string | undefined;
+    (this: This, object: DatumObject, ...args: any[]): string | null;
+    /**
+     * Renders the given object, which may be any GeoJSON feature or geometry object:
+     *
+     * + Point - a single position.
+     * + MultiPoint - an array of positions.
+     * + LineString - an array of positions forming a continuous line.
+     * + MultiLineString - an array of arrays of positions forming several lines.
+     * + Polygon - an array of arrays of positions forming a polygon (possibly with holes).
+     * + MultiPolygon - a multidimensional array of positions forming multiple polygons.
+     * + GeometryCollection - an array of geometry objects.
+     * + Feature - a feature containing one of the above geometry objects.
+     * + FeatureCollection - an array of feature objects.
+     *
+     * The type Sphere is also supported, which is useful for rendering the outline of the globe; a sphere has no coordinates.
+     *
+     *
+     * Any additional arguments are passed along to the pointRadius accessor.
+     *
+     * IMPORTANT: If the geoPath generator has been configured with a rendering context,
+     * then the geoPath is rendered to this context as a sequence of path method calls and this function returns void.
+     *
+     * Separate path elements are typically slower than a single path element. However, distinct path elements are useful for styling and interation (e.g., click or mouseover).
+     * Canvas rendering (see path.context) is typically faster than SVG, but requires more effort to implement styling and interaction.
+     *
+     * The first generic type of the GeoPath generator used, must correspond to the "this" context bound to the function upon invocation.
+     *
+     * @param object An object to be rendered.
+     */
+    (this: This, object: DatumObject, ...args: any[]): void;
 
     /**
      * Returns the projected planar area (typically in square pixels) for the specified GeoJSON object.

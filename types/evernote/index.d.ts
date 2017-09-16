@@ -1,9 +1,9 @@
 // Type definitions for evernote v 1.25.8
 // Project: https://www.npmjs.com/package/evernote
-// Definitions by: Zachary Collins <https://github.com/corps/>
+// Definitions by: Zachary Collins <https://github.com/corps>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Thrift } from "thrift";
+import * as Thrift from 'thrift';
 
 declare namespace Evernote {
     interface Callback<T> {

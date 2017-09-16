@@ -1,6 +1,6 @@
 // Type definitions for xmlbuilder
 // Project: https://github.com/oozcitak/xmlbuilder-js
-// Definitions by: Wallymathieu <http://github.com/wallymathieu>
+// Definitions by: Wallymathieu <https://github.com/wallymathieu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
@@ -85,5 +85,5 @@ declare class XMLElementOrXMLNode {
 }
 
 declare namespace xmlbuilder {
-    function create(name: string, xmldec?: Object, doctype?: any, options?: Object): XMLElementOrXMLNode;
+    function create(nameOrObjSpec: string | { [name:string]: Object }, xmldec?: Object, doctype?: any, options?: Object): XMLElementOrXMLNode;
 }

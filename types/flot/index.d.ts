@@ -2,6 +2,7 @@
 // Project: http://www.flotcharts.org/
 // Definitions by: Matt Burland <https://github.com/burlandm>, Timo Mühlbach <https://github.com/Anticom>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 
 /// <reference types="jquery" />

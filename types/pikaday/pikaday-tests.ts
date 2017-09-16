@@ -7,9 +7,9 @@ new Pikaday({field: document.getElementById('datepicker')});
 new Pikaday({field: $('#datepicker')[0]});
 
 (() => {
-    var field:HTMLInputElement = <HTMLInputElement>document.getElementById('datepicker');
-    var picker = new Pikaday({
-        onSelect: function (date:Date) {
+    const field: HTMLInputElement = <HTMLInputElement> document.getElementById('datepicker');
+    const picker = new Pikaday({
+        onSelect: (date: Date) => {
             field.value = picker.toString();
             console.log(date.toISOString());
         }
@@ -18,10 +18,10 @@ new Pikaday({field: $('#datepicker')[0]});
 })();
 
 (() => {
-    var picker = new Pikaday({
+    const picker = new Pikaday({
         field: document.getElementById('datepicker'),
         format: 'D MMM YYYY',
-        onSelect: function () {
+        onSelect: () => {
             console.log(this.getMoment().format('Do MMMM YYYY'));
         }
     });
@@ -38,10 +38,10 @@ new Pikaday({field: $('#datepicker')[0]});
     picker.nextMonth();
     picker.prevMonth();
     picker.gotoYear(2015);
-    picker.setMinDate(new Date);
-    picker.setMaxDate(new Date);
-    picker.setStartRange(new Date);
-    picker.setEndRange(new Date);
+    picker.setMinDate(new Date());
+    picker.setMaxDate(new Date());
+    picker.setStartRange(new Date());
+    picker.setEndRange(new Date());
     picker.isVisible();
     picker.show();
     picker.adjustPosition();
@@ -50,7 +50,7 @@ new Pikaday({field: $('#datepicker')[0]});
 })();
 
 (() => {
-    var i18n: Pikaday.PikadayI18nConfig = {
+    const i18n: Pikaday.PikadayI18nConfig = {
         previousMonth: 'Previous Month',
         nextMonth: 'Next Month',
         months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
@@ -61,23 +61,41 @@ new Pikaday({field: $('#datepicker')[0]});
 })();
 
 (() => {
-    new Pikaday(
-        {
-            field: document.getElementById('datepicker'),
-            firstDay: 1,
-            minDate: new Date('2000-01-01'),
-            maxDate: new Date('2020-12-31'),
-            yearRange: [2000, 2020]
-        });
+    new Pikaday({
+        field: document.getElementById('datepicker'),
+        format: 'YYYY-MM-DD',
+        trigger: document.getElementById('datepicker'),
+        bound: false,
+        position: 'top right',
+        reposition: false,
+        container: document.getElementById('myTag'),
+        defaultDate: new Date(),
+        setDefaultDate: true,
+        firstDay: 1,
+        minDate: new Date('2000-01-01'),
+        maxDate: new Date('2020-12-31'),
+        disableWeekends: true,
+        disableDayFn: (date) => true,
+        yearRange: [2000, 2020],
+        showWeekNumber: true,
+        isRTL: true,
+        yearSuffix: 'r',
+        showMonthAfterYear: false,
+        showDaysInNextAndPreviousMonths: true,
+        numberOfMonths: 2,
+        mainCalendar: 'right',
+        theme: 'myTheme',
+        formatStrict: true,
+        parse: () => new Date('2017-08-23'),
+        onSelect: () => {},
+        onOpen: () => {},
+        onClose: () => {},
+        onDraw: () => {}
+    });
 })();
 
 (() => {
-    new Pikaday(
-        {
-            field: document.getElementById('datepicker'),
-            firstDay: 1,
-            minDate: new Date('2000-01-01'),
-            maxDate: new Date('2020-12-31'),
-            showDaysInNextAndPreviousMonths: true
-        });
+    new Pikaday({
+        yearRange: 5
+    });
 })();

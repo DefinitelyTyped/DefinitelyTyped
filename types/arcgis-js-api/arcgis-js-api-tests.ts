@@ -2,8 +2,6 @@ import Map = require("esri/Map");
 import MapView = require("esri/views/MapView");
 import Point = require("esri/geometry/Point");
 
-export = MapController;
-
 class MapController {
   map: Map;
 
@@ -17,9 +15,9 @@ class MapController {
     });
 
     this.map = new Map({
-      basemap: "topo"
+      basemap: { title: "topo" }
     });
-    
+
     let view = new MapView({
       center: point,
       container: this.mapDiv,

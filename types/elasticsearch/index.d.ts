@@ -13,76 +13,77 @@ declare module Elasticsearch {
         nodes: Nodes;
         snapshot: Snapshot;
         tasks: Tasks;
-        bulk(params: BulkIndexDocumentsParams): PromiseLike<any>;
+        bulk(params: BulkIndexDocumentsParams): Promise<any>;
         bulk(params: BulkIndexDocumentsParams, callback: (error: any, response: any) => void): void;
         clearScroll(params: ClearScrollParams, callback: (error: any, response: any) => void): void;
-        clearScroll(params: ClearScrollParams): PromiseLike<any>;
+        clearScroll(params: ClearScrollParams): Promise<any>;
         count(params: CountParams, callback: (error: any, response: CountResponse) => void): void;
-        count(params: CountParams): PromiseLike<CountResponse>;
-        create(params: CreateDocumentParams): PromiseLike<CreateDocumentResponse>;
+        count(params: CountParams): Promise<CountResponse>;
+        create(params: CreateDocumentParams): Promise<CreateDocumentResponse>;
         create(params: CreateDocumentParams, callback: (err: any, response: CreateDocumentResponse, status: any) => void): void;
-        delete(params: DeleteDocumentParams): PromiseLike<DeleteDocumentResponse>;
+        delete(params: DeleteDocumentParams): Promise<DeleteDocumentResponse>;
         delete(params: DeleteDocumentParams, callback: (error: any, response: DeleteDocumentResponse) => void): void;
-        deleteByQuery(params: DeleteDocumentByQueryParams): PromiseLike<DeleteDocumentByQueryResponse>;
+        deleteByQuery(params: DeleteDocumentByQueryParams): Promise<DeleteDocumentByQueryResponse>;
         deleteByQuery(params: DeleteDocumentByQueryParams, callback: (error: any, response: DeleteDocumentByQueryResponse) => void): void;
-        deleteScript(params: DeleteScriptParams): PromiseLike<any>;
+        deleteScript(params: DeleteScriptParams): Promise<any>;
         deleteScript(params: DeleteScriptParams, callback: (error: any, response: any) => void): void;
-        deleteTemplate(params: DeleteTemplateParams): PromiseLike<any>;
+        deleteTemplate(params: DeleteTemplateParams): Promise<any>;
         deleteTemplate(params: DeleteTemplateParams, callback: (error: any, response: any) => void): void;
-        exists(params: ExistsParams): PromiseLike<any>;
+        exists(params: ExistsParams): Promise<any>;
         exists(params: ExistsParams, callback: (error: any, response: any, status?: any) => void): void;
-        explain(params: ExplainParams): PromiseLike<ExplainResponse>;
+        explain(params: ExplainParams): Promise<ExplainResponse>;
         explain(params: ExplainParams, callback: (error: any, response: ExplainResponse) => void): void;
-        fieldStats(params: FieldStatsParams): PromiseLike<FieldStatsResponse>;
+        fieldStats(params: FieldStatsParams): Promise<FieldStatsResponse>;
         fieldStats(params: FieldStatsParams, callback: (error: any, response: FieldStatsResponse) => void): void;
         get<T>(params: GetParams, callback: (error: any, response: GetResponse<T>) => void): void;
-        get<T>(params: GetParams): PromiseLike<GetResponse<T>>;
-        getScript(params: GetScriptParams): PromiseLike<any>;
+        get<T>(params: GetParams): Promise<GetResponse<T>>;
+        getScript(params: GetScriptParams): Promise<any>;
         getScript(params: GetScriptParams, callback: (error: any, response: any) => void): void;
-        getSource(params: GetSourceParams): PromiseLike<any>;
+        getSource(params: GetSourceParams): Promise<any>;
         getSource(params: GetSourceParams, callback: (error: any, response: any) => void): void;
-        getTemplate(params: GetTemplateParams): PromiseLike<any>;
+        getTemplate(params: GetTemplateParams): Promise<any>;
         getTemplate(params: GetTemplateParams, callback: (error: any, response: any) => void): void;
-        index<T>(params: IndexDocumentParams<T>): PromiseLike<any>;
+        index<T>(params: IndexDocumentParams<T>): Promise<any>;
         index<T>(params: IndexDocumentParams<T>, callback: (error: any, response: any) => void): void;
-        info(params: InfoParams): PromiseLike<any>;
+        info(params: InfoParams): Promise<any>;
         info(params: InfoParams, callback: (error: any, response: any) => void): void;
         mget<T>(params: MGetParams, callback: (error: any, response: MGetResponse<T>) => void): void;
-        mget<T>(params: MGetParams): PromiseLike<MGetResponse<T>>;
+        mget<T>(params: MGetParams): Promise<MGetResponse<T>>;
         msearch<T>(params: MSearchParams, callback: (error: any, response: MSearchResponse<T>) => void): void;
-        msearch<T>(params: MSearchParams): PromiseLike<MSearchResponse<T>>;
+        msearch<T>(params: MSearchParams): Promise<MSearchResponse<T>>;
         msearchTemplate<T>(params: MSearchTemplateParams, callback: (error: any, response: MSearchResponse<T>) => void): void;
-        msearchTemplate<T>(params: MSearchTemplateParams): PromiseLike<MSearchResponse<T>>;
-        mtermvectors(params: MTermVectorsParams): PromiseLike<any>;
+        msearchTemplate<T>(params: MSearchTemplateParams): Promise<MSearchResponse<T>>;
+        mtermvectors(params: MTermVectorsParams): Promise<any>;
         mtermvectors(params: MTermVectorsParams, callback: (error: any, response: any) => void): void;
-        ping(params: PingParams): PromiseLike<any>;
+        ping(params: PingParams): Promise<any>;
         ping(params: PingParams, callback: (err: any, response: any, status: any) => void): void;
-        putScript(params: PutScriptParams): PromiseLike<any>;
+        putScript(params: PutScriptParams): Promise<any>;
         putScript(params: PutScriptParams, callback: (err: any, response: any, status: any) => void): void;
-        putTemplate(params: PutTemplateParams): PromiseLike<any>;
+        putTemplate(params: PutTemplateParams): Promise<any>;
         putTemplate(params: PutTemplateParams, callback: (err: any, response: any, status: any) => void): void;
-        reindex(params: ReindexParams): PromiseLike<ReindexResponse>;
+        reindex(params: ReindexParams): Promise<ReindexResponse>;
         reindex(params: ReindexParams, callback: (error: any, response: ReindexResponse) => void): void;
-        reindexRethrottle(params: ReindexRethrottleParams): PromiseLike<any>;
+        reindexRethrottle(params: ReindexRethrottleParams): Promise<any>;
         reindexRethrottle(params: ReindexRethrottleParams, callback: (error: any, response: any) => void): void;
-        renderSearchTemplate(params: RenderSearchTemplateParams): PromiseLike<any>;
+        renderSearchTemplate(params: RenderSearchTemplateParams): Promise<any>;
         renderSearchTemplate(params: RenderSearchTemplateParams, callback: (error: any, response: any) => void): void;
-        scroll(params: ScrollParams): PromiseLike<any>;
-        scroll(params: ScrollParams, callback: (error: any, response: any) => void): void;
-        search<T>(params: SearchParams): PromiseLike<SearchResponse<T>>;
+        scroll<T>(params: ScrollParams): Promise<SearchResponse<T>>;
+        scroll<T>(params: ScrollParams, callback: (error: any, response: SearchResponse<T>) => void): void;
+        search<T>(params: SearchParams): Promise<SearchResponse<T>>;
         search<T>(params: SearchParams, callback: (error: any, response: SearchResponse<T>) => void): void;
-        searchShards(params: SearchShardsParams): PromiseLike<SearchShardsResponse>;
+        searchShards(params: SearchShardsParams): Promise<SearchShardsResponse>;
         searchShards(params: SearchShardsParams, callback: (error: any, response: SearchShardsResponse) => void): void;
-        searchTemplate(params: SearchTemplateParams): PromiseLike<any>;
+        searchTemplate(params: SearchTemplateParams): Promise<any>;
         searchTemplate(params: SearchTemplateParams, callback: (error: any, response: any) => void): void;
-        suggest(params: SuggestParams): PromiseLike<any>;
+        suggest(params: SuggestParams): Promise<any>;
         suggest(params: SuggestParams, callback: (error: any, response: any) => void): void;
-        termvectors(params: TermvectorsParams): PromiseLike<any>;
+        termvectors(params: TermvectorsParams): Promise<any>;
         termvectors(params: TermvectorsParams, callback: (error: any, response: any) => void): void;
-        update(params: UpdateDocumentParams): PromiseLike<any>;
+        update(params: UpdateDocumentParams): Promise<any>;
         update(params: UpdateDocumentParams, callback: (error: any, response: any) => void): void;
-        updateByQuery(params: UpdateDocumentByQueryParams): PromiseLike<any>;
+        updateByQuery(params: UpdateDocumentByQueryParams): Promise<any>;
         updateByQuery(params: UpdateDocumentByQueryParams, callback: (error: any, response: any) => void): void;
+        close(): void;
     }
 
     export interface ConfigOptions {
@@ -626,7 +627,7 @@ declare module Elasticsearch {
                 _id: string;
                 _score: number;
                 _source: T;
-                _version: number;
+                _version?: number;
                 _explanation?: Explanation;
                 fields?: any;
                 highlight?: any;
@@ -774,43 +775,43 @@ declare module Elasticsearch {
 
     export interface Cat {
         aliases(params: CatAliasesParams, callback: (error: any, response: any) => void): void;
-        aliases(params: CatAliasesParams): PromiseLike<any>;
+        aliases(params: CatAliasesParams): Promise<any>;
         allocation(params: CatAllocationParams, callback: (error: any, response: any) => void): void;
-        allocation(params: CatAllocationParams): PromiseLike<any>;
+        allocation(params: CatAllocationParams): Promise<any>;
         count(params: CatCountParams, callback: (error: any, response: any) => void): void;
-        count(params: CatAllocationParams): PromiseLike<any>;
+        count(params: CatAllocationParams): Promise<any>;
         fielddata(params: CatFielddataParams, callback: (error: any, response: any) => void): void;
-        fielddata(params: CatFielddataParams): PromiseLike<any>;
+        fielddata(params: CatFielddataParams): Promise<any>;
         health(params: CatHealthParams, callback: (error: any, response: any) => void): void;
-        health(params: CatHealthParams): PromiseLike<any>;
+        health(params: CatHealthParams): Promise<any>;
         help(params: CatHelpParams, callback: (error: any, response: any) => void): void;
-        help(params: CatHelpParams): PromiseLike<any>;
+        help(params: CatHelpParams): Promise<any>;
         indices(params: CatIndicesParams, callback: (error: any, response: any) => void): void;
-        indices(params: CatIndicesParams): PromiseLike<any>;
+        indices(params: CatIndicesParams): Promise<any>;
         master(params: CatCommonParams, callback: (error: any, response: any) => void): void;
-        master(params: CatCommonParams): PromiseLike<any>;
+        master(params: CatCommonParams): Promise<any>;
         nodeattrs(params: CatCommonParams, callback: (error: any, response: any) => void): void;
-        nodeattrs(params: CatCommonParams): PromiseLike<any>;
+        nodeattrs(params: CatCommonParams): Promise<any>;
         nodes(params: CatCommonParams, callback: (error: any, response: any) => void): void;
-        nodes(params: CatCommonParams): PromiseLike<any>;
+        nodes(params: CatCommonParams): Promise<any>;
         pendingTasks(params: CatCommonParams, callback: (error: any, response: any) => void): void;
-        pendingTasks(params: CatCommonParams): PromiseLike<any>;
+        pendingTasks(params: CatCommonParams): Promise<any>;
         plugins(params: CatCommonParams, callback: (error: any, response: any) => void): void;
-        plugins(params: CatCommonParams): PromiseLike<any>;
+        plugins(params: CatCommonParams): Promise<any>;
         recovery(params: CatRecoveryParams, callback: (error: any, response: any) => void): void;
-        recovery(params: CatRecoveryParams): PromiseLike<any>;
+        recovery(params: CatRecoveryParams): Promise<any>;
         repositories(params: CatCommonParams, callback: (error: any, response: any) => void): void;
-        repositories(params: CatCommonParams): PromiseLike<any>;
+        repositories(params: CatCommonParams): Promise<any>;
         segments(params: CatSegmentsParams, callback: (error: any, response: any) => void): void;
-        segments(params: CatSegmentsParams): PromiseLike<any>;
+        segments(params: CatSegmentsParams): Promise<any>;
         shards(params: CatShardsParams, callback: (error: any, response: any) => void): void;
-        shards(params: CatShardsParams): PromiseLike<any>;
+        shards(params: CatShardsParams): Promise<any>;
         snapshots(params: CatSnapshotsParams, callback: (error: any, response: any) => void): void;
-        snapshots(params: CatSnapshotsParams): PromiseLike<any>;
+        snapshots(params: CatSnapshotsParams): Promise<any>;
         tasks(params: CatTasksParams, callback: (error: any, response: any) => void): void;
-        tasks(params: CatTasksParams): PromiseLike<any>;
+        tasks(params: CatTasksParams): Promise<any>;
         threadPool(params: CatThreadPoolParams, callback: (error: any, response: any) => void): void;
-        threadPool(params: CatThreadPoolParams): PromiseLike<any>;
+        threadPool(params: CatThreadPoolParams): Promise<any>;
     }
 
     export type CatBytes = "b" | "k" | "kb" | "m" | "mb" | "g" | "gb" | "t" | "tb" | "p" | "pb";
@@ -907,21 +908,21 @@ declare module Elasticsearch {
 
     export interface Cluster {
         allocationExplain(params: ClusterAllocationExplainParams, callback: (error: any, response: any) => void): void;
-        allocationExplain(params: ClusterAllocationExplainParams): PromiseLike<any>;
+        allocationExplain(params: ClusterAllocationExplainParams): Promise<any>;
         getSettings(params: ClusterGetSettingsParams, callback: (error: any, response: any) => void): void;
-        getSettings(params: ClusterGetSettingsParams): PromiseLike<any>;
+        getSettings(params: ClusterGetSettingsParams): Promise<any>;
         health(params: ClusterHealthParams, callback: (error: any, response: any) => void): void;
-        health(params: ClusterHealthParams): PromiseLike<any>;
+        health(params: ClusterHealthParams): Promise<any>;
         pendingTasks(params: ClusterPendingTasksParams, callback: (error: any, response: any) => void): void;
-        pendingTasks(params: ClusterPendingTasksParams): PromiseLike<any>;
+        pendingTasks(params: ClusterPendingTasksParams): Promise<any>;
         putSettings(params: ClusterPutSettingsParams, callback: (error: any, response: any) => void): void;
-        putSettings(params: ClusterPutSettingsParams): PromiseLike<any>;
+        putSettings(params: ClusterPutSettingsParams): Promise<any>;
         reroute(params: ClusterRerouteParams, callback: (error: any, response: any) => void): void;
-        reroute(params: ClusterRerouteParams): PromiseLike<any>;
+        reroute(params: ClusterRerouteParams): Promise<any>;
         state(params: ClusterStateParams, callback: (error: any, response: any) => void): void;
-        state(params: ClusterStateParams): PromiseLike<any>;
+        state(params: ClusterStateParams): Promise<any>;
         stats(params: ClusterStatsParams, callback: (error: any, response: any) => void): void;
-        stats(params: ClusterStatsParams): PromiseLike<any>;
+        stats(params: ClusterStatsParams): Promise<any>;
     }
 
     export interface ClusterAllocationExplainParams extends GenericParams {
@@ -988,77 +989,77 @@ declare module Elasticsearch {
 
     export class Indices {
         analyze(params: IndicesAnalyzeParams, callback: (error: any, response: any, status: any) => void): void;
-        analyze(params: IndicesAnalyzeParams): PromiseLike<any>;
+        analyze(params: IndicesAnalyzeParams): Promise<any>;
         clearCache(params: IndicesClearCacheParams, callback: (error: any, response: any, status: any) => void): void;
-        clearCache(params: IndicesClearCacheParams): PromiseLike<any>;
+        clearCache(params: IndicesClearCacheParams): Promise<any>;
         close(params: IndicesCloseParams, callback: (error: any, response: any, status: any) => void): void;
-        close(params: IndicesCloseParams): PromiseLike<any>;
+        close(params: IndicesCloseParams): Promise<any>;
         create(params: IndicesCreateParams, callback: (error: any, response: any, status: any) => void): void;
-        create(params: IndicesCreateParams): PromiseLike<any>;
+        create(params: IndicesCreateParams): Promise<any>;
         delete(params: IndicesDeleteParams, callback: (error: any, response: any, status: any) => void): void;
-        delete(params: IndicesDeleteParams): PromiseLike<any>;
+        delete(params: IndicesDeleteParams): Promise<any>;
         deleteAlias(params: IndicesDeleteAliasParams, callback: (error: any, response: any, status: any) => void): void;
-        deleteAlias(params: IndicesDeleteAliasParams): PromiseLike<any>;
+        deleteAlias(params: IndicesDeleteAliasParams): Promise<any>;
         deleteTemplate(params: IndicesDeleteTemplateParams, callback: (error: any, response: any, status: any) => void): void;
-        deleteTemplate(params: IndicesDeleteTemplateParams): PromiseLike<any>;
+        deleteTemplate(params: IndicesDeleteTemplateParams): Promise<any>;
         exists(params: IndicesExistsParams, callback: (error: any, response: any, status: any) => void): void;
-        exists(params: IndicesExistsParams): PromiseLike<any>;
+        exists(params: IndicesExistsParams): Promise<any>;
         existsAlias(params: IndicesExistsAliasParams, callback: (error: any, response: any, status: any) => void): void;
-        existsAlias(params: IndicesExistsAliasParams): PromiseLike<any>;
+        existsAlias(params: IndicesExistsAliasParams): Promise<any>;
         existsTemplate(params: IndicesExistsTemplateParams, callback: (error: any, response: any, status: any) => void): void;
-        existsTemplate(params: IndicesExistsTemplateParams): PromiseLike<any>;
+        existsTemplate(params: IndicesExistsTemplateParams): Promise<any>;
         existsType(params: IndicesExistsTypeParams, callback: (error: any, response: any, status: any) => void): void;
-        existsType(params: IndicesExistsTypeParams): PromiseLike<any>;
+        existsType(params: IndicesExistsTypeParams): Promise<any>;
         flush(params: IndicesFlushParams, callback: (error: any, response: any, status: any) => void): void;
-        flush(params: IndicesFlushParams): PromiseLike<any>;
+        flush(params: IndicesFlushParams): Promise<any>;
         flushSynced(params: IndicesFlushSyncedParams, callback: (error: any, response: any, status: any) => void): void;
-        flushSynced(params: IndicesFlushSyncedParams): PromiseLike<any>;
+        flushSynced(params: IndicesFlushSyncedParams): Promise<any>;
         forcemerge(params: IndicesForcemergeParams, callback: (error: any, response: any, status: any) => void): void;
-        forcemerge(params: IndicesForcemergeParams): PromiseLike<any>;
+        forcemerge(params: IndicesForcemergeParams): Promise<any>;
         get(params: IndicesGetParams, callback: (error: any, response: any, status: any) => void): void;
-        get(params: IndicesGetParams): PromiseLike<any>;
+        get(params: IndicesGetParams): Promise<any>;
         getAlias(params: IndicesGetAliasParams, callback: (error: any, response: any, status: any) => void): void;
-        getAlias(params: IndicesGetAliasParams): PromiseLike<any>;
+        getAlias(params: IndicesGetAliasParams): Promise<any>;
         getFieldMapping(params: IndicesGetFieldMappingParams, callback: (error: any, response: any, status: any) => void): void;
-        getFieldMapping(params: IndicesGetFieldMappingParams): PromiseLike<any>;
+        getFieldMapping(params: IndicesGetFieldMappingParams): Promise<any>;
         getMapping(params: IndicesGetMappingParams, callback: (error: any, response: any, status: any) => void): void;
-        getMapping(params: IndicesGetMappingParams): PromiseLike<any>;
+        getMapping(params: IndicesGetMappingParams): Promise<any>;
         getSettings(params: IndicesGetSettingsParams, callback: (error: any, response: any, status: any) => void): void;
-        getSettings(params: IndicesGetSettingsParams): PromiseLike<any>;
+        getSettings(params: IndicesGetSettingsParams): Promise<any>;
         getTemplate(params: IndicesGetTemplateParams, callback: (error: any, response: any, status: any) => void): void;
-        getTemplate(params: IndicesGetTemplateParams): PromiseLike<any>;
+        getTemplate(params: IndicesGetTemplateParams): Promise<any>;
         getUpgrade(params: IndicesGetUpgradeParams, callback: (error: any, response: any, status: any) => void): void;
-        getUpgrade(params: IndicesGetUpgradeParams): PromiseLike<any>;
+        getUpgrade(params: IndicesGetUpgradeParams): Promise<any>;
         open(params: IndicesOpenParams, callback: (error: any, response: any, status: any) => void): void;
-        open(params: IndicesOpenParams): PromiseLike<any>;
+        open(params: IndicesOpenParams): Promise<any>;
         putAlias(params: IndicesPutAliasParams, callback: (error: any, response: any, status: any) => void): void;
-        putAlias(params: IndicesPutAliasParams): PromiseLike<any>;
+        putAlias(params: IndicesPutAliasParams): Promise<any>;
         putMapping(params: IndicesPutMappingParams, callback: (error: any, response: any, status: any) => void): void;
-        putMapping(params: IndicesPutMappingParams): PromiseLike<any>;
+        putMapping(params: IndicesPutMappingParams): Promise<any>;
         putSettings(params: IndicesPutSettingsParams, callback: (error: any, response: any, status: any) => void): void;
-        putSettings(params: IndicesPutSettingsParams): PromiseLike<any>;
+        putSettings(params: IndicesPutSettingsParams): Promise<any>;
         putTemplate(params: IndicesPutTemplateParams, callback: (error: any, response: any) => void): void;
-        putTemplate(params: IndicesPutTemplateParams): PromiseLike<any>;
+        putTemplate(params: IndicesPutTemplateParams): Promise<any>;
         recovery(params: IndicesRecoveryParams, callback: (error: any, response: any) => void): void;
-        recovery(params: IndicesRecoveryParams): PromiseLike<any>;
+        recovery(params: IndicesRecoveryParams): Promise<any>;
         refresh(params: IndicesRefreshParams, callback: (error: any, response: any) => void): void;
-        refresh(params: IndicesRefreshParams): PromiseLike<any>;
+        refresh(params: IndicesRefreshParams): Promise<any>;
         rollover(params: IndicesRolloverParams, callback: (error: any, response: IndicesRolloverResponse) => void): void;
-        rollover(params: IndicesRolloverParams): PromiseLike<IndicesRolloverResponse>;
+        rollover(params: IndicesRolloverParams): Promise<IndicesRolloverResponse>;
         segments(params: IndicesSegmentsParams, callback: (error: any, response: any) => void): void;
-        segments(params: IndicesSegmentsParams): PromiseLike<any>;
+        segments(params: IndicesSegmentsParams): Promise<any>;
         shardStores(params: IndicesShardStoresParams, callback: (error: any, response: any) => void): void;
-        shardStores(params: IndicesShardStoresParams): PromiseLike<any>;
+        shardStores(params: IndicesShardStoresParams): Promise<any>;
         shrink(params: IndicesShrinkParams, callback: (error: any, response: any) => void): void;
-        shrink(params: IndicesShrinkParams): PromiseLike<any>;
+        shrink(params: IndicesShrinkParams): Promise<any>;
         stats(params: IndicesStatsParams, callback: (error: any, response: any) => void): void;
-        stats(params: IndicesStatsParams): PromiseLike<any>;
+        stats(params: IndicesStatsParams): Promise<any>;
         updateAliases(params: IndicesUpdateAliasesParams, callback: (error: any, response: any) => void): void;
-        updateAliases(params: IndicesUpdateAliasesParams): PromiseLike<any>;
+        updateAliases(params: IndicesUpdateAliasesParams): Promise<any>;
         upgrade(params: IndicesUpgradeParams, callback: (error: any, response: any) => void): void;
-        upgrade(params: IndicesUpgradeParams): PromiseLike<any>;
+        upgrade(params: IndicesUpgradeParams): Promise<any>;
         validateQuery(params: IndicesValidateQueryParams, callback: (error: any, response: any) => void): void;
-        validateQuery(params: IndicesValidateQueryParams): PromiseLike<any>;
+        validateQuery(params: IndicesValidateQueryParams): Promise<any>;
     }
 
     export interface IndicesAnalyzeParams extends GenericParams {
@@ -1416,13 +1417,13 @@ declare module Elasticsearch {
 
     export class Ingest {
         deletePipeline(params: IngestDeletePipelineParams, callback: (error: any, response: any, status: any) => void): void;
-        deletePipeline(params: IngestDeletePipelineParams): PromiseLike<any>;
+        deletePipeline(params: IngestDeletePipelineParams): Promise<any>;
         getPipeline(params: IngestGetPipelineParams, callback: (error: any, response: any, status: any) => void): void;
-        getPipeline(params: IngestGetPipelineParams): PromiseLike<any>;
+        getPipeline(params: IngestGetPipelineParams): Promise<any>;
         putPipeline(params: IngestPutPipelineParams, callback: (error: any, response: any, status: any) => void): void;
-        putPipeline(params: IngestPutPipelineParams): PromiseLike<any>;
+        putPipeline(params: IngestPutPipelineParams): Promise<any>;
         simulate(params: IngestSimulateParams, callback: (error: any, response: any, status: any) => void): void;
-        simulate(params: IngestSimulateParams): PromiseLike<any>;
+        simulate(params: IngestSimulateParams): Promise<any>;
     }
 
     export interface IngestDeletePipelineParams extends GenericParams {
@@ -1450,11 +1451,11 @@ declare module Elasticsearch {
 
     export class Nodes {
         hotThreads(params: NodesHotThreadsParams, callback: (error: any, response: any, status: any) => void): void;
-        hotThreads(params: NodesHotThreadsParams): PromiseLike<any>;
+        hotThreads(params: NodesHotThreadsParams): Promise<any>;
         info(params: NodesInfoParams, callback: (error: any, response: any, status: any) => void): void;
-        info(params: NodesInfoParams): PromiseLike<any>;
+        info(params: NodesInfoParams): Promise<any>;
         stats(params: NodesStatsParams, callback: (error: any, response: any, status: any) => void): void;
-        stats(params: NodesStatsParams): PromiseLike<any>;
+        stats(params: NodesStatsParams): Promise<any>;
     }
 
     export interface NodesHotThreadsParams extends GenericParams {
@@ -1491,23 +1492,23 @@ declare module Elasticsearch {
 
     export class Snapshot {
         create(params: SnapshotCreateParams, callback: (error: any, response: any, status: any) => void): void;
-        create(params: SnapshotCreateParams): PromiseLike<any>;
+        create(params: SnapshotCreateParams): Promise<any>;
         createRepository(params: SnapshotCreateRepositoryParams, callback: (error: any, response: any, status: any) => void): void;
-        createRepository(params: SnapshotCreateRepositoryParams): PromiseLike<any>;
+        createRepository(params: SnapshotCreateRepositoryParams): Promise<any>;
         delete(params: SnapshotDeleteParams, callback: (error: any, response: any, status: any) => void): void;
-        delete(params: SnapshotDeleteParams): PromiseLike<any>;
+        delete(params: SnapshotDeleteParams): Promise<any>;
         deleteRepository(params: SnapshotDeleteRepositoryParams, callback: (error: any, response: any, status: any) => void): void;
-        deleteRepository(params: SnapshotDeleteRepositoryParams): PromiseLike<any>;
+        deleteRepository(params: SnapshotDeleteRepositoryParams): Promise<any>;
         get(params: SnapshotGetParams, callback: (error: any, response: any, status: any) => void): void;
-        get(params: SnapshotGetParams): PromiseLike<any>;
+        get(params: SnapshotGetParams): Promise<any>;
         getRepository(params: SnapshotGetRepositoryParams, callback: (error: any, response: any, status: any) => void): void;
-        getRepository(params: SnapshotGetRepositoryParams): PromiseLike<any>;
+        getRepository(params: SnapshotGetRepositoryParams): Promise<any>;
         restore(params: SnapshotRestoreParams, callback: (error: any, response: any, status: any) => void): void;
-        restore(params: SnapshotRestoreParams): PromiseLike<any>;
+        restore(params: SnapshotRestoreParams): Promise<any>;
         status(params: SnapshotStatusParams, callback: (error: any, response: any, status: any) => void): void;
-        status(params: SnapshotStatusParams): PromiseLike<any>;
+        status(params: SnapshotStatusParams): Promise<any>;
         verifyRepository(params: SnapshotVerifyRepositoryParams, callback: (error: any, response: any, status: any) => void): void;
-        verifyRepository(params: SnapshotVerifyRepositoryParams): PromiseLike<any>;
+        verifyRepository(params: SnapshotVerifyRepositoryParams): Promise<any>;
     }
 
     export interface SnapshotCreateParams extends GenericParams {
@@ -1571,11 +1572,11 @@ declare module Elasticsearch {
 
     export class Tasks {
         cancel(params: TasksCancelParams, callback: (error: any, response: any, status: any) => void): void;
-        cancel(params: TasksCancelParams): PromiseLike<any>;
+        cancel(params: TasksCancelParams): Promise<any>;
         get(params: TasksGetParams, callback: (error: any, response: any, status: any) => void): void;
-        get(params: TasksGetParams): PromiseLike<any>;
+        get(params: TasksGetParams): Promise<any>;
         list(params: TasksListParams, callback: (error: any, response: any, status: any) => void): void;
-        list(params: TasksListParams): PromiseLike<any>;
+        list(params: TasksListParams): Promise<any>;
     }
 
     export interface TasksCancelParams extends GenericParams {

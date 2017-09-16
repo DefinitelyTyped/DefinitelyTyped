@@ -1,13 +1,13 @@
-// Type definitions for Google Apps Script 2015-11-12
+// Type definitions for Google Apps Script 2017-05-12
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-
-
-
-
+/// <reference path="google-apps-script.types.d.ts" />
+/// <reference path="google-apps-script.base.d.ts" />
+/// <reference path="google-apps-script.document.d.ts" />
+/// <reference path="google-apps-script.forms.d.ts" />
+/// <reference path="google-apps-script.spreadsheet.d.ts" />
 
 declare namespace GoogleAppsScript {
   export module Script {
@@ -118,18 +118,18 @@ declare namespace GoogleAppsScript {
      *  triggers and control publishing the script as a service.
      */
     export interface ScriptApp {
-      AuthMode: AuthMode
-      AuthorizationStatus: AuthorizationStatus
-      EventType: EventType
-      InstallationSource: InstallationSource
-      TriggerSource: TriggerSource
-      WeekDay: Base.Weekday
+      AuthMode: typeof AuthMode;
+      AuthorizationStatus: typeof AuthorizationStatus;
+      EventType: typeof EventType;
+      InstallationSource: typeof InstallationSource;
+      TriggerSource: typeof TriggerSource;
+      WeekDay: typeof Base.Weekday;
       deleteTrigger(trigger: Trigger): void;
       getAuthorizationInfo(authMode: AuthMode): AuthorizationInfo;
       getInstallationSource(): InstallationSource;
       getOAuthToken(): string;
-      getProjectKey(): string;
       getProjectTriggers(): Trigger[];
+      getScriptId(): string;
       getService(): Service;
       getUserTriggers(document: Document.Document): Trigger[];
       getUserTriggers(form: Forms.Form): Trigger[];
@@ -137,13 +137,27 @@ declare namespace GoogleAppsScript {
       invalidateAuth(): void;
       newStateToken(): StateTokenBuilder;
       newTrigger(functionName: string): TriggerBuilder;
+      getProjectKey(): string;
       getScriptTriggers(): Trigger[];
+    }
+
+    /**
+     * Access and manipulate script publishing.
+     */
+    export interface Service {
+      Restriction: typeof Service.Restriction;
+      disable(): void;
+      getUrl(): string;
+      isEnabled(): boolean;
+      enable(restriction: Service.Restriction): void;
     }
 
     /**
      *
      */
-    export enum Service { MYSELF, DOMAIN, ALL }
+    namespace Service {
+    export enum Restriction { MYSELF, DOMAIN, ALL }
+    }
 
     /**
      * Builder for spreadsheet triggers.

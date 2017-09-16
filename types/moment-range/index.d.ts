@@ -1,55 +1,67 @@
-// Type definitions for Moment.js 2.0.4
+// Type definitions for Moment-range.js 3.0
 // Project: https://github.com/gf3/moment-range
-// Definitions by: Bart van den Burg <https://github.com/Burgov>, Wilgert Velinga <https://github.com/wilgert>
+// Definitions by: Bart van den Burg <https://github.com/Burgov>
+//                 Wilgert Velinga <https://github.com/wilgert>
+//                 Juan Francisco Adame <https://github.com/franjuan>
+//                 MartynasZilinskas <https://github.com/MartynasZilinskas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as moment from 'moment';
 
-export = moment;
+export class DateRange {
+    start: moment.Moment;
+    end: moment.Moment;
 
-declare module 'moment' {
-     interface Range {
-        start: Moment;
-        end: Moment;
+    constructor(range: string | Date[] | moment.Moment[]);
+    constructor(start: Date | moment.Moment, end: Date | moment.Moment);
 
-        contains (other: Date, exclusive?: boolean): boolean;
-        contains (other: Moment, exclusive?: boolean): boolean;
+    contains(other: DateRange | moment.Moment | Date, options?: { exclusive?: boolean }): boolean;
 
-        overlaps (range: Range): boolean;
+    overlaps(range: DateRange, options?: { adjacent?: boolean }): boolean;
 
-        intersect (other: Range): Range;
+    intersect(other: DateRange): DateRange;
 
-        add (other: Range): Range;
+    add(other: DateRange): DateRange;
 
-        subtract (other: Range): Range[];
+    subtract(other: DateRange): DateRange[];
 
-        by (range: string, hollaback: (current: Moment) => void, exclusive?: boolean): void;
-        by (range: Range, hollaback: (current: Moment) => void, exclusive?: boolean): void;
+    by(interval: moment.unitOfTime.Diff, options?: { exclusive?: boolean, step?: number }): Iterable<moment.Moment>;
 
-        isSame (other: Range): boolean;
+    byRange(interval: DateRange, options?: { exclusive?: boolean, step?: number }): Iterable<moment.Moment>;
 
-        diff (unit?: string): number;
+    isSame(other: DateRange): boolean;
 
-        toDate (): Date;
+    diff(unit?: moment.unitOfTime.Diff, rounded?: boolean): number;
 
-        toString (): string;
+    toDate(): Date[];
 
-        toArray (by: Range|String, exclusive?: boolean): Moment[];
+    toString(): string;
 
-        valueOf (): number;
+    valueOf(): number;
 
-        center (): number;
+    center(): moment.Moment;
 
-        clone (): Range;
-    }
+    clone(): DateRange;
 
-    interface Moment {
-        within (x: moment.Range): boolean;
-    }
+    isEqual(other: DateRange): boolean;
 
-    function range(range: string): moment.Range;
-    function range(range: Date[]): moment.Range;
-    function range(range: Moment[]): moment.Range;
-    function range(start: Date, end: Date): moment.Range;
-    function range(start: Moment, end: Moment): moment.Range;
+    adjacent(other: DateRange): boolean;
+
+    duration(unit?: moment.unitOfTime.Diff, precise?: boolean): number;
+
+    reverseBy(interval: moment.unitOfTime.Diff, options?: { exclusive?: boolean, step?: number }): Iterable<moment.Moment>;
+
+    reverseByRange(interval: DateRange, options?: { exclusive?: boolean, step?: number }): Iterable<moment.Moment>;
 }
+
+export interface MomentRangeMethods {
+    range(range: string | Date[] | moment.Moment[]): DateRange;
+    range(start: Date | moment.Moment, end: Date | moment.Moment): DateRange;
+    within(range: DateRange): boolean;
+}
+
+export interface MomentRangeExtends extends MomentRangeMethods {
+    (...args: any[]): MomentRangeMethods & moment.Moment;
+}
+
+export function extendMoment(momentInstance: moment.Moment | typeof moment): MomentRangeExtends & moment.Moment;

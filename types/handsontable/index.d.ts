@@ -1,9 +1,102 @@
-// Type definitions for Handsontable 0.30
+// Type definitions for Handsontable 0.31
 // Project: https://handsontable.com/
 // Definitions by: Handsoncode sp. z o.o. <http://handsoncode.net/>
+//                 Ryan Riley <https://github.com/panesofglass>
+//                 Andrew Stegmaier <https://github.com/astegmaier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped\
 
-declare namespace ht {
+declare namespace __Handsontable {
+    // The Core class is used inside the Handsontable namespace in the actual source code.
+    // However, there is a resolution issue when a class outside a namespace or module
+    // extends a class inside a module with the same name. That issue includes a work-around.
+    // Using the workaround found here: https://github.com/Microsoft/TypeScript/issues/3602
+
+    class Core {
+        constructor(element: Element, options: Handsontable.Options);
+        addHook(key: string, callback: Function|any[]): void;
+        addHookOnce(key: string, callback: Function|any[]): void;
+        alter(action: string, index: number, amount?: number, source?: string, keepEmptyRows?: boolean): void;
+        clear(): void;
+        colOffset(): number;
+        colToProp(col: number): string|number;
+        countCols(): number;
+        countEmptyCols(ending?: boolean): number;
+        countEmptyRows(ending?: boolean): number;
+        countRenderedCols(): number;
+        countRenderedRows(): number;
+        countRows(): number;
+        countSourceRows(): number;
+        countVisibleCols(): number;
+        countVisibleRows(): number;
+        deselectCell(): void;
+        destroy(): void;
+        destroyEditor(revertOriginal?: boolean): void;
+        getActiveEditor(): Object;
+        getCell(row: number, col: number, topmost?: boolean): Element;
+        getCellEditor(row: number, col: number): Object;
+        getCellMeta(row: number, col: number): Object;
+        getCellRenderer(row: number, col: number): Function;
+        getCellValidator(row: number, col: number): any;
+        getColHeader(col?: number): any[]|string;
+        getColWidth(col: number): number;
+        getCoords(elem: Element): Object;
+        getCopyableData(row: number, column: number): string;
+        getCopyableText(startRow: number, startCol: number, endRow: number, endCol: number): string;
+        getData(r?: number, c?: number, r2?: number, c2?: number): any[];
+        getDataAtCell(row: number, col: number): any;
+        getDataAtCol(col: number): any[];
+        getDataAtProp(prop: string|number): any[];
+        getDataAtRow(row: number): any[];
+        getDataAtRowProp(row: number, prop: string): any;
+        getDataType(rowFrom: number, columnFrom: number, rowTo: number, columnTo: number): string;
+        getInstance(): any;
+        getPlugin(pluginName: string): any;
+        getRowHeader(row?: number): any[]|string;
+        getRowHeight(row: number): number;
+        getSchema(): Object;
+        getSelected(): any[];
+        getSelectedRange(): Handsontable.Range;
+        getSettings(): Handsontable.Options;
+        getSourceData(r?: number, c?: number, r2?: number, c2?: number): any[];
+        getSourceDataAtCell(row: number, column: number): any;
+        getSourceDataAtCol(column: number): any[];
+        getSourceDataAtRow(row: number): any[]|Object;
+        getValue(): any;
+        hasColHeaders(): boolean;
+        hasHook(key: string): boolean;
+        hasRowHeaders(): boolean;
+        isEmptyCol(col: number): boolean;
+        isEmptyRow(row: number): boolean;
+        isListening(): boolean;
+        listen(): void;
+        loadData(data: any[]): void;
+        populateFromArray(row: number, col: number, input: any[], endRow?: number, endCol?: number, source?: string, method?: string, direction?: string, deltas?: any[]): any;
+        propToCol(prop: string | number): number;
+        removeCellMeta(row: number, col: number, key: string): void;
+        removeHook(key: string, callback: Function): void;
+        render(): void;
+        rowOffset(): number;
+        runHooks(key: string, p1?: any, p2?: any, p3?: any, p4?: any, p5?: any, p6?: any): any;
+        selectCell(row: number, col: number, endRow?: number, endCol?: number, scrollToCell?: boolean, changeListener?: boolean): boolean;
+        selectCellByProp(row: number, prop: string, endRow?: number, endProp?: string, scrollToCell?: boolean): boolean;
+        setCellMeta(row: number, col: number, key: string, val: string): void;
+        setCellMetaObject(row: number, col: number, prop: Object): void;
+        setDataAtCell(row: number, col: number, value: string, source?: string): void;
+        setDataAtCell(changes: Array<[number, number, any]>): void;
+        setDataAtRowProp(row: number|any[], prop: string, value: string, source?: string): void;
+        spliceCol(col: number, index: number, amount: number, elements?: any): void;
+        spliceRow(row: number, index: number, amount: number, elements?: any): void;
+        toPhysicalRow(row: number): number;
+        toPhysicalColumn(column: number): number;
+        toVisualRow(row: number): number;
+        toVisualColumn(column: number): number;
+        unlisten(): void;
+        updateSettings(settings: Object, init?: boolean): void;
+        validateCells(callback: Function): void;
+    }
+}
+
+declare namespace Handsontable {
     interface Options {
         allowEmpty?: boolean;
         allowInsertColumn?: boolean;
@@ -128,7 +221,7 @@ declare namespace ht {
         // hooks
         afterAutofillApplyValues?(startArea: any[], entireArea: any[]): void;
         afterCellMetaReset?(): void;
-        afterChange?(changes: any[], source: string): void;
+        afterChange?(changes: Array<[number, number|string, any, any]>, source?: string): void;
         afterChangesObserved?(): void;
         afterColumnMove?(startColumn: number, endColumn: number): void;
         afterColumnResize?(currentColumn: number, newSize: number, isDoubleClick: boolean): void;
@@ -151,6 +244,7 @@ declare namespace ht {
         afterInit?(): void;
         afterLoadData?(firstTime: boolean): void;
         afterMomentumScroll?(): void;
+        afterOnCellCornerDblClick?(event: Object): void;
         afterOnCellCornerMouseDown?(event: Object): void;
         afterOnCellMouseDown?(event: Object, coords: Object, TD: Element): void;
         afterOnCellMouseOver?(event: Object, coords: Object, TD: Element): void;
@@ -207,86 +301,8 @@ declare namespace ht {
         persistentStateSave?(key: string, value: any): void;
         unmodifyCol?(col: number): void;
     }
-    interface Methods {
-        addHook(key: string, callback: Function|any[]): void;
-        addHookOnce(key: string, callback: Function|any[]): void;
-        alter(action: string, index: number, amount?: number, source?: string, keepEmptyRows?: boolean): void;
-        clear(): void;
-        colOffset(): number;
-        colToProp(col: number): string|number;
-        countCols(): number;
-        countEmptyCols(ending?: boolean): number;
-        countEmptyRows(ending?: boolean): number;
-        countRenderedCols(): number;
-        countRenderedRows(): number;
-        countRows(): number;
-        countSourceRows(): number;
-        countVisibleCols(): number;
-        countVisibleRows(): number;
-        deselectCell(): void;
-        destroy(): void;
-        destroyEditor(revertOriginal?: boolean): void;
-        getActiveEditor(): Object;
-        getCell(row: number, col: number, topmost?: boolean): Element;
-        getCellEditor(row: number, col: number): Object;
-        getCellMeta(row: number, col: number): Object;
-        getCellRenderer(row: number, col: number): Function;
-        getCellValidator(row: number, col: number): any;
-        getColHeader(col?: number): any[]|string;
-        getColWidth(col: number): number;
-        getCoords(elem: Element): Object;
-        getCopyableData(row: number, column: number): string;
-        getCopyableText(startRow: number, startCol: number, endRow: number, endCol: number): string;
-        getData(r?: number, c?: number, r2?: number, c2?: number): any[];
-        getDataAtCell(row: number, col: number): any;
-        getDataAtCol(col: number): any[];
-        getDataAtProp(prop: string|number): any[];
-        getDataAtRow(row: number): any[];
-        getDataAtRowProp(row: number, prop: string): any;
-        getDataType(rowFrom: number, columnFrom: number, rowTo: number, columnTo: number): string;
-        getInstance(): any;
-        getPlugin(pluginName: string): any;
-        getRowHeader(row?: number): any[]|string;
-        getRowHeight(row: number): number;
-        getSchema(): Object;
-        getSelected(): any[];
-        getSelectedRange(): Range;
-        getSettings(): Options;
-        getSourceData(r?: number, c?: number, r2?: number, c2?: number): any[];
-        getSourceDataAtCell(row: number, column: number): any;
-        getSourceDataAtCol(column: number): any[];
-        getSourceDataAtRow(row: number): any[]|Object;
-        getValue(): any;
-        hasColHeaders(): boolean;
-        hasHook(key: string): boolean;
-        hasRowHeaders(): boolean;
-        isEmptyCol(col: number): boolean;
-        isEmptyRow(row: number): boolean;
-        isListening(): boolean;
-        listen(): void;
-        loadData(data: any[]): void;
-        populateFromArray(row: number, col: number, input: any[], endRow?: number, endCol?: number, source?: string, method?: string, direction?: string, deltas?: any[]): any;
-        propToCol(prop: string | number): number;
-        removeCellMeta(row: number, col: number, key: string): void;
-        removeHook(key: string, callback: Function): void;
-        render(): void;
-        rowOffset(): number;
-        runHooks(key: string, p1?: any, p2?: any, p3?: any, p4?: any, p5?: any, p6?: any): any;
-        selectCell(row: number, col: number, endRow?: number, endCol?: number, scrollToCell?: boolean, changeListener?: boolean): boolean;
-        selectCellByProp(row: number, prop: string, endRow?: number, endProp?: string, scrollToCell?: boolean): boolean;
-        setCellMeta(row: number, col: number, key: string, val: string): void;
-        setCellMetaObject(row: number, col: number, prop: Object): void;
-        setDataAtCell(row: number|any[], col: number, value: string, source?: string): void;
-        setDataAtRowProp(row: number|any[], prop: string, value: string, source?: string): void;
-        spliceCol(col: number, index: number, amount: number, elements?: any): void;
-        spliceRow(row: number, index: number, amount: number, elements?: any): void;
-        toPhysicalRow(row: number): number;
-        toPhysicalColumn(column: number): number;
-        toVisualRow(row: number): number;
-        toVisualColumn(column: number): number;
-        unlisten(): void;
-        updateSettings(settings: Object, init?: boolean): void;
-        validateCells(callback: Function): void;
+
+    class Core extends __Handsontable.Core {
     }
 
     interface Selection {
@@ -300,8 +316,8 @@ declare namespace ht {
     }
 
     interface HandsontableRegisterer {
-        getInstance(id: string): Methods;
-        registerInstance(id: string, instance: Methods): void;
+        getInstance(id: string): Core;
+        registerInstance(id: string, instance: Core): void;
         removeInstance(id: string): void;
     }
 
@@ -341,11 +357,11 @@ declare namespace ht {
         updatePlugin(): void;
         destroy(): void;
         enabled: boolean;
-        hot: Methods;
+        hot: Core;
     }
 
     interface PluginConstructor {
-        new (hotInstance: Methods): BasePlugin;
+        new (hotInstance: Core): BasePlugin;
     }
 
     interface ContextMenuPluginConstructor extends PluginConstructor {
@@ -387,8 +403,100 @@ declare namespace ht {
     }
 
     interface Hooks {
+        /**
+         * Adds a listener (globally or locally) to a specified hook name.
+         *
+         * @param key Hook name.
+         * @param callback Callback function or an array of functions.
+         * @param context (optional) The context for the hook callback to be added - a Handsontable instance or leave empty.
+         */
+        add(key: string, callback: ((...params: any[]) => any | void) | Array<(...params: any[]) => any | void>, context?: Handsontable): Object;
+
+        /**
+         * Returns a new object with empty handlers related to every registered hook name.
+         */
+        createEmptyBucket(): Object;
+
+        /**
+         * Deregisters a hook name (removes it from the list of known hook names).
+         *
+         * @param key Hook name.
+         */
+        deregister(key: string): void;
+
+        /**
+         * Destroy all listeners connected to the context. If no context is provided, the global listeners will be destroyed.
+         *
+         * @param context (optional) A Handsontable instance.
+         */
+        destroy(context?: Handsontable): void;
+
+        /**
+         * Get hook bucket based on the context of the object or if argument is undefined, get the global hook bucket.
+         *
+         * @param context (optional) A Handsontable instance.
+         */
+        getBucket(context?: Handsontable): Object;
+
+        /**
+         * Returns an array of registered hooks.
+         */
+        getRegistered(): string[];
+
+        /**
+         * Checks whether there are any registered listeners for the provided hook name.
+         *
+         * @param key Hook name.
+         * @param context (optional) A Handsontable instance.
+         */
+        has(key: string, context?: Handsontable): boolean;
+
+        /**
+         * Returns a boolean depending on if a hook by such name has been registered.
+         *
+         * @param key Hook name.
+         */
+        isRegistered(key: string): boolean;
+
+        /**
+         * Adds a listener to a specified hook. After the hook runs this listener will be automatically removed from the bucket.
+         *
+         * @param key Hook/Event name.
+         * @param callback Callback function.
+         * @param context (optional) A Handsontable instance.
+         */
+        once(key: string, callback: ((...params: any[]) => any | void) | Array<(...params: any[]) => any | void>, context?: Handsontable): void;
+
+        /**
+         * Registers a hook name (adds it to the list of the known hook names). Used by plugins.
+         *
+         * @param key The hook name.
+         */
         register(key: string): void;
-        run(instace: ht.Methods, hookName: string, key?: any, value?: any): any;
+
+        /**
+         * Removes a listener from a hook with a given name.
+         *
+         * @param key Hook/Event name.
+         * @param callback Callback function.
+         * @param context (optional) A Handsontable instance.
+         */
+        remove(key: string, callback: (...params: any[]) => any | void, context?: Handsontable): boolean;
+
+        /**
+         * Runs all local and global callbacks assigned to the hook identified by the key parameter.
+         * It returns either a return value from the last called callback or the first parameter (p1) passed to the run function.
+         *
+         * @param context Handsontable instance.
+         * @param key Hook/Event name.
+         * @param p1 (optional) Parameter to be passed as an argument to the callback function.
+         * @param p2 (optional) Parameter to be passed as an argument to the callback function.
+         * @param p3 (optional) Parameter to be passed as an argument to the callback function.
+         * @param p4 (optional) Parameter to be passed as an argument to the callback function.
+         * @param p5 (optional) Parameter to be passed as an argument to the callback function.
+         * @param p6 (optional) Parameter to be passed as an argument to the callback function.
+         */
+        run(context: Handsontable, key: string, p1?: any, p2?: any, p3?: any, p4?: any, p5?: any, p6?: any): any;
     }
 
     interface Dom {
@@ -400,6 +508,7 @@ declare namespace ht {
         getWindowScrollTop(): number;
         outerHeight(element: HTMLElement): number;
         hasClass(element: HTMLElement, className: string): boolean | undefined;
+        empty(element: HTMLElement): void;
     }
 
     interface ArrayMapper {
@@ -429,7 +538,7 @@ declare namespace ht {
     }
 
     type CellRenderer = (
-            instance: Methods,
+            instance: Core,
             td: HTMLTableCellElement,
             row: number,
             col: number,
@@ -442,14 +551,14 @@ declare namespace ht {
     }
 
     interface EditorConstructor {
-        new (instance: Methods): Editor;
+        new (instance: Core): Editor;
     }
 
     interface Editors {
         TextEditor: EditorConstructor;
     }
 
-    type Validator = (value: string, callback: (condition: boolean) => void) => void;
+    type Validator = (value: any, callback: (condition: boolean) => void) => void;
 
     interface Renderers {
         TextRenderer: CellRenderer;
@@ -492,28 +601,16 @@ declare namespace ht {
     type DropdownColumn = AutocompleteColumn;
 }
 
-declare var Handsontable: {
-    new (element: Element, options: ht.Options): ht.Methods;
-    plugins: ht.Plugins;
-    hooks: ht.Hooks;
-    Dom: ht.Dom;
-    dom: ht.Dom;
-    helper: ht.Helper;
-    utils: ht.Utils;
-    renderers: ht.Renderers;
-    editors: ht.Editors;
-};
-
-declare module "handsontable" {
-    const Handsontable: {
-      new (element: Element, options: ht.Options): ht.Methods;
-      plugins: ht.Plugins;
-      hooks: ht.Hooks;
-      Dom: ht.Dom;
-      dom: ht.Dom;
-      helper: ht.Helper;
-      utils: ht.Utils;
-      renderers: ht.Renderers;
-      editors: ht.Editors;
-    };
+declare class Handsontable extends __Handsontable.Core {
+    static plugins: Handsontable.Plugins;
+    static hooks: Handsontable.Hooks;
+    static Dom: Handsontable.Dom;
+    static dom: Handsontable.Dom;
+    static helper: Handsontable.Helper;
+    static utils: Handsontable.Utils;
+    static renderers: Handsontable.Renderers;
+    static editors: Handsontable.Editors;
 }
+
+export = Handsontable;
+export as namespace Handsontable;

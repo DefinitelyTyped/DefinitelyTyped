@@ -1,4 +1,4 @@
-import Qty from "js-quantities";
+import Qty = require("js-quantities");
 
 declare function describe(desc: string, fn: () => void): void;
 declare function it(desc: string, fn: () => void): void;
@@ -143,7 +143,7 @@ const configurableRoundingFormatter = (maxDecimals: number) => {
     const pow = Math.pow(10, maxDecimals);
     const rounded = Math.round(scalar * pow) / pow;
 
-    return rounded + ' ' + units;
+    return `${rounded} ${units}`;
   };
 };
 
@@ -161,7 +161,7 @@ qty.format(); // same units, current default formatter => '1.12 m'
 
 Qty('37 tempC').to('tempF'); // => 98.6 tempF
 
-const scalar: number = 42;
+const scalar = 42;
 
 Qty('100 tempC').add('10 degC');  // 110 tempC
 Qty('100 tempC').sub('10 degC');  // 90 tempC
@@ -1225,7 +1225,7 @@ describe("js-quantities", () => {
           const pow = Math.pow(10, maxDecimals);
           const rounded = Math.round(scalar * pow) / pow;
 
-          return rounded + " " + units;
+          return `${rounded} ${units}`;
         };
       };
 

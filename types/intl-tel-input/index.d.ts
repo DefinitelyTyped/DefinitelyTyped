@@ -1,16 +1,107 @@
 // Type definitions for intl-tel-input
 // Project: https://github.com/jackocnr/intl-tel-input
-// Definitions by: Fidan Hakaj <https://github.com/fdnhkj/>
+// Definitions by: Fidan Hakaj <https://github.com/fdnhkj>, Leonard Thieu <https://github.com/leonard-thieu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-// Static methods that are defined in JQueryStatic.fn are not typed
-// as jquery.d.ts has no interface for fn
-// https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/jquery/jquery.d.ts#L958
-//     fn: any;  //TODO: Decide how we want to type this
+// TypeScript Version: 2.3
 
 /// <reference types="jquery" />
 
 declare namespace IntlTelInput {
+
+  interface Plugin {
+    /**
+     * Get all of the plugin's country data - either to re-use elsewhere
+     * e.g. to populate a country dropdown.
+     */
+    getCountryData(): CountryData[];
+    /**
+     * Load the utils.js script (included in the lib directory) to enable
+     * formatting/validation etc.
+     */
+    loadUtils(path: string, utilsScriptDeferred?: boolean): void;
+
+    /**
+     * Remove the plugin from the input, and unbind any event listeners.
+     */
+    (method: 'destroy'): void;
+    /**
+     * Get the extension from the current number.
+     * Requires the utilsScript option.
+     * e.g. if the input value was "(702) 555-5555 ext. 1234", this would
+     * return "1234".
+     */
+    (method: 'getExtension'): string;
+    /**
+     * Get the current number in the given format (defaults to E.164 standard).
+     * The different formats are available in the enum
+     * intlTelInputUtils.numberFormat - taken from here.
+     * Requires the utilsScript option.
+     * Note that even if nationalMode is enabled, this can still return a full
+     * international number.
+     */
+    (method: 'getNumber'): string;
+    /**
+     * Get the type (fixed-line/mobile/toll-free etc) of the current number.
+     * Requires the utilsScript option.
+     * Returns an integer, which you can match against the various options in the
+     * global enum intlTelInputUtils.numberType.
+     * Note that in the US there's no way to differentiate between fixed-line and
+     * mobile numbers, so instead it will return FIXED_LINE_OR_MOBILE.
+     */
+    (method: 'getNumberType'): intlTelInputUtils.numberType;
+    /**
+     * Get the country data for the currently selected flag.
+     */
+    (method: 'getSelectedCountryData'): IntlTelInput.CountryData;
+    /**
+     * Get more information about a validation error.
+     * Requires the utilsScript option.
+     * Returns an integer, which you can match against the various options in the
+     * global enum intlTelInputUtils.validationError
+     */
+    (method: 'getValidationError'): intlTelInputUtils.validationError;
+    /**
+     * Validate the current number. Expects an internationally formatted number
+     * (unless nationalMode is enabled). If validation fails, you can use
+     * getValidationError to get more information.
+     * Requires the utilsScript option.
+     * Also see getNumberType if you want to make sure the user enters a certain
+     * type of number e.g. a mobile number.
+     */
+    (method: 'isValidNumber'): boolean;
+    (method: string): void;
+    /**
+     * Change the country selection (e.g. when the user is entering their address).
+     * @param countryCode country code of the country to be set.
+     */
+    (method: 'setCountry', countryCode: string): void;
+    /**
+     * Insert a number, and update the selected flag accordingly.
+     * Note that by default, if nationalMode is enabled it will try to use
+     * national formatting.
+     * @param aNumber number to be set.
+     */
+    (method: 'setNumber', aNumber: string): void;
+    (method: string, value: string): void;
+
+    /**
+     * Get the current number in the given format (defaults to E.164 standard).
+     * The different formats are available in the enum
+     * intlTelInputUtils.numberFormat - taken from here.
+     * Requires the utilsScript option.
+     * Note that even if nationalMode is enabled, this can still return a full
+     * international number.
+     * @param numberFormat the format in which the number will be returned.
+     */
+    (method: 'getNumber', numberFormat: intlTelInputUtils.numberFormat): string;
+    (method: string, numberFormat: intlTelInputUtils.numberFormat): string;
+
+    /**
+     * initialise the plugin with optional options.
+     * @param options options that can be provided during initialization.
+     */
+    (options?: IntlTelInput.Options): JQueryDeferred<any>;
+  }
 
   interface Options {
     /**
@@ -154,85 +245,5 @@ declare namespace intlTelInputUtils {
 }
 
 interface JQuery {
-  /**
-   * Remove the plugin from the input, and unbind any event listeners.
-   */
-  intlTelInput(method: 'destroy'): void;
-  /**
-   * Get the extension from the current number.
-   * Requires the utilsScript option.
-   * e.g. if the input value was "(702) 555-5555 ext. 1234", this would
-   * return "1234".
-   */
-  intlTelInput(method: 'getExtension'): string;
-  /**
-   * Get the current number in the given format (defaults to E.164 standard).
-   * The different formats are available in the enum
-   * intlTelInputUtils.numberFormat - taken from here.
-   * Requires the utilsScript option.
-   * Note that even if nationalMode is enabled, this can still return a full
-   * international number.
-   */
-  intlTelInput(method: 'getNumber'): string;
-  /**
-   * Get the type (fixed-line/mobile/toll-free etc) of the current number.
-   * Requires the utilsScript option.
-   * Returns an integer, which you can match against the various options in the
-   * global enum intlTelInputUtils.numberType.
-   * Note that in the US there's no way to differentiate between fixed-line and
-   * mobile numbers, so instead it will return FIXED_LINE_OR_MOBILE.
-   */
-  intlTelInput(method: 'getNumberType'): intlTelInputUtils.numberType;
-  /**
-   * Get the country data for the currently selected flag.
-   */
-  intlTelInput(method: 'getSelectedCountryData'): IntlTelInput.CountryData;
-  /**
-   * Get more information about a validation error.
-   * Requires the utilsScript option.
-   * Returns an integer, which you can match against the various options in the
-   * global enum intlTelInputUtils.validationError
-   */
-  intlTelInput(method: 'getValidationError'): intlTelInputUtils.validationError;
-  /**
-   * Validate the current number. Expects an internationally formatted number
-   * (unless nationalMode is enabled). If validation fails, you can use
-   * getValidationError to get more information.
-   * Requires the utilsScript option.
-   * Also see getNumberType if you want to make sure the user enters a certain
-   * type of number e.g. a mobile number.
-   */
-  intlTelInput(method: 'isValidNumber'): boolean;
-  intlTelInput(method: string): void;
-  /**
-   * Change the country selection (e.g. when the user is entering their address).
-   * @param countryCode country code of the country to be set.
-   */
-  intlTelInput(method: 'setCountry', countryCode: string): void;
-  /**
-   * Insert a number, and update the selected flag accordingly.
-   * Note that by default, if nationalMode is enabled it will try to use
-   * national formatting.
-   * @param aNumber number to be set.
-   */
-  intlTelInput(method: 'setNumber', aNumber: string): void;
-  intlTelInput(method: string, value: string): void;
-
-  /**
-   * Get the current number in the given format (defaults to E.164 standard).
-   * The different formats are available in the enum
-   * intlTelInputUtils.numberFormat - taken from here.
-   * Requires the utilsScript option.
-   * Note that even if nationalMode is enabled, this can still return a full
-   * international number.
-   * @param numberFormat the format in which the number will be returned.
-   */
-  intlTelInput(method: 'getNumber', numberFormat: intlTelInputUtils.numberFormat): string;
-  intlTelInput(method: string, numberFormat: intlTelInputUtils.numberFormat): string;
-
-  /**
-   * initialise the plugin with optional options.
-   * @param options options that can be provided during initialization.
-   */
-  intlTelInput(options?: IntlTelInput.Options): JQueryDeferred<any>;
+  intlTelInput: IntlTelInput.Plugin;
 }

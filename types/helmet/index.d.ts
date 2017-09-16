@@ -1,6 +1,6 @@
 // Type definitions for helmet
 // Project: https://github.com/helmetjs/helmet
-// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>, Evan Hahn <https://github.com/EvanHahn>
+// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>, Evan Hahn <https://github.com/EvanHahn>, Elliot Blackburn <https://github.com/bluehatbrit>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import express = require('express');
@@ -19,7 +19,8 @@ declare namespace helmet {
         ieNoOpen?: boolean,
         noCache?: boolean,
         noSniff?: boolean,
-        xssFilter?: boolean | IHelmetXssFilterConfiguration
+        xssFilter?: boolean | IHelmetXssFilterConfiguration,
+        expectCt?: boolean | IHelmetExpectCtConfiguration,
     }
 
     export interface IHelmetContentSecurityPolicyDirectiveFunction {
@@ -88,8 +89,18 @@ declare namespace helmet {
         force?: boolean;
     }
 
+    export interface IHelmetReferrerPolicyConfiguration {
+        policy?: string;
+    }
+
     export interface IHelmetXssFilterConfiguration {
         setOnOldIE?: boolean;
+    }
+
+    export interface IHelmetExpectCtConfiguration {
+        enforce?: boolean;
+        maxAge?: number;
+        reportUri?: string;
     }
 
     /**
@@ -164,10 +175,23 @@ declare namespace helmet {
         noSniff(): express.RequestHandler;
 
         /**
+         * @summary Adds the "Referrer-Policy" header.
+         * @return {RequestHandler} The Request handler.
+         */
+        referrerPolicy(options?: IHelmetReferrerPolicyConfiguration): express.RequestHandler;
+
+        /**
          * @summary Mitigate cross-site scripting attacks with the "X-XSS-Protection" header.
          * @param {IHelmetXssFilterConfiguration} options The options
          * @return {RequestHandler} The Request handler.
          */
         xssFilter(options?: IHelmetXssFilterConfiguration): express.RequestHandler;
+
+        /**
+         * @summary Adds the "Expect-CT" header.
+         * @param {helmet.IHelmetExpectCtConfiguration} options
+         * @returns {e.RequestHandler}
+         */
+        expectCt(options?: IHelmetExpectCtConfiguration): express.RequestHandler;
     }
 }

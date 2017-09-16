@@ -1,6 +1,6 @@
 // Type definitions for D3JS d3-hexbin module v0.2.1
 // Project: https://github.com/d3/d3-hexbin/
-// Definitions by: UNCOVER TRUTH Inc. <https://github.com/uncovertruth/>, Tom Wanzek <https://github.com/tomwanzek>
+// Definitions by: UNCOVER TRUTH Inc. <https://github.com/uncovertruth>, Tom Wanzek <https://github.com/tomwanzek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface HexbinBin<T> extends Array<T> {

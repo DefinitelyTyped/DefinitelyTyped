@@ -1,12 +1,12 @@
 // Type definitions for yeoman-generator 1.0
 // Project: https://github.com/yeoman/generator
-// Definitions by: Kentaro Okuno <http://github.com/armorik83>, Jay Anslow <http://github.com/janslow>
+// Definitions by: Kentaro Okuno <https://github.com/armorik83>, Jay Anslow <https://github.com/janslow>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { EventEmitter } from 'events';
 import { Questions, Answers } from 'inquirer';
 
-declare type Callback = (err: any) => void;
+type Callback = (err: any) => void;
 
 declare namespace Base {
     class Storage {

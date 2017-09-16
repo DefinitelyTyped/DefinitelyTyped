@@ -1,6 +1,6 @@
 // Type definitions for echarts
 // Project: http://echarts.baidu.com/
-// Definitions by: Xie Jingyang <https://github.com/xieisabug>
+// Definitions by: Xie Jingyang <https://github.com/xieisabug>, AntiMoron <https://github.com/AntiMoron>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace ECharts {
@@ -9,6 +9,11 @@ declare namespace ECharts {
         renderer?: string
     }):ECharts;
 
+    const graphic: {
+        clipPointsByRect(points: number[][], rect: ERectangle): number[][];
+        clipRectByRect(targetRect: ERectangle, rect: ERectangle): ERectangle;
+    }
+    
     function connect(group:string|Array<string>):void;
 
     function disConnect(group:string):void;
@@ -69,6 +74,50 @@ declare namespace ECharts {
         isDisposed():boolean
 
         dispose():void
+        
+        // 转换逻辑点到像素
+        convertToPixel(finder: {
+            seriesIndex?: number,
+            seriesId?: string,
+            seriesName?: string,
+            geoIndex?: number,
+            geoId?: string,
+            geoName?: string,
+            xAxisIndex?: number,
+            xAxisId?: string,
+            xAxisName?: string,
+            yAxisIndex?: number,
+            yAxisId?: string,
+            yAxisName?: string,
+            gridIndex?: number,
+            gridId?: string
+            gridName?: string
+        } | string, value: string|Array<any>): string|Array<any>
+            
+        convertFromPixel(finder: {
+            seriesIndex?: number,
+            seriesId?: string,
+            seriesName?: string,
+            geoIndex?: number,
+            geoId?: string,
+            geoName?: string,
+            xAxisIndex?: number,
+            xAxisId?: string,
+            xAxisName?: string,
+            yAxisIndex?: number,
+            yAxisId?: string,
+            yAxisName?: string,
+            gridIndex?: number,
+            gridId?: string
+            gridName?: string
+        } | string, value: Array<any>|string): Array<any>|string
+    }
+
+    interface ERectangle {
+        x: number,
+        y: number,
+        width: number,
+        height: number
     }
 
     interface EChartOption {

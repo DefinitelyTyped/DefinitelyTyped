@@ -152,8 +152,9 @@ declare namespace later {
          * Create schedule data by parsing a cron string
          *
          * @param {string} [input] - A string value to parse.
+         * @param {boolean} [hasSeconds] - Whether the cron expression has second part.
          */
-        cron(input?: string): ScheduleData;
+        cron(input?: string, hasSeconds?: boolean): ScheduleData;
 
         /**
          * Create schedule data by paring a human readable string.

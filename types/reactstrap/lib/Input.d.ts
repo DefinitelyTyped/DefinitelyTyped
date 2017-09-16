@@ -1,3 +1,5 @@
+import { CSSModule } from '../index';
+
 type InputType =
   | 'text'
   | 'email'
@@ -27,7 +29,7 @@ type InputType =
 
 // Intermediate interface to "redefine" the type of size to string
 // size:number => size:any => size:string
-interface Intermediate extends React.ChangeTargetHTMLProps<HTMLInputElement> {
+interface Intermediate extends React.InputHTMLAttributes<HTMLInputElement> {
   size?: any;
 }
 
@@ -36,8 +38,11 @@ interface InputProps extends Intermediate {
   size?: string;
   state?: string;
   tag?: React.ReactType;
+  getRef?: string | ((instance: HTMLInputElement) => any);
+  static?: boolean;
   addon?: boolean;
   className?: string;
+  cssModule?: CSSModule;
   // We don't have the property 'static' here because 'static' is a reserved keyword in TypeScript
   // Maybe reactstrap will support an 'isStatic' alias in the future
 }
