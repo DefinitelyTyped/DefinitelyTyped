@@ -186,6 +186,43 @@ describe("Examples", () => {
         }
     });
 
+    it("onValueClick", () => {
+        class Component extends React.Component {
+            private onValueClick: ReactSelect.OnValueClickHandler<number> = (option) => {
+                const optionValue: number = option.value;
+            }
+
+            render() {
+                const options = [
+                    { value: 3, label: "Option 3" },
+                    { value: 9, label: "Option 9" }
+                ];
+
+                return <ReactSelect
+                    name="select"
+                    value={123}
+                    options={options}
+                />;
+            }
+        }
+    });
+
+    it("Custom value onValueClick", () => {
+        class Component extends React.Component {
+            private onValueClick: ReactSelect.OnValueClickHandler<CustomValueType> = (option) => {
+                const optionValue: CustomValueType = option.value;
+            }
+
+            render() {
+                return <CustomValueReactSelect
+                    name="select"
+                    value={EXAMPLE_CUSTOM_VALUE}
+                    options={EXAMPLE_CUSTOM_OPTIONS}
+                />;
+            }
+        }
+    });
+
     it("Custom value onChange", () => {
         class Component extends React.Component {
             private onSelectChange: ReactSelect.OnChangeSingleHandler<CustomValueType> = (option) => {

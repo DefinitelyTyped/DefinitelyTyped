@@ -25,9 +25,9 @@ export class SObject<T> {
     find<T>(query?: any, fields?: Object | string[] | string, callback?: (err: Error, ret: T[]) => void): Query<T>;
     find<T>(query?: any, fields?: Object | string[] | string, options?: Object, callback?: (err: Error, ret: T[]) => void): Query<T>;
 
-    findOne<T>(query?: any, callback?: (err: Error, ret: T) => void): void;
-    findOne<T>(query?: any, fields?: Object | string[] | string, callback?: (err: Error, ret: T) => void): void;
-    findOne<T>(query?: any, fields?: Object | string[] | string, options?: Object, callback?: (err: Error, ret: T) => void): void;
+    findOne<T>(query?: any, callback?: (err: Error, ret: T) => void): Query<T>;
+    findOne<T>(query?: any, fields?: Object | string[] | string, callback?: (err: Error, ret: T) => void): Query<T>;
+    findOne<T>(query?: any, fields?: Object | string[] | string, options?: Object, callback?: (err: Error, ret: T) => void): Query<T>;
 
     approvalLayouts(callback?: (layoutInfo: ApprovalLayoutInfo) => void): Promise<ApprovalLayoutInfo>;
     bulkload(operation: string, options?: { extIdField?: string }, input?: Array<Record<T>> | stream.Stream[] | string[], callback?: (err: Error, ret: RecordResult) => void): Batch;
