@@ -2,7 +2,7 @@
 // Project: https://github.com/janstuemmel/react-mce
 // Definitions by: Gavin Heise <https://github.com/morphologue>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.4
 
 import * as React from 'react';
 import * as ActualTinyMCE from 'tinymce';
@@ -80,5 +80,5 @@ interface ReactMCEProps {
     onDirty?: EventHandler;
 }
 
-declare class TinyMCE extends React.Component<ReactMCEProps, {}> { }
+declare class TinyMCE extends React.Component<ReactMCEProps> { }
 export = TinyMCE;

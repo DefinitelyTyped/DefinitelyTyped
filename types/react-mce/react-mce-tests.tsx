@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import TinyMCE = require('react-mce');
 
-class Example extends React.Component<{}, {}> {
+class Example extends React.Component {
   private _onChangeTextarea(e: any) {
     console.log(e.target.getContent());
   }
