@@ -6,8 +6,6 @@
 // TypeScript Version: 2.3
 
 import * as React from 'react';
-import { stringify } from '../wellknown/index';
-import { numberTypeAnnotation } from '../babel-types/index';
 import {
     ViewStyle,
     TextStyle,
