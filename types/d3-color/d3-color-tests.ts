@@ -20,11 +20,11 @@ function isHSL(color: d3Color.RGBColor | d3Color.HSLColor): color is d3Color.HSL
 
 // Signature tests for 'color', rgb and hsl
 
-let c: d3Color.RGBColor | d3Color.HSLColor,
-    cRGB: d3Color.RGBColor,
-    cHSL: d3Color.HSLColor,
-    displayable: boolean,
-    cString: string;
+let c: d3Color.RGBColor | d3Color.HSLColor;
+let cRGB: d3Color.RGBColor;
+let cHSL: d3Color.HSLColor;
+let displayable: boolean;
+let cString: string;
 
 // string signature
 c = d3Color.color('steelblue');
@@ -39,7 +39,6 @@ c = d3Color.color('rgba(20, 100, 200, 0.5)');
 c = d3Color.color(cRGB);
 
 cRGB = d3Color.color('hsl(60, 100%, 20%, 0.5)').rgb();
-
 
 cRGB = d3Color.rgb(20, 100, 200);
 cRGB = d3Color.rgb(20, 100, 200, 0.5);
@@ -89,7 +88,6 @@ displayable = cLab.displayable();
 cString = cLab.toString();
 console.log('Channels = (l : %d, a: %d, b: %d)', cLab.l, cLab.a, cLab.b);
 console.log('Opacity = %d', cLab.opacity);
-
 
 // Signature tests for HCL
 

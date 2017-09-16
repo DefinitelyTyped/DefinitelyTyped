@@ -259,7 +259,7 @@ $('#s6').cycle({
     }
 });
 
-$.fn.cycle.transitions.pinch = function ($cont, $slides, opts) {
+$.fn.cycle.transitions['pinch'] = function ($cont, $slides, opts) {
     var $el = $($slides[0]);
     var w = $el.width();
     var h = $el.height();

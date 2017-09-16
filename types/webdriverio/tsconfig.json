@@ -6,15 +6,16 @@
             "dom"
         ],
         "noImplicitAny": true,
-        "noImplicitThis": false,
-        "strictNullChecks": false,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "target": "es2015"
     },
     "files": [
         "index.d.ts",

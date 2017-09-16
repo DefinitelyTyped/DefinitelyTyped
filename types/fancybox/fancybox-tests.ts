@@ -23,7 +23,7 @@ $.fancybox.update();
 $.fancybox.toggle();
 $.fancybox.showLoading();
 $.fancybox.hideLoading();
-$(".selector").fancybox({ 'type': 'image' });
+$(".selector").fancybox({ type: 'image' });
 $("#single_1").fancybox({
     helpers: {
         title: {
@@ -114,7 +114,7 @@ $(".fancybox").fancybox({
 });
 $(".fancybox").fancybox({
     beforeLoad: () => {
-        this.title = 'Image ' + (this.index + 1) + ' of ' + this.group.length + (this.title ? ' - ' + this.title : '');
+        this.title = this.title ? `Image ${this.index + 1} of ${this.group.length} - ${this.title}` : `Image ${this.index + 1} of ${this.group.length}`;
     }
 });
 $.fancybox('<div><h1>Lorem Lipsum</h1><p>Lorem lipsum</p></div>', {

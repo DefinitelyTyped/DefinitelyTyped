@@ -1,10 +1,10 @@
 // Type definitions for react-fa 4.1
 // Project: https://github.com/andreypopp/react-fa
-// Definitions by: Frank Laub <https://github.com/flaub>, Pat Sissons <http://github.com/patsissons>, Karol Janyst <http://github.com/LKay>
+// Definitions by: Frank Laub <https://github.com/flaub>, Pat Sissons <https://github.com/patsissons>, Karol Janyst <https://github.com/LKay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
-import { Component, ComponentClass, HTMLProps, StatelessComponent } from "react";
+import { Component, ComponentClass, HTMLProps, StatelessComponent, ReactElement } from "react";
 
 // fake intermediate interface to remove typing on size, as the typing
 // is overrided by react-fa
@@ -32,15 +32,15 @@ export interface IconProps extends SizeOverrideHTMLProps<Icon> {
     Component?: CustomComponent;
 }
 
-export type Icon = Component<IconProps, any>;
+export type Icon = Component<IconProps>;
 export const Icon: ComponentClass<IconProps>;
 
 export interface IconStackProps extends SizeOverrideHTMLProps<IconStack> {
     size?: IconSize;
-    children?: IconProps[];
+    children?: ReactElement<IconProps> | Array<ReactElement<IconProps>>;
 }
 
-export type IconStack = Component<IconStackProps, any>;
+export type IconStack = Component<IconStackProps>;
 export const IconStack: ComponentClass<IconStackProps>;
 
 export default Icon;

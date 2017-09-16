@@ -1,31 +1,37 @@
-// Type definitions for C3js v0.4
+// Type definitions for C3js 0.4
 // Project: http://c3js.org/
 // Definitions by: Marc Climent <https://github.com/mcliment>
+//                 Gerin Jacob <https://github.com/gerinjacob>
+//                 Bernd Hacker <https://github.com/denyo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 import * as d3 from "d3";
+
+/* tslint:disable:export-just-namespace */
 
 export = c3;
 export as namespace c3;
 
 declare namespace c3 {
-
-    type PrimitiveArray = Array<string | boolean | number>;
+    type PrimitiveArray = Array<string | boolean | number | null>;
     type FormatFunction = (v: any, id: string, i: number, j: number) => void;
 
     interface TargetIds {
         ids: ArrayOrString;
     }
 
-    type ArrayOrString = Array<string> | string;
+    type ArrayOrString = string[] | string;
 
     interface ChartConfiguration {
         /**
-         * The CSS selector or the element which the chart will be set to. D3 selection object can be specified. If other chart is set already, it will be replaced with the new one (only one chart can be set in one element).
+         * The CSS selector or the element which the chart will be set to. D3 selection object can be specified. If other chart is set already, it will be replaced with the new one (only one chart
+         * can be set in one element).
          * If this option is not specified, the chart will be generated but not be set. Instead, we can access the element by chart.element and set it by ourselves.
-         * Note: When chart is not binded, c3 starts observing if chart.element is binded by MutationObserver. In this case, polyfill is required in IE9 and IE10 becuase they do not support MutationObserver. On the other hand, if chart always will be binded, polyfill will not be required because MutationObserver will never be called.
+         * Note: When chart is not binded, c3 starts observing if chart.element is binded by MutationObserver. In this case, polyfill is required in IE9 and IE10 becuase they do not support
+         * MutationObserver. On the other hand, if chart always will be binded, polyfill will not be required because MutationObserver will never be called.
          */
-        bindto?: string | HTMLElement | d3.Selection<any>;
+        bindto?: string | HTMLElement | d3.Selection<any> | null;
         size?: {
             /**
              * The desired width of the chart element.
@@ -63,7 +69,7 @@ declare namespace c3 {
             /**
              * Set custom color pattern.
              */
-            pattern?: Array<string>;
+            pattern?: string[];
             threshold?: any; // Undocumented
         };
 
@@ -86,32 +92,32 @@ declare namespace c3 {
         /**
          * Set a callback to execute when the chart is initialized.
          */
-        oninit?: () => void;
+        oninit?(): void;
 
         /**
          * Set a callback which is executed when the chart is rendered. Basically, this callback will be called in each time when the chart is redrawed.
          */
-        onrendered?: () => void;
+        onrendered?(): void;
 
         /**
          * Set a callback to execute when mouse enters the chart.
          */
-        onmouseover?: () => void;
+        onmouseover?(): void;
 
         /**
          * Set a callback to execute when mouse leaves the chart.
          */
-        onmouseout?: () => void;
+        onmouseout?(): void;
 
         /**
          * Set a callback to execute when user resizes the screen.
          */
-        onresize?: () => void;
+        onresize?(): void;
 
         /**
          * Set a callback to execute when screen resize finished.
          */
-        onresized?: () => void;
+        onresized?(): void;
 
         data: Data;
 
@@ -122,9 +128,10 @@ declare namespace c3 {
         /**
          * Show rectangles inside the chart.
          * This option accepts array including object that has axis, start, end and class. The keys start, end and class are optional.
-         * axis must be x, y or y2. start and end should be the value where regions start and end. If not specified, the edge values will be used. If timeseries x axis, date string, Date object and unixtime integer can be used. If class is set, the region element will have it as class.
+         * axis must be x, y or y2. start and end should be the value where regions start and end. If not specified, the edge values will be used. If timeseries x axis, date string, Date object and
+         * unixtime integer can be used. If class is set, the region element will have it as class.
          */
-        regions?: Array<RegionOptions>;
+        regions?: RegionOptions[];
 
         legend?: LegendOptions;
 
@@ -146,8 +153,8 @@ declare namespace c3 {
              * Change step type for step chart. 'step', 'step-before' and 'step-after' can be used.
              */
             step?: {
-                 type: string;
-             };
+                type: string;
+            };
         };
 
         area?: {
@@ -161,7 +168,16 @@ declare namespace c3 {
             /**
              * Change the width of bar chart. If ratio is specified, change the width of bar chart by ratio.
              */
-            width?: number | { ratio: number };
+            width?: number | {
+                /**
+                 * Set the width of each bar by ratio
+                 */
+                ratio: number,
+                /**
+                 * Set max width of each bar
+                 */
+                max?: number
+            };
             /**
              * Set if min or max value will be 0 on bar chart.
              */
@@ -177,7 +193,7 @@ declare namespace c3 {
                 /**
                  * Set formatter for the label on each pie piece.
                  */
-                format?: (value: number, ratio: number, id: string) => string;
+                format?(value: number, ratio: number, id: string): string;
                 /**
                  * Set threshold to show/hide labels.
                  */
@@ -198,7 +214,7 @@ declare namespace c3 {
                 /**
                  * Set formatter for the label on each donut piece.
                  */
-                format?: (value: number, ratio: number, id: string) => string;
+                format?(value: number, ratio: number, id: string): string;
                 /**
                  * Set threshold to show/hide labels.
                  */
@@ -227,7 +243,7 @@ declare namespace c3 {
                 /**
                  * Set formatter for the label on gauge.
                  */
-                format?: (value: any, ratio: number) => string;
+                format?(value: any, ratio: number): string;
             };
             /**
              * Enable or disable expanding gauge.
@@ -269,15 +285,15 @@ declare namespace c3 {
         /**
          * Parse a JSON object for data.
          */
-        json?: Object;
+        json?: {};
         /**
          * Load data from a multidimensional array, with the first element containing the data names, the following containing related data in that order.
          */
-        rows?: Array<PrimitiveArray>;
+        rows?: PrimitiveArray[];
         /*
          * Load data from a multidimensional array, with each element containing an array consisting of a datum name and associated data values.
          */
-        columns?: Array<PrimitiveArray>;
+        columns?: PrimitiveArray[];
         /**
          * Used if loading JSON via data.url
          */
@@ -285,10 +301,11 @@ declare namespace c3 {
         /**
          * Choose which JSON object keys correspond to desired data.
          */
-        keys?: { x?: string; value: Array<string>; };
+        keys?: { x?: string; value: string[]; };
         /**
          * Specify the key of x values in the data.
-         * We can show the data with non-index x values by this option. This option is required when the type of x axis is timeseries. If this option is set on category axis, the values of the data on the key will be used for category names.
+         * We can show the data with non-index x values by this option. This option is required when the type of x axis is timeseries. If this option is set on category axis, the values of the data
+         * on the key will be used for category names.
          */
         x?: string;
         /**
@@ -301,8 +318,8 @@ declare namespace c3 {
          * Default is %Y-%m-%d
          */
         xFormat?: string;
-        //xLocaltime?: any;
-        //xSort?: any;
+        // xLocaltime?: any;
+        // xSort?: any;
         /**
          * Set custom data name.
          */
@@ -315,7 +332,7 @@ declare namespace c3 {
         /**
          * Set groups for the data for stacking.
          */
-        groups?: Array<Array<string>>;
+        groups?: string[][];
         /**
          * Set y axis the data related to. y and y2 can be used.
          */
@@ -345,30 +362,33 @@ declare namespace c3 {
         { format: { [key: string]: FormatFunction } };
         /**
          * Define the order of the data.
-         * This option changes the order of stacking the data and pieces of pie/donut. If null specified, it will be the order the data loaded. If function specified, it will be used to sort the data and it will recieve the data as argument.
+         * This option changes the order of stacking the data and pieces of pie/donut. If null specified, it will be the order the data loaded. If function specified, it will be used to sort the data
+         * and it will recieve the data as argument.
          * Available Values: desc, asc, function (data1, data2) { ... }, null
          */
         order?: string | ((...data: string[]) => void);
         /**
          * Define regions for each data.
-         * The values must be an array for each data and it should include an object that has start, end, style. If start is not set, the start will be the first data point. If end is not set, the end will be the last data point.
+         * The values must be an array for each data and it should include an object that has start, end, style. If start is not set, the start will be the first data point. If end is not set, the
+         * end will be the last data point.
          * Currently this option supports only line chart and dashed style. If this option specified, the line will be dashed only in the regions.
          */
         regions?: { [key: string]: any };
         /**
          * Set color converter function.
-         * This option should a function and the specified function receives color (e.g. '#ff0000') and d that has data parameters like id, value, index, etc. And it must return a string that represents color (e.g. '#00ff00').
+         * This option should a function and the specified function receives color (e.g. '#ff0000') and d that has data parameters like id, value, index, etc. And it must return a string that
+         * represents color (e.g. '#00ff00').
          */
-        color?: (color: string, d: any) => string | d3.Rgb;
+        color?(color: string, d: any): string | d3.Rgb;
         /**
          * Set color for each data.
          */
-        colors?: { [key: string]: string | d3.Rgb };
+        colors?: { [key: string]: string | d3.Rgb | ((d: any) => string | d3.Rgb) };
         /**
          * Hide each data when the chart appears.
          * If true specified, all of data will be hidden. If multiple ids specified as an array, those will be hidden.
          */
-        hide?: boolean | Array<string>;
+        hide?: boolean | string[];
         /**
          * Set text displayed when empty data.
          */
@@ -379,30 +399,30 @@ declare namespace c3 {
             grouped?: boolean;
             multiple?: boolean;
             draggable?: boolean;
-            isselectable?: (d?: any) => boolean;
+            isselectable?(d?: any): boolean;
         };
         /**
          * Set a callback for click event on each data point.
          * This callback will be called when each data point clicked and will receive d and element as the arguments.
          * - d is the data clicked and element is the element clicked. In this callback, this will be the Chart object.
          */
-        onclick?: (d: any, element: any) => void;
+        onclick?(d: any, element: any): void;
         /**
          * Set a callback for mouseover event on each data point.
          * This callback will be called when mouse cursor moves onto each data point and will receive d as the argument.
          * - d is the data where mouse cursor moves onto. In this callback, this will be the Chart object.
          */
-        onmouseover?: (d: any, element?: any) => void;
+        onmouseover?(d: any, element?: any): void;
         /**
          * Set a callback for mouseout event on each data point.
          * This callback will be called when mouse cursor moves out each data point and will receive d as the argument.
          * - d is the data where mouse cursor moves out. In this callback, this will be the Chart object.
          */
-        onmouseout?: (d: any, element?: any) => void;
+        onmouseout?(d: any, element?: any): void;
 
-        onselected?: (d: any, element?: any) => void;
+        onselected?(d: any, element?: any): void;
 
-        onunselected?: (d: any, element?: any) => void;
+        onunselected?(d: any, element?: any): void;
     }
 
     interface Axis {
@@ -433,7 +453,7 @@ declare namespace c3 {
          * Set category names on category axis.
          * This must be an array that includes category names in string. If category names are included in the date by data.x option, this is not required.
          */
-        categories?: Array<string>;
+        categories?: string[];
 
         tick?: XTickConfiguration;
         /**
@@ -446,7 +466,8 @@ declare namespace c3 {
         min?: number;
         /**
          * Set padding for x axis.
-         * If this option is set, the range of x axis will increase/decrease according to the values. If no padding is needed in the ragen of x axis, 0 should be set. On category axis, this option will be ignored.
+         * If this option is set, the range of x axis will increase/decrease according to the values. If no padding is needed in the ragen of x axis, 0 should be set. On category axis, this option
+         * will be ignored.
          */
         padding?: {
             left?: number;
@@ -460,10 +481,11 @@ declare namespace c3 {
         /**
          * Set default extent for subchart and zoom. This can be an array or function that returns an array.
          */
-        extent?: Array<number> | (() => Array<number>);
+        extent?: number[] | (() => number[]);
         /**
          * Set label on x axis.
-         * You can set x axis label and change its position by this option. string and object can be passed and we can change the poisiton by passing object that has position key. Available position differs according to the axis direction (vertical or horizontal). If string set, the position will be the default.
+         * You can set x axis label and change its position by this option. string and object can be passed and we can change the poisiton by passing object that has position key. Available position
+         * differs according to the axis direction (vertical or horizontal). If string set, the position will be the default.
          * Valid horizontal positions: inner-right (Default), inner-center, inner-left, outer-right, outer-center, outer-left
          * Valid vertical positions: inner-top, inner-middle, inner-bottom, outer-top, outer-middle, outer-bottom
          */
@@ -514,8 +536,7 @@ declare namespace c3 {
         /**
          * Set default range of y axis. This option set the default value for y axis when there is no data on init.
          */
-        default?: Array<number>;
-
+        default?: number[];
     }
 
     interface XTickConfiguration {
@@ -528,14 +549,15 @@ declare namespace c3 {
          */
         format?: string | ((x: number | Date) => string | number);
         /**
-        * Setting for culling ticks.
-        * If true is set, the ticks will be culled, then only limitted tick text will be shown. This option does not hide the tick lines. If false is set, all of ticks will be shown.
-        */
+         * Setting for culling ticks.
+         * If true is set, the ticks will be culled, then only limitted tick text will be shown. This option does not hide the tick lines. If false is set, all of ticks will be shown.
+         */
         culling?: boolean | CullingConfiguration;
         /**
          * The number of x axis ticks to show.
-         * This option hides tick lines together with tick text. If this option is used on timeseries axis, the ticks position will be determined precisely and not nicely positioned (e.g. it will have rough second value).
-        */
+         * This option hides tick lines together with tick text. If this option is used on timeseries axis, the ticks position will be determined precisely and not nicely positioned (e.g. it will
+         * have rough second value).
+         */
         count?: number;
         /**
          * Fit x axis ticks.
@@ -544,9 +566,10 @@ declare namespace c3 {
         fit?: boolean;
         /**
          * Set the x values of ticks manually.
-         * If this option is provided, the position of the ticks will be determined based on those values. This option works with timeseries data and the x values will be parsed accoding to the type of the value and data.xFormat option.
+         * If this option is provided, the position of the ticks will be determined based on those values. This option works with timeseries data and the x values will be parsed accoding to the type
+         * of the value and data.xFormat option.
          */
-        values?: Array<number> | Array<string>;
+        values?: number[] | string[];
         /**
          * Rotate x axis tick text. If you set negative value, it will rotate to opposite direction.
          */
@@ -563,7 +586,7 @@ declare namespace c3 {
          * Set formatter for y axis tick text.
          * This option accepts d3.format object as well as a function you define.
          */
-        format?: (x: number) => string;
+        format?(x: number): string;
         /**
          * Show or hide outer tick.
          */
@@ -571,18 +594,18 @@ declare namespace c3 {
         /**
          * Set the y values of ticks manually.
          */
-        values?: Array<number>;
+        values?: number[];
         /**
          * The number of y axis ticks to show.
          * The position of the ticks will be calculated precisely, so the values on the ticks will not be rounded nicely. In the case, axis.y.tick.format or axis.y.tick.values will be helpful.
-        */
+         */
         count?: number;
     }
 
     interface CullingConfiguration {
         /**
-        * The number of tick texts will be adjusted to less than this value.
-        */
+         * The number of tick texts will be adjusted to less than this value.
+         */
         max: number;
     }
 
@@ -597,7 +620,7 @@ declare namespace c3 {
              * This option accepts array including object that has value, text, position and class. text, position and class are optional. For position, start, middle and end (default) are available.
              * If x axis is category axis, value can be category name. If x axis is timeseries axis, value can be date string, Date object and unixtime integer.
              */
-            lines?: Array<LineOptions>;
+            lines?: LineOptions[];
         };
         y?: {
             /**
@@ -608,7 +631,7 @@ declare namespace c3 {
              * Show additional grid lines along y axis.
              * This option accepts array including object that has value, text, position and class.
              */
-            lines?: Array<LineOptions>;
+            lines?: LineOptions[];
         };
     }
 
@@ -660,15 +683,15 @@ declare namespace c3 {
             /**
              * Set click event handler to the legend item.
              */
-            onclick?: (id: any) => void;
+            onclick?(id: any): void;
             /**
              * Set mouseover event handler to the legend item.
              */
-            onmouseover?: (id: any) => void;
+            onmouseover?(id: any): void;
             /**
              * Set mouseout event handler to the legend item.
              */
-            onmouseout?: (id: any) => void;
+            onmouseout?(id: any): void;
         };
     }
 
@@ -685,27 +708,28 @@ declare namespace c3 {
             /**
              * Set format for the title of tooltip. Specified function receives x of the data point to show.
              */
-            title?: (x: any) => string;
+            title?(x: any): string;
             /**
-             * Set format for the name of each data in tooltip. Specified function receives name, ratio, id and index of the data point to show. ratio will be undefined if the chart is not donut/pie/gauge.
+             * Set format for the name of each data in tooltip. Specified function receives name, ratio, id and index of the data point to show. ratio will be undefined if the chart is not
+             * donut/pie/gauge.
              */
-            name?: (name: string, ratio: number, id: string, index: number) => string;
+            name?(name: string, ratio: number, id: string, index: number): string;
             /**
              * Set format for the value of each data in tooltip.
              * Specified function receives name, ratio, id and index of the data point to show. ratio will be undefined if the chart is not donut/pie/gauge.
              * If undefined returned, the row of that value will be skipped.
              */
-            value?: (value: any, ratio: number, id: string, index: number) => string;
+            value?(value: any, ratio: number, id: string, index: number): string;
         };
         /**
          * Set custom position for the tooltip. This option can be used to modify the tooltip position by returning object that has top and left.
          */
-        position?: (data: any, width: number, height: number, element: any) => { top: number; left: number };
+        position?(data: any, width: number, height: number, element: any): { top: number; left: number };
         /**
          * Set custom HTML for the tooltip.
          * Specified function receives data, defaultTitleFormat, defaultValueFormat and color of the data point to show. If tooltip.grouped is true, data includes multiple data points.
          */
-        contents?: (data: any, defaultTitleFormat: string, defaultValueFormat: string, color: any) => string;
+        contents?(data: any, defaultTitleFormat: string, defaultValueFormat: string, color: any): string;
     }
 
     interface SubchartOptions {
@@ -723,7 +747,7 @@ declare namespace c3 {
          * Set callback for brush event.
          * Specified function receives the current zoomed x domain.
          */
-        onbrush?: (domain: any) => void;
+        onbrush?(domain: any): void;
     }
 
     interface ZoomOptions {
@@ -742,15 +766,15 @@ declare namespace c3 {
         /**
          * Set callback that is called when the chart is zooming. Specified function receives the zoomed domain.
          */
-        onzoom?: (domain: any) => void;
+        onzoom?(domain: any): void;
         /**
          * Set callback that is called when zooming starts. Specified function receives the zoom event.
          */
-        onzoomstart?: (event: Event) => void;
+        onzoomstart?(event: Event): void;
         /**
          * Set callback that is called when zooming ends. Specified function receives the zoomed domain.
          */
-        onzoomend?: (domain: any) => void;
+        onzoomend?(domain: any): void;
     }
 
     interface PointOptions {
@@ -829,23 +853,25 @@ declare namespace c3 {
          * If type or types given, the type of targets will be updated. type must be String and types must be Object.
          * If unload given, data will be unloaded before loading new data. If true given, all of data will be unloaded. If target ids given as String or Array, specified targets will be unloaded.
          * If done given, the specified function will be called after data loded.
-         * NOTE: unload should be used if some data needs to be unloaded simultaneously. If you call unload API soon after/before load instead of unload param, chart will not be rendered properly because of cancel of animation.
+         * NOTE: unload should be used if some data needs to be unloaded simultaneously. If you call unload API soon after/before load instead of unload param, chart will not be rendered properly
+         * because of cancel of animation.
          * NOTE: done will be called after data loaded, but it's not after rendering. It's because rendering will finish after some transition and there is some time lag between loading and rendering.
          */
         load(args: {
             url?: string;
-            json?: Object;
-            keys?: { x?: string; value: Array<string>; }
-            rows?: Array<PrimitiveArray>;
-            columns?: Array<PrimitiveArray>;
+            json?: {};
+            keys?: { x?: string; value: string[]; }
+            rows?: PrimitiveArray[];
+            columns?: PrimitiveArray[];
+            names?: { [key: string]: string };
             classes?: { [key: string]: string };
-            categories?: Array<string>;
+            categories?: string[];
             axes?: { [key: string]: string };
             colors?: { [key: string]: string | d3.Rgb };
             type?: string;
             types?: { [key: string]: string };
             unload?: boolean | ArrayOrString;
-            done?: () => any;
+            done?(): any;
         }): void;
         /**
          * Unload data to the chart.
@@ -858,21 +884,22 @@ declare namespace c3 {
         unload(targetIds?: TargetIds, done?: () => any): any;
         /**
          * Flow data to the chart. By this API, you can append new data points to the chart.
-         * If json, rows and columns given, the data will be loaded. If data that has the same target id is given, the chart will be appended. Otherwise, new target will be added. One of these is required when calling. If json specified, keys is required as well as data.json
+         * If json, rows and columns given, the data will be loaded. If data that has the same target id is given, the chart will be appended. Otherwise, new target will be added. One of these is
+         * required when calling. If json specified, keys is required as well as data.json
          * If to is given, the lower x edge will move to that point. If not given, the lower x edge will move by the number of given data points.
          * If length is given, the lower x edge will move by the number of this argument.
          * If duration is given, the duration of the transition will be specified value. If not given, transition.duration will be used as default.
          * If done is given, the specified function will be called when flow ends.
          */
         flow(args: {
-            json?: Object;
-            keys?: { x?: string; value: Array<string>; }
-            rows?: Array<PrimitiveArray>;
-            columns?: Array<PrimitiveArray>;
+            json?: {};
+            keys?: { x?: string; value: string[]; }
+            rows?: PrimitiveArray[];
+            columns?: PrimitiveArray[];
             to?: any;
             length?: number;
             duration?: number;
-            done?: () => any;
+            done?(): any;
         }): void;
         /**
          * Change data point state to selected. By this API, you can select data points. To use this API, data.selection.enabled needs to be set true.
@@ -880,13 +907,13 @@ declare namespace c3 {
          * @param indices Specify indices to be selected. If this argument is not given, all data points will be the candidate.
          * @param resetOthers If this argument is set true, the data points that are not specified by ids, indices will be unselected.
          */
-        select(ids?: Array<string>, indices?: Array<number>, resetOthers?: boolean): void;
+        select(ids?: string[], indices?: number[], resetOthers?: boolean): void;
         /**
          * Change data point state to unselected. By this API, you can unselect data points. To use this API, data.selection.enabled needs to be set true.
          * @param ids Specify target ids to be unselected. If this argument is not given, all targets will be the candidate.
          * @param indices Specify indices to be unselected. If this argument is not given, all data points will be the candidate.
          */
-        unselect(ids?: Array<string>, indices?: Array<number>): void;
+        unselect(ids?: string[], indices?: number[]): void;
         /**
          * Get selected data points. By this API, you can get selected data points information. To use this API, data.selection.enabled needs to be set true.
          * @param targetId You can filter the result by giving target id that you want to get. If not given, all of data points will be returned.
@@ -902,7 +929,7 @@ declare namespace c3 {
          * Update groups for the targets.
          * @param groups This argument needs to be an Array that includes one or more Array that includes target ids to be grouped.
          */
-        groups(groups: Array<Array<string>>): void;
+        groups(groups: string[][]): void;
 
         xgrids: GridOperations;
 
@@ -913,15 +940,16 @@ declare namespace c3 {
              * Update regions.
              * @param regions Regions will be replaced with this argument. The format of this argument is the same as regions.
              */
-            (regions: Array<any>): void;
+            (regions: any[]): void;
             /**
              * Add new region. This API adds new region instead of replacing like regions.
              * @param grids New region will be added. The format of this argument is the same as regions and it's possible to give an Object if only one region will be added.
              */
-            add(regions: Array<any> | Object): void;
+            add(regions: any[] | {}): void;
             /**
              * Remove regions. This API removes regions.
-             * @param args This argument should include classes. If classes is given, the regions that have one of the specified classes will be removed. If args is not given, all of regions will be removed.
+             * @param args This argument should include classes. If classes is given, the regions that have one of the specified classes will be removed. If args is not given, all of regions will be
+             * removed.
              */
             remove(args?: { value?: number | string; class?: string }): void;
         };
@@ -941,7 +969,7 @@ declare namespace c3 {
              * Get values of the data loaded in the chart.
              * @param targetIds This API returns the values of specified target. If this argument is not given, null will be retruned.
              */
-            values(targetIds?: ArrayOrString): Array<any>;
+            values(targetIds?: ArrayOrString): any[];
             /**
              * Get and set names of the data loaded in the chart.
              * @param names If this argument is given, the names of data will be updated. If not given, the current names will be returned. The format of this argument is the same as data.names.
@@ -970,7 +998,7 @@ declare namespace c3 {
          * Get and set the categories
          * @param categories: Value of the categories to update
          */
-        categories(categories?: Array<string>): Array<string>;
+        categories(categories?: string[]): string[];
 
         /**
          * Get the color for the specified targetId
@@ -1015,12 +1043,14 @@ declare namespace c3 {
         legend: {
             /**
              * Show legend for each target.
-             * @param targetIds If targetIds is given, specified target's legend will be shown. If only one target is the candidate, String can be passed. If no argument is given, all of target's legend will be shown.
+             * @param targetIds If targetIds is given, specified target's legend will be shown. If only one target is the candidate, String can be passed. If no argument is given, all of target's
+             * legend will be shown.
              */
             show(targetIds?: ArrayOrString): void;
             /**
              * Hide legend for each target.
-             * @param targetIds If targetIds is given, specified target's legend will be hidden. If only one target is the candidate, String can be passed. If no argument is given, all of target's legend will be hidden.
+             * @param targetIds If targetIds is given, specified target's legend will be hidden. If only one target is the candidate, String can be passed. If no argument is given, all of target's
+             * legend will be hidden.
              */
             hide(targetIds?: ArrayOrString): void;
         };
@@ -1030,7 +1060,7 @@ declare namespace c3 {
              * Zoom by giving x domain.
              * @param domain If domain is given, the chart will be zoomed to the given domain. If no argument is given, the current zoomed domain will be returned.
              */
-            (domain?: Array<number>): Array<number>;
+            (domain?: number[]): number[];
 
             /**
              * Enable and disable zooming.
@@ -1066,18 +1096,19 @@ declare namespace c3 {
          * Update the x/y grid lines.
          * @param grids X/Y grid lines will be replaced with this argument. The format of this argument is the same as grid.x.lines or grid.y.lines.
          */
-        (grids: Array<any>): void;
+        (grids: any[]): void;
         /**
          * Add x/y grid lines. This API adds new x/y grid lines instead of replacing like xgrids.
          * @param grids New x/y grid lines will be added. The format of this argument is the same as grid.x.lines or grid.y.lines and it's possible to give an Object if only one line will be added.
          */
-        add(grids: Array<any> | Object): void;
+        add(grids: any[] | {}): void;
         /**
          * Remove x/y grid lines. This API removes x/y grid lines.
-         * @param args This argument should include value or class. If value is given, the x/y grid lines that have specified x/y value will be removed. If class is given, the x/y grid lines that have specified class will be removed. If args is not given, all of x/y grid lines will be removed.
+         * @param args This argument should include value or class. If value is given, the x/y grid lines that have specified x/y value will be removed. If class is given, the x/y grid lines that
+         * have specified class will be removed. If args is not given, all of x/y grid lines will be removed.
          */
         remove(args?: { class?: string; value?: number | string }): void;
     }
 
-    export function generate(config: ChartConfiguration): ChartAPI;
+    function generate(config: ChartConfiguration): ChartAPI;
 }

@@ -1,6 +1,6 @@
 // Type definitions for node-zookeeper-client 0.2
 // Project: https://github.com/alexguan/node-zookeeper-client
-// Definitions by: York Yao <https://github.com/plantain-00/>
+// Definitions by: York Yao <https://github.com/plantain-00>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -72,7 +72,7 @@ export class Event {
     getPath(): string;
 }
 
-interface Transaction {
+export interface Transaction {
     create(path: string, dataOrAclsOrmode1?: Buffer | ACL[] | number, dataOrAclsOrmode2?: Buffer | ACL[] | number, dataOrAclsOrmode3?: Buffer | ACL[] | number): this;
     setData(path: string, data: Buffer | null, version?: number): this;
     check(path: string, version?: number): this;
@@ -80,7 +80,7 @@ interface Transaction {
     commit(callback: (error: Error | Exception, results: any) => void): void;
 }
 
-interface Client extends EventEmitter {
+export interface Client extends EventEmitter {
     connect(): void;
     close(): void;
     create(path: string, callback: (error: Error | Exception, path: string) => void): void;

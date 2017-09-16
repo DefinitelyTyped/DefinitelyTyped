@@ -7,22 +7,31 @@ import {
   ViewerMouseEvent
 } from 'react-svg-pan-zoom';
 
-class Example1 extends React.Component<{}, {}> {
-  Viewer: ReactSVGPanZoom;
+class Example1 extends React.Component {
+  Viewer: ReactSVGPanZoom | null;
+
   constructor(props: Props) {
     super(props);
   }
 
   componentDidMount() {
-    this.Viewer.fitToViewer();
+    if (this.Viewer) {
+      this.Viewer.fitToViewer();
+    }
   }
 
   render() {
     return (
       <div>
-        <button onClick={event => this.Viewer.zoomOnViewerCenter(1.1)}>Zoom in</button>
-        <button onClick={event => this.Viewer.fitSelection(40, 40, 200, 200)}>Zoom area 200x200</button>
-        <button onClick={event => this.Viewer.fitToViewer()}>Fit</button>
+        <button onClick={event => { if (this.Viewer) this.Viewer.zoomOnViewerCenter(1.1); }}>
+          Zoom in
+        </button>
+        <button onClick={event => { if (this.Viewer) this.Viewer.fitSelection(40, 40, 200, 200); }}>
+          Zoom area 200x200
+        </button>
+        <button onClick={event => { if (this.Viewer) this.Viewer.fitToViewer(); }}>
+          Fit
+        </button>
 
         <hr/>
 

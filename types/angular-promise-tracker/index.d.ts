@@ -1,7 +1,8 @@
 // Type definitions for angular-promise-tracker 2.2.2
 // Project: https://github.com/ajoslin/angular-promise-tracker
-// Definitions by: Rufus Linke <https://github.com/rufusl/>
+// Definitions by: Rufus Linke <https://github.com/rufusl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="angular" />
 
@@ -10,8 +11,8 @@ import * as angular from 'angular';
 declare module 'angular' {
     export namespace promisetracker {
         interface PromiseTrackerOptions {
-            activationDelay: number;
-            minDuration: number;
+            activationDelay?: number;
+            minDuration?: number;
         }
 
         interface PromiseTracker {

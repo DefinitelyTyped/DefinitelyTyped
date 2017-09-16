@@ -1,8 +1,6 @@
 {
-    "extends": "../tslint.json",
+    "extends": "dtslint/dt.json",
     "rules": {
-        "eofline": false,
-        "no-useless-files": false,
-        "no-var": false
+        "no-useless-files": false
     }
 }

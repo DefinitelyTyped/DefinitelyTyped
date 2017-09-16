@@ -1,3 +1,7 @@
 {
-  "extends": "../tslint.json"
+    "extends": "dtslint/dt.json",
+    "rules": {
+        // TODO
+        "no-any-union": false
+    }
 }

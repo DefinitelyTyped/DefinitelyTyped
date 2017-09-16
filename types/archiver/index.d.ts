@@ -1,47 +1,72 @@
-// Type definitions for archiver v0.15.0
+// Type definitions for archiver 2.0
 // Project: https://github.com/archiverjs/node-archiver
-// Definitions by: Esri <https://github.com/archiverjs/node-archiver>
+// Definitions by: Esri <https://github.com/archiverjs/node-archiver>, Dolan Miu <https://github.com/dolanmiu>, Crevil <https://github.com/crevil>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/* =================== USAGE ===================
+import * as stream from 'stream';
+import * as glob from 'glob';
+import { ZlibOptions } from 'zlib';
 
-    import Archiver = require('archiver);
-    var archiver = Archiver.create('zip');
-    archiver.pipe(FS.createWriteStream('xxx'));
-    archiver.append(FS.createReadStream('xxx'));
-    archiver.finalize();
-
- =============================================== */
-
-/// <reference types="node" />
-
-import * as FS from 'fs';
-import * as STREAM from 'stream';
-
-
-declare function archiver(format: string, options?: archiver.Options): archiver.Archiver;
+declare function archiver(format: archiver.Format, options?: archiver.ArchiverOptions): archiver.Archiver;
 
 declare namespace archiver {
+    type Format = 'zip' | 'tar';
 
-    export function create(format: string, options?: Options): Archiver;
+    function create(format: string, options?: ArchiverOptions): Archiver;
+    function registerFormat(format: string, module: Function): void;
 
-
-    export interface nameInterface {
+    interface EntryData {
         name?: string;
+        prefix?: string;
+        stats?: string;
     }
 
-    export interface Archiver extends STREAM.Transform {
-        append(source: STREAM.Readable | Buffer | string, name: nameInterface): void;
+    interface Archiver extends stream.Transform {
+        abort(): this;
+        append(source: stream.Readable | Buffer | string, name?: EntryData): this;
 
-        directory(dirpath: string, destpath: nameInterface | string): void;
-        directory(dirpath: string, destpath: nameInterface | string, data: any | Function): void;
+        directory(dirpath: string, options: EntryData | string, data?: EntryData): this;
 
-        bulk(mappings: any): void;
-        finalize(): void;
+        file(filename: string, data: EntryData): this;
+        glob(pattern: string, options?: glob.IOptions, data?: EntryData): this;
+        finalize(): Promise<void>;
+
+        setFormat(format: string): this;
+        setModule(module: Function): this;
+
+        pointer(): number;
+        use(plugin: Function): this;
+
+        symlink(filepath: string, target: string): this;
     }
 
-    export interface Options {
+    type ArchiverOptions = CoreOptions & TransformOptions & ZipOptions & TarOptions;
 
+    interface CoreOptions {
+        statConcurrency?: number;
+    }
+
+    interface TransformOptions {
+        allowHalfOpen?: boolean;
+        readableObjectMode?: boolean;
+        writeableObjectMode?: boolean;
+        decodeStrings?: boolean;
+        encoding?: string;
+        highWaterMark?: number;
+        objectmode?: boolean;
+    }
+
+    interface ZipOptions {
+        comment?: string;
+        forceLocalTime?: boolean;
+        forceZip64?: boolean;
+        store?: boolean;
+        zlib?: ZlibOptions;
+    }
+
+    interface TarOptions {
+        gzip?: boolean;
+        gzipOptions?: ZlibOptions;
     }
 }
 

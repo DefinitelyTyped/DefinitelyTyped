@@ -2,10 +2,11 @@
 // Project: https://github.com/Leaflet/Leaflet.draw
 // Definitions by: Matt Guest <https://github.com/matt-guest>, Ryan Blace <https://github.com/reblace>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
-/// <reference types="leaflet" />
+import * as L from 'leaflet';
 
-declare namespace L {
+declare module 'leaflet' {
 	interface MapOptions {
 		drawControl?: boolean;
 	}
@@ -31,7 +32,7 @@ declare namespace L {
 			 *
 			 *  Default value: false
 			 */
-			edit: EditOptions;
+			edit?: EditOptions;
 		}
 
 		interface DrawOptions {
@@ -40,35 +41,35 @@ declare namespace L {
 			 *
 			 *  Default value: {}
 			 */
-			polyline?: DrawOptions.PolylineOptions;
+			polyline?: DrawOptions.PolylineOptions | false;
 
 			/**
 			 * Polygon draw handler options. Set to false to disable handler.
 			 *
 			 *  Default value: {}
 			 */
-			polygon?: DrawOptions.PolygonOptions;
+			polygon?: DrawOptions.PolygonOptions | false;
 
 			/**
 			 * Rectangle draw handler options. Set to false to disable handler.
 			 *
 			 *  Default value: {}
 			 */
-			rectangle?: DrawOptions.RectangleOptions;
+			rectangle?: DrawOptions.RectangleOptions | false;
 
 			/**
 			 * Circle draw handler options. Set to false to disable handler.
 			 *
 			 *  Default value: {}
 			 */
-			circle?: DrawOptions.CircleOptions;
+			circle?: DrawOptions.CircleOptions | false;
 
 			/**
 			 * Marker draw handler options. Set to false to disable handler.
 			 *
 			 *  Default value: {}
 			 */
-			marker?: DrawOptions.MarkerOptions;
+			marker?: DrawOptions.MarkerOptions | false;
 		}
 
 		interface EditOptions {
@@ -85,14 +86,14 @@ declare namespace L {
 			 *
 			 * Default value: null
 			 */
-			edit?: DrawOptions.EditHandlerOptions;
+			edit?: DrawOptions.EditHandlerOptions | false;
 
 			/**
 			 * Delete handler options. Set to false to disable handler.
 			 *
 			 * Default value: null
 			 */
-			remove?: DrawOptions.DeleteHandlerOptions;
+			remove?: DrawOptions.DeleteHandlerOptions | false;
 		}
 
 		interface Draw extends Control {
@@ -172,7 +173,7 @@ declare namespace L {
 			 *
 			 * Default value: See code
 			 */
-			shapeOptions?: L.PathOptions;
+			shapeOptions?: PathOptions;
 
 			/**
 			 * Determines if the draw tool remains enabled after drawing a shape.
@@ -188,7 +189,7 @@ declare namespace L {
 			 *
 			 * Default value: See code
 			 */
-			shapeOptions?: L.PathOptions;
+			shapeOptions?: PathOptions;
 
 			/**
 			 * Determines if the draw tool remains enabled after drawing a shape.
@@ -204,7 +205,7 @@ declare namespace L {
 			 *
 			 * Default value: L.Icon.Default()
 			 */
-			icon?: L.Icon;
+			icon?: Icon;
 
 			/**
 			 * This should be a high number to ensure that you can draw over all other layers on the map.
@@ -228,7 +229,7 @@ declare namespace L {
 			 *
 			 * Default value: See code
 			 */
-			selectedPathOptions?: L.PathOptions;
+			selectedPathOptions?: PathOptions;
 		}
 
 		interface DeleteHandlerOptions {
@@ -254,7 +255,7 @@ declare namespace L {
 	}
 
 	namespace DrawEvents {
-		interface Created {
+		interface Created extends Event {
 			/**
 			 * Layer that was just created.
 			 */
@@ -266,7 +267,7 @@ declare namespace L {
 			layerType: string;
 		}
 
-		interface Edited {
+		interface Edited extends Event {
 			/**
 			 * List of all layers just edited on the map.
 			 */
@@ -276,49 +277,49 @@ declare namespace L {
 		/**
 		 * Triggered when layers have been removed (and saved) from the FeatureGroup.
 		 */
-		interface Deleted {
+		interface Deleted extends Event {
 			/**
 			 * List of all layers just removed from the map.
 			 */
 			layers: LayerGroup;
 		}
 
-		interface DrawStart {
+		interface DrawStart extends Event {
 			/**
 			 * The type of layer this is. One of: polyline, polygon, rectangle, circle, marker
 			 */
 			layerType: string;
 		}
 
-		interface DrawStop {
+		interface DrawStop extends Event {
 			/**
 			 * The type of layer this is. One of: polyline, polygon, rectangle, circle, marker
 			 */
 			layerType: string;
 		}
 
-		interface EditStart {
+		interface EditStart extends Event {
 			/**
 			 * The type of edit this is. One of: edit
 			 */
 			handler: string;
 		}
 
-		interface EditStop {
+		interface EditStop extends Event {
 			/**
 			 * The type of edit this is. One of: edit
 			 */
 			handler: string;
 		}
 
-		interface DeleteStart {
+		interface DeleteStart extends Event {
 			/**
 			 * The type of edit this is. One of: remove
 			 */
 			handler: string;
 		}
 
-		interface DeleteStop {
+		interface DeleteStop extends Event {
 			/**
 			 * The type of edit this is. One of: remove
 			 */
@@ -330,7 +331,7 @@ declare namespace L {
 		/**
 		 * Returns the area of a polygon drawn with leaflet.draw
 		 */
-		function geodesicArea(coordinates: L.LatLngLiteral[]): number;
+		function geodesicArea(coordinates: LatLngLiteral[]): number;
 
 		/**
 		 * Returns a readable area string in yards or metric

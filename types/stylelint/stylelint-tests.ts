@@ -4,6 +4,8 @@ const options: LinterOptions = {
     code: "div { color: red }",
     files: ["**/**.scss"],
     formatter: "json",
+    cache: true,
+    cacheLocation: "./stylelint.cache.json",
     ignoreDisables: true,
     reportNeedlessDisables: true,
     ignorePath: true,

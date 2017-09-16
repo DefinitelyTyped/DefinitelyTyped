@@ -1,6 +1,5 @@
 import { Source } from "./source";
 
-
 export interface SourceLocation {
     line: number;
     column: number;

@@ -19,10 +19,9 @@ declare namespace noUiSlider {
          */
         start: number | number[] | number[][];
         /**
-        * The connect setting can be used to control the bar between the handles,
-        * or the edges of the slider. Use "lower" to connect to the lower side,
-        * or "upper" to connect to the upper side. Setting true sets the bar between the handles.
-        */
+         * All values on the slider are part of a range. The range has a minimum and maximum value.
+         * The minimum value cannot be equal to the maximum value.
+         */
         range: Object;
         /**
          * The connect setting can be used to control the (green) bar between the handles, or the edges of the slider.
@@ -32,17 +31,21 @@ declare namespace noUiSlider {
          */
         connect?: boolean | boolean[];
         /**
-        * When using two handles, the minimum distance between the handles can be set using the margin option.
-        * The margin value is relative to the value set in 'range'.
-        * This option is only available on standard linear sliders.
-        */
+         * When using two handles, the minimum distance between the handles can be set using the margin option.
+         * The margin value is relative to the value set in 'range'.
+         * This option is only available on standard linear sliders.
+         */
         margin?: number;
         /**
-         * The limit option is the oposite of the margin option,
+         * The limit option is the opposite of the margin option,
          * limiting the maximum distance between two handles.
          * As with the margin option, the limit option can only be used on linear sliders.
          */
         limit?: number;
+        /**
+         * Padding limits how close to the slider edges handles can be.
+         */
+        padding?: number;
         /**
          * By default, the slider slides fluently.
          * In order to make the handles jump between intervals, you can use this option.
@@ -54,13 +57,13 @@ declare namespace noUiSlider {
          * Set dimensions! Vertical sliders don't assume a default height, so you'll need to set one.
          * You can use any unit you want, including % or px.
          */
-        orientation?: string; // "vertical" | "horizontal"
+        orientation?: "vertical" | "horizontal";
         /**
          * By default the sliders are top-to-bottom and left-to-right,
          * but you can change this using the direction option,
          * which decides where the upper side of the slider is.
          */
-        direction?: string; // "ltr" | "rtl"
+        direction?: "ltr" | "rtl";
         /**
          * noUiSlider can provide a basic tooltip without using its events system. 
          * Set the tooltips option to true to enable. 
@@ -73,11 +76,13 @@ declare namespace noUiSlider {
          */
         animate?: boolean;
         /**
-         * The animationDuration option can be used to set the animation speed assumed by the slider library. In addition to this, you must manually set the CSS (-webkit-)transition property for the .noUi-state-tap .noUi-origin selector.
+         * The animationDuration option can be used to set the animation speed assumed by the slider library.
+         * In addition to this, you must manually set the CSS (-webkit-)transition property for the .noUi-state-tap .noUi-origin selector.
          */
         animationDuration?: number;
         /**
-         * When a non-linear slider has been configured, the snap option can be set to true to force the slider to jump between the specified values.
+         * When a non-linear slider has been configured, the snap option can be set to true to force the slider to jump
+         * between the specified values.
          */
         snap?: boolean;
         /**
@@ -91,7 +96,6 @@ declare namespace noUiSlider {
          * By default, noUiSlider will format output with 2 decimals.
          */
         format?: Object | ((...args:any[]) => any);
-
         /**
          * Allows you to generate points along the slider.
          */
@@ -114,7 +118,7 @@ declare namespace noUiSlider {
          * The 'values' mode is similar to positions, but it accepts values instead of percentages. The stepped option can be used for this mode.
          *
          */
-        mode: string; // "range" | "steps" | "positions" | "count" | "values"
+        mode: "range" | "steps" | "positions" | "count" | "values";
         /**
          * Range Mode: percentage for range mode
          * Step Mode: step number for steps
@@ -155,9 +159,8 @@ declare namespace noUiSlider {
          * Array for both one-handle and two-handle sliders. It contains the current slider values,
          * with formatting applied.
          */
-        (values: any[], handle: number, unencoded: number): void
+        (values: any[], handle: number, unencodedValues: number[]): void;
     }
-
 
     interface noUiSlider {
         /**
@@ -172,7 +175,6 @@ declare namespace noUiSlider {
          * Destroy's the slider.
          */
         destroy(): void;
-
         /**
          * To get the current slider value. For one-handle sliders, calling .get() will return the value.
          * For two-handle sliders, an array[value, value] will be returned.
@@ -186,13 +188,13 @@ declare namespace noUiSlider {
          * if you want to leave a handle unchanged.
          */
         set(value: number | number[]): void;
-        /*
+        /**
          * To return to the initial slider values, you can use the .reset() method. This will only reset the slider values.
          */
         reset(): void;
     }
 
     interface Instance extends HTMLElement {
-        noUiSlider: noUiSlider
+        noUiSlider: noUiSlider;
     }
 }

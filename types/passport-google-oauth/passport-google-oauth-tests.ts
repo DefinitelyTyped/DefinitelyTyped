@@ -2,6 +2,7 @@
 /**
  * Created by jcabresos on 4/19/2014.
  */
+import express = require("express");
 import passport = require('passport');
 import google = require('passport-google-oauth');
 
@@ -32,6 +33,20 @@ passport.use(new google.OAuth2Strategy({
             callbackURL: process.env.PASSPORT_GOOGLE_CALLBACK_URL
     },
     function(accessToken:string, refreshToken:string, profile:google.Profile, done:(error:any, user?:any) => void) {
+         User.findOrCreate(profile.id, profile.provider, function(err, user) {
+             if (err) { return done(err); }
+             done(null, user);
+         });
+    })
+);
+
+passport.use(new google.OAuth2Strategy({
+            clientID: process.env.GOOGLE_CLIENT_ID,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+            callbackURL: process.env.PASSPORT_GOOGLE_CALLBACK_URL,
+            passReqToCallback: true
+    },
+    function(req: express.Request, accessToken:string, refreshToken:string, profile:google.Profile, done:(error:any, user?:any) => void) {
          User.findOrCreate(profile.id, profile.provider, function(err, user) {
              if (err) { return done(err); }
              done(null, user);

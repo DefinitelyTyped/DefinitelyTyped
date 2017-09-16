@@ -1,4 +1,11 @@
-/// <reference types="node" />
+// TODO: Avoid requiring things that don't exist.
+declare var require: {
+    (s: string): any;
+    requireActual(s: string): any;
+    requireMock(s: string): any;
+};
+// TODO: use real jquery types?
+declare var $: any;
 
 // Tests based on the Jest website
 jest.unmock('../sum');

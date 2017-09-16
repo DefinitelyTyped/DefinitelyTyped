@@ -1,7 +1,7 @@
-import * as React from "react"
-import * as ReactDOM from "react-dom"
+import * as React from "react";
+import * as ReactDOM from "react-dom";
 
-import { Calendar, Combobox, DateTimePicker, DropdownList, Multiselect, NumberPicker, SelectList } from "react-widgets"
+import { Calendar, Combobox, DateTimePicker, DropdownList, Multiselect, NumberPicker, SelectList } from "react-widgets";
 
 function tagComponent(props: { value: string }) {
     return <span>{props.value}</span>;
@@ -11,8 +11,7 @@ function itemComponent(props: { value: string }) {
     return <span>{props.value}</span>;
 }
 
-class Test extends React.Component<React.Props<{}>, {}> {
-
+class Test extends React.Component<React.Props<{}>> {
     render() {
         return (
         <div>
@@ -46,8 +45,16 @@ class Test extends React.Component<React.Props<{}>, {}> {
                     itemComponent={itemComponent}
                  />
             </div>
+            <div>
+                <Calendar disabled readOnly />
+                <Combobox disabled readOnly dropUp placeholder={'Some text'}/>
+                <DateTimePicker disabled readOnly dropUp />
+                <DropdownList disabled readOnly dropUp />
+                <Multiselect disabled readOnly dropUp />
+                <NumberPicker disabled readOnly />
+                <SelectList disabled readOnly/>
+            </div>
         </div>
-        )
+        );
     }
-
 }

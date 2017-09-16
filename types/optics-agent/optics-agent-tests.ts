@@ -33,10 +33,10 @@ OpticsAgent.instrumentHapiServer(hapiServer);
 const koaServer = new KoaServer();
 koaServer.use(OpticsAgent.koaMiddleware());
 
-const req = {} as express.Request;
+declare const req: express.Request;
 OpticsAgent.context(req);
 
 const agent = new OpticsAgent.Agent({ apiKey: '1234' });
 
-const schema = {} as GraphQLSchema;
+declare const schema: GraphQLSchema;
 agent.instrumentSchema(schema);

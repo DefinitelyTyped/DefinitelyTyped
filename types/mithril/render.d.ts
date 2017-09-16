@@ -1,7 +1,7 @@
 import { render } from "mithril";
 
 declare namespace RenderService {
-	export interface Static {
+	interface Static {
 		render: typeof render;
 	}
 }

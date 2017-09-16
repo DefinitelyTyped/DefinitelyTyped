@@ -1,6 +1,6 @@
 // Type definitions for xlsx
 // Project: https://github.com/SheetJS/js-xlsx
-// Definitions by: themauveavenger <https://github.com/themauveavenger/>
+// Definitions by: themauveavenger <https://github.com/themauveavenger>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /** Attempts to read filename and parse */
@@ -253,6 +253,9 @@ export interface IRange {
 }
 
 export interface IUtils {
+    /** converts an array of arrays of JS data to a worksheet. */
+    aoa_to_sheet<T>(data: T[], opts?:any): IWorkSheet;
+
     /** Converts a worksheet object to an array of JSON objects */
     sheet_to_json<T>(worksheet:IWorkSheet, opts?: {
         raw?: boolean;

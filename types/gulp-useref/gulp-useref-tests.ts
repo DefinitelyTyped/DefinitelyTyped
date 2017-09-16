@@ -21,8 +21,8 @@ import minifyCss = require('gulp-minify-css');
 gulp.task('html', function () {
     return gulp.src('app/*.html')
         .pipe(useref())
-        .pipe(gulpif('*.js', uglify()))
-        .pipe(gulpif('*.css', minifyCss()))
+        .pipe(gulpif(f => f.path.endsWith('.js'), uglify()))
+        .pipe(gulpif(f => f.path.endsWith('.css'), minifyCss()))
         .pipe(gulp.dest('dist'));
 });
 
@@ -40,7 +40,7 @@ gulp.task('default', function () {
 
 
 // options.additionalStreams
-import * as ts from 'gulp-typescript';
+declare function ts(): any;
 
 // create stream of virtual files
 var tsStream = gulp.src('src/**/*.ts')

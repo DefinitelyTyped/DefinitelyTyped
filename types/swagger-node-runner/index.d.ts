@@ -1,7 +1,8 @@
-// Type definitions for swagger-node-runner 0.7
+// Type definitions for swagger-node-runner 0.5
 // Project: https://www.npmjs.com/package/swagger-node-runner
-// Definitions by: Michael Mrowetz <https://github.com/micmro/>
+// Definitions by: Michael Mrowetz <https://github.com/micmro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /* =================== USAGE ===================
 
@@ -40,26 +41,34 @@ import * as Restify from "restify";
  * Config object for SwaggerNodeRunner
  */
 export interface Config {
-    /** Path to app */
+    /**
+     *  Path to app
+     */
     appRoot: string;
-    /** If `true` API is in mock mode
+    /**
+     * If `true` API is in mock mode
      *
      * default is `false`
      */
     mockMode?: boolean;
-    /** If `true` resonse is validated
+    /**
+     * If `true` resonse is validated
      *
      * default is `true`
      */
     validateResponse?: boolean;
-    /** Sets `NODE_CONFIG_DIR` env if not set yet */
+    /**
+     *  Sets `NODE_CONFIG_DIR` env if not set yet
+     */
     configDir?: string;
-    /** Swagger controller directories
+    /**
+     * Swagger controller directories
      *
      * default is array with `/api/controllers` relative to `appRoot`
      */
     controllersDirs?: string[];
-    /** Swagger mock controller directories
+    /**
+     * Swagger mock controller directories
      *
      * default is array with `/api/mocks` relative to `appRoot`
      */
@@ -70,35 +79,41 @@ export interface Config {
      * default is `[api/fittings]`
      */
     fittingsDirs?: string[];
-    /** Define Middleware for using Swagger security information to authenticate requests. Part of _swagger-tools_
+    /**
+     * Define Middleware for using Swagger security information to authenticate requests. Part of _swagger-tools_
      *
      * default is `undefined`
      * @see {@link https://github.com/apigee-127/swagger-tools/blob/master/middleware/swagger-security.js|Github Source}
      */
     swaggerSecurityHandlers?: SwaggerSecurityHandlers;
-
     /**
      * Used for Bagpipes library
      *
      * @se @link{https://github.com/apigee-127/bagpipes|Github Source}
      */
     bagpipes?: any;
-    /** default is `null` */
+    /**
+     *  default is `null`
+     */
     defaultPipe?: string;
     /**
      * default is `swagger_controllers`
      */
     swaggerControllerPipe?: string;
+    /**
+     * Absolute path to swagger.yml file, if not set default value is used.
+     */
+    swaggerFile?: string;
 }
 
 /** Internally stored version of config */
-interface ConfigInternal {
+export interface ConfigInternal {
     /** Config of SwaggerNodeRunner  */
     swagger?: Config;
 }
 
 /** Middleware used by `swagger-tools` */
-type SwaggerToolsMiddleware = (req: any, res: any, next: any) => any;
+export type SwaggerToolsMiddleware = (req: any, res: any, next: any) => any;
 
 /**
  * @param  {any} request
@@ -116,7 +131,7 @@ export type SwaggerToolsSecurityHandler = (request: any, securityDefinition: any
  *  The keys match SecurityDefinition names and the associated values are functions that accept the following parameters:
  * `(request, securityDefinition, scopes, callback)`
  */
-interface SwaggerSecurityHandlers {
+export interface SwaggerSecurityHandlers {
     [name: string]: SwaggerToolsSecurityHandler;
 }
 
@@ -201,8 +216,8 @@ export interface Runner extends EventEmitter {
 }
 
 /** base used by all middleware versions */
-interface Middleware {
-    /** Back-reference to `Runner` that has created this middleware */
+export interface Middleware {
+    /** Back-reference to `swagger-node-runner`s `Runner` that has created this middleware */
     runner: Runner;
 }
 
