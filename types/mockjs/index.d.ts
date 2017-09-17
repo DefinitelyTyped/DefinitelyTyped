@@ -1,7 +1,8 @@
-// Type definitions for mockjs 1.0.1-beta3
+// Type definitions for mockjs 1.0
 // Project: http://mockjs.com/
-// Definitions by: lavyun http://github.com/lavyun
+// Definitions by: lavyun <httpS://github.com/lavyun>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 declare namespace mockjs {
   type N = number;
@@ -18,22 +19,12 @@ declare namespace mockjs {
     version: number;
   }
 
-  interface MockjsMockCbOptions {
-    url: S;
-    type: S;
-    body: S | null;
-  }
-
   // Mockjs.mock()
   // see https://github.com/nuysoft/Mock/wiki/Mock.mock()
   interface MockjsMock {
     (rurl: S | RegExp, rtype: S, template: any): Mockjs;
 
-    (rurl: S | RegExp, rtype: S, callback: (options: MockjsMockCbOptions) => any): Mockjs;
-
     (rurl: S | RegExp, template: any): Mockjs;
-
-    (rurl: S | RegExp, callback: (options: MockjsMockCbOptions) => any): Mockjs;
 
     (template: any): any;
   }
@@ -44,9 +35,7 @@ declare namespace mockjs {
 
   // Mockjs.setup()
   // see https://github.com/nuysoft/Mock/wiki/Mock.setup()
-  interface MockjsSetup {
-    (settings: MockjsSetupSettings): void;
-  }
+  type MockjsSetup = (settings: MockjsSetupSettings) => void;
 
   // Mockjs.Random - Basic
   // see https://github.com/nuysoft/Mock/wiki/Basic
@@ -69,10 +58,7 @@ declare namespace mockjs {
     character(pool?: S): S;
 
     // Random.string
-    string(pool: S, min: N, max: N): S;
-    string(pool: S, length: N): S;
-    string(min: N, max: N): S;
-    string(length?: N): S;
+    string(pool: S | N, min?: N, max?: N): S;
 
     // Random.range
     range(start?: N, stop?: N, step?: N): N;
@@ -101,9 +87,7 @@ declare namespace mockjs {
   type RandomImageFormatString = 'png' | 'gif' | 'jpg';
   interface MockjsRandomImage {
     // Random.image
-    image(size: S, background: S, foreground: S, format: RandomImageFormatString, text: S): S;
-    image(size: S, background: S, foreground: S, text: S): S;
-    image(size?: S, background?: S, text?: S): S;
+    image(size?: S, background?: S, foreground?: S, format?: RandomImageFormatString | S, text?: S): S;
 
     // Random.dataImage
     dataImage(size?: S, text?: S): S;
@@ -132,39 +116,28 @@ declare namespace mockjs {
   // see https://github.com/nuysoft/Mock/wiki/Text
   interface MockjsRandomText {
     // Random.paragraph
-    paragraph(min: N, max: N): S;
-    paragraph(length?: N): S;
+    paragraph(min?: N, max?: N): S;
 
     // Random.cparagraph
-    cparagraph(min: N, max: N): S;
-    cparagraph(length?: N): S;
+    cparagraph(min?: N, max?: N): S;
 
     // Random.sentence
-    sentence(min: N, max: N): S;
-    sentence(length?: N): S;
+    sentence(min?: N, max?: N): S;
 
     // Random.csentence
-    csentence(min: N, max: N): S;
-    csentence(length?: N): S;
+    csentence(min?: N, max?: N): S;
 
     // Random.word
-    word(min: N, max: N): S;
-    word(length?: N): S;
+    word(min?: N, max?: N): S;
 
     // Random.cword
-    cword(pool: S, min: N, max: N): S;
-    cword(pool: S, length: N): S;
-    cword(min: N, max: N): S;
-    cword(pool: S): S;
-    cword(length?: N): S;
+    cword(pool?: S | N, min?: N, max?: N): S;
 
     // Random.title
-    title(min: N, max: N): S;
-    title(length?: N): S;
+    title(min?: N, max?: N): S;
 
     // Random.ctitle
-    ctitle(min: N, max: N): S;
-    ctitle(length?: N): S;
+    ctitle(min?: N, max?: N): S;
   }
 
   // Mockjs.Random - Name
@@ -281,9 +254,7 @@ declare namespace mockjs {
 
   // Mockjs.valid()
   // see https://github.com/nuysoft/Mock/wiki/Mock.valid()
-  interface MockjsValid {
-    (template: any, data: any): MockjsValidRsItem[];
-  }
+  type MockjsValid = (template: any, data: any) => MockjsValidRsItem[];
 
   interface MockjsToJSONSchemaRs {
     name: S | undefined;
@@ -297,10 +268,8 @@ declare namespace mockjs {
 
   // Mockjs.toJSONSchema()
   // see https://github.com/nuysoft/Mock/wiki/Mock.toJSONSchema()
-  interface MockjsToJSONSchema {
-    (template: any): MockjsToJSONSchemaRs;
-  }
-  
+  type MockjsToJSONSchema = (template: any) => MockjsToJSONSchemaRs;
+
   let mock: MockjsMock;
   let setup: MockjsSetup;
   let Random: MockjsRandom;

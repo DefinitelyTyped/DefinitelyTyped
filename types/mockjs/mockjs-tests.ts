@@ -1,4 +1,4 @@
-import * as Mock from 'mockjs'
+import * as Mock from 'mockjs';
 
 Mock.mock('/test', 'get', {
   name: 'mockjs'
