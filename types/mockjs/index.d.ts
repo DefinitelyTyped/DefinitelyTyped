@@ -2,7 +2,6 @@
 // Project: http://mockjs.com/
 // Definitions by: lavyun http://github.com/lavyun
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
 
 declare namespace mockjs {
   type N = number;
@@ -290,7 +289,7 @@ declare namespace mockjs {
     name: S | undefined;
     template: any;
     type: S;
-    rule: any;
+    rule: object;
     path: S[];
     properties?: MockjsToJSONSchemaRs[];
     items?: MockjsToJSONSchemaRs[];
