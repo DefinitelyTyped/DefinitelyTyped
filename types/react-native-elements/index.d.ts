@@ -1931,3 +1931,137 @@ export interface SliderProps {
  * @see https://react-native-training.github.io/react-native-elements/API/slider/
  */
 export class Slider extends React.Component<SliderProps, any> {}
+
+export type SocialMediaType =
+    | 'facebook'
+    | 'twitter'
+    | 'google-plus-official'
+    | 'pinterest'
+    | 'linkedin'
+    | 'youtube'
+    | 'vimeo'
+    | 'tumblr'
+    | 'instagram'
+    | 'quora'
+    | 'foursquare'
+    | 'wordpress'
+    | 'stumbleupon'
+    | 'github'
+    | 'github-alt'
+    | 'twitch'
+    | 'medium'
+    | 'soundcloud'
+    | 'gitlab'
+    | 'angellist'
+    | 'codepen';
+
+export interface SocialIconProps {
+    /**
+     * Title if made into a button
+     */
+    title?: string;
+
+    /**
+     * Social media type
+     */
+    type: SocialMediaType;
+
+    /**
+     * Adds a drop shadow, set to false to remove
+     *
+     * @default true
+     */
+    raised?: boolean;
+
+    /**
+     * Creates button
+     *
+     * @default false
+     */
+    button?: boolean;
+
+    /**
+     * onPress method
+     */
+    onPress?(): void;
+
+    /**
+     * @default none	function	onLongPress method
+     */
+    onLongPress?(): void;
+
+    /**
+     * Reverses icon color scheme, setting background to white and icon to primary color
+     *
+     * @default false
+     */
+    light?: boolean;
+
+    /**
+     * Extra styling for icon component
+     */
+    iconStyle?: StyleProp<ViewStyle>;
+
+    /**
+     * Button styling
+     */
+    style?: StyleProp<ViewStyle>;
+
+    /**
+     * Icon color
+     */
+    iconColor?: string;
+
+    /**
+     * Icon size
+     *
+     * @default 24
+     */
+    iconSize?: number;
+
+    /**
+     * Component Type of button
+     *
+     * @default TouchableHighlight
+     */
+    component?: React.ComponentClass;
+
+    /**
+     * Specify different font family
+     *
+     * @default System font bold (iOS), Sans Serif Black (android)
+     */
+    fontFamily?: string;
+
+    /**
+     * Specify font weight of title if set as a button with a title
+     *
+     * @default bold (ios), black(android)
+     */
+    fontWeight?: string;
+
+    /**
+     * Specify text styling
+     */
+    fontStyle?: StyleProp<TextStyle>;
+
+    /**
+     * Disable button
+     *
+     * @default false
+     */
+    disabled?: boolean;
+
+    /**
+     * Shows loading indicator
+     *
+     * @default false
+     */
+    loading?: boolean;
+}
+
+/**
+ * SocialIcon component
+ * @see https://react-native-training.github.io/react-native-elements/API/social_icons/
+ */
+export class SocialIcon extends React.Component<SocialIconProps, any> {}

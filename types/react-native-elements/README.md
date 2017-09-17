@@ -5,7 +5,7 @@ List will update as typings are added
 
 - [x] Buttons
 - [x] Badge
-- [ ] Social Icons / Social Icon Buttons
+- [x] Social Icons / Social Icon Buttons
 - [x] Icons
 - [x] ~~Side Menu~~ DEPRECATED
 - [x] Form Elements
