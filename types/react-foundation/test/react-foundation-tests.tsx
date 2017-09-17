@@ -26,7 +26,7 @@ import {
 
 import { // missing from index?
     Slider, TwoHandleSlider, SliderHandle, SliderFill
-} from 'react-foundation/components/slider'
+} from 'react-foundation/components/slider';
 
 import {
   HorizontalAlignments, VerticalAlignments, ExtendedBreakpoints, SpaceControls,
@@ -1348,5 +1348,3 @@ export class ReactFoundationTests extends React.Component {
     );
   }
 }
-
-

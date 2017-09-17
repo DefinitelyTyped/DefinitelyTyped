@@ -1,215 +1,230 @@
 /**
  * Breakpoints enumerable.
  */
-export declare enum Breakpoints {
-    SMALL = "small",
-    MEDIUM = "medium",
-    LARGE = "large",
-    XLARGE = "xlarge",
-    XXLARGE = "xxlarge",
-}
+export declare type Breakpoints = 'small' | 'medium' | 'large' | 'xlarge' | 'xxlarge';
+export declare const Breakpoints: {
+    SMALL: Breakpoints;
+    MEDIUM: Breakpoints;
+    LARGE: Breakpoints;
+    XLARGE: Breakpoints;
+    XXLARGE: Breakpoints;
+};
 /**
  * Badge color enumerable.
  */
-export declare enum BadgeColors {
-    INFO = "info",
-    SECONDARY = "secondary",
-    SUCCESS = "success",
-    WARNING = "warning",
-    ALERT = "alert",
-}
+export declare type BadgeColors = 'info' | 'secondary' | 'success' | 'warning' | 'alert';
+export declare const BadgeColors: {
+    INFO: BadgeColors;
+    SECONDARY: BadgeColors;
+    SUCCESS: BadgeColors;
+    WARNING: BadgeColors;
+    ALERT: BadgeColors;
+};
 /**
  * Button color enumerable.
  */
-export declare enum ButtonColors {
-    PRIMARY = "primary",
-    SECONDARY = "secondary",
-    SUCCESS = "success",
-    ALERT = "alert",
-    WARNING = "warning",
-}
+export declare type ButtonColors = 'primary' | 'secondary' | 'success' | 'alert' | 'warning';
+export declare const ButtonColors: {
+    PRIMARY: ButtonColors;
+    SECONDARY: ButtonColors;
+    SUCCESS: ButtonColors;
+    ALERT: ButtonColors;
+    WARNING: ButtonColors;
+};
 /**
  * Button group color enumerable.
  */
-export declare enum ButtonGroupColors {
-    PRIMARY = "primary",
-    SECONDARY = "secondary",
-    SUCCESS = "success",
-    ALERT = "alert",
-    WARNING = "warning",
-}
+export declare type ButtonGroupColors = 'primary' | 'secondary' | 'success' | 'alert' | 'warning';
+export declare const ButtonGroupColors: {
+    PRIMARY: ButtonColors;
+    SECONDARY: ButtonColors;
+    SUCCESS: ButtonColors;
+    ALERT: ButtonColors;
+    WARNING: ButtonColors;
+};
 /**
  * Callout color enumerable.
  */
-export declare enum CalloutColors {
-    PRIMARY = "primary",
-    SECONDARY = "secondary",
-    SUCCESS = "success",
-    WARNING = "warning",
-    ALERT = "alert",
-}
+export declare type CalloutColors = 'primary' | 'secondary' | 'success' | 'warning' | 'alert';
+export declare const CalloutColors: {
+    PRIMARY: ButtonColors;
+    SECONDARY: ButtonColors;
+    SUCCESS: ButtonColors;
+    WARNING: ButtonColors;
+    ALERT: ButtonColors;
+};
 /**
  * Label color enumerable.
  */
-export declare enum LabelColors {
-    INFO = "info",
-    SECONDARY = "secondary",
-    SUCCESS = "success",
-    WARNING = "warning",
-    ALERT = "alert",
-}
+export declare type LabelColors = 'info' | 'secondary' | 'success' | 'warning' | 'alert';
+export declare const LabelColors: {
+    INFO: BadgeColors;
+    SECONDARY: BadgeColors;
+    SUCCESS: BadgeColors;
+    WARNING: BadgeColors;
+    ALERT: BadgeColors;
+};
 /**
  * Progress colors enumerable.
  */
-export declare enum ProgressColors {
-    SECONDARY = "secondary",
-    SUCCESS = "success",
-    WARNING = "warning",
-    ALERT = "alert",
-}
+export declare type ProgressColors = 'secondary' | 'success' | 'warning' | 'alert';
+export declare const ProgressColors: {
+    SECONDARY: ProgressColors;
+    SUCCESS: ProgressColors;
+    WARNING: ProgressColors;
+    ALERT: ProgressColors;
+};
 /**
  * Color meta-enumerable.
  * This is exposed to the consumer, while the sub-sets are only used internally.
  */
 export declare const Colors: {
-    readonly [x: number]: string;
-    SECONDARY: ProgressColors.SECONDARY;
-    SUCCESS: ProgressColors.SUCCESS;
-    WARNING: ProgressColors.WARNING;
-    ALERT: ProgressColors.ALERT;
-    INFO: LabelColors.INFO;
-    PRIMARY: CalloutColors.PRIMARY;
+    SECONDARY: ProgressColors;
+    SUCCESS: ProgressColors;
+    WARNING: ProgressColors;
+    ALERT: ProgressColors;
+    INFO: BadgeColors;
+    PRIMARY: ButtonColors;
 };
 /**
  * Callout size enumerable.
  */
-export declare enum CalloutSizes {
-    SMALL = "small",
-    LARGE = "large",
-}
+export declare type CalloutSizes = 'small' | 'large';
+export declare const CalloutSizes: {
+    SMALL: CalloutSizes;
+    LARGE: CalloutSizes;
+};
 /**
  * Button size enumerable.
  */
-export declare enum ButtonSizes {
-    TINY = "tiny",
-    SMALL = "small",
-    LARGE = "large",
-}
+export declare type ButtonSizes = 'tiny' | 'small' | 'large';
+export declare const ButtonSizes: {
+    TINY: ButtonSizes;
+    SMALL: ButtonSizes;
+    LARGE: ButtonSizes;
+};
 /**
  * Button group size enumerable.
  */
-export declare enum ButtonGroupSizes {
-    TINY = "tiny",
-    SMALL = "small",
-    LARGE = "large",
-}
+export declare type ButtonGroupSizes = 'tiny' | 'small' | 'large';
+export declare const ButtonGroupSizes: {
+    TINY: ButtonSizes;
+    SMALL: ButtonSizes;
+    LARGE: ButtonSizes;
+};
 /**
  * Switch size enumerable.
  */
-export declare enum SwitchSizes {
-    TINY = "tiny",
-    SMALL = "small",
-    LARGE = "large",
-}
+export declare type SwitchSizes = 'tiny' | 'small' | 'large';
+export declare const SwitchSizes: {
+    TINY: ButtonSizes;
+    SMALL: ButtonSizes;
+    LARGE: ButtonSizes;
+};
 /**
  * Size meta-enumerable.
  * This is exposed to the consumer, while the sub-sets are only used internally.
  */
 export declare const Sizes: {
-    readonly [x: number]: string;
-    TINY: SwitchSizes.TINY;
-    SMALL: SwitchSizes.SMALL;
-    LARGE: SwitchSizes.LARGE;
+    TINY: ButtonSizes;
+    SMALL: ButtonSizes;
+    LARGE: ButtonSizes;
 };
 /**
  * Horizontal alignment enumerable.
  */
-export declare enum HorizontalAlignments {
-    CENTER = "center",
-    RIGHT = "right",
-    JUSTIFY = "justify",
-    SPACED = "spaced",
-}
+export declare type HorizontalAlignments = 'center' | 'right' | 'justify' | 'spaced';
+export declare const HorizontalAlignments: {
+    CENTER: HorizontalAlignments;
+    RIGHT: HorizontalAlignments;
+    JUSTIFY: HorizontalAlignments;
+    SPACED: HorizontalAlignments;
+};
 /**
  * Vertical alignment enumerable.
  */
-export declare enum VerticalAlignments {
-    TOP = "top",
-    MIDDLE = "middle",
-    BOTTOM = "bottom",
-    STRETCH = "stretch",
-}
+export declare type VerticalAlignments = 'top' | 'middle' | 'bottom' | 'stretch';
+export declare const VerticalAlignments: {
+    TOP: VerticalAlignments;
+    MIDDLE: VerticalAlignments;
+    BOTTOM: VerticalAlignments;
+    STRETCH: VerticalAlignments;
+};
 /**
  * Menu alignment enumerable.
  *
  * @type {{RIGHT = string, CENTER = string}}
  */
-export declare enum MenuAlignments {
-    RIGHT = "right",
-    CENTER = "center",
-}
+export declare type MenuAlignments = 'right' | 'center';
+export declare const MenuAlignments: {
+    RIGHT: MenuAlignments;
+    CENTER: MenuAlignments;
+};
 /**
  * Alignments meta-enumerable.
  * This is exposed to the consumer, while the sub-sets are only used internally.
  */
 export declare const Alignments: {
-    readonly [x: number]: string;
-    RIGHT: MenuAlignments.RIGHT;
-    CENTER: MenuAlignments.CENTER;
-    TOP: VerticalAlignments.TOP;
-    MIDDLE: VerticalAlignments.MIDDLE;
-    BOTTOM: VerticalAlignments.BOTTOM;
-    STRETCH: VerticalAlignments.STRETCH;
-    JUSTIFY: HorizontalAlignments.JUSTIFY;
-    SPACED: HorizontalAlignments.SPACED;
+    RIGHT: MenuAlignments;
+    CENTER: MenuAlignments;
+    TOP: VerticalAlignments;
+    MIDDLE: VerticalAlignments;
+    BOTTOM: VerticalAlignments;
+    STRETCH: VerticalAlignments;
+    JUSTIFY: HorizontalAlignments;
+    SPACED: HorizontalAlignments;
 };
 /**
  * Float types enumerable.
  */
-export declare enum FloatTypes {
-    LEFT = "left",
-    CENTER = "center",
-    RIGHT = "right",
-}
+export declare type FloatTypes = 'left' | 'center' | 'right';
+export declare const FloatTypes: {
+    LEFT: FloatTypes;
+    CENTER: FloatTypes;
+    RIGHT: FloatTypes;
+};
 /**
  * Switch type enumerable.
  */
-export declare enum SwitchInputTypes {
-    CHECKBOX = "checkbox",
-    RADIO = "radio",
-}
+export declare type SwitchInputTypes = 'checkbox' | 'radio';
+export declare const SwitchInputTypes: {
+    CHECKBOX: SwitchInputTypes;
+    RADIO: SwitchInputTypes;
+};
 /**
  * Input type meta-enumerable.
  * This is exposed to the consumer, while the sub-sets are only used internally.
  */
 export declare const InputTypes: {
-    readonly [x: number]: string;
-    CHECKBOX: SwitchInputTypes.CHECKBOX;
-    RADIO: SwitchInputTypes.RADIO;
+    CHECKBOX: SwitchInputTypes;
+    RADIO: SwitchInputTypes;
 };
 /**
  * Gutter type enumerable.
  */
-export declare enum GutterTypes {
-    MARGIN = "margin",
-    PADDING = "padding",
-}
+export declare type GutterTypes = 'margin' | 'padding';
+export declare const GutterTypes: {
+    MARGIN: GutterTypes;
+    PADDING: GutterTypes;
+};
 /**
  * Extended breakpoints enumerable (includes 'ALL' option, which is useful when breakpoint is not defined).
  */
-export declare enum ExtendedBreakpoints {
-    SMALL = "small",
-    MEDIUM = "medium",
-    LARGE = "large",
-    XLARGE = "xlarge",
-    XXLARGE = "xxlarge",
-    ALL = "all",
-}
+export declare type ExtendedBreakpoints = 'small' | 'medium' | 'large' | 'xlarge' | 'xxlarge' | 'all';
+export declare const ExtendedBreakpoints: {
+    SMALL: ExtendedBreakpoints;
+    MEDIUM: ExtendedBreakpoints;
+    LARGE: ExtendedBreakpoints;
+    XLARGE: ExtendedBreakpoints;
+    XXLARGE: ExtendedBreakpoints;
+    ALL: ExtendedBreakpoints;
+};
 /**
  * Space control enumerable.
  */
-export declare enum SpaceControls {
-    AUTO = "auto",
-    GROW = "grow",
-    SHRINK = "shrink",
-}
+export declare type SpaceControls = 'auto' | 'grow' | 'shrink';
+export declare const SpaceControls: {
+    AUTO: SpaceControls;
+    GROW: SpaceControls;
+    SHRINK: SpaceControls;
+};
