@@ -48,12 +48,12 @@ declare module 'twitter-stream-channels' {
       /**
        * Closes the opened stream with Twitter
        * @method stop
-       * @param {StreamChannelsOptions} [options]
-       * @param {StreamChannelsOptions} [options.removeAllListeners=false] If true removes all the listeners set on the stream
+       * @param {Object} [options]
+       * @param {Object} [options.removeAllListeners=false] If true removes all the listeners set on the stream
        * @returns {StreamChannels}
        * @see https://github.com/topheman/twitter-stream-channels/blob/master/lib/StreamChannels.js#L120
        */
-      stop(options?: StreamChannels.StreamChannelsOptions): StreamChannels;
+      stop(options?: {removeAllListeners: boolean}): StreamChannels;
 
 
       /**
