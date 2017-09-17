@@ -1,7 +1,7 @@
-// Type definitions for react-foundation 0.9 
-// Project: https://github.com/digiaonline/react-foundation 
-// Definitions by: Daniel Earwicker <https://github.com/danielearwicker> 
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped 
+// Type definitions for https://github.com/digiaonline/react-foundation 0.9
+// Project: https://github.com/digiaonline/react-foundation
+// Definitions by: Daniel Earwicker <https://github.com/danielearwicker>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 export { Accordion, AccordionItem, AccordionTitle, AccordionContent } from './components/accordion';
