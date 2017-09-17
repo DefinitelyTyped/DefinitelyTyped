@@ -13,7 +13,7 @@ List will update as typings are added
 - [x] ButtonGroup
 - [x] CheckBoxes
 - [x] List Element
-- [ ] ~~Tab Bar Component~~ DEPRECATED
+- [x] ~~Tab Bar Component~~ DEPRECATED
 - [x] HTML style headings
 - [x] Card component
 - [x] Pricing Component
