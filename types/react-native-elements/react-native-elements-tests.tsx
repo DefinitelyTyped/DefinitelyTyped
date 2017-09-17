@@ -5,7 +5,8 @@ import {
     StyleSheet,
     TouchableNativeFeedback,
     Image,
-    TextInput
+    TextInput,
+    Animated
 } from 'react-native';
 import {
     Button,
@@ -25,7 +26,8 @@ import {
     ListItem,
     PricingCard,
     Rating,
-    SearchBar
+    SearchBar,
+    SideMenu
 } from 'react-native-elements';
 
 class TextTest extends React.Component<any, any> {
@@ -593,6 +595,104 @@ class SearchBarTest extends React.Component<any, any> {
                     placeholder="Type Here..."
                 />
             </View>
+        );
+    }
+}
+
+interface SideMenuTestListItem {
+    avatarURL: string;
+    name: string;
+    subtitle: string;
+}
+
+interface SideMenuTestState {
+    list: SideMenuTestListItem[];
+    isOpen: boolean;
+}
+class SideMenuTest extends React.Component<any, SideMenuTestState> {
+    state = {
+        list: [
+            {
+                avatarURL: 'https://amy.com/img.jpg',
+                name: 'Amy',
+                subtitle: 'Coding Geek'
+            },
+            {
+                avatarURL: 'https://john.com/img.jpg',
+                name: 'John',
+                subtitle: 'Love cooking'
+            }
+        ],
+        isOpen: false
+    };
+    onSideMenuChange(isOpen: boolean) {
+        this.setState({
+            isOpen
+        });
+    }
+
+    toggleSideMenu = () => {
+        this.setState({
+            isOpen: !this.state.isOpen
+        });
+    }
+
+    animationStyle = (value: number) => ({
+        transform: [
+            {
+                translateX: value
+            }
+        ]
+    })
+
+    animationFunction = (prop: Animated.Value, value: number) =>
+        Animated.spring(prop, {
+            toValue: value,
+            friction: 8
+        })
+
+    render() {
+        const MenuComponent = (
+            <View
+                style={{ flex: 1, backgroundColor: '#ededed', paddingTop: 50 }}
+            >
+                <List containerStyle={{ marginBottom: 20 }}>
+                    {this.state.list.map((l, i) => (
+                        <ListItem
+                            roundAvatar
+                            onPress={() => console.log('Pressed')}
+                            avatar={l.avatarURL}
+                            key={i}
+                            title={l.name}
+                            subtitle={l.subtitle}
+                        />
+                    ))}
+                </List>
+            </View>
+        );
+
+        return (
+            <SideMenu
+                isOpen={this.state.isOpen}
+                onChange={this.onSideMenuChange}
+                menu={MenuComponent}
+                animationStyle={this.animationStyle}
+                animationFunction={this.animationFunction}
+            >
+                <View
+                    style={{
+                        flex: 1,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        backgroundColor: 'blue'
+                    }}
+                >
+                    <Button
+                        title="test button"
+                        onPress={this.toggleSideMenu.bind(this)}
+                    />
+                </View>
+            </SideMenu>
         );
     }
 }

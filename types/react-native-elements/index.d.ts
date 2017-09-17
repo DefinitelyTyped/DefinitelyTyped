@@ -20,7 +20,10 @@ import {
     StatusBarProperties,
     KeyboardType,
     KeyboardTypeIOS,
-    StyleProp
+    StyleProp,
+    GestureResponderEvent,
+    Animated,
+    TransformsStyle
 } from 'react-native';
 
 /**
@@ -1060,7 +1063,7 @@ export interface ListItemProps {
     /**
      * Left avatar. This is the React Native Image source prop. Avatar can be used in parallel to leftIcon if needed.
      */
-    avatar?: ImageURISource | ImageURISource[];
+    avatar?: string | ImageURISource;
 
     /**
      * Avatar styling. This is the React Native Image style prop
@@ -1687,3 +1690,109 @@ export class SearchBar extends React.Component<SearchBarProps, any> {
      */
     clearText(): void;
 }
+
+export interface SideMenuProps {
+    /**
+     * Menu component
+     */
+    menu: JSX.Element;
+
+    /**
+     * Props driven control over menu open state
+     *
+     * @default false
+     */
+    isOpen?: boolean;
+
+    /**
+     * Content view left margin if menu is opened
+     *
+     * @default ⅔ of device screen width
+     */
+    openMenuOffset?: number;
+
+    /**
+     * Content view left margin if menu is hidden
+     */
+    hiddenMenuOffset?: number;
+
+    /**
+     * Edge distance on content view to open side menu
+     *
+     * @default 60
+     */
+    edgeHitWidth?: number;
+
+    /**
+     * X axis tolerance
+     */
+    toleranceX?: number;
+
+    /**
+     * Y axis tolerance
+     */
+    toleranceY?: number;
+
+    /**
+     * Disable whether the menu can be opened with gestures or not
+     *
+     * @default false
+     */
+    disableGestures?: boolean;
+
+    /**
+     * Function that accepts event as an argument and specify if side-menu should react on the touch or not.
+     * Check https://facebook.github.io/react-native/docs/gesture-responder-system.html for more details
+     */
+    onStartShouldSetResponderCapture?(event: GestureResponderEvent): boolean;
+
+    /**
+     * Callback on menu open/close. Is passed isOpen as an argument.
+     */
+    onChange?(isOpen: boolean): void;
+
+    /**
+     * Callback on menu move. Is passed left as an argument
+     */
+    onMove?(left: number): void;
+
+    /**
+     * Either 'left' or 'right'.
+     *
+     * @default 'left'
+     */
+    menuPosition?: string;
+
+    /**
+     * Function that accept 2 arguments (prop, value) and return an object:
+     * - animation you should use at the place you specify parameter to animate
+     * - newOffset you should use to specify the final value of prop
+     */
+    animationFunction?(
+        animation: Animated.Value,
+        newOffset: number
+    ): Animated.CompositeAnimation;
+
+    /**
+     * Function that accept 1 argument (value) and return an object
+     * - leftOffset you should use at the place you need current value of animated parameter (left offset of content view)
+     */
+    animationStyle?(leftOffset: number): StyleProp<TransformsStyle>;
+
+    /**
+     * When true, content view will bounce back to openMenuOffset when dragged further
+     *
+     * @default true
+     */
+    bounceBackOnOverdraw?: boolean;
+}
+
+/**
+ * @deprecated
+ * Warning: SideMenu has been deprecated and will be removed in a future version of React Native Elements. For a complete navigation solution that includes SideMenu(Drawer) as well as many other
+ * features, be sure to check out react-navigation (https://reactnavigation.org) and it's DrawerNavigator.
+ *
+ * SideMenu component
+ * @see https://react-native-training.github.io/react-native-elements/API/side_menu/
+ */
+export class SideMenu extends React.Component<SideMenuProps, any> {}
