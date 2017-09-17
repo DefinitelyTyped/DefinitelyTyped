@@ -23,6 +23,9 @@ import {
     StyleProp,
 } from 'react-native';
 
+/**
+ * Supports auto complete for most used types as well as any other string type.
+ */
 export type IconType =
     | 'material'
     | 'material-community'
@@ -33,7 +36,8 @@ export type IconType =
     | 'ionicon'
     | 'foundation'
     | 'evilicon'
-    | 'entypo';
+    | 'entypo'
+    | string;
 
 export interface IconObject {
     name?: string;
@@ -44,7 +48,7 @@ export interface IconObject {
 }
 
 export interface AvatarIcon extends IconObject {
-    iconStyle?: TextStyle;
+    iconStyle?: StyleProp<TextStyle>;
 }
 
 export interface TextProps {
@@ -76,7 +80,7 @@ export interface TextProps {
     /**
      * Additional styling for Text
      */
-    style?: TextStyle;
+    style?: StyleProp<TextStyle>;
 }
 
 /**
@@ -121,7 +125,7 @@ export interface AvatarProps {
     /**
      * Styling for outer container
      */
-    containerStyle?: ViewStyle;
+    containerStyle?: StyleProp<ViewStyle>;
 
     /**
      * Image source
@@ -148,12 +152,12 @@ export interface AvatarProps {
     /**
      * Style for the title
      */
-    titleStyle?: TextStyle;
+    titleStyle?: StyleProp<TextStyle>;
 
     /**
      * Style for the view outside image or icon
      */
-    overlayContainerStyle?: ViewStyle;
+    overlayContainerStyle?: StyleProp<ViewStyle>;
 
     /**
      * Opacity when pressed
@@ -170,7 +174,7 @@ export interface AvatarProps {
     /**
      * extra styling for icon component
      */
-    iconStyle?: TextStyle;
+    iconStyle?: StyleProp<TextStyle>;
 
     /**
      * Small sized icon
@@ -201,7 +205,7 @@ export interface AvatarProps {
 export class Avatar extends React.Component<AvatarProps, any> {}
 
 export interface ButtonIcon extends IconObject {
-    buttonStyle?: TextStyle;
+    buttonStyle?: StyleProp<TextStyle>;
 }
 
 export interface ButtonProps extends TouchableWithoutFeedbackProps {
@@ -217,7 +221,7 @@ export interface ButtonProps extends TouchableWithoutFeedbackProps {
      *
      * @default null
      */
-    buttonStyle?: ViewStyle;
+    buttonStyle?: StyleProp<ViewStyle>;
 
     /**
      * Button title
@@ -302,7 +306,7 @@ export interface ButtonProps extends TouchableWithoutFeedbackProps {
      *
      * @default null
      */
-    textStyle?: TextStyle;
+    textStyle?: StyleProp<TextStyle>;
 
     /**
      * Font size
@@ -337,14 +341,14 @@ export interface ButtonProps extends TouchableWithoutFeedbackProps {
      *
      * @default null
      */
-    disabledStyle?: ViewStyle;
+    disabledStyle?: StyleProp<ViewStyle>;
 
     /**
      * Styling for Component container
      *
      * @default null
      */
-    containerViewStyle?: ViewStyle;
+    containerViewStyle?: StyleProp<ViewStyle>;
 }
 
 /**
@@ -365,17 +369,17 @@ export interface BadgeProps {
     /**
      * Style for the outer badge component
      */
-    containerStyle?: ViewStyle;
+    containerStyle?: StyleProp<ViewStyle>;
 
     /**
      * Style for the outer-most badge component
      */
-    wrapperStyle?: ViewStyle;
+    wrapperStyle?: StyleProp<ViewStyle>;
 
     /**
      * Style for the text in the badge
      */
-    textStyle?: TextStyle;
+    textStyle?: StyleProp<TextStyle>;
 
     /**
      * Override the default badge contents, mutually exclusive with 'value' property
@@ -385,7 +389,7 @@ export interface BadgeProps {
     /**
      * Custom component to replace the badge outer component
      *
-     * @default View, if onPress then TouchableOpacity
+     * @default View (if onPress then TouchableOpacity)
      */
     component?: React.ComponentClass;
 
@@ -413,12 +417,12 @@ export interface CardProps {
     /**
      * Outer container style
      */
-    containerStyle?: ViewStyle;
+    containerStyle?: StyleProp<ViewStyle>;
 
     /**
      * Inner container style
      */
-    wrapperStyle?: ViewStyle;
+    wrapperStyle?: StyleProp<ViewStyle>;
 
     /**
      * Card title
@@ -428,7 +432,7 @@ export interface CardProps {
     /**
      * Additional title styling (if title provided)
      */
-    titleStyle?: TextStyle;
+    titleStyle?: StyleProp<TextStyle>;
 
     /**
      * Title rendered over the image
@@ -439,7 +443,7 @@ export interface CardProps {
     /**
      * Styling for featured title
      */
-    featuredTitleStyle?: TextStyle;
+    featuredTitleStyle?: StyleProp<TextStyle>;
 
     /**
      * Subtitle rendered over the image
@@ -450,13 +454,13 @@ export interface CardProps {
     /**
      * Styling for featured subtitle
      */
-    featuredSubtitleStyle?: TextStyle;
+    featuredSubtitleStyle?: StyleProp<TextStyle>;
 
     /**
      * Additional divider styling
      * (if title provided)
      */
-    dividerStyle?: ViewStyle;
+    dividerStyle?: StyleProp<ViewStyle>;
 
     /**
      * Specify different font family
@@ -473,7 +477,7 @@ export interface CardProps {
     /**
      * Specify styling for view surrounding image
      */
-    imageWrapperStyle?: ViewStyle;
+    imageWrapperStyle?: StyleProp<ViewStyle>;
 
     /**
      * Add an image as the heading with the image prop
@@ -497,9 +501,6 @@ export interface ElementObject {
 
 /**
  * Set the border styles for a component.
- *
- * @export
- * @interface InnerBorderStyleProperty
  */
 export interface InnerBorderStyleProperty {
     color?: string;
@@ -515,7 +516,6 @@ export interface ButtonGroupProps {
     /**
      * Method to update Button Group Index
      */
-    // onPress(): void;
     onPress(selectedIndex: number): void;
 
     /**
@@ -533,12 +533,12 @@ export interface ButtonGroupProps {
     /**
      * Specify styling for main button container
      */
-    containerStyle?: ViewStyle;
+    containerStyle?: StyleProp<ViewStyle>;
 
     /**
-     * inherited styling	object (style)	specify styling for button
+     * inherited styling	specify styling for button
      */
-    buttonStyle?: ViewStyle;
+    buttonStyle?: StyleProp<ViewStyle>;
 
     /**
      * Specify color for selected state of button
@@ -550,12 +550,12 @@ export interface ButtonGroupProps {
     /**
      * Specify specific styling for text
      */
-    textStyle?: TextStyle;
+    textStyle?: StyleProp<TextStyle>;
 
     /**
      * Specify specific styling for text in the selected state
      */
-    selectedTextStyle?: TextStyle;
+    selectedTextStyle?: StyleProp<TextStyle>;
 
     /**
      * inherited styling	object { width, color }	update the styling of the interior border of the list of buttons
@@ -583,19 +583,13 @@ export interface ButtonGroupProps {
 
     /**
      * Border radius for the container
-     *
-     * @type {number}
-     * @memberof ButtonGroupProps
      */
     containerBorderRadius?: number;
 
     /**
      * Styling for the final border edge
-     *
-     * @type {(ViewStyle | TextStyle)}
-     * @memberof ButtonGroupProps
      */
-    lastBorderStyle?: ViewStyle | TextStyle;
+    lastBorderStyle?: StyleProp<TextStyle | ViewStyle>;
 
     /**
      *
@@ -664,12 +658,12 @@ export interface CheckBoxProps {
     /**
      * Style of main container
      */
-    containerStyle?: ViewStyle;
+    containerStyle?: StyleProp<ViewStyle>;
 
     /**
-     * object (style)	style of text
+     * style of text
      */
-    textStyle?: TextStyle;
+    textStyle?: StyleProp<TextStyle>;
 
     /**
      * onLongPress function for checkbox
@@ -737,11 +731,8 @@ export interface DividerProps {
      * Style the divider
      *
      * @default {height: 1, backgroundColor: #e1e8ee}
-     *
-     * @type {ViewStyle}
-     * @memberof DividerProps
      */
-    style?: ViewStyle;
+    style?: StyleProp<ViewStyle>;
 }
 
 export class Divider extends React.Component<DividerProps, any> {}
@@ -749,25 +740,16 @@ export class Divider extends React.Component<DividerProps, any> {}
 export interface FormValidationMessageProps extends ViewProperties {
     /**
      * Style of the container
-     *
-     * @type {ViewStyle}
-     * @memberof FormValidationMessageProps
      */
-    containerStyle?: ViewStyle;
+    containerStyle?: StyleProp<ViewStyle>;
 
     /**
      * Style of the text within the label message
-     *
-     * @type {TextStyle}
-     * @memberof FormValidationMessageProps
      */
-    labelStyle?: TextStyle;
+    labelStyle?: StyleProp<TextStyle>;
 
     /**
      * Font family for the message
-     *
-     * @type {string}
-     * @memberof FormValidationMessageProps
      */
     fontFamily?: string;
 }
@@ -780,21 +762,21 @@ export interface FormInputProps extends TextInputProperties {
     /**
      * TextInput container styling
      */
-    containerStyle?: ViewStyle;
+    containerStyle?: StyleProp<ViewStyle>;
 
     /**
      * TextInput styling
      */
-    inputStyle?: TextStyle;
+    inputStyle?: StyleProp<TextStyle>;
 
     /**
-     * DEPRECATED
+     * @deprecated
      * Get ref of TextInput
      */
     textInputRef?(ref: TextInput): void;
 
     /**
-     * DEPRECATED
+     * @deprecated
      * Get ref of TextInput container
      */
     containerRef?(ref: any): void;
@@ -808,9 +790,6 @@ export interface FormInputProps extends TextInputProperties {
 export class FormInput extends React.Component<FormInputProps, any> {
     /**
      * Holds reference to the stored input.
-     *
-     * @type {TextInput}
-     * @memberof FormInput
      */
     input: TextInput;
 
@@ -841,12 +820,12 @@ export interface FormLabelProps extends ViewProperties {
     /**
      * Additional label container style
      */
-    containerStyle?: ViewStyle;
+    containerStyle?: StyleProp<ViewStyle>;
 
     /**
      * Additional label styling
      */
-    labelStyle?: TextStyle;
+    labelStyle?: StyleProp<TextStyle>;
 
     /**
      * Specify different font family
@@ -862,7 +841,7 @@ export interface GridProps extends ViewProperties {
     /**
      * Outer grid styling
      */
-    containerStyle?: ViewStyle;
+    containerStyle?: StyleProp<ViewStyle>;
 
     /**
      * Opacity on pressing
@@ -881,12 +860,10 @@ export interface GridProps extends ViewProperties {
 }
 
 /**
- * DEPRECATED
+ * @deprecated
  * Warning: Grid has been deprecated and will be removed in a future version of React Native Elements
  *
- * @export
- * @class Grid
- * @extends {React.Component<GridProps, any>}
+ * @see https://react-native-training.github.io/react-native-elements/API/grid
  */
 export class Grid extends React.Component<GridProps, any> {}
 
@@ -906,7 +883,7 @@ export interface SubGridProps extends ViewProperties {
     /**
      * Styling for the outer column or row
      */
-    containerStyle?: ViewStyle;
+    containerStyle?: StyleProp<ViewStyle>;
 
     /**
      * onPress method
@@ -915,21 +892,18 @@ export interface SubGridProps extends ViewProperties {
 }
 
 /**
- * DEPRECATED
+ * @deprecated
  * Warning: Row has been deprecated and will be removed in a future version of React Native Elements
- * @export
- * @class Row
- * @extends {React.Component<RowProps, any>}
+ * @see https://react-native-training.github.io/react-native-elements/API/grid/#row
  */
 export class Row extends React.Component<SubGridProps, any> {}
 
 /**
- * DEPRECATED
+ * @deprecated
  * Warning: Col has been deprecated and will be removed in a future version of React Native Elements
  *
- * @export
- * @class Col
- * @extends {React.Component<ColProps, any>}
+ * @see https://react-native-training.github.io/react-native-elements/API/grid/#column
+ *
  */
 export class Col extends React.Component<SubGridProps, any> {}
 
@@ -964,34 +938,30 @@ export interface HeaderProps extends ViewProperties {
     rightComponent?: HeaderSubComponent;
 
     /**
-     * string	sets backgroundColor of the parent component
+     * Sets backgroundColor of the parent component
      */
     backgroundColor?: string;
 
     /**
      * Styling for outer container
      */
-    outerContainerStyles?: ViewStyle;
+    outerContainerStyles?: StyleProp<ViewStyle>;
 
     /**
      * Styling for inner container
      */
-    innerContainerStyles?: ViewStyle;
+    innerContainerStyles?: StyleProp<ViewStyle>;
 }
 
 /**
  * Header component
  * @see https://react-native-training.github.io/react-native-elements/API/header/
- *
- * @export
- * @class Header
- * @extends {React.Component<HeaderProps, any>}
  */
 export class Header extends React.Component<HeaderProps, any> {}
 
 export interface IconProps {
     /**
-     * Name of icon (required)
+     * Name of icon
      */
     name: string;
 
@@ -1002,35 +972,35 @@ export interface IconProps {
     type?: IconType;
 
     /**
-     * Size of icon (optional)
+     * Size of icon
      * @default 26
      */
     size?: number;
 
     /**
-     * Color of icon (optional)
+     * Color of icon
      *
      * @default 'black'
      */
     color?: string;
 
     /**
-     * Additional styling to icon (optional)
+     * Additional styling to icon
      */
-    iconStyle?: ViewStyle | TextStyle;
+    iconStyle?: StyleProp<TextStyle | ViewStyle>;
 
     /**
-     * View if no onPress method is defined, TouchableHighlight if onPress method is defined	React Native component	update React Native Component (optional)
+     * View if no onPress method is defined, TouchableHighlight if onPress method is defined	React Native component	update React Native Component
      */
     component?: React.ComponentClass;
 
     /**
-     * onPress method for button (optional)
+     * onPress method for button
      */
     onPress?(): void;
 
     /**
-     * onLongPress method for button (optional)
+     * onLongPress method for button
      */
     onLongPress?(): void;
 
@@ -1040,26 +1010,26 @@ export interface IconProps {
     underlayColor?: string;
 
     /**
-     * Reverses color scheme (optional)
+     * Reverses color scheme
      *
      * @default false
      */
     reverse?: boolean;
 
     /**
-     * Adds box shadow to button (optional)
+     * Adds box shadow to button
      *
      * @default false
      */
     raised?: boolean;
 
     /**
-     * Add styling to container holding icon (optional)
+     * Add styling to container holding icon
      */
-    containerStyle?: ViewStyle;
+    containerStyle?: StyleProp<ViewStyle>;
 
     /**
-     * Specify reverse icon color (optional)
+     * Specify reverse icon color
      *
      * @default 'white'
      */
@@ -1069,10 +1039,6 @@ export interface IconProps {
 /**
  * Icon component
  * @see https://react-native-training.github.io/react-native-elements/API/icons/
- *
- * @export
- * @class Icon
- * @extends {React.Component<IconProps, any>}
  */
 export class Icon extends React.Component<IconProps, any> {}
 
@@ -1081,16 +1047,12 @@ export interface ListProps extends ViewProperties {
      * Style the list container
      * @default '{marginTop: 20, borderTopWidth: 1, borderBottomWidth: 1, borderBottomColor: #cbd2d9}'
      */
-    containerStyle?: ViewStyle;
+    containerStyle?: StyleProp<ViewStyle>;
 }
 
 /**
  * List component
  * @see https://react-native-training.github.io/react-native-elements/API/lists/
- *
- * @export
- * @class List
- * @extends {React.Component<ListProps, any>}
  */
 export class List extends React.Component<ListProps, any> {}
 
@@ -1101,19 +1063,19 @@ export interface ListItemProps {
     avatar?: ImageURISource | ImageURISource[];
 
     /**
-     * Avatar styling (optional). This is the React Native Image style prop
+     * Avatar styling. This is the React Native Image style prop
      */
     avatarStyle?: ImageStyle;
 
     /**
-     * Avatar outer container styling (optional)
+     * Avatar outer container styling
      */
-    avatarContainerStyle?: ViewStyle;
+    avatarContainerStyle?: StyleProp<ViewStyle>;
 
     /**
-     * Avatar overlay container styling (optional)
+     * Avatar overlay container styling
      */
-    avatarOverlayContainerStyle?: ViewStyle;
+    avatarOverlayContainerStyle?: StyleProp<ViewStyle>;
 
     /**
      * Set chevron color
@@ -1124,22 +1086,22 @@ export interface ListItemProps {
 
     /**
      * View or TouchableHighlight if onPress method is added as prop
-     * Replace element with custom element (optional)
+     * Replace element with custom element
      */
     component?: React.ComponentClass;
 
     /**
-     * Additional main container styling (optional)
+     * Additional main container styling
      */
     containerStyle?: StyleProp<ViewStyle>;
 
     /**
-     * Additional wrapper styling (optional)
+     * Additional wrapper styling
      */
     wrapperStyle?: StyleProp<ViewStyle>;
 
     /**
-     * Define underlay color for TouchableHighlight (optional)
+     * Define underlay color for TouchableHighlight
      *
      * @default 'white'
      */
@@ -1154,19 +1116,19 @@ export interface ListItemProps {
     fontFamily?: string;
 
     /**
-     * Set if you do not want a chevron (optional)
+     * Set if you do not want a chevron
      *
      * @default false
      */
     hideChevron?: boolean;
 
     /**
-     * onPress method for link (optional)
+     * onPress method for link
      */
     onPress?(): void;
 
     /**
-     * onLongPress method for link (optional)
+     * onLongPress method for link
      */
     onLongPress?(): void;
 
@@ -1178,7 +1140,7 @@ export interface ListItemProps {
     roundAvatar?: boolean;
 
     /**
-     * Main title for list item, can be text or custom view (required)
+     * Main title for list item, can be text or custom view
      */
     title?: string;
 
@@ -1190,7 +1152,7 @@ export interface ListItemProps {
     titleNumberOfLines?: number;
 
     /**
-     * Additional title styling (optional)
+     * Additional title styling
      */
     titleStyle?: StyleProp<TextStyle>;
 
@@ -1200,7 +1162,7 @@ export interface ListItemProps {
     titleContainerStyle?: StyleProp<ViewStyle>;
 
     /**
-     * Subtitle text or custom view (optional)
+     * Subtitle text or custom view
      */
     subtitle?: string | JSX.Element;
 
@@ -1217,7 +1179,7 @@ export interface ListItemProps {
     subtitleContainerStyle?: StyleProp<ViewStyle>;
 
     /**
-     * Additional subtitle styling (optional)
+     * Additional subtitle styling
      */
     subtitleStyle?: StyleProp<TextStyle>;
 
@@ -1253,7 +1215,7 @@ export interface ListItemProps {
     label?: JSX.Element;
 
     /**
-     * Icon configuration for left icon (optional), either a name from the icon library (like material) or a React Native element like Image.
+     * Icon configuration for left icon, either a name from the icon library (like material) or a React Native element like Image.
      * leftIcon can be used in parallel to avatar if needed.
      * {name, color, style, type}
      * (type defaults to material icons) OR React Native element
@@ -1279,7 +1241,7 @@ export interface ListItemProps {
 
     /**
      * {name: 'chevron-right'}	object {name, color, style, type} (type defaults to material icons) OR
-     * React Native element	icon configuration for right icon (optional), either a name from the icon library (like material) or a React Native element like Image.
+     * React Native element	icon configuration for right icon, either a name from the icon library (like material) or a React Native element like Image.
      * Shows up unless hideChevron is set
      */
     rightIcon?: IconObject | JSX.Element;
@@ -1393,12 +1355,12 @@ export interface ListItemProps {
     textInputSecure?: boolean;
 
     /**
-     * 	object (style)	Style for the input text
+     * 	Style for the input text
      */
     textInputStyle?: StyleProp<TextStyle>;
 
     /**
-     * 	object (style)	Style for the container surrounding the input text
+     * 	Style for the container surrounding the input text
      */
     textInputContainerStyle?: StyleProp<ViewStyle>;
 
@@ -1425,8 +1387,6 @@ export interface ListItemProps {
     /**
      * Add a badge to the ListItem by using this prop
      *
-     * @type {(BadgeProps | ElementObject)}
-     * @memberof ListItemProps
      */
     badge?: BadgeProps | ElementObject;
 }
@@ -1434,43 +1394,39 @@ export interface ListItemProps {
 /**
  * ListItem component
  * @see https://react-native-training.github.io/react-native-elements/API/lists/
- *
- * @export
- * @class ListItem
- * @extends {React.Component<ListItemProps, any>}
  */
 export class ListItem extends React.Component<ListItemProps, any> {}
 
 export interface ButtonInformation {
     title: string;
     icon: string;
-    buttonStyle?: ViewStyle;
+    buttonStyle?: StyleProp<ViewStyle>;
 }
 
 export interface PricingCardProps {
     /**
-     * Title (required)
+     * Title
      */
     title?: string;
 
     /**
-     * Price (required)
+     * Price
      */
     price: string;
 
     /**
-     * Color scheme for button & title (required)
+     * Color scheme for button & title
      */
     color: string;
 
     /**
-     * Pricing information (optional)
+     * Pricing information
      */
     info?: string[];
 
     /**
      * {title, icon, buttonStyle}
-     * button information (required)
+     * Button information
      */
     button: ButtonInformation;
 
@@ -1480,12 +1436,12 @@ export interface PricingCardProps {
     onButtonPress?(): void;
 
     /**
-     * Outer component styling (optional)
+     * Outer component styling
      */
     containerStyle?: StyleProp<ViewStyle>;
 
     /**
-     * Inner wrapper component styling (optional)
+     * Inner wrapper component styling
      */
     wrapperStyle?: StyleProp<ViewStyle>;
 
@@ -1522,4 +1478,90 @@ export interface PricingCardProps {
     buttonFont?: string;
 }
 
+/**
+ * PricingCard component
+ * @see https://react-native-training.github.io/react-native-elements/API/pricing/
+ */
 export class PricingCard extends React.Component<PricingCardProps, any> {}
+
+export interface RatingProps {
+    /**
+     * Callback method when the user finishes rating. Gives you the final rating value as a whole number
+     */
+    onFinishRating(rating: number): void;
+
+    /**
+     * Choose one of the built-in types: star, rocket, bell, heart or use type custom to render a custom image
+     */
+    type?: 'star' | 'rocket' | 'bell' | 'heart' | 'custom';
+
+    /**
+     * Pass in a custom image source; use this along with type='custom' prop above
+     */
+    ratingImage?: ImageURISource | string | number;
+
+    /**
+     * Pass in a custom fill-color for the rating icon; use this along with type='custom' prop above
+     *
+     * @default '#f1c40f'
+     */
+    ratingColor?: string;
+
+    /**
+     * Pass in a custom background-fill-color for the rating icon; use this along with type='custom' prop above
+     *
+     * @default 'white'
+     */
+    ratingBackgroundColor?: string;
+
+    /**
+     * Number of rating images to display
+     *
+     * @default 5
+     */
+    ratingCount?: number;
+
+    /**
+     * The size of each rating image
+     *
+     * @default 50
+     */
+    imageSize?: number;
+
+    /**
+     * Displays the Built-in Rating UI to show the rating value in real-time
+     */
+    showRating?: boolean;
+
+    /**
+     * Whether the rating can be modiefied by the user
+     *
+     * @default false
+     */
+    readonly?: boolean;
+
+    /**
+     * The initial rating to render
+     *
+     * @default ratingCount/2
+     */
+    startingValue?: number;
+
+    /**
+     * The number of decimal places for the rating value; must be between 0 and 20
+     *
+     * @default undefined
+     */
+    fractions?: number;
+
+    /**
+     * Exposes style prop to add additonal styling to the container view
+     */
+    style?: StyleProp<ViewStyle>;
+}
+
+/**
+ * Rating component
+ * @see https://react-native-training.github.io/react-native-elements/API/rating/
+ */
+export class Rating extends React.Component<RatingProps, any> {}
