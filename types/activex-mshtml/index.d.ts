@@ -32287,7 +32287,7 @@ declare namespace MSHTML {
     class IHTMLElementCollection {
         private 'MSHTML.IHTMLElementCollection_typekey': IHTMLElementCollection;
         private constructor();
-        public item(name?: any, index?: any): any;
+        public item(name?: string | number, index?: number): any;
         public length: number;
         public tags(tagName: any): any;
         public toString(): string;
