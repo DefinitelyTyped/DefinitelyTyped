@@ -19,7 +19,7 @@ List will update as typings are added
 - [x] Pricing Component
 - [x] ~~Grid Component~~ DEPRECATED
 - [x] Slider Component
-- [ ] Tile Component
+- [x] Tile Component
 - [x] Avatar Component
 - [x] Rating Component
 - [x] SwipeDeck Component
