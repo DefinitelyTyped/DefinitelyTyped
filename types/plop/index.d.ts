@@ -1,29 +1,30 @@
-// Type definitions for plop 1.8.0
+// Type definitions for plop 1.8
 // Project: https://github.com/amwmedia/plop
-// Definitions by: Alex Young <https://github.com/alsiola/>
+// Definitions by: Alex Young <https://github.com/alsiola>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 import { Inquirer, Question, PromptModule } from "inquirer";
 
 declare module "plop" {
-    export interface Action {
+    interface Action {
         type: string;
         path: string;
         templateFile: string;
     }
 
-    export interface GeneratorConfig {
+    interface GeneratorConfig {
         description?: string;
         prompts: ReadonlyArray<Question>;
         actions: ReadonlyArray<Action>;
     }
 
-    export interface GeneratorListItem {
+    interface GeneratorListItem {
         name: string;
         description?: string;
     }
 
-    export interface Plop {
+    interface Plop {
         inquirer: Inquirer;
         handlebars: object;
         registerHelper(name: string, fn: (...args: any[]) => any): void;
