@@ -671,7 +671,6 @@ $(document).ready(() => {
     const y = date.getFullYear();
 
     $('#calendar').fullCalendar({
-        theme: true,
         header: {
             left: 'prev,next today',
             center: 'title',
@@ -790,7 +789,6 @@ $(document).ready(() => {
     const y = date.getFullYear();
 
     $('#calendar').fullCalendar({
-        theme: true,
         header: {
             left: 'prev,next today',
             center: 'title',
@@ -824,7 +822,6 @@ $(document).ready(() => {
     });
 
     $('#calendar').fullCalendar({
-        theme: true,
         header: {
             left: 'prev,next today',
             center: 'title',

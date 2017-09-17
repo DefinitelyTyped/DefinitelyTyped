@@ -8,6 +8,7 @@
 //                 Mike Deverell <https://github.com/devrelm>
 //                 MartynasZilinskas <https://github.com/MartynasZilinskas>
 //                 Onat Yigit Mercan <https://github.com/onatm>
+//                 Ian Johnson <https://github.com/ninjaferret>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -27,7 +28,7 @@ declare namespace ReactSelectClass {
     type FocusOptionHandler<TValue = OptionValues> = (option: Option<TValue>) => void;
     type SelectValueHandler<TValue = OptionValues> = (option: Option<TValue>) => void;
     type ArrowRendererHandler = (props: ArrowRendererProps) => HandlerRendererResult;
-    type FilterOptionHandler<TValue = OptionValues> = (option: Option<TValue>, filter: string) => Option<TValue>;
+    type FilterOptionHandler<TValue = OptionValues> = (option: Option<TValue>, filter: string) => boolean;
     type FilterOptionsHandler<TValue = OptionValues> = (options: Options<TValue>, filter: string, currentValues: Options<TValue>) => Options<TValue>;
     type InputRendererHandler = (props: { [key: string]: any }) => HandlerRendererResult;
     type MenuRendererHandler<TValue = OptionValues> = (props: MenuRendererProps<TValue>) => HandlerRendererResult;
@@ -40,7 +41,7 @@ declare namespace ReactSelectClass {
     type OnBlurHandler = React.FocusEventHandler<HTMLDivElement | HTMLInputElement>;
     type OptionRendererHandler<TValue = OptionValues> = (option: Option<TValue>) => HandlerRendererResult;
     type ValueRendererHandler<TValue = OptionValues> = (option: Option<TValue>) => HandlerRendererResult;
-    type OnValueClickHandler = (value: string, event: React.MouseEvent<HTMLAnchorElement>) => void;
+    type OnValueClickHandler<TValue = OptionValues> = (option: Option<TValue>, event: React.MouseEvent<HTMLAnchorElement>) => void;
     type IsOptionUniqueHandler<TValue = OptionValues> = (arg: { option: Option<TValue>, options: Options<TValue>, labelKey: string, valueKey: string }) => boolean;
     type IsValidNewOptionHandler = (arg: { label: string }) => boolean;
     type NewOptionCreatorHandler<TValue = OptionValues> = (arg: { label: string, labelKey: string, valueKey: string }) => Option<TValue>;
@@ -188,6 +189,11 @@ declare namespace ReactSelectClass {
          * @default true
          */
         clearable?: boolean;
+        /**
+         * whether backspace removes an item if there is no text input
+         * @default true
+         */
+        deleteRemoves?: boolean;
         /**
          * delimiter to use to join multiple values
          * @default ","
@@ -421,7 +427,7 @@ declare namespace ReactSelectClass {
         /**
          * onClick handler for value labels: function (value, event) {}
          */
-        onValueClick?: OnValueClickHandler;
+        onValueClick?: OnValueClickHandler<TValue>;
 
         /**
          *  pass the value to onChange as a simple value (legacy pre 1.0 mode), defaults to false
