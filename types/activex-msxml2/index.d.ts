@@ -2788,6 +2788,7 @@ interface ActiveXObjectNameMap {
     'Msxml2.XMLHTTP': MSXML2.XMLHTTP60;
     'Msxml2.XMLHTTP.6.0': MSXML2.XMLHTTP60;
     'Msxml2.XMLSchemaCache': MSXML2.XMLSchemaCache60;
+    'Msxml2.XMLSchemaCache.6.0': MSXML2.XMLSchemaCache60;
     'Msxml2.XSLTemplate': MSXML2.XSLTemplate60;
 }
 
