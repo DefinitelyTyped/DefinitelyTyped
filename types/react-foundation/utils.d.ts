@@ -24,7 +24,7 @@ export declare const GeneralPropTypes: {
     float: PropTypes.Requireable<any>;
 };
 export interface GeneralPropTypes extends ClassNameProps {
-    showFor?: Breakpoints.MEDIUM | Breakpoints.LARGE;
+    showFor?: Breakpoints;
     showOnlyFor?: Breakpoints;
     hideFor?: "medium" | "large";
     hideOnlyFor?: Breakpoints;
