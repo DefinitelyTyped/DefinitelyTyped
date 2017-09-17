@@ -20,7 +20,7 @@ import {
     StatusBarProperties,
     KeyboardType,
     KeyboardTypeIOS,
-    StyleProp,
+    StyleProp
 } from 'react-native';
 
 /**
@@ -44,7 +44,7 @@ export interface IconObject {
     color?: string;
     size?: number;
     type?: IconType;
-    style?: any;
+    style?: StyleProp<ViewStyle>;
 }
 
 export interface AvatarIcon extends IconObject {
@@ -1565,3 +1565,125 @@ export interface RatingProps {
  * @see https://react-native-training.github.io/react-native-elements/API/rating/
  */
 export class Rating extends React.Component<RatingProps, any> {}
+
+export interface SearchBarProps extends TextInputProperties {
+    /**
+     * TextInput container styling
+     */
+    containerStyle?: StyleProp<ViewStyle>;
+
+    /**
+     * TextInput styling
+     */
+    inputStyle?: StyleProp<TextStyle>;
+
+    /**
+     * @deprecated
+     * Get ref of TextInput
+     */
+    textInputRef?(ref: TextInput): void;
+
+    /**
+     * @deprecated
+     * Get ref of TextInput container
+     */
+    containerRef?(ref: any): void;
+
+    /**
+     * Specify color, styling, or another Material Icon Name
+     */
+    icon?: IconObject;
+
+    /**
+     * Remove icon from textinput
+     *
+     * @default false
+     */
+    noIcon?: boolean;
+
+    /**
+     * @default false		change theme to light theme
+     */
+    lightTheme?: boolean;
+
+    /**
+     * Change TextInput styling to rounded corners
+     *
+     * @default false
+     */
+    round?: boolean;
+
+    /**
+     * Specify other than the default transparent underline color
+     *
+     * @default 'transparent'
+     */
+    underlineColorAndroid?: string;
+
+    /**
+     * Specify color, styling of the loading ActivityIndicator effect
+     *
+     * @default "{ color: '#86939e' }"
+     */
+    loadingIcon?: IconObject;
+
+    /**
+     * Show the loading ActivityIndicator effect
+     *
+     * @default false
+     */
+    showLoadingIcon?: boolean;
+
+    /**
+     * Set the placeholder text
+     *
+     * @default ''
+     */
+    placeholder?: string;
+
+    /**
+     * Set the color of the placeholder text
+     *
+     * @default '#86939e'
+     */
+    placeholderTextColor?: string;
+
+    /**
+     * Method to fire when text is changed
+     */
+    onChangeText?(text: string): void;
+
+    /**
+     * Specify color, styling, or another Material Icon Name
+     * (Note: pressing on this icon clears text inside the searchbar)
+     *
+     * @default "{ color: '#86939e', name: 'search' }"
+     */
+    clearIcon?: IconObject;
+}
+
+/**
+ * SearchBar component
+ * @see https://react-native-training.github.io/react-native-elements/API/searchbar/
+ */
+export class SearchBar extends React.Component<SearchBarProps, any> {
+    /**
+     * Holds reference to the stored input.
+     */
+    input: TextInput;
+
+    /**
+     * Call focus on the TextInput
+     */
+    focus(): void;
+
+    /**
+     * Call blur on the TextInput
+     */
+    blur(): void;
+
+    /**
+     * Call clear on the TextInput
+     */
+    clearText(): void;
+}
