@@ -9,7 +9,7 @@ List will update as typings are added
 - [x] Icons
 - [ ] ~~Side Menu~~ DEPRECATED
 - [x] Form Elements
-- [ ] Search Bar
+- [x] SearchBar
 - [x] ButtonGroup
 - [x] CheckBoxes
 - [x] List Element
