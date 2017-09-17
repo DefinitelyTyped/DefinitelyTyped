@@ -9,6 +9,7 @@ import * as React from 'react';
 import {
     ViewStyle,
     TextStyle,
+    Image,
     ImageStyle,
     ImageURISource,
     TouchableWithoutFeedbackProps,
@@ -2116,3 +2117,92 @@ export class Tabs extends TabNavigator {}
  * For a complete navigation solution that includes Tabs as well as many other features, be sure to check out react-navigation (https://reactnavigation.org) and it's TabRouter.
  */
 export class Tab extends TabNavigator.Item {}
+
+export interface TileProps {
+    /**
+     * Icon Component Props
+     */
+    icon?: IconObject;
+
+    /**
+     * Styling for the outer icon container
+     */
+    iconContainerStyle?: StyleProp<ViewStyle>;
+
+    /**
+     * Text inside the tile
+     */
+    title?: string;
+
+    /**
+     * Styling for the title
+     */
+    titleStyle?: StyleProp<TextStyle>;
+
+    /**
+     * Text inside the tile when tile is featured
+     */
+    caption?: string;
+
+    /**
+     * Styling for the caption
+     */
+    captionStyle?: StyleProp<TextStyle>;
+
+    /**
+     * Changes the look of the tile
+     */
+    featured?: boolean;
+
+    /**
+     * @default none	object (style)	Styling for the outer tile container
+     */
+    containerStyle?: StyleProp<ViewStyle>;
+
+    /**
+     * Source for the image
+     */
+    imageSrc: ImageURISource | string | number;
+
+    /**
+     * Styling for the image
+     */
+    imageContainerStyle?: StyleProp<ViewStyle>;
+
+    /**
+     * @default none	function (event)	Function to call when tile is pressed
+     */
+    onPress?(): void;
+
+    /**
+     * Number passed to control opacity on press
+     *
+     * @default 0.2
+     */
+    activeOpacity?: number;
+
+    /**
+     * Styling for bottom container when not featured tile
+     */
+    contentContainerStyle?: StyleProp<ViewStyle>;
+
+    /**
+     * Width for the tile
+     *
+     * @default Device Width
+     */
+    width?: number;
+
+    /**
+     * Height for the tile
+     *
+     * @default Device Width * 0.8
+     */
+    height?: number;
+}
+
+/**
+ * Tile component
+ * @see https://react-native-training.github.io/react-native-elements/API/tile/
+ */
+export class Tile extends React.Component<TileProps, any> {}

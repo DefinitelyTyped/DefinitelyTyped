@@ -33,7 +33,8 @@ import {
     SocialIcon,
     SwipeDeck,
     Tabs,
-    Tab
+    Tab,
+    Tile
 } from 'react-native-elements';
 
 const { width, height } = Dimensions.get('window');
@@ -863,7 +864,11 @@ class SwipeDeckTest extends React.Component {
     }
 }
 
-class TabsTest extends React.Component {
+interface TabTestState {
+    selectedTab: string;
+}
+
+class TabsTest extends React.Component<{}, TabTestState> {
     state = {
         selectedTab: 'profile'
     };
@@ -928,3 +933,37 @@ class TabsTest extends React.Component {
         );
     }
 }
+
+const TileTest: React.StatelessComponent = () => (
+    <View>
+        <Tile
+            imageSrc="image/path/awesome.jpeg"
+            title="Lorem ipsum dolor sit amet, consectetur"
+            icon={{ name: 'play-circle', type: 'font-awesome' }} // optional
+            contentContainerStyle={{ height: 70 }}
+        >
+            <View
+                style={{
+                    flex: 1,
+                    flexDirection: 'row',
+                    justifyContent: 'space-between'
+                }}
+            >
+                <Text>Caption</Text>
+                <Text>Caption</Text>
+            </View>
+        </Tile>
+        <Tile
+            imageSrc="image/path/awesome.jpeg"
+            icon={{ name: 'play-circle', type: 'font-awesome' }}
+            featured
+        />
+
+        <Tile
+            imageSrc="image/path/awesome.jpeg"
+            title="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores dolore exercitationem"
+            featured
+            caption="Some Caption Text"
+        />
+    </View>
+);
