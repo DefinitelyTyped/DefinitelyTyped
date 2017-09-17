@@ -13,7 +13,7 @@ export declare class Slider extends Component<SliderProps, SliderState> {
 export interface SliderProps extends React.HTMLAttributes<HTMLDivElement>, SliderCommonProps {
     initialStart?: number;
     fill?: SliderFillProps;
-    handle?: React.CSSProperties;
+    handle?: SliderHandleProps;
 }
 export interface SliderState {
     value: number;
@@ -30,8 +30,8 @@ export declare class TwoHandleSlider extends Component<TwoHandleSliderProps, Two
 export interface TwoHandleSliderProps extends React.HTMLAttributes<HTMLDivElement>, SliderCommonProps {
     initialStart?: number;
     initialEnd?: number;
-    minHandle?: React.CSSProperties;
-    maxHandle?: React.CSSProperties;
+    minHandle?: SliderHandleProps;
+    maxHandle?: SliderHandleProps;
     fill?: SliderFillProps;
 }
 export interface TwoHandleSliderState {
@@ -44,8 +44,8 @@ export interface TwoHandleSliderState {
  * @param {Object} props
  * @returns {XML}
  */
-export declare const SliderHandle: React.StatelessComponent<SliderHandle>;
-export interface SliderHandle extends React.HTMLAttributes<HTMLSpanElement> {
+export declare const SliderHandle: React.StatelessComponent<SliderHandleProps>;
+export interface SliderHandleProps extends React.HTMLAttributes<HTMLSpanElement> {
 }
 export interface SliderFillProps {
     className?: string;

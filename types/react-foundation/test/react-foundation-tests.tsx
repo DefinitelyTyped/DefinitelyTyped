@@ -17,13 +17,16 @@ import {
   Progress, ProgressMeter, ProgressMeterWithText, ProgressMeterText, NativeProgress,
   ResponsiveNavigation, TitleBar, MenuIcon, TitleBarTitle,
   Reveal,
-  // Slider, TwoHandleSlider, SliderHandle, SliderFill, -- missing from index?
   Switch, SwitchInput, SwitchPaddle, SwitchActive, SwitchInactive,
   Tabs, TabItem, TabsContent, TabPanel,
   Thumbnail, ThumbnailLink,
   TopBar, TopBarTitle, TopBarLeft, TopBarRight,
   GridContainer, Grid, Cell
 } from 'react-foundation';
+
+import { // missing from index?
+    Slider, TwoHandleSlider, SliderHandle, SliderFill
+} from 'react-foundation/components/slider'
 
 import {
   HorizontalAlignments, VerticalAlignments, ExtendedBreakpoints, SpaceControls,
@@ -1301,9 +1304,49 @@ export class ReactFoundationTests extends React.Component {
           offsetOnMedium={6}
           offsetOnLarge={6}
         /> 
+
+        <Slider/> 
+        <Slider
+          style={{position: "absolute"}}
+          className="foo"
+          onClick = {(e) => e.pageX}
+          /> 
+        <Slider
+          initialStart={2}
+          fill={{}}
+          handle={{}}
+          isVertical={true}
+          isDisabled={false}
+        /> 
+
+        <TwoHandleSlider/> 
+        <TwoHandleSlider
+          style={{position: "absolute"}}
+          className="foo"
+          onClick = {(e) => e.pageX}
+        /> 
+        <TwoHandleSlider        
+          initialStart={3}
+          initialEnd={4}
+          minHandle={{}}
+          maxHandle={{}}
+          fill={{}}
+          isVertical={true}
+          isDisabled={false}
+        /> 
+
+        <SliderHandle/> 
+        <SliderHandle
+          style={{position: "absolute"}}
+          className="foo"
+          onClick = {(e) => e.pageX}
+        /> 
+        
+        <SliderFill/>
+        <SliderFill className="foo" />
       </div>
     );
   }
 }
 
-// <Slider/> <TwoHandleSlider/> <SliderHandle/> <SliderFill/> -- missing from index?
+
