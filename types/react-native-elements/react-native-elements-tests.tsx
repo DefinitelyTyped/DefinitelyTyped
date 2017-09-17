@@ -34,7 +34,10 @@ import {
     SwipeDeck,
     Tabs,
     Tab,
-    Tile
+    Tile,
+    colors,
+    getIconType,
+    normalize
 } from 'react-native-elements';
 
 const { width, height } = Dimensions.get('window');
@@ -967,3 +970,7 @@ const TileTest: React.StatelessComponent = () => (
         />
     </View>
 );
+
+const CustomIcon = getIconType('material');
+const fontSize = normalize(20);
+const white = colors.white;

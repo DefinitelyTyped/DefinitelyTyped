@@ -2206,3 +2206,43 @@ export interface TileProps {
  * @see https://react-native-training.github.io/react-native-elements/API/tile/
  */
 export class Tile extends React.Component<TileProps, any> {}
+
+/**
+ * Colors
+ */
+
+export interface Colors {
+    readonly primary: string;
+    readonly primary1: string;
+    readonly primary2: string;
+    readonly secondary: string;
+    readonly secondary2: string;
+    readonly secondary3: string;
+    readonly grey0: string;
+    readonly grey1: string;
+    readonly grey2: string;
+    readonly grey3: string;
+    readonly grey4: string;
+    readonly grey5: string;
+    readonly dkGreyBg: string;
+    readonly greyOutline: string;
+    readonly searchBg: string;
+    readonly disabled: string;
+    readonly white: string;
+    readonly error: string;
+    readonly [key: string]: string;
+}
+
+export const colors: Colors;
+
+/* Utility Functions */
+
+/**
+ * TODO make the Icon Type an export of the react-native-vector-icons type definitions.
+ */
+export function getIconType(type: IconType): any;
+
+/**
+ * Method to normalize size of fonts across devices
+ */
+export function normalize(size: number): number;
