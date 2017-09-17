@@ -28,7 +28,8 @@ import {
     Rating,
     SearchBar,
     SideMenu,
-    Slider
+    Slider,
+    SocialIcon
 } from 'react-native-elements';
 
 class TextTest extends React.Component<any, any> {
@@ -728,3 +729,18 @@ class SliderTest extends React.Component<any, SliderTestState> {
         );
     }
 }
+
+const SocialIconTest: React.StatelessComponent = () => {
+    return (
+        <View>
+            <SocialIcon type="twitter" />
+            <SocialIcon raised={false} type="gitlab" />
+            <SocialIcon light type="medium" />
+            <SocialIcon light raised={false} type="medium" />
+            <SocialIcon title="Sign In With Facebook" button type="facebook" />
+            <SocialIcon title="Some Twitter Message" button type="twitter" />
+            <SocialIcon button type="medium" />
+            <SocialIcon button light type="instagram" />
+        </View>
+    );
+};
