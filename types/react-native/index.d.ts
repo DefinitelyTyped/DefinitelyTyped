@@ -9248,6 +9248,8 @@ declare global {
         trace(message?: any, ...optionalParams: any[]): void
         debug(message?: any, ...optionalParams: any[]): void
         table(...data: any[]): void;
+        disableYellowBox: boolean;
+        ignoredYellowBox: string[];
     }
 
     var console: Console
