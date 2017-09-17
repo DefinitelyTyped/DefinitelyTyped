@@ -28,3 +28,4 @@ export { Tabs, TabItem, TabsContent, TabPanel } from './components/tabs';
 export { TopBar, TopBarTitle, TopBarLeft, TopBarRight } from './components/top-bar';
 export { GridContainer, Grid, Cell } from './components/xy-grid';
 export { Breakpoints, Colors, Sizes, Alignments, FloatTypes, InputTypes, GutterTypes, ExtendedBreakpoints, SpaceControls } from './enums';
+export { Slider, TwoHandleSlider, SliderHandle, SliderFill } from './components/slider';
