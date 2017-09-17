@@ -81,6 +81,10 @@ export interface RemoteObjSpec {
 
 export interface BootstrapTableProps extends Props<BootstrapTable> {
 	/**
+    Set version='4' to use bootstrap@4, else bootstrap@3 is used.
+    */
+    version?: string;
+	/**
 	Use data to specify the data that you want to display on table.
 	*/
 	data: any[];
@@ -155,6 +159,11 @@ export interface BootstrapTableProps extends Props<BootstrapTable> {
 	Set searchPlaceholder to change the placeholder in search field, default is Search.
 	*/
 	searchPlaceholder?: string;
+	/**
+	Enable strict search, default is false.
+	More info here: https://github.com/AllenFang/react-bootstrap-table/issues/1199
+	*/
+	strictSearch?: boolean;
 	/**
 	Enable multi search by multiColumnSearch, default is false.
 	If you want to use multi search, you must enable search at first.

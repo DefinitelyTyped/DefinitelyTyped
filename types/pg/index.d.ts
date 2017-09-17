@@ -115,9 +115,12 @@ export class Client extends events.EventEmitter {
     pauseDrain(): void;
     resumeDrain(): void;
 
+    escapeIdentifier(str: string): string;
+    escapeLiteral(str: string): string;
+
     on(event: "drain", listener: () => void): this;
-    on(event: "error", listener: (err: Error) => void): this;
-    on(event: "notification" | "notice", listener: (message: Notification) => void): this;
+    on(event: "error" | "notice", listener: (err: Error) => void): this;
+    on(event: "notification", listener: (message: Notification) => void): this;
     // tslint:disable-next-line unified-signatures
     on(event: "end", listener: () => void): this;
 }
