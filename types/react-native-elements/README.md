@@ -22,6 +22,6 @@ List will update as typings are added
 - [ ] Tile Component
 - [x] Avatar Component
 - [x] Rating Component
-- [ ] SwipeDeck Component
+- [x] SwipeDeck Component
 - [x] Header Component
 - [x] Divider
