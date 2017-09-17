@@ -17,5 +17,10 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "noUnusedLocals": false
-    }
+    },
+    "files": [
+        "index.d.ts",
+        "utils.d.ts",
+        "test/react-foundation-tests.tsx"
+    ]
 }
