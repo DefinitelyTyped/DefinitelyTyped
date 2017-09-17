@@ -25,6 +25,7 @@ import {
     Animated,
     TransformsStyle
 } from 'react-native';
+import TabNavigator from 'react-native-tab-navigator';
 
 /**
  * Supports auto complete for most used types as well as any other string type.
@@ -2101,3 +2102,17 @@ export class SwipeDeck<D = any> extends React.Component<
     SwipeDeckProps<D>,
     any
 > {}
+
+/**
+ * @deprecated
+ * Warning: Tabs has been deprecated and will be removed in a future version of React Native Elements.
+ * For a complete navigation solution that includes Tabs as well as many other features, be sure to check out react-navigation (https://reactnavigation.org) and it's TabRouter.
+ */
+export class Tabs extends TabNavigator {}
+
+/**
+ * @deprecated
+ * Warning: Tab has been deprecated and will be removed in a future version of React Native Elements.
+ * For a complete navigation solution that includes Tabs as well as many other features, be sure to check out react-navigation (https://reactnavigation.org) and it's TabRouter.
+ */
+export class Tab extends TabNavigator.Item {}
