@@ -27,7 +27,8 @@ import {
     PricingCard,
     Rating,
     SearchBar,
-    SideMenu
+    SideMenu,
+    Slider
 } from 'react-native-elements';
 
 class TextTest extends React.Component<any, any> {
@@ -693,6 +694,37 @@ class SideMenuTest extends React.Component<any, SideMenuTestState> {
                     />
                 </View>
             </SideMenu>
+        );
+    }
+}
+
+interface SliderTestState {
+    value: number;
+}
+class SliderTest extends React.Component<any, SliderTestState> {
+    state = {
+        value: 0.2
+    };
+
+    onValueChange = (value: number) => {
+        this.setState({ value });
+    }
+
+    render() {
+        return (
+            <View
+                style={{
+                    flex: 1,
+                    alignItems: 'stretch',
+                    justifyContent: 'center'
+                }}
+            >
+                <Slider
+                    value={this.state.value}
+                    onValueChange={this.onValueChange}
+                />
+                <Text>Value: {this.state.value}</Text>
+            </View>
         );
     }
 }

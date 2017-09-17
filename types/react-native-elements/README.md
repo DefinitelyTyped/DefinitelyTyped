@@ -7,7 +7,7 @@ List will update as typings are added
 - [x] Badge
 - [ ] Social Icons / Social Icon Buttons
 - [x] Icons
-- [ ] ~~Side Menu~~ DEPRECATED
+- [x] ~~Side Menu~~ DEPRECATED
 - [x] Form Elements
 - [x] SearchBar
 - [x] ButtonGroup
@@ -18,7 +18,7 @@ List will update as typings are added
 - [x] Card component
 - [x] Pricing Component
 - [x] ~~Grid Component~~ DEPRECATED
-- [ ] Slider Component
+- [x] Slider Component
 - [ ] Tile Component
 - [x] Avatar Component
 - [x] Rating Component
