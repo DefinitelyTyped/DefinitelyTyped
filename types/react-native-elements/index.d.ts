@@ -2065,3 +2065,39 @@ export interface SocialIconProps {
  * @see https://react-native-training.github.io/react-native-elements/API/social_icons/
  */
 export class SocialIcon extends React.Component<SocialIconProps, any> {}
+
+export interface SwipeDeckProps<D> {
+    /**
+     * An array of data object which contains each card details.
+     */
+    data: ReadonlyArray<D>;
+
+    /**
+     * A function that takes a card as a prop and renders it with custom UI
+     */
+    renderCard(card: D): JSX.Element;
+
+    /**
+     * A function that renders custom UI when no more cards are present
+     */
+    renderNoMoreCards?(): JSX.Element;
+
+    /**
+     * function	function	A callback function that takes a card as a prop and take the approriate action when the user swipes the card right
+     */
+    onSwipeRight?(card: D): void;
+
+    /**
+     * function	function	A callback function that takes a card as a prop and take the approriate action when the user swipes the card left
+     */
+    onSwipeLeft?(card: D): void;
+}
+
+/**
+ * SwipeDeck component
+ * @see https://react-native-training.github.io/react-native-elements/API/swipedeck/
+ */
+export class SwipeDeck<D = any> extends React.Component<
+    SwipeDeckProps<D>,
+    any
+> {}
