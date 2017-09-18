@@ -12436,11 +12436,13 @@ declare module olx {
         /**
          * @typedef {{className: (string|undefined),
          *     condition: (ol.EventsConditionType|undefined),
+         *     minArea: (number|undefined),
          *     boxEndCondition: (ol.DragBoxEndConditionType|undefined)}}
          */
         interface DragBoxOptions {
             className?: string;
             condition?: ol.EventsConditionType;
+            minArea?: number;
             boxEndCondition?: ol.DragBoxEndConditionType;
         }
 
