@@ -24,33 +24,33 @@ export {
     withRouter,
     RouterChildContext
 } from 'react-router';
-  
+
 export interface BrowserRouterProps {
-  basename?: string;
-  getUserConfirmation?(): void;
-  forceRefresh?: boolean;
-  keyLength?: number;
+    basename?: string;
+    getUserConfirmation?(): void;
+    forceRefresh?: boolean;
+    keyLength?: number;
 }
 export class BrowserRouter extends React.Component<BrowserRouterProps> {}
-  
+
 export interface HashRouterProps {
-  basename?: string;
-  getUserConfirmation?(): void;
-  hashType?: 'slash' | 'noslash' | 'hashbang';
+    basename?: string;
+    getUserConfirmation?(): void;
+    hashType?: 'slash' | 'noslash' | 'hashbang';
 }
 export class HashRouter extends React.Component<HashRouterProps> {}
-  
+
 export interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
-  to: H.LocationDescriptor;
-  replace?: boolean;
+    to: H.LocationDescriptor;
+    replace?: boolean;
 }
 export class Link extends React.Component<LinkProps> {}
-  
+
 export interface NavLinkProps extends LinkProps {
-  activeClassName?: string;
-  activeStyle?: React.CSSProperties;
-  exact?: boolean;
-  strict?: boolean;
-  isActive?<P>(match: match<P>, location: H.Location): boolean;
+    activeClassName?: string;
+    activeStyle?: React.CSSProperties;
+    exact?: boolean;
+    strict?: boolean;
+    isActive?<P>(match: match<P>, location: H.Location): boolean;
 }
 export class NavLink extends React.Component<NavLinkProps> {}
