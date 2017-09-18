@@ -42,7 +42,7 @@ declare namespace stripe {
 		flow?: 'redirect' | 'receiver' | 'code_verification' | 'none';
 		sepa_debit?: {
 			iban: string;
-		},
+		};
 		currency?: string;
 		amount?: number;
 		owner?: {
@@ -57,7 +57,7 @@ declare namespace stripe {
 			name?: string;
 			email?: string;
 			phone?: string;
-		},
+		};
 		metadata?: object;
 		statement_descriptor?: string;
 		redirect?: {
