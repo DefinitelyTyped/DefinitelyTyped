@@ -9,6 +9,14 @@ declare module 'react-big-calendar' {
 
     type stringOrDate = string | Date;
 
+    interface CalendarEvent {
+        title: string;
+        allDay: boolean;
+        start: Date;
+        end: Date;
+        desc: string;
+    }
+
     interface BigCalendarProps extends React.Props<BigCalendar> {
         date?: stringOrDate;
         view?: string;
@@ -16,7 +24,7 @@ declare module 'react-big-calendar' {
         onNavigate?: Function;
         onView?: Function;
         onSelectSlot?: (slotInfo: { start: stringOrDate, end: stringOrDate, slots: Date[] | string[] }) => void;
-        onSelectEvent?: (event: Object) => void;
+        onSelectEvent?: (event: CalendarEvent) => void;
         onSelecting?: (slotInfo: { start: stringOrDate, end: stringOrDate }) => boolean;
         views?: Object;
         toolbar?: boolean;
