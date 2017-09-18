@@ -4,10 +4,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { AbstractView, Component, ComponentClass,
+import {
+    AbstractView, Component, ComponentClass,
     ReactElement, ReactInstance, ClassType,
     DOMElement, SFCElement, CElement,
-    ReactHTMLElement, DOMAttributes, SFC } from 'react';
+    ReactHTMLElement, DOMAttributes, SFC
+} from 'react';
 
 export = TestUtils;
 
@@ -80,6 +82,7 @@ declare namespace TestUtils {
         export var blur: EventSimulator;
         export var change: EventSimulator;
         export var click: EventSimulator;
+        export var contextMenu: EventSimulator;
         export var copy: EventSimulator;
         export var cut: EventSimulator;
         export var doubleClick: EventSimulator;
