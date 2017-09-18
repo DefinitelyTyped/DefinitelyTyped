@@ -8,7 +8,8 @@
 
 import * as angular from 'angular';
 
-export default "ui.router";
+declare const exportedString: "ui.router";
+export default exportedString;
 
 export type IState = angular.ui.IState;
 export type IStateProvider = angular.ui.IStateProvider;
