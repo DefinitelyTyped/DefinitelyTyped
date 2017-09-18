@@ -1,4 +1,4 @@
-// Type definitions for react-big-calendar 0.14.0
+// Type definitions for react-big-calendar 0.15.0
 // Project: https://github.com/intljusticemission/react-big-calendar
 // Definitions by: Piotr Witek <http://piotrwitek.github.io>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
