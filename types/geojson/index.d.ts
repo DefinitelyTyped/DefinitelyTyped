@@ -2,6 +2,7 @@
 // Project: http://geojson.org/
 // Definitions by: Jacob Bruun <https://github.com/cobster>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 export as namespace GeoJSON;
 
