@@ -4,12 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import {
-    AbstractView, Component, ComponentClass,
+import { AbstractView, Component, ComponentClass,
     ReactElement, ReactInstance, ClassType,
     DOMElement, SFCElement, CElement,
-    ReactHTMLElement, DOMAttributes, SFC
-} from 'react';
+    ReactHTMLElement, DOMAttributes, SFC } from 'react';
 
 export = TestUtils;
 
