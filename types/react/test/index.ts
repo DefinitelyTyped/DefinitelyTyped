@@ -646,6 +646,12 @@ if (TestUtils.isDOMComponent(container)) {
     new ModernComponent().props;
 }
 
+// https://github.com/Microsoft/TypeScript/issues/15019
+
+function foo3(child: React.ComponentClass<{ name: string }> | React.StatelessComponent<{ name: string }>) {
+    React.createElement(child, { name: "bar" });
+}
+
 //
 // TransitionGroup addon
 // --------------------------------------------------------------------------

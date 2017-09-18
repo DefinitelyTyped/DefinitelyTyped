@@ -216,7 +216,7 @@ declare namespace React {
         props?: ClassAttributes<T> & P,
         ...children: ReactNode[]): CElement<P, T>;
     function createElement<P>(
-        type: ComponentClass<P>,
+        type: SFC<P> | ComponentClass<P>,
         props?: Attributes & P,
         ...children: ReactNode[]): ReactElement<P>;
 
