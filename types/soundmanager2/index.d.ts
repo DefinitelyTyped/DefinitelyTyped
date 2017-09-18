@@ -1,14 +1,15 @@
-// Type definitions for soundmanager2 V2.97a.20170601
+// Type definitions for soundmanager2 2.97
 // Project: https://github.com/scottschiller/SoundManager2
 // Definitions by: Elton Lee <https://github.com/elton2048>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 declare var soundManager: soundmanager.SoundManager;
 
 declare namespace soundmanager {
     type ScriptAccess = 'always' | 'sameDomain';
 
-    export interface DefaultOptions {
+    interface DefaultOptions {
         autoLoad?: boolean;
         autoPlay?: boolean;
         from?: number | null;
@@ -36,7 +37,7 @@ declare namespace soundmanager {
         volume?: number;
     }
 
-    export interface Flash9Options {
+    interface Flash9Options {
         onfailure(): void | null;
         isMovieStar: true | null;
         usePeakData: boolean;
@@ -46,7 +47,7 @@ declare namespace soundmanager {
         ondataerror(): void | null;
     }
 
-    export interface MovieStarOptions {
+    interface MovieStarOptions {
         bufferTime: number;
         serverURL: string | null;
         onconnect(): void | null;
@@ -55,19 +56,23 @@ declare namespace soundmanager {
 
     interface SoundManagerProps {
         /**
-         * The directory where SM2 can find the flash movies (soundmanager2.swf, soundmanager2_flash9.swf and debug versions etc.) Note that SM2 will append the correct SWF file name, depending on flashVersion and debugMode settings.
+         * The directory where SM2 can find the flash movies (soundmanager2.swf,
+         * soundmanager2_flash9.swf and debug versions etc.) Note that SM2 will
+         * append the correct SWF file name, depending on flashVersion and
+         * debugMode settings.
          * @type {string}
          */
         url: string;
 
-        allowScriptAccess?: soundmanager.ScriptAccess;
+        allowScriptAccess?: ScriptAccess;
         altURL?: string;
         bgColor?: string;
         consoleOnly?: boolean;
         debugMode?: boolean;
         debugFlash?: boolean;
         /**
-         * Some properties are dynamic, determined at initialisation or later during runtime, and should be treated as read-only.
+         * Some properties are dynamic, determined at initialisation or later
+         * during runtime, and should be treated as read-only.
          */
         readonly features?: object;
 
@@ -98,8 +103,7 @@ declare namespace soundmanager {
         ontimeout?(): void;
     }
 
-    export interface SoundManager extends SoundManagerProps {
-
+    interface SoundManager extends SoundManagerProps {
         canPlayLink(domElement: HTMLElement): boolean;
         canPlayMIME(MIMEtype: string): boolean;
         canPlayURL(mediaURL: string): boolean;
@@ -116,7 +120,7 @@ declare namespace soundmanager {
         setup(options: SoundManagerProps): SoundManager;
     }
 
-    export class SMSound {
+    class SMSound {
         // Parameters, instance options.
         id: string;
         pan: number;
@@ -158,13 +162,13 @@ declare namespace soundmanager {
 
         // Methods
         destruct(): void;
-        load(options: void): SMSound;
+        load(options: object): SMSound;
         // clearOnPosition(): void;
-        onPosition(mescOffest: number, callback: void, []): SMSound;
+        onPosition(mescOffest: number, callback: object, []): SMSound;
         mute(): SMSound;
         pause(): SMSound;
         play(id?: string, options?: DefaultOptions): SMSound;
-        resume(): SMSound
+        resume(): SMSound;
         setPan(volume: number): SMSound;
         setPosition(msecOffset: number): SMSound;
         setVolume(volume: number): SMSound;
@@ -175,40 +179,7 @@ declare namespace soundmanager {
         unmute(): SMSound;
     }
 
-    export interface audioFormats {
-        mp3: {
-            type: ['audio/mpeg; codecs="mp3"', 'audio/mpeg', 'audio/mp3', 'audio/MPA', 'audio/mpa-robust'];
-            required: true;
-        },
-
-        mp4: {
-            related: ['aac', 'm4a', 'm4b'], // additional formats under the MP4 container
-            type: ['audio/mp4; codecs="mp4a.40.2"', 'audio/aac', 'audio/x-m4a', 'audio/MP4A-LATM', 'audio/mpeg4-generic'];
-            required: false;
-        },
-
-        ogg: {
-            type: ['audio/ogg; codecs=vorbis'];
-            required: false;
-        },
-
-        opus: {
-            type: ['audio/ogg; codecs=opus', 'audio/opus'];
-            required: false;
-        },
-
-        wav: {
-            type: ['audio/wav; codecs="1"', 'audio/wav', 'audio/wave', 'audio/x-wav'];
-            required: false;
-        },
-
-        flac: {
-            type: ['audio/flac'];
-            required: false;
-        }
-    }
-
-    export interface PeekData {
+    interface PeekData {
         left: number;
         right: number;
     }
