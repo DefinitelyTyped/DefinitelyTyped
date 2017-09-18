@@ -19,7 +19,7 @@ declare namespace stripe {
     interface Stripe {
         elements(options?: elements.ElementsCreateOptions): elements.Elements;
         createToken(element: elements.Element, options?: TokenOptions): Promise<TokenResponse>;
-		createSource(options: SourceOptions): Promise<SourceResponse>;
+        createSource(options: SourceOptions): Promise<SourceResponse>;
     }
 
     interface StripeOptions {
@@ -37,35 +37,35 @@ declare namespace stripe {
         currency?: string;
     }
 
-	interface SourceOptions {
-		type: string;
-		flow?: 'redirect' | 'receiver' | 'code_verification' | 'none';
-		sepa_debit?: {
-			iban: string;
-		};
-		currency?: string;
-		amount?: number;
-		owner?: {
-			address?: {
-				city?: string;
-				country?: string;
-				line1?: string;
-				line2?: string;
-				postal_code?: string;
-				state?: string;
-			};
-			name?: string;
-			email?: string;
-			phone?: string;
-		};
-		metadata?: object;
-		statement_descriptor?: string;
-		redirect?: {
-			return_url: string;
-		};
-		token?: string;
-		usage?: 'reusable' | 'single_use';
-	}
+    interface SourceOptions {
+        type: string;
+        flow?: 'redirect' | 'receiver' | 'code_verification' | 'none';
+        sepa_debit?: {
+            iban: string;
+        };
+        currency?: string;
+        amount?: number;
+        owner?: {
+            address?: {
+                city?: string;
+                country?: string;
+                line1?: string;
+                line2?: string;
+                postal_code?: string;
+                state?: string;
+            };
+            name?: string;
+            email?: string;
+            phone?: string;
+        };
+        metadata?: object;
+        statement_descriptor?: string;
+        redirect?: {
+            return_url: string;
+        };
+        token?: string;
+        usage?: 'reusable' | 'single_use';
+    }
 
     interface Token {
         id: string;
@@ -84,7 +84,7 @@ declare namespace stripe {
         error?: Error;
     }
 
-	interface Source {
+    interface Source {
         client_secret: string;
         created: number;
         currency: string;
@@ -106,12 +106,12 @@ declare namespace stripe {
             last4: string;
             mandate_reference: string;
         };
-	}
+    }
 
-	interface SourceResponse {
-		source?: Source;
-		error?: Error;
-	}
+    interface SourceResponse {
+        source?: Source;
+        error?: Error;
+    }
 
     interface Error {
         type: string;
