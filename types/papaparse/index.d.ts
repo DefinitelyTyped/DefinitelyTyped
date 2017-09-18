@@ -69,7 +69,7 @@ declare namespace PapaParse {
         preview?: number;              // default: 0
         encoding?: string;             // default: ""
         worker?: boolean;              // default: false
-        comments?: boolean;            // default: false
+        comments?: boolean | string;   // default: false
         download?: boolean;            // default: false
         skipEmptyLines?: boolean;      // default: false
         fastMode?: boolean;            // default: undefined
