@@ -8468,11 +8468,6 @@ export interface ImageStoreStatic {
         ): void
 }
 
-// Network Polyfill
-// TODO: Add proper support for fetch
-export type fetch = (url: string, options?: Object) => Promise<any>
-export const fetch: fetch;
-
 export interface TabsReducerStatic {
     JumpToAction(index: number): any;
 }
