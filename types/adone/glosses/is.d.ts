@@ -303,7 +303,10 @@ declare namespace adone {
          */
         export function bigNumber(obj: any): boolean;
 
-        export function exbuffer(obj: any): boolean;
+        /**
+         * Checks whether the given object is an instance of adone.collection.ByteArray
+         */
+        export function byteArray(obj: any): boolean;
 
         /**
          * Checks whether the given object is an instance of adone.datetime
