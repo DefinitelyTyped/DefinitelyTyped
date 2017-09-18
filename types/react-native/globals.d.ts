@@ -18,3 +18,5 @@ declare function setImmediate(handler: (...args: any[]) => void): number;
 
 declare function cancelAnimationFrame(handle: number): void;
 declare function requestAnimationFrame(callback: (time: number) => void): number;
+
+declare function fetch(input: RequestInfo, init?: RequestInit): Promise<Response>;
