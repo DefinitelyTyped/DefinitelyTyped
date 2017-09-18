@@ -5053,7 +5053,7 @@ declare namespace Word {
         public readonly SmartTagTypes: SmartTagTypes;
         public readonly SpecialMode: boolean;
         public StartupPath: string;
-        public readonly StatusBar: string;
+        public StatusBar: string;
         public SubstituteFont(UnavailableFont: string, SubstituteFont: string): void;
         public SynonymInfo(Word: string, LanguageID?: any): SynonymInfo;
         public readonly System: System;
@@ -6412,7 +6412,7 @@ declare namespace Word {
         public readonly CommandName: string;
         public readonly Creator: number;
         public DefaultTab: WdWordDialogTab;
-        public Display(TimeOut?: any): number;
+        public Display(TimeOut?: number): number;
         public Execute(): void;
         public readonly Parent: any;
         public Show(TimeOut?: any): number;
@@ -6707,7 +6707,7 @@ declare namespace Word {
         public Protect(Type: WdProtectionType, NoReset?: any, Password?: any, UseIRM?: any, EnforceStyleLock?: any): void;
         public Protect2002(Type: WdProtectionType, NoReset?: any, Password?: any): void;
         public readonly ProtectionType: WdProtectionType;
-        public Range(Start?: any, End?: any): Range;
+        public Range(Start?: number, End?: number): Range;
         public readonly ReadabilityStatistics: ReadabilityStatistics;
         public ReadingLayoutSizeX: number;
         public ReadingLayoutSizeY: number;
@@ -7291,7 +7291,7 @@ declare namespace Word {
         public Visible: Office.MsoTriState;
     }
 
-    class Find {
+    class Find<TParent = Range | Selection> {
         private 'Word.Find_typekey': Find;
         private constructor();
         public readonly Application: Application;
@@ -7301,15 +7301,15 @@ declare namespace Word {
         public CorrectHangulEndings: boolean;
         public readonly Creator: number;
         public Execute(
-            FindText?: any, MatchCase?: any, MatchWholeWord?: any, MatchWildcards?: any, MatchSoundsLike?: any, MatchAllWordForms?: any, Forward?: any, Wrap?: any,
-            Format?: any, ReplaceWith?: any, Replace?: any, MatchKashida?: any, MatchDiacritics?: any, MatchAlefHamza?: any, MatchControl?: any): boolean;
+            FindText?: string, MatchCase?: boolean, MatchWholeWord?: boolean, MatchWildcards?: boolean, MatchSoundsLike?: boolean, MatchAllWordForms?: boolean, Forward?: boolean, Wrap?: WdFindWrap,
+            Format?: boolean, ReplaceWith?: string, Replace?: WdReplace, MatchKashida?: boolean, MatchDiacritics?: boolean, MatchAlefHamza?: boolean, MatchControl?: boolean): boolean;
         public Execute2007(
-            FindText?: any, MatchCase?: any, MatchWholeWord?: any, MatchWildcards?: any, MatchSoundsLike?: any, MatchAllWordForms?: any, Forward?: any, Wrap?: any,
-            Format?: any, ReplaceWith?: any, Replace?: any, MatchKashida?: any, MatchDiacritics?: any, MatchAlefHamza?: any, MatchControl?: any, MatchPrefix?: any,
-            MatchSuffix?: any, MatchPhrase?: any, IgnoreSpace?: any, IgnorePunct?: any): boolean;
+            FindText?: string, MatchCase?: boolean, MatchWholeWord?: boolean, MatchWildcards?: boolean, MatchSoundsLike?: boolean, MatchAllWordForms?: boolean, Forward?: boolean, Wrap?: WdFindWrap,
+            Format?: boolean, ReplaceWith?: string, Replace?: WdReplace, MatchKashida?: boolean, MatchDiacritics?: boolean, MatchAlefHamza?: boolean, MatchControl?: boolean, MatchPrefix?: boolean,
+            MatchSuffix?: boolean, MatchPhrase?: boolean, IgnoreSpace?: boolean, IgnorePunct?: boolean): boolean;
         public ExecuteOld(
-            FindText?: any, MatchCase?: any, MatchWholeWord?: any, MatchWildcards?: any, MatchSoundsLike?: any, MatchAllWordForms?: any, Forward?: any, Wrap?: any,
-            Format?: any, ReplaceWith?: any, Replace?: any): boolean;
+            FindText?: string, MatchCase?: boolean, MatchWholeWord?: boolean, MatchWildcards?: boolean, MatchSoundsLike?: boolean, MatchAllWordForms?: boolean, Forward?: boolean, Wrap?: WdFindWrap,
+            Format?: boolean, ReplaceWith?: string, Replace?: WdReplace): boolean;
         public Font: Font;
         public Format: boolean;
         public Forward: boolean;
@@ -7342,7 +7342,7 @@ declare namespace Word {
         public MatchWildcards: boolean;
         public NoProofing: number;
         public ParagraphFormat: ParagraphFormat;
-        public readonly Parent: any;
+        public readonly Parent: TParent;
         public readonly Replacement: Replacement;
         public SetAllFuzzyOptions(): void;
         public Style: any;
@@ -7393,11 +7393,11 @@ declare namespace Word {
     class Font {
         private 'Word.Font_typekey': Font;
         private constructor();
-        public AllCaps: number;
+        public AllCaps: boolean | WdConstants.wdUndefined | WdConstants.wdToggle;
         public Animation: WdAnimation;
         public readonly Application: Application;
-        public Bold: number;
-        public BoldBi: number;
+        public Bold: boolean | WdConstants.wdUndefined | WdConstants.wdToggle;
+        public BoldBi: boolean | WdConstants.wdUndefined | WdConstants.wdToggle;
         public Borders: Borders;
         public Color: WdColor;
         public ColorIndex: WdColorIndex;
@@ -7408,15 +7408,15 @@ declare namespace Word {
         public DisableCharacterSpaceGrid: boolean;
         public DoubleStrikeThrough: number;
         public readonly Duplicate: Font;
-        public Emboss: number;
+        public Emboss: boolean | WdConstants.wdUndefined | WdConstants.wdToggle;
         public EmphasisMark: WdEmphasisMark;
-        public Engrave: number;
+        public Engrave: boolean | WdConstants.wdUndefined | WdConstants.wdToggle;
         public Fill: FillFormat;
         public Glow: GlowFormat;
         public Grow(): void;
         public Hidden: number;
-        public Italic: number;
-        public ItalicBi: number;
+        public Italic: boolean | WdConstants.wdUndefined | WdConstants.wdToggle;
+        public ItalicBi: boolean | WdConstants.wdUndefined | WdConstants.wdToggle;
         public Kerning: number;
         public Ligatures: WdLigatures;
         public Line: LineFormat;
@@ -7439,12 +7439,12 @@ declare namespace Word {
         public Shrink(): void;
         public Size: number;
         public SizeBi: number;
-        public SmallCaps: number;
+        public SmallCaps: boolean | WdConstants.wdUndefined | WdConstants.wdToggle;
         public Spacing: number;
         public StrikeThrough: number;
         public StylisticSet: WdStylisticSet;
-        public Subscript: number;
-        public Superscript: number;
+        public Subscript: boolean | WdConstants.wdUndefined | WdConstants.wdToggle;
+        public Superscript: boolean | WdConstants.wdUndefined | WdConstants.wdToggle;
         public readonly TextColor: ColorFormat;
         public TextShadow: ShadowFormat;
         public ThreeD: ThreeDFormat;
@@ -9880,8 +9880,8 @@ declare namespace Word {
         private constructor();
         public readonly Application: Application;
         public AutoFormat(): void;
-        public Bold: number;
-        public BoldBi: number;
+        public Bold: boolean | WdConstants.wdUndefined | WdConstants.wdToggle;
+        public BoldBi: boolean | WdConstants.wdUndefined | WdConstants.wdToggle;
         public readonly BookmarkID: number;
         public readonly Bookmarks: Bookmarks;
         public Borders: Borders;
@@ -9898,7 +9898,9 @@ declare namespace Word {
             CustomDictionary?: any, IgnoreUppercase?: any, AlwaysSuggest?: any, CustomDictionary2?: any, CustomDictionary3?: any, CustomDictionary4?: any,
             CustomDictionary5?: any, CustomDictionary6?: any, CustomDictionary7?: any, CustomDictionary8?: any, CustomDictionary9?: any, CustomDictionary10?: any): void;
         public CheckSynonyms(): void;
-        public Collapse(Direction?: any): void;
+
+        /** @param WdCollapseDirection [Direction=wdCollapseStart] */
+        public Collapse(Direction?: WdCollapseDirection): void;
         public readonly Columns: Columns;
         public CombineCharacters: boolean;
         public readonly Comments: Comments;
@@ -9917,7 +9919,7 @@ declare namespace Word {
         public CreatePublisher(Edition?: any, ContainsPICT?: any, ContainsRTF?: any, ContainsText?: any): void;
         public readonly Creator: number;
         public Cut(): void;
-        public Delete(Unit?: any, Count?: any): number;
+        public Delete(Unit?: WdUnits, Count?: number): number;
         public DetectLanguage(): void;
         public DisableCharacterSpaceGrid: boolean;
         public readonly Document: Document;
@@ -9949,7 +9951,7 @@ declare namespace Word {
             BitmapMissingFonts?: boolean, UseISO19005_1?: boolean, FixedFormatExtClassPtr?: any): void;
         public ExportFragment(FileName: string, Format: WdSaveFormat): void;
         public readonly Fields: Fields;
-        public readonly Find: Find;
+        public readonly Find: Find<Range>;
         public FitTextWidth: number;
         public Font: Font;
         public readonly FootnoteOptions: FootnoteOptions;
@@ -10004,8 +10006,8 @@ declare namespace Word {
         public InStory(Range: Range): boolean;
         public readonly IsEndOfRowMark: boolean;
         public IsEqual(Range: Range): boolean;
-        public Italic: number;
-        public ItalicBi: number;
+        public Italic: boolean | WdConstants.wdUndefined | WdConstants.wdToggle;
+        public ItalicBi: boolean | WdConstants.wdUndefined | WdConstants.wdToggle;
         public Kana: WdKana;
         public LanguageDetected: boolean;
         public LanguageID: WdLanguageID;
@@ -10017,11 +10019,11 @@ declare namespace Word {
         public readonly Locks: CoAuthLocks;
         public LookupNameProperties(): void;
         public ModifyEnclosure(Style: any, Symbol?: any, EnclosedText?: any): void;
-        public Move(Unit?: any, Count?: any): number;
-        public MoveEnd(Unit?: any, Count?: any): number;
+        public Move(Unit?: WdUnits, Count?: number): number;
+        public MoveEnd(Unit?: WdUnits, Count?: number): number;
         public MoveEndUntil(Cset: any, Count?: any): number;
         public MoveEndWhile(Cset: any, Count?: any): number;
-        public MoveStart(Unit?: any, Count?: any): number;
+        public MoveStart(Unit?: WdUnits, Count?: number): number;
         public MoveStartUntil(Cset: any, Count?: any): number;
         public MoveStartWhile(Cset: any, Count?: any): number;
         public MoveUntil(Cset: any, Count?: any): number;
@@ -10424,7 +10426,9 @@ declare namespace Word {
         public ClearParagraphAllFormatting(): void;
         public ClearParagraphDirectFormatting(): void;
         public ClearParagraphStyle(): void;
-        public Collapse(Direction?: any): void;
+
+        /** @param WdCollapseDirection [Direction=wdCollapseStart] */
+        public Collapse(Direction?: WdCollapseDirection): void;
         public readonly Columns: Columns;
         public ColumnSelectMode: boolean;
         public readonly Comments: Comments;
@@ -10442,7 +10446,7 @@ declare namespace Word {
         public CreateTextbox(): void;
         public readonly Creator: number;
         public Cut(): void;
-        public Delete(Unit?: any, Count?: any): number;
+        public Delete(Unit?: WdUnits, Count?: number): number;
         public DetectLanguage(): void;
         public readonly Document: Document;
         public readonly Editors: Editors;
@@ -10474,7 +10478,7 @@ declare namespace Word {
         public Extend(Character?: any): void;
         public ExtendMode: boolean;
         public readonly Fields: Fields;
-        public readonly Find: Find;
+        public readonly Find: Find<Selection>;
         public FitTextWidth: number;
         public Flags: WdSelectionFlags;
         public Font: Font;
@@ -10531,20 +10535,20 @@ declare namespace Word {
         public LanguageIDOther: WdLanguageID;
         public LtrPara(): void;
         public LtrRun(): void;
-        public Move(Unit?: any, Count?: any): number;
-        public MoveDown(Unit?: any, Count?: any, Extend?: any): number;
-        public MoveEnd(Unit?: any, Count?: any): number;
+        public Move(Unit?: WdUnits, Count?: number): number;
+        public MoveDown(Unit?: WdUnits, Count?: number): number;
+        public MoveEnd(Unit?: WdUnits, Count?: number): number;
         public MoveEndUntil(Cset: any, Count?: any): number;
         public MoveEndWhile(Cset: any, Count?: any): number;
-        public MoveLeft(Unit?: any, Count?: any, Extend?: any): number;
-        public MoveRight(Unit?: any, Count?: any, Extend?: any): number;
-        public MoveStart(Unit?: any, Count?: any): number;
+        public MoveLeft(Unit?: WdUnits, Count?: number): number;
+        public MoveRight(Unit?: WdUnits, Count?: number): number;
+        public MoveStart(Unit?: WdUnits, Count?: number): number;
         public MoveStartUntil(Cset: any, Count?: any): number;
         public MoveStartWhile(Cset: any, Count?: any): number;
         public MoveUntil(Cset: any, Count?: any): number;
-        public MoveUp(Unit?: any, Count?: any, Extend?: any): number;
+        public MoveUp(Unit?: WdUnits, Count?: number): number;
         public MoveWhile(Cset: any, Count?: any): number;
-        public Next(Unit?: any, Count?: any): Range;
+        public Next(Unit?: WdUnits, Count?: number): Range;
         public NextField(): Field;
         public NextRevision(Wrap?: any): Revision;
         public NextSubdocument(): void;
