@@ -3,7 +3,7 @@
 // Definitions by: Swanest <https://github.com/swanest>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-interface PushOpts {
+export interface PushOpts {
     filename?: string;
     dropDatabase: boolean;
 }

@@ -1,20 +1,20 @@
-
-
 /*
  * Custom Elements
  */
-var fooProto = Object.create(HTMLElement.prototype, {
-    createdCallback(this: HTMLElement) {
-        // `this` should be the created element
-        this.getElementsByTagName("a");
+const fooProto = Object.create(HTMLElement.prototype, {
+    createdCallback: {
+        value(this: HTMLElement) {
+            // `this` should be the created element
+            this.getElementsByTagName("a");
+        }
     }
 });
 
-var XFoo = document.registerElement("x-foo", {
+const XFoo = document.registerElement("x-foo", {
     prototype: fooProto
 });
 
-var xFoo = new XFoo();
+const xFoo = new XFoo();
 xFoo.textContent = "";
 document.body.appendChild(xFoo);
 
@@ -31,7 +31,7 @@ window.HTMLImports.isIE;
 window.HTMLImports.rootDocument.querySelectorAll("div");
 window.HTMLImports.useNative;
 window.HTMLImports.whenReady(() => {
-    return window.HTMLImports.ready === true;
+    return window.HTMLImports.ready;
 });
 
 document.querySelectorAll(`link[type=${window.HTMLImports.IMPORT_LINK_TYPE}`);
@@ -40,7 +40,7 @@ document.querySelectorAll(`link[type=${window.HTMLImports.IMPORT_LINK_TYPE}`);
  * Shadow DOM
  */
 
-var shadow = xFoo.createShadowRoot();
+const shadow = xFoo.createShadowRoot();
 xFoo.shadowRoot;
 shadow.innerHTML;
 shadow.host;
@@ -50,8 +50,7 @@ shadow.host;
  */
 window.WebComponents.flags;
 
-window.customElements.define( "lw-arrival-pie", 
-        
+window.customElements.define("lw-arrival-pie",
     /**
      * ArrivalPie custom element
      */

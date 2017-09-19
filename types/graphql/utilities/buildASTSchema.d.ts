@@ -2,7 +2,6 @@ import { DocumentNode, Location } from '../language/ast';
 import { Source } from '../language/source';
 import { GraphQLSchema } from '../type/schema';
 
-
 /**
  * This takes the ast of a schema document produced by the parse function in
  * src/language/parser.js.
@@ -24,5 +23,5 @@ export function getDescription(node: { loc?: Location }): string;
 /**
  * A helper function to build a GraphQLSchema directly from a source
  * document.
-*/
+ */
 export function buildSchema(source: string | Source): GraphQLSchema;

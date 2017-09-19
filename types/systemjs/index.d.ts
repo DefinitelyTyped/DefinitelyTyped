@@ -1,6 +1,6 @@
 // Type definitions for SystemJS 0.20
 // Project: https://github.com/systemjs/systemjs
-// Definitions by: Ludovic HENIN <https://github.com/ludohenin/>, Nathan Walker <https://github.com/NathanWalker/>, Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
+// Definitions by: Ludovic HENIN <https://github.com/ludohenin>, Nathan Walker <https://github.com/NathanWalker>, Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
@@ -111,6 +111,12 @@ declare namespace SystemJSLoader {
          * Use with the SystemJS Builder. (https://github.com/systemjs/builder#ignore-resources)
          */
         build?: boolean;
+
+        /**
+         * A truthy value enables sending credentials to the server on every request. Additionally, a string value adds
+         * an "Authorization" header with that value to all requests.
+         */
+        authorization?: string | boolean;
     }
 
     interface PackageConfig {
@@ -237,13 +243,7 @@ declare namespace SystemJSLoader {
              * Note: This setting is specific to plugin-typescript.
              */
             tsconfig?: boolean | string,
-            /**
-             * A flag which controls whether the files are type-checked or simply transpiled.
-             * Set this option to "strict" to have the builds fail when compiler errors are encountered.
-             * Note: The strict option only affects builds and bundles via the SystemJS or JSPM Builder.
-             * Note: This setting is specific to plugin-typescript.
-             */
-            typeCheck?: boolean | "strict",
+
             [key: string]: any
         };
     }

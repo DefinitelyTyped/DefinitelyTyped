@@ -2,6 +2,7 @@
 // Project: https://github.com/jaredhanson/passport-twitter
 // Definitions by: James Roland Cabresos <https://github.com/staticfunction>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /// <reference types="passport"/>
 
@@ -19,12 +20,11 @@ interface Profile extends passport.Profile {
     _accessLevel: string;
 }
 
-interface IStrategyOption {
+interface IStrategyOptionBase {
     consumerKey: string;
     consumerSecret: string;
     callbackURL: string;
 
-    passReqToCallback?: true;
     includeEmail?: true;
 
     reguestTokenURL?: string;
@@ -36,9 +36,20 @@ interface IStrategyOption {
     skipExtendedUserProfile?: boolean;
 }
 
+interface IStrategyOption extends IStrategyOptionBase {
+    passReqToCallback?: false;
+}
+
+interface IStrategyOptionWithRequest  extends IStrategyOptionBase {
+    passReqToCallback: true;
+}
+
 declare class Strategy implements passport.Strategy {
     constructor(options: IStrategyOption,
         verify: (accessToken: string, refreshToken: string, profile: Profile, done: (error: any, user?: any) => void) => void);
+    constructor(options: IStrategyOptionWithRequest,
+        verify: (req: express.Request, accessToken: string, refreshToken: string, profile: Profile, done: (error: any, user?: any) => void) => void);
+
     name: string;
     authenticate: (req: express.Request, options?: Object) => void;
 }

@@ -9,7 +9,6 @@ import { Source } from '../language/source';
  * GraphQL document and/or execution result that correspond to the Error.
  */
 export class GraphQLError extends Error {
-
     /**
      * A message describing the Error for debugging purposes.
      *
@@ -40,7 +39,7 @@ export class GraphQLError extends Error {
     /**
      * An array of GraphQL AST Nodes corresponding to this error.
      */
-    nodes?: Array<ASTNode> | undefined;
+    nodes?: ASTNode[] | undefined;
 
     /**
      * The source GraphQL document corresponding to this error.
@@ -51,7 +50,7 @@ export class GraphQLError extends Error {
      * An array of character offsets within the source GraphQL document
      * which correspond to this error.
      */
-    positions?: Array<number> | undefined;
+    positions?: number[] | undefined;
 
     /**
      * The original error thrown from a field resolver during execution.
@@ -60,9 +59,9 @@ export class GraphQLError extends Error {
 
     constructor(
         message: string,
-        nodes?: Array<any>,
+        nodes?: any[],
         source?: Source,
-        positions?: Array<number>,
+        positions?: number[],
         path?: Array<string | number>,
         originalError?: Error,
     );

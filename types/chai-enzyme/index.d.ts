@@ -2,7 +2,7 @@
 // Project: https://github.com/producthunt/chai-enzyme
 // Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 
 /// <reference types="enzyme" />
@@ -26,6 +26,12 @@ declare namespace Chai {
          * @param code
          */
         (selector: EnzymeSelector): Assertion;
+
+        /**
+         * Assert that the given wrapper has the supplied text:
+         * @param str
+         */
+        text(str?: string): Assertion;
     }
     interface Assertion {
         /**

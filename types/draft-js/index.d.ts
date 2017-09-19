@@ -1,15 +1,21 @@
-// Type definitions for Draft.js v0.10.0
+// Type definitions for Draft.js v0.10.1
 // Project: https://facebook.github.io/draft-js/
-// Definitions by: Dmitry Rogozhny <https://github.com/dmitryrogozhny>, Eelco Lempsink <https://github.com/eelco>
+// Definitions by: Dmitry Rogozhny <https://github.com/dmitryrogozhny>
+//                 Eelco Lempsink <https://github.com/eelco>
+//                 Yale Cason <https://github.com/ghotiphud>
+//                 Ryan Schwers <https://github.com/schwers>
+//                 Michael Wu <https://github.com/michael-yx-wu>
+//                 Willis Plummer <https://github.com/willisplummer>
+//                 Santiago Vilar <https://github.com/smvilar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import * as React from 'react';
 import * as Immutable from 'immutable';
 
 type SyntheticKeyboardEvent = React.KeyboardEvent<{}>;
 type SyntheticEvent = React.SyntheticEvent<{}>;
-
+export as namespace Draft;
 declare namespace Draft {
     namespace Component {
         namespace Base {
@@ -27,12 +33,14 @@ declare namespace Draft {
 
             type DraftBlockRenderMap = Immutable.Map<DraftBlockType, DraftBlockRenderConfig>;
 
+            type EditorCommand = DraftEditorCommand | string;
+
             /**
              * `DraftEditor` is the root editor component. It composes a `contentEditable`
              * div, and provides a wide variety of useful function props for managing the
              * state of the editor. See `DraftEditorProps` for details.
              */
-            class DraftEditor extends React.Component<DraftEditorProps, any> {
+            class DraftEditor extends React.Component<DraftEditorProps, {}> {
                 // Force focus back onto the editor node.
                 focus(): void;
                 // Remove focus from the editor node.
@@ -49,7 +57,7 @@ declare namespace Draft {
              * These props are analagous to `value` and `onChange` in controlled React
              * text inputs.
              */
-            interface DraftEditorProps {
+            export interface DraftEditorProps {
                 editorState: EditorState;
                 onChange(editorState: EditorState): void;
 
@@ -78,8 +86,7 @@ declare namespace Draft {
                 // A function that accepts a synthetic key event and returns
                 // the matching DraftEditorCommand constant, or null if no command should
                 // be invoked.
-                keyBindingFn?(e: SyntheticKeyboardEvent): DraftEditorCommand;
-                keyBindingFn?(e: SyntheticKeyboardEvent): string;
+                keyBindingFn?(e: SyntheticKeyboardEvent): EditorCommand | null;
 
                 // Set whether the `DraftEditor` component should be editable. Useful for
                 // temporarily disabling edit behavior or allowing `DraftEditor` rendering
@@ -96,6 +103,11 @@ declare namespace Draft {
                 stripPastedStyles?: boolean;
 
                 tabIndex?: number;
+
+                // exposed especially to help improve mobile web behaviors
+                autoCapitalize?: string;
+                autoComplete?: string;
+                autoCorrect?: string;
 
                 ariaActiveDescendantID?: string;
                 ariaAutoComplete?: string;
@@ -114,22 +126,20 @@ declare namespace Draft {
 
                 // Useful for managing special behavior for pressing the `Return` key. E.g.
                 // removing the style from an empty list item.
-                handleReturn?(e: SyntheticKeyboardEvent): DraftHandleValue,
+                handleReturn?(e: SyntheticKeyboardEvent, editorState: EditorState): DraftHandleValue,
 
                 // Map a key command string provided by your key binding function to a
                 // specified behavior.
-                handleKeyCommand?(command: DraftEditorCommand): DraftHandleValue,
-                handleKeyCommand?(command: string): DraftHandleValue,
-
+                handleKeyCommand?(command: EditorCommand, editorState: EditorState): DraftHandleValue,
 
                 // Handle intended text insertion before the insertion occurs. This may be
                 // useful in cases where the user has entered characters that you would like
                 // to trigger some special behavior. E.g. immediately converting `:)` to an
                 // emoji Unicode character, or replacing ASCII quote characters with smart
                 // quotes.
-                handleBeforeInput?(chars: string): DraftHandleValue,
+                handleBeforeInput?(chars: string, editorState: EditorState): DraftHandleValue,
 
-                handlePastedText?(text: string, html?: string): DraftHandleValue,
+                handlePastedText?(text: string, html: string|undefined, editorState: EditorState): DraftHandleValue,
 
                 handlePastedFiles?(files: Array<Blob>): DraftHandleValue,
 
@@ -160,7 +170,7 @@ declare namespace Draft {
         }
 
         namespace Components {
-            class DraftEditorBlock extends React.Component<any, any> {
+            class DraftEditorBlock extends React.Component<any, {}> {
             }
         }
 
@@ -201,8 +211,7 @@ declare namespace Draft {
             /**
              * Retrieve a bound key command for the given event.
              */
-            function getDefaultKeyBinding(e: SyntheticKeyboardEvent): DraftEditorCommand;
-            function getDefaultKeyBinding(e: SyntheticKeyboardEvent): string;
+            function getDefaultKeyBinding(e: SyntheticKeyboardEvent): DraftEditorCommand | null;
         }
     }
 
@@ -458,7 +467,7 @@ declare namespace Draft {
                 entityMap: { [key: string]: RawDraftEntity };
             }
 
-            function convertFromHTMLtoContentBlocks(html: string, DOMBuilder?: Function, blockRenderMap?: DraftBlockRenderMap): Array<ContentBlock>;
+            function convertFromHTMLtoContentBlocks(html: string, DOMBuilder?: Function, blockRenderMap?: DraftBlockRenderMap): { contentBlocks: Array<ContentBlock>, entityMap: any };
             function convertFromRawToDraftState(rawState: RawDraftContentState): ContentState;
             function convertFromDraftStateToRaw(contentState: ContentState): RawDraftContentState;
         }
@@ -701,12 +710,14 @@ declare namespace Draft {
             }
 
             class ContentState extends Record {
-                static createFromBlockArray(blocks: Array<ContentBlock>): ContentState;
+                static createFromBlockArray(blocks: Array<ContentBlock>, entityMap: any): ContentState;
                 static createFromText(text: string, delimiter?: string): ContentState;
 
                 createEntity(type: DraftEntityType, mutability: DraftEntityMutability, data?: Object): ContentState;
                 getEntity(key: string): EntityInstance;
                 getLastCreatedEntityKey(): string;
+                mergeEntityData(key: string, toMerge: { [key: string]: any }): ContentState;
+
 
                 getBlockMap(): BlockMap;
                 getSelectionBefore(): SelectionState;
@@ -788,8 +799,8 @@ declare namespace Draft {
                 "undo"
             )
 
-            interface BlockMapBuilder {
-                createFromArray(blocks: Array<ContentBlock>): BlockMap;
+            class BlockMapBuilder {
+                static createFromArray(blocks: Array<ContentBlock>): BlockMap;
             }
 
             const DefaultDraftBlockRenderMap: Immutable.Map<any, any>;
@@ -856,7 +867,7 @@ declare namespace Draft {
                 static getDataObjectForLinkURL(uri: URI): Object;
 
                 static handleKeyCommand(editorState: EditorState, command: DraftEditorCommand): EditorState;
-                static handleKeyCommand(editorState: EditorState, command: string): EditorState;
+                static handleKeyCommand(editorState: EditorState, command: string): null;
 
                 static insertSoftNewline(editorState: EditorState): EditorState;
 
@@ -881,7 +892,7 @@ declare namespace Draft {
                  */
                 static toggleInlineStyle(editorState: EditorState, inlineStyle: string): EditorState;
 
-                static toggleLink(editorState: EditorState, targetSelection: SelectionState, entityKey: string): EditorState;
+                static toggleLink(editorState: EditorState, targetSelection: SelectionState, entityKey: string | null): EditorState;
 
                 /**
                  * When a collapsed cursor is at the start of an empty styled block, allow
@@ -895,6 +906,7 @@ declare namespace Draft {
 }
 
 import Editor = Draft.Component.Base.DraftEditor;
+import EditorProps = Draft.Component.Base.DraftEditorProps;
 import EditorBlock = Draft.Component.Components.DraftEditorBlock;
 import EditorState = Draft.Model.ImmutableData.EditorState;
 
@@ -928,6 +940,7 @@ import getVisibleSelectionRect = Draft.Component.Selection.getVisibleSelectionRe
 
 export {
     Editor,
+    EditorProps,
     EditorBlock,
     EditorState,
 

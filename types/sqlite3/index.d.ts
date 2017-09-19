@@ -1,6 +1,7 @@
-// Type definitions for sqlite3 2.2
+// Type definitions for sqlite3 3.1
 // Project: https://github.com/mapbox/node-sqlite3
-// Definitions by: Nick Malaguti <https://github.com/nmalaguti/>
+// Definitions by: Nick Malaguti <https://github.com/nmalaguti>
+//                 Sumant Manne <https://github.com/dpyro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -12,66 +13,66 @@ export const OPEN_READWRITE: number;
 export const OPEN_CREATE: number;
 
 export const cached: {
-    Database(filename: string, callback?: (err: Error) => void): Database;
-    Database(filename: string, mode?: number, callback?: (err: Error) => void): Database;
+    Database(filename: string, callback?: (this: Database, err: Error | null) => void): Database;
+    Database(filename: string, mode?: number, callback?: (this: Database, err: Error | null) => void): Database;
 };
 
-export interface RunResult {
+export interface RunResult extends Statement {
     lastID: number;
     changes: number;
 }
 
 export class Statement {
-    bind(callback?: (err: Error) => void): Statement;
-    bind(...params: any[]): Statement;
+    bind(callback?: (err: Error | null) => void): this;
+    bind(...params: any[]): this;
 
-    reset(callback?: (err: Error) => void): Statement;
+    reset(callback?: (err: null) => void): this;
 
-    finalize(callback?: (err: Error) => void): Statement;
+    finalize(callback?: (err: Error) => void): Database;
 
-    run(callback?: (err: Error) => void): Statement;
-    run(params: any, callback?: (err: Error) => void): Statement;
-    run(...params: any[]): Statement;
+    run(callback?: (err: Error | null) => void): this;
+    run(params: any, callback?: (this: RunResult, err: Error | null) => void): this;
+    run(...params: any[]): this;
 
-    get(callback?: (err: Error, row: any) => void): Statement;
-    get(params: any, callback?: (err: Error, row: any) => void): Statement;
-    get(...params: any[]): Statement;
+    get(callback?: (err: Error | null, row?: any) => void): this;
+    get(params: any, callback?: (this: RunResult, err: Error | null, row?: any) => void): this;
+    get(...params: any[]): this;
 
-    all(callback?: (err: Error, rows: any[]) => void): Statement;
-    all(params: any, callback?: (err: Error, rows: any[]) => void): Statement;
-    all(...params: any[]): Statement;
+    all(callback?: (err: Error | null, rows: any[]) => void): this;
+    all(params: any, callback?: (this: RunResult, err: Error | null, rows: any[]) => void): this;
+    all(...params: any[]): this;
 
-    each(callback?: (err: Error, row: any) => void, complete?: (err: Error, count: number) => void): Statement;
-    each(params: any, callback?: (err: Error, row: any) => void, complete?: (err: Error, count: number) => void): Statement;
-    each(...params: any[]): Statement;
+    each(callback?: (err: Error | null, row: any) => void, complete?: (err: Error | null, count: number) => void): this;
+    each(params: any, callback?: (this: RunResult, err: Error | null, row: any) => void, complete?: (err: Error | null, count: number) => void): this;
+    each(...params: any[]): this;
 }
 
 export class Database extends events.EventEmitter {
-    constructor(filename: string, callback?: (err: Error) => void);
-    constructor(filename: string, mode?: number, callback?: (err: Error) => void);
+    constructor(filename: string, callback?: (err: Error | null) => void);
+    constructor(filename: string, mode?: number, callback?: (err: Error | null) => void);
 
-    close(callback?: (err: Error) => void): void;
+    close(callback?: (err: Error | null) => void): void;
 
-    run(sql: string, callback?: (err: Error) => void): Database;
-    run(sql: string, params: any, callback?: (err: Error) => void): Database;
-    run(sql: string, ...params: any[]): Database;
+    run(sql: string, callback?: (this: RunResult, err: Error | null) => void): this;
+    run(sql: string, params: any, callback?: (this: RunResult, err: Error | null) => void): this;
+    run(sql: string, ...params: any[]): this;
 
-    get(sql: string, callback?: (err: Error, row: any) => void): Database;
-    get(sql: string, params: any, callback?: (err: Error, row: any) => void): Database;
-    get(sql: string, ...params: any[]): Database;
+    get(sql: string, callback?: (this: Statement, err: Error | null, row: any) => void): this;
+    get(sql: string, params: any, callback?: (this: Statement, err: Error | null, row: any) => void): this;
+    get(sql: string, ...params: any[]): this;
 
-    all(sql: string, callback?: (err: Error, rows: any[]) => void): Database;
-    all(sql: string, params: any, callback?: (err: Error, rows: any[]) => void): Database;
-    all(sql: string, ...params: any[]): Database;
+    all(sql: string, callback?: (this: Statement, err: Error | null, rows: any[]) => void): this;
+    all(sql: string, params: any, callback?: (this: Statement, err: Error | null, rows: any[]) => void): this;
+    all(sql: string, ...params: any[]): this;
 
-    each(sql: string, callback?: (err: Error, row: any) => void, complete?: (err: Error, count: number) => void): Database;
-    each(sql: string, params: any, callback?: (err: Error, row: any) => void, complete?: (err: Error, count: number) => void): Database;
-    each(sql: string, ...params: any[]): Database;
+    each(sql: string, callback?: (this: Statement, err: Error | null, row: any) => void, complete?: (err: Error | null, count: number) => void): this;
+    each(sql: string, params: any, callback?: (this: Statement, err: Error | null, row: any) => void, complete?: (err: Error | null, count: number) => void): this;
+    each(sql: string, ...params: any[]): this;
 
-    exec(sql: string, callback?: (err: Error) => void): Database;
+    exec(sql: string, callback?: (this: Statement, err: Error | null) => void): this;
 
-    prepare(sql: string, callback?: (err: Error) => void): Statement;
-    prepare(sql: string, params: any, callback?: (err: Error) => void): Statement;
+    prepare(sql: string, callback?: (this: Statement, err: Error | null) => void): Statement;
+    prepare(sql: string, params: any, callback?: (this: Statement, err: Error | null) => void): Statement;
     prepare(sql: string, ...params: any[]): Statement;
 
     serialize(callback?: () => void): void;

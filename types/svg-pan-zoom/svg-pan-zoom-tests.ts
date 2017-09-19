@@ -1,5 +1,3 @@
-
-
 var svgPanZoomOptions : SvgPanZoom.Options = {
     panEnabled: true // enable or disable panning (default enabled)
     , controlIconsEnabled: false // insert icons to give user an option in addition to mouse events to control pan/zoom (default disabled)
@@ -113,5 +111,3 @@ panZoomTiger.updateBBox();
 panZoomTiger.fit().center(); // can chain method
 
 panZoomTiger.destroy(); // destroy instance
-
-delete panZoomTiger;

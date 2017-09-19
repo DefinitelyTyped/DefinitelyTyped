@@ -5,7 +5,7 @@ import { shallow } from "enzyme";
 
 const Test = () => <div/>;
 
-class Test2 extends React.Component<{}, {}> {
+class Test2 extends React.Component {
     render() {
         return <div/>;
     }
@@ -30,6 +30,7 @@ expect(wrapper).to.have.ref("test");
 expect(wrapper).to.be.selected();
 expect(wrapper).to.have.tagName("div");
 expect(wrapper).to.have.text("");
+expect(wrapper).to.contain.text("");
 expect(wrapper).to.have.type(Test);
 expect(wrapper).to.have.value("test");
 expect(wrapper).to.have.attr("test", "test");

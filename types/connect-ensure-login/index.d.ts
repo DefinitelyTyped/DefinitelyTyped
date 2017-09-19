@@ -5,7 +5,7 @@
 
 import { RequestHandler } from "express";
 
-interface LoggedInOptions {
+export interface LoggedInOptions {
     /**
      * URL to redirect to for login, defaults to _/login_
      */
@@ -15,7 +15,7 @@ interface LoggedInOptions {
      */
     setRedirectTo?: boolean;
 }
-interface LoggedOutOptions {
+export interface LoggedOutOptions {
     /**
      * URL to redirect to in logged in, defaults to _/_
      */

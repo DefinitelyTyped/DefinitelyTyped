@@ -345,7 +345,7 @@ declare namespace KiiCloud {
         ): KiiBucket;
 
         /**
-         * Creates a reference to a　encrypted bucket for this app
+         * Creates a reference to a encrypted bucket for this app
          *
          *     <br><br>The bucket will be created/accessed within this app's scope
          *
@@ -427,7 +427,7 @@ declare namespace KiiCloud {
          *
          *     // example to use Promise
          *     Kii.authenticateAsAppAdmin("your client id", "your client secret").then(
-         *         function(adminContext) {　// fulfill callback function
+         *         function(adminContext) { // fulfill callback function
          *             // adminContext : KiiAppAdminContext instance
          *             // Operate entities with adminContext.
          *
@@ -599,7 +599,7 @@ declare namespace KiiCloud {
          *
          *     // example to use Promise
          *     Kii.authenticateAsThing("vendor thing id", "password of this thing").then(
-         *         function(thingAuthContext) {　// fulfill callback function
+         *         function(thingAuthContext) { // fulfill callback function
          *             // thingAuthContext : KiiThingContext instance
          *             // Operate entities with thingAuthContext.
          *
@@ -652,7 +652,7 @@ declare namespace KiiCloud {
          *
          *     // example to use Promise
          *     Kii.authenticateAsThingWithToken("thing_id", "thing_token").then(
-         *         function(thingContext) {　// fulfill callback function
+         *         function(thingContext) { // fulfill callback function
          *             // thingContext : KiiThingContext instance
          *             // Operate entities with thingContext.
          *

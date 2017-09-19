@@ -1,0 +1,12 @@
+{
+  "extends": "dtslint/dt.json",
+  "rules": {
+    "only-arrow-functions": false,
+    "no-misused-new": false,
+    "no-single-declare-module": false,
+    "prefer-method-signature": false,
+    "object-literal-shorthand": false,
+    "typedef-whitespace": false,
+    "no-var": false
+  }
+}

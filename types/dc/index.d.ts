@@ -44,6 +44,11 @@ declare namespace dc {
         (datum: T, index?: number): V;
     }
 
+    export interface Columns {
+        label: string;
+        format: Accessor<any, string>;
+    }
+
     export interface UnitFunction {
         (start: number, end: number, domain?: Array<any>): number|Array<any>;
     }
@@ -117,6 +122,7 @@ declare namespace dc {
         itemHeight: IGetSet<number, Legend>;
         horizontal: IGetSet<boolean, Legend>;
         legendWidth: IGetSet<number, Legend>;
+        legendText: IGetSet<any, Legend>;
         itemWidth: IGetSet<number, Legend>;
         autoItemWidth: IGetSet<boolean, Legend>;
         render: () => void;
@@ -139,6 +145,7 @@ declare namespace dc {
         svg: IGetSet<d3.Selection<any>, d3.Selection<any>>;
         resetSvg(): void;
         filterPrinter: IGetSet<(filters: Array<any>) => string, T>;
+        controlsUseVisibility: IGetSet<boolean, T>;
         turnOnControls(): void;
         turnOffControls(): void;
         transitionDuration: IGetSet<number, T>;
@@ -299,7 +306,8 @@ declare namespace dc {
 
     export interface DataTableWidget extends BaseMixin<DataTableWidget> {
         size: IGetSet<number, DataTableWidget>;
-        columns: IGetSet<Array<Accessor<any, any>|string|Array<Accessor<any, any>|string>>, DataTableWidget>;
+        showGroups: IGetSet<boolean, DataTableWidget>;
+        columns: IGetSet<Array<string|Accessor<any, any>|Columns>, DataTableWidget>;
         sortBy: IGetSet<Accessor<any, any>, DataTableWidget>;
         order: IGetSet<(a: any, b: any) => number, DataTableWidget>;
     }

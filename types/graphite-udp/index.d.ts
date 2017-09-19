@@ -1,9 +1,9 @@
 // Type definitions for graphite-udp 1.2
 // Project: https://github.com/fermads/graphite-udp
-// Definitions by: Eric Byers <https://github.com/EricByers/>
+// Definitions by: Eric Byers <https://github.com/EricByers>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-interface ClientOptions {
+export interface ClientOptions {
 	/**
 	 * graphite server host or ip
 	 * Defaults to 127.0.0.1

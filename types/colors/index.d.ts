@@ -3,7 +3,7 @@
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>, Staffan Eketorp <https://github.com/staeke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-interface Color {
+export interface Color {
     (text: string): string;
 
     strip: Color;

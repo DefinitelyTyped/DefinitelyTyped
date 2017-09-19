@@ -116,7 +116,7 @@ export class AutoSizerExample extends PureComponent<any, any> {
 import { } from 'react'
 import { CellMeasurer, CellMeasurerCache } from 'react-virtualized'
 
-export class DynamicHeightList extends PureComponent<any, any> {
+export class DynamicHeightList extends PureComponent<any> {
 
     _cache: CellMeasurerCache
 
@@ -358,7 +358,7 @@ export class ColumnSizerExample extends PureComponent<any, any> {
 
     render() {
         const {
-      columnMaxWidth,
+            columnMaxWidth,
             columnMinWidth,
             columnCount
     } = this.state
@@ -405,11 +405,7 @@ export class ColumnSizerExample extends PureComponent<any, any> {
     _noColumnMaxWidthChange(event) {
         let columnMaxWidth = parseInt(event.target.value, 10)
 
-        if (isNaN(columnMaxWidth)) {
-            columnMaxWidth = undefined
-        } else {
-            columnMaxWidth = Math.min(1000, columnMaxWidth)
-        }
+        columnMaxWidth = isNaN(columnMaxWidth) ? undefined : Math.min(1000, columnMaxWidth)
 
         this.setState({ columnMaxWidth })
     }
@@ -417,11 +413,7 @@ export class ColumnSizerExample extends PureComponent<any, any> {
     _noColumnMinWidthChange(event) {
         let columnMinWidth = parseInt(event.target.value, 10)
 
-        if (isNaN(columnMinWidth)) {
-            columnMinWidth = undefined
-        } else {
-            columnMinWidth = Math.max(1, columnMinWidth)
-        }
+        columnMinWidth = isNaN(columnMinWidth) ? undefined : Math.max(1, columnMinWidth)
 
         this.setState({ columnMinWidth })
     }
@@ -486,7 +478,7 @@ export class GridExample extends PureComponent<any, any> {
 
     render() {
         const {
-      columnCount,
+            columnCount,
             height,
             overscanColumnCount,
             overscanRowCount,
@@ -816,7 +808,7 @@ export class ListExample extends PureComponent<any, any> {
 
     render() {
         const {
-      listHeight,
+            listHeight,
             listRowHeight,
             overscanRowCount,
             rowCount,
@@ -882,9 +874,9 @@ export class ListExample extends PureComponent<any, any> {
 
     _rowRenderer({ index, isScrolling, key, style }) {
         const {
-      showScrollingPlaceholder,
+            showScrollingPlaceholder,
             useDynamicRowHeight
-    } = this.state
+        } = this.state
 
         if (
             showScrollingPlaceholder &&
@@ -996,11 +988,11 @@ export class GridExample2 extends PureComponent<any, any> {
 
     render() {
         const {
-      columnWidth,
+            columnWidth,
             height,
             gutterSize,
             windowScrollerEnabled
-    } = this.state
+        } = this.state
 
         let child
 
@@ -1023,9 +1015,9 @@ export class GridExample2 extends PureComponent<any, any> {
 
     _calculateColumnCount() {
         const {
-      columnWidth,
+            columnWidth,
             gutterSize
-    } = this.state
+        } = this.state
 
         this._columnCount = Math.floor(this._width / (columnWidth + gutterSize))
     }
@@ -1068,9 +1060,9 @@ export class GridExample2 extends PureComponent<any, any> {
     _initCellPositioner() {
         if (typeof this._cellPositioner === 'undefined') {
             const {
-        columnWidth,
+                columnWidth,
                 gutterSize
-      } = this.state
+            } = this.state
 
             this._cellPositioner = createCellPositioner({
                 cellMeasurerCache: this._cache,
@@ -1129,9 +1121,9 @@ export class GridExample2 extends PureComponent<any, any> {
 
     _resetCellPositioner() {
         const {
-      columnWidth,
+            columnWidth,
             gutterSize
-    } = this.state
+        } = this.state
 
         this._cellPositioner.reset({
             columnCount: this._columnCount,
@@ -1165,7 +1157,7 @@ const STYLE_TOP_RIGHT_GRID: React.CSSProperties = {
     fontWeight: 'bold'
 }
 
-export class MultiGridExample extends PureComponent<any, any> {
+export class MultiGridExample extends PureComponent<{}, any> {
     state
     _onFixedColumnCountChange
     _onFixedRowCountChange
@@ -1256,7 +1248,7 @@ const TOP_COLOR_FROM = hexToRgb('#000000')
 const TOP_COLOR_TO = hexToRgb('#333333')
 
 function scrollbarSize() { return 42; }
-export class GridExample3 extends PureComponent<any, any> {
+export class GridExample3 extends PureComponent<{}, any> {
     state
     constructor(props, context) {
         super(props, context)
@@ -1278,14 +1270,14 @@ export class GridExample3 extends PureComponent<any, any> {
 
     render() {
         const {
-      columnCount,
+            columnCount,
             columnWidth,
             height,
             overscanColumnCount,
             overscanRowCount,
             rowHeight,
             rowCount
-    } = this.state
+        } = this.state
 
         return (
 
@@ -1471,7 +1463,7 @@ function mixColors(color1, color2, amount) {
 
 import { Column, Table, SortDirection, SortIndicator } from 'react-virtualized'
 
-export class TableExample extends PureComponent<any, any> {
+export class TableExample extends PureComponent<{}, any> {
     state;
     context;
     constructor(props, context) {
@@ -1502,7 +1494,7 @@ export class TableExample extends PureComponent<any, any> {
 
     render() {
         const {
-      disableHeader,
+            disableHeader,
             headerHeight,
             height,
             hideIndexRow,
@@ -1513,7 +1505,7 @@ export class TableExample extends PureComponent<any, any> {
             sortBy,
             sortDirection,
             useDynamicRowHeight
-    } = this.state
+        } = this.state
 
         const { list } = this.context
         const sortedList = this._isSortEnabled()
@@ -1596,13 +1588,13 @@ export class TableExample extends PureComponent<any, any> {
     }
 
     _headerRenderer({
-    columnData,
+        columnData,
         dataKey,
         disableSort,
         label,
         sortBy,
         sortDirection
-  }) {
+    }) {
         return (
             <div>
                 Full Name
@@ -1664,7 +1656,103 @@ export class TableExample extends PureComponent<any, any> {
     }
 }
 
-export class WindowScrollerExample extends PureComponent<any, any> {
+import { TableCellProps } from "react-virtualized"
+
+export class DynamicHeightTableColumnExample extends PureComponent<any, any> {
+    state;
+    context;
+    _cache: CellMeasurerCache;
+    constructor(props, context) {
+        super(props, context)
+
+        this._cache = new CellMeasurerCache({
+            fixedWidth: true,
+            minHeight: 25
+        })
+
+        this._columnCellRenderer = this._columnCellRenderer.bind(this)
+        this._rowGetter = this._rowGetter.bind(this)
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.width !== this.props.width) {
+            this._cache.clearAll()
+        }
+    }
+
+    render() {
+        const { width } = this.props
+
+        return (
+            <Table
+                deferredMeasurementCache={this._cache}
+                headerHeight={20}
+                height={400}
+                overscanRowCount={2}
+                rowClassName={'styles.tableRow'}
+                rowHeight={this._cache.rowHeight}
+                rowGetter={this._rowGetter}
+                rowCount={1000}
+                width={width}
+            >
+                <Column
+                    className={'styles.tableColumn'}
+                    dataKey='name'
+                    label='Name'
+                    width={125}
+                />
+                <Column
+                    className={'styles.tableColumn'}
+                    dataKey='color'
+                    label='Color'
+                    width={75}
+                />
+                <Column
+                    width={width - 200}
+                    dataKey='random'
+                    label='Dynamic text'
+                    cellRenderer={this._columnCellRenderer}
+                />
+            </Table>
+        )
+    }
+
+    _columnCellRenderer(args: TableCellProps) {
+        const { list } = this.props
+
+        const datum = list.get(args.rowIndex % list.size)
+        const content = args.rowIndex % 5 === 0
+            ? ''
+            : datum.randomLong
+
+        return (
+            <CellMeasurer
+                cache={this._cache}
+                columnIndex={0}
+                key={args.dataKey}
+                parent={args.parent}
+                rowIndex={args.rowIndex}
+            >
+                <div
+                    className={'styles.tableColumn'}
+                    style={{
+                        whiteSpace: 'normal'
+                    }}
+                >
+                    {content}
+                </div>
+            </CellMeasurer>
+        )
+    }
+
+    _rowGetter({ index }) {
+        const { list } = this.props
+
+        return list.get(index % list.size)
+    }
+}
+
+export class WindowScrollerExample extends PureComponent<{}, any> {
     state;
     context;
     _windowScroller: WindowScroller;
@@ -1700,6 +1788,7 @@ export class WindowScrollerExample extends PureComponent<any, any> {
                                     autoHeight
                                     className={'styles.List'}
                                     height={height}
+                                    isScrolling={isScrolling}
                                     overscanRowCount={2}
                                     rowCount={list.size}
                                     rowHeight={30}

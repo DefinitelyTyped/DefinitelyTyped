@@ -1,6 +1,7 @@
 // Type definitions for signature_pad
 // Project: https://github.com/szimek/signature_pad
 // Definitions by: Abubaker Bashir <https://github.com/AbubakerB>
+//                 Jason Mihalick <https://github.com/jrmihalick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Project by: Szymon Nowak <https://github.com/szimek>
 
@@ -8,7 +9,8 @@ declare namespace SignaturePad {
 	class Point {
 	    x: number;
 	    y: number;
-	    time: number;
+		time: number;
+		color?: string;
 	    constructor(x: number, y: number, time: number);
 	    velocityFrom(start: Point): number;
 	    distanceTo(start: Point): number;
@@ -46,7 +48,7 @@ declare namespace SignaturePad {
 	    /**
 	    *   (float or function) Radius of a single dot.
 	    */
-	    dotSize?: Function;
+	    dotSize?: number | Function;
 	    /**
 	    *   (string) Color used to draw the lines. Can be any color format accepted by context.fillStyle.
 	    *   Defaults to "black".
@@ -100,9 +102,22 @@ declare class SignaturePad {
     */
     fromDataURL(dataUrl: string): void;
     /**
-    *   Returns signature image as data URL
+    *   Returns array of signature point groups
     */
-    toDataURL(): string;
+    toData(): Array<Array<SignaturePad.Point>>;
+    /**
+	*   Returns signature image as data URL.
+	*   If 'type' parameter is ommitted, PNG dataUrl is returned.
+    */
+    toDataURL(type?: string): string;
+    /**
+    *   Unbinds all event handlers
+    */
+    off(): void;
+    /**
+    *   Rebinds all event handlers
+    */
+    on(): void;
 
     _strokeBegin(event: Event): void;
     _strokeUpdate(event: Event): void;

@@ -1,6 +1,6 @@
 // Type definitions for GeoJSON Format Specification Revision 1.0
 // Project: http://geojson.org/
-// Definitions by: Jacob Bruun <https://github.com/cobster/>
+// Definitions by: Jacob Bruun <https://github.com/cobster>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export as namespace GeoJSON;
@@ -22,7 +22,7 @@ export type Position = number[];
 /***
 * http://geojson.org/geojson-spec.html#geometry-objects
 */
-interface DirectGeometryObject extends GeoJsonObject {
+export interface DirectGeometryObject extends GeoJsonObject {
     coordinates: Position[][][] | Position[][] | Position[] | Position;
 }
 /**

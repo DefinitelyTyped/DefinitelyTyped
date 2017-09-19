@@ -19,6 +19,8 @@ let featureStyleFunction: ol.FeatureStyleFunction;
 let featureLoader: ol.FeatureLoader;
 let easingFunction: (t: number) => number;
 let drawGeometryFunction: ol.DrawGeometryFunctionType;
+drawGeometryFunction([0,0], new ol.geom.Point([0,0]));
+drawGeometryFunction([0,0]);
 
 // Type variables for OpenLayers
 let attribution: ol.Attribution;
@@ -64,6 +66,7 @@ let styleArray: Array<ol.style.Style>;
 let styleFunction: ol.StyleFunction;
 let tilegrid: ol.tilegrid.TileGrid;
 let transformFn: ol.TransformFunction;
+let clusterSource: ol.source.Cluster;
 let vectorSource: ol.source.Vector;
 let units: ol.proj.Units;
 let styleRegularShape: ol.style.RegularShape;
@@ -350,6 +353,13 @@ featureCollection = vectorSource.getFeaturesCollection();
 featureArray = vectorSource.getFeaturesInExtent(extent);
 voidValue = vectorSource.removeFeature(feature);
 
+
+clusterSource = new ol.source.Cluster({
+    source: vectorSource
+});
+
+numberValue = clusterSource.getDistance();
+
 //
 // ol.Feature
 //
@@ -366,7 +376,7 @@ feature = feature.clone();
 geometry = feature.getGeometry();
 stringValue = feature.getGeometryName();
 let featureGetId: string | number = feature.getId();
-let featureGetStyle: ol.style.Style | Array<ol.style.Style> | ol.FeatureStyleFunction = feature.getStyle();
+let featureGetStyle: ol.style.Style | Array<ol.style.Style> | ol.FeatureStyleFunction | ol.StyleFunction = feature.getStyle();
 featureStyleFunction = feature.getStyleFunction();
 voidValue = feature.setGeometry(geometry);
 voidValue = feature.setGeometryName(stringValue);
@@ -375,6 +385,7 @@ voidValue = feature.setId(numberValue);
 voidValue = feature.setStyle(style);
 voidValue = feature.setStyle(styleArray);
 voidValue = feature.setStyle(featureStyleFunction);
+voidValue = feature.setStyle(styleFunction);
 voidValue = feature.setProperties(object);
 
 //
@@ -385,6 +396,9 @@ let view: ol.View = new ol.View({
     center: [0, 0],
     zoom: numberValue,
 });
+
+voidValue = view.setMaxZoom(numberValue);
+voidValue = view.setMinZoom(numberValue);
 
 //
 // ol.layer.Tile
@@ -418,10 +432,10 @@ voidValue = olObject.unset(stringValue, booleanValue);
 ol.Observable.unByKey(eventKey);
 let observable: ol.Observable = new ol.Observable();
 voidValue = observable.changed();
-voidOrBooleanValue = observable.dispatchEvent({type: stringValue});
-voidOrBooleanValue = observable.dispatchEvent({type: stringValue, target: domEventTarget});
-voidOrBooleanValue = observable.dispatchEvent({type: stringValue, target: eventTarget});
-voidOrBooleanValue = observable.dispatchEvent({type: stringValue, a: numberValue, b: stringValue, c: booleanValue, d: null, e: {}});
+voidOrBooleanValue = observable.dispatchEvent({ type: stringValue });
+voidOrBooleanValue = observable.dispatchEvent({ type: stringValue, target: domEventTarget });
+voidOrBooleanValue = observable.dispatchEvent({ type: stringValue, target: eventTarget });
+voidOrBooleanValue = observable.dispatchEvent({ type: stringValue, a: numberValue, b: stringValue, c: booleanValue, d: null, e: {} });
 voidOrBooleanValue = observable.dispatchEvent(olEvent);
 voidOrBooleanValue = observable.dispatchEvent(stringValue);
 numberValue = observable.getRevision();
@@ -437,7 +451,7 @@ voidValue = observable.un([stringValue, stringValue], fn, {});
 //
 let getPointResolutionFn: (n: number, c: ol.Coordinate) => number;
 projection = new ol.proj.Projection({
-    code:stringValue,
+    code: stringValue,
 });
 stringValue = projection.getCode();
 extent = projection.getExtent();
@@ -468,7 +482,7 @@ let imageWMS: ol.source.ImageWMS = new ol.source.ImageWMS({
     params: {},
     projection: projection,
     serverType: stringValue,
-    url:stringValue
+    url: stringValue
 });
 
 //
@@ -484,7 +498,7 @@ let tileWMS: ol.source.TileWMS = new ol.source.TileWMS({
     params: {},
     projection: projection,
     serverType: stringValue,
-    url:stringValue
+    url: stringValue
 });
 
 voidValue = tileWMS.updateParams(tileWMS.getParams());
@@ -577,6 +591,7 @@ voidValue = popup.setElement(popupElement);
 voidValue = popup.setMap(popupMap);
 voidValue = popup.setOffset(popupOffset);
 voidValue = popup.setPosition(coordinate);
+voidValue = popup.setPosition(undefined);
 voidValue = popup.setPositioning(popupPositioning);
 
 
@@ -657,12 +672,22 @@ draw = new ol.interaction.Draw({
     type: "Point",
     style: styleFunction
 });
-let styleFunctionAsStyle = function(feature: ol.Feature, resolution: number): ol.style.Style { return style; }
+let styleFunctionAsStyle = function (feature: ol.Feature, resolution: number): ol.style.Style { return style; }
 draw = new ol.interaction.Draw({
     type: "Point",
     style: styleFunctionAsStyle
 });
-let styleFunctionAsArray = function(feature: ol.Feature, resolution: number): ol.style.Style[] { return styleArray; }
+ol.interaction.Draw.createBox();
+ol.interaction.Draw.createRegularPolygon();
+ol.interaction.Draw.createRegularPolygon(4);
+ol.interaction.Draw.createRegularPolygon(4, 0);
+
+ol.interaction.defaults({
+    constrainResolution: booleanValue
+});
+
+
+let styleFunctionAsArray = function (feature: ol.Feature, resolution: number): ol.style.Style[] { return styleArray; }
 draw = new ol.interaction.Draw({
     type: "Point",
     style: styleFunctionAsArray
@@ -670,6 +695,7 @@ draw = new ol.interaction.Draw({
 
 let dragbox: ol.interaction.DragBox = new ol.interaction.DragBox({
     className: stringValue,
+    minArea: 10,
     condition: ol.events.condition.always,
     boxEndCondition: function (mapBrowserEvent: ol.MapBrowserEvent, startPixel: ol.Pixel, endPixel: ol.Pixel) {
         let width: number = endPixel[0] - startPixel[0];
@@ -694,12 +720,23 @@ const select: ol.interaction.Select = new ol.interaction.Select({
     layers: (layer: ol.layer.Layer) => true,
 });
 
+let pinchZoom: ol.interaction.PinchZoom = new ol.interaction.PinchZoom({
+    constrainResolution: booleanValue,
+    duration: numberValue
+});
+
+let mouseWheelZoom: ol.interaction.MouseWheelZoom = new ol.interaction.MouseWheelZoom({
+    constrainResolution: booleanValue,
+    duration: numberValue,
+    timeout: numberValue,
+    useAnchor: booleanValue
+});
 //
 // ol.style.RegularShape
 //
 
 styleRegularShape = new ol.style.RegularShape({
-    fill: new ol.style.Fill({color: 'red'}),
+    fill: new ol.style.Fill({ color: 'red' }),
     points: 4,
 });
 

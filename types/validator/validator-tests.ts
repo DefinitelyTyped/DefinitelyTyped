@@ -66,7 +66,7 @@ import trimFunc = require('validator/lib/trim');
 import unescapeFunc = require('validator/lib/unescape');
 import whitelistFunc = require('validator/lib/whitelist');
 
-namespace import_tests {
+{
   let _blacklist = validator.blacklist;
   _blacklist = blacklistFunc;
 
@@ -451,6 +451,7 @@ let any: any;
   result = validator.isMobilePhone('sample', 'hu-HU');
   result = validator.isMobilePhone('sample', 'it-IT');
   result = validator.isMobilePhone('sample', 'ja-JP');
+  result = validator.isMobilePhone('sample', 'ko-KR');
   result = validator.isMobilePhone('sample', 'ms-MY');
   result = validator.isMobilePhone('sample', 'nb-NO');
   result = validator.isMobilePhone('sample', 'nn-NO');

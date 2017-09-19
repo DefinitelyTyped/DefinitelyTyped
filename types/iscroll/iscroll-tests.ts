@@ -39,3 +39,5 @@ var myScroll12 = new IScroll(document.getElementById('wrapper'), { preventDefaul
 
 var myScroll13 = new IScroll(document.getElementById('wrapper'), { bounceEasing: 'circular' });
 var myScroll14 = new IScroll(document.getElementById('wrapper'), { bounceEasing: { style: 'cubic-bezier(0,0,1,1)', fn: function (k) { return k; } } });
+
+var myScroll15 = new IScroll('#wrapper', { disableMouse: true, disablePointer: true });

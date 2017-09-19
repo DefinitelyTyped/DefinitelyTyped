@@ -1,1 +1,7 @@
-{ "extends": "../tslint.json" }
+{
+  "extends": "dtslint/dt.json",
+  "rules": {
+    "no-any-union": false,
+    "prefer-method-signature": false
+  }
+}

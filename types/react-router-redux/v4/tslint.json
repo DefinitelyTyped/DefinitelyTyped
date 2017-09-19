@@ -1,6 +1,1 @@
-{
-    "extends": "../tslint.json",
-    "rules": {
-        "forbidden-types": false
-    }
-}
+{ "extends": "dtslint/dt.json" }
