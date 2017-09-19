@@ -2,6 +2,7 @@
 // Project: http://recharts.org/
 // Definitions by: Maarten Mulders <https://github.com/mthmulders>
 //                 Raphael Mueller <https://github.com/rapmue>
+//                 Roy Xue <https://github.com/xljroy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -14,6 +15,8 @@ export type LegendType = 'line' | 'square' | 'rect' | 'circle' | 'cross' | 'diam
 export type LayoutType = 'horizontal' | 'vertical';
 export type AnimationEasingType = 'ease' | 'ease-in' | 'ease-out' | 'ease-in-out' | 'linear';
 export type ScaleType = 'auto' | 'linear' | 'pow' | 'sqrt' | 'log' | 'identity' | 'time' | 'band' | 'point' | 'ordinal' | 'quantile' | 'quantize' | 'utcTime' | 'sequential' | 'threshold';
+export type PositionType = 'top' | 'left' | 'right' | 'bottom' | 'inside' | 'outside'| 'insideLeft' | 'insideRight' |
+	'insideTop' | 'insideBottom' | 'insideTopLeft' | 'insideBottomLeft' | 'insideTopRight' | 'insideBottomRight' | 'insideStart' | 'insideEnd' | 'end' | 'center';
 
 export interface Margin {
 	top: number;
@@ -708,12 +711,23 @@ export interface TreemapProps {
 	animationEasing?: AnimationEasingType;
 }
 
+export interface Label {
+	viewBox?: any;
+	formatter?: RechartsFunction;
+	value: string | number;
+	position?: PositionType;
+	offset?: number;
+	content?: React.ReactElement<any> | RechartsFunction;
+	chilren: any;
+}
+
 export class Treemap extends React.Component<TreemapProps> { }
 
 export interface XPadding {
 	left: number;
 	right: number;
 }
+
 export interface XAxisProps {
 	hide?: boolean;
 	dataKey?: string | number;
@@ -737,7 +751,7 @@ export interface XAxisProps {
 	tick?: boolean | any | React.ReactElement<any>;
 	mirror?: boolean;
 	reversed?: boolean;
-	label?: string | number | React.ReactElement<any>;
+	label?: string | number | React.ReactElement<any> | Label;
 	scale?: ScaleType | RechartsFunction;
 	unit?: string | number;
 	name?: string | number;
@@ -780,7 +794,7 @@ export interface YAxisProps {
 	tick?: boolean | any | React.ReactElement<any>;
 	mirror?: boolean;
 	reversed?: boolean;
-	label?: string | number | React.ReactElement<any>;
+	label?: string | number | React.ReactElement<any> | Label;
 	scale?: ScaleType | RechartsFunction;
 	unit?: string | number;
 	name?: string | number;
