@@ -284,4 +284,13 @@ export interface IUtils {
     decode_col(col: string): number;
     /** Converts A1 range to 0-indexed form */
     decode_range(range: string): IRange;
+    
+    /** Converts an array of JS objects to a worksheet. */
+    json_to_sheet<T>(data: T[], opts?: any): IWorkSheet;
+    
+    /** Creates a new workbook */
+    book_new(): IWorkBook;
+    
+    /** Append a worksheet to a workbook */
+    book_append_sheet(workbook: IWorkBook, worksheet: IWorkSheet, name?: string): void;
 }
