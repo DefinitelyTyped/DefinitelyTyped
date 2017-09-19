@@ -392,6 +392,7 @@ declare namespace angular {
         $rollbackViewValue(): void;
         $commitViewValue(): void;
         $isEmpty(value: any): boolean;
+        $overrideModelOptions(options: INgModelOptions): void;
 
         $viewValue: any;
 
