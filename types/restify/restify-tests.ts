@@ -2,6 +2,7 @@ import * as restify from "restify";
 import * as url from "url";
 import * as Logger from "bunyan";
 import * as http from "http";
+import * as stream from "stream";
 
 let server: restify.Server;
 
@@ -164,3 +165,19 @@ server.on('after', (req: restify.Request, res: restify.Response, route: restify.
 (<any> restify).defaultResponseHeaders = function(this: restify.Request, data: any) {
     this.header('Server', 'helloworld');
 };
+
+const loggerStream: Logger.Stream = {};
+
+const requestCaptureOptions: restify.bunyan.RequestCaptureOptions = {};
+requestCaptureOptions.stream = loggerStream;
+requestCaptureOptions.streams = Object.freeze([loggerStream, loggerStream]);
+requestCaptureOptions.level = Logger.DEBUG;
+requestCaptureOptions.level = "info";
+requestCaptureOptions.maxRecords = 50;
+requestCaptureOptions.maxRequestIds = 500;
+requestCaptureOptions.dumpDefault = true;
+
+const requestCaptureStream = new restify.bunyan.RequestCaptureStream(requestCaptureOptions);
+const asStream: stream.Stream = requestCaptureStream;
+
+const logger2: Logger = restify.bunyan.createLogger("horse");

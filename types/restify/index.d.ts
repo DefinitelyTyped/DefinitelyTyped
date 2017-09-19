@@ -9,16 +9,7 @@
 import http = require('http');
 import Logger = require('bunyan');
 import url = require('url');
-
-export interface BunyanOptions {
-    properties: any;
-
-    serializers: any;
-
-    headers: any;
-
-    log: Logger;
-}
+import stream = require('stream');
 
 export interface ServerOptions {
     ca?: any;
@@ -1011,7 +1002,60 @@ export type FindRouteCallback = (err: Error, route?: Route, params?: any) => voi
 export type RequestHandler = (req: Request, res: Response, next: Next) => any;
 export type RequestHandlerType = RequestHandler | RequestHandler[];
 
-export function bunyan(options?: BunyanOptions): RequestHandler;
+export namespace bunyan {
+    interface RequestCaptureOptions {
+        /** The stream to which to write when dumping captured records. */
+        stream?: Logger.Stream;
+
+        /** The streams to which to write when dumping captured records. */
+        streams?: ReadonlyArray<Logger.Stream>;
+
+        /**
+         * The level at which to trigger dumping captured records. Defaults to
+         * bunyan.WARN.
+         */
+        level?: Logger.LogLevel;
+
+        /** Number of records to capture. Default 100. */
+        maxRecords?: number;
+
+        /**
+         * Number of simultaneous request id capturing buckets to maintain.
+         * Default 1000.
+         */
+        maxRequestIds?: number;
+
+        /**
+         * If true, then dump captured records on the *default* request id when
+         * dumping. I.e. dump records logged without "req_id" field. Default
+         * false.
+         */
+        dumpDefault?: boolean;
+    }
+
+    /**
+     * A Bunyan stream to capture records in a ring buffer and only pass through
+     * on a higher-level record. E.g. buffer up all records but only dump when
+     * getting a WARN or above.
+     */
+    class RequestCaptureStream extends stream.Stream {
+        constructor(opts: RequestCaptureOptions);
+
+        /** write to the stream */
+        write(record: any): void;
+    }
+
+    const serializers: Logger.Serializers & {
+        err: Logger.Serializer,
+        req: Logger.Serializer,
+        res: Logger.Serializer,
+        client_req: Logger.Serializer,
+        client_res: Logger.Serializer
+    };
+
+    /** create a bunyan logger */
+    function createLogger(name: string): Logger;
+}
 
 export function createServer(options?: ServerOptions): Server;
 
