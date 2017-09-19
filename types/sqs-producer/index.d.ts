@@ -25,6 +25,7 @@ export interface ProducerMessage {
   id: string;
   body: string;
   messageAttributes?: { [key: string]: ProducerMessageAttribute };
+  groupId?: number;
   delaySeconds?: number;
 }
 
