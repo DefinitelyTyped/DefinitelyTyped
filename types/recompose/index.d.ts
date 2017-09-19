@@ -197,6 +197,10 @@ declare module 'recompose' {
     export function onlyUpdateForKeys(
         propKeys: Array<string>
     ) : InferableComponentEnhancer<{}>;
+    export function onlyUpdateForKeys<T>(
+        propKeys: Array<keyof T>
+    ) : InferableComponentEnhancer<{}>;
+
 
     // onlyUpdateForPropTypes: https://github.com/acdlite/recompose/blob/master/docs/API.md#onlyUpdateForPropTypes
     export const onlyUpdateForPropTypes: InferableComponentEnhancer<{}>;

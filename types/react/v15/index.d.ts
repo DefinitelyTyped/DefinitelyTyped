@@ -190,6 +190,12 @@ declare namespace React {
     function createFactory<P>(type: ComponentClass<P>): Factory<P>;
 
     // DOM Elements
+    // TODO: generalize this to everything in `keyof ReactHTML`, not just "input"
+    function createElement(
+            type: "input",
+            props?: InputHTMLAttributes<HTMLInputElement> & ClassAttributes<HTMLInputElement>,
+            ...children: ReactNode[]): DetailedReactHTMLElement<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
+
     function createElement<P extends HTMLAttributes<T>, T extends HTMLElement>(
         type: keyof ReactHTML,
         props?: ClassAttributes<T> & P,

@@ -17,3 +17,11 @@ const customFormatted = prettier.format("lodash ( )", {
         return ast;
     }
 });
+
+prettier.resolveConfig('path/to/somewhere').then(options => {
+    if (options !== null) {
+        const formatted = prettier.format('hello world', options);
+    }
+});
+
+prettier.clearConfigCache();

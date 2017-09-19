@@ -258,7 +258,7 @@ export interface PathEntryStream {
     read(): PathEntry | null;
 }
 
-export type CopyFilter = ((src: string) => boolean) | RegExp;
+export type CopyFilter = ((src: string, dest: string) => boolean) | RegExp;
 
 export type SymlinkType = "dir" | "file";
 

@@ -7,6 +7,7 @@
 //                 Mark Vujevits <https://github.com/vujevits>
 //                 Mike Deverell <https://github.com/devrelm>
 //                 MartynasZilinskas <https://github.com/MartynasZilinskas>
+//                 Onat Yigit Mercan <https://github.com/onatm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -32,11 +33,11 @@ declare namespace ReactSelectClass {
     type MenuRendererHandler = (props: MenuRendererProps) => HandlerRendererResult;
     type OnCloseHandler = () => void;
     type OnInputChangeHandler = (inputValue: string) => void;
-    type OnInputKeyDownHandler = React.KeyboardEventHandler<HTMLDivElement>;
+    type OnInputKeyDownHandler = React.KeyboardEventHandler<HTMLDivElement | HTMLInputElement>;
     type OnMenuScrollToBottomHandler = () => void;
     type OnOpenHandler = () => void;
-    type OnFocusHandler = React.FocusEventHandler<HTMLDivElement>;
-    type OnBlurHandler = React.FocusEventHandler<HTMLDivElement>;
+    type OnFocusHandler = React.FocusEventHandler<HTMLDivElement | HTMLInputElement>;
+    type OnBlurHandler = React.FocusEventHandler<HTMLDivElement | HTMLInputElement>;
     type OptionRendererHandler = (option: Option) => HandlerRendererResult;
     type ValueRendererHandler = (option: Option) => HandlerRendererResult;
     type OnValueClickHandler = (value: string, event: React.MouseEvent<HTMLAnchorElement>) => void;
@@ -49,6 +50,7 @@ declare namespace ReactSelectClass {
     type OnChangeSingleHandler<TValue = OptionValues> = OnChangeHandler<Option<TValue>>;
     type OnChangeMultipleHandler<TValue = OptionValues> = OnChangeHandler<Options<TValue>>;
     type OnChangeHandler<TOption = Option | Options> = (newValue: TOption | null) => void;
+    type OnNewOptionClickHandler = (option: Option) => void;
 
     type LoadOptionsHandler = LoadOptionsAsyncHandler | LoadOptionsLegacyHandler;
     type LoadOptionsAsyncHandler = (input: string) => Promise<AutocompleteResult>;
@@ -82,6 +84,11 @@ declare namespace ReactSelectClass {
          * @default false
          */
         disabled?: boolean;
+        /**
+         * In the event that a custom menuRenderer is provided, Option should be able
+         * to accept arbitrary key-value pairs. See react-virtualized-select.
+         */
+        [property: string]: any;
     }
 
     type OptionValues = string | number | boolean;
@@ -448,6 +455,11 @@ declare namespace ReactSelectClass {
          * Decides if a keyDown event (eg its 'keyCode') should result in the creation of a new option.
          */
         shouldKeyDownEventCreateNewOption?: ShouldKeyDownEventCreateNewOptionHandler;
+
+        /**
+         * new option click handler: function (option) {}
+         */
+        onNewOptionClick?: OnNewOptionClickHandler;
     }
 
     interface ReactAsyncSelectProps extends ReactSelectProps {

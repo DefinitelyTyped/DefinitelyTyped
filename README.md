@@ -144,6 +144,10 @@ For a good example package, see [base64-js](https://github.com/DefinitelyTyped/D
     Example where a type parameter is acceptable: `function id<T>(value: T): T;`.
     Example where it is not acceptable: `function parseJson<T>(json: string): T;`.
     Exception: `new Map<string, number>()` is OK.
+* Using the types `Function` and `Object` is almost never a good idea. In 99% of cases it's possible to specify a more specific type. Examples are `(x: number) => number` for [functions](http://www.typescriptlang.org/docs/handbook/functions.html#function-types) and `{ x: number, y: number }` for objects. If there is no certainty at all about the type, [`any`](http://www.typescriptlang.org/docs/handbook/basic-types.html#any) is the right choice, not `Object`. If the only known fact about the type is that it's some object, use the type [`object`](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-2.html#object-type), not `Object` or `{ [key: string]: any }`.
+* `var foo: string | any`: 
+    When `any` is used in a union type, the resulting type is still `any`. So while the `string` portion of this type annotation may _look_ useful, it in fact offers no additional typechecking over simply using `any`.
+    Depending on the intention, acceptable alternatives could be `any`, `string`, or `string | object`.
 
 
 #### Removing a package
@@ -199,7 +203,14 @@ This script uses [dtslint](https://github.com/Microsoft/dtslint).
 #### What exactly is the relationship between this repository and the `@types` packages on NPM?
 
 The `master` branch is automatically published to the `@types` scope on NPM thanks to [types-publisher](https://github.com/Microsoft/types-publisher).
-This usually happens within an hour of changes being merged.
+
+#### I've submitted a pull request. How long until it is merged?
+
+It depends, but most pull requests will be merged within a week. PRs that have been approved by an author listed in the definition's header are usually merged more quickly; PRs for new definitions will take more time as they require more review from maintainers. Each PR is reviewed by a TypeScript or DefinitelyTyped team member before being merged, so please be patient as human factors may cause delays. Check the [PR Burndown Board](https://github.com/DefinitelyTyped/DefinitelyTyped/projects/3?card_filter_query=is%3Aopen) to see progress as maintainers work through the open PRs.
+
+#### My PR is merged; when will the `@types` NPM package be updated?
+
+NPM packages should update within a few hours. If it's been more than 24 hours, ping @RyanCavanaugh and @andy-ms on the PR to investigate.
 
 #### I'm writing a definition that depends on another definition. Should I use `<reference types="" />` or an import?
 
