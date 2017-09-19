@@ -68,16 +68,6 @@ export interface AddressInterface {
     address: string;
 }
 
-export class Server {
-    /**
-     * Creates a new Server.
-     * @public
-     * @class
-     * @param {Object} options an options object
-     */
-    constructor(options?: ServerOptions);
-}
-
 export interface Server extends http.Server {
     /**
      * Returns the server address. Wraps node's address().
@@ -323,10 +313,6 @@ export interface RouterOptions {
     version?: string;
 
     versions?: string[];
-}
-
-export class Router {
-    constructor(options: RouterOptions);
 }
 
 export interface Router {
