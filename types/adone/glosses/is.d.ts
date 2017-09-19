@@ -311,7 +311,7 @@ declare namespace adone {
         /**
          * Checks whether the given object is an instance of adone.datetime
          */
-        export function exdate(obj: any): boolean;
+        export function datetime(obj: any): boolean;
 
         export function transform(obj: any): boolean;
 

@@ -63,7 +63,7 @@ namespace isTests {
     { const a: boolean = adone.is.long({}); }
     { const a: boolean = adone.is.bigNumber({}); }
     { const a: boolean = adone.is.byteArray({}); }
-    { const a: boolean = adone.is.exdate({}); }
+    { const a: boolean = adone.is.datetime({}); }
     { const a: boolean = adone.is.transform({}); }
     { const a: boolean = adone.is.subsystem({}); }
     { const a: boolean = adone.is.application({}); }
