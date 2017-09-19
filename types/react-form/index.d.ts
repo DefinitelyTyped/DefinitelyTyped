@@ -6,27 +6,29 @@
 
 import * as React from 'react';
 
-type FormValue = any;
-type FormError = string | undefined;
-type Nested<T> = {[key: string]: T | Nested<T>};
+export type FormValue = any;
+export type FormError = string | undefined;
+export interface Nested<T> {
+    [key: string]: T | Nested<T>;
+}
 export type FormValues = Nested<FormValue>;
 export type Touched = Nested<boolean>;
 export type FormErrors = {[key: string]: FormError} | [{[key: string]: FormError}];
 export type NestedErrors = Nested<FormErrors>;
-type RenderReturn = JSX.Element | false | null;
+export type RenderReturn = JSX.Element | false | null;
 
 export interface FormProps {
-    loadState?: (props: FormProps, self: Form) => FormState | undefined,
-    defaultValues?: FormValues,
-    preValidate?: (values: FormValues, state: FormState, props: FormProps, self: Form) => FormValues,
-    validate?: (values: FormValues, state: FormState, props: FormProps) => FormErrors,
-    onValidationFail?: (values: FormValues, state: FormState, props: FormProps, self: Form) => void,
-    onChange?: (state: FormState, props: FormProps, initial: boolean | FormProps, self: Form) => void,
-    saveState?: (state: FormState, props: FormProps, self: Form) => void,
-    willUnmount?: (state: FormState, props: FormProps, self: Form) => void,
-    preSubmit?: (values: FormValues, state: FormState, props: FormProps, self: Form) => FormValues,
-    onSubmit?: (values: FormValues, state: FormState, props: FormProps, self: Form) => void,
-    postSubmit?: (values: FormValues, state: FormState, props: FormProps, self: Form) => void
+    loadState?(props: FormProps, self: Form): FormState | undefined;
+    defaultValues?: FormValues;
+    preValidate?(values: FormValues, state: FormState, props: FormProps, self: Form): FormValues;
+    validate?(values: FormValues, state: FormState, props: FormProps): FormErrors;
+    onValidationFail?(values: FormValues, state: FormState, props: FormProps, self: Form): void;
+    onChange?(state: FormState, props: FormProps, initial: boolean | FormProps, self: Form): void;
+    saveState?(state: FormState, props: FormProps, self: Form): void;
+    willUnmount?(state: FormState, props: FormProps, self: Form): void;
+    preSubmit?(values: FormValues, state: FormState, props: FormProps, self: Form): FormValues;
+    onSubmit?(values: FormValues, state: FormState, props: FormProps, self: Form): void;
+    postSubmit?(values: FormValues, state: FormState, props: FormProps, self: Form): void;
 }
 
 export interface FormState {
@@ -63,63 +65,62 @@ export class Form
         FormState
     >
     implements FormApi, React.ChildContextProvider<{}> {
+        static defaultProps: FormProps;
+        static childContextTypes: {
+            formApi: React.Validator<any>
+        };
 
-    static defaultProps: FormProps;
-    static childContextTypes: {
-        formApi: React.Validator<any>
-    };
+        getDefaultState(): FormState;
+        getChildContext(): { formApi: FormApi };
+        componentWillMount(): void;
+        componentWillReceiveProps(nextProps: Readonly<Partial<FormProps>>, nextContext: any): void;
+        componentWillUmount(): void;
 
-    getDefaultState (): FormState;
-    getChildContext: () => { formApi: FormApi }
-    componentWillMount(): void;
-    componentWillReceiveProps(nextProps: Readonly<Partial<FormProps>>, nextContext: any): void;
-    componentWillUmount(): void;
+        // API
+        setAllValues(values: FormValues, noTouch?: boolean): void;
+        setValue(field: string, value: any, noTouch?: boolean): void;
+        getValue(field: string, fallback?: any): any;
+        setNestedError(field: string, value?: boolean): void;
+        getError(field: string): FormError;
+        setTouched(field: string, value?: boolean): void;
+        getTouched(field: string): boolean;
+        addValue(field: string, value: any): void;
+        removeValue(field: string, index: number): void;
+        swapValues(field: string, index: number, destIndex: number): void;
+        setAllTouched(dirty?: boolean, state?: Partial<FormState>): void;
+        resetForm(): void;
+        submitForm(e?: Pick<React.SyntheticEvent<any>, 'preventDefault'>): void;
 
-    // API
-    setAllValues (values: FormValues, noTouch?: boolean): void;
-    setValue (field: string, value: any, noTouch?: boolean): void;
-    getValue (field: string, fallback?: any): any;
-    setNestedError (field: string, value?: boolean): void;
-    getError (field: string): FormError;
-    setTouched (field: string, value?: boolean): void;
-    getTouched (field: string): boolean;
-    addValue (field: string, value: any): void;
-    removeValue (field: string, index: number): void;
-    swapValues (field: string, index: number, destIndex: number): void;
-    setAllTouched (dirty?: boolean, state?: Partial<FormState>): void;
-    resetForm (): void;
-    submitForm (e?: Pick<React.SyntheticEvent<any>, 'preventDefault'>): void;
+        // Utils
+        getAPI(): FormApi;
+        setFormState(newState: Partial<FormState>, silent?: boolean): void;
+        emitChange(state: FormState, initial?: boolean): void;
+        validate(values: FormValues, state: FormState, props: FormProps): FormErrors;
+        render(): RenderReturn;
+    }
 
-    // Utils
-    getAPI (): FormApi;
-    setFormState (newState: Partial<FormState>, silent?: boolean): void;
-    emitChange (state: FormState, initial?: boolean): void;
-    validate (values: FormValues, state: FormState, props: FormProps): FormErrors;
-    render (): RenderReturn;
+export interface FormFieldApi {
+    setAllValues(values: FormValues, noTouch?: boolean): void;
+    setValue(value: any, noTouch?: boolean): void;
+    getValue(fallback?: any): any;
+    setNestedError(value?: boolean): void;
+    getError(): FormError;
+    setTouched(value?: boolean): void;
+    getTouched(): boolean;
+    addValue(value: any): void;
+    removeValue(index: number): void;
+    swapValues(index: number, destIndex: number): void;
+    setAllTouched(dirty?: boolean, state?: Partial<FormState>): void;
+    resetForm(): void;
+    submitForm(e?: Pick<React.SyntheticEvent<any>, 'preventDefault'>): void;
 }
 
-interface FormFieldApi {
-    setAllValues: (values: FormValues, noTouch?: boolean) => void;
-    setValue: (value: any, noTouch?: boolean) => void;
-    getValue: (fallback?: any) => any;
-    setNestedError: (value?: boolean) => void;
-    getError: () => FormError;
-    setTouched: (value?: boolean) => void;
-    getTouched: () => boolean;
-    addValue: (value: any) => void;
-    removeValue: (index: number) => void;
-    swapValues: (index: number, destIndex: number) => void;
-    setAllTouched: (dirty?: boolean, state?: Partial<FormState>) => void;
-    resetForm: () => void;
-    submitForm: (e?: Pick<React.SyntheticEvent<any>, 'preventDefault'>) => void;
-}
-
-interface FormFieldPropsWithField {
+export interface FormFieldPropsWithField {
     field?: string;
-    children: (api: FormFieldApi) => React.ReactElement<any> | null;
+    children(api: FormFieldApi): React.ReactElement<any> | null;
 }
-interface FormFieldPropsWithoutField {
-    children: (api: FormApi) => RenderReturn;
+export interface FormFieldPropsWithoutField {
+    children(api: FormApi): RenderReturn;
 }
 export type FormFieldProps = FormFieldPropsWithField | FormFieldPropsWithoutField;
 export const FormField: React.SFC<FormFieldProps>;
@@ -141,8 +142,8 @@ export interface FormInputProps {
     errorProps?: {};
 }
 
-interface FormInputPropsWithChildren extends FormInputProps {
-    children: (api: FormFieldApi) => React.ReactElement<any> | null;
+export interface FormInputPropsWithChildren extends FormInputProps {
+    children(api: FormFieldApi): React.ReactElement<any> | null;
 }
 export const FormInput: React.SFC<FormInputPropsWithChildren>;
 
@@ -158,17 +159,17 @@ export type ClickHandler<T> = EventHandler<T, React.MouseEvent<T>>;
 // Prop interfaces are intermediate interfaces to "redefine" the type of some events
 // onChange:React.EventHandler => onChange:any => onChange:CustomEventHandler
 
-interface SelectOption {
+export interface SelectOption {
     label: string;
     value: any;
     disabled?: boolean;
 }
-interface SelectAttrs extends React.SelectHTMLAttributes<HTMLSelectElement> {
+export interface SelectAttrs extends React.SelectHTMLAttributes<HTMLSelectElement> {
     onChange?: any;
     onBlur?: any;
 }
 export interface SelectProps extends SelectAttrs {
-    options: ReadonlyArray<SelectOption>
+    options: ReadonlyArray<SelectOption>;
     field?: FormInputProps['field'];
     showErrors?: FormInputProps['showErrors'];
     errorBefore?: FormInputProps['errorBefore'];
@@ -181,7 +182,7 @@ export interface SelectProps extends SelectAttrs {
 }
 export const Select: React.SFC<SelectProps>;
 
-interface InputAttrs extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface InputAttrs extends React.InputHTMLAttributes<HTMLInputElement> {
     onChange?: any;
     onBlur?: any;
 }
@@ -197,7 +198,7 @@ export interface CheckboxProps extends InputAttrs {
 }
 export const Checkbox: React.SFC<CheckboxProps>;
 
-interface TextareaAttrs extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
+export interface TextareaAttrs extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
     onChange?: any;
     onBlur?: any;
 }
@@ -205,8 +206,8 @@ export interface TextareaProps extends TextareaAttrs {
     field?: FormInputProps['field'];
     showErrors?: FormInputProps['showErrors'];
     errorBefore?: FormInputProps['errorBefore'];
-    onChange?: ChangeHandler<HTMLTextAreaElement>
-    onBlur?: FocusHandler<HTMLTextAreaElement>
+    onChange?: ChangeHandler<HTMLTextAreaElement>;
+    onBlur?: FocusHandler<HTMLTextAreaElement>;
     isForm?: FormInputProps['isForm'];
     noTouch?: boolean;
     errorProps?: FormInputProps['errorProps'];
@@ -261,10 +262,10 @@ export class RadioGroup extends React.Component<RadioGroupProps> implements Form
     resetForm: FormFieldApi['resetForm'];
     submitForm: FormFieldApi['submitForm'];
 
-    getChildContext (): RadioGroupContext;
+    getChildContext(): RadioGroupContext;
 }
 
-interface InputWIthoutClick extends InputAttrs {
+export interface InputWIthoutClick extends InputAttrs {
     onClick?: any;
 }
 export interface RadioProps extends InputWIthoutClick {
@@ -273,7 +274,6 @@ export interface RadioProps extends InputWIthoutClick {
     onBlur?: FocusHandler<HTMLInputElement>;
 }
 export class Radio extends React.Component<RadioProps> {
-
     static contextTypes: {
         formRadioGroup: React.Validator<any>
     };
