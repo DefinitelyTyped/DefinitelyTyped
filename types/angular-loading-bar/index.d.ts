@@ -7,6 +7,9 @@
 
 /// <reference types="angular" />
 
+declare var _: string;
+export = _;
+
 import * as angular from 'angular';
 
 declare module 'angular' {
