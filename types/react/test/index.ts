@@ -195,7 +195,7 @@ const nonLiteralElement = React.createElement(customDomElement, customProps);
 
 // https://github.com/Microsoft/TypeScript/issues/15019
 
-function foo3(child: React.ComponentClass<{ name: string }> | React.StatelessComponent<{ name: string }> | "input") {
+function foo3(child: React.ComponentClass<{ name: string }> | React.StatelessComponent<{ name: string }> | string) {
     React.createElement(child, { name: "bar" });
 }
 
