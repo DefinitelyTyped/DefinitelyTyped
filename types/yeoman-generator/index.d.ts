@@ -61,7 +61,11 @@ declare class Base extends EventEmitter {
 
     constructor(args: string|string[], options: {});
 
-    env: {};
+    env: {
+        error: {
+            (...e: Error[]): void
+        }
+    };
     args: {};
     resolved: string;
     description: string;
