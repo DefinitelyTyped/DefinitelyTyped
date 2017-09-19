@@ -2,7 +2,7 @@
 // Project: https://github.com/restify/node-restify
 // Definitions by: Bret Little <https://github.com/blittle>, Steve Hipwell <https://github.com/stevehipwell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.2
 
 /// <reference types="node" />
 
@@ -942,7 +942,7 @@ export interface Response extends http.ServerResponse {
      * @function redirect
      * @return   {undefined}
      */
-    redirect(options: string | any, next: Next): void;
+    redirect(options: object | string, next: Next): void;
 
     /** HTTP status code. */
     code: number;
