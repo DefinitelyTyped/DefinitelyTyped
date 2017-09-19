@@ -14,8 +14,9 @@
 
 import * as React from 'react';
 
-export default ReactSelectClass;
-
+export default class ReactSelectClass<TValue = OptionValues> extends React.Component<ReactSelectProps<TValue>> {
+    focus(): void;
+}
 // Other components
 export class Creatable<TValue = OptionValues> extends React.Component<ReactCreatableSelectProps<TValue>> { }
 export class Async<TValue = OptionValues> extends React.Component<ReactAsyncSelectProps<TValue>> { }
@@ -526,9 +527,4 @@ export interface ReactAsyncSelectProps<TValue = OptionValues> extends ReactSelec
      *  message to display while options are loading
      */
     searchingText?: string;
-}
-
-
-declare class ReactSelectClass<TValue = OptionValues> extends React.Component<ReactSelectProps<TValue>> {
-    focus(): void;
 }
