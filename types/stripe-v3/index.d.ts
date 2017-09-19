@@ -58,7 +58,7 @@ declare namespace stripe {
             email?: string;
             phone?: string;
         };
-        metadata?: object;
+        metadata?: {};
         statement_descriptor?: string;
         redirect?: {
             return_url: string;
@@ -179,7 +179,7 @@ declare namespace stripe {
         interface Element {
             // HTMLElement keeps giving this error for some reason:
             // Cannot find name 'HTMLElement'
-            mount(domElement: string | any): void;
+            mount(domElement: any): void;
             on(event: eventTypes, handler: handler): void;
             blur(): void;
             clear(): void;
