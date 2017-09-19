@@ -17,11 +17,10 @@ declare namespace adone {
         /**
          * Reads the value of a symbolic link
          */
-        function readlink(path: string | Buffer | I.URL, options: { encoding?: I.Encoding }): Promise<string>;
-        function readlink(path: string | Buffer | I.URL, options: { encoding: null }): Promise<Buffer>;
         function readlink(path: string | Buffer | I.URL, encoding: null): Promise<Buffer>;
         function readlink(path: string | Buffer | I.URL, encoding: I.Encoding): Promise<string>;
-        function readlink(path: string | Buffer | I.URL): Promise<string>;
+        function readlink(path: string | Buffer | I.URL, options: { encoding: null }): Promise<Buffer>;
+        function readlink(path: string | Buffer | I.URL, options?: { encoding?: I.Encoding }): Promise<string>;
 
         /**
          * Deletes a name and possibly the file it refers to
@@ -51,20 +50,18 @@ declare namespace adone {
         /**
          * Reads a directory
          */
-        function readdir(path: string | Buffer | I.URL, options: { encoding?: I.Encoding }): Promise<string[]>;
-        function readdir(path: string | Buffer | I.URL, options: { encoding: null }): Promise<Buffer[]>;
         function readdir(path: string | Buffer | I.URL, encoding: null): Promise<Buffer[]>;
         function readdir(path: string | Buffer | I.URL, encoding: I.Encoding): Promise<string[]>;
-        function readdir(path: string | Buffer | I.URL): Promise<string[]>;
+        function readdir(path: string | Buffer | I.URL, options: { encoding: null }): Promise<Buffer[]>;
+        function readdir(path: string | Buffer | I.URL, options?: { encoding?: I.Encoding }): Promise<string[]>;
 
         /**
          * Reads a directory
          */
-        function readdirSync(path: string | Buffer | I.URL, options: { encoding?: I.Encoding }): string[];
-        function readdirSync(path: string | Buffer | I.URL, options: { encoding: null }): Buffer[];
         function readdirSync(path: string | Buffer | I.URL, encoding: null): Buffer[];
         function readdirSync(path: string | Buffer | I.URL, encoding: I.Encoding): string[];
-        function readdirSync(path: string | Buffer | I.URL): string[];
+        function readdirSync(path: string | Buffer | I.URL, options: { encoding: null }): Buffer[];
+        function readdirSync(path: string | Buffer | I.URL, options?: { encoding?: I.Encoding }): string[];
 
         /**
          * Gets file status, identical to stat, except that if pathname is a symbolic link,
@@ -1332,40 +1329,53 @@ declare namespace adone {
         /**
          * Returns the canonicalized absolute pathname
          */
-        function realpath(path: string | Buffer | I.URL, options: { encoding?: I.Encoding }): Promise<string>;
-        function realpath(path: string | Buffer | I.URL, options: { encoding: "buffer" }): Promise<Buffer>;
-        function realpath(path: string | Buffer | I.URL, encoding: I.Encoding): Promise<string>;
         function realpath(path: string | Buffer | I.URL, encoding: "buffer"): Promise<Buffer>;
-        function realpath(path: string | Buffer | I.URL): Promise<string>;
+        function realpath(path: string | Buffer | I.URL, encoding: I.Encoding): Promise<string>;
+        function realpath(path: string | Buffer | I.URL, options: { encoding: "buffer" }): Promise<Buffer>;
+        function realpath(path: string | Buffer | I.URL, options?: { encoding?: I.Encoding }): Promise<string>;
 
         /**
          * Returns the canonicalized absolute pathname
          */
-        function realpathSync(path: string | Buffer | I.URL, options: { encoding?: I.Encoding }): string;
-        function realpathSync(path: string | Buffer | I.URL, options: { encoding: "buffer" }): Buffer;
-        function realpathSync(path: string | Buffer | I.URL, encoding: I.Encoding): string;
         function realpathSync(path: string | Buffer | I.URL, encoding: "buffer"): Buffer;
-        function realpathSync(path: string | Buffer | I.URL): string;
+        function realpathSync(path: string | Buffer | I.URL, encoding: I.Encoding): string;
+        function realpathSync(path: string | Buffer | I.URL, options: { encoding: "buffer" }): Buffer;
+        function realpathSync(path: string | Buffer | I.URL, options?: { encoding?: I.Encoding }): string;
+
+        namespace I {
+            interface ReadFileOptions {
+                check?: boolean;
+                flags?: Flag;
+                encoding?: null | Encoding;
+            }
+        }
 
         /**
          * Reads a file
          */
-        function readFile(filepath: string | Buffer | I.URL, options: { check: true, flags?: I.Flag, encoding: I.Encoding }): Promise<string | null>;
-        function readFile(filepath: string | Buffer | I.URL, options: { check?: false, flags?: I.Flag, encoding: I.Encoding }): Promise<string>;
-        function readFile(filepath: string | Buffer | I.URL, options: { check: true, flags?: I.Flag, encoding?: null }): Promise<Buffer | null>;
-        function readFile(filepath: string | Buffer | I.URL, options?: { check?: false, flags?: I.Flag, encoding?: null }): Promise<Buffer>;
-        function readFile(filepath: string | Buffer | I.URL, encoding?: null): Promise<Buffer>;
+        function readFile(filepath: string | Buffer | I.URL, options: I.ReadFileOptions & { check: true, encoding: null }): Promise<Buffer | null>;
+        function readFile(filepath: string | Buffer | I.URL, options: I.ReadFileOptions & { check: true, encoding: I.Encoding }): Promise<string | null>;
+        function readFile(filepath: string | Buffer | I.URL, options: I.ReadFileOptions & { check: true }): Promise<Buffer | null>;
+        function readFile(filepath: string | Buffer | I.URL, options: I.ReadFileOptions & { encoding: null }): Promise<Buffer>;
+        function readFile(filepath: string | Buffer | I.URL, options: I.ReadFileOptions & { encoding: I.Encoding }): Promise<string>;
+        function readFile(filepath: string | Buffer | I.URL, options: I.ReadFileOptions): Promise<Buffer>;
+        function readFile(filepath: string | Buffer | I.URL, encoding: null): Promise<Buffer>;
         function readFile(filepath: string | Buffer | I.URL, encoding: I.Encoding): Promise<string>;
+        function readFile(filepath: string | Buffer | I.URL): Promise<Buffer>;
 
         /**
          * Reads a file
          */
-        function readFileSync(filepath: string | Buffer | I.URL, options: { check: true, flags?: I.Flag, encoding: I.Encoding }): string | null;
-        function readFileSync(filepath: string | Buffer | I.URL, options: { check?: false, flags?: I.Flag, encoding: I.Encoding }): string;
-        function readFileSync(filepath: string | Buffer | I.URL, options: { check: true, flags?: I.Flag, encoding?: null }): Buffer | null;
-        function readFileSync(filepath: string | Buffer | I.URL, options?: { check?: false, flags?: I.Flag, encoding?: null }): Buffer;
-        function readFileSync(filepath: string | Buffer | I.URL, encoding?: null): Buffer;
+        function readFileSync(filepath: string | Buffer | I.URL, options: I.ReadFileOptions & { check: true, encoding: null }): Buffer | null;
+        function readFileSync(filepath: string | Buffer | I.URL, options: I.ReadFileOptions & { check: true, encoding: I.Encoding }): string | null;
+        function readFileSync(filepath: string | Buffer | I.URL, options: I.ReadFileOptions & { check: true }): Buffer | null;
+        function readFileSync(filepath: string | Buffer | I.URL, options: I.ReadFileOptions & { encoding: null }): Buffer;
+        function readFileSync(filepath: string | Buffer | I.URL, options: I.ReadFileOptions & { encoding: I.Encoding }): string;
+        function readFileSync(filepath: string | Buffer | I.URL, options: I.ReadFileOptions): Buffer;
+        function readFileSync(filepath: string | Buffer | I.URL, options: I.ReadFileOptions): Buffer;
+        function readFileSync(filepath: string | Buffer | I.URL, encoding: null): Buffer;
         function readFileSync(filepath: string | Buffer | I.URL, encoding: I.Encoding): string;
+        function readFileSync(filepath: string | Buffer | I.URL): Buffer;
 
         /**
          * Reads lines from a file
