@@ -4709,7 +4709,7 @@ declare module "tls" {
         secureContext?: Object;
         session?: Buffer;
         minDHSize?: number;
-        lookup?: (hostname: string, options: dns.LookupOptions, callback: (err: NodeJS.ErrnoException, address: string, family: number) => void) => void;
+        lookup?: (hostname: string, options: dns.LookupOneOptions, callback: (err: NodeJS.ErrnoException, address: string, family: number) => void) => void;
     }
 
     export interface Server extends net.Server {
