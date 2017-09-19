@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare type CallbackNameNamesOrDefinition = string | string[] | (() => void);
-declare type placmentTypes = 'top' | 'bottom' | 'right' | 'left';
+declare type placementTypes = 'top' | 'bottom' | 'right' | 'left';
 
 interface HopscotchConfiguration {
   bubbleWidth?: number;
@@ -46,7 +46,7 @@ interface TourDefinition extends HopscotchConfiguration {
 }
 
 interface StepDefinition {
-  placement: placmentTypes;
+  placement: placementTypes;
   target: string | HTMLElement | Array<string | HTMLElement>
 
   title?: string;
