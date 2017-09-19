@@ -35,12 +35,10 @@ type PathParams = string | RegExp | (string | RegExp)[];
 type RequestHandlerParams = RequestHandler | ErrorRequestHandler | (RequestHandler | ErrorRequestHandler)[];
 
 interface IRouterMatcher<T> {
-    (path: PathParams, ...handlers: RequestHandler[]): T;
     (path: PathParams, ...handlers: RequestHandlerParams[]): T;
 }
 
 interface IRouterHandler<T> {
-    (...handlers: RequestHandler[]): T;
     (...handlers: RequestHandlerParams[]): T;
 }
 

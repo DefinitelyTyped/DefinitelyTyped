@@ -18,7 +18,7 @@ namespace express_tests {
     next();
     });
 
-    app.use(function(err: any, req: express.Request, res: express.Response, next: express.NextFunction) {
+    app.use(function(err, req, res, next) {
     console.error(err);
     next(err);
     });
