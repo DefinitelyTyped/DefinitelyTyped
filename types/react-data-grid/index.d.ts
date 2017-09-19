@@ -198,6 +198,13 @@ declare namespace AdazzleReactDataGrid {
          * @param row object behind the row
          */
         onRowClick?: (rowIdx : number, row : object) => void
+        /**
+         * Responsible for returning an Array of values that can be used for filtering
+         * a column that is column.filterable and using a column.filterRenderer that 
+         * displays a list of options.
+         * @param columnKey the column key that we are looking to pull values from
+         */
+        getValidFilterValues?: (columnKey: string) => Array<any>
     }
 
     /**
