@@ -7,16 +7,18 @@
 /// <reference types="node" />
 
 import http = require('http');
+import https = require('https');
 import Logger = require('bunyan');
 import url = require('url');
+import spdy = require('spdy');
 import stream = require('stream');
 
 export interface ServerOptions {
-    ca?: any;
+    ca?: string | Buffer | ReadonlyArray<string | Buffer>;
 
-    certificate?: any;
+    certificate?: string | Buffer | ReadonlyArray<string | Buffer>;
 
-    key?: any;
+    key?: string | Buffer | ReadonlyArray<string | Buffer>;
 
     passphrase?: string;
 
@@ -30,7 +32,7 @@ export interface ServerOptions {
 
     name?: string;
 
-    spdy?: any;
+    spdy?: spdy.ServerOptions;
 
     version?: string;
 
@@ -38,7 +40,7 @@ export interface ServerOptions {
 
     handleUpgrades?: boolean;
 
-    httpsServerOptions?: any;
+    httpsServerOptions?: https.ServerOptions;
 
     handleUncaughtExceptions?: boolean;
 
