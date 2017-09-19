@@ -26,7 +26,7 @@ export interface ServerOptions {
 
     ciphers?: string;
 
-    formatters?: any;
+    formatters?: Formatters;
 
     log?: Logger;
 
@@ -1061,9 +1061,13 @@ export namespace bunyan {
 
 export function createServer(options?: ServerOptions): Server;
 
-export const formatters: {
-    [name: string]: RequestHandler
-};
+export type Formatter = (req: Request, res: Response, body: any) => string | null;
+
+export interface Formatters {
+    [contentType: string]: Formatter;
+}
+
+export const formatters: Formatters;
 
 export namespace plugins {
     namespace pre {
