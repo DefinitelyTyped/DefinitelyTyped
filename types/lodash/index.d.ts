@@ -12981,7 +12981,27 @@ declare namespace _ {
         /**
          * @see _.mapValues
          */
-        mapValues<T extends object>(obj: T | null | undefined): { [P in keyof T]: string };
+        mapValues<TResult>(obj: string | null | undefined, callback: StringIterator<TResult>): NumericDictionary<TResult>;
+
+        /**
+         * @see _.mapValues
+         */
+        mapValues<T>(obj: Dictionary<T> | null | undefined): Dictionary<T>;
+
+        /**
+         * @see _.mapValues
+         */
+        mapValues<T extends object>(obj: T): T;
+
+        /**
+         * @see _.mapValues
+         */
+        mapValues<T extends object>(obj: T | null | undefined): T | {};
+
+        /**
+         * @see _.mapValues
+         */
+        mapValues(obj: string | null | undefined): NumericDictionary<string>;
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -13020,9 +13040,30 @@ declare namespace _ {
         /**
          * @see _.mapValues
          */
-        mapValues<T extends object>(
-            this: LoDashImplicitWrapper<T | null | undefined>,
-        ): LoDashImplicitWrapper<{ [P in keyof T]: string }>;
+        mapValues<TResult>(
+            this: LoDashImplicitWrapper<string | null | undefined>,
+            callback: StringIterator<TResult>
+        ): LoDashImplicitWrapper<NumericDictionary<TResult>>;
+
+        /**
+         * @see _.mapValues
+         */
+        mapValues<T>(this: LoDashImplicitWrapper<Dictionary<T> | null | undefined>): LoDashImplicitWrapper<Dictionary<T>>;
+
+        /**
+         * @see _.mapValues
+         */
+        mapValues<T extends object>(this: LoDashImplicitWrapper<T>): LoDashImplicitWrapper<T>;
+
+        /**
+         * @see _.mapValues
+         */
+        mapValues<T extends object>(this: LoDashImplicitWrapper<T | null | undefined>): LoDashImplicitWrapper<T | {}>;
+
+        /**
+         * @see _.mapValues
+         */
+        mapValues(this: LoDashImplicitWrapper<string | null | undefined>): LoDashImplicitWrapper<NumericDictionary<string>>;
     }
 
     interface LoDashExplicitWrapper<TValue> {
@@ -13061,9 +13102,30 @@ declare namespace _ {
         /**
          * @see _.mapValues
          */
-        mapValues<T extends object>(
-            this: LoDashExplicitWrapper<T | null | undefined>,
-        ): LoDashExplicitWrapper<{ [P in keyof T]: string }>;
+        mapValues<TResult>(
+            this: LoDashExplicitWrapper<string | null | undefined>,
+            callback: StringIterator<TResult>
+        ): LoDashExplicitWrapper<NumericDictionary<TResult>>;
+
+        /**
+         * @see _.mapValues
+         */
+        mapValues<T>(this: LoDashExplicitWrapper<Dictionary<T> | null | undefined>): LoDashExplicitWrapper<Dictionary<T>>;
+
+        /**
+         * @see _.mapValues
+         */
+        mapValues<T extends object>(this: LoDashExplicitWrapper<T>): LoDashExplicitWrapper<T>;
+
+        /**
+         * @see _.mapValues
+         */
+        mapValues<T extends object>(this: LoDashExplicitWrapper<T | null | undefined>): LoDashExplicitWrapper<T | {}>;
+
+        /**
+         * @see _.mapValues
+         */
+        mapValues(this: LoDashExplicitWrapper<string | null | undefined>): LoDashExplicitWrapper<NumericDictionary<string>>;
     }
 
     //_.merge

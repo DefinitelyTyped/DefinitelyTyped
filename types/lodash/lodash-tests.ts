@@ -11592,91 +11592,126 @@ namespace TestMapKeys {
 
 // _.mapValues
 namespace TestMapValues {
-    let array: TResult[] | null | undefined = [] as any;
-    let list: _.List<TResult>| null | undefined = [] as any;
-    let dictionary: _.Dictionary<TResult> | null | undefined = any;
-    let obj: TResult = any;
+    const array: TResult[] | null | undefined = [] as any;
+    const list: _.List<TResult>| null | undefined = [] as any;
+    const dictionary: _.Dictionary<TResult> | null | undefined = any;
+    const obj: TResult = any;
+    const nilObj: TResult | null | undefined = any;
+    const str: string | null | undefined = any;
 
     _.mapValues(any); // $ExpectType any
-    let r1 = _.mapValues(any, (value, key, object) => {
+    // $ExpectType any
+    _.mapValues(any, (value, key, object) => {
         value; // $ExpectType any
         key; // $ExpectType string
         object; // $ExpectType any
         return value.a;
     });
-    r1; // $ExpectType any
-    _.mapValues(dictionary); // $ExpectType { [x: string]: string; }
+    _.mapValues(dictionary); // $ExpectType Dictionary<TResult>
     _.mapValues(dictionary, 'a'); // $ExpectType Dictionary<number>
     _.mapValues(dictionary, {a: 42}); // $ExpectType { [x: string]: boolean; }
     _.mapValues(dictionary, ['a', 42]); // $ExpectType { [x: string]: boolean; }
-    let r2 = _.mapValues(dictionary, (value, key, object) => {
+    // $ExpectType { [x: string]: number; }
+    _.mapValues(dictionary, (value, key, object) => {
         value; // $ExpectType TResult
         key; // $ExpectType string
         object; // $ExpectType Dictionary<TResult>
         return value.a;
     });
-    r2; // $ExpectType { [x: string]: number; }
-    let r3 = _.mapValues(obj, (value, key, object): number | boolean => {
+    // $ExpectType { a: number | boolean; b: number | boolean; c: number | boolean; }
+    _.mapValues(obj, (value, key, object): number | boolean => {
         value; // $ExpectType string | number | boolean
         key; // $ExpectType string
         object; // $ExpectType TResult
         return value ? 1 : false;
     });
-    r3; // $ExpectType { a: number | boolean; b: number | boolean; c: number | boolean; }
+
+    _.mapValues(obj); // $ExpectType TResult
+    _.mapValues(nilObj); // $ExpectType {} | TResult
+    _.mapValues(str); // $ExpectType NumericDictionary<string>
+    // $ExpectType NumericDictionary<boolean>
+    _.mapValues(str, (value, key, object): boolean => {
+        value; // $ExpectType string
+        key; // $ExpectType number
+        object; // $ExpectType string
+        return true;
+    });
 
     _(any).mapValues(); // $ExpectType LoDashImplicitWrapper<any>
-    let r4 = _(any).mapValues((value, key, object) => {
+    // $ExpectType LoDashImplicitWrapper<any>
+    _(any).mapValues((value, key, object) => {
         value; // $ExpectType any
         key; // $ExpectType string
         object; // $ExpectType any
         return value.a;
     });
-    r4; // $ExpectType LoDashImplicitWrapper<any>
-    _(dictionary).mapValues(); // $ExpectType LoDashImplicitWrapper<{ [x: string]: string; }>
+    _(dictionary).mapValues(); // $ExpectType LoDashImplicitWrapper<Dictionary<TResult>>
     _(dictionary).mapValues('a'); // $ExpectType LoDashImplicitWrapper<Dictionary<number>>
     _(dictionary).mapValues({a: 42}); // $ExpectType LoDashImplicitWrapper<{ [x: string]: boolean; }>
     _(dictionary).mapValues(['a', 42]); // $ExpectType LoDashImplicitWrapper<{ [x: string]: boolean; }>
-    let r5 =  _(dictionary).mapValues((value, key, object) => {
+    // $ExpectType LoDashImplicitWrapper<{ [x: string]: number; }>
+    _(dictionary).mapValues((value, key, object) => {
         value; // $ExpectType TResult
         key; // $ExpectType string
         object; // $ExpectType Dictionary<TResult>
         return value.a;
     });
-    r5; // $ExpectType LoDashImplicitWrapper<{ [x: string]: number; }>
-    let r6 = _(obj).mapValues((value, key, object): number | boolean => {
+    // $ExpectType LoDashImplicitWrapper<{ a: number | boolean; b: number | boolean; c: number | boolean; }>
+    _(obj).mapValues((value, key, object): number | boolean => {
         value; // $ExpectType string | number | boolean
         key; // $ExpectType string
         object; // $ExpectType TResult
         return value ? 1 : false;
     });
-    r6; // $ExpectType LoDashImplicitWrapper<{ a: number | boolean; b: number | boolean; c: number | boolean; }>
+
+    _(obj).mapValues(); // $ExpectType LoDashImplicitWrapper<TResult>
+    _(nilObj).mapValues(); // $ExpectType LoDashImplicitWrapper<{} | TResult>
+    _(str).mapValues(); // $ExpectType LoDashImplicitWrapper<NumericDictionary<string>>
+    // $ExpectType LoDashImplicitWrapper<NumericDictionary<boolean>>
+    _(str).mapValues((value, key, object): boolean => {
+        value; // $ExpectType string
+        key; // $ExpectType number
+        object; // $ExpectType string
+        return true;
+    });
 
     _.chain(any).mapValues(); // $ExpectType LoDashExplicitWrapper<any>
-    let r7 = _.chain(any).mapValues((value, key, object) => {
+    // $ExpectType LoDashExplicitWrapper<any>
+    _.chain(any).mapValues((value, key, object) => {
         value; // $ExpectType any
         key; // $ExpectType string
         object; // $ExpectType any
         return value.a;
     });
-    r7; // $ExpectType LoDashExplicitWrapper<any>
-    _.chain(dictionary).mapValues(); // $ExpectType LoDashExplicitWrapper<{ [x: string]: string; }>
+    _.chain(dictionary).mapValues(); // $ExpectType LoDashExplicitWrapper<Dictionary<TResult>>
     _.chain(dictionary).mapValues('a'); // $ExpectType LoDashExplicitWrapper<Dictionary<number>>
     _.chain(dictionary).mapValues({a: 42}); // $ExpectType LoDashExplicitWrapper<{ [x: string]: boolean; }>
     _.chain(dictionary).mapValues(['a', 42]); // $ExpectType LoDashExplicitWrapper<{ [x: string]: boolean; }>
-    let r8 = _.chain(dictionary).mapValues((value, key, object) => {
+    // $ExpectType LoDashExplicitWrapper<{ [x: string]: number; }>
+    _.chain(dictionary).mapValues((value, key, object) => {
         value; // $ExpectType TResult
         key; // $ExpectType string
         object; // $ExpectType Dictionary<TResult>
         return value.a;
     });
-    r8; // $ExpectType LoDashExplicitWrapper<{ [x: string]: number; }>
-    let r9 = _.chain(obj).mapValues((value, key, object): number | boolean => {
+    // $ExpectType LoDashExplicitWrapper<{ a: number | boolean; b: number | boolean; c: number | boolean; }>
+    _.chain(obj).mapValues((value, key, object): number | boolean => {
         value; // $ExpectType string | number | boolean
         key; // $ExpectType string
         object; // $ExpectType TResult
         return value ? 1 : false;
     });
-    r9; // $ExpectType LoDashExplicitWrapper<{ a: number | boolean; b: number | boolean; c: number | boolean; }>
+
+    _.chain(obj).mapValues(); // $ExpectType LoDashExplicitWrapper<TResult>
+    _.chain(nilObj).mapValues(); // $ExpectType LoDashExplicitWrapper<{} | TResult>
+    _.chain(str).mapValues(); // $ExpectType LoDashExplicitWrapper<NumericDictionary<string>>
+    // $ExpectType LoDashExplicitWrapper<NumericDictionary<boolean>>
+    _.chain(str).mapValues((value, key, object): boolean => {
+        value; // $ExpectType string
+        key; // $ExpectType number
+        object; // $ExpectType string
+        return true;
+    });
 }
 
 // _.merge
