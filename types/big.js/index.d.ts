@@ -278,3 +278,48 @@ export interface Big {
 }
 
 export const Big: BigConstructor;
+
+// Helpers to allow referencing Big and BigConstructor from inside the global declaration without creating a self reference
+/* tslint:disable:strict-export-declare-modifiers */
+type Big_ = Big;
+type BigConstructor_ = BigConstructor;
+type BigSource_ = BigSource;
+/* tslint:enable:strict-export-declare-modifiers */
+
+declare global {
+    namespace BigJs {
+        type Big = Big_;
+        type BigConstructor = BigConstructor_;
+        type BigSource = BigSource_;
+
+        const enum Comparison {
+            GT = 1,
+            EQ = 0,
+            LT = -1,
+        }
+
+        const enum RoundingMode {
+            /**
+             * Rounds towards zero.
+             * I.e. truncate, no rounding.
+             */
+            RoundDown = 0,
+            /**
+             * Rounds towards nearest neighbour.
+             * If equidistant, rounds away from zero.
+             */
+            RoundHalfUp = 1,
+            /**
+             * Rounds towards nearest neighbour.
+             * If equidistant, rounds towards even neighbour.
+             */
+            RoundHalfEven = 2,
+            /**
+             * Rounds away from zero.
+             */
+            RoundUp = 3,
+        }
+    }
+
+    const Big: BigJs.BigConstructor;
+}
