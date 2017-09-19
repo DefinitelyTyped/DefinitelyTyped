@@ -1,16 +1,17 @@
 import * as Consumer from "sqs-consumer";
+import { SQS } from "aws-sdk";
 
-var app = Consumer.create({
+const app = Consumer.create({
   queueUrl: 'https://sqs.eu-west-1.amazonaws.com/account-id/queue-name',
-  handleMessage: function (message, done) {
+  handleMessage(message, done) {
     // do some work with `message`
     done();
   }
 });
 
-var app2 = Consumer.create({
+const app2 = Consumer.create({
   queueUrl: 'https://sqs.eu-west-1.amazonaws.com/account-id/queue-name',
-  handleMessage: function(message, done){
+  handleMessage(message, done) {
     done();
   },
   region: "us-west-1",
@@ -19,7 +20,17 @@ var app2 = Consumer.create({
   waitTimeSeconds: 50
 });
 
-app.on('error', function (err: any) {
+// Test message handler.
+const handleMessage = (message: SQS.Message, done: Consumer.ConsumerDone) => {
+	done();
+};
+
+const app3 = Consumer.create({
+	queueUrl: 'https://sqs.eu-west-1.amazonaws.com/account-id/queue-name',
+	handleMessage
+});
+
+app.on('error', (err: any) => {
   console.log(err.message);
 });
 

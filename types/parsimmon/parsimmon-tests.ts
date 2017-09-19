@@ -28,6 +28,8 @@ let strPar: Parser<string>;
 let numPar: Parser<number>;
 let voidPar: Parser<void>;
 let anyPar: Parser<any>;
+let nullPar: Parser<null>;
+let emptyStrPar: Parser<''>;
 let indexPar: Parser<Index>;
 
 let fooPar: Parser<Foo>;
@@ -167,6 +169,11 @@ strPar = P.regex(/foo/);
 strPar = P.regex(/foo/, 3);
 strPar = P.regexp(/bar/);
 strPar = P.regexp(/bar/, 3);
+
+nullPar = P.notFollowedBy(fooPar);
+emptyStrPar = P.lookahead(str);
+emptyStrPar = P.lookahead(/foo/);
+emptyStrPar = P.lookahead(fooPar);
 
 fooPar = P.of(foo);
 

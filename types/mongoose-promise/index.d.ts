@@ -1,7 +1,8 @@
 // Type definitions for Mongoose-Promise 4.5.4
 // Project: http://mongoosejs.com/
-// Definitions by: simonxca <https://github.com/simonxca/>
+// Definitions by: simonxca <https://github.com/simonxca>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="mongoose" />
 /// <reference types="mpromise" />
@@ -82,7 +83,7 @@ declare module 'mongoose' {
      * Rejects this promise with reason.
      * If the promise has already been fulfilled or rejected, not action is taken.
      */
-    reject(reason: Object | string | Error): this;
+    reject(reason: any): this;
 
     /**
      * Resolves this promise to a rejected state if err is passed or a fulfilled state if no err is passed.
@@ -92,15 +93,15 @@ declare module 'mongoose' {
      * @param err error or null
      * @param val value to fulfill the promise with
      */
-    resolve(err?: any, val?: Object): this;
+    resolve(err?: any, ...args: T[]): this;
 
     /**
      * Creates a new promise and returns it. If onFulfill or onReject are passed, they are added as
      * SUCCESS/ERROR callbacks to this promise after the nextTick.
      * Conforms to promises/A+ specification.
      */
-    then<TRes>(onFulfill: (...args: T[]) => void | TRes | PromiseLike<TRes>,
-      onReject?: (err: any) => void | TRes | PromiseLike<TRes>): MongoosePromise<TRes>;
+    then<TRes>(onFulfill: (...values: T[]) => TRes | PromiseLike<TRes>,
+      onReject?: (err: any) => TRes | PromiseLike<TRes>): MongoosePromise<TRes>;
 
     /**
      * Fulfills this promise with passed arguments. Alias of mpromise#fulfill.

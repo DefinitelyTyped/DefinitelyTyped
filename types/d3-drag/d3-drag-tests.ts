@@ -88,6 +88,12 @@ circleDrag = circleDrag
 
 containerAccessor = circleDrag.container();
 
+// clickDistance(...) ---------------------------------------------------------
+
+circleDrag = circleDrag.clickDistance(5);
+
+const distance: number  = circleDrag.clickDistance();
+
 // set and get filter ---------------------------------------------------------
 
 let filterFn: (this: SVGCircleElement, datum: CircleDatum, index: number, group: SVGCircleElement[] | NodeListOf<SVGCircleElement>) => boolean;

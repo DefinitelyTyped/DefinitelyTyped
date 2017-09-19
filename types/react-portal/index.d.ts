@@ -2,12 +2,12 @@
 // Project: https://github.com/tajo/react-portal#readme
 // Definitions by: Shun Takahashi <https://github.com/shuntksh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import * as React from "react";
 
 interface CallBackProps extends React.Props<any> {
-    closePortal(): {};
+    closePortal(): void;
 }
 
 interface ReactPortalProps {
@@ -15,10 +15,10 @@ interface ReactPortalProps {
     openByClickOn?: React.ReactElement<CallBackProps>;
     closeOnEsc?: boolean;
     closeOnOutsideClick?: boolean;
-    onOpen?(node: HTMLDivElement): {};
-    beforeClose?(node: HTMLDivElement, resetPortalState: () => void): {};
-    onClose?(): {};
-    onUpdate?(): {};
+    onOpen?(node: HTMLDivElement): void;
+    beforeClose?(node: HTMLDivElement, resetPortalState: () => void): void;
+    onClose?(): void;
+    onUpdate?(): void;
 }
 
 declare const ReactPortal: React.ComponentClass<ReactPortalProps>;

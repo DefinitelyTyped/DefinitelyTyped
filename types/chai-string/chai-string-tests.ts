@@ -1,12 +1,11 @@
 
 /// <reference types="mocha" />
-/// <reference types="node" />
 
 var should = chai.should();
 var assert = chai.assert;
 var expect = chai.expect;
 
-var chai_string = require('chai-string');
+import chai_string = require("chai-string");
 chai.use(chai_string);
 
 describe('chai-string', function() {

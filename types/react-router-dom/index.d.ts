@@ -3,7 +3,7 @@
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 //                 Huy Nguyen <https://github.com/huy-nguyen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 declare module 'react-router-dom' {
   import {
@@ -30,34 +30,37 @@ declare module 'react-router-dom' {
     forceRefresh?: boolean;
     keyLength?: number;
   }
-  class BrowserRouter extends React.Component<BrowserRouterProps, void> {}
+  class BrowserRouter extends React.Component<BrowserRouterProps> {}
 
   interface HashRouterProps {
     basename?: string;
     getUserConfirmation?(): void;
     hashType?: 'slash' | 'noslash' | 'hashbang';
   }
-  class HashRouter extends React.Component<HashRouterProps, void> {}
+  class HashRouter extends React.Component<HashRouterProps> {}
 
-  interface LinkProps extends React.HTMLAttributes<HTMLAnchorElement> {
+  interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
     to: H.LocationDescriptor;
     replace?: boolean;
   }
-  class Link extends React.Component<LinkProps, void> {}
+  class Link extends React.Component<LinkProps> {}
 
   interface NavLinkProps extends LinkProps {
     activeClassName?: string;
     activeStyle?: React.CSSProperties;
     exact?: boolean;
     strict?: boolean;
-    isActive?(location: H.Location, props: any): boolean;
+    isActive?<P>(match: match<P>, location: H.Location): boolean;
   }
-  class NavLink extends React.Component<NavLinkProps, void> {}
+  class NavLink extends React.Component<NavLinkProps> {}
 
   export {
     BrowserRouter,
+    BrowserRouterProps, // TypeScript specific, not from React Router itself
     HashRouter,
+    HashRouterProps, // TypeScript specific, not from React Router itself
     LinkProps, // TypeScript specific, not from React Router itself
+    NavLinkProps, // TypeScript specific, not from React Router itself
     Link,
     NavLink,
     Prompt,

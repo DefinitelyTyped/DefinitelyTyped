@@ -10,9 +10,9 @@ import { FieldNode, DirectiveNode, VariableDefinitionNode } from '../language/as
  */
 export function getVariableValues(
     schema: GraphQLSchema,
-    varDefNodes: Array<VariableDefinitionNode>,
+    varDefNodes: VariableDefinitionNode[],
     inputs: { [key: string]: any }
-): { [key: string]: any }
+): { [key: string]: any };
 
 /**
  * Prepares an object map of argument values given a list of argument
@@ -23,3 +23,16 @@ export function getArgumentValues(
     node: FieldNode | DirectiveNode,
     variableValues?: { [key: string]: any }
 ): { [key: string]: any };
+
+/**
+ * Prepares an object map of argument values given a directive definition
+ * and a AST node which may contain directives. Optionally also accepts a map
+ * of variable values.
+ *
+ * If the directive does not exist on the node, returns undefined.
+ */
+export function getDirectiveValues(
+    directiveDef: GraphQLDirective,
+    node: { directives?: Array<DirectiveNode> },
+    variableValues?: { [key: string]: any }
+): void | { [key: string]: any };

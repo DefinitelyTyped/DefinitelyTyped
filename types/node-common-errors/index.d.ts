@@ -5,9 +5,9 @@
 
 import * as express from 'express';
 
-type GenerateMessageMethod = () => string;
+export type GenerateMessageMethod = () => string;
 
-interface ErrorConstructor {
+export interface ErrorConstructor {
     new (...params: any[]): Error;
 }
 

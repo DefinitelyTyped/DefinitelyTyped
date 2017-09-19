@@ -1,18 +1,18 @@
-// Type definitions for nes 0.0.7
+// Type definitions for nes 0.6.3
 // Project: https://github.com/clauderic/react-sortable-hoc
-// Definitions by: Ivo Stratev <https://github.com/NoHomey>
+// Definitions by: Ivo Stratev <https://github.com/NoHomey>, Charles Rey <https://github.com/charlesrey>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 declare module 'react-sortable-hoc' {
-    import React = require('react');
+    import * as React from 'react';
 
     export type Axis = 'x' | 'y' | 'xy';
 
     export type Offset = number | string;
 
     export interface SortStart {
-        node: React.ReactNode;
+        node: Element;
         index: number;
         collection: Offset;
     }
@@ -33,12 +33,20 @@ declare module 'react-sortable-hoc' {
 
     export type ContainerGetter = (element: React.ReactElement<any>) => HTMLElement;
 
+    export interface Dimensions {
+        width: number;
+        height: number;
+    }
+
     export interface SortableContainerProps {
         axis?: Axis;
         lockAxis?: Axis;
         helperClass?: string;
         transitionDuration?: number;
         pressDelay?: number;
+        pressThreshold?: number;
+        distance?: number;
+        shouldCancelStart?: (event: SortEvent) => boolean;
         onSortStart?: SortStartHandler;
         onSortMove?: SortMoveHandler;
         onSortEnd?: SortEndHandler;
@@ -48,6 +56,7 @@ declare module 'react-sortable-hoc' {
         lockToContainerEdges?: boolean;
         lockOffset?: Offset | [Offset, Offset];
         getContainer?: ContainerGetter;
+        getHelperDimensions?: (sort: SortStart) => Dimensions;
     }
 
     export interface SortableElementProps {

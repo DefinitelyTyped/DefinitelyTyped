@@ -3,7 +3,7 @@
 // Definitions by: Prashant Tiwari <https://github.com/prashaantt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-interface ContainOptions {
+export interface ContainOptions {
     /** Perform a deep comparison of the values? */
     deep?: boolean;
     /** Allow only one occurrence of each value? */
@@ -14,7 +14,7 @@ interface ContainOptions {
     part?: boolean;
 }
 
-interface ReachOptions {
+export interface ReachOptions {
     /** String to split chain path on. Defaults to ".". */
     separator?: string;
     /** Value to return if the path or value is not present. Default is undefined. */

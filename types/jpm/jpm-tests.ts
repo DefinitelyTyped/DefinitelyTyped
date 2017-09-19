@@ -100,7 +100,7 @@ console.log(urls.toFilename(urls.URL("http://example.com")));
 console.log(urls.DataURL("file:///my/path/file.txt").mimeType);
 
 import * as windows from "sdk/windows";
-import {stringify} from "sdk/querystring";
+import { stringify } from "sdk/querystring";
 for (let window of windows.browserWindows) {
   console.info(window.title);
 }

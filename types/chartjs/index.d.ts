@@ -1,13 +1,18 @@
 // Type definitions for Chart.js
 // Project: https://github.com/nnnick/Chart.js
 // Definitions by: Steve Fenton <https://github.com/Steve-Fenton>
+//                 Alessio Fanelli <https://github.com/FanaHOVA>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface ChartDataSet {
     label: string;
     fillColor: string;
     strokeColor: string;
+    type?: string;
+    yAxisID?: string;
+    xAxisID?: string;
 
+    borderColor?: string;
     /* Line, Radar */
     pointColor?: string;
     pointStrokeColor?: string;
@@ -17,6 +22,8 @@ interface ChartDataSet {
     /* Bar */
     highlightFill?: string;
     highlightStroke?: string;
+    backgroundColorHover?: string;
+
     data: number[];
 }
 
@@ -80,8 +87,44 @@ interface ChartOptions extends ChartSettings {
     scaleGridLineColor?: string;
     scaleGridLineWidth?: number;
     scaleShowHorizontalLines?: boolean;
-    scaleShowVerticalLines?: boolean;  
+    scaleShowVerticalLines?: boolean;
     legendTemplate?: string;
+    tooltips?: ChartTooltips;
+    legend?: ChartLegend;
+    scales?: ChartScales;
+    title?: ChartTitle;
+}
+
+interface ChartTooltips {
+    mode?: string;
+    intersect?: boolean;
+}
+
+interface ChartLegend {
+    display?: boolean;
+    position?: string;
+}
+
+interface ChartScales {
+    xAxes?: Array<ChartScalesOptions>;
+    yAxes?: Array<ChartScalesOptions>;
+}
+
+interface ChartScalesOptions {
+    stacked?: boolean;
+    position?: string;
+    id?: string;
+    ticks?: ScaleTicksOptions;
+}
+
+interface ScaleTicksOptions {
+    min?: number;
+    max?: number;
+}
+
+interface ChartTitle {
+    display?: boolean;
+    text?: string;
 }
 
 interface PointsAtEvent {
@@ -137,7 +180,7 @@ interface BarChartOptions extends ChartOptions {
     barShowStroke?: boolean;
     barStrokeWidth?: number;
     barValueSpacing?: number;
-    barDatasetSpacing?: number;  
+    barDatasetSpacing?: number;
 }
 
 interface RadarChartOptions extends ChartSettings {

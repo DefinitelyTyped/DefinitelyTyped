@@ -1,6 +1,7 @@
-// Type definitions for cordova-plugin-qrscanner v1.0.0
+// Type definitions for cordova-plugin-qrscanner v1.0.1
 // Project: https://github.com/bitpay/cordova-plugin-qrscanner
-// Definitions by: Jason Dreyzehner <https://github.com/bitjson/>
+// Definitions by: Jason Dreyzehner <https://github.com/bitjson>
+//                 Josh Bronson <https://github.com/jab>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
@@ -32,7 +33,7 @@ interface QRScanner {
     * not need to be visible for scanning to function.
     * @param {function} callback Callback that gets an error or the results string.
     */
-    scan: (callback: (error: QRScannerError, result: String) => any) => void;
+    scan: (callback: (error: QRScannerError, result: string) => any) => void;
 
     /**
     * Cancels the current scan. If `QRScanner.prepare()` has not been called,
@@ -82,7 +83,7 @@ interface QRScanner {
     * @param {number} index A number representing the index of the camera to use.
     * @param {function} [callback] Callback that gets an error or the QRScannerStatus object.
     */
-    useCamera: (index: Number, callback?: (error: QRScannerError, status: QRScannerStatus) => any) => void;
+    useCamera: (index: number, callback?: (error: QRScannerError, status: QRScannerStatus) => any) => void;
 
     /**
     * Switch video capture to the device's front camera. If `QRScanner.prepare()`
@@ -150,7 +151,7 @@ interface QRScannerStatus {
   * (`AVAuthorizationStatus.Authorized`). On platforms with permissions granted
   * at install (Android pre-6.0, Windows Phone) this property is always true.
   */
-  authorized: Boolean,
+  authorized: boolean,
 
   /**
   * A boolean value which is true if the user permenantly denied camera access
@@ -158,59 +159,59 @@ interface QRScannerStatus {
   * only be gained by requesting the user change their decision (consider
   * offering a link to the setting via `openSettings()`).
   */
-  denied: Boolean,
+  denied: boolean,
 
   /**
   * A boolean value which is true if the user is unable to grant permissions due
   * to parental controls, organization security configuration profiles, or
   * similar reasons.
   */
-  restricted: Boolean,
+  restricted: boolean,
 
   /**
   * A boolean value which is true if QRScanner is prepared to capture video and
   * render it to the view.
   */
-  prepared: Boolean,
+  prepared: boolean,
 
   /**
   * A boolean value which is true if QRScanner is actively scanning for a QR code.
   */
-  scanning: Boolean,
+  scanning: boolean,
 
   /**
   * A boolean value which is true if QRScanner is displaying a live preview
   * from the device's camera. Set to false when the preview is paused.
   */
-  previewing: Boolean,
+  previewing: boolean,
 
   /**
   * A boolean value which is true when the native webview background is transparent.
   */
-  webviewBackgroundIsTransparent: Boolean,
+  webviewBackgroundIsTransparent: boolean,
 
   /**
   * A boolean value which is true if the light is enabled.
   */
-  lightEnabled: Boolean,
+  lightEnabled: boolean,
 
   /**
   * A boolean value which is true only if the users' operating system is able
   * to `QRScanner.openSettings()`.
   */
-  canOpenSettings: Boolean,
+  canOpenSettings: boolean,
 
   /**
   * A boolean value which is true only if the users' device can enable a light
   * in the direction of the currentCamera.
   */
-  canEnableLight: Boolean,
+  canEnableLight: boolean,
 
   /**
   * A number representing the index of the currentCamera. `0` is the back
   * camera, `1` is the front.
   */
-  currentCamera: Number
+  currentCamera: number
 }
 
 /**
@@ -218,8 +219,8 @@ interface QRScannerStatus {
 *
 * Many QRScanner functions accept a callback with an `error` parameter. When
 * QRScanner experiences errors, this parameter contains a QRScannerError object
-* with properties `name` (_String_), `code` (_Number_), and `_message`
-* (_String_). When handling errors, rely only on the `name` or `code` parameter,
+* with properties `name` (_string_), `code` (_number_), and `_message`
+* (_string_). When handling errors, rely only on the `name` or `code` parameter,
 *as the specific content of `_message` is not considered part of the plugin's
 * stable API.
 *
@@ -242,17 +243,17 @@ interface QRScannerError {
   /**
   * The standard string identifying the type of this QRScannerError.
   */
-  name: String,
+  name: string,
 
   /**
   * The standard number identifying the type of this QRScannerError.
   */
-  code: Number,
+  code: number,
 
   /**
   * A simple message describing this QRScannerError.
   */
-  _message: String
+  _message: string
 }
 
 declare var QRScanner: QRScanner;

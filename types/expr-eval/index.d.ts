@@ -3,12 +3,12 @@
 // Definitions by: Connor Peet <https://github.com/connor4312>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-type Value = number
+export type Value = number
     | string
     | ((...args: Value[]) => Value)
     | { [propertyName: string]: Value };
 
-interface Values {
+export interface Values {
     [propertyName: string]: Value;
 }
 

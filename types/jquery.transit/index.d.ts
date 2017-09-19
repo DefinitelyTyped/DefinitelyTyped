@@ -2,6 +2,7 @@
 // Project: http://ricostacruz.com/jquery.transit/
 // Definitions by: MrBigDog2U <https://github.com/MrBigDog2U>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="jquery"/>
 

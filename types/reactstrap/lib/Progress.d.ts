@@ -1,3 +1,5 @@
+import { CSSModule } from '../index';
+
 interface Props {
   bar?: boolean;
   multi?: boolean;
@@ -8,6 +10,7 @@ interface Props {
   striped?: boolean;
   color?: string;
   className?: string;
+  cssModule?: CSSModule;
   barClassName?: string;
 }
 

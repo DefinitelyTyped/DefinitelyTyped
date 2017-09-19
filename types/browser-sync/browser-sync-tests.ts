@@ -82,7 +82,7 @@ var has = browserSync.has("My server");
 var bs = browserSync.create();
 
 bs.init({
-    server: "./app"
+    server: { index: "./app" }
 });
 
 bs.reload();

@@ -1,4 +1,3 @@
-/// <reference types="node" />
 import * as express from 'express';
 
 namespace express_tests {
@@ -52,24 +51,45 @@ namespace express_tests {
     router.route('/users')
     .get((req, res, next) => {
         let types: string[] = req.accepts();
-        let type: string | boolean = req.accepts('json');
+        let type: string | false = req.accepts('json');
         type = req.accepts(['json', 'text']);
         type = req.accepts('json', 'text');
 
         let charsets: string[] = req.acceptsCharsets();
-        let charset: string | boolean = req.acceptsCharsets('utf-8');
+        let charset: string | false = req.acceptsCharsets('utf-8');
         charset = req.acceptsCharsets(['utf-8', 'utf-16']);
         charset = req.acceptsCharsets('utf-8', 'utf-16');
 
         let encodings: string[] = req.acceptsEncodings();
-        let encoding: string | boolean = req.acceptsEncodings('gzip');
+        let encoding: string | false = req.acceptsEncodings('gzip');
         encoding = req.acceptsEncodings(['gzip', 'deflate']);
         encoding = req.acceptsEncodings('gzip', 'deflate');
 
         let languages: string[] = req.acceptsLanguages();
-        let language: string | boolean = req.acceptsLanguages('en');
+        let language: string | false = req.acceptsLanguages('en');
         language = req.acceptsLanguages(['en', 'ja']);
         language = req.acceptsLanguages('en', 'ja');
+
+        // downcasting
+        req.get('set-cookie') as undefined;
+        req.get('set-cookie') as string[];
+        const setCookieHeader1 = req.get('set-cookie');
+        if (setCookieHeader1 !== undefined) {
+            const setCookieHeader2: string[] = setCookieHeader1;
+        }
+        req.get('header') as undefined;
+        req.get('header') as string;
+        const header1 = req.get('header');
+        if (header1 !== undefined) {
+            const header2: string = header1;
+        }
+
+        // upcasting
+        const setCookieHeader3: string[] | undefined = req.get('set-cookie');
+        const header3: string | undefined = req.header('header');
+
+        req.headers.existingHeader as string;
+        req.headers.nonExistingHeader as any as undefined;
 
         res.send(req.query['token']);
     });

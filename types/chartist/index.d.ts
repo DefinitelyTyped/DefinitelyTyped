@@ -1,6 +1,6 @@
-// Type definitions for Chartist v0.9.5
+// Type definitions for Chartist v0.9.6
 // Project: https://github.com/gionkunz/chartist-js
-// Definitions by: Matt Gibbs <https://github.com/mtgibbs>
+// Definitions by: Matt Gibbs <https://github.com/mtgibbs>, Simon Pfeifer <https://github.com/psimonski>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Chartist {
@@ -20,6 +20,7 @@ declare namespace Chartist {
     Pie: IChartistPieChart;
     Bar: IChartistBarChart;
     Line: IChartistLineChart;
+    Candle: IChartistCandleChart;
 
     FixedScaleAxis: IFixedScaleAxisStatic;
     AutoScaleAxis: IAutoScaleAxisStatic;
@@ -136,6 +137,10 @@ declare namespace Chartist {
 
   interface IChartistBarChart extends IChartistBase<IBarChartOptions> {
     new (target: any, data: IChartistData, options?: IBarChartOptions, responsiveOptions?: Array<IResponsiveOptionTuple<IBarChartOptions>>): IChartistBarChart;
+  }
+
+  interface IChartistCandleChart extends IChartistBase<ICandleChartOptions> {
+    new (target: any, data: IChartistData, options?: ICandleChartOptions, responsiveOptions?: Array<IResponsiveOptionTuple<ICandleChartOptions>>): IChartistCandleChart;
   }
 
   interface IChartOptions {
@@ -350,6 +355,124 @@ declare namespace Chartist {
     horizontal?: string;
     start?: string;
     end?: string;
+  }
+
+  interface ICandleChartOptions extends IChartOptions {
+
+    /**
+     * Options for X-Axis
+     */
+    axisX?: ICandleChartAxis;
+
+    /**
+     * Options for Y-Axis
+     */
+    axisY?: ICandleChartAxis;
+
+    /**
+     * Specify a fixed width for the chart as a string (i.e. '100px' or '50%')
+     */
+    width?: number | string;
+
+    /**
+     * Specify a fixed height for the chart as a string (i.e. '100px' or '50%')
+     */
+    height?: number | string;
+
+    /**
+     * Overriding the natural high of the chart allows you to zoom in or limit the charts highest displayed value
+     */
+    hight?: number | string;
+
+    /**
+     * Overriding the natural low of the chart allows you to zoom in or limit the charts lowest displayed value
+     */
+    low?: number | string;
+
+    /**
+     * Width of candle body in pixel (IMO is 2 px best minimum value)
+     */
+    candleWidth?: number | string;
+
+    /**
+     * Width of candle wick in pixel (IMO is 1 px best minimum value)
+     */
+    candleWickWidth?: number | string;
+
+    /**
+     * Use calculated x-axis step length, depending on the number of quotes to display, as candle width. Otherwise the candleWidth is being used.
+     */
+    useStepLengthAsCandleWidth?: boolean | string;
+
+    /**
+     * Use 1/3 of candle body width as width for the candle wick, otherwise the candleWickWidth is being used.
+     */
+    useOneThirdAsCandleWickWidth?: boolean | string;
+
+    /**
+     * Padding of the chart drawing area to the container element and labels as a number or padding object {top: 5, right: 5, bottom: 5, left: 5}
+     */
+    chartPadding?: IChartPadding | number;
+
+    /**
+     * When set to true, the last grid line on the x-axis is not drawn and the chart elements will expand to the full available width of the chart. For the last label to be drawn correctly you might need to add chart padding or offset the last label with a draw event handler.
+     */
+    fullWidth?: boolean | string;
+
+    /**
+     * Override the class names that get used to generate the SVG structure of the chart
+     */
+    classNames?: ICandleChartClasses;
+  }
+
+  interface ICandleChartAxis {
+    /**
+     * The offset of the chart drawing area to the border of the container
+     */
+    offset?: number;
+    /**
+     * Position where labels are placed. Can be set to `start` or `end` where `start` is equivalent to left or top on vertical axis and `end` is equivalent to right or bottom on horizontal axis.
+     */
+    position?: string;
+    /**
+     * Allows you to correct label positioning on this axis by positive or negative x and y offset.
+     */
+    labelOffset?: {
+      x?: number;
+      y?: number;
+    };
+    /**
+     * If labels should be shown or not
+     */
+    showLabel?: boolean;
+    /**
+     * If the axis grid should be drawn or not
+     */
+    showGrid?: boolean;
+    /**
+     * Interpolation function that allows you to intercept the value from the axis label
+     */
+    labelInterpolationFnc?: Function;
+    /**
+     * Set the axis type to be used to project values on this axis. If not defined, Chartist.StepAxis will be used for the X-Axis, where the ticks option will be set to the labels in the data and the stretch option will be set to the global fullWidth option. This type can be changed to any axis constructor available (e.g. Chartist.FixedScaleAxis), where all axis options should be present here.
+     */
+    type?: any;
+  }
+
+  interface ICandleChartClasses {
+    chart?: string;
+    label?: string;
+    labelGroup?: string;
+    series?: string;
+    candlePositive?: string;
+    candleNegative?: string,
+    grid?: string,
+    gridGroup?: string,
+    gridBackground?: string,
+    vertical?: string,
+    horizontal?: string,
+    start?: string,
+    end?: string,
   }
 
   interface ChartistSvgStatic {

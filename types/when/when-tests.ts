@@ -172,6 +172,7 @@ deferred.reject(error);
 
 /* promise.done(handleResult, handleError) */
 
+when(1).done();
 when(1).done((val: number) => console.log(val));
 when(1).done((val: number) => console.log(val), (err: any) => console.log(err));
 

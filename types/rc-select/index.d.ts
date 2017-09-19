@@ -1,8 +1,8 @@
 // Type definitions for React Select v5.9.0
-// Project: https://github.com/react-component/select 
+// Project: https://github.com/react-component/select
 // Definitions by: Denis Tirilis <https://github.com/DenisTirilis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 /// <reference types="react" />
 
@@ -50,19 +50,19 @@ declare namespace RcSelect {
         defaultActiveFirstOption?: boolean;
         getPopupContainer?: (trigger: Node) => Node;
     }
-    export class Select extends React.Component<SelectProps, any> { }
+    export class Select extends React.Component<SelectProps> { }
     interface OptionProps {
         className?: string;
         disabled?: boolean;
         key?: string;
         value?: string;
     }
-    export class Option extends React.Component<OptionProps, any> { }
+    export class Option extends React.Component<OptionProps> { }
 
     interface OptGroupProps {
         label?: string | React.ReactElement<any>;
         key?: string;
         value?: string;
     }
-    export class OptGroup extends React.Component<OptGroupProps, any> { }
+    export class OptGroup extends React.Component<OptGroupProps> { }
 }

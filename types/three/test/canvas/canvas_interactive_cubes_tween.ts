@@ -1,5 +1,3 @@
-/// <reference types="tween.js" />
-
 // https://github.com/mrdoob/three.js/blob/master/examples/canvas_interactive_cubes_tween.html
 
 () => {

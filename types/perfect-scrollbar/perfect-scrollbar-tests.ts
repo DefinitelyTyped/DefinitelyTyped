@@ -29,7 +29,6 @@ Ps.update(container)
  * https://github.com/noraesae/perfect-scrollbar#jquery
  */
 
-import * as $ from 'jquery'
 import mountJQuery = require('perfect-scrollbar/jquery')
 mountJQuery($)
 
@@ -37,3 +36,5 @@ $('#container').perfectScrollbar()            // Initialize
 $('#container').perfectScrollbar({ /*...*/ }) // with options
 $('#container').perfectScrollbar('update')    // Update
 $('#container').perfectScrollbar('destroy')   // Destroy
+
+container.addEventListener('ps-x-reach-start', () => { });
