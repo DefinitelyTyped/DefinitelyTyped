@@ -1,30 +1,33 @@
 // Modified from WebUSB spec: https://wicg.github.io/webusb/
+// NOTE: Code kept as close to spec examples as possible
 
-let connectedDevices: USBDevice[] = null;
+const connectedDevices: USBDevice[] = [];
 
 document.addEventListener('DOMContentLoaded', async () => {
     const devices = await navigator.usb.getDevices();
     devices.forEach(handleConnectedDevice);
 });
 
-let button = document.getElementById('request-device');
-button.addEventListener('click', async () => {
-    let device;
-    try {
-        device = await navigator.usb.requestDevice({ filters: [{
-            vendorId: 0xABCD,
-            classCode: 0xFF, // vendor-specific
-            protocolCode: 0x01
-        }]});
-    } catch (e) {
-        // No device was selected.
-    }
+const button = document.getElementById('request-device');
+if (button) {
+    button.addEventListener('click', async () => {
+        let device;
+        try {
+            device = await navigator.usb.requestDevice({ filters: [{
+                vendorId: 0xABCD,
+                classCode: 0xFF, // vendor-specific
+                protocolCode: 0x01
+            }]});
+        } catch (e) {
+            // No device was selected.
+        }
 
-    if (device !== undefined) {
-        // Add |device| to the UI.
-        handleConnectedDevice(device);
-    }
-});
+        if (device !== undefined) {
+            // Add |device| to the UI.
+            handleConnectedDevice(device);
+        }
+    });
+}
 
 navigator.usb.addEventListener('connect', evt => {
     // Add |device| to the UI.
