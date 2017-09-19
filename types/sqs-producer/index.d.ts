@@ -1,6 +1,8 @@
 // Type definitions for sqs-producer 1.5
 // Project: https://github.com/BBC/sqs-producer
 // Definitions by: Daniel Chao <http://dchao.co/>
+                   Forrest Bice <https://github.com/forrestbice>
+                   James Donald <https://github.com/jndonald3>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -26,6 +28,7 @@ export interface ProducerMessage {
   body: string;
   messageAttributes?: { [key: string]: ProducerMessageAttribute };
   groupId?: number;
+  deduplicationId?: number;
   delaySeconds?: number;
 }
 
