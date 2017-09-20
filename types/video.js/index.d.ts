@@ -1,4 +1,4 @@
-// Type definitions for Video.js 5.16
+// Type definitions for Video.js 6.2
 // Project: https://github.com/zencoder/video-js
 // Definitions by: Vincent Bortone <https://github.com/vbortone>
 //				   Simon Clériot <https://github.com/scleriot>
