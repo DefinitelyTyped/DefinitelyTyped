@@ -9,6 +9,7 @@
 /// <reference path="./glosses/assertion.d.ts" />
 /// <reference path="./glosses/collections.d.ts" />
 /// <reference path="./glosses/data.d.ts" />
+/// <reference path="./glosses/datetime.d.ts" />
 /// <reference path="./glosses/events.d.ts" />
 /// <reference path="./glosses/exceptions.d.ts" />
 /// <reference path="./glosses/fast.d.ts" />

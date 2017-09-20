@@ -34,6 +34,7 @@
         "glosses/streams.d.ts",
         "glosses/fast.d.ts",
         "glosses/data.d.ts",
+        "glosses/datetime.d.ts",
         "adone-tests.ts",
         "test/index.ts",
         "test/index-import.ts",
@@ -51,6 +52,7 @@
         "test/glosses/exceptions.ts",
         "test/glosses/streams.ts",
         "test/glosses/fast.ts",
-        "test/glosses/data.ts"
+        "test/glosses/data.ts",
+        "test/glosses/datetime.ts"
     ]
 }
