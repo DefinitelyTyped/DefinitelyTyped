@@ -62,8 +62,10 @@ declare namespace jest {
     function resetAllMocks(): typeof jest;
     /**
      * available in Jest 20.1.0+
-     * Restores all mocks back to their original value. Equivalent to calling .mockRestore on every mocked function.
-     * Beware that jest.restoreAllMocks() only works when mock was created with jest.spyOn; other mocks will require you to manually restore them.
+     * Restores all mocks back to their original value.
+     * Equivalent to calling .mockRestore on every mocked function.
+     * Beware that jest.restoreAllMocks() only works when mock was created with
+     * jest.spyOn; other mocks will require you to manually restore them.
      */
     function restoreAllMocks(): typeof jest;
     /**
