@@ -59,19 +59,23 @@ export interface FormApi {
 
 export interface FormFunctionProps extends FormProps, FormState, FormApi {}
 
+export interface FormContext {
+    formApi: FormApi;
+}
+
 export class Form
     extends React.Component<
         FormProps & { children?: ((props: FormFunctionProps) => RenderReturn) | RenderReturn },
         FormState
     >
-    implements FormApi, React.ChildContextProvider<{}> {
+    implements FormApi, React.ChildContextProvider<FormContext> {
         static defaultProps: FormProps;
         static childContextTypes: {
             formApi: React.Validator<any>
         };
 
         getDefaultState(): FormState;
-        getChildContext(): { formApi: FormApi };
+        getChildContext(): FormContext;
         componentWillMount(): void;
         componentWillReceiveProps(nextProps: Readonly<Partial<FormProps>>, nextContext: any): void;
         componentWillUmount(): void;
@@ -139,7 +143,7 @@ export interface FormInputProps {
     errorBefore?: boolean;
     isForm?: boolean;
     className?: string;
-    errorProps?: {};
+    errorProps?: FormErrorProps;
 }
 
 export interface FormInputPropsWithChildren extends FormInputProps {
