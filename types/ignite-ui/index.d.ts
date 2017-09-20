@@ -8869,6 +8869,13 @@ interface IgQRCodeBarcode {
 	height?: string|number;
 
 	/**
+	 * Gets or sets the scaling value used to affect the pixel density of the control.
+	 * A higher scaling ratio will produce crisper visuals at the expense of memory.  Lower values will cause the control
+	 * to appear blurry.
+	 */
+	pixelScalingRatio?: number;
+
+	/**
 	 * Gets or sets the brush to use to fill the backing of the barcode.
 	 */
 	backingBrush?: string;
@@ -8954,46 +8961,46 @@ interface IgQRCodeBarcode {
 	 *
 	 * Valid values:
 	 * "undefined" If set, the QR code barcode sets internally the smallest version that will accommodate the data.
-	 * "version1" Version1 defines size of 21x21 namespaces for the symbol.
-	 * "version2" Version2 defines size of 25x25 namespaces for the symbol.
-	 * "version3" Version3 defines size of 29x29 namespaces for the symbol.
-	 * "version4" Version4 defines size of 33x33 namespaces for the symbol.
-	 * "version5" Version5 defines size of 37x37 namespaces for the symbol.
-	 * "version6" Version6 defines size of 41x41 namespaces for the symbol.
-	 * "version7" Version7 defines size of 45x45 namespaces for the symbol.
-	 * "version8" Version8 defines size of 49x49 namespaces for the symbol.
-	 * "version9" Version9 defines size of 53x53 namespaces for the symbol.
-	 * "version10" Version10 defines size of 57x57 namespaces for the symbol.
-	 * "version11" Version11 defines size of 61x61 namespaces for the symbol.
-	 * "version12" Version12 defines size of 65x65 namespaces for the symbol.
-	 * "version13" Version13 defines size of 69x69 namespaces for the symbol.
-	 * "version14" Version14 defines size of 73x73 namespaces for the symbol.
-	 * "version15" Version15 defines size of 77x77 namespaces for the symbol.
-	 * "version16" Version16 defines size of 81x81 namespaces for the symbol.
-	 * "version17" Version17 defines size of 85x85 namespaces for the symbol.
-	 * "version18" Version18 defines size of 89x89 namespaces for the symbol.
-	 * "version19" Version19 defines size of 93x93 namespaces for the symbol.
-	 * "version20" Version20 defines size of 97x97 namespaces for the symbol.
-	 * "version21" Version21 defines size of 101x101 namespaces for the symbol.
-	 * "version22" Version22 defines size of 105x105 namespaces for the symbol.
-	 * "version23" Version23 defines size of 109x109 namespaces for the symbol.
-	 * "version24" Version24 defines size of 113x113 namespaces for the symbol.
-	 * "version25" Version25 defines size of 117x117 namespaces for the symbol.
-	 * "version26" Version26 defines size of 121x121 namespaces for the symbol.
-	 * "version27" Version27 defines size of 125x125 namespaces for the symbol.
-	 * "version28" Version28 defines size of 129x129 namespaces for the symbol.
-	 * "version29" Version29 defines size of 133x133 namespaces for the symbol.
-	 * "version30" Version30 defines size of 137x137 namespaces for the symbol.
-	 * "version31" Version31 defines size of 141x141 namespaces for the symbol.
-	 * "version32" Version32 defines size of 145x145 namespaces for the symbol.
-	 * "version33" Version33 defines size of 149x149 namespaces for the symbol.
-	 * "version34" Version34 defines size of 153x153 namespaces for the symbol.
-	 * "version35" Version35 defines size of 157x157 namespaces for the symbol.
-	 * "version36" Version36 defines size of 161x161 namespaces for the symbol.
-	 * "version37" Version37 defines size of 165x165 namespaces for the symbol.
-	 * "version38" Version38 defines size of 169x169 namespaces for the symbol.
-	 * "version39" Version39 defines size of 173x173 namespaces for the symbol.
-	 * "version40" Version40 defines size of 177x177 namespaces for the symbol.
+	 * "version1" Version1 defines size of 21x21 modules for the symbol.
+	 * "version2" Version2 defines size of 25x25 modules for the symbol.
+	 * "version3" Version3 defines size of 29x29 modules for the symbol.
+	 * "version4" Version4 defines size of 33x33 modules for the symbol.
+	 * "version5" Version5 defines size of 37x37 modules for the symbol.
+	 * "version6" Version6 defines size of 41x41 modules for the symbol.
+	 * "version7" Version7 defines size of 45x45 modules for the symbol.
+	 * "version8" Version8 defines size of 49x49 modules for the symbol.
+	 * "version9" Version9 defines size of 53x53 modules for the symbol.
+	 * "version10" Version10 defines size of 57x57 modules for the symbol.
+	 * "version11" Version11 defines size of 61x61 modules for the symbol.
+	 * "version12" Version12 defines size of 65x65 modules for the symbol.
+	 * "version13" Version13 defines size of 69x69 modules for the symbol.
+	 * "version14" Version14 defines size of 73x73 modules for the symbol.
+	 * "version15" Version15 defines size of 77x77 modules for the symbol.
+	 * "version16" Version16 defines size of 81x81 modules for the symbol.
+	 * "version17" Version17 defines size of 85x85 modules for the symbol.
+	 * "version18" Version18 defines size of 89x89 modules for the symbol.
+	 * "version19" Version19 defines size of 93x93 modules for the symbol.
+	 * "version20" Version20 defines size of 97x97 modules for the symbol.
+	 * "version21" Version21 defines size of 101x101 modules for the symbol.
+	 * "version22" Version22 defines size of 105x105 modules for the symbol.
+	 * "version23" Version23 defines size of 109x109 modules for the symbol.
+	 * "version24" Version24 defines size of 113x113 modules for the symbol.
+	 * "version25" Version25 defines size of 117x117 modules for the symbol.
+	 * "version26" Version26 defines size of 121x121 modules for the symbol.
+	 * "version27" Version27 defines size of 125x125 modules for the symbol.
+	 * "version28" Version28 defines size of 129x129 modules for the symbol.
+	 * "version29" Version29 defines size of 133x133 modules for the symbol.
+	 * "version30" Version30 defines size of 137x137 modules for the symbol.
+	 * "version31" Version31 defines size of 141x141 modules for the symbol.
+	 * "version32" Version32 defines size of 145x145 modules for the symbol.
+	 * "version33" Version33 defines size of 149x149 modules for the symbol.
+	 * "version34" Version34 defines size of 153x153 modules for the symbol.
+	 * "version35" Version35 defines size of 157x157 modules for the symbol.
+	 * "version36" Version36 defines size of 161x161 modules for the symbol.
+	 * "version37" Version37 defines size of 165x165 modules for the symbol.
+	 * "version38" Version38 defines size of 169x169 modules for the symbol.
+	 * "version39" Version39 defines size of 173x173 modules for the symbol.
+	 * "version40" Version40 defines size of 177x177 modules for the symbol.
 	 */
 	sizeVersion?: string;
 
@@ -9115,6 +9122,22 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igQRCodeBarcode(optionLiteral: 'option', optionName: "height", optionValue: string|number): void;
+
+	/**
+	 * Gets  the scaling value used to affect the pixel density of the control.
+	 * A higher scaling ratio will produce crisper visuals at the expense of memory.  Lower values will cause the control
+	 * to appear blurry.
+	 */
+	igQRCodeBarcode(optionLiteral: 'option', optionName: "pixelScalingRatio"): number;
+
+	/**
+	 * Sets the scaling value used to affect the pixel density of the control.
+	 * A higher scaling ratio will produce crisper visuals at the expense of memory.  Lower values will cause the control
+	 * to appear blurry.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igQRCodeBarcode(optionLiteral: 'option', optionName: "pixelScalingRatio", optionValue: number): void;
 
 	/**
 	 * Gets  the brush to use to fill the backing of the barcode.
@@ -9640,7 +9663,7 @@ interface IgBaseChartMethods {
 
 	/**
 	 * Notifies the chart that the items have been cleared from an associated data source.
-	 * 	It's not necessary to notify more than one target of a change if they share the same items source.
+	 * It's not necessary to notify more than one target of a change if they share the same items source.
 	 *
 	 * @param dataSource     The data source in which the change happened.
 	 */
@@ -9648,7 +9671,7 @@ interface IgBaseChartMethods {
 
 	/**
 	 * Notifies the target axis or series that an item has been inserted at the specified index in its data source.
-	 * 	It's not necessary to notify more than one target of a change if they share the same items source.
+	 * It's not necessary to notify more than one target of a change if they share the same items source.
 	 *
 	 * @param dataSource     The data source in which the change happened.
 	 * @param index     The index in the items source where the new item has been inserted.
@@ -9658,7 +9681,7 @@ interface IgBaseChartMethods {
 
 	/**
 	 * Notifies the target axis or series that an item has been removed from the specified index in its data source.
-	 * 	It's not necessary to notify more than one target of a change if they share the same items source.
+	 * It's not necessary to notify more than one target of a change if they share the same items source.
 	 *
 	 * @param dataSource     The data source in which the change happened.
 	 * @param index     The index in the items source from where the old item has been removed.
@@ -12266,7 +12289,7 @@ interface IgCategoryChartMethods {
 
 	/**
 	 * Notifies the chart that the items have been cleared from an associated data source.
-	 * 	It's not necessary to notify more than one target of a change if they share the same items source.
+	 * It's not necessary to notify more than one target of a change if they share the same items source.
 	 *
 	 * @param dataSource     The data source in which the change happened.
 	 */
@@ -12274,7 +12297,7 @@ interface IgCategoryChartMethods {
 
 	/**
 	 * Notifies the target axis or series that an item has been inserted at the specified index in its data source.
-	 * 	It's not necessary to notify more than one target of a change if they share the same items source.
+	 * It's not necessary to notify more than one target of a change if they share the same items source.
 	 *
 	 * @param dataSource     The data source in which the change happened.
 	 * @param index     The index in the items source where the new item has been inserted.
@@ -12284,7 +12307,7 @@ interface IgCategoryChartMethods {
 
 	/**
 	 * Notifies the target axis or series that an item has been removed from the specified index in its data source.
-	 * 	It's not necessary to notify more than one target of a change if they share the same items source.
+	 * It's not necessary to notify more than one target of a change if they share the same items source.
 	 *
 	 * @param dataSource     The data source in which the change happened.
 	 * @param index     The index in the items source from where the old item has been removed.
@@ -16953,7 +16976,7 @@ interface IgDataChartMethods {
 
 	/**
 	 * Notifies the chart that the items have been cleared from an associated data source.
-	 * 	It's not necessary to notify more than one target of a change if they share the same items source.
+	 * It's not necessary to notify more than one target of a change if they share the same items source.
 	 *
 	 * @param dataSource     The data source in which the change happened.
 	 */
@@ -16961,7 +16984,7 @@ interface IgDataChartMethods {
 
 	/**
 	 * Notifies the target axis or series that an item has been inserted at the specified index in its data source.
-	 * 	It's not necessary to notify more than one target of a change if they share the same items source.
+	 * It's not necessary to notify more than one target of a change if they share the same items source.
 	 *
 	 * @param dataSource     The data source in which the change happened.
 	 * @param index     The index in the items source where the new item has been inserted.
@@ -16971,7 +16994,7 @@ interface IgDataChartMethods {
 
 	/**
 	 * Notifies the target axis or series that an item has been removed from the specified index in its data source.
-	 * 	It's not necessary to notify more than one target of a change if they share the same items source.
+	 * It's not necessary to notify more than one target of a change if they share the same items source.
 	 *
 	 * @param dataSource     The data source in which the change happened.
 	 * @param index     The index in the items source from where the old item has been removed.
@@ -16989,7 +17012,7 @@ interface IgDataChartMethods {
 
 	/**
 	 * Notifies the target axis that it should scale the requested value into chart space from axis space.
-	 * 	For example you can use this method if you want to find where value 50 of the x axis stands scaled to chart's width.
+	 * For example you can use this method if you want to find where value 50 of the x axis stands scaled to chart's width.
 	 *
 	 * @param targetName     The name of the axis to notify.
 	 * @param unscaledValue     The value in axis space to translate into chart space.
@@ -16998,7 +17021,7 @@ interface IgDataChartMethods {
 
 	/**
 	 * Notifies the target axis that it should unscale the requested value into axis space from chart space.
-	 * 	For example you can use this method if you want to find what is the value of x axis unscaled from 0 width of the chart.
+	 * For example you can use this method if you want to find what is the value of x axis unscaled from 0 width of the chart.
 	 *
 	 * @param targetName     The name of the axis to notify.
 	 * @param scaledValue     The value in chart space to translate into axis space.
@@ -22096,8 +22119,8 @@ interface IgComboMethods {
 	/**
 	 * Forces an update of the igCombo value according to the current text in the igCombo input.
 	 *
-	 * 	The refresh is primarily intended to be used with [allowCustomValue](ui.igcombo#options:allowCustomValue) set to true.
-	 * 	The refresh will take the current text and, if no selection is applied, will set it as igCombo value provided that [allowCustomValue](ui.igcombo#options:allowCustomValue) true.
+	 * The refresh is primarily intended to be used with [allowCustomValue](ui.igcombo#options:allowCustomValue) set to true.
+	 * The refresh will take the current text and, if no selection is applied, will set it as igCombo value provided that [allowCustomValue](ui.igcombo#options:allowCustomValue) true.
 	 */
 	refreshValue(): Object;
 
@@ -22158,6 +22181,14 @@ interface IgComboMethods {
 	 * @param event Indicates the browser event which triggered this action (not API). Calling the method with this param set to "true" will trigger [filtering](ui.igcombo#events:filtering) and [filtered](ui.igcombo#events:filtered) events.
 	 */
 	filter(texts?: Object, event?: Object): Object;
+
+	/**
+	 * Creates expressions for filtering.
+	 *
+	 * @param expressions Filter by array of objects, such as each object represents filtering expression.
+	 * @param event Indicates the browser event which triggered this action (not API). Calling the method with this param set to "true" will trigger [filtering](ui.igcombo#events:filtering) and [filtered](ui.igcombo#events:filtered) events.
+	 */
+	filterByExpressions(expressions: any[], event?: Object): Object;
 
 	/**
 	 * Clears filtering.
@@ -22419,6 +22450,7 @@ interface JQuery {
 	igCombo(methodName: "filteredItems"): any[];
 	igCombo(methodName: "selectedItems"): any[];
 	igCombo(methodName: "filter", texts?: Object, event?: Object): Object;
+	igCombo(methodName: "filterByExpressions", expressions: any[], event?: Object): Object;
 	igCombo(methodName: "clearFiltering", event?: Object): Object;
 	igCombo(methodName: "openDropDown", callback?: Function, focusCombo?: boolean, event?: Object): Object;
 	igCombo(methodName: "closeDropDown", callback?: Function, event?: Object): Object;
@@ -22523,14 +22555,14 @@ interface JQuery {
 
 	/**
 	 * Sets URL which is used for sending JSON on request for remote filtering (MVC for example). That option is required when [load on demand](ui.igcombo#options:loadOnDemandSettings) is
-	 * [enabled](ui.igcombo#options:loadOnDemandSettings.enabled) and its [type](ui.igcombo#options:filteringType) is remote.
+	 *                 [enabled](ui.igcombo#options:loadOnDemandSettings.enabled) and its [type](ui.igcombo#options:filteringType) is remote.
 	 *
 	 */
 	igCombo(optionLiteral: 'option', optionName: "dataSourceUrl"): string;
 
 	/**
 	 * Sets URL which is used for sending JSON on request for remote filtering (MVC for example). That option is required when [load on demand](ui.igcombo#options:loadOnDemandSettings) is
-	 * [enabled](ui.igcombo#options:loadOnDemandSettings.enabled) and its [type](ui.igcombo#options:filteringType) is remote.
+	 *                 [enabled](ui.igcombo#options:loadOnDemandSettings.enabled) and its [type](ui.igcombo#options:filteringType) is remote.
 	 *
 	 *
 	 * @optionValue New value to be set.
@@ -22637,14 +22669,14 @@ interface JQuery {
 
 	/**
 	 * Gets/Sets a template used to render an item in list. The igCombo utilizes igTemplating for generating node content templates.
-	 * More info on the templating engine can be found here: http://www.igniteui.com/help/infragistics-templating-engine.
+	 *     More info on the templating engine can be found here: http://www.igniteui.com/help/infragistics-templating-engine.
 	 *
 	 */
 	igCombo(optionLiteral: 'option', optionName: "itemTemplate"): string;
 
 	/**
 	 * /Sets a template used to render an item in list. The igCombo utilizes igTemplating for generating node content templates.
-	 * More info on the templating engine can be found here: http://www.igniteui.com/help/infragistics-templating-engine.
+	 *     More info on the templating engine can be found here: http://www.igniteui.com/help/infragistics-templating-engine.
 	 *
 	 *
 	 * @optionValue New value to be set.
@@ -23606,11 +23638,11 @@ interface AnimationEndedEventUIParam {
 	action?: any;
 }
 
-interface FocusEvent {
-	(event: Event, ui: FocusEventUIParam): void;
+interface IgFocusEvent {
+	(event: Event, ui: IgFocusEventUIParam): void;
 }
 
-interface FocusEventUIParam {
+interface IgFocusEventUIParam {
 	/**
 	 * Used to obtain a reference to the igDialog.
 	 */
@@ -23962,7 +23994,7 @@ interface IgDialog {
 	 * Use evt to obtain the browser event.
 	 * Use ui.owner to obtain a reference to the igDialog.
 	 */
-	focus?: FocusEvent;
+	focus?: IgFocusEvent;
 
 	/**
 	 * Event which is raised when the dialog or its content loses focus.
@@ -23986,7 +24018,7 @@ interface IgDialogMethods {
 
 	/**
 	 * Gets/Sets the state of the editor.
-	 * 	Note: If the state of the dialog changes, then stateChanging and stateChanged events are raised.
+	 * Note: If the state of the dialog changes, then stateChanging and stateChanged events are raised.
 	 *
 	 * @param state     New state.
 	 */
@@ -23999,10 +24031,10 @@ interface IgDialogMethods {
 
 	/**
 	 * Closes the dialog if it is opened.
-	 * 	Notes:
-	 * 	1. If the state of the dialog changes, then stateChanging and stateChanged events are raised.
-	 * 	2. That method does not change minimized or maximized state of the dialog.
-	 * 	It means that method "open" will open the dialog and keep previous minimized or maximized state.
+	 * Notes:
+	 * 1. If the state of the dialog changes, then stateChanging and stateChanged events are raised.
+	 * 2. That method does not change minimized or maximized state of the dialog.
+	 * It means that method "open" will open the dialog and keep previous minimized or maximized state.
 	 *
 	 * @param e     Browser event: internal use only.
 	 */
@@ -24010,42 +24042,42 @@ interface IgDialogMethods {
 
 	/**
 	 * Opens the dialog if it is closed. Notes:
-	 * 	1. If the state of the dialog changes, then stateChanging and stateChanged events are raised.
-	 * 	2. That method does not change minimized or maximized state of the dialog. It means that if the dialog was in minimized or maximized stated when closed by "close" method, then the dialog will open in minimized or maximized state respectively.
+	 * 1. If the state of the dialog changes, then stateChanging and stateChanged events are raised.
+	 * 2. That method does not change minimized or maximized state of the dialog. It means that if the dialog was in minimized or maximized stated when closed by "close" method, then the dialog will open in minimized or maximized state respectively.
 	 */
 	open(): Object;
 
 	/**
 	 * Minimizes the dialog if it is not minimized.
-	 * 	Note: If the state of the dialog changes, then stateChanging and stateChanged events are raised.
+	 * Note: If the state of the dialog changes, then stateChanging and stateChanged events are raised.
 	 */
 	minimize(): Object;
 
 	/**
 	 * Maximizes the dialog if it is not maximized.
-	 * 	Note: If the state of the dialog changes, then stateChanging and stateChanged events are raised.
+	 * Note: If the state of the dialog changes, then stateChanging and stateChanged events are raised.
 	 */
 	maximize(): Object;
 
 	/**
 	 * Sets the normal state for the dialog if it was maximized or minimized.
-	 * 	Note: If the state of the dialog changes, then stateChanging and stateChanged events are raised.
+	 * Note: If the state of the dialog changes, then stateChanging and stateChanged events are raised.
 	 */
 	restore(): Object;
 
 	/**
 	 * Pins the dialog if it is not pinned.
-	 * 	When the dialog is pinned, then the html element of the dialog is moved to the original container where the target element was located and position:absolute is removed.
-	 * 	The pinned dialog does not support modal state, maximized state and it can not be moved.
-	 * 	Notes:
-	 * 	1. If the parent element of the original target-element is invisible, then the pinned dialog becomes invisible as well.
-	 * 	2. If the state of the dialog changes, then stateChanging and stateChanged events are raised.
+	 * When the dialog is pinned, then the html element of the dialog is moved to the original container where the target element was located and position:absolute is removed.
+	 * The pinned dialog does not support modal state, maximized state and it can not be moved.
+	 * Notes:
+	 * 1. If the parent element of the original target-element is invisible, then the pinned dialog becomes invisible as well.
+	 * 2. If the state of the dialog changes, then stateChanging and stateChanged events are raised.
 	 */
 	pin(): Object;
 
 	/**
 	 * Unpins the dialog if it is pinned.
-	 * 	Note: If the state of the dialog changes, then stateChanging and stateChanged events are raised.
+	 * Note: If the state of the dialog changes, then stateChanging and stateChanged events are raised.
 	 */
 	unpin(): Object;
 
@@ -24826,7 +24858,7 @@ interface JQuery {
 	 * Use evt to obtain the browser event.
 	 * Use ui.owner to obtain a reference to the igDialog.
 	 */
-	igDialog(optionLiteral: 'option', optionName: "focus"): FocusEvent;
+	igDialog(optionLiteral: 'option', optionName: "focus"): IgFocusEvent;
 
 	/**
 	 * Event which is raised when the dialog or its content gets focus.
@@ -24837,7 +24869,7 @@ interface JQuery {
 	 *
 	 * @optionValue Define event handler function.
 	 */
-	igDialog(optionLiteral: 'option', optionName: "focus", optionValue: FocusEvent): void;
+	igDialog(optionLiteral: 'option', optionName: "focus", optionValue: IgFocusEvent): void;
 
 	/**
 	 * Event which is raised when the dialog or its content loses focus.
@@ -25327,7 +25359,7 @@ interface IgDoughnutChartMethods {
 
 	/**
 	 * Notifies the chart that the items have been cleared from an associated data source.
-	 * 	It's not necessary to notify more than one target of a change if they share the same items source.
+	 * It's not necessary to notify more than one target of a change if they share the same items source.
 	 *
 	 * @param dataSource     The data source in which the change happened.
 	 */
@@ -25335,7 +25367,7 @@ interface IgDoughnutChartMethods {
 
 	/**
 	 * Notifies the target axis or series that an item has been inserted at the specified index in its data source.
-	 * 	It's not necessary to notify more than one target of a change if they share the same items source.
+	 * It's not necessary to notify more than one target of a change if they share the same items source.
 	 *
 	 * @param dataSource     The data source in which the change happened.
 	 * @param index     The index in the items source where the new item has been inserted.
@@ -25345,7 +25377,7 @@ interface IgDoughnutChartMethods {
 
 	/**
 	 * Notifies the target axis or series that an item has been removed from the specified index in its data source.
-	 * 	It's not necessary to notify more than one target of a change if they share the same items source.
+	 * It's not necessary to notify more than one target of a change if they share the same items source.
 	 *
 	 * @param dataSource     The data source in which the change happened.
 	 * @param index     The index in the items source from where the old item has been removed.
@@ -26017,12 +26049,12 @@ interface ValueChangedEventUIParam {
 	owner?: any;
 
 	/**
-	 * Used to obtain the new value.
+	 * Used to obtain the value entered from the user after internal formatting.
 	 */
 	newValue?: any;
 
 	/**
-	 * Used to obtain the original value.
+	 * Used to obtain the value entered from the user before internal formatting.
 	 */
 	originalValue?: any;
 
@@ -26179,7 +26211,7 @@ interface IgBaseEditor {
 	 * Use ui.element to obtain a reference to the event target.
 	 * Use ui.editorInput to get a reference to the editor field.
 	 */
-	focus?: FocusEvent;
+	focus?: IgFocusEvent;
 
 	/**
 	 * Event which is raised on keydown event.
@@ -26226,8 +26258,8 @@ interface IgBaseEditor {
 	 * Event which is raised after the editor value is changed. It can be raised after loosing focus or on spin events.
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to obtain reference to igEditor.
-	 * Use ui.newValue to obtain the new value.
-	 * Use ui.originalValue to obtain the original value.
+	 * Use ui.newValue to obtain the value entered from the user after internal formatting.
+	 * Use ui.originalValue to obtain the value entered from the user before internal formatting.
 	 * Use ui.editorInput to obtain reference to the editor input.
 	 */
 	valueChanged?: ValueChangedEvent;
@@ -26650,6 +26682,14 @@ interface IgTextEditor {
 	suppressNotifications?: boolean;
 
 	/**
+	 * Gets/Sets whether the onscreen keyboard (if available on device) should be shown when the dropdown button is clicked/tapped. This option prevents initial focus or removes it when the drop button is clicked/tapped.
+	 * Note: The option does not perform device detection so its behavior is always active if enabled.
+	 * Note: When drop down is opened the only way to close it will be using the drop down button.
+	 *
+	 */
+	suppressKeyboard?: boolean;
+
+	/**
 	 * Gets/Sets the width of the control.
 	 *
 	 *
@@ -26861,7 +26901,7 @@ interface IgTextEditor {
 	 * Use ui.element to obtain a reference to the event target.
 	 * Use ui.editorInput to get a reference to the editor field.
 	 */
-	focus?: FocusEvent;
+	focus?: IgFocusEvent;
 
 	/**
 	 * Event which is raised on keydown event.
@@ -26908,8 +26948,8 @@ interface IgTextEditor {
 	 * Event which is raised after the editor value is changed. It can be raised after loosing focus or on spin events.
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to obtain reference to igEditor.
-	 * Use ui.newValue to obtain the new value.
-	 * Use ui.originalValue to obtain the original value.
+	 * Use ui.newValue to obtain the value entered from the user after internal formatting.
+	 * Use ui.originalValue to obtain the value entered from the user before internal formatting.
 	 * Use ui.editorInput to obtain reference to the editor input.
 	 */
 	valueChanged?: ValueChangedEvent;
@@ -26992,7 +27032,7 @@ interface IgTextEditorMethods {
 
 	/**
 	 * Inserts the text at the location of the caret or over the current selection. If the editor is focused the method will insert the text over the current selection. If the editor is not focused the method will set the text as value of the editor.
-	 * 	Note: The method raises [textChanged](ui.igtexteditor#events:textChanged) event.
+	 * Note: The method raises [textChanged](ui.igtexteditor#events:textChanged) event.
 	 *
 	 * @param string     The string to be inserted.
 	 */
@@ -27415,6 +27455,14 @@ interface IgNumericEditor {
 	suppressNotifications?: boolean;
 
 	/**
+	 * Gets/Sets whether the onscreen keyboard (if available on device) should be shown when the dropdown button is clicked/tapped. This option prevents initial focus or removes it when the drop button is clicked/tapped.
+	 * Note: The option does not perform device detection so its behavior is always active if enabled.
+	 * Note: When drop down is opened the only way to close it will be using the drop down button.
+	 *
+	 */
+	suppressKeyboard?: boolean;
+
+	/**
 	 * Gets/Sets the width of the control.
 	 *
 	 *
@@ -27637,7 +27685,7 @@ interface IgNumericEditorMethods {
 
 	/**
 	 * Inserts the text at the location of the caret or over the current selection. If the editor is focused the method will insert the text over the current selection. If the editor is not focused the method will set the text as value of the editor.
-	 * 	Note: The method raises [textChanged](ui.igtexteditor#events:textChanged) event.
+	 * Note: The method raises [textChanged](ui.igtexteditor#events:textChanged) event.
 	 *
 	 * @param string     The string to be inserted.
 	 */
@@ -28002,6 +28050,14 @@ interface IgCurrencyEditor {
 	 *
 	 */
 	suppressNotifications?: boolean;
+
+	/**
+	 * Gets/Sets whether the onscreen keyboard (if available on device) should be shown when the dropdown button is clicked/tapped. This option prevents initial focus or removes it when the drop button is clicked/tapped.
+	 * Note: The option does not perform device detection so its behavior is always active if enabled.
+	 * Note: When drop down is opened the only way to close it will be using the drop down button.
+	 *
+	 */
+	suppressKeyboard?: boolean;
 
 	/**
 	 * Gets/Sets the width of the control.
@@ -28472,6 +28528,14 @@ interface IgPercentEditor {
 	suppressNotifications?: boolean;
 
 	/**
+	 * Gets/Sets whether the onscreen keyboard (if available on device) should be shown when the dropdown button is clicked/tapped. This option prevents initial focus or removes it when the drop button is clicked/tapped.
+	 * Note: The option does not perform device detection so its behavior is always active if enabled.
+	 * Note: When drop down is opened the only way to close it will be using the drop down button.
+	 *
+	 */
+	suppressKeyboard?: boolean;
+
+	/**
 	 * Gets/Sets the width of the control.
 	 *
 	 *
@@ -28535,7 +28599,7 @@ interface IgPercentEditor {
 interface IgPercentEditorMethods {
 	/**
 	 * Paste text at location of the caret or over the current selection. Best used during editing, as the method will instead set the text as value (modified by the [displayFactor](ui.igpercenteditor#options:displayFactor)) if the editor is not focused.
-	 * 	Note: the method raises the [textChanged](ui.igpercenteditor#events:textChanged) event.
+	 * Note: the method raises the [textChanged](ui.igpercenteditor#events:textChanged) event.
 	 *
 	 * @param string     The string to be inserted.
 	 */
@@ -28755,6 +28819,7 @@ interface IgMaskEditor {
 	 *
 	 */
 	value?: any;
+	suppressKeyboard?: boolean;
 
 	/**
 	 * Gets/Sets the horizontal alignment of the text in the editor.
@@ -28959,7 +29024,7 @@ interface IgMaskEditorMethods {
 
 	/**
 	 * Inserts the text at the location of the caret or over the current selection. If the editor is focused the method will insert the text over the current selection. If the editor is not focused the method will set the text as value of the editor.
-	 * 	Note: The method raises [textChanged](ui.igtexteditor#events:textChanged) event.
+	 * Note: The method raises [textChanged](ui.igtexteditor#events:textChanged) event.
 	 *
 	 * @param string     The string to be inserted.
 	 */
@@ -28983,21 +29048,21 @@ interface IgDateEditor {
 	 * Note! This option doesn't use the dateInputFormat to extract the date.
 	 *
 	 */
-	value?: Object;
+	value?: Date;
 
 	/**
 	 * Gets the minimum value which can be entered in editor by user. Date object can be set as value. String value can be passed and the editor will use the javascript Date object constructor to create date object and will use it for the comparison. MVC date format can be used too.
 	 * Note! This option doesn't use the dateInputFormat to extract the date.
 	 *
 	 */
-	minValue?: Object;
+	minValue?: Date;
 
 	/**
 	 * Gets the maximum value which can be entered in editor by user. Date object can be set as value. String value can be passed and the editor will use the javascript Date object constructor to create date object and will use it for the comparison. MVC date format can be used too.
 	 * Note! This option doesn't use the dateInputFormat to extract the date.
 	 *
 	 */
-	maxValue?: Object;
+	maxValue?: Date;
 
 	/**
 	 * Gets/Sets format of date while editor has no focus.
@@ -29212,6 +29277,7 @@ interface IgDateEditor {
 	 * This option is inherited from a parent widget and it's not applicable for igDateEditor
 	 */
 	toLower?: boolean;
+	suppressKeyboard?: boolean;
 
 	/**
 	 * Gets custom regional settings for editor. If it is string, then $.ig.regional[stringValue] is assumed.
@@ -29414,17 +29480,17 @@ interface IgDateEditorMethods {
 	/**
 	 * Gets/Sets editor value.
 	 *
-	 * 	Note! This option doesn't use the dateInputFormat to extract the date
+	 * Note! This option doesn't use the dateInputFormat to extract the date
 	 *
 	 * @param newValue     New editor value. Date object can be set as value. String value can be passed and the editor will use the javascript Date object constructor to create date object and will use it for the comparison. MVC date format can be used too. For example Date(/"thicks"/).
 	 */
-	value(newValue?: Object): Object;
+	value(newValue?: Date): Date;
 
 	/**
 	 * Gets selected date as a date object. This method can be used when dataMode is set as either displayModeText or editModeText.
 	 * In such cases the value() method will not return date object and getSelectedDate() can be used to replace that functionality.
 	 */
-	getSelectedDate(): Object;
+	getSelectedDate(): Date;
 
 	/**
 	 * Sets selected date. This method can be used when dataMode is set as either displayModeText or editModeText.
@@ -29432,7 +29498,7 @@ interface IgDateEditorMethods {
 	 *
 	 * @param date
 	 */
-	selectDate(date: Object): void;
+	selectDate(date: Date): void;
 
 	/**
 	 * Increases the date or time period, depending on the current cursor position.
@@ -29558,25 +29624,32 @@ interface IgDatePicker {
 	listWidth?: number;
 
 	/**
+	 * Gets/Sets whether the onscreen keyboard (if available on device) should be shown when the dropdown button is clicked/tapped. This option prevents initial focus or removes it when the drop button is clicked/tapped.
+	 * Note: The option does not perform device detection so its behavior is always active if enabled.
+	 *
+	 */
+	suppressKeyboard?: boolean;
+
+	/**
 	 * Gets/Sets the value of the editor. Date object can be set as value. String can be set and the editor will pass it to the Date object constructor and use the corresponding Date object as the value. MVC date format can be used too.
 	 * Note! This option doesn't use the dateInputFormat to extract the date.
 	 *
 	 */
-	value?: Object;
+	value?: Date;
 
 	/**
 	 * Gets the minimum value which can be entered in editor by user. Date object can be set as value. String value can be passed and the editor will use the javascript Date object constructor to create date object and will use it for the comparison. MVC date format can be used too.
 	 * Note! This option doesn't use the dateInputFormat to extract the date.
 	 *
 	 */
-	minValue?: Object;
+	minValue?: Date;
 
 	/**
 	 * Gets the maximum value which can be entered in editor by user. Date object can be set as value. String value can be passed and the editor will use the javascript Date object constructor to create date object and will use it for the comparison. MVC date format can be used too.
 	 * Note! This option doesn't use the dateInputFormat to extract the date.
 	 *
 	 */
-	maxValue?: Object;
+	maxValue?: Date;
 
 	/**
 	 * Gets/Sets format of date while editor has no focus.
@@ -30003,17 +30076,17 @@ interface IgDatePickerMethods {
 	/**
 	 * Gets/Sets editor value.
 	 *
-	 * 	Note! This option doesn't use the dateInputFormat to extract the date
+	 * Note! This option doesn't use the dateInputFormat to extract the date
 	 *
 	 * @param newValue     New editor value. Date object can be set as value. String value can be passed and the editor will use the javascript Date object constructor to create date object and will use it for the comparison. MVC date format can be used too. For example Date(/"thicks"/).
 	 */
-	value(newValue?: Object): Object;
+	value(newValue?: Date): Date;
 
 	/**
 	 * Gets selected date as a date object. This method can be used when dataMode is set as either displayModeText or editModeText.
 	 * In such cases the value() method will not return date object and getSelectedDate() can be used to replace that functionality.
 	 */
-	getSelectedDate(): Object;
+	getSelectedDate(): Date;
 
 	/**
 	 * Sets selected date. This method can be used when dataMode is set as either displayModeText or editModeText.
@@ -30021,7 +30094,7 @@ interface IgDatePickerMethods {
 	 *
 	 * @param date
 	 */
-	selectDate(date: Object): void;
+	selectDate(date: Date): void;
 
 	/**
 	 * Increases the date or time period, depending on the current cursor position.
@@ -30243,7 +30316,7 @@ interface IgCheckboxEditor {
 	 * Use ui.element to obtain a reference to the event target.
 	 * Use ui.editorInput to get a reference to the editor field.
 	 */
-	focus?: FocusEvent;
+	focus?: IgFocusEvent;
 
 	/**
 	 * Event which is raised on keydown event.
@@ -30287,10 +30360,10 @@ interface IgCheckboxEditorMethods {
 
 	/**
 	 * Gets/Sets Current checked state/Value of the igCheckboxEditor that will be submitted by the HTML form.
-	 * 	1. If the [value](ui.igcheckboxeditor#options:value) option IS NOT defined, then 'value' method will match the checked state of the editor.
-	 * 	This option is used when the checkbox is intended to operate as a Boolean editor. In that case the return type is bool.
-	 * 	2. If the [value](ui.igcheckboxeditor#options:value) option IS defined, then 'value' method will return the value that will be submitted when the editor is checked and the form is submitted.
-	 * 	To get checked state regardless of the 'value' option, use $(".selector").igCheckboxEditor("option", "checked");
+	 * 1. If the [value](ui.igcheckboxeditor#options:value) option IS NOT defined, then 'value' method will match the checked state of the editor.
+	 * This option is used when the checkbox is intended to operate as a Boolean editor. In that case the return type is bool.
+	 * 2. If the [value](ui.igcheckboxeditor#options:value) option IS defined, then 'value' method will return the value that will be submitted when the editor is checked and the form is submitted.
+	 * To get checked state regardless of the 'value' option, use $(".selector").igCheckboxEditor("option", "checked");
 	 *
 	 * @param newValue
 	 */
@@ -30682,7 +30755,7 @@ interface JQuery {
 	 * Use ui.element to obtain a reference to the event target.
 	 * Use ui.editorInput to get a reference to the editor field.
 	 */
-	igBaseEditor(optionLiteral: 'option', optionName: "focus"): FocusEvent;
+	igBaseEditor(optionLiteral: 'option', optionName: "focus"): IgFocusEvent;
 
 	/**
 	 * Event which is raised when input field of editor gets focus.
@@ -30693,7 +30766,7 @@ interface JQuery {
 	 *
 	 * @optionValue Define event handler function.
 	 */
-	igBaseEditor(optionLiteral: 'option', optionName: "focus", optionValue: FocusEvent): void;
+	igBaseEditor(optionLiteral: 'option', optionName: "focus", optionValue: IgFocusEvent): void;
 
 	/**
 	 * Event which is raised on keydown event.
@@ -30789,8 +30862,8 @@ interface JQuery {
 	 * Event which is raised after the editor value is changed. It can be raised after loosing focus or on spin events.
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to obtain reference to igEditor.
-	 * Use ui.newValue to obtain the new value.
-	 * Use ui.originalValue to obtain the original value.
+	 * Use ui.newValue to obtain the value entered from the user after internal formatting.
+	 * Use ui.originalValue to obtain the value entered from the user before internal formatting.
 	 * Use ui.editorInput to obtain reference to the editor input.
 	 */
 	igBaseEditor(optionLiteral: 'option', optionName: "valueChanged"): ValueChangedEvent;
@@ -30799,8 +30872,8 @@ interface JQuery {
 	 * Event which is raised after the editor value is changed. It can be raised after loosing focus or on spin events.
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to obtain reference to igEditor.
-	 * Use ui.newValue to obtain the new value.
-	 * Use ui.originalValue to obtain the original value.
+	 * Use ui.newValue to obtain the value entered from the user after internal formatting.
+	 * Use ui.originalValue to obtain the value entered from the user before internal formatting.
 	 * Use ui.editorInput to obtain reference to the editor input.
 	 *
 	 * @optionValue Define event handler function.
@@ -31218,6 +31291,24 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igTextEditor(optionLiteral: 'option', optionName: "suppressNotifications", optionValue: boolean): void;
+
+	/**
+	 * Gets/Sets whether the onscreen keyboard (if available on device) should be shown when the dropdown button is clicked/tapped. This option prevents initial focus or removes it when the drop button is clicked/tapped.
+	 * Note: The option does not perform device detection so its behavior is always active if enabled.
+	 * Note: When drop down is opened the only way to close it will be using the drop down button.
+	 *
+	 */
+	igTextEditor(optionLiteral: 'option', optionName: "suppressKeyboard"): boolean;
+
+	/**
+	 * /Sets whether the onscreen keyboard (if available on device) should be shown when the dropdown button is clicked/tapped. This option prevents initial focus or removes it when the drop button is clicked/tapped.
+	 * Note: The option does not perform device detection so its behavior is always active if enabled.
+	 * Note: When drop down is opened the only way to close it will be using the drop down button.
+	 *
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igTextEditor(optionLiteral: 'option', optionName: "suppressKeyboard", optionValue: boolean): void;
 
 	/**
 	 * Gets/Sets the width of the control.
@@ -31674,7 +31765,7 @@ interface JQuery {
 	 * Use ui.element to obtain a reference to the event target.
 	 * Use ui.editorInput to get a reference to the editor field.
 	 */
-	igTextEditor(optionLiteral: 'option', optionName: "focus"): FocusEvent;
+	igTextEditor(optionLiteral: 'option', optionName: "focus"): IgFocusEvent;
 
 	/**
 	 * Event which is raised when input field of editor gets focus.
@@ -31685,7 +31776,7 @@ interface JQuery {
 	 *
 	 * @optionValue Define event handler function.
 	 */
-	igTextEditor(optionLiteral: 'option', optionName: "focus", optionValue: FocusEvent): void;
+	igTextEditor(optionLiteral: 'option', optionName: "focus", optionValue: IgFocusEvent): void;
 
 	/**
 	 * Event which is raised on keydown event.
@@ -31781,8 +31872,8 @@ interface JQuery {
 	 * Event which is raised after the editor value is changed. It can be raised after loosing focus or on spin events.
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to obtain reference to igEditor.
-	 * Use ui.newValue to obtain the new value.
-	 * Use ui.originalValue to obtain the original value.
+	 * Use ui.newValue to obtain the value entered from the user after internal formatting.
+	 * Use ui.originalValue to obtain the value entered from the user before internal formatting.
 	 * Use ui.editorInput to obtain reference to the editor input.
 	 */
 	igTextEditor(optionLiteral: 'option', optionName: "valueChanged"): ValueChangedEvent;
@@ -31791,8 +31882,8 @@ interface JQuery {
 	 * Event which is raised after the editor value is changed. It can be raised after loosing focus or on spin events.
 	 * Function takes arguments evt and ui.
 	 * Use ui.owner to obtain reference to igEditor.
-	 * Use ui.newValue to obtain the new value.
-	 * Use ui.originalValue to obtain the original value.
+	 * Use ui.newValue to obtain the value entered from the user after internal formatting.
+	 * Use ui.originalValue to obtain the value entered from the user before internal formatting.
 	 * Use ui.editorInput to obtain reference to the editor input.
 	 *
 	 * @optionValue Define event handler function.
@@ -32470,6 +32561,24 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igNumericEditor(optionLiteral: 'option', optionName: "suppressNotifications", optionValue: boolean): void;
+
+	/**
+	 * Gets/Sets whether the onscreen keyboard (if available on device) should be shown when the dropdown button is clicked/tapped. This option prevents initial focus or removes it when the drop button is clicked/tapped.
+	 * Note: The option does not perform device detection so its behavior is always active if enabled.
+	 * Note: When drop down is opened the only way to close it will be using the drop down button.
+	 *
+	 */
+	igNumericEditor(optionLiteral: 'option', optionName: "suppressKeyboard"): boolean;
+
+	/**
+	 * /Sets whether the onscreen keyboard (if available on device) should be shown when the dropdown button is clicked/tapped. This option prevents initial focus or removes it when the drop button is clicked/tapped.
+	 * Note: The option does not perform device detection so its behavior is always active if enabled.
+	 * Note: When drop down is opened the only way to close it will be using the drop down button.
+	 *
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igNumericEditor(optionLiteral: 'option', optionName: "suppressKeyboard", optionValue: boolean): void;
 
 	/**
 	 * Gets/Sets the width of the control.
@@ -33426,6 +33535,24 @@ interface JQuery {
 	igCurrencyEditor(optionLiteral: 'option', optionName: "suppressNotifications", optionValue: boolean): void;
 
 	/**
+	 * Gets/Sets whether the onscreen keyboard (if available on device) should be shown when the dropdown button is clicked/tapped. This option prevents initial focus or removes it when the drop button is clicked/tapped.
+	 * Note: The option does not perform device detection so its behavior is always active if enabled.
+	 * Note: When drop down is opened the only way to close it will be using the drop down button.
+	 *
+	 */
+	igCurrencyEditor(optionLiteral: 'option', optionName: "suppressKeyboard"): boolean;
+
+	/**
+	 * /Sets whether the onscreen keyboard (if available on device) should be shown when the dropdown button is clicked/tapped. This option prevents initial focus or removes it when the drop button is clicked/tapped.
+	 * Note: The option does not perform device detection so its behavior is always active if enabled.
+	 * Note: When drop down is opened the only way to close it will be using the drop down button.
+	 *
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igCurrencyEditor(optionLiteral: 'option', optionName: "suppressKeyboard", optionValue: boolean): void;
+
+	/**
 	 * Gets/Sets the width of the control.
 	 *
 	 */
@@ -34259,6 +34386,24 @@ interface JQuery {
 	igPercentEditor(optionLiteral: 'option', optionName: "suppressNotifications", optionValue: boolean): void;
 
 	/**
+	 * Gets/Sets whether the onscreen keyboard (if available on device) should be shown when the dropdown button is clicked/tapped. This option prevents initial focus or removes it when the drop button is clicked/tapped.
+	 * Note: The option does not perform device detection so its behavior is always active if enabled.
+	 * Note: When drop down is opened the only way to close it will be using the drop down button.
+	 *
+	 */
+	igPercentEditor(optionLiteral: 'option', optionName: "suppressKeyboard"): boolean;
+
+	/**
+	 * /Sets whether the onscreen keyboard (if available on device) should be shown when the dropdown button is clicked/tapped. This option prevents initial focus or removes it when the drop button is clicked/tapped.
+	 * Note: The option does not perform device detection so its behavior is always active if enabled.
+	 * Note: When drop down is opened the only way to close it will be using the drop down button.
+	 *
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igPercentEditor(optionLiteral: 'option', optionName: "suppressKeyboard", optionValue: boolean): void;
+
+	/**
 	 * Gets/Sets the width of the control.
 	 *
 	 */
@@ -34735,6 +34880,14 @@ interface JQuery {
 	igMaskEditor(optionLiteral: 'option', optionName: "value", optionValue: any): void;
 
 	/**
+	 */
+	igMaskEditor(optionLiteral: 'option', optionName: "suppressKeyboard"): boolean;
+
+	/**
+	 */
+	igMaskEditor(optionLiteral: 'option', optionName: "suppressKeyboard", optionValue: boolean): void;
+
+	/**
 	 * Gets/Sets the horizontal alignment of the text in the editor.
 	 *
 	 */
@@ -35072,9 +35225,9 @@ interface JQuery {
 	igMaskEditor(methodName: string, ...methodParams: any[]): any;
 }
 interface JQuery {
-	igDateEditor(methodName: "value", newValue?: Object): Object;
-	igDateEditor(methodName: "getSelectedDate"): Object;
-	igDateEditor(methodName: "selectDate", date: Object): void;
+	igDateEditor(methodName: "value", newValue?: Date): Date;
+	igDateEditor(methodName: "getSelectedDate"): Date;
+	igDateEditor(methodName: "selectDate", date: Date): void;
 	igDateEditor(methodName: "spinUp", delta?: number): void;
 	igDateEditor(methodName: "spinDown", delta?: number): void;
 	igDateEditor(methodName: "spinUpButton"): string;
@@ -35094,7 +35247,7 @@ interface JQuery {
 	 * Note! This option doesn't use the dateInputFormat to extract the date.
 	 *
 	 */
-	igDateEditor(optionLiteral: 'option', optionName: "value"): Object;
+	igDateEditor(optionLiteral: 'option', optionName: "value"): Date;
 
 	/**
 	 * /Sets the value of the editor. Date object can be set as value. String can be set and the editor will pass it to the Date object constructor and use the corresponding Date object as the value. MVC date format can be used too.
@@ -35103,14 +35256,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
-	igDateEditor(optionLiteral: 'option', optionName: "value", optionValue: Object): void;
+	igDateEditor(optionLiteral: 'option', optionName: "value", optionValue: Date): void;
 
 	/**
 	 * Gets the minimum value which can be entered in editor by user. Date object can be set as value. String value can be passed and the editor will use the javascript Date object constructor to create date object and will use it for the comparison. MVC date format can be used too.
 	 * Note! This option doesn't use the dateInputFormat to extract the date.
 	 *
 	 */
-	igDateEditor(optionLiteral: 'option', optionName: "minValue"): Object;
+	igDateEditor(optionLiteral: 'option', optionName: "minValue"): Date;
 
 	/**
 	 * The minimum value which can be entered in editor by user. Date object can be set as value. String value can be passed and the editor will use the javascript Date object constructor to create date object and will use it for the comparison. MVC date format can be used too.
@@ -35119,14 +35272,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
-	igDateEditor(optionLiteral: 'option', optionName: "minValue", optionValue: Object): void;
+	igDateEditor(optionLiteral: 'option', optionName: "minValue", optionValue: Date): void;
 
 	/**
 	 * Gets the maximum value which can be entered in editor by user. Date object can be set as value. String value can be passed and the editor will use the javascript Date object constructor to create date object and will use it for the comparison. MVC date format can be used too.
 	 * Note! This option doesn't use the dateInputFormat to extract the date.
 	 *
 	 */
-	igDateEditor(optionLiteral: 'option', optionName: "maxValue"): Object;
+	igDateEditor(optionLiteral: 'option', optionName: "maxValue"): Date;
 
 	/**
 	 * The maximum value which can be entered in editor by user. Date object can be set as value. String value can be passed and the editor will use the javascript Date object constructor to create date object and will use it for the comparison. MVC date format can be used too.
@@ -35135,7 +35288,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
-	igDateEditor(optionLiteral: 'option', optionName: "maxValue", optionValue: Object): void;
+	igDateEditor(optionLiteral: 'option', optionName: "maxValue", optionValue: Date): void;
 
 	/**
 	 * Gets/Sets format of date while editor has no focus.
@@ -35596,6 +35749,14 @@ interface JQuery {
 	igDateEditor(optionLiteral: 'option', optionName: "toLower", optionValue: boolean): void;
 
 	/**
+	 */
+	igDateEditor(optionLiteral: 'option', optionName: "suppressKeyboard"): boolean;
+
+	/**
+	 */
+	igDateEditor(optionLiteral: 'option', optionName: "suppressKeyboard", optionValue: boolean): void;
+
+	/**
 	 * Gets custom regional settings for editor. If it is string, then $.ig.regional[stringValue] is assumed.
 	 *
 	 */
@@ -36015,9 +36176,9 @@ interface JQuery {
 	igDatePicker(methodName: "dropDownButton"): string;
 	igDatePicker(methodName: "dropDownVisible"): boolean;
 	igDatePicker(methodName: "destroy"): void;
-	igDatePicker(methodName: "value", newValue?: Object): Object;
-	igDatePicker(methodName: "getSelectedDate"): Object;
-	igDatePicker(methodName: "selectDate", date: Object): void;
+	igDatePicker(methodName: "value", newValue?: Date): Date;
+	igDatePicker(methodName: "getSelectedDate"): Date;
+	igDatePicker(methodName: "selectDate", date: Date): void;
 	igDatePicker(methodName: "spinUp", delta?: number): void;
 	igDatePicker(methodName: "spinDown", delta?: number): void;
 	igDatePicker(methodName: "spinUpButton"): string;
@@ -36143,11 +36304,27 @@ interface JQuery {
 	igDatePicker(optionLiteral: 'option', optionName: "listWidth", optionValue: number): void;
 
 	/**
+	 * Gets/Sets whether the onscreen keyboard (if available on device) should be shown when the dropdown button is clicked/tapped. This option prevents initial focus or removes it when the drop button is clicked/tapped.
+	 * Note: The option does not perform device detection so its behavior is always active if enabled.
+	 *
+	 */
+	igDatePicker(optionLiteral: 'option', optionName: "suppressKeyboard"): boolean;
+
+	/**
+	 * /Sets whether the onscreen keyboard (if available on device) should be shown when the dropdown button is clicked/tapped. This option prevents initial focus or removes it when the drop button is clicked/tapped.
+	 * Note: The option does not perform device detection so its behavior is always active if enabled.
+	 *
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igDatePicker(optionLiteral: 'option', optionName: "suppressKeyboard", optionValue: boolean): void;
+
+	/**
 	 * Gets/Sets the value of the editor. Date object can be set as value. String can be set and the editor will pass it to the Date object constructor and use the corresponding Date object as the value. MVC date format can be used too.
 	 * Note! This option doesn't use the dateInputFormat to extract the date.
 	 *
 	 */
-	igDatePicker(optionLiteral: 'option', optionName: "value"): Object;
+	igDatePicker(optionLiteral: 'option', optionName: "value"): Date;
 
 	/**
 	 * /Sets the value of the editor. Date object can be set as value. String can be set and the editor will pass it to the Date object constructor and use the corresponding Date object as the value. MVC date format can be used too.
@@ -36156,14 +36333,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
-	igDatePicker(optionLiteral: 'option', optionName: "value", optionValue: Object): void;
+	igDatePicker(optionLiteral: 'option', optionName: "value", optionValue: Date): void;
 
 	/**
 	 * Gets the minimum value which can be entered in editor by user. Date object can be set as value. String value can be passed and the editor will use the javascript Date object constructor to create date object and will use it for the comparison. MVC date format can be used too.
 	 * Note! This option doesn't use the dateInputFormat to extract the date.
 	 *
 	 */
-	igDatePicker(optionLiteral: 'option', optionName: "minValue"): Object;
+	igDatePicker(optionLiteral: 'option', optionName: "minValue"): Date;
 
 	/**
 	 * The minimum value which can be entered in editor by user. Date object can be set as value. String value can be passed and the editor will use the javascript Date object constructor to create date object and will use it for the comparison. MVC date format can be used too.
@@ -36172,14 +36349,14 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
-	igDatePicker(optionLiteral: 'option', optionName: "minValue", optionValue: Object): void;
+	igDatePicker(optionLiteral: 'option', optionName: "minValue", optionValue: Date): void;
 
 	/**
 	 * Gets the maximum value which can be entered in editor by user. Date object can be set as value. String value can be passed and the editor will use the javascript Date object constructor to create date object and will use it for the comparison. MVC date format can be used too.
 	 * Note! This option doesn't use the dateInputFormat to extract the date.
 	 *
 	 */
-	igDatePicker(optionLiteral: 'option', optionName: "maxValue"): Object;
+	igDatePicker(optionLiteral: 'option', optionName: "maxValue"): Date;
 
 	/**
 	 * The maximum value which can be entered in editor by user. Date object can be set as value. String value can be passed and the editor will use the javascript Date object constructor to create date object and will use it for the comparison. MVC date format can be used too.
@@ -36188,7 +36365,7 @@ interface JQuery {
 	 *
 	 * @optionValue New value to be set.
 	 */
-	igDatePicker(optionLiteral: 'option', optionName: "maxValue", optionValue: Object): void;
+	igDatePicker(optionLiteral: 'option', optionName: "maxValue", optionValue: Date): void;
 
 	/**
 	 * Gets/Sets format of date while editor has no focus.
@@ -37413,7 +37590,7 @@ interface JQuery {
 	 * Use ui.element to obtain a reference to the event target.
 	 * Use ui.editorInput to get a reference to the editor field.
 	 */
-	igCheckboxEditor(optionLiteral: 'option', optionName: "focus"): FocusEvent;
+	igCheckboxEditor(optionLiteral: 'option', optionName: "focus"): IgFocusEvent;
 
 	/**
 	 * Event which is raised when input field of editor gets focus.
@@ -37424,7 +37601,7 @@ interface JQuery {
 	 *
 	 * @optionValue Define event handler function.
 	 */
-	igCheckboxEditor(optionLiteral: 'option', optionName: "focus", optionValue: FocusEvent): void;
+	igCheckboxEditor(optionLiteral: 'option', optionName: "focus", optionValue: IgFocusEvent): void;
 
 	/**
 	 * Event which is raised on keydown event.
@@ -37917,7 +38094,7 @@ interface IgFunnelChartMethods {
 
 	/**
 	 * Notifies the chart that the items have been cleared from an associated data source.
-	 * 	It's not necessary to notify more than one target of a change if they share the same items source.
+	 * It's not necessary to notify more than one target of a change if they share the same items source.
 	 *
 	 * @param dataSource     The data source in which the change happened.
 	 */
@@ -37925,7 +38102,7 @@ interface IgFunnelChartMethods {
 
 	/**
 	 * Notifies the target axis or series that an item has been inserted at the specified index in its data source.
-	 * 	It's not necessary to notify more than one target of a change if they share the same items source.
+	 * It's not necessary to notify more than one target of a change if they share the same items source.
 	 *
 	 * @param dataSource     The data source in which the change happened.
 	 * @param index     The index in the items source where the new item has been inserted.
@@ -37935,7 +38112,7 @@ interface IgFunnelChartMethods {
 
 	/**
 	 * Notifies the target axis or series that an item has been removed from the specified index in its data source.
-	 * 	It's not necessary to notify more than one target of a change if they share the same items source.
+	 * It's not necessary to notify more than one target of a change if they share the same items source.
 	 *
 	 * @param dataSource     The data source in which the change happened.
 	 * @param index     The index in the items source from where the old item has been removed.
@@ -38640,6 +38817,20 @@ interface RowsRequestingEvent {
 }
 
 interface RowsRequestingEventUIParam {
+	/**
+	 * Gets a reference to igGridAppendRowsOnDemand.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the next chunk index.
+	 */
+	chunkIndex?: number;
+
+	/**
+	 * Gets the chunk size.
+	 */
+	chunkSize?: number;
 }
 
 interface RowsRequestedEvent {
@@ -38647,6 +38838,25 @@ interface RowsRequestedEvent {
 }
 
 interface RowsRequestedEventUIParam {
+	/**
+	 * Gets a reference to igGridAppendRowsOnDemand.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the next chunk index.
+	 */
+	chunkIndex?: number;
+
+	/**
+	 * Gets the chunk size.
+	 */
+	chunkSize?: number;
+
+	/**
+	 * Gets the requested rows.
+	 */
+	rows?: any[];
 }
 
 interface IgGridAppendRowsOnDemand {
@@ -38909,6 +39119,35 @@ interface CellsMergingEvent {
 }
 
 interface CellsMergingEventUIParam {
+	/**
+	 * Gets a reference to the row the merged group starts in.
+	 */
+	row?: string;
+
+	/**
+	 * Gets the index of the row the merged group starts in.
+	 */
+	rowIndex?: number;
+
+	/**
+	 * Gets the key of the row the merged group starts in.
+	 */
+	rowKey?: any;
+
+	/**
+	 * Gets reference to igGridCellMerging.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the igGrid the igGridCellMerging are initialized for.
+	 */
+	grid?: any;
+
+	/**
+	 * Gets the cells value which is repeated and caused the merged group to be created.
+	 */
+	value?: any;
 }
 
 interface CellsMergedEvent {
@@ -38916,6 +39155,40 @@ interface CellsMergedEvent {
 }
 
 interface CellsMergedEventUIParam {
+	/**
+	 * Gets a reference to the row the merged group starts in.
+	 */
+	row?: string;
+
+	/**
+	 * Gets the index of the row the merged group starts in.
+	 */
+	rowIndex?: number;
+
+	/**
+	 * Gets the key of the row the merged group starts in.
+	 */
+	rowKey?: any;
+
+	/**
+	 * Gets reference to igGridCellMerging.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the igGrid the igGridCellMerging are initialized for.
+	 */
+	grid?: any;
+
+	/**
+	 * Gets the cells value which is repeated and caused the merged group to be created.
+	 */
+	value?: any;
+
+	/**
+	 * Gets the total count of cells that were merged.
+	 */
+	count?: number;
 }
 
 interface IgGridCellMerging {
@@ -39623,6 +39896,10 @@ interface MovingDialogOpeningEvent {
 }
 
 interface MovingDialogOpeningEventUIParam {
+	/**
+	 * Gets a reference to the moving dialog element. This is a jQuery object.
+	 */
+	movingDialogElement?: string;
 }
 
 interface MovingDialogOpenedEvent {
@@ -39630,6 +39907,10 @@ interface MovingDialogOpenedEvent {
 }
 
 interface MovingDialogOpenedEventUIParam {
+	/**
+	 * Gets a reference to the moving dialog element. This is a jQuery object.
+	 */
+	movingDialogElement?: string;
 }
 
 interface MovingDialogDraggedEvent {
@@ -39637,6 +39918,20 @@ interface MovingDialogDraggedEvent {
 }
 
 interface MovingDialogDraggedEventUIParam {
+	/**
+	 * Gets a reference to the moving dialog element. This is a jQuery object.
+	 */
+	movingDialogElement?: string;
+
+	/**
+	 * Gets the original position of the moving dialog div as { top, left } object, relative to the page.
+	 */
+	originalPosition?: any;
+
+	/**
+	 * Gets the current position of the moving dialog div as { top, left } object, relative to the page.
+	 */
+	position?: any;
 }
 
 interface MovingDialogClosingEvent {
@@ -39644,6 +39939,10 @@ interface MovingDialogClosingEvent {
 }
 
 interface MovingDialogClosingEventUIParam {
+	/**
+	 * Gets a reference to the moving dialog element. This is a jQuery object.
+	 */
+	movingDialogElement?: string;
 }
 
 interface MovingDialogClosedEvent {
@@ -39651,6 +39950,10 @@ interface MovingDialogClosedEvent {
 }
 
 interface MovingDialogClosedEventUIParam {
+	/**
+	 * Gets a reference to the moving dialog element. This is a jQuery object.
+	 */
+	movingDialogElement?: string;
 }
 
 interface MovingDialogContentsRenderingEvent {
@@ -39658,6 +39961,10 @@ interface MovingDialogContentsRenderingEvent {
 }
 
 interface MovingDialogContentsRenderingEventUIParam {
+	/**
+	 * Gets a reference to the Moving Dialog element. This is a jQuery object.
+	 */
+	movingDialog?: string;
 }
 
 interface MovingDialogContentsRenderedEvent {
@@ -39665,6 +39972,10 @@ interface MovingDialogContentsRenderedEvent {
 }
 
 interface MovingDialogContentsRenderedEventUIParam {
+	/**
+	 * Gets a reference to the Moving Dialog element. This is a jQuery object.
+	 */
+	movingDialog?: string;
 }
 
 interface MovingDialogMoveUpButtonPressedEvent {
@@ -39672,6 +39983,25 @@ interface MovingDialogMoveUpButtonPressedEvent {
 }
 
 interface MovingDialogMoveUpButtonPressedEventUIParam {
+	/**
+	 * Gets a reference to the Moving Dialog element. This is a jQuery object.
+	 */
+	movingDialog?: string;
+
+	/**
+	 * Gets the column key of the column that was being moved.
+	 */
+	columnKey?: string;
+
+	/**
+	 * Gets the column index of the column that was being moved.
+	 */
+	columnIndex?: number;
+
+	/**
+	 * Gets the new column index of the column that was being moved.
+	 */
+	targetIndex?: number;
 }
 
 interface MovingDialogMoveDownButtonPressedEvent {
@@ -39679,6 +40009,25 @@ interface MovingDialogMoveDownButtonPressedEvent {
 }
 
 interface MovingDialogMoveDownButtonPressedEventUIParam {
+	/**
+	 * Gets a reference to the Moving Dialog element. This is a jQuery object.
+	 */
+	movingDialog?: string;
+
+	/**
+	 * Gets the column key of the column that was being moved.
+	 */
+	columnKey?: string;
+
+	/**
+	 * Gets the column index of the column that was being moved.
+	 */
+	columnIndex?: number;
+
+	/**
+	 * Gets the new column index of the column that was being moved.
+	 */
+	targetIndex?: number;
 }
 
 interface MovingDialogDragColumnMovingEvent {
@@ -39686,6 +40035,25 @@ interface MovingDialogDragColumnMovingEvent {
 }
 
 interface MovingDialogDragColumnMovingEventUIParam {
+	/**
+	 * Gets a reference to the Moving Dialog element. This is a jQuery object.
+	 */
+	movingDialog?: string;
+
+	/**
+	 * Gets the column key of the column that was being moved.
+	 */
+	columnKey?: string;
+
+	/**
+	 * Gets the column index of the column that was being moved.
+	 */
+	columnIndex?: number;
+
+	/**
+	 * Gets the new column index of the column that was being moved.
+	 */
+	targetIndex?: number;
 }
 
 interface MovingDialogDragColumnMovedEvent {
@@ -39693,6 +40061,25 @@ interface MovingDialogDragColumnMovedEvent {
 }
 
 interface MovingDialogDragColumnMovedEventUIParam {
+	/**
+	 * Gets a reference to the Moving Dialog element. This is a jQuery object.
+	 */
+	movingDialog?: string;
+
+	/**
+	 * Gets the column key of the column that was being moved.
+	 */
+	columnKey?: string;
+
+	/**
+	 * Gets the column index of the column that was being moved.
+	 */
+	columnIndex?: number;
+
+	/**
+	 * Gets the new column index of the column that was being moved.
+	 */
+	targetIndex?: number;
 }
 
 interface IgGridColumnMoving {
@@ -40606,6 +40993,25 @@ interface ShowingEvent {
 }
 
 interface ShowingEventUIParam {
+	/**
+	 * Gets the element the popover will show for.
+	 */
+	element?: string;
+
+	/**
+	 * Gets or set the content to be shown as a string.
+	 */
+	content?: string;
+
+	/**
+	 * Gets the popover element showing.
+	 */
+	popover?: string;
+
+	/**
+	 * Gets a reference to the %%WidgetName%% widget.
+	 */
+	owner?: any;
 }
 
 interface ShownEvent {
@@ -40613,6 +41019,25 @@ interface ShownEvent {
 }
 
 interface ShownEventUIParam {
+	/**
+	 * Gets the element the popover showed for.
+	 */
+	element?: string;
+
+	/**
+	 * Gets the content that was shown as a string.
+	 */
+	content?: string;
+
+	/**
+	 * Gets the popover element showing.
+	 */
+	popover?: string;
+
+	/**
+	 * Gets a reference to the %%WidgetName%% widget.
+	 */
+	owner?: any;
 }
 
 interface HidingEvent {
@@ -40620,6 +41045,25 @@ interface HidingEvent {
 }
 
 interface HidingEventUIParam {
+	/**
+	 * Gets the element the popover will hide for.
+	 */
+	element?: string;
+
+	/**
+	 * Gets the current content displayed in the popover as a string.
+	 */
+	content?: string;
+
+	/**
+	 * Gets the popover element hiding.
+	 */
+	popover?: string;
+
+	/**
+	 * Gets reference to the %%WidgetName%% widget.
+	 */
+	owner?: any;
 }
 
 interface HiddenEvent {
@@ -40627,6 +41071,25 @@ interface HiddenEvent {
 }
 
 interface HiddenEventUIParam {
+	/**
+	 * Gets the element the popover is hidden for.
+	 */
+	element?: string;
+
+	/**
+	 * Gets the content displayed in the popover as a string.
+	 */
+	content?: string;
+
+	/**
+	 * Gets the popover element hidden.
+	 */
+	popover?: string;
+
+	/**
+	 * Gets reference to the %%WidgetName%% widget.
+	 */
+	owner?: any;
 }
 
 interface IgGridFeatureChooserPopover {
@@ -40638,8 +41101,9 @@ interface IgGridFeatureChooserPopover {
 	/**
 	 * controls the direction in which the control shows relative to the target element
 	 *
+	 *
 	 * Valid values:
-	 * "auto" lets the control show on the side where enough space is available with the priority specified by the [directionPriority](ui.igpopover#options:directionPriority) property
+	 * "auto" lets the control show on the side where enough space is available with the priority specified by the [directionPriority](ui.%%WidgetNameLowered%%#options:directionPriority) property
 	 * "left" shows popover on the left side of the target element
 	 * "right" shows popover on the right side of the target element
 	 * "top" shows popover on the top of the target element
@@ -40649,12 +41113,14 @@ interface IgGridFeatureChooserPopover {
 
 	/**
 	 * Controls the priority in which the control searches for space to show relative to the target element.
-	 * This property has effect only if the [direction](ui.igpopover#options:direction) property value is "auto" or unset.
+	 * This property has effect only if the [direction](ui.%%WidgetNameLowered%%#options:direction) property value is "auto" or unset.
+	 *
 	 */
 	directionPriority?: any[];
 
 	/**
 	 * controls the position of the popover according to the target element in case the popover is larger than the target on the side we want to position, if the popover is smaller it should always be in the middle of the visible area
+	 *
 	 *
 	 * Valid values:
 	 * "auto" lets the control choose a position depending on available space with the following priority balanced > end > start
@@ -40666,36 +41132,43 @@ interface IgGridFeatureChooserPopover {
 
 	/**
 	 * defines width for the popover. leave null for auto.
+	 *
 	 */
 	width?: number|string;
 
 	/**
 	 * defines height for the popover. leave null for auto
+	 *
 	 */
 	height?: number|string;
 
 	/**
 	 * defines width the popover won't go under the value even if no specific one is set.
+	 *
 	 */
 	minWidth?: number|string;
 
 	/**
 	 * defines width the popover won't exceed even if no specific one is set.
+	 *
 	 */
 	maxWidth?: number|string;
 
 	/**
 	 * defines height the popover won't exceed even if no specific one is set.
+	 *
 	 */
 	maxHeight?: number|string;
 
 	/**
 	 * Sets the time popover fades in and out when showing/hiding
+	 *
 	 */
 	animationDuration?: number;
 
 	/**
 	 * sets the content for the popover container. If left null the content will be get from the target.
+	 *
 	 *
 	 * Valid values:
 	 * "string" String content of the popover container
@@ -40705,16 +41178,19 @@ interface IgGridFeatureChooserPopover {
 
 	/**
 	 * Selectors indicating which items should show popovers. The predefined value is [title]. Customize if you're using something other then the title attribute for the popover content, or if you need a different selector for event delegation. When changing this option, you likely need to also change the contentTemplate option
+	 *
 	 */
 	selectors?: string;
 
 	/**
 	 * Sets the content for the popover header
+	 *
 	 */
 	headerTemplate?: IgPopoverHeaderTemplate;
 
 	/**
 	 * sets the event on which the popover will be shown. Predefined values are "mouseenter", "click" and "focus"
+	 *
 	 *
 	 * Valid values:
 	 * "mouseenter" the popover is shown on mouse enter in the target element
@@ -40968,11 +41444,13 @@ interface JQuery {
 
 	/**
 	 * Controls the direction in which the control shows relative to the target element
+	 *
 	 */
 	igGridFeatureChooserPopover(optionLiteral: 'option', optionName: "direction"): string;
 
 	/**
 	 * Controls the direction in which the control shows relative to the target element
+	 *
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -40980,13 +41458,15 @@ interface JQuery {
 
 	/**
 	 * Controls the priority in which the control searches for space to show relative to the target element.
-	 * This property has effect only if the [direction](ui.igpopover#options:direction) property value is "auto" or unset.
+	 * This property has effect only if the [direction](ui.%%WidgetNameLowered%%#options:direction) property value is "auto" or unset.
+	 *
 	 */
 	igGridFeatureChooserPopover(optionLiteral: 'option', optionName: "directionPriority"): any[];
 
 	/**
 	 * Controls the priority in which the control searches for space to show relative to the target element.
-	 * This property has effect only if the [direction](ui.igpopover#options:direction) property value is "auto" or unset.
+	 * This property has effect only if the [direction](ui.%%WidgetNameLowered%%#options:direction) property value is "auto" or unset.
+	 *
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -40994,11 +41474,13 @@ interface JQuery {
 
 	/**
 	 * Controls the position of the popover according to the target element in case the popover is larger than the target on the side we want to position, if the popover is smaller it should always be in the middle of the visible area
+	 *
 	 */
 	igGridFeatureChooserPopover(optionLiteral: 'option', optionName: "position"): string;
 
 	/**
 	 * Controls the position of the popover according to the target element in case the popover is larger than the target on the side we want to position, if the popover is smaller it should always be in the middle of the visible area
+	 *
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -41006,11 +41488,13 @@ interface JQuery {
 
 	/**
 	 * Defines width for the popover. leave null for auto.
+	 *
 	 */
 	igGridFeatureChooserPopover(optionLiteral: 'option', optionName: "width"): number|string;
 
 	/**
 	 * Defines width for the popover. leave null for auto.
+	 *
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -41018,11 +41502,13 @@ interface JQuery {
 
 	/**
 	 * Defines height for the popover. leave null for auto
+	 *
 	 */
 	igGridFeatureChooserPopover(optionLiteral: 'option', optionName: "height"): number|string;
 
 	/**
 	 * Defines height for the popover. leave null for auto
+	 *
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -41030,11 +41516,13 @@ interface JQuery {
 
 	/**
 	 * Defines width the popover won't go under the value even if no specific one is set.
+	 *
 	 */
 	igGridFeatureChooserPopover(optionLiteral: 'option', optionName: "minWidth"): number|string;
 
 	/**
 	 * Defines width the popover won't go under the value even if no specific one is set.
+	 *
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -41042,11 +41530,13 @@ interface JQuery {
 
 	/**
 	 * Defines width the popover won't exceed even if no specific one is set.
+	 *
 	 */
 	igGridFeatureChooserPopover(optionLiteral: 'option', optionName: "maxWidth"): number|string;
 
 	/**
 	 * Defines width the popover won't exceed even if no specific one is set.
+	 *
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -41054,11 +41544,13 @@ interface JQuery {
 
 	/**
 	 * Defines height the popover won't exceed even if no specific one is set.
+	 *
 	 */
 	igGridFeatureChooserPopover(optionLiteral: 'option', optionName: "maxHeight"): number|string;
 
 	/**
 	 * Defines height the popover won't exceed even if no specific one is set.
+	 *
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -41066,11 +41558,13 @@ interface JQuery {
 
 	/**
 	 * The time popover fades in and out when showing/hiding
+	 *
 	 */
 	igGridFeatureChooserPopover(optionLiteral: 'option', optionName: "animationDuration"): number;
 
 	/**
 	 * Sets the time popover fades in and out when showing/hiding
+	 *
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -41078,11 +41572,13 @@ interface JQuery {
 
 	/**
 	 * The content for the popover container. If left null the content will be get from the target.
+	 *
 	 */
 	igGridFeatureChooserPopover(optionLiteral: 'option', optionName: "contentTemplate"): string|Function;
 
 	/**
 	 * Sets the content for the popover container. If left null the content will be get from the target.
+	 *
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -41090,11 +41586,13 @@ interface JQuery {
 
 	/**
 	 * Selectors indicating which items should show popovers. The predefined value is [title]. Customize if you're using something other then the title attribute for the popover content, or if you need a different selector for event delegation. When changing this option, you likely need to also change the contentTemplate option
+	 *
 	 */
 	igGridFeatureChooserPopover(optionLiteral: 'option', optionName: "selectors"): string;
 
 	/**
 	 * Selectors indicating which items should show popovers. The predefined value is [title]. Customize if you're using something other then the title attribute for the popover content, or if you need a different selector for event delegation. When changing this option, you likely need to also change the contentTemplate option
+	 *
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -41102,11 +41600,13 @@ interface JQuery {
 
 	/**
 	 * The content for the popover header
+	 *
 	 */
 	igGridFeatureChooserPopover(optionLiteral: 'option', optionName: "headerTemplate"): IgPopoverHeaderTemplate;
 
 	/**
 	 * Sets the content for the popover header
+	 *
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -41114,11 +41614,13 @@ interface JQuery {
 
 	/**
 	 * The event on which the popover will be shown. Predefined values are "mouseenter", "click" and "focus"
+	 *
 	 */
 	igGridFeatureChooserPopover(optionLiteral: 'option', optionName: "showOn"): string;
 
 	/**
 	 * Sets the event on which the popover will be shown. Predefined values are "mouseenter", "click" and "focus"
+	 *
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -41456,6 +41958,25 @@ interface DataFilteringEvent {
 }
 
 interface DataFilteringEventUIParam {
+	/**
+	 * Gets reference to GridFiltering.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the column index. Applicable only when filtering mode is "simple".
+	 */
+	columnIndex?: number;
+
+	/**
+	 * Gets the column key. Applicable only when filtering mode is "simple".
+	 */
+	columnKey?: string;
+
+	/**
+	 * Gets the filtering expressions. Filtering expressions could be changed in this event handler and after that data binding is applied. In this way the user could control filtering more easily before applying data-binding.
+	 */
+	newExpressions?: any[];
 }
 
 interface DataFilteredEvent {
@@ -41463,6 +41984,25 @@ interface DataFilteredEvent {
 }
 
 interface DataFilteredEventUIParam {
+	/**
+	 * Gets reference to GridFiltering.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the column index. Applicable only when filtering mode is "simple".
+	 */
+	columnIndex?: number;
+
+	/**
+	 * Gets the column key. Applicable only when filtering mode is "simple".
+	 */
+	columnKey?: string;
+
+	/**
+	 * Gets the filtered expressions.
+	 */
+	expressions?: any[];
 }
 
 interface FilterDialogOpeningEvent {
@@ -41470,6 +42010,15 @@ interface FilterDialogOpeningEvent {
 }
 
 interface FilterDialogOpeningEventUIParam {
+	/**
+	 * Gets reference to GridFiltering.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets reference to the filtering dialog DOM element.
+	 */
+	dialog?: string;
 }
 
 interface FilterDialogOpenedEvent {
@@ -41477,6 +42026,15 @@ interface FilterDialogOpenedEvent {
 }
 
 interface FilterDialogOpenedEventUIParam {
+	/**
+	 * Gets reference to GridFiltering.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets reference to the filtering dialog DOM element.
+	 */
+	dialog?: string;
 }
 
 interface FilterDialogMovingEvent {
@@ -41484,6 +42042,25 @@ interface FilterDialogMovingEvent {
 }
 
 interface FilterDialogMovingEventUIParam {
+	/**
+	 * Gets reference to GridFiltering.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets reference to filtering dialog DOM element.
+	 */
+	dialog?: string;
+
+	/**
+	 * Gets the original position of the groupby dialog div as { top, left } object, relative to the page.
+	 */
+	originalPosition?: any;
+
+	/**
+	 * Gets the current position of the groupby dialog div as { top, left } object, relative to the page.
+	 */
+	position?: any;
 }
 
 interface FilterDialogFilterAddingEvent {
@@ -41491,6 +42068,15 @@ interface FilterDialogFilterAddingEvent {
 }
 
 interface FilterDialogFilterAddingEventUIParam {
+	/**
+	 * Gets reference to GridFiltering.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets reference to filters table body DOM element.
+	 */
+	filtersTableBody?: string;
 }
 
 interface FilterDialogFilterAddedEvent {
@@ -41498,6 +42084,15 @@ interface FilterDialogFilterAddedEvent {
 }
 
 interface FilterDialogFilterAddedEventUIParam {
+	/**
+	 * Gets reference to GridFiltering.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets reference to the filters table row DOM element.
+	 */
+	filter?: string;
 }
 
 interface FilterDialogClosingEvent {
@@ -41505,6 +42100,10 @@ interface FilterDialogClosingEvent {
 }
 
 interface FilterDialogClosingEventUIParam {
+	/**
+	 * Gets reference to GridFiltering.
+	 */
+	owner?: any;
 }
 
 interface FilterDialogClosedEvent {
@@ -41512,6 +42111,10 @@ interface FilterDialogClosedEvent {
 }
 
 interface FilterDialogClosedEventUIParam {
+	/**
+	 * Gets reference to GridFiltering.
+	 */
+	owner?: any;
 }
 
 interface FilterDialogContentsRenderingEvent {
@@ -41519,6 +42122,15 @@ interface FilterDialogContentsRenderingEvent {
 }
 
 interface FilterDialogContentsRenderingEventUIParam {
+	/**
+	 * Gets reference to GridFiltering.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets reference to the filtering dialog DOM element.
+	 */
+	dialogElement?: string;
 }
 
 interface FilterDialogContentsRenderedEvent {
@@ -41526,6 +42138,15 @@ interface FilterDialogContentsRenderedEvent {
 }
 
 interface FilterDialogContentsRenderedEventUIParam {
+	/**
+	 * Gets reference to GridFiltering.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets reference to the filtering dialog DOM element.
+	 */
+	dialogElement?: string;
 }
 
 interface FilterDialogFilteringEvent {
@@ -41533,6 +42154,15 @@ interface FilterDialogFilteringEvent {
 }
 
 interface FilterDialogFilteringEventUIParam {
+	/**
+	 * Gets reference to GridFiltering.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets reference to filtering dialog DOM element.
+	 */
+	dialog?: string;
 }
 
 interface IgGridFiltering {
@@ -43194,6 +43824,35 @@ interface CellClickEvent {
 }
 
 interface CellClickEventUIParam {
+	/**
+	 * Gets a reference to cell DOM element.
+	 */
+	cellElement?: Element;
+
+	/**
+	 * Gets the row index.
+	 */
+	rowIndex?: number;
+
+	/**
+	 * Gets the row key.
+	 */
+	rowKey?: any;
+
+	/**
+	 * Gets the column index of the DOM element.
+	 */
+	colIndex?: number;
+
+	/**
+	 * Gets the column key.
+	 */
+	colKey?: string;
+
+	/**
+	 * Gets a reference to the grid.
+	 */
+	owner?: any;
 }
 
 interface CellRightClickEvent {
@@ -43201,6 +43860,40 @@ interface CellRightClickEvent {
 }
 
 interface CellRightClickEventUIParam {
+	/**
+	 * Gets a reference to cell DOM element.
+	 */
+	cellElement?: Element;
+
+	/**
+	 * Gets the row index.
+	 */
+	rowIndex?: number;
+
+	/**
+	 * Gets the row key.
+	 */
+	rowKey?: any;
+
+	/**
+	 * Gets the column index of the DOM element.
+	 */
+	colIndex?: number;
+
+	/**
+	 * Gets the column key.
+	 */
+	colKey?: string;
+
+	/**
+	 * Gets a reference to the row DOM element.
+	 */
+	row?: Element;
+
+	/**
+	 * Gets a reference to the grid.
+	 */
+	owner?: any;
 }
 
 interface DataRenderingEvent {
@@ -43208,6 +43901,10 @@ interface DataRenderingEvent {
 }
 
 interface DataRenderingEventUIParam {
+	/**
+	 * Gets a reference to the grid.
+	 */
+	owner?: any;
 }
 
 interface DataRenderedEvent {
@@ -43215,6 +43912,10 @@ interface DataRenderedEvent {
 }
 
 interface DataRenderedEventUIParam {
+	/**
+	 * Gets a reference to the grid.
+	 */
+	owner?: any;
 }
 
 interface HeaderRenderingEvent {
@@ -43222,6 +43923,10 @@ interface HeaderRenderingEvent {
 }
 
 interface HeaderRenderingEventUIParam {
+	/**
+	 * Gets a reference to the grid.
+	 */
+	owner?: any;
 }
 
 interface HeaderRenderedEvent {
@@ -43229,6 +43934,15 @@ interface HeaderRenderedEvent {
 }
 
 interface HeaderRenderedEventUIParam {
+	/**
+	 * Gets a reference to the grid.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to headers table DOM element.
+	 */
+	table?: Element;
 }
 
 interface CaptionRenderingEvent {
@@ -43236,6 +43950,10 @@ interface CaptionRenderingEvent {
 }
 
 interface CaptionRenderingEventUIParam {
+	/**
+	 * Gets a reference to the grid.
+	 */
+	owner?: any;
 }
 
 interface CaptionRenderedEvent {
@@ -43243,6 +43961,15 @@ interface CaptionRenderedEvent {
 }
 
 interface CaptionRenderedEventUIParam {
+	/**
+	 * Gets a reference to the grid.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the caption container.
+	 */
+	captionContainer?: Element;
 }
 
 interface FooterRenderingEvent {
@@ -43250,6 +43977,10 @@ interface FooterRenderingEvent {
 }
 
 interface FooterRenderingEventUIParam {
+	/**
+	 * Gets a reference to the grid.
+	 */
+	owner?: any;
 }
 
 interface FooterRenderedEvent {
@@ -43257,6 +43988,15 @@ interface FooterRenderedEvent {
 }
 
 interface FooterRenderedEventUIParam {
+	/**
+	 * Gets a reference to the grid.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to footers table DOM element.
+	 */
+	table?: Element;
 }
 
 interface HeaderCellRenderedEvent {
@@ -43264,6 +44004,20 @@ interface HeaderCellRenderedEvent {
 }
 
 interface HeaderCellRenderedEventUIParam {
+	/**
+	 * Gets a reference to the grid.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the column key.
+	 */
+	columnKey?: string;
+
+	/**
+	 * Gets a reference to header cell DOM element.
+	 */
+	th?: Element;
 }
 
 interface RowsRenderingEvent {
@@ -43271,6 +44025,15 @@ interface RowsRenderingEvent {
 }
 
 interface RowsRenderingEventUIParam {
+	/**
+	 * Gets a reference to the grid.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets reference to the grid's table body.
+	 */
+	tbody?: Element;
 }
 
 interface RowsRenderedEvent {
@@ -43278,6 +44041,15 @@ interface RowsRenderedEvent {
 }
 
 interface RowsRenderedEventUIParam {
+	/**
+	 * Gets a reference to the grid.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets reference to the grid's table body.
+	 */
+	tbody?: Element;
 }
 
 interface SchemaGeneratedEvent {
@@ -43285,6 +44057,20 @@ interface SchemaGeneratedEvent {
 }
 
 interface SchemaGeneratedEventUIParam {
+	/**
+	 * Gets a reference to the grid.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to data source schema.
+	 */
+	schema?: any;
+
+	/**
+	 * Gets reference to data source.
+	 */
+	dataSource?: any;
 }
 
 interface ColumnsCollectionModifiedEvent {
@@ -43292,6 +44078,10 @@ interface ColumnsCollectionModifiedEvent {
 }
 
 interface ColumnsCollectionModifiedEventUIParam {
+	/**
+	 * Gets a reference to the grid.
+	 */
+	owner?: any;
 }
 
 interface RequestErrorEvent {
@@ -43299,6 +44089,20 @@ interface RequestErrorEvent {
 }
 
 interface RequestErrorEventUIParam {
+	/**
+	 * Gets a reference to the grid.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the processed error message sent by the server
+	 */
+	message?: string;
+
+	/**
+	 * Gets a reference to the whole response object
+	 */
+	response?: any;
 }
 
 interface CreatedEvent {
@@ -43306,6 +44110,10 @@ interface CreatedEvent {
 }
 
 interface CreatedEventUIParam {
+	/**
+	 * Gets a reference to the grid.
+	 */
+	owner?: any;
 }
 
 interface DestroyedEvent {
@@ -43313,6 +44121,10 @@ interface DestroyedEvent {
 }
 
 interface DestroyedEventUIParam {
+	/**
+	 * Gets a reference to the grid.
+	 */
+	owner?: any;
 }
 
 interface IgGrid {
@@ -43829,10 +44641,10 @@ interface IgGridMethods {
 	/**
 	 * Returns an object that contains information on the passed Dom element
 	 *
-	 * 	rowId - the id of the record associated with the element - if primaryKey is not set this will be null.
-	 * 	rowIndex - the index (in the DOM) of the row associated with the element.
-	 * 	recordIndex - index of the data record associated with this element in the current dataView.
-	 * 	columnObject  - the column object associated with this element ( if the element is tr this will be null)
+	 * rowId - the id of the record associated with the element - if primaryKey is not set this will be null.
+	 * rowIndex - the index (in the DOM) of the row associated with the element.
+	 * recordIndex - index of the data record associated with this element in the current dataView.
+	 * columnObject  - the column object associated with this element ( if the element is tr this will be null)
 	 *
 	 * @param elem    The Dom element or jQuery object which can be a TD or TR element from the grid.
 	 */
@@ -43993,25 +44805,25 @@ interface IgGridMethods {
 
 	/**
 	 * Returns an array of selected cells in arbitrary order where every objects has the format { element: , row: , index: , rowIndex: , columnKey: } .
-	 * 	If multiple selection is disabled the function will return null.
+	 * If multiple selection is disabled the function will return null.
 	 */
 	selectedCells(): any[];
 
 	/**
 	 * Returns an array of selected rows in arbitrary order where every object has the format { element: , index: } .
-	 * 	If multiple selection is disabled the function will return null.
+	 * If multiple selection is disabled the function will return null.
 	 */
 	selectedRows(): any[];
 
 	/**
 	 * Returns the currently selected cell that has the format { element: , row: , index: , rowIndex: , columnKey: }, if any.
-	 * 	If multiple selection is enabled the function will return null.
+	 * If multiple selection is enabled the function will return null.
 	 */
 	selectedCell(): Object;
 
 	/**
 	 * Returns the currently selected row that has the format { element: , index: }, if any.
-	 * 	If multiple selection is enabled the function will return null.
+	 * If multiple selection is enabled the function will return null.
 	 */
 	selectedRow(): Object;
 
@@ -44027,7 +44839,7 @@ interface IgGridMethods {
 
 	/**
 	 * Retrieves a cell value using the row index and the column key. If a primaryKey is defined, rowId is assumed to be the row Key (not index).
-	 * 	If primary key is not defined, then rowId is converted to a number and is used as a row index.
+	 * If primary key is not defined, then rowId is converted to a number and is used as a row index.
 	 *
 	 * @param rowId     Row index or row key (primary key).
 	 * @param colKey     The column key.
@@ -44036,7 +44848,7 @@ interface IgGridMethods {
 
 	/**
 	 * Returns the cell text. If colKey is a number, the index of the column is used (instead of a column name)- does not apply when using a Multi-Row Layout grid.
-	 * 	This is the actual text (or HTML string) for the contents of the cell.
+	 * This is the actual text (or HTML string) for the contents of the cell.
 	 *
 	 * @param rowId     Row index or row data key (primary key)
 	 * @param colKey     Column key.
@@ -44069,7 +44881,7 @@ interface IgGridMethods {
 
 	/**
 	 * Returns a record by a specified key (requires that primaryKey is set in the settings).
-	 * 	That is a wrapper for this.dataSource.findRecordByKey(key).
+	 * That is a wrapper for this.dataSource.findRecordByKey(key).
 	 *
 	 * @param key     Primary key of the record
 	 */
@@ -44077,7 +44889,7 @@ interface IgGridMethods {
 
 	/**
 	 * Returns a standalone object (copy) that represents the committed transactions, but detached from the data source.
-	 * 	That is a wrapper for this.dataSource.getDetachedRecord(t).
+	 * That is a wrapper for this.dataSource.getDetachedRecord(t).
 	 *
 	 * @param t     A transaction object.
 	 */
@@ -44085,19 +44897,19 @@ interface IgGridMethods {
 
 	/**
 	 * Returns a list of all transaction objects that are pending to be committed or rolled back to the data source.
-	 * 	That is a wrapper for this.dataSource.pendingTransactions().
+	 * That is a wrapper for this.dataSource.pendingTransactions().
 	 */
 	pendingTransactions(): any[];
 
 	/**
 	 * Returns a list of all transaction objects that are either pending, or have been committed in the data source.
-	 * 	That is a wrapper for this.dataSource.allTransactions().
+	 * That is a wrapper for this.dataSource.allTransactions().
 	 */
 	allTransactions(): any[];
 
 	/**
 	 * Returns the accumulated transaction log as a string. The purpose of this is to be passed to URLs or used conveniently.
-	 * 	That is a wrapper for this.dataSource.transactionsAsString().
+	 * That is a wrapper for this.dataSource.transactionsAsString().
 	 */
 	transactionsAsString(): string;
 
@@ -44125,8 +44937,8 @@ interface IgGridMethods {
 
 	/**
 	 * Returns the total number of records in the underlying backend. If paging or filtering is enabled, this may differ from the number of records in the client-side data source.
-	 * 	In order for this to work, the response JSON/XML must include a property that specifies the total number of records, which name is specified by options.responseTotalRecCountKey.
-	 * 	This functionality is completely delegated to the data source control.
+	 * In order for this to work, the response JSON/XML must include a property that specifies the total number of records, which name is specified by options.responseTotalRecCountKey.
+	 * This functionality is completely delegated to the data source control.
 	 */
 	totalRecordsCount(): number;
 
@@ -44151,7 +44963,7 @@ interface IgGridMethods {
 
 	/**
 	 * Shows a hidden column. If the column is not hidden the method does nothing.
-	 * 	Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
+	 * Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
 	 *
 	 * @param column     An identifier for the column. If a number is provided it will be used as a column index. If a string is provided it will be used as a column key.
 	 * @param callback     Specifies a custom function to be called when the column is shown(optional)
@@ -44160,7 +44972,7 @@ interface IgGridMethods {
 
 	/**
 	 * Hides a visible column. If the column is hidden the method does nothing.
-	 * 	Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
+	 * Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
 	 *
 	 * @param column     An identifier for the column. If a number is provided it will be used as a column index else if a string is provided it will be used as a column key.
 	 * @param callback     Specifies a custom function to be called when the column is hidden(optional)
@@ -44219,7 +45031,7 @@ interface IgGridMethods {
 
 	/**
 	 * Get visible index by specified column key. If column is not found or is hidden then returns -1.
-	 * 	Note: Method does not count column groups (Multi-Column Headers).
+	 * Note: Method does not count column groups (Multi-Column Headers).
 	 *
 	 * @param columnKey     columnKey
 	 * @param includeDataSkip     Optional parameter - if set to true include non data columns(like expander column, row selectors column, etc.) in calculations
@@ -44249,9 +45061,9 @@ interface IgGridMethods {
 
 	/**
 	 * Destroy is part of the jQuery UI widget API and does the following:
-	 * 	1. Remove custom CSS classes that were added.
-	 * 	2. Unwrap any wrapping elements such as scrolling divs and other containers.
-	 * 	3. Unbind all events that were bound.
+	 * 1. Remove custom CSS classes that were added.
+	 * 2. Unwrap any wrapping elements such as scrolling divs and other containers.
+	 * 3. Unbind all events that were bound.
 	 *
 	 * @param notToCallDestroy
 	 */
@@ -45477,6 +46289,40 @@ interface GroupedColumnsChangingEvent {
 }
 
 interface GroupedColumnsChangingEventUIParam {
+	/**
+	 * Gets access the GroupBy widget object.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the current groupedColumns.
+	 */
+	groupedColumns?: any[];
+
+	/**
+	 * Gets the object of the new grouped columns that should be applied.(it is set ONLY if called from modal dialog)
+	 */
+	newGroupedColumns?: any;
+
+	/**
+	 * Gets a reference to the current column's key that's being grouped(not set if called from modal dialog).
+	 */
+	key?: string;
+
+	/**
+	 * Gets a reference to the current layout object, if any(not set if called from modal dialog).
+	 */
+	layout?: any;
+
+	/**
+	 * Gets a reference to the current child grid element, in case it's an hierarchical grid(not set if called from modal dialog).
+	 */
+	grid?: any;
+
+	/**
+	 * Gets which user interaction triggers the event - possible options are dragAndDrop|modalDialog|sortStateChanged|removeButton|regroup.
+	 */
+	triggeredBy?: string;
 }
 
 interface GroupedColumnsChangedEvent {
@@ -45484,6 +46330,35 @@ interface GroupedColumnsChangedEvent {
 }
 
 interface GroupedColumnsChangedEventUIParam {
+	/**
+	 * Gets access the GroupBy widget object.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the current groupedColumns.
+	 */
+	groupedColumns?: any[];
+
+	/**
+	 * Gets a reference to the current column's key that's being grouped(not set if called from modal dialog).
+	 */
+	key?: string;
+
+	/**
+	 * Gets a reference to the current layout object, if any(not set if called from modal dialog).
+	 */
+	layout?: any;
+
+	/**
+	 * Gets a reference to the current child grid element, in case it's an hierarchical grid(not set if called from modal dialog).
+	 */
+	grid?: any;
+
+	/**
+	 * Gets which user interaction triggers the event - possible options are dragAndDrop|modalDialog|sortStateChanged|removeButton|regroup.
+	 */
+	triggeredBy?: string;
 }
 
 interface ModalDialogMovingEvent {
@@ -45491,6 +46366,25 @@ interface ModalDialogMovingEvent {
 }
 
 interface ModalDialogMovingEventUIParam {
+	/**
+	 * Gets access the GroupBy widget object.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the modal dialog element. This is a jQuery object.
+	 */
+	modalDialogElement?: string;
+
+	/**
+	 * Gets the original position of the GroupBy Dialog div as { top, left } object, relative to the page.
+	 */
+	originalPosition?: any;
+
+	/**
+	 * Gets the current position of the GroupBy Dialog div as { top, left } object, relative to the page.
+	 */
+	position?: any;
 }
 
 interface ModalDialogClosingEvent {
@@ -45498,6 +46392,15 @@ interface ModalDialogClosingEvent {
 }
 
 interface ModalDialogClosingEventUIParam {
+	/**
+	 * Gets access the GroupBy widget object.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the modal dialog element. This is a jQuery object.
+	 */
+	modalDialogElement?: string;
 }
 
 interface ModalDialogClosedEvent {
@@ -45505,6 +46408,15 @@ interface ModalDialogClosedEvent {
 }
 
 interface ModalDialogClosedEventUIParam {
+	/**
+	 * Gets access the GroupBy widget object.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the modal dialog element. This is a jQuery object.
+	 */
+	modalDialogElement?: string;
 }
 
 interface ModalDialogOpeningEvent {
@@ -45512,6 +46424,15 @@ interface ModalDialogOpeningEvent {
 }
 
 interface ModalDialogOpeningEventUIParam {
+	/**
+	 * Gets access the GroupBy widget object.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the modal dialog element. This is a jQuery object.
+	 */
+	modalDialogElement?: string;
 }
 
 interface ModalDialogOpenedEvent {
@@ -45519,6 +46440,15 @@ interface ModalDialogOpenedEvent {
 }
 
 interface ModalDialogOpenedEventUIParam {
+	/**
+	 * Gets access the GroupBy widget object.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the modal dialog element. This is a jQuery object.
+	 */
+	modalDialogElement?: string;
 }
 
 interface ModalDialogContentsRenderingEvent {
@@ -45526,6 +46456,15 @@ interface ModalDialogContentsRenderingEvent {
 }
 
 interface ModalDialogContentsRenderingEventUIParam {
+	/**
+	 * Gets access the GroupBy widget object.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the modal dialog element. This is a jQuery object.
+	 */
+	modalDialogElement?: string;
 }
 
 interface ModalDialogContentsRenderedEvent {
@@ -45533,6 +46472,15 @@ interface ModalDialogContentsRenderedEvent {
 }
 
 interface ModalDialogContentsRenderedEventUIParam {
+	/**
+	 * Gets access the GroupBy widget object.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the modal dialog element. This is a jQuery object.
+	 */
+	modalDialogElement?: string;
 }
 
 interface ModalDialogButtonApplyClickEvent {
@@ -45540,6 +46488,30 @@ interface ModalDialogButtonApplyClickEvent {
 }
 
 interface ModalDialogButtonApplyClickEventUIParam {
+	/**
+	 * Gets access the GroupBy widget object.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the modal dialog element. This is a jQuery object.
+	 */
+	modalDialogElement?: string;
+
+	/**
+	 * Gets the array of grouped columns.
+	 */
+	groupedColumns?: any[];
+
+	/**
+	 * Gets the array of column layouts.
+	 */
+	groupedColumnLayouts?: any[];
+
+	/**
+	 * Gets the array of sorted columns.
+	 */
+	sortingExpr?: any[];
 }
 
 interface ModalDialogButtonResetClickEvent {
@@ -45547,6 +46519,15 @@ interface ModalDialogButtonResetClickEvent {
 }
 
 interface ModalDialogButtonResetClickEventUIParam {
+	/**
+	 * Gets access the GroupBy widget object.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the modal dialog element. This is a jQuery object.
+	 */
+	modalDialogElement?: string;
 }
 
 interface ModalDialogGroupingColumnEvent {
@@ -45554,6 +46535,20 @@ interface ModalDialogGroupingColumnEvent {
 }
 
 interface ModalDialogGroupingColumnEventUIParam {
+	/**
+	 * Gets access the GroupBy widget object.
+	 */
+	owner?: any;
+
+	/**
+	 * The key of the column to be grouped.
+	 */
+	key?: string;
+
+	/**
+	 * Gets a reference to the current layout object, if any.
+	 */
+	layout?: any;
 }
 
 interface ModalDialogGroupColumnEvent {
@@ -45561,6 +46556,25 @@ interface ModalDialogGroupColumnEvent {
 }
 
 interface ModalDialogGroupColumnEventUIParam {
+	/**
+	 * Gets access the GroupBy widget object.
+	 */
+	owner?: any;
+
+	/**
+	 * The key of the column to be grouped.
+	 */
+	key?: string;
+
+	/**
+	 * Gets a reference to the current groupedColumns.
+	 */
+	groupedColumns?: any[];
+
+	/**
+	 * Gets a reference to the current layout object, if any.
+	 */
+	layout?: any;
 }
 
 interface ModalDialogUngroupingColumnEvent {
@@ -45568,6 +46582,20 @@ interface ModalDialogUngroupingColumnEvent {
 }
 
 interface ModalDialogUngroupingColumnEventUIParam {
+	/**
+	 * Gets access the GroupBy widget object.
+	 */
+	owner?: any;
+
+	/**
+	 * The key of the column to be grouped.
+	 */
+	key?: string;
+
+	/**
+	 * Get a reference to the current layout object, if any.
+	 */
+	layout?: string;
 }
 
 interface ModalDialogUngroupColumnEvent {
@@ -45575,6 +46603,25 @@ interface ModalDialogUngroupColumnEvent {
 }
 
 interface ModalDialogUngroupColumnEventUIParam {
+	/**
+	 * Gets access the GroupBy widget object.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the current groupedColumns.
+	 */
+	groupedColumns?: any[];
+
+	/**
+	 * Gets the key of the column to be grouped.
+	 */
+	key?: string;
+
+	/**
+	 * Get a reference to the current layout object, if any.
+	 */
+	layout?: any;
 }
 
 interface ModalDialogSortGroupedColumnEvent {
@@ -45582,6 +46629,25 @@ interface ModalDialogSortGroupedColumnEvent {
 }
 
 interface ModalDialogSortGroupedColumnEventUIParam {
+	/**
+	 * Gets access the GroupBy widget object.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the key of the column to be grouped.
+	 */
+	key?: string;
+
+	/**
+	 * Get a reference to the current layout object, if any.
+	 */
+	layout?: any;
+
+	/**
+	 * Gets whether column should be sorted ascending or descending.
+	 */
+	isAsc?: boolean;
 }
 
 interface IgGridGroupBy {
@@ -46989,6 +48055,20 @@ interface ColumnHidingEvent {
 }
 
 interface ColumnHidingEventUIParam {
+	/**
+	 * Gets a reference to the GridHiding widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the hidden column index. Has a value only if the column's key is a number.
+	 */
+	columnIndex?: number;
+
+	/**
+	 * Gets the hidden column key. Has a value only if the column's key is a string.
+	 */
+	columnKey?: string;
 }
 
 interface ColumnHidingRefusedEvent {
@@ -46996,6 +48076,15 @@ interface ColumnHidingRefusedEvent {
 }
 
 interface ColumnHidingRefusedEventUIParam {
+	/**
+	 * Gets a reference to the GridHiding widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Array of column keys. Has a value only if the column's key is a string.
+	 */
+	columnKeys?: any[];
 }
 
 interface ColumnShowingRefusedEvent {
@@ -47003,6 +48092,15 @@ interface ColumnShowingRefusedEvent {
 }
 
 interface ColumnShowingRefusedEventUIParam {
+	/**
+	 * Gets a reference to the GridHiding widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Array of column keys. Has a value only if the column's key is a string.
+	 */
+	columnKeys?: any[];
 }
 
 interface MultiColumnHidingEvent {
@@ -47010,6 +48108,15 @@ interface MultiColumnHidingEvent {
 }
 
 interface MultiColumnHidingEventUIParam {
+	/**
+	 * Gets a reference to the GridHiding widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the array of the hidden column keys. Only when you click on Reset button in column chooser there is an array of column keys.
+	 */
+	columnKeys?: any[];
 }
 
 interface ColumnHiddenEvent {
@@ -47017,6 +48124,20 @@ interface ColumnHiddenEvent {
 }
 
 interface ColumnHiddenEventUIParam {
+	/**
+	 * Gets a reference to the GridHiding widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the hidden column index. Has a value only if the column's key is a number.
+	 */
+	columnIndex?: number;
+
+	/**
+	 * Gets the hidden column key. Has a value only if the column's key is a string.
+	 */
+	columnKey?: string;
 }
 
 interface ColumnShowingEvent {
@@ -47024,6 +48145,20 @@ interface ColumnShowingEvent {
 }
 
 interface ColumnShowingEventUIParam {
+	/**
+	 * Gets a reference to the GridHiding widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the shown column index.
+	 */
+	columnIndex?: number;
+
+	/**
+	 * Gets the shown column key.
+	 */
+	columnKey?: string;
 }
 
 interface ColumnShownEvent {
@@ -47031,6 +48166,20 @@ interface ColumnShownEvent {
 }
 
 interface ColumnShownEventUIParam {
+	/**
+	 * Gets a reference to the GridHiding widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the shown column index.
+	 */
+	columnIndex?: number;
+
+	/**
+	 * Gets the shown column key.
+	 */
+	columnKey?: string;
 }
 
 interface ColumnChooserOpeningEvent {
@@ -47038,6 +48187,15 @@ interface ColumnChooserOpeningEvent {
 }
 
 interface ColumnChooserOpeningEventUIParam {
+	/**
+	 * Gets a reference to the GridHiding widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the Column Chooser element. This is a jQuery object.
+	 */
+	columnChooserElement?: string;
 }
 
 interface ColumnChooserOpenedEvent {
@@ -47045,6 +48203,15 @@ interface ColumnChooserOpenedEvent {
 }
 
 interface ColumnChooserOpenedEventUIParam {
+	/**
+	 * Gets a reference to the GridHiding widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the Column Chooser element. This is a jQuery object.
+	 */
+	columnChooserElement?: string;
 }
 
 interface ColumnChooserMovingEvent {
@@ -47052,6 +48219,25 @@ interface ColumnChooserMovingEvent {
 }
 
 interface ColumnChooserMovingEventUIParam {
+	/**
+	 * Gets a reference to the GridHiding widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the Column Chooser element. This is a jQuery object.
+	 */
+	columnChooserElement?: string;
+
+	/**
+	 * Gets the original position of the column chooser div as { top, left } object, relative to the page.
+	 */
+	originalPosition?: any;
+
+	/**
+	 * Gets the current position of the column chooser div as { top, left } object, relative to the page.
+	 */
+	position?: any;
 }
 
 interface ColumnChooserClosingEvent {
@@ -47059,6 +48245,15 @@ interface ColumnChooserClosingEvent {
 }
 
 interface ColumnChooserClosingEventUIParam {
+	/**
+	 * Gets a reference to the GridHiding widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the Column Chooser element. This is a jQuery object.
+	 */
+	columnChooserElement?: string;
 }
 
 interface ColumnChooserClosedEvent {
@@ -47066,6 +48261,15 @@ interface ColumnChooserClosedEvent {
 }
 
 interface ColumnChooserClosedEventUIParam {
+	/**
+	 * Gets a reference to the GridHiding widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the Column Chooser element. This is a jQuery object.
+	 */
+	columnChooserElement?: string;
 }
 
 interface ColumnChooserContentsRenderingEvent {
@@ -47073,6 +48277,15 @@ interface ColumnChooserContentsRenderingEvent {
 }
 
 interface ColumnChooserContentsRenderingEventUIParam {
+	/**
+	 * Gets a reference to the GridHiding widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the Column Chooser element. This is a jQuery object.
+	 */
+	columnChooserElement?: string;
 }
 
 interface ColumnChooserContentsRenderedEvent {
@@ -47080,6 +48293,15 @@ interface ColumnChooserContentsRenderedEvent {
 }
 
 interface ColumnChooserContentsRenderedEventUIParam {
+	/**
+	 * Gets a reference to the GridHiding widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the Column Chooser element. This is a jQuery object.
+	 */
+	columnChooserElement?: string;
 }
 
 interface ColumnChooserButtonApplyClickEvent {
@@ -47087,6 +48309,25 @@ interface ColumnChooserButtonApplyClickEvent {
 }
 
 interface ColumnChooserButtonApplyClickEventUIParam {
+	/**
+	 * Gets a reference to the GridHiding widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the Column Chooser element. This is a jQuery object.
+	 */
+	columnChooserElement?: string;
+
+	/**
+	 * Gets the array of columns identifiers which should be shown.
+	 */
+	columnsToShow?: any[];
+
+	/**
+	 * Gets the array of columns identifiers which should be hidden.
+	 */
+	columnsToHide?: any[];
 }
 
 interface ColumnChooserButtonResetClickEvent {
@@ -47094,6 +48335,15 @@ interface ColumnChooserButtonResetClickEvent {
 }
 
 interface ColumnChooserButtonResetClickEventUIParam {
+	/**
+	 * Gets a reference to the GridHiding widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the Column Chooser element. This is a jQuery object.
+	 */
+	columnChooserElement?: string;
 }
 
 interface IgGridHiding {
@@ -48944,7 +50194,7 @@ interface IgHierarchicalGridMethods {
 
 	/**
 	 * Expands or collapses (toggles) a parent row
-	 * 	Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
+	 * Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
 	 *
 	 * @param element     accepts a dom element, or a jquery wrapped dom element that should be a TR and should specify a parent row
 	 * @param callback     Specifies a custom function to be called when parent row is toggled(optional). Takes 2 arguments - first is hierarchical grid object, second is the row element that was toggled
@@ -48953,7 +50203,7 @@ interface IgHierarchicalGridMethods {
 
 	/**
 	 * Expands (toggles) a parent row
-	 * 	Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
+	 * Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
 	 *
 	 * @param id     accepts a dom element, or a jquery wrapped dom element that should be a TR and should specify a parent row
 	 * @param callback     Specifies a custom function to be called when parent row is expanded(optional). Takes 2 arguments first is hierarchical grid object, second is the row element that was expanded
@@ -48969,7 +50219,7 @@ interface IgHierarchicalGridMethods {
 
 	/**
 	 * Collapses a parent row
-	 * 	Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
+	 * Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
 	 *
 	 * @param id     accepts a dom element, or a jquery wrapped dom element that should be a TR and should specify a parent row
 	 * @param callback     Specifies a custom function to be called when parent row is expanded(optional). Takes 2 arguments - first is hierarchical grid object, second is the row element that was collapsed
@@ -50326,6 +51576,20 @@ interface GroupCollapsingEvent {
 }
 
 interface GroupCollapsingEventUIParam {
+	/**
+	 * Gets the reference to the GridMultiColumnHeaders widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the column object for the current group that is collapsing.
+	 */
+	column?: any;
+
+	/**
+	 * Get a reference to the jQuery object for the column being collapsing (th).
+	 */
+	element?: string;
 }
 
 interface GroupCollapsedEvent {
@@ -50333,6 +51597,20 @@ interface GroupCollapsedEvent {
 }
 
 interface GroupCollapsedEventUIParam {
+	/**
+	 * Gets the reference to the GridMultiColumnHeaders widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the column object for the current group that is collapsed.
+	 */
+	column?: any;
+
+	/**
+	 * Get a reference to the jQuery object for the column being collapsed (th).
+	 */
+	element?: string;
 }
 
 interface GroupExpandingEvent {
@@ -50340,6 +51618,20 @@ interface GroupExpandingEvent {
 }
 
 interface GroupExpandingEventUIParam {
+	/**
+	 * Gets the reference to the GridMultiColumnHeaders widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the column object for the current group that is expanding.
+	 */
+	column?: any;
+
+	/**
+	 * Gets a reference to the jQuery object for the column being expanded (th).
+	 */
+	element?: string;
 }
 
 interface GroupExpandedEvent {
@@ -50347,6 +51639,15 @@ interface GroupExpandedEvent {
 }
 
 interface GroupExpandedEventUIParam {
+	/**
+	 * Gets the reference to the GridMultiColumnHeaders widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the jQuery object for the column being expanded (th).
+	 */
+	element?: string;
 }
 
 interface IgGridMultiColumnHeaders {
@@ -50499,6 +51800,20 @@ interface PageIndexChangingEvent {
 }
 
 interface PageIndexChangingEventUIParam {
+	/**
+	 * Gets reference to GridPaging.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets current page index.
+	 */
+	currentPageIndex?: number;
+
+	/**
+	 * Gets new page index.
+	 */
+	newPageIndex?: number;
 }
 
 interface PageIndexChangedEvent {
@@ -50506,6 +51821,15 @@ interface PageIndexChangedEvent {
 }
 
 interface PageIndexChangedEventUIParam {
+	/**
+	 * Gets reference to GridPaging.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the current page index.
+	 */
+	pageIndex?: number;
 }
 
 interface PageSizeChangingEvent {
@@ -50514,9 +51838,14 @@ interface PageSizeChangingEvent {
 
 interface PageSizeChangingEventUIParam {
 	/**
-	 * Used to get new page size.
+	 * Gets reference to GridPaging.
 	 */
-	newPageSize?: any;
+	owner?: any;
+
+	/**
+	 * Gets the current page size.
+	 */
+	currentPageSize?: number;
 }
 
 interface PageSizeChangedEvent {
@@ -50524,6 +51853,15 @@ interface PageSizeChangedEvent {
 }
 
 interface PageSizeChangedEventUIParam {
+	/**
+	 * Gets reference to GridPaging.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the current page size.
+	 */
+	currentPageSize?: number;
 }
 
 interface PagerRenderingEvent {
@@ -50531,6 +51869,15 @@ interface PagerRenderingEvent {
 }
 
 interface PagerRenderingEventUIParam {
+	/**
+	 * Gets reference to GridPaging.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to grid's data source.
+	 */
+	dataSource?: any;
 }
 
 interface PagerRenderedEvent {
@@ -50538,6 +51885,15 @@ interface PagerRenderedEvent {
 }
 
 interface PagerRenderedEventUIParam {
+	/**
+	 * Gets reference to GridPaging.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to grid's data source.
+	 */
+	dataSource?: any;
 }
 
 interface IgGridPaging {
@@ -51444,6 +52800,25 @@ interface ColumnResizingEvent {
 }
 
 interface ColumnResizingEventUIParam {
+	/**
+	 * Gets a reference to the GridResizing widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the resized column index.
+	 */
+	columnIndex?: number;
+
+	/**
+	 * Gets the resized column key.
+	 */
+	columnKey?: string;
+
+	/**
+	 * Gets the desired width(before min/max coercion) for the resized column.
+	 */
+	desiredWidth?: number;
 }
 
 interface ColumnResizingRefusedEvent {
@@ -51451,6 +52826,25 @@ interface ColumnResizingRefusedEvent {
 }
 
 interface ColumnResizingRefusedEventUIParam {
+	/**
+	 * Gets a reference to the GridResizing widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the resized column index.
+	 */
+	columnIndex?: number;
+
+	/**
+	 * Gets the resized column key.
+	 */
+	columnKey?: string;
+
+	/**
+	 * Gets the desired width(before min/max coercion) for the resized column.
+	 */
+	desiredWidth?: number;
 }
 
 interface ColumnResizedEvent {
@@ -51458,6 +52852,30 @@ interface ColumnResizedEvent {
 }
 
 interface ColumnResizedEventUIParam {
+	/**
+	 * Gets a reference to the GridResizing widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the resized column index.
+	 */
+	columnIndex?: number;
+
+	/**
+	 * Gets the resized column key.
+	 */
+	columnKey?: string;
+
+	/**
+	 * Gets the original column width.
+	 */
+	originalWidth?: number;
+
+	/**
+	 * Gets the final column width after resizing.
+	 */
+	newWidth?: number;
 }
 
 interface IgGridResizing {
@@ -51714,6 +53132,20 @@ interface ResponsiveColumnHidingEvent {
 }
 
 interface ResponsiveColumnHidingEventUIParam {
+	/**
+	 * Gets the reference to the igGridResponsive widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the hidden column index. Has a value only if the column's key is a number.
+	 */
+	columnIndex?: number;
+
+	/**
+	 * Gets the hidden column key. Has a value only if the column's key is a string.
+	 */
+	columnKey?: string;
 }
 
 interface ResponsiveColumnHiddenEvent {
@@ -51721,6 +53153,20 @@ interface ResponsiveColumnHiddenEvent {
 }
 
 interface ResponsiveColumnHiddenEventUIParam {
+	/**
+	 * Gets the reference to the igGridResponsive widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the hidden column index. Has a value only if the column's key is a number.
+	 */
+	columnIndex?: number;
+
+	/**
+	 * Gets the hidden column key. Has a value only if the column's key is a string.
+	 */
+	columnKey?: string;
 }
 
 interface ResponsiveColumnShowingEvent {
@@ -51728,6 +53174,20 @@ interface ResponsiveColumnShowingEvent {
 }
 
 interface ResponsiveColumnShowingEventUIParam {
+	/**
+	 * Gets the reference to the igGridResponsive widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the shown column index. Has a value only if the column's key is a number.
+	 */
+	columnIndex?: number;
+
+	/**
+	 * Gets the shown column key. Has a value only if the column's key is a string.
+	 */
+	columnKey?: string;
 }
 
 interface ResponsiveColumnShownEvent {
@@ -51735,6 +53195,20 @@ interface ResponsiveColumnShownEvent {
 }
 
 interface ResponsiveColumnShownEventUIParam {
+	/**
+	 * Gets the reference to the igGridResponsive widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the shown column index. Has a value only if the column's key is a number.
+	 */
+	columnIndex?: number;
+
+	/**
+	 * Gets the shown column key. Has a value only if the column's key is a string.
+	 */
+	columnKey?: string;
 }
 
 interface ResponsiveModeChangedEvent {
@@ -51742,6 +53216,20 @@ interface ResponsiveModeChangedEvent {
 }
 
 interface ResponsiveModeChangedEventUIParam {
+	/**
+	 * Gets the reference to the igGridResponsive widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the previously assumed mode.
+	 */
+	previousMode?: string;
+
+	/**
+	 * Gets the newly assumed mode.
+	 */
+	mode?: string;
 }
 
 interface IgGridResponsive {
@@ -52179,6 +53667,40 @@ interface RowSelectorClickedEvent {
 }
 
 interface RowSelectorClickedEventUIParam {
+	/**
+	 * Gets reference to the row the clicked row selector resides in.
+	 */
+	row?: string;
+
+	/**
+	 * Gets reference to the fixed row the clicked row selector resides in(if there are fixed columns).
+	 */
+	fixedRow?: string;
+
+	/**
+	 * Gets the index of the row the clicked row selector resides in.
+	 */
+	rowIndex?: number;
+
+	/**
+	 * Gets the key of the row the clicked row selector resides in.
+	 */
+	rowKey?: string;
+
+	/**
+	 * Gets a reference to the row selector cell.
+	 */
+	rowSelector?: string;
+
+	/**
+	 * Gets reference to RowSelectors.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the grid the RowSelectors are initialized for.
+	 */
+	grid?: any;
 }
 
 interface CheckBoxStateChangingEvent {
@@ -52186,6 +53708,50 @@ interface CheckBoxStateChangingEvent {
 }
 
 interface CheckBoxStateChangingEventUIParam {
+	/**
+	 * Gets a reference to the row the clicked row selector resides in.
+	 */
+	row?: string;
+
+	/**
+	 * Gets the index of the row the clicked row selector resides in.
+	 */
+	rowIndex?: number;
+
+	/**
+	 * Gets the key of the row the clicked row selector resides in.
+	 */
+	rowKey?: any;
+
+	/**
+	 * Gets a reference to the row selector cell.
+	 */
+	rowSelector?: string;
+
+	/**
+	 * Gets a reference to the igGridRowSelectors.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the grid the RowSelectors are initialized for.
+	 */
+	grid?: any;
+
+	/**
+	 * Gets the current state of the checkbox ("on","off").
+	 */
+	currentState?: string;
+
+	/**
+	 * Gets the new state of the checkbox ("on","off").
+	 */
+	newState?: string;
+
+	/**
+	 * Checks if the header check box is the one being clicked. In this case no row related args are passed.
+	 */
+	isHeader?: boolean;
 }
 
 interface CheckBoxStateChangedEvent {
@@ -52193,6 +53759,45 @@ interface CheckBoxStateChangedEvent {
 }
 
 interface CheckBoxStateChangedEventUIParam {
+	/**
+	 * Gets a reference to the row the clicked row selector resides in.
+	 */
+	row?: string;
+
+	/**
+	 * Gets the index of the row the clicked row selector resides in.
+	 */
+	rowIndex?: number;
+
+	/**
+	 * Gets the key of the row the clicked row selector resides in.
+	 */
+	rowKey?: string;
+
+	/**
+	 * Gets reference to the row selector cell.
+	 */
+	rowSelector?: string;
+
+	/**
+	 * Gets reference to the igGridRowSelectors.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets reference to the grid the RowSelectors are initialized for.
+	 */
+	grid?: any;
+
+	/**
+	 * Gets the state of the checkbox ("on","off").
+	 */
+	state?: string;
+
+	/**
+	 * Checks if the header check box is the one being clicked. In this case no row related args are passed.
+	 */
+	isHeader?: boolean;
 }
 
 interface IgGridRowSelectors {
@@ -52504,6 +54109,30 @@ interface RowSelectionChangingEvent {
 }
 
 interface RowSelectionChangingEventUIParam {
+	/**
+	 * Gets reference to GridSelection.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets reference to the row object.
+	 */
+	row?: any;
+
+	/**
+	 * Gets reference to rows object array.
+	 */
+	selectedRows?: any[];
+
+	/**
+	 * Gets the start index for a range row selection.
+	 */
+	startIndex?: number;
+
+	/**
+	 * Gets the end index for a range row selection.
+	 */
+	endIndex?: number;
 }
 
 interface RowSelectionChangedEvent {
@@ -52511,6 +54140,20 @@ interface RowSelectionChangedEvent {
 }
 
 interface RowSelectionChangedEventUIParam {
+	/**
+	 * Gets reference to GridSelection.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets reference to the row object.
+	 */
+	row?: any;
+
+	/**
+	 * Gets reference to rows object array.
+	 */
+	selectedRows?: any[];
 }
 
 interface CellSelectionChangingEvent {
@@ -52518,6 +54161,40 @@ interface CellSelectionChangingEvent {
 }
 
 interface CellSelectionChangingEventUIParam {
+	/**
+	 * Gets reference to GridSelection.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets reference to the cell object.
+	 */
+	cell?: any;
+
+	/**
+	 * Gets reference to selected cells object array.
+	 */
+	selectedCells?: any[];
+
+	/**
+	 * Gets the column index for the first cell in a range selection.
+	 */
+	firstColumnIndex?: number;
+
+	/**
+	 * Gets the row index for the first cell in a range selection.
+	 */
+	firstRowIndex?: number;
+
+	/**
+	 * Gets the column index for the last cell in a range selection.
+	 */
+	lastColumnIndex?: number;
+
+	/**
+	 * Gets the row index for the last cell in a range selection.
+	 */
+	lastRowIndex?: number;
 }
 
 interface CellSelectionChangedEvent {
@@ -52525,6 +54202,20 @@ interface CellSelectionChangedEvent {
 }
 
 interface CellSelectionChangedEventUIParam {
+	/**
+	 * Gets reference to GridSelection.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets reference to the cell object.
+	 */
+	cell?: any;
+
+	/**
+	 * Gets reference to selected cells object array.
+	 */
+	selectedCells?: any[];
 }
 
 interface ActiveCellChangingEvent {
@@ -52532,6 +54223,15 @@ interface ActiveCellChangingEvent {
 }
 
 interface ActiveCellChangingEventUIParam {
+	/**
+	 * Gets reference to GridSelection.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets reference to the cell object.
+	 */
+	cell?: any;
 }
 
 interface ActiveCellChangedEvent {
@@ -52539,6 +54239,15 @@ interface ActiveCellChangedEvent {
 }
 
 interface ActiveCellChangedEventUIParam {
+	/**
+	 * Gets reference to GridSelection.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets reference to the cell object.
+	 */
+	cell?: any;
 }
 
 interface ActiveRowChangingEvent {
@@ -52546,6 +54255,15 @@ interface ActiveRowChangingEvent {
 }
 
 interface ActiveRowChangingEventUIParam {
+	/**
+	 * Gets reference to GridSelection.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the row object.
+	 */
+	row?: any;
 }
 
 interface ActiveRowChangedEvent {
@@ -52553,6 +54271,15 @@ interface ActiveRowChangedEvent {
 }
 
 interface ActiveRowChangedEventUIParam {
+	/**
+	 * Gets reference to GridSelection.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the row object.
+	 */
+	row?: any;
 }
 
 interface IgGridSelection {
@@ -52745,28 +54472,28 @@ interface IgGridSelectionMethods {
 	/**
 	 * Returns an array of selected cells in arbitrary order where every objects has the format { element: , row: , index: , rowIndex: , columnKey: } .
 	 *
-	 * 	If multiple selection is disabled the function will return null.
+	 * If multiple selection is disabled the function will return null.
 	 */
 	selectedCells(): any[];
 
 	/**
 	 * Returns an array of selected rows in arbitrary order where every object has the format { element: , index: } .
 	 *
-	 * 	If multiple selection is disabled the function will return null.
+	 * If multiple selection is disabled the function will return null.
 	 */
 	selectedRows(): any[];
 
 	/**
 	 * Returns the currently selected cell that has the format { element: , row: , index: , rowIndex: , columnKey: }, if any.
 	 *
-	 * 	If multiple selection is enabled the function will return null.
+	 * If multiple selection is enabled the function will return null.
 	 */
 	selectedCell(): Object;
 
 	/**
 	 * Returns the currently selected row that has the format { element: , index: }, if any.
 	 *
-	 * 	If multiple selection is enabled the function will return null.
+	 * If multiple selection is enabled the function will return null.
 	 */
 	selectedRow(): Object;
 
@@ -53230,6 +54957,25 @@ interface ColumnSortingEvent {
 }
 
 interface ColumnSortingEventUIParam {
+	/**
+	 * Gets a reference to GridSorting.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the column key.
+	 */
+	columnKey?: string;
+
+	/**
+	 * Gets the sorting direction.
+	 */
+	direction?: string;
+
+	/**
+	 * Gets sorting expressions.
+	 */
+	newExpressions?: any[];
 }
 
 interface ColumnSortedEvent {
@@ -53237,6 +54983,25 @@ interface ColumnSortedEvent {
 }
 
 interface ColumnSortedEventUIParam {
+	/**
+	 * Gets a reference to GridSorting.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the column key.
+	 */
+	columnKey?: string;
+
+	/**
+	 * Gets the sorting direction.
+	 */
+	direction?: string;
+
+	/**
+	 * Gets the sorted expressions.
+	 */
+	expressions?: any;
 }
 
 interface ModalDialogSortingChangedEvent {
@@ -53244,6 +55009,25 @@ interface ModalDialogSortingChangedEvent {
 }
 
 interface ModalDialogSortingChangedEventUIParam {
+	/**
+	 * Gets a reference to GridSorting.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the modal dialog element. This is a jQuery object.
+	 */
+	modalDialogElement?: string;
+
+	/**
+	 * Gets the column key.
+	 */
+	columnKey?: string;
+
+	/**
+	 * Gets whether column should be ascending or not. If true it should be ascending
+	 */
+	isAsc?: boolean;
 }
 
 interface ModalDialogButtonUnsortClickEvent {
@@ -53251,6 +55035,20 @@ interface ModalDialogButtonUnsortClickEvent {
 }
 
 interface ModalDialogButtonUnsortClickEventUIParam {
+	/**
+	 * Gets a reference to GridSorting.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the modal dialog element. This is a jQuery object.
+	 */
+	modalDialogElement?: string;
+
+	/**
+	 * Gets the column key.
+	 */
+	columnKey?: string;
 }
 
 interface ModalDialogSortClickEvent {
@@ -53258,6 +55056,20 @@ interface ModalDialogSortClickEvent {
 }
 
 interface ModalDialogSortClickEventUIParam {
+	/**
+	 * Gets a reference to GridSorting.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the modal dialog element. This is a jQuery object.
+	 */
+	modalDialogElement?: string;
+
+	/**
+	 * Gets the column key.
+	 */
+	columnKey?: string;
 }
 
 interface IgGridSorting {
@@ -54315,6 +56127,10 @@ interface SummariesCalculatingEvent {
 }
 
 interface SummariesCalculatingEventUIParam {
+	/**
+	 * Gets the igGridSummaries widget object.
+	 */
+	owner?: any;
 }
 
 interface SummariesCalculatedEvent {
@@ -54322,6 +56138,15 @@ interface SummariesCalculatedEvent {
 }
 
 interface SummariesCalculatedEventUIParam {
+	/**
+	 * Gets the data for calculated summaries.
+	 */
+	data?: any[];
+
+	/**
+	 * Gets the igGridSummaries widget object.
+	 */
+	owner?: any;
 }
 
 interface SummariesMethodSelectionChangedEvent {
@@ -54329,6 +56154,25 @@ interface SummariesMethodSelectionChangedEvent {
 }
 
 interface SummariesMethodSelectionChangedEventUIParam {
+	/**
+	 * Gets the column key of the column where it is changed selection of summary method.
+	 */
+	columnKey?: string;
+
+	/**
+	 * Gets whether method is selected or not.
+	 */
+	isSelected?: boolean;
+
+	/**
+	 * Gets the summary method name.
+	 */
+	methodName?: string;
+
+	/**
+	 * Gets the igGridSummaries widget object.
+	 */
+	owner?: any;
 }
 
 interface SummariesTogglingEvent {
@@ -54336,6 +56180,15 @@ interface SummariesTogglingEvent {
 }
 
 interface SummariesTogglingEventUIParam {
+	/**
+	 * Gets whether summaries are shown or not.
+	 */
+	isToShow?: boolean;
+
+	/**
+	 * Gets the igGridSummaries widget object.
+	 */
+	owner?: any;
 }
 
 interface SummariesToggledEvent {
@@ -54343,6 +56196,15 @@ interface SummariesToggledEvent {
 }
 
 interface SummariesToggledEventUIParam {
+	/**
+	 * Gets whether summaries are shown or not.
+	 */
+	isToShow?: boolean;
+
+	/**
+	 * Gets the igGridSummaries widget object.
+	 */
+	owner?: any;
 }
 
 interface DropDownOKClickedEvent {
@@ -54350,6 +56212,20 @@ interface DropDownOKClickedEvent {
 }
 
 interface DropDownOKClickedEventUIParam {
+	/**
+	 * Gets the column key for which OK button is clicked.
+	 */
+	columnKey?: string;
+
+	/**
+	 * Gets data for summary methods. Format of event data is {type: "min", active: false};
+	 */
+	eventData?: any;
+
+	/**
+	 * Gets the igGridSummaries widget object.
+	 */
+	owner?: any;
 }
 
 interface DropDownCancelClickedEvent {
@@ -54357,6 +56233,15 @@ interface DropDownCancelClickedEvent {
 }
 
 interface DropDownCancelClickedEventUIParam {
+	/**
+	 * Gets the column key for which Cancel button is clicked.
+	 */
+	columnKey?: string;
+
+	/**
+	 * Gets the igGridSummaries widget object.
+	 */
+	owner?: any;
 }
 
 interface IgGridSummaries {
@@ -55652,6 +57537,15 @@ interface EditRowStartingEvent {
 }
 
 interface EditRowStartingEventUIParam {
+	/**
+	 * Gets the row's PK value.
+	 */
+	rowID?: any;
+
+	/**
+	 * Checks if the edit mode is for adding a new row.
+	 */
+	rowAdding?: boolean;
 }
 
 interface EditRowStartedEvent {
@@ -55659,6 +57553,15 @@ interface EditRowStartedEvent {
 }
 
 interface EditRowStartedEventUIParam {
+	/**
+	 * Gets the row's PK value.
+	 */
+	rowID?: any;
+
+	/**
+	 * Checks if the edit mode is for adding a new row.
+	 */
+	rowAdding?: boolean;
 }
 
 interface EditRowEndingEvent {
@@ -55666,6 +57569,25 @@ interface EditRowEndingEvent {
 }
 
 interface EditRowEndingEventUIParam {
+	/**
+	 * Check if any of the values is changed which will cause update in the data source. Can be manually set to false to prevent this update.
+	 */
+	update?: boolean;
+
+	/**
+	 * Checks if the edit mode is for adding a new row.
+	 */
+	rowAdding?: boolean;
+
+	/**
+	 * Gets or set the new value for the column with the specified key.
+	 */
+	values?: any;
+
+	/**
+	 * Gets the old value for the column with the specified key.
+	 */
+	oldValues?: any;
 }
 
 interface EditRowEndedEvent {
@@ -55673,6 +57595,30 @@ interface EditRowEndedEvent {
 }
 
 interface EditRowEndedEventUIParam {
+	/**
+	 * Gets the row's PK value.
+	 */
+	rowID?: any;
+
+	/**
+	 * Check if any of the values is changed which will cause update in the data source.
+	 */
+	update?: boolean;
+
+	/**
+	 * Check if the edit mode is for adding a new row.
+	 */
+	rowAdding?: boolean;
+
+	/**
+	 * Gets the new value for the column with the specified key.
+	 */
+	values?: any;
+
+	/**
+	 * Gets the old value for the column with the specified key.
+	 */
+	oldValues?: any;
 }
 
 interface EditCellStartingEvent {
@@ -55680,6 +57626,35 @@ interface EditCellStartingEvent {
 }
 
 interface EditCellStartingEventUIParam {
+	/**
+	 * Gets the row's PK value.
+	 */
+	rowID?: any;
+
+	/**
+	 * Gets the index of the column.
+	 */
+	columnIndex?: number;
+
+	/**
+	 * Gets the key of the column.
+	 */
+	columnKey?: string;
+
+	/**
+	 * Gets a reference to the editor used for editing the column.
+	 */
+	editor?: string;
+
+	/**
+	 * Gets or set the value of the editor.
+	 */
+	value?: any;
+
+	/**
+	 * Checks if the edit mode is for adding a new row.
+	 */
+	rowAdding?: boolean;
 }
 
 interface EditCellStartedEvent {
@@ -55687,6 +57662,35 @@ interface EditCellStartedEvent {
 }
 
 interface EditCellStartedEventUIParam {
+	/**
+	 * Gets the row's PK value.
+	 */
+	rowID?: any;
+
+	/**
+	 * Gets the index of the column.
+	 */
+	columnIndex?: number;
+
+	/**
+	 * Gets the key of the column.
+	 */
+	columnKey?: string;
+
+	/**
+	 * Gets a reference to the editor used for editing the column.
+	 */
+	editor?: string;
+
+	/**
+	 * Gets or set the value of the editor.
+	 */
+	value?: any;
+
+	/**
+	 * Checks if the edit mode is for adding a new row.
+	 */
+	rowAdding?: boolean;
 }
 
 interface EditCellEndingEvent {
@@ -55694,6 +57698,45 @@ interface EditCellEndingEvent {
 }
 
 interface EditCellEndingEventUIParam {
+	/**
+	 * Gets the row's PK value.
+	 */
+	rowID?: any;
+
+	/**
+	 * Gets the index of the column.
+	 */
+	columnIndex?: number;
+
+	/**
+	 * Gets the key of the column.
+	 */
+	columnKey?: string;
+
+	/**
+	 * Gets a reference to the editor used for editing the column.
+	 */
+	editor?: string;
+
+	/**
+	 * Gets or set the value of the editor.
+	 */
+	value?: any;
+
+	/**
+	 * Gets the old value.
+	 */
+	oldValue?: any;
+
+	/**
+	 * Check if the value is changed which will cause update in the data source. Can be manually set to false to prevent this update.
+	 */
+	update?: boolean;
+
+	/**
+	 * Check if the edit mode is for adding a new row.
+	 */
+	rowAdding?: boolean;
 }
 
 interface EditCellEndedEvent {
@@ -55701,6 +57744,45 @@ interface EditCellEndedEvent {
 }
 
 interface EditCellEndedEventUIParam {
+	/**
+	 * Gets the row's PK value.
+	 */
+	rowID?: any;
+
+	/**
+	 * Gets the index of the column.
+	 */
+	columnIndex?: number;
+
+	/**
+	 * Gets the key of the column.
+	 */
+	columnKey?: string;
+
+	/**
+	 * Gets a reference to the editor used for editing the column.
+	 */
+	editor?: string;
+
+	/**
+	 * Gets the new value.
+	 */
+	value?: any;
+
+	/**
+	 * Gets the old value.
+	 */
+	oldValue?: any;
+
+	/**
+	 * Check if the value is changed which will cause update in the data source. Can be manually set to false to prevent this update.
+	 */
+	update?: boolean;
+
+	/**
+	 * Check if the edit mode is for adding a new row.
+	 */
+	rowAdding?: boolean;
 }
 
 interface RowAddingEvent {
@@ -55708,6 +57790,15 @@ interface RowAddingEvent {
 }
 
 interface RowAddingEventUIParam {
+	/**
+	 * Gets the value for the column with the specified key.
+	 */
+	values?: any;
+
+	/**
+	 * Gets the default value (before editing) for the column with the specified key.
+	 */
+	oldValues?: any;
 }
 
 interface RowAddedEvent {
@@ -55715,6 +57806,15 @@ interface RowAddedEvent {
 }
 
 interface RowAddedEventUIParam {
+	/**
+	 * Gets the value for the column with the specified key.
+	 */
+	values?: any;
+
+	/**
+	 * Gets the default value (before editing) for the column with the specified key.
+	 */
+	oldValues?: any;
 }
 
 interface RowDeletingEvent {
@@ -55722,6 +57822,15 @@ interface RowDeletingEvent {
 }
 
 interface RowDeletingEventUIParam {
+	/**
+	 * Gets a jQuery object containing the TR element of the row to delete.
+	 */
+	element?: string;
+
+	/**
+	 * Gets the row's PK value.
+	 */
+	rowID?: any;
 }
 
 interface RowDeletedEvent {
@@ -55729,6 +57838,15 @@ interface RowDeletedEvent {
 }
 
 interface RowDeletedEventUIParam {
+	/**
+	 * Gets a jQuery object containing the TR element of the deleted row.
+	 */
+	element?: string;
+
+	/**
+	 * Gets the row's PK value.
+	 */
+	rowID?: any;
 }
 
 interface DataDirtyEvent {
@@ -55743,6 +57861,10 @@ interface GeneratePrimaryKeyValueEvent {
 }
 
 interface GeneratePrimaryKeyValueEventUIParam {
+	/**
+	 * Gets the auto-generated primary key (the number of records in the data source + 1) or set a custom unique primary key for the new row.
+	 */
+	value?: any;
 }
 
 interface RowEditDialogBeforeOpenEvent {
@@ -55750,6 +57872,10 @@ interface RowEditDialogBeforeOpenEvent {
 }
 
 interface RowEditDialogBeforeOpenEventUIParam {
+	/**
+	 * Gets a reference to row edit dialog DOM element.
+	 */
+	dialogElement?: string;
 }
 
 interface RowEditDialogAfterOpenEvent {
@@ -55757,6 +57883,10 @@ interface RowEditDialogAfterOpenEvent {
 }
 
 interface RowEditDialogAfterOpenEventUIParam {
+	/**
+	 * Gets a reference to row edit dialog DOM element.
+	 */
+	dialogElement?: string;
 }
 
 interface RowEditDialogBeforeCloseEvent {
@@ -55764,6 +57894,10 @@ interface RowEditDialogBeforeCloseEvent {
 }
 
 interface RowEditDialogBeforeCloseEventUIParam {
+	/**
+	 * Gets a reference to row edit dialog DOM element.
+	 */
+	dialogElement?: string;
 }
 
 interface RowEditDialogAfterCloseEvent {
@@ -55771,6 +57905,10 @@ interface RowEditDialogAfterCloseEvent {
 }
 
 interface RowEditDialogAfterCloseEventUIParam {
+	/**
+	 * Gets a reference to row edit dialog DOM element.
+	 */
+	dialogElement?: string;
 }
 
 interface RowEditDialogContentsRenderedEvent {
@@ -55778,6 +57916,10 @@ interface RowEditDialogContentsRenderedEvent {
 }
 
 interface RowEditDialogContentsRenderedEventUIParam {
+	/**
+	 * Gets a reference to row edit dialog DOM element.
+	 */
+	dialogElement?: string;
 }
 
 interface IgGridUpdating {
@@ -57896,7 +60038,7 @@ interface IgLayoutManagerGridLayout {
 
 	/**
 	 * Specified whether the items should rearrange to fit in the container when it is resized.
-	 * Have effect only when fixed columnWidth option is set.
+	 *                         Have effect only when fixed columnWidth option is set.
 	 *
 	 */
 	rearrangeItems?: boolean;
@@ -57928,7 +60070,7 @@ interface IgLayoutManagerItem {
 
 	/**
 	 * Gets/Sets individual item height, either in px or percentage
-	 * string The default height can be set in pixels (px), %, em and other units.
+	 *                         string The default height can be set in pixels (px), %, em and other units.
 	 *
 	 */
 	height?: string;
@@ -57947,7 +60089,7 @@ interface IgLayoutManagerItem {
 
 	/**
 	 * Gets/Sets individual item width, either in px or percentage
-	 * string The default width can be set in pixels (px), %, em and other units.
+	 *                         string The default width can be set in pixels (px), %, em and other units.
 	 *
 	 */
 	width?: number;
@@ -58059,23 +60201,23 @@ interface IgLayoutManager {
 
 	/**
 	 * An array of item descriptions
-	 * this assumes the container is empty, and every item
-	 * is described by rowspan, colspan, etc. - otherwise values of
-	 * 1 are assumed
-	 * items can have various properties some of which may not be applicable
-	 * depending on the layoutMode.
-	 * for example rowSpan/colSpan/colIndex/rowIndex are only applicable to gridlayout
+	 *                     this assumes the container is empty, and every item
+	 *                     is described by rowspan, colspan, etc. - otherwise values of
+	 *                     1 are assumed
+	 *                     items can have various properties some of which may not be applicable
+	 *                     depending on the layoutMode.
+	 *                     for example rowSpan/colSpan/colIndex/rowIndex are only applicable to gridlayout
 	 *
 	 */
 	items?: IgLayoutManagerItem[];
 
 	/**
 	 * Defines the layout type
-	 * grid Column type can be set with grid layout
-	 * border Column type can be set with border layout
-	 * flow Column type can be set with flow layout
-	 * column Column type can be set with column layout
-	 * vertical Column type can be set with vertical layout
+	 *                 grid Column type can be set with grid layout
+	 *                 border Column type can be set with border layout
+	 *                 flow Column type can be set with flow layout
+	 *                 column Column type can be set with column layout
+	 *                 vertical Column type can be set with vertical layout
 	 *
 	 *
 	 * Valid values:
@@ -58095,40 +60237,40 @@ interface IgLayoutManager {
 
 	/**
 	 * Event fired after items are resized.
-	 * Use ui.owner to get a reference to the layout manager performing resizing.
+	 *                     Use ui.owner to get a reference to the layout manager performing resizing.
 	 */
 	internalResized?: InternalResizedEvent;
 
 	/**
 	 * Event fired before items are resized.
-	 * Use ui.owner to get a reference to the layout manager performing resizing.
+	 *                     Use ui.owner to get a reference to the layout manager performing resizing.
 	 */
 	internalResizing?: InternalResizingEvent;
 
 	/**
 	 * Event fired after an item has been rendered in the container.
-	 * Function takes arguments evt and ui.
-	 * Use ui.owner to get reference to the igLayoutManager.
-	 * Use ui.itemData to get a reference of item's settings, such as colspan ,rowspan, etc.
-	 * Use ui.index to get a reference of the item's index, if the layout is flow or vertical
-	 * Use ui.item to get a reference to the rendered item
+	 *                     Function takes arguments evt and ui.
+	 *                     Use ui.owner to get reference to the igLayoutManager.
+	 *                     Use ui.itemData to get a reference of item's settings, such as colspan ,rowspan, etc.
+	 *                     Use ui.index to get a reference of the item's index, if the layout is flow or vertical
+	 *                     Use ui.item to get a reference to the rendered item
 	 */
 	itemRendered?: ItemRenderedEvent;
 
 	/**
 	 * Event fired before an item is rendered in the container.
-	 * Function takes arguments evt and ui.
-	 * Use ui.owner to get reference to the igLayoutManager.
-	 * Use ui.itemData to get a reference of item's settings, such as colspan ,rowspan, etc.
-	 * Use ui.index to get a reference of the item's index, if the layout is flow or vertical
-	 * Use ui.item to get a reference to the rendered item
+	 *                     Function takes arguments evt and ui.
+	 *                     Use ui.owner to get reference to the igLayoutManager.
+	 *                     Use ui.itemData to get a reference of item's settings, such as colspan ,rowspan, etc.
+	 *                     Use ui.index to get a reference of the item's index, if the layout is flow or vertical
+	 *                     Use ui.item to get a reference to the rendered item
 	 */
 	itemRendering?: ItemRenderingEvent;
 
 	/**
 	 * Event fired after all items are rendered.
-	 * Function takes arguments evt and ui.
-	 * Use ui.owner to get reference to the igLayoutManager.
+	 *                     Function takes arguments evt and ui.
+	 *                     Use ui.owner to get reference to the igLayoutManager.
 	 */
 	rendered?: RenderedEvent;
 
@@ -58140,7 +60282,7 @@ interface IgLayoutManager {
 interface IgLayoutManagerMethods {
 	/**
 	 * Triggers recalculation of the layout dimensions. Layouts may not need to be reflowed manually, if their sizes are in percentages (i.e. they are responsive by default)
-	 * this can be particularly useful with a grid layout, when the container has percentage sizes, but items are calculated in pixels and positioned absolutely in the container.
+	 *                     this can be particularly useful with a grid layout, when the container has percentage sizes, but items are calculated in pixels and positioned absolutely in the container.
 	 *
 	 * @param forceReflow Indicates whether the reflow should be forced. Useful in cases where the items size and position was changed manually.
 	 * @param animationDuration The animation duration to be used for this reflow only. Supported only for Grid Layout mode.
@@ -58150,9 +60292,9 @@ interface IgLayoutManagerMethods {
 
 	/**
 	 * Destroy is part of the jQuery UI widget API and does the following:
-	 * 1. Remove custom CSS classes that were added.
-	 * 2. Remove any elements that were added at widget's initialization and after that, which didn't below to the original markup
-	 * 3. Unbind all events that were bound.
+	 *                     1. Remove custom CSS classes that were added.
+	 *                     2. Remove any elements that were added at widget's initialization and after that, which didn't below to the original markup
+	 *                     3. Unbind all events that were bound.
 	 */
 	destroy(): void;
 }
@@ -58222,24 +60364,24 @@ interface JQuery {
 
 	/**
 	 * An array of item descriptions
-	 * this assumes the container is empty, and every item
-	 * is described by rowspan, colspan, etc. - otherwise values of
-	 * 1 are assumed
-	 * items can have various properties some of which may not be applicable
-	 * depending on the layoutMode.
-	 * for example rowSpan/colSpan/colIndex/rowIndex are only applicable to gridlayout
+	 *                     this assumes the container is empty, and every item
+	 *                     is described by rowspan, colspan, etc. - otherwise values of
+	 *                     1 are assumed
+	 *                     items can have various properties some of which may not be applicable
+	 *                     depending on the layoutMode.
+	 *                     for example rowSpan/colSpan/colIndex/rowIndex are only applicable to gridlayout
 	 *
 	 */
 	igLayoutManager(optionLiteral: 'option', optionName: "items"): IgLayoutManagerItem[];
 
 	/**
 	 * An array of item descriptions
-	 * this assumes the container is empty, and every item
-	 * is described by rowspan, colspan, etc. - otherwise values of
-	 * 1 are assumed
-	 * items can have various properties some of which may not be applicable
-	 * depending on the layoutMode.
-	 * for example rowSpan/colSpan/colIndex/rowIndex are only applicable to gridlayout
+	 *                     this assumes the container is empty, and every item
+	 *                     is described by rowspan, colspan, etc. - otherwise values of
+	 *                     1 are assumed
+	 *                     items can have various properties some of which may not be applicable
+	 *                     depending on the layoutMode.
+	 *                     for example rowSpan/colSpan/colIndex/rowIndex are only applicable to gridlayout
 	 *
 	 *
 	 * @optionValue New value to be set.
@@ -58248,22 +60390,22 @@ interface JQuery {
 
 	/**
 	 * Defines the layout type
-	 * grid Column type can be set with grid layout
-	 * border Column type can be set with border layout
-	 * flow Column type can be set with flow layout
-	 * column Column type can be set with column layout
-	 * vertical Column type can be set with vertical layout
+	 *                 grid Column type can be set with grid layout
+	 *                 border Column type can be set with border layout
+	 *                 flow Column type can be set with flow layout
+	 *                 column Column type can be set with column layout
+	 *                 vertical Column type can be set with vertical layout
 	 *
 	 */
 	igLayoutManager(optionLiteral: 'option', optionName: "layoutMode"): any;
 
 	/**
 	 * Defines the layout type
-	 * grid Column type can be set with grid layout
-	 * border Column type can be set with border layout
-	 * flow Column type can be set with flow layout
-	 * column Column type can be set with column layout
-	 * vertical Column type can be set with vertical layout
+	 *                 grid Column type can be set with grid layout
+	 *                 border Column type can be set with border layout
+	 *                 flow Column type can be set with flow layout
+	 *                 column Column type can be set with column layout
+	 *                 vertical Column type can be set with vertical layout
 	 *
 	 *
 	 * @optionValue New value to be set.
@@ -58286,13 +60428,13 @@ interface JQuery {
 
 	/**
 	 * Event fired after items are resized.
-	 * Use ui.owner to get a reference to the layout manager performing resizing.
+	 *                     Use ui.owner to get a reference to the layout manager performing resizing.
 	 */
 	igLayoutManager(optionLiteral: 'option', optionName: "internalResized"): InternalResizedEvent;
 
 	/**
 	 * Event fired after items are resized.
-	 * Use ui.owner to get a reference to the layout manager performing resizing.
+	 *                     Use ui.owner to get a reference to the layout manager performing resizing.
 	 *
 	 * @optionValue Define event handler function.
 	 */
@@ -58300,7 +60442,7 @@ interface JQuery {
 
 	/**
 	 * Event fired before items are resized.
-	 * Use ui.owner to get a reference to the layout manager performing resizing.
+	 *                     Use ui.owner to get a reference to the layout manager performing resizing.
 	 */
 	igLayoutManager(optionLiteral: 'option', optionName: "internalResizing"): InternalResizingEvent;
 
@@ -60894,7 +63036,7 @@ interface IgMapMethods {
 
 	/**
 	 * Either xAxis or yAxis (longitude or latitude) that it should scale the requested value into map space from axis space.
-	 * 	For example you can use this method if you want to find where longitude 50 stands scaled to map's width.
+	 * For example you can use this method if you want to find where longitude 50 stands scaled to map's width.
 	 *
 	 * @param targetName Either xAxis or yAxis to notify.
 	 * @param unscaledValue The value in axis space to translate into map space.
@@ -60903,7 +63045,7 @@ interface IgMapMethods {
 
 	/**
 	 * Either xAxis or yAxis (longitude or latitude) that it should unscale the requested value into axis space from map space.
-	 * 	For example you can use this method if you want to find what is the longitude unscaled from 0 width of the map.
+	 * For example you can use this method if you want to find what is the longitude unscaled from 0 width of the map.
 	 *
 	 * @param targetName Either xAxis or yAxis to notify.
 	 * @param scaledValue The value in map space to translate into axis space.
@@ -62253,8 +64395,9 @@ interface IgNotifier {
 	/**
 	 * controls the direction in which the control shows relative to the target element
 	 *
+	 *
 	 * Valid values:
-	 * "auto" lets the control show on the side where enough space is available with the priority specified by the [directionPriority](ui.igpopover#options:directionPriority) property
+	 * "auto" lets the control show on the side where enough space is available with the priority specified by the [directionPriority](ui.%%WidgetNameLowered%%#options:directionPriority) property
 	 * "left" shows popover on the left side of the target element
 	 * "right" shows popover on the right side of the target element
 	 * "top" shows popover on the top of the target element
@@ -62264,12 +64407,14 @@ interface IgNotifier {
 
 	/**
 	 * Controls the priority in which the control searches for space to show relative to the target element.
-	 * This property has effect only if the [direction](ui.igpopover#options:direction) property value is "auto" or unset.
+	 * This property has effect only if the [direction](ui.%%WidgetNameLowered%%#options:direction) property value is "auto" or unset.
+	 *
 	 */
 	directionPriority?: any[];
 
 	/**
 	 * controls the position of the popover according to the target element in case the popover is larger than the target on the side we want to position, if the popover is smaller it should always be in the middle of the visible area
+	 *
 	 *
 	 * Valid values:
 	 * "auto" lets the control choose a position depending on available space with the following priority balanced > end > start
@@ -62281,31 +64426,37 @@ interface IgNotifier {
 
 	/**
 	 * defines width for the popover. leave null for auto.
+	 *
 	 */
 	width?: number|string;
 
 	/**
 	 * defines height for the popover. leave null for auto
+	 *
 	 */
 	height?: number|string;
 
 	/**
 	 * defines width the popover won't go under the value even if no specific one is set.
+	 *
 	 */
 	minWidth?: number|string;
 
 	/**
 	 * defines width the popover won't exceed even if no specific one is set.
+	 *
 	 */
 	maxWidth?: number|string;
 
 	/**
 	 * defines height the popover won't exceed even if no specific one is set.
+	 *
 	 */
 	maxHeight?: number|string;
 
 	/**
 	 * Sets the containment for the popover. Accepts a jQuery object
+	 *
 	 */
 	containment?: any;
 
@@ -62621,11 +64772,13 @@ interface JQuery {
 
 	/**
 	 * Controls the direction in which the control shows relative to the target element
+	 *
 	 */
 	igNotifier(optionLiteral: 'option', optionName: "direction"): string;
 
 	/**
 	 * Controls the direction in which the control shows relative to the target element
+	 *
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -62633,13 +64786,15 @@ interface JQuery {
 
 	/**
 	 * Controls the priority in which the control searches for space to show relative to the target element.
-	 * This property has effect only if the [direction](ui.igpopover#options:direction) property value is "auto" or unset.
+	 * This property has effect only if the [direction](ui.%%WidgetNameLowered%%#options:direction) property value is "auto" or unset.
+	 *
 	 */
 	igNotifier(optionLiteral: 'option', optionName: "directionPriority"): any[];
 
 	/**
 	 * Controls the priority in which the control searches for space to show relative to the target element.
-	 * This property has effect only if the [direction](ui.igpopover#options:direction) property value is "auto" or unset.
+	 * This property has effect only if the [direction](ui.%%WidgetNameLowered%%#options:direction) property value is "auto" or unset.
+	 *
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -62647,11 +64802,13 @@ interface JQuery {
 
 	/**
 	 * Controls the position of the popover according to the target element in case the popover is larger than the target on the side we want to position, if the popover is smaller it should always be in the middle of the visible area
+	 *
 	 */
 	igNotifier(optionLiteral: 'option', optionName: "position"): string;
 
 	/**
 	 * Controls the position of the popover according to the target element in case the popover is larger than the target on the side we want to position, if the popover is smaller it should always be in the middle of the visible area
+	 *
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -62659,11 +64816,13 @@ interface JQuery {
 
 	/**
 	 * Defines width for the popover. leave null for auto.
+	 *
 	 */
 	igNotifier(optionLiteral: 'option', optionName: "width"): number|string;
 
 	/**
 	 * Defines width for the popover. leave null for auto.
+	 *
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -62671,11 +64830,13 @@ interface JQuery {
 
 	/**
 	 * Defines height for the popover. leave null for auto
+	 *
 	 */
 	igNotifier(optionLiteral: 'option', optionName: "height"): number|string;
 
 	/**
 	 * Defines height for the popover. leave null for auto
+	 *
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -62683,11 +64844,13 @@ interface JQuery {
 
 	/**
 	 * Defines width the popover won't go under the value even if no specific one is set.
+	 *
 	 */
 	igNotifier(optionLiteral: 'option', optionName: "minWidth"): number|string;
 
 	/**
 	 * Defines width the popover won't go under the value even if no specific one is set.
+	 *
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -62695,11 +64858,13 @@ interface JQuery {
 
 	/**
 	 * Defines width the popover won't exceed even if no specific one is set.
+	 *
 	 */
 	igNotifier(optionLiteral: 'option', optionName: "maxWidth"): number|string;
 
 	/**
 	 * Defines width the popover won't exceed even if no specific one is set.
+	 *
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -62707,11 +64872,13 @@ interface JQuery {
 
 	/**
 	 * Defines height the popover won't exceed even if no specific one is set.
+	 *
 	 */
 	igNotifier(optionLiteral: 'option', optionName: "maxHeight"): number|string;
 
 	/**
 	 * Defines height the popover won't exceed even if no specific one is set.
+	 *
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -62719,11 +64886,13 @@ interface JQuery {
 
 	/**
 	 * The containment for the popover. Accepts a jQuery object
+	 *
 	 */
 	igNotifier(optionLiteral: 'option', optionName: "containment"): any;
 
 	/**
 	 * Sets the containment for the popover. Accepts a jQuery object
+	 *
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -67108,9 +69277,9 @@ interface IgPivotViewMethods {
 
 	/**
 	 * Destroy is part of the jQuery UI widget API and does the following:
-	 * 	1. Remove custom CSS classes that were added.
-	 * 	2. Unwrap any wrapping elements such as scrolling divs and other containers.
-	 * 	3. Unbind all events that were bound.
+	 * 1. Remove custom CSS classes that were added.
+	 * 2. Unwrap any wrapping elements such as scrolling divs and other containers.
+	 * 3. Unbind all events that were bound.
 	 */
 	destroy(): void;
 }
@@ -67222,14 +69391,16 @@ interface JQuery {
 interface IgPopover {
 	/**
 	 * Controls whether the popover will close on blur or not
+	 *
 	 */
 	closeOnBlur?: boolean;
 
 	/**
 	 * controls the direction in which the control shows relative to the target element
 	 *
+	 *
 	 * Valid values:
-	 * "auto" lets the control show on the side where enough space is available with the priority specified by the [directionPriority](ui.igpopover#options:directionPriority) property
+	 * "auto" lets the control show on the side where enough space is available with the priority specified by the [directionPriority](ui.%%WidgetNameLowered%%#options:directionPriority) property
 	 * "left" shows popover on the left side of the target element
 	 * "right" shows popover on the right side of the target element
 	 * "top" shows popover on the top of the target element
@@ -67239,12 +69410,14 @@ interface IgPopover {
 
 	/**
 	 * Controls the priority in which the control searches for space to show relative to the target element.
-	 * This property has effect only if the [direction](ui.igpopover#options:direction) property value is "auto" or unset.
+	 * This property has effect only if the [direction](ui.%%WidgetNameLowered%%#options:direction) property value is "auto" or unset.
+	 *
 	 */
 	directionPriority?: any[];
 
 	/**
 	 * controls the position of the popover according to the target element in case the popover is larger than the target on the side we want to position, if the popover is smaller it should always be in the middle of the visible area
+	 *
 	 *
 	 * Valid values:
 	 * "auto" lets the control choose a position depending on available space with the following priority balanced > end > start
@@ -67256,36 +69429,43 @@ interface IgPopover {
 
 	/**
 	 * defines width for the popover. leave null for auto.
+	 *
 	 */
 	width?: number|string;
 
 	/**
 	 * defines height for the popover. leave null for auto
+	 *
 	 */
 	height?: number|string;
 
 	/**
 	 * defines width the popover won't go under the value even if no specific one is set.
+	 *
 	 */
 	minWidth?: number|string;
 
 	/**
 	 * defines width the popover won't exceed even if no specific one is set.
+	 *
 	 */
 	maxWidth?: number|string;
 
 	/**
 	 * defines height the popover won't exceed even if no specific one is set.
+	 *
 	 */
 	maxHeight?: number|string;
 
 	/**
 	 * Sets the time popover fades in and out when showing/hiding
+	 *
 	 */
 	animationDuration?: number;
 
 	/**
 	 * sets the content for the popover container. If left null the content will be get from the target.
+	 *
 	 *
 	 * Valid values:
 	 * "string" String content of the popover container
@@ -67295,16 +69475,19 @@ interface IgPopover {
 
 	/**
 	 * Selectors indicating which items should show popovers. The predefined value is [title]. Customize if you're using something other then the title attribute for the popover content, or if you need a different selector for event delegation. When changing this option, you likely need to also change the contentTemplate option
+	 *
 	 */
 	selectors?: string;
 
 	/**
 	 * Sets the content for the popover header
+	 *
 	 */
 	headerTemplate?: IgPopoverHeaderTemplate;
 
 	/**
 	 * sets the event on which the popover will be shown. Predefined values are "mouseenter", "click" and "focus"
+	 *
 	 *
 	 * Valid values:
 	 * "mouseenter" the popover is shown on mouse enter in the target element
@@ -67315,6 +69498,7 @@ interface IgPopover {
 
 	/**
 	 * Sets the containment for the popover. Accepts a jQuery object
+	 *
 	 */
 	containment?: any;
 
@@ -67429,11 +69613,13 @@ interface JQuery {
 
 	/**
 	 * Controls whether the popover will close on blur or not
+	 *
 	 */
 	igPopover(optionLiteral: 'option', optionName: "closeOnBlur"): boolean;
 
 	/**
 	 * Controls whether the popover will close on blur or not
+	 *
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -67441,11 +69627,13 @@ interface JQuery {
 
 	/**
 	 * Controls the direction in which the control shows relative to the target element
+	 *
 	 */
 	igPopover(optionLiteral: 'option', optionName: "direction"): string;
 
 	/**
 	 * Controls the direction in which the control shows relative to the target element
+	 *
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -67453,13 +69641,15 @@ interface JQuery {
 
 	/**
 	 * Controls the priority in which the control searches for space to show relative to the target element.
-	 * This property has effect only if the [direction](ui.igpopover#options:direction) property value is "auto" or unset.
+	 * This property has effect only if the [direction](ui.%%WidgetNameLowered%%#options:direction) property value is "auto" or unset.
+	 *
 	 */
 	igPopover(optionLiteral: 'option', optionName: "directionPriority"): any[];
 
 	/**
 	 * Controls the priority in which the control searches for space to show relative to the target element.
-	 * This property has effect only if the [direction](ui.igpopover#options:direction) property value is "auto" or unset.
+	 * This property has effect only if the [direction](ui.%%WidgetNameLowered%%#options:direction) property value is "auto" or unset.
+	 *
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -67467,11 +69657,13 @@ interface JQuery {
 
 	/**
 	 * Controls the position of the popover according to the target element in case the popover is larger than the target on the side we want to position, if the popover is smaller it should always be in the middle of the visible area
+	 *
 	 */
 	igPopover(optionLiteral: 'option', optionName: "position"): string;
 
 	/**
 	 * Controls the position of the popover according to the target element in case the popover is larger than the target on the side we want to position, if the popover is smaller it should always be in the middle of the visible area
+	 *
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -67479,11 +69671,13 @@ interface JQuery {
 
 	/**
 	 * Defines width for the popover. leave null for auto.
+	 *
 	 */
 	igPopover(optionLiteral: 'option', optionName: "width"): number|string;
 
 	/**
 	 * Defines width for the popover. leave null for auto.
+	 *
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -67491,11 +69685,13 @@ interface JQuery {
 
 	/**
 	 * Defines height for the popover. leave null for auto
+	 *
 	 */
 	igPopover(optionLiteral: 'option', optionName: "height"): number|string;
 
 	/**
 	 * Defines height for the popover. leave null for auto
+	 *
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -67503,11 +69699,13 @@ interface JQuery {
 
 	/**
 	 * Defines width the popover won't go under the value even if no specific one is set.
+	 *
 	 */
 	igPopover(optionLiteral: 'option', optionName: "minWidth"): number|string;
 
 	/**
 	 * Defines width the popover won't go under the value even if no specific one is set.
+	 *
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -67515,11 +69713,13 @@ interface JQuery {
 
 	/**
 	 * Defines width the popover won't exceed even if no specific one is set.
+	 *
 	 */
 	igPopover(optionLiteral: 'option', optionName: "maxWidth"): number|string;
 
 	/**
 	 * Defines width the popover won't exceed even if no specific one is set.
+	 *
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -67527,11 +69727,13 @@ interface JQuery {
 
 	/**
 	 * Defines height the popover won't exceed even if no specific one is set.
+	 *
 	 */
 	igPopover(optionLiteral: 'option', optionName: "maxHeight"): number|string;
 
 	/**
 	 * Defines height the popover won't exceed even if no specific one is set.
+	 *
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -67539,11 +69741,13 @@ interface JQuery {
 
 	/**
 	 * The time popover fades in and out when showing/hiding
+	 *
 	 */
 	igPopover(optionLiteral: 'option', optionName: "animationDuration"): number;
 
 	/**
 	 * Sets the time popover fades in and out when showing/hiding
+	 *
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -67551,11 +69755,13 @@ interface JQuery {
 
 	/**
 	 * The content for the popover container. If left null the content will be get from the target.
+	 *
 	 */
 	igPopover(optionLiteral: 'option', optionName: "contentTemplate"): string|Function;
 
 	/**
 	 * Sets the content for the popover container. If left null the content will be get from the target.
+	 *
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -67563,11 +69769,13 @@ interface JQuery {
 
 	/**
 	 * Selectors indicating which items should show popovers. The predefined value is [title]. Customize if you're using something other then the title attribute for the popover content, or if you need a different selector for event delegation. When changing this option, you likely need to also change the contentTemplate option
+	 *
 	 */
 	igPopover(optionLiteral: 'option', optionName: "selectors"): string;
 
 	/**
 	 * Selectors indicating which items should show popovers. The predefined value is [title]. Customize if you're using something other then the title attribute for the popover content, or if you need a different selector for event delegation. When changing this option, you likely need to also change the contentTemplate option
+	 *
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -67575,11 +69783,13 @@ interface JQuery {
 
 	/**
 	 * The content for the popover header
+	 *
 	 */
 	igPopover(optionLiteral: 'option', optionName: "headerTemplate"): IgPopoverHeaderTemplate;
 
 	/**
 	 * Sets the content for the popover header
+	 *
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -67587,11 +69797,13 @@ interface JQuery {
 
 	/**
 	 * The event on which the popover will be shown. Predefined values are "mouseenter", "click" and "focus"
+	 *
 	 */
 	igPopover(optionLiteral: 'option', optionName: "showOn"): string;
 
 	/**
 	 * Sets the event on which the popover will be shown. Predefined values are "mouseenter", "click" and "focus"
+	 *
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -67599,11 +69811,13 @@ interface JQuery {
 
 	/**
 	 * The containment for the popover. Accepts a jQuery object
+	 *
 	 */
 	igPopover(optionLiteral: 'option', optionName: "containment"): any;
 
 	/**
 	 * Sets the containment for the popover. Accepts a jQuery object
+	 *
 	 *
 	 * @optionValue New value to be set.
 	 */
@@ -70736,6 +72950,25 @@ interface AgendaRangeChangingEvent {
 }
 
 interface AgendaRangeChangingEventUIParam {
+	/**
+	 * Gets a reference to the scheduler.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the days to be shown in AgendaView mode.
+	 */
+	dateRangeInterval?: number;
+
+	/**
+	 * Gets a reference to the current AgendaView start date.
+	 */
+	currentAgendaRangeStartDate?: any;
+
+	/**
+	 * Gets a reference to the newly AgendaView start date.
+	 */
+	newAgendaRangeStartDate?: any;
 }
 
 interface AgendaRangeChangedEvent {
@@ -70743,6 +72976,20 @@ interface AgendaRangeChangedEvent {
 }
 
 interface AgendaRangeChangedEventUIParam {
+	/**
+	 * Gets a reference to the scheduler.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the days to be shown in AgendaView mode.
+	 */
+	dateRangeInterval?: number;
+
+	/**
+	 * Gets a reference to the newly AgendaView start date.
+	 */
+	newAgendaRangeStartDate?: any;
 }
 
 interface DaySelectedEvent {
@@ -70750,6 +72997,15 @@ interface DaySelectedEvent {
 }
 
 interface DaySelectedEventUIParam {
+	/**
+	 * Gets a reference to the scheduler.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to currently selected date.
+	 */
+	date?: any;
 }
 
 interface MonthChangingEvent {
@@ -70757,6 +73013,20 @@ interface MonthChangingEvent {
 }
 
 interface MonthChangingEventUIParam {
+	/**
+	 * Gets a reference to the scheduler.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to newly selected date.
+	 */
+	newSelectedDate?: any;
+
+	/**
+	 * Gets a reference to the currently selected date.
+	 */
+	currentSelectedDate?: any;
 }
 
 interface MonthChangedEvent {
@@ -70764,6 +73034,15 @@ interface MonthChangedEvent {
 }
 
 interface MonthChangedEventUIParam {
+	/**
+	 * Gets a reference to the scheduler.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to newly selected date.
+	 */
+	newSelectedDate?: any;
 }
 
 interface ViewChangingEvent {
@@ -70771,6 +73050,20 @@ interface ViewChangingEvent {
 }
 
 interface ViewChangingEventUIParam {
+	/**
+	 * Gets a reference to the scheduler.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the currently selected view.
+	 */
+	currentSelectedView?: string;
+
+	/**
+	 * Gets a reference to the newly selected view.
+	 */
+	newSelectedView?: string;
 }
 
 interface ViewChangedEvent {
@@ -70778,6 +73071,15 @@ interface ViewChangedEvent {
 }
 
 interface ViewChangedEventUIParam {
+	/**
+	 * Gets a reference to the scheduler.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the newly selected view.
+	 */
+	newSelectedView?: string;
 }
 
 interface AppointmentDialogOpeningEvent {
@@ -70785,6 +73087,20 @@ interface AppointmentDialogOpeningEvent {
 }
 
 interface AppointmentDialogOpeningEventUIParam {
+	/**
+	 * Gets a reference to the scheduler.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the appointment dialog.
+	 */
+	element?: any;
+
+	/**
+	 * Gets whether we are creating or updating an appointment.
+	 */
+	isAppointmentNew?: boolean;
 }
 
 interface AppointmentDialogOpenedEvent {
@@ -70792,6 +73108,20 @@ interface AppointmentDialogOpenedEvent {
 }
 
 interface AppointmentDialogOpenedEventUIParam {
+	/**
+	 * Gets a reference to the scheduler.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the appointment dialog.
+	 */
+	element?: any;
+
+	/**
+	 * Gets whether we are creating or updating an appointment.
+	 */
+	isAppointmentNew?: boolean;
 }
 
 interface AppointmentDialogClosingEvent {
@@ -70799,6 +73129,20 @@ interface AppointmentDialogClosingEvent {
 }
 
 interface AppointmentDialogClosingEventUIParam {
+	/**
+	 * Gets a reference to the scheduler.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the appointment dialog.
+	 */
+	element?: any;
+
+	/**
+	 * Gets whether we are creating or updating an appointment.
+	 */
+	isAppointmentNew?: boolean;
 }
 
 interface AppointmentDialogClosedEvent {
@@ -70806,6 +73150,20 @@ interface AppointmentDialogClosedEvent {
 }
 
 interface AppointmentDialogClosedEventUIParam {
+	/**
+	 * Gets a reference to the scheduler.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the appointment dialog.
+	 */
+	element?: any;
+
+	/**
+	 * Gets whether we are creating or updating an appointment.
+	 */
+	isAppointmentNew?: boolean;
 }
 
 interface AppointmentCreatingEvent {
@@ -70813,6 +73171,15 @@ interface AppointmentCreatingEvent {
 }
 
 interface AppointmentCreatingEventUIParam {
+	/**
+	 * Gets a reference to the scheduler.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the appointment which is going to be created.
+	 */
+	appointment?: any;
 }
 
 interface AppointmentCreatedEvent {
@@ -70820,6 +73187,15 @@ interface AppointmentCreatedEvent {
 }
 
 interface AppointmentCreatedEventUIParam {
+	/**
+	 * Gets a reference to the scheduler.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the created appointment.
+	 */
+	appointment?: any;
 }
 
 interface AppointmentDeletingEvent {
@@ -70827,6 +73203,15 @@ interface AppointmentDeletingEvent {
 }
 
 interface AppointmentDeletingEventUIParam {
+	/**
+	 * Gets a reference to the scheduler.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the appointment which is going to be deleted.
+	 */
+	appointment?: any;
 }
 
 interface AppointmentDeletedEvent {
@@ -70834,6 +73219,15 @@ interface AppointmentDeletedEvent {
 }
 
 interface AppointmentDeletedEventUIParam {
+	/**
+	 * Gets a reference to the scheduler.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the id of the deleted appointment.
+	 */
+	appointmentId?: any;
 }
 
 interface AppointmentEditingEvent {
@@ -70841,6 +73235,20 @@ interface AppointmentEditingEvent {
 }
 
 interface AppointmentEditingEventUIParam {
+	/**
+	 * Gets a reference to the scheduler.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the original appointment.
+	 */
+	appointment?: any;
+
+	/**
+	 * Gets a reference to the appointment with the edited values.
+	 */
+	newAppointment?: any;
 }
 
 interface AppointmentEditedEvent {
@@ -70848,6 +73256,15 @@ interface AppointmentEditedEvent {
 }
 
 interface AppointmentEditedEventUIParam {
+	/**
+	 * Gets a reference to the scheduler.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the edited appointment.
+	 */
+	appointment?: any;
 }
 
 interface IgScheduler {
@@ -73503,7 +75920,7 @@ interface IgSparklineMethods {
 
 	/**
 	 * Notifies the chart that the items have been cleared from an associated data source.
-	 * 	It's not necessary to notify more than one target of a change if they share the same items source.
+	 * It's not necessary to notify more than one target of a change if they share the same items source.
 	 *
 	 * @param dataSource     The data source in which the change happened.
 	 */
@@ -73511,7 +75928,7 @@ interface IgSparklineMethods {
 
 	/**
 	 * Notifies the target axis or series that an item has been inserted at the specified index in its data source.
-	 * 	It's not necessary to notify more than one target of a change if they share the same items source.
+	 * It's not necessary to notify more than one target of a change if they share the same items source.
 	 *
 	 * @param dataSource     The data source in which the change happened.
 	 * @param index     The index in the items source where the new item has been inserted.
@@ -73521,7 +75938,7 @@ interface IgSparklineMethods {
 
 	/**
 	 * Notifies the target axis or series that an item has been removed from the specified index in its data source.
-	 * 	It's not necessary to notify more than one target of a change if they share the same items source.
+	 * It's not necessary to notify more than one target of a change if they share the same items source.
 	 *
 	 * @param dataSource     The data source in which the change happened.
 	 * @param index     The index in the items source from where the old item has been removed.
@@ -75044,6 +77461,30 @@ interface ActivePaneChangedEvent {
 }
 
 interface ActivePaneChangedEventUIParam {
+	/**
+	 * Gets a reference to the spreadsheet widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the previous active [pane](ig.spreadsheet.SpreadsheetPane).
+	 */
+	oldActivePane?: any;
+
+	/**
+	 * Gets the current active [pane](ig.spreadsheet.SpreadsheetPane).
+	 */
+	newActivePane?: any;
+
+	/**
+	 * Gets the active cell of the new active pane or null if there is no active pane.
+	 */
+	activeCell?: string;
+
+	/**
+	 * Gets the current visible range of the new active pane or null if there is no active pane.
+	 */
+	visibleRange?: string;
 }
 
 interface ActiveWorksheetChangedEvent {
@@ -75051,6 +77492,135 @@ interface ActiveWorksheetChangedEvent {
 }
 
 interface ActiveWorksheetChangedEventUIParam {
+	/**
+	 * Gets a reference to the spreadsheet widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the previous active [worksheet](ig.excel.Worksheet).
+	 */
+	oldActiveWorksheet?: any;
+
+	/**
+	 * Gets the name of the previous active worksheet or null if oldActiveWorksheet is null.
+	 */
+	oldActiveWorksheetName?: string;
+
+	/**
+	 * Gets the current active [worksheet](ig.excel.Worksheet).
+	 */
+	newActiveWorksheet?: any;
+
+	/**
+	 * Gets the name of the new active worksheet or null if newActiveWorksheet is null.
+	 */
+	newActiveWorksheetName?: string;
+}
+
+interface EditModeExitingEvent {
+	(event: Event, ui: EditModeExitingEventUIParam): void;
+}
+
+interface EditModeExitingEventUIParam {
+	/**
+	 * Gets a reference to the spreadsheet widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Get or set a boolean indicating whether the changes will be made to the cell's value when edit mode ends.
+	 */
+	acceptChanges?: boolean;
+
+	/**
+	 * Get a boolean indicating if the edit mode is being forced to exit edit mode in which case it cannot be cancelled.
+	 */
+	canCancel?: boolean;
+
+	/**
+	 * Gets the cell for which the control is exiting edit mode.
+	 */
+	cell?: string;
+}
+
+interface EditModeExitedEvent {
+	(event: Event, ui: EditModeExitedEventUIParam): void;
+}
+
+interface EditModeExitedEventUIParam {
+	/**
+	 * Gets a reference to the spreadsheet widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the cell for which the control has exited edit mode.
+	 */
+	cell?: string;
+}
+
+interface EditModeEnteringEvent {
+	(event: Event, ui: EditModeEnteringEventUIParam): void;
+}
+
+interface EditModeEnteringEventUIParam {
+	/**
+	 * Gets a reference to the spreadsheet widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the cell for which the control is going into edit mode.
+	 */
+	cell?: string;
+}
+
+interface EditModeEnteredEvent {
+	(event: Event, ui: EditModeEnteredEventUIParam): void;
+}
+
+interface EditModeEnteredEventUIParam {
+	/**
+	 * Gets a reference to the spreadsheet widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets the cell for which the control has entered edit mode.
+	 */
+	cell?: string;
+}
+
+interface EditModeValidationErrorEvent {
+	(event: Event, ui: EditModeValidationErrorEventUIParam): void;
+}
+
+interface EditModeValidationErrorEventUIParam {
+	/**
+	 * Gets a reference to the spreadsheet widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Get or set the [action](ig.spreadsheet.SpreadsheetEditModeValidationErrorAction)  to take in response to the failed validation.
+	 */
+	action?: string;
+
+	/**
+	 * Get a boolean indicating whether the cell is allowed to stay in edit mode.
+	 */
+	canStayInEditMode?: boolean;
+
+	/**
+	 * Gets the cell for which the control is in edit mode.
+	 */
+	cell?: string;
+
+	/**
+	 * Get the [rule](ig.excel.DataValidationRule) which failed validation.
+	 */
+	validationRule?: string;
 }
 
 interface EditRangePasswordNeededEvent {
@@ -75058,6 +77628,20 @@ interface EditRangePasswordNeededEvent {
 }
 
 interface EditRangePasswordNeededEventUIParam {
+	/**
+	 * Gets a reference to the spreadsheet widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Get an array of [protected range](ig.excel.WorksheetProtectedRange) objects that should be unlocked.
+	 */
+	ranges?: any[];
+
+	/**
+	 * Get a parameterless function that may be invoked to unlock the associated ranges.
+	 */
+	unprotect?: any;
 }
 
 interface HyperlinkExecutingEvent {
@@ -75065,6 +77649,15 @@ interface HyperlinkExecutingEvent {
 }
 
 interface HyperlinkExecutingEventUIParam {
+	/**
+	 * Gets a reference to the spreadsheet widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Get the [hyperlink](ig.excel.WorksheetHyperlink) to be executed.
+	 */
+	hyperlink?: any;
 }
 
 interface UserPromptDisplayingEvent {
@@ -75072,6 +77665,35 @@ interface UserPromptDisplayingEvent {
 }
 
 interface UserPromptDisplayingEventUIParam {
+	/**
+	 * Gets a reference to the spreadsheet widget.
+	 */
+	owner?: any;
+
+	/**
+	 * Get a boolean indicating if the operation that triggered the prompt can be cancelled.
+	 */
+	canCancel?: boolean;
+
+	/**
+	 * Get a boolean indicating if a message will be displayed to the end user.
+	 */
+	displayMessage?: boolean;
+
+	/**
+	 * Gets the exception for the error, if there was one.
+	 */
+	exception?: any;
+
+	/**
+	 * Get or set the message that will be displayed.
+	 */
+	message?: string;
+
+	/**
+	 * Get the [action](ig.spreadsheet.SpreadsheetUserPromptTrigger) that caused the prompt to be displayed.
+	 */
+	trigger?: string;
 }
 
 interface WorkbookDirtiedEvent {
@@ -75079,6 +77701,10 @@ interface WorkbookDirtiedEvent {
 }
 
 interface WorkbookDirtiedEventUIParam {
+	/**
+	 * Gets a reference to the spreadsheet widget.
+	 */
+	owner?: any;
 }
 
 interface IgSpreadsheet {
@@ -75163,10 +77789,22 @@ interface IgSpreadsheet {
 	enterKeyNavigationDirection?: string;
 
 	/**
+	 * Returns or sets the number of decimal places by which a whole number typed in during edit mode should be adjusted when isFixedDecimalEnabled is true
+	 *
+	 */
+	fixedDecimalPlaceCount?: number;
+
+	/**
 	 * Returns or sets a boolean indicating whether the adjacent cell indicated by the enterKeyNavigationDirection should be navigated to when the enter key is pressed.
 	 *
 	 */
 	isEnterKeyNavigationEnabled?: boolean;
+
+	/**
+	 * Returns or sets a boolean indicating whether a fixed decimal place is automatically added when a whole number is entered while in edit mode.
+	 *
+	 */
+	isFixedDecimalEnabled?: boolean;
 
 	/**
 	 * Returns or sets a boolean indicating if the formula bar is displayed within the Spreadsheet.
@@ -75258,6 +77896,35 @@ interface IgSpreadsheet {
 	activeWorksheetChanged?: ActiveWorksheetChangedEvent;
 
 	/**
+	 * Invoked when the Spreadsheet is about to end the in-place editing of the activeCell.
+	 */
+	editModeExiting?: EditModeExitingEvent;
+
+	/**
+	 * Invoked when the Spreadsheet has ended the in-place editing of the activeCell.
+	 */
+	editModeExited?: EditModeExitedEvent;
+
+	/**
+	 * Invoked when the Spreadsheet is about to start in-place editing of the activeCell.
+	 */
+	editModeEntering?: EditModeEnteringEvent;
+
+	/**
+	 * Invoked when the Spreadsheet has started in-place editing of the activeCell.
+	 */
+	editModeEntered?: EditModeEnteredEvent;
+
+	/**
+	 * Invoked when the Spreadsheet is exiting edit mode and the new value for the activeCell is not valid based on the criteria of that cell's ig.excel.DataValidationRule.
+	 * The EditModeValidationError is raised while exiting edit mode if the new value for the activeCell is not valid based on the criteria of that cell's ig.excel.DataValidationRule.
+	 * Since the rule needs to evaluate the value of the cell and potentially other cell's in the Worksheet, the value is first applied to the cell(s) and then is validated. By default if the event is not handled and the
+	 * showErrorMessageForInvalidValue is true, a message box will be displayed to the end user to determine what action to take. One can handle this event and specify the action that should
+	 * be taken using the action.Note: The validation rule will not be evaluated if edit mode is being cancelled such as when the user presses Escape to cancel edit.Note: The action will default to AcceptChange if the ShowErrorMessageForInvalidValue of the validationRule is false; otherwise it will default to ShowPrompt.Note: Like Microsoft Excel, only the validation rule of the active cell is considered even if the update is affecting other cells in the selection.
+	 */
+	editModeValidationError?: EditModeValidationErrorEvent;
+
+	/**
 	 * Invoked when the Spreadsheet is performing an operation on a protected Worksheet and there is a single range that may be unlocked to allow the operation to be performed.
 	 */
 	editRangePasswordNeeded?: EditRangePasswordNeededEvent;
@@ -75304,12 +77971,22 @@ interface IgSpreadsheetMethods {
 
 	/**
 	 * Returns an object used to get the formatting of the activeCell and where modifications are applied to the entire active selection.
-	 * Any changes made to this object will affect all the objects in the selection. So for example, the
-	 * Font.Name may return "Arial" because the active cell has that as its resolved font name even though the other
-	 * cells are using a different font but if you set the Font.Name of this object to "Arial" then all the objects
-	 * affected by the selection will have their Font.Name updated to that value.
+	 * 	        Any changes made to this object will affect all the objects in the selection. So for example, the
+	 * 	        Font.Name may return "Arial" because the active cell has that as its resolved font name even though the other
+	 * 	        cells are using a different font but if you set the Font.Name of this object to "Arial" then all the objects
+	 * 	        affected by the selection will have their Font.Name updated to that value.
 	 */
 	getActiveSelectionCellRangeFormat(): Object;
+
+	/**
+	 * Returns an enumeration used to indicate the current edit mode state.
+	 */
+	getCellEditMode(): Object;
+
+	/**
+	 * Returns a boolean indicating if the control is currently editing the value of the activeCell.
+	 */
+	getIsInEditMode(): boolean;
 
 	/**
 	 * Returns a boolean indicating if the user is currently editing the name of the active worksheet.
@@ -75353,6 +78030,8 @@ interface JQuery {
 	igSpreadsheet(methodName: "getActivePane"): Object;
 	igSpreadsheet(methodName: "getActiveSelection"): Object;
 	igSpreadsheet(methodName: "getActiveSelectionCellRangeFormat"): Object;
+	igSpreadsheet(methodName: "getCellEditMode"): Object;
+	igSpreadsheet(methodName: "getIsInEditMode"): boolean;
 	igSpreadsheet(methodName: "getIsRenamingWorksheet"): boolean;
 	igSpreadsheet(methodName: "getPanes"): void;
 	igSpreadsheet(methodName: "executeAction", action: Object): boolean;
@@ -75513,6 +78192,20 @@ interface JQuery {
 	igSpreadsheet(optionLiteral: 'option', optionName: "enterKeyNavigationDirection", optionValue: string): void;
 
 	/**
+	 * Returns  the number of decimal places by which a whole number typed in during edit mode should be adjusted when isFixedDecimalEnabled is true
+	 *
+	 */
+	igSpreadsheet(optionLiteral: 'option', optionName: "fixedDecimalPlaceCount"): number;
+
+	/**
+	 * Returns or sets the number of decimal places by which a whole number typed in during edit mode should be adjusted when isFixedDecimalEnabled is true
+	 *
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igSpreadsheet(optionLiteral: 'option', optionName: "fixedDecimalPlaceCount", optionValue: number): void;
+
+	/**
 	 * Returns  a boolean indicating whether the adjacent cell indicated by the enterKeyNavigationDirection should be navigated to when the enter key is pressed.
 	 *
 	 */
@@ -75525,6 +78218,20 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igSpreadsheet(optionLiteral: 'option', optionName: "isEnterKeyNavigationEnabled", optionValue: boolean): void;
+
+	/**
+	 * Returns  a boolean indicating whether a fixed decimal place is automatically added when a whole number is entered while in edit mode.
+	 *
+	 */
+	igSpreadsheet(optionLiteral: 'option', optionName: "isFixedDecimalEnabled"): boolean;
+
+	/**
+	 * Returns or sets a boolean indicating whether a fixed decimal place is automatically added when a whole number is entered while in edit mode.
+	 *
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igSpreadsheet(optionLiteral: 'option', optionName: "isFixedDecimalEnabled", optionValue: boolean): void;
 
 	/**
 	 * Returns  a boolean indicating if the formula bar is displayed within the Spreadsheet.
@@ -75721,6 +78428,74 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igSpreadsheet(optionLiteral: 'option', optionName: "activeWorksheetChanged", optionValue: ActiveWorksheetChangedEvent): void;
+
+	/**
+	 * Invoked when the Spreadsheet is about to end the in-place editing of the activeCell.
+	 */
+	igSpreadsheet(optionLiteral: 'option', optionName: "editModeExiting"): EditModeExitingEvent;
+
+	/**
+	 * Invoked when the Spreadsheet is about to end the in-place editing of the activeCell.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igSpreadsheet(optionLiteral: 'option', optionName: "editModeExiting", optionValue: EditModeExitingEvent): void;
+
+	/**
+	 * Invoked when the Spreadsheet has ended the in-place editing of the activeCell.
+	 */
+	igSpreadsheet(optionLiteral: 'option', optionName: "editModeExited"): EditModeExitedEvent;
+
+	/**
+	 * Invoked when the Spreadsheet has ended the in-place editing of the activeCell.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igSpreadsheet(optionLiteral: 'option', optionName: "editModeExited", optionValue: EditModeExitedEvent): void;
+
+	/**
+	 * Invoked when the Spreadsheet is about to start in-place editing of the activeCell.
+	 */
+	igSpreadsheet(optionLiteral: 'option', optionName: "editModeEntering"): EditModeEnteringEvent;
+
+	/**
+	 * Invoked when the Spreadsheet is about to start in-place editing of the activeCell.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igSpreadsheet(optionLiteral: 'option', optionName: "editModeEntering", optionValue: EditModeEnteringEvent): void;
+
+	/**
+	 * Invoked when the Spreadsheet has started in-place editing of the activeCell.
+	 */
+	igSpreadsheet(optionLiteral: 'option', optionName: "editModeEntered"): EditModeEnteredEvent;
+
+	/**
+	 * Invoked when the Spreadsheet has started in-place editing of the activeCell.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igSpreadsheet(optionLiteral: 'option', optionName: "editModeEntered", optionValue: EditModeEnteredEvent): void;
+
+	/**
+	 * Invoked when the Spreadsheet is exiting edit mode and the new value for the activeCell is not valid based on the criteria of that cell's ig.excel.DataValidationRule.
+	 * The EditModeValidationError is raised while exiting edit mode if the new value for the activeCell is not valid based on the criteria of that cell's ig.excel.DataValidationRule.
+	 * Since the rule needs to evaluate the value of the cell and potentially other cell's in the Worksheet, the value is first applied to the cell(s) and then is validated. By default if the event is not handled and the
+	 * showErrorMessageForInvalidValue is true, a message box will be displayed to the end user to determine what action to take. One can handle this event and specify the action that should
+	 * be taken using the action.Note: The validation rule will not be evaluated if edit mode is being cancelled such as when the user presses Escape to cancel edit.Note: The action will default to AcceptChange if the ShowErrorMessageForInvalidValue of the validationRule is false; otherwise it will default to ShowPrompt.Note: Like Microsoft Excel, only the validation rule of the active cell is considered even if the update is affecting other cells in the selection.
+	 */
+	igSpreadsheet(optionLiteral: 'option', optionName: "editModeValidationError"): EditModeValidationErrorEvent;
+
+	/**
+	 * Invoked when the Spreadsheet is exiting edit mode and the new value for the activeCell is not valid based on the criteria of that cell's ig.excel.DataValidationRule.
+	 * The EditModeValidationError is raised while exiting edit mode if the new value for the activeCell is not valid based on the criteria of that cell's ig.excel.DataValidationRule.
+	 * Since the rule needs to evaluate the value of the cell and potentially other cell's in the Worksheet, the value is first applied to the cell(s) and then is validated. By default if the event is not handled and the
+	 * showErrorMessageForInvalidValue is true, a message box will be displayed to the end user to determine what action to take. One can handle this event and specify the action that should
+	 * be taken using the action.Note: The validation rule will not be evaluated if edit mode is being cancelled such as when the user presses Escape to cancel edit.Note: The action will default to AcceptChange if the ShowErrorMessageForInvalidValue of the validationRule is false; otherwise it will default to ShowPrompt.Note: Like Microsoft Excel, only the validation rule of the active cell is considered even if the update is affecting other cells in the selection.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igSpreadsheet(optionLiteral: 'option', optionName: "editModeValidationError", optionValue: EditModeValidationErrorEvent): void;
 
 	/**
 	 * Invoked when the Spreadsheet is performing an operation on a protected Worksheet and there is a single range that may be unlocked to allow the operation to be performed.
@@ -78003,6 +80778,30 @@ interface NodeCheckstateChangingEvent {
 }
 
 interface NodeCheckstateChangingEventUIParam {
+	/**
+	 * Gets a reference to the tree.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the node object the checkbox of which is being interacted with.
+	 */
+	node?: any;
+
+	/**
+	 * Gets the current state of the checkbox.
+	 */
+	currentState?: string;
+
+	/**
+	 * Gets the new state that is going to be applied to the checkbox.
+	 */
+	newState?: string;
+
+	/**
+	 * Gets the collection of all checked nodes before the new state is applied.
+	 */
+	currentCheckedNodes?: any[];
 }
 
 interface NodeCheckstateChangedEvent {
@@ -78010,6 +80809,30 @@ interface NodeCheckstateChangedEvent {
 }
 
 interface NodeCheckstateChangedEventUIParam {
+	/**
+	 * Gets a reference to the tree.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the node object the checkbox of which is being interacted with.
+	 */
+	node?: any;
+
+	/**
+	 * Gets the new state that is already applied to the checkbox.
+	 */
+	newState?: string;
+
+	/**
+	 * Gets the collection of all checked nodes.
+	 */
+	newCheckedNodes?: any[];
+
+	/**
+	 * Gets the collection of all partially checked nodes.
+	 */
+	newPartiallyCheckedNodes?: any[];
 }
 
 interface NodePopulatingEvent {
@@ -78017,6 +80840,25 @@ interface NodePopulatingEvent {
 }
 
 interface NodePopulatingEventUIParam {
+	/**
+	 * Gets the data-path attribute of the node being populated.
+	 */
+	path?: string;
+
+	/**
+	 * Gets a reference to the jQuery element of the node whose children are being populated.
+	 */
+	element?: string;
+
+	/**
+	 * Gets the node data.
+	 */
+	data?: any;
+
+	/**
+	 * Gets a reference to the bindings object for the level at which the populating node is located.
+	 */
+	binding?: any;
 }
 
 interface NodePopulatedEvent {
@@ -78024,6 +80866,25 @@ interface NodePopulatedEvent {
 }
 
 interface NodePopulatedEventUIParam {
+	/**
+	 * Gets the data-path atrribute of the populated node.
+	 */
+	path?: string;
+
+	/**
+	 * Gets a reference to the jQuery element of the node whose children are populated.
+	 */
+	element?: string;
+
+	/**
+	 * Gets the node data.
+	 */
+	data?: any;
+
+	/**
+	 * Gets a reference to the bindings object for the level at which the populated node is located.
+	 */
+	binding?: any;
 }
 
 interface NodeCollapsingEvent {
@@ -78031,6 +80892,15 @@ interface NodeCollapsingEvent {
 }
 
 interface NodeCollapsingEventUIParam {
+	/**
+	 * Gets a reference to the tree.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the node object about to collapse.
+	 */
+	node?: any;
 }
 
 interface NodeCollapsedEvent {
@@ -78038,6 +80908,15 @@ interface NodeCollapsedEvent {
 }
 
 interface NodeCollapsedEventUIParam {
+	/**
+	 * Gets a reference to the tree.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the collapsed node object.
+	 */
+	node?: any;
 }
 
 interface NodeExpandingEvent {
@@ -78045,6 +80924,15 @@ interface NodeExpandingEvent {
 }
 
 interface NodeExpandingEventUIParam {
+	/**
+	 * Gets a reference to the tree.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the node object about to expand.
+	 */
+	node?: any;
 }
 
 interface NodeExpandedEvent {
@@ -78052,6 +80940,15 @@ interface NodeExpandedEvent {
 }
 
 interface NodeExpandedEventUIParam {
+	/**
+	 * Gets a reference to the tree.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the expanded node object.
+	 */
+	node?: any;
 }
 
 interface NodeClickEvent {
@@ -78059,6 +80956,15 @@ interface NodeClickEvent {
 }
 
 interface NodeClickEventUIParam {
+	/**
+	 * Gets a reference to the tree.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets a reference to the node object being clicked.
+	 */
+	node?: any;
 }
 
 interface NodeDoubleClickEvent {
@@ -78066,6 +80972,25 @@ interface NodeDoubleClickEvent {
 }
 
 interface NodeDoubleClickEventUIParam {
+	/**
+	 * Gets the data-path attribute of the double clicked node.
+	 */
+	path?: string;
+
+	/**
+	 * Gets a reference to the jQuery element of the double clicked node.
+	 */
+	element?: string;
+
+	/**
+	 * Gets the node data.
+	 */
+	data?: any;
+
+	/**
+	 * Gets a reference to the bindings object for the level at which the double clicked node is located.
+	 */
+	binding?: any;
 }
 
 interface NodeDroppingEvent {
@@ -78073,6 +80998,45 @@ interface NodeDroppingEvent {
 }
 
 interface NodeDroppingEventUIParam {
+	/**
+	 * Gets the target node data-path attribute.
+	 */
+	path?: string;
+
+	/**
+	 * Gets a reference to the jQuery element of the node.
+	 */
+	element?: string;
+
+	/**
+	 * Gets a reference to the target node data.
+	 */
+	data?: any;
+
+	/**
+	 * Gets a reference to the binding object for the level at which the target node is located.
+	 */
+	binding?: any;
+
+	/**
+	 * Gets a reference to the helper.
+	 */
+	helper?: string;
+
+	/**
+	 * Gets a reference to the offset.
+	 */
+	offset?: any;
+
+	/**
+	 * Gets a reference to the current position of the draggable element.
+	 */
+	position?: any;
+
+	/**
+	 * Gets a reference to the draggable element (the node).
+	 */
+	draggable?: string;
 }
 
 interface NodeDroppedEvent {
@@ -78080,6 +81044,45 @@ interface NodeDroppedEvent {
 }
 
 interface NodeDroppedEventUIParam {
+	/**
+	 * Gets the target node data-path attribute.
+	 */
+	path?: string;
+
+	/**
+	 * Gets a reference to the jQuery element of the node.
+	 */
+	element?: string;
+
+	/**
+	 * Gets a reference to the target node data.
+	 */
+	data?: any;
+
+	/**
+	 * Gets a reference to the binding object for the level at which the target node is located.
+	 */
+	binding?: any;
+
+	/**
+	 * Gets a reference to the helper.
+	 */
+	helper?: string;
+
+	/**
+	 * Gets a reference to the offset.
+	 */
+	offset?: any;
+
+	/**
+	 * Gets a reference to the current position of the draggable element.
+	 */
+	position?: any;
+
+	/**
+	 * Gets a reference to the draggable element (the node).
+	 */
+	draggable?: string;
 }
 
 interface IgTree {
@@ -82969,6 +85972,11 @@ interface IgTreeGrid {
 	dataSourceSettings?: IgTreeGridDataSourceSettings;
 
 	/**
+	 * This option is inherited from a parent widget and it's not applicable for the igTreeGrid.
+	 */
+	restSettings?: any;
+
+	/**
 	 * Defines the grid width in pixels or percents. [Here you can find more info about setting igGrid width](http://www.igniteui.com/help/iggrid-columns-and-layout#width-height).
 	 *
 	 *
@@ -83237,12 +86245,6 @@ interface IgTreeGrid {
 	 *
 	 */
 	updateUrl?: string;
-
-	/**
-	 * Settings related to REST compliant update routines.
-	 *
-	 */
-	restSettings?: IgGridRestSettings;
 
 	/**
 	 * Enables/disables rendering of alternating row styles (odd and even rows receive different styling).
@@ -83551,10 +86553,10 @@ interface IgTreeGridMethods {
 	/**
 	 * Returns an object that contains information on the passed Dom element
 	 *
-	 * 	rowId - the id of the record associated with the element - if primaryKey is not set this will be null.
-	 * 	rowIndex - the index (in the DOM) of the row associated with the element.
-	 * 	recordIndex - index of the data record associated with this element in the current dataView.
-	 * 	columnObject  - the column object associated with this element ( if the element is tr this will be null)
+	 * rowId - the id of the record associated with the element - if primaryKey is not set this will be null.
+	 * rowIndex - the index (in the DOM) of the row associated with the element.
+	 * recordIndex - index of the data record associated with this element in the current dataView.
+	 * columnObject  - the column object associated with this element ( if the element is tr this will be null)
 	 *
 	 * @param elem    The Dom element or jQuery object which can be a TD or TR element from the grid.
 	 */
@@ -83715,25 +86717,25 @@ interface IgTreeGridMethods {
 
 	/**
 	 * Returns an array of selected cells in arbitrary order where every objects has the format { element: , row: , index: , rowIndex: , columnKey: } .
-	 * 	If multiple selection is disabled the function will return null.
+	 * If multiple selection is disabled the function will return null.
 	 */
 	selectedCells(): any[];
 
 	/**
 	 * Returns an array of selected rows in arbitrary order where every object has the format { element: , index: } .
-	 * 	If multiple selection is disabled the function will return null.
+	 * If multiple selection is disabled the function will return null.
 	 */
 	selectedRows(): any[];
 
 	/**
 	 * Returns the currently selected cell that has the format { element: , row: , index: , rowIndex: , columnKey: }, if any.
-	 * 	If multiple selection is enabled the function will return null.
+	 * If multiple selection is enabled the function will return null.
 	 */
 	selectedCell(): Object;
 
 	/**
 	 * Returns the currently selected row that has the format { element: , index: }, if any.
-	 * 	If multiple selection is enabled the function will return null.
+	 * If multiple selection is enabled the function will return null.
 	 */
 	selectedRow(): Object;
 
@@ -83749,7 +86751,7 @@ interface IgTreeGridMethods {
 
 	/**
 	 * Retrieves a cell value using the row index and the column key. If a primaryKey is defined, rowId is assumed to be the row Key (not index).
-	 * 	If primary key is not defined, then rowId is converted to a number and is used as a row index.
+	 * If primary key is not defined, then rowId is converted to a number and is used as a row index.
 	 *
 	 * @param rowId     Row index or row key (primary key).
 	 * @param colKey     The column key.
@@ -83758,7 +86760,7 @@ interface IgTreeGridMethods {
 
 	/**
 	 * Returns the cell text. If colKey is a number, the index of the column is used (instead of a column name)- does not apply when using a Multi-Row Layout grid.
-	 * 	This is the actual text (or HTML string) for the contents of the cell.
+	 * This is the actual text (or HTML string) for the contents of the cell.
 	 *
 	 * @param rowId     Row index or row data key (primary key)
 	 * @param colKey     Column key.
@@ -83783,7 +86785,7 @@ interface IgTreeGridMethods {
 
 	/**
 	 * Returns a record by a specified key (requires that primaryKey is set in the settings).
-	 * 	That is a wrapper for this.dataSource.findRecordByKey(key).
+	 * That is a wrapper for this.dataSource.findRecordByKey(key).
 	 *
 	 * @param key     Primary key of the record
 	 */
@@ -83791,7 +86793,7 @@ interface IgTreeGridMethods {
 
 	/**
 	 * Returns a standalone object (copy) that represents the committed transactions, but detached from the data source.
-	 * 	That is a wrapper for this.dataSource.getDetachedRecord(t).
+	 * That is a wrapper for this.dataSource.getDetachedRecord(t).
 	 *
 	 * @param t     A transaction object.
 	 */
@@ -83799,19 +86801,19 @@ interface IgTreeGridMethods {
 
 	/**
 	 * Returns a list of all transaction objects that are pending to be committed or rolled back to the data source.
-	 * 	That is a wrapper for this.dataSource.pendingTransactions().
+	 * That is a wrapper for this.dataSource.pendingTransactions().
 	 */
 	pendingTransactions(): any[];
 
 	/**
 	 * Returns a list of all transaction objects that are either pending, or have been committed in the data source.
-	 * 	That is a wrapper for this.dataSource.allTransactions().
+	 * That is a wrapper for this.dataSource.allTransactions().
 	 */
 	allTransactions(): any[];
 
 	/**
 	 * Returns the accumulated transaction log as a string. The purpose of this is to be passed to URLs or used conveniently.
-	 * 	That is a wrapper for this.dataSource.transactionsAsString().
+	 * That is a wrapper for this.dataSource.transactionsAsString().
 	 */
 	transactionsAsString(): string;
 
@@ -83839,8 +86841,8 @@ interface IgTreeGridMethods {
 
 	/**
 	 * Returns the total number of records in the underlying backend. If paging or filtering is enabled, this may differ from the number of records in the client-side data source.
-	 * 	In order for this to work, the response JSON/XML must include a property that specifies the total number of records, which name is specified by options.responseTotalRecCountKey.
-	 * 	This functionality is completely delegated to the data source control.
+	 * In order for this to work, the response JSON/XML must include a property that specifies the total number of records, which name is specified by options.responseTotalRecCountKey.
+	 * This functionality is completely delegated to the data source control.
 	 */
 	totalRecordsCount(): number;
 
@@ -83858,7 +86860,7 @@ interface IgTreeGridMethods {
 
 	/**
 	 * Shows a hidden column. If the column is not hidden the method does nothing.
-	 * 	Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
+	 * Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
 	 *
 	 * @param column     An identifier for the column. If a number is provided it will be used as a column index. If a string is provided it will be used as a column key.
 	 * @param callback     Specifies a custom function to be called when the column is shown(optional)
@@ -83867,7 +86869,7 @@ interface IgTreeGridMethods {
 
 	/**
 	 * Hides a visible column. If the column is hidden the method does nothing.
-	 * 	Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
+	 * Note: This method is asynchronous which means that it returns immediately and any subsequent code will execute in parallel. This may lead to runtime errors. To avoid them put the subsequent code in the callback parameter provided by the method.
 	 *
 	 * @param column     An identifier for the column. If a number is provided it will be used as a column index else if a string is provided it will be used as a column key.
 	 * @param callback     Specifies a custom function to be called when the column is hidden(optional)
@@ -83926,7 +86928,7 @@ interface IgTreeGridMethods {
 
 	/**
 	 * Get visible index by specified column key. If column is not found or is hidden then returns -1.
-	 * 	Note: Method does not count column groups (Multi-Column Headers).
+	 * Note: Method does not count column groups (Multi-Column Headers).
 	 *
 	 * @param columnKey     columnKey
 	 * @param includeDataSkip     Optional parameter - if set to true include non data columns(like expander column, row selectors column, etc.) in calculations
@@ -84230,6 +87232,18 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igTreeGrid(optionLiteral: 'option', optionName: "dataSourceSettings", optionValue: IgTreeGridDataSourceSettings): void;
+
+	/**
+	 * This option is inherited from a parent widget and it's not applicable for the igTreeGrid.
+	 */
+	igTreeGrid(optionLiteral: 'option', optionName: "restSettings"): any;
+
+	/**
+	 * This option is inherited from a parent widget and it's not applicable for the igTreeGrid.
+	 *
+	 * @optionValue New value to be set.
+	 */
+	igTreeGrid(optionLiteral: 'option', optionName: "restSettings", optionValue: any): void;
 
 	/**
 	 * Defines the grid width in pixels or percents. [Here you can find more info about setting igGrid width](http://www.igniteui.com/help/iggrid-columns-and-layout#width-height).
@@ -84760,20 +87774,6 @@ interface JQuery {
 	 * @optionValue New value to be set.
 	 */
 	igTreeGrid(optionLiteral: 'option', optionName: "updateUrl", optionValue: string): void;
-
-	/**
-	 * Settings related to REST compliant update routines.
-	 *
-	 */
-	igTreeGrid(optionLiteral: 'option', optionName: "restSettings"): IgGridRestSettings;
-
-	/**
-	 * Settings related to REST compliant update routines.
-	 *
-	 *
-	 * @optionValue New value to be set.
-	 */
-	igTreeGrid(optionLiteral: 'option', optionName: "restSettings", optionValue: IgGridRestSettings): void;
 
 	/**
 	 * Enables/disables rendering of alternating row styles (odd and even rows receive different styling).
@@ -85403,6 +88403,25 @@ interface ContextRowRenderingEvent {
 }
 
 interface ContextRowRenderingEventUIParam {
+	/**
+	 * Gets a reference to igTreeGridPaging.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets reference to the first data row. Null if there are no records.
+	 */
+	dataRow?: any;
+
+	/**
+	 * Gets current page index.
+	 */
+	currentPageIndex?: number;
+
+	/**
+	 * Gets the current context row mode.
+	 */
+	contextRowMode?: string;
 }
 
 interface ContextRowRenderedEvent {
@@ -85410,6 +88429,30 @@ interface ContextRowRenderedEvent {
 }
 
 interface ContextRowRenderedEventUIParam {
+	/**
+	 * Gets a reference to igTreeGridPaging.
+	 */
+	owner?: any;
+
+	/**
+	 * Gets reference to the first data row. Null if there are no records.
+	 */
+	dataRow?: any;
+
+	/**
+	 * Gets current page index.
+	 */
+	currentPageIndex?: number;
+
+	/**
+	 * Gets array of the parent rows(of the ui.dataRow). If the dataRow is null(for instance filter is applied and no records are shown) then it is empty array. Otherwise it contains all ancestors ordered by level(including the current dataRow) - the first item is root level, the last array item is the current ui.dataRow
+	 */
+	parentRows?: any[];
+
+	/**
+	 * Gets the current context row mode.
+	 */
+	contextRowMode?: string;
 }
 
 interface IgTreeGridPaging {
@@ -87249,28 +90292,28 @@ interface IgTreeGridSelectionMethods {
 	/**
 	 * Returns an array of selected cells in arbitrary order where every objects has the format { element: , row: , index: , rowIndex: , columnKey: } .
 	 *
-	 * 	If multiple selection is disabled the function will return null.
+	 * If multiple selection is disabled the function will return null.
 	 */
 	selectedCells(): any[];
 
 	/**
 	 * Returns an array of selected rows in arbitrary order where every object has the format { element: , index: } .
 	 *
-	 * 	If multiple selection is disabled the function will return null.
+	 * If multiple selection is disabled the function will return null.
 	 */
 	selectedRows(): any[];
 
 	/**
 	 * Returns the currently selected cell that has the format { element: , row: , index: , rowIndex: , columnKey: }, if any.
 	 *
-	 * 	If multiple selection is enabled the function will return null.
+	 * If multiple selection is enabled the function will return null.
 	 */
 	selectedCell(): Object;
 
 	/**
 	 * Returns the currently selected row that has the format { element: , index: }, if any.
 	 *
-	 * 	If multiple selection is enabled the function will return null.
+	 * If multiple selection is enabled the function will return null.
 	 */
 	selectedRow(): Object;
 
@@ -89971,6 +93014,10 @@ interface FileSelectingEvent {
 }
 
 interface FileSelectingEventUIParam {
+	/**
+	 * Gets the igUpload widget object.
+	 */
+	owner?: any;
 }
 
 interface FileSelectedEvent {
@@ -89978,6 +93025,20 @@ interface FileSelectedEvent {
 }
 
 interface FileSelectedEventUIParam {
+	/**
+	 * Gets the unique identifier of the file.
+	 */
+	fileId?: number;
+
+	/**
+	 * Gets the name of the uploaded file.
+	 */
+	filePath?: string;
+
+	/**
+	 * Gets the igUpload widget object.
+	 */
+	owner?: any;
 }
 
 interface FileUploadingEvent {
@@ -89985,6 +93046,40 @@ interface FileUploadingEvent {
 }
 
 interface FileUploadingEventUIParam {
+	/**
+	 * Gets the unique identifier of the file.
+	 */
+	fileId?: number;
+
+	/**
+	 * Gets the name of the uploaded file.
+	 */
+	filePath?: string;
+
+	/**
+	 * Gets the file size of the uploaded file.
+	 */
+	totalSize?: number;
+
+	/**
+	 * Gets the uploaded bytes.
+	 */
+	uploadedBytes?: number;
+
+	/**
+	 * Gets the current file status.
+	 */
+	fileStatus?: number;
+
+	/**
+	 * Gets reference to the fileInfo object - containing information for  fileName, fileSize, serverMessage(if returned from server side), etc.
+	 */
+	fileInfo?: any;
+
+	/**
+	 * Gets the igUpload widget object.
+	 */
+	owner?: any;
 }
 
 interface FileUploadedEvent {
@@ -89992,6 +93087,30 @@ interface FileUploadedEvent {
 }
 
 interface FileUploadedEventUIParam {
+	/**
+	 * Gets the unique identifier of the file.
+	 */
+	fileId?: number;
+
+	/**
+	 * Gets the name of the uploaded file.
+	 */
+	filePath?: string;
+
+	/**
+	 * Gets the file size of the uploaded file.
+	 */
+	totalSize?: number;
+
+	/**
+	 * Gets reference to the fileInfo object - containing information for  fileName, fileSize, serverMessage(if returned from server side), etc.
+	 */
+	fileInfo?: any;
+
+	/**
+	 * Gets the igUpload widget object.
+	 */
+	owner?: any;
 }
 
 interface FileUploadAbortedEvent {
@@ -89999,6 +93118,35 @@ interface FileUploadAbortedEvent {
 }
 
 interface FileUploadAbortedEventUIParam {
+	/**
+	 * Gets the unique identifier of the file.
+	 */
+	fileId?: number;
+
+	/**
+	 * Gets the name of the uploaded file.
+	 */
+	filePath?: string;
+
+	/**
+	 * Gets the file size of the uploaded file.
+	 */
+	totalSize?: number;
+
+	/**
+	 * Gets the uploaded bytes.
+	 */
+	uploadedBytes?: number;
+
+	/**
+	 * Gets the current file status.
+	 */
+	fileStatus?: number;
+
+	/**
+	 * Gets the igUpload widget object.
+	 */
+	owner?: any;
 }
 
 interface CancelAllClickedEvent {
@@ -90006,6 +93154,10 @@ interface CancelAllClickedEvent {
 }
 
 interface CancelAllClickedEventUIParam {
+	/**
+	 * Gets the igUpload widget object.
+	 */
+	owner?: any;
 }
 
 interface OnErrorEvent {
@@ -90013,6 +93165,35 @@ interface OnErrorEvent {
 }
 
 interface OnErrorEventUIParam {
+	/**
+	 * Gets the current errorCode.
+	 */
+	errorCode?: number;
+
+	/**
+	 * Gets the identifier of the file for which the event is fired(after that it can be used API function getFileInfo). NOTE: It is possible to be null in some cases: try to drop multiple files when mode is single , check maximum allowed uploading files fails or check for count of maximum allowed simultaneous files upload fails.
+	 */
+	fileId?: number;
+
+	/**
+	 * Gets the detailed error description.
+	 */
+	errorMessage?: string;
+
+	/**
+	 * Gets the error type - it could be clientside or serverside.
+	 */
+	errorType?: string;
+
+	/**
+	 * Gets the specific server message returned by server - if errorType is serverside.
+	 */
+	serverMessage?: string;
+
+	/**
+	 * Gets the igUpload widget object.
+	 */
+	owner?: any;
 }
 
 interface FileExtensionsValidatingEvent {
@@ -90020,6 +93201,20 @@ interface FileExtensionsValidatingEvent {
 }
 
 interface FileExtensionsValidatingEventUIParam {
+	/**
+	 * Gets the full file name.
+	 */
+	fileName?: string;
+
+	/**
+	 * Gets the file extension.
+	 */
+	fileExtension?: string;
+
+	/**
+	 * Gets the the igUpload widget object.
+	 */
+	owner?: any;
 }
 
 interface OnXHRLoadEvent {
@@ -90027,6 +93222,25 @@ interface OnXHRLoadEvent {
 }
 
 interface OnXHRLoadEventUIParam {
+	/**
+	 * Gets the unique identifier of the file.
+	 */
+	fileId?: number;
+
+	/**
+	 * Gets reference to the original XMLHttpRequest object.
+	 */
+	xhr?: any;
+
+	/**
+	 * Gets reference to the fileInfo object - containing information for  fileName, fileSize, serverMessage(if returned from the server-side), etc.
+	 */
+	fileInfo?: any;
+
+	/**
+	 * Gets the igUpload widget object.
+	 */
+	owner?: any;
 }
 
 interface OnFormDataSubmitEvent {
@@ -90034,6 +93248,30 @@ interface OnFormDataSubmitEvent {
 }
 
 interface OnFormDataSubmitEventUIParam {
+	/**
+	 * Gets the unique identifier of the file.
+	 */
+	fileId?: number;
+
+	/**
+	 * Gets reference to the fileInfo object - containing information for  fileName, fileSize, serverMessage(if returned from the server-side), etc.
+	 */
+	fileInfo?: any;
+
+	/**
+	 * Gets reference to the original XMLHttpRequest object(if the browser supports HTML 5 file API - if not it is undefined).
+	 */
+	xhr?: any;
+
+	/**
+	 * Gets reference to FormData object(if the browser supports HTML5 file API) OR reference to jQuery representation of <form>.
+	 */
+	formData?: any;
+
+	/**
+	 * Gets the igUpload widget object.
+	 */
+	owner?: any;
 }
 
 interface IgUpload {
@@ -92262,7 +95500,7 @@ class IgValidatorCreditCardRule {
 	/**
 	 * Based on ASP.NET CreditCardAttribute check,
 	 * https://github.com/Microsoft/referencesource/blob/master/System.ComponentModel.DataAnnotations/DataAnnotations/CreditCardAttribute.cs
-	 * using Luhn algorithm https://en.wikipedia.org/wiki/Luhn_algorithm
+	 * 	   using Luhn algorithm https://en.wikipedia.org/wiki/Luhn_algorithm
 	 *
 	 * @param options
 	 * @param value
@@ -94518,6 +97756,10 @@ interface ZoomChangingEvent {
 }
 
 interface ZoomChangingEventUIParam {
+	/**
+	 * Gets reference to igZoombar.
+	 */
+	owner?: any;
 }
 
 interface ZoomChangedEvent {
@@ -94525,6 +97767,10 @@ interface ZoomChangedEvent {
 }
 
 interface ZoomChangedEventUIParam {
+	/**
+	 * Gets reference to the igZoombar.
+	 */
+	owner?: any;
 }
 
 interface ProviderCreatedEvent {
@@ -94532,6 +97778,15 @@ interface ProviderCreatedEvent {
 }
 
 interface ProviderCreatedEventUIParam {
+	/**
+	 * Gets a reference to the created provider.
+	 */
+	provider?: any;
+
+	/**
+	 * Gets reference to the igZoombar.
+	 */
+	owner?: any;
 }
 
 interface WindowDragStartingEvent {
@@ -94539,6 +97794,10 @@ interface WindowDragStartingEvent {
 }
 
 interface WindowDragStartingEventUIParam {
+	/**
+	 * Gets reference to the igZoombar.
+	 */
+	owner?: any;
 }
 
 interface WindowDragStartedEvent {
@@ -94546,6 +97805,10 @@ interface WindowDragStartedEvent {
 }
 
 interface WindowDragStartedEventUIParam {
+	/**
+	 * Gets reference to the igZoombar.
+	 */
+	owner?: any;
 }
 
 interface WindowDraggingEvent {
@@ -94553,6 +97816,10 @@ interface WindowDraggingEvent {
 }
 
 interface WindowDraggingEventUIParam {
+	/**
+	 * Gets reference to the igZoombar.
+	 */
+	owner?: any;
 }
 
 interface WindowDragEndingEvent {
@@ -94560,6 +97827,10 @@ interface WindowDragEndingEvent {
 }
 
 interface WindowDragEndingEventUIParam {
+	/**
+	 * Gets reference to the igZoombar.
+	 */
+	owner?: any;
 }
 
 interface WindowDragEndedEvent {
@@ -94567,6 +97838,10 @@ interface WindowDragEndedEvent {
 }
 
 interface WindowDragEndedEventUIParam {
+	/**
+	 * Gets reference to the igZoombar.
+	 */
+	owner?: any;
 }
 
 interface WindowResizingEvent {
@@ -94574,6 +97849,10 @@ interface WindowResizingEvent {
 }
 
 interface WindowResizingEventUIParam {
+	/**
+	 * Gets reference to the igZoombar.
+	 */
+	owner?: any;
 }
 
 interface IgZoombar {
@@ -95190,27 +98469,27 @@ interface JQuery {
 }
 
 interface IgLoader {
-    scriptPath: string;
-    cssPath: string;
-    resources?: string;
-    theme?: string;
-    ready?: Function;
-    localePath?: string;
-    locale?: string;
-    autoDetectLocale?: boolean;
-    regional?: string;
-    preinit?: Function;
+	scriptPath: string;
+	cssPath: string;
+	resources?: string;
+	theme?: string;
+	ready?: Function;
+	localePath?: string;
+	locale?: string;
+	autoDetectLocale?: boolean;
+	regional?: string;
+	preinit?: Function;
 }
 
 interface IgniteUIStatic {
-    tmpl(template: string, data: any, ...args: any[]): string;
-    loader(options: IgLoader): void;
-    loader(callback: Function): void;
-    loader(resources: string, callback: Function): void;
-    loader(): any;
-    OlapUtilities: any;
+	tmpl(template: string, data: any, ...args: any[]): string;
+	loader(options: IgLoader): void;
+	loader(callback: Function): void;
+	loader(resources: string, callback: Function): void;
+	loader(): any;
+	OlapUtilities: any;
 }
 
 interface JQueryStatic {
-    ig: IgniteUIStatic;
+	ig: IgniteUIStatic;
 }

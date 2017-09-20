@@ -1227,9 +1227,9 @@ declare namespace R {
          * If the given, non-null object has a value at the given path, returns the value at that path.
          * Otherwise returns the provided default value.
          */
-        pathOr<T>(d: T, p: Path, obj: any): any;
-        pathOr<T>(d: T, p: Path): (obj: any) => any;
-        pathOr<T>(d: T): CurriedFunction2<Path, any, any>;
+        pathOr<T>(defaultValue: T, path: Path, obj: any): any;
+        pathOr<T>(defaultValue: T, path: Path): (obj: any) => any;
+        pathOr<T>(defaultValue: T): CurriedFunction2<Path, any, any>;
 
         /**
          * Returns true if the specified object property at given path satisfies the given predicate; false otherwise.

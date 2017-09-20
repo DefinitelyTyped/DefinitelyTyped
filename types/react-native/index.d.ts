@@ -1,7 +1,6 @@
 // Type definitions for react-native 0.48
 // Project: https://github.com/facebook/react-native
 // Definitions by: Eloy Durán <https://github.com/alloy>
-//                 Fedor Nezhivoi <https://github.com/gyzerok>
 //                 HuHuanming <https://github.com/huhuanming>
 //                 Kyle Roach <https://github.com/iRoachie>
 //                 Tim Wang <https://github.com/timwangdev>
@@ -9248,6 +9247,8 @@ declare global {
         trace(message?: any, ...optionalParams: any[]): void
         debug(message?: any, ...optionalParams: any[]): void
         table(...data: any[]): void;
+        disableYellowBox: boolean;
+        ignoredYellowBox: string[];
     }
 
     var console: Console

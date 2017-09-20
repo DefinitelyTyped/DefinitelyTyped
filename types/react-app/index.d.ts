@@ -37,5 +37,5 @@ export function createApp(createAppObject: CreateAppObject): JSX.Element;
 
 export class Link extends React.Component<LinkProps> {}
 export class Layout extends React.Component<LayoutProps> {}
-export class Header extends React.Component<{}> {}
-export class Navigation extends React.Component<{}> {}
+export class Header extends React.Component {}
+export class Navigation extends React.Component {}

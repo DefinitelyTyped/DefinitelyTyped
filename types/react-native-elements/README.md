@@ -1,27 +1,26 @@
 # [React Native Elements](https://github.com/react-native-training/react-native-elements)
 
 ### Component Checklist
-List will update as typings are added
 
 - [x] Buttons
 - [x] Badge
-- [ ] Social Icons / Social Icon Buttons
-- [ ] Icons
-- [ ] Side Menu
-- [ ] Form Elements
-- [ ] Search Bar
-- [ ] ButtonGroup
-- [ ] Checkboxes
-- [ ] List Element
-- [ ] Badge
-- [ ] Tab Bar Component
+- [x] Social Icons / Social Icon Buttons
+- [x] Icons
+- [x] Side Menu
+- [x] Form Elements
+- [x] SearchBar
+- [x] ButtonGroup
+- [x] CheckBoxes
+- [x] List Element
+- [x] Tab Bar Component
 - [x] HTML style headings
-- [ ] Card component
-- [ ] Pricing Component
-- [ ] Grid Component
-- [ ] Slider Component
-- [ ] Tile Component
-- [ ] Avatar Component
-- [ ] Rating Component
-- [ ] SwipeDeck Component
-- [ ] Header Component
+- [x] Card component
+- [x] Pricing Component
+- [x] Grid Component
+- [x] Slider Component
+- [x] Tile Component
+- [x] Avatar Component
+- [x] Rating Component
+- [x] SwipeDeck Component
+- [x] Header Component
+- [x] Divider
