@@ -478,7 +478,8 @@ declare namespace OSRM {
      */
     interface TileOptions extends Options {
         /**
-         * Array an array consisting of x, y, and z values representing tile coordinates like wiki.openstreetmap.org/wiki/Slippy_map_tilenames and are supported by vector tile viewers like Mapbox GL JS.
+         * Array an array consisting of x, y, and z values representing tile coordinates like wiki.openstreetmap.org/wiki/Slippy_map_tilenames
+         * and are supported by vector tile viewers like Mapbox GL JS.
          */
         ZXY?: Tile;
     }
