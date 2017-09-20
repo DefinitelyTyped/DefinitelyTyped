@@ -342,7 +342,7 @@ export interface CommonWrapper<P = {}, S = {}> {
     every(selector: EnzymeSelector): boolean;
 
     /**
-     * Returns whether or not any of the nodes in the wrapper pass the provided predicate function.
+     * Returns whether or not all of the nodes in the wrapper pass the provided predicate function.
      * @param fn
      */
     everyWhere(fn: (wrapper: this) => boolean): boolean;
