@@ -51,7 +51,7 @@ declare namespace videojs {
 		requestFullScreen(): Player;
 		cancelFullScreen(): Player;
 		requestFullscreen(): Player;
-		cancelFullscreen(): Player;
+		exitFullscreen(): Player;
 		ready(callback: (this: Player) => void): Player;
 		on(eventName: string, callback: (eventObject: Event) => void): void;
 		off(eventName?: string, callback?: (eventObject: Event) => void): void;
