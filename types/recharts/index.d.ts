@@ -702,8 +702,9 @@ export interface TooltipProps {
 export class Tooltip extends React.Component<TooltipProps> { }
 
 export interface TreemapProps {
-	width: number;
-	height: number;
+	data: any[];
+	width?: number;
+	height?: number;
 	dataKey?: string;
 	aspectRatio: number;
 	isAnimationActive?: boolean;
