@@ -28,25 +28,21 @@ declare class express_brute_redis {
      * @param lifetime
      * @param callback
      */
-    set(key: string, value: string, lifetime?: number, callback?: SetCallback): void;
+    set(key: string, value: string, lifetime?: number, callback?: (sender: express_brute_redis) => void): void;
 
     /**
      * @summary Gets a key in Redis storage.
      * @param key
      * @param callback
      */
-    get(key: string, callback?: GetCallback): void;
+    get(key: string, callback?: (err: Error, data: any) => void): void;
 
     /**
      * @summary Resets a key in Redis storage.
      * @param key
      * @param callback
      */
-    reset(key: string, callback?: ResetCallback, ...args: any[]): void;
+    reset(key: string, callback?: (err: Error, data: any) => void, ...args: any[]): void;
 }
-
-type SetCallback = (sender?: express_brute_redis) => void;
-type GetCallback = (err?: Error, data?: any) => void;
-type ResetCallback = (err?: Error, data?: any) => void;
 
 export = express_brute_redis;
