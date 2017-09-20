@@ -2660,6 +2660,15 @@ declare module "mongoose" {
     sort?: Object;
     /** sets the document fields to return */
     select?: Object;
+    /** if true, passes the raw result from the MongoDB driver as the third callback parameter */
+    passRawResult?: boolean;
+    /** overwrites the schema's strict mode option for this update */
+    strict?: boolean;
+    /** 
+     * if true, run all setters defined on the associated model's schema for all fields
+     * defined in the query and the update.
+     */
+    runSettersOnQuery?: boolean;
   }
 
   interface ModelFindOneAndUpdateOptions extends ModelFindByIdAndUpdateOptions {
