@@ -574,9 +574,9 @@ export interface ReferenceLineProps {
 	x?: number | string;
 	y?: number | string;
 	alwaysShow?: boolean;
-	viewBox: any;
-	xAxis: any;
-	yAxis: any;
+	viewBox?: any;
+	xAxis?: any;
+	yAxis?: any;
 	label?: string | number | React.ReactElement<any> | RechartsFunction;
 	isFront?: boolean;
 }
