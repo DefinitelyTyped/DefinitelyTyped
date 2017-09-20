@@ -256,8 +256,14 @@ declare module 'leaflet' {
 		}
 
 		class Feature extends Handler {
-			initialize(map: Map, options: DrawOptions.PolylineOptions | DrawOptions.PolygonOptions | DrawOptions.RectangleOptions | DrawOptions.MarkerOptions | DrawOptions.EditHandlerOptions | DrawOptions.DeleteHandlerOptions): void;
-			setOptions(options: DrawOptions.PolylineOptions | DrawOptions.PolygonOptions | DrawOptions.RectangleOptions | DrawOptions.MarkerOptions | DrawOptions.EditHandlerOptions | DrawOptions.DeleteHandlerOptions): void;
+			initialize(
+				map: Map,
+				options: DrawOptions.PolylineOptions | DrawOptions.PolygonOptions | DrawOptions.RectangleOptions | DrawOptions.MarkerOptions | DrawOptions.EditHandlerOptions | DrawOptions.DeleteHandlerOptions
+			): void;
+
+			setOptions(
+				options: DrawOptions.PolylineOptions | DrawOptions.PolygonOptions | DrawOptions.RectangleOptions | DrawOptions.MarkerOptions | DrawOptions.EditHandlerOptions | DrawOptions.DeleteHandlerOptions
+			): void;
 		}
 
 		class SimpleShape extends Feature { }
