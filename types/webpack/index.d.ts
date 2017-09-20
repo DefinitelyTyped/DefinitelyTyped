@@ -1162,13 +1162,13 @@ declare namespace webpack {
              * Emit a warning.
              * @param message
              */
-            emitWarning(message: string): void;
+            emitWarning(message: string | Error): void;
 
             /**
              * Emit a error.
              * @param message
              */
-            emitError(message: string): void;
+            emitError(message: string | Error): void;
 
             /**
              * Execute some code fragment like a module.
