@@ -6571,7 +6571,7 @@ declare namespace _ {
         orderBy<T>(
             collection: List<T> | null | undefined,
             iteratees?: Many<ListIterator<T, any>>,
-            orders?: Many<boolean|"desc"|"asc">
+            orders?: Many<boolean|string>
         ): T[];
 
         /**
@@ -6580,7 +6580,7 @@ declare namespace _ {
         orderBy<T>(
             collection: List<T> | null | undefined,
             iteratees?: Many<ListIteratee<T>>,
-            orders?: Many<boolean|"desc"|"asc">
+            orders?: Many<boolean|string>
         ): T[];
 
         /**
@@ -6589,7 +6589,7 @@ declare namespace _ {
         orderBy<T extends object>(
             collection: T | null | undefined,
             iteratees?: Many<ObjectIterator<T, any>>,
-            orders?: Many<boolean|"desc"|"asc">
+            orders?: Many<boolean|string>
         ): Array<T[keyof T]>;
 
         /**
@@ -6598,7 +6598,7 @@ declare namespace _ {
         orderBy<T extends object>(
             collection: T | null | undefined,
             iteratees?: Many<ObjectIteratee<T>>,
-            orders?: Many<boolean|"desc"|"asc">
+            orders?: Many<boolean|string>
         ): Array<T[keyof T]>;
 
         /**
@@ -6607,7 +6607,7 @@ declare namespace _ {
         orderBy<T>(
             collection: NumericDictionary<T> | null | undefined,
             iteratees?: Many<NumericDictionaryIterator<T, any>>,
-            orders?: Many<boolean|"desc"|"asc">
+            orders?: Many<boolean|string>
         ): T[];
 
         /**
@@ -6616,7 +6616,7 @@ declare namespace _ {
         orderBy<T>(
             collection: NumericDictionary<T> | null | undefined,
             iteratees?: Many<NumericDictionaryIteratee<T>>,
-            orders?: Many<boolean|"desc"|"asc">
+            orders?: Many<boolean|string>
         ): T[];
     }
 
@@ -6627,7 +6627,7 @@ declare namespace _ {
         orderBy<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
             iteratees?: Many<ListIterator<T, any>>,
-            orders?: Many<boolean|"desc"|"asc">
+            orders?: Many<boolean|string>
         ): LoDashImplicitWrapper<T[]>;
 
         /**
@@ -6636,7 +6636,7 @@ declare namespace _ {
         orderBy<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
             iteratees?: Many<ListIteratee<T>>,
-            orders?: Many<boolean|"desc"|"asc">
+            orders?: Many<boolean|string>
         ): LoDashImplicitWrapper<T[]>;
 
         /**
@@ -6645,7 +6645,7 @@ declare namespace _ {
         orderBy<T extends object>(
             this: LoDashImplicitWrapper<T | null | undefined>,
             iteratees?: Many<ObjectIterator<T, any>>,
-            orders?: Many<boolean|"desc"|"asc">
+            orders?: Many<boolean|string>
         ): LoDashImplicitWrapper<Array<T[keyof T]>>;
 
         /**
@@ -6654,7 +6654,7 @@ declare namespace _ {
         orderBy<T extends object>(
             this: LoDashImplicitWrapper<T | null | undefined>,
             iteratees?: Many<ObjectIteratee<T>>,
-            orders?: Many<boolean|"desc"|"asc">
+            orders?: Many<boolean|string>
         ): LoDashImplicitWrapper<Array<T[keyof T]>>;
 
         /**
@@ -6663,7 +6663,7 @@ declare namespace _ {
         orderBy<T>(
             this: LoDashImplicitWrapper<NumericDictionary<T> | null | undefined>,
             iteratees?: Many<NumericDictionaryIterator<T, any>>,
-            orders?: Many<boolean|"desc"|"asc">
+            orders?: Many<boolean|string>
         ): LoDashImplicitWrapper<T[]>;
 
         /**
@@ -6672,7 +6672,7 @@ declare namespace _ {
         orderBy<T>(
             this: LoDashImplicitWrapper<NumericDictionary<T> | null | undefined>,
             iteratees?: Many<NumericDictionaryIteratee<T>>,
-            orders?: Many<boolean|"desc"|"asc">
+            orders?: Many<boolean|string>
         ): LoDashImplicitWrapper<T[]>;
     }
 
@@ -6683,7 +6683,7 @@ declare namespace _ {
         orderBy<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
             iteratees?: Many<ListIterator<T, any>>,
-            orders?: Many<boolean|"desc"|"asc">
+            orders?: Many<boolean|string>
         ): LoDashExplicitWrapper<T[]>;
 
         /**
@@ -6692,7 +6692,7 @@ declare namespace _ {
         orderBy<T>(
             this: LoDashExplicitWrapper<List<T> | null | undefined>,
             iteratees?: Many<ListIteratee<T>>,
-            orders?: Many<boolean|"desc"|"asc">
+            orders?: Many<boolean|string>
         ): LoDashExplicitWrapper<T[]>;
 
         /**
@@ -6701,7 +6701,7 @@ declare namespace _ {
         orderBy<T extends object>(
             this: LoDashExplicitWrapper<T | null | undefined>,
             iteratees?: Many<ObjectIterator<T, any>>,
-            orders?: Many<boolean|"desc"|"asc">
+            orders?: Many<boolean|string>
         ): LoDashExplicitWrapper<Array<T[keyof T]>>;
 
         /**
@@ -6710,7 +6710,7 @@ declare namespace _ {
         orderBy<T extends object>(
             this: LoDashExplicitWrapper<T | null | undefined>,
             iteratees?: Many<ObjectIteratee<T>>,
-            orders?: Many<boolean|"desc"|"asc">
+            orders?: Many<boolean|string>
         ): LoDashExplicitWrapper<Array<T[keyof T]>>;
 
         /**
@@ -6719,7 +6719,7 @@ declare namespace _ {
         orderBy<T>(
             this: LoDashExplicitWrapper<NumericDictionary<T> | null | undefined>,
             iteratees?: Many<NumericDictionaryIterator<T, any>>,
-            orders?: Many<boolean|"desc"|"asc">
+            orders?: Many<boolean|string>
         ): LoDashExplicitWrapper<T[]>;
 
         /**
@@ -6728,7 +6728,7 @@ declare namespace _ {
         orderBy<T>(
             this: LoDashExplicitWrapper<NumericDictionary<T> | null | undefined>,
             iteratees?: Many<NumericDictionaryIteratee<T>>,
-            orders?: Many<boolean|"desc"|"asc">
+            orders?: Many<boolean|string>
         ): LoDashExplicitWrapper<T[]>;
     }
 
@@ -8114,7 +8114,7 @@ declare namespace _ {
          * @param func The function to spread arguments over.
          * @return Returns the new function.
          */
-        spread<TResult>(func: (...args: any[]) => TResult): (args: any[]) => TResult;
+        spread<TResult>(func: (...args: any[]) => TResult): (...args: any[]) => TResult;
 
         /**
          * @see _.spread
@@ -8126,7 +8126,7 @@ declare namespace _ {
         /**
          * @see _.spread
          */
-        spread<TResult>(this: LoDashImplicitWrapper<(...args: any[]) => TResult>): LoDashImplicitWrapper<(args: any[]) => TResult>;
+        spread<TResult>(this: LoDashImplicitWrapper<(...args: any[]) => TResult>): LoDashImplicitWrapper<(...args: any[]) => TResult>;
 
         /**
          * @see _.spread
@@ -8138,7 +8138,7 @@ declare namespace _ {
         /**
          * @see _.spread
          */
-        spread<TResult>(this: LoDashExplicitWrapper<(...args: any[]) => TResult>): LoDashExplicitWrapper<(args: any[]) => TResult>;
+        spread<TResult>(this: LoDashExplicitWrapper<(...args: any[]) => TResult>): LoDashExplicitWrapper<(...args: any[]) => TResult>;
 
         /**
          * @see _.spread
@@ -9161,7 +9161,7 @@ declare namespace _ {
          * @param value The value to check.
          * @return Returns true if value is correctly classified, else false.
          */
-        isFunction(value?: any): value is (...args: any[]) => any;
+        isFunction(value?: any): value is ((...args: any[]) => any) | Function;
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -9405,7 +9405,7 @@ declare namespace _ {
          *
          * @retrun Returns true if value is a native function, else false.
          */
-        isNative(value: any): value is (...args: any[]) => any;
+        isNative(value: any): value is ((...args: any[]) => any) | Function;
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -14099,6 +14099,11 @@ declare namespace _ {
          * @see _.values
          */
         values<T extends object>(object: T | null | undefined): Array<T[keyof T]>;
+
+        /**
+         * @see _.values
+         */
+        values(object: any): any[];
     }
 
     interface LoDashImplicitWrapper<TValue> {
@@ -14111,6 +14116,11 @@ declare namespace _ {
          * @see _.values
          */
         values<T extends object>(this: LoDashImplicitWrapper<T | null | undefined>): LoDashImplicitWrapper<Array<T[keyof T]>>;
+
+        /**
+         * @see _.values
+         */
+        values(): LoDashImplicitWrapper<any[]>;
     }
 
     interface LoDashExplicitWrapper<TValue> {
@@ -14123,6 +14133,11 @@ declare namespace _ {
          * @see _.values
          */
         values<T extends object>(this: LoDashExplicitWrapper<T | null | undefined>): LoDashExplicitWrapper<Array<T[keyof T]>>;
+
+        /**
+         * @see _.values
+         */
+        values(): LoDashExplicitWrapper<any[]>;
     }
 
     //_.valuesIn
