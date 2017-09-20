@@ -17,6 +17,11 @@ export interface WatchedPaths {
 }
 
 export class FSWatcher extends EventEmitter implements fs.FSWatcher {
+    
+    /**
+     * Constructs a new FSWatcher instance with optional WatchOptions parameter.
+     */
+    constructor(options?: WatchOptions);
 
     /**
      * Add files, directories, or glob patterns for tracking. Takes an array of strings or just one
