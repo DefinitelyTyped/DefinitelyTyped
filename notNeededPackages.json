@@ -733,6 +733,12 @@
             "asOfVersion": "3.1.0"
         },
         {
+            "libraryName": "xlsx",
+            "typingsPackageName": "xlsx",
+            "sourceRepoURL": "https://github.com/sheetjs/js-xlsx",
+            "asOfVersion": "0.0.36"
+        },
+        {
             "libraryName": "xml-js",
             "typingsPackageName": "xml-js",
             "sourceRepoURL": "https://github.com/nashwaan/xml-js",
