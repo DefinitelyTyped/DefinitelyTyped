@@ -1,4 +1,4 @@
-import * as ReadPkgUp from 'read-pkg-up';
+import ReadPkgUp = require('read-pkg-up');
 
 ReadPkgUp({cwd: '.', normalize: false}).then(pkg => typeof pkg === 'object');
 typeof ReadPkgUp.sync({cwd: '.', normalize: false}) === 'object';
