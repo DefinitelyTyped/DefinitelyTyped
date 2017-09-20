@@ -1,6 +1,8 @@
-// Type definitions for chokidar 1.7.0
+// Type definitions for chokidar 1.7.1
 // Project: https://github.com/paulmillr/chokidar
-// Definitions by: Stefan Steinhart <https://github.com/reppners>, Felix Becker <https://github.com/felixfbecker>
+// Definitions by: Stefan Steinhart <https://github.com/reppners>
+//                 Felix Becker <https://github.com/felixfbecker>
+//                 Zach Cardoza <https://github.com/bayssmekanique>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -17,6 +19,11 @@ export interface WatchedPaths {
 }
 
 export class FSWatcher extends EventEmitter implements fs.FSWatcher {
+
+    /**
+     * Constructs a new FSWatcher instance with optional WatchOptions parameter.
+     */
+    constructor(options?: WatchOptions);
 
     /**
      * Add files, directories, or glob patterns for tracking. Takes an array of strings or just one
