@@ -3,6 +3,7 @@
 // Definitions by: Olivier Sechet <https://github.com/osechet>
 //                 Guilhem Brouat <https://github.com/ganlhi>
 //                 Bin Wang <https://github.com/wb14123>
+//                 Junyoung Clare Jang <https://github.com/ailrun>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Definitions partially generated using tsd-jsdoc (https://github.com/englercj/tsd-jsdoc)
 
@@ -12751,7 +12752,8 @@ declare module olx {
          *     maxResolution: (number|undefined),
          *     opacity: (number|undefined),
          *     source: (ol.source.Vector|undefined),
-         *     visible: (boolean|undefined)}}
+         *     visible: (boolean|undefined),
+         *     zIndex: (number|undefined)}}
          */
         interface HeatmapOptions {
             gradient?: string[];
@@ -12765,6 +12767,7 @@ declare module olx {
             opacity?: number;
             source: ol.source.Vector;
             visible?: boolean;
+            zIndex?: number;
         }
 
 
@@ -12775,7 +12778,8 @@ declare module olx {
          *     visible: (boolean|undefined),
          *     extent: (ol.Extent|undefined),
          *     minResolution: (number|undefined),
-         *     maxResolution: (number|undefined)}}
+         *     maxResolution: (number|undefined),
+         *     zIndex: (number|undefined)}}
          */
         interface ImageOptions {
             opacity?: number;
@@ -12785,6 +12789,7 @@ declare module olx {
             extent?: ol.Extent;
             minResolution?: number;
             maxResolution?: number;
+            zIndex?: number;
         }
 
 
@@ -12797,7 +12802,8 @@ declare module olx {
          *     extent: (ol.Extent|undefined),
          *     minResolution: (number|undefined),
          *     maxResolution: (number|undefined),
-         *     useInterimTilesOnError: (boolean|undefined)}}
+         *     useInterimTilesOnError: (boolean|undefined),
+         *     zIndex: (number|undefined)}}
          */
         interface TileOptions {
             opacity?: number;
@@ -12809,6 +12815,7 @@ declare module olx {
             minResolution?: number;
             maxResolution?: number;
             useInterimTilesOnError?: boolean;
+            zIndex?: number;
         }
 
 
@@ -12823,7 +12830,8 @@ declare module olx {
          *     style: (ol.style.Style|Array.<ol.style.Style>|ol.StyleFunction|undefined),
          *     updateWhileAnimating: (boolean|undefined),
          *     updateWhileInteracting: (boolean|undefined),
-         *     visible: (boolean|undefined)}}
+         *     visible: (boolean|undefined),
+         *     zIndex: (number|undefined)}}
          */
         interface VectorOptions {
             renderOrder?: (feature1: ol.Feature, feature2: ol.Feature) => number;
@@ -12838,6 +12846,7 @@ declare module olx {
             updateWhileAnimating?: boolean;
             updateWhileInteracting?: boolean;
             visible?: boolean;
+            zIndex?: number;
         }
 
 
@@ -12854,7 +12863,8 @@ declare module olx {
          *     style: (ol.style.Style|Array.<ol.style.Style>|ol.StyleFunction|undefined),
          *     updateWhileAnimating: (boolean|undefined),
          *     updateWhileInteracting: (boolean|undefined),
-         *     visible: (boolean|undefined)}}
+         *     visible: (boolean|undefined),
+         *     zIndex: (number|undefined)}}
          */
         interface VectorTileOptions {
             renderBuffer?: number;
@@ -12870,6 +12880,7 @@ declare module olx {
             updateWhileAnimating?: boolean;
             updateWhileInteracting?: boolean;
             visible?: boolean;
+            zIndex?: number;
         }
 
 
