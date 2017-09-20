@@ -366,121 +366,121 @@ declare namespace adone {
                 y?: number;
 
                 /**
-                 * Month
+                 * Month, 0..11
                  */
                 months?: number;
                 /**
-                 * Month
+                 * Month, 0..11
                  */
                 month?: number;
                 /**
-                 * Month
+                 * Month, 0..11
                  */
                 M?: number;
 
                 /**
-                 * Day of week
+                 * Day of week, 0..6
                  */
                 days?: number;
                 /**
-                 * Day of week
+                 * Day of week, 0..6
                  */
                 day?: number;
                 /**
-                 * Day of week
+                 * Day of week, 0..6
                  */
                 d?: number;
 
                 /**
-                 * Day of month
+                 * Day of month, 1..31
                  */
                 dates?: number;
                 /**
-                 * Day of month
+                 * Day of month, 1..31
                  */
                 date?: number;
                 /**
-                 * Day of month
+                 * Day of month, 1..31
                  */
                 D?: number;
 
                 /**
-                 * Hour
+                 * Hour, 0..23
                  */
                 hours?: number;
                 /**
-                 * Hour
+                 * Hour, 0..23
                  */
                 hour?: number;
                 /**
-                 * Hour
+                 * Hour, 0..23
                  */
                 h?: number;
 
                 /**
-                 * Minute
+                 * Minute, 0..59
                  */
                 minutes?: number;
                 /**
-                 * Minute
+                 * Minute, 0..59
                  */
                 minute?: number;
                 /**
-                 * Minute
+                 * Minute, 0..59
                  */
                 m?: number;
 
                 /**
-                 * Second
+                 * Second, 0..59
                  */
                 seconds?: number;
                 /**
-                 * Second
+                 * Second, 0..59
                  */
                 second?: number;
                 /**
-                 * Second
+                 * Second, 0..59
                  */
                 s?: number;
 
                 /**
-                 * Millisecond
+                 * Millisecond, 0..999
                  */
                 milliseconds?: number;
                 /**
-                 * Millisecond
+                 * Millisecond, 0..999
                  */
                 millisecond?: number;
                 /**
-                 * Millisecond
+                 * Millisecond, 0..999
                  */
                 ms?: number;
             }
 
             interface DurationInputObject extends DatetimeInputObject {
                 /**
-                 * Quarter
+                 * Quarter, 1..4
                  */
                 quarters?: number;
                 /**
-                 * Quarter
+                 * Quarter, 1..4
                  */
                 quarter?: number;
                 /**
-                 * Quarter
+                 * Quarter, 1..4
                  */
                 Q?: number;
 
                 /**
-                 * Week of the year
+                 * Week of the year, 1..53
                  */
                 weeks?: number;
                 /**
-                 * Week of the year
+                 * Week of the year, 1..53
                  */
                 week?: number;
                 /**
-                 * Week of the year
+                 * Week of the year, 1..53
                  */
                 w?: number;
             }
@@ -490,10 +490,12 @@ declare namespace adone {
                  * Week-year according to the locale
                  */
                 weekYears?: number;
+
                 /**
                  * Week-year according to the locale
                  */
                 weekYear?: number;
+
                 /**
                  * Week-year according to the locale
                  */
@@ -503,64 +505,74 @@ declare namespace adone {
                  * ISO week-year
                  */
                 isoWeekYears?: number;
+
                 /**
                  * ISO week-year
                  */
                 isoWeekYear?: number;
+
                 /**
                  * ISO week-year
                  */
                 GG?: number;
 
                 /**
-                 * Quarter
+                 * Quarter, 1..4
                  */
                 quarters?: number;
+
                 /**
-                 * Quarter
+                 * Quarter, 1..4
                  */
                 quarter?: number;
+
                 /**
-                 * Quarter
+                 * Quarter, 1..4
                  */
                 Q?: number;
 
                 /**
-                 * Week of the year
+                 * Week of the year, 1..53
                  */
                 weeks?: number;
+
                 /**
-                 * Week of the year
+                 * Week of the year, 1..53
                  */
                 week?: number;
+
                 /**
-                 * Week of the year
+                 * Week of the year, 1..53
                  */
                 w?: number;
 
                 /**
-                 *  ISO week of the year
+                 *  ISO week of the year, 1..53
                  */
                 isoWeeks?: number;
+
                 /**
-                 *  ISO week of the year
+                 *  ISO week of the year, 1..53
                  */
                 isoWeek?: number;
+
                 /**
-                 *  ISO week of the year
+                 *  ISO week of the year, 1..53
                  */
                 W?: number;
 
                 /**
-                 * Day of the year
+                 * Day of the year, 1..366
                  */
                 dayOfYears?: number;
+
                 /**
-                 * Day of the year
+                 * Day of the year, 1..366
                  */
                 dayOfYear?: number;
+
                 /**
-                 * Day of the year
+                 * Day of the year, 1..366
                  */
                 DDD?: number;
 
@@ -568,10 +580,12 @@ declare namespace adone {
                  * Day of Week according to the locale
                  */
                 weekdays?: number;
+
                 /**
                  * Day of Week according to the locale
                  */
                 weekday?: number;
+
                 /**
                  * Day of Week according to the locale
                  */
@@ -581,10 +595,12 @@ declare namespace adone {
                  * ISO Day of Week
                  */
                 isoWeekdays?: number;
+
                 /**
                  * ISO Day of Week
                  */
                 isoWeekday?: number;
+
                 /**
                  * ISO Day of Week
                  */
@@ -732,40 +748,38 @@ declare namespace adone {
                 years(): number;
 
                 /**
-                 * Gets the quarter (1 to 4).
+                 * Gets the quarter, 1..4
                  */
                 quarter(): number;
 
                 /**
-                 * Sets the quarter (1 to 4).
+                 * Sets the quarter, 1..4
                  */
                 quarter(q: number): Datetime;
 
                 /**
-                 * Gets the quarter
+                 * Gets the quarter, 1..4
                  */
                 quarters(): number;
 
                 /**
-                 * Sets the quarter
+                 * Sets the quarter, 1..4
                  */
                 quarters(q: number): Datetime;
 
                 /**
-                 * Gets the month
+                 * Gets the month, 0..11
                  */
                 month(): number;
 
                 /**
-                 * Sets the month.
-                 * Accepts numbers from 0 to 11.
+                 * Sets the month, 0..11.
                  * If the range is exceeded, it will bubble up to the year
                  */
                 month(M: number | string): Datetime;
 
                 /**
-                 * Sets the month.
-                 * Accepts numbers from 0 to 11.
+                 * Sets the month, 0..11.
                  * If the range is exceeded, it will bubble up to the year
                  *
                  * @deprecated use month(M)
@@ -773,188 +787,179 @@ declare namespace adone {
                 months(M: number | string): Datetime;
 
                 /**
-                 * Gets the month
+                 * Gets the month, 0..11
                  *
                  * @deprecated use month()
                  */
                 months(): number;
 
                 /**
-                 * Gets the day of week.
+                 * Gets the day of week, 0(Sunday)..6(Saturday)
                  */
                 day(): number;
 
                 /**
-                 * Sets the day of week
-                 * Sunday as 0 and Saturday as 6.
+                 * Sets the day of week, 0(Sunday)..6(Saturday).
                  * If the range is exceeded, it will bubble up to other weeks
                  */
                 day(d: number | string): Datetime;
 
                 /**
-                 * Sets the day of week
-                 * Sunday as 0 and Saturday as 6.
+                 * Sets the day of week, 0(Sunday)..6(Saturday).
                  * If the range is exceeded, it will bubble up to other weeks
                  */
                 days(d: number | string): Datetime;
 
                 /**
-                 * Gets the day of week.
+                 * Gets the day of week, 0(Sunday)..6(Saturday)
                  */
                 days(): number;
 
                 /**
-                 * Gets the day of the month
+                 * Gets the day of the month, 1..31
                  */
                 date(): number;
 
                 /**
-                 * Sets the day of the month.
-                 * Accepts numbers from 1 to 31. If the range is exceeded, it will bubble up to the months.
+                 * Sets the day of the month, 1..31.
+                 * If the range is exceeded, it will bubble up to the months.
                  */
                 date(d: number): Datetime;
 
                 /**
-                 * Gets the day of the month
+                 * Gets the day of the month, 1..31
                  *
                  * @deprecated use date(d)
                  */
                 dates(d: number): Datetime;
 
                 /**
-                 * Sets the day of the month.
-                 * Accepts numbers from 1 to 31. If the range is exceeded, it will bubble up to the months.
+                 * Sets the day of the month, 1..31.
+                 * If the range is exceeded, it will bubble up to the months.
                  *
                  * @deprecated use date()
                  */
                 dates(): number;
 
                 /**
-                 * Gets the hour
+                 * Gets the hour, 0..23
                  */
                 hour(): number;
 
                 /**
-                 * Sets the hour.
-                 * Accepts numbers from 0 to 23.
+                 * Sets the hour, 0..23.
                  * If the range is exceeded, it will bubble up to the day.
                  */
                 hour(h: number): Datetime;
 
                 /**
-                 * Gets the hour
+                 * Gets the hour, 0..23
                  */
                 hours(): number;
 
                 /**
-                 * Sets the hour.
-                 * Accepts numbers from 0 to 23.
+                 * Sets the hour, 0..23.
                  * If the range is exceeded, it will bubble up to the day.
                  */
                 hours(h: number): Datetime;
 
                 /**
-                 * Gets the minute
+                 * Gets the minute, 0..59
                  */
                 minute(): number;
 
                 /**
-                 * Sets the minute.
-                 * Accepts numbers from 0 to 59.
+                 * Sets the minute, 0..59.
                  * If the range is exceeded, it will bubble up to the hour.
                  */
                 minute(m: number): Datetime;
 
                 /**
-                 * Gets the minute
+                 * Gets the minute, 0..59
                  */
                 minutes(): number;
 
                 /**
-                 * Sets the minute.
-                 * Accepts numbers from 0 to 59.
+                 * Sets the minute, 0..59.
                  * If the range is exceeded, it will bubble up to the hour.
                  */
                 minutes(m: number): Datetime;
 
                 /**
-                 * Gets the second
+                 * Gets the second, 0..59
                  */
                 second(): number;
 
                 /**
-                 * Sets the second.
-                 * Accepts numbers from 0 to 59.
+                 * Sets the second, 0..59.
                  * If the range is exceeded, it will bubble up to the minutes.
                  */
                 second(s: number): Datetime;
 
                 /**
-                 * Gets the second
+                 * Gets the second, 0..59
                  */
                 seconds(): number;
 
                 /**
-                 * Sets the second.
-                 * Accepts numbers from 0 to 59.
+                 * Sets the second, 0..59.
                  * If the range is exceeded, it will bubble up to the minutes.
                  */
                 seconds(s: number): Datetime;
 
                 /**
-                 * Gets the millisecond
+                 * Gets the millisecond, 0..999
                  */
                 millisecond(): number;
 
                 /**
-                 * Sets the millisecond.
-                 * Accepts numbers from 0 to 999.
+                 * Sets the millisecond, 0..999.
                  * If the range is exceeded, it will bubble up to the seconds.
                  */
                 millisecond(ms: number): Datetime;
 
                 /**
-                 * Gets the millisecond
+                 * Gets the millisecond, 0..999
                  */
                 milliseconds(): number;
 
                 /**
-                 * Sets the millisecond.
-                 * Accepts numbers from 0 to 999.
+                 * Sets the millisecond, 0..999.
                  * If the range is exceeded, it will bubble up to the seconds.
                  */
                 milliseconds(ms: number): Datetime;
 
                 /**
-                 * Gets the day of the week according to the locale
+                 * Gets the day of the week according to the locale, 0..6.
+                 * If the locale assigns Monday as the first day of the week, datetime().weekday() will be Monday (0).
                  */
                 weekday(): number;
 
                 /**
-                 * Sets the day of the week according to the locale.
+                 * Sets the day of the week according to the locale, 0..6.
                  * If the locale assigns Monday as the first day of the week, datetime().weekday(0) will be Monday.
                  * If Sunday is the first day of the week, moment().weekday(0) will be Sunday.
                  */
                 weekday(d: number): Datetime;
 
                 /**
-                 * Gets the ISO day of the week with 1 being Monday and 7 being Sunday
+                 * Gets the ISO day of the week, 1(Monday)..7(Sunday)
                  */
                 isoWeekday(): number;
 
                 /**
-                 * Sets the ISO day of the week with 1 being Monday and 7 being Sunday
+                 * Sets the ISO day of the week, 1(Monday)..7(Sunday)
                  * If the range is exceeded, it will bubble up to other weeks.
                  */
                 isoWeekday(d: number | string): Datetime;
 
                 /**
-                 * Gets the week-year according to the locale.
+                 * Gets the week-year according to the locale
                  */
                 weekYear(): number;
 
                 /**
-                 * Gets or sets the week-year according to the locale.
+                 * Gets or sets the week-year according to the locale
                  *
                  */
                 weekYear(d: number): Datetime;
@@ -970,63 +975,62 @@ declare namespace adone {
                 isoWeekYear(d: number): Datetime;
 
                 /**
-                 * Gets the week of the year
+                 * Gets the week of the year, 1..53
                  */
                 week(): number;
 
                 /**
-                 * Sets the week of the year
+                 * Sets the week of the year, 1..53
                  */
                 week(d: number): Datetime;
 
                 /**
-                 * Gets the week of the year
+                 * Gets the week of the year, 1..53
                  */
                 weeks(): number;
 
                 /**
-                 * Sets the week of the year
+                 * Sets the week of the year, 1..53
                  */
                 weeks(d: number): Datetime;
 
                 /**
-                 * Gets the ISO week of the year
+                 * Gets the ISO week of the year, 1..53
                  */
                 isoWeek(): number;
 
                 /**
-                 * Sets the ISO week of the year
+                 * Sets the ISO week of the year, 1..53
                  */
                 isoWeek(d: number): Datetime;
 
                 /**
-                 * Gets the ISO week of the year
+                 * Gets the ISO week of the year, 1..53
                  */
                 isoWeeks(): number;
 
                 /**
-                 * Sets the ISO week of the year
+                 * Sets the ISO week of the year, 1..53
                  */
                 isoWeeks(d: number): Datetime;
 
                 /**
-                 * Gets the number of weeks according to locale in the current moment's year
+                 * Gets the number of weeks according to locale in the current datetime's year
                  */
                 weeksInYear(): number;
 
                 /**
-                 * Gets the number of weeks in the current moment's year, according to ISO weeks
+                 * Gets the number of weeks in the current datetime's year, according to ISO weeks
                  */
                 isoWeeksInYear(): number;
 
                 /**
-                 * Gets the day of the year
+                 * Gets the day of the year, 1..366
                  */
                 dayOfYear(): number;
 
                 /**
-                 * Sets the day of the year.
-                 * Accepts numbers from 1 to 366.
+                 * Sets the day of the year, 1..366.
                  * If the range is exceeded, it will bubble up to the years
                  */
                 dayOfYear(d: number): Datetime;
