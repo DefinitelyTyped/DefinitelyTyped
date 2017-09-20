@@ -4,9 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace ReadPkgUp {
-    function sync(options?: Options): Package;
+    export function sync(options?: Options): Package;
 
-    interface Options {
+    export interface Options {
         /**
          * Directory to start looking for a package.json file.
          *
@@ -21,7 +21,7 @@ declare namespace ReadPkgUp {
         normalize?: boolean;
     }
 
-    interface Package {
+    export interface Package {
         [key: string]: any;
     }
 }
