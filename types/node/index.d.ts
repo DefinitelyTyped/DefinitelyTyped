@@ -3,7 +3,6 @@
 // Definitions by: Microsoft TypeScript <http://typescriptlang.org>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>
 //                 Parambir Singh <https://github.com/parambirs>
-//                 Roberto Desideri <https://github.com/RobDesideri>
 //                 Christian Vaagland Tellnes <https://github.com/tellnes>
 //                 Wilco Bakker <https://github.com/WilcoBakker>
 //                 Nicolas Voigt <https://github.com/octo-sniffle>
