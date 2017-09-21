@@ -2,23 +2,22 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es6",
-            "dom"
+            "es6"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "baseUrl": "../",
-        "jsx": "react",
         "typeRoots": [
             "../"
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "jsx": "react"
     },
     "files": [
         "index.d.ts",
-        "react-native-safari-view-tests.tsx"
+        "react-native-safari-view-tests.ts"
     ]
 }
