@@ -1,6 +1,6 @@
 // https://github.com/opentable/accept-language-parser/blob/v1.4.1/index.js
 
-import * as AcceptLanguageParser from '.';
+import * as AcceptLanguageParser from 'accept-language-parser';
 
 const l1: AcceptLanguageParser.Language = {
     code: 'en',
