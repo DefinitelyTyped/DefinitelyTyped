@@ -7,15 +7,15 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": true,
+        "strictNullChecks": false,
         "baseUrl": "../",
+        "jsx": "react",
         "typeRoots": [
             "../"
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "jsx": "react"
+        "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
