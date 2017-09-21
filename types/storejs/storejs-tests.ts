@@ -1,31 +1,71 @@
 // Tests for storagejs.d.ts
 import * as store from 'store';
+import * as engine from 'store/src/store-engine';
 
-// Store 'marcus' at 'username'
-store.set('username', 'marcus');
+// https://github.com/marcuswestin/store.js/#api
 
-// Get 'username'
-var userName: any = store.get('username');
+// Store current user
+store.set('user', { name:'Marcus' });
 
-var all: Object = store.getAll();
+// Get current user
+store.get('user');
 
-// Remove 'username'
-store.remove('username');
+// Remove current user
+store.remove('user');
 
 // Clear all keys
-store.clear();
-
-// Store an object literal - store.js uses JSON.stringify under the hood
-store.set('user', { name: 'marcus', likes: 'javascript' });
-
-// Get the stored object - store.js uses JSON.parse under the hood
-var user: any = store.get('user');
-alert(user.name + ' likes ' + user.likes);
-
-// Get all stored values
-store.getAll().user.name;
+store.clearAll();
 
 // Loop over all stored values
-store.forEach(function(key, val) {
-    console.log(key, '==', val);
+store.each(function(value, key) {
+    console.log(key, '==', value)
 });
+
+// https://github.com/marcuswestin/store.js/#write-your-own-plugin
+
+// Example plugin that stores a version history of every value
+declare global {
+    interface StoreJsAPI {
+        getHistory(key: string): any[];
+    }
+}
+
+const versionHistoryPlugin = function(this: StoreJsAPI) {
+    const historyStore = this.namespace('history');
+    return {
+        set: function(super_fn: () => any, key: string, value: any) {
+            const history = historyStore.get(key) || [];
+            history.push(value);
+            historyStore.set(key, history);
+            return super_fn();
+        },
+        getHistory: function(key: string) {
+            return historyStore.get(key);
+        }
+    }
+};
+store.addPlugin(versionHistoryPlugin);
+store.set('foo', 'bar 1');
+store.set('foo', 'bar 2');
+store.getHistory('foo');
+
+// https://github.com/marcuswestin/store.js/#make-your-own-build
+
+// Example custom build usage:
+declare global {
+    interface StoreJsAPI {
+        // expirePlugin
+        set(key: string, value: any, expiration: number): any;
+    }
+}
+
+var storages: any[] = [
+    //require('store/storages/localStorage'),
+    //require('store/storages/cookieStorage')
+];
+var plugins: any[] = [
+    //require('store/plugins/defaults'),
+    //require('store/plugins/expire')
+];
+var myStore = engine.createStore(storages, plugins);
+myStore.set('foo', 'bar', new Date().getTime() + 3000); // Using expire plugin to expire in 3 seconds

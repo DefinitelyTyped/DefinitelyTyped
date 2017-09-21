@@ -5,9 +5,8 @@
     "noImplicitAny": true,
     "noImplicitThis": true,
     "strictNullChecks": true,
-    "suppressImplicitAnyIndexErrors": true,
-    "noEmit": true,
     "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
     "baseUrl": "../",
     "typeRoots": ["../"],
     "types": []

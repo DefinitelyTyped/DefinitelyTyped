@@ -20,11 +20,11 @@ namespace AdoneRootTests {
     { const a: object = adone.o({}); }
     { const a: typeof Date = adone.Date; }
     { const a: typeof process.hrtime = adone.hrtime; }
-    { const a: typeof setTimeout = adone.setTimeout; }
+    { const a: typeof global.setTimeout = adone.setTimeout; }
     { const a: typeof clearTimeout = adone.clearTimeout; }
     { const a: typeof setInterval = adone.setInterval; }
     { const a: typeof clearInterval = adone.clearInterval; }
-    { const a: typeof setImmediate = adone.setImmediate; }
+    { const a: typeof global.setImmediate = adone.setImmediate; }
     { const a: typeof clearImmediate = adone.clearImmediate; }
     adone.lazify({});
     adone.lazify({}, {});

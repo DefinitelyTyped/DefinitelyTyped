@@ -70,14 +70,26 @@ namespace express_tests {
         language = req.acceptsLanguages(['en', 'ja']);
         language = req.acceptsLanguages('en', 'ja');
 
-        let existingHeader1 = req.get('existingHeader') as string;
-        let nonExistingHeader1 = req.get('nonExistingHeader') as undefined;
+        // downcasting
+        req.get('set-cookie') as undefined;
+        req.get('set-cookie') as string[];
+        const setCookieHeader1 = req.get('set-cookie');
+        if (setCookieHeader1 !== undefined) {
+            const setCookieHeader2: string[] = setCookieHeader1;
+        }
+        req.get('header') as undefined;
+        req.get('header') as string;
+        const header1 = req.get('header');
+        if (header1 !== undefined) {
+            const header2: string = header1;
+        }
 
-        let existingHeader2 = req.header('existingHeader') as string;
-        let nonExistingHeader2 = req.header('nonExistingHeader') as undefined;
+        // upcasting
+        const setCookieHeader3: string[] | undefined = req.get('set-cookie');
+        const header3: string | undefined = req.header('header');
 
-        let existingHeader3 = req.headers.existingHeader as string;
-        let nonExistingHeader3 = req.headers.nonExistingHeader as any as undefined;
+        req.headers.existingHeader as string;
+        req.headers.nonExistingHeader as any as undefined;
 
         res.send(req.query['token']);
     });

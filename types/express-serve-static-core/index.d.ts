@@ -197,8 +197,10 @@ interface Request extends http.IncomingMessage, Express.Request {
         *
         * @param name
         */
+    get(name: "set-cookie"): string[] | undefined;
     get(name: string): string | undefined;
 
+    header(name: "set-cookie"): string[] | undefined;
     header(name: string): string | undefined;
 
     /**
@@ -349,7 +351,7 @@ interface Request extends http.IncomingMessage, Express.Request {
         *
         * @param type
         */
-    is(type: string): boolean;
+    is(type: string): string | false;
 
     /**
         * Return the protocol string "http" or "https"

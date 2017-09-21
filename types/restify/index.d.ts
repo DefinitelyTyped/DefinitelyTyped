@@ -2,7 +2,7 @@
 // Project: https://github.com/restify/node-restify
 // Definitions by: Bret Little <https://github.com/blittle>, Steve Hipwell <https://github.com/stevehipwell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.2
 
 /// <reference types="node" />
 
@@ -305,6 +305,12 @@ export interface Server extends http.Server {
 
     /** Once listen() is called, this will be filled in with where the server is running. */
     url: string;
+
+    /** Node server instance */
+    server: http.Server;
+
+    /** Router instance */
+    router: Router;
 }
 
 export interface RouterOptions {
@@ -913,15 +919,6 @@ export interface Response extends http.ServerResponse {
      */
     toString(): string;
 
-    /**
-     * pass through to native response.writeHead().
-     * @public
-     * @function writeHead
-     * @emits    header
-     * @returns  {undefined}
-     */
-    writeHead(): void;
-
     /** redirect is sugar method for redirecting.
      * res.redirect(301, 'www.foo.com', next);
      * `next` is mandatory, to complete the response and trigger audit logger.
@@ -945,7 +942,7 @@ export interface Response extends http.ServerResponse {
      * @function redirect
      * @return   {undefined}
      */
-    redirect(options: string | any, next: Next): void;
+    redirect(options: object | string, next: Next): void;
 
     /** HTTP status code. */
     code: number;
