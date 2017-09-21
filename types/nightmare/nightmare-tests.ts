@@ -348,4 +348,3 @@ new Nightmare()
   .goto('https://github.com/segmentio/nightmare')
   .click('a[href="/segmentio/nightmare/archive/master.zip"]')
   .download('/some/other/path/master.zip');
-  .run(done);
