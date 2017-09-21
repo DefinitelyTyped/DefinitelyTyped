@@ -7,51 +7,77 @@
 import * as angular from 'angular';
 
 export interface FileUploaderFactory {
-    new(options?: {}): FileUploader;
+    new(options?: Partial<FileUploaderOptions>): FileUploader;
 }
-export interface FileUploader {
-    // **Properties**
 
+export interface FileUploaderOptions {
     /**
      * Path on the server to upload files
+     * @default /
      */
     url: string;
     /**
      * Name of the field which will contain the file, default is file
+     * @default file
      */
     alias: string;
     /**
+     * Headers to be sent along with the files. HTML5 browsers only.
+     * @default {}
+     */
+    headers: Headers;
+    /**
      * Items to be uploaded
+     * @default []
      */
     queue: FileItem[];
+    /**
+     * Automatically upload files after adding them to the queue
+     * @default false
+     */
+    autoUpload: boolean;
+    /**
+     * Remove files from the queue after uploading
+     * @default false
+     */
+    removeAfterUpload: boolean;
+    /**
+     * It's a request method. HTML5 browsers only.
+     * @default POST
+     */
+    method: string;
+    /**
+     * Filters to be applied to the files before adding them to the queue. If the filter returns true the file will be added to the queue
+     * @default []
+     */
+    filters: Filter[];
+    /**
+     * Data to be sent along with the files
+     * @default []
+     */
+    formData: FormData[];
+    /**
+     * Maximum count of files.
+     * @default Number.MAX_VALUE
+     */
+    queueLimit: number;
+    /**
+     * enable CORS. HTML5 browsers only.
+     * @default false
+     */
+    withCredentials: boolean;
+    /**
+     * Disable multipart.
+     * @default false
+     */
+    disableMultipart: boolean;
+}
+
+export interface FileUploader extends FileUploaderOptions {
     /**
      * Upload queue progress percentage. Read only.
      */
     progress: number;
-    /**
-     * Headers to be sent along with the files. HTML5 browsers only.
-     */
-    headers: {};
-    /**
-     * Data to be sent along with the files
-     */
-    formData: FormData[];
-    /**
-     * Filters to be applied to the files before adding them to the queue. If the filter returns true the file will be added to the queue
-     */
-    filters: Filter[];
-    /**
-     * Automatically upload files after adding them to the queue
-     */
-    autoUpload: boolean;
-    /**
-     * It's a request method. By default POST. HTML5 browsers only.
-     */
-    method: string;
-    /**
-     * Remove files from the queue after uploading
-     */
-    removeAfterUpload: boolean;
     /**
      * true if uploader is html5-uploader. Read only.
      */
@@ -60,21 +86,13 @@ export interface FileUploader {
      * true if an upload is in progress. Read only.
      */
     isUploading: boolean;
-    /**
-     * maximum count of files
-     */
-    queueLimit: number;
-    /**
-     * enable CORS. HTML5 browsers only.
-     */
-    withCredentials: boolean;
 
     // **Methods**
 
     /**
      * Add items to the queue
      */
-    addToQueue(files: File | HTMLInputElement | {} | FileList | object[], options: {}, filters: Filter[] | string): void;
+    addToQueue(files: File | HTMLInputElement | object | FileList | object[], options: object, filters: Filter[] | string): void;
     /**
      * Remove an item from the queue, where value is {FileItem} or index of item.
      */
@@ -133,7 +151,7 @@ export interface FileUploader {
     /**
      * When adding a file failed
      */
-    onWhenAddingFileFailed(item: FileItem, filter: Filter, options: {}): void;
+    onWhenAddingFileFailed(item: FileItem, filter: Filter, options: object): void;
     /**
      * Fires after adding a single file to the queue.
      */
@@ -203,7 +221,7 @@ export interface FileItem {
     /**
      * Headers to be sent along with this file. HTML5 browsers only.
      */
-    headers: {};
+    headers: Headers;
     /**
      * Data to be sent along with this file
      */
@@ -301,8 +319,8 @@ export interface FileItem {
      */
     onComplete(response: Response, status: number, headers: Headers): void;
 }
-export type SyncFilter = (item: File | FileLikeObject, options?: {}) => boolean;
-export type AsyncFilter = (item: File | FileLikeObject, options: {}, deferred: angular.IDeferred<any>) => void;
+export type SyncFilter = (item: File | FileLikeObject, options?: object) => boolean;
+export type AsyncFilter = (item: File | FileLikeObject, options: object | undefined, deferred: angular.IDeferred<any>) => void;
 export interface Filter {
     name: string;
     fn: SyncFilter | AsyncFilter;
