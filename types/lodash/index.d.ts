@@ -8784,7 +8784,7 @@ declare namespace _ {
         /**
          * @see _.isArrayLike
          */
-        isArrayLike(value?: ((...args: any[]) => any) | null | undefined): value is never;
+        isArrayLike(value?: ((...args: any[]) => any) | Function | null | undefined): value is never;
 
         /**
          * @see _.isArrayLike
@@ -8837,7 +8837,7 @@ declare namespace _ {
         /**
          * @see _.isArrayLike
          */
-        isArrayLikeObject(value?: ((...args: any[]) => any) | string | boolean | number | null | undefined): value is never;
+        isArrayLikeObject(value?: ((...args: any[]) => any) | Function | string | boolean | number | null | undefined): value is never;
 
         /**
          * @see _.isArrayLike
@@ -16182,6 +16182,20 @@ declare namespace _ {
     type PartialDeep<T> = {
         [P in keyof T]?: PartialDeep<T[P]>;
     };
+
+    // For backwards compatibility
+    type LoDashImplicitArrayWrapper<T> = LoDashImplicitWrapper<T[]>;
+    type LoDashImplicitNillableArrayWrapper<T> = LoDashImplicitWrapper<T[] | null | undefined>;
+    type LoDashImplicitObjectWrapper<T> = LoDashImplicitWrapper<T>;
+    type LoDashImplicitNillableObjectWrapper<T> = LoDashImplicitWrapper<T | null | undefined>;
+    type LoDashImplicitNumberArrayWrapper = LoDashImplicitWrapper<number[]>;
+    type LoDashImplicitStringWrapper = LoDashImplicitWrapper<string>;
+    type LoDashExplicitArrayWrapper<T> = LoDashExplicitWrapper<T[]>;
+    type LoDashExplicitNillableArrayWrapper<T> = LoDashExplicitWrapper<T[] | null | undefined>;
+    type LoDashExplicitObjectWrapper<T> = LoDashExplicitWrapper<T>;
+    type LoDashExplicitNillableObjectWrapper<T> = LoDashExplicitWrapper<T | null | undefined>;
+    type LoDashExplicitNumberArrayWrapper = LoDashExplicitWrapper<number[]>;
+    type LoDashExplicitStringWrapper = LoDashExplicitWrapper<string>;
 }
 
 // Backward compatibility with --target es5

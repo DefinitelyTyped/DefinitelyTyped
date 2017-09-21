@@ -127,12 +127,12 @@ namespace TestWrapper {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<string[]>;
+        let result: _.LoDashImplicitArrayWrapper<string>;
         result = _(['']);
     }
 
     {
-        let result: _.LoDashImplicitWrapper<{a: string}>;
+        let result: _.LoDashImplicitObjectWrapper<{a: string}>;
         result = _<{a: string}>({a: ''});
     }
 
@@ -149,20 +149,20 @@ namespace TestWrapper {
 
 //Wrapped array shortcut methods
 result = <number>_([1, 2, 3, 4]).pop();
-result = <_.LoDashImplicitWrapper<number[]>>_([1, 2, 3, 4]).push(5, 6, 7);
+result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).push(5, 6, 7);
 result = <number>_([1, 2, 3, 4]).shift();
-result = <_.LoDashImplicitWrapper<number[]>>_([1, 2, 3, 4]).sort((a, b) => 1);
-result = <_.LoDashImplicitWrapper<number[]>>_([1, 2, 3, 4]).splice(1);
-result = <_.LoDashImplicitWrapper<number[]>>_([1, 2, 3, 4]).splice(1, 2, 5, 6);
-result = <_.LoDashImplicitWrapper<number[]>>_([1, 2, 3, 4]).unshift(5, 6);
+result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).sort((a, b) => 1);
+result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).splice(1);
+result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).splice(1, 2, 5, 6);
+result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).unshift(5, 6);
 
-result = <_.LoDashExplicitWrapper<number>>_.chain([1, 2, 3, 4]).pop();
-result = <_.LoDashExplicitWrapper<number[]>>_.chain([1, 2, 3, 4]).push(5, 6, 7);
-result = <_.LoDashExplicitWrapper<number>>_.chain([1, 2, 3, 4]).shift();
-result = <_.LoDashExplicitWrapper<number[]>>_.chain([1, 2, 3, 4]).sort((a, b) => 1);
-result = <_.LoDashExplicitWrapper<number[]>>_.chain([1, 2, 3, 4]).splice(1);
-result = <_.LoDashExplicitWrapper<number[]>>_.chain([1, 2, 3, 4]).splice(1, 2, 5, 6);
-result = <_.LoDashExplicitWrapper<number[]>>_.chain([1, 2, 3, 4]).unshift(5, 6);
+result = <_.LoDashExplicitObjectWrapper<number>>_.chain([1, 2, 3, 4]).pop();
+result = <_.LoDashExplicitArrayWrapper<number>>_.chain([1, 2, 3, 4]).push(5, 6, 7);
+result = <_.LoDashExplicitObjectWrapper<number>>_.chain([1, 2, 3, 4]).shift();
+result = <_.LoDashExplicitArrayWrapper<number>>_.chain([1, 2, 3, 4]).sort((a, b) => 1);
+result = <_.LoDashExplicitArrayWrapper<number>>_.chain([1, 2, 3, 4]).splice(1);
+result = <_.LoDashExplicitArrayWrapper<number>>_.chain([1, 2, 3, 4]).splice(1, 2, 5, 6);
+result = <_.LoDashExplicitArrayWrapper<number>>_.chain([1, 2, 3, 4]).unshift(5, 6);
 
 /*********
  * Array *
@@ -184,7 +184,7 @@ namespace TestChunk {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<TResult[][]>;
+        let result: _.LoDashImplicitArrayWrapper<TResult[]>;
 
         result = _(array).chunk();
         result = _(array).chunk(42);
@@ -194,7 +194,7 @@ namespace TestChunk {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<TResult[][]>;
+        let result: _.LoDashExplicitArrayWrapper<TResult[]>;
 
         result = _.chain(array).chunk();
         result = _(array).chain().chunk();
@@ -223,14 +223,14 @@ namespace TestCompact {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<TResult[]>;
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
 
         result = _(array).compact();
         result = _(list).compact<TResult>();
     }
 
     {
-        let result: _.LoDashExplicitWrapper<TResult[]>;
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
 
         result = _(array).chain().compact();
         result = _(list).chain().compact<TResult>();
@@ -259,7 +259,7 @@ namespace TestDifference {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<TResult[]>;
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
 
         result = _(array).difference();
         result = _(array).difference(arrayParam);
@@ -273,7 +273,7 @@ namespace TestDifference {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<TResult[]>;
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
 
         result = _(array).chain().difference();
         result = _(array).chain().difference(arrayParam);
@@ -491,7 +491,7 @@ namespace TestDifferenceBy {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<TResult[]>;
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
 
         result = _(array).drop();
         result = _(array).drop(42);
@@ -501,7 +501,7 @@ namespace TestDifferenceBy {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<TResult[]>;
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
 
         result = _(array).chain().drop();
         result = _(array).chain().drop(42);
@@ -527,7 +527,7 @@ namespace TestDropRight {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<TResult[]>;
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
 
         result = _(array).dropRight();
         result = _(array).dropRight(42);
@@ -537,7 +537,7 @@ namespace TestDropRight {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<TResult[]>;
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
 
         result = _(array).chain().dropRight();
         result = _(array).chain().dropRight(42);
@@ -568,7 +568,7 @@ namespace TestDropRightWhile {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<TResult[]>;
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
 
         result = _(array).dropRightWhile();
         result = _(array).dropRightWhile(predicateFn);
@@ -582,7 +582,7 @@ namespace TestDropRightWhile {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<TResult[]>;
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
 
         result = _(array).chain().dropRightWhile();
         result = _(array).chain().dropRightWhile(predicateFn);
@@ -617,7 +617,7 @@ namespace TestDropWhile {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<TResult[]>;
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
 
         result = _(array).dropWhile();
         result = _(array).dropWhile(predicateFn);
@@ -631,7 +631,7 @@ namespace TestDropWhile {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<TResult[]>;
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
 
         result = _(array).chain().dropWhile();
         result = _(array).chain().dropWhile(predicateFn);
@@ -667,7 +667,7 @@ namespace TestFill {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<number[]>;
+        let result: _.LoDashImplicitArrayWrapper<number>;
 
         result = _(array).fill<number>(42);
         result = _(array).fill(42, 0);
@@ -675,7 +675,7 @@ namespace TestFill {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<_.List<number>>;
+        let result: _.LoDashImplicitObjectWrapper<_.List<number>>;
 
         result = _(list).fill<number>(42);
         result = _(list).fill(42, 0);
@@ -683,7 +683,7 @@ namespace TestFill {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<number[]>;
+        let result: _.LoDashExplicitArrayWrapper<number>;
 
         result = _(array).chain().fill<number>(42);
         result = _(array).chain().fill(42, 0);
@@ -691,7 +691,7 @@ namespace TestFill {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<_.List<number>>;
+        let result: _.LoDashExplicitObjectWrapper<_.List<number>>;
 
         result = _(list).chain().fill<number>(42);
         result = _(list).chain().fill(42, 0);
@@ -882,13 +882,13 @@ namespace TestFlatten {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<string[]>;
+        let result: _.LoDashImplicitArrayWrapper<string>;
 
         result = _('abc').flatten();
     }
 
     {
-        let result: _.LoDashImplicitWrapper<number[]>;
+        let result: _.LoDashImplicitArrayWrapper<number>;
 
         result = _([1, 2, 3]).flatten<number>();
         result = _([1, [2, 3]]).flatten<number>();
@@ -902,7 +902,7 @@ namespace TestFlatten {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<Array<number|number[]>>;
+        let result: _.LoDashImplicitArrayWrapper<number|number[]>;
 
         result = _([1, [2, [3]]]).flatten<number|number[]>();
         result = _([1, [2, [3]], [[4]]]).flatten<number|number[]>();
@@ -912,13 +912,13 @@ namespace TestFlatten {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<string[]>;
+        let result: _.LoDashExplicitArrayWrapper<string>;
 
         result = _('abc').chain().flatten();
     }
 
     {
-        let result: _.LoDashExplicitWrapper<number[]>;
+        let result: _.LoDashExplicitArrayWrapper<number>;
 
         result = _([1, 2, 3]).chain().flatten<number>();
         result = _([1, [2, 3]]).chain().flatten<number>();
@@ -932,7 +932,7 @@ namespace TestFlatten {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<Array<number|number[]>>;
+        let result: _.LoDashExplicitArrayWrapper<number|number[]>;
 
         result = _([1, [2, [3]]]).chain().flatten<number|number[]>();
         result = _([1, [2, [3]], [[4]]]).chain().flatten<number|number[]>();
@@ -970,13 +970,13 @@ namespace TestFlattenDeep {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<string[]>;
+        let result: _.LoDashImplicitArrayWrapper<string>;
 
         result = _('abc').flattenDeep();
     }
 
     {
-        let result: _.LoDashImplicitWrapper<number[]>;
+        let result: _.LoDashImplicitArrayWrapper<number>;
 
         result = _([1, 2, 3]).flattenDeep<number>();
         result = _([1, [2, 3]]).flattenDeep<number>();
@@ -990,7 +990,7 @@ namespace TestFlattenDeep {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<Array<number|number[]>>;
+        let result: _.LoDashImplicitArrayWrapper<number|number[]>;
 
         result = _([1, [2, [3]]]).flattenDeep<number|number[]>();
         result = _([1, [2, [3]], [[4]]]).flattenDeep<number|number[]>();
@@ -1000,13 +1000,13 @@ namespace TestFlattenDeep {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<string[]>;
+        let result: _.LoDashExplicitArrayWrapper<string>;
 
         result = _('abc').chain().flattenDeep();
     }
 
     {
-        let result: _.LoDashExplicitWrapper<number[]>;
+        let result: _.LoDashExplicitArrayWrapper<number>;
 
         result = _([1, 2, 3]).chain().flattenDeep<number>();
         result = _([1, [2, 3]]).chain().flattenDeep<number>();
@@ -1020,7 +1020,7 @@ namespace TestFlattenDeep {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<Array<number|number[]>>;
+        let result: _.LoDashExplicitArrayWrapper<number|number[]>;
 
         result = _([1, [2, [3]]]).chain().flattenDeep<number|number[]>();
         result = _([1, [2, [3]], [[4]]]).chain().flattenDeep<number|number[]>();
@@ -1166,14 +1166,14 @@ namespace TestInitial {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<TResult[]>;
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
 
         result = _(array).initial();
         result = _(list).initial<TResult>();
     }
 
     {
-        let result: _.LoDashExplicitWrapper<TResult[]>;
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
 
         result = _(array).chain().initial();
         result = _(list).chain().initial<TResult>();
@@ -1195,7 +1195,7 @@ namespace TestIntersection {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<TResult[]>;
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
 
         result = _(array).intersection<TResult>(arrayParam);
         result = _(array).intersection<TResult>(listParam, arrayParam);
@@ -1205,7 +1205,7 @@ namespace TestIntersection {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<TResult[]>;
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
 
         result = _(array).chain().intersection<TResult>(arrayParam);
         result = _(array).chain().intersection<TResult>(listParam, arrayParam);
@@ -1392,7 +1392,7 @@ namespace TestPull {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<TResult[]>;
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
 
         result = _(array).pull();
         result = _(array).pull(value);
@@ -1401,7 +1401,7 @@ namespace TestPull {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<_.List<TResult>>;
+        let result: _.LoDashImplicitObjectWrapper<_.List<TResult>>;
 
         result = _(list).pull<TResult>();
         result = _(list).pull<TResult>(value);
@@ -1410,7 +1410,7 @@ namespace TestPull {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<TResult[]>;
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
 
         result = _(array).chain().pull();
         result = _(array).chain().pull(value);
@@ -1419,7 +1419,7 @@ namespace TestPull {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<_.List<TResult>>;
+        let result: _.LoDashExplicitObjectWrapper<_.List<TResult>>;
 
         result = _(list).chain().pull<TResult>();
         result = _(list).chain().pull<TResult>(value);
@@ -1452,7 +1452,7 @@ namespace TestPullAt {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<TResult[]>;
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
 
         result = _(array).pullAt();
         result = _(array).pullAt(1);
@@ -1470,7 +1470,7 @@ namespace TestPullAt {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<TResult[]>;
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
 
         result = _(array).chain().pullAt();
         result = _(array).chain().pullAt(1);
@@ -1509,7 +1509,7 @@ namespace TestRemove {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<TResult[]>;
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
 
         result = _(array).remove();
         result = _(array).remove(predicateFn);
@@ -1523,7 +1523,7 @@ namespace TestRemove {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<TResult[]>;
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
 
         result = _(array).chain().remove();
         result = _(array).chain().remove(predicateFn);
@@ -1550,14 +1550,14 @@ namespace TestTail {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<TResult[]>;
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
 
         result = _(array).tail();
         result = _(list).tail<TResult>();
     }
 
     {
-        let result: _.LoDashExplicitWrapper<TResult[]>;
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
 
         result = _(array).chain().tail();
         result = _(list).chain().tail<TResult>();
@@ -1577,7 +1577,7 @@ namespace TestSlice {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<TResult[]>;
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
 
         result = _(array).slice();
         result = _(array).slice(42);
@@ -1585,7 +1585,7 @@ namespace TestSlice {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<TResult[]>;
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
 
         result = _(array).chain().slice();
         result = _(array).chain().slice(42);
@@ -1790,14 +1790,14 @@ namespace TestTail {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<TResult[]>;
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
 
         result = _(array).tail();
         result = _(list).tail<TResult>();
     }
 
     {
-        let result: _.LoDashExplicitWrapper<TResult[]>;
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
 
         result = _(array).chain().tail();
         result = _(list).chain().tail<TResult>();
@@ -1820,7 +1820,7 @@ namespace TestTake {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<TResult[]>;
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
 
         result = _(array).take();
         result = _(array).take(42);
@@ -1830,7 +1830,7 @@ namespace TestTake {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<TResult[]>;
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
 
         result = _(array).chain().take();
         result = _(array).chain().take(42);
@@ -1856,7 +1856,7 @@ namespace TestTakeRight {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<TResult[]>;
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
 
         result = _(array).takeRight();
         result = _(array).takeRight(42);
@@ -1866,7 +1866,7 @@ namespace TestTakeRight {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<TResult[]>;
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
 
         result = _(array).chain().takeRight();
         result = _(array).chain().takeRight(42);
@@ -1897,7 +1897,7 @@ namespace TestTakeRightWhile {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<TResult[]>;
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
 
         result = _(array).takeRightWhile();
         result = _(array).takeRightWhile(predicateFn);
@@ -1911,7 +1911,7 @@ namespace TestTakeRightWhile {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<TResult[]>;
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
 
         result = _(array).chain().takeRightWhile();
         result = _(array).chain().takeRightWhile(predicateFn);
@@ -1946,7 +1946,7 @@ namespace TestTakeWhile {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<TResult[]>;
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
 
         result = _(array).takeWhile();
         result = _(array).takeWhile(predicateFn);
@@ -1960,7 +1960,7 @@ namespace TestTakeWhile {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<TResult[]>;
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
 
         result = _(array).chain().takeWhile();
         result = _(array).chain().takeWhile(predicateFn);
@@ -1994,7 +1994,7 @@ namespace TestUnion {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<TResult[]>;
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
 
         result = _(array).union();
         result = _(array).union(list);
@@ -2010,7 +2010,7 @@ namespace TestUnion {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<TResult[]>;
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
 
         result = _(array).chain().union();
         result = _(array).chain().union(list);
@@ -2085,7 +2085,7 @@ namespace TestUnionBy {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<TResult[]>;
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
 
         result = _(array).unionBy<TResult>(array);
         result = _(array).unionBy<TResult>(list, array);
@@ -2137,7 +2137,7 @@ namespace TestUnionBy {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<TResult[]>;
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
 
         result = _(array).chain().unionBy<TResult>(array);
         result = _(array).chain().unionBy<TResult>(list, array);
@@ -2209,25 +2209,25 @@ namespace TestUniq {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<string[]>;
+        let result: _.LoDashImplicitArrayWrapper<string>;
         result = _('abc').uniq();
     }
 
     {
-        let result: _.LoDashImplicitWrapper<SampleObject[]>;
+        let result: _.LoDashImplicitArrayWrapper<SampleObject>;
 
         result = _(array).uniq();
         result = _(list).uniq<SampleObject>();
     }
 
     {
-        let result: _.LoDashExplicitWrapper<string[]>;
+        let result: _.LoDashExplicitArrayWrapper<string>;
 
         result = _('abc').chain().uniq();
     }
 
     {
-        let result: _.LoDashExplicitWrapper<SampleObject[]>;
+        let result: _.LoDashExplicitArrayWrapper<SampleObject>;
 
         result = _(array).chain().uniq();
         result = _(list).chain().uniq<SampleObject>();
@@ -2263,13 +2263,13 @@ namespace TestUniqBy {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<string[]>;
+        let result: _.LoDashImplicitArrayWrapper<string>;
 
         result = _('abc').uniqBy<string>(stringIterator);
     }
 
     {
-        let result: _.LoDashImplicitWrapper<SampleObject[]>;
+        let result: _.LoDashImplicitArrayWrapper<SampleObject>;
 
         result = _(array).uniqBy(listIterator);
         result = _(array).uniqBy('a');
@@ -2281,13 +2281,13 @@ namespace TestUniqBy {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<string[]>;
+        let result: _.LoDashExplicitArrayWrapper<string>;
 
         result = _('abc').chain().uniqBy<string>(stringIterator);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<SampleObject[]>;
+        let result: _.LoDashExplicitArrayWrapper<SampleObject>;
 
         result = _(array).chain().uniqBy(listIterator);
         result = _(array).chain().uniqBy('a');
@@ -2318,23 +2318,23 @@ namespace TestSortedUniq {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<string[]>;
+        let result: _.LoDashImplicitArrayWrapper<string>;
         result = _('abc').sortedUniq();
     }
 
     {
-        let result: _.LoDashImplicitWrapper<SampleObject[]>;
+        let result: _.LoDashImplicitArrayWrapper<SampleObject>;
         result = _(array).sortedUniq();
         result = _(list).sortedUniq<SampleObject>();
     }
 
     {
-        let result: _.LoDashExplicitWrapper<string[]>;
+        let result: _.LoDashExplicitArrayWrapper<string>;
         result = _('abc').chain().sortedUniq();
     }
 
     {
-        let result: _.LoDashExplicitWrapper<SampleObject[]>;
+        let result: _.LoDashExplicitArrayWrapper<SampleObject>;
         result = _(array).chain().sortedUniq();
         result = _(list).chain().sortedUniq<SampleObject>();
     }
@@ -2369,13 +2369,13 @@ namespace TestSortedUniqBy {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<string[]>;
+        let result: _.LoDashImplicitArrayWrapper<string>;
 
         result = _('abc').sortedUniqBy<string>(stringIterator);
     }
 
     {
-        let result: _.LoDashImplicitWrapper<SampleObject[]>;
+        let result: _.LoDashImplicitArrayWrapper<SampleObject>;
 
         result = _(array).sortedUniqBy(listIterator);
         result = _(array).sortedUniqBy('a');
@@ -2387,13 +2387,13 @@ namespace TestSortedUniqBy {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<string[]>;
+        let result: _.LoDashExplicitArrayWrapper<string>;
 
         result = _('abc').chain().sortedUniqBy<string>(stringIterator);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<SampleObject[]>;
+        let result: _.LoDashExplicitArrayWrapper<SampleObject>;
 
         result = _(array).chain().sortedUniqBy(listIterator);
         result = _(array).chain().sortedUniqBy('a');
@@ -2433,14 +2433,14 @@ namespace TestUnzip {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<Array<Array<(string|number|boolean)>>>;
+        let result: _.LoDashImplicitArrayWrapper<(string|number|boolean)[]>;
 
         result = _(array).unzip<string|number|boolean>();
         result = _(list).unzip<string|number|boolean>();
     }
 
     {
-        let result: _.LoDashExplicitWrapper<Array<Array<(string|number|boolean)>>>;
+        let result: _.LoDashExplicitArrayWrapper<(string|number|boolean)[]>;
 
         result = _(array).chain().unzip<string|number|boolean>();
         result = _(list).chain().unzip<string|number|boolean>();
@@ -2527,7 +2527,7 @@ namespace TestWithout {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<number[]>;
+        let result: _.LoDashImplicitArrayWrapper<number>;
 
         result = _(array).without();
         result = _(array).without(1);
@@ -2540,7 +2540,7 @@ namespace TestWithout {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<number[]>;
+        let result: _.LoDashExplicitArrayWrapper<number>;
 
         result = _(array).chain().without();
         result = _(array).chain().without(1);
@@ -2574,7 +2574,7 @@ namespace TestXor {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<TResult[]>;
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
 
         result = _(array).xor();
         result = _(array).xor(list);
@@ -2586,7 +2586,7 @@ namespace TestXor {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<TResult[]>;
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
 
         result = _(array).chain().xor();
         result = _(array).chain().xor(list);
@@ -2616,7 +2616,7 @@ namespace TestZip {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<TResult[][]>;
+        let result: _.LoDashImplicitArrayWrapper<TResult[]>;
 
         result = _(array).zip<TResult>(list);
         result = _(array).zip<TResult>(list, array);
@@ -2626,7 +2626,7 @@ namespace TestZip {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<TResult[][]>;
+        let result: _.LoDashExplicitArrayWrapper<TResult[]>;
 
         result = _(array).chain().zip<TResult>(list);
         result = _(array).chain().zip<TResult>(list, array);
@@ -2692,14 +2692,14 @@ namespace TestZipObject {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<_.Dictionary<void>>;
+        let result: _.LoDashImplicitObjectWrapper<_.Dictionary<void>>;
 
         result = _(arrayOfKeys).zipObject();
         result = _(listOfKeys).zipObject();
     }
 
     {
-        let result: _.LoDashImplicitWrapper<_.Dictionary<number>>;
+        let result: _.LoDashImplicitObjectWrapper<_.Dictionary<number>>;
 
         result = _(arrayOfKeys).zipObject<_.Dictionary<number>>(arrayOfValues);
         result = _(arrayOfKeys).zipObject<_.Dictionary<number>>(listOfValues);
@@ -2716,7 +2716,7 @@ namespace TestZipObject {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<_.Dictionary<any>>;
+        let result: _.LoDashImplicitObjectWrapper<_.Dictionary<any>>;
 
         result = _(arrayOfKeys).zipObject();
         result = _(arrayOfKeys).zipObjectDeep();
@@ -2739,14 +2739,14 @@ namespace TestZipObject {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<_.Dictionary<void>>;
+        let result: _.LoDashExplicitObjectWrapper<_.Dictionary<void>>;
 
         result = _(arrayOfKeys).chain().zipObject();
         result = _(listOfKeys).chain().zipObject();
     }
 
     {
-        let result: _.LoDashExplicitWrapper<_.Dictionary<number>>;
+        let result: _.LoDashExplicitObjectWrapper<_.Dictionary<number>>;
 
         result = _(arrayOfKeys).chain().zipObject<_.Dictionary<number>>(arrayOfValues);
         result = _(arrayOfKeys).chain().zipObject<_.Dictionary<number>>(listOfValues);
@@ -2763,7 +2763,7 @@ namespace TestZipObject {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<_.Dictionary<any>>;
+        let result: _.LoDashExplicitObjectWrapper<_.Dictionary<any>>;
 
         result = _(arrayOfKeys).chain().zipObject();
         result = _(arrayOfKeys).chain().zipObjectDeep();
@@ -2970,14 +2970,14 @@ namespace TestChain {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<string[]>;
+        let result: _.LoDashExplicitArrayWrapper<string>;
 
         result = _.chain(['']);
         result = _(['']).chain();
     }
 
     {
-        let result: _.LoDashExplicitWrapper<{a: string}>;
+        let result: _.LoDashExplicitObjectWrapper<{a: string}>;
 
         result = _.chain<{a: string}>({a: ''});
         result = _<{a: string}>({a: ''}).chain();
@@ -2995,14 +2995,14 @@ namespace TestTap {
 
     {
         let interceptor = (value: string[]) => {};
-        let result: _.LoDashImplicitWrapper<string[]>;
+        let result: _.LoDashImplicitArrayWrapper<string>;
 
         _.tap([''], interceptor);
     }
 
     {
         let interceptor = (value: {a: string}) => {};
-        let result: _.LoDashImplicitWrapper<{a: string}>;
+        let result: _.LoDashImplicitObjectWrapper<{a: string}>;
 
         _.tap({a: ''}, interceptor);
     }
@@ -3018,7 +3018,7 @@ namespace TestTap {
 
     {
         let interceptor = (value: string[]) => {};
-        let result: _.LoDashImplicitWrapper<string[]>;
+        let result: _.LoDashImplicitArrayWrapper<string>;
 
         _.chain(['']).tap(interceptor);
 
@@ -3045,7 +3045,7 @@ namespace TestTap {
 
     {
         let interceptor = (value: string[]) => {};
-        let result: _.LoDashExplicitWrapper<string[]>;
+        let result: _.LoDashExplicitArrayWrapper<string>;
 
         _.chain(['']).tap(interceptor);
 
@@ -3098,14 +3098,14 @@ namespace TestThru {
 
     {
         let interceptor: Interceptor<{a: string}> = (x) => x;
-        let result: _.LoDashImplicitWrapper<{a: string}>;
+        let result: _.LoDashImplicitObjectWrapper<{a: string}>;
 
         result = _({a: ''}).thru<{a: string}>(interceptor);
     }
 
     {
         let interceptor: Interceptor<number[]> = (x) => x;
-        let result: _.LoDashImplicitWrapper<number[]>;
+        let result: _.LoDashImplicitArrayWrapper<number>;
 
         result = _([1, 2, 3]).thru(interceptor);
     }
@@ -3133,14 +3133,14 @@ namespace TestThru {
 
     {
         let interceptor: Interceptor<{a: string}> = (x) => x;
-        let result: _.LoDashExplicitWrapper<{a: string}>;
+        let result: _.LoDashExplicitObjectWrapper<{a: string}>;
 
         result = _({a: ''}).chain().thru<{a: string}>(interceptor);
     }
 
     {
         let interceptor: Interceptor<number[]> = (x) => x;
-        let result: _.LoDashExplicitWrapper<number[]>;
+        let result: _.LoDashExplicitArrayWrapper<number>;
 
         result = _([1, 2, 3]).chain().thru(interceptor);
     }
@@ -3154,12 +3154,12 @@ namespace TestCommit {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<any[]>;
+        let result: _.LoDashImplicitArrayWrapper<any>;
         result = _<any>([]).commit();
     }
 
     {
-        let result: _.LoDashImplicitWrapper<any>;
+        let result: _.LoDashImplicitObjectWrapper<any>;
         result = _({}).commit();
     }
 
@@ -3169,12 +3169,12 @@ namespace TestCommit {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<any[]>;
+        let result: _.LoDashExplicitArrayWrapper<any>;
         result = _<any>([]).chain().commit();
     }
 
     {
-        let result: _.LoDashExplicitWrapper<any>;
+        let result: _.LoDashExplicitObjectWrapper<any>;
         result = _({}).chain().commit();
     }
 }
@@ -3182,7 +3182,7 @@ namespace TestCommit {
 // _.prototype.concat
 namespace TestConcat {
     {
-        let result: _.LoDashImplicitWrapper<number[]>;
+        let result: _.LoDashImplicitArrayWrapper<number>;
 
         result = _(1).concat<number>(2);
         result = _(1).concat<number>(2, 3);
@@ -3194,7 +3194,7 @@ namespace TestConcat {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<string[]>;
+        let result: _.LoDashImplicitArrayWrapper<string>;
 
         result = _(['']).concat<string>(['']);
         result = _(['']).concat<string>([''], ['']);
@@ -3206,7 +3206,7 @@ namespace TestConcat {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<Array<{a: string}>>;
+        let result: _.LoDashImplicitArrayWrapper<{a: string}>;
 
         result = _({a: ''}).concat<{a: string}>({a: ''});
         result = _({a: ''}).concat<{a: string}>({a: ''}, {a: ''});
@@ -3218,7 +3218,7 @@ namespace TestConcat {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<number[]>;
+        let result: _.LoDashExplicitArrayWrapper<number>;
 
         result = _(1).chain().concat<number>(2);
         result = _(1).chain().concat<number>(2, 3);
@@ -3230,7 +3230,7 @@ namespace TestConcat {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<string[]>;
+        let result: _.LoDashExplicitArrayWrapper<string>;
 
         result = _(['']).chain().concat<string>(['']);
         result = _(['']).chain().concat<string>([''], ['']);
@@ -3242,7 +3242,7 @@ namespace TestConcat {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<Array<{a: string}>>;
+        let result: _.LoDashExplicitArrayWrapper<{a: string}>;
 
         result = _({a: ''}).chain().concat<{a: string}>({a: ''});
         result = _({a: ''}).chain().concat<{a: string}>({a: ''}, {a: ''});
@@ -3262,7 +3262,7 @@ namespace TestPlant {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<string>;
+        let result: _.LoDashImplicitStringWrapper;
         result = _(any).plant('');
     }
 
@@ -3272,12 +3272,12 @@ namespace TestPlant {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<number[]>;
+        let result: _.LoDashImplicitNumberArrayWrapper;
         result = _(any).plant([42]);
     }
 
     {
-        let result: _.LoDashImplicitWrapper<any[]>;
+        let result: _.LoDashImplicitArrayWrapper<any>;
         result = _(any).plant<any>([]);
     }
 
@@ -3292,7 +3292,7 @@ namespace TestPlant {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<string>;
+        let result: _.LoDashExplicitStringWrapper;
         result = _(any).chain().plant('');
     }
 
@@ -3302,12 +3302,12 @@ namespace TestPlant {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<number[]>;
+        let result: _.LoDashExplicitNumberArrayWrapper;
         result = _(any).chain().plant([42]);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<any[]>;
+        let result: _.LoDashExplicitArrayWrapper<any>;
         result = _(any).chain().plant<any>([]);
     }
 
@@ -3320,12 +3320,12 @@ namespace TestPlant {
 // _.prototype.reverse
 namespace TestReverse {
     {
-        let result: _.LoDashImplicitWrapper<number[]>;
+        let result: _.LoDashImplicitArrayWrapper<number>;
         result = _([42]).reverse();
     }
 
     {
-        let result: _.LoDashExplicitWrapper<number[]>;
+        let result: _.LoDashExplicitArrayWrapper<number>;
         result = _([42]).chain().reverse();
     }
 }
@@ -3480,7 +3480,7 @@ namespace TestAt {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<TResult[]>;
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
 
         result = _(array).at(0, '1', [2], ['3'], [4, '5']);
         result = _(list).at<TResult>(0, '1', [2], ['3'], [4, '5']);
@@ -3488,7 +3488,7 @@ namespace TestAt {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<TResult[]>;
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
 
         result = _(array).chain().at(0, '1', [2], ['3'], [4, '5']);
         result = _(list).chain().at<TResult>(0, '1', [2], ['3'], [4, '5']);
@@ -3541,7 +3541,7 @@ namespace TestCountBy {
     }
 
     {
-        let resutl: _.LoDashImplicitWrapper<_.Dictionary<number>>;
+        let resutl: _.LoDashImplicitObjectWrapper<_.Dictionary<number>>;
 
         result = _('').countBy();
         result = _('').countBy(stringIterator);
@@ -3572,7 +3572,7 @@ namespace TestCountBy {
     }
 
     {
-        let resutl: _.LoDashExplicitWrapper<_.Dictionary<number>>;
+        let resutl: _.LoDashExplicitObjectWrapper<_.Dictionary<number>>;
 
         result = _('').chain().countBy();
         result = _('').chain().countBy(stringIterator);
@@ -3671,19 +3671,19 @@ namespace TestEach {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<TResult[]>;
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
 
         result = _(array).each(listIterator);
     }
 
     {
-        let result: _.LoDashImplicitWrapper<_.List<TResult>>;
+        let result: _.LoDashImplicitObjectWrapper<_.List<TResult>>;
 
         result = _(list).each<TResult>(listIterator);
     }
 
     {
-        let result: _.LoDashImplicitWrapper<_.Dictionary<TResult>>;
+        let result: _.LoDashImplicitObjectWrapper<_.Dictionary<TResult>>;
 
         result = _(dictionary).each(dictionaryIterator);
     }
@@ -3695,19 +3695,19 @@ namespace TestEach {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<TResult[]>;
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
 
         result = _(array).chain().each(listIterator);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<_.List<TResult>>;
+        let result: _.LoDashExplicitObjectWrapper<_.List<TResult>>;
 
         result = _(list).chain().each<TResult>(listIterator);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<_.Dictionary<TResult>>;
+        let result: _.LoDashExplicitObjectWrapper<_.Dictionary<TResult>>;
 
         result = _(dictionary).chain().each(dictionaryIterator);
     }
@@ -3781,19 +3781,19 @@ namespace TestEachRight {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<TResult[]>;
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
 
         result = _(array).eachRight(listIterator);
     }
 
     {
-        let result: _.LoDashImplicitWrapper<_.List<TResult>>;
+        let result: _.LoDashImplicitObjectWrapper<_.List<TResult>>;
 
         result = _(list).eachRight<TResult>(listIterator);
     }
 
     {
-        let result: _.LoDashImplicitWrapper<_.Dictionary<TResult>>;
+        let result: _.LoDashImplicitObjectWrapper<_.Dictionary<TResult>>;
 
         result = _(dictionary).eachRight(dictionaryIterator);
     }
@@ -3805,19 +3805,19 @@ namespace TestEachRight {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<TResult[]>;
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
 
         result = _(array).chain().eachRight(listIterator);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<_.List<TResult>>;
+        let result: _.LoDashExplicitObjectWrapper<_.List<TResult>>;
 
         result = _(list).chain().eachRight<TResult>(listIterator);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<_.Dictionary<TResult>>;
+        let result: _.LoDashExplicitObjectWrapper<_.Dictionary<TResult>>;
 
         result = _(dictionary).chain().eachRight(dictionaryIterator);
     }
@@ -3955,13 +3955,13 @@ namespace TestFilter {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<string[]>;
+        let result: _.LoDashImplicitArrayWrapper<string>;
 
         result = _('').filter(stringIterator);
     }
 
     {
-        let result: _.LoDashImplicitWrapper<TResult[]>;
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
 
         result = _(array).filter(listIterator);
         result = _(array).filter('');
@@ -3980,13 +3980,13 @@ namespace TestFilter {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<string[]>;
+        let result: _.LoDashExplicitArrayWrapper<string>;
 
         result = _('').chain().filter(stringIterator);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<TResult[]>;
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
 
         result = _(array).chain().filter(listIterator);
         result = _(array).chain().filter('');
@@ -4261,13 +4261,13 @@ namespace TestFlatMap {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<string[]>;
+        let result: _.LoDashImplicitArrayWrapper<string>;
 
         result = _('abc').flatMap();
     }
 
     {
-        let result: _.LoDashImplicitWrapper<number[]>;
+        let result: _.LoDashImplicitArrayWrapper<number>;
 
         result = _(numArray).flatMap<number>();
         result = _(numArray).flatMap(listIterator);
@@ -4287,7 +4287,7 @@ namespace TestFlatMap {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<boolean[]>;
+        let result: _.LoDashImplicitArrayWrapper<boolean>;
 
         result = _(objArray).flatMap(['a', 42]);
         result = _(objArray).flatMap({a: 42});
@@ -4303,13 +4303,13 @@ namespace TestFlatMap {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<string[]>;
+        let result: _.LoDashExplicitArrayWrapper<string>;
 
         result = _('abc').chain().flatMap();
     }
 
     {
-        let result: _.LoDashExplicitWrapper<number[]>;
+        let result: _.LoDashExplicitArrayWrapper<number>;
 
         result = _(numArray).chain().flatMap<number>();
         result = _(numArray).chain().flatMap(listIterator);
@@ -4329,7 +4329,7 @@ namespace TestFlatMap {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<boolean[]>;
+        let result: _.LoDashExplicitArrayWrapper<boolean>;
 
         result = _(objArray).chain().flatMap(['a', 42]);
         result = _(objArray).chain().flatMap({a: 42});
@@ -4464,7 +4464,7 @@ namespace TestForEach {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<TResult[]>;
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
 
         result = _(array).forEach((value, index, collection) => {
             value; // $ExpectType TResult
@@ -4474,7 +4474,7 @@ namespace TestForEach {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<TResult[] | null | undefined>;
+        let result: _.LoDashImplicitNillableArrayWrapper<TResult>;
 
         result = _(nilArray).forEach((value, index, collection) => {
             value; // $ExpectType TResult
@@ -4484,25 +4484,25 @@ namespace TestForEach {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<_.List<TResult>>;
+        let result: _.LoDashImplicitObjectWrapper<_.List<TResult>>;
 
         result = _(list).forEach<TResult>(listIterator);
     }
 
     {
-        let result: _.LoDashImplicitWrapper<_.List<TResult> | null | undefined>;
+        let result: _.LoDashImplicitNillableObjectWrapper<_.List<TResult>>;
 
         result = _(nilList).forEach<TResult>(listIterator);
     }
 
     {
-        let result: _.LoDashImplicitWrapper<_.Dictionary<TResult>>;
+        let result: _.LoDashImplicitObjectWrapper<_.Dictionary<TResult>>;
 
         result = _(dictionary).forEach(dictionaryIterator);
     }
 
     {
-        let result: _.LoDashImplicitWrapper<_.Dictionary<TResult> | null | undefined>;
+        let result: _.LoDashImplicitNillableObjectWrapper<_.Dictionary<TResult>>;
 
         result = _(nilDictionary).forEach(dictionaryIterator);
     }
@@ -4518,7 +4518,7 @@ namespace TestForEach {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<TResult[]>;
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
 
         result = _(array).chain().forEach((value, index, collection) => {
             value; // $ExpectType TResult
@@ -4528,7 +4528,7 @@ namespace TestForEach {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<TResult[] | null | undefined>;
+        let result: _.LoDashExplicitNillableArrayWrapper<TResult>;
 
         result = _(nilArray).chain().forEach((value, index, collection) => {
             value; // $ExpectType TResult
@@ -4538,25 +4538,25 @@ namespace TestForEach {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<_.List<TResult>>;
+        let result: _.LoDashExplicitObjectWrapper<_.List<TResult>>;
 
         result = _(list).chain().forEach<TResult>(listIterator);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<_.List<TResult> | null | undefined>;
+        let result: _.LoDashExplicitNillableObjectWrapper<_.List<TResult>>;
 
         result = _(nilList).chain().forEach<TResult>(listIterator);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<_.Dictionary<TResult>>;
+        let result: _.LoDashExplicitObjectWrapper<_.Dictionary<TResult>>;
 
         result = _(dictionary).chain().forEach(dictionaryIterator);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<_.Dictionary<TResult> | null | undefined>;
+        let result: _.LoDashExplicitNillableObjectWrapper<_.Dictionary<TResult>>;
 
         result = _(nilDictionary).chain().forEach(dictionaryIterator);
     }
@@ -4665,37 +4665,37 @@ namespace TestForEachRight {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<TResult[]>;
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
 
         result = _(array).forEachRight(listIterator);
     }
 
     {
-        let result: _.LoDashImplicitWrapper<TResult[] | null | undefined>;
+        let result: _.LoDashImplicitNillableArrayWrapper<TResult>;
 
         result = _(nilArray).forEachRight(listIterator);
     }
 
     {
-        let result: _.LoDashImplicitWrapper<_.List<TResult>>;
+        let result: _.LoDashImplicitObjectWrapper<_.List<TResult>>;
 
         result = _(list).forEachRight<TResult>(listIterator);
     }
 
     {
-        let result: _.LoDashImplicitWrapper<_.List<TResult> | null | undefined>;
+        let result: _.LoDashImplicitNillableObjectWrapper<_.List<TResult>>;
 
         result = _(nilList).forEachRight<TResult>(listIterator);
     }
 
     {
-        let result: _.LoDashImplicitWrapper<_.Dictionary<TResult>>;
+        let result: _.LoDashImplicitObjectWrapper<_.Dictionary<TResult>>;
 
         result = _(dictionary).forEachRight(dictionaryIterator);
     }
 
     {
-        let result: _.LoDashImplicitWrapper<_.Dictionary<TResult> | null | undefined>;
+        let result: _.LoDashImplicitNillableObjectWrapper<_.Dictionary<TResult>>;
 
         result = _(nilDictionary).forEachRight(dictionaryIterator);
     }
@@ -4711,7 +4711,7 @@ namespace TestForEachRight {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<TResult[]>;
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
 
         result = _(array).chain().forEachRight((value, index, collection) => {
             value; // $ExpectType TResult
@@ -4721,7 +4721,7 @@ namespace TestForEachRight {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<TResult[] | null | undefined>;
+        let result: _.LoDashExplicitNillableArrayWrapper<TResult>;
 
         result = _(nilArray).chain().forEachRight((value, index, collection) => {
             value; // $ExpectType TResult
@@ -4731,25 +4731,25 @@ namespace TestForEachRight {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<_.List<TResult>>;
+        let result: _.LoDashExplicitObjectWrapper<_.List<TResult>>;
 
         result = _(list).chain().forEachRight(listIterator);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<_.List<TResult> | null | undefined>;
+        let result: _.LoDashExplicitNillableObjectWrapper<_.List<TResult>>;
 
         result = _(nilList).chain().forEachRight<TResult>(listIterator);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<_.Dictionary<TResult>>;
+        let result: _.LoDashExplicitObjectWrapper<_.Dictionary<TResult>>;
 
         result = _(dictionary).chain().forEachRight(dictionaryIterator);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<_.Dictionary<TResult> | null | undefined>;
+        let result: _.LoDashExplicitNillableObjectWrapper<_.Dictionary<TResult>>;
 
         result = _(nilDictionary).chain().forEachRight(dictionaryIterator);
     }
@@ -4795,13 +4795,13 @@ namespace TestGroupBy {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<_.Dictionary<string[]>>;
+        let result: _.LoDashImplicitObjectWrapper<_.Dictionary<string[]>>;
 
         result = _('').groupBy();
     }
 
     {
-        let result: _.LoDashImplicitWrapper<_.Dictionary<SampleType[]>>;
+        let result: _.LoDashImplicitObjectWrapper<_.Dictionary<SampleType[]>>;
 
         result = _(array).groupBy();
         result = _(array).groupBy(listIterator);
@@ -4820,13 +4820,13 @@ namespace TestGroupBy {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<_.Dictionary<string[]>>;
+        let result: _.LoDashExplicitObjectWrapper<_.Dictionary<string[]>>;
 
         result = _('').chain().groupBy();
     }
 
     {
-        let result: _.LoDashExplicitWrapper<_.Dictionary<SampleType[]>>;
+        let result: _.LoDashExplicitObjectWrapper<_.Dictionary<SampleType[]>>;
 
         result = _(array).chain().groupBy();
         result = _(array).chain().groupBy(listIterator);
@@ -4939,14 +4939,14 @@ namespace TestKeyBy {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<_.Dictionary<string>>;
+        let result: _.LoDashImplicitObjectWrapper<_.Dictionary<string>>;
 
         result = _('abcd').keyBy();
         result = _('abcd').keyBy(stringIterator);
     }
 
     {
-        let result: _.LoDashImplicitWrapper<_.Dictionary<SampleObject>>;
+        let result: _.LoDashImplicitObjectWrapper<_.Dictionary<SampleObject>>;
 
         result = _(array).keyBy();
         result = _(array).keyBy(listIterator);
@@ -4970,14 +4970,14 @@ namespace TestKeyBy {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<_.Dictionary<string>>;
+        let result: _.LoDashExplicitObjectWrapper<_.Dictionary<string>>;
 
         result = _('abcd').chain().keyBy();
         result = _('abcd').chain().keyBy(stringIterator);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<_.Dictionary<SampleObject>>;
+        let result: _.LoDashExplicitObjectWrapper<_.Dictionary<SampleObject>>;
 
         result = _(array).chain().keyBy();
         result = _(array).chain().keyBy(listIterator);
@@ -5189,7 +5189,7 @@ namespace TestMap {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<boolean[]>;
+        let result: _.LoDashExplicitArrayWrapper<boolean>;
 
         result = _(array).chain().map({});
         result = _(list).chain().map({});
@@ -5484,13 +5484,13 @@ namespace TestReject {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<string[]>;
+        let result: _.LoDashImplicitArrayWrapper<string>;
 
         result = _('').reject(stringIterator);
     }
 
     {
-        let result: _.LoDashImplicitWrapper<TResult[]>;
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
 
         result = _(array).reject(listIterator);
         result = _(array).reject('');
@@ -5506,13 +5506,13 @@ namespace TestReject {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<string[]>;
+        let result: _.LoDashExplicitArrayWrapper<string>;
 
         result = _('').chain().reject(stringIterator);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<TResult[]>;
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
 
         result = _(array).chain().reject(listIterator);
         result = _(array).chain().reject('');
@@ -5595,7 +5595,7 @@ namespace TestSampleSize {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<string[]>;
+        let result: _.LoDashImplicitArrayWrapper<string>;
 
         result = _('abc').sampleSize();
         result = _('abc').sampleSize(42);
@@ -5612,7 +5612,7 @@ namespace TestSampleSize {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<string[]>;
+        let result: _.LoDashExplicitArrayWrapper<string>;
 
         result = _('abc').chain().sampleSize();
         result = _('abc').chain().sampleSize(42);
@@ -5651,13 +5651,13 @@ namespace TestShuffle {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<string[]>;
+        let result: _.LoDashImplicitArrayWrapper<string>;
 
         result = _('abc').shuffle();
     }
 
     {
-        let result: _.LoDashImplicitWrapper<TResult[]>;
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
 
         result = _(array).shuffle();
         result = _(list).shuffle<TResult>();
@@ -5665,13 +5665,13 @@ namespace TestShuffle {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<string[]>;
+        let result: _.LoDashExplicitArrayWrapper<string>;
 
         result = _('abc').chain().shuffle();
     }
 
     {
-        let result: _.LoDashExplicitWrapper<TResult[]>;
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
 
         result = _(array).chain().shuffle();
         result = _(list).chain().shuffle<TResult>();
@@ -5863,7 +5863,7 @@ namespace TestSortBy {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<TResult[]>;
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
 
         result = _(array).sortBy();
         result = _(array).sortBy(listIterator);
@@ -5882,7 +5882,7 @@ namespace TestSortBy {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<TResult[]>;
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
 
         result = _(array).chain().sortBy();
         result = _(array).chain().sortBy(listIterator);
@@ -5953,7 +5953,7 @@ namespace TestorderBy {
 
     {
         let iteratees: (value: SampleObject) => any|string|{a: number}|((value: SampleObject) => any|string|{a: number})[] = (value) => "";
-        let result: _.LoDashImplicitWrapper<SampleObject[]>;
+        let result: _.LoDashImplicitArrayWrapper<SampleObject>;
 
         result = _(array).orderBy(iteratees);
         result = _(array).orderBy(iteratees, orders);
@@ -5976,7 +5976,7 @@ namespace TestorderBy {
 
     {
         let iteratees: (value: SampleObject) => any|string|{a: number}|((value: SampleObject) => any|string|{a: number})[] = (value) => "";
-        let result: _.LoDashExplicitWrapper<SampleObject[]>;
+        let result: _.LoDashExplicitArrayWrapper<SampleObject>;
 
         result = _(array).chain().orderBy(iteratees);
         result = _(array).chain().orderBy(iteratees, orders);
@@ -6039,13 +6039,13 @@ namespace TestAfter {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<Func>;
+        let result: _.LoDashImplicitObjectWrapper<Func>;
 
         _(42).after(func);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<Func>;
+        let result: _.LoDashExplicitObjectWrapper<Func>;
 
         _(42).chain().after(func);
     }
@@ -6067,14 +6067,14 @@ namespace TestAry {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<SampleFunc>;
+        let result: _.LoDashImplicitObjectWrapper<SampleFunc>;
 
         result = _(func).ary();
         result = _(func).ary(2);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<SampleFunc>;
+        let result: _.LoDashExplicitObjectWrapper<SampleFunc>;
 
         result = _(func).chain().ary();
         result = _(func).chain().ary(2);
@@ -6096,13 +6096,13 @@ namespace TestBefore {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<Func>;
+        let result: _.LoDashImplicitObjectWrapper<Func>;
 
         _(42).before(func);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<Func>;
+        let result: _.LoDashExplicitObjectWrapper<Func>;
 
         _(42).chain().before(func);
     }
@@ -6144,7 +6144,7 @@ namespace TestBind {
     {
         type SampleResult = (a: number, b: string) => boolean;
 
-        let result: _.LoDashImplicitWrapper<SampleResult>;
+        let result: _.LoDashImplicitObjectWrapper<SampleResult>;
 
         result = _(func).bind(any);
     }
@@ -6152,7 +6152,7 @@ namespace TestBind {
     {
         type SampleResult = (b: string) => boolean;
 
-        let result: _.LoDashImplicitWrapper<SampleResult>;
+        let result: _.LoDashImplicitObjectWrapper<SampleResult>;
 
         result = _(func).bind(any, 42);
     }
@@ -6160,7 +6160,7 @@ namespace TestBind {
     {
         type SampleResult = () => boolean;
 
-        let result: _.LoDashImplicitWrapper<SampleResult>;
+        let result: _.LoDashImplicitObjectWrapper<SampleResult>;
 
         result = _(func).bind(any, 42, '');
     }
@@ -6168,7 +6168,7 @@ namespace TestBind {
     {
         type SampleResult = (a: number, b: string) => boolean;
 
-        let result: _.LoDashExplicitWrapper<SampleResult>;
+        let result: _.LoDashExplicitObjectWrapper<SampleResult>;
 
         result = _(func).chain().bind(any);
     }
@@ -6210,7 +6210,7 @@ namespace TestBindAll {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<SampleObject>;
+        let result: _.LoDashImplicitObjectWrapper<SampleObject>;
 
         result = _(object).bindAll();
         result = _(object).bindAll('c');
@@ -6219,7 +6219,7 @@ namespace TestBindAll {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<SampleObject>;
+        let result: _.LoDashExplicitObjectWrapper<SampleObject>;
 
         result = _(object).chain().bindAll();
         result = _(object).chain().bindAll('c');
@@ -6261,7 +6261,7 @@ namespace TestBindKey {
     {
         type SampleResult = (a: number, b: string) => boolean;
 
-        let result: _.LoDashImplicitWrapper<SampleResult>;
+        let result: _.LoDashImplicitObjectWrapper<SampleResult>;
 
         result = _(object).bindKey('foo');
     }
@@ -6269,7 +6269,7 @@ namespace TestBindKey {
     {
         type SampleResult = (b: string) => boolean;
 
-        let result: _.LoDashImplicitWrapper<SampleResult>;
+        let result: _.LoDashImplicitObjectWrapper<SampleResult>;
 
         result = _(object).bindKey('foo', 42);
     }
@@ -6277,7 +6277,7 @@ namespace TestBindKey {
     {
         type SampleResult = () => boolean;
 
-        let result: _.LoDashImplicitWrapper<SampleResult>;
+        let result: _.LoDashImplicitObjectWrapper<SampleResult>;
 
         result = _(object).bindKey('foo', 42, '');
     }
@@ -6285,7 +6285,7 @@ namespace TestBindKey {
     {
         type SampleResult = (a: number, b: string) => boolean;
 
-        let result: _.LoDashExplicitWrapper<SampleResult>;
+        let result: _.LoDashExplicitObjectWrapper<SampleResult>;
 
         result = _(object).chain().bindKey('foo');
     }
@@ -6293,7 +6293,7 @@ namespace TestBindKey {
     {
         type SampleResult = (b: string) => boolean;
 
-        let result: _.LoDashExplicitWrapper<SampleResult>;
+        let result: _.LoDashExplicitObjectWrapper<SampleResult>;
 
         result = _(object).chain().bindKey('foo', 42);
     }
@@ -6301,7 +6301,7 @@ namespace TestBindKey {
     {
         type SampleResult = () => boolean;
 
-        let result: _.LoDashExplicitWrapper<SampleResult>;
+        let result: _.LoDashExplicitObjectWrapper<SampleResult>;
 
         result = _(object).chain().bindKey('foo', 42, '');
     }
@@ -6385,7 +6385,7 @@ namespace TestDebounce {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<ResultFunc>;
+        let result: _.LoDashImplicitObjectWrapper<ResultFunc>;
 
         result = _(func).debounce();
         result = _(func).debounce(42);
@@ -6393,7 +6393,7 @@ namespace TestDebounce {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<ResultFunc>;
+        let result: _.LoDashExplicitObjectWrapper<ResultFunc>;
 
         result = _(func).chain().debounce();
         result = _(func).chain().debounce(42);
@@ -6481,13 +6481,13 @@ namespace TestFlip {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<Func>;
+        let result: _.LoDashImplicitObjectWrapper<Func>;
 
         result = _(func).flip();
     }
 
     {
-        let result: _.LoDashExplicitWrapper<Func>;
+        let result: _.LoDashExplicitObjectWrapper<Func>;
 
         result = _(func).chain().flip();
     }
@@ -6524,7 +6524,7 @@ namespace TestFlow {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<(m: number, n: number) => number>;
+        let result: _.LoDashImplicitObjectWrapper<(m: number, n: number) => number>;
 
         result = _(Fn1).flow(Fn2);
         result = _(Fn1).flow(Fn1, Fn2);
@@ -6533,7 +6533,7 @@ namespace TestFlow {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<(m: number, n: number) => number>;
+        let result: _.LoDashExplicitObjectWrapper<(m: number, n: number) => number>;
 
         result = _(Fn1).chain().flow(Fn2);
         result = _(Fn1).chain().flow(Fn1, Fn2);
@@ -6557,7 +6557,7 @@ namespace TestFlowRight {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<(m: number, n: number) => number>;
+        let result: _.LoDashImplicitObjectWrapper<(m: number, n: number) => number>;
 
         result = _(Fn1).flowRight(Fn2);
         result = _(Fn1).flowRight(Fn1, Fn2);
@@ -6566,7 +6566,7 @@ namespace TestFlowRight {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<(m: number, n: number) => number>;
+        let result: _.LoDashExplicitObjectWrapper<(m: number, n: number) => number>;
 
         result = _(Fn1).chain().flowRight(Fn2);
         result = _(Fn1).chain().flowRight(Fn1, Fn2);
@@ -6601,14 +6601,14 @@ namespace TestMemoize {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<MemoizedResultFn>;
+        let result: _.LoDashImplicitObjectWrapper<MemoizedResultFn>;
 
         result = _(memoizeFn).memoize();
         result = _(memoizeFn).memoize(memoizeResolverFn);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<MemoizedResultFn>;
+        let result: _.LoDashExplicitObjectWrapper<MemoizedResultFn>;
 
         result = _(memoizeFn).chain().memoize();
         result = _(memoizeFn).chain().memoize(memoizeResolverFn);
@@ -6658,28 +6658,28 @@ namespace TestOverArgs {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<(a: string) => boolean>;
+        let result: _.LoDashImplicitObjectWrapper<(a: string) => boolean>;
 
         result = _(func1).overArgs(transform1);
         result = _(func1).overArgs([transform1]);
     }
 
     {
-        let result: _.LoDashImplicitWrapper<(a: string, b: number) => boolean>;
+        let result: _.LoDashImplicitObjectWrapper<(a: string, b: number) => boolean>;
 
         result = _(func2).overArgs(transform1, transform2);
         result = _(func2).overArgs([transform1, transform2]);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<(a: string) => boolean>;
+        let result: _.LoDashExplicitObjectWrapper<(a: string) => boolean>;
 
         result = _(func1).chain().overArgs(transform1);
         result = _(func1).chain().overArgs([transform1]);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<(a: string, b: number) => boolean>;
+        let result: _.LoDashExplicitObjectWrapper<(a: string, b: number) => boolean>;
 
         result = _(func2).chain().overArgs(transform1, transform2);
         result = _(func2).chain().overArgs([transform1, transform2]);
@@ -6705,13 +6705,13 @@ namespace TestNegate {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<ResultFn>;
+        let result: _.LoDashImplicitObjectWrapper<ResultFn>;
 
         result = _(predicate).negate();
     }
 
     {
-        let result: _.LoDashExplicitWrapper<ResultFn>;
+        let result: _.LoDashExplicitObjectWrapper<ResultFn>;
 
         result = _(predicate).chain().negate();
     }
@@ -6732,13 +6732,13 @@ namespace TestOnce {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<Func>;
+        let result: _.LoDashImplicitObjectWrapper<Func>;
 
         result = _(func).once();
     }
 
     {
-        let result: _.LoDashExplicitWrapper<Func>;
+        let result: _.LoDashExplicitObjectWrapper<Func>;
 
         result = _(func).chain().once();
     }
@@ -6782,14 +6782,14 @@ namespace TestRest {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<ResultFunc>;
+        let result: _.LoDashImplicitObjectWrapper<ResultFunc>;
 
         result = _(func).rest();
         result = _(func).rest(1);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<ResultFunc>;
+        let result: _.LoDashExplicitObjectWrapper<ResultFunc>;
 
         result = _(func).chain().rest();
         result = _(func).chain().rest(1);
@@ -6810,13 +6810,13 @@ namespace TestSpread {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<SampleResult>;
+        let result: _.LoDashImplicitObjectWrapper<SampleResult>;
 
         result = _(func).spread();
     }
 
     {
-        let result: _.LoDashExplicitWrapper<SampleResult>;
+        let result: _.LoDashExplicitObjectWrapper<SampleResult>;
 
         result = _(func).chain().spread();
     }
@@ -6850,7 +6850,7 @@ namespace TestThrottle {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<ResultFunc>;
+        let result: _.LoDashImplicitObjectWrapper<ResultFunc>;
 
         result = _(func).throttle();
         result = _(func).throttle(42);
@@ -6858,7 +6858,7 @@ namespace TestThrottle {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<ResultFunc>;
+        let result: _.LoDashExplicitObjectWrapper<ResultFunc>;
 
         result = _(func).chain().throttle();
         result = _(func).chain().throttle(42);
@@ -6881,13 +6881,13 @@ namespace TestUnary {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<Func>;
+        let result: _.LoDashImplicitObjectWrapper<Func>;
 
         result = _(func).unary();
     }
 
     {
-        let result: _.LoDashExplicitWrapper<Func>;
+        let result: _.LoDashExplicitObjectWrapper<Func>;
 
         result = _(func).chain().unary();
     }
@@ -6913,7 +6913,7 @@ namespace TestWrap {
 
         let value = 0;
         let wrapper: SampleWrapper = (a, b, c) => true;
-        let result: _.LoDashImplicitWrapper<SampleResult>;
+        let result: _.LoDashImplicitObjectWrapper<SampleResult>;
 
         result = _(value).wrap(wrapper);
     }
@@ -6923,7 +6923,7 @@ namespace TestWrap {
 
         let value: number[] = [];
         let wrapper: SampleWrapper = (a, b, c) => true;
-        let result: _.LoDashImplicitWrapper<SampleResult>;
+        let result: _.LoDashImplicitObjectWrapper<SampleResult>;
 
         result = _(value).wrap(wrapper);
     }
@@ -6933,7 +6933,7 @@ namespace TestWrap {
 
         let value: SampleValue = { a: 1, b: "", c: true };
         let wrapper: SampleWrapper = (a, b, c) => true;
-        let result: _.LoDashImplicitWrapper<SampleResult>;
+        let result: _.LoDashImplicitObjectWrapper<SampleResult>;
 
         result = _(value).wrap(wrapper);
     }
@@ -6943,7 +6943,7 @@ namespace TestWrap {
 
         let value = 0;
         let wrapper: SampleWrapper = (a, b, c) => true;
-        let result: _.LoDashExplicitWrapper<SampleResult>;
+        let result: _.LoDashExplicitObjectWrapper<SampleResult>;
 
         result = _(value).chain().wrap(wrapper);
     }
@@ -6953,7 +6953,7 @@ namespace TestWrap {
 
         let value: number[] = [];
         let wrapper: SampleWrapper = (a, b, c) => true;
-        let result: _.LoDashExplicitWrapper<SampleResult>;
+        let result: _.LoDashExplicitObjectWrapper<SampleResult>;
 
         result = _(value).chain().wrap(wrapper);
     }
@@ -6963,7 +6963,7 @@ namespace TestWrap {
 
         let value: SampleValue = { a: 1, b: "", c: true };
         let wrapper: SampleWrapper = (a, b, c) => true;
-        let result: _.LoDashExplicitWrapper<SampleResult>;
+        let result: _.LoDashExplicitObjectWrapper<SampleResult>;
 
         result = _(value).chain().wrap(wrapper);
     }
@@ -6982,27 +6982,27 @@ namespace TestCastArray {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<number[]>;
+        let result: _.LoDashImplicitArrayWrapper<number>;
 
         result = _(42).castArray();
         result = _([42]).castArray();
     }
 
     {
-        let result: _.LoDashImplicitWrapper<Array<{a: number}>>;
+        let result: _.LoDashImplicitArrayWrapper<{a: number}>;
 
         result = _({a: 42}).castArray();
     }
 
     {
-        let result: _.LoDashExplicitWrapper<number[]>;
+        let result: _.LoDashExplicitArrayWrapper<number>;
 
         result = _(42).chain().castArray();
         result = _([42]).chain().castArray();
     }
 
     {
-        let result: _.LoDashExplicitWrapper<Array<{a: number}>>;
+        let result: _.LoDashExplicitArrayWrapper<{a: number}>;
 
         result = _({a: 42}).chain().castArray();
     }
@@ -7031,7 +7031,7 @@ namespace TestClone {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<string[]>;
+        let result: _.LoDashExplicitArrayWrapper<string>;
 
         result = _(['']).chain().clone();
     }
@@ -7044,7 +7044,7 @@ namespace TestClone {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<{a: {b: number;};}>;
+        let result: _.LoDashExplicitObjectWrapper<{a: {b: number;};}>;
 
         result = _({a: {b: 42}}).chain().clone();
     }
@@ -7073,7 +7073,7 @@ namespace TestCloneDeep {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<string[]>;
+        let result: _.LoDashExplicitArrayWrapper<string>;
 
         result = _(['']).chain().cloneDeep();
     }
@@ -7086,7 +7086,7 @@ namespace TestCloneDeep {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<{a: {b: number;};}>;
+        let result: _.LoDashExplicitObjectWrapper<{a: {b: number;};}>;
 
         result = _({a: {b: 42}}).chain().cloneDeep();
     }
@@ -7123,7 +7123,7 @@ namespace TestCloneDeepWith {
 
     {
         let customizer: CloneDeepWithCustomizer<number[], string[]> = (x) => [];
-        let result: _.LoDashExplicitWrapper<string[]>;
+        let result: _.LoDashExplicitArrayWrapper<string>;
 
         result = _([42]).chain().cloneDeepWith(customizer);
     }
@@ -7138,7 +7138,7 @@ namespace TestCloneDeepWith {
 
     {
         let customizer: CloneDeepWithCustomizer<{a: {b: number;};}, {a: {b: string;};}> = (x) => ({ a: { b: "" } });
-        let result: _.LoDashExplicitWrapper<{a: {b: string;};}>;
+        let result: _.LoDashExplicitObjectWrapper<{a: {b: string;};}>;
 
         result = _({a: {b: 42}}).chain().cloneDeepWith(customizer);
     }
@@ -7177,7 +7177,7 @@ namespace TestCloneWith {
 
     {
         let customizer: CloneWithCustomizer<number[], string[]> = (x) => [];
-        let result: _.LoDashExplicitWrapper<string[]>;
+        let result: _.LoDashExplicitArrayWrapper<string>;
 
         result = _([42]).chain().cloneWith(customizer);
     }
@@ -7193,7 +7193,7 @@ namespace TestCloneWith {
 
     {
         let customizer: CloneWithCustomizer<{a: {b: number;};}, {a: {b: string;};}> = (x) => ({ a: { b: "" } });
-        let result: _.LoDashExplicitWrapper<{a: {b: string;};}>;
+        let result: _.LoDashExplicitObjectWrapper<{a: {b: string;};}>;
 
         result = _({a: {b: 42}}).chain().cloneWith<{a: {b: string;};}>(customizer);
     }
@@ -7373,7 +7373,7 @@ namespace TestIsArrayLike {
         if (_.isArrayLike(value)) {
             let result: string | string[] | { [index: number]: boolean, length: number } | [number, boolean] = value;
         } else {
-            let result: number | (() => void) | { length: string } | { a: string; } | null | undefined = value;
+            let result: number | { length: string } | { a: string; } | null | undefined = value;
         }
     }
 
@@ -7389,12 +7389,12 @@ namespace TestIsArrayLike {
     }
 
     {
-        let value: ((value: string) => number) | null = any;
+        let value: Function = any;
 
         if (_.isArrayLike(value)) {
             value; // $ExpectType never
         } else {
-            value; // $ExpectType ((value: string) => number) | null
+            value; // $ExpectType Function
         }
     }
 
@@ -7464,12 +7464,12 @@ namespace TestIsArrayLikeObject {
     }
 
     {
-        let value: string | null = any;
+        let value: string | Function = any;
 
         if (_.isArrayLikeObject(value)) {
             value; // $ExpectType never
         } else {
-            value; // $ExpectType string | null
+            value; // $ExpectType string | Function
         }
     }
 
@@ -7748,7 +7748,7 @@ namespace TestIsFinite {
 // _.isFunction
 namespace TestIsFunction {
     {
-        let value: number|Function = any;
+        let value: number|Function = () => {};
 
         if (_.isFunction(value)) {
             let result: Function = value;
@@ -7821,7 +7821,7 @@ namespace TestIsLength {
 // _.isMap
 namespace TestIsMap {
     {
-        let value: number|Map<string, number> = any;
+        let value: number|Map<string, number> = 0;
 
         if (_.isMap(value)) {
             let result: Map<string, number> = value;
@@ -8369,7 +8369,7 @@ namespace TestToArray {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<TResult[]>;
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
 
         result = _(array).toArray();
         result = _(list).toArray<TResult>();
@@ -8378,7 +8378,7 @@ namespace TestToArray {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<TResult[]>;
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
 
         result = _(array).chain().toArray();
         result = _(list).chain().toArray<TResult>();
@@ -8400,7 +8400,7 @@ namespace TestToPlainObject {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<TResult>;
+        let result: _.LoDashImplicitObjectWrapper<TResult>;
 
         result = _(true).toPlainObject();
         result = _(1).toPlainObject();
@@ -8979,73 +8979,73 @@ namespace TestAssign {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<Obj>;
+        let result: _.LoDashImplicitObjectWrapper<Obj>;
 
         result = _(obj).assign();
     }
 
     {
-        let result: _.LoDashImplicitWrapper<{ a: number }>;
+        let result: _.LoDashImplicitObjectWrapper<{ a: number }>;
 
         result = _(obj).assign(s1);
     }
 
     {
-        let result: _.LoDashImplicitWrapper<{ a: number, b: number }>;
+        let result: _.LoDashImplicitObjectWrapper<{ a: number, b: number }>;
 
         result = _(obj).assign(s1, s2);
     }
 
     {
-        let result: _.LoDashImplicitWrapper<{ a: number, b: number, c: number }>;
+        let result: _.LoDashImplicitObjectWrapper<{ a: number, b: number, c: number }>;
 
         result = _(obj).assign(s1, s2, s3);
     }
 
     {
-        let result: _.LoDashImplicitWrapper<{ a: number, b: number, c: number, d: number }>;
+        let result: _.LoDashImplicitObjectWrapper<{ a: number, b: number, c: number, d: number }>;
 
         result = _(obj).assign(s1, s2, s3, s4);
     }
 
     {
-        let result: _.LoDashImplicitWrapper<{ a: number, b: number, c: number, d: number, e: number }>;
+        let result: _.LoDashImplicitObjectWrapper<{ a: number, b: number, c: number, d: number, e: number }>;
 
         result = _(obj).assign(s1, s2, s3, s4, s5);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<Obj>;
+        let result: _.LoDashExplicitObjectWrapper<Obj>;
 
         result = _(obj).chain().assign();
     }
 
     {
-        let result: _.LoDashExplicitWrapper<{ a: number }>;
+        let result: _.LoDashExplicitObjectWrapper<{ a: number }>;
 
         result = _(obj).chain().assign(s1);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<{ a: number, b: number }>;
+        let result: _.LoDashExplicitObjectWrapper<{ a: number, b: number }>;
 
         result = _(obj).chain().assign(s1, s2);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<{ a: number, b: number, c: number }>;
+        let result: _.LoDashExplicitObjectWrapper<{ a: number, b: number, c: number }>;
 
         result = _(obj).chain().assign(s1, s2, s3);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<{ a: number, b: number, c: number, d: number }>;
+        let result: _.LoDashExplicitObjectWrapper<{ a: number, b: number, c: number, d: number }>;
 
         result = _(obj).chain().assign(s1, s2, s3, s4);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<{ a: number, b: number, c: number, d: number, e: number }>;
+        let result: _.LoDashExplicitObjectWrapper<{ a: number, b: number, c: number, d: number, e: number }>;
 
         result = _(obj).chain().assign(s1, s2, s3, s4, s5);
     }
@@ -9101,64 +9101,64 @@ namespace TestAssignWith {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<Obj>;
+        let result: _.LoDashImplicitObjectWrapper<Obj>;
 
         result = _(obj).assignWith();
     }
 
     {
-        let result: _.LoDashImplicitWrapper<{ a: number }>;
+        let result: _.LoDashImplicitObjectWrapper<{ a: number }>;
         result = _(obj).assignWith(s1, customizer);
     }
 
     {
-        let result: _.LoDashImplicitWrapper<{ a: number, b: number }>;
+        let result: _.LoDashImplicitObjectWrapper<{ a: number, b: number }>;
         result = _(obj).assignWith(s1, s2, customizer);
     }
 
     {
-        let result: _.LoDashImplicitWrapper<{ a: number, b: number, c: number }>;
+        let result: _.LoDashImplicitObjectWrapper<{ a: number, b: number, c: number }>;
         result = _(obj).assignWith(s1, s2, s3, customizer);
     }
 
     {
-        let result: _.LoDashImplicitWrapper<{ a: number, b: number, c: number, d: number }>;
+        let result: _.LoDashImplicitObjectWrapper<{ a: number, b: number, c: number, d: number }>;
         result = _(obj).assignWith(s1, s2, s3, s4, customizer);
     }
 
     {
-        let result: _.LoDashImplicitWrapper<{ a: number, b: number, c: number, d: number, e: number }>;
+        let result: _.LoDashImplicitObjectWrapper<{ a: number, b: number, c: number, d: number, e: number }>;
         result = _(obj).assignWith<{ a: number, b: number, c: number, d: number, e: number }>(s1, s2, s3, s4, s5, customizer);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<Obj>;
+        let result: _.LoDashExplicitObjectWrapper<Obj>;
 
         result = _(obj).chain().assignWith();
     }
 
     {
-        let result: _.LoDashExplicitWrapper<{ a: number }>;
+        let result: _.LoDashExplicitObjectWrapper<{ a: number }>;
         result = _(obj).chain().assignWith(s1, customizer);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<{ a: number, b: number }>;
+        let result: _.LoDashExplicitObjectWrapper<{ a: number, b: number }>;
         result = _(obj).chain().assignWith(s1, s2, customizer);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<{ a: number, b: number, c: number }>;
+        let result: _.LoDashExplicitObjectWrapper<{ a: number, b: number, c: number }>;
         result = _(obj).chain().assignWith(s1, s2, s3, customizer);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<{ a: number, b: number, c: number, d: number }>;
+        let result: _.LoDashExplicitObjectWrapper<{ a: number, b: number, c: number, d: number }>;
         result = _(obj).chain().assignWith(s1, s2, s3, s4, customizer);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<{ a: number, b: number, c: number, d: number, e: number }>;
+        let result: _.LoDashExplicitObjectWrapper<{ a: number, b: number, c: number, d: number, e: number }>;
         result = _(obj).chain().assignWith(s1, s2, s3, s4, s5, customizer);
     }
 }
@@ -9218,73 +9218,73 @@ namespace TestAssignIn {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<Obj>;
+        let result: _.LoDashImplicitObjectWrapper<Obj>;
 
         result = _(obj).assignIn();
     }
 
     {
-        let result: _.LoDashImplicitWrapper<{ a: number }>;
+        let result: _.LoDashImplicitObjectWrapper<{ a: number }>;
 
         result = _(obj).assignIn(s1);
     }
 
     {
-        let result: _.LoDashImplicitWrapper<{ a: number, b: number }>;
+        let result: _.LoDashImplicitObjectWrapper<{ a: number, b: number }>;
 
         result = _(obj).assignIn(s1, s2);
     }
 
     {
-        let result: _.LoDashImplicitWrapper<{ a: number, b: number, c: number }>;
+        let result: _.LoDashImplicitObjectWrapper<{ a: number, b: number, c: number }>;
 
         result = _(obj).assignIn(s1, s2, s3);
     }
 
     {
-        let result: _.LoDashImplicitWrapper<{ a: number, b: number, c: number, d: number }>;
+        let result: _.LoDashImplicitObjectWrapper<{ a: number, b: number, c: number, d: number }>;
 
         result = _(obj).assignIn(s1, s2, s3, s4);
     }
 
     {
-        let result: _.LoDashImplicitWrapper<{ a: number, b: number, c: number, d: number, e: number }>;
+        let result: _.LoDashImplicitObjectWrapper<{ a: number, b: number, c: number, d: number, e: number }>;
 
         result = _(obj).assignIn<{ a: number, b: number, c: number, d: number, e: number }>(s1, s2, s3, s4, s5);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<Obj>;
+        let result: _.LoDashExplicitObjectWrapper<Obj>;
 
         result = _(obj).chain().assignIn();
     }
 
     {
-        let result: _.LoDashExplicitWrapper<{ a: number }>;
+        let result: _.LoDashExplicitObjectWrapper<{ a: number }>;
 
         result = _(obj).chain().assignIn(s1);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<{ a: number, b: number }>;
+        let result: _.LoDashExplicitObjectWrapper<{ a: number, b: number }>;
 
         result = _(obj).chain().assignIn(s1, s2);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<{ a: number, b: number, c: number }>;
+        let result: _.LoDashExplicitObjectWrapper<{ a: number, b: number, c: number }>;
 
         result = _(obj).chain().assignIn(s1, s2, s3);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<{ a: number, b: number, c: number, d: number }>;
+        let result: _.LoDashExplicitObjectWrapper<{ a: number, b: number, c: number, d: number }>;
 
         result = _(obj).chain().assignIn(s1, s2, s3, s4);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<{ a: number, b: number, c: number, d: number, e: number }>;
+        let result: _.LoDashExplicitObjectWrapper<{ a: number, b: number, c: number, d: number, e: number }>;
 
         result = _(obj).chain().assignIn(s1, s2, s3, s4, s5);
     }
@@ -9340,18 +9340,18 @@ namespace TestAssignInWith {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<Obj>;
+        let result: _.LoDashImplicitObjectWrapper<Obj>;
 
         result = _(obj).assignInWith();
     }
 
     {
-        let result: _.LoDashImplicitWrapper<{ a: number }>;
+        let result: _.LoDashImplicitObjectWrapper<{ a: number }>;
         result = _(obj).assignInWith(s1, customizer);
     }
 
     {
-        let result: _.LoDashImplicitWrapper<{ a: number, b: number }>;
+        let result: _.LoDashImplicitObjectWrapper<{ a: number, b: number }>;
         result = _(obj).assignInWith(s1, s2, customizer);
     }
 
@@ -9361,43 +9361,43 @@ namespace TestAssignInWith {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<{ a: number, b: number, c: number, d: number }>;
+        let result: _.LoDashImplicitObjectWrapper<{ a: number, b: number, c: number, d: number }>;
         result = _(obj).assignInWith(s1, s2, s3, s4, customizer);
     }
 
     {
-        let result: _.LoDashImplicitWrapper<{ a: number, b: number, c: number, d: number, e: number }>;
+        let result: _.LoDashImplicitObjectWrapper<{ a: number, b: number, c: number, d: number, e: number }>;
         result = _(obj).assignInWith<{ a: number, b: number, c: number, d: number, e: number }>(s1, s2, s3, s4, s5, customizer);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<Obj>;
+        let result: _.LoDashExplicitObjectWrapper<Obj>;
 
         result = _(obj).chain().assignInWith();
     }
 
     {
-        let result: _.LoDashExplicitWrapper<{ a: number }>;
+        let result: _.LoDashExplicitObjectWrapper<{ a: number }>;
         result = _(obj).chain().assignInWith(s1, customizer);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<{ a: number, b: number }>;
+        let result: _.LoDashExplicitObjectWrapper<{ a: number, b: number }>;
         result = _(obj).chain().assignInWith(s1, s2, customizer);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<{ a: number, b: number, c: number }>;
+        let result: _.LoDashExplicitObjectWrapper<{ a: number, b: number, c: number }>;
         result = _(obj).chain().assignInWith(s1, s2, s3, customizer);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<{ a: number, b: number, c: number, d: number }>;
+        let result: _.LoDashExplicitObjectWrapper<{ a: number, b: number, c: number, d: number }>;
         result = _(obj).chain().assignInWith(s1, s2, s3, s4, customizer);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<{ a: number, b: number, c: number, d: number, e: number }>;
+        let result: _.LoDashExplicitObjectWrapper<{ a: number, b: number, c: number, d: number, e: number }>;
         result = _(obj).chain().assignInWith(s1, s2, s3, s4, s5, customizer);
     }
 }
@@ -9418,14 +9418,14 @@ namespace TestCreate {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<{a: number; b: string}>;
+        let result: _.LoDashImplicitObjectWrapper<{a: number; b: string}>;
 
         result = _(prototype).create<SampleProps>(properties);
         result = _(prototype).create(properties);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<{a: number; b: string}>;
+        let result: _.LoDashExplicitObjectWrapper<{a: number; b: string}>;
 
         result = _(prototype).chain().create<SampleProps>(properties);
         result = _(prototype).chain().create(properties);
@@ -9485,73 +9485,73 @@ namespace TestDefaults {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<Obj>;
+        let result: _.LoDashImplicitObjectWrapper<Obj>;
 
         result = _(obj).defaults();
     }
 
     {
-    let result: _.LoDashImplicitWrapper<{ a: string }>;
+    let result: _.LoDashImplicitObjectWrapper<{ a: string }>;
 
     result = _(obj).defaults(s1);
     }
 
     {
-    let result: _.LoDashImplicitWrapper<{ a: string, b: number }>;
+    let result: _.LoDashImplicitObjectWrapper<{ a: string, b: number }>;
 
     result = _(obj).defaults(s1, s2);
     }
 
     {
-    let result: _.LoDashImplicitWrapper<{ a: string, b: number, c: number }>;
+    let result: _.LoDashImplicitObjectWrapper<{ a: string, b: number, c: number }>;
 
     result = _(obj).defaults(s1, s2, s3);
     }
 
     {
-    let result: _.LoDashImplicitWrapper<{ a: string, b: number, c: number, d: number }>;
+    let result: _.LoDashImplicitObjectWrapper<{ a: string, b: number, c: number, d: number }>;
 
     result = _(obj).defaults(s1, s2, s3, s4);
     }
 
     {
-    let result: _.LoDashImplicitWrapper<{ a: string, b: number, c: number, d: number, e: number }>;
+    let result: _.LoDashImplicitObjectWrapper<{ a: string, b: number, c: number, d: number, e: number }>;
 
     result = _(obj).defaults(s1, s2, s3, s4, s5);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<Obj>;
+        let result: _.LoDashExplicitObjectWrapper<Obj>;
 
         result = _(obj).chain().defaults();
     }
 
     {
-    let result: _.LoDashExplicitWrapper<{ a: string }>;
+    let result: _.LoDashExplicitObjectWrapper<{ a: string }>;
 
     result = _(obj).chain().defaults(s1);
     }
 
     {
-    let result: _.LoDashExplicitWrapper<{ a: string, b: number }>;
+    let result: _.LoDashExplicitObjectWrapper<{ a: string, b: number }>;
 
     result = _(obj).chain().defaults(s1, s2);
     }
 
     {
-    let result: _.LoDashExplicitWrapper<{ a: string, b: number, c: number }>;
+    let result: _.LoDashExplicitObjectWrapper<{ a: string, b: number, c: number }>;
 
     result = _(obj).chain().defaults(s1, s2, s3);
     }
 
     {
-    let result: _.LoDashExplicitWrapper<{ a: string, b: number, c: number, d: number }>;
+    let result: _.LoDashExplicitObjectWrapper<{ a: string, b: number, c: number, d: number }>;
 
     result = _(obj).chain().defaults(s1, s2, s3, s4);
     }
 
     {
-    let result: _.LoDashExplicitWrapper<{ a: string, b: number, c: number, d: number, e: number }>;
+    let result: _.LoDashExplicitObjectWrapper<{ a: string, b: number, c: number, d: number, e: number }>;
 
     result = _(obj).chain().defaults(s1, s2, s3, s4, s5);
     }
@@ -9624,73 +9624,73 @@ namespace TestExtend {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<Obj>;
+        let result: _.LoDashImplicitObjectWrapper<Obj>;
 
         result = _(obj).extend();
     }
 
     {
-        let result: _.LoDashImplicitWrapper<{ a: number }>;
+        let result: _.LoDashImplicitObjectWrapper<{ a: number }>;
 
         result = _(obj).extend(s1);
     }
 
     {
-        let result: _.LoDashImplicitWrapper<{ a: number, b: number }>;
+        let result: _.LoDashImplicitObjectWrapper<{ a: number, b: number }>;
 
         result = _(obj).extend(s1, s2);
     }
 
     {
-        let result: _.LoDashImplicitWrapper<{ a: number, b: number, c: number }>;
+        let result: _.LoDashImplicitObjectWrapper<{ a: number, b: number, c: number }>;
 
         result = _(obj).extend(s1, s2, s3);
     }
 
     {
-        let result: _.LoDashImplicitWrapper<{ a: number, b: number, c: number, d: number }>;
+        let result: _.LoDashImplicitObjectWrapper<{ a: number, b: number, c: number, d: number }>;
 
         result = _(obj).extend(s1, s2, s3, s4);
     }
 
     {
-        let result: _.LoDashImplicitWrapper<{ a: number, b: number, c: number, d: number, e: number }>;
+        let result: _.LoDashImplicitObjectWrapper<{ a: number, b: number, c: number, d: number, e: number }>;
 
         result = _(obj).extend(s1, s2, s3, s4, s5);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<Obj>;
+        let result: _.LoDashExplicitObjectWrapper<Obj>;
 
         result = _(obj).chain().extend();
     }
 
     {
-        let result: _.LoDashExplicitWrapper<{ a: number }>;
+        let result: _.LoDashExplicitObjectWrapper<{ a: number }>;
 
         result = _(obj).chain().extend(s1);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<{ a: number, b: number }>;
+        let result: _.LoDashExplicitObjectWrapper<{ a: number, b: number }>;
 
         result = _(obj).chain().extend(s1, s2);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<{ a: number, b: number, c: number }>;
+        let result: _.LoDashExplicitObjectWrapper<{ a: number, b: number, c: number }>;
 
         result = _(obj).chain().extend(s1, s2, s3);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<{ a: number, b: number, c: number, d: number }>;
+        let result: _.LoDashExplicitObjectWrapper<{ a: number, b: number, c: number, d: number }>;
 
         result = _(obj).chain().extend(s1, s2, s3, s4);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<{ a: number, b: number, c: number, d: number, e: number }>;
+        let result: _.LoDashExplicitObjectWrapper<{ a: number, b: number, c: number, d: number, e: number }>;
 
         result = _(obj).chain().extend(s1, s2, s3, s4, s5);
     }
@@ -9751,73 +9751,73 @@ namespace TestExtendWith {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<Obj>;
+        let result: _.LoDashImplicitObjectWrapper<Obj>;
 
         result = _(obj).extendWith();
     }
 
     {
-        let result: _.LoDashImplicitWrapper<{ a: number }>;
+        let result: _.LoDashImplicitObjectWrapper<{ a: number }>;
 
         result = _(obj).extendWith(s1, customizer);
     }
 
     {
-        let result: _.LoDashImplicitWrapper<{ a: number, b: number }>;
+        let result: _.LoDashImplicitObjectWrapper<{ a: number, b: number }>;
 
         result = _(obj).extendWith(s1, s2, customizer);
     }
 
     {
-        let result: _.LoDashImplicitWrapper<{ a: number, b: number, c: number }>;
+        let result: _.LoDashImplicitObjectWrapper<{ a: number, b: number, c: number }>;
 
         result = _(obj).extendWith(s1, s2, s3, customizer);
     }
 
     {
-        let result: _.LoDashImplicitWrapper<{ a: number, b: number, c: number, d: number }>;
+        let result: _.LoDashImplicitObjectWrapper<{ a: number, b: number, c: number, d: number }>;
 
         result = _(obj).extendWith(s1, s2, s3, s4, customizer);
     }
 
     {
-        let result: _.LoDashImplicitWrapper<{ a: number, b: number, c: number, d: number, e: number }>;
+        let result: _.LoDashImplicitObjectWrapper<{ a: number, b: number, c: number, d: number, e: number }>;
 
         result = _(obj).extendWith(s1, s2, s3, s4, s5, customizer);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<Obj>;
+        let result: _.LoDashExplicitObjectWrapper<Obj>;
 
         result = _(obj).chain().extendWith();
     }
 
     {
-        let result: _.LoDashExplicitWrapper<{ a: number }>;
+        let result: _.LoDashExplicitObjectWrapper<{ a: number }>;
 
         result = _(obj).chain().extendWith(s1, customizer);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<{ a: number, b: number }>;
+        let result: _.LoDashExplicitObjectWrapper<{ a: number, b: number }>;
 
         result = _(obj).chain().extendWith(s1, s2, customizer);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<{ a: number, b: number, c: number }>;
+        let result: _.LoDashExplicitObjectWrapper<{ a: number, b: number, c: number }>;
 
         result = _(obj).chain().extendWith(s1, s2, s3, customizer);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<{ a: number, b: number, c: number, d: number }>;
+        let result: _.LoDashExplicitObjectWrapper<{ a: number, b: number, c: number, d: number }>;
 
         result = _(obj).chain().extendWith(s1, s2, s3, s4, customizer);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<{ a: number, b: number, c: number, d: number, e: number }>;
+        let result: _.LoDashExplicitObjectWrapper<{ a: number, b: number, c: number, d: number, e: number }>;
 
         result = _(obj).chain().extendWith(s1, s2, s3, s4, s5, customizer);
     }
@@ -9975,28 +9975,28 @@ namespace TestForIn {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<_.Dictionary<number>>;
+        let result: _.LoDashImplicitObjectWrapper<_.Dictionary<number>>;
 
         result = _(dictionary).forIn();
         result = _(dictionary).forIn(dictionaryIterator);
     }
 
     {
-        let result: _.LoDashImplicitWrapper<_.Dictionary<number> | null | undefined>;
+        let result: _.LoDashImplicitNillableObjectWrapper<_.Dictionary<number>>;
 
         result = _(nilDictionary).forIn();
         result = _(nilDictionary).forIn(dictionaryIterator);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<_.Dictionary<number>>;
+        let result: _.LoDashExplicitObjectWrapper<_.Dictionary<number>>;
 
         result = _(dictionary).chain().forIn();
         result = _(dictionary).chain().forIn(dictionaryIterator);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<_.Dictionary<number> | null | undefined>;
+        let result: _.LoDashExplicitNillableObjectWrapper<_.Dictionary<number>>;
 
         result = _(nilDictionary).chain().forIn();
         result = _(nilDictionary).chain().forIn(dictionaryIterator);
@@ -10044,28 +10044,28 @@ namespace TestForInRight {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<_.Dictionary<number>>;
+        let result: _.LoDashImplicitObjectWrapper<_.Dictionary<number>>;
 
         result = _(dictionary).forInRight();
         result = _(dictionary).forInRight(dictionaryIterator);
     }
 
     {
-        let result: _.LoDashImplicitWrapper<_.Dictionary<number> | null | undefined>;
+        let result: _.LoDashImplicitNillableObjectWrapper<_.Dictionary<number>>;
 
         result = _(nilDictionary).forInRight();
         result = _(nilDictionary).forInRight(dictionaryIterator);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<_.Dictionary<number>>;
+        let result: _.LoDashExplicitObjectWrapper<_.Dictionary<number>>;
 
         result = _(dictionary).chain().forInRight();
         result = _(dictionary).chain().forInRight(dictionaryIterator);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<_.Dictionary<number> | null | undefined>;
+        let result: _.LoDashExplicitNillableObjectWrapper<_.Dictionary<number>>;
 
         result = _(nilDictionary).chain().forInRight();
         result = _(nilDictionary).chain().forInRight(dictionaryIterator);
@@ -10113,28 +10113,28 @@ namespace TestForOwn {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<_.Dictionary<number>>;
+        let result: _.LoDashImplicitObjectWrapper<_.Dictionary<number>>;
 
         result = _(dictionary).forOwn();
         result = _(dictionary).forOwn(dictionaryIterator);
     }
 
     {
-        let result: _.LoDashImplicitWrapper<_.Dictionary<number> | null | undefined>;
+        let result: _.LoDashImplicitNillableObjectWrapper<_.Dictionary<number>>;
 
         result = _(nilDictionary).forOwn();
         result = _(nilDictionary).forOwn(dictionaryIterator);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<_.Dictionary<number>>;
+        let result: _.LoDashExplicitObjectWrapper<_.Dictionary<number>>;
 
         result = _(dictionary).chain().forOwn();
         result = _(dictionary).chain().forOwn(dictionaryIterator);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<_.Dictionary<number> | null | undefined>;
+        let result: _.LoDashExplicitNillableObjectWrapper<_.Dictionary<number>>;
 
         result = _(nilDictionary).chain().forOwn();
         result = _(nilDictionary).chain().forOwn(dictionaryIterator);
@@ -10182,28 +10182,28 @@ namespace TestForOwnRight {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<_.Dictionary<number>>;
+        let result: _.LoDashImplicitObjectWrapper<_.Dictionary<number>>;
 
         result = _(dictionary).forOwnRight();
         result = _(dictionary).forOwnRight(dictionaryIterator);
     }
 
     {
-        let result: _.LoDashImplicitWrapper<_.Dictionary<number> | null | undefined>;
+        let result: _.LoDashImplicitNillableObjectWrapper<_.Dictionary<number>>;
 
         result = _(nilDictionary).forOwnRight();
         result = _(nilDictionary).forOwnRight(dictionaryIterator);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<_.Dictionary<number>>;
+        let result: _.LoDashExplicitObjectWrapper<_.Dictionary<number>>;
 
         result = _(dictionary).chain().forOwnRight();
         result = _(dictionary).chain().forOwnRight(dictionaryIterator);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<_.Dictionary<number> | null | undefined>;
+        let result: _.LoDashExplicitNillableObjectWrapper<_.Dictionary<number>>;
 
         result = _(nilDictionary).chain().forOwnRight();
         result = _(nilDictionary).chain().forOwnRight(dictionaryIterator);
@@ -10223,13 +10223,13 @@ namespace TestFunctions {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<string[]>;
+        let result: _.LoDashImplicitArrayWrapper<string>;
 
         result = _(object).functions();
     }
 
     {
-        let result: _.LoDashExplicitWrapper<string[]>;
+        let result: _.LoDashExplicitArrayWrapper<string>;
 
         result = _(object).chain().functions();
     }
@@ -10248,13 +10248,13 @@ namespace TestFunctionsIn {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<string[]>;
+        let result: _.LoDashImplicitArrayWrapper<string>;
 
         result = _(object).functionsIn();
     }
 
     {
-        let result: _.LoDashExplicitWrapper<string[]>;
+        let result: _.LoDashExplicitArrayWrapper<string>;
 
         result = _(object).chain().functionsIn();
     }
@@ -10416,13 +10416,13 @@ namespace TestInvert {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<_.Dictionary<string>>;
+        let result: _.LoDashImplicitObjectWrapper<_.Dictionary<string>>;
 
         result = _({}).invert();
     }
 
     {
-        let result: _.LoDashExplicitWrapper<_.Dictionary<string>>;
+        let result: _.LoDashExplicitObjectWrapper<_.Dictionary<string>>;
 
         result = _({}).chain().invert();
     }
@@ -10469,7 +10469,7 @@ namespace TestInvertBy {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<_.Dictionary<string[]>>;
+        let result: _.LoDashImplicitObjectWrapper<_.Dictionary<string[]>>;
 
         result = _('foo').invertBy();
         result = _('foo').invertBy(stringIterator);
@@ -10496,7 +10496,7 @@ namespace TestInvertBy {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<_.Dictionary<string[]>>;
+        let result: _.LoDashExplicitObjectWrapper<_.Dictionary<string[]>>;
 
         result = _('foo').chain().invertBy();
         result = _('foo').chain().invertBy(stringIterator);
@@ -10534,13 +10534,13 @@ namespace TestKeys {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<string[]>;
+        let result: _.LoDashImplicitArrayWrapper<string>;
 
         result = _(object).keys();
     }
 
     {
-        let result: _.LoDashExplicitWrapper<string[]>;
+        let result: _.LoDashExplicitArrayWrapper<string>;
 
         result = _(object).chain().keys();
     }
@@ -10557,13 +10557,13 @@ namespace TestKeysIn {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<string[]>;
+        let result: _.LoDashImplicitArrayWrapper<string>;
 
         result = _(object).keysIn();
     }
 
     {
-        let result: _.LoDashExplicitWrapper<string[]>;
+        let result: _.LoDashExplicitArrayWrapper<string>;
 
         result = _(object).chain().keysIn();
     }
@@ -10598,7 +10598,7 @@ namespace TestMapKeys {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<_.Dictionary<TResult>>;
+        let result: _.LoDashImplicitObjectWrapper<_.Dictionary<TResult>>;
 
         result = _(array).mapKeys();
         result = _(array).mapKeys(listIterator);
@@ -10617,7 +10617,7 @@ namespace TestMapKeys {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<_.Dictionary<TResult>>;
+        let result: _.LoDashExplicitObjectWrapper<_.Dictionary<TResult>>;
 
         result = _(array).chain().mapKeys();
         result = _(array).chain().mapKeys(listIterator);
@@ -10705,7 +10705,7 @@ namespace TestMerge {
                                                                           { a: true }).value();
 
     {
-        let result: _.LoDashExplicitWrapper<ExpectedResult>;
+        let result: _.LoDashExplicitObjectWrapper<ExpectedResult>;
         // result = _(initialValue).chain().merge(mergingValue);
         // result = _(initialValue).chain().merge({}, mergingValue);
         // result = _(initialValue).chain().merge({}, {}, mergingValue);
@@ -10714,13 +10714,13 @@ namespace TestMerge {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<ComplicatedExpectedType>;
+        let result: _.LoDashExplicitObjectWrapper<ComplicatedExpectedType>;
 
         //result = _({ a: 1 }).chain().merge({ b: "string" }, { c: {} }, { d: [1] }, { e: true });
     }
 
     {
-        let result: _.LoDashExplicitWrapper<ExpectedTypeAfterOverriding>;
+        let result: _.LoDashExplicitObjectWrapper<ExpectedTypeAfterOverriding>;
 
         //result = _({ a: 1 }).chain().merge({ a: "string" }, { a: {} }, { a: [1] }, { a: true });
     }
@@ -10876,13 +10876,6 @@ namespace TestResult {
     {
         let result: string;
 
-        result = _.result('abc', '0');
-        result = _.result('abc', '0', '_');
-        result = _.result('abc', '0', () => '_');
-        result = _.result('abc', ['0']);
-        result = _.result('abc', ['0'], '_');
-        result = _.result('abc', ['0'], () => '_');
-
         result = _.result<string>('abc', '0');
         result = _.result<string>('abc', '0', '_');
         result = _.result<string>('abc', '0', () => '_');
@@ -10900,13 +10893,6 @@ namespace TestResult {
 
     {
         let result: number;
-
-        result = _.result([42], '0');
-        result = _.result([42], '0', -1);
-        result = _.result([42], '0', () => -1);
-        result = _.result([42], ['0']);
-        result = _.result([42], ['0'], -1);
-        result = _.result([42], ['0'], () => -1);
 
         result = _.result<number>([42], '0');
         result = _.result<number>([42], '0', -1);
@@ -10926,13 +10912,6 @@ namespace TestResult {
     {
         let result: boolean;
 
-        result = _.result({a: true}, 'a');
-        result = _.result({a: true}, 'a', false);
-        result = _.result({a: true}, 'a', () => false);
-        result = _.result({a: true}, ['a']);
-        result = _.result({a: true}, ['a'], false);
-        result = _.result({a: true}, ['a'], () => false);
-
         result = _.result<boolean>({a: true}, 'a');
         result = _.result<boolean>({a: true}, 'a', false);
         result = _.result<boolean>({a: true}, 'a', () => false);
@@ -10951,10 +10930,10 @@ namespace TestResult {
     {
         let result: _.LoDashExplicitWrapper<string>;
 
-        result = _('abc').chain().result('0');
+        result = _('abc').chain().result<string>('0');
         result = _('abc').chain().result('0', '_');
         result = _('abc').chain().result('0', '_');
-        result = _('abc').chain().result(['0']);
+        result = _('abc').chain().result<string>(['0']);
         result = _('abc').chain().result(['0'], () => '_');
         result = _('abc').chain().result(['0'], () => '_');
     }
@@ -10962,10 +10941,10 @@ namespace TestResult {
     {
         let result: _.LoDashExplicitWrapper<number>;
 
-        result = _([42]).chain().result('0');
+        result = _([42]).chain().result<number>('0');
         result = _([42]).chain().result('0', -1);
         result = _([42]).chain().result('0', () => -1);
-        result = _([42]).chain().result(['0']);
+        result = _([42]).chain().result<number>(['0']);
         result = _([42]).chain().result(['0'], -1);
         result = _([42]).chain().result(['0'], () => -1);
     }
@@ -10973,10 +10952,10 @@ namespace TestResult {
     {
         let result: _.LoDashExplicitWrapper<boolean>;
 
-        result = _({a: true}).chain().result('a');
+        result = _({a: true}).chain().result<boolean>('a');
         result = _({a: true}).chain().result('a', false);
         result = _({a: true}).chain().result('a', () => false);
-        result = _({a: true}).chain().result(['a']);
+        result = _({a: true}).chain().result<boolean>(['a']);
         result = _({a: true}).chain().result(['a'], false);
         result = _({a: true}).chain().result(['a'], () => false);
     }
@@ -10998,14 +10977,14 @@ namespace TestSet {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<SampleResult>;
+        let result: _.LoDashImplicitObjectWrapper<SampleResult>;
 
         result = _(object).set<SampleResult>('a.b[1]', value);
         result = _(object).set<SampleResult>(['a', 'b', 1], value);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<SampleResult>;
+        let result: _.LoDashExplicitObjectWrapper<SampleResult>;
 
         result = _(object).chain().set<SampleResult>('a.b[1]', value);
         result = _(object).chain().set<SampleResult>(['a', 'b', 1], value);
@@ -11031,7 +11010,7 @@ namespace TestSetWith {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<SampleResult>;
+        let result: _.LoDashImplicitObjectWrapper<SampleResult>;
 
         result = _(object).setWith<SampleResult>('a.b[1]', value);
         result = _(object).setWith<SampleResult>('a.b[1]', value, customizer);
@@ -11040,7 +11019,7 @@ namespace TestSetWith {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<SampleResult>;
+        let result: _.LoDashExplicitObjectWrapper<SampleResult>;
 
         result = _(object).chain().setWith<SampleResult>('a.b[1]', value);
         result = _(object).chain().setWith<SampleResult>('a.b[1]', value, customizer);
@@ -11060,13 +11039,13 @@ namespace TestToPairs {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<Array<[string, string]>>;
+        let result: _.LoDashImplicitArrayWrapper<[string, string]>;
 
         result = _(object).toPairs();
     }
 
     {
-        let result: _.LoDashExplicitWrapper<Array<[string, string]>>;
+        let result: _.LoDashExplicitArrayWrapper<[string, string]>;
 
         result = _(object).chain().toPairs();
     }
@@ -11083,13 +11062,13 @@ namespace TestToPairsIn {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<Array<[string, string]>>;
+        let result: _.LoDashImplicitArrayWrapper<[string, string]>;
 
         result = _(object).toPairsIn();
     }
 
     {
-        let result: _.LoDashExplicitWrapper<Array<[string, string]>>;
+        let result: _.LoDashExplicitArrayWrapper<[string, string]>;
 
         result = _(object).chain().toPairsIn();
     }
@@ -11193,14 +11172,14 @@ namespace TestUpdate {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<SampleResult>;
+        let result: _.LoDashImplicitObjectWrapper<SampleResult>;
 
         result = _(object).update('a.b[1]', updater);
         result = _(object).update(['a', 'b', 1], updater);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<SampleResult>;
+        let result: _.LoDashExplicitObjectWrapper<SampleResult>;
 
         result = _(object).chain().update('a.b[1]', updater);
         result = _(object).chain().update(['a', 'b', 1], updater);
@@ -11254,7 +11233,7 @@ namespace TestValues {
     // Implicit wrapper
 
     {
-        let result: _.LoDashImplicitWrapper<any[]>;
+        let result: _.LoDashImplicitArrayWrapper<any>;
 
         result = _(123).values();
         result = _(true).values();
@@ -11262,20 +11241,20 @@ namespace TestValues {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<string[]>;
+        let result: _.LoDashImplicitArrayWrapper<string>;
 
         result = _('hi').values();
         result = _(['h', 'i']).values();
     }
 
     {
-        let result: _.LoDashImplicitWrapper<number[]>;
+        let result: _.LoDashImplicitArrayWrapper<number>;
 
         result = _([1, 2]).values();
     }
 
     {
-        let result: _.LoDashImplicitWrapper<boolean[]>;
+        let result: _.LoDashImplicitArrayWrapper<boolean>;
 
         result = _([true, false]).values();
     }
@@ -11285,7 +11264,7 @@ namespace TestValues {
         let numDict: _.NumericDictionary<SampleObject> = {};
         let list: _.List<SampleObject> = [];
         let object: {a: SampleObject} = { a: { a: {} } };
-        let result: _.LoDashImplicitWrapper<SampleObject[]>;
+        let result: _.LoDashImplicitArrayWrapper<SampleObject>;
 
         result = _(dict).values<SampleObject>();
         result = _(numDict).values<SampleObject>();
@@ -11296,7 +11275,7 @@ namespace TestValues {
     // Explicit wrapper
 
     {
-        let result: _.LoDashExplicitWrapper<any[]>;
+        let result: _.LoDashExplicitArrayWrapper<any>;
 
         result = _(123).chain().values();
         result = _(true).chain().values();
@@ -11304,20 +11283,20 @@ namespace TestValues {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<string[]>;
+        let result: _.LoDashExplicitArrayWrapper<string>;
 
         result = _('hi').chain().values<string>();
         result = _(['h', 'i']).chain().values();
     }
 
     {
-        let result: _.LoDashExplicitWrapper<number[]>;
+        let result: _.LoDashExplicitArrayWrapper<number>;
 
         result = _([1, 2]).chain().values();
     }
 
     {
-        let result: _.LoDashExplicitWrapper<boolean[]>;
+        let result: _.LoDashExplicitArrayWrapper<boolean>;
 
         result = _([true, false]).chain().values();
     }
@@ -11327,7 +11306,7 @@ namespace TestValues {
         let numDict: _.NumericDictionary<SampleObject> = {};
         let list: _.List<SampleObject> = [];
         let object: {a: SampleObject} = { a: { a: {} } };
-        let result: _.LoDashExplicitWrapper<SampleObject[]>;
+        let result: _.LoDashExplicitArrayWrapper<SampleObject>;
 
         result = _(dict).chain().values<SampleObject>();
         result = _(numDict).chain().values<SampleObject>();
@@ -11360,13 +11339,13 @@ namespace TestValuesIn {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<TResult[]>;
+        let result: _.LoDashImplicitArrayWrapper<TResult>;
 
         result = _(object).valuesIn<TResult>();
     }
 
     {
-        let result: _.LoDashExplicitWrapper<TResult[]>;
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
 
         result = _(object).chain().valuesIn<TResult>();
     }
@@ -11708,7 +11687,7 @@ namespace TestSplit {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<string[]>;
+        let result: _.LoDashImplicitArrayWrapper<string>;
 
         result = _('a-b-c').split();
         result = _('a-b-c').split('-');
@@ -11716,7 +11695,7 @@ namespace TestSplit {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<string[]>;
+        let result: _.LoDashExplicitArrayWrapper<string>;
 
         result = _('a-b-c').chain().split();
         result = _('a-b-c').chain().split('-');
@@ -11787,7 +11766,7 @@ namespace TestTemplate {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<TemplateExecutor>;
+        let result: _.LoDashExplicitObjectWrapper<TemplateExecutor>;
 
         result = _('').chain().template();
         result = _('').chain().template(options);
@@ -11976,7 +11955,7 @@ namespace TestWords {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<string[]>;
+        let result: _.LoDashExplicitArrayWrapper<string>;
 
         result = _('fred, barney, & pebbles').chain().words();
         result = _('fred, barney, & pebbles').chain().words(/[^, ]+/g);
@@ -12001,7 +11980,7 @@ namespace TestAttempt {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<{a: string}|Error>;
+        let result: _.LoDashExplicitObjectWrapper<{a: string}|Error>;
 
         result = _(func).chain().attempt<{a: string}>();
         result = _(func).chain().attempt<{a: string}>('foo', 'bar', 'baz');
@@ -12036,52 +12015,52 @@ namespace TestConstant {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<() => number>;
+        let result: _.LoDashImplicitObjectWrapper<() => number>;
         result = _(42).constant();
     }
 
     {
-        let result: _.LoDashImplicitWrapper<() => string>;
+        let result: _.LoDashImplicitObjectWrapper<() => string>;
         result = _('a').constant();
     }
 
     {
-        let result: _.LoDashImplicitWrapper<() => boolean>;
+        let result: _.LoDashImplicitObjectWrapper<() => boolean>;
         result = _(true).constant();
     }
 
     {
-        let result: _.LoDashImplicitWrapper<() => string[]>;
+        let result: _.LoDashImplicitObjectWrapper<() => string[]>;
         result = _(['a']).constant();
     }
 
     {
-        let result: _.LoDashImplicitWrapper<() => {a: string}>;
+        let result: _.LoDashImplicitObjectWrapper<() => {a: string}>;
         result = _({a: 'a'}).constant();
     }
 
     {
-        let result: _.LoDashExplicitWrapper<() => number>;
+        let result: _.LoDashExplicitObjectWrapper<() => number>;
         result = _(42).chain().constant();
     }
 
     {
-        let result: _.LoDashExplicitWrapper<() => string>;
+        let result: _.LoDashExplicitObjectWrapper<() => string>;
         result = _('a').chain().constant();
     }
 
     {
-        let result: _.LoDashExplicitWrapper<() => boolean>;
+        let result: _.LoDashExplicitObjectWrapper<() => boolean>;
         result = _(true).chain().constant();
     }
 
     {
-        let result: _.LoDashExplicitWrapper<() => string[]>;
+        let result: _.LoDashExplicitObjectWrapper<() => string[]>;
         result = _(['a']).chain().constant();
     }
 
     {
-        let result: _.LoDashExplicitWrapper<() => {a: string}>;
+        let result: _.LoDashExplicitObjectWrapper<() => {a: string}>;
         result = _({a: 'a'}).chain().constant();
     }
 }
@@ -12160,7 +12139,7 @@ namespace TestDefaultTo {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<number>;
+        let result: _.LoDashExplicitObjectWrapper<number>;
         result = _(42).chain().defaultTo(42);
         result = _(undefined).chain().defaultTo(42);
         result = _(null).chain().defaultTo(42);
@@ -12168,28 +12147,28 @@ namespace TestDefaultTo {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<string>;
+        let result: _.LoDashExplicitObjectWrapper<string>;
         result = _('a').chain().defaultTo('default');
         result = _(undefined).chain().defaultTo('default');
         result = _(null).chain().defaultTo('default');
     }
 
     {
-        let result: _.LoDashExplicitWrapper<boolean>;
+        let result: _.LoDashExplicitObjectWrapper<boolean>;
         result = _(true).chain().defaultTo(true);
         result = _(undefined).chain().defaultTo(true);
         result = _(null).chain().defaultTo(true);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<string[]>;
+        let result: _.LoDashExplicitObjectWrapper<string[]>;
         result = _(['a']).chain().defaultTo(['default']);
         result = _(undefined).chain().defaultTo(['default']);
         result = _(null).chain().defaultTo(['default']);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<{ a: string }>;
+        let result: _.LoDashExplicitObjectWrapper<{ a: string }>;
         result = _({ a: 'a' }).chain().defaultTo({a : 'a'});
         result = _(undefined).chain().defaultTo({a : 'a'});
         result = _(null).chain().defaultTo({a : 'a'});
@@ -12226,13 +12205,13 @@ namespace TestIdentity {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<number[]>;
+        let result: _.LoDashExplicitArrayWrapper<number>;
 
         result = _([42]).chain().identity();
     }
 
     {
-        let result: _.LoDashExplicitWrapper<{a: number}>;
+        let result: _.LoDashExplicitObjectWrapper<{a: number}>;
 
         result = _({a: 42}).chain().identity();
     }
@@ -12265,39 +12244,39 @@ namespace TestIteratee {
     }
 
     {
-        let func: (...args: any[]) => TResult = any;
-        let result: _.LoDashImplicitWrapper<(...args: any[]) => TResult>;
+        let result: _.LoDashImplicitObjectWrapper<(...args: any[]) => TResult>;
 
+        let func: (...args: any[]) => TResult = any;
         result = _(func).iteratee();
     }
 
     {
-        let result: _.LoDashImplicitWrapper<(object: any) => TResult>;
+        let result: _.LoDashImplicitObjectWrapper<(object: any) => TResult>;
 
         result = _('').iteratee();
     }
 
     {
-        let result: _.LoDashImplicitWrapper<(object: any) => boolean>;
+        let result: _.LoDashImplicitObjectWrapper<(object: any) => boolean>;
 
         result = _({}).iteratee();
     }
 
     {
-        let func: (...args: any[]) => TResult = any;
-        let result: _.LoDashExplicitWrapper<(...args: any[]) => TResult>;
+        let result: _.LoDashExplicitObjectWrapper<(...args: any[]) => TResult>;
 
+        let func: (...args: any[]) => TResult = any;
         result = _(func).chain().iteratee();
     }
 
     {
-        let result: _.LoDashExplicitWrapper<(object: any) => TResult>;
+        let result: _.LoDashExplicitObjectWrapper<(object: any) => TResult>;
 
         result = _('').chain().iteratee();
     }
 
     {
-        let result: _.LoDashExplicitWrapper<(object: any) => boolean>;
+        let result: _.LoDashExplicitObjectWrapper<(object: any) => boolean>;
 
         result = _({}).chain().iteratee();
     }
@@ -12318,12 +12297,12 @@ namespace TestMatches {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<(value: TResult) => boolean>;
+        let result: _.LoDashImplicitObjectWrapper<(value: TResult) => boolean>;
         result = _(source).matches<TResult>();
     }
 
     {
-        let result: _.LoDashExplicitWrapper<(value: TResult) => boolean>;
+        let result: _.LoDashExplicitObjectWrapper<(value: TResult) => boolean>;
         result = _(source).chain().matches<TResult>();
     }
 }
@@ -12346,25 +12325,25 @@ namespace TestMatches {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<(value: any) => boolean>;
+        let result: _.LoDashImplicitObjectWrapper<(value: any) => boolean>;
 
         result = _(path).matchesProperty<TResult>(source);
     }
 
     {
-        let result: _.LoDashImplicitWrapper<(value: TResult) => boolean>;
+        let result: _.LoDashImplicitObjectWrapper<(value: TResult) => boolean>;
 
         result = _(path).matchesProperty<TResult, TResult>(source);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<(value: any) => boolean>;
+        let result: _.LoDashExplicitObjectWrapper<(value: any) => boolean>;
 
         result = _(path).chain().matchesProperty<TResult>(source);
     }
 
     {
-        let result: _.LoDashExplicitWrapper<(value: TResult) => boolean>;
+        let result: _.LoDashExplicitObjectWrapper<(value: TResult) => boolean>;
 
         result = _(path).chain().matchesProperty<TResult, TResult>(source);
     }
@@ -12399,7 +12378,7 @@ namespace TestMethod {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<(object: any) => {a: string}>;
+        let result: _.LoDashImplicitObjectWrapper<(object: any) => {a: string}>;
 
         result = _('a.0').method();
         result = _('a.0').method(any);
@@ -12413,7 +12392,7 @@ namespace TestMethod {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<(object: {a: string}) => {b: string}>;
+        let result: _.LoDashImplicitObjectWrapper<(object: {a: string}) => {b: string}>;
 
         result = _('a.0').method();
         result = _('a.0').method(any);
@@ -12427,7 +12406,7 @@ namespace TestMethod {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<(object: any) => {a: string}>;
+        let result: _.LoDashExplicitObjectWrapper<(object: any) => {a: string}>;
 
         result = _('a.0').chain().method();
         result = _('a.0').chain().method(any);
@@ -12441,7 +12420,7 @@ namespace TestMethod {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<(object: {a: string}) => {b: string}>;
+        let result: _.LoDashExplicitObjectWrapper<(object: {a: string}) => {b: string}>;
 
         result = _('a.0').chain().method();
         result = _('a.0').chain().method(any);
@@ -12472,7 +12451,7 @@ namespace TestMethodOf {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<ResultFn>;
+        let result: _.LoDashImplicitObjectWrapper<ResultFn>;
 
         result = _(object).methodOf();
         result = _(object).methodOf(any);
@@ -12481,7 +12460,7 @@ namespace TestMethodOf {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<ResultFn>;
+        let result: _.LoDashExplicitObjectWrapper<ResultFn>;
 
         result = _(object).chain().methodOf();
         result = _(object).chain().methodOf(any);
@@ -12551,7 +12530,7 @@ namespace TestNoConflict {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<typeof _>;
+        let result: _.LoDashExplicitObjectWrapper<typeof _>;
 
         result = _(42).chain().noConflict();
         result = _<any>([]).chain().noConflict();
@@ -12598,13 +12577,13 @@ namespace TestNthArg {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<SampleFunc>;
+        let result: _.LoDashImplicitObjectWrapper<SampleFunc>;
 
         result = _(1).nthArg();
     }
 
     {
-        let result: _.LoDashExplicitWrapper<SampleFunc>;
+        let result: _.LoDashExplicitObjectWrapper<SampleFunc>;
 
         result = _(1).chain().nthArg();
     }
@@ -12622,7 +12601,7 @@ namespace TestOver {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<(...args: any[]) => number[]>;
+        let result: _.LoDashImplicitObjectWrapper<(...args: any[]) => number[]>;
 
         result = _(Math.max).over<number>();
         result = _(Math.max).over<number>(Math.min);
@@ -12631,7 +12610,7 @@ namespace TestOver {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<(...args: any[]) => number[]>;
+        let result: _.LoDashExplicitObjectWrapper<(...args: any[]) => number[]>;
 
         result = _(Math.max).chain().over<number>();
         result = _(Math.max).chain().over<number>(Math.min);
@@ -12652,7 +12631,7 @@ namespace TestOverEvery {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<(...args: any[]) => boolean>;
+        let result: _.LoDashImplicitObjectWrapper<(...args: any[]) => boolean>;
 
         result = _(Math.max).overEvery();
         result = _(Math.max).overEvery(() => true);
@@ -12661,7 +12640,7 @@ namespace TestOverEvery {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<(...args: any[]) => boolean>;
+        let result: _.LoDashExplicitObjectWrapper<(...args: any[]) => boolean>;
 
         result = _(Math.max).chain().overEvery();
         result = _(Math.max).chain().overEvery(() => true);
@@ -12682,7 +12661,7 @@ namespace TestOverSome {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<(...args: any[]) => boolean>;
+        let result: _.LoDashImplicitObjectWrapper<(...args: any[]) => boolean>;
 
         result = _(Math.max).overSome();
         result = _(Math.max).overSome(() => true);
@@ -12691,7 +12670,7 @@ namespace TestOverSome {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<(...args: any[]) => boolean>;
+        let result: _.LoDashExplicitObjectWrapper<(...args: any[]) => boolean>;
 
         result = _(Math.max).chain().overSome();
         result = _(Math.max).chain().overSome(() => true);
@@ -12716,14 +12695,14 @@ namespace TestProperty {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<(object: SampleObject) => number>;
+        let result: _.LoDashImplicitObjectWrapper<(object: SampleObject) => number>;
 
         result = _('a.b[0]').property<SampleObject, number>();
         result = _(['a', 'b', 0]).property<SampleObject, number>();
     }
 
     {
-        let result: _.LoDashExplicitWrapper<(object: SampleObject) => number>;
+        let result: _.LoDashExplicitObjectWrapper<(object: SampleObject) => number>;
 
         result = _('a.b[0]').chain().property<SampleObject, number>();
         result = _(['a', 'b', 0]).chain().property<SampleObject, number>();
@@ -12748,13 +12727,13 @@ namespace TestPropertyOf {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<(path: string|string[]) => any>;
+        let result: _.LoDashImplicitObjectWrapper<(path: string|string[]) => any>;
 
         result = _({}).propertyOf();
     }
 
     {
-        let result: _.LoDashExplicitWrapper<(path: string|string[]) => any>;
+        let result: _.LoDashExplicitObjectWrapper<(path: string|string[]) => any>;
 
         result = _({}).chain().propertyOf();
     }
@@ -12771,7 +12750,7 @@ namespace TestRange {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<number[]>;
+        let result: _.LoDashImplicitArrayWrapper<number>;
 
         result = _(10).range();
         result = _(1).range(11);
@@ -12779,7 +12758,7 @@ namespace TestRange {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<number[]>;
+        let result: _.LoDashExplicitArrayWrapper<number>;
 
         result = _(10).chain().range();
         result = _(1).chain().range(11);
@@ -12798,7 +12777,7 @@ namespace TestRangeRight {
     }
 
     {
-        let result: _.LoDashImplicitWrapper<number[]>;
+        let result: _.LoDashImplicitArrayWrapper<number>;
 
         result = _(10).rangeRight();
         result = _(1).rangeRight(11);
@@ -12806,7 +12785,7 @@ namespace TestRangeRight {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<number[]>;
+        let result: _.LoDashExplicitArrayWrapper<number>;
 
         result = _(10).chain().rangeRight();
         result = _(1).chain().rangeRight(11);
@@ -12832,7 +12811,7 @@ namespace TestRangeRight {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<any[]>;
+        let result: _.LoDashExplicitArrayWrapper<any>;
 
         result = _('a').chain().stubArray();
         result = _([1]).chain().stubArray();
@@ -12872,7 +12851,7 @@ namespace TestRangeRight {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<Object>;
+        let result: _.LoDashExplicitObjectWrapper<Object>;
 
         result = _('a').chain().stubObject();
         result = _([1]).chain().stubObject();
@@ -12941,13 +12920,13 @@ namespace TestTimes {
     }
 
     {
-        let result: _.LoDashExplicitWrapper<number[]>;
+        let result: _.LoDashExplicitArrayWrapper<number>;
 
         result = _(42).chain().times();
     }
 
     {
-        let result: _.LoDashExplicitWrapper<TResult[]>;
+        let result: _.LoDashExplicitArrayWrapper<TResult>;
 
         result = _(42).chain().times(iteratee);
     }
