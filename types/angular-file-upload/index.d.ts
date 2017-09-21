@@ -48,7 +48,7 @@ export interface FileUploaderOptions {
     method: string;
     /**
      * Filters to be applied to the files before adding them to the queue. If the filter returns true the file will be added to the queue
-     * @default []
+     * @default [folderFilter, queueLimitFilter]
      */
     filters: Filter[];
     /**
