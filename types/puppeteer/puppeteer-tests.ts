@@ -153,3 +153,18 @@ puppeteer.launch().then(async browser => {
   const inputElement = await page.$("input[type=submit]");
   await inputElement.click();
 });
+
+//Example with launch options
+(async () => {
+  const browser = await puppeteer.launch({
+    args: [
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+    ]
+  });
+  const page = await browser.newPage();
+  await page.goto("https://example.com");
+  await page.screenshot({ path: "example.png" });
+
+  browser.close();
+})();
