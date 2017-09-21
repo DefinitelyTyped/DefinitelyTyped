@@ -1,48 +1,48 @@
-// Type definitions for react-native-safari-view 2.0.0
+// Type definitions for react-native-safari-view 2.0
 // Project: https://github.com/naoufal/react-native-safari-view
-// Definitions by: Michael Randolph <https://github.com/mrand01/>
+// Definitions by: Michael Randolph <https://github.com/mrand01>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { EmitterSubscription } from 'react-native';
 
-export interface ISafariViewOptions {
+export interface SafariViewOptions {
     /**
      * A String containing the url you want to load in the Safari View
-     * 
+     *
      * @type {string}
-     * @memberof ISafariViewOptions
+     * @memberof SafariViewOptions
      */
     url: string;
 
     /**
      * A Boolean indicating to use Safari's Reader Mode if available
-     * 
+     *
      * @type {boolean}
-     * @memberof ISafariViewOptions
+     * @memberof SafariViewOptions
      */
     readerMode?: boolean;
 
     /**
      * A String containing a hex or rgba color to use for the browser controls
-     * 
+     *
      * @type {string}
-     * @memberof ISafariViewOptions
+     * @memberof SafariViewOptions
      */
     tintColor?: string;
 
     /**
      * A String containing a hex or rgba color to use for the background of the browser controls (only available on iOS 10 and higher)
-     * 
+     *
      * @type {string}
-     * @memberof ISafariViewOptions
+     * @memberof SafariViewOptions
      */
     barTintColor?: string;
 
     /**
      * A Boolean indicating to open the Safari View from the bottom
-     * 
+     *
      * @type {boolean}
-     * @memberof ISafariViewOptions
+     * @memberof SafariViewOptions
      */
     fromBottom?: boolean;
 }
@@ -50,30 +50,30 @@ export interface ISafariViewOptions {
 export default class SafariView {
     /**
      * Displays a Safari View with the provided URL
-     * 
-     * @param {ISafariViewOptions} options 
+     *
+     * @param {SafariViewOptions} options
      */
-    public static show(options: ISafariViewOptions): Promise<boolean>;
+    static show(options: SafariViewOptions): Promise<boolean>;
 
     /**
      * Dismisses the currently active Safari View
      */
-    public static dismiss(): void;
+    static dismiss(): void;
 
     /**
      * Checks if Safari View is available on the device
      */
-    public static isAvailable(): Promise<boolean>;
+    static isAvailable(): Promise<boolean>;
 
     /**
      * @param {string} event
      * @param {function} listener
      */
-    public static addEventListener(event: string, listener: () => void): EmitterSubscription;
+    static addEventListener(event: string, listener: () => void): EmitterSubscription;
 
     /**
      * @param {string} event
      * @param {function} listener
      */
-    public static removeEventListener(event: string, listener: () => void): void;
+    static removeEventListener(event: string, listener: () => void): void;
 }
