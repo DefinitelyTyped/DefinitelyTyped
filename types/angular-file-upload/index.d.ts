@@ -35,11 +35,11 @@ export interface FileUploader {
     /**
      * Data to be sent along with the files
      */
-    formData: any[];
+    formData: FormData[];
     /**
      * Filters to be applied to the files before adding them to the queue. If the filter returns true the file will be added to the queue
      */
-    filters: UploaderFilter[];
+    filters: Filter[];
     /**
      * Automatically upload files after adding them to the queue
      */
@@ -74,7 +74,7 @@ export interface FileUploader {
     /**
      * Add items to the queue
      */
-    addToQueue(files: FileList | File | HTMLInputElement, options: {}, filters: string): void;
+    addToQueue(files: File | HTMLInputElement | {} | FileList | object[], options: {}, filters: Filter[] | string): void;
     /**
      * Remove an item from the queue, where value is {FileItem} or index of item.
      */
@@ -133,7 +133,7 @@ export interface FileUploader {
     /**
      * When adding a file failed
      */
-    onWhenAddingFileFailed(item: FileItem, filter: any, options: any): void;
+    onWhenAddingFileFailed(item: FileItem, filter: Filter, options: {}): void;
     /**
      * Fires after adding a single file to the queue.
      */
@@ -172,13 +172,21 @@ export interface FileUploader {
     onCompleteAll(): void;
 }
 export interface FileLikeObject {
-    lastModifiedDate: Date;
-    name: string;
-
     /**
-     * Size of object in octet
+     * Equals File.lastModifiedDate
+     */
+    lastModifiedDate: any;
+    /**
+     * Equals File.name
+     */
+    name: string;
+    /**
+     * Equals Blob.size, in octet
      */
     size: number;
+    /**
+     * Equals Blob.type, in octet
+     */
     type: string;
 }
 export interface FileItem {
@@ -199,7 +207,7 @@ export interface FileItem {
     /**
      * Data to be sent along with this file
      */
-    formData: any[];
+    formData: FormData[];
     /**
      * It's a request method. By default POST. HTML5 browsers only.
      */
@@ -294,8 +302,8 @@ export interface FileItem {
     onComplete(response: Response, status: number, headers: Headers): void;
 }
 export type SyncFilter = (item: File | FileLikeObject, options?: {}) => boolean;
-export type AsyncFilter = (item: File | FileLikeObject, options?: {}, deferred?: angular.IDeferred<any>) => void;
-export interface UploaderFilter {
+export type AsyncFilter = (item: File | FileLikeObject, options: {}, deferred: angular.IDeferred<any>) => void;
+export interface Filter {
     name: string;
     fn: SyncFilter | AsyncFilter;
 }
