@@ -154,7 +154,7 @@ puppeteer.launch().then(async browser => {
   await inputElement.click();
 });
 
-//Example with launch options
+// Example with launch options
 (async () => {
   const browser = await puppeteer.launch({
     args: [
