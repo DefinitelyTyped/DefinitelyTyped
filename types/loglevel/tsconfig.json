@@ -17,7 +17,7 @@
     },
     "files": [
         "index.d.ts",
-        "loglevel-tests.ts",
-        "loglevel-tests-umd.ts"
+        "test/loglevel-tests.ts",
+        "test/loglevel-umd-tests.ts"
     ]
 }
