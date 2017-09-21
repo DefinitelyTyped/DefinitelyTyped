@@ -1,4 +1,4 @@
-// Type definitions for Jest 20.0
+// Type definitions for Jest 21.1
 // Project: http://facebook.github.io/jest/
 // Definitions by: Asana <https://asana.com>
 //                 Ivo Stratev <https://github.com/NoHomey>
@@ -60,6 +60,14 @@ declare namespace jest {
      * Equivalent to calling .mockClear() on every mocked function.
      */
     function resetAllMocks(): typeof jest;
+    /**
+     * available since Jest 21.1.0
+     * Restores all mocks back to their original value.
+     * Equivalent to calling .mockRestore on every mocked function.
+     * Beware that jest.restoreAllMocks() only works when mock was created with
+     * jest.spyOn; other mocks will require you to manually restore them.
+     */
+    function restoreAllMocks(): typeof jest;
     /**
      * Removes any pending timers from the timer system. If any timers have
      * been scheduled, they will be cleared and will never have the opportunity
