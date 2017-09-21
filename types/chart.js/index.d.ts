@@ -4,15 +4,15 @@
 //                 Fabien Lavocat <https://github.com/FabienLavocat>
 //                 KentarouTakeda <https://github.com/KentarouTakeda>
 //                 Larry Bahr <https://github.com/larrybahr>
+//                 Daniel Luz <https://github.com/mernen>
+//                 Joseph Page <https://github.com/josefpaij>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
-
-/// <reference types="jquery" />
 
 declare class Chart {
     static readonly Chart: typeof Chart;
     constructor(
-        context: string | JQuery | CanvasRenderingContext2D | HTMLCanvasElement | string[] | CanvasRenderingContext2D[] | HTMLCanvasElement[],
+        context: string | CanvasRenderingContext2D | HTMLCanvasElement | ArrayLike<CanvasRenderingContext2D | HTMLCanvasElement>,
         options: Chart.ChartConfiguration
     );
     config: Chart.ChartConfiguration;
@@ -34,7 +34,7 @@ declare class Chart {
     static pluginService: PluginServiceStatic;
 
     static defaults: {
-        global: Chart.ChartOptions;
+        global: Chart.ChartOptions & Chart.ChartFontOptions;
     };
 }
 declare class PluginServiceStatic {
@@ -82,6 +82,8 @@ declare namespace Chart {
     type TimeUnit = 'millisecond' | 'second' | 'minute' | 'hour' | 'day' | 'week' | 'month' | 'quarter' | 'year';
 
     type ScaleType = 'category' | 'linear' | 'logarithmic' | 'time' | 'radialLinear';
+
+    type PointStyle = 'circle' | 'cross' | 'crossRot' | 'dash' | 'line' | 'rect' | 'rectRounded' | 'rectRot' | 'star' | 'triangle';
 
     type PositionType = 'left' | 'right' | 'top' | 'bottom';
 
@@ -175,7 +177,7 @@ declare namespace Chart {
 
     interface ChartTitleOptions {
         display?: boolean;
-        position?: string;
+        position?: PositionType;
         fullWdith?: boolean;
         fontSize?: number;
         fontFamily?: string;
@@ -187,10 +189,12 @@ declare namespace Chart {
 
     interface ChartLegendOptions {
         display?: boolean;
-        position?: string;
+        position?: PositionType;
         fullWidth?: boolean;
-        onClick?(event: any, legendItem: any): void;
+        onClick?(event: MouseEvent, legendItem: ChartLegendItem): void;
+        onHover?(event: MouseEvent, legendItem: ChartLegendItem): void;
         labels?: ChartLegendLabelOptions;
+        reverse?: boolean;
     }
 
     interface ChartLegendLabelOptions {
@@ -293,7 +297,7 @@ declare namespace Chart {
 
     interface ChartPointOptions {
         radius?: number;
-        pointStyle?: string;
+        pointStyle?: PointStyle;
         backgroundColor?: ChartColor;
         borderWidth?: number;
         borderColor?: ChartColor;
@@ -332,6 +336,7 @@ declare namespace Chart {
 
     interface TickOptions {
         autoSkip?: boolean;
+        autoSkipPadding?: boolean;
         callback?(value: any, index: any, values: any): string|number;
         display?: boolean;
         fontColor?: ChartColor;
@@ -386,7 +391,7 @@ declare namespace Chart {
     type ChartColor = string | CanvasGradient | CanvasPattern | string[];
 
     interface ChartDataSets {
-        cubicInterpolationMode?: string;
+        cubicInterpolationMode?: 'default' | 'monotone';
         backgroundColor?: ChartColor | ChartColor[];
         borderWidth?: number;
         borderColor?: ChartColor;
@@ -394,10 +399,15 @@ declare namespace Chart {
         borderDash?: number[];
         borderDashOffset?: number;
         borderJoinStyle?: string;
+        borderSkipped?: PositionType;
         data?: number[] | ChartPoint[];
-        fill?: boolean;
+        fill?: boolean | number | string;
+        hoverBackgroundColor?: string | string[];
+        hoverBorderColor?: string | string[];
+        hoverBorderWidth?: number | number[];
         label?: string;
         lineTension?: number;
+        steppedLine?: 'before' | 'after' | boolean;
         pointBorderColor?: ChartColor | ChartColor[];
         pointBackgroundColor?: ChartColor | ChartColor[];
         pointBorderWidth?: number | number[];
@@ -407,14 +417,15 @@ declare namespace Chart {
         pointHoverBackgroundColor?: ChartColor | ChartColor[];
         pointHoverBorderColor?: ChartColor | ChartColor[];
         pointHoverBorderWidth?: number | number[];
-        pointStyle?: string | string[] | HTMLImageElement | HTMLImageElement[];
+        pointStyle?: PointStyle | HTMLImageElement | Array<PointStyle | HTMLImageElement>;
         xAxisID?: string;
         yAxisID?: string;
         type?: string;
         hidden?: boolean;
         hideInLegendAndTooltip?: boolean;
+        showLine?: boolean;
         stack?: string;
-        spanGaps?: string;
+        spanGaps?: boolean;
     }
 
     interface ChartScales {

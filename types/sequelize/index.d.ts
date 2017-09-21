@@ -4439,7 +4439,7 @@ declare namespace sequelize {
          *
          * PostgreSQL only
          */
-        deferrable?: Deferrable;
+        deferrable?: DeferrableInitiallyDeferred | DeferrableInitiallyImmediate | DeferrableNot | DeferrableSetDeferred | DeferrableSetImmediate;
 
     }
 

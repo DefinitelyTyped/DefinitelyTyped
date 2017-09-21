@@ -4,6 +4,7 @@
     // TODOs
     "ban-types": false,
     "dt-header": false,
+    "no-any-union": false,
     "no-single-declare-module": false
   }
 }

@@ -1,12 +1,23 @@
 import * as mime from "mime";
+import Mime from "mime/Mime";
 
-let str: string;
-const obj: {} = {};
-const fallback = '';
+let strOrNul: string | null;
 
-str = mime.lookup(str, fallback);
-str = mime.extension(str);
-mime.load(str);
+const obj = {
+	mime: ["ext", "ext2"]
+};
+
+const obj2 = {
+	"text/plain": ["txt"]
+};
+
 mime.define(obj);
+mime.define(obj2, true);
+strOrNul = mime.getType("ext");
+strOrNul = mime.getType("foo");
+strOrNul = mime.getExtension("mime");
+strOrNul = mime.getExtension("bar");
 
-str = mime.charsets.lookup(str);
+const myMime = new Mime(obj);
+strOrNul = myMime.getType("foo");
+strOrNul = myMime.getExtension('text/plan');

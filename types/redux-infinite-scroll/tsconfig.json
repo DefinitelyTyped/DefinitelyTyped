@@ -3,7 +3,6 @@
         "module": "commonjs",
         "lib": [ "es6", "dom" ],
         "noImplicitAny": true,
-        "noImplicitReturns": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "baseUrl": "../",

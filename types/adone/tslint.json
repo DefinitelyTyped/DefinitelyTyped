@@ -5,9 +5,11 @@
         "align": false,
         "no-namespace": false,
         "strict-export-declare-modifiers": false,
+        "no-any-union": false,
         "no-boolean-literal-compare": false,
         "no-mergeable-namespace": false,
         "no-single-declare-module": false,
+        "no-unnecessary-generics": false,
         "no-unnecessary-qualifier": false,
         "unified-signatures": false,
         "space-before-function-paren": false

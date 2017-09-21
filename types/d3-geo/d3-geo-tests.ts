@@ -326,6 +326,7 @@ const mercatorRaw: d3Geo.GeoRawProjection = d3Geo.geoMercatorRaw();
 const orthographicRaw: d3Geo.GeoRawProjection = d3Geo.geoOrthographicRaw();
 const stereographicRaw: d3Geo.GeoRawProjection = d3Geo.geoStereographicRaw();
 const transverseMercatorRaw: d3Geo.GeoRawProjection = d3Geo.geoTransverseMercatorRaw();
+const naturalEart1Raw: d3Geo.GeoRawProjection = d3Geo.geoNaturalEarth1Raw();
 
 // Use Raw Projection =====================================================
 
@@ -351,6 +352,7 @@ const mercator: d3Geo.GeoProjection = d3Geo.geoMercator();
 const orthographic: d3Geo.GeoProjection = d3Geo.geoOrthographic();
 const stereographic: d3Geo.GeoProjection = d3Geo.geoStereographic();
 const transverseMercator: d3Geo.GeoProjection = d3Geo.geoTransverseMercator();
+const natualEarth1: d3Geo.GeoProjection = d3Geo.geoNaturalEarth1();
 
 // ----------------------------------------------------------------------
 // Create New Projections
