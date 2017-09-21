@@ -5,6 +5,7 @@
 //                 Clément Bourgeois <https://github.com/moonpyk/>
 //                 Matt Brooks <https://github.com/EnableSoftware>
 //                 Benjamin Eckardt <https://github.com/BenjaminEckardt>
+//                 Patrik Storm <https://github.com/stormpat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
@@ -217,6 +218,7 @@ interface KnockoutVirtualElements {
 }
 
 interface KnockoutExtenders {
+    [userland: string]: (target: KnockoutObservable<{}>, ...args) => any;
     throttle(target: any, timeout: number): KnockoutComputed<any>;
     notify(target: any, notifyWhen: string): any;
 
