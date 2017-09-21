@@ -137,6 +137,7 @@ declare module '@google-cloud/datastore/entity' {
 }
 
 declare module '@google-cloud/datastore/query' {
+    // tslint:disable-next-line no-duplicate-imports (This rule is broken for multiple modules per file)
     import { DatastoreKey } from '@google-cloud/datastore/entity';
 
     type MoreResultsAfterCursor = 'MORE_RESULTS_AFTER_CURSOR';
@@ -193,7 +194,9 @@ declare module '@google-cloud/datastore/query' {
 }
 
 declare module '@google-cloud/datastore/request' {
+    // tslint:disable-next-line no-duplicate-imports (This rule is broken for multiple modules per file)
     import { DatastoreKey, OneOrMany } from '@google-cloud/datastore/entity';
+    // tslint:disable-next-line no-duplicate-imports
     import { Query, QueryCallback, QueryOptions, QueryResult } from '@google-cloud/datastore/query';
 
     /**
@@ -259,8 +262,11 @@ declare module '@google-cloud/datastore/request' {
 
 declare module '@google-cloud/datastore/transaction' {
     import Datastore_ = require('@google-cloud/datastore');
+    // tslint:disable-next-line no-duplicate-imports (This rule is broken for multiple modules per file)
     import { DatastoreKey, OneOrMany } from '@google-cloud/datastore/entity';
+    // tslint:disable-next-line no-duplicate-imports
     import { Query } from '@google-cloud/datastore/query';
+    // tslint:disable-next-line no-duplicate-imports
     import { DatastoreRequest, CommitCallback, CommitResult } from '@google-cloud/datastore/request';
 
     class DatastoreTransaction extends DatastoreRequest {
