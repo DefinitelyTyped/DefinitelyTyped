@@ -68,39 +68,41 @@ const complexQuery = ds.createQuery('special_namespace', kind)
                        .offset(10);
 
 // Running queries:
-const queryCallback: QueryCallback<TestEntity> = (err: Error, entities: TestEntity[]) => entities[0][Datastore.KEY];
+const queryCallback: QueryCallback = (err: Error, entities: TestEntity[]) => entities[0][Datastore.KEY];
 
-ds.runQuery<TestEntity>(query, queryCallback);
-ds.runQuery<TestEntity>(query, options, queryCallback);
+ds.runQuery(query, queryCallback);
+ds.runQuery(query, options, queryCallback);
 ds.runQuery(query, options);
 
 const queryStream: NodeJS.ReadableStream = complexQuery.runStream();
 const dsQueryStream: NodeJS.ReadableStream = ds.runQueryStream(complexQuery, options);
 complexQuery.run()
-            .then((data: QueryResult<TestEntity>) => {
+            .then((data: QueryResult) => {
                 const {moreResults, endCursor} = data[1];
                 const frontEndResponse: any = {};
-                if (moreResults === Datastore.NO_MORE_RESULTS) {
+                switch (moreResults) {
+                case Datastore.NO_MORE_RESULTS:
                     frontEndResponse.nextPageCursor = null;
-                } else if (moreResults === Datastore.MORE_RESULTS_AFTER_CURSOR) {
-                    frontEndResponse.nextPageCursor = endCursor;
-                } else if (moreResults === Datastore.MORE_RESULTS_AFTER_LIMIT) {
+                    break;
+                case Datastore.MORE_RESULTS_AFTER_CURSOR:
+                case Datastore.MORE_RESULTS_AFTER_LIMIT:
                     frontEndResponse.nextPageCursor = endCursor;
                 }
             });
 
-query.run<TestEntity>((err: Error, entities: TestEntity[], info: QueryInfo) => {
+query.run((err: Error, entities: TestEntity[], info: QueryInfo) => {
     if (err) {
         return;
     }
     const {moreResults, endCursor} = info;
 
     const frontEndResponse: any = {entities};
-    if (moreResults === ds.NO_MORE_RESULTS) {
+    switch (moreResults) {
+    case ds.NO_MORE_RESULTS:
         frontEndResponse.nextPageCursor = null;
-    } else if (moreResults === ds.MORE_RESULTS_AFTER_CURSOR) {
-        frontEndResponse.nextPageCursor = endCursor;
-    } else if (moreResults === ds.MORE_RESULTS_AFTER_LIMIT) {
+        break;
+    case ds.MORE_RESULTS_AFTER_CURSOR:
+    case ds.MORE_RESULTS_AFTER_LIMIT:
         frontEndResponse.nextPageCursor = endCursor;
     }
 });
@@ -166,7 +168,7 @@ transaction.run((err, activeTx: DatastoreTransaction) => {
     });
 });
 
-let promisedTxStart: Promise<TransactionResult> = ds.transaction().run();
+const promisedTxStart: Promise<TransactionResult> = ds.transaction().run();
 
 promisedTxStart.then((result: TransactionResult) => {
     const activeTx: DatastoreTransaction = result[0];

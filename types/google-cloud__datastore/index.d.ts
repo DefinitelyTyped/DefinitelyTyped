@@ -165,9 +165,9 @@ declare module '@google-cloud/datastore/query' {
 
         offset(n: number): this;
 
-        run<T>(callback: QueryCallback<T>): void;
-        run<T>(options: QueryOptions, callback: QueryCallback<T>): void;
-        run(options?: QueryOptions): Promise<QueryResult<object>>;
+        run(callback: QueryCallback): void;
+        run(options: QueryOptions, callback: QueryCallback): void;
+        run(options?: QueryOptions): Promise<QueryResult>;
 
         runStream(): NodeJS.ReadableStream;
     }
@@ -188,8 +188,8 @@ declare module '@google-cloud/datastore/query' {
         readonly moreResults: MoreResultsAfterCursor | MoreResultsAfterLimit | NoMoreResults;
     }
 
-    type QueryCallback<T> = (err: Error, entities: T[], info: QueryInfo) => void;
-    type QueryResult<T> = [T[], QueryInfo];
+    type QueryCallback = (err: Error, entities: object[], info: QueryInfo) => void;
+    type QueryResult = [object[], QueryInfo];
 }
 
 declare module '@google-cloud/datastore/request' {
@@ -210,17 +210,17 @@ declare module '@google-cloud/datastore/request' {
         delete(keyOrKeys: DatastoreKey | ReadonlyArray<DatastoreKey>, callback: CommitCallback): void;
         delete(keyOrKeys: DatastoreKey | ReadonlyArray<DatastoreKey>): Promise<CommitResult> | void;
 
-        get<T>(key: DatastoreKey, options: QueryOptions, callback: GetCallback<T>): void;
-        get<T>(keys: ReadonlyArray<DatastoreKey>, options: QueryOptions, callback: GetCallback<T[]>): void;
-        get<T>(key: DatastoreKey, callback: GetCallback<T>): void;
-        get<T>(keys: ReadonlyArray<DatastoreKey>, callback: GetCallback<T[]>): void;
+        get(key: DatastoreKey, options: QueryOptions, callback: GetCallback<object>): void;
+        get(keys: ReadonlyArray<DatastoreKey>, options: QueryOptions, callback: GetCallback<object[]>): void;
+        get(key: DatastoreKey, callback: GetCallback<object>): void;
+        get(keys: ReadonlyArray<DatastoreKey>, callback: GetCallback<object[]>): void;
 
         get(key: DatastoreKey, options?: QueryOptions): Promise<[object | undefined]>;
         get(keys: ReadonlyArray<DatastoreKey>, options?: QueryOptions): Promise<[object[]]>;
 
-        runQuery<T>(query: Query, options: QueryOptions, callback: QueryCallback<T>): void;
-        runQuery<T>(query: Query, callback: QueryCallback<T>): void;
-        runQuery(query: Query, options?: QueryOptions): QueryResult<object>;
+        runQuery(query: Query, options: QueryOptions, callback: QueryCallback): void;
+        runQuery(query: Query, callback: QueryCallback): void;
+        runQuery(query: Query, options?: QueryOptions): QueryResult;
 
         runQueryStream(query: Query, options?: QueryOptions): NodeJS.ReadableStream;
 
