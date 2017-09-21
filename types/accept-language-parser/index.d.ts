@@ -7,7 +7,7 @@
 // https://github.com/opentable/accept-language-parser/blob/v1.4.1/index.js
 
 export function parse(acceptLanguage: string): Language[];
-export function pick(supportedLanguages: string[], acceptLanguage: string | Language[]): Language | null;
+export function pick(supportedLanguages: string[], acceptLanguage: string | Language[]): string | null;
 
 export interface Language {
     code: string;
