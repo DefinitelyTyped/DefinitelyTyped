@@ -9,9 +9,7 @@ const didShow: Promise<boolean> = SafariView.show({
     url: 'http://test.url'
 });
 
-const listener = (): void => {
-
-}
+const listener = (): void => {};
 
 const subscription: EmitterSubscription = SafariView.addEventListener('onShow', listener);
 
