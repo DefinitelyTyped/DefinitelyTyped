@@ -2,6 +2,7 @@ import { CSSModule } from '../index';
 
 interface Props {
   light?: boolean;
+  dark?: boolean;
   inverse?: boolean;
   full?: boolean;
   fixed?: string;
@@ -12,6 +13,7 @@ interface Props {
   className?: string;
   cssModule?: CSSModule;
   toggleable?: boolean | string;
+  expand?: boolean | string;
 }
 
 declare var Navbar: React.StatelessComponent<Props>;
