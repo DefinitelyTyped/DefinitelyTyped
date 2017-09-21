@@ -2,7 +2,7 @@ import * as React from 'react';
 import { render } from 'react-dom';
 import { BootstrapTable, TableHeaderColumn, ApplyFilterParameter, Filter } from 'react-bootstrap-table';
 
-let products = [{
+const products = [{
   id: 1,
   name: "Item name 1",
   price: 100

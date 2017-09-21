@@ -492,7 +492,7 @@ export interface Options {
 	 *
 	 * @memberof BootstrapTableProps
 	 */
-	onDeleteRow?: (rows: any[] | any) => any;
+	onDeleteRow?: (rows: any) => any;
 	/**
 	 * A callback which will be called after page changed
 	 *
