@@ -1,4 +1,4 @@
-// Type definitions for Jest 20.0
+// Type definitions for Jest 21.1
 // Project: http://facebook.github.io/jest/
 // Definitions by: Asana <https://asana.com>
 //                 Ivo Stratev <https://github.com/NoHomey>
@@ -61,7 +61,7 @@ declare namespace jest {
      */
     function resetAllMocks(): typeof jest;
     /**
-     * available in Jest 20.1.0+
+     * available since Jest 21.1.0
      * Restores all mocks back to their original value.
      * Equivalent to calling .mockRestore on every mocked function.
      * Beware that jest.restoreAllMocks() only works when mock was created with
