@@ -31,7 +31,7 @@ declare class Nightmare {
     select(seletor: string, option: string): Nightmare;
     upload(selector: string, path: string): Nightmare;
     download(path:string): Nightmare;
-    download(action: Nightmare.IDownloadActions): Nightmare;  
+    download(action: "cancel" | "continue"): Nightmare;  
     scrollTo(top: number, left: number): Nightmare;
     viewport(width: number, height: number): Nightmare;
     inject(type: string, file: string): Nightmare;
@@ -177,10 +177,6 @@ declare namespace Nightmare {
         file: string;
         line: number;
         function?: string;
-    }
-    export enum IDownloadActions {
-        cancel = "cancel",
-        continue = "continue"
     }
     export class Cookies {
         get(): [Nightmare.ICookie];
