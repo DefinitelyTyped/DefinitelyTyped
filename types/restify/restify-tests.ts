@@ -1,6 +1,7 @@
 import * as restify from "restify";
 import * as url from "url";
 import * as Logger from "bunyan";
+import * as http from "http";
 
 let server = new restify.Server();
 
@@ -94,8 +95,11 @@ function send(req: restify.Request, res: restify.Response, next: restify.Next) {
     res.id === 'test';
 
     res.send('hello ' + req.params.name);
-    res.writeHead();
-    return next();
+    res.writeHead(200);
+    res.writeHead(200, {
+        "Content-Type": "application/json"
+    });
+    next();
 }
 
 server.post('/hello', send);
@@ -116,6 +120,8 @@ server.name = "";
 server.versions = [""];
 server.acceptable = ["test"];
 server.url = "";
+server.server = new http.Server();
+server.router = new restify.Router({});
 
 server.address().port;
 server.address().family;
@@ -143,7 +149,9 @@ server.use(restify.plugins.throttle({
     }
 }));
 
-server.on('after', restify.plugins.auditLogger({ event: 'after', log: {} as Logger }));
+const logger = Logger.createLogger({ name: "test" });
+
+server.on('after', restify.plugins.auditLogger({ event: 'after', log: logger }));
 
 server.on('after', (req: restify.Request, res: restify.Response, route: restify.Route, err: any) => {
     route.spec.method === 'GET';
@@ -151,7 +159,7 @@ server.on('after', (req: restify.Request, res: restify.Response, route: restify.
     route.spec.path === '/some/path';
     route.spec.path === /\/some\/path\/.*/;
     route.spec.versions === ['v1'];
-    restify.plugins.auditLogger({ event: 'after', log: {} as Logger })(req, res, route, err);
+    restify.plugins.auditLogger({ event: 'after', log: logger })(req, res, route, err);
 });
 
 (<any> restify).defaultResponseHeaders = function(this: restify.Request, data: any) {

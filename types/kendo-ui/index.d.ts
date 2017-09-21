@@ -1563,11 +1563,11 @@ declare namespace kendo.ui {
 
     }
 
-    interface AlertMessages {
+    interface AlertMessages extends DialogMessages {
         okText?: string;
     }
 
-    interface AlertOptions {
+    interface AlertOptions extends DialogOptions {
         name?: string;
         messages?: AlertMessages;
     }
@@ -2081,12 +2081,12 @@ declare namespace kendo.ui {
 
     }
 
-    interface ConfirmMessages {
+    interface ConfirmMessages extends DialogMessages {
         okText?: string;
         cancel?: string;
     }
 
-    interface ConfirmOptions {
+    interface ConfirmOptions extends DialogOptions {
         name?: string;
         messages?: ConfirmMessages;
     }
@@ -5479,12 +5479,12 @@ declare namespace kendo.ui {
 
     }
 
-    interface PromptMessages {
+    interface PromptMessages extends DialogMessages {
         okText?: string;
         cancel?: string;
     }
 
-    interface PromptOptions {
+    interface PromptOptions extends DialogOptions {
         name?: string;
         messages?: PromptMessages;
     }
@@ -7025,7 +7025,7 @@ declare namespace kendo.ui {
         name?: string;
         autoHide?: boolean;
         animation?: boolean|TooltipAnimation;
-        content?: TooltipContent;
+        content?: string | TooltipContent | ((e: any) => string);
         callout?: boolean;
         filter?: string;
         iframe?: boolean;

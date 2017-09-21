@@ -10,7 +10,6 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
-        "allowSyntheticDefaultImports": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"

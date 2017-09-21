@@ -5,7 +5,6 @@
             "es6",
             "dom"
         ],
-        "allowSyntheticDefaultImports": true,
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,

@@ -39,7 +39,24 @@ import {
     ScrollViewProps,
     RefreshControl,
     TabBarIOS,
+    NativeModules,
+    MaskedView,
 } from 'react-native';
+
+declare module 'react-native' {
+    interface NativeTypedModule {
+        someFunction(): void;
+        someProperty: string;
+    }
+    interface NativeModulesStatic {
+        NativeTypedModule: NativeTypedModule
+    }
+}
+
+NativeModules.NativeUntypedModule;
+
+NativeModules.NativeTypedModule.someFunction();
+NativeModules.NativeTypedModule.someProperty = "";
 
 function testDimensions() {
   const {
@@ -336,5 +353,19 @@ class AlertTest extends React.Component {
         return (
             <Button title='Press me' onPress={this.showAlert}/>
         );
+    }
+}
+
+class MaskedViewTest extends React.Component {
+    render() {
+        return (
+            <MaskedView
+                maskElement={
+                    <View />
+                }
+            >
+                <View />
+            </MaskedView>
+        )
     }
 }
