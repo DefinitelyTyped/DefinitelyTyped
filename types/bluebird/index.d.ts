@@ -46,7 +46,7 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
    * Promises/A+ `.then()`. Returns a new promise chained from this promise. The new promise will be rejected or resolved dedefer on the passed `fulfilledHandler`, `rejectedHandler` and the state of this promise.
    */
   // Based on PromiseLike.then, but returns a Bluebird instance.
-  then<U>(onFulfill?: (value: R) => U | Bluebird.Thenable<U>, onReject?: (error: any) => U | Bluebird.Thenable<U>): Bluebird<U>; // For simpler signature help.
+  then<U>(onFulfill?: (value: R) => U | PromiseLike<U>, onReject?: (error: any) => U | PromiseLike<U>): Bluebird<U>; // For simpler signature help.
   then<TResult1 = R, TResult2 = never>(onfulfilled?: ((value: R) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Bluebird<TResult1 | TResult2>;
 
   /**
@@ -609,7 +609,7 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
    * Like calling `.then`, but the fulfillment value or rejection reason is assumed to be an array, which is flattened to the formal parameters of the handlers.
    */
   spread<U, W>(fulfilledHandler: (...values: W[]) => U | PromiseLike<U>): Bluebird<U>;
-  spread<U>(fulfilledHandler: Function): Bluebird<U>;
+  spread<U>(fulfilledHandler: (...args: any[]) => U | PromiseLike<U>): Bluebird<U>;
 
   /**
    * Same as calling `Promise.all(thisPromise)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
@@ -620,7 +620,7 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   /**
    * Same as calling `Promise.props(thisPromise)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
    */
-  props<K, V>(this: PromiseLike<Map<K, Bluebird.Thenable<V> | V>>): Bluebird<Map<K, V>>;
+  props<K, V>(this: PromiseLike<Map<K, PromiseLike<V> | V>>): Bluebird<Map<K, V>>;
   props<T>(this: PromiseLike<Bluebird.ResolvableProps<T>>): Bluebird<T>;
 
   /**
@@ -695,7 +695,7 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
    * Returns a new function that wraps the given function `fn`. The new function will always return a promise that is fulfilled with the original functions return values or rejected with thrown exceptions from the original function.
    * This method is convenient when a function can sometimes return synchronously or throw synchronously.
    */
-  static method(fn: Function): Function;
+  static method<R>(fn: (...args: any[]) => R | PromiseLike<R>): (...args: any[]) => Bluebird<R>;
 
   /**
    * Create a promise that is resolved with the given `value`. If `value` is a thenable or promise, the returned promise will assume its state.
@@ -749,13 +749,13 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
    *
    * If you pass a `receiver`, the `nodeFunction` will be called as a method on the `receiver`.
    */
-  static promisify<T>(func: (callback: (err: any, result: T) => void) => void, options?: Bluebird.PromisifyOptions): () => Bluebird<T>;
-  static promisify<T, A1>(func: (arg1: A1, callback: (err: any, result: T) => void) => void, options?: Bluebird.PromisifyOptions): (arg1: A1) => Bluebird<T>;
-  static promisify<T, A1, A2>(func: (arg1: A1, arg2: A2, callback: (err: any, result: T) => void) => void, options?: Bluebird.PromisifyOptions): (arg1: A1, arg2: A2) => Bluebird<T>;
-  static promisify<T, A1, A2, A3>(func: (arg1: A1, arg2: A2, arg3: A3, callback: (err: any, result: T) => void) => void, options?: Bluebird.PromisifyOptions): (arg1: A1, arg2: A2, arg3: A3) => Bluebird<T>;
-  static promisify<T, A1, A2, A3, A4>(func: (arg1: A1, arg2: A2, arg3: A3, arg4: A4, callback: (err: any, result: T) => void) => void, options?: Bluebird.PromisifyOptions): (arg1: A1, arg2: A2, arg3: A3, arg4: A4) => Bluebird<T>;
-  static promisify<T, A1, A2, A3, A4, A5>(func: (arg1: A1, arg2: A2, arg3: A3, arg4: A4, arg5: A5, callback: (err: any, result: T) => void) => void, options?: Bluebird.PromisifyOptions): (arg1: A1, arg2: A2, arg3: A3, arg4: A4, arg5: A5) => Bluebird<T>;
-  static promisify(nodeFunction: Function, options?: Bluebird.PromisifyOptions): Function;
+  static promisify<T>(func: (callback: (err: any, result?: T) => void) => void, options?: Bluebird.PromisifyOptions): () => Bluebird<T>;
+  static promisify<T, A1>(func: (arg1: A1, callback: (err: any, result?: T) => void) => void, options?: Bluebird.PromisifyOptions): (arg1: A1) => Bluebird<T>;
+  static promisify<T, A1, A2>(func: (arg1: A1, arg2: A2, callback: (err: any, result?: T) => void) => void, options?: Bluebird.PromisifyOptions): (arg1: A1, arg2: A2) => Bluebird<T>;
+  static promisify<T, A1, A2, A3>(func: (arg1: A1, arg2: A2, arg3: A3, callback: (err: any, result?: T) => void) => void, options?: Bluebird.PromisifyOptions): (arg1: A1, arg2: A2, arg3: A3) => Bluebird<T>;
+  static promisify<T, A1, A2, A3, A4>(func: (arg1: A1, arg2: A2, arg3: A3, arg4: A4, callback: (err: any, result?: T) => void) => void, options?: Bluebird.PromisifyOptions): (arg1: A1, arg2: A2, arg3: A3, arg4: A4) => Bluebird<T>;
+  static promisify<T, A1, A2, A3, A4, A5>(func: (arg1: A1, arg2: A2, arg3: A3, arg4: A4, arg5: A5, callback: (err: any, result?: T) => void) => void, options?: Bluebird.PromisifyOptions): (arg1: A1, arg2: A2, arg3: A3, arg4: A4, arg5: A5) => Bluebird<T>;
+  static promisify(nodeFunction: (...args: any[]) => void, options?: Bluebird.PromisifyOptions): (...args: any[]) => Bluebird<any>;
 
   /**
    * Promisifies the entire object by going through the object's properties and creating an async equivalent of each function on the object and its prototype chain. The promisified method name will be the original method name postfixed with `Async`. Returns the input object.
@@ -777,7 +777,7 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
    * Returns a function that can use `yield` to run asynchronous code synchronously. This feature requires the support of generators which are drafted in the next version of the language. Node version greater than `0.11.2` is required and needs to be executed with the `--harmony-generators` (or `--harmony`) command-line switch.
    */
   // TODO fix coroutine GeneratorFunction
-  static coroutine<R>(generatorFunction: Function): Function;
+  static coroutine(generatorFunction: (...args: any[]) => IterableIterator<any>): (...args: any[]) => Bluebird<any>;
 
   /**
    * Add `handler` as the handler to call when there is a possibly unhandled rejection. The default handler logs the error stack to stderr or `console.error` in browsers.
@@ -1011,9 +1011,9 @@ declare namespace Bluebird {
   }
   export interface PromisifyAllOptions extends PromisifyOptions {
     suffix?: string;
-    filter?: (name: string, func: Function, target?: any, passesDefaultFilter?: boolean) => boolean;
+    filter?: (name: string, func: (...args: any[]) => any, target?: any, passesDefaultFilter?: boolean) => boolean;
     // The promisifier gets a reference to the original method and should return a function which returns a promise
-    promisifier?: (originalMethod: Function) => () => PromiseLike<any>;
+    promisifier?: (originalMethod: (...args: any[]) => any, defaultPromisifer: (...args: any[]) => (...args: any[]) => Bluebird<any>) => () => PromiseLike<any>;
   }
 
   /**

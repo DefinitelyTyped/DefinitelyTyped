@@ -99,7 +99,7 @@ configuration = {
 configuration =  {
     entry: { a: "./a", b: "./b" },
     output: { filename: "[name].js" },
-    plugins: [ new webpack.optimize.CommonsChunkPlugin("init.js") ]
+    plugins: [ new webpack.optimize.CommonsChunkPlugin({ name: "init.js" }) ]
 };
 
 //
@@ -141,7 +141,7 @@ configuration = {
         filename: "[name].entry.chunk.js"
     },
     plugins: [
-        new CommonsChunkPlugin("commons.chunk.js")
+        new CommonsChunkPlugin({ name: "commons.chunk.js" })
     ]
 };
 
@@ -611,7 +611,11 @@ function loader(this: webpack.loader.LoaderContext, source: string, sourcemap: s
 
     this.resolve('context', 'request', ( err: Error, result: string) => {});
 
-    this.emitError('warning');
+    this.emitWarning('warning message');
+    this.emitWarning(new Error('warning message'));
+
+    this.emitError('error message');
+    this.emitError(new Error('error message'));
 
     this.callback(null, source);
 }

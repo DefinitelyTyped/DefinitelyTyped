@@ -1,0 +1,10 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "array-type": false,
+        "interface-name": false,
+        "comment-format": false,
+        "no-any-union": false,
+        "strict-export-declare-modifiers": false
+    }
+}

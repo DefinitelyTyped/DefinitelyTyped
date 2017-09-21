@@ -6,7 +6,6 @@
             "es6"
         ],
         "target": "es6",
-        "moduleResolution": "node",
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
