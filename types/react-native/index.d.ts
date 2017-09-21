@@ -3250,6 +3250,8 @@ export interface ImageURISource {
      */
     scale?: number,
 }
+    
+export type ImageRequireSource = number;
 
 export interface ImagePropertiesIOS {
     /**
@@ -3400,7 +3402,7 @@ export interface ImageProperties extends ImagePropertiesIOS, ImagePropertiesAndr
      * their width and height. The native side will then choose the best `uri` to display
      * based on the measured size of the image container.
      */
-    source: ImageURISource | ImageURISource[] | number
+    source: ImageURISource | ImageURISource[] | ImageRequireSource
 
     /**
      * similarly to `source`, this property represents the resource used to render
