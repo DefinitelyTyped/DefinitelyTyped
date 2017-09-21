@@ -99,7 +99,7 @@ declare module "mongoose" {
   export var SchemaTypes: typeof Schema.Types;
 
   /** Expose connection states for user-land */
-  export var STATES: Object
+  export var STATES: Object;
   /** The default connection of the mongoose module. */
   export var connection: Connection;
   /** The node-mongodb-native driver Mongoose uses. */
@@ -1307,7 +1307,7 @@ declare module "mongoose" {
     // constructor exposes static methods of mongodb.ObjectID and ObjectId(id)
     type ObjectIdConstructor = typeof mongodb.ObjectID & {
       (s?: string | number): mongodb.ObjectID;
-    }
+    };
 
     // var objectId: mongoose.Types.ObjectId should reference mongodb.ObjectID not
     //   the ObjectIdConstructor, so we add the interface below
@@ -2198,7 +2198,7 @@ declare module "mongoose" {
 
     /** Provides promise for aggregate. */
     then<TRes>(resolve?: (val: T) =>  void | TRes | PromiseLike<TRes>,
-      reject?: (err: any) =>  void | TRes | PromiseLike<TRes>): Promise<TRes>
+      reject?: (err: any) =>  void | TRes | PromiseLike<TRes>): Promise<TRes>;
 
     /**
      * Appends new custom $unwind operator(s) to this aggregate pipeline.
@@ -2692,7 +2692,7 @@ declare module "mongoose" {
     /** optional query options like sort, limit, etc */
     options?: Object;
     /** deep populate */
-    populate?: ModelPopulateOptions | ModelPopulateOptions[]
+    populate?: ModelPopulateOptions | ModelPopulateOptions[];
   }
 
   interface ModelUpdateOptions {
