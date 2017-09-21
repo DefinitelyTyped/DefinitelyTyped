@@ -104,7 +104,7 @@ export interface FitOptions {
 // from https://github.com/kristw/slimfit
 export interface WatchOptions {
     mode?: string;
-    target?: Element|[number, number]|{width: number, height: number};
+    target?: Element|[number, number]|{width: number, height: number}|null;
     interval?: number;
 }
 
