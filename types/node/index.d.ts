@@ -4414,6 +4414,7 @@ declare module "string_decoder" {
 
 declare module "tls" {
     import * as crypto from "crypto";
+    import * as dns from "dns";
     import * as net from "net";
     import * as stream from "stream";
 
@@ -4708,6 +4709,7 @@ declare module "tls" {
         secureContext?: Object;
         session?: Buffer;
         minDHSize?: number;
+        lookup?: (hostname: string, options: dns.LookupOneOptions, callback: (err: NodeJS.ErrnoException, address: string, family: number) => void) => void;
     }
 
     export interface Server extends net.Server {
