@@ -20,6 +20,6 @@ const l3: AcceptLanguageParser.Language = {
     quality: 0.9
 };
 
-AcceptLanguageParser.parse('');
-AcceptLanguageParser.pick([''], '');
-AcceptLanguageParser.pick([''], [l1, l2, l3]);
+const parsed1: AcceptLanguageParser.Language[] = AcceptLanguageParser.parse('');
+const pick1: string | null = AcceptLanguageParser.pick([''], '');
+const pick2: string | null = AcceptLanguageParser.pick([''], [l1, l2, l3]);
