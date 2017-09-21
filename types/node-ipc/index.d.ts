@@ -264,7 +264,7 @@ declare namespace NodeIPC {
          * Default: console.log
          * The function which receives the output from ipc.log; should take a single string argument
          */
-        logger: (msg: string) => void;
+        logger(msg: string): void;
         /**
          * Default: 100
          * This is the max number of connections allowed to a socket. It is currently only being set on Unix Sockets.
