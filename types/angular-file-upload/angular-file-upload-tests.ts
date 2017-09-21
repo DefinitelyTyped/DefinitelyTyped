@@ -3,24 +3,23 @@ import * as angular from 'angular';
 
 angular.module('app', ['angularFileUpload'])
 
-	.controller('AppController', ['$scope', 'FileUploader', (
-		$scope: any,
+	.controller('AppController', ['FileUploader', (
 		FileUploader: FileUploaderFactory
 	) => {
-		const uploader: FileUploader = $scope.uploader = new FileUploader({
+		const uploader: FileUploader = new FileUploader({
 			url: 'upload.php'
 		});
 
 		uploader.onAfterAddingFile = (fileItem: FileItem) => {
 			console.log(fileItem);
 		};
-		
+
 		// FILTERS
 
 		// a sync filter
 		const syncFilter = (item: File, options: {}) => {
 			console.log('syncFilter');
-			return $scope.queue.length < 10;
+			return true;
 		};
 		uploader.filters.push({
 			name: 'syncFilter',
