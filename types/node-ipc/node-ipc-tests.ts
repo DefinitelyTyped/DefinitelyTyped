@@ -14,6 +14,7 @@ ipc.config.interfaces = {
 };
 ipc.config.logDepth = 6;
 ipc.config.logInColor = true;
+ipc.config.logger = console.log;
 ipc.config.maxConnections = 200;
 ipc.config.maxRetries = false;
 ipc.config.networkHost = "127.0.0.1";
@@ -24,6 +25,7 @@ ipc.config.silent = true;
 ipc.config.socketRoot = "";
 ipc.config.stopRetrying = false;
 ipc.config.sync = true;
+ipc.config.unlink = false;
 ipc.config.tls = {
     rejectUnauthorized: false,
     public: "",
