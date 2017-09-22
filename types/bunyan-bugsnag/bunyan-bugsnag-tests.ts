@@ -1,19 +1,21 @@
-import * as bugsnagStream from 'bunyan-bugsnag';
+import * as bunyanBugsnag from 'bunyan-bugsnag';
 import * as bunyan from 'bunyan';
 
-const stream1 = bugsnagStream();
+const stream1 = bunyanBugsnag();
 
-const stream2 = bugsnagStream({
+const stream2 = bunyanBugsnag({
     systemInfo: ['name', 'hostname', 'pid', 'req_id', 'level', 'time', 'v'],
     warningLevel: 'warn',
     errorLevel: 'error',
 });
 
-const stream3 = bugsnagStream({
+const options: bunyanBugsnag.Options = {
     systemInfo: ['name', 'hostname', 'pid', 'req_id', 'level', 'time', 'v'],
     warningLevel: 30,
     errorLevel: 20
-});
+};
+
+const stream3 = bunyanBugsnag(options);
 
 const logger = bunyan.createLogger({
     name: 'appName',
