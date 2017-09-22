@@ -13,8 +13,8 @@ export interface Keyboard {
 }
 
 export interface MousePressOptions {
-  button: MouseButtons;
-  clickCount: number;
+  button?: MouseButtons;
+  clickCount?: number;
 }
 
 export interface Mouse {
@@ -64,14 +64,14 @@ export type MouseButtons = "left" | "right" | "middle";
 
 export interface ClickOptions {
   /** defaults to left */
-  button: MouseButtons;
+  button?: MouseButtons;
   /** defaults to 1 */
-  clickCount: number;
+  clickCount?: number;
   /**
    * Time to wait between mousedown and mouseup in milliseconds.
    * Defaults to 0.
    */
-  delay: number;
+  delay?: number;
 }
 
 export interface Cookie {
@@ -95,17 +95,17 @@ export interface Viewport {
 }
 
 export interface EmulateOptions {
-  viewport: Viewport;
-  userAgent: string;
+  viewport?: Viewport;
+  userAgent?: string;
 }
 
 export type EvaluateFn<T> = (elem?: ElementHandle) => Promise<T>;
 
 export interface NavigationOptions {
-  timeout: number;
-  waitUntil: "load" | "networkidle" | "networkIdleTimeout";
-  networkIdleInflight: number;
-  networkIdleTimeout: number;
+  timeout?: number;
+  waitUntil?: "load" | "networkidle" | "networkIdleTimeout";
+  networkIdleInflight?: number;
+  networkIdleTimeout?: number;
 }
 
 export type PDFFormat =
@@ -122,29 +122,29 @@ export type PDFFormat =
 
 export interface PDFOptions {
   /** If no path is provided, the PDF won't be saved to the disk. */
-  path: string;
-  scale: number;
-  displayHeaderFooter: boolean;
-  printBackground: false;
-  landscape: false;
+  path?: string;
+  scale?: number;
+  displayHeaderFooter?: boolean;
+  printBackground?: false;
+  landscape?: false;
   /**
    * Paper ranges to print, e.g., '1-5, 8, 11-13'. Defaults to the empty
    * string, which means print all pages.
    */
-  pageRanges: string;
-  format: PDFFormat;
-  width: string;
-  height: string;
-  margin: {
-    top: string;
-    right: string;
-    bottom: string;
-    left: string;
+  pageRanges?: string;
+  format?: PDFFormat;
+  width?: string;
+  height?: string;
+  margin?: {
+    top?: string;
+    right?: string;
+    bottom?: string;
+    left?: string;
   };
 }
 
 export interface ScreenshotOptions {
-  path: string;
+  path?: string;
   type?: "jpeg" | "png";
   /** The quality of the image, between 0-100. Not applicable to png images. */
   quality?: number;
@@ -159,8 +159,8 @@ export interface ScreenshotOptions {
 }
 
 export interface PageFnOptions {
-  polling: "raf" | "mutation" | number;
-  timeout: number;
+  polling?: "raf" | "mutation" | number;
+  timeout?: number;
 }
 
 export interface ElementHandle {
@@ -339,39 +339,39 @@ export interface Browser {
 
 export interface LaunchOptions {
   /** Whether to ignore HTTPS errors during navigation. Defaults to false. */
-  ignoreHTTPSErrors: boolean;
+  ignoreHTTPSErrors?: boolean;
   /** Whether to run Chromium in headless mode. Defaults to true. */
-  headless: boolean;
+  headless?: boolean;
   /**
    * Path to a Chromium executable to run instead of bundled Chromium. If
    * executablePath is a relative path, then it is resolved relative to current
    * working directory.
    */
-  executablePath: string;
+  executablePath?: string;
   /**
    * Slows down Puppeteer operations by the specified amount of milliseconds.
    * Useful so that you can see what is going on.
    */
-  slowMo: number;
+  slowMo?: number;
   /**
    * Additional arguments to pass to the Chromium instance. List of Chromium
    * flags can be found here.
    */
-  args: string[];
+  args?: string[];
   /** Close chrome process on Ctrl-C. Defaults to true. */
-  handleSIGINT: boolean;
+  handleSIGINT?: boolean;
   /**
    * Maximum time in milliseconds to wait for the Chrome instance to start.
    * Defaults to 30000 (30 seconds). Pass 0 to disable timeout.
    */
-  timeout: number;
+  timeout?: number;
   /**
    * Whether to pipe browser process stdout and stderr into process.stdout and
    * process.stderr. Defaults to false.
    */
-  dumpio: boolean;
+  dumpio?: boolean;
   /** Path to a User Data Directory. */
-  userDataDir: string;
+  userDataDir?: string;
 }
 
 export interface ConnectOptions {
