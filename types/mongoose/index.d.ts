@@ -628,7 +628,7 @@ declare module "mongoose" {
     /**
      * Defines a pre hook for the document.
      */
-    pre(method: string, parallel: boolean, fn: (next: (err?: NativeError) => void, done: () => void) => void,
+    pre(method: string, parallel: boolean, fn: (next: (err?: NativeError) => void, done: (err?: NativeError) => void) => void,
       errorCb?: (err: Error) => void): this;
     pre(method: string, fn: (next: (err?: NativeError) => void) => void,
       errorCb?: (err: Error) => void): this;
