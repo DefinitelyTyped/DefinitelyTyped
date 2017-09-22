@@ -332,7 +332,7 @@ export interface ConfigOptions {
      * Because of that, you'll want to engineer this so that your automated builds use the coverage entry
      * in the "reporters" list, but your interactive debugging does not.
      */
-    preprocessors?: { [index: string]: string };
+    preprocessors?: { [index: string]: string[] | string };
 
     /**
      * @default 'http:'
