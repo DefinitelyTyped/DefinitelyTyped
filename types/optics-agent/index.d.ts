@@ -83,14 +83,14 @@ export function middleware(): (req: Request, res: Response, next?: any) => void;
 export function instrumentHapiServer(server: Server): void;
 export function context(req: Request): any;
 
-declare class OpticsAgent {
-  static configureAgent(options: Options): Agent;
-  static instrumentSchema(schema: GraphQLSchema): void;
-  static koaMiddleware(): (context: Context, next: () => Promise<any>) => void;
-  static middleware(): (req: Request, res: Response, next?: any) => void;
-  static instrumentHapiServer(server: Server): void;
-  static context(req: Request): any;
-  static Agent: new (options: Options) => Agent;
-}
+declare const defaultExport: {
+  configureAgent: typeof configureAgent,
+  instrumentSchema: typeof instrumentSchema,
+  koaMiddleware: typeof koaMiddleware,
+  middleware: typeof middleware,
+  instrumentHapiServer: typeof instrumentHapiServer,
+  context: typeof context,
+  Agent: typeof Agent,
+};
 
-export default OpticsAgent;
+export default defaultExport;
