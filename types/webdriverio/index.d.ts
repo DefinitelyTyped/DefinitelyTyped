@@ -1884,7 +1884,6 @@ declare namespace WebdriverIO {
         switchTab<P>(windowHandle?: string): Client<P>;
     }
 
-
     const VERSION: string;
 }
 
