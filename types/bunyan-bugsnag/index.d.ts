@@ -5,12 +5,14 @@
 
 import * as Logger from 'bunyan';
 
-interface StreamOptions {
-    systemInfo?: string[];
-    warningLevel?: Logger.LogLevel;
-    errorLevel?: Logger.LogLevel;
+declare namespace bugsnagLogStream {
+    interface Options {
+        systemInfo?: string[];
+        warningLevel?: Logger.LogLevel;
+        errorLevel?: Logger.LogLevel;
+    }
 }
 
-declare function bugsnagLogStream(options?: StreamOptions): NodeJS.WritableStream;
-declare namespace bugsnagLogStream {}
+declare function bugsnagLogStream(options?: bugsnagLogStream.Options): NodeJS.WritableStream;
+
 export = bugsnagLogStream;
