@@ -3250,7 +3250,7 @@ export interface ImageURISource {
      */
     scale?: number,
 }
-    
+
 export type ImageRequireSource = number;
 
 export interface ImagePropertiesIOS {
