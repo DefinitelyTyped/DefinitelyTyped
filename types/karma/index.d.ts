@@ -1,4 +1,4 @@
-// Type definitions for karma 1.0
+// Type definitions for karma 1.7
 // Project: https://github.com/karma-runner/karma
 // Definitions by: Dmitriy Romanov <https://github.com/noldors>
 //                 Tanguy Krotoff <https://github.com/tkrotoff>
