@@ -16,7 +16,7 @@ interface StripeCheckoutHandler {
 
 interface StripeCheckoutOptions {
     key?: string;
-    token?(token: stripe.StripeTokenResponse): void;
+    token?(token: stripe.StripeCardTokenResponse): void;
     image?: string;
     name?: string;
     description?: string;
