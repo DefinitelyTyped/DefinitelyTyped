@@ -1,106 +1,140 @@
-import gulp = require('gulp');
-import karma = require('karma');
+import * as karma from 'karma';
+import * as http from 'http';
+import * as httpProxy from 'http-proxy';
 
+const browserConsoleLogOptions: karma.BrowserConsoleLogOptions = {
+    level: 'debug',
+    format: '%b %T: %m',
+    path: '/output',
+    terminal: true
+};
 
-function runKarma(singleRun: boolean): void {
-    // MEMO: `start` method is deprecated since 0.13. It will be removed in 0.14.
-    karma.server.start({
-        configFile: __dirname + '/karma.conf.js',
-        singleRun: singleRun
-    });
-}
+const client: karma.ClientOptions = {
+    args: ['test'],
+    useIframe: true,
+    runInParent: false,
+    captureConsole: true,
+    clearContext: true
+};
 
-gulp.task('test:unit:karma', gulp.parallel('build:test:unit', () => runKarma(true)));
-
-
-
-karma.server.start({port: 9876}, (exitCode: number) => {
-  console.log('Karma has exited with ' + exitCode);
-  process.exit(exitCode);
-});
-
-
-karma.runner.run({port: 9876}, (exitCode: number) => {
-  console.log('Karma has exited with ' + exitCode);
-  process.exit(exitCode);
-});
-
-karma.stopper.stop({port: 9876}, function(exitCode) {
-  if (exitCode === 0) {
-    console.log('Server stop as initiated')
-  }
-  process.exit(exitCode)
-});
-
-//var Server = require('karma').Server; => cannot use this syntax otherwise Server is of type any
-var server = new karma.Server({logLevel: 'debug', port: 9876}, function(exitCode: number) {
-    console.log('Karma has exited with ' + exitCode);
-    process.exit(exitCode);
-});
-
-server.start();
-
-server.refreshFiles();
-
-server.on('browser_register', function (browser: any) {
-    console.log('A new browser was registered');
-});
-
-server.on('run_complete', (browsers, results) => {
-   results.disconnected = false;
-   results.error = false;
-   results.exitCode = 0;
-   results.failed = 9;
-   results.success = 10; 
-});
-
-//var runner = require('karma').runner; => cannot use this syntax otherwise runner is of type any
-karma.runner.run({port: 9876}, function(exitCode: number) {
-    console.log('Karma has exited with ' + exitCode);
-    process.exit(exitCode);
-});
-
-//
-
-var captured: boolean = karma.launcher.areAllCaptured();
-
-
-// Example of configuration file karma.conf.ts, see http://karma-runner.github.io/0.13/config/configuration-file.html
-module.exports = function(config: karma.Config) {
-  config.set({
-    logLevel: config.LOG_DEBUG,
-    basePath: '..',
-    urlRoot: '/base/',
-    frameworks: ['jasmine'],
-
-    files: [
-      'file1.js',
-      'file2.js',
-      'file3.js',
-      {
-        pattern: '**/*.html',
-        included: false
-      }
-    ],
-
-    reporters: [
-      'progress',
-      'coverage'
-    ],
-
-    preprocessors: {
-      'app.js': ['coverage']
+const customHeaders: karma.CustomHeader[] = [
+    {
+        match: '.*foo.html',
+        name: 'Service-Worker-Allowed',
+        value: '/'
     },
+    {
+        match: '.*bar.html',
+        name: 'Service-Worker-Allowed',
+        value: '/'
+    }
+];
 
-    port: 9876,
+const filePattern: karma.FilePattern = {
+    pattern: '**/**.ts',
+    watched: true,
+    included: true,
+    served: true,
+    nocache: true
+};
 
+const proxies: karma.Proxies = {
+    '/static': 'http://gstatic.com',
+    '/web': 'http://localhost:9000',
+    '/img/': '/base/test/images/',
+    '/proxyfied': {
+        target: 'http://myserver.localhost',
+        changeOrigin: true
+    }
+};
+
+const upstreamProxy: karma.UpstreamProxy = {
+    path: '/',
+    port: 9875,
+    hostname: 'localhost',
+    protocol: 'http:'
+};
+
+const configurationOptions: karma.ConfigOptions = {
     autoWatch: true,
-
-    browsers: [
-      'Chrome',
-      'Firefox'
-    ],
-
-    singleRun: true
-  });
+    autoWatchBatchDelay: 3000,
+    basePath: '/',
+    browserDisconnectTimeout: 3000,
+    browserConsoleLogOptions,
+    browserDisconnectTolerance: 200,
+    browserNoActivityTimeout: 3000,
+    browsers: ['Chrome', 'Firefox'],
+    captureTimeout: 4000,
+    client,
+    colors: true,
+    concurrency: Infinity,
+    crossOriginAttribute: true,
+    customContextFile: 'path-to-file',
+    customDebugFile: 'path-to-file',
+    customClientContextFile: 'path-to-file',
+    customHeaders,
+    detached: true,
+    exclude: ['./foo.ts', './bar.ts'],
+    failOnEmptyTestSuite: true,
+    files: [filePattern],
+    forceJSONP: true,
+    frameworks: ['mocha', 'chai'],
+    listenAddress: '0.0.0.0',
+    hostname: 'localhost',
+    httpsServerOptions: {
+        passphrase: 'pass'
+    },
+    logLevel: 'log',
+    loggers: [{
+        type: 'console-logger'
+    }],
+    middleware: ['custom'],
+    mime: {
+        'text/x-typescript': ['ts', 'tsx'],
+        'text/plain': ['mytxt']
+    },
+    beforeMiddleware: ['custom'],
+    plugins: ['karma-webpack'],
+    port: 9876,
+    processKillTimeout: 9000,
+    preprocessors: { '**/*.coffee': 'coffee' },
+    protocol: 'https:',
+    httpModule: 'http2',
+    proxies,
+    proxyValidateSSL: true,
+    reportSlowerThan: 200,
+    reporters: ['dots', 'progress'],
+    formatError(error) {
+        return error;
+    },
+    restartOnFileChange: true,
+    retryLimit: 3,
+    singleRun: true,
+    transports: ['polling', 'websocket'],
+    proxyReq(
+        proxyReq: http.ClientRequest,
+        req: http.IncomingMessage,
+        res: http.ServerResponse,
+        options: httpProxy.ServerOptions
+    ) {
+        proxyReq.setHeader('Referer', 'https://www.example.com/');
+    },
+    proxyRes(proxyRes: http.IncomingMessage, req: http.IncomingMessage, res: http.ServerResponse) {
+        if (proxyRes.headers['set-cookie']) {
+            proxyRes.headers['set-cookie'] = (proxyRes.headers['set-cookie'] as any).map((cookie: string) => {
+                return cookie.replace(/\s*secure;?/i, '');
+            });
+        }
+    },
+    upstreamProxy,
+    urlRoot: '/',
+    jsVersion: 2,
+    webpack: {
+        entry: './index.ts'
+    },
+    webpackMiddleware: {
+        noInfo: true,
+        quiet: true,
+        publicPath: '/'
+    }
 };
