@@ -144,7 +144,7 @@ const typedActionHandlerWithMeta = ReduxActions.handleAction<TypedState, TypedPa
 
 typedState = typedActionHandlerWithMeta({ value: 0 }, typedIncrementByActionWithMetaAnyArgs(10));
 
-const typedActionHandlerReducerMetaMap = ReduxActions.handleActions<TypedState, MetaType>(
+const typedActionHandlerReducerMetaMap = ReduxActions.handleActions<TypedState, TypedPayload, MetaType>(
     {
         INCREMENT_BY: {
             next(state: TypedState, action: ReduxActions.ActionMeta<TypedPayload, MetaType>) {
