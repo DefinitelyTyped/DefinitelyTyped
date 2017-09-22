@@ -5372,6 +5372,10 @@ declare namespace Highcharts {
          */
         stack?: any;
         /**
+         * The series' visibility state as set by series.show(), series.hide(), or the initial configuration.
+         */
+        visible?: boolean;
+        /**
          * When using dual or multiple x axes, this number defines which xAxis the particular series is connected to. It
          * refers to either the axis id or the index of the axis in the xAxis array, with 0 being the first.
          * @default 0
