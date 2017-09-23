@@ -136,13 +136,13 @@ var validErrFunc: Joi.ValidationErrorFunction;
 validErrItem = {
     message: str,
     type: str,
-    path: str
+    path: [str]
 };
 
 validErrItem = {
     message: str,
     type: str,
-    path: str,
+    path: [str],
     options: validOpts,
     context: obj
 };
@@ -851,14 +851,14 @@ namespace validate_tests {
         Joi.validate(value, schema, validOpts, (err, value) => {
             x = value;
             str = err.message;
-            str = err.details[0].path;
+            str = err.details[0].path[0];
             str = err.details[0].message;
             str = err.details[0].type;
         });
         Joi.validate(value, schema, (err, value) => {
             x = value;
             str = err.message;
-            str = err.details[0].path;
+            str = err.details[0].path.join('.');
             str = err.details[0].message;
             str = err.details[0].type;
         });
@@ -957,6 +957,70 @@ const Joi3 = Joi.extend({
         },
     ],
 });
+
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
+const defaultsJoi = Joi.defaults((schema) => {
+    switch (schema.schemaType) {
+        case 'string':
+            return schema.allow('');
+        case 'object':
+            return (schema as Joi.ObjectSchema).min(1);
+        default:
+            return schema;
+    }
+});
+
+schema = Joi.allow(x, x);
+schema = Joi.allow([x, x, x]);
+schema = Joi.valid(x);
+schema = Joi.valid(x, x);
+schema = Joi.valid([x, x, x]);
+schema = Joi.only(x);
+schema = Joi.only(x, x);
+schema = Joi.only([x, x, x]);
+schema = Joi.equal(x);
+schema = Joi.equal(x, x);
+schema = Joi.equal([x, x, x]);
+schema = Joi.invalid(x);
+schema = Joi.invalid(x, x);
+schema = Joi.invalid([x, x, x]);
+schema = Joi.disallow(x);
+schema = Joi.disallow(x, x);
+schema = Joi.disallow([x, x, x]);
+schema = Joi.not(x);
+schema = Joi.not(x, x);
+schema = Joi.not([x, x, x]);
+
+schema = Joi.required();
+schema = Joi.optional();
+schema = Joi.forbidden();
+schema = Joi.strip();
+
+schema = Joi.description(str);
+schema = Joi.notes(str);
+schema = Joi.notes(strArr);
+schema = Joi.tags(str);
+schema = Joi.tags(strArr);
+
+schema = Joi.meta(obj);
+schema = Joi.example(obj);
+schema = Joi.unit(str);
+
+schema = Joi.options(validOpts);
+schema = Joi.strict();
+schema = Joi.strict(bool);
+schema = Joi.concat(x);
+
+schema = Joi.when(str, whenOpts);
+schema = Joi.when(ref, whenOpts);
+
+schema = Joi.label(str);
+schema = Joi.raw();
+schema = Joi.raw(bool);
+schema = Joi.empty();
+schema = Joi.empty(str);
+schema = Joi.empty(anySchema);
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 

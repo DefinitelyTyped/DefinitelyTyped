@@ -1,6 +1,13 @@
-// Type definitions for joi v10.4.2
+// Type definitions for joi v11.0.3
 // Project: https://github.com/hapijs/joi
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds>, Laurence Dougal Myers <https://github.com/laurence-myers>, Christopher Glantschnig <https://github.com/cglantschnig>, David Broder-Rodgers <https://github.com/DavidBR-SW>, Gael Magnan de Bornier <https://github.com/GaelMagnan>, Rytis Alekna <https://github.com/ralekna>, Pavel Ivanov <https://github.com/schfkt>, Youngrok Kim <https://github.com/rokoroku>
+// Definitions by: Bart van der Schoor <https://github.com/Bartvds>
+//                 Laurence Dougal Myers <https://github.com/laurence-myers>
+//                 Christopher Glantschnig <https://github.com/cglantschnig>
+//                 David Broder-Rodgers <https://github.com/DavidBR-SW>
+//                 Gael Magnan de Bornier <https://github.com/GaelMagnan>
+//                 Rytis Alekna <https://github.com/ralekna>
+//                 Pavel Ivanov <https://github.com/schfkt>
+//                 Youngrok Kim <https://github.com/rokoroku>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -37,10 +44,10 @@ export interface ValidationOptions {
     skipFunctions?: boolean;
     /**
      * remove unknown elements from objects and arrays. Defaults to false
-     * when true, all unknown elements will be removed
-     * when an object:
-     *      arrays set to true to remove unknown items from arrays.
-     *      objects set to true to remove unknown keys from objects
+     * - when true, all unknown elements will be removed
+     * - when an object:
+     *      - arrays - set to true to remove unknown items from arrays.
+     *      - objects - set to true to remove unknown keys from objects
      */
     stripUnknown?: boolean | { arrays?: boolean; objects?: boolean };
     /**
@@ -158,7 +165,7 @@ export interface ValidationError extends Error, JoiObject {
 export interface ValidationErrorItem {
     message: string;
     type: string;
-    path: string;
+    path: string[];
     options?: ValidationOptions;
     context?: Context;
 }
@@ -191,6 +198,8 @@ export type Schema = AnySchema
     | LazySchema;
 
 export interface AnySchema extends JoiObject {
+
+    schemaType?: Types | string;
 
     /**
      * Validates a value using the schema and options.
@@ -291,7 +300,7 @@ export interface AnySchema extends JoiObject {
 
     /**
      * Sets a default value if the original value is undefined.
-     * @param value the value.
+     * @param value - the value.
      *   value supports references.
      *   value may also be a function which returns the default value.
      *   If value is specified as a function that accepts a single parameter, that parameter will be a context
@@ -333,22 +342,22 @@ export interface AnySchema extends JoiObject {
 
     /**
      * Considers anything that matches the schema to be empty (undefined).
-     * @param schema any object or joi schema to match. An undefined schema unsets that rule.
+     * @param schema - any object or joi schema to match. An undefined schema unsets that rule.
      */
     empty(schema?: SchemaLike): this;
 
     /**
      * Overrides the default joi error with a custom error if the rule fails where:
-     * @param err can be:
-     *   an instance of `Error` the override error.
+     * @param err - can be:
+     *   an instance of `Error` - the override error.
      *   a `function(errors)`, taking an array of errors as argument, where it must either:
-     *    return a `string` substitutes the error message with this text
-     *    return a single `object` or an `Array` of it, where:
-     *     `type` optional parameter providing the type of the error (eg. `number.min`).
-     *     `message` optional parameter if `template` is provided, containing the text of the error.
-     *     `template` optional parameter if `message` is provided, containing a template string, using the same format as usual joi language errors.
-     *     `context` optional parameter, to provide context to your error if you are using the `template`.
-     *    return an `Error` same as when you directly provide an `Error`, but you can customize the error message based on the errors.
+     *    return a `string` - substitutes the error message with this text
+     *    return a single ` object` or an `Array` of it, where:
+     *     `type` - optional parameter providing the type of the error (eg. `number.min`).
+     *     `message` - optional parameter if `template` is provided, containing the text of the error.
+     *     `template` - optional parameter if `message` is provided, containing a template string, using the same format as usual joi language errors.
+     *     `context` - optional parameter, to provide context to your error if you are using the `template`.
+     *    return an `Error` - same as when you directly provide an `Error`, but you can customize the error message based on the errors.
      *
      * Note that if you provide an `Error`, it will be returned as-is, unmodified and undecorated with any of the
      * normal joi error properties. If validation fails and another error is found before the error
@@ -396,7 +405,7 @@ export interface BooleanSchema extends AnySchema {
      * Allows for additional values to be considered valid booleans by converting them to true during validation.
      * Accepts a value or an array of values. String comparisons are by default case insensitive,
      * see boolean.insensitive() to change this behavior.
-     * @param values strings, numbers or arrays of them
+     * @param values - strings, numbers or arrays of them
      */
     truthy(...values: Array<string | number | string[] | number[]>): this;
 
@@ -404,7 +413,7 @@ export interface BooleanSchema extends AnySchema {
      * Allows for additional values to be considered valid booleans by converting them to false during validation.
      * Accepts a value or an array of values. String comparisons are by default case insensitive,
      * see boolean.insensitive() to change this behavior.
-     * @param values strings, numbers or arrays of them
+     * @param values - strings, numbers or arrays of them
      */
     falsy(...values: Array<string | number | string[] | number[]>): this;
 
@@ -452,7 +461,7 @@ export interface NumberSchema extends AnySchema {
 
     /**
      * Specifies the maximum number of decimal places where:
-     *  limit the maximum number of decimal places allowed.
+     * @param limit - the maximum number of decimal places allowed.
      */
     precision(limit: number): this;
 
@@ -480,16 +489,16 @@ export interface StringSchema extends AnySchema {
 
     /**
      * Specifies the minimum number string characters.
-     * @param limit the minimum number of string characters required. It can also be a reference to another field.
-     * @param encoding if specified, the string length is calculated in bytes using the provided encoding.
+     * @param limit - the minimum number of string characters required. It can also be a reference to another field.
+     * @param encoding - if specified, the string length is calculated in bytes using the provided encoding.
      */
     min(limit: number, encoding?: string): this;
     min(limit: Reference, encoding?: string): this;
 
     /**
      * Specifies the maximum number of string characters.
-     * @param limit the maximum number of string characters allowed. It can also be a reference to another field.
-     * @param encoding if specified, the string length is calculated in bytes using the provided encoding.
+     * @param limit - the maximum number of string characters allowed. It can also be a reference to another field.
+     * @param encoding - if specified, the string length is calculated in bytes using the provided encoding.
      */
     max(limit: number, encoding?: string): this;
     max(limit: Reference, encoding?: string): this;
@@ -501,23 +510,23 @@ export interface StringSchema extends AnySchema {
 
     /**
      * Specifies the exact string length required
-     * @param limit the required string length. It can also be a reference to another field.
-     * @param encoding if specified, the string length is calculated in bytes using the provided encoding.
+     * @param limit - the required string length. It can also be a reference to another field.
+     * @param encoding - if specified, the string length is calculated in bytes using the provided encoding.
      */
     length(limit: number, encoding?: string): this;
     length(limit: Reference, encoding?: string): this;
 
     /**
      * Defines a regular expression rule.
-     * @param pattern a regular expression object the string value must match against.
-     * @param name optional name for patterns (useful with multiple patterns). Defaults to 'required'.
+     * @param pattern - a regular expression object the string value must match against.
+     * @param name - optional name for patterns (useful with multiple patterns). Defaults to 'required'.
      */
     regex(pattern: RegExp, name?: string): this;
 
     /**
      * Replace characters matching the given pattern with the specified replacement string where:
-     * @param pattern a regular expression object to match against, or a string of which all occurrences will be replaced.
-     * @param replacement the string that will replace the pattern.
+     * @param pattern - a regular expression object to match against, or a string of which all occurrences will be replaced.
+     * @param replacement - the string that will replace the pattern.
      */
     replace(pattern: RegExp, replacement: string): this;
     replace(pattern: string, replacement: string): this;
@@ -553,7 +562,7 @@ export interface StringSchema extends AnySchema {
     guid(options?: GuidOptions): this;
 
     /**
-     * Alias for `guid`- Requires the string value to be a valid GUID
+     * Alias for `guid` -- Requires the string value to be a valid GUID
      */
     uuid(options?: GuidOptions): this;
 
@@ -610,14 +619,14 @@ export interface ArraySchema extends AnySchema {
      * Errors will contain the number of items that didn't match.
      * Any unmatched item having a label will be mentioned explicitly.
      *
-     * @param type a joi schema object to validate each array item against.
+     * @param type - a joi schema object to validate each array item against.
      */
     items(...types: SchemaLike[]): this;
     items(types: SchemaLike[]): this;
 
     /**
      * Lists the types in sequence order for the array values where:
-     * @param type a joi schema object to validate against each array item in sequence order. type can be an array of values, or multiple values can be passed as individual arguments.
+     * @param type - a joi schema object to validate against each array item in sequence order. type can be an array of values, or multiple values can be passed as individual arguments.
      * If a given type is .required() then there must be a matching item with the same index position in the array. Errors will contain the number of items that didn't match. Any unmatched item having a label will be mentioned explicitly.
      */
     ordered(...types: SchemaLike[]): this;
@@ -648,6 +657,7 @@ export interface ArraySchema extends AnySchema {
 }
 
 export interface ObjectSchema extends AnySchema {
+
     /**
      * Sets the allowed object keys.
      */
@@ -675,7 +685,7 @@ export interface ObjectSchema extends AnySchema {
 
     /**
      * Defines an all-or-nothing relationship between keys where if one of the peers is present, all of them are required as well.
-     * @param peers the key names of which if one present, all are required. peers can be a single string value,
+     * @param peers - the key names of which if one present, all are required. peers can be a single string value,
      * an array of string values, or each peer provided as an argument.
      */
     and(...peers: string[]): this;
@@ -683,7 +693,7 @@ export interface ObjectSchema extends AnySchema {
 
     /**
      * Defines a relationship between keys where not all peers can be present at the same time.
-     * @param peers the key names of which if one present, the others may not all be present.
+     * @param peers - the key names of which if one present, the others may not all be present.
      * peers can be a single string value, an array of string values, or each peer provided as an argument.
      */
     nand(...peers: string[]): this;
@@ -732,15 +742,15 @@ export interface ObjectSchema extends AnySchema {
     /**
      * Requires the object to be an instance of a given constructor.
      *
-     * @param constructor the constructor function that the object must be an instance of.
-     * @param name an alternate name to use in validation errors. This is useful when the constructor function does not have a name.
+     * @param constructor - the constructor function that the object must be an instance of.
+     * @param name - an alternate name to use in validation errors. This is useful when the constructor function does not have a name.
      */
     type(constructor: Function, name?: string): this;
 
     /**
      * Sets the specified children to required.
      *
-     * @param children can be a single string value, an array of string values, or each child provided as an argument.
+     * @param children - can be a single string value, an array of string values, or each child provided as an argument.
      *
      *   var schema = Joi.object().keys({ a: { b: Joi.number() }, c: { d: Joi.string() } });
      *   var requiredSchema = schema.requiredKeys('', 'a.b', 'c', 'c.d');
@@ -753,7 +763,7 @@ export interface ObjectSchema extends AnySchema {
     /**
      * Sets the specified children to optional.
      *
-     * @param children can be a single string value, an array of string values, or each child provided as an argument.
+     * @param children - can be a single string value, an array of string values, or each child provided as an argument.
      *
      * The behavior is exactly the same as requiredKeys.
      */
@@ -809,7 +819,7 @@ export interface DateSchema extends AnySchema {
 
     /**
      * Specifies the allowed date format:
-     * @param format string or array of strings that follow the moment.js format.
+     * @param format - string or array of strings that follow the moment.js format.
      */
     format(format: string): this;
     format(format: string[]): this;
@@ -821,7 +831,7 @@ export interface DateSchema extends AnySchema {
 
     /**
      * Requires the value to be a timestamp interval from Unix Time.
-     * @param type the type of timestamp (allowed values are unix or javascript [default])
+     * @param type - the type of timestamp (allowed values are unix or javascript [default])
      */
     timestamp(type?: 'javascript' | 'unix'): this;
 }
@@ -830,19 +840,19 @@ export interface FunctionSchema extends AnySchema {
 
     /**
      * Specifies the arity of the function where:
-     * @param n the arity expected.
+     * @param n - the arity expected.
      */
     arity(n: number): this;
 
     /**
      * Specifies the minimal arity of the function where:
-     * @param n the minimal arity expected.
+     * @param n - the minimal arity expected.
      */
     minArity(n: number): this;
 
     /**
      * Specifies the minimal arity of the function where:
-     * @param n the minimal arity expected.
+     * @param n - the minimal arity expected.
      */
     maxArity(n: number): this;
 
@@ -875,10 +885,10 @@ export type ExtensionBoundSchema = Schema & {
     /**
      * Creates a joi error object.
      * Used in conjunction with custom rules.
-     * @param type the type of rule to create the error for.
-     * @param context provide properties that will be available in the `language` templates.
-     * @param state should the context passed into the `validate` function in a custom rule
-     * @param options should the context passed into the `validate` function in a custom rule
+     * @param type - the type of rule to create the error for.
+     * @param context - provide properties that will be available in the `language` templates.
+     * @param state - should the context passed into the `validate` function in a custom rule
+     * @param options - should the context passed into the `validate` function in a custom rule
      */
     createError(type: string, context: Context, state: State, options: ValidationOptions): Err;
 }
@@ -905,7 +915,7 @@ export interface Err extends JoiObject {
     toString(): string;
 }
 
-//--------------------------------------------------
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
 /**
  * Current version of the joi package.
@@ -996,18 +1006,18 @@ export function compile<T extends Schema>(schema: SchemaLike): T;
 /**
  * Validates a value against a schema and throws if validation fails.
  *
- * @param value the value to validate.
- * @param schema the schema object.
- * @param message optional message string prefix added in front of the error message. may also be an Error object.
+ * @param value - the value to validate.
+ * @param schema - the schema object.
+ * @param message - optional message string prefix added in front of the error message. may also be an Error object.
  */
 export function assert(value: any, schema: SchemaLike, message?: string | Error): void;
 
 /**
  * Validates a value against a schema, returns valid object, and throws if validation fails where:
  *
- * @param value the value to validate.
- * @param schema the schema object.
- * @param message optional message string prefix added in front of the error message. may also be an Error object.
+ * @param value - the value to validate.
+ * @param schema - the schema object.
+ * @param message - optional message string prefix added in front of the error message. may also be an Error object.
  */
 export function attempt<T>(value: T, schema: SchemaLike, message?: string | Error): T;
 
@@ -1032,7 +1042,23 @@ export function reach<T extends Schema>(schema: ObjectSchema, path: string): T;
  */
 export function extend(extention: Extension): any;
 
-// Below are undocumented APIs. use them at your own risk
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
+import * as Module from 'joi';
+export type Root = typeof Module;
+export type DefaultsFunction = (root: Schema) => Schema;
+
+/**
+ * Creates a new Joi instance that will apply defaults onto newly created schemas
+ * through the use of the fn function that takes exactly one argument, the schema being created.
+ *
+ * @param fn - The function must always return a schema, even if untransformed.
+ */
+export function defaults(fn: DefaultsFunction): Root;
+
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+// Below are undocumented APIs. use at your own risk
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
 /**
  * Returns a plain object representing the schema's rules and properties
@@ -1150,6 +1176,6 @@ export function raw(isRaw?: boolean): Schema;
 
 /**
  * Considers anything that matches the schema to be empty (undefined).
- * @param schema any object or joi schema to match. An undefined schema unsets that rule.
+ * @param schema - any object or joi schema to match. An undefined schema unsets that rule.
  */
 export function empty(schema?: any): Schema;
