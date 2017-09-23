@@ -77,6 +77,26 @@ configuration = {
 };
 
 //
+// https://webpack.js.org/configuration/entry-context/#dynamic-entry
+//
+
+configuration = {
+    entry: () => './demo'
+};
+
+configuration = {
+    entry: () => ['./demo', './demo2']
+};
+
+configuration = {
+    entry: () => new Promise((resolve) => resolve('./demo'))
+};
+
+configuration = {
+    entry: () => new Promise((resolve) => resolve(['./demo', './demo2']))
+};
+
+//
 // https://webpack.github.io/docs/code-splitting.html
 //
 
@@ -539,46 +559,46 @@ configuration = {
     module: {
         rules: [
             { oneOf: [
-                {
-                    test: {
-                        and: [
-                            /a.\.js$/,
-                            /b\.js$/
-                        ]
-                    },
-                    loader: "./loader?first"
-                },
-                {
-                    test: [
-                        require.resolve("./a"),
-                        require.resolve("./c"),
-                    ],
-                    issuer: require.resolve("./b"),
-                    use: [
-                        "./loader?second-1",
-                        {
-                            loader: "./loader",
-                            options: "second-2"
+                    {
+                        test: {
+                            and: [
+                                /a.\.js$/,
+                                /b\.js$/
+                            ]
                         },
-                        {
-                            loader: "./loader",
-                            options: {
-                                get: () => "second-3"
-                            }
-                        }
-                    ]
-                },
-                {
-                    test: {
-                        or: [
+                        loader: "./loader?first"
+                    },
+                    {
+                        test: [
                             require.resolve("./a"),
                             require.resolve("./c"),
+                        ],
+                        issuer: require.resolve("./b"),
+                        use: [
+                            "./loader?second-1",
+                            {
+                                loader: "./loader",
+                                options: "second-2"
+                            },
+                            {
+                                loader: "./loader",
+                                options: {
+                                    get: () => "second-3"
+                                }
+                            }
                         ]
                     },
-                    loader: "./loader",
-                    options: "third"
-                }
-            ]}
+                    {
+                        test: {
+                            or: [
+                                require.resolve("./a"),
+                                require.resolve("./c"),
+                            ]
+                        },
+                        loader: "./loader",
+                        options: "third"
+                    }
+                ]}
         ]
     }
 };
