@@ -29,7 +29,25 @@ declare namespace adone {
 
     namespace I {
         interface LazifyOptions {
-            configurable: boolean;
+            /**
+             * Whether the new properties are configurable, false by default
+             */
+            configurable?: boolean;
+
+            /**
+             * Whether the new properties are writable, false by default
+             */
+            writable?: boolean;
+
+            /**
+             * A custom mapper for values, by default returns the exported object (module.exports),
+             * but if the object is a transpiled es module and the default export is defined,
+             * it returns the default export
+             *
+             * @param key property
+             * @param mod module.exports
+             */
+            mapper?(key: string, mod: any): any;
         }
     }
 

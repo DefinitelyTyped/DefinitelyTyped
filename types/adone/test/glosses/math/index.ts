@@ -456,6 +456,13 @@ namespace mathTests {
         { const a: number = new BitSet(10).nextUnsetBit(1); }
         { const a: number = new BitSet(10).previousSetBit(1); }
         { const a: number = new BitSet(10).previousUnsetBit(1); }
+        { const a: number = new BitSet(10).readUInt(); }
+        { const a: number = new BitSet(10).readUInt(1); }
+        { const a: number = new BitSet(10).readUInt(1, 2); }
+        { new BitSet(10).writeUInt(1); }
+        { new BitSet(10).writeUInt(1, 2); }
+        { new BitSet(10).writeUInt(1, 2, 3); }
+        { const a: BitSet = BitSet.fromLong(new adone.math.Long(10, 20)); }
     }
 
     namespace randomTests {

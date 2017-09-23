@@ -48,7 +48,7 @@ declare namespace adone {
             /**
              * Converts the Long to a string written in the specified radix
              *
-             * @param radix Radix (2-36), defaults to 10
+             * @param radix Radix (2-36), 10 by default
              */
             toString(radix?: number): string;
 
@@ -130,7 +130,8 @@ declare namespace adone {
             greaterThanOrEqual(other: I.Longable): boolean;
 
             /**
-             * Compares this Long's value with the specified's. Returns 0 if they are the same, 1 if the this is greater and -1 if the given one is greater
+             * Compares this Long's value with the specified's.
+             * Returns 0 if they are the same, 1 if the this is greater and -1 if the given one is greater
              */
             compare(other: I.Longable): number;
 
@@ -345,27 +346,27 @@ declare namespace adone {
             sub(n: number | string | BigNumber): BigNumber;
 
             /**
-             * Return a new bignum containing the instance value multiplied by n
+             * Returns a new bignum containing the instance value multiplied by n
              */
             mul(n: number | string | BigNumber): BigNumber;
 
             /**
-             * Return a new bignum containing the instance value integrally divided by n
+             * Returns a new bignum containing the instance value integrally divided by n
              */
             div(n: number | string | BigNumber): BigNumber;
 
             /**
-             * Return a new bignum with the absolute value of the instance
+             * Returns a new bignum with the absolute value of the instance
              */
             abs(): BigNumber;
 
             /**
-             * Return a new bignum with the negative of the instance value
+             * Returns a new bignum with the negative of the instance value
              */
             neg(): BigNumber;
 
             /**
-             * Compare the instance value to n.
+             * Compares the instance value to n.
              *
              * Returns a positive integer if > n, a negative integer if < n, and 0 if == n
              */
@@ -397,37 +398,37 @@ declare namespace adone {
             le(n: number | string | BigNumber): boolean;
 
             /**
-             * Return a new bignum with the instance value bitwise AND (&)-ed with n.
+             * Returns a new bignum with the instance value bitwise AND (&)-ed with n.
              */
             and(n: number | string | BigNumber): BigNumber;
 
             /**
-             * Return a new bignum with the instance value bitwise inclusive-OR (|)-ed with n.
+             * Returns a new bignum with the instance value bitwise inclusive-OR (|)-ed with n.
              */
             or(n: number | string | BigNumber): BigNumber;
 
             /**
-             * Return a new bignum with the instance value bitwise exclusive-OR (^)-ed with n.
+             * Returns a new bignum with the instance value bitwise exclusive-OR (^)-ed with n.
              */
             xor(n: number | string | BigNumber): BigNumber;
 
             /**
-             * Return a new bignum with the instance value modulo n.
+             * Returns a new bignum with the instance value modulo n.
              */
             mod(n: number | string | BigNumber): BigNumber;
 
             /**
-             * Return a new bignum with the instance value raised to the nth power.
+             * Returns a new bignum with the instance value raised to the nth power.
              */
             pow(n: number | string | BigNumber): BigNumber;
 
             /**
-             * Return a new bignum with the instance value raised to the nth power modulo m.
+             * Returns a new bignum with the instance value raised to the nth power modulo m.
              */
             powm(n: number | string | BigNumber, m: number | string | BigNumber): BigNumber;
 
             /**
-             * Compute the multiplicative inverse modulo m.
+             * Computes the multiplicative inverse modulo m.
              */
             invertm(m: number | string | BigNumber): BigNumber;
 
@@ -458,39 +459,39 @@ declare namespace adone {
             nextPrime(): BigNumber;
 
             /**
-             * Return a new bignum that is the square root. This truncates.
+             * Returns a new bignum that is the square root. This truncates.
              */
             sqrt(): BigNumber;
 
             /**
-             * Return a new bignum that is the nth root. This truncates.
+             * Returns a new bignum that is the nth root. This truncates.
              */
             root(n: number | string | BigNumber): BigNumber;
 
             /**
-             * Return a new bignum that is the 2^n multiple. Equivalent of the << operator.
+             * Returns a new bignum that is the 2^n multiple. Equivalent of the << operator.
              */
             shiftLeft(n: number | string | BigNumber): BigNumber;
 
             /**
-             * Return a new bignum of the value integer divided by 2^n. Equivalent of the >> operator.
+             * Returns a new bignum of the value integer divided by 2^n. Equivalent of the >> operator.
              */
             shiftRight(n: number | string | BigNumber): BigNumber;
 
             /**
-             * Return the greatest common divisor of the current bignum with n as a new bignum.
+             * Returns the greatest common divisor of the current bignum with n as a new bignum.
              */
             gcd(n: number | string | BigNumber): BigNumber;
 
             /**
-             * Return the Jacobi symbol (or Legendre symbol if n is prime) of the current bignum (= a) over n.
+             * Returns the Jacobi symbol (or Legendre symbol if n is prime) of the current bignum (= a) over n.
              * Note that n must be odd and >= 3. 0 <= a < n.
              * Returns -1 or 1
              */
             jacobi(n: number | string | BigNumber): number;
 
             /**
-             * Return the number of bits used to represent the current bignum
+             * Returns the number of bits used to represent the current bignum
              */
             bitLength(): number;
 
@@ -508,7 +509,7 @@ declare namespace adone {
             static prime(bits: number, safe?: boolean): BigNumber;
 
             /**
-             * Create a new bignum from a Buffer.
+             * Creates a new bignum from a Buffer.
              */
             static fromBuffer(buf: Buffer, opts?: I.BigNumber.BufferConvertOptions): BigNumber;
 
@@ -528,7 +529,7 @@ declare namespace adone {
          */
         class BitSet {
             /**
-             * Create a new bitset of n bits
+             * Creates a new bitset of n bits
              */
             constructor(n: number);
 
@@ -587,7 +588,7 @@ declare namespace adone {
             clone(): BitSet;
 
             /**
-             * Turn the bitset into a comma separated string that skips leading & trailing 0 words.
+             * Turns the bitset into a comma separated string that skips leading & trailing 0 words.
              * Ends with the number of leading 0s and MAX_BIT.
              * Useful if you need the bitset to be an object key (eg dynamic programming).
              * Can rehydrate by passing the result into the constructor
@@ -595,44 +596,44 @@ declare namespace adone {
             dehydrate(): string;
 
             /**
-             * Perform a bitwise AND on 2 bitsets or 1 bitset and 1 index.
+             * Performs a bitwise AND on 2 bitsets or 1 bitset and 1 index.
              * Both bitsets must have the same number of words, no length check is performed to prevent and overflow.
              */
             and(value: number | BitSet): BitSet;
 
             /**
-             * Perform a bitwise OR on 2 bitsets or 1 bitset and 1 index.
+             * Performs a bitwise OR on 2 bitsets or 1 bitset and 1 index.
              * Both bitsets must have the same number of words, no length check is performed to prevent and overflow.
              */
             or(value: number | BitSet): BitSet;
 
             /**
-             * Perform a bitwise XOR on 2 bitsets or 1 bitset and 1 index.
+             * Performs a bitwise XOR on 2 bitsets or 1 bitset and 1 index.
              * Both bitsets must have the same number of words, no length check is performed to prevent and overflow.
              */
             xor(value: number | BitSet): BitSet;
 
             /**
-             * Run a custom function on every set bit.
+             * Runs a custom function on every set bit.
              * Faster than iterating over the entire bitset with a get().
              * If the callback returns `false` it stops iterating.
              */
             forEach(callback: ((idx: number) => void | boolean)): void;
 
             /**
-             * Circular shift bitset by an offset
+             * Performs a circular shift bitset by an offset
              *
              * @param n number of positions that the bitset that will be shifted to the right. Using a negative number will result in a left shift.
              */
             circularShift(n: number): BitSet;
 
             /**
-             * Get the cardinality (count of set bits) for the entire bitset
+             * Gets the cardinality (count of set bits) for the entire bitset
              */
             getCardinality(): number;
 
             /**
-             * Get the indices of all set bits
+             * Gets the indices of all set bits
              */
             getIndices(): number[];
 
@@ -642,23 +643,23 @@ declare namespace adone {
             isSubsetOf(other: BitSet): boolean;
 
             /**
-             * Quickly determine if a bitset is empty
+             * Quickly determines if a bitset is empty
              */
             isEmpty(): boolean;
 
             /**
-             * Quickly determine if both bitsets are equal (faster than checking if the XOR of the two is === 0).
+             * Quickly determines if both bitsets are equal (faster than checking if the XOR of the two is === 0).
              * Both bitsets must have the same number of words, no length check is performed to prevent and overflow.
              */
             isEqual(other: BitSet): boolean;
 
             /**
-             * Get a string representation of the entire bitset, including leading 0s
+             * Gets a string representation of the entire bitset, including leading 0s
              */
             toString(): string;
 
             /**
-             * Find first set bit (useful for processing queues, breadth-first tree searches, etc.).
+             * Finds first set bit (useful for processing queues, breadth-first tree searches, etc.).
              * Returns -1 if not found
              *
              * @param startWord the word to start with (only used internally by nextSetBit)
@@ -666,7 +667,7 @@ declare namespace adone {
             ffs(startWord?: number): number;
 
             /**
-             * Find first zero (unset bit).
+             * Finds first zero (unset bit).
              * Returns -1 if not found
              *
              * @param startWord the word to start with (only used internally by nextUnsetBit)
@@ -674,7 +675,7 @@ declare namespace adone {
             ffz(startWord?: number): number;
 
             /**
-             * Find last set bit.
+             * Finds last set bit.
              * Returns -1 if not found
              *
              * @param startWord the word to start with (only used internally by previousSetBit)
@@ -682,7 +683,7 @@ declare namespace adone {
             fls(startWord?: number): number;
 
             /**
-             * Find last zero (unset bit).
+             * Finds last zero (unset bit).
              * Returns -1 if not found
              *
              * @param startWord the word to start with (only used internally by previousUnsetBit)
@@ -690,7 +691,7 @@ declare namespace adone {
             flz(startWord?: number): number;
 
             /**
-             * Find first set bit, starting at a given index.
+             * Finds first set bit, starting at a given index.
              * Return -1 if not found
              *
              * @param idx the starting index for the next set bit
@@ -698,7 +699,7 @@ declare namespace adone {
             nextSetBit(idx: number): number;
 
             /**
-             * Find first unset bit, starting at a given index.
+             * Finds first unset bit, starting at a given index.
              * Return -1 if not found
              *
              * @param idx the starting index for the next unset bit
@@ -706,7 +707,7 @@ declare namespace adone {
             nextUnsetBit(idx: number): number;
 
             /**
-             * Find last set bit, up to a given index.
+             * Finds last set bit, up to a given index.
              * Returns -1 if not found
              *
              * @param idx the starting index for the next unset bit (going in reverse)
@@ -714,10 +715,37 @@ declare namespace adone {
             previousSetBit(idx: number): number;
 
             /**
-             * Find last unset bit, up to a given index.
+             * Finds last unset bit, up to a given index.
              * Returns -1 if not found
              */
             previousUnsetBit(idx: number): number;
+
+            /**
+             * Converts the bitset to a math.Long number
+             */
+            toLong(): Long;
+
+            /**
+             * Reads an unsigned integer of the given bits from the given offset
+             *
+             * @param bits number of bits, 1 by default
+             * @param offset offset, 0 by default
+             */
+            readUInt(bits?: number, offset?: number): number;
+
+            /**
+             * Writes the given unsigned integer
+             *
+             * @param val integer
+             * @param bits number of bits to write, 1 by default
+             * @param offset write offset, 0 by default
+             */
+            writeUInt(val: number, bits?: number, offset?: number): void;
+
+            /**
+             * Creates a new BitSet from the given math.Long number
+             */
+            static fromLong(l: Long): BitSet;
         }
 
         /**

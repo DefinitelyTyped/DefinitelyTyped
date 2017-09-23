@@ -29,7 +29,10 @@ namespace AdoneRootTests {
     adone.lazify({});
     adone.lazify({}, {});
     adone.lazify({}, {}, () => { });
+    adone.lazify({}, {}, () => { }, {});
     adone.lazify({}, {}, () => { }, { configurable: true });
+    adone.lazify({}, {}, () => { }, { writable: false });
+    adone.lazify({}, {}, () => { }, { mapper: (key: string, obj: any) => null });
     adone.tag.set({}, "123");
     { const a: boolean = adone.tag.has({}, "123"); }
     adone.tag.define("12");
