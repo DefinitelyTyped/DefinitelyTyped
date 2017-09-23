@@ -18,3 +18,22 @@ export function info(message: string, data?: object): void;
 export function warn(message: string, data?: object): void;
 export function error(message: string, data?: object): void;
 export function fatal(message: string, data?: object): void;
+
+export const Logger: Logger;
+
+export interface LoggerConfig {
+    level?: string;
+    color?: boolean;
+    readable?: boolean;
+    prefix?: boolean;
+}
+
+export interface Logger {
+    trace(message: string, data?: object): void;
+    debug(message: string, data?: object): void;
+    info(message: string, data?: object): void;
+    warn(message: string, data?: object): void;
+    error(message: string, data?: object): void;
+    fatal(message: string, data?: object): void;
+    new (config: LoggerConfig): LoggerConfig;
+}
