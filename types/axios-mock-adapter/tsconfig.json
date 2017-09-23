@@ -13,12 +13,7 @@
         "forceConsistentCasingInFileNames": true,
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": true,
-        "paths": {
-            "axios-mock-adapter": [
-                "."
-            ]
-        }
+        "strictNullChecks": true
     },
     "files": [
         "index.d.ts",
