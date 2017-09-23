@@ -957,3 +957,56 @@ const Joi3 = Joi.extend({
         },
     ],
 });
+
+// --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
+schema = Joi.allow(x, x);
+schema = Joi.allow([x, x, x]);
+schema = Joi.valid(x);
+schema = Joi.valid(x, x);
+schema = Joi.valid([x, x, x]);
+schema = Joi.only(x);
+schema = Joi.only(x, x);
+schema = Joi.only([x, x, x]);
+schema = Joi.equal(x);
+schema = Joi.equal(x, x);
+schema = Joi.equal([x, x, x]);
+schema = Joi.invalid(x);
+schema = Joi.invalid(x, x);
+schema = Joi.invalid([x, x, x]);
+schema = Joi.disallow(x);
+schema = Joi.disallow(x, x);
+schema = Joi.disallow([x, x, x]);
+schema = Joi.not(x);
+schema = Joi.not(x, x);
+schema = Joi.not([x, x, x]);
+
+schema = Joi.required();
+schema = Joi.optional();
+schema = Joi.forbidden();
+schema = Joi.strip();
+
+schema = Joi.description(str);
+schema = Joi.notes(str);
+schema = Joi.notes(strArr);
+schema = Joi.tags(str);
+schema = Joi.tags(strArr);
+
+schema = Joi.meta(obj);
+schema = Joi.example(obj);
+schema = Joi.unit(str);
+
+schema = Joi.options(validOpts);
+schema = Joi.strict();
+schema = Joi.strict(bool);
+schema = Joi.concat(x);
+
+schema = Joi.when(str, whenOpts);
+schema = Joi.when(ref, whenOpts);
+
+schema = Joi.label(str);
+schema = Joi.raw();
+schema = Joi.raw(bool);
+schema = Joi.empty();
+schema = Joi.empty(str);
+schema = Joi.empty(anySchema);
