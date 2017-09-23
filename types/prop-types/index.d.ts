@@ -21,6 +21,7 @@ export const object: Requireable<any>;
 export const string: Requireable<any>;
 export const node: Requireable<any>;
 export const element: Requireable<any>;
+export const symbol: Requireable<any>;
 export function instanceOf(expectedClass: {}): Requireable<any>;
 export function oneOf(types: any[]): Requireable<any>;
 export function oneOfType(types: Array<Validator<any>>): Requireable<any>;
