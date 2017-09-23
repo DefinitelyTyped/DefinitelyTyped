@@ -830,6 +830,13 @@ schema = Joi.alternatives().try(schema, schema);
 schema = Joi.alternatives(schemaArr);
 schema = Joi.alternatives(schema, anySchema, boolSchema);
 
+schema = Joi.alt();
+schema = Joi.alt().try(schemaArr);
+schema = Joi.alt().try(schema, schema);
+
+schema = Joi.alt(schemaArr);
+schema = Joi.alt(schema, anySchema, boolSchema);
+
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
 schema = Joi.lazy(() => schema)
