@@ -1,6 +1,8 @@
 // Type definitions for microsoftteams 1.0
 // Project: https://github.com/OfficeDev/microsoft-teams-library-js
 // Definitions by: OfficeDev <https://github.com/OfficeDev>
+//                 Jay Ongg <https://github.com/jayongg>
+//                 Yuri Dogandjiev <https://github.com/ydogandjiev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped/types/microsoftteams
 // TypeScript Version: 2.1
 // tslint:disable:prefer-method-signature
@@ -12,6 +14,24 @@ interface MessageEvent {
  * This is the root namespace for the JavaScript SDK.
  */
 declare namespace microsoftTeams {
+    interface TabInformation {
+        teamTabs: TabInstance[];
+    }
+
+    interface TabInstance {
+        tabName: string;
+        entityId?: string;
+        channelId?: string;
+        channelName?: string;
+        channelIsFavorite?: boolean;
+        teamId?: string;
+        teamName?: string;
+        teamIsFavorite?: boolean;
+        groupId?: string;
+        url?: string;
+        websiteUrl?: string;
+    }
+
     /**
      * Initializes the library. This must be called before any other SDK calls.
      * The caller should only call this once the frame is loaded successfully.
@@ -22,6 +42,10 @@ declare namespace microsoftTeams {
      * @param callback The callback to invoke when the {@link Context} object is retrieved.
      */
     function getContext(callback: (context: Context) => void): void;
+    /**
+     * Allows an app to retrieve all the tabs in favorite channels where it is enabled for this user
+     */
+    function getTabInstances(callback: (tabInfo: TabInformation) => void): void;
     /**
      * Registers a handler for when the user changes their theme.
      * Only one handler may be registered at a time. Subsequent registrations will override the first.
@@ -320,6 +344,11 @@ declare namespace microsoftTeams {
          * The current UI theme the user is using.
          */
         theme?: string;
+
+        /**
+         * Indication whether the tab is in full screen mode.
+         */
+        isFullScreen?: boolean;
     }
     interface DeepLinkParameters {
         /**
