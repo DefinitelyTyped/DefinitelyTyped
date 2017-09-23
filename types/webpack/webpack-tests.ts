@@ -559,46 +559,46 @@ configuration = {
     module: {
         rules: [
             { oneOf: [
-                    {
-                        test: {
-                            and: [
-                                /a.\.js$/,
-                                /b\.js$/
-                            ]
-                        },
-                        loader: "./loader?first"
-                    },
-                    {
-                        test: [
-                            require.resolve("./a"),
-                            require.resolve("./c"),
-                        ],
-                        issuer: require.resolve("./b"),
-                        use: [
-                            "./loader?second-1",
-                            {
-                                loader: "./loader",
-                                options: "second-2"
-                            },
-                            {
-                                loader: "./loader",
-                                options: {
-                                    get: () => "second-3"
-                                }
-                            }
+                {
+                    test: {
+                        and: [
+                            /a.\.js$/,
+                            /b\.js$/
                         ]
                     },
-                    {
-                        test: {
-                            or: [
-                                require.resolve("./a"),
-                                require.resolve("./c"),
-                            ]
+                    loader: "./loader?first"
+                },
+                {
+                    test: [
+                        require.resolve("./a"),
+                        require.resolve("./c"),
+                    ],
+                    issuer: require.resolve("./b"),
+                    use: [
+                        "./loader?second-1",
+                        {
+                            loader: "./loader",
+                            options: "second-2"
                         },
-                        loader: "./loader",
-                        options: "third"
-                    }
-                ]}
+                        {
+                            loader: "./loader",
+                            options: {
+                                get: () => "second-3"
+                            }
+                        }
+                    ]
+                },
+                {
+                    test: {
+                        or: [
+                            require.resolve("./a"),
+                            require.resolve("./c"),
+                        ]
+                    },
+                    loader: "./loader",
+                    options: "third"
+                }
+            ]}
         ]
     }
 };
