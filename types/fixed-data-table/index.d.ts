@@ -2,7 +2,7 @@
 // Project: https://github.com/facebook/fixed-data-table
 // Definitions by: Petar Paar <https://github.com/pepaar>, Stephen Jelfs <https://github.com/stephenjelfs>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 /// <reference types="react"/>
 
@@ -489,12 +489,12 @@ declare namespace FixedDataTable {
         columnKey?: string | number;
     }
 
-    export class Table extends React.Component<TableProps, {}> {
+    export class Table extends React.Component<TableProps> {
     }
-    export class Column extends React.Component<ColumnProps, {}> {
+    export class Column extends React.Component<ColumnProps> {
     }
-    export class ColumnGroup extends React.Component<ColumnGroupProps, {}> {
+    export class ColumnGroup extends React.Component<ColumnGroupProps> {
     }
-    export class Cell extends React.Component<CellProps, {}> {
+    export class Cell extends React.Component<CellProps> {
     }
 }

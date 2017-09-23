@@ -1,12 +1,14 @@
-// Type definitions for chokidar 1.6.1
+// Type definitions for chokidar 1.7.1
 // Project: https://github.com/paulmillr/chokidar
-// Definitions by: Stefan Steinhart <https://github.com/reppners/>, Felix Becker <https://github.com/felixfbecker/>
+// Definitions by: Stefan Steinhart <https://github.com/reppners>
+//                 Felix Becker <https://github.com/felixfbecker>
+//                 Zach Cardoza <https://github.com/bayssmekanique>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
 
 import * as fs from 'fs';
-import {EventEmitter} from 'events';
+import { EventEmitter } from 'events';
 
 /**
  * The object's keys are all the directories (using absolute paths unless the `cwd` option was
@@ -17,6 +19,11 @@ export interface WatchedPaths {
 }
 
 export class FSWatcher extends EventEmitter implements fs.FSWatcher {
+
+    /**
+     * Constructs a new FSWatcher instance with optional WatchOptions parameter.
+     */
+    constructor(options?: WatchOptions);
 
     /**
      * Add files, directories, or glob patterns for tracking. Takes an array of strings or just one
@@ -79,6 +86,12 @@ export interface WatchOptions {
      * be relative to this.
      */
     cwd?: string;
+    
+    /**
+     *  If set to true then the strings passed to .watch() and .add() are treated as literal path
+     *  names, even if they look like globs. Default: false.
+     */
+    disableGlobbing?: boolean;
 
     /**
      * Whether to use fs.watchFile (backed by polling), or fs.watch. If polling leads to high CPU

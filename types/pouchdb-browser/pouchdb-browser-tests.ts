@@ -1,7 +1,8 @@
-function testConstructor() {
-    type MyModel = { numericProperty: number };
-    let model: PouchDB.Core.Document<MyModel>;
+interface MyModel {
+    numericProperty: number;
+}
 
+function testConstructor(model: PouchDB.Core.Document<MyModel>) {
     let db = new PouchDB<MyModel>(null, {
         adapter: 'idb',
     });

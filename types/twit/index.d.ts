@@ -230,6 +230,7 @@ declare module 'twit' {
       include_entities?: boolean,
 
       // Other params from various endpoints
+      track?: string | string[],
       media_id?: string,
       media_ids?: string[],
       alt_text?: {

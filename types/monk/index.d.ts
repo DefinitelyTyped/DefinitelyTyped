@@ -1,6 +1,6 @@
 // Type definitions for Monk v1.0.1
-// Project: http://github.com/LearnBoost/monk.git
-// Definitions by: Patrick Bartsch <https://github.com/wzr1337/>
+// Project: https://github.com/LearnBoost/monk.git
+// Definitions by: Patrick Bartsch <https://github.com/wzr1337>
 // Definitions: https://github.com/DefinitelyTyped/Monk
 
 declare module "monk" {

@@ -2,6 +2,7 @@
 // Project: http://datatables.net/extensions/buttons/
 // Definitions by: Sam Germano <https://github.com/SammyG4Free>, Jim Hartford <https://github.com/jimhartford>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="jquery" />
 /// <reference types="datatables.net"/>
@@ -85,6 +86,11 @@ declare namespace DataTables {
          */
         title?: string;
 
+        /**
+         * Define what the exported filename should be
+         */
+        filename?: string;
+
         exportOptions?: ButtonExportOptions;
         autoPrint?: boolean;
         customize?: FunctionButtonCustomize;
@@ -94,7 +100,7 @@ declare namespace DataTables {
         (dt: DataTables.Api, config: any): boolean
     }
     export interface ButtonExportOptions {
-        columns?: string;
+        columns?: string | number | string[] | number[];
     }
 
     export interface ButtonKey {

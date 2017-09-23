@@ -2,10 +2,12 @@
 // Project: https://github.com/ManifestWebDesign/angular-gridster
 // Definitions by: Joao Monteiro <https://github.com/jpmnteiro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import * as angular from "angular";
 
-export default "gridster";
+declare const exportedString: "gridster";
+export default exportedString;
 
 declare module "angular" {
     namespace gridster {
@@ -88,13 +90,13 @@ declare module "angular" {
                 handles?: string[];
 
                 // optional callback fired when drag is started
-                start?(event: angular.IAngularEvent, $element: angular.IAugmentedJQuery, options: any): void;
+                start?(event: IAngularEvent, $element: IAugmentedJQuery, options: any): void;
 
                 // optional callback fired when item is resized
-                resize?(event: angular.IAngularEvent, $element: angular.IAugmentedJQuery, options: any): void;
+                resize?(event: IAngularEvent, $element: IAugmentedJQuery, options: any): void;
 
                 // optional callback fired when item is finished dragging
-                stop?(event: angular.IAngularEvent, $element: angular.IAugmentedJQuery, options: any): void;
+                stop?(event: IAngularEvent, $element: IAugmentedJQuery, options: any): void;
             };
 
             // options to pass to draggable handler
@@ -112,13 +114,13 @@ declare module "angular" {
                 handle?: string;
 
                 // optional callback fired when drag is started
-                start?(event: angular.IAngularEvent, $element: angular.IAugmentedJQuery, options: any): void;
+                start?(event: IAngularEvent, $element: IAugmentedJQuery, options: any): void;
 
                 // optional callback fired when item is moved,
-                drag?(event: angular.IAngularEvent, $element: angular.IAugmentedJQuery, options: any): void;
+                drag?(event: IAngularEvent, $element: IAugmentedJQuery, options: any): void;
 
                 // optional callback fired when item is finished dragging
-                stop?(event: angular.IAngularEvent, $element: angular.IAugmentedJQuery, options: any): void;
+                stop?(event: IAngularEvent, $element: IAugmentedJQuery, options: any): void;
             };
         }
 

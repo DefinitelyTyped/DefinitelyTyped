@@ -1,6 +1,7 @@
 // Type definitions for ioredis
 // Project: https://github.com/luin/ioredis
 // Definitions by: York Yao <https://github.com/plantain-00/>
+//                 Christopher Eck <https://github.com/chrisleck>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /* =================== USAGE ===================
@@ -64,6 +65,8 @@ declare module IORedis {
         setnx(...args: any[]): any;
         setex(args: any[], callback?: ResCallbackT<any>): any;
         setex(...args: any[]): any;
+        psetex(args: any[], callback?: ResCallbackT<any>): any;
+        psetex(...args: any[]): any;
         append(args: any[], callback?: ResCallbackT<any>): any;
         append(...args: any[]): any;
         strlen(args: any[], callback?: ResCallbackT<any>): any;
@@ -352,6 +355,8 @@ declare module IORedis {
         setnx(...args: any[]): Pipeline;
         setex(args: any[], callback?: ResCallbackT<any>): Pipeline;
         setex(...args: any[]): Pipeline;
+        psetex(args: any[], callback?: ResCallbackT<any>): Pipeline;
+        psetex(...args: any[]): Pipeline;
         append(args: any[], callback?: ResCallbackT<any>): Pipeline;
         append(...args: any[]): Pipeline;
         strlen(args: any[], callback?: ResCallbackT<any>): Pipeline;

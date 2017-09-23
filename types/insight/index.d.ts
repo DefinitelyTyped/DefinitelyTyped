@@ -1,6 +1,6 @@
 // Type definitions for insight 0.4.3
 // Project: https://github.com/yeoman/insight
-// Definitions by: vvakame <http://github.com/vvakame>
+// Definitions by: vvakame <https://github.com/vvakame>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace insight {

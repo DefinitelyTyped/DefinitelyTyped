@@ -1,6 +1,8 @@
-// Type definitions for VexFlow v1.2.83
+// Type definitions for VexFlow v1.2.84
 // Project: http://vexflow.com
-// Definitions by: Roman Quiring <https://github.com/rquiring>, Sebastian Haas <https://github.com/sebastianhaas/>
+// Definitions by: Roman Quiring <https://github.com/rquiring>
+//                 Sebastian Haas <https://github.com/sebastianhaas>
+//                 Basti Hoffmann <https://github.com/bohoffi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 //inconsistent namespace: this is a helper funtion from tables.js and should not pollute the global namespace!
@@ -185,6 +187,7 @@ declare namespace Vex {
 
         class BarNote extends Note {
             static DEBUG : boolean;
+            constructor();
             getType() : Barline.type;
             setType(type : Barline.type) : BarNote;
             getBoundingBox() : BoundingBox;
@@ -616,7 +619,7 @@ declare namespace Vex {
             getTickMultiplier() : Fraction;
             applyTickMultiplier(numerator : number, denominator : number) : void;
             setDuration(duration : Fraction) : void;
-
+	    
             constructor(note_struct : {type? : string, dots? : number, duration : string});
             getPlayNote() : any;
             setPlayNote(note : any) : Note;
@@ -1174,7 +1177,7 @@ declare namespace Vex {
             setStave(stave : Stave) : Note;
             getModifierStartXY() : {x : number, y : number};
 
-            constructor(tab_struct : {positions : {str : number, fret : number}[], type? : string, dots? : number, duration : string, stem_direction? : boolean}, draw_stem? : boolean);
+            constructor(tab_struct : {positions : {str : number, fret : number}[], type? : string, dots? : number, duration : string, stem_direction? : number}, draw_stem? : boolean);
             getCategory() : string;
             setGhost(ghost : boolean) : TabNote;
             hasStem() : boolean;

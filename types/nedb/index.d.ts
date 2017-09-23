@@ -60,7 +60,7 @@ declare class Nedb {
      * If one update violates a constraint, all changes are rolled back
      */
     updateIndexes<T>(oldDoc: T, newDoc: T): void;
-    updateIndexes<T>(updates: Array<{oldDoc: T; newDoc: T}>): void;
+    updateIndexes<T>(updates: Array<{ oldDoc: T; newDoc: T }>): void;
 
     /**
      * Return the list of candidates for a given query

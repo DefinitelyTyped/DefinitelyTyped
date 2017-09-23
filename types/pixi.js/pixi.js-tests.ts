@@ -20,6 +20,14 @@ function basics() {
         }
     }
 
+    class Renderer {
+        private renderer: PIXI.WebGLRenderer;
+        constructor() {
+            // Renderer should allow options from both WebGLRenderer and underlying SystemRenderer
+            this.renderer = new PIXI.WebGLRenderer(0, 0, { backgroundColor: 0x272d37, forceFXAA: true });
+        }
+    }
+
     class Click {
         private app: PIXI.Application;
 
@@ -103,7 +111,7 @@ function basics() {
         }
     }
 
-    class CustomizedFilter extends PIXI.Filter {
+    class CustomizedFilter extends PIXI.Filter<any> {
         constructor(fragmentSource: string) {
             super(null, fragmentSource, {
                 customUniform: {
@@ -239,7 +247,7 @@ function basics() {
                     for (let i = 0; i < 30; i++) {
                         const val = i < 10 ? "0" + i : i;
 
-                        frames.push(PIXI.Texture.fromFrame("rollSequence00" + val + ".png"));
+                        frames.push(PIXI.Texture.fromFrame(`rollSequence00${val}.png`));
                     }
 
                     this.anim = new PIXI.extras.AnimatedSprite(frames);
@@ -487,7 +495,7 @@ function demos() {
                     const explosionTextures: PIXI.Texture[] = [];
 
                     for (let i = 0; i < 26; i++) {
-                        const texture = PIXI.Texture.fromFrame("Explosion_Sequence_A " + (i + 1) + ".png");
+                        const texture = PIXI.Texture.fromFrame(`Explosion_Sequence_A ${i + 1}.png`);
                         explosionTextures.push(texture);
                     }
 
@@ -1499,7 +1507,8 @@ function filters() {
                 maggot.position.y = Math.random() * bounds.height;
 
                 maggot.scale.set(1 + Math.random() * 0.3);
-                maggot.original = maggot.scale.clone();
+                //tslint:disable-next-line:whitespace
+                maggot.original = (<PIXI.Point>maggot.scale).clone();
                 this.maggots.push(maggot);
             }
 

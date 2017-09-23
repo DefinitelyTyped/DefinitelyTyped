@@ -3,7 +3,7 @@
 // Definitions by: Michael Mrowetz <https://github.com/micmro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-interface FittingContext {
+export interface FittingContext {
     /** The input defined in the fitting definition
      * (string, number, object, array)
      */
@@ -17,9 +17,9 @@ interface FittingContext {
  * Fitting types has pre-defined fittings `system` and `user`
  * but can be any any string for custom types like `swagger` or `node-machine`
  */
-type FittingType = "system" | "user" | string;
+export type FittingType = "system" | "user" | string;
 
-interface FittingDef {
+export interface FittingDef {
     /**
      * If type is omitted (as it must be for in-line usage), Bagpipes will
      * first check the user fittings then the system fittings for the name and
@@ -46,8 +46,8 @@ interface FittingDef {
  *
  * Will be called called when the `Pipe` it is contained it gets 'played'
  */
-type Fitting = (
-    context: FittingContext, 
+export type Fitting = (
+    context: FittingContext,
     next: {(err: Error | null | undefined, res?: any): void}) => void;
 
 /**
@@ -58,18 +58,18 @@ type Fitting = (
  *
  * @param {Object} fittingDef Fitting Definition
  */
-type FittingFactory = (fittingDef: FittingDef, bagpipes: any) => Fitting;
+export type FittingFactory = (fittingDef: FittingDef, bagpipes: any) => Fitting;
 
 /**
  * Hashmap of `fittingType`s (the name of a fitting) and the
  * `FittingFactory` functions used to create them
  */
-interface FittingTypesMap {
+export interface FittingTypesMap {
     [fittingType: string]: FittingFactory;
 }
 
 /** The Pipe Definition */
-type PipeDef = any[] | string | FittingDef;
+export type PipeDef = any[] | string | FittingDef;
 
 /** Hashmap of Pipe Definitons */
 export interface PipeDefMap {
@@ -143,10 +143,10 @@ export function create(pipesDefs: PipeDefMap, conf?: Config): Bagpipes;
 
 // Types for imports from `pipeworks` module
 
-type Affinity = "hoist" | "sink";
+export type Affinity = "hoist" | "sink";
 
 /** PipeDef used in `pipeworks` module */
-interface PipeworksOptions {
+export interface PipeworksOptions {
     /**
      * Adds to the pre and post queues, respectively.
      * Ensures a pipe gets fitted before or after the main execution pipeline.

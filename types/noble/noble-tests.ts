@@ -4,14 +4,18 @@ import noble = require("noble");
 function test_startScanning(): void {
     "use strict";
     noble.startScanning();
+    noble.startScanning((err) => {});
     noble.startScanning(["0x180d"]);
+    noble.startScanning(["0x180d"], (err) => {});
     noble.startScanning(["0x180d"], true);
+    noble.startScanning(["0x180d"], true, (err) => {});
 }
 test_startScanning();
 
 function test_stopScanning(): void {
     "use strict";
     noble.stopScanning();
+    noble.stopScanning(() => {});
 }
 test_stopScanning();
 
@@ -19,6 +23,14 @@ noble.on("stateChange", (state: string): void => {});
 noble.on("scanStart", (): void => {});
 noble.on("scanStop", (): void => {});
 noble.on("discover", (peripheral: noble.Peripheral): void => {
+    peripheral.connect((error: string): void => {});
+    peripheral.disconnect((): void => {});
+});
+
+noble.removeListener("stateChange", (state: string): void => {});
+noble.removeListener("scanStart", (): void => {});
+noble.removeListener("scanStop", (): void => {});
+noble.removeListener("discover", (peripheral: noble.Peripheral): void => {
     peripheral.connect((error: string): void => {});
     peripheral.disconnect((): void => {});
 });
@@ -83,6 +95,10 @@ characteristic.on("write", true, (error: string): void => {});
 characteristic.on("broadcast", (state: string): void => {});
 characteristic.on("notify", (state: string): void => {});
 characteristic.on("descriptorsDiscover", (descriptors: noble.Descriptor[]): void => {});
+characteristic.subscribe();
+characteristic.subscribe((error: string) => {});
+characteristic.unsubscribe();
+characteristic.unsubscribe((error: string) => {});
 
 var descriptor: noble.Descriptor = new noble.Descriptor();
 descriptor.uuid = "";

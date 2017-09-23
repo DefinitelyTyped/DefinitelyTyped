@@ -2,6 +2,7 @@
 // Project: https://github.com/McNull/angular-block-ui
 // Definitions by: Lasse Nørregaard <https://github.com/lassebn>, Stephan Classen <https://github.com/sclassen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import * as angular from "angular";
 
@@ -69,7 +70,7 @@ declare module 'angular' {
              * @param {angular.IRequestConfig} config - the Angular request config object.
              *
              */
-            requestFilter?(config: angular.IRequestConfig): (string | boolean);
+            requestFilter?(config: IRequestConfig): (string | boolean);
 
             /**
              * When the module is started it will inject the main block element

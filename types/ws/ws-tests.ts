@@ -1,14 +1,12 @@
 
 import * as WebSocket from 'ws';
-import * as http from'http';
-import * as https from'https';
-
-var WebSocketServer = WebSocket.Server;
+import * as http from 'http';
+import * as https from 'https';
 
 {
     var ws = new WebSocket('ws://www.host.com/path');
     ws.on('open', () => ws.send('something'));
-    ws.on('message', (data, flags) => {});
+    ws.on('message', (data) => {});
 }
 
 {
@@ -21,33 +19,37 @@ var WebSocketServer = WebSocket.Server;
 }
 
 {
-    var wss = new WebSocketServer({port: 8080});
-    wss.on('connection', (ws) => {
+    var wss = new WebSocket.Server({port: 8081});
+    wss.on('connection', (ws, req) => {
         ws.on('message', (message) => console.log('received: %s', message));
         ws.send('something');
+    });
+
+    wss.on('headers', (headers, req) => {
+        console.log(`received headers: ${headers}`);
+        console.log(`received request: ${Object.keys(req)}`);
     });
 }
 
 {
-    var wss = new WebSocketServer({port: 8080});
+    var wss = new WebSocket.Server({port: 8082});
 
-    const broadcast = function(data: any) {
-        for(var i in wss.clients)
-            wss.clients[i].send(data);
+    const broadcast = (data: any) => {
+        wss.clients.forEach((ws) => ws.send(data));
     };
 }
 
 {
-    var wsc = new WebSocket('ws://echo.websocket.org/', {
-        protocolVersion: 8,
-        origin: 'http://websocket.org'
-    });
+    var wsc = new WebSocket('ws://echo.websocket.org/');
 
     wsc.on('open',  () => wsc.send(Date.now().toString(), {mask: true}));
     wsc.on('close', () => console.log('disconnected'));
+    wsc.on('error', (error) => {
+        console.log(`unexpected response: ${error}`);
+    });
 
-    wsc.on('message', (data, flags) => {
-        console.log('Roundtrip time: ' + (Date.now() - parseInt(data)) + 'ms', flags);
+    wsc.on('message', (data: string) => {
+        console.log('Roundtrip time: ' + (Date.now() - parseInt(data)) + 'ms');
         setTimeout(() => {
             wsc.send(Date.now().toString(), {mask: true});
         }, 500);
@@ -71,20 +73,23 @@ var WebSocketServer = WebSocket.Server;
     ): void {
         callback(true)
     }
-    
-    var wsv = new WebSocketServer({
-        verifyClient
+
+    var wsv = new WebSocket.Server({
+        server: http.createServer(),
+        clientTracking: true,
+        perMessageDeflate: true
     })
-    
+
     wsv.on('connection', function connection(ws) {
         console.log(ws.protocol)
     })
 }
 
 {
-    new WebSocket.Server({ perMessageDeflate: false });
-    new WebSocket.Server({ perMessageDeflate: { } });
+    new WebSocket.Server({ noServer: true, perMessageDeflate: false });
+    new WebSocket.Server({ noServer: true, perMessageDeflate: { } });
     new WebSocket.Server({
+        noServer: true,
         perMessageDeflate: {
             serverNoContextTakeover: true,
             clientNoContextTakeover: true,

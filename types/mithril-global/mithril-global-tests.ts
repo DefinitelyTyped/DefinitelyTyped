@@ -1,10 +1,10 @@
 // Test global mithril types
 
-const comp = {
+const comp: m.Comp<{},{}> = {
 	view() {
 		return m('span', "Test")
 	}
-} as m.Comp<{},{}>
+};
 
 m.mount(document.getElementById('comp')!, comp)
 

@@ -1,8 +1,8 @@
 // Type definitions for fancyBox 2.1
 // Project: https://github.com/fancyapps/fancyBox
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>
+// Definitions by: Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
+// TypeScript Version: 2.3
 
 /// <reference types="jquery" />
 
@@ -78,18 +78,18 @@ interface FancyboxOptions extends FancyboxCallback {
 }
 
 interface FancyboxMethods {
-    open(group?: any[], options?: FancyboxOptions);
-    cancel();
-    close(force?: boolean);
-    play();
-    next();
-    prev();
-    jumpto(index?: number);
-    reposition();
-    update();
-    toggle();
-    showLoading();
-    hideLoading();
+    open(group?: any[], options?: FancyboxOptions): void;
+    cancel(): void;
+    close(force?: boolean): void;
+    play(): void;
+    next(): void;
+    prev(): void;
+    jumpto(index?: number): void;
+    reposition(): void;
+    update(): void;
+    toggle(): void;
+    showLoading(): void;
+    hideLoading(): void;
 
     (options: FancyboxOptions): void;
     (selector: string, options?: FancyboxOptions): void;
