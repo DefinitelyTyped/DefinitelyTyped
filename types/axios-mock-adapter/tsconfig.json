@@ -1,0 +1,27 @@
+{
+    "compilerOptions": {
+        "baseUrl": "../",
+        "types": [],
+        "typeRoots": [
+            "../"
+        ],
+        "module": "commonjs",
+        "lib": [
+            "es6"
+        ],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "paths": {
+            "axios-mock-adapter": [
+                "."
+            ]
+        }
+    },
+    "files": [
+        "index.d.ts",
+        "axios-mock-adapter-tests.ts"
+    ]
+}
