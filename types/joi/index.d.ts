@@ -551,7 +551,7 @@ export interface StringSchema extends AnySchema {
      * Requires the string value to be a valid GUID.
      */
     guid(options?: GuidOptions): this;
-    
+
     /**
      * Alias for `guid` -- Requires the string value to be a valid GUID
      */
@@ -962,9 +962,14 @@ export function string(): StringSchema;
 /**
  * Generates a type that will match one of the provided alternative schemas
  */
-export function alternatives(): AlternativesSchema;
 export function alternatives(types: SchemaLike[]): AlternativesSchema;
 export function alternatives(...types: SchemaLike[]): AlternativesSchema;
+
+/**
+ * Alias for `alternatives`
+ */
+export function alt(types: SchemaLike[]): AlternativesSchema;
+export function alt(...types: SchemaLike[]): AlternativesSchema;
 
 /**
  * Generates a placeholder schema for a schema that you would provide with the fn.
@@ -1031,3 +1036,4 @@ export function extend(extention: Extension): any;
  * Returns a plain object representing the schema's rules and properties
  */
 export function describe(schema: Schema): Description;
+
