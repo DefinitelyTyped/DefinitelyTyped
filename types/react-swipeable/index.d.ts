@@ -3,11 +3,11 @@
 // Definitions by: Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
 //                 Konstantin Vasilev <https://github.com/mctep>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import * as React from 'react';
 
-declare class ReactSwipeable extends React.Component<ReactSwipeable.SwipeableProps, void> {}
+declare class ReactSwipeable extends React.Component<ReactSwipeable.SwipeableProps> {}
 
 declare namespace ReactSwipeable {
     type OnSwipingCallback = (event: React.TouchEvent<HTMLElement>, deltaX: number, deltaY: number, absX: number, absY: number, velocity: number) => void;

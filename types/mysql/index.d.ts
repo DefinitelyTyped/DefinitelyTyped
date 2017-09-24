@@ -58,6 +58,8 @@ interface IConnection {
     end(callback: (err: IError, ...args: any[]) => void): void;
     end(options: any, callback: (err: IError, ...args: any[]) => void): void;
 
+    ping(callback: (err: IError) => void): void;
+
     destroy(): void;
 
     pause(): void;

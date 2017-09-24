@@ -2,6 +2,7 @@
 // Project: https://github.com/spion/anydb-sql-migrations
 // Definitions by: Gorgi Kosev <https://github.com/spion>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import Promise = require('bluebird');
 import { Column, Table, Transaction, AnydbSql } from 'anydb-sql';
@@ -19,7 +20,7 @@ export interface MigrationTask {
     down: MigFn;
     name: string;
 }
-export declare function create(db: AnydbSql, tasks: any): {
+export declare function create(db: AnydbSql, tasks: string | MigrationTask[]): {
     run: () => Promise<any>;
     migrateTo: (target?: string) => Promise<any>;
     check: (f: (m: {

@@ -1,5 +1,11 @@
 import * as sf from 'jsforce';
 
+export interface DummyRecord {
+    thing: boolean;
+    other: number;
+    person: string;
+}
+
 const salesforceConnection: sf.Connection = new sf.Connection({
     instanceUrl: '',
     refreshToken: '',
@@ -8,6 +14,11 @@ const salesforceConnection: sf.Connection = new sf.Connection({
         clientSecret: '',
     },
 });
+
+salesforceConnection.sobject<DummyRecord>("Dummy").select(["thing", "other"]);
+
+// note the following should never compile:
+// salesforceConnection.sobject<DummyRecord>("Dummy").select(["lol"]);
 
 salesforceConnection.sobject("Account").create({
     Name: "Test Acc 2",
@@ -30,10 +41,10 @@ salesforceConnection.sobject("ContentVersion").create({
     }
 });
 
-salesforceConnection.sobject("ContentVersion").retrieve("world", {
+salesforceConnection.sobject<any>("ContentVersion").retrieve("world", {
     test: "test"
-}, (err: Error, ret: sf.RecordResult) => {
-    if (err || !ret.success) {
+}, (err: Error, ret) => {
+    if (err) {
         return;
     }
 });

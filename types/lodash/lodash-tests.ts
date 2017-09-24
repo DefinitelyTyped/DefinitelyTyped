@@ -1,5 +1,7 @@
 declare const $: any, jQuery: any;
 
+let x = 0
+
 interface IFoodOrganic {
     name: string;
     organic: boolean;
@@ -81,7 +83,7 @@ class Dog {
     constructor(public name: string) { }
 
     bark() {
-        console.log('Woof, woof!');
+        // Woof
     }
 }
 
@@ -101,11 +103,13 @@ let testMapCache: _.MapCache = {
     get(key: string): any { return 1; },
     has(key: string) { return true; },
     set(key: string, value: any): _.Dictionary<any> { return {}; },
+    clear() { },
 };
 result = <(key: string) => boolean>testMapCache.delete;
 result = <(key: string) => any>testMapCache.get;
 result = <(key: string) => boolean>testMapCache.has;
 result = <(key: string, value: any) => _.Dictionary<any>>testMapCache.set;
+result = <() => void>testMapCache.clear;
 
 // _
 namespace TestWrapper {
@@ -207,6 +211,8 @@ namespace TestChunk {
 namespace TestCompact {
     let array: TResult[] | null | undefined = [] as any;
     let list: _.List<TResult> | null | undefined = [] as any;
+    let array2: Array<TResult | null | undefined | false | "" | 0> | null | undefined = any;
+    let list2: _.List<TResult | null | undefined | false | "" | 0> | null | undefined = any;
 
     {
         let result: TResult[];
@@ -214,6 +220,8 @@ namespace TestCompact {
         result = _.compact<TResult>();
         result = _.compact<TResult>(array);
         result = _.compact<TResult>(list);
+        result = _.compact(array2);
+        result = _.compact(list2);
     }
 
     {
@@ -698,7 +706,7 @@ namespace TestFindIndex {
     let array: TResult[] | null | undefined = [] as any;
     let list: _.List<TResult> | null | undefined = [] as any;
     let predicateFn = (value: TResult, index: number, collection: _.List<TResult>) => true;
-    let fromIndex: number = 0;
+    let fromIndex = 0;
 
     {
         let result: number;
@@ -714,6 +722,7 @@ namespace TestFindIndex {
         result = _.findIndex<TResult>(list, '');
         result = _.findIndex<{a: number}, TResult>(list, {a: 42});
         result = _.findIndex<TResult>(list, predicateFn, fromIndex);
+        result = _.findIndex([{ b: 5 }], ['b', 5]);
 
         result = _<TResult>(array).findIndex();
         result = _<TResult>(array).findIndex(predicateFn);
@@ -751,7 +760,7 @@ namespace TestFindLastIndex {
     let list: _.List<TResult> | null | undefined = [] as any;
 
     let predicateFn = (value: TResult, index: number, collection: _.List<TResult>) => true;
-    let fromIndex: number = 0;
+    let fromIndex = 0;
 
     {
         let result: number;
@@ -767,6 +776,7 @@ namespace TestFindLastIndex {
         result = _.findLastIndex<TResult>(list, '');
         result = _.findLastIndex<{a: number}, TResult>(list, {a: 42});
         result = _.findLastIndex<TResult>(list, predicateFn, fromIndex);
+        result = _.findLastIndex([{ b: 5 }], ['b', 5]);
 
         result = _<TResult>(array).findLastIndex();
         result = _<TResult>(array).findLastIndex(predicateFn);
@@ -1332,7 +1342,7 @@ namespace TestLastIndexOf {
 namespace TestNth {
     let array: TResult[] | null | undefined = [] as any;
     let list: _.List<TResult> | null | undefined = [] as any;
-    let value: number = 0;
+    let value = 0;
 
     {
         let result: TResult | undefined;
@@ -3441,8 +3451,7 @@ namespace TestEach {
     let dictionary: _.Dictionary<TResult> = {};
     let nilArray: TResult[] | null | undefined = [] as any;
     let nilList: _.List<TResult> | null | undefined = [] as any;
-    let obj: any = {};
-    let nilDictionary: _.Dictionary<TResult> | null | undefined = obj;
+    let nilDictionary: _.Dictionary<TResult> | null | undefined = any;
 
     let stringIterator: (char: string, index: number, string: string) => any = (char: string, index: number, string: string) => 1;
     let listIterator: (value: TResult, index: number, collection: _.List<TResult>) => any = (value: TResult, index: number, collection: _.List<TResult>) => 1;
@@ -3463,37 +3472,37 @@ namespace TestEach {
     {
         let result: TResult[];
 
-        result = _.each<TResult>(array, listIterator);
+        result = _.each(array, listIterator);
     }
 
     {
         let result: TResult[] | null | undefined;
 
-        result = _.each<TResult>(nilArray, listIterator);
+        result = _.each(nilArray, listIterator);
     }
 
     {
         let result: _.List<TResult>;
 
-        result = _.each<TResult>(list, listIterator);
+        result = _.each(list, listIterator);
     }
 
     {
         let result: _.List<TResult> | null | undefined;
 
-        result = _.each<TResult>(nilList, listIterator);
+        result = _.each(nilList, listIterator);
     }
 
     {
         let result: _.Dictionary<TResult | null | undefined>;
 
-        result = _.each<TResult>(dictionary, dictionaryIterator);
+        result = _.each(dictionary, dictionaryIterator);
     }
 
     {
         let result: _.Dictionary<TResult> | null | undefined;
 
-        result = _.each<TResult>(nilDictionary, dictionaryIterator);
+        result = _.each(nilDictionary, dictionaryIterator);
     }
 
     {
@@ -3552,8 +3561,7 @@ namespace TestEachRight {
     let dictionary: _.Dictionary<TResult> = {};
     let nilArray: TResult[] | null | undefined = [] as any;
     let nilList: _.List<TResult> | null | undefined = [] as any;
-    let obj: any = {};
-    let nilDictionary: _.Dictionary<TResult> | null | undefined = obj;
+    let nilDictionary: _.Dictionary<TResult> | null | undefined = any;
 
     let stringIterator: (char: string, index: number, string: string) => any = (char: string, index: number, string: string) => 1;
     let listIterator: (value: TResult, index: number, collection: _.List<TResult>) => any = (value: TResult, index: number, collection: _.List<TResult>) => 1;
@@ -3574,37 +3582,37 @@ namespace TestEachRight {
     {
         let result: TResult[];
 
-        result = _.eachRight<TResult>(array, listIterator);
+        result = _.eachRight(array, listIterator);
     }
 
     {
         let result: TResult[] | null | undefined;
 
-        result = _.eachRight<TResult>(nilArray, listIterator);
+        result = _.eachRight(nilArray, listIterator);
     }
 
     {
         let result: _.List<TResult>;
 
-        result = _.eachRight<TResult>(list, listIterator);
+        result = _.eachRight(list, listIterator);
     }
 
     {
         let result: _.List<TResult> | null | undefined;
 
-        result = _.eachRight<TResult>(nilList, listIterator);
+        result = _.eachRight(nilList, listIterator);
     }
 
     {
         let result: _.Dictionary<TResult | null | undefined>;
 
-        result = _.eachRight<TResult>(dictionary, dictionaryIterator);
+        result = _.eachRight(dictionary, dictionaryIterator);
     }
 
     {
         let result: _.Dictionary<TResult> | null | undefined;
 
-        result = _.eachRight<TResult>(nilDictionary, dictionaryIterator);
+        result = _.eachRight(nilDictionary, dictionaryIterator);
     }
 
     {
@@ -3775,16 +3783,19 @@ namespace TestFilter {
         result = _.filter<TResult>(array, '');
         result = _.filter<TResult>(array, /./);
         result = _.filter<TResult>(array, {a: 42});
+        result = _.filter<TResult>(array, ["a", 42]);
 
         result = _.filter<TResult>(list, listIterator);
         result = _.filter<TResult>(list, '');
         result = _.filter<TResult>(list, /./);
         result = _.filter<TResult>(list, {a: 42});
+        result = _.filter<TResult>(list, ["a", 42]);
 
         result = _.filter<TResult>(dictionary, dictionaryIterator);
         result = _.filter<TResult>(dictionary, '');
         result = _.filter<TResult>(dictionary, /./);
         result = _.filter<TResult>(dictionary, {a: 42});
+        result = _.filter<TResult>(dictionary, ["a", 42]);
     }
 
     {
@@ -3800,16 +3811,19 @@ namespace TestFilter {
         result = _(array).filter('');
         result = _(array).filter(/./);
         result = _(array).filter({a: 42});
+        result = _(array).filter(["a", 42]);
 
         result = _(list).filter<TResult>(listIterator);
         result = _(list).filter<TResult>('');
         result = _(list).filter<TResult>(/./);
         result = _(list).filter<TResult>({a: 42});
+        result = _(list).filter<TResult>(["a", 42]);
 
         result = _(dictionary).filter<TResult>(dictionaryIterator);
         result = _(dictionary).filter<TResult>('');
         result = _(dictionary).filter<TResult>(/./);
         result = _(dictionary).filter<TResult>({a: 42});
+        result = _(dictionary).filter<TResult>(["a", 42]);
     }
 
     {
@@ -3825,16 +3839,32 @@ namespace TestFilter {
         result = _(array).chain().filter('');
         result = _(array).chain().filter(/./);
         result = _(array).chain().filter({a: 42});
+        result = _(array).chain().filter(["a", 42]);
 
         result = _(list).chain().filter<TResult>(listIterator);
         result = _(list).chain().filter<TResult>('');
         result = _(list).chain().filter<TResult>(/./);
         result = _(list).chain().filter<TResult>({a: 42});
+        result = _(list).chain().filter<TResult>(["a", 42]);
 
         result = _(dictionary).chain().filter<TResult>(dictionaryIterator);
         result = _(dictionary).chain().filter<TResult>('');
         result = _(dictionary).chain().filter<TResult>(/./);
         result = _(dictionary).chain().filter<TResult>({a: 42});
+        result = _(dictionary).chain().filter<TResult>(["a", 42]);
+    }
+
+    {
+        // Test filtering with type guard
+        let a2: Array<string | number> | null | undefined = any;
+        let d2: _.Dictionary<string | number> | null | undefined = any;
+
+        _.filter(a2, (item: string | number): item is number => typeof item === "number"); // $ExpectType number[]
+        _.filter(d2, (item: string | number): item is number => typeof item === "number"); // $ExpectType number[]
+        _(a2).filter((item: string | number): item is number => typeof item === "number"); // $ExpectType LoDashImplicitArrayWrapper<number>
+        _(d2).filter((item: string | number): item is number => typeof item === "number"); // $ExpectType LoDashImplicitArrayWrapper<number>
+        _(a2).chain().filter((item: string | number): item is number => typeof item === "number"); // $ExpectType LoDashExplicitArrayWrapper<number>
+        _(d2).chain().filter((item: string | number): item is number => typeof item === "number"); // $ExpectType LoDashExplicitArrayWrapper<number>
     }
 }
 
@@ -3850,6 +3880,7 @@ namespace TestFind {
 
     let result: TResult | undefined;
 
+    result = _.find(array);
     result = _.find<TResult>(array);
     result = _.find<TResult>(array, listIterator);
     result = _.find<TResult>(array, listIterator, 1);
@@ -3857,7 +3888,10 @@ namespace TestFind {
     result = _.find<TResult>(array, '', 1);
     result = _.find<TResult>(array, {a: 42});
     result = _.find<TResult>(array, {a: 42}, 1);
+    result = _.find(array, ['a', 5]);
+    result = _.find(array, ['a', 5], 1);
 
+    result = _.find(list);
     result = _.find<TResult>(list);
     result = _.find<TResult>(list, listIterator);
     result = _.find<TResult>(list, listIterator, 1);
@@ -3865,7 +3899,10 @@ namespace TestFind {
     result = _.find<TResult>(list, '', 1);
     result = _.find<TResult>(list, {a: 42});
     result = _.find<TResult>(list, {a: 42}, 1);
+    result = _.find(list, ['a', 5]);
+    result = _.find(list, ['a', 5], 1);
 
+    result = _.find(dictionary);
     result = _.find<TResult>(dictionary);
     result = _.find<TResult>(dictionary, dictionaryIterator);
     result = _.find<TResult>(dictionary, dictionaryIterator, 1);
@@ -3873,6 +3910,8 @@ namespace TestFind {
     result = _.find<TResult>(dictionary, '', 1);
     result = _.find<TResult>(dictionary, {a: 42});
     result = _.find<TResult>(dictionary, {a: 42}, 1);
+    result = _.find(dictionary, ['a', 5]);
+    result = _.find(dictionary, ['a', 5], 1);
 
     result = _(array).find();
     result = _(array).find(listIterator);
@@ -3881,6 +3920,8 @@ namespace TestFind {
     result = _(array).find('', 1);
     result = _(array).find({a: 42});
     result = _(array).find({a: 42}, 1);
+    result = _(array).find(['a', 5]);
+    result = _(array).find(['a', 5], 1);
 
     result = _(list).find<TResult>();
     result = _(list).find<TResult>(listIterator);
@@ -3889,6 +3930,8 @@ namespace TestFind {
     result = _(list).find<TResult>('', 1);
     result = _(list).find<TResult>({a: 42});
     result = _(list).find<TResult>({a: 42}, 1);
+    result = _(list).find<TResult>(['a', 5]);
+    result = _(list).find<TResult>(['a', 5], 1);
 
     result = _(dictionary).find<TResult>();
     result = _(dictionary).find<TResult>(dictionaryIterator);
@@ -3897,19 +3940,91 @@ namespace TestFind {
     result = _(dictionary).find<TResult>('', 1);
     result = _(dictionary).find<TResult>({a: 42});
     result = _(dictionary).find<TResult>({a: 42}, 1);
+    result = _(dictionary).find<TResult>(['a', 5]);
+    result = _(dictionary).find<TResult>(['a', 5], 1);
+
+    result = _.find([any as TResult, null, undefined], (value: TResult | null | undefined): value is TResult | undefined => value !== null);
+    result = _([any as TResult, null, undefined]).find((value: TResult | null | undefined): value is TResult | undefined => value !== null);
 }
 
-result = <number>_.findLast([1, 2, 3, 4], num => num % 2 == 0);
-result = <IFoodCombined>_.findLast(foodsCombined, { 'type': 'vegetable' });
-result = <IFoodCombined>_.findLast(foodsCombined, 'organic');
+// _.findLast
+namespace TestFindLast {
+    let array: TResult[] | null | undefined = [] as any;
+    let list: _.List<TResult> | null | undefined = [] as any;
+    let obj: any = {};
+    let dictionary: _.Dictionary<TResult> | null | undefined = obj;
 
-result = <IFoodCombined>_.findLast(foodsCombined, 'organic', 1);
+    let listIterator = (value: TResult, index: number, collection: _.List<TResult>) => true;
+    let dictionaryIterator = (value: TResult, key: string, collection: _.Dictionary<TResult>) => true;
 
-result = <number>_([1, 2, 3, 4]).findLast(num => num % 2 == 0);
-result = <IFoodCombined>_(foodsCombined).findLast({ 'type': 'vegetable' });
-result = <IFoodCombined>_(foodsCombined).findLast('organic');
+    let result: TResult | undefined;
 
-result = <IFoodCombined>_(foodsCombined).findLast('organic', 1);
+    result = _.findLast(array);
+    result = _.findLast<TResult>(array);
+    result = _.findLast<TResult>(array, listIterator);
+    result = _.findLast<TResult>(array, listIterator, 1);
+    result = _.findLast<TResult>(array, '');
+    result = _.findLast<TResult>(array, '', 1);
+    result = _.findLast<TResult>(array, {a: 42});
+    result = _.findLast<TResult>(array, {a: 42}, 1);
+    result = _.findLast(array, ['a', 5]);
+    result = _.findLast(array, ['a', 5], 1);
+
+    result = _.findLast(list);
+    result = _.findLast<TResult>(list);
+    result = _.findLast<TResult>(list, listIterator);
+    result = _.findLast<TResult>(list, listIterator, 1);
+    result = _.findLast<TResult>(list, '');
+    result = _.findLast<TResult>(list, '', 1);
+    result = _.findLast<TResult>(list, {a: 42});
+    result = _.findLast<TResult>(list, {a: 42}, 1);
+    result = _.findLast(list, ['a', 5]);
+    result = _.findLast(list, ['a', 5], 1);
+
+    result = _.findLast(dictionary);
+    result = _.findLast<TResult>(dictionary);
+    result = _.findLast<TResult>(dictionary, dictionaryIterator);
+    result = _.findLast<TResult>(dictionary, dictionaryIterator, 1);
+    result = _.findLast<TResult>(dictionary, '');
+    result = _.findLast<TResult>(dictionary, '', 1);
+    result = _.findLast<TResult>(dictionary, {a: 42});
+    result = _.findLast<TResult>(dictionary, {a: 42}, 1);
+    result = _.findLast(dictionary, ['a', 5]);
+    result = _.findLast(dictionary, ['a', 5], 1);
+
+    result = _(array).findLast();
+    result = _(array).findLast(listIterator);
+    result = _(array).findLast(listIterator, 1);
+    result = _(array).findLast('');
+    result = _(array).findLast('', 1);
+    result = _(array).findLast({a: 42});
+    result = _(array).findLast({a: 42}, 1);
+    result = _(array).findLast(['a', 5]);
+    result = _(array).findLast(['a', 5], 1);
+
+    result = _(list).findLast<TResult>();
+    result = _(list).findLast<TResult>(listIterator);
+    result = _(list).findLast<TResult>(listIterator, 1);
+    result = _(list).findLast<TResult>('');
+    result = _(list).findLast<TResult>('', 1);
+    result = _(list).findLast<TResult>({a: 42});
+    result = _(list).findLast<TResult>({a: 42}, 1);
+    result = _(list).findLast<TResult>(['a', 5]);
+    result = _(list).findLast<TResult>(['a', 5], 1);
+
+    result = _(dictionary).findLast<TResult>();
+    result = _(dictionary).findLast<TResult>(dictionaryIterator);
+    result = _(dictionary).findLast<TResult>(dictionaryIterator, 1);
+    result = _(dictionary).findLast<TResult>('');
+    result = _(dictionary).findLast<TResult>('', 1);
+    result = _(dictionary).findLast<TResult>({a: 42});
+    result = _(dictionary).findLast<TResult>({a: 42}, 1);
+    result = _(dictionary).findLast<TResult>(['a', 5]);
+    result = _(dictionary).findLast<TResult>(['a', 5], 1);
+
+    result = _.findLast([any as TResult, null, undefined], (value: TResult | null | undefined): value is TResult | undefined => value !== null);
+    result = _([any as TResult, null, undefined]).findLast((value: TResult | null | undefined): value is TResult | undefined => value !== null);
+}
 
 // _.flatMap
 namespace TestFlatMap {
@@ -3928,92 +4043,72 @@ namespace TestFlatMap {
 
     let stringIterator: (value: string, index: number, collection: _.List<string>) => string|string[] = (a, b, c) => "";
 
-    let listIterator: (value: number, index: number, collection: _.List<number|number[]>) => number|number[] = (a, b, c) => 1;
+    let listIterator: (value: number|number[], index: number, collection: _.List<number|number[]>) => number|number[] = (a, b, c) => 1;
 
-    let dictionaryIterator: (value: number, key: number, collection: _.Dictionary<number|number[]>) => number|number[] = (a, b, c) => 1;
+    let dictionaryIterator: (value: number|number[], key: string, collection: _.Dictionary<number|number[]>) => number|number[] = (a, b, c) => 1;
 
-    let numericDictionaryIterator: (value: number, key: number, collection: _.NumericDictionary<number|number[]>) => number|number[] = (a, b, c) => 1;
+    let numericDictionaryIterator: (value: number|number[], key: number, collection: _.NumericDictionary<number|number[]>) => number|number[] = (a, b, c) => 1;
 
     {
         let result: string[];
 
         result = _.flatMap<string>('abc');
-        result = _.flatMap<string>('abc');
+        result = _.flatMap('abc');
 
         result = _.flatMap<string, string>('abc', stringIterator);
-        result = _.flatMap<string>('abc', stringIterator);
+        result = _.flatMap('abc', stringIterator);
     }
 
     {
         let result: number[];
 
-        result = _.flatMap<number|number[], number>(numArray);
+        result = _.flatMap(numArray);
         result = _.flatMap<number>(numArray);
 
+        result = _.flatMap(numArray, listIterator);
         result = _.flatMap<number|number[], number>(numArray, listIterator);
-        result = _.flatMap<number>(numArray, listIterator);
 
-        result = _.flatMap<({a: number}|{a: number}[])[], number>(objArray, 'a');
         result = _.flatMap<number>(objArray, 'a');
 
-        result = _.flatMap<number|number[], number>(numList);
+        result = _.flatMap(numList);
         result = _.flatMap<number>(numList);
 
+        result = _.flatMap(numList, listIterator);
         result = _.flatMap<number|number[], number>(numList, listIterator);
-        result = _.flatMap<number>(numList, listIterator);
 
-        result = _.flatMap<_.List<{a: number}|{a: number}[]>, number>(objList, 'a');
         result = _.flatMap<number>(objList, 'a');
 
-        result = _.flatMap<number|number[], number>(numDictionary);
+        result = _.flatMap(numDictionary);
         result = _.flatMap<number>(numDictionary);
 
+        result = _.flatMap(numDictionary, dictionaryIterator);
         result = _.flatMap<number|number[], number>(numDictionary, dictionaryIterator);
-        result = _.flatMap<number>(numDictionary, dictionaryIterator);
 
-        result = _.flatMap<_.Dictionary<{a: number}|{a: number}[]>, number>(objDictionary, 'a');
         result = _.flatMap<number>(objDictionary, 'a');
 
-        result = _.flatMap<number|number[], number>(numNumericDictionary);
+        result = _.flatMap(numNumericDictionary);
         result = _.flatMap<number>(numNumericDictionary);
 
+        result = _.flatMap(numNumericDictionary, numericDictionaryIterator);
         result = _.flatMap<number|number[], number>(numNumericDictionary, numericDictionaryIterator);
-        result = _.flatMap<number>(numNumericDictionary, numericDictionaryIterator);
 
         result = _.flatMap<_.NumericDictionary<{a: number}|{a: number}[]>, number>(objNumericDictionary, 'a');
-        result = _.flatMap<number>(objNumericDictionary, 'a');
     }
 
     {
         let result: boolean[];
 
-        result = _.flatMap<({a: number}|{a: number}[])[], boolean>(objArray, ['a', 42]);
-        result = _.flatMap<boolean>(objArray, ['a', 42]);
+        result = _.flatMap(objArray, ['a', 42]);
+        result = _.flatMap(objArray, {'a': 42});
 
-        result = _.flatMap<{a: number}, ({a: number}|{a: number}[])[]>(objArray, {'a': 42});
-        result = _.flatMap<({a: number}|{a: number}[])[], boolean>(objArray, {'a': 42});
-        result = _.flatMap<boolean>(objArray, {'a': 42});
+        result = _.flatMap(objList, ['a', 42]);
+        result = _.flatMap(objList, {'a': 42});
 
-        result = _.flatMap<_.List<{a: number}|{a: number}[]>, boolean>(objList, ['a', 42]);
-        result = _.flatMap<boolean>(objList, ['a', 42]);
+        result = _.flatMap(objDictionary, ['a', 42]);
+        result = _.flatMap(objDictionary, {'a': 42});
 
-        result = _.flatMap<{a: number}, _.List<{a: number}|{a: number}[]>>(objList, {'a': 42});
-        result = _.flatMap<_.List<{a: number}|{a: number}[]>, boolean>(objList, {'a': 42});
-        result = _.flatMap<boolean>(objList, {'a': 42});
-
-        result = _.flatMap<_.Dictionary<{a: number}|{a: number}[]>, boolean>(objDictionary, ['a', 42]);
-        result = _.flatMap<boolean>(objDictionary, ['a', 42]);
-
-        result = _.flatMap<{a: number}, _.Dictionary<{a: number}|{a: number}[]>>(objDictionary, {'a': 42});
-        result = _.flatMap<_.Dictionary<{a: number}|{a: number}[]>, boolean>(objDictionary, {'a': 42});
-        result = _.flatMap<boolean>(objDictionary, {'a': 42});
-
-        result = _.flatMap<_.NumericDictionary<{a: number}|{a: number}[]>, boolean>(objNumericDictionary, ['a', 42]);
-        result = _.flatMap<boolean>(objNumericDictionary, ['a', 42]);
-
-        result = _.flatMap<{a: number}, _.NumericDictionary<{a: number}|{a: number}[]>>(objNumericDictionary, {'a': 42});
-        result = _.flatMap<_.NumericDictionary<{a: number}|{a: number}[]>, boolean>(objNumericDictionary, {'a': 42});
-        result = _.flatMap<boolean>(objNumericDictionary, {'a': 42});
+        result = _.flatMap(objNumericDictionary, ['a', 42]);
+        result = _.flatMap(objNumericDictionary, {'a': 42});
     }
 
     {
@@ -4047,16 +4142,16 @@ namespace TestFlatMap {
         let result: _.LoDashImplicitArrayWrapper<boolean>;
 
         result = _(objArray).flatMap(['a', 42]);
-        result = _(objArray).flatMap<{a: number}>({a: 42});
+        result = _(objArray).flatMap({a: 42});
 
         result = _(objList).flatMap(['a', 42]);
-        result = _(objList).flatMap<{a: number}>({a: 42});
+        result = _(objList).flatMap({a: 42});
 
         result = _(objDictionary).flatMap(['a', 42]);
-        result = _(objDictionary).flatMap<{a: number}>({a: 42});
+        result = _(objDictionary).flatMap({a: 42});
 
         result = _(objNumericDictionary).flatMap(['a', 42]);
-        result = _(objNumericDictionary).flatMap<{a: number}>({a: 42});
+        result = _(objNumericDictionary).flatMap({a: 42});
     }
 
     {
@@ -4090,16 +4185,16 @@ namespace TestFlatMap {
         let result: _.LoDashExplicitArrayWrapper<boolean>;
 
         result = _(objArray).chain().flatMap(['a', 42]);
-        result = _(objArray).chain().flatMap<{a: number}>({a: 42});
+        result = _(objArray).chain().flatMap({a: 42});
 
         result = _(objList).chain().flatMap(['a', 42]);
-        result = _(objList).chain().flatMap<{a: number}>({a: 42});
+        result = _(objList).chain().flatMap({a: 42});
 
         result = _(objDictionary).chain().flatMap(['a', 42]);
-        result = _(objDictionary).chain().flatMap<{a: number}>({a: 42});
+        result = _(objDictionary).chain().flatMap({a: 42});
 
         result = _(objNumericDictionary).chain().flatMap(['a', 42]);
-        result = _(objNumericDictionary).chain().flatMap<{a: number}>({a: 42});
+        result = _(objNumericDictionary).chain().flatMap({a: 42});
     }
 }
 
@@ -4110,77 +4205,137 @@ namespace TestForEach {
     let dictionary: _.Dictionary<TResult> = {};
     let nilArray: TResult[] | null | undefined = [] as any;
     let nilList: _.List<TResult> | null | undefined = [] as any;
-    let obj: any = {};
-    let nilDictionary: _.Dictionary<TResult> | null | undefined = obj;
+    let nilDictionary: _.Dictionary<TResult> | null | undefined = any;
 
-    let stringIterator: (char: string, index: number, string: string) => any = (char: string, index: number, string: string) => 1;
-    let listIterator: (value: TResult, index: number, collection: _.List<TResult>) => any = (value: TResult, index: number, collection: _.List<TResult>) => 1;
-    let dictionaryIterator: (value: TResult, key: string, collection: _.Dictionary<TResult>) => any = (value: TResult, key: string, collection: _.Dictionary<TResult>) => 1;
+    let listIterator: (value: TResult, index: number, collection: _.List<TResult>) => any = (value, index, collection) => 1;
+    let dictionaryIterator: (value: TResult, key: string, collection: _.Dictionary<TResult>) => any = (value, key, collection) => 1;
+    let objectIterator: (value: number | string | boolean, key: string, collection: TResult) => any = (value, key, collection) => 1;
 
     {
         let result: string;
 
-        result = _.forEach('', stringIterator);
+        result = _.forEach('', (value, index, collection) => {
+            value; // $ExpectType string
+            index; // $ExpectType number
+            collection; // $ExpectType string
+        });
     }
 
     {
         let result: string | null | undefined;
 
-        result = _.forEach('' as (string | null | undefined), stringIterator);
+        result = _.forEach('' as (string | null | undefined), (value, index, collection) => {
+            value; // $ExpectType string
+            index; // $ExpectType number
+            collection; // $ExpectType string
+        });
     }
 
     {
         let result: TResult[];
-
-        result = _.forEach<TResult>(array, listIterator);
+        result = _.forEach(array, (value, index, collection: TResult[]) => {
+            value; // $ExpectType TResult
+            index; // $ExpectType number
+        });
+        result = _.forEach(array, (value, index, collection) => {
+            value; // $ExpectType TResult
+            index; // $ExpectType number
+            // Note: ideally we'd like collection TResult[], but it seems the best we can get is List<TResult>.
+            collection; // $ExpectType ArrayLike<TResult>
+        });
     }
 
     {
         let result: TResult[] | null | undefined;
 
-        result = _.forEach<TResult>(nilArray, listIterator);
+        result = _.forEach(array, (value, index, collection: TResult[]) => {
+            value; // $ExpectType TResult
+            index; // $ExpectType number
+        });
+        result = _.forEach(nilArray, (value, index, collection) => {
+            value; // $ExpectType TResult
+            index; // $ExpectType number
+            // Note: ideally we'd like collection TResult[], but it seems the best we can get is List<TResult>.
+            collection; // $ExpectType ArrayLike<TResult>
+        });
     }
 
     {
         let result: _.List<TResult>;
 
-        result = _.forEach<TResult>(list, listIterator);
+        result = _.forEach(list, (value, index, collection) => {
+            value; // $ExpectType TResult
+            index; // $ExpectType number
+            collection; // $ExpectType ArrayLike<TResult>
+        });
     }
 
     {
         let result: _.List<TResult> | null | undefined;
 
-        result = _.forEach<TResult>(nilList, listIterator);
+        result = _.forEach(nilList, (value, index, collection) => {
+            value; // $ExpectType TResult
+            index; // $ExpectType number
+            collection; // $ExpectType ArrayLike<TResult>
+        });
     }
 
     {
-        let result: _.Dictionary<TResult | null | undefined>;
+        let result: _.Dictionary<TResult>;
 
-        result = _.forEach<TResult>(dictionary, dictionaryIterator);
+        result = _.forEach(dictionary, (value, index, collection) => {
+            value; // $ExpectType TResult
+            index; // $ExpectType string
+            collection; // $ExpectType Dictionary<TResult>
+        });
     }
 
     {
         let result: _.Dictionary<TResult> | null | undefined;
 
-        result = _.forEach<TResult>(nilDictionary, dictionaryIterator);
+        result = _.forEach(nilDictionary, (value, index, collection) => {
+            value; // $ExpectType TResult
+            index; // $ExpectType string
+            collection; // $ExpectType Dictionary<TResult>
+        });
+    }
+
+    {
+        let sample1: TResult = any;
+        sample1 = _.forEach(sample1, objectIterator);
+
+        let sample2: TResult | null | undefined = any;
+        sample2 = _.forEach(sample2, objectIterator);
     }
 
     {
         let result: _.LoDashImplicitWrapper<string>;
 
-        result = _('').forEach(stringIterator);
+        result = _('').forEach((value, index, collection) => {
+            value; // $ExpectType string
+            index; // $ExpectType number
+            collection; // $ExpectType string
+        });
     }
 
     {
         let result: _.LoDashImplicitArrayWrapper<TResult>;
 
-        result = _(array).forEach(listIterator);
+        result = _(array).forEach((value, index, collection) => {
+            value; // $ExpectType TResult
+            index; // $ExpectType number
+            collection; // $ExpectType ArrayLike<TResult>
+        });
     }
 
     {
         let result: _.LoDashImplicitNillableArrayWrapper<TResult>;
 
-        result = _(nilArray).forEach(listIterator);
+        result = _(nilArray).forEach((value, index, collection) => {
+            value; // $ExpectType TResult
+            index; // $ExpectType number
+            collection; // $ExpectType ArrayLike<TResult>
+        });
     }
 
     {
@@ -4210,19 +4365,31 @@ namespace TestForEach {
     {
         let result: _.LoDashExplicitWrapper<string>;
 
-        result = _('').chain().forEach(stringIterator);
+        result = _('').chain().forEach((value, index, collection) => {
+            value; // $ExpectType string
+            index; // $ExpectType number
+            collection; // $ExpectType string
+        });
     }
 
     {
         let result: _.LoDashExplicitArrayWrapper<TResult>;
 
-        result = _(array).chain().forEach(listIterator);
+        result = _(array).chain().forEach((value, index, collection) => {
+            value; // $ExpectType TResult
+            index; // $ExpectType number
+            collection; // $ExpectType ArrayLike<TResult>
+        });
     }
 
     {
         let result: _.LoDashExplicitNillableArrayWrapper<TResult>;
 
-        result = _(nilArray).chain().forEach(listIterator);
+        result = _(nilArray).chain().forEach((value, index, collection) => {
+            value; // $ExpectType TResult
+            index; // $ExpectType number
+            collection; // $ExpectType ArrayLike<TResult>
+        });
     }
 
     {
@@ -4257,65 +4424,99 @@ namespace TestForEachRight {
     let dictionary: _.Dictionary<TResult> = {};
     let nilArray: TResult[] | null | undefined = [] as any;
     let nilList: _.List<TResult> | null | undefined = [] as any;
-    let obj: any = {};
-    let nilDictionary: _.Dictionary<TResult> | null | undefined = obj;
+    let nilDictionary: _.Dictionary<TResult> | null | undefined = any;
 
-    let stringIterator: (char: string, index: number, string: string) => any = (char: string, index: number, string: string) => 1;
     let listIterator: (value: TResult, index: number, collection: _.List<TResult>) => any = (value: TResult, index: number, collection: _.List<TResult>) => 1;
     let dictionaryIterator: (value: TResult, key: string, collection: _.Dictionary<TResult>) => any = (value: TResult, key: string, collection: _.Dictionary<TResult>) => 1;
 
     {
         let result: string;
 
-        result = _.forEachRight('', stringIterator);
+        result = _.forEachRight('', (value, index, collection) => {
+            value; // $ExpectType string
+            index; // $ExpectType number
+            collection; // $ExpectType string
+        });
     }
 
     {
         let result: string | null | undefined;
 
-        result = _.forEachRight('' as (string | null | undefined), stringIterator);
+        result = _.forEachRight('' as (string | null | undefined), (value, index, collection) => {
+            value; // $ExpectType string
+            index; // $ExpectType number
+            collection; // $ExpectType string
+        });
     }
 
     {
         let result: TResult[];
 
-        result = _.forEachRight<TResult>(array, listIterator);
+        result = _.forEachRight(array, (value, index, collection) => {
+            value; // $ExpectType TResult
+            index; // $ExpectType number
+            collection; // $ExpectType ArrayLike<TResult>
+        });
     }
 
     {
         let result: TResult[] | null | undefined;
 
-        result = _.forEachRight<TResult>(nilArray, listIterator);
+        result = _.forEachRight(nilArray, (value, index, collection) => {
+            value; // $ExpectType TResult
+            index; // $ExpectType number
+            collection; // $ExpectType ArrayLike<TResult>
+        });
     }
 
     {
         let result: _.List<TResult>;
 
-        result = _.forEachRight<TResult>(list, listIterator);
+        result = _.forEachRight(list, (value, index, collection) => {
+            value; // $ExpectType TResult
+            index; // $ExpectType number
+            collection; // $ExpectType ArrayLike<TResult>
+        });
     }
 
     {
         let result: _.List<TResult> | null | undefined;
 
-        result = _.forEachRight<TResult>(nilList, listIterator);
+        result = _.forEachRight(nilList, (value, index, collection) => {
+            value; // $ExpectType TResult
+            index; // $ExpectType number
+            collection; // $ExpectType ArrayLike<TResult>
+        });
     }
 
     {
-        let result: _.Dictionary<TResult | null | undefined>;
+        let result: _.Dictionary<TResult>;
 
-        result = _.forEachRight<TResult>(dictionary, dictionaryIterator);
+        result = _.forEachRight(dictionary, (value, index, collection) => {
+            value; // $ExpectType TResult
+            index; // $ExpectType string
+            collection; // $ExpectType Dictionary<TResult>
+        });
     }
 
     {
         let result: _.Dictionary<TResult> | null | undefined;
 
-        result = _.forEachRight<TResult>(nilDictionary, dictionaryIterator);
+        result = _.forEachRight(nilDictionary, (value, index, collection) => {
+            value; // $ExpectType TResult
+            index; // $ExpectType string
+            collection; // $ExpectType Dictionary<TResult>
+        });
     }
 
     {
         let result: _.LoDashImplicitWrapper<string>;
 
-        result = _('').forEachRight(stringIterator);
+        result = _('').forEachRight((value, index, collection) => {
+            value; // $ExpectType string
+            index; // $ExpectType number
+            collection; // $ExpectType string
+        });
     }
 
     {
@@ -4357,25 +4558,37 @@ namespace TestForEachRight {
     {
         let result: _.LoDashExplicitWrapper<string>;
 
-        result = _('').chain().forEachRight(stringIterator);
+        result = _('').chain().forEachRight((value, index, collection) => {
+            value; // $ExpectType string
+            index; // $ExpectType number
+            collection; // $ExpectType string
+        });
     }
 
     {
         let result: _.LoDashExplicitArrayWrapper<TResult>;
 
-        result = _(array).chain().forEachRight(listIterator);
+        result = _(array).chain().forEachRight((value, index, collection) => {
+            value; // $ExpectType TResult
+            index; // $ExpectType number
+            collection; // $ExpectType ArrayLike<TResult>
+        });
     }
 
     {
         let result: _.LoDashExplicitNillableArrayWrapper<TResult>;
 
-        result = _(nilArray).chain().forEachRight(listIterator);
+        result = _(nilArray).chain().forEachRight((value, index, collection) => {
+            value; // $ExpectType TResult
+            index; // $ExpectType number
+            collection; // $ExpectType ArrayLike<TResult>
+        });
     }
 
     {
         let result: _.LoDashExplicitObjectWrapper<_.List<TResult>>;
 
-        result = _(list).chain().forEachRight<TResult>(listIterator);
+        result = _(list).chain().forEachRight(listIterator);
     }
 
     {
@@ -5114,7 +5327,7 @@ namespace TestSample {
         result = _.sample(list);
         result = _.sample(dictionary);
         result = _.sample(numericDictionary);
-        result = _.sample<{a: string}, string>({a: 'foo'});
+        result = _.sample({a: 'foo'});
         result = _.sample<string>({a: 'foo'});
 
         result = _('abc').sample();
@@ -5314,7 +5527,7 @@ namespace TestSome {
         result = _.some<SampleObject>(list, {a: 42});
 
         result = _.some<SampleObject>(dictionary);
-        result = _.some<SampleObject>(numericDictionary, dictionaryIterator);
+        result = _.some<SampleObject>(numericDictionary, numericDictionaryIterator);
         result = _.some<SampleObject>(dictionary, (value, key, collection) => {
             value.a--;
             key.substr(0);
@@ -5923,15 +6136,14 @@ curryResult0 = _.curryRight(testCurryRightFn)(1, 2, 3);
 curryResult2 = _.curryRight(testCurryRightFn)(1);
 curryResult0 = _(testCurryRightFn).curryRight().value()(1, 2, 3);
 curryResult2 = _(testCurryRightFn).curryRight().value()(1);
-
-let curryResult7: _.CurriedFunction1<string, [string, number, boolean]>;
-let curryResult8: _.CurriedFunction2<number, string, [string, number, boolean]>;
-let curryResult9: _.CurriedFunction3<boolean, number, string, [string, number, boolean]>;
-curryResult3 = _.curryRight(testCurry2)(true, 2, "1");
-curryResult3 = _.curryRight(testCurry2)(true, 2)("1");
-curryResult3 = _.curryRight(testCurry2)(true)(2, "1");
+let curryResult7: _.RightCurriedFunction1<string, [string, number, boolean]>;
+let curryResult8: _.RightCurriedFunction2<string,number , [string, number, boolean]>;
+let curryResult9: _.RightCurriedFunction3<string, number, boolean, [string, number, boolean]>;
+curryResult3 = _.curryRight(testCurry2)("1", 2, true);
+curryResult3 = _.curryRight(testCurry2)( 2,true)("1");
+curryResult3 = _.curryRight(testCurry2)(true)( "1",2);
 curryResult3 = _.curryRight(testCurry2)(true)(2)("1");
-curryResult7 = _.curryRight(testCurry2)(true, 2);
+curryResult7 = _.curryRight(testCurry2)(2,true);
 curryResult7 = _.curryRight(testCurry2)(true)(2);
 curryResult8 = _.curryRight(testCurry2)(true);
 curryResult9 = _.curryRight(testCurry2);
@@ -6091,6 +6303,7 @@ namespace TestFlow {
         result = _.flow(Fn2, Fn1, Fn1, Fn1, Fn1, Fn1);
         result = _.flow(Fn2, Fn1, Fn1, Fn1, Fn1, Fn1, Fn1);
         result = _.flow(Fn2, Fn1, Fn3, Fn4);
+        result = _.flow<(m: number, n: number) => number>([Fn2, Fn1, Fn3, Fn4]);
     }
 
     {
@@ -6099,6 +6312,7 @@ namespace TestFlow {
         result = _.flow<(m: number, n: number) => number>(Fn1, Fn2);
         result = _.flow<(m: number, n: number) => number>(Fn1, Fn1, Fn2);
         result = _.flow<(m: number, n: number) => number>(Fn1, Fn1, Fn1, Fn2);
+        result = _.flow<(m: number, n: number) => number>([Fn1, Fn1, Fn1, Fn2]);
     }
 
     {
@@ -6107,6 +6321,7 @@ namespace TestFlow {
         result = _(Fn1).flow<(m: number, n: number) => number>(Fn2);
         result = _(Fn1).flow<(m: number, n: number) => number>(Fn1, Fn2);
         result = _(Fn1).flow<(m: number, n: number) => number>(Fn1, Fn1, Fn2);
+        result = _(Fn1).flow<(m: number, n: number) => number>([Fn1, Fn1, Fn2]);
     }
 
     {
@@ -6115,6 +6330,7 @@ namespace TestFlow {
         result = _(Fn1).chain().flow<(m: number, n: number) => number>(Fn2);
         result = _(Fn1).chain().flow<(m: number, n: number) => number>(Fn1, Fn2);
         result = _(Fn1).chain().flow<(m: number, n: number) => number>(Fn1, Fn1, Fn2);
+        result = _(Fn1).chain().flow<(m: number, n: number) => number>([Fn1, Fn1, Fn2]);
     }
 }
 
@@ -6129,6 +6345,7 @@ namespace TestFlowRight {
         result = _.flowRight<(m: number, n: number) => number>(Fn1, Fn2);
         result = _.flowRight<(m: number, n: number) => number>(Fn1, Fn1, Fn2);
         result = _.flowRight<(m: number, n: number) => number>(Fn1, Fn1, Fn1, Fn2);
+        result = _.flowRight<(m: number, n: number) => number>([Fn1, Fn1, Fn1, Fn2]);
     }
 
     {
@@ -6137,6 +6354,7 @@ namespace TestFlowRight {
         result = _(Fn1).flowRight<(m: number, n: number) => number>(Fn2);
         result = _(Fn1).flowRight<(m: number, n: number) => number>(Fn1, Fn2);
         result = _(Fn1).flowRight<(m: number, n: number) => number>(Fn1, Fn1, Fn2);
+        result = _(Fn1).flowRight<(m: number, n: number) => number>([Fn1, Fn1, Fn2]);
     }
 
     {
@@ -6145,6 +6363,7 @@ namespace TestFlowRight {
         result = _(Fn1).chain().flowRight<(m: number, n: number) => number>(Fn2);
         result = _(Fn1).chain().flowRight<(m: number, n: number) => number>(Fn1, Fn2);
         result = _(Fn1).chain().flowRight<(m: number, n: number) => number>(Fn1, Fn1, Fn2);
+        result = _(Fn1).chain().flowRight<(m: number, n: number) => number>([Fn1, Fn1, Fn2]);
     }
 }
 
@@ -6192,12 +6411,14 @@ namespace TestMemoize {
         get(key: K): V;
         has(key: K): boolean;
         set(key: K, value: V): this;
+        clear(): void;
     }
     class MemoizeCacheClass implements MemoizeCache<any, any> {
         delete: (key: any) => true;
         get: (key: any) => 1;
         has: (key: any) => true;
         set: (key: any, value: any) => this;
+        clear: () => { };
     }
 
     _.memoize.Cache = MemoizeCacheClass;
@@ -6318,7 +6539,7 @@ namespace TestOnce {
     }
 }
 
-const greetPartial = (greeting: string, name: string) => greeting + ' ' + name;
+const greetPartial = (greeting: string, name: string) => `${greeting} ${name}`;
 const hi = _.partial(greetPartial, 'hi');
 hi('moe');
 
@@ -6491,7 +6712,7 @@ namespace TestWrap {
     {
         type SampleWrapper = (arg1: number, arg2: number, arg3: string) => boolean;
 
-        let value: number = 0;
+        let value = 0;
         let wrapper: SampleWrapper = (a, b, c) => true;
         let result: _.LoDashImplicitObjectWrapper<SampleResult>;
 
@@ -6524,7 +6745,7 @@ namespace TestWrap {
     {
         type SampleWrapper = (arg1: number, arg2: number, arg3: string) => boolean;
 
-        let value: number = 0;
+        let value = 0;
         let wrapper: SampleWrapper = (a, b, c) => true;
         let result: _.LoDashExplicitObjectWrapper<SampleResult>;
 
@@ -6893,18 +7114,13 @@ namespace TestisArguments {
 // _.isArray
 namespace TestIsArray {
     {
-        let value: number|string[]|boolean[] = [];
+        let value: number|string[]|boolean[] = any;
 
-        if (_.isArray<string>(value)) {
-            let result: string[] = value;
+        if (_.isArray(value)) {
+            value; // $ExpectType string[] | boolean[]
         }
         else {
-            if (_.isArray<boolean>(value)) {
-                let result: boolean[] = value;
-            }
-            else {
-                let result: number = value;
-            }
+            value; // $ExpectType number
         }
     }
 
@@ -6929,13 +7145,13 @@ namespace TestIsArray {
 // _.isArrayBuffer
 namespace TestIsArrayBuffer {
     {
-        let value: ArrayBuffer|number = 0;
+        let value: ArrayBuffer|number = any;
 
         if (_.isArrayBuffer(value)) {
-            let result: ArrayBuffer = value;
+            value; // $ExpectType ArrayBuffer
         }
         else {
-            let result: number = value;
+            value; // $ExpectType number
         }
     }
 
@@ -6960,18 +7176,59 @@ namespace TestIsArrayBuffer {
 // _.isArrayLike
 namespace TestIsArrayLike {
     {
-        let value: number|string[]|boolean[] = [];
+        let value: string | string[] | { [index: number]: boolean, length: number } | [number, boolean]
+            | number | Function | { length: string } | { a: string }
+            = any;
 
-        if (_.isArrayLike<string>(value)) {
-            let result: string[] = value;
+        if (_.isArrayLike(value)) {
+            let result: string | string[] | { [index: number]: boolean, length: number } | [number, boolean] = value;
         }
         else {
-            if (_.isArrayLike<boolean>(value)) {
-                let result: boolean[] = value;
-            }
-            else {
-                let result: number = value;
-            }
+            let result: number | Function | { length: string } | { a: string; } = value;
+        }
+    }
+
+    {
+        let value: boolean[] = any;
+
+        if (_.isArrayLike(value)) {
+            let result: boolean[] = value;
+        }
+        else {
+            value; // $ExpectType never
+        }
+    }
+
+    {
+        let value: Function = any;
+
+        if (_.isArrayLike(value)) {
+            value; // $ExpectType never
+        }
+        else {
+            value; // $ExpectType Function
+        }
+    }
+
+    {
+        let value: { a: string } = any;
+
+        if (_.isArrayLike(value)) {
+            let result: { a: string, length: number } = value;
+        }
+        else {
+            value; // $ExpectType { a: string; }
+        }
+    }
+
+    {
+        let value: any = any;
+
+        if (_.isArrayLike(value)) {
+            value; // $ExpectType any
+        }
+        else {
+            value; // $ExpectType any
         }
     }
 
@@ -6996,18 +7253,59 @@ namespace TestIsArrayLike {
 // _.isArrayLikeObject
 namespace TestIsArrayLikeObject {
     {
-        let value: number|string[]|boolean[] = [];
+        let value: string[] | { [index: number]: boolean, length: number } | [number, boolean]
+            | number | string | Function | { length: string } | { a: string }
+            = any;
 
-        if (_.isArrayLikeObject<string>(value)) {
-            let result: string[] = value;
+        if (_.isArrayLikeObject(value)) {
+            let result: string[] | { [index: number]: boolean, length: number } | [number, boolean] = value;
         }
         else {
-            if (_.isArrayLikeObject<boolean>(value)) {
-                let result: boolean[] = value;
-            }
-            else {
-                let result: number = value;
-            }
+            let result: string | number | Function | { length: string; } | { a: string; } = value;
+        }
+    }
+
+    {
+        let value: boolean[] = any;
+
+        if (_.isArrayLikeObject(value)) {
+            let result: boolean[] = value;
+        }
+        else {
+            value; // $ExpectType never
+        }
+    }
+
+    {
+        let value: string | Function = any;
+
+        if (_.isArrayLikeObject(value)) {
+            value; // $ExpectType never
+        }
+        else {
+            value; // $ExpectType string | Function
+        }
+    }
+
+    {
+        let value: { a: string } = any;
+
+        if (_.isArrayLikeObject(value)) {
+            let result: { a: string, length: number } = value;
+        }
+        else {
+            value; // $ExpectType { a: string; }
+        }
+    }
+
+    {
+        let value: any = any;
+
+        if (_.isArrayLikeObject(value)) {
+            value; // $ExpectType any
+        }
+        else {
+            value; // $ExpectType any
         }
     }
 
@@ -7927,13 +8225,36 @@ namespace TestToPlainObject {
     }
 }
 
+// _.toFinite
+namespace TestToFinite {
+   {
+       let result: number;
+       result = _.toFinite(true);
+       result = _.toFinite(1);
+       result = _.toFinite('3.2');
+       result = _.toFinite([]);
+       result = _.toFinite({});
+   }
+
+   {
+       let result: _.LoDashImplicitWrapper<number>;
+
+       result = _(true).toFinite();
+       result = _(1).toFinite();
+       result = _('3.2').toFinite();
+       result = _([1]).toFinite();
+       result = _<string>([]).toFinite();
+       result = _({}).toFinite();
+   }
+}
+
 // _.toInteger
 namespace TestToInteger {
    {
        let result: number;
        result = _.toInteger(true);
        result = _.toInteger(1);
-       result = _.toInteger('a');
+       result = _.toInteger('3.2');
        result = _.toInteger([]);
        result = _.toInteger({});
    }
@@ -8059,6 +8380,23 @@ namespace TestCeil {
     }
 }
 
+// _.divide
+namespace TestDivide {
+    {
+        let result: number;
+
+        result = _.divide(6, 4);
+
+        result = _(6).divide(4);
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<number>;
+
+        result = _(6).chain().floor(4);
+    }
+}
+
 // _.floor
 namespace TestFloor {
     {
@@ -8144,7 +8482,20 @@ namespace TestMean {
 
     let result: number;
 
+    result = _.mean(array);
     result = _.mean<number>(array);
+
+    result = _(array).mean();
+}
+
+// _.meanBy
+namespace TestMean {
+    let array: TResult[] = [];
+
+    let result: number;
+
+    result = _.meanBy(array, (x) => x.a);
+    result = _.meanBy(array, 'a');
 
     result = _(array).mean();
 }
@@ -8203,6 +8554,23 @@ namespace TestMinBy {
     result = _(dictionary).minBy<number>(dictionaryIterator);
     result = _(dictionary).minBy<number>('');
     result = _(dictionary).minBy<{a: number}, number>({a: 42});
+}
+
+// _.multiply
+namespace TestMultiply {
+    {
+        let result: number;
+
+        result = _.multiply(6, 4);
+
+        result = _(6).multiply(4);
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<number>;
+
+        result = _(6).chain().multiply(4);
+    }
 }
 
 // _.round
@@ -9307,6 +9675,8 @@ namespace TestFindKey {
 
         result = _.findKey<{a: number;}, {a: string;}>({a: ''}, {a: 42});
 
+        result = _.findKey({a: { b: 5 }}, ['b', 5]);
+
         result = _<{a: string;}>({a: ''}).findKey();
 
         result = _<{a: string;}>({a: ''}).findKey(predicateFn);
@@ -9359,6 +9729,8 @@ namespace TestFindLastKey {
         result = _.findLastKey<{a: string;}>({a: ''}, '');
 
         result = _.findLastKey<{a: number;}, {a: string;}>({a: ''}, {a: 42});
+
+        result = _.findLastKey({a: { b: 5 }}, ['b', 5]);
 
         result = _<{a: string;}>({a: ''}).findLastKey();
 
@@ -10231,109 +10603,114 @@ namespace TestMergeWith {
 
 // _.omit
 namespace TestOmit {
+    let obj: {} | null | undefined = any;
     let predicate: (element: any, key: string, collection: any) => boolean;
 
     {
         let result: TResult;
 
-        result = _.omit<TResult, Object>({}, 'a');
-        result = _.omit<TResult, Object>({}, 0, 'a');
-        result = _.omit<TResult, Object>({}, true, 0, 'a');
-        result = _.omit<TResult, Object>({}, ['b', 1, false], true, 0, 'a');
+        result = _.omit<TResult, Object>(obj, 'a');
+        result = _.omit<TResult, Object>(obj, 0, 'a');
+        result = _.omit<TResult, Object>(obj, true, 0, 'a');
+        result = _.omit<TResult, Object>(obj, ['b', 1, false], true, 0, 'a');
     }
 
     {
         let result: _.LoDashImplicitObjectWrapper<TResult>;
 
-        result = _({}).omit<TResult>('a');
-        result = _({}).omit<TResult>(0, 'a');
-        result = _({}).omit<TResult>(true, 0, 'a');
-        result = _({}).omit<TResult>(['b', 1, false], true, 0, 'a');
+        result = _(obj).omit<TResult>('a');
+        result = _(obj).omit<TResult>(0, 'a');
+        result = _(obj).omit<TResult>(true, 0, 'a');
+        result = _(obj).omit<TResult>(['b', 1, false], true, 0, 'a');
     }
 
     {
         let result: _.LoDashExplicitObjectWrapper<TResult>;
 
-        result = _({}).chain().omit<TResult>('a');
-        result = _({}).chain().omit<TResult>(0, 'a');
-        result = _({}).chain().omit<TResult>(true, 0, 'a');
-        result = _({}).chain().omit<TResult>(['b', 1, false], true, 0, 'a');
+        result = _(obj).chain().omit<TResult>('a');
+        result = _(obj).chain().omit<TResult>(0, 'a');
+        result = _(obj).chain().omit<TResult>(true, 0, 'a');
+        result = _(obj).chain().omit<TResult>(['b', 1, false], true, 0, 'a');
     }
 }
 
 // _.omitBy
 namespace TestOmitBy {
+    let obj: {} | null | undefined = any;
     let predicate = (element: any, key: string, collection: any) => true;
 
     {
         let result: TResult;
 
-        result = _.omitBy<TResult, Object>({}, predicate);
+        result = _.omitBy<TResult, Object>(obj, predicate);
     }
 
     {
         let result: _.LoDashImplicitObjectWrapper<TResult>;
 
-        result = _({}).omitBy<TResult>(predicate);
+        result = _(obj).omitBy<TResult>(predicate);
     }
 
     {
         let result: _.LoDashExplicitObjectWrapper<TResult>;
 
-        result = _({}).chain().omitBy<TResult>(predicate);
+        result = _(obj).chain().omitBy<TResult>(predicate);
     }
 }
 
 // _.pick
 namespace TestPick {
+    let obj: {} | null | undefined = any;
+
     {
         let result: TResult;
 
-        result = _.pick<TResult, Object>({}, 'a');
-        result = _.pick<TResult, Object>({}, 0, 'a');
-        result = _.pick<TResult, Object>({}, true, 0, 'a');
-        result = _.pick<TResult, Object>({}, ['b', 1, false], true, 0, 'a');
+        result = _.pick<TResult, Object>(obj, 'a');
+        result = _.pick<TResult, Object>(obj, 0, 'a');
+        result = _.pick<TResult, Object>(obj, true, 0, 'a');
+        result = _.pick<TResult, Object>(obj, ['b', 1, false], true, 0, 'a');
     }
 
     {
         let result: _.LoDashImplicitObjectWrapper<TResult>;
 
-        result = _({}).pick<TResult>('a');
-        result = _({}).pick<TResult>(0, 'a');
-        result = _({}).pick<TResult>(true, 0, 'a');
-        result = _({}).pick<TResult>(['b', 1, false], true, 0, 'a');
+        result = _(obj).pick<TResult>('a');
+        result = _(obj).pick<TResult>(0, 'a');
+        result = _(obj).pick<TResult>(true, 0, 'a');
+        result = _(obj).pick<TResult>(['b', 1, false], true, 0, 'a');
     }
 
     {
         let result: _.LoDashExplicitObjectWrapper<TResult>;
 
-        result = _({}).chain().pick<TResult>('a');
-        result = _({}).chain().pick<TResult>(0, 'a');
-        result = _({}).chain().pick<TResult>(true, 0, 'a');
-        result = _({}).chain().pick<TResult>(['b', 1, false], true, 0, 'a');
+        result = _(obj).chain().pick<TResult>('a');
+        result = _(obj).chain().pick<TResult>(0, 'a');
+        result = _(obj).chain().pick<TResult>(true, 0, 'a');
+        result = _(obj).chain().pick<TResult>(['b', 1, false], true, 0, 'a');
     }
 }
 
 // _.pickBy
 namespace TestPickBy {
+    let obj: {} | null | undefined = any;
     let predicate = (element: any, key: string, collection: any) => true;
 
     {
         let result: TResult;
 
-        result = _.pickBy<TResult, Object>({}, predicate);
+        result = _.pickBy<TResult, Object>(obj, predicate);
     }
 
     {
         let result: _.LoDashImplicitObjectWrapper<TResult>;
 
-        result = _({}).pickBy<TResult>(predicate);
+        result = _(obj).pickBy<TResult>(predicate);
     }
 
     {
         let result: _.LoDashExplicitObjectWrapper<TResult>;
 
-        result = _({}).chain().pickBy<TResult>(predicate);
+        result = _(obj).chain().pickBy<TResult>(predicate);
     }
 }
 
@@ -10454,7 +10831,7 @@ namespace TestSet {
     type SampleResult = {a: {b: number[]}};
 
     let object: SampleObject = { a: {} };
-    let value: number = 0;
+    let value = 0;
 
     {
         let result: SampleResult;
@@ -10496,7 +10873,7 @@ namespace TestSetWith {
     type SampleResult = {a: {b: number[]}};
 
     let object: SampleObject = { a: {} };
-    let value: number = 0;
+    let value = 0;
     let customizer = (value: any, key: string, object: SampleObject) => 0;
 
     {
@@ -11804,14 +12181,20 @@ namespace TestIdentity {
 
         result = _({a: 42}).chain().identity();
     }
+
+    {
+        let input: {} | null | undefined = any;
+        _.identity(input); // $ExpectType {} | null | undefined
+        _.identity(); // $ExpectType undefined
+    }
 }
 
 // _.iteratee
 namespace TestIteratee {
     {
-        let result: (...args: any[]) => TResult;
-
-        result = _.iteratee<TResult>(Function);
+        _.iteratee((...args: any[]): TResult => any); // $ExpectType (...args: any[]) => TResult
+        _.iteratee((a: TResult): boolean => any); // $ExpectType (a: TResult) => boolean
+        _.iteratee((a: TResult | undefined): a is undefined => any); // $ExpectType (a: TResult | undefined) => a is undefined
     }
 
     {

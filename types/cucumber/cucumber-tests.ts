@@ -6,42 +6,44 @@ function StepSample() {
     type Table = cucumber.TableDefinition;
     type HookScenarioResult = cucumber.HookScenarioResult;
 
-    cucumber.defineSupportCode(function ({setWorldConstructor, defineParameterType, After, Around, Before, registerHandler, Given, When, Then}) {
-        setWorldConstructor(function ({attach, parameters}: any) {
+    cucumber.defineSupportCode(({setWorldConstructor, defineParameterType, After, Around, Before, registerHandler, Given, When, Then}) => {
+        setWorldConstructor(function({attach, parameters}) {
             this.attach = attach;
             this.parameters = parameters;
-            this.visit = function (url: string, callback: Callback) {
+            this.visit = (url: string, callback: Callback) => {
                 callback(null, 'pending');
+            };
+        });
+
+        Before((scenarioResult: HookScenarioResult, callback: Callback) => {
+            console.log(scenarioResult.status === "failed");
+            callback();
+        });
+
+        Before({ timeout: 1000 }, (scenarioResult: HookScenarioResult, callback: Callback) => {
+            console.log(scenarioResult.status === "failed");
+            callback();
+        });
+
+        Around((scenarioResult: HookScenarioResult, runScenario: (error: string | null, callback?: () => void) => void) => {
+            if (scenarioResult.status === "failed") {
+                runScenario(null, () => {
+                    console.log('finish tasks');
+                });
             }
         });
 
-        Before(function (scenarioResult: HookScenarioResult, callback: Callback) {
-            console.log(scenarioResult.status === "failed");
-            callback();
-        });
-
-        Before({ timeout: 1000 }, function (scenarioResult: HookScenarioResult, callback: Callback) {
-            console.log(scenarioResult.status === "failed");
-            callback();
-        });
-
-        Around(function (scenarioResult: HookScenarioResult, runScenario: (error: string, callback?: Function) => void) {
-            scenarioResult.status === "failed" && runScenario(null, function () {
-                console.log('finish tasks');
-            });
-        });
-
-        After((scenarioResult: HookScenarioResult, callback?: Callback) => {
+        After((scenarioResult: HookScenarioResult, callback: Callback) => {
             console.log("After");
             callback();
         });
 
-        After({ timeout: 1000 }, (scenarioResult: HookScenarioResult, callback?: Callback) => {
+        After({ timeout: 1000 }, (scenarioResult: HookScenarioResult, callback: Callback) => {
             console.log("After");
             callback();
         });
 
-        registerHandler('AfterFeatures', function (event: any, callback: Function) {
+        registerHandler('AfterFeatures', (event: any, callback: () => void) => {
             callback();
         });
 
@@ -53,16 +55,16 @@ function StepSample() {
             console.log(typeof x);
         });
 
-        Given(/^I am on the Cucumber.js GitHub repository$/, function (callback: Callback) {
+        Given(/^I am on the Cucumber.js GitHub repository$/, function(callback: Callback) {
             this.visit('https://github.com/cucumber/cucumber-js', callback);
         });
 
-        When(/^I go to the README file$/, function (title: string, callback: Callback) {
+        When(/^I go to the README file$/, (title: string, callback: Callback) => {
             callback(null, 'pending');
         });
 
-        Then(/^I should see "(.*)" as the page title$/, {timeout: 60 * 1000}, function (title: string, callback: Callback) {
-            var pageTitle = this.browser.text('title');
+        Then(/^I should see "(.*)" as the page title$/, {timeout: 60 * 1000}, function(title: string, callback: Callback) {
+            const pageTitle = this.browser.text('title');
 
             if (title === pageTitle) {
                 callback();
@@ -74,39 +76,42 @@ function StepSample() {
         // Type for data_table.js on
         // https://github.com/cucumber/cucumber-js/blob/a5fd8251918c278ab2e389226d165cedb44df14a/lib/cucumber/ast/data_table.js
 
-        Given(/^a table step with Table raw$/, function (table: Table) {
-            var expected = [
+        Given(/^a table step with Table raw$/, (table: Table) => {
+            const expected = [
                 ['Cucumber', 'Cucumis sativus'],
                 ['Burr Gherkin', 'Cucumis anguria']
             ];
-
-            assert.deepEqual(table.raw(), expected);
+            const actual: string[][] = table.raw();
+            assert.deepEqual(actual, expected);
         });
 
-        Given(/^a table step with Table rows$/, function (table: Table) {
-            var expected = [
+        Given(/^a table step with Table rows$/, (table: Table) => {
+            const expected = [
                 ['Apricot', '5'],
                 ['Brocolli', '2'],
                 ['Cucumber', '10']
             ];
-            assert.deepEqual(table.rows(), expected)
+            const actual: string[][] = table.rows();
+            assert.deepEqual(actual, expected);
         });
 
-        Given(/^a table step with Table rowHash$/, function (table: Table) {
-            var expected = {
-                'Cucumber': 'Cucumis sativus',
+        Given(/^a table step with Table rowHash$/, (table: Table) => {
+            const expected = {
+                Cucumber: 'Cucumis sativus',
                 'Burr Gherkin': 'Cucumis anguria'
             };
-            assert.deepEqual(table.rowsHash(), expected)
+            const actual: { [firstCol: string]: string } = table.rowsHash();
+            assert.deepEqual(actual, expected);
         });
 
-        Given(/^a table step$/, function (table: Table) {
-            var expected = [
-                {'Vegetable': 'Apricot', 'Rating': '5'},
-                {'Vegetable': 'Brocolli', 'Rating': '2'},
-                {'Vegetable': 'Cucumber', 'Rating': '10'}
+        Given(/^a table step$/, (table: Table) => {
+            const expected = [
+                {Vegetable: 'Apricot', Rating: '5'},
+                {Vegetable: 'Brocolli', Rating: '2'},
+                {Vegetable: 'Cucumber', Rating: '10'}
             ];
-            assert.deepEqual(table.hashes(), expected)
+            const actual: Array<{ [colName: string]: string }> = table.hashes();
+            assert.deepEqual(actual, expected);
         });
 
         defineParameterType({
@@ -115,21 +120,19 @@ function StepSample() {
             typeName: 'param'
         });
 
-        Given('a {param} step', function (param) {
-            assert.equal(param, 'PARTICULAR')
+        Given('a {param} step', param => {
+            assert.equal(param, 'PARTICULAR');
         });
-
     });
 
-    let fns: cucumber.SupportCodeConsumer[] = cucumber.getSupportCodeFns();
+    const fns: cucumber.SupportCodeConsumer[] = cucumber.getSupportCodeFns();
 
     cucumber.clearSupportCodeFns();
 }
 
 function registerListener(): cucumber.EventListener {
-    let listener = Object.assign(cucumber.Listener(), {
+    const listener = Object.assign(cucumber.Listener(), {
         handleBeforeScenarioEvent: (scenario: cucumber.events.ScenarioPayload, callback: () => void) => {
-
             // do some interesting stuff ...
 
             callback();

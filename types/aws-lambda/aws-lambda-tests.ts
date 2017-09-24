@@ -22,45 +22,48 @@ var snsEvtRec: AWSLambda.SNSEventRecord;
 var snsMsg: AWSLambda.SNSMessage;
 var snsMsgAttr: AWSLambda.SNSMessageAttribute;
 var snsMsgAttrs: AWSLambda.SNSMessageAttributes;
-var S3CreateEvent: AWSLambda.S3CreateEvent = {
-    Records: [{
-        eventVersion: 'string',
-        eventSource: 'string',
-        awsRegion: 'string',
-        eventTime: 'string',
-        eventName: 'string',
-        userIdentity: {
-            principalId: 'string'
-        },
-        requestParameters: {
-            sourceIPAddress: 'string'
-        },
-        responseElements: {
-            'x-amz-request-id': 'string',
-            'x-amz-id-2': 'string'
-        },
-        s3: {
-            s3SchemaVersion: 'string',
-            configurationId: 'string',
-            bucket: {
-                name: 'string',
-                ownerIdentity: {
-                    principalId: 'string'
-                },
-                arn: 'string'
+var S3EvtRec: AWSLambda.S3EventRecord = {  
+    eventVersion: '2.0',
+    eventSource: 'aws:s3',
+    awsRegion: 'us-east-1',
+    eventTime: '1970-01-01T00:00:00.000Z',
+    eventName: 'ObjectCreated:Put',
+    userIdentity: {  
+        principalId: 'AIDAJDPLRKLG7UEXAMPLE'
+    },
+    requestParameters:{  
+        sourceIPAddress: '127.0.0.1'
+    },
+    responseElements: {  
+        'x-amz-request-id': 'C3D13FE58DE4C810',
+        'x-amz-id-2': 'FMyUVURIY8/IgAtTv8xRjskZQpcIZ9KG4V5Wp6S7S/JRWeUWerMUE5JgHvANOjpD'
+    },
+    s3: {  
+        s3SchemaVersion: '1.0',
+        configurationId: 'testConfigRule',
+        bucket: {  
+            name: 'mybucket',
+            ownerIdentity: {  
+                principalId: 'A3NL1KOZZKExample'
             },
-            object: {
-                key: 'string',
-                size: 1,
-                eTag: 'string',
-                versionId: 'string',
-                sequencer: 'string'
-            }
+            arn: 'arn:aws:s3:::mybucket'
+        },
+        object: {  
+            key: 'HappyFace.jpg',
+            size: 1024,
+            eTag: 'd41d8cd98f00b204e9800998ecf8427e',
+            versionId: '096fKKXTRTtl3on89fVO.nfljtsv6qko',
+            sequencer: '0055AED6DCD90281E5'
         }
     }
-    ]
+};
+
+var S3CreateEvent: AWSLambda.S3CreateEvent = {
+    Records: [S3EvtRec]
 };
 var cognitoUserPoolEvent: AWSLambda.CognitoUserPoolEvent;
+var cloudformationCustomResourceEvent: AWSLambda.CloudFormationCustomResourceEvent;
+var cloudformationCustomResourceResponse: AWSLambda.CloudFormationCustomResourceResponse;
 
 /* API Gateway Event */
 str = apiGwEvt.body;
@@ -127,6 +130,7 @@ num = proxyResult.statusCode;
 proxyResult.headers["example"] = str;
 proxyResult.headers["example"] = b;
 proxyResult.headers["example"] = num;
+b = proxyResult.isBase64Encoded;
 str = proxyResult.body;
 
 /* API Gateway CustomAuthorizer AuthResponse */
@@ -212,6 +216,33 @@ str = cognitoUserPoolEvent.response.publicChallengeParameters["captchaUrl"];
 str = cognitoUserPoolEvent.response.privateChallengeParameters["answer"];
 str = cognitoUserPoolEvent.response.challengeMetaData;
 b = cognitoUserPoolEvent.response.answerCorrect;
+
+// CloudFormation Custom Resource
+switch (cloudformationCustomResourceEvent.RequestType) {
+    case "Create":
+        str = cloudformationCustomResourceEvent.LogicalResourceId;
+        str = cloudformationCustomResourceEvent.RequestId;
+        anyObj = cloudformationCustomResourceEvent.ResourceProperties;
+        str = cloudformationCustomResourceEvent.ResourceProperties.ServiceToken;
+        str = cloudformationCustomResourceEvent.ResourceType;
+        str = cloudformationCustomResourceEvent.ResponseURL;
+        str = cloudformationCustomResourceEvent.ServiceToken;
+        str = cloudformationCustomResourceEvent.StackId;
+    break;
+    case "Update":
+        anyObj = cloudformationCustomResourceEvent.OldResourceProperties;
+    break;
+    case "Delete":
+        str = cloudformationCustomResourceEvent.PhysicalResourceId;
+    break;
+}
+anyObj = cloudformationCustomResourceResponse.Data;
+str = cloudformationCustomResourceResponse.LogicalResourceId;
+str = cloudformationCustomResourceResponse.PhysicalResourceId;
+str = cloudformationCustomResourceResponse.Reason;
+str = cloudformationCustomResourceResponse.RequestId;
+str = cloudformationCustomResourceResponse.StackId;
+str = cloudformationCustomResourceResponse.Status;
 
 /* Context */
 b = context.callbackWaitsForEmptyEventLoop;

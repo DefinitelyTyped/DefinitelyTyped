@@ -1,11 +1,12 @@
 // Type definitions for chai 4.0.0
 // Project: http://chaijs.com/
-// Definitions by: Jed Mao <https://github.com/jedmao/>,
+// Definitions by: Jed Mao <https://github.com/jedmao>,
 //                 Bart van der Schoor <https://github.com/Bartvds>,
 //                 Andrew Brown <https://github.com/AGBrown>,
 //                 Olivier Chevet <https://github.com/olivr70>,
 //                 Matt Wistrand <https://github.com/mwistrand>,
 //                 Josh Goldberg <https://github.com/joshuakgoldberg>
+//                 Shaun Luttin <https://github.com/shaunluttin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // <reference types="assertion-error"/>
@@ -61,6 +62,7 @@ declare namespace Chai {
     interface Assertion extends LanguageChains, NumericComparison, TypeComparison {
         not: Assertion;
         deep: Deep;
+        ordered: Ordered;
         nested: Nested;
         any: KeyFilter;
         all: KeyFilter;
@@ -134,6 +136,8 @@ declare namespace Chai {
         at: Assertion;
         of: Assertion;
         same: Assertion;
+        but: Assertion;
+        does: Assertion;
     }
 
     interface NumericComparison {
@@ -181,6 +185,11 @@ declare namespace Chai {
         include: Include;
         property: Property;
         members: Members;
+        ordered: Ordered;
+    }
+
+    interface Ordered {
+        members: Members;
     }
 
     interface KeyFilter {
@@ -213,6 +222,8 @@ declare namespace Chai {
         (value: string, message?: string): Assertion;
         (value: number, message?: string): Assertion;
         keys: Keys;
+        deep: Deep;
+        ordered: Ordered;
         members: Members;
         any: KeyFilter;
         all: KeyFilter;
@@ -476,6 +487,24 @@ declare namespace Chai {
          * @param message   Message to display on error.
          */
         isNotNaN<T>(value: T, message?: string): void;
+
+        /**
+         * Asserts that the target is neither null nor undefined.
+         *
+         * @type T   Type of value.
+         * @param value   Actual value.
+         * @param message    Message to display on error.
+         */
+        exists<T>(value: T, message?: string): void;
+
+        /**
+         * Asserts that the target is either null or undefined.
+         *
+         * @type T   Type of value.
+         * @param value   Actual value.
+         * @param message    Message to display on error.
+         */
+        notExists<T>(value: T, message?: string): void;
 
         /**
          * Asserts that value is undefined.
@@ -1000,6 +1029,94 @@ declare namespace Chai {
         sameDeepMembers<T>(set1: T[], set2: T[], message?: string): void;
 
         /**
+         * Asserts that set1 and set2 have the same members in the same order.
+         * Uses a strict equality check (===).
+         *
+         * @type T   Type of set values.
+         * @param set1   Actual set of values.
+         * @param set2   Potential expected set of values.
+         * @param message   Message to display on error.
+         */
+        sameOrderedMembers<T>(set1: T[], set2: T[], message?: string): void;
+
+        /**
+         * Asserts that set1 and set2 don’t have the same members in the same order.
+         * Uses a strict equality check (===).
+         *
+         * @type T   Type of set values.
+         * @param set1   Actual set of values.
+         * @param set2   Potential expected set of values.
+         * @param message   Message to display on error.
+         */
+        notSameOrderedMembers<T>(set1: T[], set2: T[], message?: string): void;
+
+        /**
+         * Asserts that set1 and set2 have the same members in the same order.
+         * Uses a deep equality check.
+         *
+         * @type T   Type of set values.
+         * @param set1   Actual set of values.
+         * @param set2   Potential expected set of values.
+         * @param message   Message to display on error.
+         */
+        sameDeepOrderedMembers<T>(set1: T[], set2: T[], message?: string): void;
+
+        /**
+         * Asserts that set1 and set2 don’t have the same members in the same order.
+         * Uses a deep equality check.
+         *
+         * @type T   Type of set values.
+         * @param set1   Actual set of values.
+         * @param set2   Potential expected set of values.
+         * @param message   Message to display on error.
+         */
+        notSameDeepOrderedMembers<T>(set1: T[], set2: T[], message?: string): void;
+
+        /**
+         * Asserts that subset is included in superset in the same order beginning with the first element in superset.
+         * Uses a strict equality check (===).
+         *
+         * @type T   Type of set values.
+         * @param superset   Actual set of values.
+         * @param subset   Potential contained set of values.
+         * @param message   Message to display on error.
+         */
+        includeOrderedMembers<T>(superset: T[], subset: T[], message?: string): void;
+
+        /**
+         * Asserts that subset isn’t included in superset in the same order beginning with the first element in superset.
+         * Uses a strict equality check (===).
+         *
+         * @type T   Type of set values.
+         * @param superset   Actual set of values.
+         * @param subset   Potential contained set of values.
+         * @param message   Message to display on error.
+         */
+        notIncludeOrderedMembers<T>(superset: T[], subset: T[], message?: string): void;
+
+        /**
+         * Asserts that subset is included in superset in the same order beginning with the first element in superset.
+         * Uses a deep equality check.
+         *
+         * @type T   Type of set values.
+         * @param superset   Actual set of values.
+         * @param subset   Potential contained set of values.
+         * @param message   Message to display on error.
+         */
+        includeDeepOrderedMembers<T>(superset: T[], subset: T[], message?: string): void;
+
+        /**
+         * Asserts that subset isn’t included in superset in the same order beginning with the first element in superset.
+         * Uses a deep equality check.
+         *
+         * @type T   Type of set values.
+         * @param superset   Actual set of values.
+         * @param subset   Potential contained set of values.
+         * @param message   Message to display on error.
+         */
+        notIncludeDeepOrderedMembers<T>(superset: T[], subset: T[], message?: string): void;
+
+        /**
          * Asserts that subset is included in superset. Order is not take into account.
          *
          * @type T   Type of set values.
@@ -1220,6 +1337,29 @@ declare namespace Chai {
          * @param message   Message to display on error.
          */
         notFrozen<T>(object: T, message?: string): void;
+
+        /**
+         * Asserts that the target does not contain any values. For arrays and
+         * strings, it checks the length property. For Map and Set instances, it
+         * checks the size property. For non-function objects, it gets the count
+         * of own enumerable string keys.
+         *
+         * @type T   Type of object
+         * @param object   Actual value.
+         * @param message   Message to display on error.
+         */
+        isEmpty<T>(object: T, message?: string): void;
+
+        /**
+         * Asserts that the target contains values. For arrays and strings, it checks
+         * the length property. For Map and Set instances, it checks the size property.
+         * For non-function objects, it gets the count of own enumerable string keys.
+         *
+         * @type T   Type of object.
+         * @param object   Object to test.
+         * @param message    Message to display on error.
+         */
+        isNotEmpty<T>(object: T, message?: string): void;
     }
 
     export interface Config {

@@ -474,7 +474,9 @@ declare namespace AceAjax {
         removeFold(arg: any): void;
 
         expandFold(arg: any): void;
-
+        
+        foldAll(startRow?: number, endRow?: number, depth?: number): void
+        
         unfold(arg1: any, arg2: boolean): void;
 
         screenToDocumentColumn(row: number, column: number): void;
@@ -1038,6 +1040,12 @@ declare namespace AceAjax {
 
         addEventListener(ev: 'change', callback: (ev: EditorChangeEvent) => any): void;
         addEventListener(ev: string, callback: Function): void;
+
+        off(ev: string, callback: Function): void;
+
+        removeListener(ev: string, callback: Function): void;
+
+        removeEventListener(ev: string, callback: Function): void;
 
         inMultiSelectMode: boolean;
 
@@ -2164,7 +2172,15 @@ declare namespace AceAjax {
     **/
     export interface Selection {
 
+        on(ev: string, callback: Function): void;
+
         addEventListener(ev: string, callback: Function): void;
+
+        off(ev: string, callback: Function): void;
+
+        removeListener(ev: string, callback: Function): void;
+
+        removeEventListener(ev: string, callback: Function): void;
 
         moveCursorWordLeft(): void;
 

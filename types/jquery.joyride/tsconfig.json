@@ -12,6 +12,11 @@
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "jquery": [
+                "jquery/v2"
+            ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

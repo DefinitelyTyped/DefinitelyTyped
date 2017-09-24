@@ -896,6 +896,7 @@ User.findAll( { attributes: [[s.fn('count', Sequelize.col('*')), 'count']] });
 User.findAll( { attributes: [[s.fn('count', Sequelize.col('*')), 'count']], group: ['sex'] });
 User.findAll( { attributes: [s.cast(s.fn('count', Sequelize.col('*')), 'INTEGER')] });
 User.findAll( { attributes: [[s.cast(s.fn('count', Sequelize.col('*')), 'INTEGER'), 'count']] });
+User.findAll( { subQuery: false, include : [User], order : [['id', 'ASC NULLS LAST']] } );
 
 User.findById( 'a string' );
 
@@ -904,7 +905,6 @@ User.findOne( { where : { id : 1 }, attributes : ['id', ['username', 'name']] } 
 User.findOne( { where : { id : 1 }, attributes : ['id'] } );
 User.findOne( { where : { username : 'foo' }, logging : function(  ) { } } );
 User.findOne( { limit : 10 } );
-User.findOne( { include : [1] } );
 User.findOne( { where : { title : 'homework' }, include : [User] } );
 User.findOne( { where : { name : 'environment' }, include : [{ model : User, as : 'PrivateDomain' }] } );
 User.findOne( { where : { username : 'foo' }, transaction : t } ).then( ( p ) => p );
@@ -1169,6 +1169,15 @@ new Sequelize( 'sequelize', null, null, {
             username : 'omg',
             password : 'lol'
         }
+    }
+} );
+new Sequelize( {
+    database: 'db',
+    username: 'user',
+    password: 'pass',
+    retry: {
+        match: ['failed'],
+        max: 3
     }
 } );
 

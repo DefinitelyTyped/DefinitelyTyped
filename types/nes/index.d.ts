@@ -91,7 +91,7 @@ declare module nes {
         id: string;
         app: Object;
         auth: nes.SocketAuthObject;
-        disconect(callback?: () => void): void;
+        disconnect(callback?: () => void): void;
         send(message: any, callback?: (err?: any) => void): void;
         publish(path: string, message: any, callback?: (err?: any) => void): void;
         revoke(path: string, message: any, callback?: (err?: any) => void): void;

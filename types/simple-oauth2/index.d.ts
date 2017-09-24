@@ -2,6 +2,7 @@
 // Project: https://github.com/lelylan/simple-oauth2
 // Definitions by: [Michael Müller] <https://github.com/mad-mike>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import Bluebird = require("bluebird");
 

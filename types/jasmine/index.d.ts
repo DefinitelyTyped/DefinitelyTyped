@@ -1,6 +1,6 @@
-// Type definitions for Jasmine 2.5.2
+// Type definitions for Jasmine 2.6.0
 // Project: http://jasmine.github.io/
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Theodore Brown <https://github.com/theodorejb>, David Pärsson <https://github.com/davidparsson/>, Gabe Moothart <https://github.com/gmoothart>, Lukas Zech <https://github.com/lukas-zech-software>
+// Definitions by: Boris Yankov <https://github.com/borisyankov>, Theodore Brown <https://github.com/theodorejb>, David Pärsson <https://github.com/davidparsson>, Gabe Moothart <https://github.com/gmoothart>, Lukas Zech <https://github.com/lukas-zech-software>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -137,8 +137,8 @@ declare namespace jasmine {
     function objectContaining<T>(sample: Partial<T>): ObjectContaining<T>;
     function createSpy(name: string, originalFn?: Function): Spy;
 
-    function createSpyObj(baseName: string, methodNames: any[]): any;
-    function createSpyObj<T>(baseName: string, methodNames: any[]): SpyObj<T>;
+    function createSpyObj(baseName: string, methodNames: any[] | {[methodName: string]: any}): any;
+    function createSpyObj<T>(baseName: string, methodNames: any[] | {[methodName: string]: any}): SpyObj<T>;
 
     function createSpyObj(baseName: string, methodNames: any): any;
     function createSpyObj(methodNames: any[]): any;
@@ -209,7 +209,7 @@ declare namespace jasmine {
         withMock(func: () => void): void;
     }
 
-    type CustomEqualityTester = (first: any, second: any) => boolean;
+    type CustomEqualityTester = (first: any, second: any) => boolean | void;
 
     interface CustomMatcher {
         compare<T>(actual: T, expected: T): CustomMatcherResult;
@@ -427,6 +427,7 @@ declare namespace jasmine {
         toBeTruthy(expectationFailOutput?: any): boolean;
         toBeFalsy(expectationFailOutput?: any): boolean;
         toHaveBeenCalled(): boolean;
+        toHaveBeenCalledBefore(expected: Spy): boolean;
         toHaveBeenCalledWith(...params: any[]): boolean;
         toHaveBeenCalledTimes(expected: number): boolean;
         toContain(expected: any, expectationFailOutput?: any): boolean;

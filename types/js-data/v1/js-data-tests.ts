@@ -30,7 +30,7 @@ User.find(1).then(function (user:IUser) {
 var user:IUser = User.createInstance({name: 'John'});
 
 var store = new JSData.DS();
-var User2 = store.defineResource('user');
+var User2 = store.defineResource<IUser>('user');
 var user:IUser = User2.inject({id: 1, name: 'John'});
 var user2:IUser = User2.inject({id: 1, age: 30});
 

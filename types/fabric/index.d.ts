@@ -1,6 +1,6 @@
 // Type definitions for FabricJS 1.5
 // Project: http://fabricjs.com/
-// Definitions by: Oliver Klemencic <https://github.com/oklemencic/>, Joseph Livecchi <https://github.com/joewashear007/>, Michael Randolph <https://github.com/mrand01/>
+// Definitions by: Oliver Klemencic <https://github.com/oklemencic>, Joseph Livecchi <https://github.com/joewashear007>, Michael Randolph <https://github.com/mrand01>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export as namespace fabric;
@@ -3086,7 +3086,7 @@ interface ITextOptions extends IObjectOptions {
 	textBackgroundColor?: string;
 
 	path?: string;
-	useNative?: Boolean;
+	useNative?: boolean;
 	text?: string;
 }
 export interface Text extends ITextOptions {}

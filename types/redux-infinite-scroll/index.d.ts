@@ -1,6 +1,6 @@
 // Type definitions for redux-infinite-scroll 1.0
 // Project: https://github.com/RealScout/redux-infinite-scroll
-// Definitions by: Tony Nikolov <https://github.com/silkyfray/>
+// Definitions by: Tony Nikolov <https://github.com/silkyfray>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -20,6 +20,6 @@ interface InfiniteScrollerProps {
     holderType?: string;
 }
 
-declare class InfiniteScoller extends Component<InfiniteScrollerProps & HTMLProps<HTMLDivElement>, {}> {}
+declare class InfiniteScoller extends Component<InfiniteScrollerProps & HTMLProps<HTMLDivElement>> {}
 
 export default InfiniteScoller;

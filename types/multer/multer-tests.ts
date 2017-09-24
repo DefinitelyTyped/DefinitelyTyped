@@ -1,7 +1,12 @@
 import * as express from 'express';
 import * as multer from 'multer';
 
-const upload = multer({ dest: 'uploads/' });
+const upload = multer({
+    dest: 'uploads/',
+    fileFilter: (req, file, cb) => {
+        cb(null, true);
+    }
+});
 
 const app = express();
 
@@ -20,7 +25,7 @@ const diskStorage = multer.diskStorage({
         cb(null, '/tmp/my-uploads');
     },
     filename(req, file, cb) {
-        cb(null, file.fieldname + '-' + Date.now());
+        cb(null, `${file.fieldname}-${Date.now()}`);
     }
 });
 

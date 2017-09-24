@@ -1,6 +1,6 @@
 // Type definitions for Browserify 12.0
 // Project: http://browserify.org/
-// Definitions by: Andrew Gaspar <https://github.com/AndrewGaspar/>, John Vilk <https://github.com/jvilk>, Leonard Thieu <https://github.com/leonard-thieu>
+// Definitions by: Andrew Gaspar <https://github.com/AndrewGaspar>, John Vilk <https://github.com/jvilk>, Leonard Thieu <https://github.com/leonard-thieu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -37,12 +37,21 @@ interface FileOptions {
 type InputFile = string | NodeJS.ReadableStream | FileOptions;
 
 /**
+ * Core options pertaining to a Browserify instance, extended by user options
+ */
+interface CustomOptions {
+  /**
+   * Custom properties can be defined on Options.
+   * These options are forwarded along to module-deps and browser-pack directly.
+   */
+  [propName: string]: any;
+  /** the directory that Browserify starts bundling from for filenames that start with .. */
+  basedir?: string;
+}
+/**
  * Options pertaining to a Browserify instance.
  */
-interface Options {
-  // Custom properties can be defined on Options.
-  // These options are forwarded along to module-deps and browser-pack directly.
-  [propName: string]: any;
+interface Options extends CustomOptions {
   // String, file object, or array of those types (they may be mixed) specifying entry file(s).
   entries?: InputFile | InputFile[];
   // an array which will skip all require() and global parsing for each file in the array.
@@ -51,8 +60,6 @@ interface Options {
   // an array of optional extra extensions for the module lookup machinery to use when the extension has not been specified.
   // By default Browserify considers only .js and .json files in such cases.
   extensions?: string[];
-  // the directory that Browserify starts bundling from for filenames that start with ..
-  basedir?: string;
   // an array of directories that Browserify searches when looking for modules which are not referenced using relative path.
   // Can be absolute or relative to basedir. Equivalent of setting NODE_PATH environmental variable when calling Browserify command.
   paths?: string[];
@@ -115,32 +122,32 @@ interface BrowserifyObject extends NodeJS.EventEmitter {
    * If file is an array, each item in file will be externalized.
    * If file is another bundle, that bundle's contents will be read and excluded from the current bundle as the bundle in file gets bundled.
    */
-  external(file: string[], opts?: { basedir?: string }): BrowserifyObject;
-  external(file: string, opts?: { basedir?: string }): BrowserifyObject;
+  external(file: string[], opts?: CustomOptions): BrowserifyObject;
+  external(file: string, opts?: CustomOptions): BrowserifyObject;
   external(file: BrowserifyObject): BrowserifyObject;
   /**
    * Prevent the module name or file at file from showing up in the output bundle.
    * Instead you will get a file with module.exports = {}.
    */
-  ignore(file: string, opts?: { basedir?: string }): BrowserifyObject;
+  ignore(file: string, opts?: CustomOptions): BrowserifyObject;
   /**
    * Prevent the module name or file at file from showing up in the output bundle.
    * If your code tries to require() that file it will throw unless you've provided another mechanism for loading it.
    */
-  exclude(file: string, opts?: { basedir?: string }): BrowserifyObject;
+  exclude(file: string, opts?: CustomOptions): BrowserifyObject;
   /**
    * Transform source code before parsing it for require() calls with the transform function or module name tr.
    * If tr is a function, it will be called with tr(file) and it should return a through-stream that takes the raw file contents and produces the transformed source.
    * If tr is a string, it should be a module name or file path of a transform module
    */
-  transform<T extends { basedir?: string }>(tr: string, opts?: T): BrowserifyObject;
-  transform<T extends { basedir?: string }>(tr: (file: string, opts: T) => NodeJS.ReadWriteStream, opts?: T): BrowserifyObject;
+  transform<T extends CustomOptions>(tr: string, opts?: T): BrowserifyObject;
+  transform<T extends CustomOptions>(tr: (file: string, opts: T) => NodeJS.ReadWriteStream, opts?: T): BrowserifyObject;
   /**
    * Register a plugin with opts. Plugins can be a string module name or a function the same as transforms.
    * plugin(b, opts) is called with the Browserify instance b.
    */
-  plugin<T extends { basedir?: string }>(plugin: string, opts?: T): BrowserifyObject;
-  plugin<T extends { basedir?: string }>(plugin: (b: BrowserifyObject, opts: T) => any, opts?: T): BrowserifyObject;
+  plugin<T extends CustomOptions>(plugin: string, opts?: T): BrowserifyObject;
+  plugin<T extends CustomOptions>(plugin: (b: BrowserifyObject, opts: T) => any, opts?: T): BrowserifyObject;
   /**
    * Reset the pipeline back to a normal state. This function is called automatically when bundle() is called multiple times.
    * This function triggers a 'reset' event.

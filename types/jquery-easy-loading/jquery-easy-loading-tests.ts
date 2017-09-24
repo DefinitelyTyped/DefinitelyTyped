@@ -35,7 +35,6 @@ function test_commands() {
         .loading("toggle");
 }
 
-import * as jQuery from "jquery";
 import * as factory from "jquery-easy-loading";
 
 function test_factory() {

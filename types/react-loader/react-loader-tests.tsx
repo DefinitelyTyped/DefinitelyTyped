@@ -23,7 +23,7 @@ const options = {
     position: 'absolute'
 };
 
-class MyComponent extends React.Component<any, any> {
+class MyComponent extends React.Component {
 	getInitialState() {
 		return { loaded: false };
 	}

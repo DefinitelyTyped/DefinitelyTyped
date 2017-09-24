@@ -9,6 +9,6 @@ import { propTypes, defaultProps } from 'react-props-decorators';
     foo: "defaultString",
     bar: 100
 })
-class Baz extends React.Component<any, any> {
+class Baz extends React.Component {
     /* ... */
 }

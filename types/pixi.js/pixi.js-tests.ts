@@ -111,7 +111,7 @@ function basics() {
         }
     }
 
-    class CustomizedFilter extends PIXI.Filter {
+    class CustomizedFilter extends PIXI.Filter<any> {
         constructor(fragmentSource: string) {
             super(null, fragmentSource, {
                 customUniform: {
@@ -247,7 +247,7 @@ function basics() {
                     for (let i = 0; i < 30; i++) {
                         const val = i < 10 ? "0" + i : i;
 
-                        frames.push(PIXI.Texture.fromFrame("rollSequence00" + val + ".png"));
+                        frames.push(PIXI.Texture.fromFrame(`rollSequence00${val}.png`));
                     }
 
                     this.anim = new PIXI.extras.AnimatedSprite(frames);
@@ -495,7 +495,7 @@ function demos() {
                     const explosionTextures: PIXI.Texture[] = [];
 
                     for (let i = 0; i < 26; i++) {
-                        const texture = PIXI.Texture.fromFrame("Explosion_Sequence_A " + (i + 1) + ".png");
+                        const texture = PIXI.Texture.fromFrame(`Explosion_Sequence_A ${i + 1}.png`);
                         explosionTextures.push(texture);
                     }
 

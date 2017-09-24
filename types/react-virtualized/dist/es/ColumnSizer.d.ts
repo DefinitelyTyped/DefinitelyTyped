@@ -26,11 +26,19 @@ export type ColumnSizerProps = {
     columnCount?: number;
     /** Width of Grid or Table child */
     width: number;
+    /**
+     * PLEASE NOTE
+     * The [key: string]: any; line is here on purpose
+     * This is due to the need of force re-render of PureComponent
+     * Check the following link if you want to know more
+     * https://github.com/bvaughn/react-virtualized#pass-thru-props
+     */
+    [key: string]: any;
 }
 /**
  * High-order component that auto-calculates column-widths for `Grid` cells.
  */
-export class ColumnSizer extends PureComponent<ColumnSizerProps, {}> {
+export class ColumnSizer extends PureComponent<ColumnSizerProps> {
     static propTypes: {
         children: Validator<(props: SizedColumnProps) => React.ReactNode>,
         columnMaxWidth: Requireable<number>,

@@ -1,7 +1,10 @@
+import { CSSModule } from '../index';
+
 interface Props {
   tag?: React.ReactType;
   'aria-label'?: string;
   className?: string;
+  cssModule?: CSSModule;
   role?: string;
   size?: string;
   vertical?: boolean;

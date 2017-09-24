@@ -45,7 +45,7 @@ execa.shell('echo unicorns')
 {
     let result: string;
     result = execa.shellSync('foo').stderr;
-    result = execa.shellSync('noop', ['foo']).stdout;
+    result = execa.shellSync('noop', { cwd: 'foo' }).stdout;
 
     result = execa.shellSync('foo').stderr;
     result = execa.shellSync('noop foo').stdout;
@@ -53,6 +53,15 @@ execa.shell('echo unicorns')
 
 execa('echo', ['unicorns']).stdout.pipe(process.stdout);
 execa('echo', ['unicorns']).stderr.pipe(process.stderr);
+
+execa('forever', {extendEnv: false}).pid;
+execa('forever', {argv0: 'hi'}).pid;
+execa('forever', {localDir: '~'}).pid;
+execa('forever', {reject: false}).pid;
+execa('forever', {cleanup: false}).pid;
+execa('forever', {stdin: 1}).pid;
+execa('forever', {stdout: 'ignore'}).pid;
+execa('forever', {stderr: undefined}).pid;
 
 async () => {
     const { stdout } = await execa('noop', ['foo'], { stripEof: false });

@@ -4,7 +4,9 @@
 //                 vilicvane <https://vilic.github.io/>
 //                 David Broder-Rodgers <https://github.com/DavidBR-SW>
 //                 Michael Ledin <https://github.com/mxl>
+//                 HyunSeob Lee <https://github.com/hyunseob>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 import * as express from 'express';
 
@@ -41,14 +43,13 @@ declare namespace multer {
             headerPairs?: number;
             /** Keep the full path of files instead of just the base name (Default: false) */
             preservePath?: boolean;
-        
         };
         /** A function to control which files to upload and which to skip. */
-        fileFilter?(req: Express.Request, file: Express.Multer.File, callback: (error: Error, acceptFile: boolean) => void): void;
+        fileFilter?(req: Express.Request, file: Express.Multer.File, callback: (error: Error | null, acceptFile: boolean) => void): void;
     }
 
     interface StorageEngine {
-        _handleFile(req: express.Request, file: Express.Multer.File, callback: (error?: any, info?: Express.Multer.File) => void): void;
+        _handleFile(req: express.Request, file: Express.Multer.File, callback: (error?: any, info?: Partial<Express.Multer.File>) => void): void;
         _removeFile(req: express.Request, file: Express.Multer.File, callback: (error: Error) => void): void;
     }
 
