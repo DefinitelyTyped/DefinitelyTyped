@@ -614,7 +614,7 @@ declare namespace ADODB {
         Dialect: string;
 
         /** @param number [Options=-1] */
-        Execute(RecordsAffected?: number, Parameters?: SafeArray<any>, Options?: number): Recordset;
+        Execute(RecordsAffected?: number, Parameters?: SafeArray, Options?: number): Recordset;
         Name: string;
         NamedParameters: boolean;
         readonly Parameters: Parameters;

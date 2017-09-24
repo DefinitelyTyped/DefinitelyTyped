@@ -38,20 +38,20 @@ WScript.Echo(s);
     rs.Open('SELECT * FROM Table1', conn, ADODB.CursorTypeEnum.adOpenForwardOnly, ADODB.LockTypeEnum.adLockBatchOptimistic);
     rs.ActiveConnection = null;
 
-    let v = rs.Fields.Item(0).Value;
+    const v = rs.Fields.Item(0).Value;
     conn.Close();
 })();
 
 // helper function
-const toSafeArray = <T>(...items: T[]) => {
-    let dict = new ActiveXObject('Scripting.Dictionary');
+const toSafeArray = <T = any>(...items: T[]) => {
+    const dict = new ActiveXObject('Scripting.Dictionary');
     items.forEach((x, index) => dict.Add(index, x));
     return dict.Items() as SafeArray<T>;
 };
 
 // update with SafeArray
 (() => {
-    let fields = toSafeArray('firstname', 'lastname');
-    let values = toSafeArray('Plony', 'Almony');
+    const fields = toSafeArray('firstname', 'lastname');
+    const values = toSafeArray('Plony', 'Almony');
     rs.Update(fields, values);
 })();
