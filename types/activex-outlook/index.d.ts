@@ -1455,7 +1455,15 @@ declare namespace Outlook {
         public readonly Class: OlObjectClass;
         public readonly COMAddIns: Office.COMAddIns;
         public CopyFile(FilePath: string, DestFolderPath: string): any;
-        public CreateItem(ItemType: OlItemType): any;
+        public CreateItem(ItemType: OlItemType.olAppointmentItem): AppointmentItem;
+        public CreateItem(ItemType: OlItemType.olContactItem): ContactItem;
+        public CreateItem(ItemType: OlItemType.olDistributionListItem): DistListItem;
+        public CreateItem(ItemType: OlItemType.olJournalItem): JournalItem;
+        public CreateItem(ItemType: OlItemType.olMailItem): MailItem;
+        public CreateItem(ItemType: OlItemType.olMobileItemMMS | OlItemType.olMobileItemSMS): MobileItem;
+        public CreateItem(ItemType: OlItemType.olNoteItem): NoteItem;
+        public CreateItem(ItemType: OlItemType.olPostItem): PostItem;
+        public CreateItem(ItemType: OlItemType.olTaskItem): TaskItem;
         public CreateItemFromTemplate(TemplatePath: string, InFolder?: any): any;
         public CreateObject(ObjectName: string): any;
         public readonly DefaultProfileName: string;
@@ -2925,7 +2933,7 @@ declare namespace Outlook {
         public DeferredDeliveryTime: VarDate;
         public Delete(): void;
         public DeleteAfterSubmit: boolean;
-        public Display(Modal?: any): void;
+        public Display(Modal?: boolean): void;
         public readonly DownloadState: OlDownloadState;
         public EnableSharedAttachments: boolean;
         public readonly EntryID: string;

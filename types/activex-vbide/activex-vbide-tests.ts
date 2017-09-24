@@ -18,5 +18,5 @@ projects.forEach(project => {
     let references = collectionToArray<VBIDE.Reference>(project.References);
     references.forEach(reference => {
         WScript.Echo(`     ${reference.Name} ${reference.Major}.${reference.Minor} -- ${reference.FullPath}`);
-    })
-})
+    });
+});

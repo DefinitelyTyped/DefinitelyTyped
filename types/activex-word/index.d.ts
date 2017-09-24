@@ -6865,7 +6865,7 @@ declare namespace Word {
     class Documents {
         private 'Word.Documents_typekey': Documents;
         private constructor();
-        public Add(Template?: any, NewTemplate?: any, DocumentType?: any, Visible?: any): Document;
+        public Add(Template?: string, NewTemplate?: boolean, DocumentType?: WdNewDocumentType, Visible?: boolean): Document;
 
         /** @param string [PostID=''] */
         public AddBlogDocument(ProviderID: string, PostURL: string, BlogName: string, PostID?: string): Document;
