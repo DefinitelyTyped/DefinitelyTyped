@@ -43,7 +43,7 @@ WScript.Echo(s);
 })();
 
 // helper function
-const toSafeArray = <T>(...items: T[]) => {
+const toSafeArray = <T>(...items: T[]): SafeArray<T> => {
     const dict = new ActiveXObject('Scripting.Dictionary');
     items.forEach((x, index) => dict.Add(index, x));
     return dict.Items() as SafeArray<T>;
