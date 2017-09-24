@@ -51,7 +51,7 @@ const toSafeArray = <T = any>(...items: T[]) => {
 
 // update with SafeArray
 (() => {
-    const fields = toSafeArray('firstname', 'lastname');
-    const values = toSafeArray('Plony', 'Almony');
+    const fields = toSafeArray('FirstName', 'LastName', 'DOB');
+    const values = toSafeArray<any>('Plony', 'Almony', new Date(1980, 1, 1).getVarDate());
     rs.Update(fields, values);
 })();
