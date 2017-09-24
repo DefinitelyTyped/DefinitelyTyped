@@ -5220,7 +5220,7 @@ declare namespace Word {
         public readonly Creator: number;
         public DefaultSorting: WdBookmarkSortBy;
         public Exists(Name: string): boolean;
-        public Item(Index: any): Bookmark;
+        public Item(Index: number | string): Bookmark;
         public readonly Parent: any;
         public ShowHidden: boolean;
     }
@@ -5254,7 +5254,7 @@ declare namespace Word {
         public DistanceFromLeft: number;
         public DistanceFromRight: number;
         public DistanceFromTop: number;
-        public Enable: number;
+        public Enable: boolean | WdConstants.wdUndefined | WdLineStyle;
         public EnableFirstPageInSection: boolean;
         public EnableOtherPagesInSection: boolean;
         public readonly HasHorizontal: boolean;
@@ -6478,7 +6478,7 @@ declare namespace Word {
         public ApplyQuickStyleSet(Name: string): void;
         public ApplyQuickStyleSet2(Style: any): void;
         public ApplyTheme(Name: string): void;
-        public AttachedTemplate: any;
+        public AttachedTemplate: Template;
         public AutoFormat(): void;
         public AutoFormatOverride: boolean;
         public AutoHyphenation: boolean;
@@ -6876,7 +6876,7 @@ declare namespace Word {
         public Close(SaveChanges?: any, OriginalFormat?: any, RouteDocument?: any): void;
         public readonly Count: number;
         public readonly Creator: number;
-        public Item(Index: any): Document;
+        public Item(Index: number | string): Document;
         public Open(
             FileName: any, ConfirmConversions?: any, ReadOnly?: any, AddToRecentFiles?: any, PasswordDocument?: any, PasswordTemplate?: any, Revert?: any,
             WritePasswordDocument?: any, WritePasswordTemplate?: any, Format?: any, Encoding?: any, Visible?: any, OpenAndRepair?: any, DocumentDirection?: any,
@@ -11887,7 +11887,7 @@ declare namespace Word {
         public readonly Application: Application;
         public readonly Count: number;
         public readonly Creator: number;
-        public Item(Index: any): Variable;
+        public Item(Index: number | string): Variable;
         public readonly Parent: any;
     }
 

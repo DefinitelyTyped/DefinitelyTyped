@@ -1,3 +1,13 @@
+const collectionToArray = <T>(col: any) => {
+    let results: T[] = [];
+    let enumerator = new Enumerator<T>(col);
+    enumerator.moveFirst();
+    while (!enumerator.atEnd()) {
+        results.push(enumerator.item());
+    }
+    return results;
+};
+
 let app = new ActiveXObject('Word.Application');
 
 // https://msdn.microsoft.com/en-us/vba/word-vba/articles/modifying-a-portion-of-a-document
@@ -146,7 +156,7 @@ let activeDoc = app.ActiveDocument;
     // changes to the Range will be visible via both variables
     rng1.MoveStart(Word.WdUnits.wdParagraph);
 
-    // using the Duplicate property
+    // using the Duplicate property creates a copy of the original Range
     rng1 = rng2.Duplicate;
 })();
 
@@ -184,7 +194,7 @@ let activeDoc = app.ActiveDocument;
     rngFirstParagraph.InsertParagraphAfter();
 })();
 
-// finding and replacing text or formatting
+// finding and replacing text or formatting -- https://msdn.microsoft.com/en-us/vba/word-vba/articles/finding-and-replacing-text-or-formatting
 (() => {
     // Finding text and selecting it
     let find = app.Selection.Find;
@@ -201,6 +211,129 @@ let activeDoc = app.ActiveDocument;
     if (find2.Found) { find2.Parent.Bold = true; }
 
     // Using the Replacement object
+
     let find3 = app.Selection.Find;
     find3.ClearFormatting;
+    find3.Text = 'Hi';
+    find3.Replacement.ClearFormatting();
+    find3.Replacement.Text = 'Hello';
+    find3.Forward = true;
+    find3.Wrap = Word.WdFindWrap.wdFindContinue;
+    find3.Execute(undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, Word.WdReplace.wdReplaceAll);
+
+    let find4 = app.ActiveDocument.Content.Find;
+    find4.ClearFormatting();
+    find4.Format = true;
+    find4.Font.Bold = true;
+    find4.Replacement.ClearFormatting();
+    find4.Replacement.Font.Bold = false;
+    find4.Execute("", undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, Word.WdReplace.wdReplaceAll);
+})();
+
+// looping through a collection -- https://msdn.microsoft.com/en-us/vba/word-vba/articles/looping-through-a-collection
+(() => {
+    collectionToArray<Word.Document>(app.Documents)
+        .forEach(openDocument => WScript.Echo(openDocument.Name));
+
+    let strMarks = collectionToArray<Word.Bookmark>(activeDoc.Bookmarks)
+        .map(bookmark => bookmark.Name);
+
+    collectionToArray<Word.Field>(activeDoc.Fields)
+        .filter(dateField => dateField.Code.Text.indexOf('Date', 1) !== -1)
+        .forEach(dateField => dateField.Update());
+
+    let exists = collectionToArray<Word.AutoTextEntry>(activeDoc.AttachedTemplate.AutoTextEntries)
+        .some(autotextEntry => autotextEntry.Name === 'Filename');
+    if (exists) {
+            WScript.Echo('The Filename AutoText entry exists.');
+    }
+})();
+
+// inserting text in a document -- https://msdn.microsoft.com/en-us/vba/word-vba/articles/inserting-text-in-a-document
+(() => {
+    activeDoc.Content.InsertAfter(' The end.');
+    app.Selection.InsertBefore('new text');
+})();
+
+// referring to the active document element -- https://msdn.microsoft.com/en-us/vba/word-vba/articles/referring-to-the-active-document-element
+(() => {
+    app.Selection.Paragraphs.Item(1).Borders.Enable = true;
+
+    app.Selection.Paragraphs.Borders.Enable = true;
+
+    if (app.Selection.Tables.Count >= 1) {
+        app.Selection.Tables.Item(1).Rows.Item(1).Shading.Texture = Word.WdTextureIndex.wdTexture10Percent;    
+    } else {
+        WScript.Echo('Selection doesn\'t include a table');
+    }
+
+    if (app.Selection.Tables.Count >= 1) {
+        collectionToArray<Word.Table>(app.Selection.Tables)
+            .forEach(table => table.Rows.Item(1).Shading.Texture = Word.WdTextureIndex.wdTexture30Percent);
+    }
+})();
+
+// returning an object from a collection -- https://msdn.microsoft.com/en-us/vba/word-vba/articles/returning-an-object-from-a-collection-word
+(() => {
+    // no default properties in Javascript; we can't write app.Documents(1)
+    let docFirst = app.Documents.Item(1);
+
+    app.Documents.Item('Sales.doc').Activate();
+    WScript.Echo(app.ActiveDocument.Name);
+
+    app.ActiveDocument.Bookmarks.Item(1).Select();
+    WScript.Echo(app.Selection.Text);
+
+    // predefined index values;
+    let border = app.Selection.Paragraphs.Item(1).Borders.Item(Word.WdBorderType.wdBorderBottom);
+    border.LineStyle = Word.WdLineStyle.wdLineStyleSingle;
+    border.LineWidth = Word.WdLineWidth.wdLineWidth300pt;
+    border.Color = Word.WdColor.wdColorBlue;
+})();
+
+// returning text from a document -- https://msdn.microsoft.com/en-us/vba/word-vba/articles/returning-text-from-a-document
+(() => {
+    let find = app.Selection.Find;
+    find.ClearFormatting();
+    find.Style = Word.WdBuiltinStyle.wdStyleHeading1;
+    find.Format = true;
+    find.Forward = true;
+    find.Wrap = Word.WdFindWrap.wdFindStop;
+    find.Text = "";
+    find.Execute();
+    if (find.Found) {
+        WScript.Echo(app.Selection.Text);
+    }
+
+    WScript.Echo(app.Selection.Text);
+
+    WScript.Echo(activeDoc.Words.Item(1).Text);
+
+    if (activeDoc.Bookmarks.Count > 0) {
+        WScript.Echo(activeDoc.Bookmarks.Item(1).Range.Text);
+    }
+})();
+
+// selecting text in a document -- https://msdn.microsoft.com/en-us/vba/word-vba/articles/selecting-text-in-a-document
+(() => {
+    activeDoc.Tables.Item(1).Select();
+
+    activeDoc.Fields.Item(1).Select();
+
+    let rngParagraphs = activeDoc.Range(
+        activeDoc.Paragraphs.Item(1).Range.Start,
+        activeDoc.Paragraphs.Item(4).Range.End
+    );
+    rngParagraphs.Select();
+})();
+
+// storing values when a macro ends -- https://msdn.microsoft.com/en-us/vba/word-vba/articles/storing-values-when-a-macro-ends
+(() => {
+    // document variables
+    activeDoc.Variables.Add('Age', 12);
+    let i = parseInt(activeDoc.Variables.Item('Age').Value, 10);
+
+    // document properties
+    activeDoc.CustomDocumentProperties
+
 })();
