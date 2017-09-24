@@ -5,19 +5,19 @@
 // TypeScript Version: 2.3
 
 
-interface JQuery {
+export interface JQuery {
     /**
     * initialize fickity plugin
     */
     flickity: FlickityJquery;
 }
 
-interface FlickityJquery {
+export interface FlickityJquery {
     (options?: FlickityOptions): JQuery;
     (command: string, ...params: any[]): JQuery;
 }
 
-declare class Flickity {
+export class Flickity {
     /**
     * Initializes an new instance of Flickity .
     *
@@ -240,7 +240,7 @@ declare class Flickity {
     once(eventname: string, callback: (event?: Event, pointer?: Element | Touch) => any): void;
 }
 
-interface FlickityOptions {
+export interface FlickityOptions {
 
     /**
     * Specify selector for cell elements. cellSelector is useful if you have other elements in your gallery elements that are not cells.
