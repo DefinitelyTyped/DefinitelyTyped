@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
-import Select = require("react-select");
+import Select from 'react-select';
 import { Option, ReactSelectProps, ReactCreatableSelectProps, ReactAsyncSelectProps, MenuRendererProps, AutocompleteResult } from "react-select";
 
 const CustomOption = React.createClass({
