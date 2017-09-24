@@ -38,6 +38,7 @@
         "glosses/data.d.ts",
         "glosses/datetime.d.ts",
         "glosses/compressors.d.ts",
+        "glosses/archives.d.ts",
         "adone-tests.ts",
         "test/index.ts",
         "test/index-import.ts",
@@ -59,6 +60,7 @@
         "test/glosses/fast.ts",
         "test/glosses/data.ts",
         "test/glosses/datetime.ts",
-        "test/glosses/compressors.ts"
+        "test/glosses/compressors.ts",
+        "test/glosses/archives.ts"
     ]
 }

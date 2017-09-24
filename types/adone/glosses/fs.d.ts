@@ -599,6 +599,65 @@ declare namespace adone {
             static open(filename: string, options?: I.RandomAccessFile.ConstructorOptions): Promise<RandomAccessFile>;
         }
 
+        /**
+         * Represents an abstract random access reader
+         */
+        class AbstractRandomAccessReader extends event.EventEmitter {
+            /**
+             * Increments the reference counter
+             */
+            ref(): void;
+
+            /**
+             * Decrements the reference counter
+             */
+            unref(): void;
+
+            /**
+             * Creates a readable stream for the given range
+             */
+            createReadStream(options?: {
+                /**
+                 * Start offset, inslusive
+                 */
+                start?: number,
+
+                /**
+                 * End offset, exclusive
+                 */
+                end?: number
+            }): nodestd.stream.Readable;
+
+            /**
+             * Reads data and writes to the given buffer
+             *
+             * @param buffer buffer to write to
+             * @param offset buffer offset to write to
+             * @param length number of bytes to read
+             * @param position position to read from
+             */
+            read(buffer: Buffer, offset: number, length: number, position: number): Promise<void>;
+
+            /**
+             * Must be implemented in derived classes and return a readable stream for the given range [start, end]
+             */
+            _readStreamFromRange(start: number, end: number): nodestd.stream.Readable;
+        }
+
+        /**
+         * Represents a random access reader for a file by its file descriptor
+         */
+        class RandomAccessFdReader extends AbstractRandomAccessReader {
+            constructor(fd: number);
+        }
+
+        /**
+         * Represents a random access reader for a buffer
+         */
+        class RandomAccessBufferReader extends AbstractRandomAccessReader {
+            constructor(buffer: Buffer);
+        }
+
         namespace I.Glob {
             interface Options {
                 /**

@@ -213,6 +213,9 @@ namespace datetimeTests {
     datetime.utc(101, undefined, true);
     datetime.utc(101, undefined, "ru", true);
     datetime.unix(101010).clone();
+
+    datetime.dos({ time: 100, date: 100 }).clone();
+
     datetime.invalid();
     datetime.invalid({ charsLeftOver: 100 });
     datetime.invalid({ empty: true });
@@ -669,6 +672,7 @@ namespace datetimeTests {
     { const a: Date = d.toDate(); }
     { const a: string = d.toISOString(); }
     { const a: string = d.toJSON(); }
+    { const b: { date: number, time: number } = d.toDOS(); }
     { const a: string = d.toNow(); }
     {
         const a: adone.I.datetime.DatetimeObjectOutput = d.toObject();

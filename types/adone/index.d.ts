@@ -6,6 +6,7 @@
 
 /// <reference path="./adone.d.ts" />
 /// <reference path="./glosses/application.d.ts" />
+/// <reference path="./glosses/archives.d.ts" />
 /// <reference path="./glosses/assertion.d.ts" />
 /// <reference path="./glosses/collections.d.ts" />
 /// <reference path="./glosses/compressors.d.ts" />

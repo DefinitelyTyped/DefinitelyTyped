@@ -625,6 +625,18 @@ declare namespace adone {
                 strict?: boolean;
             }
 
+            interface MSDOSFormat {
+                /**
+                 * an unsigned 16-bit integer represents MS-DOS date
+                 */
+                date: number;
+
+                /**
+                 * an unsigned 16-bit integer represents MS-DOS time
+                 */
+                time: number;
+            }
+
             interface Datetime extends Object {
                 /**
                  * Formats the datetime using the given format.
@@ -1066,6 +1078,11 @@ declare namespace adone {
                 toArray(): number[];
 
                 /**
+                 * Conver the datetime to MS-DOS date/time format
+                 */
+                toDOS(): MSDOSFormat;
+
+                /**
                  * Returns a copy of the native Date object that the datetime wraps
                  */
                 toDate(): Date;
@@ -1213,6 +1230,11 @@ declare namespace adone {
                  * Creates a datetime from the given UNIX timestamp
                  */
                 unix(timestamp: number): Datetime;
+
+                /**
+                 * Creates a datetime from the given MS-DOS date and time
+                 */
+                dos(inp: MSDOSFormat): Datetime;
 
                 /**
                  * Crates an invalid datetime object
