@@ -30,7 +30,7 @@ const EXAMPLE_CUSTOM_OPTIONS: ReactSelect.Options<CustomValueType> = [
 ];
 
 const EXAMPLE_CUSTOM_VALUE: ReactSelect.Option<CustomValueType> = {
-  value: { prop1: "ThreeProp1", prop2: 3 }, label: "Three"
+    value: { prop1: "ThreeProp1", prop2: 3 }, label: "Three"
 };
 
 describe("react-select", () => {
@@ -270,8 +270,8 @@ describe("Examples", () => {
                 const options = props.options.map(option => {
                     return (
                         <div className="option" data-value1={option.value.prop1}
-                             data-value2={option.value.prop2}
-                             onClick={() => props.selectValue(option)}>
+                            data-value2={option.value.prop2}
+                            onClick={() => props.selectValue(option)}>
                             {option.label}
                         </div>);
                 });
@@ -333,7 +333,7 @@ describe("Examples", () => {
 
     it("Option render with custom value option", () => {
         const optionRenderer = (option: ReactSelect.Option<CustomValueType>): ReactSelect.HandlerRendererResult =>
-          null;
+            null;
 
         <CustomValueReactSelect
             optionRenderer={optionRenderer}
@@ -342,7 +342,7 @@ describe("Examples", () => {
 
     it("Value render with custom value option", () => {
         const valueRenderer = (option: ReactSelect.Option<CustomValueType>): ReactSelect.HandlerRendererResult =>
-          null;
+            null;
 
         <CustomValueReactSelect
             valueRenderer={valueRenderer}

@@ -5,7 +5,7 @@
 // TypeScript Version: 2.3
 
 import * as React from "react";
-import { ReactSelectProps } from "react-select";
+import ReactSelect from "react-select";
 import { ListProps } from "react-virtualized";
 
 export interface VirtualizedOptionRenderOptions<T> {
@@ -26,7 +26,7 @@ export interface VirtualizedOptionRenderOptions<T> {
  * Dummy interface to allow `VirtualizedSelectProps` to have an `optionRenderer` type
  * incompatible with the one in `ReactSelectProps`.
  */
-interface VirtualizedSelectPropsBase extends ReactSelectProps {
+interface VirtualizedSelectPropsBase extends ReactSelect.ReactSelectProps {
     optionRenderer?: any;
 }
 export interface VirtualizedSelectProps extends VirtualizedSelectPropsBase {
