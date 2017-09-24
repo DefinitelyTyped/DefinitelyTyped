@@ -262,7 +262,7 @@ let activeDoc = app.ActiveDocument;
     app.Selection.Paragraphs.Borders.Enable = true;
 
     if (app.Selection.Tables.Count >= 1) {
-        app.Selection.Tables.Item(1).Rows.Item(1).Shading.Texture = Word.WdTextureIndex.wdTexture10Percent;    
+        app.Selection.Tables.Item(1).Rows.Item(1).Shading.Texture = Word.WdTextureIndex.wdTexture10Percent;
     } else {
         WScript.Echo('Selection doesn\'t include a table');
     }
@@ -334,6 +334,18 @@ let activeDoc = app.ActiveDocument;
     let i = parseInt(activeDoc.Variables.Item('Age').Value, 10);
 
     // document properties
-    activeDoc.CustomDocumentProperties
+    activeDoc.CustomDocumentProperties.Add('YourName', false, Office.MsoDocProperties.msoPropertyTypeString);
 
+    activeDoc.AttachedTemplate.AutoTextEntries.Add('MyText', app.Selection.Range);
+
+    // no method assignment in Javascript
+    ActiveXObject.set(app.System, 'PrivateProfileString', ['C:\\My Documents\\Macro.ini', 'DocTracker', 'DocNum'], '1');
+
+    let docNum = parseInt(app.System.PrivateProfileString('C:\\My Documents\\Macro.ini', 'DocTracker', 'DocNum'), 10);
+
+    let section = 'HKEY_CURRENT_USER\\Software\\Microsoft\\Office\\12.0\\Word\Options';
+    let programDir = app.System.PrivateProfileString('', section, 'PROGRAMDIR');
+    WScript.Echo(`The program directory for Word is ${programDir}`);
+
+    ActiveXObject.set(app.System, 'PrivateProfileString', ['', section, 'DOC-PATH'], 'C:\\My Documents');
 })();

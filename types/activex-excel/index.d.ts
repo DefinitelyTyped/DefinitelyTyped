@@ -8169,7 +8169,7 @@ declare namespace Excel {
         public AutoUpdateFrequency: number;
         public AutoUpdateSaveChanges: boolean;
         public BreakLink(Name: string, Type: XlLinkType): void;
-        public readonly BuiltinDocumentProperties: any;
+        public readonly BuiltinDocumentProperties: Office.DocumentProperties<Application>;
         public readonly CalculationVersion: number;
         public CanCheckIn(): boolean;
         public ChangeFileAccess(Mode: XlFileAccess, WritePassword?: any, Notify?: any): void;
@@ -8193,7 +8193,7 @@ declare namespace Excel {
         public readonly ContentTypeProperties: Office.MetaProperties;
         public readonly CreateBackup: boolean;
         public readonly Creator: XlCreator;
-        public readonly CustomDocumentProperties: any;
+        public readonly CustomDocumentProperties: Office.DocumentProperties<Application>;
         public readonly CustomViews: CustomViews;
         public readonly CustomXMLParts: Office.CustomXMLParts;
         public Date1904: boolean;

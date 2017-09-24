@@ -4203,6 +4203,31 @@ declare namespace Office {
         public readonly Parent: any;
     }
 
+    class DocumentProperties<TApplication = any> {
+        private 'Office.DocumentProperties_typekey': DocumentProperties<TApplication>;
+        private constructor();
+        public Add(Name: string, LinkToContent: boolean, Type?: MsoDocProperties, Value?: any, LinkSource?: string): DocumentProperty;
+        public Application: TApplication;
+        public Count: number;
+        public Creator: number;
+        public Item(index: string | number): DocumentProperty<TApplication>;
+        public Parent: any;
+    }
+
+    class DocumentProperty<TApplication = any> {
+        private 'Office.DocumentProperty_typekey': DocumentProperty<TApplication>;
+        private constructor();
+        public Application: TApplication;
+        public Creator: number;
+        public Delete(): void;
+        public LinkSource: string;
+        public LinkToContent: boolean;
+        public Name: string;
+        public Parent: any;
+        public Type: MsoDocProperties;
+        public Value: any;
+    }
+
     class DocumentLibraryVersion {
         private 'Office.DocumentLibraryVersion_typekey': DocumentLibraryVersion;
         private constructor();

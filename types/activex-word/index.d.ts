@@ -6486,7 +6486,7 @@ declare namespace Word {
         public Background: Shape;
         public readonly Bibliography: Bibliography;
         public readonly Bookmarks: Bookmarks;
-        public readonly BuiltInDocumentProperties: any;
+        public readonly BuiltInDocumentProperties: Office.DocumentProperties<Application>;
         public CanCheckin(): boolean;
         public readonly Characters: Characters;
         public CheckConsistency(): void;
@@ -6542,7 +6542,7 @@ declare namespace Word {
             InfoBlock?: any, RecipientCode?: any, RecipientGender?: any, ReturnAddressShortForm?: any, SenderCity?: any, SenderCode?: any, SenderGender?: any, SenderReference?: any): LetterContent;
         public readonly Creator: number;
         public readonly CurrentRsid: number;
-        public readonly CustomDocumentProperties: any;
+        public readonly CustomDocumentProperties: Office.DocumentProperties<Application>;
         public readonly CustomXMLParts: Office.CustomXMLParts;
         public DataForm(): void;
         public readonly DefaultTableStyle: any;
@@ -11608,9 +11608,9 @@ declare namespace Word {
         public readonly AutoTextEntries: AutoTextEntries;
         public readonly BuildingBlockEntries: BuildingBlockEntries;
         public readonly BuildingBlockTypes: BuildingBlockTypes;
-        public readonly BuiltInDocumentProperties: any;
+        public readonly BuiltInDocumentProperties: Office.DocumentProperties<Application>;
         public readonly Creator: number;
-        public readonly CustomDocumentProperties: any;
+        public readonly CustomDocumentProperties: Office.DocumentProperties<Application>;
         public FarEastLineBreakLanguage: WdFarEastLineBreakLanguageID;
         public FarEastLineBreakLevel: WdFarEastLineBreakLevel;
         public readonly FullName: string;
@@ -12494,6 +12494,7 @@ interface ActiveXObject {
     on(obj: Word.OLEControl, event: 'GotFocus' | 'LostFocus', handler: (this: Word.OLEControl, parameter: {}) => void): void;
     set(obj: Word.Document, propertyName: 'ActiveWritingStyle', parameterTypes: [any], newValue: string): void;
     set(obj: Word.Document, propertyName: 'Compatibility', parameterTypes: [Word.WdCompatibility], newValue: boolean): void;
+    set(obj: Word.System, propertyName: 'PrivateProfileString', parameterTypes: [string, string, string], newValue: string): void;
     new<K extends keyof ActiveXObjectNameMap = any>(progid: K): ActiveXObjectNameMap[K];
 }
 
