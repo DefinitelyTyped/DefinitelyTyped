@@ -597,12 +597,12 @@ declare namespace ADODB {
     class Command {
         private 'ADODB.Command_typekey': Command;
         private constructor();
-        public ActiveConnection: Connection;
-        public Cancel(): void;
-        public CommandStream: any;
-        public CommandText: string;
-        public CommandTimeout: number;
-        public CommandType: CommandTypeEnum;
+        ActiveConnection: Connection;
+        Cancel(): void;
+        CommandStream: any;
+        CommandText: string;
+        CommandTimeout: number;
+        CommandType: CommandTypeEnum;
 
         /**
          * @param string [Name='']
@@ -610,38 +610,38 @@ declare namespace ADODB {
          * @param ADODB.ParameterDirectionEnum [Direction=1]
          * @param number [Size=0]
          */
-        public CreateParameter(Name?: string, Type?: DataTypeEnum, Direction?: ParameterDirectionEnum, Size?: number, Value?: any): Parameter;
-        public Dialect: string;
+        CreateParameter(Name?: string, Type?: DataTypeEnum, Direction?: ParameterDirectionEnum, Size?: number, Value?: any): Parameter;
+        Dialect: string;
 
         /** @param number [Options=-1] */
-        public Execute(RecordsAffected?: number, Parameters?: SafeArray<any>, Options?: number): Recordset;
-        public Name: string;
-        public NamedParameters: boolean;
-        public readonly Parameters: Parameters;
-        public Prepared: boolean;
-        public readonly Properties: Properties;
-        public readonly State: number;
+        Execute(RecordsAffected?: number, Parameters?: SafeArray<any>, Options?: number): Recordset;
+        Name: string;
+        NamedParameters: boolean;
+        readonly Parameters: Parameters;
+        Prepared: boolean;
+        readonly Properties: Properties;
+        readonly State: number;
     }
 
     class Connection {
         private 'ADODB.Connection_typekey': Connection;
         private constructor();
-        public Attributes: number;
-        public BeginTrans(): number;
-        public Cancel(): void;
-        public Close(): void;
-        public CommandTimeout: number;
-        public CommitTrans(): void;
-        public ConnectionString: string;
-        public ConnectionTimeout: number;
-        public CursorLocation: CursorLocationEnum;
-        public DefaultDatabase: string;
-        public readonly Errors: Errors;
+        Attributes: number;
+        BeginTrans(): number;
+        Cancel(): void;
+        Close(): void;
+        CommandTimeout: number;
+        CommitTrans(): void;
+        ConnectionString: string;
+        ConnectionTimeout: number;
+        CursorLocation: CursorLocationEnum;
+        DefaultDatabase: string;
+        readonly Errors: Errors;
 
         /** @param number [Options=-1] */
-        public Execute(CommandText: string, RecordsAffected: any, Options?: number): Recordset;
-        public IsolationLevel: IsolationLevelEnum;
-        public Mode: ConnectModeEnum;
+        Execute(CommandText: string, RecordsAffected: any, Options?: number): Recordset;
+        IsolationLevel: IsolationLevelEnum;
+        Mode: ConnectModeEnum;
 
         /**
          * @param string [ConnectionString='']
@@ -649,54 +649,54 @@ declare namespace ADODB {
          * @param string [Password='']
          * @param number [Options=-1]
          */
-        public Open(ConnectionString?: string, UserID?: string, Password?: string, Options?: number): void;
-        public OpenSchema(Schema: SchemaEnum, Restrictions?: any, SchemaID?: any): Recordset;
-        public readonly Properties: Properties;
-        public Provider: string;
-        public RollbackTrans(): void;
-        public readonly State: number;
-        public readonly Version: string;
+        Open(ConnectionString?: string, UserID?: string, Password?: string, Options?: number): void;
+        OpenSchema(Schema: SchemaEnum, Restrictions?: any, SchemaID?: any): Recordset;
+        readonly Properties: Properties;
+        Provider: string;
+        RollbackTrans(): void;
+        readonly State: number;
+        readonly Version: string;
     }
 
     class Error {
         private 'ADODB.Error_typekey': Error;
         private constructor();
-        public readonly Description: string;
-        public readonly HelpContext: number;
-        public readonly HelpFile: string;
-        public readonly NativeError: number;
-        public readonly Number: number;
-        public readonly Source: string;
-        public readonly SQLState: string;
+        readonly Description: string;
+        readonly HelpContext: number;
+        readonly HelpFile: string;
+        readonly NativeError: number;
+        readonly Number: number;
+        readonly Source: string;
+        readonly SQLState: string;
     }
 
     class Errors {
         private 'ADODB.Errors_typekey': Errors;
         private constructor();
-        public Clear(): void;
-        public readonly Count: number;
-        public Item(Index: any): Error;
-        public Refresh(): void;
+        Clear(): void;
+        readonly Count: number;
+        Item(Index: any): Error;
+        Refresh(): void;
     }
 
     class Field {
         private 'ADODB.Field_typekey': Field;
         private constructor();
-        public readonly ActualSize: number;
-        public AppendChunk(Data: any): void;
-        public Attributes: number;
-        public DataFormat: any;
-        public DefinedSize: number;
-        public GetChunk(Length: number): any;
-        public readonly Name: string;
-        public NumericScale: number;
-        public readonly OriginalValue: any;
-        public Precision: number;
-        public readonly Properties: Properties;
-        public readonly Status: number;
-        public Type: DataTypeEnum;
-        public readonly UnderlyingValue: any;
-        public Value: any;
+        readonly ActualSize: number;
+        AppendChunk(Data: any): void;
+        Attributes: number;
+        DataFormat: any;
+        DefinedSize: number;
+        GetChunk(Length: number): any;
+        readonly Name: string;
+        NumericScale: number;
+        readonly OriginalValue: any;
+        Precision: number;
+        readonly Properties: Properties;
+        readonly Status: number;
+        Type: DataTypeEnum;
+        readonly UnderlyingValue: any;
+        Value: any;
     }
 
     class Fields {
@@ -707,72 +707,72 @@ declare namespace ADODB {
          * @param number [DefinedSize=0]
          * @param ADODB.FieldAttributeEnum [Attrib=-1]
          */
-        public _Append(Name: string, Type: DataTypeEnum, DefinedSize?: number, Attrib?: FieldAttributeEnum): void;
+        _Append(Name: string, Type: DataTypeEnum, DefinedSize?: number, Attrib?: FieldAttributeEnum): void;
 
         /**
          * @param number [DefinedSize=0]
          * @param ADODB.FieldAttributeEnum [Attrib=-1]
          */
-        public Append(Name: string, Type: DataTypeEnum, DefinedSize?: number, Attrib?: FieldAttributeEnum, FieldValue?: any): void;
-        public CancelUpdate(): void;
-        public readonly Count: number;
-        public Delete(Index: any): void;
-        public Item(Index: any): Field;
-        public Refresh(): void;
+        Append(Name: string, Type: DataTypeEnum, DefinedSize?: number, Attrib?: FieldAttributeEnum, FieldValue?: any): void;
+        CancelUpdate(): void;
+        readonly Count: number;
+        Delete(Index: any): void;
+        Item(Index: any): Field;
+        Refresh(): void;
 
         /** @param ADODB.ResyncEnum [ResyncValues=2] */
-        public Resync(ResyncValues?: ResyncEnum): void;
-        public Update(): void;
+        Resync(ResyncValues?: ResyncEnum): void;
+        Update(): void;
     }
 
     class Parameter {
         private 'ADODB.Parameter_typekey': Parameter;
         private constructor();
-        public AppendChunk(Val: any): void;
-        public Attributes: number;
-        public Direction: ParameterDirectionEnum;
-        public Name: string;
-        public NumericScale: number;
-        public Precision: number;
-        public readonly Properties: Properties;
-        public Size: number;
-        public Type: DataTypeEnum;
-        public Value: any;
+        AppendChunk(Val: any): void;
+        Attributes: number;
+        Direction: ParameterDirectionEnum;
+        Name: string;
+        NumericScale: number;
+        Precision: number;
+        readonly Properties: Properties;
+        Size: number;
+        Type: DataTypeEnum;
+        Value: any;
     }
 
     class Parameters {
         private 'ADODB.Parameters_typekey': Parameters;
         private constructor();
-        public Append(Object: any): void;
-        public readonly Count: number;
-        public Delete(Index: any): void;
-        public Item(Index: any): Parameter;
-        public Refresh(): void;
+        Append(Object: any): void;
+        readonly Count: number;
+        Delete(Index: any): void;
+        Item(Index: any): Parameter;
+        Refresh(): void;
     }
 
     class Properties {
         private 'ADODB.Properties_typekey': Properties;
         private constructor();
-        public readonly Count: number;
-        public Item(Index: any): Property;
-        public Refresh(): void;
+        readonly Count: number;
+        Item(Index: any): Property;
+        Refresh(): void;
     }
 
     class Property {
         private 'ADODB.Property_typekey': Property;
         private constructor();
-        public Attributes: number;
-        public readonly Name: string;
-        public readonly Type: DataTypeEnum;
-        public Value: any;
+        Attributes: number;
+        readonly Name: string;
+        readonly Type: DataTypeEnum;
+        Value: any;
     }
 
     class Record {
         private 'ADODB.Record_typekey': Record;
         private constructor();
-        public ActiveConnection: any;
-        public Cancel(): void;
-        public Close(): void;
+        ActiveConnection: any;
+        Cancel(): void;
+        Close(): void;
 
         /**
          * @param string [Source='']
@@ -782,16 +782,16 @@ declare namespace ADODB {
          * @param ADODB.CopyRecordOptionsEnum [Options=-1]
          * @param boolean [Async=false]
          */
-        public CopyRecord(Source?: string, Destination?: string, UserName?: string, Password?: string, Options?: CopyRecordOptionsEnum, Async?: boolean): string;
+        CopyRecord(Source?: string, Destination?: string, UserName?: string, Password?: string, Options?: CopyRecordOptionsEnum, Async?: boolean): string;
 
         /**
          * @param string [Source='']
          * @param boolean [Async=false]
          */
-        public DeleteRecord(Source?: string, Async?: boolean): void;
-        public readonly Fields: Fields;
-        public GetChildren(): Recordset;
-        public Mode: ConnectModeEnum;
+        DeleteRecord(Source?: string, Async?: boolean): void;
+        readonly Fields: Fields;
+        GetChildren(): Recordset;
+        Mode: ConnectModeEnum;
 
         /**
          * @param string [Source='']
@@ -801,7 +801,7 @@ declare namespace ADODB {
          * @param ADODB.MoveRecordOptionsEnum [Options=-1]
          * @param boolean [Async=false]
          */
-        public MoveRecord(Source?: string, Destination?: string, UserName?: string, Password?: string, Options?: MoveRecordOptionsEnum, Async?: boolean): string;
+        MoveRecord(Source?: string, Destination?: string, UserName?: string, Password?: string, Options?: MoveRecordOptionsEnum, Async?: boolean): string;
 
         /**
          * @param ADODB.ConnectModeEnum [Mode=0]
@@ -810,66 +810,66 @@ declare namespace ADODB {
          * @param string [UserName='']
          * @param string [Password='']
          */
-        public Open(Source: any, ActiveConnection: any, Mode?: ConnectModeEnum, CreateOptions?: RecordCreateOptionsEnum, Options?: RecordOpenOptionsEnum, UserName?: string, Password?: string): void;
-        public readonly ParentURL: string;
-        public readonly Properties: Properties;
-        public readonly RecordType: RecordTypeEnum;
-        public Source: any;
-        public readonly State: ObjectStateEnum;
+        Open(Source: any, ActiveConnection: any, Mode?: ConnectModeEnum, CreateOptions?: RecordCreateOptionsEnum, Options?: RecordOpenOptionsEnum, UserName?: string, Password?: string): void;
+        readonly ParentURL: string;
+        readonly Properties: Properties;
+        readonly RecordType: RecordTypeEnum;
+        Source: any;
+        readonly State: ObjectStateEnum;
     }
 
     class Recordset {
         private 'ADODB.Recordset_typekey': Recordset;
         private constructor();
-        public _xClone(): Recordset;
+        _xClone(): Recordset;
 
         /** @param ADODB.AffectEnum [AffectRecords=3] */
-        public _xResync(AffectRecords?: AffectEnum): void;
+        _xResync(AffectRecords?: AffectEnum): void;
 
         /**
          * @param string [FileName='']
          * @param ADODB.PersistFormatEnum [PersistFormat=0]
          */
-        public _xSave(FileName?: string, PersistFormat?: PersistFormatEnum): void;
-        public AbsolutePage: PositionEnum;
-        public AbsolutePosition: PositionEnum;
-        public readonly ActiveCommand: any;
-        public ActiveConnection: any;
-        public AddNew(FieldList?: any, Values?: any): void;
-        public readonly BOF: boolean;
-        public Bookmark: any;
-        public CacheSize: number;
-        public Cancel(): void;
+        _xSave(FileName?: string, PersistFormat?: PersistFormatEnum): void;
+        AbsolutePage: PositionEnum;
+        AbsolutePosition: PositionEnum;
+        readonly ActiveCommand: any;
+        ActiveConnection: any;
+        AddNew(FieldList?: any, Values?: any): void;
+        readonly BOF: boolean;
+        Bookmark: any;
+        CacheSize: number;
+        Cancel(): void;
 
         /** @param ADODB.AffectEnum [AffectRecords=3] */
-        public CancelBatch(AffectRecords?: AffectEnum): void;
-        public CancelUpdate(): void;
+        CancelBatch(AffectRecords?: AffectEnum): void;
+        CancelUpdate(): void;
 
         /** @param ADODB.LockTypeEnum [LockType=-1] */
-        public Clone(LockType?: LockTypeEnum): Recordset;
-        public Close(): void;
-        public Collect(Index: any): any;
-        public CompareBookmarks(Bookmark1: any, Bookmark2: any): CompareEnum;
-        public CursorLocation: CursorLocationEnum;
-        public CursorType: CursorTypeEnum;
-        public DataMember: string;
-        public DataSource: any;
+        Clone(LockType?: LockTypeEnum): Recordset;
+        Close(): void;
+        Collect(Index: any): any;
+        CompareBookmarks(Bookmark1: any, Bookmark2: any): CompareEnum;
+        CursorLocation: CursorLocationEnum;
+        CursorType: CursorTypeEnum;
+        DataMember: string;
+        DataSource: any;
 
         /** @param ADODB.AffectEnum [AffectRecords=1] */
-        public Delete(AffectRecords?: AffectEnum): void;
-        public readonly EditMode: EditModeEnum;
-        public readonly EOF: boolean;
-        public readonly Fields: Fields;
-        public Filter: any;
+        Delete(AffectRecords?: AffectEnum): void;
+        readonly EditMode: EditModeEnum;
+        readonly EOF: boolean;
+        readonly Fields: Fields;
+        Filter: any;
 
         /**
          * @param number [SkipRecords=0]
          * @param ADODB.SearchDirectionEnum [SearchDirection=1]
          */
-        public Find(Criteria: string, SkipRecords?: number, SearchDirection?: SearchDirectionEnum, Start?: any): void;
+        Find(Criteria: string, SkipRecords?: number, SearchDirection?: SearchDirectionEnum, Start?: any): void;
 
         /** @param number [Rows=-1] */
-        public GetRows(Rows?: number, Start?: any, Fields?: any): any;
+        GetRows(Rows?: number, Start?: any, Fields?: any): any;
 
         /**
          * @param ADODB.StringFormatEnum [StringFormat=2]
@@ -878,69 +878,69 @@ declare namespace ADODB {
          * @param string [RowDelimeter='']
          * @param string [NullExpr='']
          */
-        public GetString(StringFormat?: StringFormatEnum, NumRows?: number, ColumnDelimeter?: string, RowDelimeter?: string, NullExpr?: string): string;
-        public Index: string;
-        public LockType: LockTypeEnum;
-        public MarshalOptions: MarshalOptionsEnum;
-        public MaxRecords: number;
-        public Move(NumRecords: number, Start?: any): void;
-        public MoveFirst(): void;
-        public MoveLast(): void;
-        public MoveNext(): void;
-        public MovePrevious(): void;
-        public NextRecordset(RecordsAffected?: any): Recordset;
+        GetString(StringFormat?: StringFormatEnum, NumRows?: number, ColumnDelimeter?: string, RowDelimeter?: string, NullExpr?: string): string;
+        Index: string;
+        LockType: LockTypeEnum;
+        MarshalOptions: MarshalOptionsEnum;
+        MaxRecords: number;
+        Move(NumRecords: number, Start?: any): void;
+        MoveFirst(): void;
+        MoveLast(): void;
+        MoveNext(): void;
+        MovePrevious(): void;
+        NextRecordset(RecordsAffected?: any): Recordset;
 
         /**
          * @param ADODB.CursorTypeEnum [CursorType=-1]
          * @param ADODB.LockTypeEnum [LockType=-1]
          * @param number [Options=-1]
          */
-        public Open(Source: any, ActiveConnection: any, CursorType?: CursorTypeEnum, LockType?: LockTypeEnum, Options?: number): void;
-        public readonly PageCount: number;
-        public PageSize: number;
-        public readonly Properties: Properties;
-        public readonly RecordCount: number;
+        Open(Source: any, ActiveConnection: any, CursorType?: CursorTypeEnum, LockType?: LockTypeEnum, Options?: number): void;
+        readonly PageCount: number;
+        PageSize: number;
+        readonly Properties: Properties;
+        readonly RecordCount: number;
 
         /** @param number [Options=-1] */
-        public Requery(Options?: number): void;
+        Requery(Options?: number): void;
 
         /**
          * @param ADODB.AffectEnum [AffectRecords=3]
          * @param ADODB.ResyncEnum [ResyncValues=2]
          */
-        public Resync(AffectRecords?: AffectEnum, ResyncValues?: ResyncEnum): void;
+        Resync(AffectRecords?: AffectEnum, ResyncValues?: ResyncEnum): void;
 
         /** @param ADODB.PersistFormatEnum [PersistFormat=0] */
-        public Save(Destination: any, PersistFormat?: PersistFormatEnum): void;
+        Save(Destination: any, PersistFormat?: PersistFormatEnum): void;
 
         /** @param ADODB.SeekEnum [SeekOption=1] */
-        public Seek(KeyValues: any, SeekOption?: SeekEnum): void;
-        public Sort: string;
-        public Source: any;
-        public readonly State: number;
-        public readonly Status: number;
-        public StayInSync: boolean;
-        public Supports(CursorOptions: CursorOptionEnum): boolean;
-        public Update(Fields?: string | SafeArray<string | number>, Values?: any): void;
+        Seek(KeyValues: any, SeekOption?: SeekEnum): void;
+        Sort: string;
+        Source: any;
+        readonly State: number;
+        readonly Status: number;
+        StayInSync: boolean;
+        Supports(CursorOptions: CursorOptionEnum): boolean;
+        Update(Fields?: string | SafeArray<string | number>, Values?: any): void;
 
         /** @param ADODB.AffectEnum [AffectRecords=3] */
-        public UpdateBatch(AffectRecords?: AffectEnum): void;
+        UpdateBatch(AffectRecords?: AffectEnum): void;
     }
 
     class Stream {
         private 'ADODB.Stream_typekey': Stream;
         private constructor();
-        public Cancel(): void;
-        public Charset: string;
-        public Close(): void;
+        Cancel(): void;
+        Charset: string;
+        Close(): void;
 
         /** @param number [CharNumber=-1] */
-        public CopyTo(DestStream: Stream, CharNumber?: number): void;
-        public readonly EOS: boolean;
-        public Flush(): void;
-        public LineSeparator: LineSeparatorEnum;
-        public LoadFromFile(FileName: string): void;
-        public Mode: ConnectModeEnum;
+        CopyTo(DestStream: Stream, CharNumber?: number): void;
+        readonly EOS: boolean;
+        Flush(): void;
+        LineSeparator: LineSeparatorEnum;
+        LoadFromFile(FileName: string): void;
+        Mode: ConnectModeEnum;
 
         /**
          * @param ADODB.ConnectModeEnum [Mode=0]
@@ -948,26 +948,26 @@ declare namespace ADODB {
          * @param string [UserName='']
          * @param string [Password='']
          */
-        public Open(Source: any, Mode?: ConnectModeEnum, Options?: StreamOpenOptionsEnum, UserName?: string, Password?: string): void;
-        public Position: number;
+        Open(Source: any, Mode?: ConnectModeEnum, Options?: StreamOpenOptionsEnum, UserName?: string, Password?: string): void;
+        Position: number;
 
         /** @param number [NumBytes=-1] */
-        public Read(NumBytes?: number): any;
+        Read(NumBytes?: number): any;
 
         /** @param number [NumChars=-1] */
-        public ReadText(NumChars?: number): string;
+        ReadText(NumChars?: number): string;
 
         /** @param ADODB.SaveOptionsEnum [Options=1] */
-        public SaveToFile(FileName: string, Options?: SaveOptionsEnum): void;
-        public SetEOS(): void;
-        public readonly Size: number;
-        public SkipLine(): void;
-        public readonly State: ObjectStateEnum;
-        public Type: StreamTypeEnum;
-        public Write(Buffer: any): void;
+        SaveToFile(FileName: string, Options?: SaveOptionsEnum): void;
+        SetEOS(): void;
+        readonly Size: number;
+        SkipLine(): void;
+        readonly State: ObjectStateEnum;
+        Type: StreamTypeEnum;
+        Write(Buffer: any): void;
 
         /** @param ADODB.StreamWriteEnum [Options=0] */
-        public WriteText(Data: string, Options?: StreamWriteEnum): void;
+        WriteText(Data: string, Options?: StreamWriteEnum): void;
     }
 
     namespace EventHelperTypes {
