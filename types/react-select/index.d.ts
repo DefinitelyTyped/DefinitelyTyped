@@ -6,7 +6,7 @@
 
 import * as React from 'react';
 
-export = ReactSelectClass;
+export default ReactSelectClass;
 
 declare namespace ReactSelectClass {
     export interface AutocompleteResult {
