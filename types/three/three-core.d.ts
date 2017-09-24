@@ -836,6 +836,7 @@ export class BufferGeometry extends EventDispatcher {
 
     getIndex(): BufferAttribute;
     setIndex( index: BufferAttribute ): void;
+	setIndex( index: any[] ): void;
 
     addAttribute(name: string, attribute: BufferAttribute|InterleavedBufferAttribute): BufferGeometry;
 
@@ -4193,7 +4194,7 @@ export class Vector2 implements Vector {
     width: number;
     height: number;
 
-    /**
+    /** 
      * Sets value of this vector.
      */
     set(x: number, y: number): Vector2;
