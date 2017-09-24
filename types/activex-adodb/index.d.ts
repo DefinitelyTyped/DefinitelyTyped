@@ -2,6 +2,7 @@
 // Project: https://msdn.microsoft.com/en-us/library/jj249010.aspx
 // Definitions by: Zev Spitz <https://github.com/zspitz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 declare namespace ADODB {
     const enum ADCPROP_ASYNCTHREADPRIORITY_ENUM {
@@ -920,7 +921,7 @@ declare namespace ADODB {
         public readonly Status: number;
         public StayInSync: boolean;
         public Supports(CursorOptions: CursorOptionEnum): boolean;
-        public Update(Fields?: string | SafeArray<string | number>, Values?: any | SafeArray<any>): void;
+        public Update(Fields?: string | SafeArray<string | number>, Values?: any): void;
 
         /** @param ADODB.AffectEnum [AffectRecords=3] */
         public UpdateBatch(AffectRecords?: AffectEnum): void;
