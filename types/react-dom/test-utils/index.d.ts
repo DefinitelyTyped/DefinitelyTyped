@@ -119,9 +119,9 @@ export namespace Simulate {
     const keyPress: EventSimulator;
     const keyUp: EventSimulator;
     const load: EventSimulator;
+    const loadStart: EventSimulator;
     const loadedData: EventSimulator;
     const loadedMetadata: EventSimulator;
-    const loadStart: EventSimulator;
     const mouseDown: EventSimulator;
     const mouseEnter: EventSimulator;
     const mouseLeave: EventSimulator;
