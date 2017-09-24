@@ -124,15 +124,15 @@ declare namespace adone {
                 clone(options: FileCloneOptions & { contents: true }): this;
                 clone(options?: FileCloneOptions): File;
 
-                isBuffer(): this is BufferFile;
+                isBuffer(): boolean;
 
-                isStream(): this is StreamFile;
+                isStream(): boolean;
 
-                isNull(): this is NullFile;
+                isNull(): boolean;
 
-                isDirectory(): this is DirectoryFile;
+                isDirectory(): boolean;
 
-                isSymbolic(): this is SymbolicFile;
+                isSymbolic(): boolean;
             }
 
             interface NullFile extends File {
@@ -146,7 +146,6 @@ declare namespace adone {
 
             interface StreamFile extends File {
                 contents: nodestd.stream.Readable;
-                //
             }
 
             type DirectoryFile = File;
