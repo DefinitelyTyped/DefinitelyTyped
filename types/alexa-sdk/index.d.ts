@@ -7,7 +7,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export function handler<T>(event: RequestBody<T>, context: Context, callback?: (err: any, response: any) => void ): AlexaObject<T>;
+export function handler<T>(event: RequestBody<T>, context: Context, callback?: (err: any, response: any) => void): AlexaObject<T>;
 export function CreateStateHandler(state: string, obj: any): any;
 export let StateString: string;
 
@@ -98,10 +98,34 @@ export interface Request {
     locale?: string;
 }
 
+export interface ResolutionStatus {
+    code: string;
+}
+
+export interface ResolutionValue {
+    name: string;
+    id: string;
+}
+
+export interface ResolutionValueContainer {
+    value: ResolutionValue;
+}
+
+export interface Resolution {
+    authority: string;
+    status: ResolutionStatus;
+    values: ResolutionValueContainer[];
+}
+
+export interface Resolutions {
+    resolutionsPerAuthority: Resolution[];
+}
+
 export interface SlotValue {
     confirmationStatus?: ConfirmationStatuses;
     name: string;
     value?: any;
+    resolutions?: Resolutions;
 }
 
 export interface Intent {

@@ -1,13 +1,14 @@
+import * as L from 'leaflet';
+import 'leaflet.awesome-markers';
 
+const map: L.Map = L.map('map-container');
 
-var map: L.Map;
-
-var redMarker = L.AwesomeMarkers.icon({
+const redMarker = L.AwesomeMarkers.icon({
     icon: 'coffee',
     markerColor: 'red'
 });
 
-var blueMarker = new L.AwesomeMarkers.Icon({
+const blueMarker = new L.AwesomeMarkers.Icon({
     icon: 'star',
     markerColor: 'blue'
 });

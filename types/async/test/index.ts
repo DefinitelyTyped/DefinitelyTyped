@@ -271,9 +271,9 @@ async.waterfall([
 ], function (err, result) { });
 
 
-var q = async.queue<any,Error>(function (task: any, callback: () => void) {
+var q = async.queue<any,Error>(function (task: any, callback: (err?:Error,msg?:string) => void) {
     console.log('hello ' + task.name);
-    callback();
+    callback(undefined,'a message.');
 }, 2);
 
 
@@ -289,6 +289,10 @@ q.push({ name: 'bar' }, function (err) {
 
 q.push([{ name: 'baz' }, { name: 'bay' }, { name: 'bax' }], function (err) {
     console.log('finished processing bar');
+});
+
+q.push<string,Error>({name: 'foo'}, function (err,msg) {
+  console.log('foo finished with a message "'+ msg! + '"');
 });
 
 q.unshift({ name: 'foo' });

@@ -110,7 +110,7 @@ interface CustomDatum {
 
 // Get contour generator -------------------------------------------------------
 
-let contDensDefault: d3Contour.ContourDensity<[number, number]> = d3Contour.contourDensity();
+const contDensDefault: d3Contour.ContourDensity<[number, number]> = d3Contour.contourDensity();
 let contDensCustom: d3Contour.ContourDensity<CustomDatum> = d3Contour.contourDensity<CustomDatum>();
 
 // Configure contour generator =================================================

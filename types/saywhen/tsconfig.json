@@ -4,11 +4,8 @@
 		"lib": [
 			"es6"
 		],
-		"alwaysStrict": true,
 		"forceConsistentCasingInFileNames": true,
-		"noFallthroughCasesInSwitch": true,
 		"noImplicitAny": true,
-		"noImplicitReturns": true,
 		"noImplicitThis": true,
 		"noUnusedParameters": false,
 		"noUnusedLocals": true,

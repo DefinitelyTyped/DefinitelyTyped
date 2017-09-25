@@ -13,8 +13,8 @@ var num: number;
 var str: string;
 var err: Error;
 var x: any;
-var f: Function;
-var func: Function;
+var f: (...args: any[]) => any;
+var asyncfunc: (...args: any[]) => Promise<any>;
 var arr: any[];
 var exp: RegExp;
 var anyArr: any[];
@@ -589,8 +589,10 @@ Promise.props({ num: 1, str: Promise.resolve('a') }).then(val => { propsValue = 
 Promise.props(Promise.props({ num: 1, str: Promise.resolve('a') })).then(val => { propsValue = val });
 
 var propsMapValue: Map<number, string>;
-Promise.resolve(new Map<number, Promise<string>>()).props().then(val => { propsMapValue = val });
-Promise.props(new Map<number, Promise<string>>()).then(val => { propsMapValue = val });
+Promise.resolve(new Map<number, string>()).props().then(val => { propsMapValue = val });
+Promise.resolve(new Map<number, PromiseLike<string>>()).props().then(val => { propsMapValue = val });
+Promise.props(new Map<number, string>()).then(val => { propsMapValue = val });
+Promise.props(new Map<number, PromiseLike<string>>()).then(val => { propsMapValue = val });
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
@@ -744,7 +746,7 @@ fooProm = Promise.attempt(() => {
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-func = Promise.method(function () {
+asyncfunc = Promise.method(function () {
 
 });
 
@@ -782,8 +784,8 @@ voidProm = Promise.delay(num);
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-func = Promise.promisify(f);
-func = Promise.promisify(f, obj);
+asyncfunc = Promise.promisify(f);
+asyncfunc = Promise.promisify(f, obj);
 
 obj = Promise.promisifyAll(obj);
 anyProm = Promise.fromNode(callback => nodeCallbackFunc(callback));

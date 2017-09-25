@@ -75,19 +75,19 @@ export interface DownloadImgopts {
 
 export type Root = string | HTMLElement;
 
-export function newPlot(root: Root, data: Array<Partial<Data>>, layout?: Partial<Layout>, config?: Partial<Config>): Promise<PlotlyHTMLElement>;
-export function plot(root: Root, data: Array<Partial<Data>>, layout?: Partial<Layout>, config?: Partial<Config>): Promise<PlotlyHTMLElement>;
+export function newPlot(root: Root, data: Data[], layout?: Partial<Layout>, config?: Partial<Config>): Promise<PlotlyHTMLElement>;
+export function plot(root: Root, data: Data[], layout?: Partial<Layout>, config?: Partial<Config>): Promise<PlotlyHTMLElement>;
 export function relayout(root: Root, layout: Partial<Layout>): Promise<PlotlyHTMLElement>;
 export function redraw(root: Root): Promise<PlotlyHTMLElement>;
 export function purge(root: Root): void;
 export const d3: any;
-export function restyle(root: Root, aobj: Partial<Data>, traces?: number[] | number): Promise<PlotlyHTMLElement>;
-export function update(root: Root, traceUpdate: Partial<Data>, layoutUpdate: Partial<Layout>, traces?: number[] | number): Promise<PlotlyHTMLElement>;
-export function addTraces(root: Root, traces: Partial<Data> | Array<Partial<Data>>, newIndices?: number[] | number): Promise<PlotlyHTMLElement>;
+export function restyle(root: Root, aobj: Data, traces?: number[] | number): Promise<PlotlyHTMLElement>;
+export function update(root: Root, traceUpdate: Data, layoutUpdate: Partial<Layout>, traces?: number[] | number): Promise<PlotlyHTMLElement>;
+export function addTraces(root: Root, traces: Data | Data[], newIndices?: number[] | number): Promise<PlotlyHTMLElement>;
 export function deleteTraces(root: Root, indices: number[] | number): Promise<PlotlyHTMLElement>;
 export function moveTraces(root: Root, currentIndices: number[] | number, newIndices?: number[] | number): Promise<PlotlyHTMLElement>;
-export function extendTraces(root: Root, update: Partial<Data> | Array<Partial<Data>>, indices: number | number[]): Promise<PlotlyHTMLElement>;
-export function prependTraces(root: Root, update: Partial<Data> | Array<Partial<Data>>, indices: number | number[]): Promise<PlotlyHTMLElement>;
+export function extendTraces(root: Root, update: Data | Data[], indices: number | number[]): Promise<PlotlyHTMLElement>;
+export function prependTraces(root: Root, update: Data | Data[], indices: number | number[]): Promise<PlotlyHTMLElement>;
 export function toImage(root: Root, opts: ToImgopts): Promise<string>;
 export function downloadImage(root: Root, opts: DownloadImgopts): Promise<string>;
 
@@ -98,6 +98,14 @@ export interface Layout {
 	showlegend: boolean;
 	xaxis: Partial<Axis>;
 	yaxis: Partial<Axis>;
+	yaxis2: Partial<Axis>;
+	yaxis3: Partial<Axis>;
+	yaxis4: Partial<Axis>;
+	yaxis5: Partial<Axis>;
+	yaxis6: Partial<Axis>;
+	yaxis7: Partial<Axis>;
+	yaxis8: Partial<Axis>;
+	yaxis9: Partial<Axis>;
 	margin: Partial<Margin>;
 	height: number;
 	width: number;
@@ -138,6 +146,7 @@ export interface Axis {
 	showgrid: boolean;
 	fixedrange: boolean;
 	rangemode: "tozero" | 'normal' | 'nonnegative';
+	domain: number[];
 	type: AxisType;
 	tickformat: string;
 	hoverformat: string;
@@ -186,7 +195,7 @@ export type ModeBarButtons = 'lasso2d' | 'select2d' | 'sendDataToCloud' | 'autoS
 	'hoverClosestCartesian' | 'hoverCompareCartesian' | 'zoom3d' | 'pan3d' | 'orbitRotation' |
 	'tableRotation' | 'resetCameraDefault3d' | 'resetCameraLastSave3d' | 'hoverClosest3d' |
 	'zoomInGeo' | 'zoomOutGeo' | 'resetGeo' | 'hoverClosestGeo' | 'hoverClosestGl2d' |
-	'hoverClosestPie' | 'toggleHover' | 'toImage' | 'resetViews';
+	'hoverClosestPie' | 'toggleHover' | 'toImage' | 'resetViews' | 'toggleSpikelines';
 
 // Data
 
@@ -202,6 +211,9 @@ export interface ScatterData {
 	type: 'bar' | 'scatter' | 'scattergl';
 	x: Datum[] | Datum[][];
 	y: Datum[] | Datum[][];
+	z: Datum[] | Datum[][] | Datum[][][];
+	xaxis: string;
+	yaxis: string;
 	text: string | string[];
 	line: Partial<ScatterLine>;
 	'line.color': Color;

@@ -1,6 +1,6 @@
 // Type definitions for diff 3.2
 // Project: https://github.com/kpdecker/jsdiff
-// Definitions by: vvakame <https://github.com/vvakame/>
+// Definitions by: vvakame <https://github.com/vvakame>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -8,6 +8,15 @@ export = JsDiff;
 export as namespace JsDiff;
 
 declare namespace JsDiff {
+    interface ICaseOptions {
+        ignoreCase: boolean;
+    }
+
+    interface ILinesOptions {
+        ignoreWhitespace?: boolean;
+        newlineIsToken?: boolean;
+    }
+
     interface IDiffResult {
         value: string;
         count?: number;
@@ -54,18 +63,15 @@ declare namespace JsDiff {
         tokenize(value: string): any; // return types are string or string[]
     }
 
-    function diffChars(oldStr: string, newStr: string): IDiffResult[];
+    function diffChars(oldStr: string, newStr: string, options?: ICaseOptions): IDiffResult[];
 
-    function diffWords(oldStr: string, newStr: string): IDiffResult[];
+    function diffWords(oldStr: string, newStr: string, options?: ICaseOptions): IDiffResult[];
 
     function diffWordsWithSpace(oldStr: string, newStr: string): IDiffResult[];
 
     function diffJson(oldObj: object, newObj: object): IDiffResult[];
 
-    function diffLines(oldStr: string, newStr: string, options?: {
-        ignoreWhitespace?: boolean,
-        newlineIsToken?: boolean,
-    }): IDiffResult[];
+    function diffLines(oldStr: string, newStr: string, options?: ILinesOptions): IDiffResult[];
 
     function diffCss(oldStr: string, newStr: string): IDiffResult[];
 

@@ -376,7 +376,7 @@ feature = feature.clone();
 geometry = feature.getGeometry();
 stringValue = feature.getGeometryName();
 let featureGetId: string | number = feature.getId();
-let featureGetStyle: ol.style.Style | Array<ol.style.Style> | ol.FeatureStyleFunction = feature.getStyle();
+let featureGetStyle: ol.style.Style | Array<ol.style.Style> | ol.FeatureStyleFunction | ol.StyleFunction = feature.getStyle();
 featureStyleFunction = feature.getStyleFunction();
 voidValue = feature.setGeometry(geometry);
 voidValue = feature.setGeometryName(stringValue);
@@ -385,6 +385,7 @@ voidValue = feature.setId(numberValue);
 voidValue = feature.setStyle(style);
 voidValue = feature.setStyle(styleArray);
 voidValue = feature.setStyle(featureStyleFunction);
+voidValue = feature.setStyle(styleFunction);
 voidValue = feature.setProperties(object);
 
 //
@@ -400,10 +401,67 @@ voidValue = view.setMaxZoom(numberValue);
 voidValue = view.setMinZoom(numberValue);
 
 //
+// ol.layer.Base
+//
+let baseLayer: ol.layer.Base = new ol.layer.Base({
+    zIndex: 1
+});
+
+//
+// ol.layer.Group
+//
+let groupLayer: ol.layer.Group = new ol.layer.Group({
+    zIndex: 2
+});
+
+//
+// ol.layer.Heatmap
+//
+let heatmapLayer: ol.layer.Heatmap = new ol.layer.Heatmap({
+    source: new ol.source.Vector(),
+    weight: '',
+    zIndex: 1
+});
+
+//
+// ol.layer.Image
+//
+let imageLayer: ol.layer.Image = new ol.layer.Image({
+    source: new ol.source.Image({
+        projection: ''
+    }),
+    zIndex: 1
+});
+
+//
+// ol.layer.Layer
+//
+let layerLayer: ol.layer.Layer = new ol.layer.Layer({
+    zIndex: 2
+});
+
+//
 // ol.layer.Tile
 //
 let tileLayer: ol.layer.Tile = new ol.layer.Tile({
-    source: new ol.source.OSM()
+    source: new ol.source.OSM(),
+    zIndex: 0
+});
+
+//
+// ol.layer.Vector
+//
+let vectorLayer: ol.layer.Vector = new ol.layer.Vector({
+    source: new ol.source.Vector(),
+    zIndex: -1
+});
+
+//
+// ol.layer.VectorTile
+//
+let vectorTileLayer: ol.layer.VectorTile = new ol.layer.VectorTile({
+    renderOrder: () => 1,
+    zIndex: 2
 });
 
 //
@@ -590,6 +648,7 @@ voidValue = popup.setElement(popupElement);
 voidValue = popup.setMap(popupMap);
 voidValue = popup.setOffset(popupOffset);
 voidValue = popup.setPosition(coordinate);
+voidValue = popup.setPosition(undefined);
 voidValue = popup.setPositioning(popupPositioning);
 
 
@@ -693,6 +752,7 @@ draw = new ol.interaction.Draw({
 
 let dragbox: ol.interaction.DragBox = new ol.interaction.DragBox({
     className: stringValue,
+    minArea: 10,
     condition: ol.events.condition.always,
     boxEndCondition: function (mapBrowserEvent: ol.MapBrowserEvent, startPixel: ol.Pixel, endPixel: ol.Pixel) {
         let width: number = endPixel[0] - startPixel[0];
@@ -717,6 +777,17 @@ const select: ol.interaction.Select = new ol.interaction.Select({
     layers: (layer: ol.layer.Layer) => true,
 });
 
+let pinchZoom: ol.interaction.PinchZoom = new ol.interaction.PinchZoom({
+    constrainResolution: booleanValue,
+    duration: numberValue
+});
+
+let mouseWheelZoom: ol.interaction.MouseWheelZoom = new ol.interaction.MouseWheelZoom({
+    constrainResolution: booleanValue,
+    duration: numberValue,
+    timeout: numberValue,
+    useAnchor: booleanValue
+});
 //
 // ol.style.RegularShape
 //

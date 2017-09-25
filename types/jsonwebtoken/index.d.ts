@@ -83,6 +83,8 @@ export interface SignCallback {
     (err: Error, encoded: string): void;
 }
 
+export type Secret = string | Buffer | {key: string, passphrase: string}
+
 /**
  * Synchronously sign the given payload into a JSON Web Token string
  * @param {String|Object|Buffer} payload - Payload to sign, could be an literal, buffer or string
@@ -90,7 +92,7 @@ export interface SignCallback {
  * @param {SignOptions} [options] - Options for the signature
  * @returns {String} The JSON Web Token string
  */
-export declare function sign(payload: string | Buffer | object, secretOrPrivateKey: string | Buffer, options?: SignOptions): string;
+export declare function sign(payload: string | Buffer | object, secretOrPrivateKey: Secret, options?: SignOptions): string;
 
 /**
  * Sign the given payload into a JSON Web Token string
@@ -99,8 +101,8 @@ export declare function sign(payload: string | Buffer | object, secretOrPrivateK
  * @param {SignOptions} [options] - Options for the signature
  * @param {Function} callback - Callback to get the encoded token on
  */
-export declare function sign(payload: string | Buffer | object, secretOrPrivateKey: string | Buffer, callback: SignCallback): void;
-export declare function sign(payload: string | Buffer | object, secretOrPrivateKey: string | Buffer, options: SignOptions, callback: SignCallback): void;
+export declare function sign(payload: string | Buffer | object, secretOrPrivateKey: Secret, callback: SignCallback): void;
+export declare function sign(payload: string | Buffer | object, secretOrPrivateKey: Secret, options: SignOptions, callback: SignCallback): void;
 
 /**
  * Synchronously verify given token using a secret or a public key to get a decoded token
