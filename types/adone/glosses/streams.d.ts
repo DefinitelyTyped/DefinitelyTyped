@@ -103,7 +103,10 @@ declare namespace adone {
             through<R>(transform: I.CoreStream.TransformFunction<T, R>, flush?: I.CoreStream.FlushFunction<R>): CoreStream<S, R>;
 
             /**
-             * Adds a new map transform into the chain
+             * Adds a new map transform into the chain.
+             *
+             * Note: synchronous functions create a synchronous transform.
+             * If your function returns a promise use an asynchronous function if you don't want to pass a promise through the stream
              */
             map<R>(callback: (value: T) => R | Promise<R>): CoreStream<S, R>;
 
@@ -118,7 +121,9 @@ declare namespace adone {
             filter(callback: (value: T) => boolean | Promise<boolean>): this;
 
             /**
-             * Adds a new transform that calls the given callback for each value from the stream
+             * Adds a new transform that calls the given callback for each value from the stream.
+             *
+             * This method resumes the stream.
              */
             forEach(callback: (value: T) => void, options?: {
                 /**
@@ -133,7 +138,9 @@ declare namespace adone {
             }): this;
 
             /**
-             * Adds a new transform that calls the given callback when the underlying stream ends
+             * Adds a new transform that calls the given callback when the underlying stream ends.
+             *
+             * This method resumes the stream.
              */
             done(callback: () => void, options?: {
                 /**
@@ -144,7 +151,9 @@ declare namespace adone {
 
             /**
              * Adds a new transform that gather all the read values into an array and calls the given callback
-             * when the underlying stream ends
+             * when the underlying stream ends.
+             *
+             * This method resumes the stream.
              */
             toArray(callback: (result: T[]) => void, options?: {
                 /**
@@ -191,8 +200,18 @@ declare namespace adone {
                 sourceOptions?: I.CoreStream.ConstructorOptions<S, T>
             }): CoreStream<S, T>;
 
+            /**
+             * Creates a promise that will be fulfilled with an array of all the emitted values or the first occurred error.
+             *
+             * This method resumes the stream.
+             */
             then<T1 = T[], T2 = never>(onResolve?: (value: T[]) => T1 | PromiseLike<T1>, onReject?: (reason: any) => T2 | PromiseLike<T2>): Promise<T1 | T2>;
 
+            /**
+             * Creates a promise that will be fulfilled with an array of all the emitted values or the first occurred error.
+             *
+             * This method resumes the stream.
+             */
             catch<T1 = never>(onReject?: (reason: any) => T1 | PromiseLike<T1>): Promise<T[] | T1>;
         }
 

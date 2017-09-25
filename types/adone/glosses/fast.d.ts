@@ -736,7 +736,7 @@ declare namespace adone {
         namespace plugin {
             namespace notify {
                 /**
-                 * Creates a callback that can be ased as reporter for errors
+                 * Creates a callback that can be used as a reporter for errors
                  */
                 function onError<T = any>(options?: I.plugin.notify.OptionsArg<T, I.plugin.notify.OnErrorOptions<T>>): (error: T) => void;
             }

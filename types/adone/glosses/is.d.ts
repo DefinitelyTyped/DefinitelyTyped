@@ -336,12 +336,19 @@ declare namespace adone {
         export function coreStream(obj: any): boolean;
 
         /**
+         * Checks whether the given object is a fast local map stream
+         */
+        export function fastLocalMapStream(obj: any): boolean;
+
+        /**
+         * Checks whether the given object is a fast local stream
+         */
+        export function fastLocalStream(obj: any): boolean;
+
+        /**
          * Checks whether the given object is a fast stream
          */
         export function fastStream(obj: any): boolean;
-
-        export function fastFSStream(obj: any): boolean;
-        export function fastFSMapStream(obj: any): boolean;
 
         /**
          * Checks whether the given object is a genesis netron
@@ -532,5 +539,15 @@ declare namespace adone {
          * Checks whether the given buffer a valid UTF-8 encoded text
          */
         export function validUTF8(obj: Buffer): boolean;
+
+        /**
+         * Checks whether the given object is a vault valuable
+         */
+        export function vaultValuable(obj: any): boolean;
+
+        /**
+         * Checks whether the given object is an adone task
+         */
+        export function task(obj: any): boolean;
     }
 }

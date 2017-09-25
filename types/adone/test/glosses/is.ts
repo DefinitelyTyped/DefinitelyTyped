@@ -70,8 +70,8 @@ namespace isTests {
     { const a: boolean = adone.is.logger({}); }
     { const a: boolean = adone.is.coreStream({}); }
     { const a: boolean = adone.is.fastStream({}); }
-    { const a: boolean = adone.is.fastFSStream({}); }
-    { const a: boolean = adone.is.fastFSMapStream({}); }
+    { const a: boolean = adone.is.fastLocalStream({}); }
+    { const a: boolean = adone.is.fastLocalMapStream({}); }
     { const a: boolean = adone.is.genesisNetron({}); }
     { const a: boolean = adone.is.genesisPeer({}); }
     { const a: boolean = adone.is.netronAdapter({}); }
@@ -110,4 +110,6 @@ namespace isTests {
     { const a: boolean = adone.is.set({}); }
     { const a: boolean = adone.is.symbol({}); }
     { const a: boolean = adone.is.validUTF8(Buffer.from("hello")); }
+    { const a: boolean = adone.is.vaultValuable({}); }
+    { const a: boolean = adone.is.task({}); }
 }
