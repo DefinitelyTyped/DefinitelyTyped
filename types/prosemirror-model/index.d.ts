@@ -168,7 +168,7 @@ export class ResolvedPos {
   textOffset: number;
   nodeAfter?: Node | null;
   nodeBefore?: Node | null;
-  marks(after?: boolean): Mark[];
+  marks(): Mark[];
   sharedDepth(pos: number): number;
   blockRange(other?: ResolvedPos, pred?: (p: Node) => boolean): NodeRange | null | undefined;
   sameParent(other: ResolvedPos): boolean;
