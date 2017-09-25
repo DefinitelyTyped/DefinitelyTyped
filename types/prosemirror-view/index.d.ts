@@ -43,6 +43,7 @@ export class EditorView {
   root: Document | DocumentFragment;
   posAtCoords(coords: { left: number, top: number }): { pos: number, inside: number } | null | undefined;
   coordsAtPos(pos: number): { left: number, right: number, top: number, bottom: number };
+  domAtPos(pos: number): { node: dom.Node; offset: number };
   endOfTextblock(dir: 'up' | 'down' | 'left' | 'right' | 'forward' | 'backward', state?: EditorState): boolean;
   destroy(): void;
   dispatch(tr: Transaction): void;
