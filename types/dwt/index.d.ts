@@ -3,7 +3,7 @@
 // Definitions by: Xiao Ling <https://github.com/yushulx>
 //                 Josh Hall <https://github.com/jbh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.5
+// TypeScript Version: 2.2
 
 /*!
 * Dynamsoft WebTwain JavaScript Intellisense
