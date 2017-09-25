@@ -21,6 +21,7 @@ export class StepMap {
   map(pos: number, assoc?: number): number;
   forEach(f: (oldStart: number, oldEnd: number, newStart: number, newEnd: number) => void): void;
   invert(): StepMap;
+  static offset(n: number): StepMap;
 }
 export class Mapping {
   constructor(maps?: StepMap[])
@@ -80,7 +81,6 @@ export class Step {
   invert(doc: Node): Step;
   map(mapping: Mappable): Step | null | undefined;
   merge(other: Step): Step | null | undefined;
-  offset(n: number): Step;
   toJSON(): object;
   static fromJSON(schema: Schema, json: object): Step;
   static jsonID(id: string, stepClass: { new(...args: any[]): Step }): void;
