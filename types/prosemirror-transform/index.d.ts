@@ -56,7 +56,7 @@ export class Transform {
   lift(range: NodeRange, target: number): this;
   wrap(range: NodeRange, wrappers: Array<{ type: NodeType, attrs?: object | null }>): this;
   setBlockType(from: number, to: number | undefined, type: NodeType, attrs?: object): this;
-  setNodeType(pos: number, type?: NodeType, attrs?: object, marks?: Mark[]): this;
+  setNodeMarkup(pos: number, type?: NodeType, attrs?: object, marks?: Mark[]): this;
   split(pos: number, depth?: number, typesAfter?: Array<{ type: NodeType, attrs?: object | null }>): this;
   join(pos: number, depth?: number, p1?: boolean): this;
   doc: Node;
