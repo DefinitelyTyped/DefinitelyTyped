@@ -18,13 +18,14 @@ const mark = {} as model.Mark;
 const slice = {} as model.Slice;
 const nodeRange = {} as model.NodeRange;
 const step = {} as transform.Step;
+const nodeType = {} as model.NodeType;
 
 let transaction: state.Transaction;
 
 transaction = new state.Transaction(node).delete(0, 0);
 transaction = new state.Transaction(node).addMark(0, 0, mark);
 transaction = new state.Transaction(node).removeMark(0, 0);
-transaction = new state.Transaction(node).clearMarkup(0, 0);
+transaction = new state.Transaction(node).clearIncompatible(0, nodeType);
 transaction = new state.Transaction(node).replaceRange(0, 0, slice);
 transaction = new state.Transaction(node).replaceRangeWith(0, 0, node);
 transaction = new state.Transaction(node).deleteRange(0, 0);
