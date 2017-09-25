@@ -1178,7 +1178,7 @@ interface ActiveXObjectNameMap {
 }
 
 interface EnumeratorConstructor {
-    new(col: InfoPath.DataAdaptersCollection): Enumerator;
+    new(col: InfoPath.DataAdaptersCollection): Enumerator<any>; // tslint:disable-line:use-default-type-parameter
     new(col: InfoPath.DataObjectsCollection): Enumerator<InfoPath.DataSourceObject>;
     new(col: InfoPath.ErrorsCollection): Enumerator<ADODB.Error>;
     new(col: InfoPath.InputParameterCollection): Enumerator<InfoPath.InputParameterObject>;

@@ -3749,7 +3749,7 @@ interface ActiveXObjectNameMap {
 }
 
 interface EnumeratorConstructor {
-    new(col: MSForms.Controls | MSForms.Pages | MSForms.Tabs): Enumerator<any>;
+    new(col: MSForms.Controls | MSForms.Pages | MSForms.Tabs): Enumerator<any>; // tslint:disable-line:use-default-type-parameter
 }
 
 interface SafeArray<T = any> {

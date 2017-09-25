@@ -9493,7 +9493,7 @@ interface EnumeratorConstructor {
     new(col: Excel.Filters): Enumerator<Excel.Filter>;
     new(
         col: Excel.FormatConditions | Excel.IconSets | Excel.MenuItems | Excel.Modules | Excel.Phonetics | Excel.PivotFields | Excel.Range | Excel.ServerViewableItems |
-        Excel.SheetViews | Excel.UsedObjects): Enumerator;
+            Excel.SheetViews | Excel.UsedObjects): Enumerator<any>; // tslint:disable-line:use-default-type-parameter
     new(col: Excel.GroupShapes | Excel.ShapeRange | Excel.Shapes): Enumerator<Excel.Shape>;
     new(col: Excel.HPageBreaks): Enumerator<Excel.HPageBreak>;
     new(col: Excel.Hyperlinks): Enumerator<Excel.Hyperlink>;
