@@ -2744,6 +2744,7 @@ declare namespace React {
         loop?: boolean;
         mediaGroup?: string;
         muted?: boolean;
+        playsinline?: boolean;
         preload?: string;
         src?: string;
     }
