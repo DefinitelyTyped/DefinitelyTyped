@@ -163,6 +163,7 @@ export class ResolvedPos {
   nodeAfter?: Node | null;
   nodeBefore?: Node | null;
   marks(): Mark[];
+  marksAcross(): Mark[] | null;
   sharedDepth(pos: number): number;
   blockRange(other?: ResolvedPos, pred?: (p: Node) => boolean): NodeRange | null | undefined;
   sameParent(other: ResolvedPos): boolean;
