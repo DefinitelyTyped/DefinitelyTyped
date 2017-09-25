@@ -179,7 +179,7 @@ export interface Options {
     location?: string | SelectLocationState;
     notFoundPath?: string;
     scrollTop?: boolean;
-    onBeforeChange?<S>(dispatch: Dispatch<S>, getState: StateGetter): void;
+    onBeforeChange?<S>(dispatch: Dispatch<S>, getState: StateGetter, action: Action): void;
     onAfterChange?<S>(dispatch: Dispatch<S>, getState: StateGetter): void;
     onBackNext?<S>(dispatch: Dispatch<S>, getState: StateGetter): void;
     restoreScroll?(history: History): ScrollBehavior;
