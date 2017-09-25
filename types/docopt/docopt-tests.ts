@@ -1,4 +1,4 @@
-import docopt = require("docopt");
+import { docopt } from "docopt";
 
 var doc = `
 Usage:

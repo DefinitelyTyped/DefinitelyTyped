@@ -91,7 +91,7 @@ export class Selection {
   empty: boolean;
   eq(p: Selection): boolean;
   map(doc: Node, mapping: Mappable): Selection;
-  content: Slice;
+  content(): Slice;
   replace(tr: Transaction, content?: Slice): void;
   replaceWith(tr: Transaction, node: Node): void;
   toJSON(): AnyObject;
