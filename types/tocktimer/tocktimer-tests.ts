@@ -1,7 +1,7 @@
+import * as tock from 'tocktimer';
 
-import * as Tock from 'tocktimer';
-
-const timer = new Tock({
+// Create a tock instance
+const timer = tock({
     interval: 100,
     countdown: true,
     callback: () => {
@@ -12,10 +12,10 @@ const timer = new Tock({
     }
 });
 
-timer.lap()
-timer.msToTime(Date.now())
-timer.msToTimecode(Date.now())
-timer.pause()
-timer.reset()
-timer.stop()
-timer.timeToMS('12:51')
+timer.lap();
+timer.msToTime(Date.now());
+timer.msToTimecode(Date.now());
+timer.pause();
+timer.reset();
+timer.stop();
+timer.timeToMS('12:51');
