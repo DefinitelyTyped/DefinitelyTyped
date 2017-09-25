@@ -1,12 +1,10 @@
 // Type definitions for rosie
 // Project: https://github.com/rosiejs/rosie
-// Definitions by: Abner Oliveira <https://github.com/abner>
+// Definitions by: Abner Oliveira <https://github.com/abner> and Chris Grigg <https://github.com/subvertallchris>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace rosie {
   interface IFactoryStatic {
-
-
     /**
      * Defines a factory by name and constructor function. Call #attr and #option
      * on the result to define the properties of this factory.
@@ -15,7 +13,7 @@ declare namespace rosie {
      * @param {function(object): *=} constructor
      * @return {Factory}
      */
-    define(name: String, constructor?: Function):  IFactory;
+    define<T>(name: string, constructor?: (opts?: any) => any): IFactory<T>;
 
     /**
      * Locates a factory by name and calls #build on it.
@@ -25,7 +23,7 @@ declare namespace rosie {
      * @param {object=} options
      * @return {*}
      */
-    build(name: string, attributes?: any, options?: Object): Object;
+    build<T>(name: string, attributes?: { [k in keyof T]?: T[k] }, options?: any): T;
 
     /**
      * Builds a collection of objects using the named factory.
@@ -36,7 +34,7 @@ declare namespace rosie {
      * @param {object=} options
      * @return {Array.<*>}
      */
-    buildList(name: string, size: number, attributes?: any, options?: Object): Object[];
+    buildList(name: string, size: number, attributes?: any, options?: any): any[];
 
     /**
      * Locates a factory by name and calls #attributes on it.
@@ -46,10 +44,10 @@ declare namespace rosie {
      * @param {object} options
      * @return {object}
      */
-    attributes(name: string, attributes: Object, options?: Object): Object;
+    attributes(name: string, attributes: any, options?: any): any;
   }
 
-  interface IFactory {
+  interface IFactory<T> {
     /**
       * Define an attribute on this factory. Attributes can optionally define a
       * default value, either as a value (e.g. a string or number) or as a builder
@@ -89,7 +87,24 @@ declare namespace rosie {
       * @param any
       * @return {Factory}
       */
-    attr(name: string, dependenciesOrValue: any | string[], value?: any): IFactory;
+    attr<K extends keyof T>(name: K, dependenciesOrValue?: [keyof T] | T[K] | ((opts?: any) => T[K]), value?: T[K] | ((opts?: any) => T[K]) ): IFactory<T>;
+
+      /**
+      * Convenience function for defining a set of attributes on this object as
+      * builder functions or static values. If you need to specify dependencies,
+      * use #attr instead.
+      *
+      * For example:
+      *
+      *   Factory.define('Person').attrs({
+      *     name: 'Michael',
+      *     age: function() { return Math.random() * 100; }
+      *   });
+      *
+      * @param {object} attributes
+      * @return {Factory}
+      */
+    attrs(attributes: { [k in keyof T]: T[k] | ((opts?: any) => T[k]) }): IFactory<T>;
 
     /**
      * Define an option for this factory. Options are values that may inform
@@ -119,7 +134,7 @@ declare namespace rosie {
      * @param {*=} value
      * @return {Factory}
      */
-    option(name: string, dependenciesOrValue?: any | string[], value?: any): IFactory;
+    option(name: string, dependenciesOrValue?: any | string[], value?: any): IFactory<T>;
 
     /**
      * Defines an attribute that, by default, simply has an auto-incrementing
@@ -138,7 +153,7 @@ declare namespace rosie {
      * @param {function(number): *=} builder
      * @return {Factory}
      */
-    sequence(name: string, dependenciesOrBuilder?: Function | string[], builder?: Function) : IFactory;
+    sequence(name: keyof T, dependenciesOrBuilder?: () => any | keyof T[], builder?: Function) : IFactory<T>;
 
     /**
      * Sets a post-processor callback that will receive built objects and the
@@ -148,7 +163,7 @@ declare namespace rosie {
      * @param {function(object, ?object)} callback
      * @return {Factory}
      */
-    after(functionArg: Function): IFactory;
+    after(functionArg: (obj: T, opts?: any) => void): IFactory<T>;
 
     /**
      * Sets the constructor for this factory to be another factory. This can be
@@ -157,7 +172,7 @@ declare namespace rosie {
      * @param {Factory} parentFactory
      * @return {Factory}
      */
-    inherits(functionArg: Function): IFactory;
+    inherits(functionArg: (parentFactory: IFactory<T>) => void): IFactory<T>;
 
     /**
      * Builds a plain object containing values for each of the declared
@@ -168,7 +183,7 @@ declare namespace rosie {
      * @param {object=} options
      * @return {object}
      */
-    attributes(attributes:Object, options: Object): Object;
+    attributes(attributes: string, options?: { [k in keyof T]: T[k] }): T;
 
     /**
      * Generates values for all the registered options using the values given.
@@ -177,7 +192,7 @@ declare namespace rosie {
      * @param {object} options
      * @return {object}
      */
-    options(options: Object): Object;
+    options(options: any): any;
 
     /**
      * Builds objects by getting values for all attributes and optionally passing
@@ -187,9 +202,9 @@ declare namespace rosie {
      * @param {object=} options
      * @return {*}
      */
-    build(attributes: Object, options: Object): Object;
+    build(attributes: { [k in keyof T]?: T[k] }, options?: any): T;
 
-    buildList(size: number, attributes: Object, options: Object): Object[];
+    buildList(size: number, attributes: { [k in keyof T]?: T[k] }, options: any): T[];
 
     /**
      * Extends a given factory by copying over its attributes, options,
@@ -199,7 +214,7 @@ declare namespace rosie {
      * @param {string|Factory} name The factory to extend.
      * @return {Factory}
      */
-    extend(name: String | IFactory): IFactory;
+    extend<K extends T, T>(name: String | IFactory<T>): IFactory<K>;
   }
 
 }
