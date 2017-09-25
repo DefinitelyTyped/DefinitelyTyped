@@ -4,7 +4,7 @@ let cache: Bundle | undefined
 
 async function main() {
     const bundle = await rollup({
-        entry: 'main.js',
+        input: 'main.js',
         cache,
     })
 
@@ -16,7 +16,7 @@ async function main() {
 
     await bundle.write({
         format: 'cjs',
-        dest: 'bundle.js',
+        file: 'bundle.js',
     })
 }
 
