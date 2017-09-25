@@ -217,6 +217,7 @@ export interface SchemaSpec {
 }
 export interface NodeSpec {
   content?: string | null;
+  marks?: string | null;
   group?: string | null;
   inline?: boolean | null;
   atom?: boolean | null;
