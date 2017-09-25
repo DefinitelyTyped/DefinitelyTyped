@@ -105,3 +105,5 @@ declare namespace Wu {
 	}
 }
 declare var wu: Wu.WuStatic;
+			
+export default wu;
