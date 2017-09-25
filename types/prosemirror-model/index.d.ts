@@ -20,6 +20,7 @@ export class ContentMatch {
   findWrapping(target: NodeType, targetAttrs?: AnyObject, targetMarks?: Mark[]): NodeType[] | null | undefined;
 }
 export class Fragment {
+  size: number;
   nodesBetween(from: number, to: number, f: (node: Node, start: number, parent: Node, index: number) => boolean | null | void): void;
   descendants(f: (node: Node, pos: number, parent: Node) => boolean | null | void): void;
   append(other: Fragment): Fragment;
