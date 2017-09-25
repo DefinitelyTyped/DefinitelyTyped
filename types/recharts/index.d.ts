@@ -664,10 +664,18 @@ export interface TextProps extends Partial<CSSStyleDeclaration> {
 export class Text extends React.Component<TextProps> { }
 
 export interface ViewBox {
-	x: number;
-	y: number;
-	width: number;
-	height: number;
+	x?: number;
+	y?: number;
+	width?: number;
+	height?: number;
+}
+export interface PolarViewBox {
+	cx?: number;
+	cy?: number;
+	innerRadius?: number;
+	outerRadius?: number;
+	startAngle?: number;
+	endAngle?: number;
 }
 export interface Coordinate {
 	x: number;
@@ -712,7 +720,7 @@ export interface TreemapProps {
 }
 
 export interface Label {
-	viewBox?: any;
+	viewBox?: ViewBox | PolarViewBox;
 	formatter?: RechartsFunction;
 	value: string | number;
 	position?: PositionType;
