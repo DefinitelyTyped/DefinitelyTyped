@@ -1,0 +1,19 @@
+{
+    "author": {
+      "name": "Ricardo Azzi Silva",
+      "email": "https://github.com/lordazzi"
+    },
+    "dependencies": {},
+    "deprecated": false,
+    "description": "TypeScript definitions for Lazar Laszlo's jsqrcode",
+    "license": "MIT",
+    "name": "@types/jsqrcode",
+    "repository": {
+      "type": "git",
+      "url": "https://www.github.com/DefinitelyTyped/DefinitelyTyped.git"
+    },
+    "typings": "index.d.ts",
+    "scripts": {},
+    "version": "0.0.30"
+  }
+  
