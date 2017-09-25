@@ -185,6 +185,7 @@ export class NodeType {
   name: string;
   schema: Schema;
   spec: NodeSpec;
+  contentMatch: ContentMatch;
   isBlock: boolean;
   isText: boolean;
   isInline: boolean;
