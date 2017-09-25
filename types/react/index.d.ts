@@ -2818,6 +2818,7 @@ declare namespace React {
     interface OlHTMLAttributes<T> extends HTMLAttributes<T> {
         reversed?: boolean;
         start?: number;
+        type?: 'A' | 'a' | 'I' | 'i' | '1';
     }
 
     interface OptgroupHTMLAttributes<T> extends HTMLAttributes<T> {
