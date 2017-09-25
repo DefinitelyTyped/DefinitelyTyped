@@ -1,5 +1,9 @@
 /*
 
+  This file contains tests for the named export definitions of big.js.
+  Import the Big constructor and any types from 'big.js'
+  Do not use the global Big constructor or the types in the global BigJs namespace.
+
   Tests include code from http://mikemcl.github.io/big.js/
 
   Minor changes have been made such as adding variable definitions where required.

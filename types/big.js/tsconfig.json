@@ -17,6 +17,7 @@
     },
     "files": [
         "index.d.ts",
-        "big.js-tests.ts"
+        "test/big.js-module-tests.ts",
+        "test/big.js-global-tests.ts"
     ]
 }
