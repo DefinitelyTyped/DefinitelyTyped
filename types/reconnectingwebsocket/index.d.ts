@@ -3,7 +3,7 @@
 // Definitions by: Nicholas Guarracino <https://github.com/nguarracino>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export interface Options {
+declare interface Options {
     automaticOpen?: boolean;
     binaryType?: 'blob' | 'arraybuffer';
     debug?: boolean;
@@ -14,8 +14,8 @@ export interface Options {
     timeoutInterval?: number;
 }
 
-export default class ReconnectingWebSocket {
-    constructor(url: string, protocols?: string[], options?: Options);
+declare class ReconnectingWebSocket {
+    constructor(url: string, protocols?: string[] | string, options?: Options);
 
     static debugAll: boolean;
 
