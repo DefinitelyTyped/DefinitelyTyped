@@ -47,13 +47,13 @@ let app = new ActiveXObject('Outlook.Application');
 // https://msdn.microsoft.com/VBA/office-shared-vba/articles/getting-started-with-vba-in-office
 (() => {
     // create a message in Outlook
-    let message = app.CreateItem(Outlook.OlItemType.olMailItem);
+    const message = app.CreateItem(Outlook.OlItemType.olMailItem);
     message.Subject = 'Hello, world!';
     message.Display();
 
     // copying a contact from Outlook to Word
-    let currentItem = app.ActiveInspector().CurrentItem as Outlook.ContactItem;
-    let wdApp = new ActiveXObject('Word.Application');
-    let doc = wdApp.Documents.Add();
+    const currentItem = app.ActiveInspector().CurrentItem as Outlook.ContactItem;
+    const wdApp = new ActiveXObject('Word.Application');
+    const doc = wdApp.Documents.Add();
     doc.Range().InsertAfter(`${currentItem.FullName} from ${currentItem.CompanyName}`);
 })();

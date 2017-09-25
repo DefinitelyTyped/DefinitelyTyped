@@ -2,6 +2,7 @@
 // Project: https://msdn.microsoft.com/en-us/library/dn142571.aspx
 // Definitions by: Zev Spitz <https://github.com/zspitz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="activex-office" />
 /// <reference types="activex-dao" />
@@ -4086,6 +4087,7 @@ declare namespace Access {
         readonly Application: Application;
         readonly Count: number;
         IsMemberSafe(dispid: number): boolean;
+        // tslint:disable-next-line:no-unnecessary-generics
         Item<T>(index: number | string): T;
         Item(Index: number | string): Control;
         readonly Parent: any;
@@ -8894,7 +8896,7 @@ interface EnumeratorConstructor {
     new(
         col: Access.AllDataAccessPages | Access.AllDatabaseDiagrams | Access.AllForms | Access.AllFunctions | Access.AllMacros | Access.AllModules | Access.AllQueries |
         Access.AllReports | Access.AllStoredProcedures | Access.AllTables | Access.AllViews | Access.DependencyObjects): Enumerator<Access.AccessObject>;
-    new(col: Access.Children | Access.Controls | Access.Properties): Enumerator<any>;
+    new(col: Access.Children | Access.Controls | Access.Properties): Enumerator;
     new(col: Access.DataAccessPages): Enumerator<Access.DataAccessPage>;
     new(col: Access.Entities): Enumerator<Access.Entity>;
     new(col: Access.FormatConditions): Enumerator<Access.FormatCondition>;

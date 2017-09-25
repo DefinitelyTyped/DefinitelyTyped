@@ -1,6 +1,6 @@
 const collectionToArray = <T>(col: any) => {
-    let results: T[] = [];
-    let enumerator = new Enumerator<T>(col);
+    const results: T[] = [];
+    const enumerator = new Enumerator<T>(col);
     enumerator.moveFirst();
     while (!enumerator.atEnd()) {
         results.push(enumerator.item());
@@ -9,13 +9,13 @@ const collectionToArray = <T>(col: any) => {
 };
 
 // -- https://msdn.microsoft.com/VBA/office-shared-vba/articles/getting-started-with-vba-in-office
-let app = new ActiveXObject('PowerPoint.Application');
+const app = new ActiveXObject('PowerPoint.Application');
 (() => {
     // delete empty textboxes in PowerPoint
     collectionToArray<PowerPoint.Slide>(app.ActivePresentation.Slides).forEach(slide => {
         collectionToArray<PowerPoint.Shape>(slide.Shapes).filter(shape =>
             shape.Type === Office.MsoShapeType.msoTextBox
-            && shape.TextFrame.TextRange.Text.trim() !== ''
+            && shape.TextFrame.TextRange.Text.trim() === ''
         ).forEach(shape => shape.Delete());
     });
 })();

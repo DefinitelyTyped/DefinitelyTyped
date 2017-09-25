@@ -2,6 +2,7 @@
 // Project: https://msdn.microsoft.com/en-us/library/fp179694.aspx
 // Definitions by: Zev Spitz <https://github.com/zspitz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="activex-office" />
 /// <reference types="activex-vbide" />
@@ -6443,7 +6444,7 @@ declare namespace Excel {
         AddIndent: any;
 
         /** @param Excel.XlReferenceStyle [ReferenceStyle=1] */
-        Address(RowAbsolute?: boolean, ColumnAbsolute?: boolean, ReferenceStyle?: XlReferenceStyle, External?: boolean, RelativeTo?: Excel.Range): string;
+        Address(RowAbsolute?: boolean, ColumnAbsolute?: boolean, ReferenceStyle?: XlReferenceStyle, External?: boolean, RelativeTo?: Range): string;
 
         /** @param Excel.XlReferenceStyle [ReferenceStyle=1] */
         AddressLocal(RowAbsolute: any, ColumnAbsolute: any, ReferenceStyle?: XlReferenceStyle, External?: any, RelativeTo?: any): string;
@@ -6545,7 +6546,7 @@ declare namespace Excel {
         FillUp(): any;
 
         /** @param Excel.XlSearchDirection [SearchDirection=1] */
-        Find(What: any, After?: any, LookIn?: Excel.XlFindLookIn, LookAt?: Excel.XlLookAt, SearchOrder?: Excel.XlSearchOrder, SearchDirection?: XlSearchDirection, MatchCase?: boolean,
+        Find(What: any, After?: any, LookIn?: XlFindLookIn, LookAt?: XlLookAt, SearchOrder?: XlSearchOrder, SearchDirection?: XlSearchDirection, MatchCase?: boolean,
                     MatchByte?: boolean, SearchFormat?: any): Range;
         FindNext(After?: any): Range;
         FindPrevious(After?: any): Range;
@@ -8153,8 +8154,8 @@ declare namespace Excel {
 
         /** @param Excel.XlSaveAsAccessMode [AccessMode=1] */
         _SaveAs(
-            Filename: string, FileFormat?: Excel.XlFileFormat, Password?: string, WriteResPassword?: string, ReadOnlyRecommended?: boolean, CreateBackup?: boolean, AccessMode?: XlSaveAsAccessMode,
-            ConflictResolution?: Excel.XlSaveConflictResolution, AddToMru?: boolean, TextCodepage?: any, TextVisualLayout?: any): void;
+            Filename: string, FileFormat?: XlFileFormat, Password?: string, WriteResPassword?: string, ReadOnlyRecommended?: boolean, CreateBackup?: boolean, AccessMode?: XlSaveAsAccessMode,
+            ConflictResolution?: XlSaveConflictResolution, AddToMru?: boolean, TextCodepage?: any, TextVisualLayout?: any): void;
         AcceptAllChanges(When?: any, Who?: any, Where?: any): void;
         AcceptLabelsInFormulas: boolean;
         AccuracyVersion: number;
@@ -8307,8 +8308,8 @@ declare namespace Excel {
 
         /** @param Excel.XlSaveAsAccessMode [AccessMode=1] */
         SaveAs(
-            Filename: string, FileFormat?: Excel.XlFileFormat, Password?: string, WriteResPassword?: string, ReadOnlyRecommended?: boolean, CreateBackup?: boolean, AccessMode?: XlSaveAsAccessMode,
-            ConflictResolution?: Excel.XlSaveConflictResolution, AddToMru?: boolean, TextCodepage?: any, TextVisualLayout?: any): void;
+            Filename: string, FileFormat?: XlFileFormat, Password?: string, WriteResPassword?: string, ReadOnlyRecommended?: boolean, CreateBackup?: boolean, AccessMode?: XlSaveAsAccessMode,
+            ConflictResolution?: XlSaveConflictResolution, AddToMru?: boolean, TextCodepage?: any, TextVisualLayout?: any): void;
         SaveAsXMLData(Filename: string, Map: XmlMap): void;
         SaveCopyAs(Filename?: any): void;
         Saved: boolean;
@@ -9492,7 +9493,7 @@ interface EnumeratorConstructor {
     new(col: Excel.Filters): Enumerator<Excel.Filter>;
     new(
         col: Excel.FormatConditions | Excel.IconSets | Excel.MenuItems | Excel.Modules | Excel.Phonetics | Excel.PivotFields | Excel.Range | Excel.ServerViewableItems |
-        Excel.SheetViews | Excel.UsedObjects): Enumerator<any>;
+        Excel.SheetViews | Excel.UsedObjects): Enumerator;
     new(col: Excel.GroupShapes | Excel.ShapeRange | Excel.Shapes): Enumerator<Excel.Shape>;
     new(col: Excel.HPageBreaks): Enumerator<Excel.HPageBreak>;
     new(col: Excel.Hyperlinks): Enumerator<Excel.Hyperlink>;

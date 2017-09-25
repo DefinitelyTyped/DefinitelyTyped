@@ -1,6 +1,6 @@
 const collectionToArray = <T>(col: any) => {
-    let results: T[] = [];
-    let enumerator = new Enumerator<T>(col);
+    const results: T[] = [];
+    const enumerator = new Enumerator<T>(col);
     enumerator.moveFirst();
     while (!enumerator.atEnd()) {
         results.push(enumerator.item());
@@ -8,7 +8,7 @@ const collectionToArray = <T>(col: any) => {
     return results;
 };
 
-let app = new ActiveXObject('Word.Application');
+const app = new ActiveXObject('Word.Application');
 
 // https://msdn.microsoft.com/en-us/vba/word-vba/articles/modifying-a-portion-of-a-document
 app.Selection.Words.Item(1).Copy();
@@ -17,11 +17,11 @@ app.ActiveDocument.Words.Item(1).Case = Word.WdCharacterCase.wdUpperCase;
 app.Selection.Sections.Item(1).PageSetup.BottomMargin = app.InchesToPoints(0.5);
 app.ActiveDocument.Content.ParagraphFormat.Space2();
 
-let activeDoc = app.ActiveDocument;
+const activeDoc = app.ActiveDocument;
 (() => {
-    let rngTenCharacters = activeDoc.Range(0, 10);
-    let rngThreeWords = activeDoc.Range(activeDoc.Words.Item(1).Start, activeDoc.Words.Item(3).End);
-    let rngParagraphs = activeDoc.Range(
+    const rngTenCharacters = activeDoc.Range(0, 10);
+    const rngThreeWords = activeDoc.Range(activeDoc.Words.Item(1).Start, activeDoc.Words.Item(3).End);
+    const rngParagraphs = activeDoc.Range(
         activeDoc.Paragraphs.Item(2).Range.Start,
         activeDoc.Paragraphs.Item(3).Range.End
     );
@@ -44,7 +44,7 @@ let activeDoc = app.ActiveDocument;
 
     // using the Range property
 
-    let rngParagraphs = activeDoc.Paragraphs.Item(1).Range;
+    const rngParagraphs = activeDoc.Paragraphs.Item(1).Range;
 
     activeDoc.Paragraphs.Item(2).Range.Select();
 
@@ -81,7 +81,7 @@ let activeDoc = app.ActiveDocument;
 
     // returning and changing dialog box settings
 
-    let dlgParagraph = app.Dialogs.Item(Word.WdWordDialog.wdDialogFormatParagraph);
+    const dlgParagraph = app.Dialogs.Item(Word.WdWordDialog.wdDialogFormatParagraph);
     WScript.Echo(`Right indent = ${(dlgParagraph as any).RightIndent}`);
 
     dlg = app.Dialogs.Item(Word.WdWordDialog.wdDialogFormatParagraph);
@@ -108,7 +108,7 @@ let activeDoc = app.ActiveDocument;
     font.Name = 'Times New Roman';
     font.Size = 14;
     font.AllCaps = true;
-    let paragraphFormat = app.Selection.ParagraphFormat;
+    const paragraphFormat = app.Selection.ParagraphFormat;
     paragraphFormat.LeftIndent = app.InchesToPoints(0.5);
     paragraphFormat.Space1();
 
@@ -140,7 +140,7 @@ let activeDoc = app.ActiveDocument;
     app.Selection.Font.Bold = Word.WdConstants.wdToggle;
 
     // Increase margins by .5 inches
-    let pageSetup = activeDoc.PageSetup;
+    const pageSetup = activeDoc.PageSetup;
     pageSetup.LeftMargin += app.InchesToPoints(.5);
     pageSetup.RightMargin += app.InchesToPoints(.5);
 })();
@@ -148,7 +148,7 @@ let activeDoc = app.ActiveDocument;
 // Assigning ranges -- https://msdn.microsoft.com/en-us/vba/word-vba/articles/assigning-ranges
 (() => {
     let rng1 = activeDoc.Words.Item(1);
-    let rng2 = activeDoc.Words.Item(2);
+    const rng2 = activeDoc.Words.Item(2);
 
     // unlike VBA, Javascript doesn't have the notion of default properties
     // after this line, rng1 and rng2 will refer to the same Range object
@@ -173,7 +173,7 @@ let activeDoc = app.ActiveDocument;
 
     app.Selection.Collapse(Word.WdCollapseDirection.wdCollapseStart);
 
-    let rngWords = activeDoc.Words.Item(1);
+    const rngWords = activeDoc.Words.Item(1);
     rngWords.Collapse(Word.WdCollapseDirection.wdCollapseEnd);
     rngWords.Text = '(This is a test.)';
 
@@ -181,14 +181,14 @@ let activeDoc = app.ActiveDocument;
 
     app.Selection.MoveEnd(Word.WdUnits.wdWord, 3);
 
-    let rngParagraphs = activeDoc.Paragraphs.Item(1).Range;
+    const rngParagraphs = activeDoc.Paragraphs.Item(1).Range;
     rngParagraphs.MoveEnd(Word.WdUnits.wdParagraph, 2);
 
     // Changing text
 
     activeDoc.Words.Item(1).Text = 'The ';
 
-    let rngFirstParagraph = activeDoc.Paragraphs.Item(1).Range;
+    const rngFirstParagraph = activeDoc.Paragraphs.Item(1).Range;
     rngFirstParagraph.Delete();
     rngFirstParagraph.InsertAfter('New text');
     rngFirstParagraph.InsertParagraphAfter();
@@ -197,14 +197,14 @@ let activeDoc = app.ActiveDocument;
 // finding and replacing text or formatting -- https://msdn.microsoft.com/en-us/vba/word-vba/articles/finding-and-replacing-text-or-formatting
 (() => {
     // Finding text and selecting it
-    let find = app.Selection.Find;
+    const find = app.Selection.Find;
     find.Forward = true;
     find.Wrap = Word.WdFindWrap.wdFindStop;
     find.Text = 'Hello';
     find.Execute();
 
     // Finding text without changing the selection
-    let find2 = app.ActiveDocument.Content.Find;
+    const find2 = app.ActiveDocument.Content.Find;
     find2.Text = 'blue';
     find2.Forward = true;
     find2.Execute();
@@ -212,7 +212,7 @@ let activeDoc = app.ActiveDocument;
 
     // Using the Replacement object
 
-    let find3 = app.Selection.Find;
+    const find3 = app.Selection.Find;
     find3.ClearFormatting;
     find3.Text = 'Hi';
     find3.Replacement.ClearFormatting();
@@ -221,7 +221,7 @@ let activeDoc = app.ActiveDocument;
     find3.Wrap = Word.WdFindWrap.wdFindContinue;
     find3.Execute(undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, Word.WdReplace.wdReplaceAll);
 
-    let find4 = app.ActiveDocument.Content.Find;
+    const find4 = app.ActiveDocument.Content.Find;
     find4.ClearFormatting();
     find4.Format = true;
     find4.Font.Bold = true;
@@ -235,14 +235,14 @@ let activeDoc = app.ActiveDocument;
     collectionToArray<Word.Document>(app.Documents)
         .forEach(openDocument => WScript.Echo(openDocument.Name));
 
-    let strMarks = collectionToArray<Word.Bookmark>(activeDoc.Bookmarks)
+    const strMarks = collectionToArray<Word.Bookmark>(activeDoc.Bookmarks)
         .map(bookmark => bookmark.Name);
 
     collectionToArray<Word.Field>(activeDoc.Fields)
         .filter(dateField => dateField.Code.Text.indexOf('Date', 1) !== -1)
         .forEach(dateField => dateField.Update());
 
-    let exists = collectionToArray<Word.AutoTextEntry>(activeDoc.AttachedTemplate.AutoTextEntries)
+    const exists = collectionToArray<Word.AutoTextEntry>(activeDoc.AttachedTemplate.AutoTextEntries)
         .some(autotextEntry => autotextEntry.Name === 'Filename');
     if (exists) {
             WScript.Echo('The Filename AutoText entry exists.');
@@ -276,7 +276,7 @@ let activeDoc = app.ActiveDocument;
 // returning an object from a collection -- https://msdn.microsoft.com/en-us/vba/word-vba/articles/returning-an-object-from-a-collection-word
 (() => {
     // no default properties in Javascript; we can't write app.Documents(1)
-    let docFirst = app.Documents.Item(1);
+    const docFirst = app.Documents.Item(1);
 
     app.Documents.Item('Sales.doc').Activate();
     WScript.Echo(app.ActiveDocument.Name);
@@ -285,7 +285,7 @@ let activeDoc = app.ActiveDocument;
     WScript.Echo(app.Selection.Text);
 
     // predefined index values;
-    let border = app.Selection.Paragraphs.Item(1).Borders.Item(Word.WdBorderType.wdBorderBottom);
+    const border = app.Selection.Paragraphs.Item(1).Borders.Item(Word.WdBorderType.wdBorderBottom);
     border.LineStyle = Word.WdLineStyle.wdLineStyleSingle;
     border.LineWidth = Word.WdLineWidth.wdLineWidth300pt;
     border.Color = Word.WdColor.wdColorBlue;
@@ -293,7 +293,7 @@ let activeDoc = app.ActiveDocument;
 
 // returning text from a document -- https://msdn.microsoft.com/en-us/vba/word-vba/articles/returning-text-from-a-document
 (() => {
-    let find = app.Selection.Find;
+    const find = app.Selection.Find;
     find.ClearFormatting();
     find.Style = Word.WdBuiltinStyle.wdStyleHeading1;
     find.Format = true;
@@ -320,7 +320,7 @@ let activeDoc = app.ActiveDocument;
 
     activeDoc.Fields.Item(1).Select();
 
-    let rngParagraphs = activeDoc.Range(
+    const rngParagraphs = activeDoc.Range(
         activeDoc.Paragraphs.Item(1).Range.Start,
         activeDoc.Paragraphs.Item(4).Range.End
     );
@@ -331,7 +331,7 @@ let activeDoc = app.ActiveDocument;
 (() => {
     // document variables
     activeDoc.Variables.Add('Age', 12);
-    let i = parseInt(activeDoc.Variables.Item('Age').Value, 10);
+    const i = parseInt(activeDoc.Variables.Item('Age').Value, 10);
 
     // document properties
     activeDoc.CustomDocumentProperties.Add('YourName', false, Office.MsoDocProperties.msoPropertyTypeString);
@@ -341,10 +341,10 @@ let activeDoc = app.ActiveDocument;
     // no method assignment in Javascript
     ActiveXObject.set(app.System, 'PrivateProfileString', ['C:\\My Documents\\Macro.ini', 'DocTracker', 'DocNum'], '1');
 
-    let docNum = parseInt(app.System.PrivateProfileString('C:\\My Documents\\Macro.ini', 'DocTracker', 'DocNum'), 10);
+    const docNum = parseInt(app.System.PrivateProfileString('C:\\My Documents\\Macro.ini', 'DocTracker', 'DocNum'), 10);
 
-    let section = 'HKEY_CURRENT_USER\\Software\\Microsoft\\Office\\12.0\\Word\Options';
-    let programDir = app.System.PrivateProfileString('', section, 'PROGRAMDIR');
+    const section = 'HKEY_CURRENT_USER\\Software\\Microsoft\\Office\\12.0\\Word\Options';
+    const programDir = app.System.PrivateProfileString('', section, 'PROGRAMDIR');
     WScript.Echo(`The program directory for Word is ${programDir}`);
 
     ActiveXObject.set(app.System, 'PrivateProfileString', ['', section, 'DOC-PATH'], 'C:\\My Documents');

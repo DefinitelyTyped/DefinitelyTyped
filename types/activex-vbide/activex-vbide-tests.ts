@@ -1,8 +1,8 @@
 /// <reference types="activex-word" />
 
 const collectionToArray = <T>(col: any) => {
-    let results: T[] = [];
-    let enumerator = new Enumerator<T>(col);
+    const results: T[] = [];
+    const enumerator = new Enumerator<T>(col);
     enumerator.moveFirst();
     while (!enumerator.atEnd()) {
         results.push(enumerator.item());
@@ -10,8 +10,8 @@ const collectionToArray = <T>(col: any) => {
     return results;
 };
 
-let app = new ActiveXObject('Word.Application');
-let projects = collectionToArray<VBIDE.VBProject>(app.VBE.VBProjects);
+const app = new ActiveXObject('Word.Application');
+const projects = collectionToArray<VBIDE.VBProject>(app.VBE.VBProjects);
 projects.forEach(project => {
     WScript.Echo(`Name: ${project.Name}`);
 

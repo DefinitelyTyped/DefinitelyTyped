@@ -14,6 +14,6 @@ while (!enumerator.atEnd()) {
 let enumerator2 = new Enumerator(app.COMAddIns);
 enumerator2.moveFirst();
 while (!enumerator2.atEnd()) {
-    let item = enumerator2.item();
+    const item = enumerator2.item();
     WScript.Echo(`COM Addin: ${item.Description} -- ${item.ProgId}`);
 }

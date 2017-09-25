@@ -1,6 +1,6 @@
 // https://msdn.microsoft.com/en-us/library/ms764708(v=vs.85).aspx
 (() => {
-    let dom = new ActiveXObject('Msxml2.DOMDocument.6.0');
+    const dom = new ActiveXObject('Msxml2.DOMDocument.6.0');
     dom.async = false;
     dom.resolveExternals = false;
     dom.loadXML('<a>A</a>');
@@ -9,14 +9,14 @@
 
 // https://msdn.microsoft.com/en-us/library/ms766390(v=vs.85).aspx
 (() => {
-    let doc = new ActiveXObject('Msxml2.DOMDocument.6.0');
+    const doc = new ActiveXObject('Msxml2.DOMDocument.6.0');
     doc.load('test.xml');
     WScript.Echo(`doc: ${doc.xml}`);
 })();
 
 const MakeDOM = () => {
     try {
-        let dom = new ActiveXObject('Msxml2.DOMDocument.6.0');
+        const dom = new ActiveXObject('Msxml2.DOMDocument.6.0');
         dom.async = false;
         dom.validateOnParse = false;
         dom.resolveExternals = false;
@@ -28,7 +28,7 @@ const MakeDOM = () => {
 
 const LoadDOM = (file: string) => {
     try {
-        let dom = MakeDOM()!;
+        const dom = MakeDOM()!;
         dom.load(file);
         return dom;
     } catch (e) {
@@ -38,12 +38,12 @@ const LoadDOM = (file: string) => {
 
 // https://msdn.microsoft.com/en-us/library/ms759105(v=vs.85).aspx
 (() => {
-    let doc = new ActiveXObject('Msxml2.DOMDocument.6.0');
+    const doc = new ActiveXObject('Msxml2.DOMDocument.6.0');
     doc.async = false;
     doc.resolveExternals = false;
     doc.validateOnParse = false;
 
-    let xml = `
+    const xml = `
 <?xml version='1.0'?>
 <doc title='test'>
   <page num='1'>
@@ -64,20 +64,20 @@ const LoadDOM = (file: string) => {
 
 // https://msdn.microsoft.com/en-us/library/ms764656(v=vs.85).aspx
 (() => {
-    let doc = LoadDOM('test.xml')!;
-    let xsl = (LoadDOM('test.xsl')! as any) as MSXML2.IXMLDOMNode;
+    const doc = LoadDOM('test.xml')!;
+    const xsl = (LoadDOM('test.xsl')! as any) as MSXML2.IXMLDOMNode;
 
-    let str = doc.transformNode(xsl);
+    const str = doc.transformNode(xsl);
     WScript.Echo('\ndoc.transformNode:\n' + str);
 
-    let out = MakeDOM()!;
+    const out = MakeDOM()!;
     doc.transformNodeToObject(xsl, out);
     WScript.Echo('\ndoc.transformNodeToObject:\n' + out.xml);
 })();
 
 // https://msdn.microsoft.com/en-us/library/ms763685(v=vs.85).aspx
 (() => {
-    let dom = MakeDOM()!;
+    const dom = MakeDOM()!;
 
     // Create a processing instruction targeted for xml.
     let node = dom.createProcessingInstruction("xml", "version='1.0'") as any;
@@ -92,10 +92,10 @@ const LoadDOM = (file: string) => {
     dom.appendChild(node);
 
     // Create the root element.
-    let root = dom.createElement("root") as any;
+    const root = dom.createElement("root") as any;
 
     // Create a "created" attribute for the root element and assign the "using dom" character data as the attribute value.
-    let attr = dom.createAttribute("created") as any;
+    const attr = dom.createAttribute("created") as any;
     attr.value = "using dom";
     root.setAttributeNode(attr);
 
@@ -117,14 +117,14 @@ const LoadDOM = (file: string) => {
 
     // Add a CDATA section as <node2>.
     node = dom.createElement("node2");
-    let cd = dom.createCDATASection("some mark-up text");
+    const cd = dom.createCDATASection("some mark-up text");
     node.appendChild(cd);
     root.appendChild(node);
 
     // Create an element (<node3>) to hold three empty subelements.
     node = dom.createElement("node3");
     // Create a document fragment to be added to <node3>.
-    let frag = dom.createDocumentFragment();
+    const frag = dom.createDocumentFragment();
 
     // Add a newline + tab + tab as a text node and an empty subnode.
     frag.appendChild(dom.createTextNode("\n\t\t") as any);
@@ -152,25 +152,22 @@ const LoadDOM = (file: string) => {
 
 // https://msdn.microsoft.com/en-us/library/ms757050(v=vs.85).aspx
 (() => {
-    let dom = LoadDOM("stocks.xml")!;
+    const dom = LoadDOM("stocks.xml")!;
     try {
         // Query a single node.
-        let oNode = dom.selectSingleNode("//stock[1]/*");
+        const oNode = dom.selectSingleNode("//stock[1]/*");
         if (oNode != null) {
-            WScript.Echo("Result from selectSingleNode:\n" +
-                "Node, <" + oNode.nodeName + ">:\n\t" +
-                oNode.xml + "\n\n");
+            WScript.Echo(`Result from selectSingleNode:\n\tNode, <${oNode.nodeName}>:\n\t${oNode.xml}\n\n`);
         }
 
         // Query a node-set.
         WScript.Echo("Results from selectNodes:\n");
-        let oNodes = dom.selectNodes("//stock[1]/*");
+        const oNodes = dom.selectNodes("//stock[1]/*");
 
         for (let i = 0; i < oNodes.length; i++) {
-            let nextNode = oNodes.nextNode;
+            const nextNode = oNodes.nextNode;
             if (nextNode == null) { continue; }
-            WScript.Echo("Node (" + i + "), <" + oNode.nodeName + ">:\n\t" +
-                oNode.xml);
+            WScript.Echo(`Node (${i}), <${oNode.nodeName} + ">:\n\t${oNode.xml}`);
         }
     } catch (e) {
         WScript.Echo(e.description);
@@ -179,17 +176,17 @@ const LoadDOM = (file: string) => {
 
 // https://msdn.microsoft.com/en-us/library/ms757064(v=vs.85).aspx
 (() => {
-    let xhr = new ActiveXObject("Msxml2.XMLHTTP.6.0");
+    const xhr = new ActiveXObject("Msxml2.XMLHTTP.6.0");
     xhr.open("GET", "http://localhost/sxh/contact.asp?SearchID=John Doe", false);
     xhr.send();
 
-    let doc = xhr.responseXML;
+    const doc = xhr.responseXML;
     WScript.Echo(doc.xml);
 })();
 
 const xmlValidation = (fn: (x: MSXML2.DOMDocument60) => void) => {
     // Create and initialize the DOMDocument object
-    let x = new ActiveXObject("Msxml2.DOMDocument.6.0");
+    const x = new ActiveXObject("Msxml2.DOMDocument.6.0");
     x.async = false;
     x.validateOnParse = true;
     x.resolveExternals = true;
@@ -228,7 +225,7 @@ ${x.xml}
     const validateFile = (filename: string) => xmlValidation(x => {
         // Configure DOM properties for namespace selection.
         x.setProperty("SelectionLanguage", "XPath");
-        let ns = "xmlns:x='urn:book'";
+        const ns = "xmlns:x='urn:book'";
         x.setProperty("SelectionNamespaces", ns);
 
         // Load and validate the specified file into the DOM.
@@ -244,7 +241,7 @@ ${x.xml}
 (() => {
     const validateFile = (filename: string) => xmlValidation(xd => {
         // Create a schema cache and add books.xsd to it.
-        let xs = new ActiveXObject('Msxml2.XMLSchemaCache');
+        const xs = new ActiveXObject('Msxml2.XMLSchemaCache');
         xs.add("urn:books", "sc.xsd");
 
         // Assign the schema cache to the DOMDocument's schemas collection.
@@ -273,13 +270,13 @@ ${x.xml}
 // https://msdn.microsoft.com/en-us/library/ms757833(v=vs.85).aspx
 (() => {
     // Load an XML document into a DOM instance.
-    let oXMLDoc = LoadDOM("books.xml")!;
+    const oXMLDoc = LoadDOM("books.xml")!;
 
     // Load the schema for the xml document.
-    let oXSDDoc = LoadDOM("books.xsd")!;
+    const oXSDDoc = LoadDOM("books.xsd")!;
 
     // Create a schema cache instance.
-    let oSCache = new ActiveXObject("Msxml2.XMLSchemaCache.6.0");
+    const oSCache = new ActiveXObject("Msxml2.XMLSchemaCache.6.0");
 
     // Add the just-loaded schema definition to the schema collection
     oSCache.add("urn:books", oXSDDoc);
@@ -304,7 +301,7 @@ ${oXMLDoc.xml}`;
     WScript.Echo("Validating all book nodes, '//book', one by one ...");
     let oNodes = oXMLDoc.selectNodes("//book");
     for (let i = 0; i < oNodes.length; i++) {
-        let oNode = oNodes.item(i);
+        const oNode = oNodes.item(i);
         oError = oXMLDoc.validateNode(oNode);
         if (oError.errorCode !== 0) {
             msg = `\t<${oNode.nodeName}>(${i}) is not valid because
@@ -319,7 +316,7 @@ ${oError.reason}`;
     oNodes = oXMLDoc.selectNodes("//book/*");
     WScript.Echo('Validating all children of all book nodes, "//book/*, one by one...');
     for (let i = 0; i < oNodes.length; i++) {
-        let oNode = oNodes.item(i);
+        const oNode = oNodes.item(i);
         oError = oXMLDoc.validateNode(oNode);
         if (oError.errorCode !== 0) {
             msg = `\t<${oNode.nodeName}>(${i}) is not valud because

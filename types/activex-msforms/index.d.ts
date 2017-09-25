@@ -2,6 +2,7 @@
 // Project: https://msdn.microsoft.com/VBA/Language-Reference-VBA/articles/reference-microsoft-forms
 // Definitions by: Zev Spitz <https://github.com/zspitz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="activex-stdole" />
 
@@ -3737,7 +3738,7 @@ interface ActiveXObject {
     on(obj: MSForms.ToggleButton2, event: 'Change' | 'Click', handler: (this: MSForms.ToggleButton2, parameter: {}) => void): void;
     on(obj: MSForms.UserForm, event: 'Click' | 'Layout', handler: (this: MSForms.UserForm, parameter: {}) => void): void;
     on(obj: MSForms.UserForm2, event: 'Click' | 'Layout', handler: (this: MSForms.UserForm2, parameter: {}) => void): void;
-    set(obj: MSForms.ComboBox | MSForms.ComboBox2 | MSForms.ListBox | MSForms.ListBox2, propertyName: 'Column' | 'List', parameterTypes: [number | undefined, number] | [number] | Array<never>,
+    set(obj: MSForms.ComboBox | MSForms.ComboBox2 | MSForms.ListBox | MSForms.ListBox2, propertyName: 'Column' | 'List', parameterTypes: [number | undefined, number] | [number] | never[],
         newValue: any): void;
     set(obj: MSForms.ListBox | MSForms.ListBox2, propertyName: 'Selected', parameterTypes: [any], newValue: boolean): void;
     new<K extends keyof ActiveXObjectNameMap = any>(progid: K): ActiveXObjectNameMap[K];
@@ -3748,7 +3749,7 @@ interface ActiveXObjectNameMap {
 }
 
 interface EnumeratorConstructor {
-    new(col: MSForms.Controls | MSForms.Pages | MSForms.Tabs): Enumerator<any>;
+    new(col: MSForms.Controls | MSForms.Pages | MSForms.Tabs): Enumerator;
 }
 
 interface SafeArray<T = any> {

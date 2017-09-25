@@ -24,7 +24,7 @@ qdf = dbsNorthwind.CreateQueryDef('Second quarter (parameters)', sql);
 // count the number of records in a Recordset -- https://msdn.microsoft.com/VBA/Access-VBA/articles/count-the-number-of-records-in-a-dao-recordset
 const findRecordCount = (dbs: DAO.Database, sql: string) => {
     let count = 0;
-    let rstRecords = dbs.OpenRecordset(sql);
+    const rstRecords = dbs.OpenRecordset(sql);
     if (!rstRecords.EOF) {
         rstRecords.MoveLast();
         count = rstRecords.RecordCount;
@@ -39,7 +39,7 @@ if (!rstShippers.EOF) {
     let name = rstShippers.Fields.Item('CompanyName').Value;
     rstShippers.MoveNext();
     while (!rstShippers.EOF) {
-        let recordName: string = rstShippers.Fields.Item('CompanyName').Value;
+        const recordName: string = rstShippers.Fields.Item('CompanyName').Value;
         if (recordName === name) {
             rstShippers.Delete();
         } else {
@@ -65,9 +65,9 @@ rstEmployees.Close();
 
 // find a record in a dynaset-type or snapshot-type DAO Recordset -- https://msdn.microsoft.com/en-us/vba/access-vba/articles/find-a-record-in-a-dynaset-type-or-snapshot-type-dao-recordset
 const findOrdersWithoutDetails = () => {
-    let orders: number[] = [];
-    let rstOrders = dbsNorthwind.OpenRecordset('SELECT * FROM Orders ORDER BY OrderID', DAO.RecordsetTypeEnum.dbOpenSnapshot);
-    let rstOrderDetails = dbsNorthwind.OpenRecordset('SELECT * FROM [Order Details] ORDER BY OrderID', DAO.RecordsetTypeEnum.dbOpenSnapshot);
+    const orders: number[] = [];
+    const rstOrders = dbsNorthwind.OpenRecordset('SELECT * FROM Orders ORDER BY OrderID', DAO.RecordsetTypeEnum.dbOpenSnapshot);
+    const rstOrderDetails = dbsNorthwind.OpenRecordset('SELECT * FROM [Order Details] ORDER BY OrderID', DAO.RecordsetTypeEnum.dbOpenSnapshot);
 
     const closeRecordsets = () => {
         rstOrders.Close();
@@ -79,7 +79,7 @@ const findOrdersWithoutDetails = () => {
     }
 
     while (!rstOrders.EOF) {
-        let orderID = rstOrders.Fields.Item('OrderID').Value;
+        const orderID = rstOrders.Fields.Item('OrderID').Value;
         rstOrderDetails.FindFirst(`OrderID=${orderID}`);
         if (rstOrderDetails.NoMatch) {
             orders.push(orderID);
@@ -93,7 +93,7 @@ const findOrdersWithoutDetails = () => {
 // find a record in a table-type DAO Recordset -- https://msdn.microsoft.com/VBA/Access-VBA/articles/find-a-record-in-a-table-type-dao-recordset
 const getHireDate = (employeeID: number) => {
     let hireDate: Date | undefined;
-    let rstEmployees = dbsNorthwind.OpenRecordset('Employees');
+    const rstEmployees = dbsNorthwind.OpenRecordset('Employees');
     rstEmployees.Index = 'PrimaryKey';
     rstEmployees.Seek('=', employeeID);
     if (!rstEmployees.NoMatch) {
@@ -104,11 +104,11 @@ const getHireDate = (employeeID: number) => {
 
 // manipulate multiple fields with DAO -- https://msdn.microsoft.com/VBA/Access-VBA/articles/manipulate-multivalued-fields-with-dao
 const browseMultiValueField = () => {
-    let rs = dbsNorthwind.OpenRecordset('Tasks');
+    const rs = dbsNorthwind.OpenRecordset('Tasks');
     rs.MoveFirst();
     while (!rs.EOF) {
         WScript.Echo(rs.Fields.Item('TaskName').Value);
-        let childRs = rs.Fields.Item('AssignedTo').Value as DAO.Recordset;
+        const childRs = rs.Fields.Item('AssignedTo').Value as DAO.Recordset;
         if (childRs.EOF) { continue; }
         childRs.MoveFirst();
         while (!childRs.EOF) {
@@ -133,7 +133,7 @@ const changeTitleWithoutTransaction = () => {
 
 // using transactions in a DAO Recordset -- https://msdn.microsoft.com/VBA/Access-VBA/articles/use-transactions-in-a-dao-recordset
 const changeTitleWithTransaction = (commitTransaction: boolean) => {
-    let currentWorkspace = engine.Workspaces.Item(0);
+    const currentWorkspace = engine.Workspaces.Item(0);
     rstEmployees = dbsNorthwind.OpenRecordset('Employees');
     currentWorkspace.BeginTrans();
     while (!rstEmployees.EOF) {
