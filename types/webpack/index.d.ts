@@ -6,6 +6,7 @@
 //                 Tommy Troy Lin <https://github.com/tommytroylin>
 //                 Mohsen Azimi <https://github.com/mohsen1>
 //                 Jonathan Creamer <https://github.com/jcreamer898>
+//                 Ahmed T. Ali <https://github.com/ahmed-taj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -36,7 +37,7 @@ declare namespace webpack {
          * If `output.pathinfo` is set, the included pathinfo is shortened to this directory.
          */
         context?: string;
-        entry?: string | string[] | Entry;
+        entry?: string | string[] | Entry | EntryFunc;
         /** Choose a style of source mapping to enhance the debugging process. These values can affect build and rebuild speed dramatically. */
         devtool?: Options.Devtool;
         /** Options affecting the output. */
@@ -102,6 +103,8 @@ declare namespace webpack {
     interface Entry {
         [name: string]: string | string[];
     }
+
+    type EntryFunc = () => (string | string[] | Promise<string | string[]>);
 
     interface DevtoolModuleFilenameTemplateInfo {
         identifier: string;
