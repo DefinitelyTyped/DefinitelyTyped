@@ -351,7 +351,7 @@ declare namespace microsoftTeams {
         isFullScreen?: boolean;
 
         /**
-         * The type of the team.  A standard team is ""
+         * The type of the team.
          */
         teamType?: string;
     }
