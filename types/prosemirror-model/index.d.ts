@@ -13,15 +13,11 @@ export interface AnyObject {
 }
 
 export class ContentMatch {
-  matchNode(node: Node): ContentMatch | null | undefined;
   matchType(type: NodeType, attrs?: AnyObject, marks?: Mark[]): ContentMatch | null | undefined;
   matchFragment(fragment: Fragment, from?: number, to?: number): ContentMatch | boolean | null | undefined;
-  matchToEnd(fragment: Fragment, start?: number, end?: number): boolean;
   validEnd(): boolean;
   fillBefore(after: Fragment, toEnd: boolean, startIndex?: number): Fragment | null | undefined;
-  allowsMark(markType: MarkType): boolean;
   findWrapping(target: NodeType, targetAttrs?: AnyObject, targetMarks?: Mark[]): Array<{ type: NodeType, attrs: AnyObject }> | null | undefined;
-  findWrappingFor(node: Node): Array<{ type: NodeType, attrs: AnyObject }> | null | undefined;
 }
 export class Fragment {
   nodesBetween(from: number, to: number, f: (node: Node, start: number, parent: Node, index: number) => boolean | null | void): void;
