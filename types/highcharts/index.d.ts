@@ -3762,6 +3762,14 @@ declare namespace Highcharts {
          */
         borderWidth?: number;
         /**
+         * A class name for the data label. Particularly in styled mode, this can be used to give each series' or point's
+         * data label unique styling. In addition to this option, a default color class name is added so that we can give
+         * the labels a contrast text shadow
+         * @default undefined
+         * @since 5.0.0
+         */
+        className?: string;
+        /**
          * The text color for the data labels.
          * @default null
          */
