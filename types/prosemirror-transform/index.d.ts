@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { Fragment, Mark, MarkType, Node, NodeRange, NodeType, Schema, Slice } from 'prosemirror-model';
+import { Fragment, Mark, MarkType, Node, NodeRange, NodeType, Schema, Slice, ContentMatch } from 'prosemirror-model';
 
 export interface Mappable {
   map(pos: number, assoc?: number): number;
@@ -45,7 +45,7 @@ export class Transform {
   constructor(doc: Node)
   addMark(from: number, to: number, mark: Mark): this;
   removeMark(from: number, to: number, mark?: Mark | MarkType): this;
-  clearMarkup(from: number, to: number): this;
+  clearIncompatible(pos: number, parentType: NodeType, match?: ContentMatch |  null): this;
   replaceRange(from: number, to: number, slice: Slice): this;
   replaceRangeWith(from: number, to: number, node: Node): this;
   deleteRange(from: number, to: number): this;
