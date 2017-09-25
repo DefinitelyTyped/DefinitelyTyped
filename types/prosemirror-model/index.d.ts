@@ -17,7 +17,7 @@ export class ContentMatch {
   matchFragment(fragment: Fragment, from?: number, to?: number): ContentMatch | boolean | null | undefined;
   validEnd: boolean;
   fillBefore(after: Fragment, toEnd: boolean, startIndex?: number): Fragment | null | undefined;
-  findWrapping(target: NodeType, targetAttrs?: AnyObject, targetMarks?: Mark[]): NodeType[] | null | undefined;
+  findWrapping(target: NodeType): NodeType[] | null;
 }
 export class Fragment {
   size: number;
