@@ -67,7 +67,7 @@ export class DOMParser {
     from?: number | null,
     to?: number | null,
     topNode?: Node | null,
-    topStart?: number | null,
+    topMatch?: ContentMatch | null,
     context?: ResolvedPos | null
   }): Node;
   parseSlice(dom: dom.Node, options?: AnyObject): Slice;
