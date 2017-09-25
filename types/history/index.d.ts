@@ -1,6 +1,9 @@
-// Type definitions for history 4.6.2
+// Type definitions for history 4.6.3
 // Project: https://github.com/mjackson/history
-// Definitions by: Sergey Buturlakin <https://github.com/sergey-buturlakin>, Nathan Brown <https://github.com/ngbrown>, Young Rok Kim <https://github.com/rokoroku>
+// Definitions by: Sergey Buturlakin <https://github.com/sergey-buturlakin>, 
+//                 Nathan Brown <https://github.com/ngbrown>, 
+//                 Young Rok Kim <https://github.com/rokoroku>,
+//                 Alexander Lyon <https://github.com/arlyon>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 export as namespace History;
 
@@ -18,7 +21,7 @@ export interface History {
     go(n: number): void;
     goBack(): void;
     goForward(): void;
-    block(prompt?: boolean): UnregisterCallback;
+    block(prompt?: string): UnregisterCallback;
     listen(listener: LocationListener): UnregisterCallback;
     createHref(location: LocationDescriptorObject): Href;
 }
