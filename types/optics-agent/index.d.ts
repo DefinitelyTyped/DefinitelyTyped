@@ -83,12 +83,14 @@ export function middleware(): (req: Request, res: Response, next?: any) => void;
 export function instrumentHapiServer(server: Server): void;
 export function context(req: Request): any;
 
-export default {
-  configureAgent,
-  instrumentSchema,
-  koaMiddleware,
-  middleware,
-  instrumentHapiServer,
-  context,
-  Agent,
+declare const defaultExport: {
+  configureAgent: typeof configureAgent,
+  instrumentSchema: typeof instrumentSchema,
+  koaMiddleware: typeof koaMiddleware,
+  middleware: typeof middleware,
+  instrumentHapiServer: typeof instrumentHapiServer,
+  context: typeof context,
+  Agent: typeof Agent,
 };
+
+export default defaultExport;

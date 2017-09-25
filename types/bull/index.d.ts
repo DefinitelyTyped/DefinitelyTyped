@@ -104,6 +104,11 @@ declare namespace Bull {
          * since pubsub does not give any guarantees.
          */
         finished(): Promise<void>;
+
+        /**
+         * Promotes a job that is currently "delayed" to the "waiting" state and executed as soon as possible.
+         */
+        promote(): Promise<void>;
     }
 
     type JobStatus = 'completed' | 'waiting' | 'active' | 'delayed' | 'failed';

@@ -146,7 +146,7 @@ export interface CartesianAxisProps {
 	width?: number;
 	height?: number;
 	orientation?: 'top' | 'bottom' | 'left' | 'right';
-	viewBox?: any;
+	viewBox?: ViewBox;
 	axisLine?: boolean | any;
 	tickLine?: boolean | any;
 	minTickGap?: number;
@@ -537,9 +537,9 @@ export interface ReferenceAreaProps {
 	y1?: number | string;
 	y2?: number | string;
 	alwaysShow?: boolean;
-	viewBox: any;
-	xAxis: any;
-	yAxis: any;
+	viewBox?: ViewBox;
+	xAxis?: any;
+	yAxis?: any;
 	label?: string | number | React.ReactElement<any> | RechartsFunction;
 	isFront?: boolean;
 }
@@ -574,9 +574,9 @@ export interface ReferenceLineProps {
 	x?: number | string;
 	y?: number | string;
 	alwaysShow?: boolean;
-	viewBox: any;
-	xAxis: any;
-	yAxis: any;
+	viewBox?: ViewBox;
+	xAxis?: any;
+	yAxis?: any;
 	label?: string | number | React.ReactElement<any> | RechartsFunction;
 	isFront?: boolean;
 }
@@ -693,7 +693,7 @@ export interface TooltipProps {
 	wrapperStyle?: any;
 	labelStyle?: any;
 	cursor?: boolean | any | React.ReactElement<any> | React.StatelessComponent<any>;
-	viewBox: ViewBox;
+	viewBox?: ViewBox;
 	active?: boolean;
 	coordinate?: Coordinate;
 	payload?: TooltipPayload[];
@@ -710,8 +710,9 @@ export interface TooltipProps {
 export class Tooltip extends React.Component<TooltipProps> { }
 
 export interface TreemapProps {
-	width: number;
-	height: number;
+	data: any[];
+	width?: number;
+	height?: number;
 	dataKey?: string;
 	aspectRatio: number;
 	isAnimationActive?: boolean;

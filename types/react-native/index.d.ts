@@ -1,7 +1,6 @@
 // Type definitions for react-native 0.48
 // Project: https://github.com/facebook/react-native
 // Definitions by: Eloy Durán <https://github.com/alloy>
-//                 Fedor Nezhivoi <https://github.com/gyzerok>
 //                 HuHuanming <https://github.com/huhuanming>
 //                 Kyle Roach <https://github.com/iRoachie>
 //                 Tim Wang <https://github.com/timwangdev>
@@ -3257,6 +3256,8 @@ export interface ImageURISource {
     scale?: number,
 }
 
+export type ImageRequireSource = number;
+
 export interface ImagePropertiesIOS {
     /**
      * The text that's read by the screen reader when the user interacts with the image.
@@ -3406,7 +3407,7 @@ export interface ImageProperties extends ImagePropertiesIOS, ImagePropertiesAndr
      * their width and height. The native side will then choose the best `uri` to display
      * based on the measured size of the image container.
      */
-    source: ImageURISource | ImageURISource[]
+    source: ImageURISource | ImageURISource[] | ImageRequireSource
 
     /**
      * similarly to `source`, this property represents the resource used to render
@@ -9248,6 +9249,8 @@ declare global {
         trace(message?: any, ...optionalParams: any[]): void
         debug(message?: any, ...optionalParams: any[]): void
         table(...data: any[]): void;
+        disableYellowBox: boolean;
+        ignoredYellowBox: string[];
     }
 
     var console: Console

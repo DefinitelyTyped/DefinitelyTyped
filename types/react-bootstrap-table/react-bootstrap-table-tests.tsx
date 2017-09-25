@@ -101,6 +101,22 @@ class RemoteProps extends React.Component {
     );
   }
 }
+
+class RemoteBool extends React.Component {
+  render() {
+    return (
+      <BootstrapTable
+        data={products}
+        remote
+      >
+        <TableHeaderColumn dataField='id' isKey>Product ID</TableHeaderColumn>
+        <TableHeaderColumn dataField='name'>Product Name</TableHeaderColumn>
+        <TableHeaderColumn dataField='isInStock' filter={{ type: 'CustomFilter', getElement: getCustomFilter, customFilterParameters: { textOK: 'yes', textNOK: 'no' } }}>Product Is In Stock</TableHeaderColumn>
+      </BootstrapTable>
+    );
+  }
+}
+
 // Adopted from https://github.com/AllenFang/react-bootstrap-table/blob/master/examples/js/column-header-span/column-header-span-complex.js
 export default class ColumnHeaderSpanComplex extends React.Component {
   render() {
