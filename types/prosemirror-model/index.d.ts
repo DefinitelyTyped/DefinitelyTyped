@@ -53,7 +53,7 @@ export interface ParseRule {
   skip?: boolean | null;
   attrs?: AnyObject | null;
   getAttrs?: ((p: dom.Node | string) => boolean | AnyObject | null | void) | null;
-  contentElement?: string | null;
+  contentElement?: string | ((p: dom.Node) => dom.Node) | null;
   getContent?: ((p: dom.Node) => Fragment) | null;
   preserveWhitespace?: boolean | 'full' | null;
 }
