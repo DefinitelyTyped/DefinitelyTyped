@@ -15,7 +15,7 @@ export interface AnyObject {
 export class ContentMatch {
   matchType(type: NodeType, attrs?: AnyObject, marks?: Mark[]): ContentMatch | null | undefined;
   matchFragment(fragment: Fragment, from?: number, to?: number): ContentMatch | boolean | null | undefined;
-  validEnd(): boolean;
+  validEnd: boolean;
   fillBefore(after: Fragment, toEnd: boolean, startIndex?: number): Fragment | null | undefined;
   findWrapping(target: NodeType, targetAttrs?: AnyObject, targetMarks?: Mark[]): Array<{ type: NodeType, attrs: AnyObject }> | null | undefined;
 }
