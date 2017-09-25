@@ -1,10 +1,14 @@
-let resultObj: Object;
+let resultObj: any;
 let resultFactory: rosie.IFactory;
 
 declare var Factory:rosie.IFactoryStatic;
 
 resultFactory = Factory.define('person').attr('name', 'John').sequence('id');
 resultObj = Factory.build('person');
+if (resultObj.name !== 'John') { throw new Error('incorrect build'); };
+
+/// resultObj, as any, will allow this
+resultObj.name = 1;
 
 resultFactory = Factory.define('some').sequence('id').attr('name', ['id'], (id: number) => { return 'Name ' + id.toString() });
 resultObj = Factory.build('some');
@@ -24,6 +28,15 @@ Factory.define('coach')
   });
 
 Factory.build('coach', {}, {buildPlayer: true});
+
+interface Person {
+  name: string;
+  id: number;
+}
+
+const personFactory = Factory.define<Person>('Person').attr('name', 'John').sequence('id');
+const personObj = Factory.build<Person>('Person');
+if (personObj.name !== 'John') { throw new Error('incorrect Person build'); }
 
 import rosie = require('rosie');
 
