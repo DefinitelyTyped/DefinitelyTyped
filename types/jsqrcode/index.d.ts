@@ -1,3 +1,8 @@
+// Type definitions for Lazar Laszlo's jsqrcode
+// Project: https://github.com/LazarSoft/jsqrcode
+// Definitions by: Ricardo Azzi Silva <https://github.com/lordazzi>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 declare function URShift(number: number, bits: number): number;
 
 declare class AlignmentPattern {
