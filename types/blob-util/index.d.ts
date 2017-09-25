@@ -29,8 +29,6 @@ export function imgSrcToDataURL(src: string, type?: string, crossOrigin?: string
 /**
  * Convert a canvas to a Blob.
  *
- * Note: this will coerce the image to the desired content type, and it will only paint the first frame of an animated GIF.
- *
  * @param src
  * @param type the content type (optional, defaults to 'image/png')
  * @param quality a number between 0 and 1 indicating image quality if the requested type is 'image/jpeg' or 'image/webp'
