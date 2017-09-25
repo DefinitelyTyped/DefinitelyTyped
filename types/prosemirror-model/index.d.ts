@@ -239,7 +239,6 @@ export interface MarkSpec {
 }
 export interface AttributeSpec {
   default?: any | null;
-  compute?: (() => any) | null;
 }
 export class Schema {
   constructor(spec: SchemaSpec)
