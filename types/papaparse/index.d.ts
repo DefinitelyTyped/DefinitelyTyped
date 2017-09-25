@@ -1,6 +1,8 @@
 // Type definitions for PapaParse v4.1
 // Project: https://github.com/mholt/PapaParse
-// Definitions by: Pedro Flemming <https://github.com/torpedro>, Rain Shen <https://github.com/rainshen49>
+// Definitions by: Pedro Flemming <https://github.com/torpedro>
+//                 Rain Shen <https://github.com/rainshen49>
+//                 João Loff <https://github.com/jfloff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace PapaParse {
@@ -69,7 +71,7 @@ declare namespace PapaParse {
         preview?: number;              // default: 0
         encoding?: string;             // default: ""
         worker?: boolean;              // default: false
-        comments?: boolean;            // default: false
+        comments?: boolean | string;   // default: false
         download?: boolean;            // default: false
         skipEmptyLines?: boolean;      // default: false
         fastMode?: boolean;            // default: undefined
