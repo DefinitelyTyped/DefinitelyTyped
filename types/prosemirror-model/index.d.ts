@@ -17,7 +17,7 @@ export class ContentMatch {
   matchFragment(fragment: Fragment, from?: number, to?: number): ContentMatch | boolean | null | undefined;
   validEnd: boolean;
   fillBefore(after: Fragment, toEnd: boolean, startIndex?: number): Fragment | null | undefined;
-  findWrapping(target: NodeType, targetAttrs?: AnyObject, targetMarks?: Mark[]): Array<{ type: NodeType, attrs: AnyObject }> | null | undefined;
+  findWrapping(target: NodeType, targetAttrs?: AnyObject, targetMarks?: Mark[]): NodeType[] | null | undefined;
 }
 export class Fragment {
   nodesBetween(from: number, to: number, f: (node: Node, start: number, parent: Node, index: number) => boolean | null | void): void;
